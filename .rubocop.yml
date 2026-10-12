@@ -1,0 +1,32 @@
+plugins:
+  - rubocop-minitest
+  - rubocop-performance
+  - rubocop-rake
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.2
+  SuggestExtensions: false
+  Exclude:
+    - "dev/**/*"
+    - "tmp/**/*"
+    - "vendor/**/*"
+    - "node_modules/**/*"
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Layout/SpaceInsideArrayLiteralBrackets:
+  EnforcedStyle: space
+
+Layout/LineLength:
+  Max: 140
+
+Style/Documentation:
+  Enabled: false
+
+Metrics:
+  Enabled: false
+
+Minitest/MultipleAssertions:
+  Enabled: false

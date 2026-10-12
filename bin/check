@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Runs the gem's tests, RuboCop and the gem gate; exits non-zero on the first failure.
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+export BUNDLE_GEMFILE="$(pwd)/Gemfile"
+root="$(git rev-parse --show-toplevel 2>/dev/null || true)"
+
+bundle exec rake test
+bundle exec rubocop
+if [ -n "$root" ] && [ -f "$root/.claude/scripts/gem/gem_check.rb" ]; then
+  ruby "$root/.claude/scripts/gem/gem_check.rb" --gem-dir "$(pwd)"
+fi
