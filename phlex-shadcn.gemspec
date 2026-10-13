@@ -22,6 +22,7 @@ Gem::Specification.new do |spec|
   spec.files = Dir["lib/**/*", "app/**/*", "LICENSE", "README.md", "CHANGELOG.md", "THIRD_PARTY_NOTICES.md"].select { |f| File.file?(f) }
   spec.require_paths = [ "lib" ]
 
+  spec.add_dependency "activesupport", ">= 7.1" # until the core no longer uses ActiveSupport extensions
   spec.add_dependency "phlex", "~> 2.3"
   spec.add_dependency "tailwind_merge", "~> 1.4"
   spec.add_dependency "zeitwerk", "~> 2.7"

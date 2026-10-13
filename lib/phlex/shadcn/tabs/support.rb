@@ -1,0 +1,18 @@
+# frozen_string_literal: true
+
+# What the tabs parts share: the render context pushed by Tabs.
+module Phlex::Shadcn::Tabs::Support
+  private
+
+  def root_context
+    context[Phlex::Shadcn::Tabs::ROOT_KEY] or raise ArgumentError, "#{self.class.name} must be used within Tabs"
+  end
+
+  def render_part(tag_name, as_child, attrs, &)
+    return render_as_child(as_child, **attrs, &) if as_child
+
+    tag(tag_name, **attrs, &)
+  end
+
+  def join_style(*parts) = parts.map { |part| style_string(part) }.compact_blank.join("; ").presence
+end
