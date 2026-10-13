@@ -38,7 +38,7 @@ browserTest("tooltip: scrolling the page closes an open tooltip", async ({ open:
 
 browserTest("tooltip: a caller preventDefault on escape-key-down keeps it open", async ({ open: openPage }) => {
   const page = await openPage("default__closed");
-  await recordEvents(page, "v2--tooltip", { prevent: ["escape-key-down"] });
+  await recordEvents(page, "shadcn--tooltip", { prevent: ["escape-key-down"] });
   await open(page);
   await page.keyboard.press("Escape");
   await settle(page);
@@ -48,12 +48,12 @@ browserTest("tooltip: a caller preventDefault on escape-key-down keeps it open",
 
 browserTest("tooltip: open-change fires for every change", async ({ open: openPage }) => {
   const page = await openPage("default__closed");
-  await recordEvents(page, "v2--tooltip");
+  await recordEvents(page, "shadcn--tooltip");
   await open(page);
   await close(page);
   assert.deepEqual((await eventLog(page)).filter((e) => e.name === "open-change").map((e) => e.open), [true, false]);
 });
 
 positioningTests(browserTest, {
-  component: "tooltip", scenario: "default__closed", template: "template[data-v2--tooltip-template]", controller: "v2--tooltip", trigger, content, open, close
+  component: "tooltip", scenario: "default__closed", template: "template[data-shadcn--tooltip-template]", controller: "shadcn--tooltip", trigger, content, open, close
 });

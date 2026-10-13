@@ -262,7 +262,7 @@ export default class extends Controller {
   }
 
   #dispatch(name, value) {
-    this.element.dispatchEvent(new CustomEvent(`v2--slider:${name}`, { detail: { value }, bubbles: true }))
+    this.element.dispatchEvent(new CustomEvent(`shadcn--slider:${name}`, { detail: { value }, bubbles: true }))
   }
 }
 

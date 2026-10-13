@@ -29,9 +29,9 @@ class Phlex::Shadcn::SidebarTest < Phlex::Shadcn::TestCase
   test "provider is the controller host with the wrapper variables" do
     wrapper = fragment(provider(class: "extra", style: { "--sidebar-width" => "20rem" }, id: "x")).at_css("[data-slot=sidebar-wrapper]")
 
-    assert_equal "v2--sidebar", wrapper["data-controller"]
-    assert_equal "true", wrapper["data-v2--sidebar-open-value"]
-    assert_equal "false", wrapper["data-v2--sidebar-controlled-value"]
+    assert_equal "shadcn--sidebar", wrapper["data-controller"]
+    assert_equal "true", wrapper["data-shadcn--sidebar-open-value"]
+    assert_equal "false", wrapper["data-shadcn--sidebar-controlled-value"]
     assert_includes wrapper["class"], "extra"
     assert_equal "x", wrapper["id"]
     assert_equal "--sidebar-width: 20rem; --sidebar-width-icon: 3rem;", wrapper["style"]
@@ -56,7 +56,7 @@ class Phlex::Shadcn::SidebarTest < Phlex::Shadcn::TestCase
     assert_nil outer["id"]
     assert_includes outer.at_css("[data-slot=sidebar-container]")["class"], "w-9"
     assert_equal "block", outer.at_css("[data-slot=sidebar-inner]").text
-    template = doc.at_css("template[data-v2--sidebar-target=mobile]")
+    template = doc.at_css("template[data-shadcn--sidebar-target=mobile]")
 
     assert template
     assert_nil template["data-slot"]
@@ -91,7 +91,7 @@ class Phlex::Shadcn::SidebarTest < Phlex::Shadcn::TestCase
     assert_equal "ghost", button["data-variant"]
     assert_equal "icon-sm", button["data-size"]
     assert_equal "trigger", button["data-sidebar"]
-    assert_equal "click->x#y click->v2--sidebar#toggle", button["data-action"]
+    assert_equal "click->x#y click->shadcn--sidebar#toggle", button["data-action"]
     assert_includes button["class"], "size-7"
     assert_includes button["class"], "ml-1"
     assert_equal "Toggle Sidebar", button.at_css(".sr-only").text
@@ -135,7 +135,7 @@ class Phlex::Shadcn::SidebarTest < Phlex::Shadcn::TestCase
     button = doc.at_css("button[data-slot=sidebar-menu-button]")
 
     assert_equal "closed", button["data-state"]
-    assert_includes button["data-controller"], "v2--tooltip"
+    assert_includes button["data-controller"], "shadcn--tooltip"
     content = doc.at_css("template div[data-slot=tooltip-content]")
 
     assert content.key?("hidden")
@@ -144,7 +144,7 @@ class Phlex::Shadcn::SidebarTest < Phlex::Shadcn::TestCase
     collapsed = fragment(provider(default_open: false) { render(Sidebar::MenuButton.new(tooltip: { children: "H", hidden: false })) })
 
     assert_not collapsed.at_css("template div[data-slot=tooltip-content]").key?("hidden")
-    assert_nil collapsed.at_css("[data-v2--sidebar-tooltip]")
+    assert_nil collapsed.at_css("[data-shadcn--sidebar-tooltip]")
   end
 
   test "menu skeleton draws its width between 50 and 89 percent" do
@@ -164,10 +164,10 @@ class Phlex::Shadcn::SidebarTest < Phlex::Shadcn::TestCase
     pinned = Sidebar::MenuSkeleton.with_pinned_width(70) { provider { render(Sidebar::MenuSkeleton.new) } }
 
     assert_includes fragment(pinned).at_css("[data-sidebar=menu-skeleton-text]")["style"], "--skeleton-width: 70%"
-    assert_nil ActiveSupport::IsolatedExecutionState[Sidebar::MenuSkeleton::PIN_KEY]
+    assert_nil Thread.current[Sidebar::MenuSkeleton::PIN_KEY]
 
     assert_raises(RuntimeError) { Sidebar::MenuSkeleton.with_pinned_width(70) { raise "boom" } }
-    assert_nil ActiveSupport::IsolatedExecutionState[Sidebar::MenuSkeleton::PIN_KEY]
+    assert_nil Thread.current[Sidebar::MenuSkeleton::PIN_KEY]
   end
 
   test "every DX helper renders the same HTML as the explicit class" do

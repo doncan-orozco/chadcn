@@ -4,8 +4,8 @@ import { Controller } from "@hotwired/stimulus"
 // controller toggles that single class and mirrors the OS preference into it when the choice is "system".
 // The choice persists in localStorage ("papyro-theme", same key as the legacy controller).
 //
-//   <div data-controller="v2--theme">
-//     <button data-action="v2--theme#setLight">...</button>  setDark / setSystem / toggle
+//   <div data-controller="shadcn--theme">
+//     <button data-action="shadcn--theme#setLight">...</button>  setDark / setSystem / toggle
 export default class extends Controller {
   static values = { current: { type: String, default: "system" } }
 

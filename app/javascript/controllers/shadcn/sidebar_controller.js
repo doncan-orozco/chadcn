@@ -10,7 +10,7 @@ const MOBILE_BREAKPOINT = 768
 const COOKIE_NAME = "sidebar_state"
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 7
 const KEYBOARD_SHORTCUT = "b"
-const TOGGLE_ACTION = "v2--sidebar#toggle"
+const TOGGLE_ACTION = "shadcn--sidebar#toggle"
 
 export default class extends Controller {
   static values = { open: Boolean, controlled: Boolean, openMobile: Boolean, id: String }
@@ -86,7 +86,7 @@ export default class extends Controller {
     const state = this.openValue ? "expanded" : "collapsed"
     this.records.forEach(({ desktop }) => {
       desktop.dataset.state = state
-      desktop.dataset.collapsible = this.openValue ? "" : desktop.getAttribute("data-v2--sidebar-collapsible-param")
+      desktop.dataset.collapsible = this.openValue ? "" : desktop.getAttribute("data-shadcn--sidebar-collapsible-param")
     })
   }
 
@@ -94,7 +94,7 @@ export default class extends Controller {
   // until the tooltip opens, and in the body while open: both are kept current. A caller hidden is never marked.
   #syncTooltips() {
     const hidden = this.isMobile || this.openValue
-    const selector = `[data-v2--sidebar-tooltip="${this.idValue}"]`
+    const selector = `[data-shadcn--sidebar-tooltip="${this.idValue}"]`
     const roots = [document, ...this.records.map(({ desktop }) => desktop)]
     const contents = roots.flatMap((root) => [
       ...root.querySelectorAll(selector),
@@ -107,7 +107,7 @@ export default class extends Controller {
 
   #templateOf(desktop) {
     const sibling = desktop.nextElementSibling
-    return sibling?.matches("template[data-v2--sidebar-target=mobile]") ? sibling : null
+    return sibling?.matches("template[data-shadcn--sidebar-target=mobile]") ? sibling : null
   }
 
   // useIsMobile reads innerWidth on every media query change (mobile:5-19).
@@ -126,9 +126,9 @@ export default class extends Controller {
       const inner = record.desktop.querySelector("[data-slot=sidebar-inner]")
       record.nodes = [...inner.childNodes]
       record.host = record.template.content.firstElementChild.cloneNode(true)
-      record.host.setAttribute("data-v2--sheet-open-value", String(this.openMobileValue))
-      record.host.addEventListener("v2--sheet:open-auto-focus", () => this.#fillBody(record))
-      record.host.addEventListener("v2--sheet:open-change", (event) => this.#setOpenMobile(event.detail.open))
+      record.host.setAttribute("data-shadcn--sheet-open-value", String(this.openMobileValue))
+      record.host.addEventListener("shadcn--sheet:open-auto-focus", () => this.#fillBody(record))
+      record.host.addEventListener("shadcn--sheet:open-change", (event) => this.#setOpenMobile(event.detail.open))
       record.desktop.replaceWith(record.host)
     })
   }
@@ -146,7 +146,7 @@ export default class extends Controller {
 
   #syncSheets() {
     this.records.forEach(({ host }) => {
-      if (host) host.setAttribute("data-v2--sheet-open-value", String(this.openMobileValue))
+      if (host) host.setAttribute("data-shadcn--sheet-open-value", String(this.openMobileValue))
     })
   }
 
@@ -162,8 +162,8 @@ export default class extends Controller {
   // The Sheet content is mounted in the body: runs before FocusScope looks for the first tabbable (open-auto-focus).
   // Stimulus actions do not reach there, so the toggle buttons are handled by delegation on the body.
   #fillBody(record) {
-    const content = document.getElementById(record.host.getAttribute("data-v2--sheet-id-value"))
-    const body = content?.querySelector("[data-v2--sidebar-target=mobileBody]")
+    const content = document.getElementById(record.host.getAttribute("data-shadcn--sheet-id-value"))
+    const body = content?.querySelector("[data-shadcn--sidebar-target=mobileBody]")
     if (!body) return
     body.append(...record.nodes)
     this.#replayFocus(body)

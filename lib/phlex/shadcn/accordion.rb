@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
 # shadcn Accordion over Radix Accordion. Spec: docs/shadcn-port/specs/accordion.md.
-# Behavior: controllers/v2/accordion_controller.js.
+# Behavior: controllers/shadcn/accordion_controller.js.
+using Phlex::Shadcn::Values::Refinements
+
 class Phlex::Shadcn::Accordion < Phlex::Shadcn::Base
   include Phlex::Shadcn::Direction::Consumer
 
-  ROOT_KEY = :v2_accordion_root
-  ITEM_KEY = :v2_accordion_item
-  SEQUENCE_KEY = :v2_accordion_sequence
+  ROOT_KEY = :shadcn_accordion_root
+  ITEM_KEY = :shadcn_accordion_item
+  SEQUENCE_KEY = :shadcn_accordion_sequence
 
   # value: non-nil is controlled (user actions only dispatch value-change, the caller re-renders with the new value).
   # single: String ("" = none open); multiple: Array of Strings.
@@ -28,7 +30,7 @@ class Phlex::Shadcn::Accordion < Phlex::Shadcn::Base
   def view_template
     previous = context[ROOT_KEY]
     context[ROOT_KEY] = { open_values: @open_values, collapsible: @collapsible, disabled: @disabled, orientation: @orientation }
-    @dir = use_direction(@dir) if @dir.present? || context[Phlex::Shadcn::Direction::KEY]
+    @dir = use_direction(@dir) if @dir.filled? || context[Phlex::Shadcn::Direction::KEY]
     attrs = merge_attrs({ data: root_data }, @attrs)
     content = proc { yield self if block_given? }
     @as_child ? render_as_child(@as_child, **attrs, &content) : div(**attrs, &content)
@@ -42,13 +44,13 @@ class Phlex::Shadcn::Accordion < Phlex::Shadcn::Base
     {
       slot: "accordion",
       orientation: @orientation,
-      controller: "v2--accordion",
-      v2__accordion_type_value: @type,
-      v2__accordion_controlled_value: @controlled.to_s,
-      v2__accordion_collapsible_value: @collapsible.to_s,
-      v2__accordion_disabled_value: @disabled.to_s,
-      v2__accordion_orientation_value: @orientation,
-      v2__accordion_dir_value: @dir
+      controller: "shadcn--accordion",
+      shadcn__accordion_type_value: @type,
+      shadcn__accordion_controlled_value: @controlled.to_s,
+      shadcn__accordion_collapsible_value: @collapsible.to_s,
+      shadcn__accordion_disabled_value: @disabled.to_s,
+      shadcn__accordion_orientation_value: @orientation,
+      shadcn__accordion_dir_value: @dir
     }
   end
 end

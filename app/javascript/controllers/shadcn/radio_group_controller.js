@@ -81,7 +81,7 @@ export default class extends Controller {
   #change(next, userInteraction, propagationStopped = false) {
     if (next === this.value) return
     if (!this.controlledValue) this.#render(next, userInteraction, propagationStopped)
-    this.element.dispatchEvent(new CustomEvent("v2--radio-group:value-change", { detail: { value: next }, bubbles: true }))
+    this.element.dispatchEvent(new CustomEvent("shadcn--radio-group:value-change", { detail: { value: next }, bubbles: true }))
   }
 
   #render(next, userInteraction, propagationStopped) {

@@ -117,7 +117,7 @@ class Phlex::Shadcn::ToggleGroupTest < Phlex::Shadcn::TestCase
     assert_equal "outline", root["data-variant"]
     assert_includes root["class"], "gap-6"
     assert_includes root["class"], "group/toggle-group"
-    assert_includes root["data-controller"].to_s, "v2--toggle-group"
+    assert_includes root["data-controller"].to_s, "shadcn--toggle-group"
     assert root.at_css("[data-slot=toggle-group-item]"), "items render inside the caller's element"
     assert_equal 1, fragment(html).css("[data-slot=toggle-group]").size, "no wrapper element is added"
   end

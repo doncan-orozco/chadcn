@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
 # shadcn ContextMenu (Radix ContextMenu over the Menu code shared with DropdownMenu). Spec: docs/shadcn-port/specs/context-menu.md.
-# Behavior lives in controllers/v2/context_menu_controller.js (hosted by the Trigger).
+# Behavior lives in controllers/shadcn/context_menu_controller.js (hosted by the Trigger).
 #
 # Root, Sub and Portal render no element: they push their state into the Phlex render context for the parts inside.
 # Content/SubContent ship their markup in an inert <template> that the controller clones while the menu is open.
 class Phlex::Shadcn::ContextMenu < Phlex::Shadcn::Base
   include Phlex::Shadcn::Direction::Consumer
 
-  ROOT_KEY = :v2_context_menu_root
-  SUB_KEY = :v2_context_menu_sub
-  PORTAL_KEY = :v2_context_menu_portal
-  RADIO_GROUP_KEY = :v2_context_menu_radio_group
-  SEQUENCE_KEY = :v2_context_menu_sequence
+  ROOT_KEY = :shadcn_context_menu_root
+  SUB_KEY = :shadcn_context_menu_sub
+  PORTAL_KEY = :shadcn_context_menu_portal
+  RADIO_GROUP_KEY = :shadcn_context_menu_radio_group
+  SEQUENCE_KEY = :shadcn_context_menu_sequence
   DIRECTIONS = %w[ltr rtl].freeze
 
   # open: non-nil is controlled. Radix has no default open for the root.

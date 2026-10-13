@@ -16,6 +16,6 @@ export default class extends Controller {
       this.element.setAttribute("aria-pressed", String(next))
       this.element.dataset.state = next ? "on" : "off"
     }
-    this.element.dispatchEvent(new CustomEvent("v2--toggle:pressed-change", { detail: { pressed: next }, bubbles: true }))
+    this.element.dispatchEvent(new CustomEvent("shadcn--toggle:pressed-change", { detail: { pressed: next }, bubbles: true }))
   }
 }

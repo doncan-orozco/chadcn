@@ -22,7 +22,7 @@ class Phlex::Shadcn::DropdownMenu::Content < Phlex::Shadcn::Base
     root = root_context
     attrs = menu_content_attrs(classes: CLASSES, slot: "dropdown-menu-content", id: root[:content_id], labelledby: root[:trigger_id],
                                dir: root[:dir])
-    template(data: { v2__dropdown_menu_template: root[:content_id], options: @options.to_json }) do
+    template(data: { shadcn__dropdown_menu_template: root[:content_id], options: json(@options) }) do
       render_part(:div, @as_child, attrs) { yield if block_given? }
     end
   end

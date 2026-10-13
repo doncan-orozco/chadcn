@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 # What the sidebar parts share: the as_child switch and the default/caller attribute merge.
+using Phlex::Shadcn::Values::Refinements
+
 module Phlex::Shadcn::Sidebar::Support
-  TOGGLE = "click->v2--sidebar#toggle"
+  TOGGLE = "click->shadcn--sidebar#toggle"
 
   private
 
@@ -20,6 +22,6 @@ module Phlex::Shadcn::Sidebar::Support
   # The built-in toggle runs AFTER the caller own actions (tsx:270-273 `onClick?.(event); toggleSidebar()`).
   def with_toggle(attrs)
     data = attrs[:data] || {}
-    attrs.merge(data: data.merge(action: [ data[:action], TOGGLE ].compact_blank.join(" ")))
+    attrs.merge(data: data.merge(action: [ data[:action], TOGGLE ].reject_blank.join(" ")))
   end
 end

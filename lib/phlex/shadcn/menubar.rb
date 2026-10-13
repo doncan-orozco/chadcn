@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # shadcn Menubar over Radix Menubar + Menu. Spec: docs/shadcn-port/specs/menubar.md.
-# Behavior lives in controllers/v2/menubar_controller.js (hosted by the root, one controller for every menu and sub).
+# Behavior lives in controllers/shadcn/menubar_controller.js (hosted by the root, one controller for every menu and sub).
 #
 # Menu, Sub and Portal render no element: they push their state into the Phlex render context for the parts inside.
 # Radix mounts Content/SubContent only while open, so those parts ship their markup in an inert <template> that the
@@ -9,12 +9,12 @@
 class Phlex::Shadcn::Menubar < Phlex::Shadcn::Base
   include Phlex::Shadcn::Direction::Consumer
 
-  ROOT_KEY = :v2_menubar_root
-  MENU_KEY = :v2_menubar_menu
-  SUB_KEY = :v2_menubar_sub
-  PORTAL_KEY = :v2_menubar_portal
-  RADIO_GROUP_KEY = :v2_menubar_radio_group
-  SEQUENCE_KEY = :v2_menubar_sequence
+  ROOT_KEY = :shadcn_menubar_root
+  MENU_KEY = :shadcn_menubar_menu
+  SUB_KEY = :shadcn_menubar_sub
+  PORTAL_KEY = :shadcn_menubar_portal
+  RADIO_GROUP_KEY = :shadcn_menubar_radio_group
+  SEQUENCE_KEY = :shadcn_menubar_sequence
   DIRECTIONS = %w[ltr rtl].freeze
   CLASSES = "flex h-9 items-center gap-1 rounded-md border bg-background p-1 shadow-xs"
 
@@ -36,9 +36,9 @@ class Phlex::Shadcn::Menubar < Phlex::Shadcn::Base
     attrs = merge_attrs({
                           role: "menubar", class: CLASSES, tabindex: "0", style: "outline: none",
                           data: {
-                            slot: "menubar", orientation: "horizontal", controller: "v2--menubar",
-                            v2__menubar_value_value: @value, v2__menubar_controlled_value: @controlled.to_s,
-                            v2__menubar_loop_value: @loop.to_s, v2__menubar_dir_value: root[:dir]
+                            slot: "menubar", orientation: "horizontal", controller: "shadcn--menubar",
+                            shadcn__menubar_value_value: @value, shadcn__menubar_controlled_value: @controlled.to_s,
+                            shadcn__menubar_loop_value: @loop.to_s, shadcn__menubar_dir_value: root[:dir]
                           }
                         }, @attrs)
     if @as_child

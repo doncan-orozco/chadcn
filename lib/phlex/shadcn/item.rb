@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 # shadcn `Item` (new-york-v4) and its parts. Spec: docs/shadcn-port/specs/item.md. Static: no controller.
+using Phlex::Shadcn::Values::Refinements
+
 class Phlex::Shadcn::Item < Phlex::Shadcn::Base
   BASE = "group/item flex flex-wrap items-center rounded-md border border-transparent text-sm transition-colors duration-100 outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 [a]:transition-colors [a]:hover:bg-accent/50"
 
@@ -32,7 +34,7 @@ class Phlex::Shadcn::Item < Phlex::Shadcn::Base
 
   def view_template(&block)
     attrs = merge_attrs({ data: { slot: "item", variant: @variant, size: @size } }, @attrs.except(:class))
-    attrs = attrs.merge(class: [ @slot_class, classes(@attrs[:class]) ].compact_blank.join(" "))
+    attrs = attrs.merge(class: [ @slot_class, classes(@attrs[:class]) ].reject_blank.join(" "))
     return render_as_child(@as_child, **attrs) { yield self if block } if @as_child
 
     div(**attrs) { yield self if block }

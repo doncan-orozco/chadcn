@@ -9,7 +9,7 @@ class Phlex::Shadcn::Sheet::Portal < Phlex::Shadcn::Base
     root = root_context
     previous = context[Phlex::Shadcn::Sheet::PORTAL_KEY]
     context[Phlex::Shadcn::Sheet::PORTAL_KEY] = true
-    template(data: { v2__dialog_template: root[:content_id], v2__dialog_options: "{}" }) { yield if block_given? }
+    template(data: { shadcn__dialog_template: root[:content_id], shadcn__dialog_options: "{}" }) { yield if block_given? }
   ensure
     context[Phlex::Shadcn::Sheet::PORTAL_KEY] = previous
   end

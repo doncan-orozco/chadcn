@@ -22,7 +22,7 @@ class Phlex::Shadcn::Accordion::Item < Phlex::Shadcn::Base
     attrs = merge_attrs({
                           class: CLASSES,
                           data: { state: state_of(item), disabled: disabled_data(item), orientation: root[:orientation], slot: "accordion-item",
-                                  v2__accordion_target: "item", v2__accordion_item_value: @value }
+                                  shadcn__accordion_target: "item", shadcn__accordion_item_value: @value }
                         }, @attrs)
     content = proc { yield if block_given? }
     @as_child ? render_as_child(@as_child, **attrs, &content) : div(**attrs, &content)

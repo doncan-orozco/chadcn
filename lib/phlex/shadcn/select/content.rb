@@ -3,6 +3,8 @@
 # shadcn SelectContent = Portal + Radix Content + Viewport + scroll buttons. Radix mounts it only while open, so the markup
 # ships in an inert <template> that the controller clones into <body> (deviations/select.json). The positioning wrapper
 # (item-aligned wrapper or popper wrapper) is created by the controller.
+using Phlex::Shadcn::Values::Refinements
+
 class Phlex::Shadcn::Select::Content < Phlex::Shadcn::Base
   include Phlex::Shadcn::Select::Support
 
@@ -43,9 +45,9 @@ class Phlex::Shadcn::Select::Content < Phlex::Shadcn::Base
     return capture(&block) if collecting?
 
     state = select_state
-    template(data: { v2__select_template: "#{state[:base]}-content", v2__select_indicator: capture do
+    template(data: { shadcn__select_template: "#{state[:base]}-content", shadcn__select_indicator: capture do
       indicator
-    end, options: @options.to_json }) do
+    end, options: json(@options) }) do
       div(**content_attrs(state)) do
         render Phlex::Shadcn::Select::ScrollUpButton.new
         tag(:style) { raw(safe(VIEWPORT_CSS)) }
@@ -68,7 +70,7 @@ class Phlex::Shadcn::Select::Content < Phlex::Shadcn::Base
                           class: cn(CLASSES, (POPPER_CLASSES if popper?)),
                           data: { slot: "select-content", state: "open" }
                         }, @attrs.except(:style))
-    attrs.merge(style: [ *base_style, style_string(@attrs[:style]), *(popper_vars if popper?) ].compact_blank.join("; "))
+    attrs.merge(style: [ *base_style, style_string(@attrs[:style]), *(popper_vars if popper?) ].reject_blank.join("; "))
   end
 
   # sel:L683-690 and L714-726 (the flex layout lets the scroll buttons sit above and below the viewport).

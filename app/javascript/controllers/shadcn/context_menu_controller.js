@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import { MenuLevel } from "controllers/v2/dropdown_menu_controller"
+import { MenuLevel } from "controllers/shadcn/dropdown_menu_controller"
 
 // Radix ContextMenu over the Menu code shared with DropdownMenu. Spec: docs/shadcn-port/specs/context-menu.md.
 //
@@ -7,7 +7,7 @@ import { MenuLevel } from "controllers/v2/dropdown_menu_controller"
 // positioning) is the shared MenuLevel from the dropdown-menu controller; this file only adds what ContextMenu changes:
 // the open point (a zero-size virtual anchor), the contextmenu / touch long-press opening and the forced right/start
 // placement (the server renders side: right, sideOffset: 2, align: start into the template options).
-const TEMPLATE = "v2--dropdown-menu-template"
+const TEMPLATE = "shadcn--dropdown-menu-template"
 // The focus is restored by FocusScope to what had it when the Content mounted (there is no trigger to return to).
 class ContextLevel extends MenuLevel {
   teardown() {
@@ -63,7 +63,7 @@ export default class extends Controller {
     // Radix clears the long-press timer in an effect that depends on `disabled` (CM:80-81).
     this.disabledObserver = new MutationObserver(() => this.#disabled && this.#clearLongPress())
     this.disabledObserver.observe(this.element, { attributes: true, attributeFilter: ["data-disabled"] })
-    this.element.addEventListener("v2--context-menu:close-auto-focus", (event) => this.#trackCloseFocus(event), { signal })
+    this.element.addEventListener("shadcn--context-menu:close-auto-focus", (event) => this.#trackCloseFocus(event), { signal })
     document.addEventListener("turbo:before-cache", () => this.#reset(), { signal })
     this.#trackModality(signal)
 

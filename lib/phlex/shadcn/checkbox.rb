@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 # shadcn/ui Checkbox over Radix Checkbox. Spec: docs/shadcn-port/specs/checkbox.md
+using Phlex::Shadcn::Values::Refinements
+
 class Phlex::Shadcn::Checkbox < Phlex::Shadcn::Base
   ROOT_CLASS = "peer size-4 shrink-0 rounded-[4px] border border-input shadow-xs transition-shadow outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 data-[state=checked]:border-primary data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground dark:bg-input/30 dark:aria-invalid:ring-destructive/40 dark:data-[state=checked]:bg-primary"
   INDICATOR_CLASS = "grid place-content-center text-current transition-none"
@@ -40,7 +42,7 @@ class Phlex::Shadcn::Checkbox < Phlex::Shadcn::Base
 
   # Radix composes the consumer handlers first, then its own: our actions go last.
   def root_with_action(attrs)
-    action = [ attrs.dig(:data, :action), "click->v2--checkbox#toggle keydown->v2--checkbox#keydown" ].compact_blank.join(" ")
+    action = [ attrs.dig(:data, :action), "click->shadcn--checkbox#toggle keydown->shadcn--checkbox#keydown" ].reject_blank.join(" ")
     attrs.merge(data: attrs[:data].merge(action:))
   end
 
@@ -49,8 +51,8 @@ class Phlex::Shadcn::Checkbox < Phlex::Shadcn::Base
       type: "button",
       role: "checkbox",
       aria: { checked: ARIA_CHECKED.fetch(state), **(@required.nil? ? {} : { required: @required }) },
-      data: { state:, slot: "checkbox", controller: "v2--checkbox", v2__checkbox_controlled_value: @controlled,
-              v2__checkbox_indicator_html_value: indicator_html,
+      data: { state:, slot: "checkbox", controller: "shadcn--checkbox", shadcn__checkbox_controlled_value: @controlled,
+              shadcn__checkbox_indicator_html_value: indicator_html,
               **(@disabled ? { disabled: "" } : {}) },
       disabled: @disabled,
       value: @value,

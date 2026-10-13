@@ -16,7 +16,7 @@ class Phlex::Shadcn::AlertDialog::Overlay < Phlex::Shadcn::Base
   def view_template(&)
     attrs = merge_attrs({
                           class: CLASSES, style: "pointer-events: auto",
-                          data: { slot: "alert-dialog-overlay", state: state_of(root_context), v2__dialog_part: "overlay" }
+                          data: { slot: "alert-dialog-overlay", state: state_of(root_context), shadcn__dialog_part: "overlay" }
                         }, @attrs)
     render_part(:div, @as_child, attrs, &)
   end

@@ -32,10 +32,10 @@ class Phlex::Shadcn::AlertDialogTest < Phlex::Shadcn::TestCase
   end
 
   test "host carries the controller and the closed parts live in a template" do
-    host = fragment(dialog).at_css("[data-controller=v2--alert-dialog]")
+    host = fragment(dialog).at_css("[data-controller=shadcn--alert-dialog]")
 
     assert_equal "display: contents", host["style"]
-    assert_equal "false", host["data-v2--alert-dialog-open-value"]
+    assert_equal "false", host["data-shadcn--alert-dialog-open-value"]
     assert host.at_css("template [data-slot=alert-dialog-overlay]")
     assert_equal "alert-dialog-trigger", host.at_css("button")["data-slot"]
   end

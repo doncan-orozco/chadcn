@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 # What the tabs parts share: the render context pushed by Tabs.
+using Phlex::Shadcn::Values::Refinements
+
 module Phlex::Shadcn::Tabs::Support
   private
 
@@ -14,5 +16,5 @@ module Phlex::Shadcn::Tabs::Support
     tag(tag_name, **attrs, &)
   end
 
-  def join_style(*parts) = parts.map { |part| style_string(part) }.compact_blank.join("; ").presence
+  def join_style(*parts) = parts.map { |part| style_string(part) }.reject_blank.join("; ").unless_blank
 end

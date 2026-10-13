@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-# shadcn Sidebar (new-york-v4). Spec: docs/shadcn-port/specs/sidebar.md. Behavior: controllers/v2/sidebar_controller.js.
+# shadcn Sidebar (new-york-v4). Spec: docs/shadcn-port/specs/sidebar.md. Behavior: controllers/shadcn/sidebar_controller.js.
 #
 # React picks the desktop or the mobile (Sheet) tree on the client. The server renders the first React render (desktop)
 # plus an inert template with the mobile Sheet; the controller swaps them on mobile (deviations/sidebar.json).
 class Phlex::Shadcn::Sidebar < Phlex::Shadcn::Base
   HOOK = "useSidebar"
-  CONTEXT_KEY = :v2_sidebar_state
-  SEQUENCE_KEY = :v2_sidebar_sequence
+  CONTEXT_KEY = :shadcn_sidebar_state
+  SEQUENCE_KEY = :shadcn_sidebar_sequence
 
   SIDEBAR_WIDTH = "16rem"
   SIDEBAR_WIDTH_ICON = "3rem"
@@ -75,7 +75,7 @@ class Phlex::Shadcn::Sidebar < Phlex::Shadcn::Base
   def desktop(sidebar, &block)
     div(class: OUTER_CLASSES, data: {
           state: sidebar.state, collapsible: sidebar.state == "collapsed" ? @collapsible : "", variant: @variant, side: @side,
-          slot: "sidebar", v2__sidebar_target: "sidebar", v2__sidebar_collapsible_param: @collapsible
+          slot: "sidebar", shadcn__sidebar_target: "sidebar", shadcn__sidebar_collapsible_param: @collapsible
         }) do
       div(data: { slot: "sidebar-gap" },
           class: cn(GAP_CLASSES, "group-data-[collapsible=offcanvas]:w-0", "group-data-[side=right]:rotate-180",
@@ -93,7 +93,7 @@ class Phlex::Shadcn::Sidebar < Phlex::Shadcn::Base
   # The mobile Sheet (tsx:183-205), mounted by the controller only on mobile viewports. The block is NOT repeated here:
   # the controller moves the single server-rendered copy into mobileBody.
   def mobile
-    template(data: { v2__sidebar_target: "mobile" }) do
+    template(data: { shadcn__sidebar_target: "mobile" }) do
       render Phlex::Shadcn::Sheet.new(open: false) do
         render Phlex::Shadcn::Sheet::Content.new(side: @side, class: MOBILE_CLASSES, style: "--sidebar-width: #{SIDEBAR_WIDTH_MOBILE};",
                                                  data: { sidebar: "sidebar", slot: "sidebar", mobile: "true" }) do
@@ -101,7 +101,7 @@ class Phlex::Shadcn::Sidebar < Phlex::Shadcn::Base
             render(Phlex::Shadcn::Sheet::Title.new) { "Sidebar" }
             render(Phlex::Shadcn::Sheet::Description.new) { MOBILE_DESCRIPTION.join(" ") }
           end
-          div(class: "flex h-full w-full flex-col", data: { v2__sidebar_target: "mobileBody" })
+          div(class: "flex h-full w-full flex-col", data: { shadcn__sidebar_target: "mobileBody" })
         end
       end
     end

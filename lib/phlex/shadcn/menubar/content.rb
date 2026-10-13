@@ -23,7 +23,7 @@ class Phlex::Shadcn::Menubar::Content < Phlex::Shadcn::Base
     menu = menu_context
     attrs = menu_content_attrs(classes: CLASSES, slot: "menubar-content", id: menu[:content_id], labelledby: menu[:trigger_id],
                                dir: root[:dir])
-    template(data: { v2__menubar_template: menu[:content_id], options: @options.to_json }) do
+    template(data: { shadcn__menubar_template: menu[:content_id], options: json(@options) }) do
       render_part(:div, @as_child, attrs) { yield if block_given? }
     end
   end

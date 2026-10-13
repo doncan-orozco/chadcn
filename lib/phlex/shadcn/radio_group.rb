@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 # shadcn RadioGroup over Radix RadioGroup. Spec: docs/shadcn-port/specs/radio-group.md.
-# Behavior: controllers/v2/radio_group_controller.js (one controller per group, items are not controllers).
+# Behavior: controllers/shadcn/radio_group_controller.js (one controller per group, items are not controllers).
 class Phlex::Shadcn::RadioGroup < Phlex::Shadcn::Base
   include Phlex::Shadcn::Direction::Consumer
 
-  ROOT_KEY = :v2_radio_group_root
+  ROOT_KEY = :shadcn_radio_group_root
   CLASSES = "grid gap-3"
   ORIENTATIONS = %w[horizontal vertical].freeze
   DIRECTIONS = %w[ltr rtl].freeze
@@ -59,13 +59,13 @@ class Phlex::Shadcn::RadioGroup < Phlex::Shadcn::Base
       style: "outline: none;",
       class: CLASSES,
       data: {
-        slot: "radio-group", orientation: @orientation, controller: "v2--radio-group",
+        slot: "radio-group", orientation: @orientation, controller: "shadcn--radio-group",
         disabled: (@disabled ? "" : nil),
-        v2__radio_group_controlled_value: @controlled.to_s,
-        v2__radio_group_loop_value: @loop.to_s,
-        v2__radio_group_orientation_value: @orientation,
-        v2__radio_group_dir_value: @dir,
-        v2__radio_group_indicator_html_value: indicator_html
+        shadcn__radio_group_controlled_value: @controlled.to_s,
+        shadcn__radio_group_loop_value: @loop.to_s,
+        shadcn__radio_group_orientation_value: @orientation,
+        shadcn__radio_group_dir_value: @dir,
+        shadcn__radio_group_indicator_html_value: indicator_html
       }
     }
   end

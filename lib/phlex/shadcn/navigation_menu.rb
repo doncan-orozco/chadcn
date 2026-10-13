@@ -1,17 +1,19 @@
 # frozen_string_literal: true
 
 # shadcn NavigationMenu over Radix NavigationMenu. Spec: docs/shadcn-port/specs/navigation-menu.md.
-# Behavior lives in controllers/v2/navigation_menu_controller.js (hosted by the root `nav`).
+# Behavior lives in controllers/shadcn/navigation_menu_controller.js (hosted by the root `nav`).
 #
 # Item renders only its `li`; it pushes the item value into the Phlex render context for Trigger and Content.
 # Radix mounts Content, the inner Viewport and the Indicator on the client, so those parts ship their markup in an
 # inert <template> (deviation: docs/shadcn-port/deviations/navigation-menu.json) that the controller clones.
+using Phlex::Shadcn::Values::Refinements
+
 class Phlex::Shadcn::NavigationMenu < Phlex::Shadcn::Base
   include Phlex::Shadcn::Direction::Consumer
 
-  ROOT_KEY = :v2_navigation_menu_root
-  ITEM_KEY = :v2_navigation_menu_item
-  SEQUENCE_KEY = :v2_navigation_menu_sequence
+  ROOT_KEY = :shadcn_navigation_menu_root
+  ITEM_KEY = :shadcn_navigation_menu_item
+  SEQUENCE_KEY = :shadcn_navigation_menu_sequence
   ORIENTATIONS = %w[horizontal vertical].freeze
 
   CLASSES = "group/navigation-menu relative flex max-w-max flex-1 items-center justify-center"
@@ -43,11 +45,12 @@ class Phlex::Shadcn::NavigationMenu < Phlex::Shadcn::Base
                         aria: { label: "Main" }, dir: dir,
                         class: CLASSES,
                         data: {
-                          orientation: @orientation, slot: "navigation-menu", viewport: @viewport.to_s, controller: "v2--navigation-menu",
-                          v2__navigation_menu_value_value: @value, v2__navigation_menu_controlled_value: @controlled.to_s,
-                          v2__navigation_menu_delay_duration_value: @delay_duration, v2__navigation_menu_skip_delay_duration_value: @skip_delay_duration,
-                          v2__navigation_menu_orientation_value: @orientation, v2__navigation_menu_dir_value: dir,
-                          v2__navigation_menu_activation_mode_value: @activation_mode
+                          orientation: @orientation, slot: "navigation-menu", viewport: @viewport.to_s, controller: "shadcn--navigation-menu",
+                          shadcn__navigation_menu_value_value: @value, shadcn__navigation_menu_controlled_value: @controlled.to_s,
+                          shadcn__navigation_menu_delay_duration_value: @delay_duration,
+                          shadcn__navigation_menu_skip_delay_duration_value: @skip_delay_duration,
+                          shadcn__navigation_menu_orientation_value: @orientation, shadcn__navigation_menu_dir_value: dir,
+                          shadcn__navigation_menu_activation_mode_value: @activation_mode
                         }
                       }, @attrs)) do
       yield self if block_given?
@@ -65,11 +68,11 @@ class Phlex::Shadcn::NavigationMenu < Phlex::Shadcn::Base
     private
 
     def root_context
-      context[ROOT_KEY] || raise(ArgumentError, "`#{self.class.name.demodulize}` must be used within `NavigationMenu`")
+      context[ROOT_KEY] || raise(ArgumentError, "`#{self.class.name.unqualified}` must be used within `NavigationMenu`")
     end
 
     def item_context
-      context[ITEM_KEY] || raise(ArgumentError, "`#{self.class.name.demodulize}` must be used within `NavigationMenu::Item`")
+      context[ITEM_KEY] || raise(ArgumentError, "`#{self.class.name.unqualified}` must be used within `NavigationMenu::Item`")
     end
   end
 
@@ -99,7 +102,7 @@ class Phlex::Shadcn::NavigationMenu < Phlex::Shadcn::Base
     include Support
 
     def initialize(value: nil, as_child: false, **attrs)
-      @value = value&.to_s.presence
+      @value = value&.to_s&.unless_blank
       @as_child = as_child
       @attrs = attrs
       super()
@@ -140,7 +143,7 @@ class Phlex::Shadcn::NavigationMenu < Phlex::Shadcn::Base
                              aria: { expanded: open.to_s, controls: (item[:content_id] if open) },
                              data: {
                                state: open ? "open" : "closed", disabled: (@disabled ? "" : nil), slot: "navigation-menu-trigger", radix_collection_item: "",
-                               v2__navigation_menu_value_param: item[:value], v2__navigation_menu_controls_param: item[:content_id]
+                               shadcn__navigation_menu_value_param: item[:value], shadcn__navigation_menu_controls_param: item[:content_id]
                              }
                            }, @attrs)) do
         yield if block_given?
@@ -174,7 +177,7 @@ class Phlex::Shadcn::NavigationMenu < Phlex::Shadcn::Base
                             id: item[:content_id], aria: { labelledby: item[:trigger_id] }, dir: root[:dir], class: cn(*CLASSES),
                             data: { orientation: root[:orientation], slot: "navigation-menu-content" }
                           }, @attrs)
-      template(data: { v2__navigation_menu_target: "contentTemplate", value: item[:value], force_mount: (@force_mount ? "true" : nil) }) do
+      template(data: { shadcn__navigation_menu_target: "contentTemplate", value: item[:value], force_mount: (@force_mount ? "true" : nil) }) do
         @as_child ? render_as_child(@as_child, **attrs, &) : div(**attrs, &)
       end
     end
@@ -194,7 +197,7 @@ class Phlex::Shadcn::NavigationMenu < Phlex::Shadcn::Base
     def view_template
       root = root_context
       div(class: "absolute top-full left-0 isolate z-50 flex justify-center") do
-        template(data: { v2__navigation_menu_target: "viewportTemplate", force_mount: (@force_mount ? "true" : nil) }) do
+        template(data: { shadcn__navigation_menu_target: "viewportTemplate", force_mount: (@force_mount ? "true" : nil) }) do
           div(**merge_attrs({ class: CLASSES, data: { orientation: root[:orientation], slot: "navigation-menu-viewport" } }, @attrs))
         end
       end
@@ -234,7 +237,7 @@ class Phlex::Shadcn::NavigationMenu < Phlex::Shadcn::Base
     # The controller sets data-state and the position style when it mounts the clone into the List track.
     def view_template
       root = root_context
-      template(data: { v2__navigation_menu_target: "indicatorTemplate", force_mount: (@force_mount ? "true" : nil) }) do
+      template(data: { shadcn__navigation_menu_target: "indicatorTemplate", force_mount: (@force_mount ? "true" : nil) }) do
         div(**merge_attrs(
           { aria: { hidden: "true" }, class: CLASSES, data: { orientation: root[:orientation], slot: "navigation-menu-indicator" } }, @attrs
         )) do

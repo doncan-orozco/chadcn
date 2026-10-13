@@ -44,6 +44,6 @@ class Phlex::Shadcn::CheckboxTest < Phlex::Shadcn::TestCase
     assert_includes html, "bg-red-500"
     assert_includes html, 'id="c1"'
     assert_includes html, 'name="terms"'
-    assert_includes html, 'data-action="click->x#y click->v2--checkbox#toggle'
+    assert_includes html, 'data-action="click->x#y click->shadcn--checkbox#toggle'
   end
 end

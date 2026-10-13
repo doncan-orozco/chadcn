@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 # shadcn ToggleGroup over Radix ToggleGroup. Spec: docs/shadcn-port/specs/toggle-group.md.
-# Behavior: controllers/v2/toggle_group_controller.js (one controller per group, items are not controllers).
+# Behavior: controllers/shadcn/toggle_group_controller.js (one controller per group, items are not controllers).
 class Phlex::Shadcn::ToggleGroup < Phlex::Shadcn::Base
   include Phlex::Shadcn::Direction::Consumer
 
-  ROOT_KEY = :v2_toggle_group_root
+  ROOT_KEY = :shadcn_toggle_group_root
   CLASSES = "group/toggle-group flex w-fit items-center gap-[--spacing(var(--gap))] rounded-md data-[spacing=default]:data-[variant=outline]:shadow-xs"
   TYPES = %w[single multiple].freeze
   ORIENTATIONS = %w[horizontal vertical].freeze
@@ -86,15 +86,15 @@ class Phlex::Shadcn::ToggleGroup < Phlex::Shadcn::Base
       dir: @dir,
       class: CLASSES,
       data: {
-        slot: "toggle-group", variant: @variant, size: @size, spacing: @spacing, controller: "v2--toggle-group",
+        slot: "toggle-group", variant: @variant, size: @size, spacing: @spacing, controller: "shadcn--toggle-group",
         orientation: (@roving_focus ? @orientation : nil),
-        v2__toggle_group_type_value: @type,
-        v2__toggle_group_controlled_value: @controlled.to_s,
-        v2__toggle_group_initial_value: (@type == "multiple" ? @value.to_json : nil),
-        v2__toggle_group_loop_value: @loop.to_s,
-        v2__toggle_group_roving_focus_value: @roving_focus.to_s,
-        v2__toggle_group_orientation_value: @orientation,
-        v2__toggle_group_dir_value: @dir
+        shadcn__toggle_group_type_value: @type,
+        shadcn__toggle_group_controlled_value: @controlled.to_s,
+        shadcn__toggle_group_initial_value: (@type == "multiple" ? json(@value) : nil),
+        shadcn__toggle_group_loop_value: @loop.to_s,
+        shadcn__toggle_group_roving_focus_value: @roving_focus.to_s,
+        shadcn__toggle_group_orientation_value: @orientation,
+        shadcn__toggle_group_dir_value: @dir
       }
     }.merge(if @roving_focus
               { tabindex: (@disabled ? -1 : 0) }

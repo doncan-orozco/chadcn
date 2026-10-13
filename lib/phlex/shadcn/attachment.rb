@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 # shadcn Attachment (new-york-v4). Spec: docs/shadcn-port/specs/attachment.md. Static: no controller.
+using Phlex::Shadcn::Values::Refinements
+
 class Phlex::Shadcn::Attachment < Phlex::Shadcn::Base
   BASE = "group/attachment relative flex w-fit max-w-full min-w-0 shrink-0 flex-wrap rounded-xl border bg-card text-card-foreground transition-colors focus-within:ring-1 focus-within:ring-ring/50 has-[>a,>button]:hover:bg-muted/50 data-[state=error]:border-destructive/30 data-[state=idle]:border-dashed"
 
@@ -154,7 +156,7 @@ class Phlex::Shadcn::Attachment < Phlex::Shadcn::Base
       defaults = { data: { slot: "attachment-trigger" } }
       defaults[:type] = @type || "button" unless @as_child
       attrs = merge_attrs(defaults, @attrs.except(:class))
-      attrs = attrs.merge(class: [ @slot_class, cn(CLASS_NAME, @attrs[:class]) ].compact_blank.join(" "))
+      attrs = attrs.merge(class: [ @slot_class, cn(CLASS_NAME, @attrs[:class]) ].reject_blank.join(" "))
       return render_as_child(@as_child, **attrs, &) if @as_child
 
       button(**attrs, &)

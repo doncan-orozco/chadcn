@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
 # shadcn ScrollArea over Radix ScrollArea (Root, Viewport, Scrollbar, Thumb, Corner). Spec: docs/shadcn-port/specs/scroll-area.md.
-# Behavior: controllers/v2/scroll_area_controller.js (one controller on the root div; it mounts the scrollbars kept in templates).
+# Behavior: controllers/shadcn/scroll_area_controller.js (one controller on the root div; it mounts the scrollbars kept in templates).
+using Phlex::Shadcn::Values::Refinements
+
 class Phlex::Shadcn::ScrollArea < Phlex::Shadcn::Base
   include Phlex::Shadcn::Direction::Consumer
 
-  KEY = :v2_scroll_area
+  KEY = :shadcn_scroll_area
   TYPES = %w[auto always scroll hover].freeze
   ROOT_CLASS = "relative"
   VIEWPORT_CLASS = "size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1"
@@ -49,10 +51,10 @@ class Phlex::Shadcn::ScrollArea < Phlex::Shadcn::Base
     {
       dir: direction,
       class: ROOT_CLASS,
-      style: [ ROOT_STYLE, style_string(@attrs[:style]).presence&.then { |css| "#{css};" } ].compact.join(" "),
+      style: [ ROOT_STYLE, style_string(@attrs[:style]).unless_blank&.then { |css| "#{css};" } ].compact.join(" "),
       data: {
-        slot: "scroll-area", controller: "v2--scroll-area",
-        v2__scroll_area_type_value: @type, v2__scroll_area_scroll_hide_delay_value: @scroll_hide_delay
+        slot: "scroll-area", controller: "shadcn--scroll-area",
+        shadcn__scroll_area_type_value: @type, shadcn__scroll_area_scroll_hide_delay_value: @scroll_hide_delay
       }
     }
   end
@@ -91,7 +93,7 @@ class Phlex::Shadcn::ScrollArea < Phlex::Shadcn::Base
       raise ArgumentError, "#{self.class.name} must be rendered inside a #{Phlex::Shadcn::ScrollArea.name}" unless state
 
       state[:orientations] << @orientation
-      template(data: { v2__scroll_area_target: "scrollbar", v2__scroll_area_force_mount: (@force_mount ? "true" : nil) }) do
+      template(data: { shadcn__scroll_area_target: "scrollbar", shadcn__scroll_area_force_mount: (@force_mount ? "true" : nil) }) do
         div(**merge_attrs(defaults, @attrs)) do
           template do
             div(data: { state: "visible", slot: "scroll-area-thumb" }, class: THUMB_CLASS,

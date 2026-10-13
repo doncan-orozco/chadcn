@@ -45,7 +45,7 @@ export default class extends Controller {
       this.#state(next)
       this.bubble.sync({ checked: next }, { userInteraction, propagationStopped })
     }
-    this.element.dispatchEvent(new CustomEvent("v2--switch:checked-change", { detail: { checked: next }, bubbles: true }))
+    this.element.dispatchEvent(new CustomEvent("shadcn--switch:checked-change", { detail: { checked: next }, bubbles: true }))
   }
 
   #state(checked) {

@@ -2,6 +2,8 @@
 
 # Radix SelectValue. className and style are destructured and dropped (sel:L244); the span shows the placeholder, its own
 # block, or a copy of the children of the selected item (Radix portals the ItemText children into it, sel:L959).
+using Phlex::Shadcn::Values::Refinements
+
 class Phlex::Shadcn::Select::Value < Phlex::Shadcn::Base
   include Phlex::Shadcn::Select::Support
 
@@ -14,10 +16,10 @@ class Phlex::Shadcn::Select::Value < Phlex::Shadcn::Base
   def view_template(&block)
     return if collecting?
 
-    children = capture(&block).presence if block
+    children = capture(&block).unless_blank if block
     attrs = merge_attrs({
                           style: "pointer-events: none;",
-                          data: { slot: "select-value", v2__select_placeholder: @placeholder, v2__select_children: children }
+                          data: { slot: "select-value", shadcn__select_placeholder: @placeholder, shadcn__select_children: children }
                         }, @attrs)
     span(**attrs) { content(children) }
   end

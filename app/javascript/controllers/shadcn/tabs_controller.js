@@ -20,12 +20,12 @@ export default class extends Controller {
   connect() {
     this.current = this.valueValue
     this.animationGuard = true
-    this.triggers = this.triggerTargets.map((el) => ({ el, value: el.getAttribute("data-v2--tabs-item-value") }))
+    this.triggers = this.triggerTargets.map((el) => ({ el, value: el.getAttribute("data-shadcn--tabs-item-value") }))
     this.panels = this.#buildPanels()
     const list = this.hasListTarget ? this.listTarget : null
     this.roving = list && rovingFocus(list, {
       orientation: this.orientationValue,
-      loop: list.getAttribute("data-v2--tabs-loop-value") !== "false",
+      loop: list.getAttribute("data-shadcn--tabs-loop-value") !== "false",
       dir: this.dirValue,
       isActive: (el) => el.dataset.state === "active"
     })
@@ -80,7 +80,7 @@ export default class extends Controller {
   }
 
   #valueOf(trigger) {
-    return trigger.getAttribute("data-v2--tabs-item-value")
+    return trigger.getAttribute("data-shadcn--tabs-item-value")
   }
 
   // Controlled: dispatch only. Uncontrolled: update the DOM, then dispatch once per actual change.
@@ -118,20 +118,20 @@ export default class extends Controller {
 
   #buildPanels() {
     const inner = this.contentTargets.map((el) => this.#panel(el))
-    const deferred = this.deferredTargets.filter((tpl) => tpl.hasAttribute("data-v2--tabs-as-child")).map((tpl) => this.#detached(tpl))
+    const deferred = this.deferredTargets.filter((tpl) => tpl.hasAttribute("data-shadcn--tabs-as-child")).map((tpl) => this.#detached(tpl))
     return [...inner, ...deferred]
   }
 
   #panel(el) {
-    const forceMount = el.getAttribute("data-v2--tabs-force-mount") === "true"
-    const asChild = el.hasAttribute("data-v2--tabs-as-child")
-    const panel = { value: el.getAttribute("data-v2--tabs-item-value"), forceMount, asChild, el, mounted: true }
+    const forceMount = el.getAttribute("data-shadcn--tabs-force-mount") === "true"
+    const asChild = el.hasAttribute("data-shadcn--tabs-as-child")
+    const panel = { value: el.getAttribute("data-shadcn--tabs-item-value"), forceMount, asChild, el, mounted: true }
     if (asChild) {
       panel.body = this.#cloneOf(el)
       panel.anchor = document.createComment("")
       el.before(panel.anchor)
     } else {
-      const template = el.querySelector(":scope > template[data-v2--tabs-target~=deferred]")
+      const template = el.querySelector(":scope > template[data-shadcn--tabs-target~=deferred]")
       template?.remove()
       panel.body = template || this.#bodyOf(el)
       panel.mounted = !template
@@ -141,7 +141,7 @@ export default class extends Controller {
   }
 
   #detached(template) {
-    const panel = { value: template.getAttribute("data-v2--tabs-item-value"), forceMount: false, asChild: true, el: null, mounted: false, body: template }
+    const panel = { value: template.getAttribute("data-shadcn--tabs-item-value"), forceMount: false, asChild: true, el: null, mounted: false, body: template }
     panel.anchor = document.createComment("")
     template.replaceWith(panel.anchor)
     return panel
@@ -163,7 +163,7 @@ export default class extends Controller {
 
   #template() {
     const template = document.createElement("template")
-    template.setAttribute("data-v2--tabs-target", "deferred")
+    template.setAttribute("data-shadcn--tabs-target", "deferred")
     return template
   }
 
@@ -220,8 +220,8 @@ export default class extends Controller {
     panel.presence?.release()
     if (panel.asChild) {
       if (!panel.el) {
-        panel.body.setAttribute("data-v2--tabs-item-value", panel.value)
-        panel.body.setAttribute("data-v2--tabs-as-child", "true")
+        panel.body.setAttribute("data-shadcn--tabs-item-value", panel.value)
+        panel.body.setAttribute("data-shadcn--tabs-as-child", "true")
         panel.anchor.replaceWith(panel.body)
       } else panel.anchor.remove()
       return

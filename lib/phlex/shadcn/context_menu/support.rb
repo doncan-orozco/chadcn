@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 # Context menu flavour of the dropdown menu part helpers (item markup, position options, as_child switch).
-# The data-v2--dropdown-menu-* names are the shared menu module's contract (template, sub ids, radio value).
+# The data-shadcn--dropdown-menu-* names are the shared menu module's contract (template, sub ids, radio value).
+using Phlex::Shadcn::Values::Refinements
+
 module Phlex::Shadcn::ContextMenu::Support
   include Phlex::Shadcn::DropdownMenu::Support
 
@@ -33,6 +35,6 @@ module Phlex::Shadcn::ContextMenu::Support
                           data: { slot:, state: "open", radix_menu_content: "", orientation: "vertical" }
                         }, @attrs.except(:style))
     style = [ "outline: none", style_string(@attrs[:style]), *STYLE_VARS.map { |name, value| "#{name}: #{value}" } ]
-    attrs.merge(style: style.compact_blank.join("; "))
+    attrs.merge(style: style.reject_blank.join("; "))
   end
 end

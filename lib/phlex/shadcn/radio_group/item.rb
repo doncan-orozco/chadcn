@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 # shadcn RadioGroupItem: Radix Item button (+ Indicator while checked) followed by the form bubble input.
+using Phlex::Shadcn::Values::Refinements
+
 class Phlex::Shadcn::RadioGroup::Item < Phlex::Shadcn::Base
   CLASSES = "aspect-square size-4 shrink-0 rounded-full border border-input text-primary shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:bg-input/30 dark:aria-invalid:ring-destructive/40"
   BUBBLE_STYLE = "position: absolute; pointer-events: none; opacity: 0; margin: 0px; transform: translateX(-100%);"
-  ACTIONS = "click->v2--radio-group#select keydown->v2--radio-group#keydown focus->v2--radio-group#focus"
+  ACTIONS = "click->shadcn--radio-group#select keydown->shadcn--radio-group#keydown focus->shadcn--radio-group#focus"
 
   # Radix Indicator: rendered only while checked.
   class Indicator < Phlex::Shadcn::Base
@@ -61,7 +63,7 @@ class Phlex::Shadcn::RadioGroup::Item < Phlex::Shadcn::Base
 
   # Radix composes the consumer handlers first, then its own: our actions go last.
   def with_action(attrs)
-    action = [ attrs.dig(:data, :action), ACTIONS ].compact_blank.join(" ")
+    action = [ attrs.dig(:data, :action), ACTIONS ].reject_blank.join(" ")
     attrs.merge(data: attrs[:data].merge(action:))
   end
 

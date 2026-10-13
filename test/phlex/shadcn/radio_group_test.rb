@@ -65,7 +65,7 @@ class Phlex::Shadcn::RadioGroupTest < Phlex::Shadcn::TestCase
     assert item.key?("disabled")
     assert_equal "true", item["aria-invalid"]
     assert_equal "", item["data-radix-collection-item"]
-    assert_includes item["data-action"], "click->v2--radio-group#select"
+    assert_includes item["data-action"], "click->shadcn--radio-group#select"
     bubble = item.next_element
 
     assert_equal "radio", bubble["type"]

@@ -56,7 +56,7 @@ export default class extends Controller {
       this.#render(next)
       this.bubble.sync({ checked: next === true, indeterminate: next === "indeterminate" }, { userInteraction, propagationStopped })
     }
-    this.element.dispatchEvent(new CustomEvent("v2--checkbox:checked-change", { detail: { checked: next }, bubbles: true }))
+    this.element.dispatchEvent(new CustomEvent("shadcn--checkbox:checked-change", { detail: { checked: next }, bubbles: true }))
   }
 
   #render(checked) {

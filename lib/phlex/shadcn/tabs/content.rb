@@ -3,6 +3,8 @@
 # shadcn TabsContent: Radix Content over Presence. React mounts the children only while the panel is present: inactive
 # bodies ship in an inert template that the controller takes over on connect (an inactive as_child panel is only that
 # template, since React renders nothing for it).
+using Phlex::Shadcn::Values::Refinements
+
 class Phlex::Shadcn::Tabs::Content < Phlex::Shadcn::Base
   include Phlex::Shadcn::Tabs::Support
 
@@ -30,7 +32,7 @@ class Phlex::Shadcn::Tabs::Content < Phlex::Shadcn::Base
       if present
         block&.call
       else
-        template(data: { v2__tabs_target: "deferred" }) { block&.call }
+        template(data: { shadcn__tabs_target: "deferred" }) { block&.call }
       end
     end
   end
@@ -40,8 +42,8 @@ class Phlex::Shadcn::Tabs::Content < Phlex::Shadcn::Base
   # The element as it will look when it mounts after a value change (active, no mount animation guard).
   def render_deferred(root, &block)
     attrs = content_attrs(root, true).merge(style: join_style(@style))
-    template(data: { v2__tabs_target: "deferred", v2__tabs_item_value: @value, v2__tabs_as_child: "true" }) do
-      render_as_child(@as_child, **attrs.compact_blank, &block)
+    template(data: { shadcn__tabs_target: "deferred", shadcn__tabs_item_value: @value, shadcn__tabs_as_child: "true" }) do
+      render_as_child(@as_child, **attrs.reject_blank, &block)
     end
   end
 
@@ -57,7 +59,7 @@ class Phlex::Shadcn::Tabs::Content < Phlex::Shadcn::Base
                   class: CLASSES,
                   aria: { labelledby: "#{root[:base_id]}-trigger-#{@value}" },
                   data: { state: selected ? "active" : "inactive", orientation: root[:orientation], slot: "tabs-content",
-                          v2__tabs_target: "content", v2__tabs_item_value: @value, v2__tabs_force_mount: @force_mount.to_s, v2__tabs_as_child: (@as_child ? "true" : nil) }
+                          shadcn__tabs_target: "content", shadcn__tabs_item_value: @value, shadcn__tabs_force_mount: @force_mount.to_s, shadcn__tabs_as_child: (@as_child ? "true" : nil) }
                 }, @attrs)
   end
 end

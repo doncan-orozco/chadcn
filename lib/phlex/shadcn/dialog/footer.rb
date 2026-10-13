@@ -22,7 +22,7 @@ class Phlex::Shadcn::Dialog::Footer < Phlex::Shadcn::Base
   # shadcn wraps the Button in a Close without data-slot, so the Button keeps its own: a Dialog::Close part would stamp dialog-close.
   def close_button
     render Phlex::Shadcn::Button.new(
-      variant: "outline", type: "button", data: { v2__dialog_part: "close", action: "click->v2--dialog#close" }
+      variant: "outline", type: "button", data: { shadcn__dialog_part: "close", action: "click->shadcn--dialog#close" }
     ) { @close_label }
   end
 end

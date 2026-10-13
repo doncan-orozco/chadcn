@@ -29,7 +29,7 @@ class Phlex::Shadcn::Menubar::SubContent < Phlex::Shadcn::Base
                                dir: root[:dir])
     # A Portal reaches only its own SubContent: sub menus nested inside need a Portal of their own.
     context[Phlex::Shadcn::Menubar::PORTAL_KEY] = nil
-    template(data: { v2__menubar_template: sub[:content_id], options: options.to_json }) do
+    template(data: { shadcn__menubar_template: sub[:content_id], options: json(options) }) do
       render_part(:div, @as_child, attrs) { yield if block_given? }
     end
   ensure

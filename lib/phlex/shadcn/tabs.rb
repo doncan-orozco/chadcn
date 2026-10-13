@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
 # shadcn Tabs over Radix Tabs. Spec: docs/shadcn-port/specs/tabs.md.
-# Behavior: controllers/v2/tabs_controller.js.
+# Behavior: controllers/shadcn/tabs_controller.js.
+using Phlex::Shadcn::Values::Refinements
+
 class Phlex::Shadcn::Tabs < Phlex::Shadcn::Base
   include Phlex::Shadcn::Direction::Consumer
 
-  ROOT_KEY = :v2_tabs_root
+  ROOT_KEY = :shadcn_tabs_root
   CLASSES = "group/tabs flex gap-2 data-[orientation=horizontal]:flex-col"
   LIST_BASE = "group/tabs-list inline-flex w-fit items-center justify-center rounded-lg p-[3px] text-muted-foreground group-data-[orientation=horizontal]/tabs:h-9 group-data-[orientation=vertical]/tabs:h-fit group-data-[orientation=vertical]/tabs:flex-col data-[variant=line]:rounded-none"
   LIST_VARIANTS = { "default" => "bg-muted", "line" => "gap-1 bg-transparent" }.freeze
@@ -42,19 +44,19 @@ class Phlex::Shadcn::Tabs < Phlex::Shadcn::Base
   private
 
   def base_id
-    @attrs[:id].presence || "radix-tabs-#{SecureRandom.alphanumeric(6).downcase}"
+    @attrs[:id].unless_blank || "radix-tabs-#{SecureRandom.alphanumeric(6).downcase}"
   end
 
   def root_data
     {
       slot: "tabs",
       orientation: @orientation,
-      controller: "v2--tabs",
-      v2__tabs_value_value: @value,
-      v2__tabs_controlled_value: @controlled.to_s,
-      v2__tabs_activation_mode_value: @activation_mode,
-      v2__tabs_orientation_value: @orientation,
-      v2__tabs_dir_value: context[ROOT_KEY][:dir]
+      controller: "shadcn--tabs",
+      shadcn__tabs_value_value: @value,
+      shadcn__tabs_controlled_value: @controlled.to_s,
+      shadcn__tabs_activation_mode_value: @activation_mode,
+      shadcn__tabs_orientation_value: @orientation,
+      shadcn__tabs_dir_value: context[ROOT_KEY][:dir]
     }
   end
 end

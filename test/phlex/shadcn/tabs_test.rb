@@ -29,7 +29,7 @@ class Phlex::Shadcn::TabsTest < Phlex::Shadcn::TestCase
 
     assert_equal "ltr", root["dir"]
     assert_equal "horizontal", root["data-orientation"]
-    assert_equal "v2--tabs", root["data-controller"]
+    assert_equal "shadcn--tabs", root["data-controller"]
     assert_equal "t", root["id"]
     assert_equal "x", root["data-testid"]
     assert_includes root["class"], "w-full"
@@ -101,7 +101,7 @@ class Phlex::Shadcn::TabsTest < Phlex::Shadcn::TestCase
     rtl, ltr = fragment(provided).css("[data-slot=tabs]")
 
     assert_equal "rtl", rtl["dir"]
-    assert_equal "rtl", rtl["data-v2--tabs-dir-value"]
+    assert_equal "rtl", rtl["data-shadcn--tabs-dir-value"]
     assert_equal "ltr", ltr["dir"]
     assert_equal "ltr", fragment(render_view { render(Tabs.new) { } }).at_css("[data-slot=tabs]")["dir"]
   end

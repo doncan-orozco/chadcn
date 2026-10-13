@@ -65,7 +65,7 @@ export default class extends Controller {
   #record(template) {
     const prototype = template.content.firstElementChild
     const record = {
-      template, prototype, force: template.getAttribute("data-v2--scroll-area-force-mount") === "true",
+      template, prototype, force: template.getAttribute("data-shadcn--scroll-area-force-mount") === "true",
       horizontal: prototype.dataset.orientation === "horizontal",
       node: null, hover: false, autoVisible: false, scrollState: "hidden", hideTimer: 0, sizes: ZERO_SIZES
     }

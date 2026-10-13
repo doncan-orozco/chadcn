@@ -22,7 +22,7 @@ class Phlex::Shadcn::Tabs::List < Phlex::Shadcn::Base
                           class: Phlex::Shadcn::Tabs.list_variants(variant: @variant),
                           aria: { orientation: root[:orientation] },
                           data: { orientation: root[:orientation], slot: "tabs-list", variant: @variant,
-                                  v2__tabs_target: "list", v2__tabs_loop_value: @loop.to_s }
+                                  shadcn__tabs_target: "list", shadcn__tabs_loop_value: @loop.to_s }
                         }, @attrs)
     render_part(:div, @as_child, attrs, &)
   end

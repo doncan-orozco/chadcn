@@ -2,6 +2,8 @@
 
 # Action and Cancel: Button as slot around Primitive.Close. The Slot joins classes as plain strings (button
 # classes first, then the caller class, no tailwind-merge), so a caller rounded-full keeps both radius classes.
+using Phlex::Shadcn::Values::Refinements
+
 module Phlex::Shadcn::AlertDialog::ActionButton
   include Phlex::Shadcn::AlertDialog::Support
 
@@ -17,10 +19,10 @@ module Phlex::Shadcn::AlertDialog::ActionButton
   def view_template(&)
     attrs = merge_attrs({
                           type: "button",
-                          data: slot_data.merge(variant: @variant, size: @size, v2__dialog_part: "close",
-                                                action: "click->v2--alert-dialog#close")
+                          data: slot_data.merge(variant: @variant, size: @size, shadcn__dialog_part: "close",
+                                                action: "click->shadcn--alert-dialog#close")
                         }, @attrs.except(:class))
-    attrs[:class] = [ @button_classes, *Array(@attrs[:class]) ].compact_blank.join(" ")
+    attrs[:class] = [ @button_classes, *Array(@attrs[:class]) ].reject_blank.join(" ")
     render_part(:button, @as_child, attrs, &)
   end
 end

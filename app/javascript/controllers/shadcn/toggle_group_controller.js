@@ -37,7 +37,7 @@ export default class extends Controller {
 
   get #items() { return [...this.element.querySelectorAll("[data-slot=toggle-group-item]")] }
 
-  #valueOf(item) { return item.getAttribute("data-v2--toggle-group-item-value") }
+  #valueOf(item) { return item.getAttribute("data-shadcn--toggle-group-item-value") }
 
   #pressed(item) { return item.dataset.state === "on" }
 
@@ -58,7 +58,7 @@ export default class extends Controller {
   #change(next) {
     if (this.#single && next === this.value) return
     if (!this.controlledValue) this.#render(next)
-    this.element.dispatchEvent(new CustomEvent("v2--toggle-group:value-change", { detail: { value: next }, bubbles: true }))
+    this.element.dispatchEvent(new CustomEvent("shadcn--toggle-group:value-change", { detail: { value: next }, bubbles: true }))
   }
 
   #render(next) {

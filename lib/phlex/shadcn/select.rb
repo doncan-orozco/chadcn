@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# shadcn Select (Radix Select). Spec: docs/shadcn-port/specs/select.md. Behavior lives in controllers/v2/select_controller.js
+# shadcn Select (Radix Select). Spec: docs/shadcn-port/specs/select.md. Behavior lives in controllers/shadcn/select_controller.js
 # (hosted by the Trigger).
 #
 # Root renders no element: it pushes its state into the Phlex render context for the parts inside. Radix keeps the closed
@@ -10,9 +10,9 @@
 class Phlex::Shadcn::Select < Phlex::Shadcn::Base
   include Phlex::Shadcn::Direction::Consumer
 
-  ROOT_KEY = :v2_select_root
-  GROUP_KEY = :v2_select_group
-  SEQUENCE_KEY = :v2_select_sequence
+  ROOT_KEY = :shadcn_select_root
+  GROUP_KEY = :shadcn_select_group
+  SEQUENCE_KEY = :shadcn_select_sequence
   DIRECTIONS = %w[ltr rtl].freeze
 
   # value:/open: given (not nil) are controlled: user actions only dispatch events, the server decides the state.

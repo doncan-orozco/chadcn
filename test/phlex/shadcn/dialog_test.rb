@@ -30,14 +30,14 @@ class Phlex::Shadcn::DialogTest < Phlex::Shadcn::TestCase
 
   test "host carries the controller and the closed parts live in a template" do
     doc = fragment(dialog)
-    host = doc.at_css("[data-controller=v2--dialog]")
+    host = doc.at_css("[data-controller=shadcn--dialog]")
 
     assert_equal "display: contents", host["style"]
     assert_nil host["data-slot"]
-    assert_equal "false", host["data-v2--dialog-open-value"]
-    assert_equal "true", host["data-v2--dialog-modal-value"]
+    assert_equal "false", host["data-shadcn--dialog-open-value"]
+    assert_equal "true", host["data-shadcn--dialog-modal-value"]
 
-    trigger = host.at_css("[data-v2--dialog-part=trigger]")
+    trigger = host.at_css("[data-shadcn--dialog-part=trigger]")
 
     assert_equal "dialog-trigger", trigger["data-slot"]
     assert_equal "outline", trigger["data-variant"]
@@ -45,7 +45,7 @@ class Phlex::Shadcn::DialogTest < Phlex::Shadcn::TestCase
     assert_equal "dialog", trigger["aria-haspopup"]
     assert_nil trigger["aria-controls"]
 
-    template = host.at_css("template[data-v2--dialog-template]")
+    template = host.at_css("template[data-shadcn--dialog-template]")
 
     assert template.at_css("[data-slot=dialog-overlay][data-state=open]")
     content = template.at_css("[data-slot=dialog-content]")
@@ -68,7 +68,7 @@ class Phlex::Shadcn::DialogTest < Phlex::Shadcn::TestCase
   end
 
   test "open dialog is reflected on the trigger" do
-    trigger = fragment(dialog(root: { default_open: true })).at_css("[data-v2--dialog-part=trigger]")
+    trigger = fragment(dialog(root: { default_open: true })).at_css("[data-shadcn--dialog-part=trigger]")
 
     assert_equal "true", trigger["aria-expanded"]
     assert_equal "open", trigger["data-state"]
@@ -76,10 +76,10 @@ class Phlex::Shadcn::DialogTest < Phlex::Shadcn::TestCase
   end
 
   test "controlled open is flagged on the host" do
-    host = fragment(dialog(root: { open: true })).at_css("[data-controller=v2--dialog]")
+    host = fragment(dialog(root: { open: true })).at_css("[data-controller=shadcn--dialog]")
 
-    assert_equal "true", host["data-v2--dialog-controlled-value"]
-    assert_equal "true", host["data-v2--dialog-open-value"]
+    assert_equal "true", host["data-shadcn--dialog-controlled-value"]
+    assert_equal "true", host["data-shadcn--dialog-open-value"]
   end
 
   test "non modal dialog renders no overlay" do
@@ -147,7 +147,7 @@ class Phlex::Shadcn::DialogTest < Phlex::Shadcn::TestCase
     assert_equal explicit, helper
     HELPERS.each do |name, part|
       assert Dialog.public_method_defined?(name), "missing helper ##{name}"
-      assert_equal part, Dialog.const_get(name.to_s.camelize)
+      assert_equal part, Dialog.const_get(name.to_s.split("_").map(&:capitalize).join)
     end
   end
 end

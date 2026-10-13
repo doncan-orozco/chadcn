@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Radix SelectTrigger (+ Icon asChild). Hosts the v2--select controller. as_child is not offered: the React original throws
+# Radix SelectTrigger (+ Icon asChild). Hosts the shadcn--select controller. as_child is not offered: the React original throws
 # for it (shadcn passes the children plus an Icon to the Radix Slot).
 class Phlex::Shadcn::Select::Trigger < Phlex::Shadcn::Base
   include Phlex::Shadcn::Select::Support
@@ -38,17 +38,17 @@ class Phlex::Shadcn::Select::Trigger < Phlex::Shadcn::Base
       aria: { controls: (content_id(state) if open), expanded: open.to_s, required: state[:required], autocomplete: "none" },
       data: {
         slot: "select-trigger", size: @size, state: open ? "open" : "closed", disabled: (disabled ? "" : nil),
-        placeholder: (blank_value? ? "" : nil), controller: "v2--select", **values(state)
+        placeholder: (blank_value? ? "" : nil), controller: "shadcn--select", **values(state)
       }
     }
   end
 
   def values(state)
     {
-      v2__select_open_value: state[:open].to_s, v2__select_controlled_open_value: state[:controlled_open].to_s,
-      v2__select_value_value: state[:value].to_s, v2__select_controlled_value_value: state[:controlled_value].to_s,
-      v2__select_disabled_value: state[:disabled].to_s, v2__select_dir_value: state[:dir], v2__select_content_id_value: content_id(state),
-      v2__select_name_value: state[:name], v2__select_form_value: state[:form], v2__select_auto_complete_value: state[:auto_complete]
+      shadcn__select_open_value: state[:open].to_s, shadcn__select_controlled_open_value: state[:controlled_open].to_s,
+      shadcn__select_value_value: state[:value].to_s, shadcn__select_controlled_value_value: state[:controlled_value].to_s,
+      shadcn__select_disabled_value: state[:disabled].to_s, shadcn__select_dir_value: state[:dir], shadcn__select_content_id_value: content_id(state),
+      shadcn__select_name_value: state[:name], shadcn__select_form_value: state[:form], shadcn__select_auto_complete_value: state[:auto_complete]
     }
   end
 

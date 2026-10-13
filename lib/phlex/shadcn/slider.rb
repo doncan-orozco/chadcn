@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 # shadcn Slider over Radix Slider (Root, Track, Range, Thumb rendered internally). Spec: docs/shadcn-port/specs/slider.md.
-# Behavior: controllers/v2/slider_controller.js (one controller on the root span).
+# Behavior: controllers/shadcn/slider_controller.js (one controller on the root span).
+using Phlex::Shadcn::Values::Refinements
+
 class Phlex::Shadcn::Slider < Phlex::Shadcn::Base
   include Phlex::Shadcn::Direction::Consumer
 
@@ -13,7 +15,7 @@ class Phlex::Shadcn::Slider < Phlex::Shadcn::Base
   THUMB_CLASS = "block size-4 shrink-0 rounded-full border border-primary bg-white shadow-sm ring-ring/50 transition-[color,box-shadow] hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
   THUMB_TRANSFORM = { "horizontal" => "translateX(-50%)", "vertical" => "translateY(50%)" }.freeze
 
-  # value: non-nil is controlled (user input only dispatches v2--slider:value-change, the caller re-renders).
+  # value: non-nil is controlled (user input only dispatches shadcn--slider:value-change, the caller re-renders).
   def initialize(default_value: nil, value: nil, min: 0, max: 100, step: 1, orientation: "horizontal", disabled: false,
                  inverted: false, min_steps_between_thumbs: 0, preserve_thumb_order: false, name: nil, form: nil,
                  dir: nil, **attrs)
@@ -81,16 +83,16 @@ class Phlex::Shadcn::Slider < Phlex::Shadcn::Base
     {
       aria: { disabled: @disabled.to_s },
       dir: (@horizontal ? @direction : @dir),
-      style: [ style_string(@attrs[:style]).presence,
+      style: [ style_string(@attrs[:style]).unless_blank,
                "--radix-slider-thumb-transform: #{THUMB_TRANSFORM[@orientation]};" ].compact.join("; "),
       class: ROOT_CLASS,
       data: {
-        slot: "slider", orientation: @orientation, disabled: disabled_data, controller: "v2--slider",
-        v2__slider_min_value: js(@min), v2__slider_max_value: js(@max), v2__slider_step_value: js(@step),
-        v2__slider_orientation_value: @orientation, v2__slider_inverted_value: @inverted.to_s,
-        v2__slider_disabled_value: @disabled.to_s, v2__slider_controlled_value: @controlled.to_s,
-        v2__slider_min_steps_between_thumbs_value: js(@min_steps), v2__slider_preserve_thumb_order_value: @preserve_order.to_s,
-        v2__slider_form_value: @form
+        slot: "slider", orientation: @orientation, disabled: disabled_data, controller: "shadcn--slider",
+        shadcn__slider_min_value: js(@min), shadcn__slider_max_value: js(@max), shadcn__slider_step_value: js(@step),
+        shadcn__slider_orientation_value: @orientation, shadcn__slider_inverted_value: @inverted.to_s,
+        shadcn__slider_disabled_value: @disabled.to_s, shadcn__slider_controlled_value: @controlled.to_s,
+        shadcn__slider_min_steps_between_thumbs_value: js(@min_steps), shadcn__slider_preserve_thumb_order_value: @preserve_order.to_s,
+        shadcn__slider_form_value: @form
       }
     }
   end

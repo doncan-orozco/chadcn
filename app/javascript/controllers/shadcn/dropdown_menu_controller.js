@@ -24,7 +24,7 @@ import { nextMatch, typeahead } from "shadcn/primitives/typeahead"
 // Known divergence from the shared primitives: roving focus is implemented per level here (not with the roving_focus
 // primitive) because an un-portaled SubContent sits inside its parent content and the primitive collects the items of
 // nested groups too. Items are scoped by their closest [data-radix-menu-content].
-const TEMPLATE = "v2--dropdown-menu-template"
+const TEMPLATE = "shadcn--dropdown-menu-template"
 const CONTENT = "[data-radix-menu-content]"
 const SUB_TRIGGER = "[data-slot=dropdown-menu-sub-trigger]" // controllers reusing MenuLevel may set `subTriggerSelector`
 const SELECTION_KEYS = ["Enter", " "]
@@ -50,8 +50,8 @@ export class SubMenu {
   constructor(parent, trigger) {
     this.parent = parent
     this.trigger = trigger
-    this.id = trigger.getAttribute("data-v2--dropdown-menu-sub-content-id")
-    this.controlled = trigger.getAttribute("data-v2--dropdown-menu-sub-controlled") === "true"
+    this.id = trigger.getAttribute("data-shadcn--dropdown-menu-sub-content-id")
+    this.controlled = trigger.getAttribute("data-shadcn--dropdown-menu-sub-controlled") === "true"
     this.isOpen = trigger.dataset.state === "open"
     this.level = null
     this.openTimer = 0
@@ -440,7 +440,7 @@ export class MenuLevel {
       const checked = item.dataset.state === "checked"
       this.controller.dispatch("checked-change", { target: item, cancelable: false, detail: { checked: !checked } })
     } else if (role === "menuitemradio") {
-      this.controller.dispatch("value-change", { target: item, cancelable: false, detail: { value: item.getAttribute("data-v2--dropdown-menu-value") } })
+      this.controller.dispatch("value-change", { target: item, cancelable: false, detail: { value: item.getAttribute("data-shadcn--dropdown-menu-value") } })
     }
     if (select.defaultPrevented) pointerDowns.delete(item)
     else this.controller.requestOpen(false)

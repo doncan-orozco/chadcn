@@ -12,7 +12,7 @@ class Phlex::Shadcn::Dialog::Close < Phlex::Shadcn::Base
 
   def view_template(&)
     attrs = merge_attrs({
-                          type: "button", data: { slot: "dialog-close", v2__dialog_part: "close", action: "click->v2--dialog#close" }
+                          type: "button", data: { slot: "dialog-close", shadcn__dialog_part: "close", action: "click->shadcn--dialog#close" }
                         }, @attrs)
     render_part(:button, @as_child, attrs, &)
   end

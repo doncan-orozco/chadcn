@@ -9,5 +9,5 @@ class Phlex::Shadcn::AlertDialog::Cancel < Phlex::Shadcn::Base
   def default_variant = "outline"
 
   # Marker plus owner id: how the controller finds the element to focus on open (the content id can be overridden by the caller).
-  def slot_data = { slot: "alert-dialog-cancel", v2__alert_dialog_part: "cancel", v2__alert_dialog_owner: root_context[:content_id] }
+  def slot_data = { slot: "alert-dialog-cancel", shadcn__alert_dialog_part: "cancel", shadcn__alert_dialog_owner: root_context[:content_id] }
 end

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 # shadcn `Badge` (new-york-v4). Spec: docs/shadcn-port/specs/badge.md. Static: no controller.
+using Phlex::Shadcn::Values::Refinements
+
 class Phlex::Shadcn::Badge < Phlex::Shadcn::Base
   BASE = "inline-flex w-fit shrink-0 items-center justify-center gap-1 overflow-hidden rounded-full border border-transparent px-2 py-0.5 text-xs font-medium whitespace-nowrap transition-[color,box-shadow] focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:size-3"
 
@@ -28,7 +30,7 @@ class Phlex::Shadcn::Badge < Phlex::Shadcn::Base
 
   def view_template(&)
     attrs = merge_attrs({ data: { slot: "badge", variant: @variant } }, @attrs.except(:class))
-    attrs = attrs.merge(class: [ @slot_class, classes(@attrs[:class]) ].compact_blank.join(" "))
+    attrs = attrs.merge(class: [ @slot_class, classes(@attrs[:class]) ].reject_blank.join(" "))
     return render_as_child(@as_child, **attrs, &) if @as_child
 
     span(**attrs, &)

@@ -20,7 +20,7 @@ async function mountInDialog(page, component, selectors) {
 
 browserTest("popover inside a dialog: Escape closes only the popover, a second Escape closes the dialog", async ({ open }) => {
   const page = await open("open__default-open");
-  await mountInDialog(page, "popover", ["[data-slot=popover-trigger]", "template[data-v2--popover-template]"]);
+  await mountInDialog(page, "popover", ["[data-slot=popover-trigger]", "template[data-shadcn--popover-template]"]);
   await page.click("[data-slot=popover-trigger]");
   await page.waitForSelector("[data-slot=popover-content]");
   await settle(page);
@@ -33,7 +33,7 @@ browserTest("popover inside a dialog: Escape closes only the popover, a second E
 
 browserTest("popover inside a dialog: interacting with the popover content does not dismiss the dialog", async ({ open }) => {
   const page = await open("open__default-open");
-  await mountInDialog(page, "popover", ["[data-slot=popover-trigger]", "template[data-v2--popover-template]"]);
+  await mountInDialog(page, "popover", ["[data-slot=popover-trigger]", "template[data-shadcn--popover-template]"]);
   await page.click("[data-slot=popover-trigger]");
   await page.waitForSelector("[data-slot=popover-content]");
   await settle(page);
@@ -45,7 +45,7 @@ browserTest("popover inside a dialog: interacting with the popover content does 
 
 browserTest("popover inside a dialog: a click on the dialog (outside the popover) closes the popover and keeps the dialog", async ({ open }) => {
   const page = await open("open__default-open");
-  await mountInDialog(page, "popover", ["[data-slot=popover-trigger]", "template[data-v2--popover-template]"]);
+  await mountInDialog(page, "popover", ["[data-slot=popover-trigger]", "template[data-shadcn--popover-template]"]);
   await page.click("[data-slot=popover-trigger]");
   await page.waitForSelector("[data-slot=popover-content]");
   await settle(page);
@@ -56,7 +56,7 @@ browserTest("popover inside a dialog: a click on the dialog (outside the popover
 
 browserTest("hover card inside a dialog: Escape closes only the card", async ({ open }) => {
   const page = await open("open__default-open");
-  await mountInDialog(page, "hover-card", ["[data-slot=hover-card-trigger]", "template[data-v2--hover-card-template]"]);
+  await mountInDialog(page, "hover-card", ["[data-slot=hover-card-trigger]", "template[data-shadcn--hover-card-template]"]);
   await page.hover("[data-slot=hover-card-trigger]");
   await page.waitForSelector("[data-slot=hover-card-content]", { timeout: 5000 });
   await settle(page);
@@ -67,7 +67,7 @@ browserTest("hover card inside a dialog: Escape closes only the card", async ({ 
 
 browserTest("tooltip inside a dialog: Escape closes only the tooltip, and clicking its content keeps the dialog", async ({ open }) => {
   const page = await open("open__default-open");
-  await mountInDialog(page, "tooltip", ["[data-slot=tooltip-trigger]", "template[data-v2--tooltip-template]"]);
+  await mountInDialog(page, "tooltip", ["[data-slot=tooltip-trigger]", "template[data-shadcn--tooltip-template]"]);
   await page.focus("[data-slot=tooltip-trigger]");
   await page.waitForSelector("[data-slot=tooltip-content]");
   await settle(page);

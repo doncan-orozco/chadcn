@@ -16,7 +16,7 @@ export default class extends Controller {
   static targets = ["trigger", "content", "body"]
 
   connect() {
-    const childTemplates = this.bodyTargets.filter((el) => el.hasAttribute("data-v2--collapsible-slot"))
+    const childTemplates = this.bodyTargets.filter((el) => el.hasAttribute("data-shadcn--collapsible-slot"))
     this.records = [
       ...this.contentTargets.map((el) => this.#record(el)),
       ...childTemplates.map((template) => this.#childRecord(template))
@@ -39,8 +39,8 @@ export default class extends Controller {
 
   #record(el) {
     const open = el.dataset.state === "open"
-    const forceMount = el.getAttribute("data-v2--collapsible-force-mount") === "true"
-    if (el.getAttribute("data-v2--collapsible-as-child") === "true") return this.#openChildRecord(el, open, forceMount)
+    const forceMount = el.getAttribute("data-shadcn--collapsible-force-mount") === "true"
+    if (el.getAttribute("data-shadcn--collapsible-as-child") === "true") return this.#openChildRecord(el, open, forceMount)
 
     const body = this.#takeBody(el)
     const record = { el, body, forceMount, mounted: open || forceMount }
@@ -77,7 +77,7 @@ export default class extends Controller {
 
   // The closed body template, or a template built from the server-rendered children of an open content.
   #takeBody(el) {
-    const template = el.querySelector(":scope > template[data-v2--collapsible-target~=body]")
+    const template = el.querySelector(":scope > template[data-shadcn--collapsible-target~=body]")
     if (template) {
       template.remove()
       return template

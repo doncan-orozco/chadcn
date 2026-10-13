@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+using Phlex::Shadcn::Values::Refinements
+
 class Phlex::Shadcn::Menubar::Item < Phlex::Shadcn::Base
   include Phlex::Shadcn::Menubar::Support
 
@@ -16,7 +18,7 @@ class Phlex::Shadcn::Menubar::Item < Phlex::Shadcn::Base
   end
 
   def view_template(&)
-    defaults = item_attrs(disabled: @disabled, text_value: @text_value).deep_merge(
+    defaults = item_attrs(disabled: @disabled, text_value: @text_value).merge_deep(
       role: "menuitem", class: CLASSES,
       data: { slot: "menubar-item", inset: inset_value(@inset), variant: @variant }
     )

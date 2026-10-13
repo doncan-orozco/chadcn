@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 # checked: is controlled only, like Radix: the port never flips it, it dispatches checked-change.
+using Phlex::Shadcn::Values::Refinements
+
 class Phlex::Shadcn::ContextMenu::CheckboxItem < Phlex::Shadcn::Base
   include Phlex::Shadcn::ContextMenu::Support
 
@@ -22,7 +24,7 @@ class Phlex::Shadcn::ContextMenu::CheckboxItem < Phlex::Shadcn::Base
   end
 
   def view_template(&)
-    defaults = item_attrs(disabled: @disabled, text_value: @text_value).deep_merge(
+    defaults = item_attrs(disabled: @disabled, text_value: @text_value).merge_deep(
       role: "menuitemcheckbox", class: CLASSES,
       aria: { checked: { "checked" => "true", "unchecked" => "false", "indeterminate" => "mixed" }.fetch(@state) },
       data: { slot: "context-menu-checkbox-item", state: @state }

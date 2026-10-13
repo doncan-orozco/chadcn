@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 # shadcn Pagination (new-york-v4). Spec: docs/shadcn-port/specs/pagination.md. Static: no controller.
+using Phlex::Shadcn::Values::Refinements
+
 class Phlex::Shadcn::Pagination < Phlex::Shadcn::Base
   def initialize(**attrs)
     @attrs = attrs
@@ -32,7 +34,7 @@ class Phlex::Shadcn::Pagination < Phlex::Shadcn::Base
 
     # The React part does not destructure className: the caller class is emitted verbatim, not through cn.
     def view_template(&)
-      li(**{ data: { slot: "pagination-item" } }.deep_merge(canonical_attrs(@attrs)), &)
+      li(**{ data: { slot: "pagination-item" } }.merge_deep(canonical_attrs(@attrs)), &)
     end
   end
 
@@ -48,7 +50,7 @@ class Phlex::Shadcn::Pagination < Phlex::Shadcn::Base
       # Tri-state like React: nil emits no data-active, false emits "false".
       state = { aria: { current: ("page" if @is_active) }, data: { slot: "pagination-link", active: @is_active } }
       klass = Phlex::Shadcn::Button.variants(variant: @is_active ? "outline" : "ghost", size: @size, class: @attrs[:class])
-      attrs = canonical_attrs(state).deep_merge(canonical_attrs(@attrs.except(:class)))
+      attrs = canonical_attrs(state).merge_deep(canonical_attrs(@attrs.except(:class)))
       a(**attrs.merge(class: klass), &)
     end
   end

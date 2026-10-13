@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 # shadcn Collapsible over Radix Collapsible. Spec: docs/shadcn-port/specs/collapsible.md.
-# Behavior: controllers/v2/collapsible_controller.js.
+# Behavior: controllers/shadcn/collapsible_controller.js.
 class Phlex::Shadcn::Collapsible < Phlex::Shadcn::Base
-  ROOT_KEY = :v2_collapsible_root
-  SEQUENCE_KEY = :v2_collapsible_sequence
+  ROOT_KEY = :shadcn_collapsible_root
+  SEQUENCE_KEY = :shadcn_collapsible_sequence
 
   # open: non-nil is controlled (user actions only dispatch open-change, the caller re-renders with the new value).
   def initialize(open: nil, default_open: false, disabled: false, as_child: false, **attrs)
@@ -35,10 +35,10 @@ class Phlex::Shadcn::Collapsible < Phlex::Shadcn::Base
       slot: "collapsible",
       state: @open ? "open" : "closed",
       disabled: (@disabled ? "" : nil),
-      controller: "v2--collapsible",
-      v2__collapsible_controlled_value: @controlled.to_s,
-      v2__collapsible_disabled_value: @disabled.to_s,
-      v2__collapsible_content_id_value: content_id
+      controller: "shadcn--collapsible",
+      shadcn__collapsible_controlled_value: @controlled.to_s,
+      shadcn__collapsible_disabled_value: @disabled.to_s,
+      shadcn__collapsible_content_id_value: content_id
     }
   end
 end

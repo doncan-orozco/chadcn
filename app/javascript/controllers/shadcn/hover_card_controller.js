@@ -48,7 +48,7 @@ export default class extends Controller {
   }
 
   findTemplate() {
-    const selector = `template[data-v2--hover-card-template="${this.templateKeyValue}"]`
+    const selector = `template[data-shadcn--hover-card-template="${this.templateKeyValue}"]`
     return (this.element.parentElement || document).querySelector(selector) || document.querySelector(selector)
   }
 

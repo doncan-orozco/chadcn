@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 # shadcn Field (new-york-v4). Spec: docs/shadcn-port/specs/field.md. Static: no controller.
+using Phlex::Shadcn::Values::Refinements
+
 class Phlex::Shadcn::Field < Phlex::Shadcn::Base
   BASE = "group/field flex w-full gap-3 data-[invalid=true]:text-destructive"
   ORIENTATIONS = {
@@ -133,7 +135,7 @@ class Phlex::Shadcn::Field < Phlex::Shadcn::Base
 
     def view_template(&block)
       content = block ? capture(&block) : ""
-      has_content = content.present?
+      has_content = content.filled?
       attrs = merge_attrs({ data: { slot: "field-separator", content: has_content.to_s }, class: CLASS_NAME }, @attrs)
       div(**attrs) do
         render Phlex::Shadcn::Separator.new(class: "absolute inset-0 top-1/2")
@@ -153,16 +155,16 @@ class Phlex::Shadcn::Field < Phlex::Shadcn::Base
 
     def view_template(&block)
       children = block ? capture(&block) : ""
-      messages = children.present? ? [] : unique_messages
-      return if children.blank? && messages.compact_blank.empty?
+      messages = children.filled? ? [] : unique_messages
+      return if children.blank_value? && messages.reject_blank.empty?
 
       div(**merge_attrs({ role: "alert", data: { slot: "field-error" }, class: CLASS_NAME }, @attrs)) do
-        if children.present?
+        if children.filled?
           raw safe(children)
         elsif messages.size == 1
           plain messages.first
         else
-          ul(class: "ml-4 flex list-disc flex-col gap-1") { messages.compact_blank.each { |message| li { message } } }
+          ul(class: "ml-4 flex list-disc flex-col gap-1") { messages.reject_blank.each { |message| li { message } } }
         end
       end
     end

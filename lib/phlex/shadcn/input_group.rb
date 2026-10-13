@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 # shadcn `InputGroup` (new-york-v4). Spec: docs/shadcn-port/specs/input-group.md
+using Phlex::Shadcn::Values::Refinements
+
 class Phlex::Shadcn::InputGroup < Phlex::Shadcn::Base
   CLASS_NAME = [
     "group/input-group relative flex w-full items-center rounded-md border border-input shadow-xs transition-[color,box-shadow] outline-none dark:bg-input/30",
@@ -31,8 +33,8 @@ class Phlex::Shadcn::InputGroup < Phlex::Shadcn::Base
       "block-end" => "order-last w-full justify-start px-3 pb-3 group-has-[>input]/input-group:pb-2.5 [.border-t]:pt-3"
     }.freeze
 
-    CONTROLLER = "v2--input-group"
-    ACTION = "click->v2--input-group#focusControl"
+    CONTROLLER = "shadcn--input-group"
+    ACTION = "click->shadcn--input-group#focusControl"
 
     def initialize(align: "inline-start", **attrs)
       @align = normalize_option(align) || "inline-start"
@@ -45,7 +47,7 @@ class Phlex::Shadcn::InputGroup < Phlex::Shadcn::Base
       caller_attrs = canonical_attrs(@attrs)
       defaults = { role: "group", data: { slot: "input-group-addon", align: @align }, class: cn(BASE, ALIGNS[@align]) }
       attrs = merge_attrs(defaults, caller_attrs.except(:class))
-      attrs = attrs.merge(class: [ @slot_class, cn(BASE, ALIGNS[@align], caller_attrs[:class]) ].compact_blank.join(" "))
+      attrs = attrs.merge(class: [ @slot_class, cn(BASE, ALIGNS[@align], caller_attrs[:class]) ].reject_blank.join(" "))
       attrs[:data] = wire_controller(attrs[:data] || {})
       div(**attrs, &)
     end
@@ -54,10 +56,10 @@ class Phlex::Shadcn::InputGroup < Phlex::Shadcn::Base
 
     # A caller click action replaces the focus handler, like a React onClick spread after it (spec Behavior).
     def wire_controller(data)
-      data = data.merge(controller: [ data[:controller], CONTROLLER ].compact_blank.flat_map(&:split).uniq.join(" "))
+      data = data.merge(controller: [ data[:controller], CONTROLLER ].reject_blank.flat_map(&:split).uniq.join(" "))
       return data if click_action?(data[:action])
 
-      data.merge(action: [ data[:action], ACTION ].compact_blank.join(" "))
+      data.merge(action: [ data[:action], ACTION ].reject_blank.join(" "))
     end
 
     def click_action?(action)

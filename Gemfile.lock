@@ -2,7 +2,6 @@ PATH
   remote: .
   specs:
     phlex-shadcn (0.1.0)
-      activesupport (>= 7.1)
       phlex (~> 2.3)
       tailwind_merge (~> 1.4)
       zeitwerk (~> 2.7)

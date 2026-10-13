@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# shadcn Avatar over Radix Avatar. Spec: docs/shadcn-port/specs/avatar.md. Behavior in controllers/v2/avatar_controller.js.
+# shadcn Avatar over Radix Avatar. Spec: docs/shadcn-port/specs/avatar.md. Behavior in controllers/shadcn/avatar_controller.js.
 class Phlex::Shadcn::Avatar < Phlex::Shadcn::Base
   SIZES = %w[default sm lg].freeze
   ROOT_CLASS = "group/avatar relative flex size-8 shrink-0 overflow-hidden rounded-full select-none data-[size=lg]:size-10 data-[size=sm]:size-6"
@@ -15,7 +15,7 @@ class Phlex::Shadcn::Avatar < Phlex::Shadcn::Base
   end
 
   def view_template(&block)
-    attrs = merge_attrs({ data: { slot: "avatar", size: @size, controller: "v2--avatar" }, class: ROOT_CLASS }, @attrs)
+    attrs = merge_attrs({ data: { slot: "avatar", size: @size, controller: "shadcn--avatar" }, class: ROOT_CLASS }, @attrs)
     if @as_child
       render_as_child(@as_child, **attrs) { yield self if block }
     else
@@ -36,7 +36,7 @@ class Phlex::Shadcn::Avatar < Phlex::Shadcn::Base
 
     def view_template(&)
       attrs = merge_attrs({ data: { slot: "avatar-image" }, class: CLASSES }, @attrs)
-      template(data: { v2__avatar_target: "image" }) do
+      template(data: { shadcn__avatar_target: "image" }) do
         @as_child ? render_as_child(@as_child, **attrs, &) : img(**attrs)
       end
     end
@@ -56,13 +56,13 @@ class Phlex::Shadcn::Avatar < Phlex::Shadcn::Base
     def view_template(&)
       return element(&) unless @delay_ms
 
-      template(data: { v2__avatar_target: "fallback", v2__avatar_delay_ms: @delay_ms }) { element(&) }
+      template(data: { shadcn__avatar_target: "fallback", shadcn__avatar_delay_ms: @delay_ms }) { element(&) }
     end
 
     private
 
     def element(&)
-      target = @delay_ms ? {} : { v2__avatar_target: "fallback" }
+      target = @delay_ms ? {} : { shadcn__avatar_target: "fallback" }
       attrs = merge_attrs({ data: { slot: "avatar-fallback", **target }, class: CLASSES }, @attrs)
       @as_child ? render_as_child(@as_child, **attrs, &) : span(**attrs, &)
     end

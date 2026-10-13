@@ -14,7 +14,7 @@ class Phlex::Shadcn::Dialog::Portal < Phlex::Shadcn::Base
     root = root_context
     previous = context[Phlex::Shadcn::Dialog::PORTAL_KEY]
     context[Phlex::Shadcn::Dialog::PORTAL_KEY] = true
-    template(data: { v2__dialog_template: root[:content_id], v2__dialog_options: @options.to_json }) { yield if block_given? }
+    template(data: { shadcn__dialog_template: root[:content_id], shadcn__dialog_options: json(@options) }) { yield if block_given? }
   ensure
     context[Phlex::Shadcn::Dialog::PORTAL_KEY] = previous
   end

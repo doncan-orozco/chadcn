@@ -30,11 +30,11 @@ class Phlex::Shadcn::SheetTest < Phlex::Shadcn::TestCase
 
   test "host carries the controller and the closed parts live in a template" do
     doc = fragment(sheet)
-    host = doc.at_css("[data-controller=v2--sheet]")
+    host = doc.at_css("[data-controller=shadcn--sheet]")
 
     assert_equal "display: contents", host["style"]
     assert_nil host["data-slot"]
-    assert_equal "false", host["data-v2--sheet-open-value"]
+    assert_equal "false", host["data-shadcn--sheet-open-value"]
     assert_equal 1, host.css("[data-slot=sheet-content]").size
     assert host.at_css("template [data-slot=sheet-overlay]")
     assert_equal "sheet-trigger", host.at_css("button")["data-slot"]

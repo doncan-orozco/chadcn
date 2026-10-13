@@ -9,7 +9,7 @@ import { mountTemplate } from "shadcn/primitives/template_mount"
 // Radix Tooltip (Root + Trigger + Content). Spec: docs/shadcn-port/specs/tooltip.md (Behavior).
 // The controller element is the trigger. The content lives in an inert <template> next to it and is mounted in <body>
 // only while open (Portal + Presence), like Radix.
-const GLOBAL_OPEN = "v2--tooltip:global-open"
+const GLOBAL_OPEN = "shadcn--tooltip:global-open"
 const providers = new Map() // TooltipProvider state shared by every tooltip with the same provider-id
 
 function acquireProvider(id, skipDelayDuration) {
@@ -83,7 +83,7 @@ export default class extends Controller {
   }
 
   findTemplate() {
-    const selector = `template[data-v2--tooltip-template="${this.contentIdValue}"]`
+    const selector = `template[data-shadcn--tooltip-template="${this.contentIdValue}"]`
     return (this.element.parentElement || document).querySelector(selector) || document.querySelector(selector)
   }
 

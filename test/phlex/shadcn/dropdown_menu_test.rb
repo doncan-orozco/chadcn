@@ -37,9 +37,9 @@ class Phlex::Shadcn::DropdownMenuTest < Phlex::Shadcn::TestCase
     assert_equal "false", trigger["aria-expanded"]
     assert_equal "closed", trigger["data-state"]
     assert_nil trigger["aria-controls"]
-    assert_equal "v2--dropdown-menu", trigger["data-controller"]
+    assert_equal "shadcn--dropdown-menu", trigger["data-controller"]
 
-    template = doc.at_css("template[data-v2--dropdown-menu-template]")
+    template = doc.at_css("template[data-shadcn--dropdown-menu-template]")
     content = template.at_css("[data-slot=dropdown-menu-content]")
 
     assert_equal "menu", content["role"]
@@ -56,15 +56,15 @@ class Phlex::Shadcn::DropdownMenuTest < Phlex::Shadcn::TestCase
     assert_equal "true", trigger["aria-expanded"]
     assert_equal "open", trigger["data-state"]
     assert trigger["aria-controls"]
-    assert_equal "true", trigger["data-v2--dropdown-menu-open-value"]
-    assert_equal "false", trigger["data-v2--dropdown-menu-controlled-value"]
+    assert_equal "true", trigger["data-shadcn--dropdown-menu-open-value"]
+    assert_equal "false", trigger["data-shadcn--dropdown-menu-controlled-value"]
   end
 
   test "controlled root wins over default_open and is flagged" do
     trigger = fragment(menu(root: { open: false, default_open: true })).at_css("[data-slot=dropdown-menu-trigger]")
 
     assert_equal "closed", trigger["data-state"]
-    assert_equal "true", trigger["data-v2--dropdown-menu-controlled-value"]
+    assert_equal "true", trigger["data-shadcn--dropdown-menu-controlled-value"]
   end
 
   test "root renders no element of its own and rejects unknown options" do
@@ -175,7 +175,7 @@ class Phlex::Shadcn::DropdownMenuTest < Phlex::Shadcn::TestCase
     end
     doc = fragment(html)
     trigger = doc.at_css("[data-slot=dropdown-menu-sub-trigger]")
-    template = doc.at_css("template[data-v2--dropdown-menu-template$='-sub-2-content'], template[data-v2--dropdown-menu-template*='-sub-']")
+    template = doc.at_css("template[data-shadcn--dropdown-menu-template$='-sub-2-content'], template[data-shadcn--dropdown-menu-template*='-sub-']")
     content = template.at_css("[data-slot=dropdown-menu-sub-content]")
 
     assert_equal %w[true open true], [ trigger["aria-expanded"], trigger["data-state"], trigger["data-inset"] ]

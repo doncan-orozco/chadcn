@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 # shadcn `Button` (new-york-v4). Spec: docs/shadcn-port/specs/button.md
+using Phlex::Shadcn::Values::Refinements
+
 class Phlex::Shadcn::Button < Phlex::Shadcn::Base
   BASE = "inline-flex shrink-0 items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
 
@@ -38,7 +40,7 @@ class Phlex::Shadcn::Button < Phlex::Shadcn::Base
 
   def view_template(&)
     attrs = merge_attrs({ data: { slot: "button", variant: @variant, size: @size } }, @attrs.except(:class))
-    attrs = attrs.merge(class: [ @slot_class, classes(@attrs[:class]) ].compact_blank.join(" "))
+    attrs = attrs.merge(class: [ @slot_class, classes(@attrs[:class]) ].reject_blank.join(" "))
     return render_as_child(@as_child, **attrs, &) if @as_child
 
     button(**attrs, &)

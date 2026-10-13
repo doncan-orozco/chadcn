@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 # shadcn AccordionTrigger: Radix Header (h3) > Trigger (button) + chevron.
+using Phlex::Shadcn::Values::Refinements
+
 class Phlex::Shadcn::Accordion::Trigger < Phlex::Shadcn::Base
   include Phlex::Shadcn::Accordion::Support
 
@@ -35,10 +37,10 @@ class Phlex::Shadcn::Accordion::Trigger < Phlex::Shadcn::Base
                           aria: { controls: (item[:content_id] if item[:open]), expanded: item[:open],
                                   disabled: ("true" if item[:open] && !root[:collapsible]) },
                           data: { state:, disabled: disabled_data(item), orientation: root[:orientation], slot: "accordion-trigger",
-                                  v2__accordion_target: "trigger" }
+                                  shadcn__accordion_target: "trigger" }
                         }, @attrs)
     # Radix composes the consumer onClick first, then the toggle: our action goes last.
-    action = [ attrs.dig(:data, :action), "click->v2--accordion#toggle" ].compact_blank.join(" ")
+    action = [ attrs.dig(:data, :action), "click->shadcn--accordion#toggle" ].reject_blank.join(" ")
     attrs.merge(data: attrs[:data].merge(action:))
   end
 end

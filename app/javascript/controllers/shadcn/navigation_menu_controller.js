@@ -11,8 +11,8 @@ const LINK = "[data-slot=navigation-menu-link]"
 const CONTENT = "[data-slot=navigation-menu-content]"
 const GROUP = "[data-slot=navigation-menu-list], [data-slot=navigation-menu-content]"
 const ITEM = "[data-radix-collection-item]"
-const VALUE_PARAM = "data-v2--navigation-menu-value-param"
-const CONTROLS_PARAM = "data-v2--navigation-menu-controls-param"
+const VALUE_PARAM = "data-shadcn--navigation-menu-value-param"
+const CONTROLS_PARAM = "data-shadcn--navigation-menu-controls-param"
 const ARROW_KEYS = ["ArrowRight", "ArrowLeft", "ArrowUp", "ArrowDown"]
 const CLOSE_DELAY = 150 // hard-coded in Radix (nm:88)
 // react-visually-hidden style object, set through element.style so it serializes like React's.

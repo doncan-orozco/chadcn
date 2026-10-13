@@ -2,6 +2,8 @@
 
 # What the parts share: the render context, the Radix MenuItemImpl + RovingFocusGroup.Item markup (the controller keeps
 # tabindex and data-highlighted in sync afterwards), the Content markup and the as_child switch.
+using Phlex::Shadcn::Values::Refinements
+
 module Phlex::Shadcn::DropdownMenu::Support
   # shadcn does not set these; Radix re-namespaces the popper variables on every (Sub)Content (DM:125-135).
   STYLE_VARS = {
@@ -37,7 +39,7 @@ module Phlex::Shadcn::DropdownMenu::Support
                           data: { slot:, state: "open", radix_menu_content: "", orientation: "vertical" }
                         }, @attrs.except(:style))
     style = [ "outline: none", style_string(@attrs[:style]), *STYLE_VARS.map { |name, value| "#{name}: #{value}" } ]
-    attrs.merge(style: style.compact_blank.join("; "))
+    attrs.merge(style: style.reject_blank.join("; "))
   end
 
   def position_options(**options)

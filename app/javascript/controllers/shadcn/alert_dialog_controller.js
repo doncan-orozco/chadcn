@@ -1,7 +1,7 @@
-import DialogController from "controllers/v2/dialog_controller"
+import DialogController from "controllers/shadcn/dialog_controller"
 
 // Radix AlertDialog on top of the dialog behavior. Spec: docs/shadcn-port/specs/alert-dialog.md (Behavior). It answers to
-// its own identifier and reuses the markers the dialog controller reads (data-v2--dialog-part, data-v2--dialog-template).
+// its own identifier and reuses the markers the dialog controller reads (data-shadcn--dialog-part, data-shadcn--dialog-template).
 //
 // AlertDialog's differences (ad:58-63) are applied on the events the dialog controller dispatches from the host:
 // - open-auto-focus: always prevented, then the last Cancel is focused (unless the caller prevented it: nothing).
@@ -34,14 +34,14 @@ export default class extends DialogController {
   }
 
   templates() {
-    return [...this.element.querySelectorAll("template[data-v2--dialog-template]")].filter(
-      (template) => template.getAttribute("data-v2--dialog-template") === this.idValue && template.closest("[data-controller~='v2--alert-dialog']") === this.element
+    return [...this.element.querySelectorAll("template[data-shadcn--dialog-template]")].filter(
+      (template) => template.getAttribute("data-shadcn--dialog-template") === this.idValue && template.closest("[data-controller~='shadcn--alert-dialog']") === this.element
     )
   }
 
   // Radix keeps a single cancelRef: the last mounted Cancel wins.
   get #cancel() {
-    const cancels = document.querySelectorAll(`[data-v2--alert-dialog-part=cancel][data-v2--alert-dialog-owner="${this.idValue}"]`)
+    const cancels = document.querySelectorAll(`[data-shadcn--alert-dialog-part=cancel][data-shadcn--alert-dialog-owner="${this.idValue}"]`)
     return [...cancels].at(-1)
   }
 }

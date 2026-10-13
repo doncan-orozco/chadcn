@@ -11,7 +11,7 @@ const open = async (page) => { await page.click(trigger); await page.waitForSele
 
 browserTest("popover: open-change fires with the requested state on every change", async ({ open: openPage }) => {
   const page = await openPage("default__closed");
-  await recordEvents(page, "v2--popover");
+  await recordEvents(page, "shadcn--popover");
   await open(page);
   await page.keyboard.press("Escape");
   await page.waitForSelector(content, { state: "detached" });
@@ -21,7 +21,7 @@ browserTest("popover: open-change fires with the requested state on every change
 
 browserTest("popover: a caller preventDefault on escape-key-down keeps the popover open", async ({ open: openPage }) => {
   const page = await openPage("default__closed");
-  await recordEvents(page, "v2--popover", { prevent: ["escape-key-down"] });
+  await recordEvents(page, "shadcn--popover", { prevent: ["escape-key-down"] });
   await open(page);
   await page.keyboard.press("Escape");
   await settle(page);
@@ -31,7 +31,7 @@ browserTest("popover: a caller preventDefault on escape-key-down keeps the popov
 
 browserTest("popover: escape-key-down without preventDefault closes", async ({ open: openPage }) => {
   const page = await openPage("default__closed");
-  await recordEvents(page, "v2--popover");
+  await recordEvents(page, "shadcn--popover");
   await open(page);
   await page.keyboard.press("Escape");
   await page.waitForSelector(content, { state: "detached" });
@@ -40,7 +40,7 @@ browserTest("popover: escape-key-down without preventDefault closes", async ({ o
 for (const prevented of ["interact-outside", "pointer-down-outside"]) {
   browserTest(`popover: a caller preventDefault on ${prevented} keeps the popover open after an outside click`, async ({ open: openPage }) => {
     const page = await openPage("default__closed");
-    await recordEvents(page, "v2--popover", { prevent: [prevented] });
+    await recordEvents(page, "shadcn--popover", { prevent: [prevented] });
     await open(page);
     await page.click("[data-testid=outside]");
     await settle(page);
@@ -51,7 +51,7 @@ for (const prevented of ["interact-outside", "pointer-down-outside"]) {
 
 browserTest("popover: an outside click closes and fires pointer-down-outside then interact-outside", async ({ open: openPage }) => {
   const page = await openPage("default__closed");
-  await recordEvents(page, "v2--popover");
+  await recordEvents(page, "shadcn--popover");
   await open(page);
   await page.click("[data-testid=outside]");
   await page.waitForSelector(content, { state: "detached" });
@@ -71,7 +71,7 @@ browserTest("popover: an outside element that stops the click intercepts the dis
 
 browserTest("popover: open-auto-focus and close-auto-focus are cancelable", async ({ open: openPage }) => {
   const page = await openPage("default__closed");
-  await recordEvents(page, "v2--popover", { prevent: ["close-auto-focus"] });
+  await recordEvents(page, "shadcn--popover", { prevent: ["close-auto-focus"] });
   await open(page);
   await page.keyboard.press("Escape");
   await page.waitForSelector(content, { state: "detached" });
@@ -81,5 +81,5 @@ browserTest("popover: open-auto-focus and close-auto-focus are cancelable", asyn
 });
 
 positioningTests(browserTest, {
-  component: "popover", scenario: "default__closed", template: "template[data-v2--popover-template]", controller: "v2--popover", trigger, content, open, close
+  component: "popover", scenario: "default__closed", template: "template[data-shadcn--popover-template]", controller: "shadcn--popover", trigger, content, open, close
 });

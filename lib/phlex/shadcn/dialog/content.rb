@@ -3,6 +3,8 @@
 # shadcn DialogContent = Portal + Overlay + Radix Content (+ the X close button). The body is captured first because
 # aria-labelledby / aria-describedby depend on whether a Title / Description was rendered inside (Radix learns it in
 # an effect, dialog:261-262).
+using Phlex::Shadcn::Values::Refinements
+
 class Phlex::Shadcn::Dialog::Content < Phlex::Shadcn::Base
   include Phlex::Shadcn::Dialog::Support
 
@@ -45,7 +47,7 @@ class Phlex::Shadcn::Dialog::Content < Phlex::Shadcn::Base
     attrs = merge_attrs({
                           id: root[:content_id], role: "dialog", tabindex: "-1", class: CLASSES,
                           aria: { labelledby: (root[:title_id] if root[:title_present]) },
-                          data: { slot: "dialog-content", state: "open", v2__dialog_part: "content" }
+                          data: { slot: "dialog-content", state: "open", shadcn__dialog_part: "content" }
                         }, @attrs)
     attrs.merge(aria: (attrs[:aria] || {}).merge(describedby: describedby(root, attrs.dig(:aria, :describedby))))
   end
@@ -54,6 +56,6 @@ class Phlex::Shadcn::Dialog::Content < Phlex::Shadcn::Base
   def describedby(root, caller_ids)
     ids = caller_ids.to_s.split
     ids << root[:description_id] if root[:description_present]
-    ids.uniq.join(" ").presence
+    ids.uniq.join(" ").unless_blank
   end
 end

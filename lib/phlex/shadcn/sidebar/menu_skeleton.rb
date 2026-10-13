@@ -7,16 +7,17 @@ class Phlex::Shadcn::Sidebar::MenuSkeleton < Phlex::Shadcn::Base
 
   CLASSES = "flex h-8 items-center gap-2 rounded-md px-2"
 
-  PIN_KEY = :v2_sidebar_menu_skeleton_pinned_width
+  PIN_KEY = :shadcn_sidebar_menu_skeleton_pinned_width
 
-  def self.width_percent = ActiveSupport::IsolatedExecutionState[PIN_KEY] || rand(50..89)
+  # The pinned width is fiber-local state (Thread.current[] is per fiber), so concurrent renders never see each other's pin.
+  def self.width_percent = Thread.current[PIN_KEY] || rand(50..89)
 
   def self.with_pinned_width(percent)
-    previous = ActiveSupport::IsolatedExecutionState[PIN_KEY]
-    ActiveSupport::IsolatedExecutionState[PIN_KEY] = percent
+    previous = Thread.current[PIN_KEY]
+    Thread.current[PIN_KEY] = percent
     yield
   ensure
-    ActiveSupport::IsolatedExecutionState[PIN_KEY] = previous
+    Thread.current[PIN_KEY] = previous
   end
 
   def initialize(show_icon: false, **attrs)

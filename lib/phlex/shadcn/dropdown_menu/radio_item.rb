@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+using Phlex::Shadcn::Values::Refinements
+
 class Phlex::Shadcn::DropdownMenu::RadioItem < Phlex::Shadcn::Base
   include Phlex::Shadcn::DropdownMenu::Support
 
@@ -18,10 +20,10 @@ class Phlex::Shadcn::DropdownMenu::RadioItem < Phlex::Shadcn::Base
   def view_template(&)
     group = context[Phlex::Shadcn::DropdownMenu::RADIO_GROUP_KEY]
     checked = !group.nil? && !group[:value].nil? && group[:value].to_s == @value
-    defaults = item_attrs(disabled: @disabled, text_value: @text_value).deep_merge(
+    defaults = item_attrs(disabled: @disabled, text_value: @text_value).merge_deep(
       role: "menuitemradio", class: CLASSES,
       aria: { checked: checked.to_s },
-      data: { slot: "dropdown-menu-radio-item", state: checked ? "checked" : "unchecked", v2__dropdown_menu_value: @value }
+      data: { slot: "dropdown-menu-radio-item", state: checked ? "checked" : "unchecked", shadcn__dropdown_menu_value: @value }
     )
     render_part(:div, @as_child, merge_attrs(defaults, @attrs)) do
       span(class: INDICATOR_CLASSES) do

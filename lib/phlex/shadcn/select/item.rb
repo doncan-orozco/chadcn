@@ -39,7 +39,7 @@ class Phlex::Shadcn::Select::Item < Phlex::Shadcn::Base
       aria: { labelledby: text_id, selected: "false", disabled: (true if @disabled) },
       data: {
         slot: "select-item", state: selected ? "checked" : "unchecked", disabled: (@disabled ? "" : nil), radix_collection_item: "",
-        v2__select_value: @value, v2__select_text_value: @text_value
+        shadcn__select_value: @value, shadcn__select_text_value: @text_value
       }
     }
   end

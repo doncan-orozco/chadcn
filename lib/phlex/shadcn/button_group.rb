@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 # shadcn `ButtonGroup` (new-york-v4). Spec: docs/shadcn-port/specs/button-group.md. Static: no controller.
+using Phlex::Shadcn::Values::Refinements
+
 class Phlex::Shadcn::ButtonGroup < Phlex::Shadcn::Base
   BASE = "flex w-fit items-stretch has-[>[data-slot=button-group]]:gap-2 [&>*]:focus-visible:relative [&>*]:focus-visible:z-10 has-[select[aria-hidden=true]:last-child]:[&>[data-slot=select-trigger]:last-of-type]:rounded-r-md [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1"
 
@@ -52,7 +54,7 @@ class Phlex::Shadcn::ButtonGroup < Phlex::Shadcn::Base
 
     def view_template(&)
       attrs = merge_attrs({}, @attrs.except(:class))
-      attrs = attrs.merge(class: [ @slot_class, cn(CLASS_NAME, @attrs[:class]) ].compact_blank.join(" "))
+      attrs = attrs.merge(class: [ @slot_class, cn(CLASS_NAME, @attrs[:class]) ].reject_blank.join(" "))
       return render_as_child(@as_child, **attrs, &) if @as_child
 
       div(**attrs, &)

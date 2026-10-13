@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 # shadcn Marker (new-york-v4). Spec: docs/shadcn-port/specs/marker.md. Static: no controller.
+using Phlex::Shadcn::Values::Refinements
+
 class Phlex::Shadcn::Marker < Phlex::Shadcn::Base
   BASE = "group/marker relative flex min-h-4 w-full items-center gap-2 text-left text-sm text-muted-foreground [&_svg:not([class*='size-'])]:size-4 [a]:underline [a]:underline-offset-3 [a]:hover:text-foreground"
 
@@ -15,7 +17,7 @@ class Phlex::Shadcn::Marker < Phlex::Shadcn::Base
     key = variant&.to_s&.tr("_", "-") || "default"
     raise ArgumentError, "unknown variant: #{variant.inspect} (expected one of #{VARIANTS.keys.join(', ')})" unless VARIANTS.key?(key)
 
-    TailwindMerge::Merger.new.merge([ BASE, VARIANTS[key], binding.local_variable_get(:class) ].compact_blank.join(" "))
+    TailwindMerge::Merger.new.merge([ BASE, VARIANTS[key], binding.local_variable_get(:class) ].reject_blank.join(" "))
   end
 
   def initialize(variant: "default", as_child: false, **attrs)

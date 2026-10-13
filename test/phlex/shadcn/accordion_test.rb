@@ -58,7 +58,7 @@ class Phlex::Shadcn::AccordionTest < Phlex::Shadcn::TestCase
     assert_equal "closed", other["data-state"]
     assert_equal "", closed["hidden"]
     assert_nil other.at_css("button")["aria-controls"]
-    assert closed.at_css("template[data-v2--accordion-target=body]")
+    assert closed.at_css("template[data-shadcn--accordion-target=body]")
   end
 
   test "collapsible and multiple drop aria-disabled" do
@@ -132,7 +132,7 @@ class Phlex::Shadcn::AccordionTest < Phlex::Shadcn::TestCase
     provided = render_view { render(Phlex::Shadcn::Direction::Provider.new(dir: "rtl")) { render(Accordion.new) } }
     local = render_view { render(Phlex::Shadcn::Direction::Provider.new(dir: "rtl")) { render(Accordion.new(dir: "ltr")) } }
 
-    assert_equal "rtl", fragment(provided).at_css("[data-slot=accordion]")["data-v2--accordion-dir-value"]
-    assert_equal "ltr", fragment(local).at_css("[data-slot=accordion]")["data-v2--accordion-dir-value"]
+    assert_equal "rtl", fragment(provided).at_css("[data-slot=accordion]")["data-shadcn--accordion-dir-value"]
+    assert_equal "ltr", fragment(local).at_css("[data-slot=accordion]")["data-shadcn--accordion-dir-value"]
   end
 end

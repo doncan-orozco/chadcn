@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # shadcn DropdownMenu (Radix DropdownMenu + Menu). Spec: docs/shadcn-port/specs/dropdown-menu.md.
-# Behavior lives in controllers/v2/dropdown_menu_controller.js (hosted by the Trigger).
+# Behavior lives in controllers/shadcn/dropdown_menu_controller.js (hosted by the Trigger).
 #
 # Root, Sub and Portal render no element: they push their state into the Phlex render context for the parts inside.
 # Radix mounts Content/SubContent only while open, so those parts ship their markup in an inert <template> that the
@@ -9,11 +9,11 @@
 class Phlex::Shadcn::DropdownMenu < Phlex::Shadcn::Base
   include Phlex::Shadcn::Direction::Consumer
 
-  ROOT_KEY = :v2_dropdown_menu_root
-  SUB_KEY = :v2_dropdown_menu_sub
-  PORTAL_KEY = :v2_dropdown_menu_portal
-  RADIO_GROUP_KEY = :v2_dropdown_menu_radio_group
-  SEQUENCE_KEY = :v2_dropdown_menu_sequence
+  ROOT_KEY = :shadcn_dropdown_menu_root
+  SUB_KEY = :shadcn_dropdown_menu_sub
+  PORTAL_KEY = :shadcn_dropdown_menu_portal
+  RADIO_GROUP_KEY = :shadcn_dropdown_menu_radio_group
+  SEQUENCE_KEY = :shadcn_dropdown_menu_sequence
   DIRECTIONS = %w[ltr rtl].freeze
 
   # open: non-nil is controlled (the server decides the state, user actions only dispatch open-change).

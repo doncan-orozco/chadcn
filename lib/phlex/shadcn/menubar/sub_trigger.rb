@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+using Phlex::Shadcn::Values::Refinements
+
 class Phlex::Shadcn::Menubar::SubTrigger < Phlex::Shadcn::Base
   include Phlex::Shadcn::Menubar::Support
 
@@ -17,12 +19,12 @@ class Phlex::Shadcn::Menubar::SubTrigger < Phlex::Shadcn::Base
   def view_template
     sub = context[Phlex::Shadcn::Menubar::SUB_KEY] or raise ArgumentError, "#{self.class.name} must be used within Menubar::Sub"
     open = sub[:open]
-    defaults = item_attrs(disabled: @disabled, text_value: @text_value).deep_merge(
+    defaults = item_attrs(disabled: @disabled, text_value: @text_value).merge_deep(
       role: "menuitem", id: sub[:trigger_id], class: CLASSES,
       aria: { haspopup: "menu", expanded: open.to_s, controls: (sub[:content_id] if open) },
       data: {
         slot: "menubar-sub-trigger", radix_menubar_subtrigger: "", state: open ? "open" : "closed", inset: inset_value(@inset),
-        v2__menubar_sub_content_id: sub[:content_id], v2__menubar_sub_controlled: sub[:controlled].to_s
+        shadcn__menubar_sub_content_id: sub[:content_id], shadcn__menubar_sub_controlled: sub[:controlled].to_s
       }
     )
     render_part(:div, @as_child, merge_attrs(defaults, @attrs)) do

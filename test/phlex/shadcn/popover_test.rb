@@ -22,8 +22,8 @@ class Phlex::Shadcn::PopoverTest < Phlex::Shadcn::TestCase
     assert_includes out, 'data-slot="popover-trigger"'
     assert_includes out, 'aria-haspopup="dialog"'
     assert_includes out, 'aria-expanded="false"'
-    assert_includes out, 'data-controller="v2--popover"'
-    assert_match(/<template data-v2--popover-template="popover-\d+"/, out)
+    assert_includes out, 'data-controller="shadcn--popover"'
+    assert_match(/<template data-shadcn--popover-template="popover-\d+"/, out)
     assert_includes out, 'data-slot="popover-content"'
     assert_includes out, 'role="dialog"'
   end

@@ -21,16 +21,16 @@ class Phlex::Shadcn::HoverCardTest < Phlex::Shadcn::TestCase
 
     assert_match(/<a [^>]*data-slot="hover-card-trigger"/, out)
     assert_includes out, 'data-state="closed"'
-    assert_includes out, 'data-controller="v2--hover-card"'
-    assert_includes out, 'data-v2--hover-card-open-delay-value="700"'
-    assert_includes out, 'data-v2--hover-card-close-delay-value="300"'
+    assert_includes out, 'data-controller="shadcn--hover-card"'
+    assert_includes out, 'data-shadcn--hover-card-open-delay-value="700"'
+    assert_includes out, 'data-shadcn--hover-card-close-delay-value="300"'
     assert_not_includes out, "aria-"
   end
 
   test "content is shipped in an inert template with the oracle classes" do
     out = render_card(content: { class: "w-80", side: :left, dir: "rtl" })
 
-    assert_match(/<template data-v2--hover-card-template="hover-card-content-\d+"/, out)
+    assert_match(/<template data-shadcn--hover-card-template="hover-card-content-\d+"/, out)
     assert_includes out, 'data-slot="hover-card-content"'
     assert_includes out, "w-80"
     assert_not_includes out, "w-64"
@@ -44,8 +44,8 @@ class Phlex::Shadcn::HoverCardTest < Phlex::Shadcn::TestCase
     out = render_card(root: { open: true, open_delay: 100 })
 
     assert_includes out, 'data-state="open"'
-    assert_includes out, 'data-v2--hover-card-controlled-value="true"'
-    assert_includes out, 'data-v2--hover-card-open-delay-value="100"'
+    assert_includes out, 'data-shadcn--hover-card-controlled-value="true"'
+    assert_includes out, 'data-shadcn--hover-card-open-delay-value="100"'
   end
 
   test "as_child merges onto the child" do

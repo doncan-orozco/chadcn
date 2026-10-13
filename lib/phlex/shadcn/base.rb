@@ -4,15 +4,10 @@
 # and the generated yielded-root DX helpers (`root.header { ... }`).
 #
 # Everything on this class except subclassing it is plumbing for the components and is marked `@api private`.
-require "active_support"
-require "active_support/core_ext/hash/deep_merge"
-require "active_support/core_ext/hash/except"
-require "active_support/core_ext/object/blank"
-require "active_support/core_ext/object/json" # ActiveSupport JSON escaping (HTML-safe)
-require "active_support/core_ext/enumerable"
-require "active_support/core_ext/string/inflections"
 require "date" # Phlex::SGML::Attributes references Date without requiring it
 require "securerandom"
+
+using Phlex::Shadcn::Values::Refinements
 
 class Phlex::Shadcn::Base < Phlex::HTML
   # @api private
@@ -33,7 +28,7 @@ class Phlex::Shadcn::Base < Phlex::HTML
     srcLang cellPadding cellSpacing charSet contextMenu controlsList disablePictureInPicture disableRemotePlayback
     frameBorder marginHeight marginWidth radioGroup referrerPolicy popoverTarget popoverTargetAction fetchPriority
     itemID itemProp itemRef itemScope itemType
-  ].flat_map { |name| [ name, name.underscore ].uniq.map { |spelling| [ spelling, name.downcase.to_sym ] } }
+  ].flat_map { |name| [ name, name.snake_case ].uniq.map { |spelling| [ spelling, name.downcase.to_sym ] } }
    .to_h
    .merge(%w[httpEquiv http_equiv].to_h { |spelling| [ spelling, :"http-equiv" ] })
    .merge(%w[acceptCharset accept_charset].to_h { |spelling| [ spelling, :"accept-charset" ] })
@@ -104,6 +99,11 @@ class Phlex::Shadcn::Base < Phlex::HTML
     Phlex::Shadcn::Base.tw_merger.merge(flattened.join(" "))
   end
 
+  # JSON for a data attribute, with the HTML-sensitive characters escaped (see Values.json).
+  #
+  # @api private
+  def json(value) = Phlex::Shadcn::Values.json(value)
+
   # `"icon-sm"`, `:icon_sm` and `"icon_sm"` all become `"icon-sm"` (React variant keys).
   #
   # @api private
@@ -115,7 +115,7 @@ class Phlex::Shadcn::Base < Phlex::HTML
   #
   # @api private
   def ids(base = nil)
-    base ||= "v2-#{SecureRandom.alphanumeric(6).downcase}"
+    base ||= "shadcn-#{SecureRandom.alphanumeric(6).downcase}"
     Hash.new { |_, part| "#{base}-#{part.to_s.tr('_', '-')}" }
   end
 
@@ -126,8 +126,8 @@ class Phlex::Shadcn::Base < Phlex::HTML
   def merge_attrs(defaults, attrs)
     defaults = canonical_attrs(defaults)
     attrs = canonical_attrs(attrs)
-    merged = defaults.deep_merge(attrs)
-    actions = [ defaults.dig(:data, :action), attrs.dig(:data, :action) ].compact_blank
+    merged = defaults.merge_deep(attrs)
+    actions = [ defaults.dig(:data, :action), attrs.dig(:data, :action) ].reject_blank
     merged[:data] = (merged[:data] || {}).merge(action: actions.join(" ")) if actions.any?
     css = flatten_class_inputs([ @slot_class, cn(defaults[:class], attrs[:class]) ]).join(" ")
     css.empty? ? merged.except(:class) : merged.merge(class: css)
@@ -187,18 +187,18 @@ class Phlex::Shadcn::Base < Phlex::HTML
   end
 
   def slot_merge(slot, child)
-    merged = slot.deep_merge(child) # child wins everything by default
+    merged = slot.merge_deep(child) # child wins everything by default
     data = merged[:data] = (merged[:data] || {}).dup # never mutate a hash the caller or the child still holds
-    actions = [ child.dig(:data, :action), slot.dig(:data, :action) ].compact_blank
+    actions = [ child.dig(:data, :action), slot.dig(:data, :action) ].reject_blank
     data[:action] = actions.join(" ") if actions.any?
-    controllers = [ slot.dig(:data, :controller), child.dig(:data, :controller) ].compact_blank.flat_map { |c| c.to_s.split }.uniq
+    controllers = [ slot.dig(:data, :controller), child.dig(:data, :controller) ].reject_blank.flat_map { |c| c.to_s.split }.uniq
     data[:controller] = controllers.join(" ") if controllers.any?
     merged.delete(:data) if data.empty?
 
     merged[:style] = merge_styles(slot[:style], child[:style]) if slot[:style] && child[:style]
 
     if child.dig(:aria, :describedby)
-      ids = [ child.dig(:aria, :describedby), slot.dig(:aria, :describedby) ].compact_blank.flat_map { |i| i.to_s.split }.uniq
+      ids = [ child.dig(:aria, :describedby), slot.dig(:aria, :describedby) ].reject_blank.flat_map { |i| i.to_s.split }.uniq
       merged[:aria] = merged[:aria].merge(describedby: ids.empty? ? nil : ids.join(" "))
     end
     merged

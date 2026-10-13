@@ -23,7 +23,7 @@ class Phlex::Shadcn::TooltipTest < Phlex::Shadcn::TestCase
 
     assert_includes out, 'data-slot="tooltip-trigger"'
     assert_includes out, 'data-state="closed"'
-    assert_includes out, 'data-controller="v2--tooltip"'
+    assert_includes out, 'data-controller="shadcn--tooltip"'
     assert_not_includes out, "type="
     assert_not_includes out, 'data-slot="tooltip-provider"'
   end
@@ -31,7 +31,7 @@ class Phlex::Shadcn::TooltipTest < Phlex::Shadcn::TestCase
   test "content is shipped in an inert template with the oracle classes and arrow" do
     out = render_tooltip(content: { class: "max-w-48" })
 
-    assert_match(/<template data-v2--tooltip-template="tooltip-content-\d+"/, out)
+    assert_match(/<template data-shadcn--tooltip-template="tooltip-content-\d+"/, out)
     assert_includes out, 'data-slot="tooltip-content"'
     assert_includes out, 'role="tooltip"'
     assert_includes out, "max-w-48"
@@ -53,9 +53,9 @@ class Phlex::Shadcn::TooltipTest < Phlex::Shadcn::TestCase
   end
 
   test "delay falls back to the provider and the root wins" do
-    assert_includes render_tooltip(provider: { delay_duration: 700 }), 'data-v2--tooltip-delay-duration-value="700"'
+    assert_includes render_tooltip(provider: { delay_duration: 700 }), 'data-shadcn--tooltip-delay-duration-value="700"'
     assert_includes render_tooltip(provider: { delay_duration: 700 }, root: { delay_duration: 500 }),
-                    'data-v2--tooltip-delay-duration-value="500"'
+                    'data-shadcn--tooltip-delay-duration-value="500"'
   end
 
   test "options reach the template and as_child merges onto the child" do

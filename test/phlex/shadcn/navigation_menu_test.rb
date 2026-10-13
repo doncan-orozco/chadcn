@@ -30,9 +30,9 @@ class Phlex::Shadcn::NavigationMenuTest < Phlex::Shadcn::TestCase
     assert_includes out, 'dir="ltr"'
     assert_includes out, 'data-orientation="horizontal"'
     assert_includes out, 'data-viewport="true"'
-    assert_includes out, 'data-controller="v2--navigation-menu"'
-    assert_includes out, 'data-v2--navigation-menu-delay-duration-value="200"'
-    assert_includes out, 'data-v2--navigation-menu-skip-delay-duration-value="300"'
+    assert_includes out, 'data-controller="shadcn--navigation-menu"'
+    assert_includes out, 'data-shadcn--navigation-menu-delay-duration-value="200"'
+    assert_includes out, 'data-shadcn--navigation-menu-skip-delay-duration-value="300"'
     assert_includes out, "group/navigation-menu relative flex max-w-max"
   end
 
@@ -47,14 +47,14 @@ class Phlex::Shadcn::NavigationMenuTest < Phlex::Shadcn::TestCase
     assert_includes out, 'id="nav"'
     assert_includes out, "max-w-full"
     assert_not_includes out, "max-w-max"
-    assert_not_includes out, 'data-v2--navigation-menu-target="viewportTemplate"'
+    assert_not_includes out, 'data-shadcn--navigation-menu-target="viewportTemplate"'
   end
 
   test "viewport and content ship inert templates" do
     out = render_menu(content: { force_mount: true, class: "p-4" })
 
-    assert_includes out, 'data-v2--navigation-menu-target="viewportTemplate"'
-    assert_match(/<template data-v2--navigation-menu-target="contentTemplate" data-value="docs" data-force-mount="true">/, out)
+    assert_includes out, 'data-shadcn--navigation-menu-target="viewportTemplate"'
+    assert_match(/<template data-shadcn--navigation-menu-target="contentTemplate" data-value="docs" data-force-mount="true">/, out)
     assert_includes out, 'data-slot="navigation-menu-content"'
     assert_includes out, "p-4"
     assert_not_includes out, " p-2 pr-2.5 "

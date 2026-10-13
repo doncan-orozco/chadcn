@@ -18,7 +18,7 @@ export default class extends Controller {
   static values = { open: Boolean, controlled: Boolean, modal: Boolean, contentId: String, templateKey: String }
 
   connect() {
-    this.template = document.querySelector(`template[data-v2--popover-template="${this.templateKeyValue}"]`)
+    this.template = document.querySelector(`template[data-shadcn--popover-template="${this.templateKeyValue}"]`)
     if (!this.template) return
 
     this.options = JSON.parse(this.template.dataset.options || "{}")
@@ -86,12 +86,12 @@ export default class extends Controller {
   }
 
   get triggers() {
-    const keyed = [...document.querySelectorAll(`[data-v2--popover-trigger="${this.templateKeyValue}"]`)]
+    const keyed = [...document.querySelectorAll(`[data-shadcn--popover-trigger="${this.templateKeyValue}"]`)]
     return this.element === this.template ? keyed : [this.element, ...keyed]
   }
 
   get anchor() {
-    return document.querySelector(`[data-v2--popover-anchor="${this.templateKeyValue}"]`)
+    return document.querySelector(`[data-shadcn--popover-anchor="${this.templateKeyValue}"]`)
   }
 
   syncTriggers() {

@@ -2,6 +2,8 @@
 
 # shadcn CollapsibleContent. Radix mounts the children only while open: closed bodies ship in an inert template that the
 # controller takes over on connect. With as_child a closed content renders no element at all, only that template.
+using Phlex::Shadcn::Values::Refinements
+
 class Phlex::Shadcn::Collapsible::Content < Phlex::Shadcn::Base
   include Phlex::Shadcn::Collapsible::Support
 
@@ -21,12 +23,12 @@ class Phlex::Shadcn::Collapsible::Content < Phlex::Shadcn::Base
     if @as_child
       return render_as_child(@as_child, **content_attrs(root, mounted), &block) if mounted
 
-      template(data: { v2__collapsible_target: "body", v2__collapsible_slot: "child" }) do
+      template(data: { shadcn__collapsible_target: "body", shadcn__collapsible_slot: "child" }) do
         render_as_child(@as_child, **content_attrs(root, true, open: true, prevent: false), &block)
       end
     else
       div(**content_attrs(root, mounted)) do
-        mounted ? block&.call : template(data: { v2__collapsible_target: "body" }) { block&.call }
+        mounted ? block&.call : template(data: { shadcn__collapsible_target: "body" }) { block&.call }
       end
     end
   end
@@ -39,13 +41,13 @@ class Phlex::Shadcn::Collapsible::Content < Phlex::Shadcn::Base
                   hidden: !mounted,
                   style: style_for(prevent),
                   data: { state: open ? "open" : "closed", disabled: disabled_data(root),
-                          slot: "collapsible-content", v2__collapsible_target: "content",
-                          v2__collapsible_force_mount: @force_mount.to_s, v2__collapsible_as_child: @as_child.present?.to_s }
+                          slot: "collapsible-content", shadcn__collapsible_target: "content",
+                          shadcn__collapsible_force_mount: @force_mount.to_s, shadcn__collapsible_as_child: @as_child.filled?.to_s }
                 }, @attrs)
   end
 
   # The mount animation stays suspended for content that is present at first paint (Radix isMountAnimationPrevented).
   def style_for(prevent)
-    [ (MOUNT_PREVENTION if prevent), style_string(@style) ].compact_blank.join("; ")
+    [ (MOUNT_PREVENTION if prevent), style_string(@style) ].reject_blank.join("; ")
   end
 end

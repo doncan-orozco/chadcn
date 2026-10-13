@@ -33,7 +33,7 @@ class Phlex::Shadcn::ContextMenuTest < Phlex::Shadcn::TestCase
 
     assert_equal "span", trigger.name
     assert_equal "closed", trigger["data-state"]
-    assert_equal "v2--context-menu", trigger["data-controller"]
+    assert_equal "shadcn--context-menu", trigger["data-controller"]
     assert_equal "-webkit-touch-callout: none", trigger["style"]
     %w[id aria-haspopup aria-expanded type tabindex class].each { |name| assert_nil trigger[name], name }
   end
@@ -49,7 +49,7 @@ class Phlex::Shadcn::ContextMenuTest < Phlex::Shadcn::TestCase
   end
 
   test "content ships in a template with forced placement and no id" do
-    template = fragment(menu(content: { class: "w-64" })).at_css("template[data-v2--dropdown-menu-template]")
+    template = fragment(menu(content: { class: "w-64" })).at_css("template[data-shadcn--dropdown-menu-template]")
     content = template.at_css("[data-slot=context-menu-content]")
     options = JSON.parse(template["data-options"])
 
@@ -70,7 +70,7 @@ class Phlex::Shadcn::ContextMenuTest < Phlex::Shadcn::TestCase
     trigger = fragment(menu(root: { open: true })).at_css("[data-slot=context-menu-trigger]")
 
     assert_equal "open", trigger["data-state"]
-    assert_equal "true", trigger["data-v2--context-menu-controlled-value"]
+    assert_equal "true", trigger["data-shadcn--context-menu-controlled-value"]
   end
 
   test "item variants, inset and disabled" do

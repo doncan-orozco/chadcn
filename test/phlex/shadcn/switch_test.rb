@@ -37,7 +37,7 @@ class Phlex::Shadcn::SwitchTest < Phlex::Shadcn::TestCase
     assert_includes html, "bg-red-500"
     assert_includes html, 'id="s1"'
     assert_includes html, 'aria-label="Mode"'
-    assert_includes html, 'data-action="click->x#y click->v2--switch#toggle"'
+    assert_includes html, 'data-action="click->x#y click->shadcn--switch#toggle"'
   end
 
   test "stringifies boolean aria values" do

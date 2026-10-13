@@ -34,8 +34,8 @@ class Phlex::Shadcn::MenubarTest < Phlex::Shadcn::TestCase
 
     assert_equal "menubar", root["role"]
     assert_equal "horizontal", root["data-orientation"]
-    assert_equal "v2--menubar", root["data-controller"]
-    assert_equal "rtl", root["data-v2--menubar-dir-value"]
+    assert_equal "shadcn--menubar", root["data-controller"]
+    assert_equal "rtl", root["data-shadcn--menubar-dir-value"]
     assert_equal "mb", root["id"]
     assert_nil root["dir"]
     assert_includes root["class"], "mx-4"
@@ -51,7 +51,7 @@ class Phlex::Shadcn::MenubarTest < Phlex::Shadcn::TestCase
     assert_equal "closed", trigger["data-state"]
     assert_nil trigger["aria-controls"]
 
-    content = doc.at_css("template[data-v2--menubar-template] [data-slot=menubar-content]")
+    content = doc.at_css("template[data-shadcn--menubar-template] [data-slot=menubar-content]")
 
     assert_equal trigger["id"], content["aria-labelledby"]
     assert_equal "", content["data-radix-menubar-content"]
@@ -64,7 +64,7 @@ class Phlex::Shadcn::MenubarTest < Phlex::Shadcn::TestCase
     assert_equal "open", trigger["data-state"]
     assert trigger["aria-controls"]
     assert_equal "false", fragment(bar(root: { value: "edit" })).at_css("[data-slot=menubar-trigger]")["aria-expanded"]
-    assert_equal "true", fragment(bar(root: { value: "edit" })).at_css("[data-slot=menubar]")["data-v2--menubar-controlled-value"]
+    assert_equal "true", fragment(bar(root: { value: "edit" })).at_css("[data-slot=menubar]")["data-shadcn--menubar-controlled-value"]
   end
 
   test "disabled trigger" do

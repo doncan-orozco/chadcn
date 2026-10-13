@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 # shadcn ToggleGroupItem: Radix Toggle inside a RovingFocusGroup item.
+using Phlex::Shadcn::Values::Refinements
+
 class Phlex::Shadcn::ToggleGroup::Item < Phlex::Shadcn::Base
   EXTRA_CLASSES = "w-auto min-w-0 shrink-0 px-3 focus:z-10 focus-visible:z-10"
   SPACING_CLASSES = "data-[spacing=0]:rounded-none data-[spacing=0]:shadow-none data-[spacing=0]:first:rounded-l-md data-[spacing=0]:last:rounded-r-md data-[spacing=0]:data-[variant=outline]:border-l-0 data-[spacing=0]:data-[variant=outline]:first:border-l"
-  ACTION = "click->v2--toggle-group#toggle"
+  ACTION = "click->shadcn--toggle-group#toggle"
 
   def initialize(value:, variant: nil, size: nil, disabled: false, as_child: false, **attrs)
     @value = value.to_s
@@ -22,7 +24,7 @@ class Phlex::Shadcn::ToggleGroup::Item < Phlex::Shadcn::Base
     size = root[:size] || @size
     disabled = root[:disabled] || @disabled
     attrs = merge_attrs(defaults(root, variant, size, disabled), @attrs.except(:class))
-    attrs = with_action(attrs.merge(class: [ @slot_class, classes(variant, size) ].compact_blank.join(" ")))
+    attrs = with_action(attrs.merge(class: [ @slot_class, classes(variant, size) ].reject_blank.join(" ")))
     return render_as_child(@as_child, **attrs, &) if @as_child
 
     button(**attrs, &)
@@ -42,9 +44,9 @@ class Phlex::Shadcn::ToggleGroup::Item < Phlex::Shadcn::Base
       disabled:,
       data: {
         state: (pressed ? "on" : "off"), disabled: (disabled ? "" : nil), slot: "toggle-group-item",
-        variant:, size:, spacing: root[:spacing], v2__toggle_group_item_value: @value
+        variant:, size:, spacing: root[:spacing], shadcn__toggle_group_item_value: @value
       }
-    }.deep_merge(roving_attrs(root)).deep_merge(pressed_attrs(root, pressed))
+    }.merge_deep(roving_attrs(root)).merge_deep(pressed_attrs(root, pressed))
   end
 
   def pressed?(root)
@@ -65,7 +67,7 @@ class Phlex::Shadcn::ToggleGroup::Item < Phlex::Shadcn::Base
 
   # Radix runs the consumer handlers first, then its own: our action goes last.
   def with_action(attrs)
-    action = [ attrs.dig(:data, :action), ACTION ].compact_blank.join(" ")
+    action = [ attrs.dig(:data, :action), ACTION ].reject_blank.join(" ")
     attrs.merge(data: attrs[:data].merge(action:))
   end
 end

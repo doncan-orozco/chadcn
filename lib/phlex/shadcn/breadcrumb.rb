@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 # shadcn Breadcrumb (new-york-v4). Spec: docs/shadcn-port/specs/breadcrumb.md. Static: no controller.
+using Phlex::Shadcn::Values::Refinements
+
 class Phlex::Shadcn::Breadcrumb < Phlex::Shadcn::Base
   def initialize(**attrs)
     @attrs = attrs
@@ -9,7 +11,7 @@ class Phlex::Shadcn::Breadcrumb < Phlex::Shadcn::Base
 
   # The React root does not destructure className: the caller class is emitted verbatim, not through cn.
   def view_template(&block)
-    attrs = { aria: { label: "breadcrumb" }, data: { slot: "breadcrumb" } }.deep_merge(canonical_attrs(@attrs))
+    attrs = { aria: { label: "breadcrumb" }, data: { slot: "breadcrumb" } }.merge_deep(canonical_attrs(@attrs))
     nav(**attrs) { yield self if block }
   end
 
@@ -85,7 +87,7 @@ class Phlex::Shadcn::Breadcrumb < Phlex::Shadcn::Base
       # React renders the icon when children is nullish; a block that emits nothing counts as nullish here.
       content = block ? capture(&block) : ""
       li(**merge_attrs(defaults, @attrs)) do
-        if content.blank?
+        if content.blank_value?
           render Phlex::Shadcn::Icon.new("chevron-right")
         else
           raw(safe(content))

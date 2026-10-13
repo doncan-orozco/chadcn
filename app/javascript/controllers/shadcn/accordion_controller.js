@@ -65,12 +65,12 @@ export default class extends Controller {
   // --- value ---------------------------------------------------------------------------------------------------------
 
   #record(el) {
-    const trigger = el.querySelector("[data-v2--accordion-target~=trigger]")
-    const contentEl = el.querySelector("[data-v2--accordion-target~=content]")
+    const trigger = el.querySelector("[data-shadcn--accordion-target~=trigger]")
+    const contentEl = el.querySelector("[data-shadcn--accordion-target~=content]")
     const open = el.dataset.state === "open"
-    const forceMount = contentEl.getAttribute("data-v2--accordion-force-mount") === "true"
+    const forceMount = contentEl.getAttribute("data-shadcn--accordion-force-mount") === "true"
     const body = this.#takeBody(contentEl)
-    const record = { el, value: el.getAttribute("data-v2--accordion-item-value"), trigger, header: trigger.parentElement, contentEl, body, forceMount, mounted: open || forceMount }
+    const record = { el, value: el.getAttribute("data-shadcn--accordion-item-value"), trigger, header: trigger.parentElement, contentEl, body, forceMount, mounted: open || forceMount }
     record.collapsible = forceMount ? null : collapsibleContent(contentEl, { open, onExited: () => this.#unmount(record) })
     if (forceMount) collapsibleContent(contentEl, { open: true }).release()
     return record
@@ -78,7 +78,7 @@ export default class extends Controller {
 
   // The closed body template, or a template built from the server-rendered children of an open content.
   #takeBody(contentEl) {
-    const template = contentEl.querySelector(":scope > template[data-v2--accordion-target~=body]")
+    const template = contentEl.querySelector(":scope > template[data-shadcn--accordion-target~=body]")
     if (template) {
       template.remove()
       return template

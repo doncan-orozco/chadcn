@@ -40,7 +40,7 @@ class Phlex::Shadcn::ToggleTest < Phlex::Shadcn::TestCase
     assert_not_includes out, "h-9"
     assert_includes out, 'id="x"'
     assert_includes out, 'type="submit"'
-    assert_includes out, 'data-action="click->a#b click->v2--toggle#toggle"'
+    assert_includes out, 'data-action="click->a#b click->shadcn--toggle#toggle"'
   end
 
   test "variants helper" do

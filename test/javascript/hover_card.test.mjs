@@ -37,7 +37,7 @@ browserTest("hover-card: touchstart on the trigger is not default-prevented (Rad
 
 browserTest("hover-card: a caller preventDefault on escape-key-down keeps it open", async ({ open: openPage }) => {
   const page = await openPage("default__closed");
-  await recordEvents(page, "v2--hover-card", { prevent: ["escape-key-down"] });
+  await recordEvents(page, "shadcn--hover-card", { prevent: ["escape-key-down"] });
   await open(page);
   await page.keyboard.press("Escape");
   await settle(page);
@@ -47,7 +47,7 @@ browserTest("hover-card: a caller preventDefault on escape-key-down keeps it ope
 
 browserTest("hover-card: open-change fires for every change", async ({ open: openPage }) => {
   const page = await openPage("default__closed");
-  await recordEvents(page, "v2--hover-card");
+  await recordEvents(page, "shadcn--hover-card");
   await open(page);
   await close(page);
   assert.deepEqual((await eventLog(page)).filter((e) => e.name === "open-change").map((e) => e.open), [true, false]);
@@ -56,7 +56,7 @@ browserTest("hover-card: open-change fires for every change", async ({ open: ope
 for (const prevented of ["pointer-down-outside", "interact-outside"]) {
   browserTest(`hover-card: a caller preventDefault on ${prevented} keeps it open after an outside click`, async ({ open: openPage }) => {
     const page = await openPage("default__closed");
-    await recordEvents(page, "v2--hover-card", { prevent: [prevented] });
+    await recordEvents(page, "shadcn--hover-card", { prevent: [prevented] });
     await open(page);
     await page.click("[data-testid=outside]");
     await settle(page);
@@ -65,5 +65,5 @@ for (const prevented of ["pointer-down-outside", "interact-outside"]) {
 }
 
 positioningTests(browserTest, {
-  component: "hover-card", scenario: "default__closed", template: "template[data-v2--hover-card-template]", controller: "v2--hover-card", trigger, content, open, close
+  component: "hover-card", scenario: "default__closed", template: "template[data-shadcn--hover-card-template]", controller: "shadcn--hover-card", trigger, content, open, close
 });

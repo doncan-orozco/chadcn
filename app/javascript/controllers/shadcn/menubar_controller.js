@@ -19,14 +19,14 @@ import { nextMatch, typeahead } from "shadcn/primitives/typeahead"
 // (Radix composeEventHandlers).
 //
 // MenuLevel is one mounted menu (the root content of a Menu or a sub content) and SubMenu is the state of one SubTrigger.
-// Their mechanics are the ones of controllers/v2/dropdown_menu_controller.js (the same react-menu); the differences are the
+// Their mechanics are the ones of controllers/shadcn/dropdown_menu_controller.js (the same react-menu); the differences are the
 // menubar wiring: every menu is non-modal, the root value decides which menu is open, close focus, focus outside and the
 // ArrowLeft/ArrowRight switching of menus.
 //
 // Known divergence from the shared primitives: roving focus inside a content is implemented per level (not with the
 // roving_focus primitive) because an un-portaled SubContent sits inside its parent content and the primitive collects the
 // items of nested groups too. Items are scoped by their closest [data-radix-menu-content].
-const TEMPLATE = "v2--menubar-template"
+const TEMPLATE = "shadcn--menubar-template"
 const CONTENT = "[data-radix-menu-content]"
 const MENUBAR_CONTENT = "[data-radix-menubar-content]"
 const SELECTION_KEYS = ["Enter", " "]
@@ -55,8 +55,8 @@ class Menu {
   constructor(controller, trigger) {
     this.controller = controller
     this.trigger = trigger
-    this.value = trigger.getAttribute("data-v2--menubar-menu-value")
-    this.contentId = trigger.getAttribute("data-v2--menubar-content-id")
+    this.value = trigger.getAttribute("data-shadcn--menubar-menu-value")
+    this.contentId = trigger.getAttribute("data-shadcn--menubar-content-id")
     this.template = templateIn(controller.element, this.contentId)
     this.level = null
     this.isOpen = false
@@ -91,8 +91,8 @@ class SubMenu {
   constructor(parent, trigger) {
     this.parent = parent
     this.trigger = trigger
-    this.id = trigger.getAttribute("data-v2--menubar-sub-content-id")
-    this.controlled = trigger.getAttribute("data-v2--menubar-sub-controlled") === "true"
+    this.id = trigger.getAttribute("data-shadcn--menubar-sub-content-id")
+    this.controlled = trigger.getAttribute("data-shadcn--menubar-sub-controlled") === "true"
     this.isOpen = trigger.dataset.state === "open"
     this.level = null
     this.openTimer = 0
@@ -496,7 +496,7 @@ class MenuLevel {
       const checked = item.dataset.state === "checked"
       this.controller.dispatch("checked-change", { target: item, cancelable: false, detail: { checked: !checked } })
     } else if (role === "menuitemradio") {
-      this.controller.dispatch("value-change", { target: item, cancelable: false, detail: { value: item.getAttribute("data-v2--menubar-value") } })
+      this.controller.dispatch("value-change", { target: item, cancelable: false, detail: { value: item.getAttribute("data-shadcn--menubar-value") } })
     }
     if (select.defaultPrevented) pointerDowns.delete(item)
     else this.controller.close()

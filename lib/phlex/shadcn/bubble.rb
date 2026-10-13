@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 # shadcn Bubble (new-york-v4). Spec: docs/shadcn-port/specs/bubble.md. Static: no controller.
+using Phlex::Shadcn::Values::Refinements
+
 class Phlex::Shadcn::Bubble < Phlex::Shadcn::Base
   BASE = "group/bubble relative flex w-fit max-w-[80%] min-w-0 flex-col gap-1 group-data-[align=end]/message:self-end data-[align=end]:self-end data-[variant=ghost]:max-w-full"
 
@@ -59,7 +61,7 @@ class Phlex::Shadcn::Bubble < Phlex::Shadcn::Base
 
     def view_template(&)
       attrs = merge_attrs({ data: { slot: "bubble-content" }, class: CLASS_NAME }, @attrs.except(:class))
-      attrs = attrs.merge(class: [ @slot_class, cn(CLASS_NAME, @attrs[:class]) ].compact_blank.join(" "))
+      attrs = attrs.merge(class: [ @slot_class, cn(CLASS_NAME, @attrs[:class]) ].reject_blank.join(" "))
       return render_as_child(@as_child, **attrs, &) if @as_child
 
       div(**attrs, &)

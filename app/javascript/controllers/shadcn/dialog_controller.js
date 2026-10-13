@@ -15,7 +15,7 @@ import { mountTemplate } from "shadcn/primitives/template_mount"
 //
 // Known divergence: the focus scope (trap + return focus) is released when the exit animation ends, not at the moment
 // the dialog starts closing.
-const TEMPLATE = "template[data-v2--dialog-template]"
+const TEMPLATE = "template[data-shadcn--dialog-template]"
 
 export default class extends Controller {
   static values = { open: Boolean, controlled: Boolean, modal: { type: Boolean, default: true }, id: String }
@@ -72,12 +72,12 @@ export default class extends Controller {
 
   templates() {
     return [...this.element.querySelectorAll(TEMPLATE)].filter(
-      (template) => template.getAttribute("data-v2--dialog-template") === this.idValue && template.closest("[data-controller~='v2--dialog']") === this.element
+      (template) => template.getAttribute("data-shadcn--dialog-template") === this.idValue && template.closest("[data-controller~='shadcn--dialog']") === this.element
     )
   }
 
   get triggers() {
-    return [...this.element.querySelectorAll("[data-v2--dialog-part=trigger]")]
+    return [...this.element.querySelectorAll("[data-shadcn--dialog-part=trigger]")]
   }
 
   // Radix keeps a single triggerRef: the last rendered trigger receives the focus back.
@@ -86,7 +86,7 @@ export default class extends Controller {
   }
 
   #options(template) {
-    return JSON.parse(template.getAttribute("data-v2--dialog-options") || "{}")
+    return JSON.parse(template.getAttribute("data-shadcn--dialog-options") || "{}")
   }
 
   #syncTriggers() {
@@ -124,7 +124,7 @@ export default class extends Controller {
     const container = (options.container && document.querySelector(options.container)) || document.body
     const mount = mountTemplate(template, { into: container })
     const parts = mount.nodes.map((el) => ({
-      el, template, mount, kind: el.getAttribute("data-v2--dialog-part"), forceMount: Boolean(options.forceMount), releases: []
+      el, template, mount, kind: el.getAttribute("data-shadcn--dialog-part"), forceMount: Boolean(options.forceMount), releases: []
     }))
     parts.forEach((part) => {
       part.el.dataset.state = this.openValue ? "open" : "closed"
@@ -178,7 +178,7 @@ export default class extends Controller {
   // Close buttons live in the portaled content: delegated here, after the handlers the caller put on the button itself.
   #onContentClick(event, part) {
     if (event.defaultPrevented) return
-    const close = event.target.closest?.("[data-v2--dialog-part=close]")
+    const close = event.target.closest?.("[data-shadcn--dialog-part=close]")
     if (close && part.el.contains(close)) this.request(false)
   }
 

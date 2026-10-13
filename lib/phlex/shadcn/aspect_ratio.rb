@@ -2,6 +2,8 @@
 
 # shadcn/ui AspectRatio over Radix AspectRatio. Spec: docs/shadcn-port/specs/aspect-ratio.md
 # Radix renders a padding-bottom wrapper plus an absolutely positioned inner element; class is passed verbatim (no cn).
+using Phlex::Shadcn::Values::Refinements
+
 class Phlex::Shadcn::AspectRatio < Phlex::Shadcn::Base
   FORCED_STYLE = "position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px;"
 
@@ -15,7 +17,7 @@ class Phlex::Shadcn::AspectRatio < Phlex::Shadcn::Base
 
   def view_template(&block)
     div(style: "position: relative; width: 100%; padding-bottom: #{padding_bottom}%;", data: { radix_aspect_ratio_wrapper: "" }) do
-      inner_attrs = { data: { slot: "aspect-ratio" } }.deep_merge(canonical_attrs(@attrs)).merge(style: inner_style)
+      inner_attrs = { data: { slot: "aspect-ratio" } }.merge_deep(canonical_attrs(@attrs)).merge(style: inner_style)
       if @as_child
         render_as_child(@as_child, **inner_attrs, &block)
       else

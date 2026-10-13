@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 # shadcn Sheet (Radix Dialog with side-aware styling). Spec: docs/shadcn-port/specs/sheet.md. Behavior:
-# controllers/v2/sheet_controller.js, which reuses the dialog controller.
+# controllers/shadcn/sheet_controller.js, which reuses the dialog controller.
 #
 # Radix Root renders no element; the port renders one display: contents host that carries the Stimulus controller (a
 # trigger cannot host it: zero, one or several triggers, or a controlled open). Portal children are shipped in an inert
 # template and mounted into the body by the controller, like Radix mounts them only while open.
 class Phlex::Shadcn::Sheet < Phlex::Shadcn::Base
-  ROOT_KEY = :v2_sheet_root
-  PORTAL_KEY = :v2_sheet_portal
-  SEQUENCE_KEY = :v2_sheet_sequence
+  ROOT_KEY = :shadcn_sheet_root
+  PORTAL_KEY = :shadcn_sheet_portal
+  SEQUENCE_KEY = :shadcn_sheet_sequence
 
   # open: non-nil is controlled (user actions only dispatch open-change, the caller updates the open value).
   def initialize(open: nil, default_open: false, modal: true, **attrs)
@@ -36,11 +36,11 @@ class Phlex::Shadcn::Sheet < Phlex::Shadcn::Base
 
   def host_data(root)
     {
-      controller: "v2--sheet",
-      v2__sheet_open_value: root[:open].to_s,
-      v2__sheet_controlled_value: root[:controlled].to_s,
-      v2__sheet_modal_value: root[:modal].to_s,
-      v2__sheet_id_value: root[:content_id]
+      controller: "shadcn--sheet",
+      shadcn__sheet_open_value: root[:open].to_s,
+      shadcn__sheet_controlled_value: root[:controlled].to_s,
+      shadcn__sheet_modal_value: root[:modal].to_s,
+      shadcn__sheet_id_value: root[:content_id]
     }
   end
 end
