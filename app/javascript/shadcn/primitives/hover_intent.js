@@ -1,0 +1,124 @@
+// hover_intent: open/close delay timers with the skip-delay provider state of Radix Tooltip, HoverCard and NavigationMenu.
+// Sources: @radix-ui/react-tooltip (TooltipProvider/Tooltip: skip-delay, delayed vs instant open), @radix-ui/react-hover-card
+// (openDelay/closeDelay timers). Spec: .ai/skills/radix-stimulus/references/primitives.md.
+// Parity: docs/shadcn-port/scenarios/_primitives-hover-intent.json.
+//
+// Known divergences: none.
+//
+//   const provider = hoverProvider({ skipDelayDuration: 300 })          // shared by every tooltip under one Provider
+//   const intent = hoverIntent({ provider, openDelay: 700, closeDelay: 0, onOpen({ delayed }) {}, onClose() {} })
+//   trigger pointermove (once per entry) -> intent.enter()       trigger pointerleave -> intent.leave()
+//   focus -> intent.open()                                       blur / click / pointerdown -> intent.close()
+//
+// `onOpen` / `onClose` fire only on transitions. `delayed` is true when the open timer fired (Radix `delayed-open`),
+// false for an immediate open (`instant-open`, skip window or focus).
+
+// Provider state: `isOpenDelayed` starts true; any open clears the skip timer and turns the delay off; any close restarts the
+// skip window, after which the delay applies again. With skipDelayDuration <= 0 the state never changes (Radix).
+export function hoverProvider({ skipDelayDuration = 300 } = {}) {
+  let isOpenDelayed = true
+  let isPointerInTransit = false
+  let timer = 0
+
+  return {
+    get isOpenDelayed() {
+      return isOpenDelayed
+    },
+    // True while a pointer crosses a grace area between trigger and content (Radix isPointerInTransit): triggers must not re-enter.
+    get isPointerInTransit() {
+      return isPointerInTransit
+    },
+    set isPointerInTransit(value) {
+      isPointerInTransit = value
+    },
+    onOpen() {
+      if (skipDelayDuration <= 0) return
+      window.clearTimeout(timer)
+      isOpenDelayed = false
+    },
+    onClose() {
+      if (skipDelayDuration <= 0) return
+      window.clearTimeout(timer)
+      timer = window.setTimeout(() => (isOpenDelayed = true), skipDelayDuration)
+    },
+    release() {
+      window.clearTimeout(timer)
+    }
+  }
+}
+
+export function hoverIntent({ provider = null, openDelay = 700, closeDelay = 0, onOpen, onClose, open = false } = {}) {
+  let isOpen = open
+  let openTimer = 0
+  let closeTimer = 0
+
+  const clearOpenTimer = () => {
+    window.clearTimeout(openTimer)
+    openTimer = 0
+  }
+  const clearCloseTimer = () => {
+    window.clearTimeout(closeTimer)
+    closeTimer = 0
+  }
+
+  const openNow = (delayed) => {
+    clearOpenTimer()
+    clearCloseTimer()
+    if (isOpen) return
+    isOpen = true
+    provider?.onOpen()
+    onOpen?.({ delayed })
+  }
+
+  const closeNow = () => {
+    clearOpenTimer()
+    clearCloseTimer()
+    if (!isOpen) return
+    isOpen = false
+    provider?.onClose()
+    onClose?.()
+  }
+
+  return {
+    get isOpen() {
+      return isOpen
+    },
+    // Pointer entered: open after `openDelay` (Tooltip: only while the provider's delay is on, else immediately).
+    enter() {
+      clearCloseTimer()
+      if (provider && !provider.isOpenDelayed) return openNow(false)
+      clearOpenTimer()
+      openTimer = window.setTimeout(() => {
+        openTimer = 0
+        openNow(true)
+      }, openDelay)
+    },
+    // Pointer left: cancel a pending open, then close after `closeDelay` (immediately when 0).
+    leave() {
+      clearOpenTimer()
+      if (closeDelay > 0) {
+        clearCloseTimer()
+        closeTimer = window.setTimeout(() => {
+          closeTimer = 0
+          closeNow()
+        }, closeDelay)
+      } else {
+        closeNow()
+      }
+    },
+    // Pointer left a hoverable trigger whose content may be reached: only the pending open is dropped (Tooltip, hoverable content).
+    cancelOpen: clearOpenTimer,
+    open: () => openNow(false),
+    close: closeNow,
+    // Controlled mode: the owner changed the state itself; keep the timers consistent.
+    sync(value) {
+      isOpen = value
+      clearOpenTimer()
+      clearCloseTimer()
+    },
+    release() {
+      clearOpenTimer()
+      clearCloseTimer()
+    }
+  }
+}
