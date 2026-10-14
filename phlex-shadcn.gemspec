@@ -19,7 +19,8 @@ Gem::Specification.new do |spec|
   spec.metadata["changelog_uri"] = "#{spec.homepage}/blob/main/CHANGELOG.md"
   spec.metadata["rubygems_mfa_required"] = "true"
 
-  spec.files = Dir["lib/**/*", "app/**/*", "LICENSE", "README.md", "CHANGELOG.md", "THIRD_PARTY_NOTICES.md"].select { |f| File.file?(f) }
+  spec.files = Dir["lib/**/*", "app/**/*", "config/**/*", "vendor/**/*", "LICENSE", "README.md", "CHANGELOG.md", "THIRD_PARTY_NOTICES.md"]
+               .select { |f| File.file?(f) }
   spec.require_paths = [ "lib" ]
 
   spec.add_dependency "phlex", "~> 2.3"

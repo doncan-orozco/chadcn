@@ -8,6 +8,15 @@ and the gem adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 - Gem skeleton: Zeitwerk loader, version, license files and a standalone test harness.
+- Rails engine (loaded only when `Rails::Engine` is defined): importmap pins for the Stimulus controllers, primitives and vendored
+  floating-ui, asset paths, and the Tailwind entry `app/assets/tailwind/phlex-shadcn/engine.css` bundled by tailwindcss-rails.
+  The engine's Tailwind inputs are excluded from Propshaft so they are never served or linked.
+- `Phlex::Shadcn.configure` / `Phlex::Shadcn::Configuration#theme_dir`; Rails apps set `config.phlex_shadcn.theme_dir`
+  (default `app/assets/tailwind/theme`).
+- Theme tooling: `Phlex::Shadcn::Theme` and the rake tasks `phlex_shadcn:theme:list|use|import|check` (short `theme:*` aliases;
+  turn them off with `config.phlex_shadcn.theme_task_aliases = false`).
+- `rails g phlex:shadcn:install`: idempotent marker block in the Tailwind entry file (`@source`, engine bundle, theme import) and
+  the default theme files; exits non-zero on malformed input.
 
 ### Changed
 

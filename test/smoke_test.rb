@@ -34,6 +34,8 @@ class SmokeTest < Minitest::Test
     html = page.new.call
     loaded = $LOADED_FEATURES.grep(/active_support/)
     abort("ActiveSupport was loaded: \#{loaded.first(3).inspect}") unless loaded.empty?
+    abort("Rails was touched: \#{defined?(Rails).inspect}") if defined?(Rails)
+    abort("the Rails engine was loaded in a plain Phlex process") if defined?(Phlex::Shadcn::Engine)
     abort("a core class was extended") if "".respond_to?(:blank?) || {}.respond_to?(:deep_merge) || [].respond_to?(:compact_blank)
     helpers = %i[blank_value? filled? unless_blank reject_blank merge_deep snake_case unqualified]
     leaked = [ Object, String, Hash, Array, Enumerable ].flat_map { |mod| helpers.select { |name| mod.method_defined?(name) }.map { |name| "\#{mod}#\#{name}" } }
