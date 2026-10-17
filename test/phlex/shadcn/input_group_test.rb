@@ -15,7 +15,7 @@ class Phlex::Shadcn::InputGroupTest < Phlex::Shadcn::TestCase
     assert_includes out, 'data-slot="input-group"'
     assert_includes out, 'role="group"'
     assert_includes out, "h-12"
-    assert_not_includes out, " h-9 "
+    assert_not_includes Nokogiri::HTML5.fragment(out).at_css("[data-slot=input-group]")["class"].split, "h-9"
     assert_includes out, 'id="g"'
     assert_includes out, 'data-disabled="true"'
   end
@@ -52,8 +52,8 @@ class Phlex::Shadcn::InputGroupTest < Phlex::Shadcn::TestCase
 
   test "text has no slot, input and textarea use the control slot" do
     assert_not_includes render_part(IG::Text), "data-slot"
-    assert_includes render_part(IG::Input, placeholder: "p", class: "w-1"), 'data-slot="input-group-control"'
-    assert_includes render_part(IG::Textarea, default_value: "hi"), 'data-slot="input-group-control"'
+    assert_includes render_part(IG::Input, placeholder: "p"), 'data-slot="input-group-control"'
+    assert_includes render_part(IG::Textarea), 'data-slot="input-group-control"'
   end
 
   test "every helper renders the same HTML as the explicit class" do
@@ -63,5 +63,39 @@ class Phlex::Shadcn::InputGroupTest < Phlex::Shadcn::TestCase
 
       assert_equal explicit, via_helper, helper.to_s
     end
+  end
+
+  test "every addon alignment renders its classes" do
+    IG::Addon::ALIGNS.each do |align, classes|
+      out = render_part(IG::Addon, align:)
+
+      assert_includes out, %(data-align="#{align}")
+      assert_includes out, classes.split.first
+    end
+  end
+
+  test "every button size renders its classes" do
+    IG::Button::SIZES.each do |size, classes|
+      out = render_part(IG::Button, size:)
+
+      assert_includes out, %(data-size="#{size}")
+      assert_includes out, classes.split.first
+    end
+  end
+
+  test "button as_child renders the given tag" do
+    out = render_part(IG::Button, as_child: :a, href: "/x")
+
+    assert_includes out, "<a "
+    assert_includes out, 'href="/x"'
+  end
+
+  test "input and textarea forward their attributes" do
+    assert_includes render_part(IG::Input, type: "email", placeholder: "p"), 'type="email"'
+    assert_includes render_part(IG::Textarea, rows: 3) { "t" }, 'rows="3"'
+  end
+
+  test "text merges the caller class" do
+    assert_includes render_part(IG::Text, class: "font-mono"), "font-mono"
   end
 end

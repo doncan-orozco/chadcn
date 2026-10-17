@@ -19,4 +19,8 @@ class Phlex::Shadcn::TextareaTest < Phlex::Shadcn::TestCase
     assert_includes Phlex::Shadcn::Textarea.new(default_value: "a", value: "b").call, ">b</textarea>"
     assert_includes Phlex::Shadcn::Textarea.new.call { "hi" }, ">hi</textarea>"
   end
+
+  test "renders no text content without value or block" do
+    assert_includes Phlex::Shadcn::Textarea.new(name: "bio").call, "></textarea>"
+  end
 end

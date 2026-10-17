@@ -22,10 +22,6 @@ class Phlex::Shadcn::FieldTest < Phlex::Shadcn::TestCase
     assert_includes out, 'data-invalid="true"'
   end
 
-  test "variants matches the root class" do
-    assert_includes Phlex::Shadcn::Field.variants(orientation: "responsive"), "@md/field-group:flex-row"
-  end
-
   test "every helper renders the same HTML as the explicit class" do
     helpers = html { |f| HELPERS.each_key { |n| f.public_send(n, class: "k") { "x" } } }
     explicit = html do |f|
@@ -57,5 +53,50 @@ class Phlex::Shadcn::FieldTest < Phlex::Shadcn::TestCase
   test "separator marks content" do
     assert_includes html { |f| f.separator { "Or" } }, 'data-content="true"'
     assert_includes html(&:separator), 'data-content="false"'
+  end
+
+  test "every orientation renders its classes and data attribute" do
+    Phlex::Shadcn::Field::ORIENTATIONS.each_key do |name|
+      root = Nokogiri::HTML5.fragment(html(orientation: name)).at_css("[data-slot=field]")
+
+      assert_equal name, root["data-orientation"]
+      assert_equal Phlex::Shadcn::Field.variants(orientation: name).split.sort, root["class"].split.sort
+    end
+  end
+
+  test "nil orientation falls back to vertical" do
+    assert_includes html(orientation: nil), 'data-orientation="vertical"'
+    assert_equal Phlex::Shadcn::Field.variants, Phlex::Shadcn::Field.variants(orientation: nil)
+  end
+
+  test "variants merges extra classes last" do
+    assert_includes Phlex::Shadcn::Field.variants(class: "gap-1"), "gap-1"
+    assert_not_includes Phlex::Shadcn::Field.variants(class: "gap-1"), "gap-3"
+  end
+
+  test "legend variant defaults to legend and accepts label" do
+    assert_includes html { |f| f.legend { "L" } }, 'data-variant="legend"'
+    assert_includes html { |f| f.legend(variant: :label) { "L" } }, 'data-variant="label"'
+  end
+
+  test "label forwards html_for to the label component" do
+    out = html { |f| f.label(html_for: "email") { "Email" } }
+
+    assert_includes out, "<label"
+    assert_includes out, 'for="email"'
+  end
+
+  test "error block content wins over errors and renders nothing when empty" do
+    out = html { |f| f.error(errors: [ { message: "a" } ]) { "custom" } }
+
+    assert_includes out, ">custom</div>"
+    assert_not_includes out, ">a<"
+    assert_not_includes html(&:error), "field-error"
+  end
+
+  test "error accepts objects that respond to message" do
+    error = Struct.new(:message).new("boom")
+
+    assert_includes html { |f| f.error(errors: [ error ]) }, ">boom</div>"
   end
 end

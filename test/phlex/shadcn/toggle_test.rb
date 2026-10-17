@@ -30,6 +30,7 @@ class Phlex::Shadcn::ToggleTest < Phlex::Shadcn::TestCase
     assert_includes out, 'aria-pressed="true"'
     assert_includes out, 'data-state="on"'
     assert_includes out, 'data-disabled=""'
+    assert Nokogiri::HTML5.fragment(out).at_css("button").key?("disabled")
     assert_includes html(pressed: false, default_pressed: true), 'data-state="off"'
   end
 
@@ -44,6 +45,28 @@ class Phlex::Shadcn::ToggleTest < Phlex::Shadcn::TestCase
   end
 
   test "variants helper" do
-    assert_includes Phlex::Shadcn::Toggle.variants(variant: :outline, size: :sm, class: "x"), "h-8"
+    classes = Phlex::Shadcn::Toggle.variants(variant: :outline, size: :sm, class: "x").split
+
+    assert_includes classes, "h-8"
+    assert_includes classes, "x"
+  end
+
+  test "constant tables" do
+    assert_equal %w[default outline], Phlex::Shadcn::Toggle::VARIANTS.keys
+    assert_equal %w[default sm lg], Phlex::Shadcn::Toggle::SIZES.keys
+  end
+
+  test "unknown variant or size raises" do
+    assert_raises(ArgumentError) { html(variant: :ghost) }
+    assert_raises(ArgumentError) { html(size: :huge) }
+    assert_raises(ArgumentError) { Phlex::Shadcn::Toggle.variants(variant: :ghost) }
+  end
+
+  test "as_child renders the given tag with the toggle attributes" do
+    out = html(as_child: :a, href: "/x")
+
+    assert_includes out, "<a "
+    assert_includes out, 'href="/x"'
+    assert_includes out, 'data-slot="toggle"'
   end
 end

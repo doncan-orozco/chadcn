@@ -1,12 +1,20 @@
 # frozen_string_literal: true
 
 class Phlex::Shadcn::NativeSelect
+  # An `<option>`. Renders `selected` when its `value:` matches the parent's `value`/`default_value`
+  # (only the first match in single mode). An explicit `selected:` attribute wins.
+  #
+  # @example
+  #   select.option(value: "a") { "Alpha" }
   class Option < Phlex::Shadcn::Base
+    # @param attrs [Hash] HTML attributes for the `<option>` (`value:`, `disabled:`, `selected:`, `class:`)
     def initialize(**attrs)
       @attrs = attrs
       super()
     end
 
+    # @yield the option label
+    # @return [void]
     def view_template(&)
       attrs = merge_attrs({ class: "bg-[Canvas] text-[CanvasText]", data: { slot: "native-select-option" } }, @attrs)
       attrs[:selected] = selected? unless @attrs.key?(:selected)

@@ -46,4 +46,30 @@ class Phlex::Shadcn::CheckboxTest < Phlex::Shadcn::TestCase
     assert_includes html, 'name="terms"'
     assert_includes html, 'data-action="click->x#y click->shadcn--checkbox#toggle'
   end
+
+  test "controlled false stays unchecked and flags the controller as controlled" do
+    html = render_checkbox(checked: false)
+
+    assert_includes html, 'data-state="unchecked"'
+    assert_includes html, 'data-shadcn--checkbox-controlled-value="true"'
+    assert_includes render_checkbox, 'data-shadcn--checkbox-controlled-value="false"'
+  end
+
+  test "default_checked indeterminate renders mixed" do
+    assert_includes render_checkbox(default_checked: "indeterminate"), 'aria-checked="mixed"'
+  end
+
+  test "form fields go to the hidden input" do
+    html = render_checkbox(name: "terms", value: "yes", form: "signup", default_checked: true)
+
+    assert_includes html, 'type="checkbox"'
+    assert_includes html, 'name="terms"'
+    assert_includes html, 'value="yes"'
+    assert_includes html, 'form="signup"'
+    assert Nokogiri::HTML5.fragment(html).at_css("input[type=checkbox]").key?("checked")
+  end
+
+  test "the form value defaults to on" do
+    assert_includes render_checkbox, 'value="on"'
+  end
 end

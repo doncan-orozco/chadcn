@@ -4,18 +4,62 @@
 # Behavior: controllers/shadcn/slider_controller.js (one controller on the root span).
 using Phlex::Shadcn::Values::Refinements
 
+# Single component with no nested parts: the track, range, thumbs and hidden inputs (one per thumb) are rendered internally.
+# One thumb per element of the initial value array. With no array value, two thumbs and two hidden inputs are rendered:
+# the first at `min`, the second hidden (no `aria-valuenow`, no input value).
+#
+# Controlled mode: `value:` is controlled only when it is an Array (`value.is_a?(Array)`); any other value is ignored
+# and the slider is uncontrolled. A controlled slider only dispatches events on user input and the caller re-renders.
+# Events: `shadcn--slider:value-change` (user input, and a form reset that changes the values) and
+# `shadcn--slider:value-commit` (a finished drag and keyboard steps), both with `detail: { value }`.
+# The hidden inputs are removed by the controller when the slider is neither inside a `<form>` nor given `form:`.
+#
+# @example
+#   render Phlex::Shadcn::Slider.new(default_value: [ 25, 75 ], max: 100, step: 5, name: "price", class: "w-64")
 class Phlex::Shadcn::Slider < Phlex::Shadcn::Base
   include Phlex::Shadcn::Direction::Consumer
 
+  # Allowed values of `orientation:`.
+  # @return [Array<String>]
   ORIENTATIONS = %w[horizontal vertical].freeze
+  # Allowed values of `dir:`.
+  # @return [Array<String>]
   DIRECTIONS = %w[ltr rtl].freeze
+  # Classes of the root span.
+  # @return [String]
   ROOT_CLASS = "relative flex w-full touch-none items-center select-none data-[disabled]:opacity-50 data-[orientation=vertical]:h-full data-[orientation=vertical]:min-h-44 data-[orientation=vertical]:w-auto data-[orientation=vertical]:flex-col"
+  # Classes of the track span.
+  # @return [String]
   TRACK_CLASS = "relative grow overflow-hidden rounded-full bg-muted data-[orientation=horizontal]:h-1.5 data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-1.5"
+  # Classes of the filled range span.
+  # @return [String]
   RANGE_CLASS = "absolute bg-primary data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full"
+  # Classes of each thumb.
+  # @return [String]
   THUMB_CLASS = "block size-4 shrink-0 rounded-full border border-primary bg-white shadow-sm ring-ring/50 transition-[color,box-shadow] hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
+  # Per-orientation transform exposed as `--radix-slider-thumb-transform`.
+  # @return [Hash{String => String}]
   THUMB_TRANSFORM = { "horizontal" => "translateX(-50%)", "vertical" => "translateY(50%)" }.freeze
 
-  # value: non-nil is controlled (user input only dispatches shadcn--slider:value-change, the caller re-renders).
+  # @param default_value [Array<Numeric>, nil] initial thumb values (uncontrolled); without it the slider renders two
+  #   thumbs and two hidden inputs, the first at `min` and the second hidden (no `aria-valuenow`, no input value)
+  # @param value [Array<Numeric>, nil] controlled thumb values: an Array makes the slider controlled; any other value is
+  #   ignored and the slider is uncontrolled
+  # @param min [Numeric] lowest value (default 0)
+  # @param max [Numeric] highest value (default 100)
+  # @param step [Numeric] value increment (default 1)
+  # @param orientation [String, Symbol] one of {ORIENTATIONS} (default "horizontal")
+  # @param disabled [Boolean] disables the slider (default false)
+  # @param inverted [Boolean] reverses the direction of the range
+  # @param min_steps_between_thumbs [Integer] minimum distance between thumbs, in steps
+  # @param preserve_thumb_order [Boolean] stops a dragged thumb from passing its neighbours (the controller always
+  #   keeps the values sorted)
+  # @param name [String, nil] form field name of the hidden inputs; `name[]` is used when more than one value is present,
+  #   so without `value:`/`default_value:` (two thumb elements, one value) the name stays `name`
+  # @param form [String, nil] id of the associated `<form>`
+  # @param dir [String, Symbol, nil] one of {DIRECTIONS}; the surrounding direction provider's direction is the default for horizontal sliders only
+  # @param attrs [Hash] HTML attributes for the root span (`class:` merged last, `aria:`, `data:`, `style:`)
+  # @raise [ArgumentError] when `orientation:` or `dir:` is not an allowed value
   def initialize(default_value: nil, value: nil, min: 0, max: 100, step: 1, orientation: "horizontal", disabled: false,
                  inverted: false, min_steps_between_thumbs: 0, preserve_thumb_order: false, name: nil, form: nil,
                  dir: nil, **attrs)
@@ -38,6 +82,7 @@ class Phlex::Shadcn::Slider < Phlex::Shadcn::Base
     super()
   end
 
+  # @return [void]
   def view_template
     @horizontal = @orientation == "horizontal"
     @direction = use_direction(@dir) if @horizontal

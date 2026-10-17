@@ -22,13 +22,30 @@ class Phlex::Shadcn::InputTest < Phlex::Shadcn::TestCase
 
     assert_includes html, "h-12"
     refute_includes html, "h-9"
-    assert_includes html, "disabled"
-    assert_includes html, "readonly"
+    input = Nokogiri::HTML5.fragment(html).at_css("input")
+
+    assert input.key?("disabled")
+    assert input.key?("readonly")
     assert_includes html, 'aria-invalid="true"'
     assert_includes html, 'data-x="1"'
   end
 
   test "caller data-slot overrides" do
     assert_includes render_input(data: { slot: "custom" }), 'data-slot="custom"'
+  end
+
+  test "default_value renders the value attribute and an explicit value wins" do
+    assert_includes render_input(default_value: "hi"), 'value="hi"'
+    html = render_input(default_value: "hi", value: "yo")
+
+    assert_includes html, 'value="yo"'
+    refute_includes html, 'value="hi"'
+  end
+
+  test "focus and invalid style constants are part of the class" do
+    html = render_input
+
+    assert_includes html, Phlex::Shadcn::Input::FOCUS.split.first
+    assert_includes html, Phlex::Shadcn::Input::INVALID.split.first
   end
 end

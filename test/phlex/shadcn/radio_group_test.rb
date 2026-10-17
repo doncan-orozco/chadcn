@@ -42,7 +42,6 @@ class Phlex::Shadcn::RadioGroupTest < Phlex::Shadcn::TestCase
     assert_equal "true", root["aria-required"]
     assert_equal "", root["data-disabled"]
     assert_equal "-1", root["tabindex"]
-    assert_raises(ArgumentError) { group(root: { orientation: "diagonal" }) }
   end
 
   test "default value checks the item and renders the indicator" do
@@ -60,7 +59,7 @@ class Phlex::Shadcn::RadioGroupTest < Phlex::Shadcn::TestCase
     item = fragment(html).at_css("#ia")
 
     assert_includes item["class"], "size-6"
-    refute_includes item["class"], " size-4 "
+    refute_includes item["class"].split, "size-4"
     assert_equal "", item["data-disabled"]
     assert item.key?("disabled")
     assert_equal "true", item["aria-invalid"]
@@ -92,7 +91,7 @@ class Phlex::Shadcn::RadioGroupTest < Phlex::Shadcn::TestCase
     assert fragment(html).at_css("fieldset[data-slot=radio-group][role=radiogroup]")
   end
 
-  test "every DX helper renders the same HTML as the explicit class call" do
+  test "the item helper renders the same HTML as the explicit class call" do
     helpers = render_view do
       render(RadioGroup.new(default_value: "a")) { |rg| rg.item(value: "a", class: "x") }
     end
@@ -101,6 +100,21 @@ class Phlex::Shadcn::RadioGroupTest < Phlex::Shadcn::TestCase
     end
 
     assert_equal explicit, helpers
-    assert_includes RadioGroup.public_instance_methods(false), :item
+  end
+
+  test "constant tables and unknown options" do
+    assert_equal %w[horizontal vertical], RadioGroup::ORIENTATIONS
+    assert_equal %w[ltr rtl], RadioGroup::DIRECTIONS
+    assert_raises(ArgumentError) { group(root: { orientation: "diagonal" }) }
+    assert_raises(ArgumentError) { group(root: { dir: "up" }) }
+  end
+
+  test "controlled value, name and form reach the bubble inputs" do
+    doc = fragment(group(root: { value: "b", name: "plan", form: "f1", required: true }))
+
+    assert_equal "true", doc.at_css("[data-slot=radio-group]")["data-shadcn--radio-group-controlled-value"]
+    assert_equal "checked", doc.at_css("button[value=b]")["data-state"]
+    assert_equal(%w[plan plan], doc.css("input").map { |i| i["name"] })
+    assert_equal(%w[f1 f1], doc.css("input").map { |i| i["form"] })
   end
 end

@@ -43,4 +43,15 @@ class Phlex::Shadcn::SwitchTest < Phlex::Shadcn::TestCase
   test "stringifies boolean aria values" do
     assert_includes render_switch(aria: { invalid: true }), 'aria-invalid="true"'
   end
+
+  test "controlled state, name, value, form and required reach the bubble input" do
+    html = render_switch(checked: true, default_checked: false, name: "n", value: "yes", form: "f1", required: true)
+    input = Nokogiri::HTML5.fragment(html).at_css("input")
+
+    assert_includes html, 'data-shadcn--switch-controlled-value="true"'
+    assert_includes html, 'aria-required="true"'
+    assert_equal %w[n yes f1], [ input["name"], input["value"], input["form"] ]
+    assert input.key?("checked")
+    assert input.key?("required")
+  end
 end
