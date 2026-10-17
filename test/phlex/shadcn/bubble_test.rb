@@ -58,4 +58,9 @@ class Phlex::Shadcn::BubbleTest < Phlex::Shadcn::TestCase
 
     assert_equal explicit, helpers
   end
+
+  test "reactions reject an unknown side or align" do
+    assert_raises(ArgumentError) { Phlex::Shadcn::Bubble::Reactions.new(side: :left) }
+    assert_raises(ArgumentError) { Phlex::Shadcn::Bubble::Reactions.new(align: :middle) }
+  end
 end

@@ -82,4 +82,11 @@ class Phlex::Shadcn::ItemTest < Phlex::Shadcn::TestCase
 
     assert_equal explicit, helpers
   end
+
+  test "unknown variant, size and media variant raise" do
+    assert_raises(ArgumentError) { Item.new(variant: :nope) }
+    assert_raises(ArgumentError) { Item.new(size: :huge) }
+    assert_raises(ArgumentError) { Item::Media.new(variant: :nope) }
+    assert_raises(ArgumentError) { Item.variants(variant: :nope) }
+  end
 end

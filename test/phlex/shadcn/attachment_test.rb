@@ -54,4 +54,9 @@ class Phlex::Shadcn::AttachmentTest < Phlex::Shadcn::TestCase
 
     assert_equal explicit, helpers
   end
+
+  test "media rejects an unknown variant and accepts the image one" do
+    assert_raises(ArgumentError) { Phlex::Shadcn::Attachment::Media.new(variant: :nope) }
+    assert_includes Phlex::Shadcn::Attachment::Media.new(variant: :image).call { "x" }, 'data-variant="image"'
+  end
 end

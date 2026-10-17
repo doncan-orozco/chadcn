@@ -44,4 +44,13 @@ class Phlex::Shadcn::EmptyTest < Phlex::Shadcn::TestCase
 
     assert_equal explicit, helpers
   end
+
+  test "media variants helper returns the class string and merges extra classes last" do
+    out = Phlex::Shadcn::Empty::Media.variants(variant: :icon, class: "size-12")
+
+    assert_includes out, "bg-muted"
+    assert_includes out, "size-12"
+    assert_not_includes out, "flex size-10"
+    assert_raises(ArgumentError) { Phlex::Shadcn::Empty::Media.variants(variant: :nope) }
+  end
 end
