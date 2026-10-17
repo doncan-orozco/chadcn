@@ -2,11 +2,39 @@
 
 # shadcn HoverCard (Radix HoverCard). Spec: docs/shadcn-port/specs/hover-card.md. Behavior in controllers/shadcn/hover_card_controller.js.
 # The root renders no element: it pushes its options into the Phlex render context for the parts inside.
+#
+# Root of the HoverCard family. Renders no element.
+#
+# @example Explicit form
+#   render Phlex::Shadcn::HoverCard.new do
+#     render Phlex::Shadcn::HoverCard::Trigger.new(href: "/u/1") { "@ada" }
+#     render Phlex::Shadcn::HoverCard::Content.new { "Profile" }
+#   end
+#
+# @example Yielded-root helper form
+#   render Phlex::Shadcn::HoverCard.new do |card|
+#     card.trigger(href: "/u/1") { "@ada" }
+#     card.content { "Profile" }
+#   end
+#
+# Generated helpers (each forwards `**attrs` and the block to the part): `trigger` and `content`.
+#
+# @!method trigger(**attrs, &block)
+#   Same as `render HoverCard::Trigger.new(**attrs), &block`.
+# @!method content(**attrs, &block)
+#   Same as `render HoverCard::Content.new(**attrs), &block`.
 class Phlex::Shadcn::HoverCard < Phlex::Shadcn::Base
+  # @api private
   CONTEXT_KEY = :shadcn_hover_card_root
+  # @api private
   SEQUENCE_KEY = :shadcn_hover_card_sequence
 
   # `open:` is controlled when not nil.
+  #
+  # @param open [Boolean, nil] controlled open state when not nil
+  # @param default_open [Boolean] initial open state when uncontrolled
+  # @param open_delay [Integer] ms before opening on hover (default 700)
+  # @param close_delay [Integer] ms before closing after leaving (default 300)
   def initialize(open: nil, default_open: false, open_delay: 700, close_delay: 300)
     @open = open
     @default_open = default_open
@@ -15,6 +43,8 @@ class Phlex::Shadcn::HoverCard < Phlex::Shadcn::Base
     super()
   end
 
+  # @yieldparam card [HoverCard] the root, exposing the generated part helpers
+  # @return [void]
   def view_template
     previous = context[CONTEXT_KEY]
     context[CONTEXT_KEY] = {
@@ -35,13 +65,24 @@ class Phlex::Shadcn::HoverCard < Phlex::Shadcn::Base
     context[SEQUENCE_KEY] = context.fetch(SEQUENCE_KEY, 0) + 1
   end
 
+  # The link that opens the card on hover/focus (renders an `a` and hosts the controller).
+  #
+  # @example Explicit form
+  #   render Phlex::Shadcn::HoverCard::Trigger.new(href: "/u/1") { "@ada" }
+  # @example Yielded-root helper form
+  #   card.trigger(href: "/u/1") { "@ada" }
   class Trigger < Phlex::Shadcn::Base
+    # @param as_child [Boolean, Symbol, Phlex::SGML] render onto the given child element (Radix Slot merge) instead of the default tag
+    # @param attrs [Hash] HTML attributes merged into the element (class goes through tailwind-merge)
     def initialize(as_child: false, **attrs)
       @as_child = as_child
       @attrs = attrs
       super()
     end
 
+    # @yield the link content
+    # @return [void]
+    # @raise [ArgumentError] when rendered outside HoverCard
     def view_template(&)
       root = context[CONTEXT_KEY] or raise ArgumentError, "`HoverCardTrigger` must be used within `HoverCard`"
       attrs = merge_attrs({
@@ -65,8 +106,16 @@ class Phlex::Shadcn::HoverCard < Phlex::Shadcn::Base
     end
   end
 
+  # Floating card. Its markup ships in an inert `<template>` that the controller clones on open.
+  #
+  # @example Explicit form
+  #   render Phlex::Shadcn::HoverCard::Content.new(side: "right") { "Profile" }
+  # @example Yielded-root helper form
+  #   card.content(side: "right") { "Profile" }
   class Content < Phlex::Shadcn::Base
+    # @api private
     CLASSES = "z-50 w-64 origin-(--radix-hover-card-content-transform-origin) rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-hidden data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95"
+    # @api private
     STYLE_VARS = {
       "--radix-hover-card-content-transform-origin" => "var(--radix-popper-transform-origin)",
       "--radix-hover-card-content-available-width" => "var(--radix-popper-available-width)",
@@ -77,6 +126,20 @@ class Phlex::Shadcn::HoverCard < Phlex::Shadcn::Base
 
     # `force_mount:` is accepted for API parity only: shadcn does not force-mount the Radix Portal, so the oracle
     # never renders a closed content either.
+    #
+    # @param side [String, Symbol] preferred side: top, right, bottom or left (default bottom)
+    # @param side_offset [Integer] distance from the anchor in px (default 4)
+    # @param align [String, Symbol] start, center or end
+    # @param align_offset [Integer] offset along the alignment axis in px
+    # @param avoid_collisions [Boolean] flip/shift to stay in the viewport
+    # @param collision_padding [Integer, Hash] padding from the collision boundary
+    # @param collision_boundary [String, nil] CSS selector of the collision boundary
+    # @param arrow_padding [Integer] padding between the arrow and the content edges
+    # @param sticky [String, Symbol] partial or always
+    # @param hide_when_detached [Boolean] hide when the anchor is fully hidden
+    # @param update_position_strategy [String, Symbol] optimized or always
+    # @param force_mount [Boolean] accepted for API parity only, it has no effect
+    # @param attrs [Hash] HTML attributes merged into the element (class goes through tailwind-merge)
     def initialize(side: "bottom", side_offset: 4, align: "center", align_offset: 0, avoid_collisions: true, collision_padding: 0,
                    collision_boundary: nil, arrow_padding: 0, sticky: "partial", hide_when_detached: false,
                    update_position_strategy: "optimized", force_mount: false, **attrs)
@@ -91,6 +154,10 @@ class Phlex::Shadcn::HoverCard < Phlex::Shadcn::Base
 
     # The markup is shipped in an inert <template>: Radix mounts the content (in a body portal) only while open.
     # The controller clones it on open. Deviation: docs/shadcn-port/deviations/hover-card.json.
+    #
+    # @yield the card body
+    # @return [void]
+    # @raise [ArgumentError] when rendered outside HoverCard
     def view_template(&)
       root = context[CONTEXT_KEY] or raise ArgumentError, "`HoverCardContent` must be used within `HoverCard`"
       attrs = canonical_attrs(@attrs)

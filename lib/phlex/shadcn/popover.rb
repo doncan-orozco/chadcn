@@ -3,11 +3,47 @@
 # shadcn Popover (Radix Popover). Spec: docs/shadcn-port/specs/popover.md. Behavior in controllers/shadcn/popover_controller.js.
 # The root renders no element: it pushes its options into the Phlex render context for the parts inside.
 # Deviations (inert template, controller host): docs/shadcn-port/deviations/popover.json.
+#
+# Root of the Popover family. Renders no element: the first Trigger or Content inside hosts the Stimulus controller.
+#
+# @example Explicit form
+#   render Phlex::Shadcn::Popover.new do
+#     render Phlex::Shadcn::Popover::Trigger.new { "Open" }
+#     render Phlex::Shadcn::Popover::Content.new { "Body" }
+#   end
+#
+# @example Yielded-root helper form
+#   render Phlex::Shadcn::Popover.new do |popover|
+#     popover.trigger { "Open" }
+#     popover.content { "Body" }
+#   end
+#
+# Generated helpers (each forwards `**attrs` and the block to the part): `trigger`, `anchor`, `content`, `header`,
+# `title` and `description`, e.g. `popover.header { popover.title { "T" } }`.
+#
+# @!method trigger(**attrs, &block)
+#   Same as `render Popover::Trigger.new(**attrs), &block`.
+# @!method anchor(**attrs, &block)
+#   Same as `render Popover::Anchor.new(**attrs), &block`.
+# @!method content(**attrs, &block)
+#   Same as `render Popover::Content.new(**attrs), &block`.
+# @!method header(**attrs, &block)
+#   Same as `render Popover::Header.new(**attrs), &block`.
+# @!method title(**attrs, &block)
+#   Same as `render Popover::Title.new(**attrs), &block`.
+# @!method description(**attrs, &block)
+#   Same as `render Popover::Description.new(**attrs), &block`.
 class Phlex::Shadcn::Popover < Phlex::Shadcn::Base
+  # @api private
   CONTEXT_KEY = :shadcn_popover_root
+  # @api private
   SEQUENCE_KEY = :shadcn_popover_sequence
 
   # `open:` is controlled when not nil.
+  #
+  # @param open [Boolean, nil] controlled open state when not nil
+  # @param default_open [Boolean] initial open state when uncontrolled
+  # @param modal [Boolean] modal popover (default false)
   def initialize(open: nil, default_open: false, modal: false)
     @open = open
     @default_open = default_open
@@ -15,6 +51,8 @@ class Phlex::Shadcn::Popover < Phlex::Shadcn::Base
     super()
   end
 
+  # @yieldparam popover [Popover] the root, exposing the generated part helpers
+  # @return [void]
   def view_template
     previous = context[CONTEXT_KEY]
     base = "popover-#{context[SEQUENCE_KEY] = context.fetch(SEQUENCE_KEY, 0) + 1}"
@@ -28,6 +66,8 @@ class Phlex::Shadcn::Popover < Phlex::Shadcn::Base
   end
 
   # What the parts share: the root context and the single controller host.
+  #
+  # @api private
   module Support
     private
 
@@ -60,15 +100,26 @@ class Phlex::Shadcn::Popover < Phlex::Shadcn::Base
     end
   end
 
+  # Toggles the popover (renders a `button`; the first Trigger/Content hosts the controller).
+  #
+  # @example Explicit form
+  #   render Phlex::Shadcn::Popover::Trigger.new { "Open" }
+  # @example Yielded-root helper form
+  #   popover.trigger { "Open" }
   class Trigger < Phlex::Shadcn::Base
     include Phlex::Shadcn::Popover::Support
 
+    # @param as_child [Boolean, Symbol, Phlex::SGML] render onto the given child element (Radix Slot merge) instead of the default tag
+    # @param attrs [Hash] HTML attributes merged into the element (class goes through tailwind-merge)
     def initialize(as_child: false, **attrs)
       @as_child = as_child
       @attrs = attrs
       super()
     end
 
+    # @yield the button content
+    # @return [void]
+    # @raise [ArgumentError] when rendered outside Popover
     def view_template(&)
       root = root_context
       attrs = merge_attrs({
@@ -88,25 +139,42 @@ class Phlex::Shadcn::Popover < Phlex::Shadcn::Base
     end
   end
 
+  # Optional positioning anchor (`div`) other than the Trigger.
+  #
+  # @example
+  #   popover.anchor { "Anchor" }
   class Anchor < Phlex::Shadcn::Base
     include Phlex::Shadcn::Popover::Support
 
+    # @param as_child [Boolean, Symbol, Phlex::SGML] render onto the given child element (Radix Slot merge) instead of the default tag
+    # @param attrs [Hash] HTML attributes merged into the element (class goes through tailwind-merge)
     def initialize(as_child: false, **attrs)
       @as_child = as_child
       @attrs = attrs
       super()
     end
 
+    # @yield the anchor content
+    # @return [void]
+    # @raise [ArgumentError] when rendered outside Popover
     def view_template(&)
       attrs = merge_attrs({ data: { slot: "popover-anchor", shadcn__popover_anchor: root_context[:key] } }, @attrs)
       render_part(:div, @as_child, attrs, &)
     end
   end
 
+  # Floating panel of the popover. Its markup ships in an inert `<template>` that the controller mounts while open.
+  #
+  # @example Explicit form
+  #   render Phlex::Shadcn::Popover::Content.new(side: "top") { "Body" }
+  # @example Yielded-root helper form
+  #   popover.content(side: "top") { "Body" }
   class Content < Phlex::Shadcn::Base
     include Phlex::Shadcn::Popover::Support
 
+    # @api private
     CLASSES = "z-50 w-72 origin-(--radix-popover-content-transform-origin) rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-hidden data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95"
+    # @api private
     STYLE_VARS = {
       "--radix-popover-content-transform-origin" => "var(--radix-popper-transform-origin)",
       "--radix-popover-content-available-width" => "var(--radix-popper-available-width)",
@@ -117,6 +185,20 @@ class Phlex::Shadcn::Popover < Phlex::Shadcn::Base
 
     # `force_mount:` is accepted for API parity only: shadcn does not force-mount the Radix Portal, so the oracle
     # never renders a closed content either.
+    #
+    # @param side [String, Symbol] preferred side: top, right, bottom or left (default bottom)
+    # @param side_offset [Integer] distance from the anchor in px (default 4)
+    # @param align [String, Symbol] start, center or end
+    # @param align_offset [Integer] offset along the alignment axis in px
+    # @param avoid_collisions [Boolean] flip/shift to stay in the viewport
+    # @param collision_padding [Integer, Hash] padding from the collision boundary
+    # @param collision_boundary [String, nil] CSS selector of the collision boundary
+    # @param arrow_padding [Integer] padding between the arrow and the content edges
+    # @param sticky [String, Symbol] partial or always
+    # @param hide_when_detached [Boolean] hide when the anchor is fully hidden
+    # @param update_position_strategy [String, Symbol] optimized or always
+    # @param force_mount [Boolean] accepted for API parity only, it has no effect
+    # @param attrs [Hash] HTML attributes merged into the element (class goes through tailwind-merge)
     def initialize(side: "bottom", side_offset: 4, align: "center", align_offset: 0, avoid_collisions: true, collision_padding: 0,
                    collision_boundary: nil, arrow_padding: 0, sticky: "partial", hide_when_detached: false,
                    update_position_strategy: "optimized", force_mount: false, **attrs)
@@ -130,6 +212,10 @@ class Phlex::Shadcn::Popover < Phlex::Shadcn::Base
     end
 
     # The markup is shipped in an inert <template>: Radix mounts the content (in a body portal) only while open.
+    #
+    # @yield the popover body
+    # @return [void]
+    # @raise [ArgumentError] when rendered outside Popover
     def view_template(&)
       root = root_context
       attrs = canonical_attrs(@attrs)
@@ -151,34 +237,46 @@ class Phlex::Shadcn::Popover < Phlex::Shadcn::Base
     end
   end
 
+  # Popover header (`div`). Needs no root context.
   class Header < Phlex::Shadcn::Base
+    # @param attrs [Hash] HTML attributes merged into the element (class goes through tailwind-merge)
     def initialize(**attrs)
       @attrs = attrs
       super()
     end
 
+    # @yield the header content
+    # @return [void]
     def view_template(&)
       div(**merge_attrs({ class: "flex flex-col gap-1 text-sm", data: { slot: "popover-header" } }, @attrs), &)
     end
   end
 
+  # Popover title (`div`). Needs no root context.
   class Title < Phlex::Shadcn::Base
+    # @param attrs [Hash] HTML attributes merged into the element (class goes through tailwind-merge)
     def initialize(**attrs)
       @attrs = attrs
       super()
     end
 
+    # @yield the title content
+    # @return [void]
     def view_template(&)
       div(**merge_attrs({ class: "font-medium", data: { slot: "popover-title" } }, @attrs), &)
     end
   end
 
+  # Popover description (`p`). Needs no root context.
   class Description < Phlex::Shadcn::Base
+    # @param attrs [Hash] HTML attributes merged into the element (class goes through tailwind-merge)
     def initialize(**attrs)
       @attrs = attrs
       super()
     end
 
+    # @yield the description content
+    # @return [void]
     def view_template(&)
       p(**merge_attrs({ class: "text-muted-foreground", data: { slot: "popover-description" } }, @attrs), &)
     end

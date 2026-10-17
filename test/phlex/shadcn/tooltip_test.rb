@@ -67,7 +67,7 @@ class Phlex::Shadcn::TooltipTest < Phlex::Shadcn::TestCase
   end
 
   test "root outside a provider raises" do
-    assert_raises(ArgumentError) { Tooltip.new.call { |_| nil } }
+    assert_match(/`Tooltip` must be used within `TooltipProvider`/, assert_raises(ArgumentError) { Tooltip.new.call { |_| nil } }.message)
   end
 
   test "yielded root exposes helpers that render like the explicit parts" do
@@ -86,5 +86,35 @@ class Phlex::Shadcn::TooltipTest < Phlex::Shadcn::TestCase
     end.new.call
 
     assert_equal explicit, helpers
+  end
+
+  test "content positioning keywords are serialized for the controller" do
+    out = render_tooltip(content: { side: :top, side_offset: 8, align: :start, align_offset: 2, avoid_collisions: false, collision_padding: 4,
+                                    collision_boundary: "#b", arrow_padding: 3, sticky: :always, hide_when_detached: true, update_position_strategy: :always })
+    options = JSON.parse(Nokogiri::HTML5.fragment(out).at_css("template[data-shadcn--tooltip-template]")["data-options"])
+
+    assert_equal({ "side" => "top", "sideOffset" => 8, "align" => "start", "alignOffset" => 2, "avoidCollisions" => false, "collisionPadding" => 4,
+                   "collisionBoundary" => "#b", "arrowPadding" => 3, "sticky" => "always", "hideWhenDetached" => true,
+                   "updatePositionStrategy" => "always" }, options)
+  end
+
+  test "force_mount is accepted and has no effect" do
+    out = render_tooltip(content: { force_mount: true })
+    options = JSON.parse(Nokogiri::HTML5.fragment(out).at_css("template[data-shadcn--tooltip-template]")["data-options"])
+
+    assert_not_includes options, "forceMount"
+  end
+
+  test "the provider options reach the tooltips" do
+    out = render_tooltip(provider: { delay_duration: 100, skip_delay_duration: 200, disable_hoverable_content: true })
+
+    assert_includes out, 'data-shadcn--tooltip-delay-duration-value="100"'
+    assert_includes out, 'data-shadcn--tooltip-skip-delay-duration-value="200"'
+    assert_includes out, 'data-shadcn--tooltip-disable-hoverable-content-value="true"'
+  end
+
+  test "trigger and content raise outside a tooltip" do
+    assert_match(/`TooltipTrigger` must be used within `Tooltip`/, assert_raises(ArgumentError) { Tooltip::Trigger.new.call }.message)
+    assert_match(/`TooltipContent` must be used within `Tooltip`/, assert_raises(ArgumentError) { Tooltip::Content.new.call }.message)
   end
 end

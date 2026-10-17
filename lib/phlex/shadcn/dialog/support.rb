@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 # What the dialog parts share: the render context pushed by Dialog and the as_child switch.
+#
+# @api private
 module Phlex::Shadcn::Dialog::Support
   private
 

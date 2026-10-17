@@ -150,4 +150,66 @@ class Phlex::Shadcn::DialogTest < Phlex::Shadcn::TestCase
       assert_equal part, Dialog.const_get(name.to_s.split("_").map(&:capitalize).join)
     end
   end
+
+  test "root attributes and options land on the host" do
+    host = fragment(dialog(root: { default_open: true, modal: false, class: "x-root", data: { foo: "bar" } })).at_css("[data-controller=shadcn--dialog]")
+
+    assert_includes host["class"], "x-root"
+    assert_equal "bar", host["data-foo"]
+    assert_equal "true", host["data-shadcn--dialog-open-value"]
+    assert_equal "false", host["data-shadcn--dialog-controlled-value"]
+    assert_equal "false", host["data-shadcn--dialog-modal-value"]
+  end
+
+  test "portal forwards force_mount and container to the controller" do
+    html = render_view do
+      render(Dialog.new) { render(Dialog::Portal.new(force_mount: true, container: "#c")) { "" } }
+    end
+    options = JSON.parse(fragment(html).at_css("template[data-shadcn--dialog-options]")["data-shadcn--dialog-options"])
+
+    assert_equal({ "forceMount" => true, "container" => "#c" }, options)
+  end
+
+  test "close_label names the x button and the footer close button" do
+    doc = fragment(dialog(content: { close_label: "Fermer" }, footer: { show_close_button: true, close_label: "Fermer" }))
+
+    assert_equal "Fermer", doc.at_css("[data-slot=dialog-content] > [data-slot=dialog-close] span.sr-only").text
+    assert_equal "Fermer", doc.at_css("[data-slot=dialog-footer] > button").text
+  end
+
+  test "force_mount is accepted and ignored on content and overlay" do
+    plain = render_view { render(Dialog.new) { render(Dialog::Content.new) { render(Dialog::Overlay.new) } } }
+    forced = render_view { render(Dialog.new) { render(Dialog::Content.new(force_mount: true)) { render(Dialog::Overlay.new(force_mount: true)) } } }
+
+    assert_equal plain, forced
+  end
+
+  test "parts merge their class and attributes" do
+    doc = fragment(dialog(content: { class: "x-content" }, footer: { class: "x-footer" }) do
+      render(Dialog::Header.new(class: "x-header")) { "H" }
+      render(Dialog::Title.new(class: "x-title")) { "T" }
+      render(Dialog::Description.new(class: "x-description")) { "D" }
+      render(Dialog::Close.new(class: "x-close", id: "c")) { "C" }
+    end)
+
+    %w[content header title description footer].each { |slot| assert_includes doc.at_css("[data-slot=dialog-#{slot}]")["class"], "x-#{slot}", slot }
+    close = doc.at_css("#c")
+
+    assert_includes close["class"], "x-close"
+    assert_equal "dialog-close", close["data-slot"]
+  end
+
+  test "parts raise a clear ArgumentError outside the root" do
+    %i[Trigger Content Overlay Portal Title Description].each do |part|
+      error = assert_raises(ArgumentError, part.to_s) { render_view { render(Dialog.const_get(part).new) } }
+
+      assert_match(/must be used within Dialog/, error.message, part.to_s)
+    end
+  end
+
+  test "Close renders outside the root without raising" do
+    out = render_view { render(Dialog::Close.new) { "C" } }
+
+    assert_includes out, "data-slot=\"dialog-close\""
+  end
 end

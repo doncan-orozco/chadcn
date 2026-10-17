@@ -55,7 +55,8 @@ class Phlex::Shadcn::HoverCardTest < Phlex::Shadcn::TestCase
   end
 
   test "parts outside a root raise" do
-    assert_raises(ArgumentError) { HoverCard::Trigger.new.call }
+    assert_match(/`HoverCardTrigger` must be used within `HoverCard`/, assert_raises(ArgumentError) { HoverCard::Trigger.new.call }.message)
+    assert_match(/`HoverCardContent` must be used within `HoverCard`/, assert_raises(ArgumentError) { HoverCard::Content.new.call }.message)
   end
 
   test "yielded root exposes helpers that render like the explicit parts" do
@@ -71,5 +72,36 @@ class Phlex::Shadcn::HoverCardTest < Phlex::Shadcn::TestCase
     end.new.call
 
     assert_equal render_card, helpers
+  end
+
+  test "content positioning keywords are serialized for the controller" do
+    out = render_card(content: { side: :top, side_offset: 8, align: :start, align_offset: 2, avoid_collisions: false, collision_padding: 4,
+                                 collision_boundary: "#b", arrow_padding: 3, sticky: :always, hide_when_detached: true, update_position_strategy: :always })
+    options = JSON.parse(Nokogiri::HTML5.fragment(out).at_css("template[data-shadcn--hover-card-template]")["data-options"])
+
+    assert_equal({ "side" => "top", "sideOffset" => 8, "align" => "start", "alignOffset" => 2, "avoidCollisions" => false, "collisionPadding" => 4,
+                   "collisionBoundary" => "#b", "arrowPadding" => 3, "sticky" => "always", "hideWhenDetached" => true,
+                   "updatePositionStrategy" => "always" }, options)
+  end
+
+  test "force_mount is accepted and has no effect" do
+    out = render_card(content: { force_mount: true })
+    options = JSON.parse(Nokogiri::HTML5.fragment(out).at_css("template[data-shadcn--hover-card-template]")["data-options"])
+
+    assert_not_includes options, "forceMount"
+  end
+
+  test "open_delay and close_delay reach the trigger" do
+    trigger = Nokogiri::HTML5.fragment(render_card(root: { open_delay: 10, close_delay: 20 })).at_css("a")
+
+    assert_equal "10", trigger["data-shadcn--hover-card-open-delay-value"]
+    assert_equal "20", trigger["data-shadcn--hover-card-close-delay-value"]
+  end
+
+  test "attrs merge onto the trigger" do
+    trigger = Nokogiri::HTML5.fragment(render_card(trigger: { class: "x-trigger", href: "/u/1" })).at_css("a")
+
+    assert_includes trigger["class"], "x-trigger"
+    assert_equal "/u/1", trigger["href"]
   end
 end

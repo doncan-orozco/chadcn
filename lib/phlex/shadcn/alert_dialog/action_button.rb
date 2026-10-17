@@ -4,9 +4,15 @@
 # classes first, then the caller class, no tailwind-merge), so a caller rounded-full keeps both radius classes.
 using Phlex::Shadcn::Values::Refinements
 
+# Shared by Action and Cancel.
+# @api private
 module Phlex::Shadcn::AlertDialog::ActionButton
   include Phlex::Shadcn::AlertDialog::Support
 
+  # @param variant [String, Symbol, nil] Button variant (Action defaults to "default", Cancel to "outline")
+  # @param size [String, Symbol] Button size (default "default")
+  # @param as_child [Boolean, Symbol, Phlex::SGML] render onto the given child element (Radix Slot merge) instead of the default tag
+  # @param attrs [Hash] HTML attributes merged into the element (class goes through tailwind-merge)
   def initialize(variant: nil, size: "default", as_child: false, **attrs)
     @variant = normalize_option(variant) || default_variant
     @size = normalize_option(size) || "default"
@@ -16,6 +22,8 @@ module Phlex::Shadcn::AlertDialog::ActionButton
     super()
   end
 
+  # @yield the button content
+  # @return [void]
   def view_template(&)
     attrs = merge_attrs({
                           type: "button",

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 # What the sheet parts share: the render context pushed by Sheet and the as_child switch.
+#
+# @api private
 module Phlex::Shadcn::Sheet::Support
   private
 

@@ -5,11 +5,16 @@
 class Phlex::Shadcn::Dialog::Portal < Phlex::Shadcn::Base
   include Phlex::Shadcn::Dialog::Support
 
+  # @param force_mount [Boolean] keep the content mounted while closed (forwarded to the controller as forceMount)
+  # @param container [String, nil] CSS selector of the element the content is mounted in (default: body)
   def initialize(force_mount: false, container: nil)
     @options = { forceMount: force_mount, container: }.compact
     super()
   end
 
+  # @yield the part's content
+  # @return [void]
+  # @raise [ArgumentError] when rendered outside Dialog
   def view_template
     root = root_context
     previous = context[Phlex::Shadcn::Dialog::PORTAL_KEY]

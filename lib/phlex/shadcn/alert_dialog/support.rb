@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 # What the alert dialog parts share: the render context pushed by AlertDialog and the as_child switch.
+#
+# @api private
 module Phlex::Shadcn::AlertDialog::Support
   private
 
