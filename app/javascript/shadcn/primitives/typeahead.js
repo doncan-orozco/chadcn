@@ -5,9 +5,19 @@
 // Known divergences: none.
 import { wrapArray, textValue } from "shadcn/primitives/collection"
 
+/** Milliseconds of inactivity after which the typeahead buffer resets. @type {number} */
 export const RESET_MS = 1000
 
 // Menu flavour: match on strings.
+/**
+ * Menu flavour: the next string starting with `search` (case-insensitive); a repeated letter cycles.
+ * @param {string[]} values
+ * @param {string} search
+ * @param {string} [currentMatch]
+ * @returns {string | undefined}
+ * @example
+ * nextMatch(["Apple", "Avocado"], "a", "Apple") // "Avocado"
+ */
 export function nextMatch(values, search, currentMatch) {
   const isRepeated = search.length > 1 && Array.from(search).every((char) => char === search[0])
   const normalizedSearch = isRepeated ? search[0] : search
@@ -19,6 +29,15 @@ export function nextMatch(values, search, currentMatch) {
 }
 
 // Select flavour: match on items (identity based, so equal labels stay distinct).
+/**
+ * Select flavour: like `nextMatch` over items (identity based).
+ * @template T
+ * @param {T[]} items
+ * @param {string} search
+ * @param {T} [currentItem]
+ * @param {(item: T) => string} [text=textValue]
+ * @returns {T | undefined}
+ */
 export function matchItem(items, search, currentItem, text = textValue) {
   const isRepeated = search.length > 1 && Array.from(search).every((char) => char === search[0])
   const normalizedSearch = isRepeated ? search[0] : search
@@ -30,9 +49,25 @@ export function matchItem(items, search, currentItem, text = textValue) {
 }
 
 // A character key that feeds the buffer (Menu: no ctrl/alt/meta, `key.length === 1`).
+/**
+ * Whether a keydown feeds the typeahead buffer (printable, no ctrl/alt/meta).
+ * @param {KeyboardEvent} event
+ * @returns {boolean}
+ */
 export const isCharacterKey = (event) => !(event.ctrlKey || event.altKey || event.metaKey) && event.key.length === 1
 
 // Buffer with the 1000 ms reset. `onSearch(search)` runs BEFORE the buffer is updated, like Radix.
+/**
+ * Typeahead buffer that resets after `timeout` ms without a key.
+ * @param {object} options
+ * @param {(search: string) => void} options.onSearch Runs with the next buffer BEFORE it is stored, like Radix.
+ * @param {number} [options.timeout=RESET_MS]
+ * @returns {{ search: string, push: (key: string) => void, reset: () => void, release: () => void }} `release()` cancels the
+ *   pending reset timer; it does not clear the buffer.
+ * @example
+ * const buffer = typeahead({ onSearch: (search) => focusMatch(search) })
+ * buffer.push(event.key)
+ */
 export function typeahead({ onSearch, timeout = RESET_MS }) {
   let search = ""
   let timer = 0

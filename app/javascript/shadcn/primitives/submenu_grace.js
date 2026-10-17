@@ -14,9 +14,17 @@
 //   release() on disconnect / when the sub trigger goes away
 // Tooltip / hover card (hoverable content): `hoverGrace(trigger, content, { onInTransitChange, onClose })`.
 
+/** Milliseconds a sub-menu grace intent lasts. @type {number} */
 export const GRACE_TIMEOUT = 300
+/** Padding (px) around the pointer exit point of a grace area. @type {number} */
 export const GRACE_PADDING = 5
 
+/**
+ * Ray-casting point-in-polygon test.
+ * @param {{ x: number, y: number }} point
+ * @param {{ x: number, y: number }[]} polygon
+ * @returns {boolean}
+ */
 export function isPointInPolygon(point, polygon) {
   const { x, y } = point
   let inside = false
@@ -29,11 +37,23 @@ export function isPointInPolygon(point, polygon) {
   return inside
 }
 
+/**
+ * Whether a pointer event is inside a grace polygon.
+ * @param {{ clientX: number, clientY: number }} event
+ * @param {{ x: number, y: number }[] | null} area
+ * @returns {boolean} false when there is no area.
+ */
 export function isPointerInGraceArea(event, area) {
   if (!area) return false
   return isPointInPolygon({ x: event.clientX, y: event.clientY }, area)
 }
 
+/**
+ * The side of `rect` closest to `point`.
+ * @param {{ x: number, y: number }} point
+ * @param {{ top: number, right: number, bottom: number, left: number }} rect
+ * @returns {"top" | "right" | "bottom" | "left"}
+ */
 export function getExitSideFromRect(point, rect) {
   const top = Math.abs(rect.top - point.y)
   const bottom = Math.abs(rect.bottom - point.y)
@@ -51,6 +71,13 @@ export function getExitSideFromRect(point, rect) {
   }
 }
 
+/**
+ * Two points padded around the exit point, on the inner side of the exit side.
+ * @param {{ x: number, y: number }} exitPoint
+ * @param {"top" | "right" | "bottom" | "left"} exitSide
+ * @param {number} [padding=GRACE_PADDING]
+ * @returns {{ x: number, y: number }[]}
+ */
 export function getPaddedExitPoints(exitPoint, exitSide, padding = GRACE_PADDING) {
   switch (exitSide) {
     case "top":
@@ -64,11 +91,21 @@ export function getPaddedExitPoints(exitPoint, exitSide, padding = GRACE_PADDING
   }
 }
 
+/**
+ * The four corners of a rect, clockwise from the top-left.
+ * @param {{ top: number, right: number, bottom: number, left: number }} rect
+ * @returns {{ x: number, y: number }[]}
+ */
 export function getPointsFromRect({ top, right, bottom, left }) {
   return [{ x: left, y: top }, { x: right, y: top }, { x: right, y: bottom }, { x: left, y: bottom }]
 }
 
 // Andrew's monotone chain, exactly as Radix writes it.
+/**
+ * Convex hull of a point set (Andrew's monotone chain).
+ * @param {{ x: number, y: number }[]} points
+ * @returns {{ x: number, y: number }[]}
+ */
 export function getHull(points) {
   const sorted = points.slice().sort((a, b) => a.x - b.x || a.y - b.y)
   if (sorted.length <= 1) return sorted
@@ -100,6 +137,16 @@ export function getHull(points) {
 }
 
 // Menu content: pointer direction (mouse only) + the grace intent of the sub trigger that was just left.
+/**
+ * Menu content pointer-direction tracker plus the grace intent of the sub trigger that was just left.
+ * @param {HTMLElement} content The menu content.
+ * @param {object} [options]
+ * @param {number} [options.timeout=GRACE_TIMEOUT]
+ * @returns {{ isPointerMovingToSubmenu: (event: { clientX: number, clientY: number }) => boolean, clearIntent: () => void, subTriggerLeave: (event: { clientX: number, clientY: number }, subContent: HTMLElement | null) => boolean, release: () => void }}
+ * @example
+ * const grace = submenuGrace(menuContent)
+ * grace.subTriggerLeave(event, subContent)
+ */
 export function submenuGrace(content, { timeout = GRACE_TIMEOUT } = {}) {
   let intent = null // { area, side }
   let direction = "right"
@@ -160,6 +207,17 @@ export function submenuGrace(content, { timeout = GRACE_TIMEOUT } = {}) {
 
 // Tooltip / hover card hoverable content: when the pointer leaves `trigger` (or `content`) build the hull between the padded exit
 // point and the other element's rect; while the pointer stays in the hull it is "in transit", leaving it calls onClose.
+/**
+ * Hoverable-content grace area for tooltips and hover cards: while the pointer stays in the hull between trigger and content it is "in transit".
+ * @param {HTMLElement} trigger
+ * @param {HTMLElement} content
+ * @param {object} [options]
+ * @param {(inTransit: boolean) => void} [options.onInTransitChange]
+ * @param {() => void} [options.onClose] The pointer left the hull.
+ * @param {number} [options.padding=GRACE_PADDING]
+ * @returns {{ release: () => void }} `release()` removes the listeners and the document tracking, and also emits
+ *   `onInTransitChange(false)` (even when nothing was in transit).
+ */
 export function hoverGrace(trigger, content, { onInTransitChange, onClose, padding = GRACE_PADDING } = {}) {
   let area = null
   let stopTracking = null

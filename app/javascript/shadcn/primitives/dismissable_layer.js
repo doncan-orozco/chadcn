@@ -4,8 +4,9 @@
 // `branches` for related elements that must not count as outside.
 //
 //   const release = dismissable(contentEl, {
-//     onEscape, onPointerDownOutside, onFocusOutside, onInteractOutside,   // receive a cancelable CustomEvent
-//     onDismiss,                                                            // runs unless the event was default-prevented
+//     onEscape,                                                // receives the raw KeyboardEvent
+//     onPointerDownOutside, onFocusOutside, onInteractOutside, // receive a cancelable CustomEvent (detail.originalEvent)
+//     onDismiss,   // runs unless the event was default-prevented (Escape: top layer only, and only if onDismiss is set)
 //     disableOutsidePointerEvents,                                          // modal: body gets pointer-events: none
 //     branches,                                                             // () => Element[]
 //   })
@@ -19,6 +20,21 @@ let originalBodyPointerEvents
 const POINTER_DOWN_OUTSIDE = "dismissableLayer.pointerDownOutside"
 const FOCUS_OUTSIDE = "dismissableLayer.focusOutside"
 
+/**
+ * Registers a dismissable layer (Escape, pointer down outside, focus outside) on the global layer stack.
+ * @param {HTMLElement} el The layer content.
+ * @param {object} [options]
+ * @param {(event: KeyboardEvent) => void} [options.onEscape] Receives the keydown; `preventDefault()` keeps the layer open.
+ * @param {(event: CustomEvent) => void} [options.onPointerDownOutside] Cancelable; `detail.originalEvent` is the pointer event.
+ * @param {(event: CustomEvent) => void} [options.onFocusOutside] Cancelable; `detail.originalEvent` is the focusin event.
+ * @param {(event: CustomEvent) => void} [options.onInteractOutside] Runs after either outside handler; also cancelable.
+ * @param {() => void} [options.onDismiss] Runs unless the triggering event was default-prevented.
+ * @param {boolean} [options.disableOutsidePointerEvents=false] Modal: body gets `pointer-events: none`.
+ * @param {() => Element[]} [options.branches] Related elements that must not count as outside.
+ * @returns {() => void} release: removes the listeners and restores pointer-events. Call it once.
+ * @example
+ * const release = dismissable(contentEl, { onDismiss: () => close(), disableOutsidePointerEvents: true })
+ */
 export function dismissable(el, options = {}) {
   const { onEscape, onPointerDownOutside, onFocusOutside, onInteractOutside, onDismiss, disableOutsidePointerEvents = false, branches } = options
   const ownerDocument = el.ownerDocument

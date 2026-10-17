@@ -16,6 +16,23 @@
 //
 // pointerdown calls event.preventDefault() like Radix (no text selection, no focus move; consumers focus explicitly).
 
+/**
+ * Pointer-capture drag helper: captures the pointer on pointerdown and reports moves/up while it holds the capture.
+ *
+ * `pointerdown` calls `preventDefault()` (no text selection, no focus move; consumers focus explicitly). `release()`
+ * removes the listeners only: a capture in progress is not released and ends with the browser's pointerup.
+ * @param {HTMLElement} root Listens to pointer events on this element and its descendants.
+ * @param {object} [handlers]
+ * @param {(event: PointerEvent) => void} [handlers.onStart]
+ * @param {(event: PointerEvent) => void} [handlers.onMove]
+ * @param {(event: PointerEvent) => void} [handlers.onEnd] Runs after the capture was released.
+ * @param {(event: PointerEvent) => void} [handlers.onCancel] On `pointercancel`.
+ * @param {(event: PointerEvent) => boolean} [handlers.filter] Return false to ignore a pointerdown.
+ * @returns {{ isCapturing: (event: PointerEvent) => boolean | undefined, release: () => void }}
+ * @example
+ * const drag = pointerCapture(trackEl, { onMove: (event) => setValue(event.clientX) })
+ * drag.release()
+ */
 export function pointerCapture(root, { onStart, onMove, onEnd, onCancel, filter } = {}) {
   const captured = (event) => event.target.hasPointerCapture?.(event.pointerId)
 

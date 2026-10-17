@@ -14,6 +14,18 @@
 // restored as one.
 import { presence } from "shadcn/primitives/presence"
 
+/**
+ * Open/closed mechanics of a collapsible content element (data-state, `hidden`, size CSS variables, exit animation).
+ * @param {HTMLElement} el The content element.
+ * @param {object} [options]
+ * @param {boolean} [options.open=false] Whether the content is open on first paint (its animations stay suspended until the next frame).
+ * @param {() => void} [options.onExited] Runs once the content was hidden: after the exit animation ended, or immediately when there is none.
+ * @returns {{ setOpen: (open: boolean) => void, release: () => void }} `setOpen` writes the state; `release` cancels the pending frame and exit listeners.
+ * @example
+ * const content = collapsibleContent(el, { open: true, onExited: () => mount.unmount() })
+ * content.setOpen(false)
+ * content.release()
+ */
 export function collapsibleContent(el, { open = false, onExited } = {}) {
   const exit = presence(el, { onExited: () => hide() })
   let originalStyles = open ? { transitionDuration: "", animationName: "" } : null

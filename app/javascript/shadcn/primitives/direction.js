@@ -9,6 +9,16 @@ const VALID = ["ltr", "rtl"]
 
 const valid = (value) => (VALID.includes(value) ? value : null)
 
+/**
+ * Resolves the text direction of a consumer element like Radix `useDirection`: the local value, else the element's own `dir`
+ * attribute, else "ltr". Never reads html[dir] or an ancestor.
+ * @param {Element | null | undefined} el The consumer element.
+ * @param {"ltr" | "rtl" | null} [localDir=null] An explicit local override.
+ * @returns {"ltr" | "rtl"}
+ * @example
+ * direction(el)          // "rtl" when el has dir="rtl"
+ * direction(el, "ltr")   // "ltr"
+ */
 export function direction(el, localDir = null) {
   return valid(localDir) || valid(el?.getAttribute("dir")) || "ltr"
 }
