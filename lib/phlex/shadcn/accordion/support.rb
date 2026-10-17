@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 # What the accordion parts share: the render context pushed by Accordion and Accordion::Item.
+#
+# @api private
 module Phlex::Shadcn::Accordion::Support
   private
 

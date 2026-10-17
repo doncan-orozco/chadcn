@@ -72,9 +72,13 @@ class Phlex::Shadcn::AccordionTest < Phlex::Shadcn::TestCase
     assert_equal "", from_item["data-disabled"]
     assert_equal "", from_item.at_css("button")["disabled"]
 
-    all = fragment(accordion(root: { disabled: true })).css("button")
+    doc = fragment(accordion(root: { disabled: true }))
+    buttons = doc.css("[data-slot=accordion-trigger]")
 
-    assert(all.all? { |b| b["disabled"] })
+    assert_equal 2, buttons.size
+    assert(buttons.all? { |button| button.key?("disabled") })
+    assert_equal 2, doc.css("[data-slot=accordion-item]").size
+    assert(doc.css("[data-slot=accordion-item]").all? { |item| item["data-disabled"] == "" })
   end
 
   test "class goes to the inner div and passthrough attrs to their parts" do
@@ -134,5 +138,25 @@ class Phlex::Shadcn::AccordionTest < Phlex::Shadcn::TestCase
 
     assert_equal "rtl", fragment(provided).at_css("[data-slot=accordion]")["data-shadcn--accordion-dir-value"]
     assert_equal "ltr", fragment(local).at_css("[data-slot=accordion]")["data-shadcn--accordion-dir-value"]
+  end
+
+  test "content force_mount renders a closed body and root orientation reaches items" do
+    doc = fragment(accordion(root: { orientation: "horizontal" }, content: { force_mount: true }))
+    region = doc.at_css("[data-slot=accordion-content]")
+
+    assert_equal "horizontal", doc.at_css("[data-slot=accordion-item]")["data-orientation"]
+    assert_equal "true", region["data-shadcn--accordion-force-mount"]
+    assert_includes region.text, "Body one"
+    assert_nil region.at_css("template")
+  end
+
+  test "controlled value and type reach the controller values" do
+    root = fragment(accordion(root: { type: "multiple", value: %w[a b] })).at_css("[data-slot=accordion]")
+
+    assert_equal "multiple", root["data-shadcn--accordion-type-value"]
+    assert_equal "true", root["data-shadcn--accordion-controlled-value"]
+    states = fragment(accordion(root: { type: "multiple", value: %w[a b] })).css("[data-slot=accordion-item]").map { |i| i["data-state"] }
+
+    assert_equal %w[open open], states
   end
 end

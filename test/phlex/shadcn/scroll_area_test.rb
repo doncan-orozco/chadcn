@@ -72,4 +72,42 @@ class Phlex::Shadcn::ScrollAreaTest < Phlex::Shadcn::TestCase
     assert_equal explicit, helper
     assert_respond_to ScrollArea.new, :scroll_bar
   end
+
+  test "scroll_hide_delay and type reach the controller values" do
+    root = area(type: "scroll", scroll_hide_delay: 250).at_css("[data-slot=scroll-area]")
+
+    assert_equal "250", root["data-shadcn--scroll-area-scroll-hide-delay-value"]
+    assert_equal "scroll", root["data-shadcn--scroll-area-type-value"]
+    assert_equal "600", area.at_css("[data-slot=scroll-area]")["data-shadcn--scroll-area-scroll-hide-delay-value"]
+    assert_predicate ScrollArea::TYPES, :any?
+    ScrollArea::TYPES.each { |type| assert_equal type, area(type:).at_css("[data-slot=scroll-area]")["data-shadcn--scroll-area-type-value"] }
+  end
+
+  test "dir wins over the direction provider and the provider wins over ltr" do
+    local = fragment(render_view do
+      render(Phlex::Shadcn::Direction::Provider.new(dir: "rtl")) { render(ScrollArea.new(dir: "ltr")) { plain "x" } }
+    end)
+    inherited = fragment(render_view do
+      render(Phlex::Shadcn::Direction::Provider.new(dir: "rtl")) { render(ScrollArea.new) { plain "x" } }
+    end)
+
+    assert_equal "ltr", local.at_css("[data-slot=scroll-area]")["dir"]
+    assert_equal "rtl", inherited.at_css("[data-slot=scroll-area]")["dir"]
+  end
+
+  test "scrollbar defaults to vertical, without force mount, and merges caller attrs" do
+    doc = area { |scroll_area| scroll_area.scroll_bar(data: { testid: "bar" }, aria: { hidden: true }) }
+    bars = doc.css("template[data-shadcn--scroll-area-target=scrollbar]")
+    bar = bars.first.at_css("[data-slot=scroll-area-scrollbar]")
+
+    assert_equal "vertical", bar["data-orientation"]
+    assert_equal "bar", bar["data-testid"]
+    assert_equal "true", bar["aria-hidden"]
+    assert_nil bars.first["data-shadcn--scroll-area-force-mount"]
+    assert_equal %w[vertical horizontal], ScrollArea::ScrollBar::ORIENTATIONS
+  end
+
+  test "scrollbar rejects as_child" do
+    assert_raises(ArgumentError) { ScrollArea::ScrollBar.new(as_child: true) }
+  end
 end

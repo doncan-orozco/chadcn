@@ -1,14 +1,25 @@
 # frozen_string_literal: true
 
-# shadcn CollapsibleContent. Radix mounts the children only while open: closed bodies ship in an inert template that the
-# controller takes over on connect. With as_child a closed content renders no element at all, only that template.
 using Phlex::Shadcn::Values::Refinements
 
+# shadcn CollapsibleContent. Radix mounts the children only while open: closed bodies ship in an inert template that the
+# controller takes over on connect. With as_child a closed content renders no element at all, only that template.
+#
+# @example
+#   c.content(force_mount: true) { "Body" }
 class Phlex::Shadcn::Collapsible::Content < Phlex::Shadcn::Base
   include Phlex::Shadcn::Collapsible::Support
 
+  # Inline style that suspends the mount animation for content present at first paint.
+  #
+  # @api private
   MOUNT_PREVENTION = "transition-duration: 0s; animation-name: none"
 
+  # @param force_mount [Boolean] keep the children mounted while closed
+  # @param as_child [false, nil, Symbol, String, Phlex::Shadcn::Base] a tag name (`:a`) or a component to render instead of the default element (Radix Slot);
+  #   the part's attributes are merged onto it. `true` is not supported.
+  # @param style [String, Hash, nil] inline style of the content element
+  # @param attrs [Hash] HTML attributes merged onto the content element
   def initialize(force_mount: false, as_child: false, style: nil, **attrs)
     @force_mount = force_mount
     @as_child = as_child
@@ -17,6 +28,8 @@ class Phlex::Shadcn::Collapsible::Content < Phlex::Shadcn::Base
     super()
   end
 
+  # @yield the content of the element
+  # @return [void]
   def view_template(&block)
     root = root_context
     mounted = root[:open] || @force_mount

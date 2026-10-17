@@ -3,43 +3,86 @@
 require "phlex/test_case"
 
 class Phlex::Shadcn::PaginationTest < Phlex::Shadcn::TestCase
-  P = Phlex::Shadcn::Pagination
+  Pagination = Phlex::Shadcn::Pagination
+
+  def fragment(html) = Nokogiri::HTML5.fragment(html)
 
   test "root renders nav with slot and merged class" do
-    out = P.new(class: "mt-4").call { |_| "x" }
+    nav = fragment(Pagination.new(class: "mt-4").call { |_| "x" }).at_css("nav")
 
-    assert_includes out, 'data-slot="pagination"'
-    assert_includes out, 'aria-label="pagination"'
-    assert_includes out, "mt-4"
+    assert_equal "pagination", nav["data-slot"]
+    assert_equal "pagination", nav["aria-label"]
+    assert_equal "navigation", nav["role"]
+    assert_includes nav["class"].split, "mt-4"
+    assert_includes nav["class"].split, "mx-auto"
   end
 
-  test "link is tri-state" do
-    assert_not_includes P::Link.new(href: "#").call { "1" }, "data-active"
-    assert_includes P::Link.new(is_active: false).call { "1" }, 'data-active="false"'
-    active = P::Link.new(is_active: true).call { "1" }
+  test "link active state is tri-state" do
+    nil_link = fragment(Pagination::Link.new(href: "#").call { "1" }).at_css("a")
+    inactive = fragment(Pagination::Link.new(is_active: false).call { "1" }).at_css("a")
+    active = fragment(Pagination::Link.new(is_active: true, href: "#").call { "2" }).at_css("a")
 
-    assert_includes active, 'data-active="true"'
-    assert_includes active, 'aria-current="page"'
+    assert_equal "pagination-link", active["data-slot"]
+    assert_not nil_link.key?("data-active")
+    assert_equal "false", inactive["data-active"]
+    assert_not inactive.key?("aria-current")
+    assert_equal "true", active["data-active"]
+    assert_equal "page", active["aria-current"]
+  end
+
+  test "link size picks the button variant" do
+    icon = fragment(Pagination::Link.new(href: "#").call { "x" }).at_css("a")
+    sized = fragment(Pagination::Link.new(size: "default", href: "#").call { "x" }).at_css("a")
+
+    assert_includes icon["class"].split, "size-9"
+    assert_includes sized["class"].split, "px-4"
   end
 
   test "item class is emitted verbatim" do
-    assert_includes P::Item.new(class: "p-2 p-4").call { "x" }, 'class="p-2 p-4"'
+    assert_equal "p-2 p-4", fragment(Pagination::Item.new(class: "p-2 p-4").call { "x" }).at_css("li")["class"]
   end
 
-  test "previous next and ellipsis" do
-    assert_includes P::Previous.new(href: "#", size: :lg).call, "Previous"
-    assert_includes P::Next.new(href: "#").call, 'aria-label="Go to next page"'
-    assert_includes P::Ellipsis.new.call, "More pages"
+  test "previous and next label themselves and take a size" do
+    previous = fragment(Pagination::Previous.new(href: "#").call).at_css("a")
+    large = fragment(Pagination::Previous.new(href: "#", size: :lg).call).at_css("a")
+    following = fragment(Pagination::Next.new(href: "#").call).at_css("a")
+
+    assert_equal "Go to previous page", previous["aria-label"]
+    assert_equal "Previous", previous.at_css("span").text
+    assert_equal "Go to next page", following["aria-label"]
+    assert_equal "Next", following.at_css("span").text
+    assert_includes previous["class"].split, "h-9"
+    assert_includes large["class"].split, "h-10"
+    assert_not_includes large["class"].split, "h-9"
+  end
+
+  test "ellipsis is hidden from assistive technology and labelled" do
+    ellipsis = fragment(Pagination::Ellipsis.new.call).at_css("[data-slot=pagination-ellipsis]")
+
+    assert_equal "true", ellipsis["aria-hidden"]
+    assert_equal "More pages", ellipsis.at_css(".sr-only").text
   end
 
   test "helpers render the same HTML as the explicit classes" do
-    helper = P.new.call do |p|
-      p.content { p.item { p.previous(href: "#") } }
+    helper = Pagination.new.call do |pagination|
+      pagination.content { pagination.item { pagination.previous(href: "#") } }
     end
-    explicit = P.new.call do |p|
-      p.render(P::Content.new) { p.render(P::Item.new) { p.render P::Previous.new(href: "#") } }
+    explicit = Pagination.new.call do |pagination|
+      pagination.render(Pagination::Content.new) do
+        pagination.render(Pagination::Item.new) { pagination.render Pagination::Previous.new(href: "#") }
+      end
     end
 
     assert_equal explicit, helper
+  end
+
+  test "every helper renders the same HTML as the explicit part" do
+    { link: Pagination::Link, next: Pagination::Next, ellipsis: Pagination::Ellipsis, item: Pagination::Item,
+      content: Pagination::Content }.each do |name, klass|
+      helper = Pagination.new.call { |pagination| pagination.public_send(name, class: "z") { "x" } }
+      explicit = Pagination.new.call { |pagination| pagination.render(klass.new(class: "z")) { "x" } }
+
+      assert_equal explicit, helper, name.to_s
+    end
   end
 end

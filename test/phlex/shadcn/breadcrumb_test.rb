@@ -3,55 +3,67 @@
 require "phlex/test_case"
 
 class Phlex::Shadcn::BreadcrumbTest < Phlex::Shadcn::TestCase
-  B = Phlex::Shadcn::Breadcrumb
+  Breadcrumb = Phlex::Shadcn::Breadcrumb
 
   def render_root(**, &)
-    B.new(**).call(&)
+    Breadcrumb.new(**).call(&)
   end
 
-  test "root has aria-label, slot, and class is not merged" do
-    out = render_root(class: "p-2 p-4 border") { |_| "x" }
+  def fragment(html) = Nokogiri::HTML5.fragment(html)
 
-    assert_includes out, 'aria-label="breadcrumb"'
-    assert_includes out, 'data-slot="breadcrumb"'
-    assert_includes out, 'class="p-2 p-4 border"'
-    assert_not_includes render_root { |_| "x" }, "class="
+  test "root has aria-label, slot, and class is not merged" do
+    nav = fragment(render_root(class: "p-2 p-4 border") { |_| "x" }).at_css("nav")
+
+    assert_equal "breadcrumb", nav["aria-label"]
+    assert_equal "breadcrumb", nav["data-slot"]
+    assert_equal "p-2 p-4 border", nav["class"]
+    assert_not fragment(render_root { |_| "x" }).at_css("nav").key?("class")
   end
 
   test "parts render slots and merge class" do
-    assert_includes B::List.new(class: "gap-0").call { "x" }, "gap-0"
-    assert_includes B::Item.new.call { "x" }, 'data-slot="breadcrumb-item"'
-    assert_includes B::Page.new.call { "x" }, 'aria-current="page"'
-    assert_includes B::Page.new(aria: { current: "location" }).call { "x" }, 'aria-current="location"'
-    link = B::Link.new(href: "/a").call { "x" }
+    assert_includes fragment(Breadcrumb::List.new(class: "gap-0").call { "x" }).at_css("ol[data-slot=breadcrumb-list]")["class"].split, "gap-0"
+    assert fragment(Breadcrumb::Item.new.call { "x" }).at_css("li[data-slot=breadcrumb-item]")
+    assert_equal "page", fragment(Breadcrumb::Page.new.call { "x" }).at_css("[data-slot=breadcrumb-page]")["aria-current"]
+    assert_equal "location",
+                 fragment(Breadcrumb::Page.new(aria: { current: "location" }).call { "x" }).at_css("[data-slot=breadcrumb-page]")["aria-current"]
+    link = fragment(Breadcrumb::Link.new(href: "/a").call { "x" }).at_css("a[data-slot=breadcrumb-link]")
 
-    assert_includes link, "<a"
-    assert_includes link, 'href="/a"'
+    assert_equal "/a", link["href"]
   end
 
   test "link as_child renders the given tag" do
-    assert_includes B::Link.new(as_child: :span).call { "x" }, "<span"
+    assert fragment(Breadcrumb::Link.new(as_child: :span).call { "x" }).at_css("span[data-slot=breadcrumb-link]")
   end
 
-  test "separator defaults to chevron and ellipsis ignores blocks" do
-    assert_includes B::Separator.new.call, "lucide-chevron-right"
-    out = B::Separator.new.call { "/" }
+  test "separator defaults to chevron, takes custom content and keeps its attributes" do
+    default = fragment(Breadcrumb::Separator.new.call).at_css("[data-slot=breadcrumb-separator]")
+    custom = fragment(Breadcrumb::Separator.new(class: "mx-1").call { "/" }).at_css("[data-slot=breadcrumb-separator]")
 
-    assert_not_includes out, "<svg"
-    assert_includes B::Ellipsis.new.call { "ignored" }, "More"
-    assert_not_includes B::Ellipsis.new.call { "ignored" }, "ignored"
+    assert default.at_css("svg.lucide-chevron-right")
+    assert_equal "/", custom.text
+    assert_nil custom.at_css("svg")
+    assert_includes custom["class"].split, "mx-1"
+    assert_equal "presentation", custom["role"]
+  end
+
+  test "ellipsis ignores blocks and takes a custom label" do
+    ignored = fragment(Breadcrumb::Ellipsis.new.call { "ignored" }).at_css("[data-slot=breadcrumb-ellipsis]")
+    labelled = fragment(Breadcrumb::Ellipsis.new(label: "Hidden").call).at_css("[data-slot=breadcrumb-ellipsis]")
+
+    assert_equal "More", ignored.at_css(".sr-only").text
+    assert_not_includes ignored.text, "ignored"
+    assert_equal "Hidden", labelled.at_css(".sr-only").text
   end
 
   test "dx helpers exist and match explicit rendering" do
-    { list: B::List, item: B::Item, link: B::Link, page: B::Page, separator: B::Separator, ellipsis: B::Ellipsis }.each do |name, klass|
-      root = B.new
-
-      assert_respond_to root, name
+    { list: Breadcrumb::List, item: Breadcrumb::Item, link: Breadcrumb::Link, page: Breadcrumb::Page,
+      separator: Breadcrumb::Separator, ellipsis: Breadcrumb::Ellipsis }.each do |name, klass|
+      assert_respond_to Breadcrumb.new, name
       helper_html = Class.new(Phlex::HTML) do
-        define_method(:view_template) { render(B.new { |b| b.public_send(name, id: "i") { "x" } }) }
+        define_method(:view_template) { render(Breadcrumb.new { |breadcrumb| breadcrumb.public_send(name, id: "i") { "x" } }) }
       end.new.call
       explicit = Class.new(Phlex::HTML) do
-        define_method(:view_template) { render(B.new { render klass.new(id: "i") { "x" } }) }
+        define_method(:view_template) { render(Breadcrumb.new { render klass.new(id: "i") { "x" } }) }
       end.new.call
 
       assert_equal explicit, helper_html

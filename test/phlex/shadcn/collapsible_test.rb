@@ -84,7 +84,7 @@ class Phlex::Shadcn::CollapsibleTest < Phlex::Shadcn::TestCase
 
     assert_equal 1, doc.css("section").size
     assert_equal "template", doc.at_css("section").parent.name
-    refute_includes doc.at_css("section")["style"].to_s, "animation-name"
+    assert_equal "", doc.at_css("section")["style"]
   end
 
   test "every spec helper renders like the explicit part" do
@@ -102,5 +102,18 @@ class Phlex::Shadcn::CollapsibleTest < Phlex::Shadcn::TestCase
     end
 
     assert_equal explicit, helpers
+  end
+
+  test "controlled open reaches the controller and force_mount renders a closed body" do
+    doc = fragment(collapsible(root: { open: true }))
+
+    assert_equal "true", doc.at_css("[data-slot=collapsible]")["data-shadcn--collapsible-controlled-value"]
+    assert_equal "open", doc.at_css("[data-slot=collapsible]")["data-state"]
+
+    forced = fragment(collapsible(content: { force_mount: true })).at_css("[data-slot=collapsible-content]")
+
+    assert_equal "true", forced["data-shadcn--collapsible-force-mount"]
+    assert_nil forced.at_css("template")
+    assert_includes forced.text, "Body"
   end
 end

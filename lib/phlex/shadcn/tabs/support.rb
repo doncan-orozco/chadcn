@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
-# What the tabs parts share: the render context pushed by Tabs.
 using Phlex::Shadcn::Values::Refinements
 
+# What the tabs parts share: the render context pushed by Tabs.
+#
+# @api private
 module Phlex::Shadcn::Tabs::Support
   private
 

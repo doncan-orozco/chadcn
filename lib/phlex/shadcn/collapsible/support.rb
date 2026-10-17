@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 # What the collapsible parts share: the render context pushed by Collapsible.
+#
+# @api private
 module Phlex::Shadcn::Collapsible::Support
   private
 

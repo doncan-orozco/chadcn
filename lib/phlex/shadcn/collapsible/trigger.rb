@@ -1,17 +1,25 @@
 # frozen_string_literal: true
 
-# shadcn CollapsibleTrigger: a Radix button with no classes of its own.
 using Phlex::Shadcn::Values::Refinements
 
+# shadcn CollapsibleTrigger: a Radix button with no classes of its own.
+#
+# @example
+#   c.trigger { "Toggle" }
 class Phlex::Shadcn::Collapsible::Trigger < Phlex::Shadcn::Base
   include Phlex::Shadcn::Collapsible::Support
 
+  # @param as_child [false, nil, Symbol, String, Phlex::Shadcn::Base] a tag name (`:a`) or a component to render instead of the default element (Radix Slot);
+  #   the part's attributes are merged onto it. `true` is not supported.
+  # @param attrs [Hash] HTML attributes merged onto the trigger (a `data-action` is kept ahead of the toggle action)
   def initialize(as_child: false, **attrs)
     @as_child = as_child
     @attrs = attrs
     super()
   end
 
+  # @yield the content of the element
+  # @return [void]
   def view_template(&)
     root = root_context
     attrs = trigger_attrs(root)
