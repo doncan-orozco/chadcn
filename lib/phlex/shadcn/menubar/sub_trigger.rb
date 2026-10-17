@@ -2,11 +2,25 @@
 
 using Phlex::Shadcn::Values::Refinements
 
+# The item that opens a {Sub} (+role="menuitem"+, +aria-haspopup="menu"+), with a trailing chevron icon. Must be rendered
+# inside a {Sub} (raises +ArgumentError+ at render otherwise).
+#
+# @example
+#   bar.sub_trigger(inset: true) { "Share" }
 class Phlex::Shadcn::Menubar::SubTrigger < Phlex::Shadcn::Base
   include Phlex::Shadcn::Menubar::Support
 
+  # @return [String] default Tailwind classes; the +class:+ you pass is merged on top
   CLASSES = "flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-none select-none focus:bg-accent focus:text-accent-foreground data-[inset]:pl-8 data-[state=open]:bg-accent data-[state=open]:text-accent-foreground"
 
+  # @param inset [Boolean, nil] adds left padding to align with items that have an indicator (+data-inset+). +nil+ renders nothing, +false+ renders
+  #   +data-inset="false"+. Default +nil+
+  # @param disabled [Boolean] renders +aria-disabled+ and +data-disabled+ so the item cannot be chosen. Default +false+
+  # @param text_value [String, nil] text the typeahead matches against (+data-text-value+); defaults to the item's text. Default +nil+
+  # @param as_child [false, Symbol, String, Phlex::Shadcn::Base] +false+ renders the default element; a tag Symbol/String or a component instance
+  #   renders that element carrying this part's attributes instead
+  # @param attrs [Hash] extra HTML attributes; +class+ is merged with {CLASSES} (yours wins Tailwind conflicts), +data+/+aria+ are deep merged
+  # @raise [ArgumentError] at render, when not inside a {Sub}
   def initialize(inset: nil, disabled: false, text_value: nil, as_child: false, **attrs)
     @inset = inset
     @disabled = disabled
@@ -16,6 +30,8 @@ class Phlex::Shadcn::Menubar::SubTrigger < Phlex::Shadcn::Base
     super()
   end
 
+  # @yield the trigger's label (the chevron is appended after it)
+  # @return [void]
   def view_template
     sub = context[Phlex::Shadcn::Menubar::SUB_KEY] or raise ArgumentError, "#{self.class.name} must be used within Menubar::Sub"
     open = sub[:open]

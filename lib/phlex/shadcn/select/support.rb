@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 # What the parts share: the render context pushed by the root and the as_child switch.
+#
+# @api private
 module Phlex::Shadcn::Select::Support
   private
 

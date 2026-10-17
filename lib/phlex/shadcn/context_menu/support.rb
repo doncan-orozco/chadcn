@@ -1,13 +1,18 @@
 # frozen_string_literal: true
 
-# Context menu flavour of the dropdown menu part helpers (item markup, position options, as_child switch).
-# The data-shadcn--dropdown-menu-* names are the shared menu module's contract (template, sub ids, radio value).
 using Phlex::Shadcn::Values::Refinements
 
+# Context menu flavour of the dropdown menu part helpers (item markup, position options, as_child switch).
+# The data-shadcn--dropdown-menu-* names are the shared menu module's contract (template, sub ids, radio value).
+#
+# @api private
 module Phlex::Shadcn::ContextMenu::Support
   include Phlex::Shadcn::DropdownMenu::Support
 
   # Radix re-namespaces the popper variables on every (Sub)Content (CM:148-157, CM:246-256).
+  #
+  # @api private
+  # @return [Hash{String => String}] CSS custom property => value
   STYLE_VARS = {
     "--radix-context-menu-content-transform-origin" => "var(--radix-popper-transform-origin)",
     "--radix-context-menu-content-available-width" => "var(--radix-popper-available-width)",

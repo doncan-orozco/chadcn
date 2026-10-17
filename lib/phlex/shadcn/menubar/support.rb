@@ -1,11 +1,15 @@
 # frozen_string_literal: true
 
-# What the parts share: the render context, the Radix MenuItemImpl + RovingFocusGroup.Item markup (the controller keeps
-# tabindex and data-highlighted in sync afterwards), the Content markup and the as_child switch.
 using Phlex::Shadcn::Values::Refinements
 
+# What the parts share: the render context, the Radix MenuItemImpl + RovingFocusGroup.Item markup (the controller keeps
+# tabindex and data-highlighted in sync afterwards), the Content markup and the as_child switch.
+#
+# @api private
 module Phlex::Shadcn::Menubar::Support
-  # shadcn does not set these; Radix re-namespaces the popper variables on every (Sub)Content (Mb:262-272).
+  # @api private
+  # @return [Hash{String=>String}] inline CSS variables set on every (Sub)Content. shadcn does not set these; Radix re-namespaces the popper
+  #   variables on every (Sub)Content (Mb:262-272).
   STYLE_VARS = {
     "--radix-menubar-content-transform-origin" => "var(--radix-popper-transform-origin)",
     "--radix-menubar-content-available-width" => "var(--radix-popper-available-width)",

@@ -1,11 +1,21 @@
 # frozen_string_literal: true
 
-# Radix MenubarTrigger: a roving item of the root group and the anchor of its menu.
+# Radix MenubarTrigger: a +button+ that is a roving item of the root group and the anchor of its {Menu}. Must be rendered
+# inside a {Menu} (raises +ArgumentError+ at render otherwise).
+#
+# @example
+#   bar.trigger { "File" }
 class Phlex::Shadcn::Menubar::Trigger < Phlex::Shadcn::Base
   include Phlex::Shadcn::Menubar::Support
 
+  # @return [String] default Tailwind classes; the +class:+ you pass is merged on top
   CLASSES = "flex items-center rounded-sm px-2 py-1 text-sm font-medium outline-hidden select-none focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground"
 
+  # @param disabled [Boolean] renders the +disabled+ attribute and +data-disabled+. Default +false+
+  # @param as_child [false, Symbol, String, Phlex::Shadcn::Base] +false+ renders the default element; a tag Symbol/String or a component instance
+  #   renders that element carrying this part's attributes instead
+  # @param attrs [Hash] extra HTML attributes; +class+ is merged with {CLASSES} (yours wins Tailwind conflicts), +data+/+aria+ are deep merged
+  # @raise [ArgumentError] at render, when not inside a {Menu}
   def initialize(disabled: false, as_child: false, **attrs)
     @disabled = disabled
     @as_child = as_child
@@ -13,6 +23,8 @@ class Phlex::Shadcn::Menubar::Trigger < Phlex::Shadcn::Base
     super()
   end
 
+  # @yield the part's content
+  # @return [void]
   def view_template(&)
     menu = menu_context
     open = menu[:open]

@@ -47,7 +47,10 @@ class Phlex::Shadcn::DropdownMenuTest < Phlex::Shadcn::TestCase
     assert_equal trigger["id"], content["aria-labelledby"]
     assert_includes content["style"], "--radix-dropdown-menu-content-available-height: var(--radix-popper-available-height)"
     assert_includes content["class"], "min-w-[8rem]"
-    assert_nil doc.at_css("body > [data-slot=dropdown-menu-content], :not(template) > [data-slot=dropdown-menu-content]")
+    contents = doc.css("[data-slot=dropdown-menu-content]")
+
+    assert_equal 1, contents.size
+    assert_predicate contents.first.ancestors("template"), :any?, "content must only exist inside the inert template"
   end
 
   test "open menu mirrors the open state on the trigger" do
@@ -242,7 +245,219 @@ class Phlex::Shadcn::DropdownMenuTest < Phlex::Shadcn::TestCase
     provided = render_view { render(Phlex::Shadcn::Direction::Provider.new(dir: "rtl")) { render(DropdownMenu.new) { render(DropdownMenu::Trigger.new) { "x" } } } }
     local = render_view { render(Phlex::Shadcn::Direction::Provider.new(dir: "rtl")) { render(DropdownMenu.new(dir: "ltr")) { render(DropdownMenu::Trigger.new) { "x" } } } }
 
-    assert_includes provided, "rtl"
-    assert_not_includes local, "rtl"
+    assert_equal "rtl", fragment(provided).at_css("[data-slot=dropdown-menu-trigger]")["data-shadcn--dropdown-menu-dir-value"]
+    assert_equal "ltr", fragment(local).at_css("[data-slot=dropdown-menu-trigger]")["data-shadcn--dropdown-menu-dir-value"]
+  end
+
+  test "content serializes the positioning options into the template with the documented defaults" do
+    options = JSON.parse(fragment(menu).at_css("template")["data-options"])
+
+    assert_equal(
+      { "side" => "bottom", "sideOffset" => 4, "align" => "center", "alignOffset" => 0, "avoidCollisions" => true,
+        "collisionPadding" => 0, "arrowPadding" => 0, "sticky" => "partial", "hideWhenDetached" => false,
+        "updatePositionStrategy" => "optimized", "loop" => false, "forceMount" => false },
+      options
+    )
+  end
+
+  test "content options reflect the given keywords and keep collision_boundary only when set" do
+    custom = menu(content: { side: :left, side_offset: 9, loop: true, force_mount: true, collision_boundary: "#main" })
+    options = JSON.parse(fragment(custom).at_css("template")["data-options"])
+
+    assert_equal [ "left", 9, true, true, "#main" ], options.values_at("side", "sideOffset", "loop", "forceMount", "collisionBoundary")
+  end
+
+  test "content class merges over the defaults, style is appended and as_child renders the given tag inside the template" do
+    html = menu(content: { class: "min-w-56", style: "color: red", as_child: :section, data: { testid: "c" } })
+    content = fragment(html).at_css("template > section")
+
+    assert_equal "dropdown-menu-content", content["data-slot"]
+    assert_equal "c", content["data-testid"]
+    assert_includes content["class"].split, "min-w-56"
+    assert_not_includes content["class"].split, "min-w-[8rem]"
+    assert content["style"].start_with?("outline: none; color: red; ")
+  end
+
+  test "trigger, content, sub and sub content raise ArgumentError at render when used outside a DropdownMenu" do
+    [ DropdownMenu::Trigger, DropdownMenu::Content, DropdownMenu::Sub, DropdownMenu::SubContent ].each do |klass|
+      error = assert_raises(ArgumentError, klass.name) { render_view { render(klass.new) } }
+
+      assert_equal "#{klass.name} must be used within DropdownMenu", error.message
+    end
+  end
+
+  test "sub trigger and sub content raise ArgumentError at render when used outside a Sub but construct fine" do
+    [ DropdownMenu::SubTrigger, DropdownMenu::SubContent ].each do |klass|
+      part = klass.new
+      error = assert_raises(ArgumentError, klass.name) { render_view { render(DropdownMenu.new) { render(part) } } }
+
+      assert_equal "#{klass.name} must be used within DropdownMenu::Sub", error.message
+    end
+  end
+
+  test "radio item without value raises at construction and an unknown keyword on Item becomes an attribute while the root raises" do
+    assert_raises(ArgumentError) { DropdownMenu::RadioItem.new }
+    assert_raises(ArgumentError) { DropdownMenu.new(unknown: 1) }
+
+    item = fragment(menu { render(DropdownMenu::Item.new(title: "t")) { "x" } }).at_css("[data-slot=dropdown-menu-item]")
+
+    assert_equal "t", item["title"]
+  end
+
+  test "radio item outside a group and in a group without value is unchecked" do
+    outside = fragment(menu { render(DropdownMenu::RadioItem.new(value: "a")) { "A" } }).at_css("[data-slot=dropdown-menu-radio-item]")
+    html = menu { render(DropdownMenu::RadioGroup.new) { render(DropdownMenu::RadioItem.new(value: "a")) { "A" } } }
+    empty = fragment(html).at_css("[data-slot=dropdown-menu-radio-item]")
+
+    assert_equal %w[false unchecked a], [ outside["aria-checked"], outside["data-state"], outside["data-shadcn--dropdown-menu-value"] ]
+    assert_equal %w[false unchecked], [ empty["aria-checked"], empty["data-state"] ]
+  end
+
+  test "checkbox item accepts the indeterminate symbol and disabled, text_value and class merge" do
+    html = menu { render(DropdownMenu::CheckboxItem.new(checked: :indeterminate, disabled: true, text_value: "Mix", class: "pl-2")) { "M" } }
+    item = fragment(html).at_css("[data-slot=dropdown-menu-checkbox-item]")
+
+    assert_equal %w[mixed indeterminate true Mix], [ item["aria-checked"], item["data-state"], item["aria-disabled"], item["data-text-value"] ]
+    assert item.key?("data-disabled")
+    assert_includes item["class"].split, "pl-2"
+    assert_not_includes item["class"].split, "pl-8"
+  end
+
+  test "group, label, separator and radio group render as_child with the given tag and keep passthrough attrs" do
+    html = menu do
+      render(DropdownMenu::Group.new(as_child: :ul, id: "g")) { "g" }
+      render(DropdownMenu::Label.new(as_child: :h3, class: "px-4")) { "l" }
+      render DropdownMenu::Separator.new(as_child: :hr, id: "s")
+      render(DropdownMenu::RadioGroup.new(value: "a", as_child: :ol)) { "r" }
+    end
+    doc = fragment(html)
+
+    assert_equal "g", doc.at_css("ul[data-slot=dropdown-menu-group]")["id"]
+    assert_includes doc.at_css("h3[data-slot=dropdown-menu-label]")["class"].split, "px-4"
+    assert_equal "separator", doc.at_css("hr[data-slot=dropdown-menu-separator]")["role"]
+    assert_equal "group", doc.at_css("ol[data-slot=dropdown-menu-radio-group]")["role"]
+  end
+
+  test "item as_child accepts a component instance and merges the item attributes into it" do
+    html = menu { render(DropdownMenu::Item.new(as_child: Phlex::Shadcn::Button.new(href: "/x"))) { "Go" } }
+    item = fragment(html).at_css("[data-slot=dropdown-menu-item]")
+
+    assert_equal "menuitem", item["role"]
+    assert_equal "default", item["data-variant"]
+  end
+
+  test "each part renders exactly its CLASSES table on its data-slot element" do
+    tables = {
+      DropdownMenu::Content => "dropdown-menu-content", DropdownMenu::SubContent => "dropdown-menu-sub-content",
+      DropdownMenu::Item => "dropdown-menu-item", DropdownMenu::CheckboxItem => "dropdown-menu-checkbox-item",
+      DropdownMenu::RadioItem => "dropdown-menu-radio-item", DropdownMenu::Label => "dropdown-menu-label",
+      DropdownMenu::Separator => "dropdown-menu-separator", DropdownMenu::Shortcut => "dropdown-menu-shortcut",
+      DropdownMenu::SubTrigger => "dropdown-menu-sub-trigger"
+    }
+    html = menu(root: { default_open: true }) do
+      render(DropdownMenu::Label.new) { "l" }
+      render(DropdownMenu::Item.new) { render(DropdownMenu::Shortcut.new) { "k" } }
+      render(DropdownMenu::CheckboxItem.new) { "c" }
+      render(DropdownMenu::RadioItem.new(value: "a")) { "r" }
+      render(DropdownMenu::Separator.new)
+      render(DropdownMenu::Sub.new) do
+        render(DropdownMenu::SubTrigger.new) { "s" }
+        render(DropdownMenu::SubContent.new) { "x" }
+      end
+    end
+    doc = fragment(html)
+
+    tables.each do |klass, slot|
+      assert_kind_of String, klass::CLASSES, klass.name
+      assert_equal klass::CLASSES.split.sort, doc.at_css("[data-slot=#{slot}]")["class"].split.sort, slot
+    end
+    assert_equal DropdownMenu::CheckboxItem::INDICATOR_CLASSES, doc.at_css("[data-slot=dropdown-menu-checkbox-item] > span")["class"]
+    assert_equal DropdownMenu::RadioItem::INDICATOR_CLASSES, doc.at_css("[data-slot=dropdown-menu-radio-item] > span")["class"]
+  end
+
+  test "an unknown dir falls back to ltr without raising" do
+    html = render_view { render(DropdownMenu.new(dir: "sideways")) { render(DropdownMenu::Trigger.new) { "x" } } }
+
+    assert_equal "ltr", fragment(html).at_css("button")["data-shadcn--dropdown-menu-dir-value"]
+  end
+
+  test "modal false and dir rtl reach the trigger values and the content" do
+    html = menu(root: { modal: false, dir: "rtl" })
+    doc = fragment(html)
+    trigger = doc.at_css("button")
+
+    assert_equal "false", trigger["data-shadcn--dropdown-menu-modal-value"]
+    assert_equal "rtl", trigger["data-shadcn--dropdown-menu-dir-value"]
+    assert_equal "rtl", doc.at_css("[data-slot=dropdown-menu-content]")["dir"]
+  end
+
+  test "ids are unique per menu in one render and the trigger points at its own content template" do
+    html = render_view do
+      render(DropdownMenu.new) do
+        render(DropdownMenu::Trigger.new) { "a" }
+        render(DropdownMenu::Content.new) { "x" }
+      end
+      render(DropdownMenu.new) { render(DropdownMenu::Trigger.new) { "b" } }
+    end
+    doc = fragment(html)
+    first, second = doc.css("button")
+
+    assert_equal first["data-shadcn--dropdown-menu-template-value"], doc.at_css("template")["data-shadcn--dropdown-menu-template"]
+
+    assert_not_equal first["id"], second["id"]
+    assert_not_equal first["data-shadcn--dropdown-menu-template-value"], second["data-shadcn--dropdown-menu-template-value"]
+  end
+
+  test "controlled sub menu is flagged on its trigger and open reflects on aria-controls" do
+    html = menu do
+      render DropdownMenu::Sub.new(open: false, default_open: true) do
+        render(DropdownMenu::SubTrigger.new(disabled: true, text_value: "More")) { "More" }
+      end
+    end
+    trigger = fragment(html).at_css("[data-slot=dropdown-menu-sub-trigger]")
+
+    assert_equal %w[true closed false], [ trigger["data-shadcn--dropdown-menu-sub-controlled"], trigger["data-state"], trigger["aria-expanded"] ]
+    assert_nil trigger["aria-controls"]
+    assert trigger.key?("data-disabled")
+    assert_equal "More", trigger["data-text-value"]
+  end
+
+  test "portal container and force_mount reach only the sub content inside it" do
+    html = menu do
+      render DropdownMenu::Sub.new do
+        render(DropdownMenu::SubTrigger.new) { "A" }
+        render(DropdownMenu::Portal.new(container: "#modal", force_mount: true)) do
+          render(DropdownMenu::SubContent.new) do
+            render DropdownMenu::Sub.new do
+              render(DropdownMenu::SubTrigger.new) { "B" }
+              render(DropdownMenu::SubContent.new) { "inner" }
+            end
+          end
+        end
+      end
+    end
+    templates = fragment(html).css("template[data-shadcn--dropdown-menu-template*='-sub-']")
+    outer = JSON.parse(templates.first["data-options"])
+    inner = JSON.parse(templates.last["data-options"])
+
+    assert_equal [ "#modal", true, true ], outer.values_at("container", "forceMount", "portal")
+    assert_equal [ false, false ], [ inner.key?("container"), inner["portal"] ]
+    refute inner["forceMount"]
+  end
+
+  test "sub content options hold no side key and carry the sub defaults for align and side_offset" do
+    options = JSON.parse(fragment(menu { render(DropdownMenu::Sub.new) { render(DropdownMenu::SubContent.new) { "x" } } }).at_css("template template, template[data-shadcn--dropdown-menu-template*='-sub-']")["data-options"])
+
+    assert_not options.key?("side")
+    assert_equal [ "start", 0 ], options.values_at("align", "sideOffset")
+  end
+
+  test "shortcut passes attrs and as_child is just a plain attribute" do
+    html = menu { render(DropdownMenu::Item.new) { render(DropdownMenu::Shortcut.new(title: "t", as_child: :a)) { "K" } } }
+    shortcut = fragment(html).at_css("[data-slot=dropdown-menu-shortcut]")
+
+    assert_equal "t", shortcut["title"]
+    assert_equal "K", shortcut.text
+    assert_nil shortcut.at_css("a")
   end
 end
