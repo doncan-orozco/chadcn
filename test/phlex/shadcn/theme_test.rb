@@ -134,4 +134,15 @@ class Phlex::Shadcn::ThemeTest < Phlex::Shadcn::TestCase
     assert_includes css, ".dark {"
     assert_equal palette.root, Theme.parse(css).root
   end
+
+  test "the module's public surface is the documented set" do
+    methods = %i[check configured? contrast dir import parse presets presets_dir render_colors theme_file use validate]
+    constants = %i[
+      COLORS_END COLORS_START CONTRAST_PAIRS Error IMPORT_MAX_BYTES IMPORT_MAX_REDIRECTS IMPORT_OPEN_TIMEOUT IMPORT_READ_TIMEOUT
+      MIN_CONTRAST Palette REQUIRED ROOT_ONLY UNSAFE_VALUE
+    ]
+
+    assert_equal methods, Theme.singleton_methods(false).sort
+    assert_equal constants, Theme.constants.sort
+  end
 end

@@ -4,6 +4,9 @@ require "json"
 require "net/http"
 require "uri"
 require "fileutils"
+require "openssl"
+require "timeout"
+require "zlib"
 
 module Phlex
   module Shadcn
@@ -12,6 +15,13 @@ module Phlex
     # The only file a developer edits is theme.css in the configured theme directory. Its color section sits
     # between `theme:colors:start/end` markers and holds a plain shadcn theme (`:root {}` + `.dark {}`),
     # so anything copied from ui.shadcn.com/themes pastes in unchanged.
+    #
+    # The public surface is {.use}, {.import}, {.check}, {.presets}, {.dir}, {.configured?}, {.theme_file} and {.presets_dir}
+    # (the `phlex_shadcn:theme:*` rake tasks call them); parsing, validation and color math are `@api private`.
+    #
+    # @example Switch to a preset, then check the result
+    #   Phlex::Shadcn::Theme.use("slate")
+    #   Phlex::Shadcn::Theme.check # => { errors: [], warnings: [] }
     module Theme
       # Raised for an unusable theme: unknown preset, missing markers, a palette with errors, no `:root`/`.dark` block, or no theme
       # directory configured.
@@ -42,6 +52,9 @@ module Phlex
       ROOT_ONLY = %w[radius].freeze
 
       # Foreground/background pairs that carry text. Alpha colors are skipped (cannot be judged alone).
+      #
+      # @api private
+      # @return [Array<Array<String>>]
       CONTRAST_PAIRS = [
         %w[foreground background], %w[card-foreground card], %w[popover-foreground popover],
         %w[primary-foreground primary], %w[secondary-foreground secondary], %w[muted-foreground muted],
@@ -53,18 +66,56 @@ module Phlex
       # @return [Float]
       MIN_CONTRAST = 4.5
 
+      # Longest redirect chain {.import} follows.
+      #
+      # @api private
+      # @return [Integer]
+      IMPORT_MAX_REDIRECTS = 3
+      # Largest body, in bytes, {.import} accepts from a URL.
+      #
+      # @api private
+      # @return [Integer]
+      IMPORT_MAX_BYTES = 256 * 1024
+      # Seconds {.import} waits to open a connection to a URL.
+      #
+      # @api private
+      # @return [Integer]
+      IMPORT_OPEN_TIMEOUT = 5
+      # Seconds {.import} waits for each read from a URL.
+      #
+      # @api private
+      # @return [Integer]
+      IMPORT_READ_TIMEOUT = 10
+      # Text that can break out of a CSS declaration or comment: a comment delimiter, braces, a semicolon, a backslash (CSS escapes
+      # such as `u\72l(` spell `url(`) or `url(`.
+      #
+      # @api private
+      # @return [Regexp]
+      UNSAFE_VALUE = %r{/\*|\*/|[{};\\]|url\(}i
+
       # Parsed palette: variables for :root and for .dark.
+      #
+      # @api private
+      # @!attribute [rw] root
+      #   @return [Hash{String => String}] the `:root` variables, without the leading dashes
+      # @!attribute [rw] dark
+      #   @return [Hash{String => String}] the `.dark` variables, without the leading dashes
       Palette = Struct.new(:root, :dark, keyword_init: true)
 
       module_function
 
       # The directory that holds theme.css and presets/: `Phlex::Shadcn.config.theme_dir`. The engine sets it from
       # `config.phlex_shadcn.theme_dir` (default: the app's app/assets/tailwind/theme); outside an app it has to be configured.
+      #
+      # @return [String]
+      # @raise [Phlex::Shadcn::Theme::Error] when no theme directory is configured
       def dir
         Phlex::Shadcn.config.theme_dir || raise(Error, "Phlex::Shadcn.config.theme_dir is not set (host apps: config.phlex_shadcn.theme_dir)")
       end
 
-      # Whether a directory has been configured (`dir` raises while it is not).
+      # Whether a directory has been configured ({.dir} raises while it is not).
+      #
+      # @return [Boolean]
       def configured? = !Phlex::Shadcn.config.theme_dir.nil?
 
       # Path of the theme file the tasks edit.
@@ -89,10 +140,16 @@ module Phlex
 
       # ---- parsing -------------------------------------------------------------------------------
 
+      # Reads the `:root` and `.dark` variables of a shadcn theme.
+      #
+      # @api private
+      # @param css [String] CSS text holding a `:root { }` block and optionally a `.dark { }` block
+      # @return [Palette]
       def parse(css)
         Palette.new(root: variables(block(css, ":root")), dark: variables(block(css, ".dark")))
       end
 
+      # @api private
       def block(css, selector)
         start = css.index(/^\s*#{Regexp.escape(selector)}\s*\{/)
         return "" unless start
@@ -107,7 +164,7 @@ module Phlex
 
           i += 1
         end
-        css[(open_idx + 1)..]
+        raise Error, "unterminated #{selector} block (unbalanced braces)"
       end
 
       def variables(body)
@@ -123,7 +180,12 @@ module Phlex
 
       # ---- validation ----------------------------------------------------------------------------
 
-      # Returns { errors: [], warnings: [] }.
+      # Checks a palette: complete variables, plain values, text contrast.
+      #
+      # @api private
+      # @param palette [Palette]
+      # @param strict [Boolean] when true a contrast below {MIN_CONTRAST} is an error instead of a warning
+      # @return [Hash{Symbol => Array<String>}] `{ errors: [...], warnings: [...] }`
       def validate(palette, strict: false)
         errors = []
         warnings = []
@@ -135,6 +197,7 @@ module Phlex
               errors << "#{label}: --#{name} is a bare HSL triplet (\"#{value}\"); run theme:import to wrap it"
             end
             errors << "#{label}: --#{name} has no value" if value.empty?
+            errors << "#{label}: --#{name} contains text that could break theme.css (#{value[UNSAFE_VALUE]})" if value.match?(UNSAFE_VALUE)
           end
           unknown = vars.keys - REQUIRED - ROOT_ONLY
           warnings << "#{label}: unknown variables #{unknown.join(', ')} (kept, not used by components)" if unknown.any?
@@ -156,6 +219,12 @@ module Phlex
       # The parameters are the standard color-science symbols (l, c, h, s, v, fg, bg).
       # rubocop:disable Naming/MethodParameterName
 
+      # WCAG contrast ratio between two CSS colors (oklch, hsl or hex).
+      #
+      # @api private
+      # @param fg [String] foreground color
+      # @param bg [String] background color
+      # @return [Float, nil] the ratio (1.0 to 21.0), nil when either color has alpha or an unsupported syntax
       def contrast(fg, bg)
         l1 = luminance(fg)
         l2 = luminance(bg)
@@ -167,6 +236,8 @@ module Phlex
       end
 
       # Relative luminance of a CSS color (oklch / hsl / hex). nil for alpha or unsupported syntax.
+      #
+      # @api private
       def luminance(color)
         rgb = to_linear_rgb(color.to_s.strip)
         return nil unless rgb
@@ -230,6 +301,7 @@ module Phlex
       # Renders a palette as the `:root { }` / `.dark { }` text that theme.css and the preset files hold: the required variables first
       # (in {REQUIRED} order), any extras after them, and `--radius` last in `:root`.
       #
+      # @api private
       # @param palette [Palette] the parsed variables for `:root` and `.dark`
       # @return [String] the CSS text, ending with a newline
       def render_colors(palette)
@@ -246,6 +318,8 @@ module Phlex
 
       # Replaces the colors section of theme.css and returns the validation result. Atomic: nothing is
       # written when the palette has errors.
+      #
+      # @api private
       def write_colors(palette, source_label:)
         result = validate(palette)
         raise Error, "refusing to write an invalid theme:\n  #{result[:errors].join("\n  ")}" if result[:errors].any?
@@ -253,11 +327,26 @@ module Phlex
         css = File.read(theme_file)
         raise Error, "#{theme_file} lacks the #{COLORS_START} / #{COLORS_END} markers" unless css.include?(COLORS_START) && css.include?(COLORS_END)
 
-        section = "#{COLORS_START}\n/* source: #{source_label} */\n#{render_colors(palette)}#{COLORS_END}"
+        section = "#{COLORS_START}\n/* source: #{comment_text(source_label)} */\n#{render_colors(palette)}#{COLORS_END}"
         File.write(theme_file, css.sub(/#{Regexp.escape(COLORS_START)}.*?#{Regexp.escape(COLORS_END)}/mo, section.gsub("\\", "\\\\\\\\")))
         result
       end
 
+      # Text that is safe inside a CSS comment: one line, no comment delimiters, bounded length.
+      #
+      # @api private
+      def comment_text(text)
+        text.to_s.gsub(/\s+/, " ").gsub("*/", "* /").gsub("/*", "/ *").strip[0, 200]
+      end
+
+      # Rewrites the colors of theme.css from a preset.
+      #
+      # @param name [String] preset name, one of {.presets}
+      # @return [Hash{Symbol => Array<String>}] the validation result, `{ errors: [], warnings: [...] }`
+      # @raise [Phlex::Shadcn::Theme::Error] for an unknown preset, a preset with errors, a theme.css without the color markers,
+      #   or no configured theme directory
+      # @example
+      #   Phlex::Shadcn::Theme.use("slate")
       def use(name)
         file = File.join(presets_dir, "#{name}.css")
         raise Error, "unknown preset '#{name}'. Available: #{presets.join(', ')}" unless File.exist?(file)
@@ -265,12 +354,27 @@ module Phlex
         write_colors(parse(File.read(file)), source_label: "preset #{name}")
       end
 
-      # source: path to a CSS file, an http(s) URL, or "-" for stdin. Fills variables a pasted theme
-      # lacks from the current theme (and reports which), wraps legacy bare HSL triplets.
+      # Rewrites the colors of theme.css from a shadcn theme pasted from ui.shadcn.com/themes. Variables the pasted theme lacks
+      # are kept from the current theme (and reported) and legacy bare HSL triplets are wrapped in `hsl()`. Nothing is written when
+      # the result is invalid.
+      #
+      # A URL has to be `https`: it is fetched with a 5 s open and 10 s read timeout, at most 3 redirects (each `https`) and a
+      # 256 KiB body. Values that could break theme.css (comment delimiters, braces, semicolons, backslashes, `url(`) are rejected.
+      # A URL with credentials (`https://user:pass@host`) is refused, also as a redirect target.
+      #
+      # @param source [String] path to a CSS file, an `https://` URL, or `"-"` for the `input` stream
+      # @param input [IO] where `"-"` is read from
+      # @return [Hash{Symbol => Array<String>}] `{ errors: [], warnings: [...], filled: [...] }`
+      # @raise [Phlex::Shadcn::Theme::Error] for an unreadable or unreachable source, a non-https URL, a URL with credentials, a non-200 answer, too many
+      #   redirects, an oversize or non-UTF-8 body, a theme without `:root`/`.dark` blocks, an invalid palette, a theme.css without
+      #   the color markers, or no configured theme directory
+      # @example
+      #   Phlex::Shadcn::Theme.import("https://example.com/my-theme.css")
+      #   Phlex::Shadcn::Theme.import("my-theme.css")
       def import(source, input: $stdin)
         css = read_source(source, input)
         pasted = parse(css)
-        raise Error, "no :root { } or .dark { } block found in #{source}" if pasted.root.empty? && pasted.dark.empty?
+        raise Error, "no :root { } or .dark { } block found in #{comment_text(source)}" if pasted.root.empty? && pasted.dark.empty?
 
         current = parse(File.read(theme_file))
         filled = []
@@ -282,6 +386,7 @@ module Phlex
         result.merge(filled: filled)
       end
 
+      # @api private
       def fill(pasted, current, label, filled)
         values = pasted.transform_values { |v| normalize_value(v) }
         (REQUIRED + (label == "light" ? ROOT_ONLY : [])).each do |name|
@@ -294,14 +399,93 @@ module Phlex
         values
       end
 
+      # @api private
       def read_source(source, input)
-        if source == "-"
+        css = if source == "-"
           input.read
-        elsif source.match?(%r{\Ahttps?://})
-          Net::HTTP.get(URI(source))
+        elsif source.match?(%r{\A[a-z][a-z0-9+.-]*://}i)
+          fetch(source)
         else
-          File.read(source)
+          read_file(source)
         end
+        css = css.dup.force_encoding(Encoding::UTF_8)
+        raise Error, "#{comment_text(source)} is not valid UTF-8 text" unless css.valid_encoding?
+
+        css
+      end
+
+      # @api private
+      def read_file(path)
+        File.read(path)
+      rescue SystemCallError => e
+        raise Error, "cannot read #{path}: #{e.message}"
+      end
+
+      # GET of an https URL, following at most {IMPORT_MAX_REDIRECTS} https redirects.
+      #
+      # @api private
+      def fetch(url)
+        uri = https_uri(url)
+        (IMPORT_MAX_REDIRECTS + 1).times do
+          status, location, body = http_get(uri)
+          return body if status == 200
+          raise Error, "#{uri} answered HTTP #{status}" unless [ 301, 302, 303, 307, 308 ].include?(status)
+          raise Error, "#{uri} redirected without a Location" if location.to_s.empty?
+
+          uri = https_uri(redirect_target(uri, location))
+        end
+        raise Error, "#{url} redirected more than #{IMPORT_MAX_REDIRECTS} times"
+      end
+
+      # @api private
+      def redirect_target(uri, location)
+        URI.join(uri.to_s, location).to_s
+      rescue URI::Error
+        raise Error, "#{uri} redirected to an invalid location"
+      end
+
+      # @api private
+      def https_uri(url)
+        uri = URI.parse(url)
+        if uri.userinfo
+          raise Error, "URLs with credentials cannot be imported (host #{uri.host}); download the file and import its path"
+        end
+        raise Error, "only https:// URLs can be imported (got #{url})" unless uri.is_a?(URI::HTTPS)
+        raise Error, "#{url} has no host" if uri.host.to_s.empty?
+
+        uri
+      rescue URI::Error
+        raise Error, "#{comment_text(url)} is not a valid URL"
+      end
+
+      # One request. Returns [status, Location header, body]; the body is read only for a 200 and capped at {IMPORT_MAX_BYTES}.
+      #
+      # @api private
+      def http_get(uri)
+        options = { use_ssl: true, open_timeout: IMPORT_OPEN_TIMEOUT, read_timeout: IMPORT_READ_TIMEOUT }
+        answer = nil
+        Net::HTTP.start(uri.hostname, uri.port, **options) do |http|
+          request = Net::HTTP::Get.new(uri)
+          request["Accept-Encoding"] = "identity"
+          http.request(request) do |response|
+            status = response.code.to_i
+            answer = [ status, response["location"], (capped_body(response, uri) if status == 200) ]
+          end
+        end
+        answer
+      rescue Timeout::Error, SocketError, SystemCallError, IOError, OpenSSL::SSL::SSLError, Net::HTTPBadResponse, Net::ProtocolError, Zlib::Error => e
+        raise Error, "cannot fetch #{uri}: #{e.message}"
+      end
+
+      # @api private
+      def capped_body(response, uri)
+        body = +"".b
+        response.read_body do |chunk|
+          raise Error, "#{uri} is larger than #{IMPORT_MAX_BYTES / 1024} KiB" if body.bytesize + chunk.bytesize > IMPORT_MAX_BYTES
+
+          body << chunk
+        end
+        body
       end
 
       # Validates the current theme.css: variables complete in light and dark, valid values, text contrast.
@@ -316,7 +500,8 @@ module Phlex
 
       # Parsing, color math and file helpers behind the methods above.
       private_class_method :block, :variables, :normalize_value, :luminance, :to_linear_rgb, :oklch_to_linear, :hsl_to_linear,
-                           :srgb_to_linear, :hue_sector, :write_colors, :fill, :read_source
+                           :srgb_to_linear, :hue_sector, :write_colors, :comment_text, :fill, :read_source, :read_file, :fetch,
+                           :redirect_target, :https_uri, :http_get, :capped_body
     end
   end
 end
