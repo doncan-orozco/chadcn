@@ -1,0 +1,2 @@
+# Lockfiles of the CI matrix gemfiles (resolved on every run, never committed).
+test/smoke/gemfiles/*.lock

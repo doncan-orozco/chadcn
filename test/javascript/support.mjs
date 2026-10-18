@@ -2,18 +2,14 @@
 // cancelable public events, positioner options). They load the real Phlex parity page (real importmap, real controllers)
 // and use the Playwright of react-shadcn-catalog. Run with `bin/rails test:javascript` (starts the dev servers).
 import fs from "node:fs";
-import path from "node:path";
-import { createRequire } from "node:module";
 import assert from "node:assert/strict";
+import { loadPlaywright, serversFile } from "./dev_kit.mjs";
 
-// Dev-kit coupling (temporary, ruby-gem-conventions R1/R10): the Playwright install and the running Phlex server come from the
-// monorepo dev kit. PHLEX_SHADCN_DEV_ROOT and PARITY_PHLEX_URL let the suite run from any checkout.
-const ROOT = process.env.PHLEX_SHADCN_DEV_ROOT || path.resolve(import.meta.dirname, "../../../..");
-const require = createRequire(path.join(ROOT, "react-shadcn-catalog/package.json"));
-const { chromium } = require("playwright");
+// Dev-kit coupling (ruby-gem-conventions R1/R10): see dev_kit.mjs for where Playwright and the running Phlex server are looked up.
+const { chromium } = loadPlaywright();
 
-export const PHLEX = process.env.PARITY_PHLEX_URL
-  || JSON.parse(fs.readFileSync(path.join(ROOT, "tmp/shadcn-port/servers.json"), "utf8")).rails.url;
+export const PHLEX = process.env.PARITY_PHLEX_URL || JSON.parse(fs.readFileSync(serversFile(), "utf8")).rails.url;
+
 
 const NO_MOTION = "*,*::before,*::after{animation:none!important;transition:none!important}";
 

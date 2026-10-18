@@ -2,39 +2,20 @@
 // (Playwright); there is no jsdom, no Rails server, no vite and no servers.json. A page at http://primitives.test/ is served
 // from memory through page.route: its importmap maps the `shadcn/primitives/<name>` specifiers (and the vendored
 // @floating-ui packages) to the gem files, so a test does `await import("shadcn/primitives/presence")` inside page.evaluate.
-// Playwright is resolved from the dev kit (react-shadcn-catalog/node_modules): PHLEX_SHADCN_DEV_ROOT, else the checkout root,
-// else the main checkout of the git repository (worktrees do not carry node_modules).
+// Playwright is resolved from the gem's dev kit (dev/react-shadcn-catalog/node_modules): PHLEX_SHADCN_PLAYWRIGHT (a directory with
+// node_modules/playwright), PHLEX_SHADCN_DEV_ROOT (relative paths are resolved from the working directory), the dev kit of this
+// checkout, else the one of the main checkout when this is a git worktree (worktrees do not carry node_modules).
 import fs from "node:fs";
 import path from "node:path";
-import { execFileSync } from "node:child_process";
-import { createRequire } from "node:module";
 import test, { after } from "node:test";
+import { GEM_ROOT, loadPlaywright } from "./dev_kit.mjs";
 import assert from "node:assert/strict";
 
 export { assert };
 
-const GEM_ROOT = path.resolve(import.meta.dirname, "../..");
 const PRIMITIVES_DIR = path.join(GEM_ROOT, "app/javascript/shadcn/primitives");
 const VENDOR_DIR = path.join(GEM_ROOT, "vendor/javascript");
 const ORIGIN = "http://primitives.test";
-
-function devRoots() {
-  const roots = [process.env.PHLEX_SHADCN_DEV_ROOT, path.resolve(GEM_ROOT, "../..")];
-  try {
-    const common = execFileSync("git", ["-C", GEM_ROOT, "rev-parse", "--git-common-dir"], { encoding: "utf8" }).trim();
-    roots.push(path.dirname(path.resolve(GEM_ROOT, common)));
-  } catch { /* not a git checkout */ }
-  return roots.filter(Boolean);
-}
-
-function loadPlaywright() {
-  for (const root of devRoots()) {
-    const manifest = path.join(root, "react-shadcn-catalog/package.json");
-    if (!fs.existsSync(path.join(root, "react-shadcn-catalog/node_modules/playwright"))) continue;
-    return createRequire(manifest)("playwright");
-  }
-  throw new Error("playwright not found; set PHLEX_SHADCN_DEV_ROOT to the checkout holding react-shadcn-catalog/node_modules");
-}
 
 const { chromium } = loadPlaywright();
 
