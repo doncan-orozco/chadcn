@@ -43,11 +43,6 @@ function loadPlaywright() {
   }
 }
 
-// Rails' `stylesheet_link_tag :app` links every file under app/assets/builds, including the stub tailwindcss-rails writes to
-// app/assets/builds/tailwind/phlex-shadcn.css; its absolute `@import` of the gem's engine.css 404s in a browser (the real styles are
-// compiled into tailwind.css). Upstream tailwindcss-rails behaviour, deferred by the engine item (#95). Only that URL is tolerated.
-const KNOWN_UPSTREAM_404 = /\/app\/assets\/tailwind\/phlex-shadcn\/engine\.css(\?|$)/;
-const knownUpstream = (url) => KNOWN_UPSTREAM_404.test(url ?? "");
 const TIMEOUT = { connect: 15_000, state: 5_000 };
 const TRIGGER = '[data-slot="dialog-trigger"]';
 
@@ -67,12 +62,10 @@ try {
   page.on("pageerror", (error) => errors.push(`pageerror: ${error.message}`));
   page.on("console", (message) => {
     if (message.type() !== "error") return;
-    const source = message.location().url;
-    if (/^Failed to load resource/.test(message.text()) && knownUpstream(source)) return;
-    errors.push(`console: ${message.text()} (${source})`);
+    errors.push(`console: ${message.text()} (${message.location().url})`);
   });
-  page.on("response", (response) => { if (response.status() >= 400 && !knownUpstream(response.url())) errors.push(`${response.status()} ${response.url()}`); });
-  page.on("requestfailed", (request) => { if (!knownUpstream(request.url())) errors.push(`requestfailed: ${request.url()} ${request.failure()?.errorText}`); });
+  page.on("response", (response) => { if (response.status() >= 400) errors.push(`${response.status()} ${response.url()}`); });
+  page.on("requestfailed", (request) => errors.push(`requestfailed: ${request.url()} ${request.failure()?.errorText}`));
 
   await page.goto(url, { waitUntil: "load" });
   await page.locator('[data-controller~="shadcn--dialog"]').waitFor({ state: "attached" });
