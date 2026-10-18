@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "cgi/escape"
+
 # Radix SelectItem + ItemIndicator + ItemText (as shadcn composes them). as_child is not offered: the React original
 # renders two children, indicator and text. In the first pass of the root the item only registers itself.
 #
@@ -11,6 +13,10 @@
 #   select.item(value: "apple", text_value: "Apple") { "Apple" }
 class Phlex::Shadcn::Select::Item < Phlex::Shadcn::Base
   include Phlex::Shadcn::Select::Support
+
+  # @api private
+  TAG = /<(?:[^>\x22\x27]|\x22[^\x22]*\x22|\x27[^\x27]*\x27)*>/
+  private_constant :TAG
 
   # @return [String] Tailwind classes of the option
   CLASSES = "relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-muted-foreground *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2"
@@ -62,7 +68,13 @@ class Phlex::Shadcn::Select::Item < Phlex::Shadcn::Base
   end
 
   def register(html)
-    text = Nokogiri::HTML5.fragment(html).text
+    text = plain_text(html)
     select_state[:known] << { value: @value, disabled: @disabled, html:, text:, text_value: @text_value || text.strip }
+  end
+
+  # Text content of a captured fragment: tags removed (quoted attribute values may contain +>+), the XML named references (amp, lt, gt, quot, apos)
+  # and numeric references decoded; not the full HTML5 entity set, which the Phlex-escaped fragment never contains.
+  def plain_text(html)
+    CGI.unescapeHTML(html.gsub(TAG, ""))
   end
 end

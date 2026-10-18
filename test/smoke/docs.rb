@@ -14,10 +14,7 @@ module Smoke
     SKIP = [ /\A# Gemfile/, /ApplicationController/, /config\.phlex_shadcn/, /Phlex::Shadcn\.configure/ ].freeze
     # Fences that fail today for a known gem defect. Each must keep failing with its expected error (XFAIL); one that renders fails
     # the run (XPASS), so the PR that fixes the defect also removes its entry here.
-    KNOWN_RED = [
-      { file: "docs/menus-and-select.md", code: /Phlex::Shadcn::Select\.new/, error: "Nokogiri",
-        reason: "Select::Item needs Nokogiri at render time (epic #88)" }
-    ].freeze
+    KNOWN_RED = [].freeze
 
     def initialize(gem_root)
       @gem_root = Pathname.new(gem_root)

@@ -104,7 +104,7 @@ class Phlex::Shadcn::Select < Phlex::Shadcn::Base
   # @param disabled [Boolean] disables the Trigger and the hidden native select
   # @param required [Boolean, nil] +aria-required+ on the Trigger (+nil+ omits it, +false+ renders +"false"+) and +required+ on the hidden
   #   native select (only +true+)
-  # @param id [String, nil] base for the generated ids (+"#{id}-content"+...); a per-render +select-N+ is used when +nil+
+  # @param id [String, nil] base for the generated ids (+"my-select-content"+ for +id: "my-select"+); a per-render +select-N+ is used when +nil+
   # @return [void]
   def initialize(value: nil, default_value: nil, open: nil, default_open: false, dir: nil, name: nil, auto_complete: nil,
                  form: nil, disabled: false, required: nil, id: nil)
