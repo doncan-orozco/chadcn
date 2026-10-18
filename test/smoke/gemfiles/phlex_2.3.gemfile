@@ -1,0 +1,35 @@
+# frozen_string_literal: true
+
+# Lower bound of the Phlex range the gemspec claims (phlex ~> 2.3). The CI matrix bundles this file instead of the Gemfile; it has no
+# committed lockfile, so the workflow runs `bundle install` for it.
+source "https://rubygems.org"
+
+gemspec path: "../../.."
+
+gem "phlex", "~> 2.3.0"
+
+group :engine do
+  gem "importmap-rails", require: false
+  gem "propshaft", require: false
+  gem "rails", "~> 8.1", require: false
+  gem "tailwindcss-rails", require: false
+end
+
+group :development do
+  gem "bundler-audit", require: false
+  gem "minitest", "~> 6.0"
+  gem "nokogiri"
+  gem "rake"
+  gem "rubocop", require: false
+  gem "rubocop-minitest", require: false
+  gem "rubocop-performance", require: false
+  gem "rubocop-rake", require: false
+  gem "yard", require: false
+
+  # Monorepo only, like the Gemfile: RuboCop loads the host .rubocop.yml, which needs the host's lint plugins.
+  if File.exist?(File.expand_path("../../../../../.rubocop.yml", __dir__))
+    gem "rubocop-capybara", require: false
+    gem "rubocop-rails", require: false
+    gem "rubocop-rails-omakase", require: false
+  end
+end

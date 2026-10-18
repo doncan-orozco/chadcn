@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Smoke tests of the gem from the README's point of view (ruby-gem-conventions R10, R14):
+#   bin/smoke --plain   a Rails-free process renders the README's plain-Ruby fence and its Button + Dialog view; offline
+#   bin/smoke --docs    every ```ruby fence of README.md and docs/*.md renders in a plain process; offline
+#   bin/smoke --app     rails new, the README quick start verbatim, HTTP checks and one Playwright dialog scenario; network + browser
+# The implementation lives in test/smoke/.
+require_relative "../test/smoke/runner"
+
+exit Smoke::Runner.call(ARGV)
