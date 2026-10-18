@@ -1,0 +1,9 @@
+{
+  "reason": "Radix Dialog.Root and Dialog.Portal render no element and closed Overlay/Content are not mounted; a server-rendered Stimulus port needs one controller host (Trigger cannot host it: zero, one or several triggers, or controlled open) and somewhere to ship the closed markup. Neither element carries a data-slot, classes or layout (display: contents / template), so the compared DOM is unchanged.",
+  "allow_tokens": [],
+  "allow_missing_tokens": [],
+  "api": [
+    "Sheet renders one <div style=\"display: contents\" data-controller=\"shadcn--sheet\"> host with no data-slot, classes or other data attributes besides controller wiring",
+    "closed Portal children (Overlay, Content) are server-rendered inside a <template> in the host and mounted into document.body on open"
+  ]
+}

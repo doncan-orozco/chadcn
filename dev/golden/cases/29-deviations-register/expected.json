@@ -1,0 +1,9 @@
+{
+  "case": "29-deviations-register",
+  "kind": "deviations",
+  "description": "deviations_register.rb lists every deviations file in DEVIATIONS.md (the G5 house check needs `name` in backticks), is idempotent, preserves a human-entered approved-by, drops rows whose file is gone, and survives pipes/newlines in reasons.",
+  "expect_rows": [
+    "switch",
+    "card"
+  ]
+}

@@ -1,0 +1,5 @@
+{"component":"button","scenarios":[
+ {"id":"default","tree":{"c":"Button","children":["Hi"]}},
+ {"id":"outline-sm","tree":{"c":"Button","props":{"variant":"outline","size":"sm"},"children":["Hi"]}},
+ {"id":"ghost-dark","dark":true,"tree":{"c":"Button","props":{"variant":"ghost"},"children":["Hi"]}}
+]}

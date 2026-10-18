@@ -1,0 +1,110 @@
+{
+  "name": "collapsible",
+  "style": "new-york-v4",
+  "source_sha": "c6598e5584f4258b",
+  "use_client": true,
+  "tier": "radix_stateful",
+  "exports": [
+    "Collapsible",
+    "CollapsibleTrigger",
+    "CollapsibleContent"
+  ],
+  "parts": [
+    {
+      "name": "Collapsible",
+      "data_attrs": [],
+      "data_slots": [
+        "collapsible"
+      ],
+      "data_slot": "collapsible",
+      "wraps": "CollapsiblePrimitive.Root",
+      "renders": "CollapsiblePrimitive.Root",
+      "slot_tags": {
+        "collapsible": "CollapsiblePrimitive.Root"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "CollapsibleTrigger",
+      "data_attrs": [],
+      "data_slots": [
+        "collapsible-trigger"
+      ],
+      "data_slot": "collapsible-trigger",
+      "wraps": "CollapsiblePrimitive.CollapsibleTrigger",
+      "renders": "CollapsiblePrimitive.CollapsibleTrigger",
+      "slot_tags": {
+        "collapsible-trigger": "CollapsiblePrimitive.CollapsibleTrigger"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "CollapsibleContent",
+      "data_attrs": [],
+      "data_slots": [
+        "collapsible-content"
+      ],
+      "data_slot": "collapsible-content",
+      "wraps": "CollapsiblePrimitive.CollapsibleContent",
+      "renders": "CollapsiblePrimitive.CollapsibleContent",
+      "slot_tags": {
+        "collapsible-content": "CollapsiblePrimitive.CollapsibleContent"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [],
+  "data_attrs": [],
+  "data_slots": [
+    "collapsible",
+    "collapsible-content",
+    "collapsible-trigger"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [
+    "Collapsible"
+  ],
+  "third_party": [],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "radix-ui"
+  ],
+  "extra_files": []
+}

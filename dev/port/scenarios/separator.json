@@ -1,0 +1,1056 @@
+{
+  "component": "separator",
+  "scenarios": [
+    {
+      "id": "default",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[300px]"
+        },
+        "children": [
+          {
+            "c": "Separator",
+            "props": {},
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[300px]"
+        },
+        "children": [
+          {
+            "c": "Separator",
+            "props": {},
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "orientation-horizontal",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[300px]"
+        },
+        "children": [
+          {
+            "c": "Separator",
+            "props": {
+              "orientation": "horizontal"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "orientation-horizontal__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[300px]"
+        },
+        "children": [
+          {
+            "c": "Separator",
+            "props": {
+              "orientation": "horizontal"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "orientation-vertical",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-5 items-center space-x-4 text-sm"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {},
+            "children": [
+              "Blog"
+            ]
+          },
+          {
+            "c": "Separator",
+            "props": {
+              "orientation": "vertical"
+            },
+            "children": []
+          },
+          {
+            "c": "_div",
+            "props": {},
+            "children": [
+              "Docs"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "orientation-vertical__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-5 items-center space-x-4 text-sm"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {},
+            "children": [
+              "Blog"
+            ]
+          },
+          {
+            "c": "Separator",
+            "props": {
+              "orientation": "vertical"
+            },
+            "children": []
+          },
+          {
+            "c": "_div",
+            "props": {},
+            "children": [
+              "Docs"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "orientation-invalid-falls-back",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[300px]"
+        },
+        "children": [
+          {
+            "c": "Separator",
+            "props": {
+              "orientation": "diagonal"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "decorative-false__horizontal",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[300px]"
+        },
+        "children": [
+          {
+            "c": "Separator",
+            "props": {
+              "decorative": false
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "decorative-false__horizontal__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[300px]"
+        },
+        "children": [
+          {
+            "c": "Separator",
+            "props": {
+              "decorative": false
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "decorative-false__vertical",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-5 items-center space-x-4 text-sm"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {},
+            "children": [
+              "Blog"
+            ]
+          },
+          {
+            "c": "Separator",
+            "props": {
+              "orientation": "vertical",
+              "decorative": false
+            },
+            "children": []
+          },
+          {
+            "c": "_div",
+            "props": {},
+            "children": [
+              "Docs"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "decorative-false__vertical__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-5 items-center space-x-4 text-sm"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {},
+            "children": [
+              "Blog"
+            ]
+          },
+          {
+            "c": "Separator",
+            "props": {
+              "orientation": "vertical",
+              "decorative": false
+            },
+            "children": []
+          },
+          {
+            "c": "_div",
+            "props": {},
+            "children": [
+              "Docs"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "decorative-true__vertical-explicit",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-5 items-center space-x-4 text-sm"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {},
+            "children": [
+              "Blog"
+            ]
+          },
+          {
+            "c": "Separator",
+            "props": {
+              "orientation": "vertical",
+              "decorative": true
+            },
+            "children": []
+          },
+          {
+            "c": "_div",
+            "props": {},
+            "children": [
+              "Docs"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class-merge__caller-wins",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[300px]"
+        },
+        "children": [
+          {
+            "c": "Separator",
+            "props": {
+              "className": "bg-primary my-4"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class-merge__caller-wins__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[300px]"
+        },
+        "children": [
+          {
+            "c": "Separator",
+            "props": {
+              "className": "bg-primary my-4"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class-merge__vertical-thickness",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-5 items-center space-x-4 text-sm"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {},
+            "children": [
+              "Blog"
+            ]
+          },
+          {
+            "c": "Separator",
+            "props": {
+              "orientation": "vertical",
+              "className": "data-[orientation=vertical]:w-1 bg-destructive"
+            },
+            "children": []
+          },
+          {
+            "c": "_div",
+            "props": {},
+            "children": [
+              "Docs"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class-merge__horizontal-thickness",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[300px]"
+        },
+        "children": [
+          {
+            "c": "Separator",
+            "props": {
+              "className": "data-[orientation=horizontal]:h-1 data-[orientation=horizontal]:w-1/2"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "forwarded-attrs",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[300px]"
+        },
+        "children": [
+          {
+            "c": "Separator",
+            "props": {
+              "id": "sep-1",
+              "title": "Divider",
+              "data-testid": "my-separator",
+              "aria-label": "Section divider",
+              "decorative": false
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "role-override__decorative",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[300px]"
+        },
+        "children": [
+          {
+            "c": "Separator",
+            "props": {
+              "role": "presentation"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-orientation-override",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[300px]"
+        },
+        "children": [
+          {
+            "c": "Separator",
+            "props": {
+              "decorative": false,
+              "aria-orientation": "horizontal"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "data-slot-override",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[300px]"
+        },
+        "children": [
+          {
+            "c": "Separator",
+            "props": {
+              "data-slot": "custom-separator"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "as-child-span",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[300px]"
+        },
+        "children": [
+          {
+            "c": "Separator",
+            "props": {
+              "asChild": true
+            },
+            "children": [
+              {
+                "c": "_span",
+                "props": {
+                  "className": "block"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "as-child-span__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[300px]"
+        },
+        "children": [
+          {
+            "c": "Separator",
+            "props": {
+              "asChild": true
+            },
+            "children": [
+              {
+                "c": "_span",
+                "props": {
+                  "className": "block"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "as-child-li-vertical",
+      "tree": {
+        "c": "_ul",
+        "props": {
+          "className": "flex h-5 items-center gap-4 text-sm"
+        },
+        "children": [
+          {
+            "c": "_li",
+            "props": {},
+            "children": [
+              "One"
+            ]
+          },
+          {
+            "c": "Separator",
+            "props": {
+              "asChild": true,
+              "orientation": "vertical",
+              "decorative": false
+            },
+            "children": [
+              {
+                "c": "_li",
+                "props": {},
+                "children": []
+              }
+            ]
+          },
+          {
+            "c": "_li",
+            "props": {},
+            "children": [
+              "Two"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "in-flex-column",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-[300px] flex-col gap-2 text-sm"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {},
+            "children": [
+              "Above"
+            ]
+          },
+          {
+            "c": "Separator",
+            "props": {},
+            "children": []
+          },
+          {
+            "c": "_div",
+            "props": {},
+            "children": [
+              "Below"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "vertical-in-stretch-row",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-16 text-sm"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "px-2"
+            },
+            "children": [
+              "Left"
+            ]
+          },
+          {
+            "c": "Separator",
+            "props": {
+              "orientation": "vertical"
+            },
+            "children": []
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "px-2"
+            },
+            "children": [
+              "Right"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus-skip__tab",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-5 items-center space-x-4 text-sm"
+        },
+        "children": [
+          {
+            "c": "_a",
+            "props": {
+              "href": "#blog"
+            },
+            "children": [
+              "Blog"
+            ]
+          },
+          {
+            "c": "Separator",
+            "props": {
+              "orientation": "vertical",
+              "decorative": false
+            },
+            "children": []
+          },
+          {
+            "c": "_a",
+            "props": {
+              "href": "#docs"
+            },
+            "children": [
+              "Docs"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "resize__full-width",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full p-4"
+        },
+        "children": [
+          {
+            "c": "Separator",
+            "props": {},
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "viewport",
+          "width": 480,
+          "height": 700
+        },
+        {
+          "do": "viewport",
+          "width": 1200,
+          "height": 700
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__separator-demo",
+      "tree": {
+        "c": "_div",
+        "props": {},
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "space-y-1"
+            },
+            "children": [
+              {
+                "c": "_h4",
+                "props": {
+                  "className": "text-sm leading-none font-medium"
+                },
+                "children": [
+                  "Radix Primitives"
+                ]
+              },
+              {
+                "c": "_p",
+                "props": {
+                  "className": "text-sm text-muted-foreground"
+                },
+                "children": [
+                  "An open-source UI component library."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Separator",
+            "props": {
+              "className": "my-4"
+            },
+            "children": []
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-5 items-center space-x-4 text-sm"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {},
+                "children": [
+                  "Blog"
+                ]
+              },
+              {
+                "c": "Separator",
+                "props": {
+                  "orientation": "vertical"
+                },
+                "children": []
+              },
+              {
+                "c": "_div",
+                "props": {},
+                "children": [
+                  "Docs"
+                ]
+              },
+              {
+                "c": "Separator",
+                "props": {
+                  "orientation": "vertical"
+                },
+                "children": []
+              },
+              {
+                "c": "_div",
+                "props": {},
+                "children": [
+                  "Source"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__separator-demo__dark",
+      "tree": {
+        "c": "_div",
+        "props": {},
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "space-y-1"
+            },
+            "children": [
+              {
+                "c": "_h4",
+                "props": {
+                  "className": "text-sm leading-none font-medium"
+                },
+                "children": [
+                  "Radix Primitives"
+                ]
+              },
+              {
+                "c": "_p",
+                "props": {
+                  "className": "text-sm text-muted-foreground"
+                },
+                "children": [
+                  "An open-source UI component library."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Separator",
+            "props": {
+              "className": "my-4"
+            },
+            "children": []
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-5 items-center space-x-4 text-sm"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {},
+                "children": [
+                  "Blog"
+                ]
+              },
+              {
+                "c": "Separator",
+                "props": {
+                  "orientation": "vertical"
+                },
+                "children": []
+              },
+              {
+                "c": "_div",
+                "props": {},
+                "children": [
+                  "Docs"
+                ]
+              },
+              {
+                "c": "Separator",
+                "props": {
+                  "orientation": "vertical"
+                },
+                "children": []
+              },
+              {
+                "c": "_div",
+                "props": {},
+                "children": [
+                  "Source"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

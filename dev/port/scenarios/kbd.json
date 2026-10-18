@@ -1,0 +1,1391 @@
+{
+  "component": "kbd",
+  "scenarios": [
+    {
+      "id": "defaults",
+      "tree": {
+        "c": "Kbd",
+        "props": {},
+        "children": [
+          "K"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "defaults__dark",
+      "tree": {
+        "c": "Kbd",
+        "props": {},
+        "children": [
+          "K"
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group__defaults",
+      "tree": {
+        "c": "KbdGroup",
+        "props": {},
+        "children": [
+          {
+            "c": "Kbd",
+            "props": {},
+            "children": [
+              "Ctrl"
+            ]
+          },
+          {
+            "c": "Kbd",
+            "props": {},
+            "children": [
+              "B"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group__defaults__dark",
+      "tree": {
+        "c": "KbdGroup",
+        "props": {},
+        "children": [
+          {
+            "c": "Kbd",
+            "props": {},
+            "children": [
+              "Ctrl"
+            ]
+          },
+          {
+            "c": "Kbd",
+            "props": {},
+            "children": [
+              "B"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-symbol",
+      "tree": {
+        "c": "Kbd",
+        "props": {},
+        "children": [
+          "⌘"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-word",
+      "tree": {
+        "c": "Kbd",
+        "props": {},
+        "children": [
+          "Ctrl"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-long-text",
+      "tree": {
+        "c": "Kbd",
+        "props": {},
+        "children": [
+          "Ctrl + Shift + Alt + Delete"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-long-text-narrow-wrap",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "style": {
+            "width": "60px"
+          }
+        },
+        "children": [
+          {
+            "c": "Kbd",
+            "props": {},
+            "children": [
+              "Ctrl + Shift + Alt + Delete"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-empty",
+      "tree": {
+        "c": "Kbd",
+        "props": {},
+        "children": []
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-icon-only",
+      "tree": {
+        "c": "Kbd",
+        "props": {
+          "aria-label": "Command"
+        },
+        "children": [
+          "<icon:command>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-icon-only__dark",
+      "tree": {
+        "c": "Kbd",
+        "props": {
+          "aria-label": "Command"
+        },
+        "children": [
+          "<icon:command>"
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-icon-text",
+      "tree": {
+        "c": "Kbd",
+        "props": {},
+        "children": [
+          "<icon:arrow-big-up>",
+          "Shift"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-text-icon",
+      "tree": {
+        "c": "Kbd",
+        "props": {},
+        "children": [
+          "Shift",
+          "<icon:arrow-big-up>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-nested-svg-sized",
+      "tree": {
+        "c": "Kbd",
+        "props": {},
+        "children": [
+          {
+            "c": "_span",
+            "props": {},
+            "children": [
+              "<icon:command>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group__mixed-children",
+      "tree": {
+        "c": "KbdGroup",
+        "props": {},
+        "children": [
+          {
+            "c": "Kbd",
+            "props": {},
+            "children": [
+              "Ctrl"
+            ]
+          },
+          {
+            "c": "_span",
+            "props": {},
+            "children": [
+              "+"
+            ]
+          },
+          {
+            "c": "Kbd",
+            "props": {},
+            "children": [
+              "B"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group__icons",
+      "tree": {
+        "c": "KbdGroup",
+        "props": {},
+        "children": [
+          {
+            "c": "Kbd",
+            "props": {},
+            "children": [
+              "<icon:command>"
+            ]
+          },
+          {
+            "c": "Kbd",
+            "props": {},
+            "children": [
+              "<icon:arrow-big-up>"
+            ]
+          },
+          {
+            "c": "Kbd",
+            "props": {},
+            "children": [
+              "K"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group__single",
+      "tree": {
+        "c": "KbdGroup",
+        "props": {},
+        "children": [
+          {
+            "c": "Kbd",
+            "props": {},
+            "children": [
+              "Esc"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group__empty",
+      "tree": {
+        "c": "KbdGroup",
+        "props": {},
+        "children": []
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group__in-paragraph",
+      "tree": {
+        "c": "_p",
+        "props": {
+          "className": "text-sm text-muted-foreground"
+        },
+        "children": [
+          "Use ",
+          {
+            "c": "KbdGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "Kbd",
+                "props": {},
+                "children": [
+                  "Ctrl + B"
+                ]
+              },
+              {
+                "c": "Kbd",
+                "props": {},
+                "children": [
+                  "Ctrl + K"
+                ]
+              }
+            ]
+          },
+          " to open"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "inline-in-text",
+      "tree": {
+        "c": "_p",
+        "props": {
+          "className": "text-sm"
+        },
+        "children": [
+          "Press ",
+          {
+            "c": "Kbd",
+            "props": {},
+            "children": [
+              "Esc"
+            ]
+          },
+          " to close"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover-no-effect",
+      "tree": {
+        "c": "Kbd",
+        "props": {},
+        "children": [
+          "K"
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=kbd]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tab-not-focusable",
+      "tree": {
+        "c": "_div",
+        "props": {},
+        "children": [
+          {
+            "c": "_button",
+            "props": {},
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "Kbd",
+            "props": {},
+            "children": [
+              "K"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tooltip-context__kbd",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-slot": "tooltip-content",
+          "className": "bg-foreground text-background rounded-md px-3 py-1.5 text-xs w-fit"
+        },
+        "children": [
+          "Save Changes ",
+          {
+            "c": "Kbd",
+            "props": {},
+            "children": [
+              "S"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tooltip-context__kbd__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-slot": "tooltip-content",
+          "className": "bg-foreground text-background rounded-md px-3 py-1.5 text-xs w-fit"
+        },
+        "children": [
+          "Save Changes ",
+          {
+            "c": "Kbd",
+            "props": {},
+            "children": [
+              "S"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tooltip-context__group",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-slot": "tooltip-content",
+          "className": "bg-foreground text-background rounded-md px-3 py-1.5 text-xs w-fit"
+        },
+        "children": [
+          "Print Document ",
+          {
+            "c": "KbdGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "Kbd",
+                "props": {},
+                "children": [
+                  "Ctrl"
+                ]
+              },
+              {
+                "c": "Kbd",
+                "props": {},
+                "children": [
+                  "P"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tooltip-context__group__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-slot": "tooltip-content",
+          "className": "bg-foreground text-background rounded-md px-3 py-1.5 text-xs w-fit"
+        },
+        "children": [
+          "Print Document ",
+          {
+            "c": "KbdGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "Kbd",
+                "props": {},
+                "children": [
+                  "Ctrl"
+                ]
+              },
+              {
+                "c": "Kbd",
+                "props": {},
+                "children": [
+                  "P"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tooltip-context__icon",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-slot": "tooltip-content",
+          "className": "bg-foreground text-background rounded-md px-3 py-1.5 text-xs w-fit"
+        },
+        "children": [
+          {
+            "c": "Kbd",
+            "props": {},
+            "children": [
+              "<icon:command>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tooltip-context__classname-override",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-slot": "tooltip-content",
+          "className": "bg-foreground text-background rounded-md px-3 py-1.5 text-xs w-fit"
+        },
+        "children": [
+          {
+            "c": "Kbd",
+            "props": {
+              "className": "bg-primary text-primary-foreground"
+            },
+            "children": [
+              "S"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__kbd-classname-merge",
+      "tree": {
+        "c": "Kbd",
+        "props": {
+          "className": "rounded-md px-2"
+        },
+        "children": [
+          "K"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__kbd-classname-bg-override",
+      "tree": {
+        "c": "Kbd",
+        "props": {
+          "className": "bg-primary text-primary-foreground"
+        },
+        "children": [
+          "K"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__kbd-classname-size",
+      "tree": {
+        "c": "Kbd",
+        "props": {
+          "className": "h-6 min-w-6 text-sm"
+        },
+        "children": [
+          "K"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__kbd-svg-explicit-size-class",
+      "tree": {
+        "c": "Kbd",
+        "props": {
+          "className": "[&_svg]:size-4"
+        },
+        "children": [
+          "K"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__kbd-forwarded-attrs",
+      "tree": {
+        "c": "Kbd",
+        "props": {
+          "id": "kbd-1",
+          "title": "Keyboard key",
+          "aria-label": "K key",
+          "data-foo": "bar"
+        },
+        "children": [
+          "K"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__kbd-data-slot-override",
+      "tree": {
+        "c": "Kbd",
+        "props": {
+          "data-slot": "custom-kbd"
+        },
+        "children": [
+          "K"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__kbd-style",
+      "tree": {
+        "c": "Kbd",
+        "props": {
+          "style": {
+            "minWidth": "2rem"
+          }
+        },
+        "children": [
+          "K"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__group-classname-merge",
+      "tree": {
+        "c": "KbdGroup",
+        "props": {
+          "className": "gap-2 flex-col"
+        },
+        "children": [
+          {
+            "c": "Kbd",
+            "props": {},
+            "children": [
+              "Ctrl"
+            ]
+          },
+          {
+            "c": "Kbd",
+            "props": {},
+            "children": [
+              "B"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__group-forwarded-attrs",
+      "tree": {
+        "c": "KbdGroup",
+        "props": {
+          "id": "group-1",
+          "aria-label": "Ctrl B",
+          "data-foo": "bar"
+        },
+        "children": [
+          {
+            "c": "Kbd",
+            "props": {},
+            "children": [
+              "Ctrl"
+            ]
+          },
+          {
+            "c": "Kbd",
+            "props": {},
+            "children": [
+              "B"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__group-data-slot-override",
+      "tree": {
+        "c": "KbdGroup",
+        "props": {
+          "data-slot": "custom-group"
+        },
+        "children": [
+          {
+            "c": "Kbd",
+            "props": {},
+            "children": [
+              "Ctrl"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__kbd-demo",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-center gap-4"
+        },
+        "children": [
+          {
+            "c": "KbdGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "Kbd",
+                "props": {},
+                "children": [
+                  "⌘"
+                ]
+              },
+              {
+                "c": "Kbd",
+                "props": {},
+                "children": [
+                  "⇧"
+                ]
+              },
+              {
+                "c": "Kbd",
+                "props": {},
+                "children": [
+                  "⌥"
+                ]
+              },
+              {
+                "c": "Kbd",
+                "props": {},
+                "children": [
+                  "⌃"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "KbdGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "Kbd",
+                "props": {},
+                "children": [
+                  "Ctrl"
+                ]
+              },
+              {
+                "c": "_span",
+                "props": {},
+                "children": [
+                  "+"
+                ]
+              },
+              {
+                "c": "Kbd",
+                "props": {},
+                "children": [
+                  "B"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__kbd-demo__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-center gap-4"
+        },
+        "children": [
+          {
+            "c": "KbdGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "Kbd",
+                "props": {},
+                "children": [
+                  "⌘"
+                ]
+              },
+              {
+                "c": "Kbd",
+                "props": {},
+                "children": [
+                  "⇧"
+                ]
+              },
+              {
+                "c": "Kbd",
+                "props": {},
+                "children": [
+                  "⌥"
+                ]
+              },
+              {
+                "c": "Kbd",
+                "props": {},
+                "children": [
+                  "⌃"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "KbdGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "Kbd",
+                "props": {},
+                "children": [
+                  "Ctrl"
+                ]
+              },
+              {
+                "c": "_span",
+                "props": {},
+                "children": [
+                  "+"
+                ]
+              },
+              {
+                "c": "Kbd",
+                "props": {},
+                "children": [
+                  "B"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__kbd-group",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-center gap-4"
+        },
+        "children": [
+          {
+            "c": "_p",
+            "props": {
+              "className": "text-sm text-muted-foreground"
+            },
+            "children": [
+              "Use ",
+              {
+                "c": "KbdGroup",
+                "props": {},
+                "children": [
+                  {
+                    "c": "Kbd",
+                    "props": {},
+                    "children": [
+                      "Ctrl + B"
+                    ]
+                  },
+                  {
+                    "c": "Kbd",
+                    "props": {},
+                    "children": [
+                      "Ctrl + K"
+                    ]
+                  }
+                ]
+              },
+              " to open the command palette"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__kbd-group__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-center gap-4"
+        },
+        "children": [
+          {
+            "c": "_p",
+            "props": {
+              "className": "text-sm text-muted-foreground"
+            },
+            "children": [
+              "Use ",
+              {
+                "c": "KbdGroup",
+                "props": {},
+                "children": [
+                  {
+                    "c": "Kbd",
+                    "props": {},
+                    "children": [
+                      "Ctrl + B"
+                    ]
+                  },
+                  {
+                    "c": "Kbd",
+                    "props": {},
+                    "children": [
+                      "Ctrl + K"
+                    ]
+                  }
+                ]
+              },
+              " to open the command palette"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__kbd-button",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-wrap items-center gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "className": "pr-2"
+            },
+            "children": [
+              "Accept ",
+              {
+                "c": "Kbd",
+                "props": {},
+                "children": [
+                  "⏎"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "className": "pr-2"
+            },
+            "children": [
+              "Cancel ",
+              {
+                "c": "Kbd",
+                "props": {},
+                "children": [
+                  "Esc"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__kbd-tooltip",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-wrap gap-4"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {},
+            "children": [
+              {
+                "c": "_button",
+                "props": {},
+                "children": [
+                  "Save"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {},
+                "children": [
+                  "Print"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "tooltip-content",
+              "className": "bg-foreground text-background rounded-md px-3 py-1.5 text-xs w-fit"
+            },
+            "children": [
+              "Save Changes ",
+              {
+                "c": "Kbd",
+                "props": {},
+                "children": [
+                  "S"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "tooltip-content",
+              "className": "bg-foreground text-background rounded-md px-3 py-1.5 text-xs w-fit"
+            },
+            "children": [
+              "Print Document ",
+              {
+                "c": "KbdGroup",
+                "props": {},
+                "children": [
+                  {
+                    "c": "Kbd",
+                    "props": {},
+                    "children": [
+                      "Ctrl"
+                    ]
+                  },
+                  {
+                    "c": "Kbd",
+                    "props": {},
+                    "children": [
+                      "P"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__kbd-input-group",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-xs flex-col gap-6"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {},
+            "children": [
+              {
+                "c": "_input",
+                "props": {
+                  "placeholder": "Search..."
+                },
+                "children": []
+              },
+              {
+                "c": "_div",
+                "props": {},
+                "children": [
+                  "<icon:search>"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {},
+                "children": [
+                  {
+                    "c": "Kbd",
+                    "props": {},
+                    "children": [
+                      "⌘"
+                    ]
+                  },
+                  {
+                    "c": "Kbd",
+                    "props": {},
+                    "children": [
+                      "K"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

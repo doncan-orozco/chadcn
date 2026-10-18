@@ -1,0 +1,226 @@
+{
+  "name": "button-group",
+  "style": "new-york-v4",
+  "source_sha": "a9ac862707ff8d78",
+  "use_client": false,
+  "tier": "static",
+  "exports": [
+    "ButtonGroup",
+    "ButtonGroupSeparator",
+    "ButtonGroupText",
+    "buttonGroupVariants"
+  ],
+  "parts": [
+    {
+      "name": "ButtonGroup",
+      "data_attrs": [
+        {
+          "name": "data-orientation",
+          "value": "{orientation}"
+        }
+      ],
+      "data_slots": [
+        "button-group"
+      ],
+      "data_slot": "button-group",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "orientation"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": true,
+      "variants_used": [
+        "buttonGroupVariants"
+      ]
+    },
+    {
+      "name": "ButtonGroupText",
+      "data_attrs": [],
+      "data_slots": [],
+      "data_slot": null,
+      "wraps": "Comp",
+      "renders": "Comp",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "asChild",
+            "default": "false"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "asChild",
+            "type": "boolean"
+          }
+        ]
+      },
+      "class_tokens": [
+        "[&_svg:not([class*='size-'])]:size-4",
+        "[&_svg]:pointer-events-none",
+        "bg-muted",
+        "border",
+        "flex",
+        "font-medium",
+        "gap-2",
+        "items-center",
+        "px-4",
+        "rounded-md",
+        "shadow-xs",
+        "text-sm"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ButtonGroupSeparator",
+      "data_attrs": [],
+      "data_slots": [
+        "button-group-separator"
+      ],
+      "data_slot": "button-group-separator",
+      "wraps": null,
+      "renders": "Separator",
+      "slot_tags": {
+        "button-group-separator": "Separator"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "orientation",
+            "default": "\"vertical\""
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "bg-input",
+        "data-[orientation=vertical]:h-auto",
+        "m-0!",
+        "relative",
+        "self-stretch"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {
+    "buttonGroupVariants": {
+      "base": "flex w-fit items-stretch has-[>[data-slot=button-group]]:gap-2 [&>*]:focus-visible:relative [&>*]:focus-visible:z-10 has-[select[aria-hidden=true]:last-child]:[&>[data-slot=select-trigger]:last-of-type]:rounded-r-md [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1",
+      "variants": {
+        "orientation": {
+          "horizontal": "[&>*:not(:first-child)]:rounded-l-none [&>*:not(:first-child)]:border-l-0 [&>*:not(:last-child)]:rounded-r-none",
+          "vertical": "flex-col [&>*:not(:first-child)]:rounded-t-none [&>*:not(:first-child)]:border-t-0 [&>*:not(:last-child)]:rounded-b-none"
+        }
+      },
+      "defaults": {
+        "orientation": "horizontal"
+      },
+      "compound": [],
+      "tokens": [
+        "[&>*:not(:first-child)]:border-l-0",
+        "[&>*:not(:first-child)]:border-t-0",
+        "[&>*:not(:first-child)]:rounded-l-none",
+        "[&>*:not(:first-child)]:rounded-t-none",
+        "[&>*:not(:last-child)]:rounded-b-none",
+        "[&>*:not(:last-child)]:rounded-r-none",
+        "[&>*]:focus-visible:relative",
+        "[&>*]:focus-visible:z-10",
+        "[&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit",
+        "[&>input]:flex-1",
+        "flex",
+        "flex-col",
+        "has-[>[data-slot=button-group]]:gap-2",
+        "has-[select[aria-hidden=true]:last-child]:[&>[data-slot=select-trigger]:last-of-type]:rounded-r-md",
+        "horizontal",
+        "items-stretch",
+        "w-fit"
+      ]
+    }
+  },
+  "class_tokens": [
+    "[&>*:not(:first-child)]:border-l-0",
+    "[&>*:not(:first-child)]:border-t-0",
+    "[&>*:not(:first-child)]:rounded-l-none",
+    "[&>*:not(:first-child)]:rounded-t-none",
+    "[&>*:not(:last-child)]:rounded-b-none",
+    "[&>*:not(:last-child)]:rounded-r-none",
+    "[&>*]:focus-visible:relative",
+    "[&>*]:focus-visible:z-10",
+    "[&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit",
+    "[&>input]:flex-1",
+    "[&_svg:not([class*='size-'])]:size-4",
+    "[&_svg]:pointer-events-none",
+    "bg-input",
+    "bg-muted",
+    "border",
+    "data-[orientation=vertical]:h-auto",
+    "flex",
+    "flex-col",
+    "font-medium",
+    "gap-2",
+    "has-[>[data-slot=button-group]]:gap-2",
+    "has-[select[aria-hidden=true]:last-child]:[&>[data-slot=select-trigger]:last-of-type]:rounded-r-md",
+    "horizontal",
+    "items-center",
+    "items-stretch",
+    "m-0!",
+    "px-4",
+    "relative",
+    "rounded-md",
+    "self-stretch",
+    "shadow-xs",
+    "text-sm",
+    "w-fit"
+  ],
+  "data_attrs": [
+    "data-orientation"
+  ],
+  "data_slots": [
+    "button-group",
+    "button-group-separator"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [
+    "Slot"
+  ],
+  "third_party": [],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [
+    "separator"
+  ],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn"
+  ],
+  "extra_files": []
+}

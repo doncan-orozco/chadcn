@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "bubble",
+  "dependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york-v4/ui/bubble.tsx",
+      "content": "import * as React from \"react\"\nimport { cn } from \"cn\"\n\nfunction Bubble({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"bubble\"\n      className={cn(\"flex w-fit flex-col gap-1 bg-[oklch(from_var(--primary)_0.93_calc(c*0.4)_h)] text-foreground\", className)}\n      {...props}\n    />\n  )\n}\n\nexport { Bubble }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,10 @@
+{
+  "component": "toggle-group",
+  "reason": "DELIBERATE departure from strict 1:1, caused by an upstream shadcn quirk. WHAT REACT DOES: ToggleGroup renders <ToggleGroupContext.Provider> as the only child of <ToggleGroupPrimitive.Root> (toggle-group.tsx:32-47), so with asChild the Radix Slot clones the Provider (which ignores props) instead of the caller's element: data-slot, role, dir, tabindex, style, data-variant/size/spacing, classes and the roving-focus wiring are all dropped, the caller's element is never rendered, and only the items render. That output is a broken, non-functional group, never something a caller wants. WHAT THE PORT DOES: as_child: renders the same root attributes on the caller's element (the Stimulus controller lives on the root, so dropping them would silently disable selection and keyboard navigation). WHY NOT 'NOT OFFERED' (the convention for checkbox, switch, progress): as_child on this root is a documented Radix API and a useful one (render the group as a <section> or <nav>), and the port can support it correctly. IMPACT: only callers that pass as_child to the ToggleGroup root; items, as_child on items and every other API map 1:1. HOW IT IS PINNED: scenario api__as-child-root was removed (it can never match the oracle: React renders 3 slots, Phlex 4) and test/components/v2/toggle_group_test.rb asserts the port's behavior. REVISIT IF: shadcn moves the Provider outside the Root, then restore the scenario and delete this entry. AWAITING: the owner's approval (approved-by column of DEVIATIONS.md is left 'pending' on purpose).",
+  "allow_tokens": [],
+  "allow_missing_tokens": [],
+  "structure": [],
+  "api": [
+    "ToggleGroup as_child: React drops all root attributes and the caller's element (Slot clones the Context.Provider, toggle-group.tsx:32-47); the port keeps data-slot, role, dir, tabindex, style, data-* and the controller on the caller's element"
+  ]
+}

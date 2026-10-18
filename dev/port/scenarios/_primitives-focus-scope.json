@@ -1,0 +1,1518 @@
+{
+  "component": "_primitives-focus-scope",
+  "scenarios": [
+    {
+      "id": "closed-initial",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "focus_scope",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-focus-scope",
+          "className": "flex flex-col items-start gap-2"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "before",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "open",
+              "data-action": "click->shadcn---probe-focus-scope#open",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Open"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "outside",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-focus-scope-target": "template"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "scope",
+                  "className": "flex flex-col items-start gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "first",
+                      "className": "rounded-md border px-3 py-1 text-sm"
+                    },
+                    "children": [
+                      "First"
+                    ]
+                  },
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "field",
+                      "aria-label": "Field",
+                      "className": "rounded border px-2 py-1 text-sm"
+                    }
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "close",
+                      "data-action": "click->shadcn---probe-focus-scope#close",
+                      "className": "rounded-md border px-3 py-1 text-sm"
+                    },
+                    "children": [
+                      "Close"
+                    ]
+                  },
+                  {
+                    "c": "_a",
+                    "props": {
+                      "href": "#",
+                      "data-slot": "link",
+                      "className": "text-sm underline"
+                    },
+                    "children": [
+                      "A link"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "after",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "autofocus-first-tabbable",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "focus_scope",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-focus-scope",
+          "className": "flex flex-col items-start gap-2"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "before",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "open",
+              "data-action": "click->shadcn---probe-focus-scope#open",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Open"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "outside",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-focus-scope-target": "template"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "scope",
+                  "className": "flex flex-col items-start gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "first",
+                      "className": "rounded-md border px-3 py-1 text-sm"
+                    },
+                    "children": [
+                      "First"
+                    ]
+                  },
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "field",
+                      "aria-label": "Field",
+                      "className": "rounded border px-2 py-1 text-sm"
+                    }
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "close",
+                      "data-action": "click->shadcn---probe-focus-scope#close",
+                      "className": "rounded-md border px-3 py-1 text-sm"
+                    },
+                    "children": [
+                      "Close"
+                    ]
+                  },
+                  {
+                    "c": "_a",
+                    "props": {
+                      "href": "#",
+                      "data-slot": "link",
+                      "className": "text-sm underline"
+                    },
+                    "children": [
+                      "A link"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "after",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=open]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "autofocus-prevented",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "focus_scope",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-focus-scope",
+          "className": "flex flex-col items-start gap-2",
+          "data-shadcn---probe-focus-scope-prevent-mount-focus-value": "true"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "before",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "open",
+              "data-action": "click->shadcn---probe-focus-scope#open",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Open"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "outside",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-focus-scope-target": "template"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "scope",
+                  "className": "flex flex-col items-start gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "first",
+                      "className": "rounded-md border px-3 py-1 text-sm"
+                    },
+                    "children": [
+                      "First"
+                    ]
+                  },
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "field",
+                      "aria-label": "Field",
+                      "className": "rounded border px-2 py-1 text-sm"
+                    }
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "close",
+                      "data-action": "click->shadcn---probe-focus-scope#close",
+                      "className": "rounded-md border px-3 py-1 text-sm"
+                    },
+                    "children": [
+                      "Close"
+                    ]
+                  },
+                  {
+                    "c": "_a",
+                    "props": {
+                      "href": "#",
+                      "data-slot": "link",
+                      "className": "text-sm underline"
+                    },
+                    "children": [
+                      "A link"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "after",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=open]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "close-returns-focus-to-opener",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "focus_scope",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-focus-scope",
+          "className": "flex flex-col items-start gap-2"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "before",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "open",
+              "data-action": "click->shadcn---probe-focus-scope#open",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Open"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "outside",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-focus-scope-target": "template"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "scope",
+                  "className": "flex flex-col items-start gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "first",
+                      "className": "rounded-md border px-3 py-1 text-sm"
+                    },
+                    "children": [
+                      "First"
+                    ]
+                  },
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "field",
+                      "aria-label": "Field",
+                      "className": "rounded border px-2 py-1 text-sm"
+                    }
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "close",
+                      "data-action": "click->shadcn---probe-focus-scope#close",
+                      "className": "rounded-md border px-3 py-1 text-sm"
+                    },
+                    "children": [
+                      "Close"
+                    ]
+                  },
+                  {
+                    "c": "_a",
+                    "props": {
+                      "href": "#",
+                      "data-slot": "link",
+                      "className": "text-sm underline"
+                    },
+                    "children": [
+                      "A link"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "after",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=open]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=close]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "close-return-focus-prevented",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "focus_scope",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-focus-scope",
+          "className": "flex flex-col items-start gap-2",
+          "data-shadcn---probe-focus-scope-prevent-unmount-focus-value": "true"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "before",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "open",
+              "data-action": "click->shadcn---probe-focus-scope#open",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Open"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "outside",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-focus-scope-target": "template"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "scope",
+                  "className": "flex flex-col items-start gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "first",
+                      "className": "rounded-md border px-3 py-1 text-sm"
+                    },
+                    "children": [
+                      "First"
+                    ]
+                  },
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "field",
+                      "aria-label": "Field",
+                      "className": "rounded border px-2 py-1 text-sm"
+                    }
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "close",
+                      "data-action": "click->shadcn---probe-focus-scope#close",
+                      "className": "rounded-md border px-3 py-1 text-sm"
+                    },
+                    "children": [
+                      "Close"
+                    ]
+                  },
+                  {
+                    "c": "_a",
+                    "props": {
+                      "href": "#",
+                      "data-slot": "link",
+                      "className": "text-sm underline"
+                    },
+                    "children": [
+                      "A link"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "after",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=open]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=close]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "untrapped-tab-leaves",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "focus_scope",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-focus-scope",
+          "className": "flex flex-col items-start gap-2"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "before",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "open",
+              "data-action": "click->shadcn---probe-focus-scope#open",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Open"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "outside",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-focus-scope-target": "template"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "scope",
+                  "className": "flex flex-col items-start gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "first",
+                      "className": "rounded-md border px-3 py-1 text-sm"
+                    },
+                    "children": [
+                      "First"
+                    ]
+                  },
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "field",
+                      "aria-label": "Field",
+                      "className": "rounded border px-2 py-1 text-sm"
+                    }
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "close",
+                      "data-action": "click->shadcn---probe-focus-scope#close",
+                      "className": "rounded-md border px-3 py-1 text-sm"
+                    },
+                    "children": [
+                      "Close"
+                    ]
+                  },
+                  {
+                    "c": "_a",
+                    "props": {
+                      "href": "#",
+                      "data-slot": "link",
+                      "className": "text-sm underline"
+                    },
+                    "children": [
+                      "A link"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "after",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=open]"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "loop-wraps-forward",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "focus_scope",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-focus-scope",
+          "className": "flex flex-col items-start gap-2",
+          "data-shadcn---probe-focus-scope-loop-value": "true"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "before",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "open",
+              "data-action": "click->shadcn---probe-focus-scope#open",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Open"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "outside",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-focus-scope-target": "template"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "scope",
+                  "className": "flex flex-col items-start gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "first",
+                      "className": "rounded-md border px-3 py-1 text-sm"
+                    },
+                    "children": [
+                      "First"
+                    ]
+                  },
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "field",
+                      "aria-label": "Field",
+                      "className": "rounded border px-2 py-1 text-sm"
+                    }
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "close",
+                      "data-action": "click->shadcn---probe-focus-scope#close",
+                      "className": "rounded-md border px-3 py-1 text-sm"
+                    },
+                    "children": [
+                      "Close"
+                    ]
+                  },
+                  {
+                    "c": "_a",
+                    "props": {
+                      "href": "#",
+                      "data-slot": "link",
+                      "className": "text-sm underline"
+                    },
+                    "children": [
+                      "A link"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "after",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=open]"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "loop-wraps-backward",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "focus_scope",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-focus-scope",
+          "className": "flex flex-col items-start gap-2",
+          "data-shadcn---probe-focus-scope-loop-value": "true"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "before",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "open",
+              "data-action": "click->shadcn---probe-focus-scope#open",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Open"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "outside",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-focus-scope-target": "template"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "scope",
+                  "className": "flex flex-col items-start gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "first",
+                      "className": "rounded-md border px-3 py-1 text-sm"
+                    },
+                    "children": [
+                      "First"
+                    ]
+                  },
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "field",
+                      "aria-label": "Field",
+                      "className": "rounded border px-2 py-1 text-sm"
+                    }
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "close",
+                      "data-action": "click->shadcn---probe-focus-scope#close",
+                      "className": "rounded-md border px-3 py-1 text-sm"
+                    },
+                    "children": [
+                      "Close"
+                    ]
+                  },
+                  {
+                    "c": "_a",
+                    "props": {
+                      "href": "#",
+                      "data-slot": "link",
+                      "className": "text-sm underline"
+                    },
+                    "children": [
+                      "A link"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "after",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=open]"
+        },
+        {
+          "do": "tab",
+          "shift": true
+        },
+        {
+          "do": "tab",
+          "shift": true
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "trapped-tab-wraps",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "focus_scope",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-focus-scope",
+          "className": "flex flex-col items-start gap-2",
+          "data-shadcn---probe-focus-scope-trapped-value": "true",
+          "data-shadcn---probe-focus-scope-loop-value": "true"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "before",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "open",
+              "data-action": "click->shadcn---probe-focus-scope#open",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Open"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "outside",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-focus-scope-target": "template"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "scope",
+                  "className": "flex flex-col items-start gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "first",
+                      "className": "rounded-md border px-3 py-1 text-sm"
+                    },
+                    "children": [
+                      "First"
+                    ]
+                  },
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "field",
+                      "aria-label": "Field",
+                      "className": "rounded border px-2 py-1 text-sm"
+                    }
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "close",
+                      "data-action": "click->shadcn---probe-focus-scope#close",
+                      "className": "rounded-md border px-3 py-1 text-sm"
+                    },
+                    "children": [
+                      "Close"
+                    ]
+                  },
+                  {
+                    "c": "_a",
+                    "props": {
+                      "href": "#",
+                      "data-slot": "link",
+                      "className": "text-sm underline"
+                    },
+                    "children": [
+                      "A link"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "after",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=open]"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "trapped-without-loop-stops-at-edge",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "focus_scope",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-focus-scope",
+          "className": "flex flex-col items-start gap-2",
+          "data-shadcn---probe-focus-scope-trapped-value": "true"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "before",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "open",
+              "data-action": "click->shadcn---probe-focus-scope#open",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Open"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "outside",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-focus-scope-target": "template"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "scope",
+                  "className": "flex flex-col items-start gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "first",
+                      "className": "rounded-md border px-3 py-1 text-sm"
+                    },
+                    "children": [
+                      "First"
+                    ]
+                  },
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "field",
+                      "aria-label": "Field",
+                      "className": "rounded border px-2 py-1 text-sm"
+                    }
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "close",
+                      "data-action": "click->shadcn---probe-focus-scope#close",
+                      "className": "rounded-md border px-3 py-1 text-sm"
+                    },
+                    "children": [
+                      "Close"
+                    ]
+                  },
+                  {
+                    "c": "_a",
+                    "props": {
+                      "href": "#",
+                      "data-slot": "link",
+                      "className": "text-sm underline"
+                    },
+                    "children": [
+                      "A link"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "after",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=open]"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "trapped-focus-outside-returns",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "focus_scope",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-focus-scope",
+          "className": "flex flex-col items-start gap-2",
+          "data-shadcn---probe-focus-scope-trapped-value": "true",
+          "data-shadcn---probe-focus-scope-loop-value": "true"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "before",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "open",
+              "data-action": "click->shadcn---probe-focus-scope#open",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Open"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "outside",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-focus-scope-target": "template"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "scope",
+                  "className": "flex flex-col items-start gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "first",
+                      "className": "rounded-md border px-3 py-1 text-sm"
+                    },
+                    "children": [
+                      "First"
+                    ]
+                  },
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "field",
+                      "aria-label": "Field",
+                      "className": "rounded border px-2 py-1 text-sm"
+                    }
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "close",
+                      "data-action": "click->shadcn---probe-focus-scope#close",
+                      "className": "rounded-md border px-3 py-1 text-sm"
+                    },
+                    "children": [
+                      "Close"
+                    ]
+                  },
+                  {
+                    "c": "_a",
+                    "props": {
+                      "href": "#",
+                      "data-slot": "link",
+                      "className": "text-sm underline"
+                    },
+                    "children": [
+                      "A link"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "after",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=open]"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=outside]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

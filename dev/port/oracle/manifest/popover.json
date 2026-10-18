@@ -1,0 +1,292 @@
+{
+  "name": "popover",
+  "style": "new-york-v4",
+  "source_sha": "3f99d3add6c9fa4f",
+  "use_client": true,
+  "tier": "overlay",
+  "exports": [
+    "Popover",
+    "PopoverTrigger",
+    "PopoverContent",
+    "PopoverAnchor",
+    "PopoverHeader",
+    "PopoverTitle",
+    "PopoverDescription"
+  ],
+  "parts": [
+    {
+      "name": "Popover",
+      "data_attrs": [],
+      "data_slots": [
+        "popover"
+      ],
+      "data_slot": "popover",
+      "wraps": "PopoverPrimitive.Root",
+      "renders": "PopoverPrimitive.Root",
+      "slot_tags": {
+        "popover": "PopoverPrimitive.Root"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "PopoverTrigger",
+      "data_attrs": [],
+      "data_slots": [
+        "popover-trigger"
+      ],
+      "data_slot": "popover-trigger",
+      "wraps": "PopoverPrimitive.Trigger",
+      "renders": "PopoverPrimitive.Trigger",
+      "slot_tags": {
+        "popover-trigger": "PopoverPrimitive.Trigger"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "PopoverContent",
+      "data_attrs": [],
+      "data_slots": [
+        "popover-content"
+      ],
+      "data_slot": "popover-content",
+      "wraps": "PopoverPrimitive.Portal",
+      "renders": "PopoverPrimitive.Portal",
+      "slot_tags": {
+        "popover-content": "PopoverPrimitive.Content"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "align",
+            "default": "\"center\""
+          },
+          {
+            "name": "sideOffset",
+            "default": "4"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "bg-popover",
+        "border",
+        "data-[side=bottom]:slide-in-from-top-2",
+        "data-[side=left]:slide-in-from-right-2",
+        "data-[side=right]:slide-in-from-left-2",
+        "data-[side=top]:slide-in-from-bottom-2",
+        "data-[state=closed]:animate-out",
+        "data-[state=closed]:fade-out-0",
+        "data-[state=closed]:zoom-out-95",
+        "data-[state=open]:animate-in",
+        "data-[state=open]:fade-in-0",
+        "data-[state=open]:zoom-in-95",
+        "origin-(--radix-popover-content-transform-origin)",
+        "outline-hidden",
+        "p-4",
+        "rounded-md",
+        "shadow-md",
+        "text-popover-foreground",
+        "w-72",
+        "z-50"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "PopoverAnchor",
+      "data_attrs": [],
+      "data_slots": [
+        "popover-anchor"
+      ],
+      "data_slot": "popover-anchor",
+      "wraps": "PopoverPrimitive.Anchor",
+      "renders": "PopoverPrimitive.Anchor",
+      "slot_tags": {
+        "popover-anchor": "PopoverPrimitive.Anchor"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "PopoverHeader",
+      "data_attrs": [],
+      "data_slots": [
+        "popover-header"
+      ],
+      "data_slot": "popover-header",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "flex-col",
+        "gap-1",
+        "text-sm"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "PopoverTitle",
+      "data_attrs": [],
+      "data_slots": [
+        "popover-title"
+      ],
+      "data_slot": "popover-title",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "font-medium"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "PopoverDescription",
+      "data_attrs": [],
+      "data_slots": [
+        "popover-description"
+      ],
+      "data_slot": "popover-description",
+      "wraps": null,
+      "renders": "p",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "text-muted-foreground"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "bg-popover",
+    "border",
+    "data-[side=bottom]:slide-in-from-top-2",
+    "data-[side=left]:slide-in-from-right-2",
+    "data-[side=right]:slide-in-from-left-2",
+    "data-[side=top]:slide-in-from-bottom-2",
+    "data-[state=closed]:animate-out",
+    "data-[state=closed]:fade-out-0",
+    "data-[state=closed]:zoom-out-95",
+    "data-[state=open]:animate-in",
+    "data-[state=open]:fade-in-0",
+    "data-[state=open]:zoom-in-95",
+    "flex",
+    "flex-col",
+    "font-medium",
+    "gap-1",
+    "origin-(--radix-popover-content-transform-origin)",
+    "outline-hidden",
+    "p-4",
+    "rounded-md",
+    "shadow-md",
+    "text-muted-foreground",
+    "text-popover-foreground",
+    "text-sm",
+    "w-72",
+    "z-50"
+  ],
+  "data_attrs": [],
+  "data_slots": [
+    "popover",
+    "popover-anchor",
+    "popover-content",
+    "popover-description",
+    "popover-header",
+    "popover-title",
+    "popover-trigger"
+  ],
+  "non_rendered_slots": [
+    "popover"
+  ],
+  "radix_primitives": [
+    "Popover"
+  ],
+  "third_party": [],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn",
+    "radix-ui"
+  ],
+  "extra_files": []
+}

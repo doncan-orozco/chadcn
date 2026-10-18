@@ -1,0 +1,11 @@
+{
+  "component": "popover",
+  "reason": "Radix renders no content node while the popover is closed and creates it on the client inside a body portal, and wires Trigger, Anchor and Content through React context. The server must ship the PopoverContent markup somewhere and the trigger (the controller host, a button) cannot contain it, so Popover::Content emits an inert <template> sibling at its call site; Anchor (and a Trigger that is not the controller host) carry a data-shadcn--popover-* key so the controller can find them across siblings; when no Trigger precedes the Content the template hosts the controller. The template has no data-slot, generates no box and its content is not part of the document, and data-shadcn--* attributes are ignored by G2, so DOM node lists, boxes and accessibility match the oracle. Same pattern as tooltip and hover-card.",
+  "allow_tokens": [],
+  "allow_missing_tokens": [],
+  "api": [
+    "Popover::Content renders an inert <template data-shadcn--popover-template> (no data-slot) holding the content markup while closed",
+    "Popover::Anchor carries data-shadcn--popover-anchor=<key>; a Trigger that is not the controller host carries data-shadcn--popover-trigger=<key>",
+    "when no Trigger precedes the Content inside a Popover block, the Content <template> hosts data-controller=shadcn--popover"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "case": "06-clean-badge",
+  "kind": "static",
+  "component": "badge",
+  "description": "False-positive control: verbatim port of badge.tsx. G1 must report nothing.",
+  "must_detect": [],
+  "must_not_detect": ["*"]
+}

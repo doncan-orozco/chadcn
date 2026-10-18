@@ -1,0 +1,545 @@
+{
+  "name": "item",
+  "style": "new-york-v4",
+  "source_sha": "9ade8136f010284b",
+  "use_client": false,
+  "tier": "static",
+  "exports": [
+    "Item",
+    "ItemMedia",
+    "ItemContent",
+    "ItemActions",
+    "ItemGroup",
+    "ItemSeparator",
+    "ItemTitle",
+    "ItemDescription",
+    "ItemHeader",
+    "ItemFooter"
+  ],
+  "parts": [
+    {
+      "name": "ItemGroup",
+      "data_attrs": [],
+      "data_slots": [
+        "item-group"
+      ],
+      "data_slot": "item-group",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "flex-col",
+        "group/item-group"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ItemSeparator",
+      "data_attrs": [],
+      "data_slots": [
+        "item-separator"
+      ],
+      "data_slot": "item-separator",
+      "wraps": null,
+      "renders": "Separator",
+      "slot_tags": {
+        "item-separator": "Separator"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "my-0"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "Item",
+      "data_attrs": [
+        {
+          "name": "data-variant",
+          "value": "{variant}"
+        },
+        {
+          "name": "data-size",
+          "value": "{size}"
+        }
+      ],
+      "data_slots": [
+        "item"
+      ],
+      "data_slot": "item",
+      "wraps": "Comp",
+      "renders": "Comp",
+      "slot_tags": {
+        "item": "Comp"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "variant",
+            "default": "\"default\""
+          },
+          {
+            "name": "size",
+            "default": "\"default\""
+          },
+          {
+            "name": "asChild",
+            "default": "false"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "asChild",
+            "type": "boolean"
+          }
+        ]
+      },
+      "class_tokens": [],
+      "uses_cva": true,
+      "variants_used": [
+        "itemVariants"
+      ]
+    },
+    {
+      "name": "ItemMedia",
+      "data_attrs": [
+        {
+          "name": "data-variant",
+          "value": "{variant}"
+        }
+      ],
+      "data_slots": [
+        "item-media"
+      ],
+      "data_slot": "item-media",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "variant",
+            "default": "\"default\""
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": true,
+      "variants_used": [
+        "itemMediaVariants"
+      ]
+    },
+    {
+      "name": "ItemContent",
+      "data_attrs": [],
+      "data_slots": [
+        "item-content"
+      ],
+      "data_slot": "item-content",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "[&+[data-slot=item-content]]:flex-none",
+        "flex",
+        "flex-1",
+        "flex-col",
+        "gap-1"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ItemTitle",
+      "data_attrs": [],
+      "data_slots": [
+        "item-title"
+      ],
+      "data_slot": "item-title",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "font-medium",
+        "gap-2",
+        "items-center",
+        "leading-snug",
+        "text-sm",
+        "w-fit"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ItemDescription",
+      "data_attrs": [],
+      "data_slots": [
+        "item-description"
+      ],
+      "data_slot": "item-description",
+      "wraps": null,
+      "renders": "p",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "[&>a:hover]:text-primary",
+        "[&>a]:underline",
+        "[&>a]:underline-offset-4",
+        "font-normal",
+        "leading-normal",
+        "line-clamp-2",
+        "text-balance",
+        "text-muted-foreground",
+        "text-sm"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ItemActions",
+      "data_attrs": [],
+      "data_slots": [
+        "item-actions"
+      ],
+      "data_slot": "item-actions",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "gap-2",
+        "items-center"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ItemHeader",
+      "data_attrs": [],
+      "data_slots": [
+        "item-header"
+      ],
+      "data_slot": "item-header",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "basis-full",
+        "flex",
+        "gap-2",
+        "items-center",
+        "justify-between"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ItemFooter",
+      "data_attrs": [],
+      "data_slots": [
+        "item-footer"
+      ],
+      "data_slot": "item-footer",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "basis-full",
+        "flex",
+        "gap-2",
+        "items-center",
+        "justify-between"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {
+    "itemVariants": {
+      "base": "group/item flex flex-wrap items-center rounded-md border border-transparent text-sm transition-colors duration-100 outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 [a]:transition-colors [a]:hover:bg-accent/50",
+      "variants": {
+        "variant": {
+          "default": "bg-transparent",
+          "outline": "border-border",
+          "muted": "bg-muted/50"
+        },
+        "size": {
+          "default": "gap-4 p-4",
+          "sm": "gap-2.5 px-4 py-3"
+        }
+      },
+      "defaults": {
+        "variant": "default",
+        "size": "default"
+      },
+      "compound": [],
+      "tokens": [
+        "[a]:hover:bg-accent/50",
+        "[a]:transition-colors",
+        "bg-muted/50",
+        "bg-transparent",
+        "border",
+        "border-border",
+        "border-transparent",
+        "default",
+        "duration-100",
+        "flex",
+        "flex-wrap",
+        "focus-visible:border-ring",
+        "focus-visible:ring-[3px]",
+        "focus-visible:ring-ring/50",
+        "gap-2.5",
+        "gap-4",
+        "group/item",
+        "items-center",
+        "outline-none",
+        "p-4",
+        "px-4",
+        "py-3",
+        "rounded-md",
+        "text-sm",
+        "transition-colors"
+      ]
+    },
+    "itemMediaVariants": {
+      "base": "flex shrink-0 items-center justify-center gap-2 group-has-[[data-slot=item-description]]/item:translate-y-0.5 group-has-[[data-slot=item-description]]/item:self-start [&_svg]:pointer-events-none",
+      "variants": {
+        "variant": {
+          "default": "bg-transparent",
+          "icon": "size-8 rounded-sm border bg-muted [&_svg:not([class*='size-'])]:size-4",
+          "image": "size-10 overflow-hidden rounded-sm [&_img]:size-full [&_img]:object-cover"
+        }
+      },
+      "defaults": {
+        "variant": "default"
+      },
+      "compound": [],
+      "tokens": [
+        "[&_img]:object-cover",
+        "[&_img]:size-full",
+        "[&_svg:not([class*='size-'])]:size-4",
+        "[&_svg]:pointer-events-none",
+        "bg-muted",
+        "bg-transparent",
+        "border",
+        "default",
+        "flex",
+        "gap-2",
+        "group-has-[[data-slot=item-description]]/item:self-start",
+        "group-has-[[data-slot=item-description]]/item:translate-y-0.5",
+        "items-center",
+        "justify-center",
+        "overflow-hidden",
+        "rounded-sm",
+        "shrink-0",
+        "size-10",
+        "size-8"
+      ]
+    }
+  },
+  "class_tokens": [
+    "[&+[data-slot=item-content]]:flex-none",
+    "[&>a:hover]:text-primary",
+    "[&>a]:underline",
+    "[&>a]:underline-offset-4",
+    "[&_img]:object-cover",
+    "[&_img]:size-full",
+    "[&_svg:not([class*='size-'])]:size-4",
+    "[&_svg]:pointer-events-none",
+    "[a]:hover:bg-accent/50",
+    "[a]:transition-colors",
+    "basis-full",
+    "bg-muted",
+    "bg-muted/50",
+    "bg-transparent",
+    "border",
+    "border-border",
+    "border-transparent",
+    "default",
+    "duration-100",
+    "flex",
+    "flex-1",
+    "flex-col",
+    "flex-wrap",
+    "focus-visible:border-ring",
+    "focus-visible:ring-[3px]",
+    "focus-visible:ring-ring/50",
+    "font-medium",
+    "font-normal",
+    "gap-1",
+    "gap-2",
+    "gap-2.5",
+    "gap-4",
+    "group-has-[[data-slot=item-description]]/item:self-start",
+    "group-has-[[data-slot=item-description]]/item:translate-y-0.5",
+    "group/item",
+    "group/item-group",
+    "items-center",
+    "justify-between",
+    "justify-center",
+    "leading-normal",
+    "leading-snug",
+    "line-clamp-2",
+    "my-0",
+    "outline-none",
+    "overflow-hidden",
+    "p-4",
+    "px-4",
+    "py-3",
+    "rounded-md",
+    "rounded-sm",
+    "shrink-0",
+    "size-10",
+    "size-8",
+    "text-balance",
+    "text-muted-foreground",
+    "text-sm",
+    "transition-colors",
+    "w-fit"
+  ],
+  "data_attrs": [
+    "data-size",
+    "data-variant"
+  ],
+  "data_slots": [
+    "item",
+    "item-actions",
+    "item-content",
+    "item-description",
+    "item-footer",
+    "item-group",
+    "item-header",
+    "item-media",
+    "item-separator",
+    "item-title"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [
+    "Slot"
+  ],
+  "third_party": [],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [
+    "separator"
+  ],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn",
+    "radix-ui"
+  ],
+  "extra_files": []
+}

@@ -1,0 +1,107 @@
+{
+  "name": "textarea",
+  "style": "new-york-v4",
+  "source_sha": "5cafcfeeee29534f",
+  "use_client": false,
+  "tier": "static",
+  "exports": [
+    "Textarea"
+  ],
+  "parts": [
+    {
+      "name": "Textarea",
+      "data_attrs": [],
+      "data_slots": [
+        "textarea"
+      ],
+      "data_slot": "textarea",
+      "wraps": null,
+      "renders": "textarea",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "aria-invalid:border-destructive",
+        "aria-invalid:ring-destructive/20",
+        "bg-transparent",
+        "border",
+        "border-input",
+        "dark:aria-invalid:ring-destructive/40",
+        "dark:bg-input/30",
+        "disabled:cursor-not-allowed",
+        "disabled:opacity-50",
+        "field-sizing-content",
+        "flex",
+        "focus-visible:border-ring",
+        "focus-visible:ring-[3px]",
+        "focus-visible:ring-ring/50",
+        "md:text-sm",
+        "min-h-16",
+        "outline-none",
+        "placeholder:text-muted-foreground",
+        "px-3",
+        "py-2",
+        "rounded-md",
+        "shadow-xs",
+        "text-base",
+        "transition-[color,box-shadow]",
+        "w-full"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "aria-invalid:border-destructive",
+    "aria-invalid:ring-destructive/20",
+    "bg-transparent",
+    "border",
+    "border-input",
+    "dark:aria-invalid:ring-destructive/40",
+    "dark:bg-input/30",
+    "disabled:cursor-not-allowed",
+    "disabled:opacity-50",
+    "field-sizing-content",
+    "flex",
+    "focus-visible:border-ring",
+    "focus-visible:ring-[3px]",
+    "focus-visible:ring-ring/50",
+    "md:text-sm",
+    "min-h-16",
+    "outline-none",
+    "placeholder:text-muted-foreground",
+    "px-3",
+    "py-2",
+    "rounded-md",
+    "shadow-xs",
+    "text-base",
+    "transition-[color,box-shadow]",
+    "w-full"
+  ],
+  "data_attrs": [],
+  "data_slots": [
+    "textarea"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [],
+  "third_party": [],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn"
+  ],
+  "extra_files": []
+}

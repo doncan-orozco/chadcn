@@ -1,0 +1,6 @@
+{
+  "reason": "shadcn Switch always passes SwitchPrimitive.Thumb as the Root's only child, so Radix asChild would merge the switch onto the thumb span; as_child is therefore not offered",
+  "allow_tokens": [],
+  "allow_missing_tokens": [],
+  "api": ["Switch: as_child not supported"]
+}

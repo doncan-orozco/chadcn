@@ -1,0 +1,1267 @@
+{
+  "component": "label",
+  "scenarios": [
+    {
+      "id": "default",
+      "tree": {
+        "c": "Label",
+        "props": {},
+        "children": [
+          "Your email address"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default__dark",
+      "tree": {
+        "c": "Label",
+        "props": {},
+        "children": [
+          "Your email address"
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default__hover",
+      "tree": {
+        "c": "Label",
+        "props": {},
+        "children": [
+          "Your email address"
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=label]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__label-demo",
+      "tree": {
+        "c": "_div",
+        "props": {},
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center space-x-2"
+            },
+            "children": [
+              {
+                "c": "_input",
+                "props": {
+                  "type": "checkbox",
+                  "id": "terms"
+                },
+                "children": []
+              },
+              {
+                "c": "Label",
+                "props": {
+                  "htmlFor": "terms"
+                },
+                "children": [
+                  "Accept terms and conditions"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=label]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=label]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__label-demo__dark",
+      "tree": {
+        "c": "_div",
+        "props": {},
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center space-x-2"
+            },
+            "children": [
+              {
+                "c": "_input",
+                "props": {
+                  "type": "checkbox",
+                  "id": "terms"
+                },
+                "children": []
+              },
+              {
+                "c": "Label",
+                "props": {
+                  "htmlFor": "terms"
+                },
+                "children": [
+                  "Accept terms and conditions"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__icon-text",
+      "tree": {
+        "c": "Label",
+        "props": {},
+        "children": [
+          "<icon:info>",
+          "Information"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__icon-text__dark",
+      "tree": {
+        "c": "Label",
+        "props": {},
+        "children": [
+          "<icon:info>",
+          "Information"
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__text-icon",
+      "tree": {
+        "c": "Label",
+        "props": {},
+        "children": [
+          "Information",
+          "<icon:info>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__icon-only",
+      "tree": {
+        "c": "Label",
+        "props": {
+          "aria-label": "Information"
+        },
+        "children": [
+          "<icon:info>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__long-text-wraps",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[200px]"
+        },
+        "children": [
+          {
+            "c": "Label",
+            "props": {},
+            "children": [
+              "A very long label text that has to wrap onto several lines inside a narrow container"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__empty",
+      "tree": {
+        "c": "Label",
+        "props": {},
+        "children": []
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__nested-elements",
+      "tree": {
+        "c": "Label",
+        "props": {},
+        "children": [
+          {
+            "c": "_span",
+            "props": {},
+            "children": [
+              "Name"
+            ]
+          },
+          {
+            "c": "_span",
+            "props": {
+              "className": "text-muted-foreground"
+            },
+            "children": [
+              "(optional)"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class-merge__caller-wins",
+      "tree": {
+        "c": "Label",
+        "props": {
+          "className": "gap-4 text-lg font-bold leading-6"
+        },
+        "children": [
+          "Your email address"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class-merge__extra-token",
+      "tree": {
+        "c": "Label",
+        "props": {
+          "className": "text-destructive"
+        },
+        "children": [
+          "Your email address"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "forwarded-attrs",
+      "tree": {
+        "c": "Label",
+        "props": {
+          "id": "lbl",
+          "title": "Tooltip title",
+          "data-testid": "my-label",
+          "aria-describedby": "hint",
+          "role": "note"
+        },
+        "children": [
+          "Your email address"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "data-slot-override",
+      "tree": {
+        "c": "Label",
+        "props": {
+          "data-slot": "custom-label"
+        },
+        "children": [
+          "Your email address"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "as-child-span",
+      "tree": {
+        "c": "Label",
+        "props": {
+          "asChild": true
+        },
+        "children": [
+          {
+            "c": "_span",
+            "props": {
+              "className": "underline"
+            },
+            "children": [
+              "Span label"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "as-child-span__dark",
+      "tree": {
+        "c": "Label",
+        "props": {
+          "asChild": true
+        },
+        "children": [
+          {
+            "c": "_span",
+            "props": {
+              "className": "underline"
+            },
+            "children": [
+              "Span label"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "peer-enabled",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex items-center gap-2"
+        },
+        "children": [
+          {
+            "c": "_input",
+            "props": {
+              "type": "checkbox",
+              "id": "p",
+              "className": "peer"
+            },
+            "children": []
+          },
+          {
+            "c": "Label",
+            "props": {
+              "htmlFor": "p"
+            },
+            "children": [
+              "Peer label"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "peer-enabled__click",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex items-center gap-2"
+        },
+        "children": [
+          {
+            "c": "_input",
+            "props": {
+              "type": "checkbox",
+              "id": "p",
+              "className": "peer"
+            },
+            "children": []
+          },
+          {
+            "c": "Label",
+            "props": {
+              "htmlFor": "p"
+            },
+            "children": [
+              "Peer label"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=label]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "peer-disabled",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex items-center gap-2"
+        },
+        "children": [
+          {
+            "c": "_input",
+            "props": {
+              "type": "checkbox",
+              "id": "p",
+              "className": "peer",
+              "disabled": true
+            },
+            "children": []
+          },
+          {
+            "c": "Label",
+            "props": {
+              "htmlFor": "p"
+            },
+            "children": [
+              "Peer label"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "peer-disabled__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex items-center gap-2"
+        },
+        "children": [
+          {
+            "c": "_input",
+            "props": {
+              "type": "checkbox",
+              "id": "p",
+              "className": "peer",
+              "disabled": true
+            },
+            "children": []
+          },
+          {
+            "c": "Label",
+            "props": {
+              "htmlFor": "p"
+            },
+            "children": [
+              "Peer label"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "peer-disabled__hover",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex items-center gap-2"
+        },
+        "children": [
+          {
+            "c": "_input",
+            "props": {
+              "type": "checkbox",
+              "id": "p",
+              "className": "peer",
+              "disabled": true
+            },
+            "children": []
+          },
+          {
+            "c": "Label",
+            "props": {
+              "htmlFor": "p"
+            },
+            "children": [
+              "Peer label"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=label]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "peer-disabled__click",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex items-center gap-2"
+        },
+        "children": [
+          {
+            "c": "_input",
+            "props": {
+              "type": "checkbox",
+              "id": "p",
+              "className": "peer",
+              "disabled": true
+            },
+            "children": []
+          },
+          {
+            "c": "Label",
+            "props": {
+              "htmlFor": "p"
+            },
+            "children": [
+              "Peer label"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=label]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group-disabled",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "group flex items-center gap-2",
+          "data-disabled": "true"
+        },
+        "children": [
+          {
+            "c": "_input",
+            "props": {
+              "type": "checkbox",
+              "id": "g"
+            },
+            "children": []
+          },
+          {
+            "c": "Label",
+            "props": {
+              "htmlFor": "g"
+            },
+            "children": [
+              "Group label"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group-disabled__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "group flex items-center gap-2",
+          "data-disabled": "true"
+        },
+        "children": [
+          {
+            "c": "_input",
+            "props": {
+              "type": "checkbox",
+              "id": "g"
+            },
+            "children": []
+          },
+          {
+            "c": "Label",
+            "props": {
+              "htmlFor": "g"
+            },
+            "children": [
+              "Group label"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group-disabled__hover",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "group flex items-center gap-2",
+          "data-disabled": "true"
+        },
+        "children": [
+          {
+            "c": "_input",
+            "props": {
+              "type": "checkbox",
+              "id": "g"
+            },
+            "children": []
+          },
+          {
+            "c": "Label",
+            "props": {
+              "htmlFor": "g"
+            },
+            "children": [
+              "Group label"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=label]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group-disabled__click",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "group flex items-center gap-2",
+          "data-disabled": "true"
+        },
+        "children": [
+          {
+            "c": "_input",
+            "props": {
+              "type": "checkbox",
+              "id": "g"
+            },
+            "children": []
+          },
+          {
+            "c": "Label",
+            "props": {
+              "htmlFor": "g"
+            },
+            "children": [
+              "Group label"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=label]",
+          "position": {
+            "x": 4,
+            "y": 4
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group-disabled-false",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "group flex items-center gap-2",
+          "data-disabled": "false"
+        },
+        "children": [
+          {
+            "c": "_input",
+            "props": {
+              "type": "checkbox",
+              "id": "g"
+            },
+            "children": []
+          },
+          {
+            "c": "Label",
+            "props": {
+              "htmlFor": "g"
+            },
+            "children": [
+              "Group label"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=label]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "for-text-input",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "grid gap-2"
+        },
+        "children": [
+          {
+            "c": "Label",
+            "props": {
+              "htmlFor": "email"
+            },
+            "children": [
+              "Email"
+            ]
+          },
+          {
+            "c": "_input",
+            "props": {
+              "type": "email",
+              "id": "email",
+              "placeholder": "Email",
+              "className": "border px-2 py-1"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "for-text-input__click",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "grid gap-2"
+        },
+        "children": [
+          {
+            "c": "Label",
+            "props": {
+              "htmlFor": "email"
+            },
+            "children": [
+              "Email"
+            ]
+          },
+          {
+            "c": "_input",
+            "props": {
+              "type": "email",
+              "id": "email",
+              "placeholder": "Email",
+              "className": "border px-2 py-1"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=label]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "for-text-input__tab",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "grid gap-2"
+        },
+        "children": [
+          {
+            "c": "Label",
+            "props": {
+              "htmlFor": "email"
+            },
+            "children": [
+              "Email"
+            ]
+          },
+          {
+            "c": "_input",
+            "props": {
+              "type": "email",
+              "id": "email",
+              "placeholder": "Email",
+              "className": "border px-2 py-1"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "wrapping-checkbox",
+      "tree": {
+        "c": "Label",
+        "props": {},
+        "children": [
+          {
+            "c": "_input",
+            "props": {
+              "type": "checkbox"
+            },
+            "children": []
+          },
+          "Remember me"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "wrapping-checkbox__click",
+      "tree": {
+        "c": "Label",
+        "props": {},
+        "children": [
+          {
+            "c": "_input",
+            "props": {
+              "type": "checkbox"
+            },
+            "children": []
+          },
+          "Remember me"
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=label] >> text=Remember me"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "wrapping-checkbox__dark",
+      "tree": {
+        "c": "Label",
+        "props": {},
+        "children": [
+          {
+            "c": "_input",
+            "props": {
+              "type": "checkbox"
+            },
+            "children": []
+          },
+          "Remember me"
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "behavior__dblclick-text-prevented",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "grid gap-2"
+        },
+        "children": [
+          {
+            "c": "Label",
+            "props": {
+              "htmlFor": "sel",
+              "className": "select-text"
+            },
+            "children": [
+              "Double click this selectable text"
+            ]
+          },
+          {
+            "c": "_input",
+            "props": {
+              "type": "text",
+              "id": "sel",
+              "className": "border px-2 py-1"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "dblclick",
+          "target": "[data-slot=label]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "behavior__single-mousedown-not-prevented",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "grid gap-2"
+        },
+        "children": [
+          {
+            "c": "Label",
+            "props": {
+              "htmlFor": "sel",
+              "className": "select-text"
+            },
+            "children": [
+              "Double click this selectable text"
+            ]
+          },
+          {
+            "c": "_input",
+            "props": {
+              "type": "text",
+              "id": "sel",
+              "className": "border px-2 py-1"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "mousedown",
+          "target": "[data-slot=label]"
+        },
+        {
+          "do": "mouseup",
+          "target": "[data-slot=label]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "behavior__dblclick-inside-input-not-prevented",
+      "tree": {
+        "c": "Label",
+        "props": {
+          "className": "select-text"
+        },
+        "children": [
+          "Name",
+          {
+            "c": "_input",
+            "props": {
+              "type": "text",
+              "placeholder": "hello world",
+              "className": "border px-2 py-1"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "dblclick",
+          "target": "[data-slot=label] input"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "behavior__dblclick-inside-button-not-prevented",
+      "tree": {
+        "c": "Label",
+        "props": {},
+        "children": [
+          "Action",
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "className": "border px-2"
+            },
+            "children": [
+              "Go"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "dblclick",
+          "target": "[data-slot=label] button"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "rtl__icon-text",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "dir": "rtl"
+        },
+        "children": [
+          {
+            "c": "Label",
+            "props": {},
+            "children": [
+              "<icon:info>",
+              "Information"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "rtl__icon-text__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "dir": "rtl"
+        },
+        "children": [
+          {
+            "c": "Label",
+            "props": {},
+            "children": [
+              "<icon:info>",
+              "Information"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

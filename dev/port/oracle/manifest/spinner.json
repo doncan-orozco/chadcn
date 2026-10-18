@@ -1,0 +1,60 @@
+{
+  "name": "spinner",
+  "style": "new-york-v4",
+  "source_sha": "5d040fc49cb54c02",
+  "use_client": false,
+  "tier": "static",
+  "exports": [
+    "Spinner"
+  ],
+  "parts": [
+    {
+      "name": "Spinner",
+      "data_attrs": [],
+      "data_slots": [],
+      "data_slot": null,
+      "wraps": null,
+      "renders": "Loader2Icon",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "animate-spin",
+        "size-4"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "animate-spin",
+    "size-4"
+  ],
+  "data_attrs": [],
+  "data_slots": [],
+  "non_rendered_slots": [],
+  "radix_primitives": [],
+  "third_party": [],
+  "icons": [
+    "Loader2Icon"
+  ],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "class-variance-authority",
+    "cn"
+  ],
+  "extra_files": []
+}

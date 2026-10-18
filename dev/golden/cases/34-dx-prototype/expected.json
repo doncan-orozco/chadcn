@@ -1,0 +1,11 @@
+{
+  "case": "34-dx-prototype",
+  "kind": "dx_prototype",
+  "description": "The verified reference for the _base DX helper generator: const_added defines a helper per nested Base subclass, helper output equals the explicit classes (the Table example incl. the yielded-root Row pattern), a name colliding with a Phlex API method is refused, non-Base nested classes get none.",
+  "expect": [
+    "IDENTICAL: true",
+    "GENERATED: body,cell,head,header,row",
+    "COLLISION: refused",
+    "PLAIN_NESTED_GETS_HELPER: false"
+  ]
+}

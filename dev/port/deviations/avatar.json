@@ -1,0 +1,6 @@
+{
+  "reason": "Radix AvatarImage (until loaded) and AvatarFallback with delayMs (until the delay elapses) render nothing, but the client must later mount them with their server-known attributes; the port keeps them in an inert <template> placeholder (no data-slot, no classes, not in the a11y tree or the parity snapshot) at their JSX position. Once mounted the DOM equals React's.",
+  "allow_tokens": [],
+  "allow_missing_tokens": [],
+  "api": ["Avatar::Image / Avatar::Fallback(delay_ms:): unmounted parts are kept in an inert <template> placeholder (no data-slot) until the controller mounts them"]
+}

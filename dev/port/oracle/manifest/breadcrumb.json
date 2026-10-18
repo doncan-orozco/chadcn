@@ -1,0 +1,288 @@
+{
+  "name": "breadcrumb",
+  "style": "new-york-v4",
+  "source_sha": "c75fcd3d9e847018",
+  "use_client": false,
+  "tier": "static",
+  "exports": [
+    "Breadcrumb",
+    "BreadcrumbList",
+    "BreadcrumbItem",
+    "BreadcrumbLink",
+    "BreadcrumbPage",
+    "BreadcrumbSeparator",
+    "BreadcrumbEllipsis"
+  ],
+  "parts": [
+    {
+      "name": "Breadcrumb",
+      "data_attrs": [],
+      "data_slots": [
+        "breadcrumb"
+      ],
+      "data_slot": "breadcrumb",
+      "wraps": null,
+      "renders": "nav",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "BreadcrumbList",
+      "data_attrs": [],
+      "data_slots": [
+        "breadcrumb-list"
+      ],
+      "data_slot": "breadcrumb-list",
+      "wraps": null,
+      "renders": "ol",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "break-words",
+        "flex",
+        "flex-wrap",
+        "gap-1.5",
+        "items-center",
+        "sm:gap-2.5",
+        "text-muted-foreground",
+        "text-sm"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "BreadcrumbItem",
+      "data_attrs": [],
+      "data_slots": [
+        "breadcrumb-item"
+      ],
+      "data_slot": "breadcrumb-item",
+      "wraps": null,
+      "renders": "li",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "gap-1.5",
+        "inline-flex",
+        "items-center"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "BreadcrumbLink",
+      "data_attrs": [],
+      "data_slots": [
+        "breadcrumb-link"
+      ],
+      "data_slot": "breadcrumb-link",
+      "wraps": "Comp",
+      "renders": "Comp",
+      "slot_tags": {
+        "breadcrumb-link": "Comp"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "asChild"
+          },
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "asChild",
+            "type": "boolean"
+          }
+        ]
+      },
+      "class_tokens": [
+        "hover:text-foreground",
+        "transition-colors"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "BreadcrumbPage",
+      "data_attrs": [],
+      "data_slots": [
+        "breadcrumb-page"
+      ],
+      "data_slot": "breadcrumb-page",
+      "wraps": null,
+      "renders": "span",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "font-normal",
+        "text-foreground"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "BreadcrumbSeparator",
+      "data_attrs": [],
+      "data_slots": [
+        "breadcrumb-separator"
+      ],
+      "data_slot": "breadcrumb-separator",
+      "wraps": null,
+      "renders": "li",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "children"
+          },
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "[&>svg]:size-3.5"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "BreadcrumbEllipsis",
+      "data_attrs": [],
+      "data_slots": [
+        "breadcrumb-ellipsis"
+      ],
+      "data_slot": "breadcrumb-ellipsis",
+      "wraps": null,
+      "renders": "span",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "items-center",
+        "justify-center",
+        "size-4",
+        "size-9",
+        "sr-only"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "[&>svg]:size-3.5",
+    "break-words",
+    "flex",
+    "flex-wrap",
+    "font-normal",
+    "gap-1.5",
+    "hover:text-foreground",
+    "inline-flex",
+    "items-center",
+    "justify-center",
+    "size-4",
+    "size-9",
+    "sm:gap-2.5",
+    "sr-only",
+    "text-foreground",
+    "text-muted-foreground",
+    "text-sm",
+    "transition-colors"
+  ],
+  "data_attrs": [],
+  "data_slots": [
+    "breadcrumb",
+    "breadcrumb-ellipsis",
+    "breadcrumb-item",
+    "breadcrumb-link",
+    "breadcrumb-list",
+    "breadcrumb-page",
+    "breadcrumb-separator"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [
+    "Slot"
+  ],
+  "third_party": [],
+  "icons": [
+    "ChevronRight",
+    "MoreHorizontal"
+  ],
+  "text_literals": [
+    "More"
+  ],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn",
+    "radix-ui"
+  ],
+  "extra_files": []
+}

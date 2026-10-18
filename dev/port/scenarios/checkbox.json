@@ -1,0 +1,2743 @@
+{
+  "component": "checkbox",
+  "scenarios": [
+    {
+      "id": "default",
+      "tree": {
+        "c": "Checkbox",
+        "props": {}
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "checked",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "defaultChecked": true
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "indeterminate",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "defaultChecked": "indeterminate"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__unchecked",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "disabled": true
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__checked",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "disabled": true,
+          "defaultChecked": true
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__indeterminate",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "disabled": true,
+          "defaultChecked": "indeterminate"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid__unchecked",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "aria-invalid": true
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid__checked",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "aria-invalid": true,
+          "defaultChecked": true
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default__dark",
+      "tree": {
+        "c": "Checkbox",
+        "props": {}
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "checked__dark",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "defaultChecked": true
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "indeterminate__dark",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "defaultChecked": "indeterminate"
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__unchecked__dark",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "disabled": true
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__checked__dark",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "disabled": true,
+          "defaultChecked": true
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__indeterminate__dark",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "disabled": true,
+          "defaultChecked": "indeterminate"
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid__unchecked__dark",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "aria-invalid": true
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid__checked__dark",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "aria-invalid": true,
+          "defaultChecked": true
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "click__toggle-on-off",
+      "tree": {
+        "c": "Checkbox",
+        "props": {}
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "click__toggle-on-off__dark",
+      "tree": {
+        "c": "Checkbox",
+        "props": {}
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default-checked__click__toggle-off",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "defaultChecked": true
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "indeterminate__click__to-checked-then-unchecked",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "defaultChecked": "indeterminate"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "indeterminate__click__dark",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "defaultChecked": "indeterminate"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid__click__toggle",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "aria-invalid": true
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__tab-focus-visible",
+      "tree": {
+        "c": "Checkbox",
+        "props": {}
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__tab-focus-visible__dark",
+      "tree": {
+        "c": "Checkbox",
+        "props": {}
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__tab-focus-visible__checked",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "defaultChecked": true
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__tab-focus-visible__aria-invalid",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "aria-invalid": true
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__tab-focus-visible__aria-invalid__dark",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "aria-invalid": true
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__space-toggles",
+      "tree": {
+        "c": "Checkbox",
+        "props": {}
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Space"
+        },
+        {
+          "do": "press",
+          "key": "Space"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__enter-does-not-toggle",
+      "tree": {
+        "c": "Checkbox",
+        "props": {}
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__enter-then-space",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "defaultChecked": true
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        },
+        {
+          "do": "press",
+          "key": "Space"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__space-from-indeterminate",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "defaultChecked": "indeterminate"
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Space"
+        },
+        {
+          "do": "press",
+          "key": "Space"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__tab-order-skips-disabled",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex items-center gap-4"
+        },
+        "children": [
+          {
+            "c": "Checkbox",
+            "props": {
+              "id": "kb-a"
+            }
+          },
+          {
+            "c": "Checkbox",
+            "props": {
+              "id": "kb-b",
+              "disabled": true
+            }
+          },
+          {
+            "c": "Checkbox",
+            "props": {
+              "id": "kb-c",
+              "defaultChecked": true
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Space"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "mouse__click-no-focus-ring",
+      "tree": {
+        "c": "Checkbox",
+        "props": {}
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__click-no-change",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "disabled": true
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__checked__click-no-change",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "disabled": true,
+          "defaultChecked": true
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__tab-skipped",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "disabled": true
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "controlled__checked-true__click-stays",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "checked": true
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Space"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "controlled__checked-false__click-stays",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "checked": false
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Space"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "controlled__indeterminate__click-stays",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "checked": "indeterminate"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "controlled__indeterminate__dark",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "checked": "indeterminate"
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "animation__indicator-presence",
+      "tree": {
+        "c": "Checkbox",
+        "props": {}
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        },
+        {
+          "do": "wait",
+          "ms": 200
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        },
+        {
+          "do": "wait",
+          "ms": 200
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": true
+    },
+    {
+      "id": "animation__focus-ring-transition",
+      "tree": {
+        "c": "Checkbox",
+        "props": {}
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "wait",
+          "ms": 200
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": true
+    },
+    {
+      "id": "api__classname-merge",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "className": "rounded-full size-5 data-[state=checked]:bg-destructive"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__classname-merge__dark",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "className": "rounded-full size-5 data-[state=checked]:bg-destructive",
+          "defaultChecked": true
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__forwarded-attrs",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "id": "cb-forwarded",
+          "data-testid": "terms",
+          "aria-label": "Accept terms",
+          "title": "Terms"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__required",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "required": true
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__required-false",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "required": false
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__value-custom",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "value": "yes",
+          "defaultChecked": true
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__name-outside-form-no-bubble-input",
+      "tree": {
+        "c": "Checkbox",
+        "props": {
+          "name": "marketing"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "rtl__unchecked-checked",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "dir": "rtl",
+          "className": "flex items-center gap-3"
+        },
+        "children": [
+          {
+            "c": "Checkbox",
+            "props": {
+              "id": "rtl-a"
+            }
+          },
+          {
+            "c": "_label",
+            "props": {
+              "htmlFor": "rtl-a"
+            },
+            "children": [
+              "موافق"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "#rtl-a"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__bubble-input",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "f1"
+        },
+        "children": [
+          {
+            "c": "Checkbox",
+            "props": {
+              "name": "notifications"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__bubble-input__default-checked",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "f2"
+        },
+        "children": [
+          {
+            "c": "Checkbox",
+            "props": {
+              "name": "notifications",
+              "defaultChecked": true
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__bubble-input__indeterminate",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "f3"
+        },
+        "children": [
+          {
+            "c": "Checkbox",
+            "props": {
+              "name": "all",
+              "defaultChecked": "indeterminate"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__bubble-input__value-required-disabled",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "f4"
+        },
+        "children": [
+          {
+            "c": "Checkbox",
+            "props": {
+              "name": "terms",
+              "value": "accepted",
+              "required": true,
+              "disabled": true
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__bubble-input__keyboard-space",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "f5"
+        },
+        "children": [
+          {
+            "c": "Checkbox",
+            "props": {
+              "name": "kb"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Space"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__reset-restores-initial",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "f6",
+          "className": "flex items-center gap-4"
+        },
+        "children": [
+          {
+            "c": "Checkbox",
+            "props": {
+              "name": "wifi"
+            }
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "reset"
+            },
+            "children": [
+              "Reset"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        },
+        {
+          "do": "click",
+          "target": "role=button[name=\"Reset\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__reset-restores-initial-checked",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "f7",
+          "className": "flex items-center gap-4"
+        },
+        "children": [
+          {
+            "c": "Checkbox",
+            "props": {
+              "name": "wifi",
+              "defaultChecked": true
+            }
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "reset"
+            },
+            "children": [
+              "Reset"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        },
+        {
+          "do": "click",
+          "target": "role=button[name=\"Reset\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__reset-restores-initial-indeterminate",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "f8",
+          "className": "flex items-center gap-4"
+        },
+        "children": [
+          {
+            "c": "Checkbox",
+            "props": {
+              "name": "wifi",
+              "defaultChecked": "indeterminate"
+            }
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "reset"
+            },
+            "children": [
+              "Reset"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        },
+        {
+          "do": "click",
+          "target": "role=button[name=\"Reset\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__form-attribute-outside",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex items-center gap-4"
+        },
+        "children": [
+          {
+            "c": "_form",
+            "props": {
+              "id": "external-form"
+            },
+            "children": []
+          },
+          {
+            "c": "Checkbox",
+            "props": {
+              "name": "remote",
+              "form": "external-form"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__controlled-checked",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "f9"
+        },
+        "children": [
+          {
+            "c": "Checkbox",
+            "props": {
+              "name": "locked",
+              "checked": true
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__controlled-indeterminate",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "f10"
+        },
+        "children": [
+          {
+            "c": "Checkbox",
+            "props": {
+              "name": "locked",
+              "checked": "indeterminate"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "label__for-click-toggles",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex items-center gap-3"
+        },
+        "children": [
+          {
+            "c": "Checkbox",
+            "props": {
+              "id": "lbl-a"
+            }
+          },
+          {
+            "c": "_label",
+            "props": {
+              "htmlFor": "lbl-a"
+            },
+            "children": [
+              "Accept terms and conditions"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "label[for=lbl-a]"
+        },
+        {
+          "do": "click",
+          "target": "label[for=lbl-a]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "label__wrapping-click-toggles",
+      "tree": {
+        "c": "_label",
+        "props": {
+          "className": "flex items-start gap-3"
+        },
+        "children": [
+          {
+            "c": "Checkbox",
+            "props": {
+              "id": "lbl-w"
+            }
+          },
+          {
+            "c": "_span",
+            "props": {
+              "className": "text-sm"
+            },
+            "children": [
+              "Enable notifications"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "text=Enable notifications"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=checkbox]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__checkbox-demo",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-6"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "Checkbox",
+                "props": {
+                  "id": "terms"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "terms",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none"
+                },
+                "children": [
+                  "Accept terms and conditions"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-start gap-3"
+            },
+            "children": [
+              {
+                "c": "Checkbox",
+                "props": {
+                  "id": "terms-2",
+                  "defaultChecked": true
+                }
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "grid gap-2"
+                },
+                "children": [
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "terms-2",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none"
+                    },
+                    "children": [
+                      "Accept terms and conditions"
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {
+                      "className": "text-sm text-muted-foreground"
+                    },
+                    "children": [
+                      "By clicking this checkbox, you agree to the terms and conditions."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-start gap-3"
+            },
+            "children": [
+              {
+                "c": "Checkbox",
+                "props": {
+                  "id": "toggle",
+                  "disabled": true
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "toggle",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none"
+                },
+                "children": [
+                  "Enable notifications"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_label",
+            "props": {
+              "className": "flex items-center gap-2 text-sm leading-none font-medium select-none flex items-start gap-3 rounded-lg border p-3 hover:bg-accent/50 has-[[aria-checked=true]]:border-blue-600 has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:border-blue-900 dark:has-[[aria-checked=true]]:bg-blue-950"
+            },
+            "children": [
+              {
+                "c": "Checkbox",
+                "props": {
+                  "id": "toggle-2",
+                  "defaultChecked": true,
+                  "className": "data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white dark:data-[state=checked]:border-blue-700 dark:data-[state=checked]:bg-blue-700"
+                }
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "grid gap-1.5 font-normal"
+                },
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {
+                      "className": "text-sm leading-none font-medium"
+                    },
+                    "children": [
+                      "Enable notifications"
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {
+                      "className": "text-sm text-muted-foreground"
+                    },
+                    "children": [
+                      "You can enable or disable notifications at any time."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__checkbox-demo__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-6"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "Checkbox",
+                "props": {
+                  "id": "terms"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "terms",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none"
+                },
+                "children": [
+                  "Accept terms and conditions"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-start gap-3"
+            },
+            "children": [
+              {
+                "c": "Checkbox",
+                "props": {
+                  "id": "terms-2",
+                  "defaultChecked": true
+                }
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "grid gap-2"
+                },
+                "children": [
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "terms-2",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none"
+                    },
+                    "children": [
+                      "Accept terms and conditions"
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {
+                      "className": "text-sm text-muted-foreground"
+                    },
+                    "children": [
+                      "By clicking this checkbox, you agree to the terms and conditions."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-start gap-3"
+            },
+            "children": [
+              {
+                "c": "Checkbox",
+                "props": {
+                  "id": "toggle",
+                  "disabled": true
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "toggle",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none"
+                },
+                "children": [
+                  "Enable notifications"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_label",
+            "props": {
+              "className": "flex items-center gap-2 text-sm leading-none font-medium select-none flex items-start gap-3 rounded-lg border p-3 hover:bg-accent/50 has-[[aria-checked=true]]:border-blue-600 has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:border-blue-900 dark:has-[[aria-checked=true]]:bg-blue-950"
+            },
+            "children": [
+              {
+                "c": "Checkbox",
+                "props": {
+                  "id": "toggle-2",
+                  "defaultChecked": true,
+                  "className": "data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white dark:data-[state=checked]:border-blue-700 dark:data-[state=checked]:bg-blue-700"
+                }
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "grid gap-1.5 font-normal"
+                },
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {
+                      "className": "text-sm leading-none font-medium"
+                    },
+                    "children": [
+                      "Enable notifications"
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {
+                      "className": "text-sm text-muted-foreground"
+                    },
+                    "children": [
+                      "You can enable or disable notifications at any time."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__checkbox-demo__interact",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-6"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "Checkbox",
+                "props": {
+                  "id": "terms"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "terms",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none"
+                },
+                "children": [
+                  "Accept terms and conditions"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-start gap-3"
+            },
+            "children": [
+              {
+                "c": "Checkbox",
+                "props": {
+                  "id": "terms-2",
+                  "defaultChecked": true
+                }
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "grid gap-2"
+                },
+                "children": [
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "terms-2",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none"
+                    },
+                    "children": [
+                      "Accept terms and conditions"
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {
+                      "className": "text-sm text-muted-foreground"
+                    },
+                    "children": [
+                      "By clicking this checkbox, you agree to the terms and conditions."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-start gap-3"
+            },
+            "children": [
+              {
+                "c": "Checkbox",
+                "props": {
+                  "id": "toggle",
+                  "disabled": true
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "toggle",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none"
+                },
+                "children": [
+                  "Enable notifications"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_label",
+            "props": {
+              "className": "flex items-center gap-2 text-sm leading-none font-medium select-none flex items-start gap-3 rounded-lg border p-3 hover:bg-accent/50 has-[[aria-checked=true]]:border-blue-600 has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:border-blue-900 dark:has-[[aria-checked=true]]:bg-blue-950"
+            },
+            "children": [
+              {
+                "c": "Checkbox",
+                "props": {
+                  "id": "toggle-2",
+                  "defaultChecked": true,
+                  "className": "data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white dark:data-[state=checked]:border-blue-700 dark:data-[state=checked]:bg-blue-700"
+                }
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "grid gap-1.5 font-normal"
+                },
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {
+                      "className": "text-sm leading-none font-medium"
+                    },
+                    "children": [
+                      "Enable notifications"
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {
+                      "className": "text-sm text-muted-foreground"
+                    },
+                    "children": [
+                      "You can enable or disable notifications at any time."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "label[for=terms]"
+        },
+        {
+          "do": "click",
+          "target": "label[for=terms-2]"
+        },
+        {
+          "do": "click",
+          "target": "label[for=toggle]"
+        },
+        {
+          "do": "hover",
+          "target": "#toggle-2"
+        },
+        {
+          "do": "click",
+          "target": "#toggle-2"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__checkbox-demo__interact__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-6"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "Checkbox",
+                "props": {
+                  "id": "terms"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "terms",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none"
+                },
+                "children": [
+                  "Accept terms and conditions"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-start gap-3"
+            },
+            "children": [
+              {
+                "c": "Checkbox",
+                "props": {
+                  "id": "terms-2",
+                  "defaultChecked": true
+                }
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "grid gap-2"
+                },
+                "children": [
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "terms-2",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none"
+                    },
+                    "children": [
+                      "Accept terms and conditions"
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {
+                      "className": "text-sm text-muted-foreground"
+                    },
+                    "children": [
+                      "By clicking this checkbox, you agree to the terms and conditions."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-start gap-3"
+            },
+            "children": [
+              {
+                "c": "Checkbox",
+                "props": {
+                  "id": "toggle",
+                  "disabled": true
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "toggle",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none"
+                },
+                "children": [
+                  "Enable notifications"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_label",
+            "props": {
+              "className": "flex items-center gap-2 text-sm leading-none font-medium select-none flex items-start gap-3 rounded-lg border p-3 hover:bg-accent/50 has-[[aria-checked=true]]:border-blue-600 has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:border-blue-900 dark:has-[[aria-checked=true]]:bg-blue-950"
+            },
+            "children": [
+              {
+                "c": "Checkbox",
+                "props": {
+                  "id": "toggle-2",
+                  "defaultChecked": true,
+                  "className": "data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white dark:data-[state=checked]:border-blue-700 dark:data-[state=checked]:bg-blue-700"
+                }
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "grid gap-1.5 font-normal"
+                },
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {
+                      "className": "text-sm leading-none font-medium"
+                    },
+                    "children": [
+                      "Enable notifications"
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {
+                      "className": "text-sm text-muted-foreground"
+                    },
+                    "children": [
+                      "You can enable or disable notifications at any time."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "#toggle-2"
+        },
+        {
+          "do": "click",
+          "target": "#toggle-2"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__checkbox-disabled",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex items-center space-x-2"
+        },
+        "children": [
+          {
+            "c": "Checkbox",
+            "props": {
+              "id": "terms2",
+              "disabled": true
+            }
+          },
+          {
+            "c": "_label",
+            "props": {
+              "htmlFor": "terms2",
+              "className": "text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            },
+            "children": [
+              "Accept terms and conditions"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "label[for=terms2]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__checkbox-with-text",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "items-top flex gap-2"
+        },
+        "children": [
+          {
+            "c": "Checkbox",
+            "props": {
+              "id": "terms1"
+            }
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "grid gap-1.5 leading-none"
+            },
+            "children": [
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "terms1",
+                  "className": "text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                },
+                "children": [
+                  "Accept terms and conditions"
+                ]
+              },
+              {
+                "c": "_p",
+                "props": {
+                  "className": "text-sm text-muted-foreground"
+                },
+                "children": [
+                  "You agree to our Terms of Service and Privacy Policy."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "label[for=terms1]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__checkbox-with-text__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "items-top flex gap-2"
+        },
+        "children": [
+          {
+            "c": "Checkbox",
+            "props": {
+              "id": "terms1"
+            }
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "grid gap-1.5 leading-none"
+            },
+            "children": [
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "terms1",
+                  "className": "text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                },
+                "children": [
+                  "Accept terms and conditions"
+                ]
+              },
+              {
+                "c": "_p",
+                "props": {
+                  "className": "text-sm text-muted-foreground"
+                },
+                "children": [
+                  "You agree to our Terms of Service and Privacy Policy."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__field-checkbox",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex flex-col gap-7"
+            },
+            "children": [
+              {
+                "c": "_fieldset",
+                "props": {
+                  "className": "flex flex-col gap-6"
+                },
+                "children": [
+                  {
+                    "c": "_legend",
+                    "props": {
+                      "className": "mb-3 font-medium text-sm"
+                    },
+                    "children": [
+                      "Show these items on the desktop"
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {
+                      "className": "text-sm text-muted-foreground"
+                    },
+                    "children": [
+                      "Select the items you want to show on the desktop."
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "className": "flex flex-col gap-3"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "role": "group",
+                          "className": "flex flex-row items-center gap-3"
+                        },
+                        "children": [
+                          {
+                            "c": "Checkbox",
+                            "props": {
+                              "id": "finder-pref-9k2-hard-disks-ljj"
+                            }
+                          },
+                          {
+                            "c": "_label",
+                            "props": {
+                              "htmlFor": "finder-pref-9k2-hard-disks-ljj",
+                              "className": "font-normal text-sm"
+                            },
+                            "children": [
+                              "Hard disks"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "_div",
+                        "props": {
+                          "role": "group",
+                          "className": "flex flex-row items-center gap-3"
+                        },
+                        "children": [
+                          {
+                            "c": "Checkbox",
+                            "props": {
+                              "id": "finder-pref-9k2-external-disks-1yg"
+                            }
+                          },
+                          {
+                            "c": "_label",
+                            "props": {
+                              "htmlFor": "finder-pref-9k2-external-disks-1yg",
+                              "className": "font-normal text-sm"
+                            },
+                            "children": [
+                              "External disks"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "_div",
+                        "props": {
+                          "role": "group",
+                          "className": "flex flex-row items-center gap-3"
+                        },
+                        "children": [
+                          {
+                            "c": "Checkbox",
+                            "props": {
+                              "id": "finder-pref-9k2-cds-dvds-fzt"
+                            }
+                          },
+                          {
+                            "c": "_label",
+                            "props": {
+                              "htmlFor": "finder-pref-9k2-cds-dvds-fzt",
+                              "className": "font-normal text-sm"
+                            },
+                            "children": [
+                              "CDs, DVDs, and iPods"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "_div",
+                        "props": {
+                          "role": "group",
+                          "className": "flex flex-row items-center gap-3"
+                        },
+                        "children": [
+                          {
+                            "c": "Checkbox",
+                            "props": {
+                              "id": "finder-pref-9k2-connected-servers-6l2"
+                            }
+                          },
+                          {
+                            "c": "_label",
+                            "props": {
+                              "htmlFor": "finder-pref-9k2-connected-servers-6l2",
+                              "className": "font-normal text-sm"
+                            },
+                            "children": [
+                              "Connected servers"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex flex-row items-start gap-3"
+                },
+                "children": [
+                  {
+                    "c": "Checkbox",
+                    "props": {
+                      "id": "finder-pref-9k2-sync-folders-nep",
+                      "defaultChecked": true
+                    }
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "className": "flex flex-1 flex-col gap-1.5"
+                    },
+                    "children": [
+                      {
+                        "c": "_label",
+                        "props": {
+                          "htmlFor": "finder-pref-9k2-sync-folders-nep",
+                          "className": "text-sm font-medium"
+                        },
+                        "children": [
+                          "Sync Desktop & Documents folders"
+                        ]
+                      },
+                      {
+                        "c": "_p",
+                        "props": {
+                          "className": "text-sm text-muted-foreground"
+                        },
+                        "children": [
+                          "Your Desktop & Documents folders are being synced with iCloud Drive. You can access them from other devices."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "label[for=finder-pref-9k2-hard-disks-ljj]"
+        },
+        {
+          "do": "click",
+          "target": "label[for=finder-pref-9k2-sync-folders-nep]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__form-rhf-checkbox",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "form-rhf-checkbox"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex flex-col gap-3"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "role": "group",
+                  "className": "flex flex-row items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "Checkbox",
+                    "props": {
+                      "id": "form-rhf-checkbox-responses",
+                      "name": "responses",
+                      "checked": true,
+                      "disabled": true
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "form-rhf-checkbox-responses",
+                      "className": "font-normal text-sm"
+                    },
+                    "children": [
+                      "Push notifications"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "role": "group",
+                  "className": "flex flex-row items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "Checkbox",
+                    "props": {
+                      "id": "form-rhf-checkbox-push",
+                      "name": "tasks",
+                      "checked": false,
+                      "aria-invalid": true
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "form-rhf-checkbox-push",
+                      "className": "font-normal text-sm"
+                    },
+                    "children": [
+                      "Push notifications"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "role": "group",
+                  "className": "flex flex-row items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "Checkbox",
+                    "props": {
+                      "id": "form-rhf-checkbox-email",
+                      "name": "tasks",
+                      "checked": false,
+                      "aria-invalid": true
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "form-rhf-checkbox-email",
+                      "className": "font-normal text-sm"
+                    },
+                    "children": [
+                      "Email notifications"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "#form-rhf-checkbox-push"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__form-rhf-checkbox__dark",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "form-rhf-checkbox"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex flex-col gap-3"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "role": "group",
+                  "className": "flex flex-row items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "Checkbox",
+                    "props": {
+                      "id": "form-rhf-checkbox-responses",
+                      "name": "responses",
+                      "checked": true,
+                      "disabled": true
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "form-rhf-checkbox-responses",
+                      "className": "font-normal text-sm"
+                    },
+                    "children": [
+                      "Push notifications"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "role": "group",
+                  "className": "flex flex-row items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "Checkbox",
+                    "props": {
+                      "id": "form-rhf-checkbox-push",
+                      "name": "tasks",
+                      "checked": false,
+                      "aria-invalid": true
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "form-rhf-checkbox-push",
+                      "className": "font-normal text-sm"
+                    },
+                    "children": [
+                      "Push notifications"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "role": "group",
+                  "className": "flex flex-row items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "Checkbox",
+                    "props": {
+                      "id": "form-rhf-checkbox-email",
+                      "name": "tasks",
+                      "checked": false,
+                      "aria-invalid": true
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "form-rhf-checkbox-email",
+                      "className": "font-normal text-sm"
+                    },
+                    "children": [
+                      "Email notifications"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

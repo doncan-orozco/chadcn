@@ -1,0 +1,4781 @@
+{
+  "component": "hover-card",
+  "scenarios": [
+    {
+      "id": "default__closed",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default__closed-dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__open-after-delay",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        },
+        {
+          "do": "wait",
+          "ms": 500
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__open-after-delay-dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        },
+        {
+          "do": "wait",
+          "ms": 500
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover-leave-before-delay__stays-closed",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        },
+        {
+          "do": "hover",
+          "target": "[data-testid=outside]"
+        },
+        {
+          "do": "wait",
+          "ms": 700
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover-leave__closes-after-delay",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 800
+        },
+        {
+          "do": "hover",
+          "target": "[data-testid=outside]"
+        },
+        {
+          "do": "wait",
+          "ms": 100
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover-reenter-before-close__stays-open",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 800
+        },
+        {
+          "do": "hover",
+          "target": "[data-testid=outside]"
+        },
+        {
+          "do": "wait",
+          "ms": 100
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 400
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover-to-content__stays-open",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 800
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-content]"
+        },
+        {
+          "do": "wait",
+          "ms": 400
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover-content-then-outside__closes",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 800
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-content]"
+        },
+        {
+          "do": "wait",
+          "ms": 100
+        },
+        {
+          "do": "hover",
+          "target": "[data-testid=outside]"
+        },
+        {
+          "do": "wait",
+          "ms": 100
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover-content-back-to-trigger__stays-open",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 800
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-content]"
+        },
+        {
+          "do": "wait",
+          "ms": 100
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 400
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus__open-after-delay",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "props": {
+                  "href": "#profile"
+                },
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        },
+        {
+          "do": "wait",
+          "ms": 500
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus-blur__closes-after-delay",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "props": {
+                  "href": "#profile"
+                },
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "wait",
+          "ms": 800
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "wait",
+          "ms": 100
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus-shift-tab__closes",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "props": {
+                  "href": "#profile"
+                },
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "wait",
+          "ms": 800
+        },
+        {
+          "do": "tab",
+          "shift": true
+        },
+        {
+          "do": "wait",
+          "ms": 400
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus-escape__closes",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "props": {
+                  "href": "#profile"
+                },
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "wait",
+          "ms": 800
+        },
+        {
+          "do": "press",
+          "key": "Escape"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover-escape__closes",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 800
+        },
+        {
+          "do": "press",
+          "key": "Escape"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "pointerdown-outside__closes",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 800
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=outside]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "click-trigger__dismisses",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 800
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=hover-card-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 900
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "click-trigger-href__reopens-on-focus",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "props": {
+                  "href": "#profile",
+                  "data-turbo": "false"
+                },
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 800
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=hover-card-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 100
+        },
+        {
+          "do": "wait",
+          "ms": 800
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-tabbables__tabindex-minus-1",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "defaultOpen": true
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "props": {
+                  "href": "#profile"
+                },
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  {
+                    "c": "_p",
+                    "children": [
+                      "Profile of @nextjs."
+                    ]
+                  },
+                  {
+                    "c": "_a",
+                    "props": {
+                      "href": "#follow"
+                    },
+                    "children": [
+                      "Follow"
+                    ]
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "Message"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "text-selection__keeps-open",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  {
+                    "c": "_p",
+                    "children": [
+                      "The React Framework, created and maintained by @vercel."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 800
+        },
+        {
+          "do": "mousedown",
+          "target": "[data-slot=hover-card-content] p",
+          "position": {
+            "x": 2,
+            "y": 8
+          }
+        },
+        {
+          "do": "mouseup",
+          "target": "[data-testid=outside]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "wait",
+          "ms": 500
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-pointerdown__contains-selection",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  {
+                    "c": "_p",
+                    "children": [
+                      "The React Framework, created and maintained by @vercel."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 800
+        },
+        {
+          "do": "mousedown",
+          "target": "[data-slot=hover-card-content] p",
+          "position": {
+            "x": 2,
+            "y": 8
+          }
+        },
+        {
+          "do": "mouseup",
+          "target": "[data-slot=hover-card-content] p",
+          "position": {
+            "x": 2,
+            "y": 8
+          }
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "hover",
+          "target": "[data-testid=outside]"
+        },
+        {
+          "do": "wait",
+          "ms": 400
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "open-delay-100__close-delay-100",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "openDelay": 100,
+              "closeDelay": 100
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-trigger]",
+          "snapshot": false
+        },
+        {
+          "do": "wait",
+          "ms": 50,
+          "snapshot": false
+        },
+        {
+          "do": "wait",
+          "ms": 350
+        },
+        {
+          "do": "hover",
+          "target": "[data-testid=outside]",
+          "snapshot": false
+        },
+        {
+          "do": "wait",
+          "ms": 50,
+          "snapshot": false
+        },
+        {
+          "do": "wait",
+          "ms": 350
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "open-delay-0__close-delay-0",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "openDelay": 0,
+              "closeDelay": 0
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-trigger]",
+          "snapshot": false
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        },
+        {
+          "do": "hover",
+          "target": "[data-testid=outside]",
+          "snapshot": false
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "open-delay-1000__focus-uses-delay",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "openDelay": 1000
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "props": {
+                  "href": "#profile"
+                },
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "wait",
+          "ms": 800
+        },
+        {
+          "do": "wait",
+          "ms": 400
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default-open__open",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "defaultOpen": true
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        },
+        {
+          "do": "press",
+          "key": "Escape"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default-open__open-dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "defaultOpen": true
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "controlled-open-true__stays-open",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "open": true
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "press",
+          "key": "Escape"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=outside]"
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 100
+        },
+        {
+          "do": "hover",
+          "target": "[data-testid=outside]"
+        },
+        {
+          "do": "wait",
+          "ms": 400
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "controlled-open-false__stays-closed",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "open": false
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "props": {
+                  "href": "#profile"
+                },
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 800
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "wait",
+          "ms": 800
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "two-cards__independent-layers",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-96"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "props": {
+                  "href": "#alpha"
+                },
+                "children": [
+                  "Alpha"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "Alpha card"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "HoverCard",
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "props": {
+                  "href": "#beta"
+                },
+                "children": [
+                  "Beta"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "Beta card"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "wait",
+          "ms": 800
+        },
+        {
+          "do": "hover",
+          "target": "role=link[name=\"Beta\"]"
+        },
+        {
+          "do": "wait",
+          "ms": 800
+        },
+        {
+          "do": "press",
+          "key": "Escape"
+        },
+        {
+          "do": "press",
+          "key": "Escape"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-top__align-start",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "defaultOpen": true
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "props": {
+                  "side": "top",
+                  "align": "start"
+                },
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-top__align-center",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "defaultOpen": true
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "props": {
+                  "side": "top",
+                  "align": "center"
+                },
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-top__align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "defaultOpen": true
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "props": {
+                  "side": "top",
+                  "align": "end"
+                },
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-right__align-start",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "defaultOpen": true
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "props": {
+                  "side": "right",
+                  "align": "start"
+                },
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-right__align-center",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "defaultOpen": true
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "props": {
+                  "side": "right",
+                  "align": "center"
+                },
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-right__align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "defaultOpen": true
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "props": {
+                  "side": "right",
+                  "align": "end"
+                },
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-bottom__align-start",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "defaultOpen": true
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "props": {
+                  "side": "bottom",
+                  "align": "start"
+                },
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-bottom__align-center",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "defaultOpen": true
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "props": {
+                  "side": "bottom",
+                  "align": "center"
+                },
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-bottom__align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "defaultOpen": true
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "props": {
+                  "side": "bottom",
+                  "align": "end"
+                },
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-left__align-start",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "defaultOpen": true
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "props": {
+                  "side": "left",
+                  "align": "start"
+                },
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-left__align-center",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "defaultOpen": true
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "props": {
+                  "side": "left",
+                  "align": "center"
+                },
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-left__align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "defaultOpen": true
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "props": {
+                  "side": "left",
+                  "align": "end"
+                },
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-right__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "defaultOpen": true
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "props": {
+                  "side": "right"
+                },
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default-side__bottom",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "defaultOpen": true
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-offset-12",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "defaultOpen": true
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "props": {
+                  "sideOffset": 12
+                },
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "align-offset-16__align-start",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "defaultOpen": true
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "props": {
+                  "align": "start",
+                  "alignOffset": 16
+                },
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "collision-bottom-edge__flips-top",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "fixed inset-x-0 bottom-0 flex justify-center"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "defaultOpen": true
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "collision-bottom-edge__avoid-collisions-false",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "fixed inset-x-0 bottom-0 flex justify-center"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "defaultOpen": true
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "props": {
+                  "avoidCollisions": false
+                },
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "collision-left-edge__shifts",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "fixed top-1/2 left-0 flex"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "defaultOpen": true
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "collision-left-edge__sticky-always",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "fixed top-1/2 left-0 flex"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "defaultOpen": true
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "props": {
+                  "sticky": "always"
+                },
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "collision-padding-24",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "fixed top-1/2 left-0 flex"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "defaultOpen": true
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "props": {
+                  "collisionPadding": 24
+                },
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "collision-viewport-resize__flips-left",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "fixed top-1/2 left-[300px] flex"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "defaultOpen": true
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "props": {
+                  "side": "right"
+                },
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        },
+        {
+          "do": "viewport",
+          "width": 420,
+          "height": 700
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "classname__content-merge",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "defaultOpen": true
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "props": {
+                  "className": "w-80 p-6"
+                },
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "classname__trigger",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "props": {
+                  "className": "font-semibold underline"
+                },
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 800
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "forwarded-attrs",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "defaultOpen": true
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "props": {
+                  "id": "profile-trigger",
+                  "data-testid": "trigger",
+                  "aria-label": "Open profile",
+                  "href": "#profile"
+                },
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "props": {
+                  "id": "profile-card",
+                  "data-testid": "card",
+                  "aria-label": "Profile card"
+                },
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "as-child__button",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "className": "inline-flex items-center justify-center rounded-md border px-4 py-2 text-sm"
+                    },
+                    "children": [
+                      "@nextjs"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "wait",
+          "ms": 800
+        },
+        {
+          "do": "press",
+          "key": "Escape"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "as-child__anchor",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_a",
+                    "props": {
+                      "href": "#nextjs",
+                      "className": "underline"
+                    },
+                    "children": [
+                      "@nextjs"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 800
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "long-content__wraps",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "defaultOpen": true
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "Next.js is a React framework for building full-stack web applications. You use React Components to build user interfaces, and Next.js for additional features and optimizations."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "dir-rtl__content",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "defaultOpen": true
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "سماعات لاسلكية"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "props": {
+                  "dir": "rtl",
+                  "align": "start"
+                },
+                "children": [
+                  "سماعات لاسلكية ٩٩.٩٩ $"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "force-mount__unmounts-when-closed",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "props": {
+                  "forceMount": true
+                },
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 800
+        },
+        {
+          "do": "press",
+          "key": "Escape"
+        },
+        {
+          "do": "wait",
+          "ms": 100
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "animation__enter",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 700
+        },
+        {
+          "do": "wait",
+          "ms": 40
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": true
+    },
+    {
+      "id": "animation__exit-closed-state",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 800
+        },
+        {
+          "do": "wait",
+          "ms": 200
+        },
+        {
+          "do": "press",
+          "key": "Escape"
+        },
+        {
+          "do": "wait",
+          "ms": 40
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": true
+    },
+    {
+      "id": "animation__exit-closed-state-dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "children": [
+                  "Hover"
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "children": [
+                  "The React Framework, created and maintained by @vercel."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "next"
+            },
+            "children": [
+              "Next"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 800
+        },
+        {
+          "do": "wait",
+          "ms": 200
+        },
+        {
+          "do": "press",
+          "key": "Escape"
+        },
+        {
+          "do": "wait",
+          "ms": 40
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": true
+    },
+    {
+      "id": "example__hover-card-demo",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "className": "text-sm font-medium text-primary underline-offset-4 hover:underline"
+                    },
+                    "children": [
+                      "@nextjs"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "props": {
+                  "className": "w-80"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "className": "flex justify-between gap-4"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "className": "relative flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-muted"
+                        },
+                        "children": [
+                          "VC"
+                        ]
+                      },
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "space-y-1"
+                        },
+                        "children": [
+                          {
+                            "c": "_h4",
+                            "props": {
+                              "className": "text-sm font-semibold"
+                            },
+                            "children": [
+                              "@nextjs"
+                            ]
+                          },
+                          {
+                            "c": "_p",
+                            "props": {
+                              "className": "text-sm"
+                            },
+                            "children": [
+                              "The React Framework – created and maintained by @vercel."
+                            ]
+                          },
+                          {
+                            "c": "_div",
+                            "props": {
+                              "className": "text-xs text-muted-foreground"
+                            },
+                            "children": [
+                              "Joined December 2021"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 800
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__hover-card-demo-dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "className": "text-sm font-medium text-primary underline-offset-4 hover:underline"
+                    },
+                    "children": [
+                      "@nextjs"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "props": {
+                  "className": "w-80"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "className": "flex justify-between gap-4"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "className": "relative flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-muted"
+                        },
+                        "children": [
+                          "VC"
+                        ]
+                      },
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "space-y-1"
+                        },
+                        "children": [
+                          {
+                            "c": "_h4",
+                            "props": {
+                              "className": "text-sm font-semibold"
+                            },
+                            "children": [
+                              "@nextjs"
+                            ]
+                          },
+                          {
+                            "c": "_p",
+                            "props": {
+                              "className": "text-sm"
+                            },
+                            "children": [
+                              "The React Framework – created and maintained by @vercel."
+                            ]
+                          },
+                          {
+                            "c": "_div",
+                            "props": {
+                              "className": "text-xs text-muted-foreground"
+                            },
+                            "children": [
+                              "Joined December 2021"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 800
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__hover-card-demo-docs",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center gap-48"
+        },
+        "children": [
+          {
+            "c": "HoverCard",
+            "props": {
+              "openDelay": 10,
+              "closeDelay": 100
+            },
+            "children": [
+              {
+                "c": "HoverCardTrigger",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "className": "text-sm font-medium text-primary underline-offset-4 hover:underline"
+                    },
+                    "children": [
+                      "Hover Here"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "HoverCardContent",
+                "props": {
+                  "className": "flex w-64 flex-col gap-0.5"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "className": "font-semibold"
+                    },
+                    "children": [
+                      "@nextjs"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "children": [
+                      "The React Framework – created and maintained by @vercel."
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "className": "mt-1 text-xs text-muted-foreground"
+                    },
+                    "children": [
+                      "Joined December 2021"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-testid": "outside",
+              "className": "size-16"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=hover-card-trigger]",
+          "snapshot": false
+        },
+        {
+          "do": "wait",
+          "ms": 400
+        },
+        {
+          "do": "hover",
+          "target": "[data-testid=outside]",
+          "snapshot": false
+        },
+        {
+          "do": "wait",
+          "ms": 400
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__hover-card-sides",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[600px] items-center justify-center"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex flex-wrap justify-center gap-2"
+            },
+            "children": [
+              {
+                "c": "HoverCard",
+                "props": {
+                  "openDelay": 100,
+                  "closeDelay": 100
+                },
+                "children": [
+                  {
+                    "c": "HoverCardTrigger",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_button",
+                        "props": {
+                          "type": "button",
+                          "className": "inline-flex items-center justify-center rounded-md border px-4 py-2 text-sm capitalize"
+                        },
+                        "children": [
+                          "left"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "HoverCardContent",
+                    "props": {
+                      "side": "left"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex flex-col gap-1"
+                        },
+                        "children": [
+                          {
+                            "c": "_h4",
+                            "props": {
+                              "className": "font-medium"
+                            },
+                            "children": [
+                              "Hover Card"
+                            ]
+                          },
+                          {
+                            "c": "_p",
+                            "children": [
+                              "This hover card appears on the left side of the trigger."
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "HoverCard",
+                "props": {
+                  "openDelay": 100,
+                  "closeDelay": 100
+                },
+                "children": [
+                  {
+                    "c": "HoverCardTrigger",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_button",
+                        "props": {
+                          "type": "button",
+                          "className": "inline-flex items-center justify-center rounded-md border px-4 py-2 text-sm capitalize"
+                        },
+                        "children": [
+                          "top"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "HoverCardContent",
+                    "props": {
+                      "side": "top"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex flex-col gap-1"
+                        },
+                        "children": [
+                          {
+                            "c": "_h4",
+                            "props": {
+                              "className": "font-medium"
+                            },
+                            "children": [
+                              "Hover Card"
+                            ]
+                          },
+                          {
+                            "c": "_p",
+                            "children": [
+                              "This hover card appears on the top side of the trigger."
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "HoverCard",
+                "props": {
+                  "openDelay": 100,
+                  "closeDelay": 100
+                },
+                "children": [
+                  {
+                    "c": "HoverCardTrigger",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_button",
+                        "props": {
+                          "type": "button",
+                          "className": "inline-flex items-center justify-center rounded-md border px-4 py-2 text-sm capitalize"
+                        },
+                        "children": [
+                          "bottom"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "HoverCardContent",
+                    "props": {
+                      "side": "bottom"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex flex-col gap-1"
+                        },
+                        "children": [
+                          {
+                            "c": "_h4",
+                            "props": {
+                              "className": "font-medium"
+                            },
+                            "children": [
+                              "Hover Card"
+                            ]
+                          },
+                          {
+                            "c": "_p",
+                            "children": [
+                              "This hover card appears on the bottom side of the trigger."
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "HoverCard",
+                "props": {
+                  "openDelay": 100,
+                  "closeDelay": 100
+                },
+                "children": [
+                  {
+                    "c": "HoverCardTrigger",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_button",
+                        "props": {
+                          "type": "button",
+                          "className": "inline-flex items-center justify-center rounded-md border px-4 py-2 text-sm capitalize"
+                        },
+                        "children": [
+                          "right"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "HoverCardContent",
+                    "props": {
+                      "side": "right"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex flex-col gap-1"
+                        },
+                        "children": [
+                          {
+                            "c": "_h4",
+                            "props": {
+                              "className": "font-medium"
+                            },
+                            "children": [
+                              "Hover Card"
+                            ]
+                          },
+                          {
+                            "c": "_p",
+                            "children": [
+                              "This hover card appears on the right side of the trigger."
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "role=button[name=\"left\"]",
+          "snapshot": false
+        },
+        {
+          "do": "wait",
+          "ms": 400
+        },
+        {
+          "do": "hover",
+          "target": "role=button[name=\"top\"]",
+          "snapshot": false
+        },
+        {
+          "do": "wait",
+          "ms": 400
+        },
+        {
+          "do": "hover",
+          "target": "role=button[name=\"bottom\"]",
+          "snapshot": false
+        },
+        {
+          "do": "wait",
+          "ms": 400
+        },
+        {
+          "do": "hover",
+          "target": "role=button[name=\"right\"]",
+          "snapshot": false
+        },
+        {
+          "do": "wait",
+          "ms": 400
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__hover-card-rtl",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "dir": "rtl",
+          "className": "flex h-[600px] items-center justify-center"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex flex-wrap justify-center gap-2"
+            },
+            "children": [
+              {
+                "c": "HoverCard",
+                "props": {
+                  "openDelay": 10,
+                  "closeDelay": 100
+                },
+                "children": [
+                  {
+                    "c": "HoverCardTrigger",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_button",
+                        "props": {
+                          "type": "button",
+                          "className": "inline-flex items-center justify-center rounded-md border px-4 py-2 text-sm"
+                        },
+                        "children": [
+                          "يسار"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "HoverCardContent",
+                    "props": {
+                      "side": "left",
+                      "className": "flex w-64 flex-col gap-1",
+                      "dir": "rtl"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "font-semibold"
+                        },
+                        "children": [
+                          "سماعات لاسلكية"
+                        ]
+                      },
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "text-sm text-muted-foreground"
+                        },
+                        "children": [
+                          "٩٩.٩٩ $"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "HoverCard",
+                "props": {
+                  "openDelay": 10,
+                  "closeDelay": 100
+                },
+                "children": [
+                  {
+                    "c": "HoverCardTrigger",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_button",
+                        "props": {
+                          "type": "button",
+                          "className": "inline-flex items-center justify-center rounded-md border px-4 py-2 text-sm"
+                        },
+                        "children": [
+                          "أعلى"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "HoverCardContent",
+                    "props": {
+                      "side": "top",
+                      "className": "flex w-64 flex-col gap-1",
+                      "dir": "rtl"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "font-semibold"
+                        },
+                        "children": [
+                          "سماعات لاسلكية"
+                        ]
+                      },
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "text-sm text-muted-foreground"
+                        },
+                        "children": [
+                          "٩٩.٩٩ $"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "HoverCard",
+                "props": {
+                  "openDelay": 10,
+                  "closeDelay": 100
+                },
+                "children": [
+                  {
+                    "c": "HoverCardTrigger",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_button",
+                        "props": {
+                          "type": "button",
+                          "className": "inline-flex items-center justify-center rounded-md border px-4 py-2 text-sm"
+                        },
+                        "children": [
+                          "أسفل"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "HoverCardContent",
+                    "props": {
+                      "side": "bottom",
+                      "className": "flex w-64 flex-col gap-1",
+                      "dir": "rtl"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "font-semibold"
+                        },
+                        "children": [
+                          "سماعات لاسلكية"
+                        ]
+                      },
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "text-sm text-muted-foreground"
+                        },
+                        "children": [
+                          "٩٩.٩٩ $"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "HoverCard",
+                "props": {
+                  "openDelay": 10,
+                  "closeDelay": 100
+                },
+                "children": [
+                  {
+                    "c": "HoverCardTrigger",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_button",
+                        "props": {
+                          "type": "button",
+                          "className": "inline-flex items-center justify-center rounded-md border px-4 py-2 text-sm"
+                        },
+                        "children": [
+                          "يمين"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "HoverCardContent",
+                    "props": {
+                      "side": "right",
+                      "className": "flex w-64 flex-col gap-1",
+                      "dir": "rtl"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "font-semibold"
+                        },
+                        "children": [
+                          "سماعات لاسلكية"
+                        ]
+                      },
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "text-sm text-muted-foreground"
+                        },
+                        "children": [
+                          "٩٩.٩٩ $"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "role=button[name=\"يسار\"]",
+          "snapshot": false
+        },
+        {
+          "do": "wait",
+          "ms": 400
+        },
+        {
+          "do": "hover",
+          "target": "role=button[name=\"يمين\"]",
+          "snapshot": false
+        },
+        {
+          "do": "wait",
+          "ms": 400
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

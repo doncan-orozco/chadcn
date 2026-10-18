@@ -1,0 +1,195 @@
+{
+  "name": "resizable",
+  "style": "new-york-v4",
+  "source_sha": "aaf3ea20e8060c75",
+  "use_client": true,
+  "tier": "third_party",
+  "exports": [
+    "ResizableHandle",
+    "ResizablePanel",
+    "ResizablePanelGroup"
+  ],
+  "parts": [
+    {
+      "name": "ResizablePanelGroup",
+      "data_attrs": [],
+      "data_slots": [
+        "resizable-panel-group"
+      ],
+      "data_slot": "resizable-panel-group",
+      "wraps": "ResizablePrimitive.Group",
+      "renders": "ResizablePrimitive.Group",
+      "slot_tags": {
+        "resizable-panel-group": "ResizablePrimitive.Group"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "aria-[orientation=vertical]:flex-col",
+        "flex",
+        "h-full",
+        "w-full"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ResizablePanel",
+      "data_attrs": [],
+      "data_slots": [
+        "resizable-panel"
+      ],
+      "data_slot": "resizable-panel",
+      "wraps": "ResizablePrimitive.Panel",
+      "renders": "ResizablePrimitive.Panel",
+      "slot_tags": {
+        "resizable-panel": "ResizablePrimitive.Panel"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ResizableHandle",
+      "data_attrs": [],
+      "data_slots": [
+        "resizable-handle"
+      ],
+      "data_slot": "resizable-handle",
+      "wraps": "ResizablePrimitive.Separator",
+      "renders": "ResizablePrimitive.Separator",
+      "slot_tags": {
+        "resizable-handle": "ResizablePrimitive.Separator"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "withHandle"
+          },
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "withHandle",
+            "type": "boolean"
+          }
+        ]
+      },
+      "class_tokens": [
+        "[&[aria-orientation=horizontal]>div]:rotate-90",
+        "after:-translate-x-1/2",
+        "after:absolute",
+        "after:inset-y-0",
+        "after:left-1/2",
+        "after:w-1",
+        "aria-[orientation=horizontal]:after:-translate-y-1/2",
+        "aria-[orientation=horizontal]:after:h-1",
+        "aria-[orientation=horizontal]:after:left-0",
+        "aria-[orientation=horizontal]:after:translate-x-0",
+        "aria-[orientation=horizontal]:after:w-full",
+        "aria-[orientation=horizontal]:h-px",
+        "aria-[orientation=horizontal]:w-full",
+        "bg-border",
+        "border",
+        "flex",
+        "focus-visible:outline-hidden",
+        "focus-visible:ring-1",
+        "focus-visible:ring-offset-1",
+        "focus-visible:ring-ring",
+        "h-4",
+        "items-center",
+        "justify-center",
+        "relative",
+        "rounded-xs",
+        "size-2.5",
+        "w-3",
+        "w-px",
+        "z-10"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "[&[aria-orientation=horizontal]>div]:rotate-90",
+    "after:-translate-x-1/2",
+    "after:absolute",
+    "after:inset-y-0",
+    "after:left-1/2",
+    "after:w-1",
+    "aria-[orientation=horizontal]:after:-translate-y-1/2",
+    "aria-[orientation=horizontal]:after:h-1",
+    "aria-[orientation=horizontal]:after:left-0",
+    "aria-[orientation=horizontal]:after:translate-x-0",
+    "aria-[orientation=horizontal]:after:w-full",
+    "aria-[orientation=horizontal]:h-px",
+    "aria-[orientation=horizontal]:w-full",
+    "aria-[orientation=vertical]:flex-col",
+    "bg-border",
+    "border",
+    "flex",
+    "focus-visible:outline-hidden",
+    "focus-visible:ring-1",
+    "focus-visible:ring-offset-1",
+    "focus-visible:ring-ring",
+    "h-4",
+    "h-full",
+    "items-center",
+    "justify-center",
+    "relative",
+    "rounded-xs",
+    "size-2.5",
+    "w-3",
+    "w-full",
+    "w-px",
+    "z-10"
+  ],
+  "data_attrs": [],
+  "data_slots": [
+    "resizable-handle",
+    "resizable-panel",
+    "resizable-panel-group"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [],
+  "third_party": [
+    "resizable-panels"
+  ],
+  "icons": [
+    "GripVerticalIcon"
+  ],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn",
+    "react-resizable-panels@^4"
+  ],
+  "extra_files": []
+}

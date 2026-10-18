@@ -1,0 +1,1880 @@
+{
+  "component": "toggle",
+  "scenarios": [
+    {
+      "id": "default",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "aria-label": "Toggle italic"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default__dark",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "aria-label": "Toggle italic"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__size-default",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "default",
+          "size": "default",
+          "aria-label": "Toggle italic"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__size-default__on",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "default",
+          "size": "default",
+          "defaultPressed": true,
+          "aria-label": "Toggle italic"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__size-sm",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "default",
+          "size": "sm",
+          "aria-label": "Toggle italic"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__size-sm__on",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "default",
+          "size": "sm",
+          "defaultPressed": true,
+          "aria-label": "Toggle italic"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__size-lg",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "default",
+          "size": "lg",
+          "aria-label": "Toggle italic"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__size-lg__on",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "default",
+          "size": "lg",
+          "defaultPressed": true,
+          "aria-label": "Toggle italic"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__dark",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "default",
+          "aria-label": "Toggle italic"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__on__dark",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "default",
+          "defaultPressed": true,
+          "aria-label": "Toggle italic"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__size-default",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "outline",
+          "size": "default",
+          "aria-label": "Toggle italic"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__size-default__on",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "outline",
+          "size": "default",
+          "defaultPressed": true,
+          "aria-label": "Toggle italic"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__size-sm",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "outline",
+          "size": "sm",
+          "aria-label": "Toggle italic"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__size-sm__on",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "outline",
+          "size": "sm",
+          "defaultPressed": true,
+          "aria-label": "Toggle italic"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__size-lg",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "outline",
+          "size": "lg",
+          "aria-label": "Toggle italic"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__size-lg__on",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "outline",
+          "size": "lg",
+          "defaultPressed": true,
+          "aria-label": "Toggle italic"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__dark",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "outline",
+          "aria-label": "Toggle italic"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__on__dark",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "outline",
+          "defaultPressed": true,
+          "aria-label": "Toggle italic"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__text-only",
+      "tree": {
+        "c": "Toggle",
+        "props": {},
+        "children": [
+          "Bold"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__icon-only",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "aria-label": "Toggle bold"
+        },
+        "children": [
+          "<icon:bold>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__icon-text",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "aria-label": "Toggle italic"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__text-icon",
+      "tree": {
+        "c": "Toggle",
+        "props": {},
+        "children": [
+          "Italic",
+          "<icon:italic>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__long-text",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "style": {
+            "width": "120px"
+          }
+        },
+        "children": [
+          {
+            "c": "Toggle",
+            "props": {},
+            "children": [
+              "A very long toggle label that should not wrap"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__empty",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "aria-label": "Empty toggle"
+        },
+        "children": []
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__icon-only__size-sm",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "size": "sm",
+          "aria-label": "Toggle bold"
+        },
+        "children": [
+          "<icon:bold>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__icon-only__size-lg__outline",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "size": "lg",
+          "variant": "outline",
+          "aria-label": "Toggle bold"
+        },
+        "children": [
+          "<icon:bold>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__hover",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "default"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=toggle]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__hover__dark",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "default"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=toggle]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__on__hover",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "default",
+          "defaultPressed": true
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=toggle]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__hover",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "outline"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=toggle]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__hover__dark",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "outline"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=toggle]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__on__hover",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "outline",
+          "defaultPressed": true
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=toggle]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__focus-visible",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "default"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__focus-visible__dark",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "default"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__focus-visible",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "outline"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__focus-visible__dark",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "outline"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__on__focus-visible",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "outline",
+          "defaultPressed": true
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "click__off-on-off",
+      "tree": {
+        "c": "Toggle",
+        "props": {},
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "click__off-on-off__dark",
+      "tree": {
+        "c": "Toggle",
+        "props": {},
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__click__off-on-off",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "outline"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "size-sm__click__toggle",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "size": "sm"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "size-lg__click__toggle",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "size": "lg"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default-pressed__click__on-off",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "defaultPressed": true
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "click__focus-not-visible",
+      "tree": {
+        "c": "Toggle",
+        "props": {},
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__tab-space-toggles",
+      "tree": {
+        "c": "Toggle",
+        "props": {},
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Space"
+        },
+        {
+          "do": "press",
+          "key": "Space"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__tab-enter-toggles",
+      "tree": {
+        "c": "Toggle",
+        "props": {},
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__tab-space__outline__dark",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "outline"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Space"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__tab-order-two-toggles",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex gap-2"
+        },
+        "children": [
+          {
+            "c": "Toggle",
+            "props": {
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "Toggle",
+            "props": {
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Space"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__off",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "disabled": true
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__on",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "disabled": true,
+          "defaultPressed": true
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__off__dark",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "disabled": true
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__outline",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "disabled": true,
+          "variant": "outline"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__on__tab-skipped",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex gap-2"
+        },
+        "children": [
+          {
+            "c": "Toggle",
+            "props": {
+              "disabled": true,
+              "defaultPressed": true,
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "Toggle",
+            "props": {
+              "variant": "outline",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Space"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__tab-skipped",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex gap-2"
+        },
+        "children": [
+          {
+            "c": "Toggle",
+            "props": {
+              "disabled": true,
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "Toggle",
+            "props": {
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__aria-invalid",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "default",
+          "aria-invalid": true
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__aria-invalid__dark",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "default",
+          "aria-invalid": true
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__aria-invalid",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "outline",
+          "aria-invalid": true
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__aria-invalid__dark",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "outline",
+          "aria-invalid": true
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__aria-invalid__focus-visible",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "outline",
+          "aria-invalid": true
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__aria-invalid__focus-visible__dark",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "outline",
+          "aria-invalid": true
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "controlled__pressed-true__click-stays",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "pressed": true
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "controlled__pressed-false__click-stays",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "pressed": false
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        },
+        {
+          "do": "press",
+          "key": "Space"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__classname-merge",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "className": "rounded-full px-4"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__forwarded-attrs",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "id": "italic-toggle",
+          "data-testid": "italic",
+          "aria-label": "Toggle italic",
+          "title": "Italic"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__aschild-span",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "asChild": true,
+          "variant": "outline"
+        },
+        "children": [
+          {
+            "c": "_span",
+            "props": {
+              "className": "cursor-pointer"
+            },
+            "children": [
+              "Span toggle"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__type-override",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "type": "submit"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__inside-form-does-not-submit",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "toggle-form"
+        },
+        "children": [
+          {
+            "c": "Toggle",
+            "props": {
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>",
+              "Italic"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__animations-transition",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "outline"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": true
+    },
+    {
+      "id": "example__toggle-demo",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "aria-label": "Toggle bookmark",
+          "size": "sm",
+          "variant": "outline",
+          "className": "data-[state=on]:bg-transparent data-[state=on]:*:[svg]:fill-blue-500 data-[state=on]:*:[svg]:stroke-blue-500"
+        },
+        "children": [
+          "<icon:bookmark>",
+          "Bookmark"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__toggle-demo__click",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "aria-label": "Toggle bookmark",
+          "size": "sm",
+          "variant": "outline",
+          "className": "data-[state=on]:bg-transparent data-[state=on]:*:[svg]:fill-blue-500 data-[state=on]:*:[svg]:stroke-blue-500"
+        },
+        "children": [
+          "<icon:bookmark>",
+          "Bookmark"
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__toggle-demo__click__dark",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "aria-label": "Toggle bookmark",
+          "size": "sm",
+          "variant": "outline",
+          "className": "data-[state=on]:bg-transparent data-[state=on]:*:[svg]:fill-blue-500 data-[state=on]:*:[svg]:stroke-blue-500"
+        },
+        "children": [
+          "<icon:bookmark>",
+          "Bookmark"
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__toggle-disabled",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "aria-label": "Toggle italic",
+          "disabled": true
+        },
+        "children": [
+          "<icon:underline>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__toggle-lg",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "size": "lg",
+          "aria-label": "Toggle italic"
+        },
+        "children": [
+          "<icon:italic>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__toggle-outline",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "variant": "outline",
+          "aria-label": "Toggle italic"
+        },
+        "children": [
+          "<icon:italic>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__toggle-sm",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "size": "sm",
+          "aria-label": "Toggle italic"
+        },
+        "children": [
+          "<icon:italic>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__toggle-with-text",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "aria-label": "Toggle italic"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__toggle-with-text__click",
+      "tree": {
+        "c": "Toggle",
+        "props": {
+          "aria-label": "Toggle italic"
+        },
+        "children": [
+          "<icon:italic>",
+          "Italic"
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

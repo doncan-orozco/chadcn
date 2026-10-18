@@ -1,0 +1,561 @@
+{
+  "component": "_primitives-form-bubble-input",
+  "scenarios": [
+    {
+      "id": "checkbox-default",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "data-controller": "shadcn---probe-form-bubble-input",
+          "data-probe-kind": "checkbox",
+          "data-slot": "form",
+          "data-probe-name": "terms",
+          "data-probe-value": "yes"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "type": "button",
+                  "data-slot": "control",
+                  "data-shadcn---probe-form-bubble-input-target": "control",
+                  "data-action": "click->shadcn---probe-form-bubble-input#toggle keydown->shadcn---probe-form-bubble-input#keydown",
+                  "role": "checkbox",
+                  "aria-checked": "false",
+                  "data-state": "unchecked",
+                  "value": "yes",
+                  "className": "inline-flex size-5 items-center justify-center rounded border border-input text-xs data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground data-[state=indeterminate]:bg-primary",
+                  "aria-required": "false"
+                }
+              },
+              {
+                "c": "_output",
+                "props": {
+                  "data-slot": "log",
+                  "className": "text-xs",
+                  "data-shadcn---probe-form-bubble-input-target": "log"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=control]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=control]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 700,
+        "height": 500
+      },
+      "animations": false
+    },
+    {
+      "id": "checkbox-checked",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "data-controller": "shadcn---probe-form-bubble-input",
+          "data-probe-kind": "checkbox",
+          "data-slot": "form",
+          "data-probe-name": "terms",
+          "data-probe-value": "yes",
+          "data-probe-checked": "true"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "type": "button",
+                  "data-slot": "control",
+                  "data-shadcn---probe-form-bubble-input-target": "control",
+                  "data-action": "click->shadcn---probe-form-bubble-input#toggle keydown->shadcn---probe-form-bubble-input#keydown",
+                  "role": "checkbox",
+                  "aria-checked": "true",
+                  "data-state": "checked",
+                  "value": "yes",
+                  "className": "inline-flex size-5 items-center justify-center rounded border border-input text-xs data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground data-[state=indeterminate]:bg-primary",
+                  "aria-required": "false"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-state": "checked",
+                      "style": "pointer-events: none"
+                    },
+                    "children": [
+                      "x"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_output",
+                "props": {
+                  "data-slot": "log",
+                  "className": "text-xs",
+                  "data-shadcn---probe-form-bubble-input-target": "log"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=control]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 700,
+        "height": 500
+      },
+      "animations": false
+    },
+    {
+      "id": "checkbox-required-disabled",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "data-controller": "shadcn---probe-form-bubble-input",
+          "data-probe-kind": "checkbox",
+          "data-slot": "form",
+          "data-probe-name": "terms",
+          "data-probe-value": "on",
+          "data-probe-required": "true",
+          "data-probe-disabled": "true"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "type": "button",
+                  "data-slot": "control",
+                  "data-shadcn---probe-form-bubble-input-target": "control",
+                  "data-action": "click->shadcn---probe-form-bubble-input#toggle keydown->shadcn---probe-form-bubble-input#keydown",
+                  "role": "checkbox",
+                  "aria-checked": "false",
+                  "data-state": "unchecked",
+                  "value": "on",
+                  "className": "inline-flex size-5 items-center justify-center rounded border border-input text-xs data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground data-[state=indeterminate]:bg-primary",
+                  "aria-required": "true",
+                  "disabled": true,
+                  "data-disabled": ""
+                }
+              },
+              {
+                "c": "_output",
+                "props": {
+                  "data-slot": "log",
+                  "className": "text-xs",
+                  "data-shadcn---probe-form-bubble-input-target": "log"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 700,
+        "height": 500
+      },
+      "animations": false
+    },
+    {
+      "id": "checkbox-no-form",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-form-bubble-input",
+          "data-probe-kind": "checkbox",
+          "data-probe-name": "terms",
+          "data-probe-value": "on"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "type": "button",
+                  "data-slot": "control",
+                  "data-shadcn---probe-form-bubble-input-target": "control",
+                  "data-action": "click->shadcn---probe-form-bubble-input#toggle keydown->shadcn---probe-form-bubble-input#keydown",
+                  "role": "checkbox",
+                  "aria-checked": "false",
+                  "data-state": "unchecked",
+                  "value": "on",
+                  "className": "inline-flex size-5 items-center justify-center rounded border border-input text-xs data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground data-[state=indeterminate]:bg-primary",
+                  "aria-required": "false"
+                }
+              },
+              {
+                "c": "_output",
+                "props": {
+                  "data-slot": "log",
+                  "className": "text-xs",
+                  "data-shadcn---probe-form-bubble-input-target": "log"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=control]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 700,
+        "height": 500
+      },
+      "animations": false
+    },
+    {
+      "id": "checkbox-controlled-indeterminate",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "data-controller": "shadcn---probe-form-bubble-input",
+          "data-probe-kind": "checkbox",
+          "data-slot": "form",
+          "data-probe-name": "terms",
+          "data-probe-value": "on",
+          "data-probe-checked": "indeterminate"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "type": "button",
+                  "data-slot": "control",
+                  "data-shadcn---probe-form-bubble-input-target": "control",
+                  "data-action": "click->shadcn---probe-form-bubble-input#toggle keydown->shadcn---probe-form-bubble-input#keydown",
+                  "role": "checkbox",
+                  "aria-checked": "mixed",
+                  "data-state": "indeterminate",
+                  "value": "on",
+                  "className": "inline-flex size-5 items-center justify-center rounded border border-input text-xs data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground data-[state=indeterminate]:bg-primary",
+                  "aria-required": "false"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-state": "indeterminate",
+                      "style": "pointer-events: none"
+                    },
+                    "children": [
+                      "x"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_output",
+                "props": {
+                  "data-slot": "log",
+                  "className": "text-xs",
+                  "data-shadcn---probe-form-bubble-input-target": "log"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=control]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 700,
+        "height": 500
+      },
+      "animations": false
+    },
+    {
+      "id": "switch",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "data-controller": "shadcn---probe-form-bubble-input",
+          "data-probe-kind": "switch",
+          "data-slot": "form",
+          "data-probe-name": "notify",
+          "data-probe-value": "on"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "type": "button",
+                  "data-slot": "control",
+                  "data-shadcn---probe-form-bubble-input-target": "control",
+                  "data-action": "click->shadcn---probe-form-bubble-input#toggle keydown->shadcn---probe-form-bubble-input#keydown",
+                  "role": "switch",
+                  "aria-checked": "false",
+                  "data-state": "unchecked",
+                  "value": "on",
+                  "aria-required": "false",
+                  "className": "inline-flex h-5 w-9 items-center rounded-full border border-input data-[state=checked]:bg-primary"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "className": "block size-4 rounded-full bg-foreground",
+                      "data-state": "unchecked"
+                    }
+                  }
+                ]
+              },
+              {
+                "c": "_output",
+                "props": {
+                  "data-slot": "log",
+                  "className": "text-xs",
+                  "data-shadcn---probe-form-bubble-input-target": "log"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=control]"
+        },
+        {
+          "do": "focus",
+          "target": "[data-slot=control]"
+        },
+        {
+          "do": "press",
+          "key": "Space"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 700,
+        "height": 500
+      },
+      "animations": false
+    },
+    {
+      "id": "radio",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "data-controller": "shadcn---probe-form-bubble-input",
+          "data-probe-kind": "radio",
+          "data-slot": "form",
+          "data-probe-name": "plan",
+          "data-probe-options": "[{\"value\": \"a\", \"label\": \"A\"}, {\"value\": \"b\", \"label\": \"B\"}]",
+          "data-probe-selected": "a"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "role": "radiogroup",
+                  "aria-required": "false",
+                  "className": "flex gap-2"
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "control",
+                      "data-shadcn---probe-form-bubble-input-target": "control",
+                      "data-action": "click->shadcn---probe-form-bubble-input#toggle keydown->shadcn---probe-form-bubble-input#keydown",
+                      "role": "radio",
+                      "aria-checked": "true",
+                      "data-state": "checked",
+                      "value": "a",
+                      "tabindex": -1,
+                      "className": "inline-flex size-5 items-center justify-center rounded border border-input text-xs data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground data-[state=indeterminate]:bg-primary"
+                    }
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "control",
+                      "data-shadcn---probe-form-bubble-input-target": "control",
+                      "data-action": "click->shadcn---probe-form-bubble-input#toggle keydown->shadcn---probe-form-bubble-input#keydown",
+                      "role": "radio",
+                      "aria-checked": "false",
+                      "data-state": "unchecked",
+                      "value": "b",
+                      "tabindex": -1,
+                      "className": "inline-flex size-5 items-center justify-center rounded border border-input text-xs data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground data-[state=indeterminate]:bg-primary"
+                    }
+                  }
+                ]
+              },
+              {
+                "c": "_output",
+                "props": {
+                  "data-slot": "log",
+                  "className": "text-xs",
+                  "data-shadcn---probe-form-bubble-input-target": "log"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=control] >> nth=1"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=control] >> nth=0"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 700,
+        "height": 500
+      },
+      "animations": false
+    },
+    {
+      "id": "select",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "data-controller": "shadcn---probe-form-bubble-input",
+          "data-probe-kind": "select",
+          "data-slot": "form",
+          "data-probe-name": "color",
+          "data-probe-options": "[{\"value\": \"a\", \"label\": \"Alpha\"}, {\"value\": \"b\", \"label\": \"Beta\"}]",
+          "data-probe-selected": "a"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "type": "button",
+                  "role": "combobox",
+                  "className": "inline-flex items-center gap-2 rounded border border-input px-2 py-1 text-sm"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "style": "pointer-events: none"
+                    },
+                    "children": [
+                      "Alpha"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "type": "button",
+                  "data-slot": "set",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "data-action": "click->shadcn---probe-form-bubble-input#choose"
+                },
+                "children": [
+                  "set b"
+                ]
+              },
+              {
+                "c": "_output",
+                "props": {
+                  "data-slot": "log",
+                  "className": "text-xs",
+                  "data-shadcn---probe-form-bubble-input-target": "log"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=set]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 700,
+        "height": 500
+      },
+      "animations": false
+    }
+  ]
+}

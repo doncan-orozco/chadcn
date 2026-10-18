@@ -1,0 +1,231 @@
+{
+  "name": "native-select",
+  "style": "new-york-v4",
+  "source_sha": "4bdbce5575dce610",
+  "use_client": false,
+  "tier": "static",
+  "exports": [
+    "NativeSelect",
+    "NativeSelectOptGroup",
+    "NativeSelectOption"
+  ],
+  "parts": [
+    {
+      "name": "NativeSelect",
+      "data_attrs": [
+        {
+          "name": "data-size",
+          "value": "{size}"
+        }
+      ],
+      "data_slots": [
+        "native-select-wrapper",
+        "native-select",
+        "native-select-icon"
+      ],
+      "data_slot": "native-select-wrapper",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {
+        "native-select-icon": "ChevronDownIcon"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "size",
+            "default": "\"default\""
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "size",
+            "type": "\"sm\" | \"default\""
+          }
+        ]
+      },
+      "class_tokens": [
+        "-translate-y-1/2",
+        "absolute",
+        "appearance-none",
+        "aria-invalid:border-destructive",
+        "aria-invalid:ring-destructive/20",
+        "bg-transparent",
+        "border",
+        "border-input",
+        "dark:aria-invalid:ring-destructive/40",
+        "dark:bg-input/30",
+        "dark:hover:bg-input/50",
+        "data-[size=sm]:h-8",
+        "data-[size=sm]:py-1",
+        "disabled:cursor-not-allowed",
+        "disabled:pointer-events-none",
+        "focus-visible:border-ring",
+        "focus-visible:ring-[3px]",
+        "focus-visible:ring-ring/50",
+        "group/native-select",
+        "h-9",
+        "has-[select:disabled]:opacity-50",
+        "min-w-0",
+        "opacity-50",
+        "outline-none",
+        "placeholder:text-muted-foreground",
+        "pointer-events-none",
+        "pr-9",
+        "px-3",
+        "py-2",
+        "relative",
+        "right-3.5",
+        "rounded-md",
+        "select-none",
+        "selection:bg-primary",
+        "selection:text-primary-foreground",
+        "shadow-xs",
+        "size-4",
+        "text-muted-foreground",
+        "text-sm",
+        "top-1/2",
+        "transition-[color,box-shadow]",
+        "w-fit",
+        "w-full"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "NativeSelectOption",
+      "data_attrs": [],
+      "data_slots": [
+        "native-select-option"
+      ],
+      "data_slot": "native-select-option",
+      "wraps": null,
+      "renders": "option",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "bg-[Canvas]",
+        "text-[CanvasText]"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "NativeSelectOptGroup",
+      "data_attrs": [],
+      "data_slots": [
+        "native-select-optgroup"
+      ],
+      "data_slot": "native-select-optgroup",
+      "wraps": null,
+      "renders": "optgroup",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "bg-[Canvas]",
+        "text-[CanvasText]"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "-translate-y-1/2",
+    "absolute",
+    "appearance-none",
+    "aria-invalid:border-destructive",
+    "aria-invalid:ring-destructive/20",
+    "bg-[Canvas]",
+    "bg-transparent",
+    "border",
+    "border-input",
+    "dark:aria-invalid:ring-destructive/40",
+    "dark:bg-input/30",
+    "dark:hover:bg-input/50",
+    "data-[size=sm]:h-8",
+    "data-[size=sm]:py-1",
+    "disabled:cursor-not-allowed",
+    "disabled:pointer-events-none",
+    "focus-visible:border-ring",
+    "focus-visible:ring-[3px]",
+    "focus-visible:ring-ring/50",
+    "group/native-select",
+    "h-9",
+    "has-[select:disabled]:opacity-50",
+    "min-w-0",
+    "opacity-50",
+    "outline-none",
+    "placeholder:text-muted-foreground",
+    "pointer-events-none",
+    "pr-9",
+    "px-3",
+    "py-2",
+    "relative",
+    "right-3.5",
+    "rounded-md",
+    "select-none",
+    "selection:bg-primary",
+    "selection:text-primary-foreground",
+    "shadow-xs",
+    "size-4",
+    "text-[CanvasText]",
+    "text-muted-foreground",
+    "text-sm",
+    "top-1/2",
+    "transition-[color,box-shadow]",
+    "w-fit",
+    "w-full"
+  ],
+  "data_attrs": [
+    "data-size"
+  ],
+  "data_slots": [
+    "native-select",
+    "native-select-icon",
+    "native-select-optgroup",
+    "native-select-option",
+    "native-select-wrapper"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [],
+  "third_party": [],
+  "icons": [
+    "ChevronDownIcon"
+  ],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn"
+  ],
+  "extra_files": []
+}

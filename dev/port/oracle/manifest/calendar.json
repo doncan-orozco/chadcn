@@ -1,0 +1,350 @@
+{
+  "name": "calendar",
+  "style": "new-york-v4",
+  "source_sha": "78ed2cc49dafc5bb",
+  "use_client": true,
+  "tier": "third_party",
+  "exports": [
+    "Calendar",
+    "CalendarDayButton"
+  ],
+  "parts": [
+    {
+      "name": "Calendar",
+      "data_attrs": [],
+      "data_slots": [
+        "calendar"
+      ],
+      "data_slot": "calendar",
+      "wraps": null,
+      "renders": "DayPicker",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "classNames"
+          },
+          {
+            "name": "showOutsideDays",
+            "default": "true"
+          },
+          {
+            "name": "captionLayout",
+            "default": "\"label\""
+          },
+          {
+            "name": "buttonVariant",
+            "default": "\"ghost\""
+          },
+          {
+            "name": "formatters"
+          },
+          {
+            "name": "components"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "buttonVariant",
+            "type": "React.ComponentProps<typeof Button>[\"variant\"]"
+          }
+        ]
+      },
+      "class_tokens": [
+        "[&:first-child[data-selected=true]_button]:rounded-l-md",
+        "[&:last-child[data-selected=true]_button]:rounded-r-md",
+        "[&:nth-child(2)[data-selected=true]_button]:rounded-l-md",
+        "[&>svg]:size-3.5",
+        "[&>svg]:text-muted-foreground",
+        "[--cell-size:--spacing(8)]",
+        "[[data-slot=card-content]_&]:bg-transparent",
+        "[[data-slot=popover-content]_&]:bg-transparent",
+        "absolute",
+        "aria-disabled:opacity-50",
+        "aria-selected:text-muted-foreground",
+        "aspect-square",
+        "bg-accent",
+        "bg-background",
+        "bg-popover",
+        "border",
+        "border-collapse",
+        "border-input",
+        "data-[selected=true]:rounded-none",
+        "flex",
+        "flex-1",
+        "flex-col",
+        "font-medium",
+        "font-normal",
+        "gap-1",
+        "gap-1.5",
+        "gap-4",
+        "group/calendar",
+        "group/day",
+        "h-(--cell-size)",
+        "h-8",
+        "h-full",
+        "has-focus:border-ring",
+        "has-focus:ring-[3px]",
+        "has-focus:ring-ring/50",
+        "inset-0",
+        "inset-x-0",
+        "invisible",
+        "items-center",
+        "justify-between",
+        "justify-center",
+        "label",
+        "md:flex-row",
+        "mt-2",
+        "opacity-0",
+        "opacity-50",
+        "p-0",
+        "p-3",
+        "pl-2",
+        "pr-1",
+        "px-(--cell-size)",
+        "relative",
+        "rounded-l-md",
+        "rounded-md",
+        "rounded-none",
+        "rounded-r-md",
+        "rtl:**:[.rdp-button\\_next>svg]:rotate-180",
+        "rtl:**:[.rdp-button\\_previous>svg]:rotate-180",
+        "select-none",
+        "shadow-xs",
+        "size-(--cell-size)",
+        "size-4",
+        "text-[0.8rem]",
+        "text-accent-foreground",
+        "text-center",
+        "text-muted-foreground",
+        "text-sm",
+        "top-0",
+        "w-(--cell-size)",
+        "w-fit",
+        "w-full"
+      ],
+      "uses_cva": true,
+      "variants_used": [
+        "buttonVariants"
+      ]
+    },
+    {
+      "name": "CalendarDayButton",
+      "data_attrs": [
+        {
+          "name": "data-day",
+          "value": "{day.date.toLocaleDateString()}"
+        },
+        {
+          "name": "data-selected-single",
+          "value": "{\n        modifiers.selected &&\n        !modifiers.range_start &&\n        !modifiers.range_end &&\n        !modifiers.range_middle\n      }"
+        },
+        {
+          "name": "data-range-start",
+          "value": "{modifiers.range_start}"
+        },
+        {
+          "name": "data-range-end",
+          "value": "{modifiers.range_end}"
+        },
+        {
+          "name": "data-range-middle",
+          "value": "{modifiers.range_middle}"
+        }
+      ],
+      "data_slots": [],
+      "data_slot": null,
+      "wraps": null,
+      "renders": "Button",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "day"
+          },
+          {
+            "name": "modifiers"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "[&>span]:opacity-70",
+        "[&>span]:text-xs",
+        "aspect-square",
+        "dark:hover:text-accent-foreground",
+        "data-[range-end=true]:bg-primary",
+        "data-[range-end=true]:rounded-md",
+        "data-[range-end=true]:rounded-r-md",
+        "data-[range-end=true]:text-primary-foreground",
+        "data-[range-middle=true]:bg-accent",
+        "data-[range-middle=true]:rounded-none",
+        "data-[range-middle=true]:text-accent-foreground",
+        "data-[range-start=true]:bg-primary",
+        "data-[range-start=true]:rounded-l-md",
+        "data-[range-start=true]:rounded-md",
+        "data-[range-start=true]:text-primary-foreground",
+        "data-[selected-single=true]:bg-primary",
+        "data-[selected-single=true]:text-primary-foreground",
+        "flex",
+        "flex-col",
+        "font-normal",
+        "gap-1",
+        "group-data-[focused=true]/day:border-ring",
+        "group-data-[focused=true]/day:relative",
+        "group-data-[focused=true]/day:ring-[3px]",
+        "group-data-[focused=true]/day:ring-ring/50",
+        "group-data-[focused=true]/day:z-10",
+        "leading-none",
+        "min-w-(--cell-size)",
+        "size-auto",
+        "w-full"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "[&:first-child[data-selected=true]_button]:rounded-l-md",
+    "[&:last-child[data-selected=true]_button]:rounded-r-md",
+    "[&:nth-child(2)[data-selected=true]_button]:rounded-l-md",
+    "[&>span]:opacity-70",
+    "[&>span]:text-xs",
+    "[&>svg]:size-3.5",
+    "[&>svg]:text-muted-foreground",
+    "[--cell-size:--spacing(8)]",
+    "[[data-slot=card-content]_&]:bg-transparent",
+    "[[data-slot=popover-content]_&]:bg-transparent",
+    "absolute",
+    "aria-disabled:opacity-50",
+    "aria-selected:text-muted-foreground",
+    "aspect-square",
+    "bg-accent",
+    "bg-background",
+    "bg-popover",
+    "border",
+    "border-collapse",
+    "border-input",
+    "dark:hover:text-accent-foreground",
+    "data-[range-end=true]:bg-primary",
+    "data-[range-end=true]:rounded-md",
+    "data-[range-end=true]:rounded-r-md",
+    "data-[range-end=true]:text-primary-foreground",
+    "data-[range-middle=true]:bg-accent",
+    "data-[range-middle=true]:rounded-none",
+    "data-[range-middle=true]:text-accent-foreground",
+    "data-[range-start=true]:bg-primary",
+    "data-[range-start=true]:rounded-l-md",
+    "data-[range-start=true]:rounded-md",
+    "data-[range-start=true]:text-primary-foreground",
+    "data-[selected-single=true]:bg-primary",
+    "data-[selected-single=true]:text-primary-foreground",
+    "data-[selected=true]:rounded-none",
+    "flex",
+    "flex-1",
+    "flex-col",
+    "font-medium",
+    "font-normal",
+    "gap-1",
+    "gap-1.5",
+    "gap-4",
+    "group-data-[focused=true]/day:border-ring",
+    "group-data-[focused=true]/day:relative",
+    "group-data-[focused=true]/day:ring-[3px]",
+    "group-data-[focused=true]/day:ring-ring/50",
+    "group-data-[focused=true]/day:z-10",
+    "group/calendar",
+    "group/day",
+    "h-(--cell-size)",
+    "h-8",
+    "h-full",
+    "has-focus:border-ring",
+    "has-focus:ring-[3px]",
+    "has-focus:ring-ring/50",
+    "inset-0",
+    "inset-x-0",
+    "invisible",
+    "items-center",
+    "justify-between",
+    "justify-center",
+    "label",
+    "leading-none",
+    "md:flex-row",
+    "min-w-(--cell-size)",
+    "mt-2",
+    "opacity-0",
+    "opacity-50",
+    "p-0",
+    "p-3",
+    "pl-2",
+    "pr-1",
+    "px-(--cell-size)",
+    "relative",
+    "rounded-l-md",
+    "rounded-md",
+    "rounded-none",
+    "rounded-r-md",
+    "rtl:**:[.rdp-button\\_next>svg]:rotate-180",
+    "rtl:**:[.rdp-button\\_previous>svg]:rotate-180",
+    "select-none",
+    "shadow-xs",
+    "size-(--cell-size)",
+    "size-4",
+    "size-auto",
+    "text-[0.8rem]",
+    "text-accent-foreground",
+    "text-center",
+    "text-muted-foreground",
+    "text-sm",
+    "top-0",
+    "w-(--cell-size)",
+    "w-fit",
+    "w-full"
+  ],
+  "data_attrs": [
+    "data-day",
+    "data-range-end",
+    "data-range-middle",
+    "data-range-start",
+    "data-selected-single"
+  ],
+  "data_slots": [
+    "calendar"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [],
+  "third_party": [
+    "react-day-picker"
+  ],
+  "icons": [
+    "ChevronDownIcon",
+    "ChevronLeftIcon",
+    "ChevronRightIcon"
+  ],
+  "text_literals": [],
+  "registry_dependencies": [
+    "button"
+  ],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn",
+    "date-fns",
+    "react-day-picker@latest"
+  ],
+  "extra_files": []
+}

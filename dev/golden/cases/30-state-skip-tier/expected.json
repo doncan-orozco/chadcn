@@ -1,0 +1,69 @@
+{
+  "case": "30-state-skip-tier",
+  "kind": "state",
+  "description": "port_state.rb init --skip-tier: whole tiers leave the plan, the choice persists across a plain init (what /shadcn-run does), `none` clears it, an unknown tier and a skip that would strand included components are refused with a clear message.",
+  "flow": [
+    {
+      "init": [
+        "--skip-tier",
+        "overlay"
+      ]
+    },
+    {
+      "absent": [
+        "dialog",
+        "alert-dialog"
+      ]
+    },
+    {
+      "present": [
+        "button",
+        "switch",
+        "badge",
+        "card",
+        "_theme"
+      ]
+    },
+    {
+      "init": []
+    },
+    {
+      "absent": [
+        "dialog",
+        "alert-dialog"
+      ]
+    },
+    {
+      "init_fails": [
+        "--skip-tier",
+        "bogus"
+      ],
+      "message_includes": "unknown tier bogus"
+    },
+    {
+      "init_fails": [
+        "--skip-tier",
+        "static"
+      ],
+      "message_includes": "dialog needs button"
+    },
+    {
+      "absent": [
+        "dialog",
+        "alert-dialog"
+      ]
+    },
+    {
+      "init": [
+        "--skip-tier",
+        "none"
+      ]
+    },
+    {
+      "present": [
+        "dialog",
+        "alert-dialog"
+      ]
+    }
+  ]
+}

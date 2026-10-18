@@ -1,0 +1,418 @@
+{
+  "name": "bubble",
+  "style": "new-york-v4",
+  "source_sha": "df1e461e33e835b7",
+  "use_client": false,
+  "tier": "static",
+  "exports": [
+    "BubbleGroup",
+    "Bubble",
+    "BubbleContent",
+    "BubbleReactions"
+  ],
+  "parts": [
+    {
+      "name": "BubbleGroup",
+      "data_attrs": [],
+      "data_slots": [
+        "bubble-group"
+      ],
+      "data_slot": "bubble-group",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "flex-col",
+        "gap-2",
+        "min-w-0"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "Bubble",
+      "data_attrs": [
+        {
+          "name": "data-variant",
+          "value": "{variant}"
+        },
+        {
+          "name": "data-align",
+          "value": "{align}"
+        }
+      ],
+      "data_slots": [
+        "bubble"
+      ],
+      "data_slot": "bubble",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "variant",
+            "default": "\"default\""
+          },
+          {
+            "name": "align",
+            "default": "\"start\""
+          },
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "align",
+            "type": "\"start\" | \"end\""
+          }
+        ]
+      },
+      "class_tokens": [],
+      "uses_cva": true,
+      "variants_used": [
+        "bubbleVariants"
+      ]
+    },
+    {
+      "name": "BubbleContent",
+      "data_attrs": [],
+      "data_slots": [
+        "bubble-content"
+      ],
+      "data_slot": "bubble-content",
+      "wraps": "Comp",
+      "renders": "Comp",
+      "slot_tags": {
+        "bubble-content": "Comp"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "asChild",
+            "default": "false"
+          },
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "asChild",
+            "type": "boolean"
+          }
+        ]
+      },
+      "class_tokens": [
+        "[button,a]:focus-visible:border-ring",
+        "[button,a]:focus-visible:ring-3",
+        "[button,a]:focus-visible:ring-ring/50",
+        "[button,a]:outline-none",
+        "[button,a]:transition-colors",
+        "[button]:text-left",
+        "border",
+        "border-transparent",
+        "group-data-[align=end]/bubble:self-end",
+        "leading-relaxed",
+        "max-w-full",
+        "min-w-0",
+        "overflow-hidden",
+        "px-3",
+        "py-2",
+        "rounded-xl",
+        "text-sm",
+        "w-fit",
+        "wrap-break-word"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "BubbleReactions",
+      "data_attrs": [
+        {
+          "name": "data-align",
+          "value": "{align}"
+        },
+        {
+          "name": "data-side",
+          "value": "{side}"
+        }
+      ],
+      "data_slots": [
+        "bubble-reactions"
+      ],
+      "data_slot": "bubble-reactions",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "side",
+            "default": "\"bottom\""
+          },
+          {
+            "name": "align",
+            "default": "\"end\""
+          },
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "align",
+            "type": "\"start\" | \"end\""
+          },
+          {
+            "name": "side",
+            "type": "\"top\" | \"bottom\""
+          }
+        ]
+      },
+      "class_tokens": [],
+      "uses_cva": true,
+      "variants_used": [
+        "bubbleReactionsVariants"
+      ]
+    }
+  ],
+  "cva": {
+    "bubbleVariants": {
+      "base": "group/bubble relative flex w-fit max-w-[80%] min-w-0 flex-col gap-1 group-data-[align=end]/message:self-end data-[align=end]:self-end data-[variant=ghost]:max-w-full",
+      "variants": {
+        "variant": {
+          "default": "*:data-[slot=bubble-content]:bg-primary *:data-[slot=bubble-content]:text-primary-foreground [&>[data-slot=bubble-content]:is(button,a):hover]:bg-primary/80",
+          "secondary": "*:data-[slot=bubble-content]:bg-secondary *:data-[slot=bubble-content]:text-secondary-foreground [&>[data-slot=bubble-content]:is(button,a):hover]:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)]",
+          "muted": "*:data-[slot=bubble-content]:bg-muted [&>[data-slot=bubble-content]:is(button,a):hover]:bg-[color-mix(in_oklch,var(--muted),var(--foreground)_5%)]",
+          "tinted": "*:data-[slot=bubble-content]:bg-[oklch(from_var(--primary)_0.93_calc(c*0.4)_h)] *:data-[slot=bubble-content]:text-foreground dark:*:data-[slot=bubble-content]:bg-[oklch(from_var(--primary)_0.3_calc(c*0.4)_h)] [&>[data-slot=bubble-content]:is(button,a):hover]:bg-[oklch(from_var(--primary)_0.88_calc(c*0.5)_h)] dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-[oklch(from_var(--primary)_0.35_calc(c*0.5)_h)]",
+          "outline": "*:data-[slot=bubble-content]:border-border *:data-[slot=bubble-content]:bg-background [&>[data-slot=bubble-content]:is(button,a):hover]:bg-muted [&>[data-slot=bubble-content]:is(button,a):hover]:text-foreground dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-input/30",
+          "ghost": "border-none *:data-[slot=bubble-content]:rounded-none *:data-[slot=bubble-content]:bg-transparent *:data-[slot=bubble-content]:p-0 [&>[data-slot=bubble-content]:is(button,a):hover]:bg-muted [&>[data-slot=bubble-content]:is(button,a):hover]:text-foreground dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-muted/50",
+          "destructive": "*:data-[slot=bubble-content]:bg-destructive/10 *:data-[slot=bubble-content]:text-destructive dark:*:data-[slot=bubble-content]:bg-destructive/20 [&>[data-slot=bubble-content]:is(button,a):hover]:bg-destructive/20 dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-destructive/30"
+        }
+      },
+      "defaults": {
+        "variant": "default"
+      },
+      "compound": [],
+      "tokens": [
+        "*:data-[slot=bubble-content]:bg-[oklch(from_var(--primary)_0.93_calc(c*0.4)_h)]",
+        "*:data-[slot=bubble-content]:bg-background",
+        "*:data-[slot=bubble-content]:bg-destructive/10",
+        "*:data-[slot=bubble-content]:bg-muted",
+        "*:data-[slot=bubble-content]:bg-primary",
+        "*:data-[slot=bubble-content]:bg-secondary",
+        "*:data-[slot=bubble-content]:bg-transparent",
+        "*:data-[slot=bubble-content]:border-border",
+        "*:data-[slot=bubble-content]:p-0",
+        "*:data-[slot=bubble-content]:rounded-none",
+        "*:data-[slot=bubble-content]:text-destructive",
+        "*:data-[slot=bubble-content]:text-foreground",
+        "*:data-[slot=bubble-content]:text-primary-foreground",
+        "*:data-[slot=bubble-content]:text-secondary-foreground",
+        "[&>[data-slot=bubble-content]:is(button,a):hover]:bg-[color-mix(in_oklch,var(--muted),var(--foreground)_5%)]",
+        "[&>[data-slot=bubble-content]:is(button,a):hover]:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)]",
+        "[&>[data-slot=bubble-content]:is(button,a):hover]:bg-[oklch(from_var(--primary)_0.88_calc(c*0.5)_h)]",
+        "[&>[data-slot=bubble-content]:is(button,a):hover]:bg-destructive/20",
+        "[&>[data-slot=bubble-content]:is(button,a):hover]:bg-muted",
+        "[&>[data-slot=bubble-content]:is(button,a):hover]:bg-primary/80",
+        "[&>[data-slot=bubble-content]:is(button,a):hover]:text-foreground",
+        "border-none",
+        "dark:*:data-[slot=bubble-content]:bg-[oklch(from_var(--primary)_0.3_calc(c*0.4)_h)]",
+        "dark:*:data-[slot=bubble-content]:bg-destructive/20",
+        "dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-[oklch(from_var(--primary)_0.35_calc(c*0.5)_h)]",
+        "dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-destructive/30",
+        "dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-input/30",
+        "dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-muted/50",
+        "data-[align=end]:self-end",
+        "data-[variant=ghost]:max-w-full",
+        "default",
+        "flex",
+        "flex-col",
+        "gap-1",
+        "group-data-[align=end]/message:self-end",
+        "group/bubble",
+        "max-w-[80%]",
+        "min-w-0",
+        "relative",
+        "w-fit"
+      ]
+    },
+    "bubbleReactionsVariants": {
+      "base": "absolute z-10 flex w-fit shrink-0 items-center justify-center gap-1 rounded-full bg-muted px-1.5 py-0.5 text-sm ring-3 ring-card has-[button]:p-0",
+      "variants": {
+        "side": {
+          "top": "top-0 -translate-y-3/4",
+          "bottom": "bottom-0 translate-y-3/4"
+        },
+        "align": {
+          "start": "left-3",
+          "end": "right-3"
+        }
+      },
+      "defaults": {
+        "side": "bottom",
+        "align": "end"
+      },
+      "compound": [],
+      "tokens": [
+        "-translate-y-3/4",
+        "absolute",
+        "bg-muted",
+        "bottom",
+        "bottom-0",
+        "end",
+        "flex",
+        "gap-1",
+        "has-[button]:p-0",
+        "items-center",
+        "justify-center",
+        "left-3",
+        "px-1.5",
+        "py-0.5",
+        "right-3",
+        "ring-3",
+        "ring-card",
+        "rounded-full",
+        "shrink-0",
+        "text-sm",
+        "top-0",
+        "translate-y-3/4",
+        "w-fit",
+        "z-10"
+      ]
+    }
+  },
+  "class_tokens": [
+    "*:data-[slot=bubble-content]:bg-[oklch(from_var(--primary)_0.93_calc(c*0.4)_h)]",
+    "*:data-[slot=bubble-content]:bg-background",
+    "*:data-[slot=bubble-content]:bg-destructive/10",
+    "*:data-[slot=bubble-content]:bg-muted",
+    "*:data-[slot=bubble-content]:bg-primary",
+    "*:data-[slot=bubble-content]:bg-secondary",
+    "*:data-[slot=bubble-content]:bg-transparent",
+    "*:data-[slot=bubble-content]:border-border",
+    "*:data-[slot=bubble-content]:p-0",
+    "*:data-[slot=bubble-content]:rounded-none",
+    "*:data-[slot=bubble-content]:text-destructive",
+    "*:data-[slot=bubble-content]:text-foreground",
+    "*:data-[slot=bubble-content]:text-primary-foreground",
+    "*:data-[slot=bubble-content]:text-secondary-foreground",
+    "-translate-y-3/4",
+    "[&>[data-slot=bubble-content]:is(button,a):hover]:bg-[color-mix(in_oklch,var(--muted),var(--foreground)_5%)]",
+    "[&>[data-slot=bubble-content]:is(button,a):hover]:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)]",
+    "[&>[data-slot=bubble-content]:is(button,a):hover]:bg-[oklch(from_var(--primary)_0.88_calc(c*0.5)_h)]",
+    "[&>[data-slot=bubble-content]:is(button,a):hover]:bg-destructive/20",
+    "[&>[data-slot=bubble-content]:is(button,a):hover]:bg-muted",
+    "[&>[data-slot=bubble-content]:is(button,a):hover]:bg-primary/80",
+    "[&>[data-slot=bubble-content]:is(button,a):hover]:text-foreground",
+    "[button,a]:focus-visible:border-ring",
+    "[button,a]:focus-visible:ring-3",
+    "[button,a]:focus-visible:ring-ring/50",
+    "[button,a]:outline-none",
+    "[button,a]:transition-colors",
+    "[button]:text-left",
+    "absolute",
+    "bg-muted",
+    "border",
+    "border-none",
+    "border-transparent",
+    "bottom",
+    "bottom-0",
+    "dark:*:data-[slot=bubble-content]:bg-[oklch(from_var(--primary)_0.3_calc(c*0.4)_h)]",
+    "dark:*:data-[slot=bubble-content]:bg-destructive/20",
+    "dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-[oklch(from_var(--primary)_0.35_calc(c*0.5)_h)]",
+    "dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-destructive/30",
+    "dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-input/30",
+    "dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-muted/50",
+    "data-[align=end]:self-end",
+    "data-[variant=ghost]:max-w-full",
+    "default",
+    "end",
+    "flex",
+    "flex-col",
+    "gap-1",
+    "gap-2",
+    "group-data-[align=end]/bubble:self-end",
+    "group-data-[align=end]/message:self-end",
+    "group/bubble",
+    "has-[button]:p-0",
+    "items-center",
+    "justify-center",
+    "leading-relaxed",
+    "left-3",
+    "max-w-[80%]",
+    "max-w-full",
+    "min-w-0",
+    "overflow-hidden",
+    "px-1.5",
+    "px-3",
+    "py-0.5",
+    "py-2",
+    "relative",
+    "right-3",
+    "ring-3",
+    "ring-card",
+    "rounded-full",
+    "rounded-xl",
+    "shrink-0",
+    "text-sm",
+    "top-0",
+    "translate-y-3/4",
+    "w-fit",
+    "wrap-break-word",
+    "z-10"
+  ],
+  "data_attrs": [
+    "data-align",
+    "data-side",
+    "data-variant"
+  ],
+  "data_slots": [
+    "bubble",
+    "bubble-content",
+    "bubble-group",
+    "bubble-reactions"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [
+    "Slot"
+  ],
+  "third_party": [],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn",
+    "radix-ui"
+  ],
+  "extra_files": []
+}

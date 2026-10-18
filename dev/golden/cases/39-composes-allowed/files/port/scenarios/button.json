@@ -1,0 +1,22 @@
+{
+  "component": "button",
+  "composes": [
+    "badge"
+  ],
+  "scenarios": [
+    {
+      "id": "default",
+      "tree": {
+        "c": "Button",
+        "props": {},
+        "children": [
+          {
+            "c": "Badge",
+            "props": {},
+            "children": []
+          }
+        ]
+      }
+    }
+  ]
+}

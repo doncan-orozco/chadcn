@@ -1,0 +1,6 @@
+{
+  "reason": "API-only: shadcn Progress always renders the Indicator as the Root's only child (Radix asChild would merge the progressbar onto the indicator), and getValueLabel is a JS callback that is a no-op in shadcn because value never reaches Radix",
+  "allow_tokens": [],
+  "allow_missing_tokens": [],
+  "api": ["Progress: as_child not supported", "Progress: getValueLabel not supported (no-op in shadcn)"]
+}

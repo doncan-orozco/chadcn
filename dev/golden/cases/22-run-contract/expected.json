@@ -1,0 +1,22 @@
+{
+  "case": "22-run-contract",
+  "kind": "contract",
+  "file": ".claude/commands/shadcn-run.md",
+  "description": "The orchestrator doc must keep invoking the scripts that judge and decide. If a step is deleted from the prose, this fails.",
+  "must_reference": [
+    "port_state.rb next",
+    "port_state.rb checkpoint",
+    "port_state.rb bump",
+    "port_state.rb set",
+    "port_state.rb retry-blocked",
+    "static_gate.rb",
+    "parity_run.mjs",
+    "house_check.rb",
+    "planner_check.rb",
+    "command_lint.rb",
+    "tmp/shadcn-port/run.log",
+    "REPORT.md",
+    "PILOT_FAILURE.md"
+  ],
+  "must_not_reference": []
+}

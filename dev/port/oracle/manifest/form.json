@@ -1,0 +1,207 @@
+{
+  "name": "form",
+  "style": "new-york-v4",
+  "source_sha": "dfa22e6614b807df",
+  "use_client": true,
+  "tier": "third_party",
+  "exports": [
+    "useFormField",
+    "Form",
+    "FormItem",
+    "FormLabel",
+    "FormControl",
+    "FormDescription",
+    "FormMessage",
+    "FormField"
+  ],
+  "parts": [
+    {
+      "name": "FormItem",
+      "data_attrs": [],
+      "data_slots": [
+        "form-item"
+      ],
+      "data_slot": "form-item",
+      "wraps": null,
+      "renders": "FormItemContext.Provider",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "gap-2",
+        "grid"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "FormLabel",
+      "data_attrs": [
+        {
+          "name": "data-error",
+          "value": "{!!error}"
+        }
+      ],
+      "data_slots": [
+        "form-label"
+      ],
+      "data_slot": "form-label",
+      "wraps": null,
+      "renders": "Label",
+      "slot_tags": {
+        "form-label": "Label"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "data-[error=true]:text-destructive"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "FormControl",
+      "data_attrs": [],
+      "data_slots": [
+        "form-control"
+      ],
+      "data_slot": "form-control",
+      "wraps": "Slot.Root",
+      "renders": "Slot.Root",
+      "slot_tags": {
+        "form-control": "Slot.Root"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "FormDescription",
+      "data_attrs": [],
+      "data_slots": [
+        "form-description"
+      ],
+      "data_slot": "form-description",
+      "wraps": null,
+      "renders": "p",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "text-muted-foreground",
+        "text-sm"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "FormMessage",
+      "data_attrs": [],
+      "data_slots": [
+        "form-message"
+      ],
+      "data_slot": "form-message",
+      "wraps": null,
+      "renders": "p",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "text-destructive",
+        "text-sm"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "data-[error=true]:text-destructive",
+    "gap-2",
+    "grid",
+    "text-destructive",
+    "text-muted-foreground",
+    "text-sm"
+  ],
+  "data_attrs": [
+    "data-error"
+  ],
+  "data_slots": [
+    "form-control",
+    "form-description",
+    "form-item",
+    "form-label",
+    "form-message"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [
+    "Label",
+    "Slot"
+  ],
+  "third_party": [
+    "react-hook-form"
+  ],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [
+    "label"
+  ],
+  "hooks": [],
+  "npm_dependencies": [
+    "@hookform/resolvers",
+    "cn",
+    "radix-ui",
+    "react-hook-form",
+    "zod"
+  ],
+  "extra_files": []
+}

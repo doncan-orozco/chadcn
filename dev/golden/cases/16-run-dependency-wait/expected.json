@@ -1,0 +1,33 @@
+{
+  "case": "16-run-dependency-wait",
+  "kind": "run",
+  "description": "A fan-out component is blocked: components that depend on it are never dispatched (they wait, with the blocker named), independent components still finish, and the run ends instead of looping.",
+  "init_args": [
+    "--pilot",
+    "switch"
+  ],
+  "concurrency": 4,
+  "outcomes": {
+    "button": "blocked"
+  },
+  "expect": {
+    "completed": true,
+    "stop_reason": null,
+    "never_dispatched": [
+      "dialog",
+      "alert-dialog"
+    ],
+    "final_status": {
+      "button": "blocked",
+      "badge": "done",
+      "card": "done",
+      "switch": "done",
+      "dialog": "pending",
+      "alert-dialog": "pending"
+    },
+    "waiting": {
+      "dialog": "button",
+      "alert-dialog": "button"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "case": "02-switch-api-gap",
+  "kind": "static",
+  "component": "switch",
+  "description": "Faithful classes and slots, but the size option and data-size are missing.",
+  "must_detect": ["G1_KWARG_MISSING", "G1_DATA_ATTR_MISSING"],
+  "must_not_detect": ["G1_SLOT_MISSING", "G1_TOKEN_MISSING", "G1_TOKEN_EXTRA", "G1_HARDCODED_COLOR"]
+}

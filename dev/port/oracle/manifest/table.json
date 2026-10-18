@@ -1,0 +1,322 @@
+{
+  "name": "table",
+  "style": "new-york-v4",
+  "source_sha": "bd1a9fc83a5a2149",
+  "use_client": true,
+  "tier": "static",
+  "exports": [
+    "Table",
+    "TableHeader",
+    "TableBody",
+    "TableFooter",
+    "TableHead",
+    "TableRow",
+    "TableCell",
+    "TableCaption"
+  ],
+  "parts": [
+    {
+      "name": "Table",
+      "data_attrs": [],
+      "data_slots": [
+        "table-container",
+        "table"
+      ],
+      "data_slot": "table-container",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "caption-bottom",
+        "overflow-x-auto",
+        "relative",
+        "text-sm",
+        "w-full"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "TableHeader",
+      "data_attrs": [],
+      "data_slots": [
+        "table-header"
+      ],
+      "data_slot": "table-header",
+      "wraps": null,
+      "renders": "thead",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "[&_tr]:border-b"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "TableBody",
+      "data_attrs": [],
+      "data_slots": [
+        "table-body"
+      ],
+      "data_slot": "table-body",
+      "wraps": null,
+      "renders": "tbody",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "[&_tr:last-child]:border-0"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "TableFooter",
+      "data_attrs": [],
+      "data_slots": [
+        "table-footer"
+      ],
+      "data_slot": "table-footer",
+      "wraps": null,
+      "renders": "tfoot",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "[&>tr]:last:border-b-0",
+        "bg-muted/50",
+        "border-t",
+        "font-medium"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "TableRow",
+      "data_attrs": [],
+      "data_slots": [
+        "table-row"
+      ],
+      "data_slot": "table-row",
+      "wraps": null,
+      "renders": "tr",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "border-b",
+        "data-[state=selected]:bg-muted",
+        "has-aria-expanded:bg-muted/50",
+        "hover:bg-muted/50",
+        "transition-colors"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "TableHead",
+      "data_attrs": [],
+      "data_slots": [
+        "table-head"
+      ],
+      "data_slot": "table-head",
+      "wraps": null,
+      "renders": "th",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "[&:has([role=checkbox])]:pr-0",
+        "[&>[role=checkbox]]:translate-y-[2px]",
+        "align-middle",
+        "font-medium",
+        "h-10",
+        "px-2",
+        "text-foreground",
+        "text-left",
+        "whitespace-nowrap"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "TableCell",
+      "data_attrs": [],
+      "data_slots": [
+        "table-cell"
+      ],
+      "data_slot": "table-cell",
+      "wraps": null,
+      "renders": "td",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "[&:has([role=checkbox])]:pr-0",
+        "[&>[role=checkbox]]:translate-y-[2px]",
+        "align-middle",
+        "p-2",
+        "whitespace-nowrap"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "TableCaption",
+      "data_attrs": [],
+      "data_slots": [
+        "table-caption"
+      ],
+      "data_slot": "table-caption",
+      "wraps": null,
+      "renders": "caption",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "mt-4",
+        "text-muted-foreground",
+        "text-sm"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "[&:has([role=checkbox])]:pr-0",
+    "[&>[role=checkbox]]:translate-y-[2px]",
+    "[&>tr]:last:border-b-0",
+    "[&_tr:last-child]:border-0",
+    "[&_tr]:border-b",
+    "align-middle",
+    "bg-muted/50",
+    "border-b",
+    "border-t",
+    "caption-bottom",
+    "data-[state=selected]:bg-muted",
+    "font-medium",
+    "h-10",
+    "has-aria-expanded:bg-muted/50",
+    "hover:bg-muted/50",
+    "mt-4",
+    "overflow-x-auto",
+    "p-2",
+    "px-2",
+    "relative",
+    "text-foreground",
+    "text-left",
+    "text-muted-foreground",
+    "text-sm",
+    "transition-colors",
+    "w-full",
+    "whitespace-nowrap"
+  ],
+  "data_attrs": [],
+  "data_slots": [
+    "table",
+    "table-body",
+    "table-caption",
+    "table-cell",
+    "table-container",
+    "table-footer",
+    "table-head",
+    "table-header",
+    "table-row"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [],
+  "third_party": [],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn"
+  ],
+  "extra_files": []
+}

@@ -1,0 +1,129 @@
+{
+  "name": "kbd",
+  "style": "new-york-v4",
+  "source_sha": "c0c0ae6a7d1adb77",
+  "use_client": false,
+  "tier": "static",
+  "exports": [
+    "Kbd",
+    "KbdGroup"
+  ],
+  "parts": [
+    {
+      "name": "Kbd",
+      "data_attrs": [],
+      "data_slots": [
+        "kbd"
+      ],
+      "data_slot": "kbd",
+      "wraps": null,
+      "renders": "kbd",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "[&_svg:not([class*='size-'])]:size-3",
+        "[[data-slot=tooltip-content]_&]:bg-background/20",
+        "[[data-slot=tooltip-content]_&]:text-background",
+        "bg-muted",
+        "dark:[[data-slot=tooltip-content]_&]:bg-background/10",
+        "font-medium",
+        "font-sans",
+        "gap-1",
+        "h-5",
+        "inline-flex",
+        "items-center",
+        "justify-center",
+        "min-w-5",
+        "pointer-events-none",
+        "px-1",
+        "rounded-sm",
+        "select-none",
+        "text-muted-foreground",
+        "text-xs",
+        "w-fit"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "KbdGroup",
+      "data_attrs": [],
+      "data_slots": [
+        "kbd-group"
+      ],
+      "data_slot": "kbd-group",
+      "wraps": null,
+      "renders": "kbd",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "gap-1",
+        "inline-flex",
+        "items-center"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "[&_svg:not([class*='size-'])]:size-3",
+    "[[data-slot=tooltip-content]_&]:bg-background/20",
+    "[[data-slot=tooltip-content]_&]:text-background",
+    "bg-muted",
+    "dark:[[data-slot=tooltip-content]_&]:bg-background/10",
+    "font-medium",
+    "font-sans",
+    "gap-1",
+    "h-5",
+    "inline-flex",
+    "items-center",
+    "justify-center",
+    "min-w-5",
+    "pointer-events-none",
+    "px-1",
+    "rounded-sm",
+    "select-none",
+    "text-muted-foreground",
+    "text-xs",
+    "w-fit"
+  ],
+  "data_attrs": [],
+  "data_slots": [
+    "kbd",
+    "kbd-group"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [],
+  "third_party": [],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn"
+  ],
+  "extra_files": []
+}

@@ -1,0 +1,266 @@
+{
+  "name": "button",
+  "style": "new-york-v4",
+  "source_sha": "79dd6f75f8136394",
+  "use_client": false,
+  "tier": "static",
+  "exports": [
+    "Button",
+    "buttonVariants"
+  ],
+  "parts": [
+    {
+      "name": "Button",
+      "data_attrs": [
+        {
+          "name": "data-variant",
+          "value": "{variant}"
+        },
+        {
+          "name": "data-size",
+          "value": "{size}"
+        }
+      ],
+      "data_slots": [
+        "button"
+      ],
+      "data_slot": "button",
+      "wraps": "Comp",
+      "renders": "Comp",
+      "slot_tags": {
+        "button": "Comp"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "variant",
+            "default": "\"default\""
+          },
+          {
+            "name": "size",
+            "default": "\"default\""
+          },
+          {
+            "name": "asChild",
+            "default": "false"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "asChild",
+            "type": "boolean"
+          }
+        ]
+      },
+      "class_tokens": [],
+      "uses_cva": true,
+      "variants_used": [
+        "buttonVariants"
+      ]
+    }
+  ],
+  "cva": {
+    "buttonVariants": {
+      "base": "inline-flex shrink-0 items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+      "variants": {
+        "variant": {
+          "default": "bg-primary text-primary-foreground hover:bg-primary/90",
+          "destructive": "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:bg-destructive/60 dark:focus-visible:ring-destructive/40",
+          "outline": "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
+          "secondary": "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+          "ghost": "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
+          "link": "text-primary underline-offset-4 hover:underline"
+        },
+        "size": {
+          "default": "h-9 px-4 py-2 has-[>svg]:px-3",
+          "xs": "h-6 gap-1 rounded-md px-2 text-xs has-[>svg]:px-1.5 [&_svg:not([class*='size-'])]:size-3",
+          "sm": "h-8 gap-1.5 rounded-md px-3 has-[>svg]:px-2.5",
+          "lg": "h-10 rounded-md px-6 has-[>svg]:px-4",
+          "icon": "size-9",
+          "icon-xs": "size-6 rounded-md [&_svg:not([class*='size-'])]:size-3",
+          "icon-sm": "size-8",
+          "icon-lg": "size-10"
+        }
+      },
+      "defaults": {
+        "variant": "default",
+        "size": "default"
+      },
+      "compound": [],
+      "tokens": [
+        "[&_svg:not([class*='size-'])]:size-3",
+        "[&_svg:not([class*='size-'])]:size-4",
+        "[&_svg]:pointer-events-none",
+        "[&_svg]:shrink-0",
+        "aria-invalid:border-destructive",
+        "aria-invalid:ring-destructive/20",
+        "bg-background",
+        "bg-destructive",
+        "bg-primary",
+        "bg-secondary",
+        "border",
+        "dark:aria-invalid:ring-destructive/40",
+        "dark:bg-destructive/60",
+        "dark:bg-input/30",
+        "dark:border-input",
+        "dark:focus-visible:ring-destructive/40",
+        "dark:hover:bg-accent/50",
+        "dark:hover:bg-input/50",
+        "default",
+        "disabled:opacity-50",
+        "disabled:pointer-events-none",
+        "focus-visible:border-ring",
+        "focus-visible:ring-[3px]",
+        "focus-visible:ring-destructive/20",
+        "focus-visible:ring-ring/50",
+        "font-medium",
+        "gap-1",
+        "gap-1.5",
+        "gap-2",
+        "h-10",
+        "h-6",
+        "h-8",
+        "h-9",
+        "has-[>svg]:px-1.5",
+        "has-[>svg]:px-2.5",
+        "has-[>svg]:px-3",
+        "has-[>svg]:px-4",
+        "hover:bg-accent",
+        "hover:bg-destructive/90",
+        "hover:bg-primary/90",
+        "hover:bg-secondary/80",
+        "hover:text-accent-foreground",
+        "hover:underline",
+        "icon-lg",
+        "icon-sm",
+        "icon-xs",
+        "inline-flex",
+        "items-center",
+        "justify-center",
+        "outline-none",
+        "px-2",
+        "px-3",
+        "px-4",
+        "px-6",
+        "py-2",
+        "rounded-md",
+        "shadow-xs",
+        "shrink-0",
+        "size-10",
+        "size-6",
+        "size-8",
+        "size-9",
+        "text-primary",
+        "text-primary-foreground",
+        "text-secondary-foreground",
+        "text-sm",
+        "text-white",
+        "text-xs",
+        "transition-all",
+        "underline-offset-4",
+        "whitespace-nowrap"
+      ]
+    }
+  },
+  "class_tokens": [
+    "[&_svg:not([class*='size-'])]:size-3",
+    "[&_svg:not([class*='size-'])]:size-4",
+    "[&_svg]:pointer-events-none",
+    "[&_svg]:shrink-0",
+    "aria-invalid:border-destructive",
+    "aria-invalid:ring-destructive/20",
+    "bg-background",
+    "bg-destructive",
+    "bg-primary",
+    "bg-secondary",
+    "border",
+    "dark:aria-invalid:ring-destructive/40",
+    "dark:bg-destructive/60",
+    "dark:bg-input/30",
+    "dark:border-input",
+    "dark:focus-visible:ring-destructive/40",
+    "dark:hover:bg-accent/50",
+    "dark:hover:bg-input/50",
+    "default",
+    "disabled:opacity-50",
+    "disabled:pointer-events-none",
+    "focus-visible:border-ring",
+    "focus-visible:ring-[3px]",
+    "focus-visible:ring-destructive/20",
+    "focus-visible:ring-ring/50",
+    "font-medium",
+    "gap-1",
+    "gap-1.5",
+    "gap-2",
+    "h-10",
+    "h-6",
+    "h-8",
+    "h-9",
+    "has-[>svg]:px-1.5",
+    "has-[>svg]:px-2.5",
+    "has-[>svg]:px-3",
+    "has-[>svg]:px-4",
+    "hover:bg-accent",
+    "hover:bg-destructive/90",
+    "hover:bg-primary/90",
+    "hover:bg-secondary/80",
+    "hover:text-accent-foreground",
+    "hover:underline",
+    "icon-lg",
+    "icon-sm",
+    "icon-xs",
+    "inline-flex",
+    "items-center",
+    "justify-center",
+    "outline-none",
+    "px-2",
+    "px-3",
+    "px-4",
+    "px-6",
+    "py-2",
+    "rounded-md",
+    "shadow-xs",
+    "shrink-0",
+    "size-10",
+    "size-6",
+    "size-8",
+    "size-9",
+    "text-primary",
+    "text-primary-foreground",
+    "text-secondary-foreground",
+    "text-sm",
+    "text-white",
+    "text-xs",
+    "transition-all",
+    "underline-offset-4",
+    "whitespace-nowrap"
+  ],
+  "data_attrs": [
+    "data-size",
+    "data-variant"
+  ],
+  "data_slots": [
+    "button"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [
+    "Slot"
+  ],
+  "third_party": [],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn",
+    "radix-ui"
+  ],
+  "extra_files": []
+}

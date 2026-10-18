@@ -1,0 +1,8 @@
+{
+  "case": "11-command-lint-real",
+  "kind": "lint",
+  "target": "real",
+  "description": "The real shadcn commands, agents and skills must reference only scripts, flags, rake tasks, subcommands, agents, slash commands and files that exist. Any finding means the plan/run/audit docs tell an agent to run something that does not exist.",
+  "must_detect": [],
+  "must_not_detect": ["*"]
+}

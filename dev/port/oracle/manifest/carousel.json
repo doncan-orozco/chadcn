@@ -1,0 +1,301 @@
+{
+  "name": "carousel",
+  "style": "new-york-v4",
+  "source_sha": "70ba30941a3adb44",
+  "use_client": true,
+  "tier": "third_party",
+  "exports": [
+    "type CarouselApi",
+    "Carousel",
+    "CarouselContent",
+    "CarouselItem",
+    "CarouselPrevious",
+    "CarouselNext"
+  ],
+  "parts": [
+    {
+      "name": "useCarousel",
+      "data_attrs": [],
+      "data_slots": [],
+      "data_slot": null,
+      "wraps": null,
+      "renders": null,
+      "slot_tags": {},
+      "props": {
+        "destructured": [],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "Carousel",
+      "data_attrs": [],
+      "data_slots": [
+        "carousel"
+      ],
+      "data_slot": "carousel",
+      "wraps": null,
+      "renders": "CarouselContext.Provider",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "orientation",
+            "default": "\"horizontal\""
+          },
+          {
+            "name": "opts"
+          },
+          {
+            "name": "setApi"
+          },
+          {
+            "name": "plugins"
+          },
+          {
+            "name": "className"
+          },
+          {
+            "name": "children"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "relative"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "CarouselContent",
+      "data_attrs": [],
+      "data_slots": [
+        "carousel-content"
+      ],
+      "data_slot": "carousel-content",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "-ml-4",
+        "-mt-4",
+        "flex",
+        "flex-col",
+        "horizontal",
+        "overflow-hidden"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "CarouselItem",
+      "data_attrs": [],
+      "data_slots": [
+        "carousel-item"
+      ],
+      "data_slot": "carousel-item",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "basis-full",
+        "grow-0",
+        "horizontal",
+        "min-w-0",
+        "pl-4",
+        "pt-4",
+        "shrink-0"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "CarouselPrevious",
+      "data_attrs": [],
+      "data_slots": [
+        "carousel-previous"
+      ],
+      "data_slot": "carousel-previous",
+      "wraps": null,
+      "renders": "Button",
+      "slot_tags": {
+        "carousel-previous": "Button"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "variant",
+            "default": "\"outline\""
+          },
+          {
+            "name": "size",
+            "default": "\"icon\""
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "-left-12",
+        "-top-12",
+        "-translate-x-1/2",
+        "-translate-y-1/2",
+        "absolute",
+        "horizontal",
+        "left-1/2",
+        "rotate-90",
+        "rounded-full",
+        "size-8",
+        "sr-only",
+        "top-1/2"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "CarouselNext",
+      "data_attrs": [],
+      "data_slots": [
+        "carousel-next"
+      ],
+      "data_slot": "carousel-next",
+      "wraps": null,
+      "renders": "Button",
+      "slot_tags": {
+        "carousel-next": "Button"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "variant",
+            "default": "\"outline\""
+          },
+          {
+            "name": "size",
+            "default": "\"icon\""
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "-bottom-12",
+        "-right-12",
+        "-translate-x-1/2",
+        "-translate-y-1/2",
+        "absolute",
+        "horizontal",
+        "left-1/2",
+        "rotate-90",
+        "rounded-full",
+        "size-8",
+        "sr-only",
+        "top-1/2"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "-bottom-12",
+    "-left-12",
+    "-ml-4",
+    "-mt-4",
+    "-right-12",
+    "-top-12",
+    "-translate-x-1/2",
+    "-translate-y-1/2",
+    "absolute",
+    "basis-full",
+    "flex",
+    "flex-col",
+    "grow-0",
+    "horizontal",
+    "left-1/2",
+    "min-w-0",
+    "overflow-hidden",
+    "pl-4",
+    "pt-4",
+    "relative",
+    "rotate-90",
+    "rounded-full",
+    "shrink-0",
+    "size-8",
+    "sr-only",
+    "top-1/2"
+  ],
+  "data_attrs": [],
+  "data_slots": [
+    "carousel",
+    "carousel-content",
+    "carousel-item",
+    "carousel-next",
+    "carousel-previous"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [],
+  "third_party": [
+    "embla"
+  ],
+  "icons": [
+    "ArrowLeft",
+    "ArrowRight"
+  ],
+  "text_literals": [
+    "Previous slide",
+    "Next slide"
+  ],
+  "registry_dependencies": [
+    "button"
+  ],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn",
+    "embla-carousel-react"
+  ],
+  "extra_files": []
+}

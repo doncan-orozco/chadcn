@@ -1,0 +1,121 @@
+{
+  "name": "checkbox",
+  "style": "new-york-v4",
+  "source_sha": "ba0ac64064e2d8fa",
+  "use_client": true,
+  "tier": "radix_stateful",
+  "exports": [
+    "Checkbox"
+  ],
+  "parts": [
+    {
+      "name": "Checkbox",
+      "data_attrs": [],
+      "data_slots": [
+        "checkbox",
+        "checkbox-indicator"
+      ],
+      "data_slot": "checkbox",
+      "wraps": "CheckboxPrimitive.Root",
+      "renders": "CheckboxPrimitive.Root",
+      "slot_tags": {
+        "checkbox": "CheckboxPrimitive.Root",
+        "checkbox-indicator": "CheckboxPrimitive.Indicator"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "aria-invalid:border-destructive",
+        "aria-invalid:ring-destructive/20",
+        "border",
+        "border-input",
+        "dark:aria-invalid:ring-destructive/40",
+        "dark:bg-input/30",
+        "dark:data-[state=checked]:bg-primary",
+        "data-[state=checked]:bg-primary",
+        "data-[state=checked]:border-primary",
+        "data-[state=checked]:text-primary-foreground",
+        "disabled:cursor-not-allowed",
+        "disabled:opacity-50",
+        "focus-visible:border-ring",
+        "focus-visible:ring-[3px]",
+        "focus-visible:ring-ring/50",
+        "grid",
+        "outline-none",
+        "peer",
+        "place-content-center",
+        "rounded-[4px]",
+        "shadow-xs",
+        "shrink-0",
+        "size-3.5",
+        "size-4",
+        "text-current",
+        "transition-none",
+        "transition-shadow"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "aria-invalid:border-destructive",
+    "aria-invalid:ring-destructive/20",
+    "border",
+    "border-input",
+    "dark:aria-invalid:ring-destructive/40",
+    "dark:bg-input/30",
+    "dark:data-[state=checked]:bg-primary",
+    "data-[state=checked]:bg-primary",
+    "data-[state=checked]:border-primary",
+    "data-[state=checked]:text-primary-foreground",
+    "disabled:cursor-not-allowed",
+    "disabled:opacity-50",
+    "focus-visible:border-ring",
+    "focus-visible:ring-[3px]",
+    "focus-visible:ring-ring/50",
+    "grid",
+    "outline-none",
+    "peer",
+    "place-content-center",
+    "rounded-[4px]",
+    "shadow-xs",
+    "shrink-0",
+    "size-3.5",
+    "size-4",
+    "text-current",
+    "transition-none",
+    "transition-shadow"
+  ],
+  "data_attrs": [],
+  "data_slots": [
+    "checkbox",
+    "checkbox-indicator"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [
+    "Checkbox"
+  ],
+  "third_party": [],
+  "icons": [
+    "CheckIcon"
+  ],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn",
+    "radix-ui"
+  ],
+  "extra_files": []
+}

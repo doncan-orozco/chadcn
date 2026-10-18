@@ -1,0 +1,157 @@
+{
+  "name": "slider",
+  "style": "new-york-v4",
+  "source_sha": "6a531f6182de6efe",
+  "use_client": true,
+  "tier": "radix_stateful",
+  "exports": [
+    "Slider"
+  ],
+  "parts": [
+    {
+      "name": "Slider",
+      "data_attrs": [],
+      "data_slots": [
+        "slider",
+        "slider-track",
+        "slider-range",
+        "slider-thumb"
+      ],
+      "data_slot": "slider",
+      "wraps": "SliderPrimitive.Root",
+      "renders": "SliderPrimitive.Root",
+      "slot_tags": {
+        "slider": "SliderPrimitive.Root",
+        "slider-track": "SliderPrimitive.Track",
+        "slider-range": "SliderPrimitive.Range",
+        "slider-thumb": "SliderPrimitive.Thumb"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "defaultValue"
+          },
+          {
+            "name": "value"
+          },
+          {
+            "name": "min",
+            "default": "0"
+          },
+          {
+            "name": "max",
+            "default": "100"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "absolute",
+        "bg-muted",
+        "bg-primary",
+        "bg-white",
+        "block",
+        "border",
+        "border-primary",
+        "data-[disabled]:opacity-50",
+        "data-[orientation=horizontal]:h-1.5",
+        "data-[orientation=horizontal]:h-full",
+        "data-[orientation=horizontal]:w-full",
+        "data-[orientation=vertical]:flex-col",
+        "data-[orientation=vertical]:h-full",
+        "data-[orientation=vertical]:min-h-44",
+        "data-[orientation=vertical]:w-1.5",
+        "data-[orientation=vertical]:w-auto",
+        "data-[orientation=vertical]:w-full",
+        "disabled:opacity-50",
+        "disabled:pointer-events-none",
+        "flex",
+        "focus-visible:outline-hidden",
+        "focus-visible:ring-4",
+        "grow",
+        "hover:ring-4",
+        "items-center",
+        "overflow-hidden",
+        "relative",
+        "ring-ring/50",
+        "rounded-full",
+        "select-none",
+        "shadow-sm",
+        "shrink-0",
+        "size-4",
+        "touch-none",
+        "transition-[color,box-shadow]",
+        "w-full"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "absolute",
+    "bg-muted",
+    "bg-primary",
+    "bg-white",
+    "block",
+    "border",
+    "border-primary",
+    "data-[disabled]:opacity-50",
+    "data-[orientation=horizontal]:h-1.5",
+    "data-[orientation=horizontal]:h-full",
+    "data-[orientation=horizontal]:w-full",
+    "data-[orientation=vertical]:flex-col",
+    "data-[orientation=vertical]:h-full",
+    "data-[orientation=vertical]:min-h-44",
+    "data-[orientation=vertical]:w-1.5",
+    "data-[orientation=vertical]:w-auto",
+    "data-[orientation=vertical]:w-full",
+    "disabled:opacity-50",
+    "disabled:pointer-events-none",
+    "flex",
+    "focus-visible:outline-hidden",
+    "focus-visible:ring-4",
+    "grow",
+    "hover:ring-4",
+    "items-center",
+    "overflow-hidden",
+    "relative",
+    "ring-ring/50",
+    "rounded-full",
+    "select-none",
+    "shadow-sm",
+    "shrink-0",
+    "size-4",
+    "touch-none",
+    "transition-[color,box-shadow]",
+    "w-full"
+  ],
+  "data_attrs": [],
+  "data_slots": [
+    "slider",
+    "slider-range",
+    "slider-thumb",
+    "slider-track"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [
+    "Slider"
+  ],
+  "third_party": [],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn",
+    "radix-ui"
+  ],
+  "extra_files": []
+}

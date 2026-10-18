@@ -1,0 +1,8 @@
+# Dev kit run artifacts. port/ (oracle, specs, scenarios, state) and golden/ are committed on purpose.
+tmp/
+dummy/tmp/
+dummy/log/
+dummy/app/assets/builds/
+dummy/public/react-catalog/
+react-shadcn-catalog/node_modules/
+react-shadcn-catalog/tsconfig.tsbuildinfo

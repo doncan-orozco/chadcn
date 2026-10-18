@@ -1,0 +1,290 @@
+{
+  "name": "pagination",
+  "style": "new-york-v4",
+  "source_sha": "224843c4f509e8b8",
+  "use_client": false,
+  "tier": "static",
+  "exports": [
+    "Pagination",
+    "PaginationContent",
+    "PaginationLink",
+    "PaginationItem",
+    "PaginationPrevious",
+    "PaginationNext",
+    "PaginationEllipsis"
+  ],
+  "parts": [
+    {
+      "name": "Pagination",
+      "data_attrs": [],
+      "data_slots": [
+        "pagination"
+      ],
+      "data_slot": "pagination",
+      "wraps": null,
+      "renders": "nav",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "justify-center",
+        "mx-auto",
+        "w-full"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "PaginationContent",
+      "data_attrs": [],
+      "data_slots": [
+        "pagination-content"
+      ],
+      "data_slot": "pagination-content",
+      "wraps": null,
+      "renders": "ul",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "flex-row",
+        "gap-1",
+        "items-center"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "PaginationItem",
+      "data_attrs": [],
+      "data_slots": [
+        "pagination-item"
+      ],
+      "data_slot": "pagination-item",
+      "wraps": null,
+      "renders": "li",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "PaginationLink",
+      "data_attrs": [
+        {
+          "name": "data-active",
+          "value": "{isActive}"
+        }
+      ],
+      "data_slots": [
+        "pagination-link"
+      ],
+      "data_slot": "pagination-link",
+      "wraps": null,
+      "renders": "a",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "isActive"
+          },
+          {
+            "name": "size",
+            "default": "\"icon\""
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "ghost",
+        "outline"
+      ],
+      "uses_cva": true,
+      "variants_used": [
+        "buttonVariants"
+      ]
+    },
+    {
+      "name": "PaginationPrevious",
+      "data_attrs": [],
+      "data_slots": [],
+      "data_slot": null,
+      "wraps": null,
+      "renders": "PaginationLink",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "gap-1",
+        "hidden",
+        "px-2.5",
+        "sm:block",
+        "sm:pl-2.5"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "PaginationNext",
+      "data_attrs": [],
+      "data_slots": [],
+      "data_slot": null,
+      "wraps": null,
+      "renders": "PaginationLink",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "gap-1",
+        "hidden",
+        "px-2.5",
+        "sm:block",
+        "sm:pr-2.5"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "PaginationEllipsis",
+      "data_attrs": [],
+      "data_slots": [
+        "pagination-ellipsis"
+      ],
+      "data_slot": "pagination-ellipsis",
+      "wraps": null,
+      "renders": "span",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "items-center",
+        "justify-center",
+        "size-4",
+        "size-9",
+        "sr-only"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "flex",
+    "flex-row",
+    "gap-1",
+    "ghost",
+    "hidden",
+    "items-center",
+    "justify-center",
+    "mx-auto",
+    "outline",
+    "px-2.5",
+    "size-4",
+    "size-9",
+    "sm:block",
+    "sm:pl-2.5",
+    "sm:pr-2.5",
+    "sr-only",
+    "w-full"
+  ],
+  "data_attrs": [
+    "data-active"
+  ],
+  "data_slots": [
+    "pagination",
+    "pagination-content",
+    "pagination-ellipsis",
+    "pagination-item",
+    "pagination-link"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [],
+  "third_party": [],
+  "icons": [
+    "ChevronLeftIcon",
+    "ChevronRightIcon",
+    "MoreHorizontalIcon"
+  ],
+  "text_literals": [
+    "Previous",
+    "Next",
+    "More pages"
+  ],
+  "registry_dependencies": [
+    "button"
+  ],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn"
+  ],
+  "extra_files": []
+}

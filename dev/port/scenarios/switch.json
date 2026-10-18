@@ -1,0 +1,1264 @@
+{
+  "component": "switch",
+  "scenarios": [
+    {
+      "id": "default",
+      "tree": {
+        "c": "Switch",
+        "props": {}
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "size-default__unchecked",
+      "tree": {
+        "c": "Switch",
+        "props": {
+          "size": "default"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "size-sm__unchecked",
+      "tree": {
+        "c": "Switch",
+        "props": {
+          "size": "sm"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "size-default__checked",
+      "tree": {
+        "c": "Switch",
+        "props": {
+          "size": "default",
+          "defaultChecked": true
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "size-sm__checked",
+      "tree": {
+        "c": "Switch",
+        "props": {
+          "size": "sm",
+          "defaultChecked": true
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__unchecked",
+      "tree": {
+        "c": "Switch",
+        "props": {
+          "disabled": true
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__checked",
+      "tree": {
+        "c": "Switch",
+        "props": {
+          "disabled": true,
+          "defaultChecked": true
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default__dark",
+      "tree": {
+        "c": "Switch",
+        "props": {}
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "size-default__unchecked__dark",
+      "tree": {
+        "c": "Switch",
+        "props": {
+          "size": "default"
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "size-sm__unchecked__dark",
+      "tree": {
+        "c": "Switch",
+        "props": {
+          "size": "sm"
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "size-default__checked__dark",
+      "tree": {
+        "c": "Switch",
+        "props": {
+          "size": "default",
+          "defaultChecked": true
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "size-sm__checked__dark",
+      "tree": {
+        "c": "Switch",
+        "props": {
+          "size": "sm",
+          "defaultChecked": true
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__unchecked__dark",
+      "tree": {
+        "c": "Switch",
+        "props": {
+          "disabled": true
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__checked__dark",
+      "tree": {
+        "c": "Switch",
+        "props": {
+          "disabled": true,
+          "defaultChecked": true
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "size-sm__disabled",
+      "tree": {
+        "c": "Switch",
+        "props": {
+          "size": "sm",
+          "disabled": true
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "click__toggle-on-off",
+      "tree": {
+        "c": "Switch",
+        "props": {}
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=switch]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=switch]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "click__toggle-on-off__dark",
+      "tree": {
+        "c": "Switch",
+        "props": {}
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=switch]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=switch]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "size-sm__click__toggle",
+      "tree": {
+        "c": "Switch",
+        "props": {
+          "size": "sm"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=switch]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=switch]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default-checked__click__toggle-off",
+      "tree": {
+        "c": "Switch",
+        "props": {
+          "defaultChecked": true
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=switch]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=switch]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__tab-focus-visible",
+      "tree": {
+        "c": "Switch",
+        "props": {}
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__tab-focus-visible__dark",
+      "tree": {
+        "c": "Switch",
+        "props": {}
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__tab-focus-visible__checked",
+      "tree": {
+        "c": "Switch",
+        "props": {
+          "defaultChecked": true
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__space-toggles",
+      "tree": {
+        "c": "Switch",
+        "props": {}
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Space"
+        },
+        {
+          "do": "press",
+          "key": "Space"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__enter-toggles",
+      "tree": {
+        "c": "Switch",
+        "props": {}
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "size-sm__keyboard__tab-space",
+      "tree": {
+        "c": "Switch",
+        "props": {
+          "size": "sm"
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Space"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__click-no-change",
+      "tree": {
+        "c": "Switch",
+        "props": {
+          "disabled": true
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=switch]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__tab-skipped",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex items-center gap-4"
+        },
+        "children": [
+          {
+            "c": "Switch",
+            "props": {
+              "disabled": true,
+              "id": "sw-disabled"
+            }
+          },
+          {
+            "c": "Switch",
+            "props": {
+              "id": "sw-enabled"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "controlled__checked-true__click-stays",
+      "tree": {
+        "c": "Switch",
+        "props": {
+          "checked": true
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=switch]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "controlled__checked-false__click-stays",
+      "tree": {
+        "c": "Switch",
+        "props": {
+          "checked": false
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=switch]"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Space"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "animation__thumb-transition",
+      "tree": {
+        "c": "Switch",
+        "props": {}
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=switch]"
+        },
+        {
+          "do": "wait",
+          "ms": 75
+        },
+        {
+          "do": "wait",
+          "ms": 200
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": true
+    },
+    {
+      "id": "api__classname-merge",
+      "tree": {
+        "c": "Switch",
+        "props": {
+          "className": "rounded-md data-[state=checked]:bg-destructive"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=switch]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__forwarded-attrs",
+      "tree": {
+        "c": "Switch",
+        "props": {
+          "id": "notify",
+          "aria-label": "Notifications",
+          "data-testid": "notify-switch",
+          "title": "Notifications"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__aria-invalid",
+      "tree": {
+        "c": "Switch",
+        "props": {
+          "aria-invalid": true
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__aria-invalid__dark",
+      "tree": {
+        "c": "Switch",
+        "props": {
+          "aria-invalid": true
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__required",
+      "tree": {
+        "c": "Switch",
+        "props": {
+          "required": true
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__required-false",
+      "tree": {
+        "c": "Switch",
+        "props": {
+          "required": false
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__value-custom",
+      "tree": {
+        "c": "Switch",
+        "props": {
+          "value": "yes"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__name-outside-form-no-bubble-input",
+      "tree": {
+        "c": "Switch",
+        "props": {
+          "name": "marketing"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "rtl__unchecked-checked",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "dir": "rtl",
+          "className": "flex items-center gap-4"
+        },
+        "children": [
+          {
+            "c": "Switch",
+            "props": {
+              "id": "rtl-a"
+            }
+          },
+          {
+            "c": "Switch",
+            "props": {
+              "id": "rtl-b",
+              "defaultChecked": true
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "#rtl-a"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__bubble-input",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "f1"
+        },
+        "children": [
+          {
+            "c": "Switch",
+            "props": {
+              "name": "notifications"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=switch]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=switch]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__bubble-input__default-checked",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "f2"
+        },
+        "children": [
+          {
+            "c": "Switch",
+            "props": {
+              "name": "notifications",
+              "defaultChecked": true
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__bubble-input__value-required-disabled",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "f3"
+        },
+        "children": [
+          {
+            "c": "Switch",
+            "props": {
+              "name": "terms",
+              "value": "accepted",
+              "required": true,
+              "disabled": true
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__bubble-input__size-sm",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "f4"
+        },
+        "children": [
+          {
+            "c": "Switch",
+            "props": {
+              "name": "compact",
+              "size": "sm"
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__reset-restores-initial",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "f5",
+          "className": "flex items-center gap-4"
+        },
+        "children": [
+          {
+            "c": "Switch",
+            "props": {
+              "name": "wifi"
+            }
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "reset"
+            },
+            "children": [
+              "Reset"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=switch]"
+        },
+        {
+          "do": "click",
+          "target": "role=button[name=\"Reset\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__reset-restores-initial-checked",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "f6",
+          "className": "flex items-center gap-4"
+        },
+        "children": [
+          {
+            "c": "Switch",
+            "props": {
+              "name": "wifi",
+              "defaultChecked": true
+            }
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "reset"
+            },
+            "children": [
+              "Reset"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=switch]"
+        },
+        {
+          "do": "click",
+          "target": "role=button[name=\"Reset\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__form-attribute-outside",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex items-center gap-4"
+        },
+        "children": [
+          {
+            "c": "_form",
+            "props": {
+              "id": "external-form"
+            },
+            "children": []
+          },
+          {
+            "c": "Switch",
+            "props": {
+              "name": "remote",
+              "form": "external-form"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=switch]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__controlled-checked",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "f7"
+        },
+        "children": [
+          {
+            "c": "Switch",
+            "props": {
+              "name": "locked",
+              "checked": true
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=switch]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__switch-demo",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex items-center space-x-2"
+        },
+        "children": [
+          {
+            "c": "Switch",
+            "props": {
+              "id": "airplane-mode"
+            }
+          },
+          {
+            "c": "_label",
+            "props": {
+              "htmlFor": "airplane-mode"
+            },
+            "children": [
+              "Airplane Mode"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__switch-demo__label-click",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex items-center space-x-2"
+        },
+        "children": [
+          {
+            "c": "Switch",
+            "props": {
+              "id": "airplane-mode"
+            }
+          },
+          {
+            "c": "_label",
+            "props": {
+              "htmlFor": "airplane-mode"
+            },
+            "children": [
+              "Airplane Mode"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "label[for=airplane-mode]"
+        },
+        {
+          "do": "click",
+          "target": "label[for=airplane-mode]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__switch-demo__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex items-center space-x-2"
+        },
+        "children": [
+          {
+            "c": "Switch",
+            "props": {
+              "id": "airplane-mode"
+            }
+          },
+          {
+            "c": "_label",
+            "props": {
+              "htmlFor": "airplane-mode"
+            },
+            "children": [
+              "Airplane Mode"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__field-switch",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex flex-row items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex flex-1 flex-col gap-1.5"
+                },
+                "children": [
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "2fa"
+                    },
+                    "children": [
+                      "Multi-factor authentication"
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {
+                      "className": "text-sm text-muted-foreground"
+                    },
+                    "children": [
+                      "Enable multi-factor authentication. If you do not have a two-factor device, you can use a one-time code sent to your email."
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "Switch",
+                "props": {
+                  "id": "2fa"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "label[for=\"2fa\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__form-rhf-switch",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "form-rhf-switch"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex flex-row items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "form-rhf-switch-twoFactor"
+                },
+                "children": [
+                  "Multi-factor authentication"
+                ]
+              },
+              {
+                "c": "Switch",
+                "props": {
+                  "id": "form-rhf-switch-twoFactor",
+                  "name": "twoFactor",
+                  "aria-invalid": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "#form-rhf-switch-twoFactor"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

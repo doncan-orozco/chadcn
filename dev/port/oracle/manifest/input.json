@@ -1,0 +1,128 @@
+{
+  "name": "input",
+  "style": "new-york-v4",
+  "source_sha": "0c9457181f6ddc80",
+  "use_client": false,
+  "tier": "static",
+  "exports": [
+    "Input"
+  ],
+  "parts": [
+    {
+      "name": "Input",
+      "data_attrs": [],
+      "data_slots": [
+        "input"
+      ],
+      "data_slot": "input",
+      "wraps": null,
+      "renders": "input",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "type"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "aria-invalid:border-destructive",
+        "aria-invalid:ring-destructive/20",
+        "bg-transparent",
+        "border",
+        "border-input",
+        "dark:aria-invalid:ring-destructive/40",
+        "dark:bg-input/30",
+        "disabled:cursor-not-allowed",
+        "disabled:opacity-50",
+        "disabled:pointer-events-none",
+        "file:bg-transparent",
+        "file:border-0",
+        "file:font-medium",
+        "file:h-7",
+        "file:inline-flex",
+        "file:text-foreground",
+        "file:text-sm",
+        "focus-visible:border-ring",
+        "focus-visible:ring-[3px]",
+        "focus-visible:ring-ring/50",
+        "h-9",
+        "md:text-sm",
+        "min-w-0",
+        "outline-none",
+        "placeholder:text-muted-foreground",
+        "px-3",
+        "py-1",
+        "rounded-md",
+        "selection:bg-primary",
+        "selection:text-primary-foreground",
+        "shadow-xs",
+        "text-base",
+        "transition-[color,box-shadow]",
+        "w-full"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "aria-invalid:border-destructive",
+    "aria-invalid:ring-destructive/20",
+    "bg-transparent",
+    "border",
+    "border-input",
+    "dark:aria-invalid:ring-destructive/40",
+    "dark:bg-input/30",
+    "disabled:cursor-not-allowed",
+    "disabled:opacity-50",
+    "disabled:pointer-events-none",
+    "file:bg-transparent",
+    "file:border-0",
+    "file:font-medium",
+    "file:h-7",
+    "file:inline-flex",
+    "file:text-foreground",
+    "file:text-sm",
+    "focus-visible:border-ring",
+    "focus-visible:ring-[3px]",
+    "focus-visible:ring-ring/50",
+    "h-9",
+    "md:text-sm",
+    "min-w-0",
+    "outline-none",
+    "placeholder:text-muted-foreground",
+    "px-3",
+    "py-1",
+    "rounded-md",
+    "selection:bg-primary",
+    "selection:text-primary-foreground",
+    "shadow-xs",
+    "text-base",
+    "transition-[color,box-shadow]",
+    "w-full"
+  ],
+  "data_attrs": [],
+  "data_slots": [
+    "input"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [],
+  "third_party": [],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn"
+  ],
+  "extra_files": []
+}

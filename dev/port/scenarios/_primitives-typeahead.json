@@ -1,0 +1,2148 @@
+{
+  "component": "_primitives-typeahead",
+  "scenarios": [
+    {
+      "id": "initial",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "before",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-controller": "shadcn---probe-typeahead",
+              "role": "menu",
+              "aria-orientation": "vertical",
+              "tabIndex": -1,
+              "style": "outline: none",
+              "className": "w-48 rounded-md border p-1"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-apple",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Apple"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-apricot",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Apricot"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-banana",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Banana"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-blueberry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Blueberry"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-cherry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Cherry"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-cranberry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Cranberry"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "single-letter-cycles",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "before",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-controller": "shadcn---probe-typeahead",
+              "role": "menu",
+              "aria-orientation": "vertical",
+              "tabIndex": -1,
+              "style": "outline: none",
+              "className": "w-48 rounded-md border p-1"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-apple",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Apple"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-apricot",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Apricot"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-banana",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Banana"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-blueberry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Blueberry"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-cherry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Cherry"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-cranberry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Cranberry"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[data-slot=item-apple]"
+        },
+        {
+          "do": "type",
+          "text": "b"
+        },
+        {
+          "do": "wait",
+          "ms": 1100
+        },
+        {
+          "do": "type",
+          "text": "b"
+        },
+        {
+          "do": "wait",
+          "ms": 1100
+        },
+        {
+          "do": "type",
+          "text": "b"
+        },
+        {
+          "do": "wait",
+          "ms": 1100
+        },
+        {
+          "do": "type",
+          "text": "c"
+        },
+        {
+          "do": "wait",
+          "ms": 1100
+        },
+        {
+          "do": "type",
+          "text": "a"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "prefix-search",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "before",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-controller": "shadcn---probe-typeahead",
+              "role": "menu",
+              "aria-orientation": "vertical",
+              "tabIndex": -1,
+              "style": "outline: none",
+              "className": "w-48 rounded-md border p-1"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-apple",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Apple"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-apricot",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Apricot"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-banana",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Banana"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-blueberry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Blueberry"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-cherry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Cherry"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-cranberry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Cranberry"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[data-slot=item-apple]"
+        },
+        {
+          "do": "type",
+          "text": "bl"
+        },
+        {
+          "do": "wait",
+          "ms": 1100
+        },
+        {
+          "do": "type",
+          "text": "cr"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "repeated-letter",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "before",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-controller": "shadcn---probe-typeahead",
+              "role": "menu",
+              "aria-orientation": "vertical",
+              "tabIndex": -1,
+              "style": "outline: none",
+              "className": "w-48 rounded-md border p-1"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-apple",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Apple"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-apricot",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Apricot"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-banana",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Banana"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-blueberry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Blueberry"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-cherry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Cherry"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-cranberry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Cranberry"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[data-slot=item-apple]"
+        },
+        {
+          "do": "press",
+          "key": "b"
+        },
+        {
+          "do": "press",
+          "key": "b"
+        },
+        {
+          "do": "press",
+          "key": "b"
+        },
+        {
+          "do": "wait",
+          "ms": 1100
+        },
+        {
+          "do": "press",
+          "key": "a"
+        },
+        {
+          "do": "press",
+          "key": "a"
+        },
+        {
+          "do": "wait",
+          "ms": 1100
+        },
+        {
+          "do": "press",
+          "key": "a"
+        },
+        {
+          "do": "press",
+          "key": "a"
+        },
+        {
+          "do": "press",
+          "key": "a"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "reset-after-1s",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "before",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-controller": "shadcn---probe-typeahead",
+              "role": "menu",
+              "aria-orientation": "vertical",
+              "tabIndex": -1,
+              "style": "outline: none",
+              "className": "w-48 rounded-md border p-1"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-apple",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Apple"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-apricot",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Apricot"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-banana",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Banana"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-blueberry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Blueberry"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-cherry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Cherry"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-cranberry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Cranberry"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[data-slot=item-apple]"
+        },
+        {
+          "do": "type",
+          "text": "b"
+        },
+        {
+          "do": "wait",
+          "ms": 1100
+        },
+        {
+          "do": "type",
+          "text": "c"
+        },
+        {
+          "do": "wait",
+          "ms": 1100
+        },
+        {
+          "do": "type",
+          "text": "ch"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "within-1s-accumulates",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "before",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-controller": "shadcn---probe-typeahead",
+              "role": "menu",
+              "aria-orientation": "vertical",
+              "tabIndex": -1,
+              "style": "outline: none",
+              "className": "w-48 rounded-md border p-1"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-apple",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Apple"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-apricot",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Apricot"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-banana",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Banana"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-blueberry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Blueberry"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-cherry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Cherry"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-cranberry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Cranberry"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[data-slot=item-apple]"
+        },
+        {
+          "do": "type",
+          "text": "b"
+        },
+        {
+          "do": "wait",
+          "ms": 600
+        },
+        {
+          "do": "type",
+          "text": "l"
+        },
+        {
+          "do": "wait",
+          "ms": 600
+        },
+        {
+          "do": "type",
+          "text": "u"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "no-match-keeps-focus",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "before",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-controller": "shadcn---probe-typeahead",
+              "role": "menu",
+              "aria-orientation": "vertical",
+              "tabIndex": -1,
+              "style": "outline: none",
+              "className": "w-48 rounded-md border p-1"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-apple",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Apple"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-apricot",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Apricot"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-banana",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Banana"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-blueberry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Blueberry"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-cherry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Cherry"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-cranberry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Cranberry"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[data-slot=item-apple]"
+        },
+        {
+          "do": "type",
+          "text": "z"
+        },
+        {
+          "do": "type",
+          "text": "b"
+        },
+        {
+          "do": "type",
+          "text": "z"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled-skipped",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "before",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-controller": "shadcn---probe-typeahead",
+              "role": "menu",
+              "aria-orientation": "vertical",
+              "tabIndex": -1,
+              "style": "outline: none",
+              "className": "w-48 rounded-md border p-1"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-apple",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Apple"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-apricot",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Apricot"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-banana",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": "",
+                  "data-disabled": "",
+                  "aria-disabled": "true"
+                },
+                "children": [
+                  "Banana"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-blueberry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Blueberry"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-cherry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Cherry"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-cranberry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Cranberry"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[data-slot=item-apple]"
+        },
+        {
+          "do": "type",
+          "text": "b"
+        },
+        {
+          "do": "wait",
+          "ms": 1100
+        },
+        {
+          "do": "type",
+          "text": "b"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "case-insensitive",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "before",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-controller": "shadcn---probe-typeahead",
+              "role": "menu",
+              "aria-orientation": "vertical",
+              "tabIndex": -1,
+              "style": "outline: none",
+              "className": "w-48 rounded-md border p-1"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-apple",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Apple"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-apricot",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Apricot"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-banana",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Banana"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-blueberry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Blueberry"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-cherry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Cherry"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-cranberry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Cranberry"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[data-slot=item-apple]"
+        },
+        {
+          "do": "type",
+          "text": "B"
+        },
+        {
+          "do": "wait",
+          "ms": 1100
+        },
+        {
+          "do": "type",
+          "text": "CH"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "with-spaces",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "before",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-controller": "shadcn---probe-typeahead",
+              "role": "menu",
+              "aria-orientation": "vertical",
+              "tabIndex": -1,
+              "style": "outline: none",
+              "className": "w-48 rounded-md border p-1"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-new-file",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "New file"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-new-window",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "New window"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-open",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Open"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-save-as",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Save as"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[data-slot=item-new-file]"
+        },
+        {
+          "do": "type",
+          "text": "new w"
+        },
+        {
+          "do": "wait",
+          "ms": 1100
+        },
+        {
+          "do": "type",
+          "text": "s"
+        },
+        {
+          "do": "wait",
+          "ms": 1100
+        },
+        {
+          "do": "type",
+          "text": "o"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "from-content",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "before",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-controller": "shadcn---probe-typeahead",
+              "role": "menu",
+              "aria-orientation": "vertical",
+              "tabIndex": -1,
+              "style": "outline: none",
+              "className": "w-48 rounded-md border p-1"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-apple",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Apple"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-apricot",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Apricot"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-banana",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Banana"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-blueberry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Blueberry"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-cherry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Cherry"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-cranberry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Cranberry"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[role=menu]"
+        },
+        {
+          "do": "type",
+          "text": "c"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "modifier-ignored",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "before",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-controller": "shadcn---probe-typeahead",
+              "role": "menu",
+              "aria-orientation": "vertical",
+              "tabIndex": -1,
+              "style": "outline: none",
+              "className": "w-48 rounded-md border p-1"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-apple",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Apple"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-apricot",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Apricot"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-banana",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Banana"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-blueberry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Blueberry"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-cherry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Cherry"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-cranberry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Cranberry"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[data-slot=item-apple]"
+        },
+        {
+          "do": "press",
+          "key": "Control+b"
+        },
+        {
+          "do": "press",
+          "key": "Alt+b"
+        },
+        {
+          "do": "press",
+          "key": "Meta+b"
+        },
+        {
+          "do": "type",
+          "text": "b"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "arrows-then-type",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "before",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-controller": "shadcn---probe-typeahead",
+              "role": "menu",
+              "aria-orientation": "vertical",
+              "tabIndex": -1,
+              "style": "outline: none",
+              "className": "w-48 rounded-md border p-1"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-apple",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Apple"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-apricot",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Apricot"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-banana",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Banana"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-blueberry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Blueberry"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-cherry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Cherry"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-cranberry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Cranberry"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[data-slot=item-apple]"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        },
+        {
+          "do": "type",
+          "text": "c"
+        },
+        {
+          "do": "press",
+          "key": "ArrowUp"
+        },
+        {
+          "do": "press",
+          "key": "End"
+        },
+        {
+          "do": "type",
+          "text": "a"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "duplicate-labels",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "before",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-controller": "shadcn---probe-typeahead",
+              "role": "menu",
+              "aria-orientation": "vertical",
+              "tabIndex": -1,
+              "style": "outline: none",
+              "className": "w-48 rounded-md border p-1"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-alpha-0",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Alpha"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-beta-1",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Beta"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-alpha-2",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Alpha"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-beta-3",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Beta"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[data-slot=item-alpha-0]"
+        },
+        {
+          "do": "type",
+          "text": "b"
+        },
+        {
+          "do": "wait",
+          "ms": 1100
+        },
+        {
+          "do": "type",
+          "text": "b"
+        },
+        {
+          "do": "wait",
+          "ms": 1100
+        },
+        {
+          "do": "type",
+          "text": "a"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "before",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-controller": "shadcn---probe-typeahead",
+              "role": "menu",
+              "aria-orientation": "vertical",
+              "tabIndex": -1,
+              "style": "outline: none",
+              "className": "w-48 rounded-md border p-1"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-apple",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Apple"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-apricot",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Apricot"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-banana",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Banana"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-blueberry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Blueberry"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-cherry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Cherry"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item-cranberry",
+                  "role": "menuitem",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "className": "rounded px-2 py-1 text-sm outline-none data-[highlighted]:bg-accent",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Cranberry"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[data-slot=item-apple]"
+        },
+        {
+          "do": "type",
+          "text": "b"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

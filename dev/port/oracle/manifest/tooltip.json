@@ -1,0 +1,207 @@
+{
+  "name": "tooltip",
+  "style": "new-york-v4",
+  "source_sha": "611e4305879b2773",
+  "use_client": true,
+  "tier": "overlay",
+  "exports": [
+    "Tooltip",
+    "TooltipTrigger",
+    "TooltipContent",
+    "TooltipProvider"
+  ],
+  "parts": [
+    {
+      "name": "TooltipProvider",
+      "data_attrs": [],
+      "data_slots": [
+        "tooltip-provider"
+      ],
+      "data_slot": "tooltip-provider",
+      "wraps": "TooltipPrimitive.Provider",
+      "renders": "TooltipPrimitive.Provider",
+      "slot_tags": {
+        "tooltip-provider": "TooltipPrimitive.Provider"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "delayDuration",
+            "default": "0"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "Tooltip",
+      "data_attrs": [],
+      "data_slots": [
+        "tooltip"
+      ],
+      "data_slot": "tooltip",
+      "wraps": "TooltipPrimitive.Root",
+      "renders": "TooltipPrimitive.Root",
+      "slot_tags": {
+        "tooltip": "TooltipPrimitive.Root"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "TooltipTrigger",
+      "data_attrs": [],
+      "data_slots": [
+        "tooltip-trigger"
+      ],
+      "data_slot": "tooltip-trigger",
+      "wraps": "TooltipPrimitive.Trigger",
+      "renders": "TooltipPrimitive.Trigger",
+      "slot_tags": {
+        "tooltip-trigger": "TooltipPrimitive.Trigger"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "TooltipContent",
+      "data_attrs": [],
+      "data_slots": [
+        "tooltip-content"
+      ],
+      "data_slot": "tooltip-content",
+      "wraps": "TooltipPrimitive.Portal",
+      "renders": "TooltipPrimitive.Portal",
+      "slot_tags": {
+        "tooltip-content": "TooltipPrimitive.Content"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "sideOffset",
+            "default": "0"
+          },
+          {
+            "name": "children"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "animate-in",
+        "bg-foreground",
+        "data-[side=bottom]:slide-in-from-top-2",
+        "data-[side=left]:slide-in-from-right-2",
+        "data-[side=right]:slide-in-from-left-2",
+        "data-[side=top]:slide-in-from-bottom-2",
+        "data-[state=closed]:animate-out",
+        "data-[state=closed]:fade-out-0",
+        "data-[state=closed]:zoom-out-95",
+        "fade-in-0",
+        "fill-foreground",
+        "origin-(--radix-tooltip-content-transform-origin)",
+        "px-3",
+        "py-1.5",
+        "rotate-45",
+        "rounded-[2px]",
+        "rounded-md",
+        "size-2.5",
+        "text-background",
+        "text-balance",
+        "text-xs",
+        "translate-y-[calc(-50%_-_2px)]",
+        "w-fit",
+        "z-50",
+        "zoom-in-95"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "animate-in",
+    "bg-foreground",
+    "data-[side=bottom]:slide-in-from-top-2",
+    "data-[side=left]:slide-in-from-right-2",
+    "data-[side=right]:slide-in-from-left-2",
+    "data-[side=top]:slide-in-from-bottom-2",
+    "data-[state=closed]:animate-out",
+    "data-[state=closed]:fade-out-0",
+    "data-[state=closed]:zoom-out-95",
+    "fade-in-0",
+    "fill-foreground",
+    "origin-(--radix-tooltip-content-transform-origin)",
+    "px-3",
+    "py-1.5",
+    "rotate-45",
+    "rounded-[2px]",
+    "rounded-md",
+    "size-2.5",
+    "text-background",
+    "text-balance",
+    "text-xs",
+    "translate-y-[calc(-50%_-_2px)]",
+    "w-fit",
+    "z-50",
+    "zoom-in-95"
+  ],
+  "data_attrs": [],
+  "data_slots": [
+    "tooltip",
+    "tooltip-content",
+    "tooltip-provider",
+    "tooltip-trigger"
+  ],
+  "non_rendered_slots": [
+    "tooltip",
+    "tooltip-provider"
+  ],
+  "radix_primitives": [
+    "Tooltip"
+  ],
+  "third_party": [],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn",
+    "radix-ui"
+  ],
+  "extra_files": []
+}

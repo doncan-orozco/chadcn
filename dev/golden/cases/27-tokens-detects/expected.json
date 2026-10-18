@@ -1,0 +1,14 @@
+{
+  "case": "27-tokens-detects",
+  "kind": "tokens",
+  "description": "A copy of tokens.css with the primary color alias and the md radius removed: the check must name the utilities that silently stop generating CSS.",
+  "remove_lines_matching": [
+    "--color-primary:",
+    "--radius-md:"
+  ],
+  "expect_pass": false,
+  "must_miss": [
+    "bg-primary",
+    "rounded-md"
+  ]
+}

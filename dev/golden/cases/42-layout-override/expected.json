@@ -1,0 +1,14 @@
+{
+  "case": "42-layout-override",
+  "kind": "cli",
+  "note": "SHADCN_RUBY_DIR is honoured: pointing it at a directory without components makes the static gate report G1_FILE_MISSING instead of reading the default location",
+  "runs": [
+    {
+      "script": "static_gate.rb",
+      "args": ["--component", "button"],
+      "env": { "SHADCN_RUBY_DIR": "tmp/shadcn-golden/does-not-exist" },
+      "exit": 1,
+      "finding": "G1_FILE_MISSING"
+    }
+  ]
+}

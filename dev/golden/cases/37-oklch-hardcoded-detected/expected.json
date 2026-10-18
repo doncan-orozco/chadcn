@@ -1,0 +1,8 @@
+{
+  "case": "37-oklch-hardcoded-detected",
+  "kind": "static",
+  "component": "bubble",
+  "description": "A hex or oklch() colour that is not part of an oracle class token still fails G1 even though the verbatim relative-colour tokens are allowed.",
+  "must_detect": ["G1_HARDCODED_COLOR"],
+  "must_not_detect": []
+}

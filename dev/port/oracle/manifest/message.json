@@ -1,0 +1,296 @@
+{
+  "name": "message",
+  "style": "new-york-v4",
+  "source_sha": "64e9ae0f9d1e268b",
+  "use_client": false,
+  "tier": "static",
+  "exports": [
+    "MessageGroup",
+    "Message",
+    "MessageAvatar",
+    "MessageContent",
+    "MessageFooter",
+    "MessageHeader"
+  ],
+  "parts": [
+    {
+      "name": "MessageGroup",
+      "data_attrs": [],
+      "data_slots": [
+        "message-group"
+      ],
+      "data_slot": "message-group",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "flex-col",
+        "gap-2",
+        "min-w-0"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "Message",
+      "data_attrs": [
+        {
+          "name": "data-align",
+          "value": "{align}"
+        }
+      ],
+      "data_slots": [
+        "message"
+      ],
+      "data_slot": "message",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "align",
+            "default": "\"start\""
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "align",
+            "type": "\"start\" | \"end\""
+          }
+        ]
+      },
+      "class_tokens": [
+        "data-[align=end]:flex-row-reverse",
+        "flex",
+        "gap-2",
+        "group/message",
+        "min-w-0",
+        "relative",
+        "text-sm",
+        "w-full"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "MessageAvatar",
+      "data_attrs": [],
+      "data_slots": [
+        "message-avatar"
+      ],
+      "data_slot": "message-avatar",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "bg-muted",
+        "flex",
+        "group-has-data-[slot=message-footer]/message:-translate-y-8",
+        "items-center",
+        "justify-center",
+        "min-w-8",
+        "overflow-hidden",
+        "rounded-full",
+        "self-end",
+        "shrink-0",
+        "w-fit"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "MessageContent",
+      "data_attrs": [],
+      "data_slots": [
+        "message-content"
+      ],
+      "data_slot": "message-content",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "flex-col",
+        "gap-2.5",
+        "group-data-[align=end]/message:*:data-slot:self-end",
+        "min-w-0",
+        "w-full",
+        "wrap-break-word"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "MessageHeader",
+      "data_attrs": [],
+      "data_slots": [
+        "message-header"
+      ],
+      "data_slot": "message-header",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "font-medium",
+        "group-has-data-[variant=ghost]/message:px-0",
+        "items-center",
+        "max-w-full",
+        "min-w-0",
+        "px-3",
+        "text-muted-foreground",
+        "text-xs"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "MessageFooter",
+      "data_attrs": [],
+      "data_slots": [
+        "message-footer"
+      ],
+      "data_slot": "message-footer",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "font-medium",
+        "group-data-[align=end]/message:justify-end",
+        "group-has-data-[variant=ghost]/message:px-0",
+        "items-center",
+        "max-w-full",
+        "min-w-0",
+        "px-3",
+        "text-muted-foreground",
+        "text-xs"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "bg-muted",
+    "data-[align=end]:flex-row-reverse",
+    "flex",
+    "flex-col",
+    "font-medium",
+    "gap-2",
+    "gap-2.5",
+    "group-data-[align=end]/message:*:data-slot:self-end",
+    "group-data-[align=end]/message:justify-end",
+    "group-has-data-[slot=message-footer]/message:-translate-y-8",
+    "group-has-data-[variant=ghost]/message:px-0",
+    "group/message",
+    "items-center",
+    "justify-center",
+    "max-w-full",
+    "min-w-0",
+    "min-w-8",
+    "overflow-hidden",
+    "px-3",
+    "relative",
+    "rounded-full",
+    "self-end",
+    "shrink-0",
+    "text-muted-foreground",
+    "text-sm",
+    "text-xs",
+    "w-fit",
+    "w-full",
+    "wrap-break-word"
+  ],
+  "data_attrs": [
+    "data-align"
+  ],
+  "data_slots": [
+    "message",
+    "message-avatar",
+    "message-content",
+    "message-footer",
+    "message-group",
+    "message-header"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [],
+  "third_party": [],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn"
+  ],
+  "extra_files": []
+}

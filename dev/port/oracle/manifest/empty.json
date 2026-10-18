@@ -1,0 +1,316 @@
+{
+  "name": "empty",
+  "style": "new-york-v4",
+  "source_sha": "54f529ccf72c18c4",
+  "use_client": false,
+  "tier": "static",
+  "exports": [
+    "Empty",
+    "EmptyHeader",
+    "EmptyTitle",
+    "EmptyDescription",
+    "EmptyContent",
+    "EmptyMedia"
+  ],
+  "parts": [
+    {
+      "name": "Empty",
+      "data_attrs": [],
+      "data_slots": [
+        "empty"
+      ],
+      "data_slot": "empty",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "border-dashed",
+        "flex",
+        "flex-1",
+        "flex-col",
+        "gap-6",
+        "items-center",
+        "justify-center",
+        "md:p-12",
+        "min-w-0",
+        "p-6",
+        "rounded-lg",
+        "text-balance",
+        "text-center"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "EmptyHeader",
+      "data_attrs": [],
+      "data_slots": [
+        "empty-header"
+      ],
+      "data_slot": "empty-header",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "flex-col",
+        "gap-2",
+        "items-center",
+        "max-w-sm",
+        "text-center"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "EmptyMedia",
+      "data_attrs": [
+        {
+          "name": "data-variant",
+          "value": "{variant}"
+        }
+      ],
+      "data_slots": [
+        "empty-icon"
+      ],
+      "data_slot": "empty-icon",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "variant",
+            "default": "\"default\""
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": true,
+      "variants_used": [
+        "emptyMediaVariants"
+      ]
+    },
+    {
+      "name": "EmptyTitle",
+      "data_attrs": [],
+      "data_slots": [
+        "empty-title"
+      ],
+      "data_slot": "empty-title",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "font-medium",
+        "text-lg",
+        "tracking-tight"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "EmptyDescription",
+      "data_attrs": [],
+      "data_slots": [
+        "empty-description"
+      ],
+      "data_slot": "empty-description",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "[&>a:hover]:text-primary",
+        "[&>a]:underline",
+        "[&>a]:underline-offset-4",
+        "text-muted-foreground",
+        "text-sm/relaxed"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "EmptyContent",
+      "data_attrs": [],
+      "data_slots": [
+        "empty-content"
+      ],
+      "data_slot": "empty-content",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "flex-col",
+        "gap-4",
+        "items-center",
+        "max-w-sm",
+        "min-w-0",
+        "text-balance",
+        "text-sm",
+        "w-full"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {
+    "emptyMediaVariants": {
+      "base": "mb-2 flex shrink-0 items-center justify-center [&_svg]:pointer-events-none [&_svg]:shrink-0",
+      "variants": {
+        "variant": {
+          "default": "bg-transparent",
+          "icon": "flex size-10 shrink-0 items-center justify-center rounded-lg bg-muted text-foreground [&_svg:not([class*='size-'])]:size-6"
+        }
+      },
+      "defaults": {
+        "variant": "default"
+      },
+      "compound": [],
+      "tokens": [
+        "[&_svg:not([class*='size-'])]:size-6",
+        "[&_svg]:pointer-events-none",
+        "[&_svg]:shrink-0",
+        "bg-muted",
+        "bg-transparent",
+        "default",
+        "flex",
+        "items-center",
+        "justify-center",
+        "mb-2",
+        "rounded-lg",
+        "shrink-0",
+        "size-10",
+        "text-foreground"
+      ]
+    }
+  },
+  "class_tokens": [
+    "[&>a:hover]:text-primary",
+    "[&>a]:underline",
+    "[&>a]:underline-offset-4",
+    "[&_svg:not([class*='size-'])]:size-6",
+    "[&_svg]:pointer-events-none",
+    "[&_svg]:shrink-0",
+    "bg-muted",
+    "bg-transparent",
+    "border-dashed",
+    "default",
+    "flex",
+    "flex-1",
+    "flex-col",
+    "font-medium",
+    "gap-2",
+    "gap-4",
+    "gap-6",
+    "items-center",
+    "justify-center",
+    "max-w-sm",
+    "mb-2",
+    "md:p-12",
+    "min-w-0",
+    "p-6",
+    "rounded-lg",
+    "shrink-0",
+    "size-10",
+    "text-balance",
+    "text-center",
+    "text-foreground",
+    "text-lg",
+    "text-muted-foreground",
+    "text-sm",
+    "text-sm/relaxed",
+    "tracking-tight",
+    "w-full"
+  ],
+  "data_attrs": [
+    "data-variant"
+  ],
+  "data_slots": [
+    "empty",
+    "empty-content",
+    "empty-description",
+    "empty-header",
+    "empty-icon",
+    "empty-title"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [],
+  "third_party": [],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn"
+  ],
+  "extra_files": []
+}

@@ -1,0 +1,6 @@
+{
+  "reason": "shadcn Checkbox always passes CheckboxPrimitive.Indicator as the Root's only child, so Radix asChild would merge the checkbox onto the indicator (absent while unchecked); as_child is therefore not offered",
+  "allow_tokens": [],
+  "allow_missing_tokens": [],
+  "api": ["Checkbox: as_child not supported"]
+}

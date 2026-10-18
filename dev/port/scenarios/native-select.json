@@ -1,0 +1,4745 @@
+{
+  "component": "native-select",
+  "scenarios": [
+    {
+      "id": "default__no-props",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {},
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default__no-props__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {},
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "size-default__explicit",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "size": "default"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "size-default__explicit__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "size": "default"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "size-sm",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "size": "sm"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "size-sm__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "size": "sm"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "size-sm-vs-default__side-by-side",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex items-center gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "size": "sm"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "NativeSelect",
+            "props": {},
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "size-sm-vs-default__side-by-side__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex items-center gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "size": "sm"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "NativeSelect",
+            "props": {},
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {},
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=native-select]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {},
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=native-select]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__size-sm",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "size": "sm"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=native-select]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__size-sm__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "size": "sm"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=native-select]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus-visible__tab",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {},
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus-visible__tab__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {},
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus-visible__size-sm",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "size": "sm"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus-visible__size-sm__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "size": "sm"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "disabled": true
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "disabled": true
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__hover-wrapper",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "disabled": true
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=native-select-wrapper]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__hover-wrapper__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "disabled": true
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=native-select-wrapper]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__tab-skips",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "disabled": true
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__size-sm",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "disabled": true,
+              "size": "sm"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__size-sm__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "disabled": true,
+              "size": "sm"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "aria-invalid": "true"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "aria-invalid": "true"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid__focus-visible",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "aria-invalid": "true"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid__focus-visible__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "aria-invalid": "true"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid__size-sm",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "aria-invalid": "true",
+              "size": "sm"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid__size-sm__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "aria-invalid": "true",
+              "size": "sm"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid__disabled",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "aria-invalid": "true",
+              "disabled": true
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default-value__selected",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "defaultValue": "done"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default-value__selected__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "defaultValue": "done"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default-value__no-match",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "defaultValue": "missing"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "controlled__value",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "value": "in-progress"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "option__selected-attr",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {},
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done",
+                  "selected": true
+                },
+                "children": [
+                  "Done"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "option__disabled",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "defaultValue": "todo"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "",
+                  "disabled": true
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "blocked",
+                  "disabled": true
+                },
+                "children": [
+                  "Blocked"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "option__class-name",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {},
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "a",
+                  "className": "font-medium"
+                },
+                "children": [
+                  "Bold option"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "b"
+                },
+                "children": [
+                  "Plain option"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "option__forwarded-attrs",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {},
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "a",
+                  "id": "opt-alpha",
+                  "data-testid": "alpha",
+                  "label": "Alpha label"
+                },
+                "children": [
+                  "Alpha"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "b"
+                },
+                "children": [
+                  "Beta"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "optgroup__disabled",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {},
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select"
+                ]
+              },
+              {
+                "c": "NativeSelectOptGroup",
+                "props": {
+                  "label": "Locked",
+                  "disabled": true
+                },
+                "children": [
+                  {
+                    "c": "NativeSelectOption",
+                    "props": {
+                      "value": "x"
+                    },
+                    "children": [
+                      "X"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "NativeSelectOptGroup",
+                "props": {
+                  "label": "Open"
+                },
+                "children": [
+                  {
+                    "c": "NativeSelectOption",
+                    "props": {
+                      "value": "y"
+                    },
+                    "children": [
+                      "Y"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "optgroup__class-name-and-attrs",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {},
+            "children": [
+              {
+                "c": "NativeSelectOptGroup",
+                "props": {
+                  "label": "Group",
+                  "className": "font-medium",
+                  "id": "grp-1",
+                  "data-testid": "grp"
+                },
+                "children": [
+                  {
+                    "c": "NativeSelectOption",
+                    "props": {
+                      "value": "a"
+                    },
+                    "children": [
+                      "A"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__long-option-text",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {},
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "long"
+                },
+                "children": [
+                  "A very long option label that makes the wrapper grow because it is w-fit"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "s"
+                },
+                "children": [
+                  "Short"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__long-option-text__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {},
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "long"
+                },
+                "children": [
+                  "A very long option label that makes the wrapper grow because it is w-fit"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "s"
+                },
+                "children": [
+                  "Short"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__empty",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {},
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__single-option",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {},
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "only"
+                },
+                "children": [
+                  "Only"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "multiple",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "multiple": true,
+              "defaultValue": [
+                "todo",
+                "done"
+              ]
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class-name__merge-conflict",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "className": "rounded-full h-12"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class-name__width",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "className": "w-48"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class-name__size-sm-with-height",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "className": "h-10",
+              "size": "sm"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "attrs__forwarded",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "id": "status",
+              "name": "status",
+              "required": true,
+              "title": "Status",
+              "data-testid": "status-select",
+              "aria-describedby": "status-help"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_p",
+            "props": {
+              "id": "status-help",
+              "className": "text-sm text-muted-foreground"
+            },
+            "children": [
+              "Pick one"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "attrs__aria-label",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "aria-label": "Status"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "attrs__data-size-override",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "size": "sm",
+              "data-size": "default"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "attrs__data-slot-override",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "data-slot": "custom-select"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "attrs__dir-rtl",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "dir": "rtl"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "with-label__html-for",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "_label",
+            "props": {
+              "htmlFor": "ns-fruit",
+              "className": "text-sm font-medium"
+            },
+            "children": [
+              "Fruit"
+            ]
+          },
+          {
+            "c": "NativeSelect",
+            "props": {
+              "id": "ns-fruit"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "apple"
+                },
+                "children": [
+                  "Apple"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "banana"
+                },
+                "children": [
+                  "Banana"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "label"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "with-label__html-for__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "_label",
+            "props": {
+              "htmlFor": "ns-fruit",
+              "className": "text-sm font-medium"
+            },
+            "children": [
+              "Fruit"
+            ]
+          },
+          {
+            "c": "NativeSelect",
+            "props": {
+              "id": "ns-fruit"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "apple"
+                },
+                "children": [
+                  "Apple"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "banana"
+                },
+                "children": [
+                  "Banana"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "label"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "in-form__submit-button",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "className": "flex items-center gap-2 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {
+              "name": "status",
+              "size": "sm"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "className": "h-8 rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Save"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__arrow-down-changes-value",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {},
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "full-width-container",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {},
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "narrow-viewport",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "NativeSelect",
+            "props": {},
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": ""
+                },
+                "children": [
+                  "Select status"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "todo"
+                },
+                "children": [
+                  "Todo"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "in-progress"
+                },
+                "children": [
+                  "In Progress"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "done"
+                },
+                "children": [
+                  "Done"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "cancelled"
+                },
+                "children": [
+                  "Cancelled"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 360,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__native-select-demo",
+      "tree": {
+        "c": "NativeSelect",
+        "props": {},
+        "children": [
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": ""
+            },
+            "children": [
+              "Select status"
+            ]
+          },
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": "todo"
+            },
+            "children": [
+              "Todo"
+            ]
+          },
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": "in-progress"
+            },
+            "children": [
+              "In Progress"
+            ]
+          },
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": "done"
+            },
+            "children": [
+              "Done"
+            ]
+          },
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": "cancelled"
+            },
+            "children": [
+              "Cancelled"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__native-select-demo__dark",
+      "tree": {
+        "c": "NativeSelect",
+        "props": {},
+        "children": [
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": ""
+            },
+            "children": [
+              "Select status"
+            ]
+          },
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": "todo"
+            },
+            "children": [
+              "Todo"
+            ]
+          },
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": "in-progress"
+            },
+            "children": [
+              "In Progress"
+            ]
+          },
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": "done"
+            },
+            "children": [
+              "Done"
+            ]
+          },
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": "cancelled"
+            },
+            "children": [
+              "Cancelled"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__native-select-groups",
+      "tree": {
+        "c": "NativeSelect",
+        "props": {},
+        "children": [
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": ""
+            },
+            "children": [
+              "Select department"
+            ]
+          },
+          {
+            "c": "NativeSelectOptGroup",
+            "props": {
+              "label": "Engineering"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "frontend"
+                },
+                "children": [
+                  "Frontend"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "backend"
+                },
+                "children": [
+                  "Backend"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "devops"
+                },
+                "children": [
+                  "DevOps"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "NativeSelectOptGroup",
+            "props": {
+              "label": "Sales"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "sales-rep"
+                },
+                "children": [
+                  "Sales Rep"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "account-manager"
+                },
+                "children": [
+                  "Account Manager"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "sales-director"
+                },
+                "children": [
+                  "Sales Director"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "NativeSelectOptGroup",
+            "props": {
+              "label": "Operations"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "support"
+                },
+                "children": [
+                  "Customer Support"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "product-manager"
+                },
+                "children": [
+                  "Product Manager"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "ops-manager"
+                },
+                "children": [
+                  "Operations Manager"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__native-select-groups__dark",
+      "tree": {
+        "c": "NativeSelect",
+        "props": {},
+        "children": [
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": ""
+            },
+            "children": [
+              "Select department"
+            ]
+          },
+          {
+            "c": "NativeSelectOptGroup",
+            "props": {
+              "label": "Engineering"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "frontend"
+                },
+                "children": [
+                  "Frontend"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "backend"
+                },
+                "children": [
+                  "Backend"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "devops"
+                },
+                "children": [
+                  "DevOps"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "NativeSelectOptGroup",
+            "props": {
+              "label": "Sales"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "sales-rep"
+                },
+                "children": [
+                  "Sales Rep"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "account-manager"
+                },
+                "children": [
+                  "Account Manager"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "sales-director"
+                },
+                "children": [
+                  "Sales Director"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "NativeSelectOptGroup",
+            "props": {
+              "label": "Operations"
+            },
+            "children": [
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "support"
+                },
+                "children": [
+                  "Customer Support"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "product-manager"
+                },
+                "children": [
+                  "Product Manager"
+                ]
+              },
+              {
+                "c": "NativeSelectOption",
+                "props": {
+                  "value": "ops-manager"
+                },
+                "children": [
+                  "Operations Manager"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__native-select-disabled",
+      "tree": {
+        "c": "NativeSelect",
+        "props": {
+          "disabled": true
+        },
+        "children": [
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": ""
+            },
+            "children": [
+              "Select priority"
+            ]
+          },
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": "low"
+            },
+            "children": [
+              "Low"
+            ]
+          },
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": "medium"
+            },
+            "children": [
+              "Medium"
+            ]
+          },
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": "high"
+            },
+            "children": [
+              "High"
+            ]
+          },
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": "critical"
+            },
+            "children": [
+              "Critical"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__native-select-disabled__dark",
+      "tree": {
+        "c": "NativeSelect",
+        "props": {
+          "disabled": true
+        },
+        "children": [
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": ""
+            },
+            "children": [
+              "Select priority"
+            ]
+          },
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": "low"
+            },
+            "children": [
+              "Low"
+            ]
+          },
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": "medium"
+            },
+            "children": [
+              "Medium"
+            ]
+          },
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": "high"
+            },
+            "children": [
+              "High"
+            ]
+          },
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": "critical"
+            },
+            "children": [
+              "Critical"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__native-select-invalid",
+      "tree": {
+        "c": "NativeSelect",
+        "props": {
+          "aria-invalid": "true"
+        },
+        "children": [
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": ""
+            },
+            "children": [
+              "Select role"
+            ]
+          },
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": "admin"
+            },
+            "children": [
+              "Admin"
+            ]
+          },
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": "editor"
+            },
+            "children": [
+              "Editor"
+            ]
+          },
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": "viewer"
+            },
+            "children": [
+              "Viewer"
+            ]
+          },
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": "guest"
+            },
+            "children": [
+              "Guest"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__native-select-invalid__dark",
+      "tree": {
+        "c": "NativeSelect",
+        "props": {
+          "aria-invalid": "true"
+        },
+        "children": [
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": ""
+            },
+            "children": [
+              "Select role"
+            ]
+          },
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": "admin"
+            },
+            "children": [
+              "Admin"
+            ]
+          },
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": "editor"
+            },
+            "children": [
+              "Editor"
+            ]
+          },
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": "viewer"
+            },
+            "children": [
+              "Viewer"
+            ]
+          },
+          {
+            "c": "NativeSelectOption",
+            "props": {
+              "value": "guest"
+            },
+            "children": [
+              "Guest"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

@@ -1,0 +1,1728 @@
+{
+  "component": "alert",
+  "scenarios": [
+    {
+      "id": "default__no-props",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {},
+            "children": [
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "Heads up!"
+                ]
+              },
+              {
+                "c": "AlertDescription",
+                "props": {},
+                "children": [
+                  "You can add components to your app using the cli."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {
+              "variant": "default"
+            },
+            "children": [
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "Heads up!"
+                ]
+              },
+              {
+                "c": "AlertDescription",
+                "props": {},
+                "children": [
+                  "You can add components to your app using the cli."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {
+              "variant": "default"
+            },
+            "children": [
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "Heads up!"
+                ]
+              },
+              {
+                "c": "AlertDescription",
+                "props": {},
+                "children": [
+                  "You can add components to your app using the cli."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__icon-title-description",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {
+              "variant": "default"
+            },
+            "children": [
+              "<icon:terminal>",
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "Heads up!"
+                ]
+              },
+              {
+                "c": "AlertDescription",
+                "props": {},
+                "children": [
+                  "You can add components to your app using the cli."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__icon-title-description__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {
+              "variant": "default"
+            },
+            "children": [
+              "<icon:terminal>",
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "Heads up!"
+                ]
+              },
+              {
+                "c": "AlertDescription",
+                "props": {},
+                "children": [
+                  "You can add components to your app using the cli."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__icon-title",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {
+              "variant": "default"
+            },
+            "children": [
+              "<icon:popcorn>",
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "This Alert has a title and an icon. No description."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__icon-description",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {
+              "variant": "default"
+            },
+            "children": [
+              "<icon:circle-alert>",
+              {
+                "c": "AlertDescription",
+                "props": {},
+                "children": [
+                  "You can add components to your app using the cli."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__description-paragraphs",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {
+              "variant": "default"
+            },
+            "children": [
+              "<icon:circle-alert>",
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "Unable to process your payment."
+                ]
+              },
+              {
+                "c": "AlertDescription",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Please verify your billing information and try again."
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Contact support if the problem persists."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-destructive",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {
+              "variant": "destructive"
+            },
+            "children": [
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "Heads up!"
+                ]
+              },
+              {
+                "c": "AlertDescription",
+                "props": {},
+                "children": [
+                  "You can add components to your app using the cli."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-destructive__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {
+              "variant": "destructive"
+            },
+            "children": [
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "Heads up!"
+                ]
+              },
+              {
+                "c": "AlertDescription",
+                "props": {},
+                "children": [
+                  "You can add components to your app using the cli."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-destructive__icon-title-description",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {
+              "variant": "destructive"
+            },
+            "children": [
+              "<icon:terminal>",
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "Heads up!"
+                ]
+              },
+              {
+                "c": "AlertDescription",
+                "props": {},
+                "children": [
+                  "You can add components to your app using the cli."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-destructive__icon-title-description__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {
+              "variant": "destructive"
+            },
+            "children": [
+              "<icon:terminal>",
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "Heads up!"
+                ]
+              },
+              {
+                "c": "AlertDescription",
+                "props": {},
+                "children": [
+                  "You can add components to your app using the cli."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-destructive__icon-title",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {
+              "variant": "destructive"
+            },
+            "children": [
+              "<icon:popcorn>",
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "This Alert has a title and an icon. No description."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-destructive__icon-description",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {
+              "variant": "destructive"
+            },
+            "children": [
+              "<icon:circle-alert>",
+              {
+                "c": "AlertDescription",
+                "props": {},
+                "children": [
+                  "You can add components to your app using the cli."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-destructive__description-paragraphs",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {
+              "variant": "destructive"
+            },
+            "children": [
+              "<icon:circle-alert>",
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "Unable to process your payment."
+                ]
+              },
+              {
+                "c": "AlertDescription",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Please verify your billing information and try again."
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Contact support if the problem persists."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__title-only",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {},
+            "children": [
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "Heads up!"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__description-only",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {},
+            "children": [
+              {
+                "c": "AlertDescription",
+                "props": {},
+                "children": [
+                  "You can add components to your app using the cli."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__icon-only",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {
+              "aria-label": "Notice"
+            },
+            "children": [
+              "<icon:info>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__empty",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {},
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__plain-text-child",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {},
+            "children": [
+              "Plain text directly inside the alert."
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__long-title-clamped",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {},
+            "children": [
+              "<icon:terminal>",
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "This is a very long alert title that should be clamped to a single line by line-clamp-1 instead of wrapping onto a second line in the layout"
+                ]
+              },
+              {
+                "c": "AlertDescription",
+                "props": {},
+                "children": [
+                  "You can add components to your app using the cli."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__long-description-wraps",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {},
+            "children": [
+              "<icon:terminal>",
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "Heads up!"
+                ]
+              },
+              {
+                "c": "AlertDescription",
+                "props": {},
+                "children": [
+                  "This description is intentionally long so that it wraps across several lines inside the second grid column, which verifies the grid template, the gap and the relaxed leading of the description text when the container is narrow."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 420,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__description-list",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {
+              "variant": "destructive"
+            },
+            "children": [
+              "<icon:circle-alert>",
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "Unable to process your payment."
+                ]
+              },
+              {
+                "c": "AlertDescription",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Please verify your billing information and try again."
+                    ]
+                  },
+                  {
+                    "c": "_ul",
+                    "props": {
+                      "className": "list-inside list-disc text-sm"
+                    },
+                    "children": [
+                      {
+                        "c": "_li",
+                        "props": {},
+                        "children": [
+                          "Check your card details"
+                        ]
+                      },
+                      {
+                        "c": "_li",
+                        "props": {},
+                        "children": [
+                          "Ensure sufficient funds"
+                        ]
+                      },
+                      {
+                        "c": "_li",
+                        "props": {},
+                        "children": [
+                          "Verify billing address"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__svg-not-direct-child",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {},
+            "children": [
+              {
+                "c": "_span",
+                "props": {},
+                "children": [
+                  "<icon:terminal>"
+                ]
+              },
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "Heads up!"
+                ]
+              },
+              {
+                "c": "AlertDescription",
+                "props": {},
+                "children": [
+                  "You can add components to your app using the cli."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__icon-after-text",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {},
+            "children": [
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "Heads up!"
+                ]
+              },
+              {
+                "c": "AlertDescription",
+                "props": {},
+                "children": [
+                  "You can add components to your app using the cli."
+                ]
+              },
+              "<icon:terminal>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__multiple-descriptions",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {},
+            "children": [
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "Heads up!"
+                ]
+              },
+              {
+                "c": "AlertDescription",
+                "props": {},
+                "children": [
+                  "First description."
+                ]
+              },
+              {
+                "c": "AlertDescription",
+                "props": {},
+                "children": [
+                  "Second description."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__class-merge-alert",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {
+              "className": "rounded-full px-8"
+            },
+            "children": [
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "Heads up!"
+                ]
+              },
+              {
+                "c": "AlertDescription",
+                "props": {},
+                "children": [
+                  "You can add components to your app using the cli."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__class-merge-destructive-text",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {
+              "variant": "destructive",
+              "className": "text-primary bg-muted"
+            },
+            "children": [
+              "<icon:circle-alert>",
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "Heads up!"
+                ]
+              },
+              {
+                "c": "AlertDescription",
+                "props": {},
+                "children": [
+                  "You can add components to your app using the cli."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__class-merge-title",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {},
+            "children": [
+              {
+                "c": "AlertTitle",
+                "props": {
+                  "className": "font-semibold line-clamp-none"
+                },
+                "children": [
+                  "Heads up!"
+                ]
+              },
+              {
+                "c": "AlertDescription",
+                "props": {},
+                "children": [
+                  "You can add components to your app using the cli."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__class-merge-description",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {},
+            "children": [
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "Heads up!"
+                ]
+              },
+              {
+                "c": "AlertDescription",
+                "props": {
+                  "className": "text-foreground gap-4"
+                },
+                "children": [
+                  "You can add components to your app using the cli."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__destructive-description-class-specificity",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {
+              "variant": "destructive"
+            },
+            "children": [
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "Heads up!"
+                ]
+              },
+              {
+                "c": "AlertDescription",
+                "props": {
+                  "className": "text-foreground"
+                },
+                "children": [
+                  "You can add components to your app using the cli."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__forwarded-attrs",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {
+              "id": "alert-1",
+              "data-testid": "alert",
+              "aria-live": "polite",
+              "title": "Alert"
+            },
+            "children": [
+              {
+                "c": "AlertTitle",
+                "props": {
+                  "id": "alert-1-title",
+                  "data-testid": "alert-title"
+                },
+                "children": [
+                  "Heads up!"
+                ]
+              },
+              {
+                "c": "AlertDescription",
+                "props": {
+                  "id": "alert-1-desc",
+                  "aria-hidden": "false"
+                },
+                "children": [
+                  "You can add components to your app using the cli."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__role-override",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {
+              "role": "status"
+            },
+            "children": [
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "Heads up!"
+                ]
+              },
+              {
+                "c": "AlertDescription",
+                "props": {},
+                "children": [
+                  "You can add components to your app using the cli."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__style-forwarded",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {
+              "style": {
+                "maxWidth": "320px"
+              }
+            },
+            "children": [
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "Heads up!"
+                ]
+              },
+              {
+                "c": "AlertDescription",
+                "props": {},
+                "children": [
+                  "You can add components to your app using the cli."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "direction__rtl",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "dir": "rtl"
+            },
+            "children": [
+              {
+                "c": "Alert",
+                "props": {},
+                "children": [
+                  "<icon:terminal>",
+                  {
+                    "c": "AlertTitle",
+                    "props": {},
+                    "children": [
+                      "Heads up!"
+                    ]
+                  },
+                  {
+                    "c": "AlertDescription",
+                    "props": {},
+                    "children": [
+                      "You can add components to your app using the cli."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "direction__rtl__destructive",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "dir": "rtl"
+            },
+            "children": [
+              {
+                "c": "Alert",
+                "props": {
+                  "variant": "destructive"
+                },
+                "children": [
+                  "<icon:terminal>",
+                  {
+                    "c": "AlertTitle",
+                    "props": {},
+                    "children": [
+                      "Heads up!"
+                    ]
+                  },
+                  {
+                    "c": "AlertDescription",
+                    "props": {},
+                    "children": [
+                      "You can add components to your app using the cli."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus__tabindex-tab",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-xl p-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {
+              "tabIndex": 0
+            },
+            "children": [
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "Heads up!"
+                ]
+              },
+              {
+                "c": "AlertDescription",
+                "props": {},
+                "children": [
+                  "You can add components to your app using the cli."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__alert-demo",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "grid w-full max-w-xl items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {},
+            "children": [
+              "<icon:circle-check>",
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "Success! Your changes have been saved"
+                ]
+              },
+              {
+                "c": "AlertDescription",
+                "props": {},
+                "children": [
+                  "This is an alert with icon, title and description."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Alert",
+            "props": {},
+            "children": [
+              "<icon:popcorn>",
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "This Alert has a title and an icon. No description."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Alert",
+            "props": {
+              "variant": "destructive"
+            },
+            "children": [
+              "<icon:circle-alert>",
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "Unable to process your payment."
+                ]
+              },
+              {
+                "c": "AlertDescription",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Please verify your billing information and try again."
+                    ]
+                  },
+                  {
+                    "c": "_ul",
+                    "props": {
+                      "className": "list-inside list-disc text-sm"
+                    },
+                    "children": [
+                      {
+                        "c": "_li",
+                        "props": {},
+                        "children": [
+                          "Check your card details"
+                        ]
+                      },
+                      {
+                        "c": "_li",
+                        "props": {},
+                        "children": [
+                          "Ensure sufficient funds"
+                        ]
+                      },
+                      {
+                        "c": "_li",
+                        "props": {},
+                        "children": [
+                          "Verify billing address"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__alert-demo__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "grid w-full max-w-xl items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "Alert",
+            "props": {},
+            "children": [
+              "<icon:circle-check>",
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "Success! Your changes have been saved"
+                ]
+              },
+              {
+                "c": "AlertDescription",
+                "props": {},
+                "children": [
+                  "This is an alert with icon, title and description."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Alert",
+            "props": {},
+            "children": [
+              "<icon:popcorn>",
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "This Alert has a title and an icon. No description."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Alert",
+            "props": {
+              "variant": "destructive"
+            },
+            "children": [
+              "<icon:circle-alert>",
+              {
+                "c": "AlertTitle",
+                "props": {},
+                "children": [
+                  "Unable to process your payment."
+                ]
+              },
+              {
+                "c": "AlertDescription",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Please verify your billing information and try again."
+                    ]
+                  },
+                  {
+                    "c": "_ul",
+                    "props": {
+                      "className": "list-inside list-disc text-sm"
+                    },
+                    "children": [
+                      {
+                        "c": "_li",
+                        "props": {},
+                        "children": [
+                          "Check your card details"
+                        ]
+                      },
+                      {
+                        "c": "_li",
+                        "props": {},
+                        "children": [
+                          "Ensure sufficient funds"
+                        ]
+                      },
+                      {
+                        "c": "_li",
+                        "props": {},
+                        "children": [
+                          "Verify billing address"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

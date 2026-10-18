@@ -1,0 +1,2442 @@
+{
+  "component": "_primitives-submenu-grace",
+  "scenarios": [
+    {
+      "id": "initial-open",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-submenu-grace",
+          "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":4}"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "type": "button",
+              "className": "fixed left-[100px] top-[60px] h-9 rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Menu"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "menu",
+              "className": "z-50 w-48 rounded-md border bg-popover p-1 text-popover-foreground outline-none outline-ring/50"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "One"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "sub-trigger",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "More"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "sub-content",
+                  "className": "z-50 w-40 rounded-md border bg-popover p-1 text-popover-foreground outline-none outline-ring/50"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub A"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub B"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub C"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Three"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent !w-24"
+                },
+                "children": [
+                  "Four"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Five"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Six"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Seven"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Eight"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "item-hover-focus",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-submenu-grace",
+          "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":4}"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "type": "button",
+              "className": "fixed left-[100px] top-[60px] h-9 rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Menu"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "menu",
+              "className": "z-50 w-48 rounded-md border bg-popover p-1 text-popover-foreground outline-none outline-ring/50"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "One"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "sub-trigger",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "More"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "sub-content",
+                  "className": "z-50 w-40 rounded-md border bg-popover p-1 text-popover-foreground outline-none outline-ring/50"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub A"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub B"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub C"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Three"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent !w-24"
+                },
+                "children": [
+                  "Four"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Five"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Six"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Seven"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Eight"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=menu] > [data-slot=item] >> nth=0"
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=menu] > [data-slot=item] >> nth=1"
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=menu] > [data-slot=item] >> nth=0"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "sub-opens-after-delay",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-submenu-grace",
+          "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":4}"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "type": "button",
+              "className": "fixed left-[100px] top-[60px] h-9 rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Menu"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "menu",
+              "className": "z-50 w-48 rounded-md border bg-popover p-1 text-popover-foreground outline-none outline-ring/50"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "One"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "sub-trigger",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "More"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "sub-content",
+                  "className": "z-50 w-40 rounded-md border bg-popover p-1 text-popover-foreground outline-none outline-ring/50"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub A"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub B"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub C"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Three"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent !w-24"
+                },
+                "children": [
+                  "Four"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Five"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Six"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Seven"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Eight"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=sub-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 250
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "sub-click-opens",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-submenu-grace",
+          "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":4}"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "type": "button",
+              "className": "fixed left-[100px] top-[60px] h-9 rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Menu"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "menu",
+              "className": "z-50 w-48 rounded-md border bg-popover p-1 text-popover-foreground outline-none outline-ring/50"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "One"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "sub-trigger",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "More"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "sub-content",
+                  "className": "z-50 w-40 rounded-md border bg-popover p-1 text-popover-foreground outline-none outline-ring/50"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub A"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub B"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub C"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Three"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent !w-24"
+                },
+                "children": [
+                  "Four"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Five"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Six"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Seven"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Eight"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=sub-trigger]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "leave-before-open-delay",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-submenu-grace",
+          "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":4}"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "type": "button",
+              "className": "fixed left-[100px] top-[60px] h-9 rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Menu"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "menu",
+              "className": "z-50 w-48 rounded-md border bg-popover p-1 text-popover-foreground outline-none outline-ring/50"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "One"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "sub-trigger",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "More"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "sub-content",
+                  "className": "z-50 w-40 rounded-md border bg-popover p-1 text-popover-foreground outline-none outline-ring/50"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub A"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub B"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub C"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Three"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent !w-24"
+                },
+                "children": [
+                  "Four"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Five"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Six"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Seven"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Eight"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=sub-trigger]"
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=menu] > [data-slot=item] >> nth=1"
+        },
+        {
+          "do": "wait",
+          "ms": 200
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "to-sub-content",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-submenu-grace",
+          "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":4}"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "type": "button",
+              "className": "fixed left-[100px] top-[60px] h-9 rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Menu"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "menu",
+              "className": "z-50 w-48 rounded-md border bg-popover p-1 text-popover-foreground outline-none outline-ring/50"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "One"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "sub-trigger",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "More"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "sub-content",
+                  "className": "z-50 w-40 rounded-md border bg-popover p-1 text-popover-foreground outline-none outline-ring/50"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub A"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub B"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub C"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Three"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent !w-24"
+                },
+                "children": [
+                  "Four"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Five"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Six"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Seven"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Eight"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=sub-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=sub-content] > [data-slot=item] >> nth=0"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=sub-content] > [data-slot=item] >> nth=2"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "grace-hold-item-below",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-submenu-grace",
+          "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":4}"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "type": "button",
+              "className": "fixed left-[100px] top-[60px] h-9 rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Menu"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "menu",
+              "className": "z-50 w-48 rounded-md border bg-popover p-1 text-popover-foreground outline-none outline-ring/50"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "One"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "sub-trigger",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "More"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "sub-content",
+                  "className": "z-50 w-40 rounded-md border bg-popover p-1 text-popover-foreground outline-none outline-ring/50"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub A"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub B"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub C"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Three"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent !w-24"
+                },
+                "children": [
+                  "Four"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Five"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Six"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Seven"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Eight"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=sub-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=menu] > [data-slot=item] >> nth=1"
+        },
+        {
+          "do": "wait",
+          "ms": 60
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "grace-hold-then-expire",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-submenu-grace",
+          "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":4}"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "type": "button",
+              "className": "fixed left-[100px] top-[60px] h-9 rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Menu"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "menu",
+              "className": "z-50 w-48 rounded-md border bg-popover p-1 text-popover-foreground outline-none outline-ring/50"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "One"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "sub-trigger",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "More"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "sub-content",
+                  "className": "z-50 w-40 rounded-md border bg-popover p-1 text-popover-foreground outline-none outline-ring/50"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub A"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub B"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub C"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Three"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent !w-24"
+                },
+                "children": [
+                  "Four"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Five"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Six"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Seven"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Eight"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=sub-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=menu] > [data-slot=item] >> nth=1"
+        },
+        {
+          "do": "wait",
+          "ms": 400
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=menu] > [data-slot=item] >> nth=3"
+        },
+        {
+          "do": "wait",
+          "ms": 60
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "grace-direction-left",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-submenu-grace",
+          "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":4}"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "type": "button",
+              "className": "fixed left-[100px] top-[60px] h-9 rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Menu"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "menu",
+              "className": "z-50 w-48 rounded-md border bg-popover p-1 text-popover-foreground outline-none outline-ring/50"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "One"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "sub-trigger",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "More"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "sub-content",
+                  "className": "z-50 w-40 rounded-md border bg-popover p-1 text-popover-foreground outline-none outline-ring/50"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub A"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub B"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub C"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Three"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent !w-24"
+                },
+                "children": [
+                  "Four"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Five"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Six"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Seven"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Eight"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=sub-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=menu] > [data-slot=item] >> nth=2"
+        },
+        {
+          "do": "wait",
+          "ms": 60
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "grace-outside-area",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-submenu-grace",
+          "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":4}"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "type": "button",
+              "className": "fixed left-[100px] top-[60px] h-9 rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Menu"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "menu",
+              "className": "z-50 w-48 rounded-md border bg-popover p-1 text-popover-foreground outline-none outline-ring/50"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "One"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "sub-trigger",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "More"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "sub-content",
+                  "className": "z-50 w-40 rounded-md border bg-popover p-1 text-popover-foreground outline-none outline-ring/50"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub A"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub B"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub C"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Three"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent !w-24"
+                },
+                "children": [
+                  "Four"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Five"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Six"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Seven"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Eight"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=sub-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=menu] > [data-slot=item] >> nth=6"
+        },
+        {
+          "do": "wait",
+          "ms": 60
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "grace-reenter-trigger",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-submenu-grace",
+          "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":4}"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "type": "button",
+              "className": "fixed left-[100px] top-[60px] h-9 rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Menu"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "menu",
+              "className": "z-50 w-48 rounded-md border bg-popover p-1 text-popover-foreground outline-none outline-ring/50"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "One"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "sub-trigger",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "More"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "sub-content",
+                  "className": "z-50 w-40 rounded-md border bg-popover p-1 text-popover-foreground outline-none outline-ring/50"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub A"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub B"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub C"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Three"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent !w-24"
+                },
+                "children": [
+                  "Four"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Five"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Six"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Seven"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Eight"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=sub-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=menu] > [data-slot=item] >> nth=1"
+        },
+        {
+          "do": "wait",
+          "ms": 40
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=sub-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 60
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "sub-closes-on-other-item",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-submenu-grace",
+          "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":4}"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "type": "button",
+              "className": "fixed left-[100px] top-[60px] h-9 rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Menu"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "menu",
+              "className": "z-50 w-48 rounded-md border bg-popover p-1 text-popover-foreground outline-none outline-ring/50"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "One"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "sub-trigger",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "More"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "sub-content",
+                  "className": "z-50 w-40 rounded-md border bg-popover p-1 text-popover-foreground outline-none outline-ring/50"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub A"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub B"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub C"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Three"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent !w-24"
+                },
+                "children": [
+                  "Four"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Five"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Six"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Seven"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Eight"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=sub-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=menu] > [data-slot=item] >> nth=0"
+        },
+        {
+          "do": "wait",
+          "ms": 60
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "sub-reopen",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-submenu-grace",
+          "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":4}"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "type": "button",
+              "className": "fixed left-[100px] top-[60px] h-9 rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Menu"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "menu",
+              "className": "z-50 w-48 rounded-md border bg-popover p-1 text-popover-foreground outline-none outline-ring/50"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "One"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "sub-trigger",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "More"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "sub-content",
+                  "className": "z-50 w-40 rounded-md border bg-popover p-1 text-popover-foreground outline-none outline-ring/50"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub A"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub B"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub C"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Three"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent !w-24"
+                },
+                "children": [
+                  "Four"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Five"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Six"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Seven"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Eight"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=sub-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=menu] > [data-slot=item] >> nth=0"
+        },
+        {
+          "do": "wait",
+          "ms": 60
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=sub-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 250
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-top-align-center",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-submenu-grace",
+          "data-parity-options": "{\"side\":\"top\",\"align\":\"center\",\"sideOffset\":2}"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "type": "button",
+              "className": "fixed left-[100px] top-[60px] h-9 rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Menu"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "menu",
+              "className": "z-50 w-48 rounded-md border bg-popover p-1 text-popover-foreground outline-none outline-ring/50"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "One"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "sub-trigger",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "More"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "sub-content",
+                  "className": "z-50 w-40 rounded-md border bg-popover p-1 text-popover-foreground outline-none outline-ring/50"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub A"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub B"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "item",
+                      "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                    },
+                    "children": [
+                      "Sub C"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Three"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent !w-24"
+                },
+                "children": [
+                  "Four"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Five"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Six"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Seven"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "item",
+                  "className": "flex h-8 items-center rounded-sm px-2 text-sm data-[highlighted]:bg-accent"
+                },
+                "children": [
+                  "Eight"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=sub-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=menu] > [data-slot=item] >> nth=1"
+        },
+        {
+          "do": "wait",
+          "ms": 60
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

@@ -1,0 +1,5557 @@
+{
+  "component": "accordion",
+  "scenarios": [
+    {
+      "id": "single__all-closed",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "single__all-closed__dark",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "single__default-value-open",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "defaultValue": "item-1",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "single__default-value-open__dark",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "defaultValue": "item-1",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "single__collapsible__default-value-open",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "collapsible": true,
+          "defaultValue": "item-2",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "single__collapsible__default-value-open__dark",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "collapsible": true,
+          "defaultValue": "item-2",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "multiple__default-value-two-open",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "multiple",
+          "defaultValue": [
+            "item-1",
+            "item-3"
+          ],
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "multiple__default-value-two-open__dark",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "multiple",
+          "defaultValue": [
+            "item-1",
+            "item-3"
+          ],
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "type-omitted__single-default",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Is it accessible?\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "orientation-horizontal__rest",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "orientation": "horizontal",
+          "defaultValue": "item-1",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "orientation-vertical__explicit",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "orientation": "vertical",
+          "defaultValue": "item-1",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "single__click-open",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Is it styled?\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "single__click-switch-item",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "defaultValue": "item-1",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Is it styled?\"]"
+        },
+        {
+          "do": "click",
+          "target": "role=button[name=\"Is it animated?\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "single__non-collapsible__click-open-item-stays",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "defaultValue": "item-1",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Is it accessible?\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "single__collapsible__click-close",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "collapsible": true,
+          "defaultValue": "item-1",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Is it accessible?\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "single__collapsible__close-then-reopen",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "collapsible": true,
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Is it accessible?\"]"
+        },
+        {
+          "do": "click",
+          "target": "role=button[name=\"Is it accessible?\"]"
+        },
+        {
+          "do": "click",
+          "target": "role=button[name=\"Is it accessible?\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "multiple__click-open-two-then-close",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "multiple",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Is it accessible?\"]"
+        },
+        {
+          "do": "click",
+          "target": "role=button[name=\"Is it styled?\"]"
+        },
+        {
+          "do": "click",
+          "target": "role=button[name=\"Is it accessible?\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "multiple__collapsible-ignored__close-last",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "multiple",
+          "defaultValue": [
+            "item-2"
+          ],
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Is it styled?\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "single__click-open__dark",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Is it accessible?\"]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "trigger__hover",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "role=button[name=\"Is it accessible?\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "trigger__hover__dark",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "role=button[name=\"Is it accessible?\"]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "trigger__focus-visible",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "trigger__focus-visible__dark",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "trigger__focus-visible__open",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "defaultValue": "item-1",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__enter-toggles",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "collapsible": true,
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__space-toggles",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "collapsible": true,
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Space"
+        },
+        {
+          "do": "press",
+          "key": "Space"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__arrow-down-wraps",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__arrow-up-wraps",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowUp"
+        },
+        {
+          "do": "press",
+          "key": "ArrowUp"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__home-end",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "End"
+        },
+        {
+          "do": "press",
+          "key": "Home"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__vertical-ignores-left-right",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__tab-through-triggers",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "defaultValue": "item-1",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__arrow-skips-disabled",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2",
+              "disabled": true
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        },
+        {
+          "do": "press",
+          "key": "ArrowUp"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "orientation-horizontal__keyboard",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "orientation": "horizontal",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        },
+        {
+          "do": "press",
+          "key": "ArrowUp"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "orientation-horizontal__rtl__keyboard",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "orientation": "horizontal",
+          "dir": "rtl",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "dir-rtl__vertical__keyboard",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "dir": "rtl",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled-item__rest",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "defaultValue": "item-1",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1",
+              "disabled": true
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled-item__rest__dark",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "defaultValue": "item-1",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1",
+              "disabled": true
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled-item__tab-skips",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1",
+              "disabled": true
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled-item__open-and-others-clickable",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "multiple",
+          "defaultValue": [
+            "item-2"
+          ],
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2",
+              "disabled": true
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Is it accessible?\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled-root__rest",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "disabled": true,
+          "defaultValue": "item-1",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled-root__rest__dark",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "disabled": true,
+          "defaultValue": "item-1",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled-root__keyboard-noop",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "disabled": true,
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "controlled-single__click-other-no-change",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "value": "item-2",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Is it accessible?\"]"
+        },
+        {
+          "do": "click",
+          "target": "role=button[name=\"Is it styled?\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "controlled-multiple__click-no-change",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "multiple",
+          "value": [
+            "item-1"
+          ],
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Is it styled?\"]"
+        },
+        {
+          "do": "click",
+          "target": "role=button[name=\"Is it accessible?\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class-merge__all-parts",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "defaultValue": "item-1",
+          "className": "w-80 rounded-lg border px-4"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1",
+              "className": "border-b-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {
+                  "className": "py-2 text-base"
+                },
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {
+                  "className": "pb-0 text-muted-foreground"
+                },
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "forwarded-attrs__all-parts",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "defaultValue": "item-1",
+          "id": "faq",
+          "data-testid": "faq-root",
+          "aria-label": "FAQ"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1",
+              "id": "faq-item",
+              "data-testid": "faq-item"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {
+                  "data-testid": "faq-trigger",
+                  "aria-describedby": "faq-hint"
+                },
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {
+                  "data-testid": "faq-content"
+                },
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "caller-ids-override__dangling-relations",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "defaultValue": "item-1",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {
+                  "id": "my-trigger"
+                },
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {
+                  "id": "my-content"
+                },
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Is it styled?\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "as-child__root-and-item",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "asChild": true,
+          "defaultValue": "item-1"
+        },
+        "children": [
+          {
+            "c": "_section",
+            "props": {
+              "className": "w-full"
+            },
+            "children": [
+              {
+                "c": "AccordionItem",
+                "props": {
+                  "value": "item-1",
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_article",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "AccordionTrigger",
+                        "props": {},
+                        "children": [
+                          "Is it accessible?"
+                        ]
+                      },
+                      {
+                        "c": "AccordionContent",
+                        "props": {},
+                        "children": [
+                          "Yes. It adheres to the WAI-ARIA design pattern."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "AccordionItem",
+                "props": {
+                  "value": "item-2"
+                },
+                "children": [
+                  {
+                    "c": "AccordionTrigger",
+                    "props": {},
+                    "children": [
+                      "Is it styled?"
+                    ]
+                  },
+                  {
+                    "c": "AccordionContent",
+                    "props": {},
+                    "children": [
+                      "Yes. It comes with default styles that matches the other components' aesthetic."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Is it styled?\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__force-mount",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "defaultValue": "item-1",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {
+                  "forceMount": true
+                },
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Is it styled?\"]"
+        },
+        {
+          "do": "click",
+          "target": "role=button[name=\"Is it animated?\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "trigger__long-text-wraps",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "collapsible": true,
+          "className": "w-96",
+          "defaultValue": "a"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "a"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "What happens when a trigger label is long enough to wrap onto a second line inside a narrow accordion?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "The chevron stays top aligned."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "trigger__icon-and-text__open",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "collapsible": true,
+          "className": "w-96",
+          "defaultValue": "a"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "a"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "<icon:package>",
+                  "Shipping"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Ships in 2 days."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "trigger__icon-and-text__toggle",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "collapsible": true,
+          "className": "w-96"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "a"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "<icon:package>",
+                  "Shipping"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Ships in 2 days."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Shipping\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__empty__open",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "collapsible": true,
+          "className": "w-96",
+          "defaultValue": "a"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "a"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Empty"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__rich-children",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "collapsible": true,
+          "className": "w-96",
+          "defaultValue": "a"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "a"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Details"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "First paragraph."
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Second paragraph."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "single-item__last-no-border",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "collapsible": true,
+          "className": "w-96"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "a"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Only item"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Only content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "nested__keyboard-scoped",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "defaultValue": "outer-1",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "outer-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Outer one"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "Accordion",
+                    "props": {
+                      "type": "single"
+                    },
+                    "children": [
+                      {
+                        "c": "AccordionItem",
+                        "props": {
+                          "value": "inner-1"
+                        },
+                        "children": [
+                          {
+                            "c": "AccordionTrigger",
+                            "props": {},
+                            "children": [
+                              "Inner one"
+                            ]
+                          },
+                          {
+                            "c": "AccordionContent",
+                            "props": {},
+                            "children": [
+                              "Inner one body"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "AccordionItem",
+                        "props": {
+                          "value": "inner-2"
+                        },
+                        "children": [
+                          {
+                            "c": "AccordionTrigger",
+                            "props": {},
+                            "children": [
+                              "Inner two"
+                            ]
+                          },
+                          {
+                            "c": "AccordionContent",
+                            "props": {},
+                            "children": [
+                              "Inner two body"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "outer-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Outer two"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Outer two body"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "animation__open-close",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "collapsible": true,
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Is it accessible?\"]"
+        },
+        {
+          "do": "wait",
+          "ms": 400
+        },
+        {
+          "do": "click",
+          "target": "role=button[name=\"Is it accessible?\"]"
+        },
+        {
+          "do": "wait",
+          "ms": 400
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": true
+    },
+    {
+      "id": "animation__default-open-no-mount-animation",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "collapsible": true,
+          "defaultValue": "item-1",
+          "className": "w-full"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it accessible?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It adheres to the WAI-ARIA design pattern."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it styled?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It comes with default styles that matches the other components' aesthetic."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Is it animated?"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {},
+                "children": [
+                  "Yes. It's animated by default, but you can disable it if you prefer."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "wait",
+          "ms": 400
+        },
+        {
+          "do": "click",
+          "target": "role=button[name=\"Is it styled?\"]"
+        },
+        {
+          "do": "wait",
+          "ms": 400
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": true
+    },
+    {
+      "id": "example__accordion-demo",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "collapsible": true,
+          "className": "w-full",
+          "defaultValue": "item-1"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Product Information"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {
+                  "className": "flex flex-col gap-4 text-balance"
+                },
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Our flagship product combines cutting-edge technology with sleek design. Built with premium materials, it offers unparalleled performance and reliability."
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Key features include advanced processing capabilities, and an intuitive user interface designed for both beginners and experts."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Shipping Details"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {
+                  "className": "flex flex-col gap-4 text-balance"
+                },
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "We offer worldwide shipping through trusted courier partners. Standard delivery takes 3-5 business days, while express shipping ensures delivery within 1-2 business days."
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "All orders are carefully packaged and fully insured. Track your shipment in real-time through our dedicated tracking portal."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Return Policy"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {
+                  "className": "flex flex-col gap-4 text-balance"
+                },
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "We stand behind our products with a comprehensive 30-day return policy. If you're not completely satisfied, simply return the item in its original condition."
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Our hassle-free return process includes free return shipping and full refunds processed within 48 hours of receiving the returned item."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__accordion-demo__dark",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "collapsible": true,
+          "className": "w-full",
+          "defaultValue": "item-1"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Product Information"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {
+                  "className": "flex flex-col gap-4 text-balance"
+                },
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Our flagship product combines cutting-edge technology with sleek design. Built with premium materials, it offers unparalleled performance and reliability."
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Key features include advanced processing capabilities, and an intuitive user interface designed for both beginners and experts."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Shipping Details"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {
+                  "className": "flex flex-col gap-4 text-balance"
+                },
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "We offer worldwide shipping through trusted courier partners. Standard delivery takes 3-5 business days, while express shipping ensures delivery within 1-2 business days."
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "All orders are carefully packaged and fully insured. Track your shipment in real-time through our dedicated tracking portal."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Return Policy"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {
+                  "className": "flex flex-col gap-4 text-balance"
+                },
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "We stand behind our products with a comprehensive 30-day return policy. If you're not completely satisfied, simply return the item in its original condition."
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Our hassle-free return process includes free return shipping and full refunds processed within 48 hours of receiving the returned item."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__accordion-demo__interact",
+      "tree": {
+        "c": "Accordion",
+        "props": {
+          "type": "single",
+          "collapsible": true,
+          "className": "w-full",
+          "defaultValue": "item-1"
+        },
+        "children": [
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-1"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Product Information"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {
+                  "className": "flex flex-col gap-4 text-balance"
+                },
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Our flagship product combines cutting-edge technology with sleek design. Built with premium materials, it offers unparalleled performance and reliability."
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Key features include advanced processing capabilities, and an intuitive user interface designed for both beginners and experts."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-2"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Shipping Details"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {
+                  "className": "flex flex-col gap-4 text-balance"
+                },
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "We offer worldwide shipping through trusted courier partners. Standard delivery takes 3-5 business days, while express shipping ensures delivery within 1-2 business days."
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "All orders are carefully packaged and fully insured. Track your shipment in real-time through our dedicated tracking portal."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AccordionItem",
+            "props": {
+              "value": "item-3"
+            },
+            "children": [
+              {
+                "c": "AccordionTrigger",
+                "props": {},
+                "children": [
+                  "Return Policy"
+                ]
+              },
+              {
+                "c": "AccordionContent",
+                "props": {
+                  "className": "flex flex-col gap-4 text-balance"
+                },
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "We stand behind our products with a comprehensive 30-day return policy. If you're not completely satisfied, simply return the item in its original condition."
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Our hassle-free return process includes free return shipping and full refunds processed within 48 hours of receiving the returned item."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Shipping Details\"]"
+        },
+        {
+          "do": "click",
+          "target": "role=button[name=\"Shipping Details\"]"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

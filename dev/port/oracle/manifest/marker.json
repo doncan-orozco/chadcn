@@ -1,0 +1,230 @@
+{
+  "name": "marker",
+  "style": "new-york-v4",
+  "source_sha": "036277635df058b8",
+  "use_client": false,
+  "tier": "static",
+  "exports": [
+    "Marker",
+    "MarkerIcon",
+    "MarkerContent",
+    "markerVariants"
+  ],
+  "parts": [
+    {
+      "name": "Marker",
+      "data_attrs": [
+        {
+          "name": "data-variant",
+          "value": "{variant}"
+        }
+      ],
+      "data_slots": [
+        "marker"
+      ],
+      "data_slot": "marker",
+      "wraps": "Comp",
+      "renders": "Comp",
+      "slot_tags": {
+        "marker": "Comp"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "variant",
+            "default": "\"default\""
+          },
+          {
+            "name": "asChild",
+            "default": "false"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "asChild",
+            "type": "boolean"
+          }
+        ]
+      },
+      "class_tokens": [],
+      "uses_cva": true,
+      "variants_used": [
+        "markerVariants"
+      ]
+    },
+    {
+      "name": "MarkerIcon",
+      "data_attrs": [],
+      "data_slots": [
+        "marker-icon"
+      ],
+      "data_slot": "marker-icon",
+      "wraps": null,
+      "renders": "span",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "[&_svg:not([class*='size-'])]:size-4",
+        "shrink-0",
+        "size-4"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "MarkerContent",
+      "data_attrs": [],
+      "data_slots": [
+        "marker-content"
+      ],
+      "data_slot": "marker-content",
+      "wraps": null,
+      "renders": "span",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "*:[a]:hover:text-foreground",
+        "*:[a]:underline",
+        "*:[a]:underline-offset-3",
+        "group-data-[variant=separator]/marker:flex-none",
+        "group-data-[variant=separator]/marker:text-center",
+        "min-w-0",
+        "wrap-break-word"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {
+    "markerVariants": {
+      "base": "group/marker relative flex min-h-4 w-full items-center gap-2 text-left text-sm text-muted-foreground [&_svg:not([class*='size-'])]:size-4 [a]:underline [a]:underline-offset-3 [a]:hover:text-foreground",
+      "variants": {
+        "variant": {
+          "default": "",
+          "separator": "before:mr-1 before:h-px before:min-w-0 before:flex-1 before:bg-border after:ml-1 after:h-px after:min-w-0 after:flex-1 after:bg-border",
+          "border": "border-b border-border pb-2"
+        }
+      },
+      "defaults": {},
+      "compound": [],
+      "tokens": [
+        "[&_svg:not([class*='size-'])]:size-4",
+        "[a]:hover:text-foreground",
+        "[a]:underline",
+        "[a]:underline-offset-3",
+        "after:bg-border",
+        "after:flex-1",
+        "after:h-px",
+        "after:min-w-0",
+        "after:ml-1",
+        "before:bg-border",
+        "before:flex-1",
+        "before:h-px",
+        "before:min-w-0",
+        "before:mr-1",
+        "border-b",
+        "border-border",
+        "flex",
+        "gap-2",
+        "group/marker",
+        "items-center",
+        "min-h-4",
+        "pb-2",
+        "relative",
+        "text-left",
+        "text-muted-foreground",
+        "text-sm",
+        "w-full"
+      ]
+    }
+  },
+  "class_tokens": [
+    "*:[a]:hover:text-foreground",
+    "*:[a]:underline",
+    "*:[a]:underline-offset-3",
+    "[&_svg:not([class*='size-'])]:size-4",
+    "[a]:hover:text-foreground",
+    "[a]:underline",
+    "[a]:underline-offset-3",
+    "after:bg-border",
+    "after:flex-1",
+    "after:h-px",
+    "after:min-w-0",
+    "after:ml-1",
+    "before:bg-border",
+    "before:flex-1",
+    "before:h-px",
+    "before:min-w-0",
+    "before:mr-1",
+    "border-b",
+    "border-border",
+    "flex",
+    "gap-2",
+    "group-data-[variant=separator]/marker:flex-none",
+    "group-data-[variant=separator]/marker:text-center",
+    "group/marker",
+    "items-center",
+    "min-h-4",
+    "min-w-0",
+    "pb-2",
+    "relative",
+    "shrink-0",
+    "size-4",
+    "text-left",
+    "text-muted-foreground",
+    "text-sm",
+    "w-full",
+    "wrap-break-word"
+  ],
+  "data_attrs": [
+    "data-variant"
+  ],
+  "data_slots": [
+    "marker",
+    "marker-content",
+    "marker-icon"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [
+    "Slot"
+  ],
+  "third_party": [],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn",
+    "radix-ui"
+  ],
+  "extra_files": []
+}

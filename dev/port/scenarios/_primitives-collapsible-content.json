@@ -1,0 +1,925 @@
+{
+  "component": "_primitives-collapsible-content",
+  "scenarios": [
+    {
+      "id": "closed-initial",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "collapsible_content",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-collapsible-content",
+          "className": "flex w-72 flex-col gap-2",
+          "data-state": "closed"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "trigger",
+              "data-shadcn---probe-collapsible-content-target": "trigger",
+              "data-state": "closed",
+              "aria-expanded": "false",
+              "data-action": "click->shadcn---probe-collapsible-content#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "id": "cc-content",
+              "data-slot": "content",
+              "data-shadcn---probe-collapsible-content-target": "content",
+              "data-state": "closed",
+              "className": "overflow-hidden data-[state=closed]:animate-out data-[state=closed]:[animation-duration:500ms]!",
+              "hidden": true
+            },
+            "children": [
+              {
+                "c": "_template",
+                "props": {
+                  "data-shadcn---probe-collapsible-content-target": "template"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "body",
+                      "className": "rounded-md border p-4 text-sm"
+                    },
+                    "children": [
+                      {
+                        "c": "_p",
+                        "props": {
+                          "data-slot": "text"
+                        },
+                        "children": [
+                          "Collapsible body"
+                        ]
+                      },
+                      {
+                        "c": "_p",
+                        "props": {
+                          "data-slot": "text-2"
+                        },
+                        "children": [
+                          "Second line"
+                        ]
+                      },
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "measure",
+                          "className": "transition-none h-[calc(var(--radix-collapsible-content-height,0px)/10)] w-[calc(var(--radix-collapsible-content-width,0px)/2)] bg-primary"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "open-initial",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "collapsible_content",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-collapsible-content",
+          "className": "flex w-72 flex-col gap-2",
+          "data-shadcn---probe-collapsible-content-open-value": "true",
+          "data-state": "open"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "trigger",
+              "data-shadcn---probe-collapsible-content-target": "trigger",
+              "data-state": "open",
+              "aria-expanded": "true",
+              "data-action": "click->shadcn---probe-collapsible-content#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "aria-controls": "cc-content"
+            },
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "id": "cc-content",
+              "data-slot": "content",
+              "data-shadcn---probe-collapsible-content-target": "content",
+              "data-state": "open",
+              "className": "overflow-hidden data-[state=closed]:animate-out data-[state=closed]:[animation-duration:500ms]!"
+            },
+            "children": [
+              {
+                "c": "_template",
+                "props": {
+                  "data-shadcn---probe-collapsible-content-target": "template"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "body",
+                      "className": "rounded-md border p-4 text-sm"
+                    },
+                    "children": [
+                      {
+                        "c": "_p",
+                        "props": {
+                          "data-slot": "text"
+                        },
+                        "children": [
+                          "Collapsible body"
+                        ]
+                      },
+                      {
+                        "c": "_p",
+                        "props": {
+                          "data-slot": "text-2"
+                        },
+                        "children": [
+                          "Second line"
+                        ]
+                      },
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "measure",
+                          "className": "transition-none h-[calc(var(--radix-collapsible-content-height,0px)/10)] w-[calc(var(--radix-collapsible-content-width,0px)/2)] bg-primary"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "toggle-open-close",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "collapsible_content",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-collapsible-content",
+          "className": "flex w-72 flex-col gap-2",
+          "data-state": "closed"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "trigger",
+              "data-shadcn---probe-collapsible-content-target": "trigger",
+              "data-state": "closed",
+              "aria-expanded": "false",
+              "data-action": "click->shadcn---probe-collapsible-content#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "id": "cc-content",
+              "data-slot": "content",
+              "data-shadcn---probe-collapsible-content-target": "content",
+              "data-state": "closed",
+              "className": "overflow-hidden data-[state=closed]:animate-out data-[state=closed]:[animation-duration:500ms]!",
+              "hidden": true
+            },
+            "children": [
+              {
+                "c": "_template",
+                "props": {
+                  "data-shadcn---probe-collapsible-content-target": "template"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "body",
+                      "className": "rounded-md border p-4 text-sm"
+                    },
+                    "children": [
+                      {
+                        "c": "_p",
+                        "props": {
+                          "data-slot": "text"
+                        },
+                        "children": [
+                          "Collapsible body"
+                        ]
+                      },
+                      {
+                        "c": "_p",
+                        "props": {
+                          "data-slot": "text-2"
+                        },
+                        "children": [
+                          "Second line"
+                        ]
+                      },
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "measure",
+                          "className": "transition-none h-[calc(var(--radix-collapsible-content-height,0px)/10)] w-[calc(var(--radix-collapsible-content-width,0px)/2)] bg-primary"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=trigger]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=trigger]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "open-initial-then-close",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "collapsible_content",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-collapsible-content",
+          "className": "flex w-72 flex-col gap-2",
+          "data-shadcn---probe-collapsible-content-open-value": "true",
+          "data-state": "open"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "trigger",
+              "data-shadcn---probe-collapsible-content-target": "trigger",
+              "data-state": "open",
+              "aria-expanded": "true",
+              "data-action": "click->shadcn---probe-collapsible-content#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "aria-controls": "cc-content"
+            },
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "id": "cc-content",
+              "data-slot": "content",
+              "data-shadcn---probe-collapsible-content-target": "content",
+              "data-state": "open",
+              "className": "overflow-hidden data-[state=closed]:animate-out data-[state=closed]:[animation-duration:500ms]!"
+            },
+            "children": [
+              {
+                "c": "_template",
+                "props": {
+                  "data-shadcn---probe-collapsible-content-target": "template"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "body",
+                      "className": "rounded-md border p-4 text-sm"
+                    },
+                    "children": [
+                      {
+                        "c": "_p",
+                        "props": {
+                          "data-slot": "text"
+                        },
+                        "children": [
+                          "Collapsible body"
+                        ]
+                      },
+                      {
+                        "c": "_p",
+                        "props": {
+                          "data-slot": "text-2"
+                        },
+                        "children": [
+                          "Second line"
+                        ]
+                      },
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "measure",
+                          "className": "transition-none h-[calc(var(--radix-collapsible-content-height,0px)/10)] w-[calc(var(--radix-collapsible-content-width,0px)/2)] bg-primary"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=trigger]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "reopen-is-fresh-and-measured",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "collapsible_content",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-collapsible-content",
+          "className": "flex w-72 flex-col gap-2",
+          "data-state": "closed"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "trigger",
+              "data-shadcn---probe-collapsible-content-target": "trigger",
+              "data-state": "closed",
+              "aria-expanded": "false",
+              "data-action": "click->shadcn---probe-collapsible-content#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "id": "cc-content",
+              "data-slot": "content",
+              "data-shadcn---probe-collapsible-content-target": "content",
+              "data-state": "closed",
+              "className": "overflow-hidden data-[state=closed]:animate-out data-[state=closed]:[animation-duration:500ms]!",
+              "hidden": true
+            },
+            "children": [
+              {
+                "c": "_template",
+                "props": {
+                  "data-shadcn---probe-collapsible-content-target": "template"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "body",
+                      "className": "rounded-md border p-4 text-sm"
+                    },
+                    "children": [
+                      {
+                        "c": "_p",
+                        "props": {
+                          "data-slot": "text"
+                        },
+                        "children": [
+                          "Collapsible body"
+                        ]
+                      },
+                      {
+                        "c": "_p",
+                        "props": {
+                          "data-slot": "text-2"
+                        },
+                        "children": [
+                          "Second line"
+                        ]
+                      },
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "measure",
+                          "className": "transition-none h-[calc(var(--radix-collapsible-content-height,0px)/10)] w-[calc(var(--radix-collapsible-content-width,0px)/2)] bg-primary"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=trigger]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=trigger]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=trigger]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "animated-close",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "collapsible_content",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-collapsible-content",
+          "className": "flex w-72 flex-col gap-2",
+          "data-shadcn---probe-collapsible-content-open-value": "true",
+          "data-state": "open"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "trigger",
+              "data-shadcn---probe-collapsible-content-target": "trigger",
+              "data-state": "open",
+              "aria-expanded": "true",
+              "data-action": "click->shadcn---probe-collapsible-content#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "aria-controls": "cc-content"
+            },
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "id": "cc-content",
+              "data-slot": "content",
+              "data-shadcn---probe-collapsible-content-target": "content",
+              "data-state": "open",
+              "className": "overflow-hidden data-[state=closed]:animate-out data-[state=closed]:[animation-duration:500ms]!"
+            },
+            "children": [
+              {
+                "c": "_template",
+                "props": {
+                  "data-shadcn---probe-collapsible-content-target": "template"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "body",
+                      "className": "rounded-md border p-4 text-sm"
+                    },
+                    "children": [
+                      {
+                        "c": "_p",
+                        "props": {
+                          "data-slot": "text"
+                        },
+                        "children": [
+                          "Collapsible body"
+                        ]
+                      },
+                      {
+                        "c": "_p",
+                        "props": {
+                          "data-slot": "text-2"
+                        },
+                        "children": [
+                          "Second line"
+                        ]
+                      },
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "measure",
+                          "className": "transition-none h-[calc(var(--radix-collapsible-content-height,0px)/10)] w-[calc(var(--radix-collapsible-content-width,0px)/2)] bg-primary"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 900
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": true
+    },
+    {
+      "id": "animated-open-close-open",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "collapsible_content",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-collapsible-content",
+          "className": "flex w-72 flex-col gap-2",
+          "data-state": "closed"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "trigger",
+              "data-shadcn---probe-collapsible-content-target": "trigger",
+              "data-state": "closed",
+              "aria-expanded": "false",
+              "data-action": "click->shadcn---probe-collapsible-content#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "id": "cc-content",
+              "data-slot": "content",
+              "data-shadcn---probe-collapsible-content-target": "content",
+              "data-state": "closed",
+              "className": "overflow-hidden data-[state=closed]:animate-out data-[state=closed]:[animation-duration:500ms]!",
+              "hidden": true
+            },
+            "children": [
+              {
+                "c": "_template",
+                "props": {
+                  "data-shadcn---probe-collapsible-content-target": "template"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "body",
+                      "className": "rounded-md border p-4 text-sm"
+                    },
+                    "children": [
+                      {
+                        "c": "_p",
+                        "props": {
+                          "data-slot": "text"
+                        },
+                        "children": [
+                          "Collapsible body"
+                        ]
+                      },
+                      {
+                        "c": "_p",
+                        "props": {
+                          "data-slot": "text-2"
+                        },
+                        "children": [
+                          "Second line"
+                        ]
+                      },
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "measure",
+                          "className": "transition-none h-[calc(var(--radix-collapsible-content-height,0px)/10)] w-[calc(var(--radix-collapsible-content-width,0px)/2)] bg-primary"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 900
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 900
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=trigger]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": true
+    },
+    {
+      "id": "animated-close-after-first-frame",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "collapsible_content",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-collapsible-content",
+          "className": "flex w-72 flex-col gap-2",
+          "data-shadcn---probe-collapsible-content-open-value": "true",
+          "data-state": "open"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "trigger",
+              "data-shadcn---probe-collapsible-content-target": "trigger",
+              "data-state": "open",
+              "aria-expanded": "true",
+              "data-action": "click->shadcn---probe-collapsible-content#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "aria-controls": "cc-content"
+            },
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "id": "cc-content",
+              "data-slot": "content",
+              "data-shadcn---probe-collapsible-content-target": "content",
+              "data-state": "open",
+              "className": "overflow-hidden data-[state=closed]:animate-out data-[state=closed]:[animation-duration:500ms]!"
+            },
+            "children": [
+              {
+                "c": "_template",
+                "props": {
+                  "data-shadcn---probe-collapsible-content-target": "template"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "body",
+                      "className": "rounded-md border p-4 text-sm"
+                    },
+                    "children": [
+                      {
+                        "c": "_p",
+                        "props": {
+                          "data-slot": "text"
+                        },
+                        "children": [
+                          "Collapsible body"
+                        ]
+                      },
+                      {
+                        "c": "_p",
+                        "props": {
+                          "data-slot": "text-2"
+                        },
+                        "children": [
+                          "Second line"
+                        ]
+                      },
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "measure",
+                          "className": "transition-none h-[calc(var(--radix-collapsible-content-height,0px)/10)] w-[calc(var(--radix-collapsible-content-width,0px)/2)] bg-primary"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "wait",
+          "ms": 400
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 200
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": true
+    },
+    {
+      "id": "animated-close-after-first-frame-ssr-suspended",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "collapsible_content",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-collapsible-content",
+          "className": "flex w-72 flex-col gap-2",
+          "data-shadcn---probe-collapsible-content-open-value": "true",
+          "data-state": "open"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "trigger",
+              "data-shadcn---probe-collapsible-content-target": "trigger",
+              "data-state": "open",
+              "aria-expanded": "true",
+              "data-action": "click->shadcn---probe-collapsible-content#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "aria-controls": "cc-content"
+            },
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "id": "cc-content",
+              "data-slot": "content",
+              "data-shadcn---probe-collapsible-content-target": "content",
+              "data-state": "open",
+              "className": "overflow-hidden data-[state=closed]:animate-out data-[state=closed]:[animation-duration:500ms]!",
+              "style": {
+                "transitionDuration": "0s",
+                "animationName": "none"
+              }
+            },
+            "children": [
+              {
+                "c": "_template",
+                "props": {
+                  "data-shadcn---probe-collapsible-content-target": "template"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "body",
+                      "className": "rounded-md border p-4 text-sm"
+                    },
+                    "children": [
+                      {
+                        "c": "_p",
+                        "props": {
+                          "data-slot": "text"
+                        },
+                        "children": [
+                          "Collapsible body"
+                        ]
+                      },
+                      {
+                        "c": "_p",
+                        "props": {
+                          "data-slot": "text-2"
+                        },
+                        "children": [
+                          "Second line"
+                        ]
+                      },
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "measure",
+                          "className": "transition-none h-[calc(var(--radix-collapsible-content-height,0px)/10)] w-[calc(var(--radix-collapsible-content-width,0px)/2)] bg-primary"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "wait",
+          "ms": 400
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 200
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": true
+    }
+  ]
+}

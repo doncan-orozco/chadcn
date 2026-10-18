@@ -1,0 +1,9 @@
+{
+  "case": "23-oracle-audit-clean",
+  "kind": "oracle_audit",
+  "description": "oracle_audit.rb on the extracted fixtures (incl. sonner, an arrow-function component) reports nothing: the manifest agrees with an independent count taken from the TSX.",
+  "must_detect": [],
+  "must_not_detect": [
+    "*"
+  ]
+}

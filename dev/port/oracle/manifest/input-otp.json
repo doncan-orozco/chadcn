@@ -1,0 +1,246 @@
+{
+  "name": "input-otp",
+  "style": "new-york-v4",
+  "source_sha": "9f81898aeaabbb10",
+  "use_client": true,
+  "tier": "third_party",
+  "exports": [
+    "InputOTP",
+    "InputOTPGroup",
+    "InputOTPSlot",
+    "InputOTPSeparator"
+  ],
+  "parts": [
+    {
+      "name": "InputOTP",
+      "data_attrs": [],
+      "data_slots": [
+        "input-otp"
+      ],
+      "data_slot": "input-otp",
+      "wraps": null,
+      "renders": "OTPInput",
+      "slot_tags": {
+        "input-otp": "OTPInput"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "containerClassName"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "containerClassName",
+            "type": "string"
+          }
+        ]
+      },
+      "class_tokens": [
+        "disabled:cursor-not-allowed",
+        "flex",
+        "gap-2",
+        "has-disabled:opacity-50",
+        "items-center"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "InputOTPGroup",
+      "data_attrs": [],
+      "data_slots": [
+        "input-otp-group"
+      ],
+      "data_slot": "input-otp-group",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "items-center"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "InputOTPSlot",
+      "data_attrs": [
+        {
+          "name": "data-active",
+          "value": "{isActive}"
+        }
+      ],
+      "data_slots": [
+        "input-otp-slot"
+      ],
+      "data_slot": "input-otp-slot",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "index"
+          },
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "index",
+            "type": "number"
+          }
+        ]
+      },
+      "class_tokens": [
+        "absolute",
+        "animate-caret-blink",
+        "aria-invalid:border-destructive",
+        "bg-foreground",
+        "border-input",
+        "border-r",
+        "border-y",
+        "dark:bg-input/30",
+        "dark:data-[active=true]:aria-invalid:ring-destructive/40",
+        "data-[active=true]:aria-invalid:border-destructive",
+        "data-[active=true]:aria-invalid:ring-destructive/20",
+        "data-[active=true]:border-ring",
+        "data-[active=true]:ring-[3px]",
+        "data-[active=true]:ring-ring/50",
+        "data-[active=true]:z-10",
+        "duration-1000",
+        "first:border-l",
+        "first:rounded-l-md",
+        "flex",
+        "h-4",
+        "h-9",
+        "inset-0",
+        "items-center",
+        "justify-center",
+        "last:rounded-r-md",
+        "outline-none",
+        "pointer-events-none",
+        "relative",
+        "shadow-xs",
+        "text-sm",
+        "transition-all",
+        "w-9",
+        "w-px"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "InputOTPSeparator",
+      "data_attrs": [],
+      "data_slots": [
+        "input-otp-separator"
+      ],
+      "data_slot": "input-otp-separator",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "absolute",
+    "animate-caret-blink",
+    "aria-invalid:border-destructive",
+    "bg-foreground",
+    "border-input",
+    "border-r",
+    "border-y",
+    "dark:bg-input/30",
+    "dark:data-[active=true]:aria-invalid:ring-destructive/40",
+    "data-[active=true]:aria-invalid:border-destructive",
+    "data-[active=true]:aria-invalid:ring-destructive/20",
+    "data-[active=true]:border-ring",
+    "data-[active=true]:ring-[3px]",
+    "data-[active=true]:ring-ring/50",
+    "data-[active=true]:z-10",
+    "disabled:cursor-not-allowed",
+    "duration-1000",
+    "first:border-l",
+    "first:rounded-l-md",
+    "flex",
+    "gap-2",
+    "h-4",
+    "h-9",
+    "has-disabled:opacity-50",
+    "inset-0",
+    "items-center",
+    "justify-center",
+    "last:rounded-r-md",
+    "outline-none",
+    "pointer-events-none",
+    "relative",
+    "shadow-xs",
+    "text-sm",
+    "transition-all",
+    "w-9",
+    "w-px"
+  ],
+  "data_attrs": [
+    "data-active"
+  ],
+  "data_slots": [
+    "input-otp",
+    "input-otp-group",
+    "input-otp-separator",
+    "input-otp-slot"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [],
+  "third_party": [
+    "input-otp"
+  ],
+  "icons": [
+    "MinusIcon"
+  ],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn",
+    "input-otp"
+  ],
+  "extra_files": []
+}

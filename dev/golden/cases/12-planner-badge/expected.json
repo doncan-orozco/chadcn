@@ -1,0 +1,9 @@
+{
+  "case": "12-planner-badge",
+  "kind": "planner",
+  "component": "badge",
+  "description": "Planner on a static cva component (badge: 6 variants, data-variant, asChild). Output must pass planner_check: spec sections, all parts/slots named, valid scenarios covering every variant, dark twins, React-named props.",
+  "min_scenarios": 12,
+  "must_have_dark": true,
+  "must_have_step_kinds": []
+}

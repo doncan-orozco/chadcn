@@ -1,0 +1,6 @@
+{
+  "reason": "shadcn RadioGroupItem always passes RadioGroupPrimitive.Indicator as the Item's only child, so Radix asChild would merge the radio onto the indicator (absent while unchecked); as_child is therefore not offered on RadioGroup::Item (it is supported on the RadioGroup root)",
+  "allow_tokens": [],
+  "allow_missing_tokens": [],
+  "api": ["RadioGroup::Item: as_child not supported"]
+}

@@ -1,0 +1,9 @@
+{
+  "component": "tooltip",
+  "reason": "Radix renders no content node while the tooltip is closed and creates it on the client inside a body portal. The server must ship the TooltipContent markup somewhere and the trigger (the controller host, a button) cannot contain it, so Tooltip::Content emits an inert <template> sibling at its call site. The template has no data-slot, generates no box and its content is not part of the document, so DOM node lists, boxes and accessibility match the oracle.",
+  "allow_tokens": [],
+  "allow_missing_tokens": [],
+  "api": [
+    "Tooltip::Content renders an inert <template data-shadcn--tooltip-template> (no data-slot) holding the content markup while closed"
+  ]
+}

@@ -1,0 +1,489 @@
+{
+  "name": "sheet",
+  "style": "new-york-v4",
+  "source_sha": "ea473d38a26a9b0b",
+  "use_client": true,
+  "tier": "overlay",
+  "exports": [
+    "Sheet",
+    "SheetTrigger",
+    "SheetClose",
+    "SheetContent",
+    "SheetHeader",
+    "SheetFooter",
+    "SheetTitle",
+    "SheetDescription"
+  ],
+  "parts": [
+    {
+      "name": "Sheet",
+      "data_attrs": [],
+      "data_slots": [
+        "sheet"
+      ],
+      "data_slot": "sheet",
+      "wraps": "SheetPrimitive.Root",
+      "renders": "SheetPrimitive.Root",
+      "slot_tags": {
+        "sheet": "SheetPrimitive.Root"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SheetTrigger",
+      "data_attrs": [],
+      "data_slots": [
+        "sheet-trigger"
+      ],
+      "data_slot": "sheet-trigger",
+      "wraps": "SheetPrimitive.Trigger",
+      "renders": "SheetPrimitive.Trigger",
+      "slot_tags": {
+        "sheet-trigger": "SheetPrimitive.Trigger"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SheetClose",
+      "data_attrs": [],
+      "data_slots": [
+        "sheet-close"
+      ],
+      "data_slot": "sheet-close",
+      "wraps": "SheetPrimitive.Close",
+      "renders": "SheetPrimitive.Close",
+      "slot_tags": {
+        "sheet-close": "SheetPrimitive.Close"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SheetPortal",
+      "data_attrs": [],
+      "data_slots": [
+        "sheet-portal"
+      ],
+      "data_slot": "sheet-portal",
+      "wraps": "SheetPrimitive.Portal",
+      "renders": "SheetPrimitive.Portal",
+      "slot_tags": {
+        "sheet-portal": "SheetPrimitive.Portal"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SheetOverlay",
+      "data_attrs": [],
+      "data_slots": [
+        "sheet-overlay"
+      ],
+      "data_slot": "sheet-overlay",
+      "wraps": "SheetPrimitive.Overlay",
+      "renders": "SheetPrimitive.Overlay",
+      "slot_tags": {
+        "sheet-overlay": "SheetPrimitive.Overlay"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "bg-black/50",
+        "data-[state=closed]:animate-out",
+        "data-[state=closed]:fade-out-0",
+        "data-[state=open]:animate-in",
+        "data-[state=open]:fade-in-0",
+        "fixed",
+        "inset-0",
+        "z-50"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SheetContent",
+      "data_attrs": [],
+      "data_slots": [
+        "sheet-content"
+      ],
+      "data_slot": "sheet-content",
+      "wraps": "SheetPrimitive.Content",
+      "renders": "SheetPortal",
+      "slot_tags": {
+        "sheet-content": "SheetPrimitive.Content"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "children"
+          },
+          {
+            "name": "side",
+            "default": "\"right\""
+          },
+          {
+            "name": "showCloseButton",
+            "default": "true"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "side",
+            "type": "\"top\" | \"right\" | \"bottom\" | \"left\""
+          },
+          {
+            "name": "showCloseButton",
+            "type": "boolean"
+          }
+        ]
+      },
+      "class_tokens": [
+        "absolute",
+        "bg-background",
+        "border-b",
+        "border-l",
+        "border-r",
+        "border-t",
+        "bottom",
+        "bottom-0",
+        "data-[state=closed]:animate-out",
+        "data-[state=closed]:duration-300",
+        "data-[state=closed]:slide-out-to-bottom",
+        "data-[state=closed]:slide-out-to-left",
+        "data-[state=closed]:slide-out-to-right",
+        "data-[state=closed]:slide-out-to-top",
+        "data-[state=open]:animate-in",
+        "data-[state=open]:bg-secondary",
+        "data-[state=open]:duration-500",
+        "data-[state=open]:slide-in-from-bottom",
+        "data-[state=open]:slide-in-from-left",
+        "data-[state=open]:slide-in-from-right",
+        "data-[state=open]:slide-in-from-top",
+        "disabled:pointer-events-none",
+        "ease-in-out",
+        "fixed",
+        "flex",
+        "flex-col",
+        "focus:outline-hidden",
+        "focus:ring-2",
+        "focus:ring-offset-2",
+        "focus:ring-ring",
+        "gap-4",
+        "h-auto",
+        "h-full",
+        "hover:opacity-100",
+        "inset-x-0",
+        "inset-y-0",
+        "left",
+        "left-0",
+        "opacity-70",
+        "right",
+        "right-0",
+        "right-4",
+        "ring-offset-background",
+        "rounded-xs",
+        "shadow-lg",
+        "size-4",
+        "sm:max-w-sm",
+        "sr-only",
+        "top",
+        "top-0",
+        "top-4",
+        "transition",
+        "transition-opacity",
+        "w-3/4",
+        "z-50"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SheetHeader",
+      "data_attrs": [],
+      "data_slots": [
+        "sheet-header"
+      ],
+      "data_slot": "sheet-header",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "flex-col",
+        "gap-1.5",
+        "p-4"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SheetFooter",
+      "data_attrs": [],
+      "data_slots": [
+        "sheet-footer"
+      ],
+      "data_slot": "sheet-footer",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "flex-col",
+        "gap-2",
+        "mt-auto",
+        "p-4"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SheetTitle",
+      "data_attrs": [],
+      "data_slots": [
+        "sheet-title"
+      ],
+      "data_slot": "sheet-title",
+      "wraps": "SheetPrimitive.Title",
+      "renders": "SheetPrimitive.Title",
+      "slot_tags": {
+        "sheet-title": "SheetPrimitive.Title"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "font-semibold",
+        "text-foreground"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SheetDescription",
+      "data_attrs": [],
+      "data_slots": [
+        "sheet-description"
+      ],
+      "data_slot": "sheet-description",
+      "wraps": "SheetPrimitive.Description",
+      "renders": "SheetPrimitive.Description",
+      "slot_tags": {
+        "sheet-description": "SheetPrimitive.Description"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "text-muted-foreground",
+        "text-sm"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "absolute",
+    "bg-background",
+    "bg-black/50",
+    "border-b",
+    "border-l",
+    "border-r",
+    "border-t",
+    "bottom",
+    "bottom-0",
+    "data-[state=closed]:animate-out",
+    "data-[state=closed]:duration-300",
+    "data-[state=closed]:fade-out-0",
+    "data-[state=closed]:slide-out-to-bottom",
+    "data-[state=closed]:slide-out-to-left",
+    "data-[state=closed]:slide-out-to-right",
+    "data-[state=closed]:slide-out-to-top",
+    "data-[state=open]:animate-in",
+    "data-[state=open]:bg-secondary",
+    "data-[state=open]:duration-500",
+    "data-[state=open]:fade-in-0",
+    "data-[state=open]:slide-in-from-bottom",
+    "data-[state=open]:slide-in-from-left",
+    "data-[state=open]:slide-in-from-right",
+    "data-[state=open]:slide-in-from-top",
+    "disabled:pointer-events-none",
+    "ease-in-out",
+    "fixed",
+    "flex",
+    "flex-col",
+    "focus:outline-hidden",
+    "focus:ring-2",
+    "focus:ring-offset-2",
+    "focus:ring-ring",
+    "font-semibold",
+    "gap-1.5",
+    "gap-2",
+    "gap-4",
+    "h-auto",
+    "h-full",
+    "hover:opacity-100",
+    "inset-0",
+    "inset-x-0",
+    "inset-y-0",
+    "left",
+    "left-0",
+    "mt-auto",
+    "opacity-70",
+    "p-4",
+    "right",
+    "right-0",
+    "right-4",
+    "ring-offset-background",
+    "rounded-xs",
+    "shadow-lg",
+    "size-4",
+    "sm:max-w-sm",
+    "sr-only",
+    "text-foreground",
+    "text-muted-foreground",
+    "text-sm",
+    "top",
+    "top-0",
+    "top-4",
+    "transition",
+    "transition-opacity",
+    "w-3/4",
+    "z-50"
+  ],
+  "data_attrs": [],
+  "data_slots": [
+    "sheet",
+    "sheet-close",
+    "sheet-content",
+    "sheet-description",
+    "sheet-footer",
+    "sheet-header",
+    "sheet-overlay",
+    "sheet-portal",
+    "sheet-title",
+    "sheet-trigger"
+  ],
+  "non_rendered_slots": [
+    "sheet",
+    "sheet-portal"
+  ],
+  "radix_primitives": [
+    "Dialog"
+  ],
+  "third_party": [],
+  "icons": [
+    "XIcon"
+  ],
+  "text_literals": [
+    "Close"
+  ],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn",
+    "radix-ui"
+  ],
+  "extra_files": []
+}

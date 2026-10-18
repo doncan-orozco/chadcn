@@ -1,0 +1,17 @@
+{
+  "case": "21-run-no-browser",
+  "kind": "run",
+  "description": "--no-browser: builders end in status `built` (never `done`). `built` must count as satisfied for dependents and must NOT be returned by next again, otherwise the run loops forever.",
+  "concurrency": 4,
+  "default_outcome": "built",
+  "expect": {
+    "completed": true,
+    "stop_reason": null,
+    "dispatched_once": true,
+    "final_status": {
+      "button": "built",
+      "dialog": "built",
+      "alert-dialog": "built"
+    }
+  }
+}

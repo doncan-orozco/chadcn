@@ -1,0 +1,2159 @@
+{
+  "component": "_primitives-roving-focus",
+  "scenarios": [
+    {
+      "id": "initial-idle",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "before",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "group",
+              "role": "toolbar",
+              "className": "flex gap-2 rounded-md border p-2",
+              "tabIndex": 0,
+              "style": "outline: none",
+              "data-orientation": "horizontal",
+              "data-controller": "shadcn---probe-roving-focus"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-a",
+                  "id": "item-a",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item A"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-b",
+                  "id": "item-b",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item B"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-c",
+                  "id": "item-c",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item C"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-d",
+                  "id": "item-d",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item D"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "after",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "horizontal-ltr",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "before",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "group",
+              "role": "toolbar",
+              "className": "flex gap-2 rounded-md border p-2",
+              "tabIndex": 0,
+              "style": "outline: none",
+              "data-orientation": "horizontal",
+              "data-controller": "shadcn---probe-roving-focus"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-a",
+                  "id": "item-a",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item A"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-b",
+                  "id": "item-b",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item B"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-c",
+                  "id": "item-c",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item C"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-d",
+                  "id": "item-d",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item D"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "after",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[data-slot=before]"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "End"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "Home"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "PageDown"
+        },
+        {
+          "do": "press",
+          "key": "PageUp"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab",
+          "shift": true
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "horizontal-loop",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "before",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "group",
+              "role": "toolbar",
+              "className": "flex gap-2 rounded-md border p-2",
+              "tabIndex": 0,
+              "style": "outline: none",
+              "data-orientation": "horizontal",
+              "data-controller": "shadcn---probe-roving-focus",
+              "data-roving-loop": "true"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-a",
+                  "id": "item-a",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item A"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-b",
+                  "id": "item-b",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item B"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-c",
+                  "id": "item-c",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item C"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-d",
+                  "id": "item-d",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item D"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "after",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[data-slot=before]"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "End"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "vertical",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "before",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "group",
+              "role": "toolbar",
+              "className": "flex flex-col gap-2 rounded-md border p-2 w-40",
+              "tabIndex": 0,
+              "style": "outline: none",
+              "data-orientation": "vertical",
+              "data-controller": "shadcn---probe-roving-focus"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-a",
+                  "id": "item-a",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item A"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-b",
+                  "id": "item-b",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item B"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-c",
+                  "id": "item-c",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item C"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-d",
+                  "id": "item-d",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item D"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "after",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[data-slot=before]"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowUp"
+        },
+        {
+          "do": "press",
+          "key": "End"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        },
+        {
+          "do": "press",
+          "key": "Home"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "vertical-loop",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "before",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "group",
+              "role": "toolbar",
+              "className": "flex flex-col gap-2 rounded-md border p-2 w-40",
+              "tabIndex": 0,
+              "style": "outline: none",
+              "data-orientation": "vertical",
+              "data-controller": "shadcn---probe-roving-focus",
+              "data-roving-loop": "true"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-a",
+                  "id": "item-a",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item A"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-b",
+                  "id": "item-b",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item B"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-c",
+                  "id": "item-c",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item C"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-d",
+                  "id": "item-d",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "vertical",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item D"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "after",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[data-slot=before]"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowUp"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "rtl",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "before",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "group",
+              "role": "toolbar",
+              "className": "flex gap-2 rounded-md border p-2",
+              "tabIndex": 0,
+              "style": "outline: none",
+              "data-orientation": "horizontal",
+              "data-controller": "shadcn---probe-roving-focus",
+              "data-roving-dir": "rtl"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-a",
+                  "id": "item-a",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item A"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-b",
+                  "id": "item-b",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item B"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-c",
+                  "id": "item-c",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item C"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-d",
+                  "id": "item-d",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item D"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "after",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[data-slot=before]"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "rtl-loop",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "before",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "group",
+              "role": "toolbar",
+              "className": "flex gap-2 rounded-md border p-2",
+              "tabIndex": 0,
+              "style": "outline: none",
+              "data-orientation": "horizontal",
+              "data-controller": "shadcn---probe-roving-focus",
+              "data-roving-dir": "rtl",
+              "data-roving-loop": "true"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-a",
+                  "id": "item-a",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item A"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-b",
+                  "id": "item-b",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item B"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-c",
+                  "id": "item-c",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item C"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-d",
+                  "id": "item-d",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item D"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "after",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[data-slot=before]"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled-skipped",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "before",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "group",
+              "role": "toolbar",
+              "className": "flex gap-2 rounded-md border p-2",
+              "tabIndex": 0,
+              "style": "outline: none",
+              "data-orientation": "horizontal",
+              "data-controller": "shadcn---probe-roving-focus",
+              "data-roving-loop": "true"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-a",
+                  "id": "item-a",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item A"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-b",
+                  "id": "item-b",
+                  "className": "rounded border px-2 py-1 text-sm opacity-50",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": "",
+                  "data-disabled": ""
+                },
+                "children": [
+                  "Item B"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-c",
+                  "id": "item-c",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item C"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-d",
+                  "id": "item-d",
+                  "className": "rounded border px-2 py-1 text-sm opacity-50",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": "",
+                  "data-disabled": ""
+                },
+                "children": [
+                  "Item D"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "after",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[data-slot=before]"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "End"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=item-b]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled-first",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "before",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "group",
+              "role": "toolbar",
+              "className": "flex gap-2 rounded-md border p-2",
+              "tabIndex": 0,
+              "style": "outline: none",
+              "data-orientation": "horizontal",
+              "data-controller": "shadcn---probe-roving-focus"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-a",
+                  "id": "item-a",
+                  "className": "rounded border px-2 py-1 text-sm opacity-50",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": "",
+                  "data-disabled": ""
+                },
+                "children": [
+                  "Item A"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-b",
+                  "id": "item-b",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item B"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-c",
+                  "id": "item-c",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item C"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-d",
+                  "id": "item-d",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item D"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "after",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[data-slot=before]"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "Home"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "active-entry",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "before",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "group",
+              "role": "toolbar",
+              "className": "flex gap-2 rounded-md border p-2",
+              "tabIndex": 0,
+              "style": "outline: none",
+              "data-orientation": "horizontal",
+              "data-controller": "shadcn---probe-roving-focus"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-a",
+                  "id": "item-a",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item A"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-b",
+                  "id": "item-b",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item B"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-c",
+                  "id": "item-c",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": "",
+                  "data-active": ""
+                },
+                "children": [
+                  "Item C"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-d",
+                  "id": "item-d",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item D"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "after",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[data-slot=before]"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "tab",
+          "shift": true
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "click-sets-tab-stop",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "before",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "group",
+              "role": "toolbar",
+              "className": "flex gap-2 rounded-md border p-2",
+              "tabIndex": 0,
+              "style": "outline: none",
+              "data-orientation": "horizontal",
+              "data-controller": "shadcn---probe-roving-focus"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-a",
+                  "id": "item-a",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item A"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-b",
+                  "id": "item-b",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item B"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-c",
+                  "id": "item-c",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item C"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-d",
+                  "id": "item-d",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item D"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "after",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=item-c]"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab",
+          "shift": true
+        },
+        {
+          "do": "tab",
+          "shift": true
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "shift-tab-out-and-back",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "before",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "group",
+              "role": "toolbar",
+              "className": "flex gap-2 rounded-md border p-2",
+              "tabIndex": 0,
+              "style": "outline: none",
+              "data-orientation": "horizontal",
+              "data-controller": "shadcn---probe-roving-focus"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-a",
+                  "id": "item-a",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item A"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-b",
+                  "id": "item-b",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item B"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-c",
+                  "id": "item-c",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item C"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-d",
+                  "id": "item-d",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item D"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "after",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[data-slot=before]"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "tab",
+          "shift": true
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "modifier-keys-ignored",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "before",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "group",
+              "role": "toolbar",
+              "className": "flex gap-2 rounded-md border p-2",
+              "tabIndex": 0,
+              "style": "outline: none",
+              "data-orientation": "horizontal",
+              "data-controller": "shadcn---probe-roving-focus"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-a",
+                  "id": "item-a",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item A"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-b",
+                  "id": "item-b",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item B"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-c",
+                  "id": "item-c",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item C"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-d",
+                  "id": "item-d",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item D"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "after",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[data-slot=before]"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Shift+ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "Control+ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "Alt+End"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "initial-tab-stop",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "before",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "group",
+              "role": "toolbar",
+              "className": "flex gap-2 rounded-md border p-2",
+              "tabIndex": 0,
+              "style": "outline: none",
+              "data-orientation": "horizontal",
+              "data-controller": "shadcn---probe-roving-focus",
+              "data-roving-current": "item-b"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-a",
+                  "id": "item-a",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item A"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-b",
+                  "id": "item-b",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": 0,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item B"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-c",
+                  "id": "item-c",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item C"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-d",
+                  "id": "item-d",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item D"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "after",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[data-slot=before]"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab",
+          "shift": true
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "click-then-tab-away",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "before",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "group",
+              "role": "toolbar",
+              "className": "flex gap-2 rounded-md border p-2",
+              "tabIndex": 0,
+              "style": "outline: none",
+              "data-orientation": "horizontal",
+              "data-controller": "shadcn---probe-roving-focus"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-a",
+                  "id": "item-a",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item A"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-b",
+                  "id": "item-b",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item B"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-c",
+                  "id": "item-c",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item C"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-d",
+                  "id": "item-d",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item D"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "after",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=item-b]"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab",
+          "shift": true
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "before",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "group",
+              "role": "toolbar",
+              "className": "flex gap-2 rounded-md border p-2",
+              "tabIndex": 0,
+              "style": "outline: none",
+              "data-orientation": "horizontal",
+              "data-controller": "shadcn---probe-roving-focus"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-a",
+                  "id": "item-a",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item A"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-b",
+                  "id": "item-b",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item B"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-c",
+                  "id": "item-c",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item C"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "item-d",
+                  "id": "item-d",
+                  "className": "rounded border px-2 py-1 text-sm",
+                  "tabIndex": -1,
+                  "data-orientation": "horizontal",
+                  "data-roving-item": "",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Item D"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "after",
+              "className": "rounded border px-2 py-1 text-sm"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[data-slot=before]"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

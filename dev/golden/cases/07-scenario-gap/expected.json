@@ -1,0 +1,8 @@
+{
+  "case": "07-scenario-gap",
+  "kind": "scenario",
+  "component": "button",
+  "description": "Scenario file covers 3 of 6 variants and 3 of 8 sizes and has a single dark twin.",
+  "must_detect": ["SC_VARIANT_UNCOVERED", "SC_NO_DARK_TWIN"],
+  "must_not_detect": ["SC_FILE_MISSING", "SC_DUPLICATE_ID", "SC_UNKNOWN_COMPONENT"]
+}

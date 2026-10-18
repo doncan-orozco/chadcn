@@ -1,0 +1,10 @@
+{
+  "case": "31-nonrendered-slots",
+  "kind": "static",
+  "component": "dialog",
+  "description": "Radix Dialog.Root and Dialog.Portal render no element, so shadcn's data-slot on them never reaches the DOM. A port that (correctly) omits them must not get G1_SLOT_MISSING.",
+  "must_detect": [],
+  "must_not_detect": [
+    "G1_SLOT_MISSING"
+  ]
+}

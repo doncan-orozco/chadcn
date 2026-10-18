@@ -1,0 +1,8 @@
+{
+  "case": "36-oklch-oracle-token-clean",
+  "kind": "static",
+  "component": "bubble",
+  "description": "A relative-colour class token present verbatim in the oracle (bg-[oklch(from_var(--primary)_...)]) is not a hardcoded colour.",
+  "must_detect": [],
+  "must_not_detect": ["G1_HARDCODED_COLOR"]
+}

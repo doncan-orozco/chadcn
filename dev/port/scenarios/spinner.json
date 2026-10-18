@@ -1,0 +1,677 @@
+{
+  "component": "spinner",
+  "scenarios": [
+    {
+      "id": "defaults",
+      "tree": {
+        "c": "Spinner",
+        "props": {},
+        "children": []
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "svg.animate-spin"
+      ]
+    },
+    {
+      "id": "defaults__dark",
+      "tree": {
+        "c": "Spinner",
+        "props": {},
+        "children": []
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "svg.animate-spin"
+      ]
+    },
+    {
+      "id": "example__spinner-basic",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-center justify-center gap-8"
+        },
+        "children": [
+          {
+            "c": "Spinner",
+            "props": {},
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "svg.animate-spin"
+      ]
+    },
+    {
+      "id": "example__spinner-basic__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-center justify-center gap-8"
+        },
+        "children": [
+          {
+            "c": "Spinner",
+            "props": {},
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "svg.animate-spin"
+      ]
+    },
+    {
+      "id": "example__spinner-size",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex items-center gap-6"
+        },
+        "children": [
+          {
+            "c": "Spinner",
+            "props": {
+              "className": "size-3"
+            },
+            "children": []
+          },
+          {
+            "c": "Spinner",
+            "props": {
+              "className": "size-4"
+            },
+            "children": []
+          },
+          {
+            "c": "Spinner",
+            "props": {
+              "className": "size-6"
+            },
+            "children": []
+          },
+          {
+            "c": "Spinner",
+            "props": {
+              "className": "size-8"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "svg.animate-spin"
+      ]
+    },
+    {
+      "id": "example__spinner-size__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex items-center gap-6"
+        },
+        "children": [
+          {
+            "c": "Spinner",
+            "props": {
+              "className": "size-3"
+            },
+            "children": []
+          },
+          {
+            "c": "Spinner",
+            "props": {
+              "className": "size-4"
+            },
+            "children": []
+          },
+          {
+            "c": "Spinner",
+            "props": {
+              "className": "size-6"
+            },
+            "children": []
+          },
+          {
+            "c": "Spinner",
+            "props": {
+              "className": "size-8"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "svg.animate-spin"
+      ]
+    },
+    {
+      "id": "example__spinner-color",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex items-center gap-6"
+        },
+        "children": [
+          {
+            "c": "Spinner",
+            "props": {
+              "className": "size-6 text-red-500"
+            },
+            "children": []
+          },
+          {
+            "c": "Spinner",
+            "props": {
+              "className": "size-6 text-green-500"
+            },
+            "children": []
+          },
+          {
+            "c": "Spinner",
+            "props": {
+              "className": "size-6 text-blue-500"
+            },
+            "children": []
+          },
+          {
+            "c": "Spinner",
+            "props": {
+              "className": "size-6 text-yellow-500"
+            },
+            "children": []
+          },
+          {
+            "c": "Spinner",
+            "props": {
+              "className": "size-6 text-purple-500"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "svg.animate-spin"
+      ]
+    },
+    {
+      "id": "example__spinner-color__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex items-center gap-6"
+        },
+        "children": [
+          {
+            "c": "Spinner",
+            "props": {
+              "className": "size-6 text-red-500"
+            },
+            "children": []
+          },
+          {
+            "c": "Spinner",
+            "props": {
+              "className": "size-6 text-green-500"
+            },
+            "children": []
+          },
+          {
+            "c": "Spinner",
+            "props": {
+              "className": "size-6 text-blue-500"
+            },
+            "children": []
+          },
+          {
+            "c": "Spinner",
+            "props": {
+              "className": "size-6 text-yellow-500"
+            },
+            "children": []
+          },
+          {
+            "c": "Spinner",
+            "props": {
+              "className": "size-6 text-purple-500"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "svg.animate-spin"
+      ]
+    },
+    {
+      "id": "api__class-merge-size",
+      "tree": {
+        "c": "Spinner",
+        "props": {
+          "className": "size-8"
+        },
+        "children": []
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "svg.animate-spin"
+      ]
+    },
+    {
+      "id": "api__class-merge-size__dark",
+      "tree": {
+        "c": "Spinner",
+        "props": {
+          "className": "size-8"
+        },
+        "children": []
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "svg.animate-spin"
+      ]
+    },
+    {
+      "id": "api__class-merge-text-token",
+      "tree": {
+        "c": "Spinner",
+        "props": {
+          "className": "text-muted-foreground"
+        },
+        "children": []
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "svg.animate-spin"
+      ]
+    },
+    {
+      "id": "api__class-merge-text-token__dark",
+      "tree": {
+        "c": "Spinner",
+        "props": {
+          "className": "text-muted-foreground"
+        },
+        "children": []
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "svg.animate-spin"
+      ]
+    },
+    {
+      "id": "context__inherits-current-color",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "text-primary"
+        },
+        "children": [
+          {
+            "c": "Spinner",
+            "props": {},
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "svg.animate-spin"
+      ]
+    },
+    {
+      "id": "context__inherits-current-color__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "text-primary"
+        },
+        "children": [
+          {
+            "c": "Spinner",
+            "props": {},
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "svg.animate-spin"
+      ]
+    },
+    {
+      "id": "context__inline-with-text",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex items-center gap-2 text-sm"
+        },
+        "children": [
+          {
+            "c": "Spinner",
+            "props": {},
+            "children": []
+          },
+          "Loading..."
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "svg.animate-spin"
+      ]
+    },
+    {
+      "id": "context__inline-with-text__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex items-center gap-2 text-sm"
+        },
+        "children": [
+          {
+            "c": "Spinner",
+            "props": {},
+            "children": []
+          },
+          "Loading..."
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "svg.animate-spin"
+      ]
+    },
+    {
+      "id": "api__aria-label-override",
+      "tree": {
+        "c": "Spinner",
+        "props": {
+          "aria-label": "Processing payment"
+        },
+        "children": []
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "svg.animate-spin"
+      ]
+    },
+    {
+      "id": "api__role-override",
+      "tree": {
+        "c": "Spinner",
+        "props": {
+          "role": "img"
+        },
+        "children": []
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "svg.animate-spin"
+      ]
+    },
+    {
+      "id": "api__aria-hidden-forwarded",
+      "tree": {
+        "c": "Spinner",
+        "props": {
+          "aria-hidden": "true"
+        },
+        "children": []
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "svg.animate-spin"
+      ]
+    },
+    {
+      "id": "api__forwarded-attrs",
+      "tree": {
+        "c": "Spinner",
+        "props": {
+          "id": "spinner-1",
+          "data-testid": "spinner",
+          "style": {
+            "opacity": "0.5"
+          },
+          "className": "size-6"
+        },
+        "children": []
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "svg.animate-spin"
+      ]
+    },
+    {
+      "id": "api__lucide-color-prop",
+      "tree": {
+        "c": "Spinner",
+        "props": {
+          "color": "#ef4444",
+          "className": "size-6"
+        },
+        "children": []
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "svg.animate-spin"
+      ]
+    },
+    {
+      "id": "api__lucide-color-prop__dark",
+      "tree": {
+        "c": "Spinner",
+        "props": {
+          "color": "#ef4444",
+          "className": "size-6"
+        },
+        "children": []
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "svg.animate-spin"
+      ]
+    },
+    {
+      "id": "api__lucide-stroke-width-prop",
+      "tree": {
+        "c": "Spinner",
+        "props": {
+          "strokeWidth": 3,
+          "className": "size-6"
+        },
+        "children": []
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "svg.animate-spin"
+      ]
+    },
+    {
+      "id": "motion__spin",
+      "tree": {
+        "c": "Spinner",
+        "props": {
+          "className": "size-6"
+        },
+        "children": []
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": true,
+      "observe": [
+        "svg.animate-spin"
+      ]
+    },
+    {
+      "id": "motion__spin__dark",
+      "tree": {
+        "c": "Spinner",
+        "props": {
+          "className": "size-6"
+        },
+        "children": []
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": true,
+      "observe": [
+        "svg.animate-spin"
+      ]
+    }
+  ]
+}

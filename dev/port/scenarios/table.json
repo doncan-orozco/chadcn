@@ -1,0 +1,5903 @@
+{
+  "component": "table",
+  "scenarios": [
+    {
+      "id": "example__table-demo",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableCaption",
+                "props": {},
+                "children": [
+                  "A list of your recent invoices."
+                ]
+              },
+              {
+                "c": "TableHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {
+                          "className": "w-[100px]"
+                        },
+                        "children": [
+                          "Invoice"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Status"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Method"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {
+                          "className": "text-right"
+                        },
+                        "children": [
+                          "Amount"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "font-medium"
+                        },
+                        "children": [
+                          "INV001"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Paid"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Credit Card"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "text-right"
+                        },
+                        "children": [
+                          "$250.00"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "font-medium"
+                        },
+                        "children": [
+                          "INV002"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Pending"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "PayPal"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "text-right"
+                        },
+                        "children": [
+                          "$150.00"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "font-medium"
+                        },
+                        "children": [
+                          "INV003"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Unpaid"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Bank Transfer"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "text-right"
+                        },
+                        "children": [
+                          "$350.00"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "font-medium"
+                        },
+                        "children": [
+                          "INV004"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Paid"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Credit Card"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "text-right"
+                        },
+                        "children": [
+                          "$450.00"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "font-medium"
+                        },
+                        "children": [
+                          "INV005"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Paid"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "PayPal"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "text-right"
+                        },
+                        "children": [
+                          "$550.00"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "font-medium"
+                        },
+                        "children": [
+                          "INV006"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Pending"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Bank Transfer"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "text-right"
+                        },
+                        "children": [
+                          "$200.00"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "font-medium"
+                        },
+                        "children": [
+                          "INV007"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Unpaid"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Credit Card"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "text-right"
+                        },
+                        "children": [
+                          "$300.00"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableFooter",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "colSpan": 3
+                        },
+                        "children": [
+                          "Total"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "text-right"
+                        },
+                        "children": [
+                          "$2,500.00"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__table-demo__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableCaption",
+                "props": {},
+                "children": [
+                  "A list of your recent invoices."
+                ]
+              },
+              {
+                "c": "TableHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {
+                          "className": "w-[100px]"
+                        },
+                        "children": [
+                          "Invoice"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Status"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Method"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {
+                          "className": "text-right"
+                        },
+                        "children": [
+                          "Amount"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "font-medium"
+                        },
+                        "children": [
+                          "INV001"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Paid"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Credit Card"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "text-right"
+                        },
+                        "children": [
+                          "$250.00"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "font-medium"
+                        },
+                        "children": [
+                          "INV002"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Pending"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "PayPal"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "text-right"
+                        },
+                        "children": [
+                          "$150.00"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "font-medium"
+                        },
+                        "children": [
+                          "INV003"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Unpaid"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Bank Transfer"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "text-right"
+                        },
+                        "children": [
+                          "$350.00"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "font-medium"
+                        },
+                        "children": [
+                          "INV004"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Paid"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Credit Card"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "text-right"
+                        },
+                        "children": [
+                          "$450.00"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "font-medium"
+                        },
+                        "children": [
+                          "INV005"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Paid"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "PayPal"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "text-right"
+                        },
+                        "children": [
+                          "$550.00"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "font-medium"
+                        },
+                        "children": [
+                          "INV006"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Pending"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Bank Transfer"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "text-right"
+                        },
+                        "children": [
+                          "$200.00"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "font-medium"
+                        },
+                        "children": [
+                          "INV007"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Unpaid"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Credit Card"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "text-right"
+                        },
+                        "children": [
+                          "$300.00"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableFooter",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "colSpan": 3
+                        },
+                        "children": [
+                          "Total"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "text-right"
+                        },
+                        "children": [
+                          "$2,500.00"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default__all-parts",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableCaption",
+                "props": {},
+                "children": [
+                  "Caption text"
+                ]
+              },
+              {
+                "c": "TableHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Name"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Value"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 1"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 1"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 2"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 2"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 3"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 3"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableFooter",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Total"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "3"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default__all-parts__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableCaption",
+                "props": {},
+                "children": [
+                  "Caption text"
+                ]
+              },
+              {
+                "c": "TableHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Name"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Value"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 1"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 1"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 2"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 2"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 3"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 3"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableFooter",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Total"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "3"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "parts__table-only-body",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 1"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 1"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 2"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 2"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 3"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 3"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "parts__header-and-body",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Name"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Value"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 1"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 1"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 2"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 2"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 3"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 3"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "parts__caption-first-in-dom",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableCaption",
+                "props": {},
+                "children": [
+                  "Caption rendered at the bottom"
+                ]
+              },
+              {
+                "c": "TableHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Name"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Value"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 1"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 1"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 2"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 2"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "parts__empty-table",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "parts__empty-cells",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": []
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": []
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "footer__multiple-rows",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Name"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Value"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 1"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 1"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 2"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 2"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableFooter",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Subtotal"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "2"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Tax"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "0"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Total"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "2"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "row__hover-body",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableCaption",
+                "props": {},
+                "children": [
+                  "Caption text"
+                ]
+              },
+              {
+                "c": "TableHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Name"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Value"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 1"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 1"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 2"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 2"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 3"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 3"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableFooter",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Total"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "3"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=table-body] [data-slot=table-row]:nth-child(2)"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "row__hover-body__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableCaption",
+                "props": {},
+                "children": [
+                  "Caption text"
+                ]
+              },
+              {
+                "c": "TableHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Name"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Value"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 1"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 1"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 2"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 2"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 3"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 3"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableFooter",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Total"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "3"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=table-body] [data-slot=table-row]:nth-child(2)"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "row__hover-header",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableCaption",
+                "props": {},
+                "children": [
+                  "Caption text"
+                ]
+              },
+              {
+                "c": "TableHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Name"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Value"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 1"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 1"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 2"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 2"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 3"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 3"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableFooter",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Total"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "3"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=table-header] [data-slot=table-row]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "row__hover-footer",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableCaption",
+                "props": {},
+                "children": [
+                  "Caption text"
+                ]
+              },
+              {
+                "c": "TableHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Name"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Value"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 1"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 1"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 2"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 2"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 3"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 3"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableFooter",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Total"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "3"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=table-footer] [data-slot=table-row]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "row__state-selected",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "type": "button",
+                              "role": "checkbox",
+                              "aria-checked": "false",
+                              "aria-label": "Select row",
+                              "className": "size-4 rounded-[4px] border"
+                            },
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Name"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Value"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "type": "button",
+                              "role": "checkbox",
+                              "aria-checked": "false",
+                              "aria-label": "Select row",
+                              "className": "size-4 rounded-[4px] border"
+                            },
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 1"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 1"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {
+                      "data-state": "selected"
+                    },
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "type": "button",
+                              "role": "checkbox",
+                              "aria-checked": "true",
+                              "aria-label": "Select row",
+                              "className": "size-4 rounded-[4px] border"
+                            },
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 2"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 2"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "type": "button",
+                              "role": "checkbox",
+                              "aria-checked": "false",
+                              "aria-label": "Select row",
+                              "className": "size-4 rounded-[4px] border"
+                            },
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 3"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 3"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "row__state-selected__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "type": "button",
+                              "role": "checkbox",
+                              "aria-checked": "false",
+                              "aria-label": "Select row",
+                              "className": "size-4 rounded-[4px] border"
+                            },
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Name"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Value"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "type": "button",
+                              "role": "checkbox",
+                              "aria-checked": "false",
+                              "aria-label": "Select row",
+                              "className": "size-4 rounded-[4px] border"
+                            },
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 1"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 1"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {
+                      "data-state": "selected"
+                    },
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "type": "button",
+                              "role": "checkbox",
+                              "aria-checked": "true",
+                              "aria-label": "Select row",
+                              "className": "size-4 rounded-[4px] border"
+                            },
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 2"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 2"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "type": "button",
+                              "role": "checkbox",
+                              "aria-checked": "false",
+                              "aria-label": "Select row",
+                              "className": "size-4 rounded-[4px] border"
+                            },
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 3"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 3"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "row__state-selected__hover",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "type": "button",
+                              "role": "checkbox",
+                              "aria-checked": "false",
+                              "aria-label": "Select row",
+                              "className": "size-4 rounded-[4px] border"
+                            },
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Name"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Value"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "type": "button",
+                              "role": "checkbox",
+                              "aria-checked": "false",
+                              "aria-label": "Select row",
+                              "className": "size-4 rounded-[4px] border"
+                            },
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 1"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 1"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {
+                      "data-state": "selected"
+                    },
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "type": "button",
+                              "role": "checkbox",
+                              "aria-checked": "true",
+                              "aria-label": "Select row",
+                              "className": "size-4 rounded-[4px] border"
+                            },
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 2"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 2"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "type": "button",
+                              "role": "checkbox",
+                              "aria-checked": "false",
+                              "aria-label": "Select row",
+                              "className": "size-4 rounded-[4px] border"
+                            },
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 3"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 3"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=table-body] [data-slot=table-row]:nth-child(2)"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "row__state-unselected",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "type": "button",
+                              "role": "checkbox",
+                              "aria-checked": "false",
+                              "aria-label": "Select row",
+                              "className": "size-4 rounded-[4px] border"
+                            },
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Name"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Value"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "type": "button",
+                              "role": "checkbox",
+                              "aria-checked": "false",
+                              "aria-label": "Select row",
+                              "className": "size-4 rounded-[4px] border"
+                            },
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 1"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 1"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {
+                      "data-state": "false"
+                    },
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "type": "button",
+                              "role": "checkbox",
+                              "aria-checked": "false",
+                              "aria-label": "Select row",
+                              "className": "size-4 rounded-[4px] border"
+                            },
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 2"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 2"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "type": "button",
+                              "role": "checkbox",
+                              "aria-checked": "false",
+                              "aria-label": "Select row",
+                              "className": "size-4 rounded-[4px] border"
+                            },
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 3"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 3"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "row__has-aria-expanded-true",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Name"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Actions"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 1"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "-"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 2"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "type": "button",
+                              "aria-expanded": "true",
+                              "aria-label": "Toggle details"
+                            },
+                            "children": [
+                              "Details"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 3"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "-"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "row__has-aria-expanded-true__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Name"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Actions"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 1"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "-"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 2"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "type": "button",
+                              "aria-expanded": "true",
+                              "aria-label": "Toggle details"
+                            },
+                            "children": [
+                              "Details"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 3"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "-"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "row__has-aria-expanded-false",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Name"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Actions"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 1"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "-"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 2"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "type": "button",
+                              "aria-expanded": "false",
+                              "aria-label": "Toggle details"
+                            },
+                            "children": [
+                              "Details"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 3"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "-"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "row__has-aria-expanded__hover",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Name"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Actions"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 1"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "-"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 2"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "type": "button",
+                              "aria-expanded": "true",
+                              "aria-label": "Toggle details"
+                            },
+                            "children": [
+                              "Details"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 3"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "-"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=table-body] [data-slot=table-row]:nth-child(2)"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "checkbox__head-and-cell",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "type": "button",
+                              "role": "checkbox",
+                              "aria-checked": "false",
+                              "aria-label": "Select row",
+                              "className": "size-4 rounded-[4px] border"
+                            },
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Name"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Value"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "type": "button",
+                              "role": "checkbox",
+                              "aria-checked": "false",
+                              "aria-label": "Select row",
+                              "className": "size-4 rounded-[4px] border"
+                            },
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 1"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 1"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "type": "button",
+                              "role": "checkbox",
+                              "aria-checked": "false",
+                              "aria-label": "Select row",
+                              "className": "size-4 rounded-[4px] border"
+                            },
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 2"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 2"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "type": "button",
+                              "role": "checkbox",
+                              "aria-checked": "false",
+                              "aria-label": "Select row",
+                              "className": "size-4 rounded-[4px] border"
+                            },
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 3"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 3"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "checkbox__head-and-cell__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "type": "button",
+                              "role": "checkbox",
+                              "aria-checked": "false",
+                              "aria-label": "Select row",
+                              "className": "size-4 rounded-[4px] border"
+                            },
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Name"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Value"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "type": "button",
+                              "role": "checkbox",
+                              "aria-checked": "false",
+                              "aria-label": "Select row",
+                              "className": "size-4 rounded-[4px] border"
+                            },
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 1"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 1"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "type": "button",
+                              "role": "checkbox",
+                              "aria-checked": "false",
+                              "aria-label": "Select row",
+                              "className": "size-4 rounded-[4px] border"
+                            },
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 2"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 2"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "type": "button",
+                              "role": "checkbox",
+                              "aria-checked": "false",
+                              "aria-label": "Select row",
+                              "className": "size-4 rounded-[4px] border"
+                            },
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 3"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 3"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "cell__colspan",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "A"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "B"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "C"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "colSpan": 2
+                        },
+                        "children": [
+                          "Spans two"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "C"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "colSpan": 3,
+                          "className": "text-center"
+                        },
+                        "children": [
+                          "Spans three"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "head__scope-and-colspan",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {
+                          "colSpan": 2,
+                          "scope": "colgroup"
+                        },
+                        "children": [
+                          "Group"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {
+                          "scope": "col"
+                        },
+                        "children": [
+                          "A"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {
+                          "scope": "col"
+                        },
+                        "children": [
+                          "B"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {
+                          "scope": "row"
+                        },
+                        "children": [
+                          "Row header"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__long-text-nowrap",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[360px] p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "A very long column heading that does not wrap"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Short"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "A very long cell value that stays on one line because of whitespace-nowrap"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "x"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__wrap-override",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[360px] p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "whitespace-normal"
+                        },
+                        "children": [
+                          "A long cell value that is allowed to wrap because the caller overrides whitespace-nowrap"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "x"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "overflow__horizontal-scroll",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[420px] p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Column 1"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Column 2"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Column 3"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Column 4"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Column 5"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Column 6"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Column 7"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Column 8"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Column 9"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Column 10"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 1"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 2"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 3"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 4"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 5"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 6"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 7"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 8"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 9"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 10"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 1"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 2"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 3"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 4"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 5"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 6"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 7"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 8"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 9"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 10"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 480,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "overflow__horizontal-scroll__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[420px] p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Column 1"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Column 2"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Column 3"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Column 4"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Column 5"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Column 6"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Column 7"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Column 8"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Column 9"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Column 10"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 1"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 2"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 3"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 4"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 5"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 6"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 7"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 8"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 9"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 10"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 1"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 2"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 3"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 4"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 5"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 6"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 7"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 8"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 9"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 10"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 480,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "overflow__narrow-viewport-demo",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full p-2"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableCaption",
+                "props": {},
+                "children": [
+                  "A list of your recent invoices."
+                ]
+              },
+              {
+                "c": "TableHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {
+                          "className": "w-[100px]"
+                        },
+                        "children": [
+                          "Invoice"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Status"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Method"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {
+                          "className": "text-right"
+                        },
+                        "children": [
+                          "Amount"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "font-medium"
+                        },
+                        "children": [
+                          "INV001"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Paid"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Credit Card"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "text-right"
+                        },
+                        "children": [
+                          "$250.00"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "font-medium"
+                        },
+                        "children": [
+                          "INV002"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Pending"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "PayPal"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "text-right"
+                        },
+                        "children": [
+                          "$150.00"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "font-medium"
+                        },
+                        "children": [
+                          "INV003"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Unpaid"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Bank Transfer"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "text-right"
+                        },
+                        "children": [
+                          "$350.00"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "font-medium"
+                        },
+                        "children": [
+                          "INV004"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Paid"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Credit Card"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "text-right"
+                        },
+                        "children": [
+                          "$450.00"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "font-medium"
+                        },
+                        "children": [
+                          "INV005"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Paid"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "PayPal"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "text-right"
+                        },
+                        "children": [
+                          "$550.00"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "font-medium"
+                        },
+                        "children": [
+                          "INV006"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Pending"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Bank Transfer"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "text-right"
+                        },
+                        "children": [
+                          "$200.00"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "font-medium"
+                        },
+                        "children": [
+                          "INV007"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Unpaid"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Credit Card"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "text-right"
+                        },
+                        "children": [
+                          "$300.00"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableFooter",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "colSpan": 3
+                        },
+                        "children": [
+                          "Total"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "text-right"
+                        },
+                        "children": [
+                          "$2,500.00"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 375,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "dir__rtl",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4",
+          "dir": "rtl"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableCaption",
+                "props": {},
+                "children": [
+                  "Caption text"
+                ]
+              },
+              {
+                "c": "TableHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Name"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Value"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 1"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 1"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 2"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 2"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Row 3"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Value 3"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableFooter",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Total"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "3"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class-merge__table",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {
+              "className": "text-xs w-auto"
+            },
+            "children": [
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "A"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "B"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class-merge__header-body-footer",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableHeader",
+                "props": {
+                  "className": "bg-muted"
+                },
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Name"
+                        ]
+                      },
+                      {
+                        "c": "TableHead",
+                        "props": {},
+                        "children": [
+                          "Value"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {
+                  "className": "font-mono"
+                },
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "A"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "B"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableFooter",
+                "props": {
+                  "className": "bg-transparent font-bold"
+                },
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Total"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "1"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class-merge__row",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {
+                      "className": "border-b-0 hover:bg-accent"
+                    },
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "A"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "B"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "C"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "D"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class-merge__head-cell",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {
+                          "className": "h-12 px-4 text-right text-muted-foreground"
+                        },
+                        "children": [
+                          "Amount"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "className": "p-4 text-right align-top"
+                        },
+                        "children": [
+                          "$1.00"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class-merge__caption",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableCaption",
+                "props": {
+                  "className": "mt-2 text-xs text-foreground caption-top"
+                },
+                "children": [
+                  "Custom caption"
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "A"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "B"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "attrs__table-forwarded-to-table",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {
+              "id": "invoices",
+              "aria-label": "Invoices",
+              "data-testid": "invoices-table"
+            },
+            "children": [
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "A"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "B"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "attrs__parts-forwarded",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableCaption",
+                "props": {
+                  "id": "cap",
+                  "data-testid": "caption"
+                },
+                "children": [
+                  "Caption"
+                ]
+              },
+              {
+                "c": "TableHeader",
+                "props": {
+                  "data-testid": "header"
+                },
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {
+                      "id": "hr"
+                    },
+                    "children": [
+                      {
+                        "c": "TableHead",
+                        "props": {
+                          "scope": "col",
+                          "aria-sort": "ascending"
+                        },
+                        "children": [
+                          "Name"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableBody",
+                "props": {
+                  "data-testid": "body"
+                },
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {
+                      "aria-rowindex": "2"
+                    },
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {
+                          "headers": "hr",
+                          "title": "cell title"
+                        },
+                        "children": [
+                          "A"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "TableFooter",
+                "props": {
+                  "data-testid": "footer"
+                },
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "Total"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "attrs__data-slot-override",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {
+              "data-slot": "custom-table"
+            },
+            "children": [
+              {
+                "c": "TableBody",
+                "props": {
+                  "data-slot": "custom-body"
+                },
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {
+                      "data-slot": "custom-row"
+                    },
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "A"
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "B"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "interaction__tab-to-cell-link",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Table",
+            "props": {},
+            "children": [
+              {
+                "c": "TableBody",
+                "props": {},
+                "children": [
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_a",
+                            "props": {
+                              "href": "#row-1",
+                              "className": "underline"
+                            },
+                            "children": [
+                              "Open row 1"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "B"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TableRow",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_a",
+                            "props": {
+                              "href": "#row-2",
+                              "className": "underline"
+                            },
+                            "children": [
+                              "Open row 2"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TableCell",
+                        "props": {},
+                        "children": [
+                          "D"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

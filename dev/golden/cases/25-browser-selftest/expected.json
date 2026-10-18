@@ -1,0 +1,5 @@
+{
+  "case": "25-browser-selftest",
+  "kind": "browser",
+  "description": "parity_run.mjs against two fixture servers with 22 scenarios of known outcome: identical pages pass; each kind of difference is reported; broken renders (empty, HTTP 500, data-parity-error) never pass as a match. Needs playwright (PARITY_PLAYWRIGHT_DIR=<dir with node_modules/playwright>, PARITY_CHROMIUM=<browser binary> when the cached revision differs); reported SKIPPED otherwise."
+}

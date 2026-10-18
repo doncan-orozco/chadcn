@@ -1,0 +1,7112 @@
+{
+  "component": "toggle-group",
+  "scenarios": [
+    {
+      "id": "default__single",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default__single__dark",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default__multiple",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "multiple"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default__multiple__dark",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "multiple"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__size-default",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "variant": "default",
+          "size": "default",
+          "defaultValue": "italic"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__size-sm",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "variant": "default",
+          "size": "sm",
+          "defaultValue": "italic"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__size-lg",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "variant": "default",
+          "size": "lg",
+          "defaultValue": "italic"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__dark",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "variant": "default",
+          "defaultValue": "italic"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__multiple__dark",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "multiple",
+          "variant": "default",
+          "defaultValue": [
+            "bold",
+            "strikethrough"
+          ]
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__size-default",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "variant": "outline",
+          "size": "default",
+          "defaultValue": "italic"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__size-sm",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "variant": "outline",
+          "size": "sm",
+          "defaultValue": "italic"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__size-lg",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "variant": "outline",
+          "size": "lg",
+          "defaultValue": "italic"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__dark",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "variant": "outline",
+          "defaultValue": "italic"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__multiple__dark",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "multiple",
+          "variant": "outline",
+          "defaultValue": [
+            "bold",
+            "strikethrough"
+          ]
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "size-sm__no-variant",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "multiple",
+          "size": "sm",
+          "defaultValue": [
+            "bold"
+          ]
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "spacing-2__variant-default",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "spacing": 2,
+          "defaultValue": "bold"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "spacing-2__variant-outline",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "multiple",
+          "variant": "outline",
+          "spacing": 2,
+          "defaultValue": [
+            "bold"
+          ]
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "spacing-2__variant-outline__dark",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "multiple",
+          "variant": "outline",
+          "spacing": 2,
+          "defaultValue": [
+            "bold"
+          ]
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "spacing-1__variant-outline__size-lg",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "multiple",
+          "variant": "outline",
+          "size": "lg",
+          "spacing": 1
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "spacing-0-explicit__variant-outline",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "multiple",
+          "variant": "outline",
+          "spacing": 0,
+          "defaultValue": [
+            "italic"
+          ]
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "item-variant__no-group-variant",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "multiple"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold",
+              "variant": "outline"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough",
+              "variant": "outline",
+              "size": "lg"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "item-variant__group-wins",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "multiple",
+          "variant": "outline",
+          "size": "sm"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold",
+              "variant": "default",
+              "size": "lg"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "item-variant__explicit-default-group",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "multiple",
+          "variant": "default",
+          "size": "default"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold",
+              "variant": "outline",
+              "size": "lg"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__text",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "variant": "outline",
+          "defaultValue": "center"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "left"
+            },
+            "children": [
+              "Left"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "center"
+            },
+            "children": [
+              "Center"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "right"
+            },
+            "children": [
+              "Right"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__icon-text",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "variant": "outline",
+          "defaultValue": "center"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "left"
+            },
+            "children": [
+              "<icon:align-left>",
+              "Left"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "center"
+            },
+            "children": [
+              "<icon:align-center>",
+              "Center"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "right"
+            },
+            "children": [
+              "<icon:align-right>",
+              "Right"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__text-icon",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "variant": "outline",
+          "defaultValue": "center"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "left"
+            },
+            "children": [
+              "Left",
+              "<icon:align-left>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "center"
+            },
+            "children": [
+              "Center",
+              "<icon:align-center>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "right"
+            },
+            "children": [
+              "Right",
+              "<icon:align-right>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__icon",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "variant": "outline",
+          "defaultValue": "center"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "left",
+              "aria-label": "Left"
+            },
+            "children": [
+              "<icon:align-left>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "center",
+              "aria-label": "Center"
+            },
+            "children": [
+              "<icon:align-center>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "right",
+              "aria-label": "Right"
+            },
+            "children": [
+              "<icon:align-right>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__long",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "variant": "outline",
+          "defaultValue": "center"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "left"
+            },
+            "children": [
+              "A considerably longer label for left alignment"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "center"
+            },
+            "children": [
+              "A considerably longer label for center alignment"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "right"
+            },
+            "children": [
+              "A considerably longer label for right alignment"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__empty",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "variant": "outline",
+          "defaultValue": "center"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "left",
+              "aria-label": "Left"
+            },
+            "children": []
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "center",
+              "aria-label": "Center"
+            },
+            "children": []
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "right",
+              "aria-label": "Right"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__long__narrow",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-48"
+        },
+        "children": [
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "single",
+              "defaultValue": "left"
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "left"
+                },
+                "children": [
+                  "A considerably longer label for left alignment"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "center"
+                },
+                "children": [
+                  "A considerably longer label for center alignment"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "right"
+                },
+                "children": [
+                  "A considerably longer label for right alignment"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "single__default-value",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "defaultValue": "strikethrough"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "multiple__default-value",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "multiple",
+          "defaultValue": [
+            "bold",
+            "italic"
+          ]
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "multiple__default-value-all__outline",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "multiple",
+          "variant": "outline",
+          "defaultValue": [
+            "bold",
+            "italic",
+            "strikethrough"
+          ]
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__group",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "multiple",
+          "disabled": true,
+          "defaultValue": [
+            "italic"
+          ]
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__group__outline__dark",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "multiple",
+          "variant": "outline",
+          "disabled": true,
+          "defaultValue": [
+            "italic"
+          ]
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__item",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "variant": "outline"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic",
+              "disabled": true
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__item-on",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "defaultValue": "italic"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic",
+              "disabled": true
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__item__dark",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "variant": "outline",
+          "defaultValue": "italic"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic",
+              "disabled": true
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid__variant-default",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "variant": "default",
+          "defaultValue": "bold"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic",
+              "aria-invalid": "true"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid__variant-default__dark",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "variant": "default",
+          "defaultValue": "bold"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic",
+              "aria-invalid": "true"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid__variant-outline",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "variant": "outline",
+          "defaultValue": "bold"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic",
+              "aria-invalid": "true"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid__variant-outline__dark",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "variant": "outline",
+          "defaultValue": "bold"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic",
+              "aria-invalid": "true"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid__focus-visible",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "single",
+              "variant": "outline"
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold",
+                  "aria-invalid": "true"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid__focus-visible__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "single",
+              "variant": "outline"
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold",
+                  "aria-invalid": "true"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "orientation-horizontal",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "orientation": "horizontal",
+          "defaultValue": "bold"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "orientation-vertical",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "orientation": "vertical",
+          "defaultValue": "bold"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "dir-rtl",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "multiple",
+          "variant": "outline",
+          "dir": "rtl",
+          "defaultValue": [
+            "bold"
+          ]
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "dir-ltr-explicit",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "multiple",
+          "dir": "ltr"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "roving-focus-false",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "multiple",
+          "variant": "outline",
+          "rovingFocus": false,
+          "orientation": "vertical",
+          "defaultValue": [
+            "italic"
+          ]
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__classname-merge",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "variant": "outline",
+          "className": "rounded-full gap-4"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold",
+              "className": "px-5 rounded-full"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__forwarded-attrs",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "multiple",
+          "id": "fmt",
+          "aria-label": "Text formatting",
+          "data-testid": "fmt-group",
+          "title": "Formatting"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic",
+              "id": "fmt-italic",
+              "data-testid": "italic",
+              "title": "Italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__role-override",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "role": "group"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__as-child-item",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "multiple"
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "aria-label": "Toggle italic"
+                    },
+                    "children": [
+                      "<icon:italic>"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[aria-label=\"Toggle italic\"]"
+        },
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "controlled__single",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "single",
+              "value": "bold"
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[aria-label=\"Toggle italic\"]"
+        },
+        {
+          "do": "click",
+          "target": "[aria-label=\"Toggle bold\"]"
+        },
+        {
+          "do": "press",
+          "key": " "
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "controlled__single-empty",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "value": ""
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[aria-label=\"Toggle bold\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "controlled__multiple",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "multiple",
+          "value": [
+            "bold"
+          ]
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[aria-label=\"Toggle italic\"]"
+        },
+        {
+          "do": "click",
+          "target": "[aria-label=\"Toggle bold\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "single__click-select-switch-deselect",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[aria-label=\"Toggle bold\"]"
+        },
+        {
+          "do": "click",
+          "target": "[aria-label=\"Toggle italic\"]"
+        },
+        {
+          "do": "click",
+          "target": "[aria-label=\"Toggle italic\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "single__click__outline__dark",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "variant": "outline"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[aria-label=\"Toggle bold\"]"
+        },
+        {
+          "do": "click",
+          "target": "[aria-label=\"Toggle italic\"]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "multiple__click-toggle",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "multiple"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[aria-label=\"Toggle bold\"]"
+        },
+        {
+          "do": "click",
+          "target": "[aria-label=\"Toggle italic\"]"
+        },
+        {
+          "do": "click",
+          "target": "[aria-label=\"Toggle bold\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "multiple__click__outline__dark",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "multiple",
+          "variant": "outline"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[aria-label=\"Toggle bold\"]"
+        },
+        {
+          "do": "click",
+          "target": "[aria-label=\"Toggle strikethrough\"]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "multiple__click__size-lg",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "multiple",
+          "size": "lg",
+          "variant": "outline"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[aria-label=\"Toggle strikethrough\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "click__focus-not-visible__tab-stop",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "multiple",
+              "variant": "outline"
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[aria-label=\"Toggle italic\"]"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab",
+          "shift": true
+        },
+        {
+          "do": "tab",
+          "shift": true
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__variant-default",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "variant": "default",
+          "defaultValue": "italic"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[aria-label=\"Toggle bold\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__variant-default__on",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "variant": "default",
+          "defaultValue": "italic"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[aria-label=\"Toggle italic\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__variant-default__dark",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "variant": "default",
+          "defaultValue": "italic"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[aria-label=\"Toggle bold\"]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__variant-outline",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "variant": "outline",
+          "defaultValue": "italic"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[aria-label=\"Toggle bold\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__variant-outline__on",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "variant": "outline",
+          "defaultValue": "italic"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[aria-label=\"Toggle italic\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__variant-outline__dark",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "variant": "outline",
+          "defaultValue": "italic"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[aria-label=\"Toggle bold\"]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus-visible__variant-default",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "multiple",
+              "variant": "default"
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus-visible__variant-default__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "multiple",
+              "variant": "default"
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus-visible__variant-outline",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "multiple",
+              "variant": "outline"
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus-visible__variant-outline__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "multiple",
+              "variant": "outline"
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus-visible__spacing-0-z-index",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "multiple",
+              "variant": "outline",
+              "defaultValue": [
+                "italic"
+              ]
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tab__entry-first",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "single"
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tab__entry-pressed-single",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "single",
+              "defaultValue": "strikethrough"
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tab__entry-first-pressed-multiple",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "multiple",
+              "defaultValue": [
+                "italic",
+                "strikethrough"
+              ]
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tab__entry-skips-disabled",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "single"
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold",
+                  "disabled": true
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tab__entry-pressed-disabled",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "single",
+              "defaultValue": "strikethrough"
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough",
+                  "disabled": true
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tab__leave",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "multiple"
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tab__after-arrow-tab-stop",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "multiple"
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab",
+          "shift": true
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "shift-tab__entry-and-leave",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "multiple"
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#after"
+        },
+        {
+          "do": "tab",
+          "shift": true
+        },
+        {
+          "do": "tab",
+          "shift": true
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tab__group-disabled-skipped",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "multiple",
+              "disabled": true
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "arrow-right__focus-only-loops",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "single"
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "arrow-left__wraps-to-last",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "single"
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "arrow-down-up__no-orientation",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "multiple"
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        },
+        {
+          "do": "press",
+          "key": "ArrowUp"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "arrows__skip-disabled",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "multiple"
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic",
+                  "disabled": true
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "home-end__pageup-pagedown",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "multiple"
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "End"
+        },
+        {
+          "do": "press",
+          "key": "Home"
+        },
+        {
+          "do": "press",
+          "key": "PageDown"
+        },
+        {
+          "do": "press",
+          "key": "PageUp"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "arrow-modifier__ignored",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "multiple"
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Shift+ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "Control+ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "Alt+ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "Meta+ArrowRight"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "loop-false__stops-at-ends",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "multiple",
+              "loop": false
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "End"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "orientation-horizontal__keys",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "multiple",
+              "orientation": "horizontal"
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowUp"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "orientation-vertical__keys",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "multiple",
+              "orientation": "vertical"
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "ArrowUp"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "dir-rtl__keys",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "multiple",
+              "dir": "rtl"
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "space__toggles-single",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "single"
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": " "
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": " "
+        },
+        {
+          "do": "press",
+          "key": " "
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "space__toggles-single__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "single",
+              "variant": "outline"
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": " "
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "enter__toggles-multiple",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "multiple"
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "roving-focus-false__tab-through",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "multiple",
+              "rovingFocus": false
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": " "
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "item-focus__programmatic",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "ToggleGroup",
+            "props": {
+              "type": "single"
+            },
+            "children": [
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "bold",
+                  "aria-label": "Toggle bold"
+                },
+                "children": [
+                  "<icon:bold>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "italic",
+                  "aria-label": "Toggle italic"
+                },
+                "children": [
+                  "<icon:italic>"
+                ]
+              },
+              {
+                "c": "ToggleGroupItem",
+                "props": {
+                  "value": "strikethrough",
+                  "aria-label": "Toggle strikethrough"
+                },
+                "children": [
+                  "<icon:underline>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[aria-label=\"Toggle strikethrough\"]"
+        },
+        {
+          "do": "tab",
+          "shift": true
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "animations__transition",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "variant": "outline"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[aria-label=\"Toggle bold\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": true
+    },
+    {
+      "id": "example__toggle-group-demo",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "variant": "outline",
+          "type": "multiple"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__toggle-group-outline",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "multiple",
+          "variant": "outline"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__toggle-group-single",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__toggle-group-sm",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single",
+          "size": "sm"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__toggle-group-lg",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "multiple",
+          "size": "lg"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__toggle-group-disabled",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "multiple",
+          "disabled": true
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__toggle-group-demo__dark",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "variant": "outline",
+          "type": "multiple"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__toggle-group-demo__interact",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "variant": "outline",
+          "type": "multiple"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[aria-label=\"Toggle bold\"]"
+        },
+        {
+          "do": "click",
+          "target": "[aria-label=\"Toggle strikethrough\"]"
+        },
+        {
+          "do": "click",
+          "target": "[aria-label=\"Toggle bold\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__toggle-group-single__interact",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "single"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bold",
+              "aria-label": "Toggle bold"
+            },
+            "children": [
+              "<icon:bold>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "italic",
+              "aria-label": "Toggle italic"
+            },
+            "children": [
+              "<icon:italic>"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "strikethrough",
+              "aria-label": "Toggle strikethrough"
+            },
+            "children": [
+              "<icon:underline>"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[aria-label=\"Toggle italic\"]"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": " "
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__toggle-group-spacing",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "multiple",
+          "variant": "outline",
+          "spacing": 2,
+          "size": "sm"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "star",
+              "aria-label": "Toggle star",
+              "className": "data-[state=on]:bg-transparent data-[state=on]:*:[svg]:fill-yellow-500 data-[state=on]:*:[svg]:stroke-yellow-500"
+            },
+            "children": [
+              "<icon:star>",
+              "Star"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "heart",
+              "aria-label": "Toggle heart",
+              "className": "data-[state=on]:bg-transparent data-[state=on]:*:[svg]:fill-red-500 data-[state=on]:*:[svg]:stroke-red-500"
+            },
+            "children": [
+              "<icon:heart>",
+              "Heart"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bookmark",
+              "aria-label": "Toggle bookmark",
+              "className": "data-[state=on]:bg-transparent data-[state=on]:*:[svg]:fill-blue-500 data-[state=on]:*:[svg]:stroke-blue-500"
+            },
+            "children": [
+              "<icon:bookmark>",
+              "Bookmark"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__toggle-group-spacing__interact",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "multiple",
+          "variant": "outline",
+          "spacing": 2,
+          "size": "sm"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "star",
+              "aria-label": "Toggle star",
+              "className": "data-[state=on]:bg-transparent data-[state=on]:*:[svg]:fill-yellow-500 data-[state=on]:*:[svg]:stroke-yellow-500"
+            },
+            "children": [
+              "<icon:star>",
+              "Star"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "heart",
+              "aria-label": "Toggle heart",
+              "className": "data-[state=on]:bg-transparent data-[state=on]:*:[svg]:fill-red-500 data-[state=on]:*:[svg]:stroke-red-500"
+            },
+            "children": [
+              "<icon:heart>",
+              "Heart"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bookmark",
+              "aria-label": "Toggle bookmark",
+              "className": "data-[state=on]:bg-transparent data-[state=on]:*:[svg]:fill-blue-500 data-[state=on]:*:[svg]:stroke-blue-500"
+            },
+            "children": [
+              "<icon:bookmark>",
+              "Bookmark"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[aria-label=\"Toggle star\"]"
+        },
+        {
+          "do": "click",
+          "target": "[aria-label=\"Toggle bookmark\"]"
+        },
+        {
+          "do": "hover",
+          "target": "[aria-label=\"Toggle heart\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__toggle-group-spacing__dark",
+      "tree": {
+        "c": "ToggleGroup",
+        "props": {
+          "type": "multiple",
+          "variant": "outline",
+          "spacing": 2,
+          "size": "sm"
+        },
+        "children": [
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "star",
+              "aria-label": "Toggle star",
+              "className": "data-[state=on]:bg-transparent data-[state=on]:*:[svg]:fill-yellow-500 data-[state=on]:*:[svg]:stroke-yellow-500"
+            },
+            "children": [
+              "<icon:star>",
+              "Star"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "heart",
+              "aria-label": "Toggle heart",
+              "className": "data-[state=on]:bg-transparent data-[state=on]:*:[svg]:fill-red-500 data-[state=on]:*:[svg]:stroke-red-500"
+            },
+            "children": [
+              "<icon:heart>",
+              "Heart"
+            ]
+          },
+          {
+            "c": "ToggleGroupItem",
+            "props": {
+              "value": "bookmark",
+              "aria-label": "Toggle bookmark",
+              "className": "data-[state=on]:bg-transparent data-[state=on]:*:[svg]:fill-blue-500 data-[state=on]:*:[svg]:stroke-blue-500"
+            },
+            "children": [
+              "<icon:bookmark>",
+              "Bookmark"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[aria-label=\"Toggle heart\"]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

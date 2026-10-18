@@ -1,0 +1,41 @@
+{
+  "case": "33-dx-helpers",
+  "kind": "helpers",
+  "description": "spec_helpers.rb derives the DX helper list from the oracle (strip the root prefix once, snake_case), appends it to a spec before '## Dependencies', is idempotent, --check detects a stale section, flags Phlex element shadowing, and leaves single-part components alone.",
+  "specs": [
+    "dialog",
+    "card",
+    "switch"
+  ],
+  "print": {
+    "dialog": [
+      "close",
+      "content",
+      "description",
+      "footer",
+      "header",
+      "overlay",
+      "portal",
+      "title",
+      "trigger"
+    ],
+    "card": [
+      "header",
+      "footer",
+      "title",
+      "action",
+      "description",
+      "content"
+    ]
+  },
+  "no_parts": [
+    "switch"
+  ],
+  "shadowing": {
+    "dialog": [
+      "footer",
+      "header",
+      "title"
+    ]
+  }
+}

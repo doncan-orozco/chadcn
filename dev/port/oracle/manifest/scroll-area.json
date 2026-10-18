@@ -1,0 +1,159 @@
+{
+  "name": "scroll-area",
+  "style": "new-york-v4",
+  "source_sha": "8b73bb9be5130007",
+  "use_client": true,
+  "tier": "radix_stateful",
+  "exports": [
+    "ScrollArea",
+    "ScrollBar"
+  ],
+  "parts": [
+    {
+      "name": "ScrollArea",
+      "data_attrs": [],
+      "data_slots": [
+        "scroll-area",
+        "scroll-area-viewport"
+      ],
+      "data_slot": "scroll-area",
+      "wraps": "ScrollAreaPrimitive.Root",
+      "renders": "ScrollAreaPrimitive.Root",
+      "slot_tags": {
+        "scroll-area": "ScrollAreaPrimitive.Root",
+        "scroll-area-viewport": "ScrollAreaPrimitive.Viewport"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "children"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "focus-visible:outline-1",
+        "focus-visible:ring-[3px]",
+        "focus-visible:ring-ring/50",
+        "outline-none",
+        "relative",
+        "rounded-[inherit]",
+        "size-full",
+        "transition-[color,box-shadow]"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ScrollBar",
+      "data_attrs": [],
+      "data_slots": [
+        "scroll-area-scrollbar",
+        "scroll-area-thumb"
+      ],
+      "data_slot": "scroll-area-scrollbar",
+      "wraps": "ScrollAreaPrimitive.ScrollAreaScrollbar",
+      "renders": "ScrollAreaPrimitive.ScrollAreaScrollbar",
+      "slot_tags": {
+        "scroll-area-scrollbar": "ScrollAreaPrimitive.ScrollAreaScrollbar",
+        "scroll-area-thumb": "ScrollAreaPrimitive.ScrollAreaThumb"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "orientation",
+            "default": "\"vertical\""
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "bg-border",
+        "border-l",
+        "border-l-transparent",
+        "border-t",
+        "border-t-transparent",
+        "flex",
+        "flex-1",
+        "flex-col",
+        "h-2.5",
+        "h-full",
+        "horizontal",
+        "p-px",
+        "relative",
+        "rounded-full",
+        "select-none",
+        "touch-none",
+        "transition-colors",
+        "vertical",
+        "w-2.5"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "bg-border",
+    "border-l",
+    "border-l-transparent",
+    "border-t",
+    "border-t-transparent",
+    "flex",
+    "flex-1",
+    "flex-col",
+    "focus-visible:outline-1",
+    "focus-visible:ring-[3px]",
+    "focus-visible:ring-ring/50",
+    "h-2.5",
+    "h-full",
+    "horizontal",
+    "outline-none",
+    "p-px",
+    "relative",
+    "rounded-[inherit]",
+    "rounded-full",
+    "select-none",
+    "size-full",
+    "touch-none",
+    "transition-[color,box-shadow]",
+    "transition-colors",
+    "vertical",
+    "w-2.5"
+  ],
+  "data_attrs": [],
+  "data_slots": [
+    "scroll-area",
+    "scroll-area-scrollbar",
+    "scroll-area-thumb",
+    "scroll-area-viewport"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [
+    "ScrollArea"
+  ],
+  "third_party": [],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn",
+    "radix-ui"
+  ],
+  "extra_files": []
+}

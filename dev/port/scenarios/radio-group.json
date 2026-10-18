@@ -1,0 +1,6475 @@
+{
+  "component": "radio-group",
+  "scenarios": [
+    {
+      "id": "default",
+      "tree": {
+        "c": "RadioGroup",
+        "props": {},
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "default",
+                  "id": "r1"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r1",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Default"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "comfortable",
+                  "id": "r2"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r2",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Comfortable"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "compact",
+                  "id": "r3"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r3",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Compact"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default__dark",
+      "tree": {
+        "c": "RadioGroup",
+        "props": {},
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "default",
+                  "id": "r1"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r1",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Default"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "comfortable",
+                  "id": "r2"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r2",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Comfortable"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "compact",
+                  "id": "r3"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r3",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Compact"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default-value",
+      "tree": {
+        "c": "RadioGroup",
+        "props": {
+          "defaultValue": "comfortable"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "default",
+                  "id": "r1"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r1",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Default"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "comfortable",
+                  "id": "r2"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r2",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Comfortable"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "compact",
+                  "id": "r3"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r3",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Compact"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default-value__dark",
+      "tree": {
+        "c": "RadioGroup",
+        "props": {
+          "defaultValue": "comfortable"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "default",
+                  "id": "r1"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r1",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Default"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "comfortable",
+                  "id": "r2"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r2",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Comfortable"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "compact",
+                  "id": "r3"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r3",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Compact"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "item-disabled",
+      "tree": {
+        "c": "RadioGroup",
+        "props": {
+          "defaultValue": "a"
+        },
+        "children": [
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "a",
+              "id": "item-a",
+              "aria-label": "Option A"
+            }
+          },
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "b",
+              "id": "item-b",
+              "aria-label": "Option B",
+              "disabled": true
+            }
+          },
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "c",
+              "id": "item-c",
+              "aria-label": "Option C"
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "item-disabled__checked",
+      "tree": {
+        "c": "RadioGroup",
+        "props": {
+          "defaultValue": "b"
+        },
+        "children": [
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "a",
+              "id": "item-a",
+              "aria-label": "Option A"
+            }
+          },
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "b",
+              "id": "item-b",
+              "aria-label": "Option B",
+              "disabled": true
+            }
+          },
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "c",
+              "id": "item-c",
+              "aria-label": "Option C"
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "item-disabled__dark",
+      "tree": {
+        "c": "RadioGroup",
+        "props": {
+          "defaultValue": "b"
+        },
+        "children": [
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "a",
+              "id": "item-a",
+              "aria-label": "Option A"
+            }
+          },
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "b",
+              "id": "item-b",
+              "aria-label": "Option B",
+              "disabled": true
+            }
+          },
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "c",
+              "id": "item-c",
+              "aria-label": "Option C"
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group-disabled",
+      "tree": {
+        "c": "RadioGroup",
+        "props": {
+          "disabled": true,
+          "defaultValue": "comfortable"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "default",
+                  "id": "r1"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r1",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Default"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "comfortable",
+                  "id": "r2"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r2",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Comfortable"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "compact",
+                  "id": "r3"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r3",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Compact"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group-disabled__dark",
+      "tree": {
+        "c": "RadioGroup",
+        "props": {
+          "disabled": true,
+          "defaultValue": "comfortable"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "default",
+                  "id": "r1"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r1",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Default"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "comfortable",
+                  "id": "r2"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r2",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Comfortable"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "compact",
+                  "id": "r3"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r3",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Compact"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid",
+      "tree": {
+        "c": "RadioGroup",
+        "props": {
+          "defaultValue": "a"
+        },
+        "children": [
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "a",
+              "id": "item-a",
+              "aria-label": "Option A",
+              "aria-invalid": true
+            }
+          },
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "b",
+              "id": "item-b",
+              "aria-label": "Option B",
+              "aria-invalid": true
+            }
+          },
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "c",
+              "id": "item-c",
+              "aria-label": "Option C",
+              "aria-invalid": true
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid__dark",
+      "tree": {
+        "c": "RadioGroup",
+        "props": {
+          "defaultValue": "a"
+        },
+        "children": [
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "a",
+              "id": "item-a",
+              "aria-label": "Option A",
+              "aria-invalid": true
+            }
+          },
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "b",
+              "id": "item-b",
+              "aria-label": "Option B",
+              "aria-invalid": true
+            }
+          },
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "c",
+              "id": "item-c",
+              "aria-label": "Option C",
+              "aria-invalid": true
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid__focus-visible",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "RadioGroup",
+            "props": {
+              "defaultValue": "a"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "a",
+                  "id": "item-a",
+                  "aria-label": "Option A",
+                  "aria-invalid": true
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "b",
+                  "id": "item-b",
+                  "aria-label": "Option B",
+                  "aria-invalid": true
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "c",
+                  "id": "item-c",
+                  "aria-label": "Option C",
+                  "aria-invalid": true
+                }
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid__focus-visible__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "RadioGroup",
+            "props": {
+              "defaultValue": "a"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "a",
+                  "id": "item-a",
+                  "aria-label": "Option A",
+                  "aria-invalid": true
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "b",
+                  "id": "item-b",
+                  "aria-label": "Option B",
+                  "aria-invalid": true
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "c",
+                  "id": "item-c",
+                  "aria-label": "Option C",
+                  "aria-invalid": true
+                }
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "required",
+      "tree": {
+        "c": "RadioGroup",
+        "props": {
+          "required": true,
+          "defaultValue": "a"
+        },
+        "children": [
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "a",
+              "id": "item-a",
+              "aria-label": "Option A"
+            }
+          },
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "b",
+              "id": "item-b",
+              "aria-label": "Option B"
+            }
+          },
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "c",
+              "id": "item-c",
+              "aria-label": "Option C"
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "orientation-horizontal",
+      "tree": {
+        "c": "RadioGroup",
+        "props": {
+          "orientation": "horizontal",
+          "className": "grid-flow-col",
+          "defaultValue": "a"
+        },
+        "children": [
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "a",
+              "id": "item-a",
+              "aria-label": "Option A"
+            }
+          },
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "b",
+              "id": "item-b",
+              "aria-label": "Option B"
+            }
+          },
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "c",
+              "id": "item-c",
+              "aria-label": "Option C"
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "orientation-vertical",
+      "tree": {
+        "c": "RadioGroup",
+        "props": {
+          "orientation": "vertical",
+          "defaultValue": "a"
+        },
+        "children": [
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "a",
+              "id": "item-a",
+              "aria-label": "Option A"
+            }
+          },
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "b",
+              "id": "item-b",
+              "aria-label": "Option B"
+            }
+          },
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "c",
+              "id": "item-c",
+              "aria-label": "Option C"
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "dir-rtl",
+      "tree": {
+        "c": "RadioGroup",
+        "props": {
+          "dir": "rtl",
+          "defaultValue": "a"
+        },
+        "children": [
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "a",
+              "id": "item-a",
+              "aria-label": "Option A"
+            }
+          },
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "b",
+              "id": "item-b",
+              "aria-label": "Option B"
+            }
+          },
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "c",
+              "id": "item-c",
+              "aria-label": "Option C"
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "dir-ltr-explicit",
+      "tree": {
+        "c": "RadioGroup",
+        "props": {
+          "dir": "ltr",
+          "defaultValue": "a"
+        },
+        "children": [
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "a",
+              "id": "item-a",
+              "aria-label": "Option A"
+            }
+          },
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "b",
+              "id": "item-b",
+              "aria-label": "Option B"
+            }
+          },
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "c",
+              "id": "item-c",
+              "aria-label": "Option C"
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class-merge",
+      "tree": {
+        "c": "RadioGroup",
+        "props": {
+          "className": "gap-6 grid-cols-3",
+          "defaultValue": "a"
+        },
+        "children": [
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "a",
+              "id": "item-a",
+              "aria-label": "Option A",
+              "className": "size-6 border-primary"
+            }
+          },
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "b",
+              "id": "item-b",
+              "aria-label": "Option B",
+              "className": "size-6 border-primary"
+            }
+          },
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "c",
+              "id": "item-c",
+              "aria-label": "Option C"
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "forwarded-attrs",
+      "tree": {
+        "c": "RadioGroup",
+        "props": {
+          "id": "plan-group",
+          "aria-label": "Plan",
+          "data-testid": "plan",
+          "title": "Plans",
+          "defaultValue": "x"
+        },
+        "children": [
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "x",
+              "id": "plan-x",
+              "aria-describedby": "plan-x-help",
+              "data-foo": "bar",
+              "aria-label": "X"
+            }
+          },
+          {
+            "c": "_p",
+            "props": {
+              "id": "plan-x-help",
+              "className": "text-sm text-muted-foreground"
+            },
+            "children": [
+              "Help"
+            ]
+          },
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "y",
+              "id": "plan-y",
+              "aria-label": "Y"
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "as-child-root",
+      "tree": {
+        "c": "RadioGroup",
+        "props": {
+          "asChild": true,
+          "defaultValue": "b"
+        },
+        "children": [
+          {
+            "c": "_fieldset",
+            "props": {
+              "className": "border p-2"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "a",
+                  "id": "fs-a",
+                  "aria-label": "a"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "b",
+                  "id": "fs-b",
+                  "aria-label": "b"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "#fs-a"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "controlled-value",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "RadioGroup",
+            "props": {
+              "value": "b"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "a",
+                  "id": "item-a",
+                  "aria-label": "Option A"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "b",
+                  "id": "item-b",
+                  "aria-label": "Option B"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "c",
+                  "id": "item-c",
+                  "aria-label": "Option C"
+                }
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "#item-c"
+        },
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "controlled-value-empty",
+      "tree": {
+        "c": "RadioGroup",
+        "props": {
+          "value": ""
+        },
+        "children": [
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "a",
+              "id": "item-a",
+              "aria-label": "Option A"
+            }
+          },
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "b",
+              "id": "item-b",
+              "aria-label": "Option B"
+            }
+          },
+          {
+            "c": "RadioGroupItem",
+            "props": {
+              "value": "c",
+              "id": "item-c",
+              "aria-label": "Option C"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "#item-a"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "click__select",
+      "tree": {
+        "c": "RadioGroup",
+        "props": {},
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "default",
+                  "id": "r1"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r1",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Default"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "comfortable",
+                  "id": "r2"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r2",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Comfortable"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "compact",
+                  "id": "r3"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r3",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Compact"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "#r2"
+        },
+        {
+          "do": "click",
+          "target": "#r3"
+        },
+        {
+          "do": "click",
+          "target": "#r3"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "click__select__dark",
+      "tree": {
+        "c": "RadioGroup",
+        "props": {},
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "default",
+                  "id": "r1"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r1",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Default"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "comfortable",
+                  "id": "r2"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r2",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Comfortable"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "compact",
+                  "id": "r3"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r3",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Compact"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "#r2"
+        },
+        {
+          "do": "click",
+          "target": "#r3"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "click-label__disabled-item",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "RadioGroup",
+            "props": {
+              "defaultValue": "default"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "RadioGroupItem",
+                    "props": {
+                      "value": "default",
+                      "id": "r1"
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "r1",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                    },
+                    "children": [
+                      "Default"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "RadioGroupItem",
+                    "props": {
+                      "value": "comfortable",
+                      "id": "r2",
+                      "disabled": true
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "r2",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                    },
+                    "children": [
+                      "Comfortable"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "RadioGroupItem",
+                    "props": {
+                      "value": "compact",
+                      "id": "r3"
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "r3",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                    },
+                    "children": [
+                      "Compact"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "label[for=r2]"
+        },
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "click-label__group-disabled",
+      "tree": {
+        "c": "RadioGroup",
+        "props": {
+          "disabled": true,
+          "defaultValue": "comfortable"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "default",
+                  "id": "r1"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r1",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Default"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "comfortable",
+                  "id": "r2"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r2",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Comfortable"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "compact",
+                  "id": "r3"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r3",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Compact"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "label[for=r1]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "click-label__select",
+      "tree": {
+        "c": "RadioGroup",
+        "props": {
+          "defaultValue": "comfortable"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "default",
+                  "id": "r1"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r1",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Default"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "comfortable",
+                  "id": "r2"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r2",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Comfortable"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "compact",
+                  "id": "r3"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r3",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Compact"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "label[for=r1]"
+        },
+        {
+          "do": "click",
+          "target": "label[for=r3]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "click-gap__focus-group",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "RadioGroup",
+            "props": {
+              "defaultValue": "comfortable"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "RadioGroupItem",
+                    "props": {
+                      "value": "default",
+                      "id": "r1"
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "r1",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                    },
+                    "children": [
+                      "Default"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "RadioGroupItem",
+                    "props": {
+                      "value": "comfortable",
+                      "id": "r2"
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "r2",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                    },
+                    "children": [
+                      "Comfortable"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "RadioGroupItem",
+                    "props": {
+                      "value": "compact",
+                      "id": "r3"
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "r3",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                    },
+                    "children": [
+                      "Compact"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=radio-group] > div:nth-child(1)",
+          "position": {
+            "x": 300,
+            "y": 8
+          }
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus__programmatic-no-check",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "RadioGroup",
+            "props": {
+              "defaultValue": "a"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "a",
+                  "id": "item-a",
+                  "aria-label": "Option A"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "b",
+                  "id": "item-b",
+                  "aria-label": "Option B"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "c",
+                  "id": "item-c",
+                  "aria-label": "Option C"
+                }
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#item-c"
+        },
+        {
+          "do": "tab",
+          "shift": true
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tab__entry-checked",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "RadioGroup",
+            "props": {
+              "defaultValue": "comfortable"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "RadioGroupItem",
+                    "props": {
+                      "value": "default",
+                      "id": "r1"
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "r1",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                    },
+                    "children": [
+                      "Default"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "RadioGroupItem",
+                    "props": {
+                      "value": "comfortable",
+                      "id": "r2"
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "r2",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                    },
+                    "children": [
+                      "Comfortable"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "RadioGroupItem",
+                    "props": {
+                      "value": "compact",
+                      "id": "r3"
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "r3",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                    },
+                    "children": [
+                      "Compact"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tab__entry-checked__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "RadioGroup",
+            "props": {
+              "defaultValue": "comfortable"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "RadioGroupItem",
+                    "props": {
+                      "value": "default",
+                      "id": "r1"
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "r1",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                    },
+                    "children": [
+                      "Default"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "RadioGroupItem",
+                    "props": {
+                      "value": "comfortable",
+                      "id": "r2"
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "r2",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                    },
+                    "children": [
+                      "Comfortable"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "RadioGroupItem",
+                    "props": {
+                      "value": "compact",
+                      "id": "r3"
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "r3",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                    },
+                    "children": [
+                      "Compact"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tab__entry-first",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "RadioGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "RadioGroupItem",
+                    "props": {
+                      "value": "default",
+                      "id": "r1"
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "r1",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                    },
+                    "children": [
+                      "Default"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "RadioGroupItem",
+                    "props": {
+                      "value": "comfortable",
+                      "id": "r2"
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "r2",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                    },
+                    "children": [
+                      "Comfortable"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "RadioGroupItem",
+                    "props": {
+                      "value": "compact",
+                      "id": "r3"
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "r3",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                    },
+                    "children": [
+                      "Compact"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tab__entry-skips-disabled",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "RadioGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "a",
+                  "id": "item-a",
+                  "aria-label": "Option A",
+                  "disabled": true
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "b",
+                  "id": "item-b",
+                  "aria-label": "Option B"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "c",
+                  "id": "item-c",
+                  "aria-label": "Option C"
+                }
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tab__entry-checked-disabled",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "RadioGroup",
+            "props": {
+              "defaultValue": "b"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "a",
+                  "id": "item-a",
+                  "aria-label": "Option A"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "b",
+                  "id": "item-b",
+                  "aria-label": "Option B",
+                  "disabled": true
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "c",
+                  "id": "item-c",
+                  "aria-label": "Option C"
+                }
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tab__leave",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "RadioGroup",
+            "props": {
+              "defaultValue": "comfortable"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "RadioGroupItem",
+                    "props": {
+                      "value": "default",
+                      "id": "r1"
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "r1",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                    },
+                    "children": [
+                      "Default"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "RadioGroupItem",
+                    "props": {
+                      "value": "comfortable",
+                      "id": "r2"
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "r2",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                    },
+                    "children": [
+                      "Comfortable"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "RadioGroupItem",
+                    "props": {
+                      "value": "compact",
+                      "id": "r3"
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "r3",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                    },
+                    "children": [
+                      "Compact"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tab__after-arrow-tab-stop",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "RadioGroup",
+            "props": {
+              "defaultValue": "a"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "a",
+                  "id": "item-a",
+                  "aria-label": "Option A"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "b",
+                  "id": "item-b",
+                  "aria-label": "Option B"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "c",
+                  "id": "item-c",
+                  "aria-label": "Option C"
+                }
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab",
+          "shift": true
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "shift-tab__entry-and-leave",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "RadioGroup",
+            "props": {
+              "defaultValue": "comfortable"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "RadioGroupItem",
+                    "props": {
+                      "value": "default",
+                      "id": "r1"
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "r1",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                    },
+                    "children": [
+                      "Default"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "RadioGroupItem",
+                    "props": {
+                      "value": "comfortable",
+                      "id": "r2"
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "r2",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                    },
+                    "children": [
+                      "Comfortable"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "RadioGroupItem",
+                    "props": {
+                      "value": "compact",
+                      "id": "r3"
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "r3",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                    },
+                    "children": [
+                      "Compact"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#after"
+        },
+        {
+          "do": "tab",
+          "shift": true
+        },
+        {
+          "do": "tab",
+          "shift": true
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tab__group-disabled-skipped",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "RadioGroup",
+            "props": {
+              "disabled": true,
+              "defaultValue": "comfortable"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "RadioGroupItem",
+                    "props": {
+                      "value": "default",
+                      "id": "r1"
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "r1",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                    },
+                    "children": [
+                      "Default"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "RadioGroupItem",
+                    "props": {
+                      "value": "comfortable",
+                      "id": "r2"
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "r2",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                    },
+                    "children": [
+                      "Comfortable"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "RadioGroupItem",
+                    "props": {
+                      "value": "compact",
+                      "id": "r3"
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "r3",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                    },
+                    "children": [
+                      "Compact"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "arrow-down__selects-and-loops",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "RadioGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "a",
+                  "id": "item-a",
+                  "aria-label": "Option A"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "b",
+                  "id": "item-b",
+                  "aria-label": "Option B"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "c",
+                  "id": "item-c",
+                  "aria-label": "Option C"
+                }
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "arrow-up__wraps-to-last",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "RadioGroup",
+            "props": {
+              "defaultValue": "a"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "a",
+                  "id": "item-a",
+                  "aria-label": "Option A"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "b",
+                  "id": "item-b",
+                  "aria-label": "Option B"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "c",
+                  "id": "item-c",
+                  "aria-label": "Option C"
+                }
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowUp"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "arrow-right-left__no-orientation",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "RadioGroup",
+            "props": {
+              "defaultValue": "a"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "a",
+                  "id": "item-a",
+                  "aria-label": "Option A"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "b",
+                  "id": "item-b",
+                  "aria-label": "Option B"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "c",
+                  "id": "item-c",
+                  "aria-label": "Option C"
+                }
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "arrows__skip-disabled",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "RadioGroup",
+            "props": {
+              "defaultValue": "a"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "a",
+                  "id": "item-a",
+                  "aria-label": "Option A"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "b",
+                  "id": "item-b",
+                  "aria-label": "Option B",
+                  "disabled": true
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "c",
+                  "id": "item-c",
+                  "aria-label": "Option C"
+                }
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        },
+        {
+          "do": "press",
+          "key": "ArrowUp"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "home-end__focus-only",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "RadioGroup",
+            "props": {
+              "defaultValue": "b"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "a",
+                  "id": "item-a",
+                  "aria-label": "Option A"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "b",
+                  "id": "item-b",
+                  "aria-label": "Option B"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "c",
+                  "id": "item-c",
+                  "aria-label": "Option C"
+                }
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Home"
+        },
+        {
+          "do": "press",
+          "key": "End"
+        },
+        {
+          "do": "press",
+          "key": "PageUp"
+        },
+        {
+          "do": "press",
+          "key": "PageDown"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "arrow-modifier__ignored",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "RadioGroup",
+            "props": {
+              "defaultValue": "a"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "a",
+                  "id": "item-a",
+                  "aria-label": "Option A"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "b",
+                  "id": "item-b",
+                  "aria-label": "Option B"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "c",
+                  "id": "item-c",
+                  "aria-label": "Option C"
+                }
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Shift+ArrowDown"
+        },
+        {
+          "do": "press",
+          "key": "Control+ArrowDown"
+        },
+        {
+          "do": "press",
+          "key": "Alt+ArrowDown"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "space__selects",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "RadioGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "a",
+                  "id": "item-a",
+                  "aria-label": "Option A"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "b",
+                  "id": "item-b",
+                  "aria-label": "Option B"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "c",
+                  "id": "item-c",
+                  "aria-label": "Option C"
+                }
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": " "
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "space__selects__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "RadioGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "a",
+                  "id": "item-a",
+                  "aria-label": "Option A"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "b",
+                  "id": "item-b",
+                  "aria-label": "Option B"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "c",
+                  "id": "item-c",
+                  "aria-label": "Option C"
+                }
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": " "
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "enter__no-op",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "RadioGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "a",
+                  "id": "item-a",
+                  "aria-label": "Option A"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "b",
+                  "id": "item-b",
+                  "aria-label": "Option B"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "c",
+                  "id": "item-c",
+                  "aria-label": "Option C"
+                }
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "loop-false__stops-at-ends",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "RadioGroup",
+            "props": {
+              "loop": false,
+              "defaultValue": "c"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "a",
+                  "id": "item-a",
+                  "aria-label": "Option A"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "b",
+                  "id": "item-b",
+                  "aria-label": "Option B"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "c",
+                  "id": "item-c",
+                  "aria-label": "Option C"
+                }
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        },
+        {
+          "do": "press",
+          "key": "ArrowUp"
+        },
+        {
+          "do": "press",
+          "key": "ArrowUp"
+        },
+        {
+          "do": "press",
+          "key": "ArrowUp"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "orientation-horizontal__keys",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "RadioGroup",
+            "props": {
+              "orientation": "horizontal",
+              "className": "grid-flow-col",
+              "defaultValue": "a"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "a",
+                  "id": "item-a",
+                  "aria-label": "Option A"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "b",
+                  "id": "item-b",
+                  "aria-label": "Option B"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "c",
+                  "id": "item-c",
+                  "aria-label": "Option C"
+                }
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        },
+        {
+          "do": "press",
+          "key": "ArrowUp"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "orientation-vertical__keys",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "RadioGroup",
+            "props": {
+              "orientation": "vertical",
+              "defaultValue": "a"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "a",
+                  "id": "item-a",
+                  "aria-label": "Option A"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "b",
+                  "id": "item-b",
+                  "aria-label": "Option B"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "c",
+                  "id": "item-c",
+                  "aria-label": "Option C"
+                }
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        },
+        {
+          "do": "press",
+          "key": "ArrowUp"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "dir-rtl__keys",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "RadioGroup",
+            "props": {
+              "dir": "rtl",
+              "defaultValue": "a"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "a",
+                  "id": "item-a",
+                  "aria-label": "Option A"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "b",
+                  "id": "item-b",
+                  "aria-label": "Option B"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "c",
+                  "id": "item-c",
+                  "aria-label": "Option C"
+                }
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "dir-rtl-horizontal__keys",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "RadioGroup",
+            "props": {
+              "dir": "rtl",
+              "orientation": "horizontal",
+              "className": "grid-flow-col",
+              "defaultValue": "a"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "a",
+                  "id": "item-a",
+                  "aria-label": "Option A"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "b",
+                  "id": "item-b",
+                  "aria-label": "Option B"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "c",
+                  "id": "item-c",
+                  "aria-label": "Option C"
+                }
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__bubble-inputs",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "f1"
+        },
+        "children": [
+          {
+            "c": "RadioGroup",
+            "props": {
+              "name": "plan",
+              "defaultValue": "b"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "a",
+                  "id": "item-a",
+                  "aria-label": "Option A"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "b",
+                  "id": "item-b",
+                  "aria-label": "Option B"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "c",
+                  "id": "item-c",
+                  "aria-label": "Option C"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "#item-c"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__required-disabled",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "f2"
+        },
+        "children": [
+          {
+            "c": "RadioGroup",
+            "props": {
+              "name": "plan",
+              "required": true,
+              "disabled": true,
+              "defaultValue": "a"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "a",
+                  "id": "item-a",
+                  "aria-label": "Option A"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "b",
+                  "id": "item-b",
+                  "aria-label": "Option B"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "c",
+                  "id": "item-c",
+                  "aria-label": "Option C"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__reset",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "f3"
+        },
+        "children": [
+          {
+            "c": "RadioGroup",
+            "props": {
+              "name": "plan",
+              "defaultValue": "b"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "a",
+                  "id": "item-a",
+                  "aria-label": "Option A"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "b",
+                  "id": "item-b",
+                  "aria-label": "Option B"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "c",
+                  "id": "item-c",
+                  "aria-label": "Option C"
+                }
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "reset",
+              "id": "reset"
+            },
+            "children": [
+              "Reset"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "#item-a"
+        },
+        {
+          "do": "click",
+          "target": "#reset"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__reset-no-default",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "f4"
+        },
+        "children": [
+          {
+            "c": "RadioGroup",
+            "props": {
+              "name": "plan"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "a",
+                  "id": "item-a",
+                  "aria-label": "Option A"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "b",
+                  "id": "item-b",
+                  "aria-label": "Option B"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "c",
+                  "id": "item-c",
+                  "aria-label": "Option C"
+                }
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "reset",
+              "id": "reset"
+            },
+            "children": [
+              "Reset"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "#item-b"
+        },
+        {
+          "do": "click",
+          "target": "#reset"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__keyboard",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "f5"
+        },
+        "children": [
+          {
+            "c": "RadioGroup",
+            "props": {
+              "name": "plan",
+              "defaultValue": "a"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "a",
+                  "id": "item-a",
+                  "aria-label": "Option A"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "b",
+                  "id": "item-b",
+                  "aria-label": "Option B"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "c",
+                  "id": "item-c",
+                  "aria-label": "Option C"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "#item-a"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__form-attribute-outside",
+      "tree": {
+        "c": "_div",
+        "props": {},
+        "children": [
+          {
+            "c": "_form",
+            "props": {
+              "id": "ext-form"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "type": "reset",
+                  "id": "reset"
+                },
+                "children": [
+                  "Reset"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "RadioGroup",
+            "props": {
+              "name": "plan",
+              "form": "ext-form",
+              "defaultValue": "a"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "a",
+                  "id": "item-a",
+                  "aria-label": "Option A"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "b",
+                  "id": "item-b",
+                  "aria-label": "Option B"
+                }
+              },
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "c",
+                  "id": "item-c",
+                  "aria-label": "Option C"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "#item-c"
+        },
+        {
+          "do": "click",
+          "target": "#reset"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__radio-group-demo",
+      "tree": {
+        "c": "RadioGroup",
+        "props": {
+          "defaultValue": "comfortable"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "default",
+                  "id": "r1"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r1",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Default"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "comfortable",
+                  "id": "r2"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r2",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Comfortable"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "compact",
+                  "id": "r3"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r3",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Compact"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__radio-group-demo__dark",
+      "tree": {
+        "c": "RadioGroup",
+        "props": {
+          "defaultValue": "comfortable"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "default",
+                  "id": "r1"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r1",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Default"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "comfortable",
+                  "id": "r2"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r2",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Comfortable"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center gap-3"
+            },
+            "children": [
+              {
+                "c": "RadioGroupItem",
+                "props": {
+                  "value": "compact",
+                  "id": "r3"
+                }
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "r3",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                },
+                "children": [
+                  "Compact"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__radio-group-demo__interact",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "before"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "RadioGroup",
+            "props": {
+              "defaultValue": "comfortable"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "RadioGroupItem",
+                    "props": {
+                      "value": "default",
+                      "id": "r1"
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "r1",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                    },
+                    "children": [
+                      "Default"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "RadioGroupItem",
+                    "props": {
+                      "value": "comfortable",
+                      "id": "r2"
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "r2",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                    },
+                    "children": [
+                      "Comfortable"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex items-center gap-3"
+                },
+                "children": [
+                  {
+                    "c": "RadioGroupItem",
+                    "props": {
+                      "value": "compact",
+                      "id": "r3"
+                    }
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "r3",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                    },
+                    "children": [
+                      "Compact"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "id": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "label[for=r1]"
+        },
+        {
+          "do": "click",
+          "target": "#r3"
+        },
+        {
+          "do": "focus",
+          "target": "#before"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowUp"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__field-radio",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md"
+        },
+        "children": [
+          {
+            "c": "_fieldset",
+            "props": {
+              "className": "flex flex-col gap-3"
+            },
+            "children": [
+              {
+                "c": "_label",
+                "props": {
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 flex w-fit gap-2 leading-snug"
+                },
+                "children": [
+                  "Subscription Plan"
+                ]
+              },
+              {
+                "c": "_p",
+                "props": {
+                  "className": "text-sm leading-normal font-normal text-muted-foreground"
+                },
+                "children": [
+                  "Yearly and lifetime plans offer significant savings."
+                ]
+              },
+              {
+                "c": "RadioGroup",
+                "props": {
+                  "defaultValue": "monthly"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "role": "group",
+                      "className": "flex w-full gap-3 flex-row items-center"
+                    },
+                    "children": [
+                      {
+                        "c": "RadioGroupItem",
+                        "props": {
+                          "value": "monthly",
+                          "id": "plan-monthly"
+                        }
+                      },
+                      {
+                        "c": "_label",
+                        "props": {
+                          "htmlFor": "plan-monthly",
+                          "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 flex w-fit gap-2 leading-snug flex-auto font-normal"
+                        },
+                        "children": [
+                          "Monthly ($9.99/month)"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "role": "group",
+                      "className": "flex w-full gap-3 flex-row items-center"
+                    },
+                    "children": [
+                      {
+                        "c": "RadioGroupItem",
+                        "props": {
+                          "value": "yearly",
+                          "id": "plan-yearly"
+                        }
+                      },
+                      {
+                        "c": "_label",
+                        "props": {
+                          "htmlFor": "plan-yearly",
+                          "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 flex w-fit gap-2 leading-snug flex-auto font-normal"
+                        },
+                        "children": [
+                          "Yearly ($99.99/year)"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "role": "group",
+                      "className": "flex w-full gap-3 flex-row items-center"
+                    },
+                    "children": [
+                      {
+                        "c": "RadioGroupItem",
+                        "props": {
+                          "value": "lifetime",
+                          "id": "plan-lifetime"
+                        }
+                      },
+                      {
+                        "c": "_label",
+                        "props": {
+                          "htmlFor": "plan-lifetime",
+                          "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 flex w-fit gap-2 leading-snug flex-auto font-normal"
+                        },
+                        "children": [
+                          "Lifetime ($299.99)"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "label[for=plan-lifetime]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__field-radio__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md"
+        },
+        "children": [
+          {
+            "c": "_fieldset",
+            "props": {
+              "className": "flex flex-col gap-3"
+            },
+            "children": [
+              {
+                "c": "_label",
+                "props": {
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 flex w-fit gap-2 leading-snug"
+                },
+                "children": [
+                  "Subscription Plan"
+                ]
+              },
+              {
+                "c": "_p",
+                "props": {
+                  "className": "text-sm leading-normal font-normal text-muted-foreground"
+                },
+                "children": [
+                  "Yearly and lifetime plans offer significant savings."
+                ]
+              },
+              {
+                "c": "RadioGroup",
+                "props": {
+                  "defaultValue": "monthly"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "role": "group",
+                      "className": "flex w-full gap-3 flex-row items-center"
+                    },
+                    "children": [
+                      {
+                        "c": "RadioGroupItem",
+                        "props": {
+                          "value": "monthly",
+                          "id": "plan-monthly"
+                        }
+                      },
+                      {
+                        "c": "_label",
+                        "props": {
+                          "htmlFor": "plan-monthly",
+                          "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 flex w-fit gap-2 leading-snug flex-auto font-normal"
+                        },
+                        "children": [
+                          "Monthly ($9.99/month)"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "role": "group",
+                      "className": "flex w-full gap-3 flex-row items-center"
+                    },
+                    "children": [
+                      {
+                        "c": "RadioGroupItem",
+                        "props": {
+                          "value": "yearly",
+                          "id": "plan-yearly"
+                        }
+                      },
+                      {
+                        "c": "_label",
+                        "props": {
+                          "htmlFor": "plan-yearly",
+                          "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 flex w-fit gap-2 leading-snug flex-auto font-normal"
+                        },
+                        "children": [
+                          "Yearly ($99.99/year)"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "role": "group",
+                      "className": "flex w-full gap-3 flex-row items-center"
+                    },
+                    "children": [
+                      {
+                        "c": "RadioGroupItem",
+                        "props": {
+                          "value": "lifetime",
+                          "id": "plan-lifetime"
+                        }
+                      },
+                      {
+                        "c": "_label",
+                        "props": {
+                          "htmlFor": "plan-lifetime",
+                          "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 flex w-fit gap-2 leading-snug flex-auto font-normal"
+                        },
+                        "children": [
+                          "Lifetime ($299.99)"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__field-choice-card",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md"
+        },
+        "children": [
+          {
+            "c": "_fieldset",
+            "props": {
+              "className": "flex flex-col gap-3"
+            },
+            "children": [
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "compute-environment-p8w",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 flex w-fit gap-2 leading-snug"
+                },
+                "children": [
+                  "Compute Environment"
+                ]
+              },
+              {
+                "c": "_p",
+                "props": {
+                  "className": "text-sm leading-normal font-normal text-muted-foreground"
+                },
+                "children": [
+                  "Select the compute environment for your cluster."
+                ]
+              },
+              {
+                "c": "RadioGroup",
+                "props": {
+                  "defaultValue": "kubernetes"
+                },
+                "children": [
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "kubernetes-r2h",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 flex w-fit gap-2 leading-snug w-full flex-col rounded-md border has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary/5 dark:has-data-[state=checked]:bg-primary/10"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "role": "group",
+                          "className": "flex w-full gap-3 flex-row items-start p-4"
+                        },
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "className": "flex flex-1 flex-col gap-1.5 leading-snug"
+                            },
+                            "children": [
+                              {
+                                "c": "_div",
+                                "props": {
+                                  "className": "flex w-fit items-center gap-2 text-sm leading-snug font-medium"
+                                },
+                                "children": [
+                                  "Kubernetes"
+                                ]
+                              },
+                              {
+                                "c": "_p",
+                                "props": {
+                                  "className": "text-sm leading-normal font-normal text-muted-foreground"
+                                },
+                                "children": [
+                                  "Run GPU workloads on a K8s configured cluster."
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "c": "RadioGroupItem",
+                            "props": {
+                              "value": "kubernetes",
+                              "id": "kubernetes-r2h",
+                              "className": "mt-px"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "vm-z4k",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 flex w-fit gap-2 leading-snug w-full flex-col rounded-md border has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary/5 dark:has-data-[state=checked]:bg-primary/10"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "role": "group",
+                          "className": "flex w-full gap-3 flex-row items-start p-4"
+                        },
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "className": "flex flex-1 flex-col gap-1.5 leading-snug"
+                            },
+                            "children": [
+                              {
+                                "c": "_div",
+                                "props": {
+                                  "className": "flex w-fit items-center gap-2 text-sm leading-snug font-medium"
+                                },
+                                "children": [
+                                  "Virtual Machine"
+                                ]
+                              },
+                              {
+                                "c": "_p",
+                                "props": {
+                                  "className": "text-sm leading-normal font-normal text-muted-foreground"
+                                },
+                                "children": [
+                                  "Access a VM configured cluster to run GPU workloads."
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "c": "RadioGroupItem",
+                            "props": {
+                              "value": "vm",
+                              "id": "vm-z4k",
+                              "className": "mt-px"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__field-choice-card__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md"
+        },
+        "children": [
+          {
+            "c": "_fieldset",
+            "props": {
+              "className": "flex flex-col gap-3"
+            },
+            "children": [
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "compute-environment-p8w",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 flex w-fit gap-2 leading-snug"
+                },
+                "children": [
+                  "Compute Environment"
+                ]
+              },
+              {
+                "c": "_p",
+                "props": {
+                  "className": "text-sm leading-normal font-normal text-muted-foreground"
+                },
+                "children": [
+                  "Select the compute environment for your cluster."
+                ]
+              },
+              {
+                "c": "RadioGroup",
+                "props": {
+                  "defaultValue": "kubernetes"
+                },
+                "children": [
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "kubernetes-r2h",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 flex w-fit gap-2 leading-snug w-full flex-col rounded-md border has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary/5 dark:has-data-[state=checked]:bg-primary/10"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "role": "group",
+                          "className": "flex w-full gap-3 flex-row items-start p-4"
+                        },
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "className": "flex flex-1 flex-col gap-1.5 leading-snug"
+                            },
+                            "children": [
+                              {
+                                "c": "_div",
+                                "props": {
+                                  "className": "flex w-fit items-center gap-2 text-sm leading-snug font-medium"
+                                },
+                                "children": [
+                                  "Kubernetes"
+                                ]
+                              },
+                              {
+                                "c": "_p",
+                                "props": {
+                                  "className": "text-sm leading-normal font-normal text-muted-foreground"
+                                },
+                                "children": [
+                                  "Run GPU workloads on a K8s configured cluster."
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "c": "RadioGroupItem",
+                            "props": {
+                              "value": "kubernetes",
+                              "id": "kubernetes-r2h",
+                              "className": "mt-px"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "vm-z4k",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 flex w-fit gap-2 leading-snug w-full flex-col rounded-md border has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary/5 dark:has-data-[state=checked]:bg-primary/10"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "role": "group",
+                          "className": "flex w-full gap-3 flex-row items-start p-4"
+                        },
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "className": "flex flex-1 flex-col gap-1.5 leading-snug"
+                            },
+                            "children": [
+                              {
+                                "c": "_div",
+                                "props": {
+                                  "className": "flex w-fit items-center gap-2 text-sm leading-snug font-medium"
+                                },
+                                "children": [
+                                  "Virtual Machine"
+                                ]
+                              },
+                              {
+                                "c": "_p",
+                                "props": {
+                                  "className": "text-sm leading-normal font-normal text-muted-foreground"
+                                },
+                                "children": [
+                                  "Access a VM configured cluster to run GPU workloads."
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "c": "RadioGroupItem",
+                            "props": {
+                              "value": "vm",
+                              "id": "vm-z4k",
+                              "className": "mt-px"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__field-choice-card__interact",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md"
+        },
+        "children": [
+          {
+            "c": "_fieldset",
+            "props": {
+              "className": "flex flex-col gap-3"
+            },
+            "children": [
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "compute-environment-p8w",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 flex w-fit gap-2 leading-snug"
+                },
+                "children": [
+                  "Compute Environment"
+                ]
+              },
+              {
+                "c": "_p",
+                "props": {
+                  "className": "text-sm leading-normal font-normal text-muted-foreground"
+                },
+                "children": [
+                  "Select the compute environment for your cluster."
+                ]
+              },
+              {
+                "c": "RadioGroup",
+                "props": {
+                  "defaultValue": "kubernetes"
+                },
+                "children": [
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "kubernetes-r2h",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 flex w-fit gap-2 leading-snug w-full flex-col rounded-md border has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary/5 dark:has-data-[state=checked]:bg-primary/10"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "role": "group",
+                          "className": "flex w-full gap-3 flex-row items-start p-4"
+                        },
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "className": "flex flex-1 flex-col gap-1.5 leading-snug"
+                            },
+                            "children": [
+                              {
+                                "c": "_div",
+                                "props": {
+                                  "className": "flex w-fit items-center gap-2 text-sm leading-snug font-medium"
+                                },
+                                "children": [
+                                  "Kubernetes"
+                                ]
+                              },
+                              {
+                                "c": "_p",
+                                "props": {
+                                  "className": "text-sm leading-normal font-normal text-muted-foreground"
+                                },
+                                "children": [
+                                  "Run GPU workloads on a K8s configured cluster."
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "c": "RadioGroupItem",
+                            "props": {
+                              "value": "kubernetes",
+                              "id": "kubernetes-r2h",
+                              "className": "mt-px"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "_label",
+                    "props": {
+                      "htmlFor": "vm-z4k",
+                      "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 flex w-fit gap-2 leading-snug w-full flex-col rounded-md border has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary/5 dark:has-data-[state=checked]:bg-primary/10"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "role": "group",
+                          "className": "flex w-full gap-3 flex-row items-start p-4"
+                        },
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "className": "flex flex-1 flex-col gap-1.5 leading-snug"
+                            },
+                            "children": [
+                              {
+                                "c": "_div",
+                                "props": {
+                                  "className": "flex w-fit items-center gap-2 text-sm leading-snug font-medium"
+                                },
+                                "children": [
+                                  "Virtual Machine"
+                                ]
+                              },
+                              {
+                                "c": "_p",
+                                "props": {
+                                  "className": "text-sm leading-normal font-normal text-muted-foreground"
+                                },
+                                "children": [
+                                  "Access a VM configured cluster to run GPU workloads."
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "c": "RadioGroupItem",
+                            "props": {
+                              "value": "vm",
+                              "id": "vm-z4k",
+                              "className": "mt-px"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "label[for=vm-z4k]",
+          "position": {
+            "x": 40,
+            "y": 20
+          }
+        },
+        {
+          "do": "focus",
+          "target": "#vm-z4k"
+        },
+        {
+          "do": "press",
+          "key": "ArrowUp"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__form-rhf-radiogroup",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "form-rhf-radiogroup"
+        },
+        "children": [
+          {
+            "c": "RadioGroup",
+            "props": {
+              "name": "plan",
+              "value": ""
+            },
+            "children": [
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "form-rhf-radiogroup-starter",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 flex w-fit gap-2 leading-snug w-full flex-col rounded-md border has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary/5 dark:has-data-[state=checked]:bg-primary/10"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "role": "group",
+                      "className": "flex w-full gap-3 flex-row items-start p-4"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex flex-1 flex-col gap-1.5 leading-snug"
+                        },
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "className": "flex w-fit items-center gap-2 text-sm leading-snug font-medium"
+                            },
+                            "children": [
+                              "Starter (100K tokens/month)"
+                            ]
+                          },
+                          {
+                            "c": "_p",
+                            "props": {
+                              "className": "text-sm leading-normal font-normal text-muted-foreground"
+                            },
+                            "children": [
+                              "For everyday use with basic features."
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "RadioGroupItem",
+                        "props": {
+                          "value": "starter",
+                          "id": "form-rhf-radiogroup-starter",
+                          "className": "mt-px"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "form-rhf-radiogroup-pro",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 flex w-fit gap-2 leading-snug w-full flex-col rounded-md border has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary/5 dark:has-data-[state=checked]:bg-primary/10"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "role": "group",
+                      "className": "flex w-full gap-3 flex-row items-start p-4"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex flex-1 flex-col gap-1.5 leading-snug"
+                        },
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "className": "flex w-fit items-center gap-2 text-sm leading-snug font-medium"
+                            },
+                            "children": [
+                              "Pro (1M tokens/month)"
+                            ]
+                          },
+                          {
+                            "c": "_p",
+                            "props": {
+                              "className": "text-sm leading-normal font-normal text-muted-foreground"
+                            },
+                            "children": [
+                              "For advanced AI usage with more features."
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "RadioGroupItem",
+                        "props": {
+                          "value": "pro",
+                          "id": "form-rhf-radiogroup-pro",
+                          "className": "mt-px"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "form-rhf-radiogroup-enterprise",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 flex w-fit gap-2 leading-snug w-full flex-col rounded-md border has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary/5 dark:has-data-[state=checked]:bg-primary/10"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "role": "group",
+                      "className": "flex w-full gap-3 flex-row items-start p-4"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex flex-1 flex-col gap-1.5 leading-snug"
+                        },
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "className": "flex w-fit items-center gap-2 text-sm leading-snug font-medium"
+                            },
+                            "children": [
+                              "Enterprise (Unlimited tokens)"
+                            ]
+                          },
+                          {
+                            "c": "_p",
+                            "props": {
+                              "className": "text-sm leading-normal font-normal text-muted-foreground"
+                            },
+                            "children": [
+                              "For large teams and heavy usage."
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "RadioGroupItem",
+                        "props": {
+                          "value": "enterprise",
+                          "id": "form-rhf-radiogroup-enterprise",
+                          "className": "mt-px"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "#form-rhf-radiogroup-pro"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__form-rhf-radiogroup__invalid",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "form-rhf-radiogroup"
+        },
+        "children": [
+          {
+            "c": "RadioGroup",
+            "props": {
+              "name": "plan",
+              "value": "",
+              "aria-invalid": true
+            },
+            "children": [
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "form-rhf-radiogroup-starter",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 flex w-fit gap-2 leading-snug w-full flex-col rounded-md border has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary/5 dark:has-data-[state=checked]:bg-primary/10"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "role": "group",
+                      "className": "flex w-full gap-3 flex-row items-start p-4"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex flex-1 flex-col gap-1.5 leading-snug"
+                        },
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "className": "flex w-fit items-center gap-2 text-sm leading-snug font-medium"
+                            },
+                            "children": [
+                              "Starter (100K tokens/month)"
+                            ]
+                          },
+                          {
+                            "c": "_p",
+                            "props": {
+                              "className": "text-sm leading-normal font-normal text-muted-foreground"
+                            },
+                            "children": [
+                              "For everyday use with basic features."
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "RadioGroupItem",
+                        "props": {
+                          "value": "starter",
+                          "id": "form-rhf-radiogroup-starter",
+                          "aria-invalid": true,
+                          "className": "mt-px"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "form-rhf-radiogroup-pro",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 flex w-fit gap-2 leading-snug w-full flex-col rounded-md border has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary/5 dark:has-data-[state=checked]:bg-primary/10"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "role": "group",
+                      "className": "flex w-full gap-3 flex-row items-start p-4"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex flex-1 flex-col gap-1.5 leading-snug"
+                        },
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "className": "flex w-fit items-center gap-2 text-sm leading-snug font-medium"
+                            },
+                            "children": [
+                              "Pro (1M tokens/month)"
+                            ]
+                          },
+                          {
+                            "c": "_p",
+                            "props": {
+                              "className": "text-sm leading-normal font-normal text-muted-foreground"
+                            },
+                            "children": [
+                              "For advanced AI usage with more features."
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "RadioGroupItem",
+                        "props": {
+                          "value": "pro",
+                          "id": "form-rhf-radiogroup-pro",
+                          "aria-invalid": true,
+                          "className": "mt-px"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "form-rhf-radiogroup-enterprise",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 flex w-fit gap-2 leading-snug w-full flex-col rounded-md border has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary/5 dark:has-data-[state=checked]:bg-primary/10"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "role": "group",
+                      "className": "flex w-full gap-3 flex-row items-start p-4"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex flex-1 flex-col gap-1.5 leading-snug"
+                        },
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "className": "flex w-fit items-center gap-2 text-sm leading-snug font-medium"
+                            },
+                            "children": [
+                              "Enterprise (Unlimited tokens)"
+                            ]
+                          },
+                          {
+                            "c": "_p",
+                            "props": {
+                              "className": "text-sm leading-normal font-normal text-muted-foreground"
+                            },
+                            "children": [
+                              "For large teams and heavy usage."
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "RadioGroupItem",
+                        "props": {
+                          "value": "enterprise",
+                          "id": "form-rhf-radiogroup-enterprise",
+                          "aria-invalid": true,
+                          "className": "mt-px"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__form-rhf-radiogroup__invalid__dark",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "form-rhf-radiogroup"
+        },
+        "children": [
+          {
+            "c": "RadioGroup",
+            "props": {
+              "name": "plan",
+              "value": "",
+              "aria-invalid": true
+            },
+            "children": [
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "form-rhf-radiogroup-starter",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 flex w-fit gap-2 leading-snug w-full flex-col rounded-md border has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary/5 dark:has-data-[state=checked]:bg-primary/10"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "role": "group",
+                      "className": "flex w-full gap-3 flex-row items-start p-4"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex flex-1 flex-col gap-1.5 leading-snug"
+                        },
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "className": "flex w-fit items-center gap-2 text-sm leading-snug font-medium"
+                            },
+                            "children": [
+                              "Starter (100K tokens/month)"
+                            ]
+                          },
+                          {
+                            "c": "_p",
+                            "props": {
+                              "className": "text-sm leading-normal font-normal text-muted-foreground"
+                            },
+                            "children": [
+                              "For everyday use with basic features."
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "RadioGroupItem",
+                        "props": {
+                          "value": "starter",
+                          "id": "form-rhf-radiogroup-starter",
+                          "aria-invalid": true,
+                          "className": "mt-px"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "form-rhf-radiogroup-pro",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 flex w-fit gap-2 leading-snug w-full flex-col rounded-md border has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary/5 dark:has-data-[state=checked]:bg-primary/10"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "role": "group",
+                      "className": "flex w-full gap-3 flex-row items-start p-4"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex flex-1 flex-col gap-1.5 leading-snug"
+                        },
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "className": "flex w-fit items-center gap-2 text-sm leading-snug font-medium"
+                            },
+                            "children": [
+                              "Pro (1M tokens/month)"
+                            ]
+                          },
+                          {
+                            "c": "_p",
+                            "props": {
+                              "className": "text-sm leading-normal font-normal text-muted-foreground"
+                            },
+                            "children": [
+                              "For advanced AI usage with more features."
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "RadioGroupItem",
+                        "props": {
+                          "value": "pro",
+                          "id": "form-rhf-radiogroup-pro",
+                          "aria-invalid": true,
+                          "className": "mt-px"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_label",
+                "props": {
+                  "htmlFor": "form-rhf-radiogroup-enterprise",
+                  "className": "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 flex w-fit gap-2 leading-snug w-full flex-col rounded-md border has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary/5 dark:has-data-[state=checked]:bg-primary/10"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "role": "group",
+                      "className": "flex w-full gap-3 flex-row items-start p-4"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex flex-1 flex-col gap-1.5 leading-snug"
+                        },
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "className": "flex w-fit items-center gap-2 text-sm leading-snug font-medium"
+                            },
+                            "children": [
+                              "Enterprise (Unlimited tokens)"
+                            ]
+                          },
+                          {
+                            "c": "_p",
+                            "props": {
+                              "className": "text-sm leading-normal font-normal text-muted-foreground"
+                            },
+                            "children": [
+                              "For large teams and heavy usage."
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "RadioGroupItem",
+                        "props": {
+                          "value": "enterprise",
+                          "id": "form-rhf-radiogroup-enterprise",
+                          "aria-invalid": true,
+                          "className": "mt-px"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

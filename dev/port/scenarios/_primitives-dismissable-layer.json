@@ -1,0 +1,1905 @@
+{
+  "component": "_primitives-dismissable-layer",
+  "scenarios": [
+    {
+      "id": "closed-initial",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "dismissable_layer",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-dismissable",
+          "className": "flex flex-col items-start gap-2"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "open-a",
+              "data-action": "click->shadcn---probe-dismissable#open",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-dismissable-name-param": "a"
+            },
+            "children": [
+              "Open a"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "outside",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          },
+          {
+            "c": "_input",
+            "props": {
+              "data-slot": "outside-input",
+              "aria-label": "Outside input",
+              "className": "rounded border px-2 py-1 text-sm"
+            }
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-dismissable-target": "template",
+              "data-name": "a"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "layer-a",
+                  "className": "flex gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "layer-a-text"
+                    },
+                    "children": [
+                      "Layer a"
+                    ]
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "close-a",
+                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "className": "rounded-md border px-3 py-1 text-sm",
+                      "data-shadcn---probe-dismissable-name-param": "a"
+                    },
+                    "children": [
+                      "Close"
+                    ]
+                  },
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "inside-input-a",
+                      "aria-label": "Inside input",
+                      "className": "rounded border px-2 py-1 text-sm"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "escape-dismisses",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "dismissable_layer",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-dismissable",
+          "className": "flex flex-col items-start gap-2"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "open-a",
+              "data-action": "click->shadcn---probe-dismissable#open",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-dismissable-name-param": "a"
+            },
+            "children": [
+              "Open a"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "outside",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          },
+          {
+            "c": "_input",
+            "props": {
+              "data-slot": "outside-input",
+              "aria-label": "Outside input",
+              "className": "rounded border px-2 py-1 text-sm"
+            }
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-dismissable-target": "template",
+              "data-name": "a"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "layer-a",
+                  "className": "flex gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "layer-a-text"
+                    },
+                    "children": [
+                      "Layer a"
+                    ]
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "close-a",
+                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "className": "rounded-md border px-3 py-1 text-sm",
+                      "data-shadcn---probe-dismissable-name-param": "a"
+                    },
+                    "children": [
+                      "Close"
+                    ]
+                  },
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "inside-input-a",
+                      "aria-label": "Inside input",
+                      "className": "rounded border px-2 py-1 text-sm"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=open-a]"
+        },
+        {
+          "do": "press",
+          "key": "Escape"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "escape-prevented-keeps-open",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "dismissable_layer",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-dismissable",
+          "className": "flex flex-col items-start gap-2",
+          "data-shadcn---probe-dismissable-prevent-escape-value": "true"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "open-a",
+              "data-action": "click->shadcn---probe-dismissable#open",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-dismissable-name-param": "a"
+            },
+            "children": [
+              "Open a"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "outside",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          },
+          {
+            "c": "_input",
+            "props": {
+              "data-slot": "outside-input",
+              "aria-label": "Outside input",
+              "className": "rounded border px-2 py-1 text-sm"
+            }
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-dismissable-target": "template",
+              "data-name": "a"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "layer-a",
+                  "className": "flex gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "layer-a-text"
+                    },
+                    "children": [
+                      "Layer a"
+                    ]
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "close-a",
+                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "className": "rounded-md border px-3 py-1 text-sm",
+                      "data-shadcn---probe-dismissable-name-param": "a"
+                    },
+                    "children": [
+                      "Close"
+                    ]
+                  },
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "inside-input-a",
+                      "aria-label": "Inside input",
+                      "className": "rounded border px-2 py-1 text-sm"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=open-a]"
+        },
+        {
+          "do": "press",
+          "key": "Escape"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "pointer-down-outside-dismisses",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "dismissable_layer",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-dismissable",
+          "className": "flex flex-col items-start gap-2"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "open-a",
+              "data-action": "click->shadcn---probe-dismissable#open",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-dismissable-name-param": "a"
+            },
+            "children": [
+              "Open a"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "outside",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          },
+          {
+            "c": "_input",
+            "props": {
+              "data-slot": "outside-input",
+              "aria-label": "Outside input",
+              "className": "rounded border px-2 py-1 text-sm"
+            }
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-dismissable-target": "template",
+              "data-name": "a"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "layer-a",
+                  "className": "flex gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "layer-a-text"
+                    },
+                    "children": [
+                      "Layer a"
+                    ]
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "close-a",
+                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "className": "rounded-md border px-3 py-1 text-sm",
+                      "data-shadcn---probe-dismissable-name-param": "a"
+                    },
+                    "children": [
+                      "Close"
+                    ]
+                  },
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "inside-input-a",
+                      "aria-label": "Inside input",
+                      "className": "rounded border px-2 py-1 text-sm"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=open-a]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=outside]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "pointer-down-outside-prevented",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "dismissable_layer",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-dismissable",
+          "className": "flex flex-col items-start gap-2",
+          "data-shadcn---probe-dismissable-prevent-outside-value": "true"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "open-a",
+              "data-action": "click->shadcn---probe-dismissable#open",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-dismissable-name-param": "a"
+            },
+            "children": [
+              "Open a"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "outside",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          },
+          {
+            "c": "_input",
+            "props": {
+              "data-slot": "outside-input",
+              "aria-label": "Outside input",
+              "className": "rounded border px-2 py-1 text-sm"
+            }
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-dismissable-target": "template",
+              "data-name": "a"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "layer-a",
+                  "className": "flex gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "layer-a-text"
+                    },
+                    "children": [
+                      "Layer a"
+                    ]
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "close-a",
+                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "className": "rounded-md border px-3 py-1 text-sm",
+                      "data-shadcn---probe-dismissable-name-param": "a"
+                    },
+                    "children": [
+                      "Close"
+                    ]
+                  },
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "inside-input-a",
+                      "aria-label": "Inside input",
+                      "className": "rounded border px-2 py-1 text-sm"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=open-a]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=outside]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "pointer-down-inside-stays",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "dismissable_layer",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-dismissable",
+          "className": "flex flex-col items-start gap-2"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "open-a",
+              "data-action": "click->shadcn---probe-dismissable#open",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-dismissable-name-param": "a"
+            },
+            "children": [
+              "Open a"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "outside",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          },
+          {
+            "c": "_input",
+            "props": {
+              "data-slot": "outside-input",
+              "aria-label": "Outside input",
+              "className": "rounded border px-2 py-1 text-sm"
+            }
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-dismissable-target": "template",
+              "data-name": "a"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "layer-a",
+                  "className": "flex gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "layer-a-text"
+                    },
+                    "children": [
+                      "Layer a"
+                    ]
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "close-a",
+                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "className": "rounded-md border px-3 py-1 text-sm",
+                      "data-shadcn---probe-dismissable-name-param": "a"
+                    },
+                    "children": [
+                      "Close"
+                    ]
+                  },
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "inside-input-a",
+                      "aria-label": "Inside input",
+                      "className": "rounded border px-2 py-1 text-sm"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=open-a]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=layer-a-text]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus-outside-dismisses",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "dismissable_layer",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-dismissable",
+          "className": "flex flex-col items-start gap-2"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "open-a",
+              "data-action": "click->shadcn---probe-dismissable#open",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-dismissable-name-param": "a"
+            },
+            "children": [
+              "Open a"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "outside",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          },
+          {
+            "c": "_input",
+            "props": {
+              "data-slot": "outside-input",
+              "aria-label": "Outside input",
+              "className": "rounded border px-2 py-1 text-sm"
+            }
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-dismissable-target": "template",
+              "data-name": "a"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "layer-a",
+                  "className": "flex gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "layer-a-text"
+                    },
+                    "children": [
+                      "Layer a"
+                    ]
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "close-a",
+                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "className": "rounded-md border px-3 py-1 text-sm",
+                      "data-shadcn---probe-dismissable-name-param": "a"
+                    },
+                    "children": [
+                      "Close"
+                    ]
+                  },
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "inside-input-a",
+                      "aria-label": "Inside input",
+                      "className": "rounded border px-2 py-1 text-sm"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=open-a]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "focus",
+          "target": "[data-slot=outside-input]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus-inside-stays",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "dismissable_layer",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-dismissable",
+          "className": "flex flex-col items-start gap-2"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "open-a",
+              "data-action": "click->shadcn---probe-dismissable#open",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-dismissable-name-param": "a"
+            },
+            "children": [
+              "Open a"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "outside",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          },
+          {
+            "c": "_input",
+            "props": {
+              "data-slot": "outside-input",
+              "aria-label": "Outside input",
+              "className": "rounded border px-2 py-1 text-sm"
+            }
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-dismissable-target": "template",
+              "data-name": "a"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "layer-a",
+                  "className": "flex gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "layer-a-text"
+                    },
+                    "children": [
+                      "Layer a"
+                    ]
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "close-a",
+                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "className": "rounded-md border px-3 py-1 text-sm",
+                      "data-shadcn---probe-dismissable-name-param": "a"
+                    },
+                    "children": [
+                      "Close"
+                    ]
+                  },
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "inside-input-a",
+                      "aria-label": "Inside input",
+                      "className": "rounded border px-2 py-1 text-sm"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=open-a]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "focus",
+          "target": "[data-slot=inside-input-a]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "modal-blocks-body-pointer-events",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "dismissable_layer",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-dismissable",
+          "className": "flex flex-col items-start gap-2",
+          "data-shadcn---probe-dismissable-modal-value": "true"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "open-a",
+              "data-action": "click->shadcn---probe-dismissable#open",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-dismissable-name-param": "a"
+            },
+            "children": [
+              "Open a"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "outside",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          },
+          {
+            "c": "_input",
+            "props": {
+              "data-slot": "outside-input",
+              "aria-label": "Outside input",
+              "className": "rounded border px-2 py-1 text-sm"
+            }
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-dismissable-target": "template",
+              "data-name": "a"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "layer-a",
+                  "className": "flex gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "layer-a-text"
+                    },
+                    "children": [
+                      "Layer a"
+                    ]
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "close-a",
+                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "className": "rounded-md border px-3 py-1 text-sm",
+                      "data-shadcn---probe-dismissable-name-param": "a"
+                    },
+                    "children": [
+                      "Close"
+                    ]
+                  },
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "inside-input-a",
+                      "aria-label": "Inside input",
+                      "className": "rounded border px-2 py-1 text-sm"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=open-a]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "press",
+          "key": "Escape"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "modal-close-button",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "dismissable_layer",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-dismissable",
+          "className": "flex flex-col items-start gap-2",
+          "data-shadcn---probe-dismissable-modal-value": "true"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "open-a",
+              "data-action": "click->shadcn---probe-dismissable#open",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-dismissable-name-param": "a"
+            },
+            "children": [
+              "Open a"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "outside",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          },
+          {
+            "c": "_input",
+            "props": {
+              "data-slot": "outside-input",
+              "aria-label": "Outside input",
+              "className": "rounded border px-2 py-1 text-sm"
+            }
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-dismissable-target": "template",
+              "data-name": "a"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "layer-a",
+                  "className": "flex gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "layer-a-text"
+                    },
+                    "children": [
+                      "Layer a"
+                    ]
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "close-a",
+                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "className": "rounded-md border px-3 py-1 text-sm",
+                      "data-shadcn---probe-dismissable-name-param": "a"
+                    },
+                    "children": [
+                      "Close"
+                    ]
+                  },
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "inside-input-a",
+                      "aria-label": "Inside input",
+                      "className": "rounded border px-2 py-1 text-sm"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=open-a]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=close-a]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "only-top-layer-handles-escape",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "dismissable_layer",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-dismissable",
+          "className": "flex flex-col items-start gap-2"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "open-a",
+              "data-action": "click->shadcn---probe-dismissable#open",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-dismissable-name-param": "a"
+            },
+            "children": [
+              "Open a"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "open-b",
+              "data-action": "click->shadcn---probe-dismissable#open",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-dismissable-name-param": "b"
+            },
+            "children": [
+              "Open b"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "outside",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          },
+          {
+            "c": "_input",
+            "props": {
+              "data-slot": "outside-input",
+              "aria-label": "Outside input",
+              "className": "rounded border px-2 py-1 text-sm"
+            }
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-dismissable-target": "template",
+              "data-name": "a"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "layer-a",
+                  "className": "flex gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "layer-a-text"
+                    },
+                    "children": [
+                      "Layer a"
+                    ]
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "close-a",
+                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "className": "rounded-md border px-3 py-1 text-sm",
+                      "data-shadcn---probe-dismissable-name-param": "a"
+                    },
+                    "children": [
+                      "Close"
+                    ]
+                  },
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "inside-input-a",
+                      "aria-label": "Inside input",
+                      "className": "rounded border px-2 py-1 text-sm"
+                    }
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "open-b-inside",
+                      "data-action": "click->shadcn---probe-dismissable#open",
+                      "className": "rounded-md border px-3 py-1 text-sm",
+                      "data-shadcn---probe-dismissable-name-param": "b"
+                    },
+                    "children": [
+                      "Open b"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-dismissable-target": "template",
+              "data-name": "b"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "layer-b",
+                  "className": "flex gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "layer-b-text"
+                    },
+                    "children": [
+                      "Layer b"
+                    ]
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "close-b",
+                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "className": "rounded-md border px-3 py-1 text-sm",
+                      "data-shadcn---probe-dismissable-name-param": "b"
+                    },
+                    "children": [
+                      "Close"
+                    ]
+                  },
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "inside-input-b",
+                      "aria-label": "Inside input",
+                      "className": "rounded border px-2 py-1 text-sm"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=open-a]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=open-b-inside]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "press",
+          "key": "Escape"
+        },
+        {
+          "do": "press",
+          "key": "Escape"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "sibling-open-dismisses-previous-layer",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "dismissable_layer",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-dismissable",
+          "className": "flex flex-col items-start gap-2"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "open-a",
+              "data-action": "click->shadcn---probe-dismissable#open",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-dismissable-name-param": "a"
+            },
+            "children": [
+              "Open a"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "open-b",
+              "data-action": "click->shadcn---probe-dismissable#open",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-dismissable-name-param": "b"
+            },
+            "children": [
+              "Open b"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "outside",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          },
+          {
+            "c": "_input",
+            "props": {
+              "data-slot": "outside-input",
+              "aria-label": "Outside input",
+              "className": "rounded border px-2 py-1 text-sm"
+            }
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-dismissable-target": "template",
+              "data-name": "a"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "layer-a",
+                  "className": "flex gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "layer-a-text"
+                    },
+                    "children": [
+                      "Layer a"
+                    ]
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "close-a",
+                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "className": "rounded-md border px-3 py-1 text-sm",
+                      "data-shadcn---probe-dismissable-name-param": "a"
+                    },
+                    "children": [
+                      "Close"
+                    ]
+                  },
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "inside-input-a",
+                      "aria-label": "Inside input",
+                      "className": "rounded border px-2 py-1 text-sm"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-dismissable-target": "template",
+              "data-name": "b"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "layer-b",
+                  "className": "flex gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "layer-b-text"
+                    },
+                    "children": [
+                      "Layer b"
+                    ]
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "close-b",
+                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "className": "rounded-md border px-3 py-1 text-sm",
+                      "data-shadcn---probe-dismissable-name-param": "b"
+                    },
+                    "children": [
+                      "Close"
+                    ]
+                  },
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "inside-input-b",
+                      "aria-label": "Inside input",
+                      "className": "rounded border px-2 py-1 text-sm"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=open-a]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=open-b]"
+        },
+        {
+          "do": "press",
+          "key": "Escape"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "modal-nested-pointer-events",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "dismissable_layer",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-dismissable",
+          "className": "flex flex-col items-start gap-2",
+          "data-shadcn---probe-dismissable-modal-value": "true"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "open-a",
+              "data-action": "click->shadcn---probe-dismissable#open",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-dismissable-name-param": "a"
+            },
+            "children": [
+              "Open a"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "open-b",
+              "data-action": "click->shadcn---probe-dismissable#open",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-dismissable-name-param": "b"
+            },
+            "children": [
+              "Open b"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "outside",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          },
+          {
+            "c": "_input",
+            "props": {
+              "data-slot": "outside-input",
+              "aria-label": "Outside input",
+              "className": "rounded border px-2 py-1 text-sm"
+            }
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-dismissable-target": "template",
+              "data-name": "a"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "layer-a",
+                  "className": "flex gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "layer-a-text"
+                    },
+                    "children": [
+                      "Layer a"
+                    ]
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "close-a",
+                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "className": "rounded-md border px-3 py-1 text-sm",
+                      "data-shadcn---probe-dismissable-name-param": "a"
+                    },
+                    "children": [
+                      "Close"
+                    ]
+                  },
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "inside-input-a",
+                      "aria-label": "Inside input",
+                      "className": "rounded border px-2 py-1 text-sm"
+                    }
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "open-b-inside",
+                      "data-action": "click->shadcn---probe-dismissable#open",
+                      "className": "rounded-md border px-3 py-1 text-sm",
+                      "data-shadcn---probe-dismissable-name-param": "b"
+                    },
+                    "children": [
+                      "Open b"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-dismissable-target": "template",
+              "data-name": "b"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "layer-b",
+                  "className": "flex gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "layer-b-text"
+                    },
+                    "children": [
+                      "Layer b"
+                    ]
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "close-b",
+                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "className": "rounded-md border px-3 py-1 text-sm",
+                      "data-shadcn---probe-dismissable-name-param": "b"
+                    },
+                    "children": [
+                      "Close"
+                    ]
+                  },
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "inside-input-b",
+                      "aria-label": "Inside input",
+                      "className": "rounded border px-2 py-1 text-sm"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=open-a]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=open-b-inside]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "press",
+          "key": "Escape"
+        },
+        {
+          "do": "press",
+          "key": "Escape"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "modal-nested-inner-click-keeps-both",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "dismissable_layer",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-dismissable",
+          "className": "flex flex-col items-start gap-2",
+          "data-shadcn---probe-dismissable-modal-value": "true"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "open-a",
+              "data-action": "click->shadcn---probe-dismissable#open",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-dismissable-name-param": "a"
+            },
+            "children": [
+              "Open a"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "open-b",
+              "data-action": "click->shadcn---probe-dismissable#open",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-dismissable-name-param": "b"
+            },
+            "children": [
+              "Open b"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "outside",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          },
+          {
+            "c": "_input",
+            "props": {
+              "data-slot": "outside-input",
+              "aria-label": "Outside input",
+              "className": "rounded border px-2 py-1 text-sm"
+            }
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-dismissable-target": "template",
+              "data-name": "a"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "layer-a",
+                  "className": "flex gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "layer-a-text"
+                    },
+                    "children": [
+                      "Layer a"
+                    ]
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "close-a",
+                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "className": "rounded-md border px-3 py-1 text-sm",
+                      "data-shadcn---probe-dismissable-name-param": "a"
+                    },
+                    "children": [
+                      "Close"
+                    ]
+                  },
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "inside-input-a",
+                      "aria-label": "Inside input",
+                      "className": "rounded border px-2 py-1 text-sm"
+                    }
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "open-b-inside",
+                      "data-action": "click->shadcn---probe-dismissable#open",
+                      "className": "rounded-md border px-3 py-1 text-sm",
+                      "data-shadcn---probe-dismissable-name-param": "b"
+                    },
+                    "children": [
+                      "Open b"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-dismissable-target": "template",
+              "data-name": "b"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "layer-b",
+                  "className": "flex gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "layer-b-text"
+                    },
+                    "children": [
+                      "Layer b"
+                    ]
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "close-b",
+                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "className": "rounded-md border px-3 py-1 text-sm",
+                      "data-shadcn---probe-dismissable-name-param": "b"
+                    },
+                    "children": [
+                      "Close"
+                    ]
+                  },
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "inside-input-b",
+                      "aria-label": "Inside input",
+                      "className": "rounded border px-2 py-1 text-sm"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=open-a]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=open-b-inside]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=layer-b-text]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

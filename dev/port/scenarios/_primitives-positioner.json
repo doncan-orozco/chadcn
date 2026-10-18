@@ -1,0 +1,2032 @@
+{
+  "component": "_primitives-positioner",
+  "scenarios": [
+    {
+      "id": "side-top-align-start",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"top\",\"align\":\"start\",\"sideOffset\":8}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[400px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-top-align-center",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"top\",\"align\":\"center\",\"sideOffset\":8}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[400px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-top-align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"top\",\"align\":\"end\",\"sideOffset\":8}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[400px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-right-align-start",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"right\",\"align\":\"start\",\"sideOffset\":8}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[400px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-right-align-center",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"right\",\"align\":\"center\",\"sideOffset\":8}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[400px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-right-align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"right\",\"align\":\"end\",\"sideOffset\":8}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[400px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-bottom-align-start",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":8}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[400px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-bottom-align-center",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"bottom\",\"align\":\"center\",\"sideOffset\":8}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[400px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-bottom-align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"bottom\",\"align\":\"end\",\"sideOffset\":8}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[400px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-left-align-start",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"left\",\"align\":\"start\",\"sideOffset\":8}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[400px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-left-align-center",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"left\",\"align\":\"center\",\"sideOffset\":8}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[400px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-left-align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"left\",\"align\":\"end\",\"sideOffset\":8}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[400px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default-bottom-center",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[400px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "offsets",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":12,\"alignOffset\":6}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[400px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "negative-align-offset",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"right\",\"align\":\"end\",\"sideOffset\":4,\"alignOffset\":-10}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[400px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "flip-top-to-bottom",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"top\",\"sideOffset\":6}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[400px] top-[20px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "flip-bottom-to-top",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":6}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[400px] top-[650px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "flip-left-to-right",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"left\",\"sideOffset\":6}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[20px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "flip-right-to-left",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"right\",\"sideOffset\":6}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[800px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "flip-with-align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"top\",\"align\":\"end\",\"sideOffset\":6}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[300px] top-[10px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "shift-right-edge",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":6}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[860px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "shift-left-edge",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":6}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[4px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "shift-vertical",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"right\",\"sideOffset\":6}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[300px] top-[690px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "collision-padding-number",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":6,\"collisionPadding\":24}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[860px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "collision-padding-object",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"top\",\"sideOffset\":6,\"collisionPadding\":{\"top\":40,\"left\":30}}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[10px] top-[30px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "sticky-partial",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":6,\"sticky\":\"partial\"}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[-70px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "sticky-always",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":6,\"sticky\":\"always\"}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[-70px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "avoid-collisions-false",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"top\",\"sideOffset\":6,\"avoidCollisions\":false}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[400px] top-[10px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "avoid-collisions-false-edge",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":6,\"avoidCollisions\":false}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[860px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "arrow-top",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"top\",\"sideOffset\":2,\"arrow\":true}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[400px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "arrow-right",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"right\",\"sideOffset\":2,\"arrow\":true}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[400px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "arrow-bottom",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":2,\"arrow\":true}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[400px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "arrow-left",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"left\",\"sideOffset\":2,\"arrow\":true}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[400px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "arrow-align-start",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":2,\"arrow\":true,\"arrowPadding\":8}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[400px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "arrow-align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"top\",\"align\":\"end\",\"sideOffset\":2,\"arrow\":true,\"arrowPadding\":8}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[400px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "arrow-shifted-hidden",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":2,\"arrow\":true}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[860px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "arrow-flipped",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"top\",\"sideOffset\":2,\"arrow\":true}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[400px] top-[20px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "var-anchor-width",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":4}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[300px] top-[200px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md !w-[var(--radix-popper-anchor-width)]"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "var-anchor-height",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":4}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[300px] top-[200px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md !h-[calc(var(--radix-popper-anchor-height)*2)]"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "var-available-height",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":4}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[300px] top-[400px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md !h-[var(--radix-popper-available-height)] overflow-hidden"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "var-available-width",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"right\",\"sideOffset\":4}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[300px] top-[200px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md !w-[var(--radix-popper-available-width)] overflow-hidden"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "var-transform-origin",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"top\",\"align\":\"start\",\"sideOffset\":4,\"arrow\":true}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[400px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md origin-[var(--radix-popper-transform-origin)] scale-50"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "var-transform-origin-no-arrow",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"left\",\"align\":\"end\",\"sideOffset\":4}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[400px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md origin-[var(--radix-popper-transform-origin)] scale-50"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hide-detached-visible",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":4,\"hideWhenDetached\":true}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[200px] top-[100px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hide-detached-hidden",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":4,\"hideWhenDetached\":true}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "fixed left-[100px] top-[100px] h-16 w-48 overflow-hidden border"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[0px] top-[0px] !absolute !left-2 !top-[120px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hide-not-requested",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":4}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "fixed left-[100px] top-[100px] h-16 w-48 overflow-hidden border"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[0px] top-[0px] !absolute !left-2 !top-[120px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "collision-boundary",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "id": "box",
+              "data-slot": "boundary",
+              "className": "fixed left-[200px] top-[100px] h-[200px] w-[300px] border border-dashed"
+            }
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":4,\"boundary\":\"#box\"}",
+              "data-controller": "shadcn---probe-positioner",
+              "className": "relative"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "anchor",
+                  "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[330px] top-[160px]"
+                },
+                "children": [
+                  "Anchor"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "content",
+                  "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+                },
+                "children": [
+                  "Content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "resize-reposition",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"right\",\"sideOffset\":6}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[560px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "viewport",
+          "width": 640,
+          "height": 480
+        },
+        {
+          "do": "viewport",
+          "width": 900,
+          "height": 700
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "dark-theme",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":6,\"arrow\":true}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[400px] top-[300px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "small-viewport",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":6}",
+          "data-controller": "shadcn---probe-positioner",
+          "className": "relative"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "anchor",
+              "className": "fixed h-10 w-24 rounded-md bg-primary text-primary-foreground text-sm left-[100px] top-[100px]"
+            },
+            "children": [
+              "Anchor"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "h-20 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground shadow-md"
+            },
+            "children": [
+              "Content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 360,
+        "height": 320
+      },
+      "animations": false
+    }
+  ]
+}

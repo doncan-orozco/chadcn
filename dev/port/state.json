@@ -1,0 +1,754 @@
+{
+  "created_at": "2026-10-11T08:02:07Z",
+  "skip_tiers": [
+    "third_party"
+  ],
+  "skipped": [
+    "calendar",
+    "carousel",
+    "chart",
+    "combobox",
+    "command",
+    "drawer",
+    "form",
+    "input-otp",
+    "message-scroller",
+    "resizable",
+    "sonner"
+  ],
+  "oracle": {
+    "style": "new-york-v4",
+    "fetched_at": "2026-10-10T04:52:14Z",
+    "components": 61,
+    "digest": "7de7073d0e253001"
+  },
+  "dispatches": 1,
+  "components": {
+    "_theme": {
+      "status": "done",
+      "tier": "infra",
+      "wave": 0,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "46e82c5",
+      "updated_at": "2026-10-10T07:30:35Z",
+      "owns": [
+        "app/assets/tailwind/application.css",
+        "app/assets/tailwind/foundation/**",
+        "gems/phlex-shadcn/app/assets/tailwind/phlex-shadcn/** (bug fixes only)",
+        "app/assets/tailwind/vendor/**",
+        "gems/phlex-shadcn/app/javascript/controllers/shadcn/theme_controller.js",
+        "gems/phlex-shadcn/dev/react-shadcn-catalog/src/index.css",
+        "lib/shadcn/**",
+        "lib/tasks/theme.rake",
+        "test/lib/shadcn/**"
+      ],
+      "kind": "infra",
+      "deps": [],
+      "source_sha": "infra"
+    },
+    "_harness": {
+      "status": "done",
+      "tier": "infra",
+      "wave": 0,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "46e82c5",
+      "updated_at": "2026-10-10T07:43:57Z",
+      "owns": [
+        "gems/phlex-shadcn/dev/parity/**",
+        "gems/phlex-shadcn/dev/dummy/**",
+        "gems/phlex-shadcn/dev/react-shadcn-catalog/src/parity/**",
+        "gems/phlex-shadcn/dev/react-shadcn-catalog/vite.config.ts",
+        "gems/phlex-shadcn/dev/react-shadcn-catalog/package.json"
+      ],
+      "kind": "infra",
+      "deps": [
+        "_theme",
+        "_base",
+        "_icons"
+      ],
+      "source_sha": "infra"
+    },
+    "_primitives": {
+      "status": "done",
+      "tier": "infra",
+      "wave": 0,
+      "iteration": 2,
+      "note": null,
+      "last_green_sha": "46e82c5",
+      "updated_at": "2026-10-10T17:29:16Z",
+      "owns": [
+        "app/javascript/v2/primitives/**",
+        "config/importmap.rb (primitives and controllers pins)",
+        "gems/phlex-shadcn/dev/react-shadcn-catalog/src/parity/primitives/**",
+        "gems/phlex-shadcn/dev/port/scenarios/_primitives-*.json"
+      ],
+      "kind": "infra",
+      "deps": [
+        "_harness"
+      ],
+      "source_sha": "infra"
+    },
+    "_base": {
+      "status": "done",
+      "tier": "infra",
+      "wave": 0,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "46e82c5",
+      "updated_at": "2026-10-10T07:27:12Z",
+      "owns": [
+        "app/components/v2/base.rb",
+        "test/components/v2/base_test.rb"
+      ],
+      "kind": "infra",
+      "deps": [],
+      "source_sha": "infra"
+    },
+    "_icons": {
+      "status": "done",
+      "tier": "infra",
+      "wave": 0,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "46e82c5",
+      "updated_at": "2026-10-10T07:28:03Z",
+      "owns": [
+        "app/components/v2/icon.rb",
+        "app/components/v2/icons/**"
+      ],
+      "kind": "infra",
+      "deps": [],
+      "source_sha": "infra"
+    },
+    "button": {
+      "status": "done",
+      "tier": "static",
+      "wave": 1,
+      "iteration": 2,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "pilot",
+      "deps": [],
+      "source_sha": "79dd6f75f8136394"
+    },
+    "switch": {
+      "status": "done",
+      "tier": "radix_stateful",
+      "wave": 1,
+      "iteration": 2,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "pilot",
+      "deps": [],
+      "source_sha": "743676f33f823ffa"
+    },
+    "dialog": {
+      "status": "done",
+      "tier": "overlay",
+      "wave": 2,
+      "iteration": 2,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "pilot",
+      "deps": [
+        "button"
+      ],
+      "source_sha": "2ade6074e5fad0a4"
+    },
+    "tooltip": {
+      "status": "done",
+      "tier": "overlay",
+      "wave": 1,
+      "iteration": 2,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "pilot",
+      "deps": [],
+      "source_sha": "611e4305879b2773"
+    },
+    "dropdown-menu": {
+      "status": "done",
+      "tier": "overlay",
+      "wave": 1,
+      "iteration": 2,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "pilot",
+      "deps": [],
+      "source_sha": "d954efb735f13734"
+    },
+    "select": {
+      "status": "done",
+      "tier": "overlay",
+      "wave": 1,
+      "iteration": 3,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "pilot",
+      "deps": [],
+      "source_sha": "962830436bd0b7ee"
+    },
+    "accordion": {
+      "status": "done",
+      "tier": "radix_stateful",
+      "wave": 3,
+      "iteration": 2,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "99de242681eb4312"
+    },
+    "alert": {
+      "status": "done",
+      "tier": "static",
+      "wave": 3,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "d03dcae5cdb63c38"
+    },
+    "aspect-ratio": {
+      "status": "done",
+      "tier": "radix_stateful",
+      "wave": 3,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "b1c157886236782c"
+    },
+    "avatar": {
+      "status": "done",
+      "tier": "radix_stateful",
+      "wave": 3,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "0c5c48b8a1dff4fd"
+    },
+    "badge": {
+      "status": "done",
+      "tier": "static",
+      "wave": 3,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "13a9380dfff853ee"
+    },
+    "breadcrumb": {
+      "status": "done",
+      "tier": "static",
+      "wave": 3,
+      "iteration": 2,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "c75fcd3d9e847018"
+    },
+    "bubble": {
+      "status": "done",
+      "tier": "static",
+      "wave": 3,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "df1e461e33e835b7"
+    },
+    "card": {
+      "status": "done",
+      "tier": "static",
+      "wave": 3,
+      "iteration": 2,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "ef8305b12c3112da"
+    },
+    "checkbox": {
+      "status": "done",
+      "tier": "radix_stateful",
+      "wave": 3,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "ba0ac64064e2d8fa"
+    },
+    "collapsible": {
+      "status": "done",
+      "tier": "radix_stateful",
+      "wave": 3,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "c6598e5584f4258b"
+    },
+    "context-menu": {
+      "status": "done",
+      "tier": "overlay",
+      "wave": 3,
+      "iteration": 4,
+      "note": "sub-open-close 1px BOX intermittency was harness timing under load (see the #94 lesson note); 0 diffs at 8fb9554",
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "bcde5df1ed9887bb"
+    },
+    "direction": {
+      "status": "done",
+      "tier": "radix_stateful",
+      "wave": 3,
+      "iteration": 3,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "84ae2ad658207f0e"
+    },
+    "empty": {
+      "status": "done",
+      "tier": "static",
+      "wave": 3,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "54f529ccf72c18c4"
+    },
+    "hover-card": {
+      "status": "done",
+      "tier": "overlay",
+      "wave": 3,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "73f59aa759656501"
+    },
+    "input": {
+      "status": "done",
+      "tier": "static",
+      "wave": 3,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "0c9457181f6ddc80"
+    },
+    "kbd": {
+      "status": "done",
+      "tier": "static",
+      "wave": 3,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "c0c0ae6a7d1adb77"
+    },
+    "label": {
+      "status": "done",
+      "tier": "radix_stateful",
+      "wave": 3,
+      "iteration": 2,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "344bde38b8531615"
+    },
+    "marker": {
+      "status": "done",
+      "tier": "static",
+      "wave": 3,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "036277635df058b8"
+    },
+    "menubar": {
+      "status": "done",
+      "tier": "overlay",
+      "wave": 3,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "ca1a7f6775f90951"
+    },
+    "message": {
+      "status": "done",
+      "tier": "static",
+      "wave": 3,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "64e9ae0f9d1e268b"
+    },
+    "native-select": {
+      "status": "done",
+      "tier": "static",
+      "wave": 3,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "4bdbce5575dce610"
+    },
+    "navigation-menu": {
+      "status": "done",
+      "tier": "overlay",
+      "wave": 3,
+      "iteration": 4,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "fbe81d7c358df0d2"
+    },
+    "popover": {
+      "status": "done",
+      "tier": "overlay",
+      "wave": 3,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "3f99d3add6c9fa4f"
+    },
+    "progress": {
+      "status": "done",
+      "tier": "radix_stateful",
+      "wave": 3,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "e012e1f7e6e66d11"
+    },
+    "radio-group": {
+      "status": "done",
+      "tier": "radix_stateful",
+      "wave": 3,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "cfc4f99ee68be2fb"
+    },
+    "scroll-area": {
+      "status": "done",
+      "tier": "radix_stateful",
+      "wave": 3,
+      "iteration": 2,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "8b73bb9be5130007"
+    },
+    "separator": {
+      "status": "done",
+      "tier": "radix_stateful",
+      "wave": 3,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "ad7d5403fe337160"
+    },
+    "sheet": {
+      "status": "done",
+      "tier": "overlay",
+      "wave": 3,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "ea473d38a26a9b0b"
+    },
+    "skeleton": {
+      "status": "done",
+      "tier": "static",
+      "wave": 3,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "f51ce0fcd31e5c31"
+    },
+    "slider": {
+      "status": "done",
+      "tier": "radix_stateful",
+      "wave": 3,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "6a531f6182de6efe"
+    },
+    "spinner": {
+      "status": "done",
+      "tier": "static",
+      "wave": 3,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "5d040fc49cb54c02"
+    },
+    "table": {
+      "status": "done",
+      "tier": "static",
+      "wave": 3,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "bd1a9fc83a5a2149"
+    },
+    "tabs": {
+      "status": "done",
+      "tier": "radix_stateful",
+      "wave": 3,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "e1df6e2f95ece373"
+    },
+    "textarea": {
+      "status": "done",
+      "tier": "static",
+      "wave": 3,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "5cafcfeeee29534f"
+    },
+    "toggle": {
+      "status": "done",
+      "tier": "radix_stateful",
+      "wave": 3,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "28ae7d72730890a3"
+    },
+    "alert-dialog": {
+      "status": "done",
+      "tier": "overlay",
+      "wave": 4,
+      "iteration": 2,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [
+        "button"
+      ],
+      "source_sha": "b3dfb83e54ed8c82"
+    },
+    "attachment": {
+      "status": "done",
+      "tier": "static",
+      "wave": 4,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [
+        "button"
+      ],
+      "source_sha": "243feb168430d012"
+    },
+    "button-group": {
+      "status": "done",
+      "tier": "static",
+      "wave": 4,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [
+        "separator"
+      ],
+      "source_sha": "a9ac862707ff8d78"
+    },
+    "field": {
+      "status": "done",
+      "tier": "static",
+      "wave": 4,
+      "iteration": 2,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [
+        "label",
+        "separator"
+      ],
+      "source_sha": "4a4d17fcb933513f"
+    },
+    "input-group": {
+      "status": "done",
+      "tier": "static",
+      "wave": 4,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [
+        "button",
+        "input",
+        "textarea"
+      ],
+      "source_sha": "e379899ac50d6cab"
+    },
+    "item": {
+      "status": "done",
+      "tier": "static",
+      "wave": 4,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [
+        "separator"
+      ],
+      "source_sha": "9ade8136f010284b"
+    },
+    "pagination": {
+      "status": "done",
+      "tier": "static",
+      "wave": 4,
+      "iteration": 1,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [
+        "button"
+      ],
+      "source_sha": "224843c4f509e8b8"
+    },
+    "sidebar": {
+      "status": "done",
+      "tier": "client",
+      "wave": 4,
+      "iteration": 2,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [
+        "button",
+        "input",
+        "separator",
+        "sheet",
+        "skeleton",
+        "tooltip"
+      ],
+      "source_sha": "2ba1a9b9422f4172"
+    },
+    "toggle-group": {
+      "status": "done",
+      "tier": "radix_stateful",
+      "wave": 4,
+      "iteration": 2,
+      "note": null,
+      "last_green_sha": "8fb9554",
+      "updated_at": "2026-10-13T23:54:30Z",
+      "kind": "fanout",
+      "deps": [
+        "toggle"
+      ],
+      "source_sha": "45186473eaa30a96"
+    }
+  }
+}

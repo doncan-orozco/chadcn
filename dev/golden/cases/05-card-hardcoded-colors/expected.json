@@ -1,0 +1,8 @@
+{
+  "case": "05-card-hardcoded-colors",
+  "kind": "static",
+  "component": "card",
+  "description": "Hardcoded palette and hex colors, 2024 shadow, only the root part exists.",
+  "must_detect": ["G1_HARDCODED_COLOR", "G1_TOKEN_EXTRA", "G1_TOKEN_MISSING", "G1_PART_MISSING", "G1_SLOT_MISSING"],
+  "must_not_detect": []
+}

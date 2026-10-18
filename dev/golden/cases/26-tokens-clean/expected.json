@@ -1,0 +1,7 @@
+{
+  "case": "26-tokens-clean",
+  "kind": "tokens",
+  "description": "The real tokens.css must make every semantic utility used by the fixture components (bg-primary/90, ring-ring/50, border-input, rounded-md, dark:bg-input/30...) generate CSS under the real Tailwind binary.",
+  "expect_pass": true,
+  "must_miss": []
+}

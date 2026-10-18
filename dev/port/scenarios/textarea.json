@@ -1,0 +1,1321 @@
+{
+  "component": "textarea",
+  "scenarios": [
+    {
+      "id": "default__no-props",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {},
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default__no-props__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {},
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "placeholder",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "placeholder": "Type your message here."
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "placeholder__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "placeholder": "Type your message here."
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default-value",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "defaultValue": "Hello world"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default-value__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "defaultValue": "Hello world"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "value__controlled-initial",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "value": "Controlled value",
+              "readOnly": true
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "children__as-default-value",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {},
+            "children": [
+              "From children"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "field-sizing__multiline-grows",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "defaultValue": "Line one of a long message.\nLine two keeps going.\nLine three.\nLine four.\nLine five makes the box taller than min-h-16."
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "field-sizing__multiline-grows__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "defaultValue": "Line one of a long message.\nLine two keeps going.\nLine three.\nLine four.\nLine five makes the box taller than min-h-16."
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "field-sizing__long-line-wraps",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "defaultValue": "A very long single line value that is clearly wider than the textarea box and must wrap onto several lines, growing the height with field-sizing-content"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "field-sizing__type-newlines",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "placeholder": "Type your message here."
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=textarea]"
+        },
+        {
+          "do": "type",
+          "text": "one"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        },
+        {
+          "do": "type",
+          "text": "two"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        },
+        {
+          "do": "type",
+          "text": "three"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        },
+        {
+          "do": "type",
+          "text": "four"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "rows",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "rows": 6,
+              "placeholder": "Type your message here."
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus-visible__tab",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "placeholder": "Type your message here."
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus-visible__tab__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "placeholder": "Type your message here."
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus__click",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "placeholder": "Type your message here."
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=textarea]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "fill__typed-value",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "placeholder": "Type your message here."
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=textarea]"
+        },
+        {
+          "do": "type",
+          "text": "Hello from the keyboard"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "fill__programmatic",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "placeholder": "Type your message here."
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "fill",
+          "target": "[data-slot=textarea]",
+          "value": "Filled programmatically"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "selection__select-all",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "defaultValue": "Select me"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=textarea]"
+        },
+        {
+          "do": "press",
+          "key": "ControlOrMeta+a"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__rest",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "placeholder": "Type your message here."
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=textarea]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "disabled": true,
+              "placeholder": "Type your message here."
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "disabled": true,
+              "placeholder": "Type your message here."
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__with-value",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "disabled": true,
+              "defaultValue": "Disabled value"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__hover",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "disabled": true,
+              "placeholder": "Type your message here."
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=textarea]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__tab-skips",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "grid w-full max-w-sm gap-3 p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "disabled": true,
+              "placeholder": "Disabled"
+            },
+            "children": []
+          },
+          {
+            "c": "Textarea",
+            "props": {
+              "placeholder": "Enabled"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "readonly",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "readOnly": true,
+              "defaultValue": "Read only"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "aria-invalid": true,
+              "placeholder": "Type your message here."
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "aria-invalid": true,
+              "placeholder": "Type your message here."
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid__focus-visible",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "aria-invalid": true,
+              "placeholder": "Type your message here."
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid__focus-visible__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "aria-invalid": true,
+              "placeholder": "Type your message here."
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid__disabled",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "aria-invalid": true,
+              "disabled": true,
+              "placeholder": "Type your message here."
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "viewport-mobile__text-base",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "defaultValue": "Mobile text size"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 500,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "viewport-desktop__md-text-sm",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "defaultValue": "Desktop text size"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "viewport__resize",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "defaultValue": "Resize"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "viewport",
+          "width": 500,
+          "height": 700
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class-name__merge-conflict",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "className": "min-h-32 rounded-xl px-6",
+              "placeholder": "Type your message here."
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class-name__additive",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "className": "resize-none",
+              "placeholder": "Type your message here."
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "attrs__forwarded",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "id": "custom-id",
+              "name": "message",
+              "required": true,
+              "maxLength": 200,
+              "minLength": 2,
+              "wrap": "hard",
+              "cols": 30,
+              "autoComplete": "off",
+              "aria-label": "Message",
+              "aria-describedby": "message-help",
+              "data-testid": "message-textarea",
+              "title": "Your message"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "attrs__data-slot-override",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "data-slot": "custom-textarea",
+              "placeholder": "Type your message here."
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "rtl",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "dir": "rtl",
+              "defaultValue": "مرحبا بالعالم"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__textarea-demo",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "placeholder": "Type your message here."
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__textarea-disabled",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-sm p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "placeholder": "Type your message here.",
+              "disabled": true
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__textarea-with-label",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "grid w-full max-w-sm gap-3 p-4"
+        },
+        "children": [
+          {
+            "c": "_label",
+            "props": {
+              "htmlFor": "message",
+              "className": "flex items-center gap-2 text-sm leading-none font-medium select-none"
+            },
+            "children": [
+              "Your message"
+            ]
+          },
+          {
+            "c": "Textarea",
+            "props": {
+              "placeholder": "Type your message here.",
+              "id": "message"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__textarea-with-label__label-click",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "grid w-full max-w-sm gap-3 p-4"
+        },
+        "children": [
+          {
+            "c": "_label",
+            "props": {
+              "htmlFor": "message",
+              "className": "flex items-center gap-2 text-sm leading-none font-medium select-none"
+            },
+            "children": [
+              "Your message"
+            ]
+          },
+          {
+            "c": "Textarea",
+            "props": {
+              "placeholder": "Type your message here.",
+              "id": "message"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "label[for=message]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__textarea-with-text",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "grid w-full max-w-sm gap-3 p-4"
+        },
+        "children": [
+          {
+            "c": "_label",
+            "props": {
+              "htmlFor": "message-2",
+              "className": "flex items-center gap-2 text-sm leading-none font-medium select-none"
+            },
+            "children": [
+              "Your Message"
+            ]
+          },
+          {
+            "c": "Textarea",
+            "props": {
+              "placeholder": "Type your message here.",
+              "id": "message-2"
+            },
+            "children": []
+          },
+          {
+            "c": "_p",
+            "props": {
+              "className": "text-sm text-muted-foreground"
+            },
+            "children": [
+              "Your message will be copied to the support team."
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__textarea-with-button",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "grid w-full max-w-sm gap-2 p-4"
+        },
+        "children": [
+          {
+            "c": "Textarea",
+            "props": {
+              "placeholder": "Type your message here."
+            },
+            "children": []
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button"
+            },
+            "children": [
+              "Send message"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

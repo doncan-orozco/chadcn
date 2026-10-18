@@ -1,0 +1,8 @@
+{
+  "case": "01-button-drift",
+  "kind": "static",
+  "component": "button",
+  "description": "Snapshot of the first-attempt Button: 2024-era classes, no data-slot, missing xs/icon-* sizes, no data-variant/data-size.",
+  "must_detect": ["G1_SLOT_MISSING", "G1_TOKEN_MISSING", "G1_TOKEN_EXTRA", "G1_VARIANT_MISSING", "G1_DATA_ATTR_MISSING"],
+  "must_not_detect": []
+}

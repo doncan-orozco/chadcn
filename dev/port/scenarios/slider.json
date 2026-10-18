@@ -1,0 +1,2968 @@
+{
+  "component": "slider",
+  "scenarios": [
+    {
+      "id": "default",
+      "tree": {
+        "c": "Slider",
+        "props": {}
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default__dark",
+      "tree": {
+        "c": "Slider",
+        "props": {}
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "single__default-value-50",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ]
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "single__default-value-50__dark",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ]
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "range__25-75",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            25,
+            75
+          ]
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "range__25-75__dark",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            25,
+            75
+          ]
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "three-thumbs__labels",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            10,
+            50,
+            90
+          ]
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "edge__min",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            0
+          ]
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "edge__max",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            100
+          ]
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "custom-min-max",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            15
+          ],
+          "min": 10,
+          "max": 20
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "custom-min-only__default-thumbs",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "min": 20
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "out-of-range__default-value-not-clamped",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            150
+          ]
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "fractional-percent",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            1
+          ],
+          "max": 3
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "vertical__single",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "orientation": "vertical"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "vertical__single__dark",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "orientation": "vertical"
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "vertical__range",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            25,
+            75
+          ],
+          "orientation": "vertical"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "vertical__inverted",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            30
+          ],
+          "orientation": "vertical",
+          "inverted": true
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "vertical__dir-rtl-passthrough",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            30
+          ],
+          "orientation": "vertical",
+          "dir": "rtl"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "horizontal__inverted",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            30
+          ],
+          "inverted": true
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "rtl__single",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            30
+          ],
+          "dir": "rtl"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "rtl__inverted",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            30
+          ],
+          "dir": "rtl",
+          "inverted": true
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "rtl__range",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            20,
+            60
+          ],
+          "dir": "rtl"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "rtl__ancestor-dir-ignored",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full",
+          "dir": "rtl"
+        },
+        "children": [
+          {
+            "c": "Slider",
+            "props": {
+              "defaultValue": [
+                30
+              ]
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "disabled": true
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__dark",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "disabled": true
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__range",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            25,
+            75
+          ],
+          "disabled": true
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__hover-thumb",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "disabled": true
+        }
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=slider-thumb] >> nth=0"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__click-track-no-change",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "disabled": true,
+          "className": "w-[300px]"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=slider-track]",
+          "position": {
+            "x": 75,
+            "y": 3
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__tab-skipped",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-6"
+        },
+        "children": [
+          {
+            "c": "Slider",
+            "props": {
+              "defaultValue": [
+                50
+              ],
+              "disabled": true,
+              "id": "s-disabled"
+            }
+          },
+          {
+            "c": "Slider",
+            "props": {
+              "defaultValue": [
+                20
+              ],
+              "id": "s-enabled"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__keys-ignored",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "disabled": true
+        }
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[data-slot=slider-thumb] >> nth=0"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "Home"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__thumb",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ]
+        }
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=slider-thumb] >> nth=0"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__thumb__dark",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ]
+        }
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=slider-thumb] >> nth=0"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__tab-focus-visible",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ]
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__tab-focus-visible__dark",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ]
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__default-two-thumbs-tab-once",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-6"
+        },
+        "children": [
+          {
+            "c": "Slider",
+            "props": {}
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__arrow-right-left",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ]
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__arrow-up-down",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ]
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowUp"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__shift-arrow-x10",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ]
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Shift+ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "Shift+ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "Shift+ArrowLeft"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__page-up-down",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ]
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "PageUp"
+        },
+        {
+          "do": "press",
+          "key": "PageDown"
+        },
+        {
+          "do": "press",
+          "key": "PageDown"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__home-end",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ]
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Home"
+        },
+        {
+          "do": "press",
+          "key": "End"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__clamp-at-max",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            95
+          ]
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "PageUp"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__clamp-at-min",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            3
+          ]
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "PageDown"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__step-10",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "step": 10
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "Shift+ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__unaligned-value-snaps",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            33
+          ],
+          "step": 10
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__unaligned-value-snaps-down",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            33
+          ],
+          "step": 10
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Shift+ArrowLeft"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__decimal-step",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            0.5
+          ],
+          "min": 0,
+          "max": 1,
+          "step": 0.1
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__min-offset-step",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            5
+          ],
+          "min": 5,
+          "max": 95,
+          "step": 10
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "End"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__vertical",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "orientation": "vertical"
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowUp"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__vertical-inverted",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "orientation": "vertical",
+          "inverted": true
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowUp"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "PageUp"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__rtl",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "dir": "rtl"
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowUp"
+        },
+        {
+          "do": "press",
+          "key": "Home"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__horizontal-inverted",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "inverted": true
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "End"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__rtl-inverted",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "dir": "rtl",
+          "inverted": true
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__range-tab-both-thumbs",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            25,
+            75
+          ]
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "tab",
+          "shift": true
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__range-home-from-second-thumb",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            25,
+            75
+          ]
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Home"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__range-end-from-first-thumb",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            25,
+            75
+          ]
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "End"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__range-cross-thumbs",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50,
+            52
+          ]
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__range-cross-thumbs__dark",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50,
+            52
+          ]
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__min-steps-between-thumbs",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            40,
+            50
+          ],
+          "minStepsBetweenThumbs": 5
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__preserve-thumb-order",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50,
+            52
+          ],
+          "preserveThumbOrder": true
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__preserve-order-min-steps",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            40,
+            50
+          ],
+          "preserveThumbOrder": true,
+          "minStepsBetweenThumbs": 3
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "PageUp"
+        },
+        {
+          "do": "press",
+          "key": "End"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__three-thumbs",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            10,
+            50,
+            90
+          ]
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "PageUp"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Home"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "pointer__click-track",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "className": "w-[300px]"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=slider-track]",
+          "position": {
+            "x": 75,
+            "y": 3
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "pointer__click-track__dark",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "className": "w-[300px]"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=slider-track]",
+          "position": {
+            "x": 75,
+            "y": 3
+          }
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "pointer__click-track-then-arrow",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "className": "w-[300px]"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=slider-track]",
+          "position": {
+            "x": 225,
+            "y": 3
+          }
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "pointer__click-track-at-current-value-no-focus",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "className": "w-[300px]"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=slider-track]",
+          "position": {
+            "x": 150,
+            "y": 3
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "pointer__click-range-closest-thumb",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            20,
+            80
+          ],
+          "className": "w-[300px]"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=slider-track]",
+          "position": {
+            "x": 210,
+            "y": 3
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "pointer__click-range-between-equidistant",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            40,
+            60
+          ],
+          "className": "w-[300px]"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=slider-track]",
+          "position": {
+            "x": 150,
+            "y": 3
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "pointer__click-range-below-first",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            40,
+            60
+          ],
+          "className": "w-[300px]"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=slider-track]",
+          "position": {
+            "x": 30,
+            "y": 3
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "pointer__click-thumb-focus-no-ring",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "className": "w-[300px]"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=slider-thumb] >> nth=0"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "pointer__click-track-step-10",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "step": 10,
+          "className": "w-[300px]"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=slider-track]",
+          "position": {
+            "x": 69,
+            "y": 3
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "pointer__click-track-decimal-step",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            0.5
+          ],
+          "min": 0,
+          "max": 1,
+          "step": 0.1,
+          "className": "w-[300px]"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=slider-track]",
+          "position": {
+            "x": 205,
+            "y": 3
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "pointer__click-rtl",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "dir": "rtl",
+          "className": "w-[300px]"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=slider-track]",
+          "position": {
+            "x": 75,
+            "y": 3
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "pointer__click-inverted",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "inverted": true,
+          "className": "w-[300px]"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=slider-track]",
+          "position": {
+            "x": 75,
+            "y": 3
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "pointer__drag-thumb",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "className": "w-[300px]"
+        }
+      },
+      "steps": [
+        {
+          "do": "mousedown",
+          "target": "[data-slot=slider-thumb] >> nth=0"
+        },
+        {
+          "do": "mouseup",
+          "target": "[data-slot=slider-track]",
+          "position": {
+            "x": 240,
+            "y": 3
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "pointer__drag-thumb-multi-move",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "className": "w-[300px]"
+        }
+      },
+      "steps": [
+        {
+          "do": "mousedown",
+          "target": "[data-slot=slider-thumb] >> nth=0"
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=slider-track]"
+        },
+        {
+          "do": "mouseup",
+          "target": "[data-slot=slider-track]",
+          "position": {
+            "x": 30,
+            "y": 3
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "pointer__drag-track-press-move-release",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "className": "w-[300px]"
+        }
+      },
+      "steps": [
+        {
+          "do": "mousedown",
+          "target": "[data-slot=slider-track]",
+          "position": {
+            "x": 60,
+            "y": 3
+          }
+        },
+        {
+          "do": "mouseup",
+          "target": "[data-slot=slider-track]",
+          "position": {
+            "x": 270,
+            "y": 3
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "pointer__drag-thumb-past-other",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            30,
+            60
+          ],
+          "className": "w-[300px]"
+        }
+      },
+      "steps": [
+        {
+          "do": "mousedown",
+          "target": "[data-slot=slider-thumb] >> nth=0"
+        },
+        {
+          "do": "mouseup",
+          "target": "[data-slot=slider-track]",
+          "position": {
+            "x": 270,
+            "y": 3
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "pointer__drag-beyond-max-clamps",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[500px]",
+          "id": "wide"
+        },
+        "children": [
+          {
+            "c": "Slider",
+            "props": {
+              "defaultValue": [
+                50
+              ],
+              "className": "w-[300px]"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "mousedown",
+          "target": "[data-slot=slider-thumb] >> nth=0"
+        },
+        {
+          "do": "mouseup",
+          "target": "#wide",
+          "position": {
+            "x": 480,
+            "y": 8
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "pointer__drag-vertical",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "orientation": "vertical"
+        }
+      },
+      "steps": [
+        {
+          "do": "mousedown",
+          "target": "[data-slot=slider-thumb] >> nth=0"
+        },
+        {
+          "do": "mouseup",
+          "target": "[data-slot=slider-track]",
+          "position": {
+            "x": 3,
+            "y": 44
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "pointer__click-vertical-inverted",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "orientation": "vertical",
+          "inverted": true
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=slider-track]",
+          "position": {
+            "x": 3,
+            "y": 44
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "pointer__drag-min-steps-between-thumbs",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            30,
+            60
+          ],
+          "minStepsBetweenThumbs": 10,
+          "className": "w-[300px]"
+        }
+      },
+      "steps": [
+        {
+          "do": "mousedown",
+          "target": "[data-slot=slider-thumb] >> nth=0"
+        },
+        {
+          "do": "mouseup",
+          "target": "[data-slot=slider-track]",
+          "position": {
+            "x": 165,
+            "y": 3
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "pointer__drag-preserve-thumb-order",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            30,
+            60
+          ],
+          "preserveThumbOrder": true,
+          "className": "w-[300px]"
+        }
+      },
+      "steps": [
+        {
+          "do": "mousedown",
+          "target": "[data-slot=slider-thumb] >> nth=0"
+        },
+        {
+          "do": "mouseup",
+          "target": "[data-slot=slider-track]",
+          "position": {
+            "x": 270,
+            "y": 3
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "controlled__value-stays-on-click",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "value": [
+            50
+          ],
+          "className": "w-[300px]"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=slider-track]",
+          "position": {
+            "x": 75,
+            "y": 3
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "controlled__value-stays-on-keys",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "value": [
+            50
+          ]
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "End"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "controlled__range-click-moves-focus",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "value": [
+            20,
+            80
+          ],
+          "className": "w-[300px]"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=slider-track]",
+          "position": {
+            "x": 240,
+            "y": 3
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__classname-merge",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "className": "w-[200px] data-[disabled]:opacity-25"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__classname-merge-disabled",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "disabled": true,
+          "className": "w-[200px] data-[disabled]:opacity-25"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__forwarded-attrs",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "id": "volume",
+          "aria-label": "Volume",
+          "data-testid": "volume-slider"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__aria-label-range-root",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            25,
+            75
+          ],
+          "aria-label": "Price"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__style-merge",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "style": {
+            "maxWidth": "240px"
+          }
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__aria-disabled-override",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "aria-disabled": true
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__bubble-input",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "f1"
+        },
+        "children": [
+          {
+            "c": "Slider",
+            "props": {
+              "defaultValue": [
+                50
+              ],
+              "name": "volume"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__bubble-input-range",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "f2"
+        },
+        "children": [
+          {
+            "c": "Slider",
+            "props": {
+              "defaultValue": [
+                20,
+                80
+              ],
+              "name": "price"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__bubble-input-default-two-thumbs",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "f3"
+        },
+        "children": [
+          {
+            "c": "Slider",
+            "props": {
+              "name": "level"
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__reset",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "f4"
+        },
+        "children": [
+          {
+            "c": "Slider",
+            "props": {
+              "defaultValue": [
+                50
+              ],
+              "name": "volume"
+            }
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "reset"
+            },
+            "children": [
+              "Reset"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "click",
+          "target": "button[type=reset]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__form-attr-outside-form",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_form",
+            "props": {
+              "id": "f-ext"
+            }
+          },
+          {
+            "c": "Slider",
+            "props": {
+              "defaultValue": [
+                30
+              ],
+              "name": "ext",
+              "form": "f-ext"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__name-outside-form-no-input",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "name": "volume"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "form__disabled",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "id": "f5"
+        },
+        "children": [
+          {
+            "c": "Slider",
+            "props": {
+              "defaultValue": [
+                50
+              ],
+              "name": "volume",
+              "disabled": true
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "animation__thumb-hover-ring-transition",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ]
+        }
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=slider-thumb] >> nth=0"
+        },
+        {
+          "do": "wait",
+          "ms": 75
+        },
+        {
+          "do": "wait",
+          "ms": 200
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": true
+    },
+    {
+      "id": "viewport__narrow",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            25,
+            75
+          ]
+        }
+      },
+      "steps": [
+        {
+          "do": "viewport",
+          "width": 360,
+          "height": 640
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__slider-demo",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "max": 100,
+          "step": 1,
+          "className": "w-[60%]"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__slider-demo__dark",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "max": 100,
+          "step": 1,
+          "className": "w-[60%]"
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__slider-demo__keyboard",
+      "tree": {
+        "c": "Slider",
+        "props": {
+          "defaultValue": [
+            50
+          ],
+          "max": 100,
+          "step": 1,
+          "className": "w-[60%]"
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__field-slider",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md"
+        },
+        "children": [
+          {
+            "c": "Slider",
+            "props": {
+              "value": [
+                200,
+                800
+              ],
+              "max": 1000,
+              "min": 0,
+              "step": 10,
+              "className": "mt-2 w-full",
+              "aria-label": "Price Range"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

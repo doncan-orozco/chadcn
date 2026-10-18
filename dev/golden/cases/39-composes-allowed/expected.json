@@ -1,0 +1,11 @@
+{
+  "case": "39-composes-allowed",
+  "kind": "scenario",
+  "component": "button",
+  "description": "composes [badge] allows Badge exports in the scenario file.",
+  "must_detect": [],
+  "must_not_detect": [
+    "SC_UNKNOWN_COMPONENT",
+    "SC_COMPOSES_INVALID"
+  ]
+}

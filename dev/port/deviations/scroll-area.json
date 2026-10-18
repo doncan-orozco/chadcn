@@ -1,0 +1,6 @@
+{
+  "reason": "Radix conditionally mounts the scrollbar (Presence by type) and its thumb (only while the content overflows), but a server render cannot omit an element and still know its classes and caller attrs when the client later mounts it; the port keeps each scrollbar and thumb in an inert <template> placeholder (no data-slot, no classes, not in the a11y tree or the parity snapshot) at its JSX position. Once mounted the DOM equals React's.",
+  "allow_tokens": [],
+  "allow_missing_tokens": [],
+  "api": ["ScrollArea::ScrollBar: unmounted scrollbar/thumb kept in an inert <template> placeholder (no data-slot) until the controller mounts them"]
+}

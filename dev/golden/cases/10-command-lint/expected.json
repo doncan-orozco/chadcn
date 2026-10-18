@@ -1,0 +1,8 @@
+{
+  "case": "10-command-lint",
+  "kind": "lint",
+  "target": "docs",
+  "description": "Seeded bad command doc: missing script, unknown flag, unknown port_state subcommand, missing rake task, missing reference, ghost agent, ghost slash command.",
+  "must_detect": ["LINT_SCRIPT_MISSING", "LINT_FLAG_UNKNOWN", "LINT_SUBCOMMAND", "LINT_RAKE_MISSING", "LINT_REF_MISSING", "LINT_AGENT_MISSING", "LINT_COMMAND_MISSING"],
+  "must_not_detect": []
+}

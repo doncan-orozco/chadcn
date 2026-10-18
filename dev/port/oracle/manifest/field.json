@@ -1,0 +1,577 @@
+{
+  "name": "field",
+  "style": "new-york-v4",
+  "source_sha": "4a4d17fcb933513f",
+  "use_client": true,
+  "tier": "static",
+  "exports": [
+    "Field",
+    "FieldLabel",
+    "FieldDescription",
+    "FieldError",
+    "FieldGroup",
+    "FieldLegend",
+    "FieldSeparator",
+    "FieldSet",
+    "FieldContent",
+    "FieldTitle"
+  ],
+  "parts": [
+    {
+      "name": "FieldSet",
+      "data_attrs": [],
+      "data_slots": [
+        "field-set"
+      ],
+      "data_slot": "field-set",
+      "wraps": null,
+      "renders": "fieldset",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "flex-col",
+        "gap-6",
+        "has-[>[data-slot=checkbox-group]]:gap-3",
+        "has-[>[data-slot=radio-group]]:gap-3"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "FieldLegend",
+      "data_attrs": [
+        {
+          "name": "data-variant",
+          "value": "{variant}"
+        }
+      ],
+      "data_slots": [
+        "field-legend"
+      ],
+      "data_slot": "field-legend",
+      "wraps": null,
+      "renders": "legend",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "variant",
+            "default": "\"legend\""
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "variant",
+            "type": "\"legend\" | \"label\""
+          }
+        ]
+      },
+      "class_tokens": [
+        "data-[variant=label]:text-sm",
+        "data-[variant=legend]:text-base",
+        "font-medium",
+        "mb-3"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "FieldGroup",
+      "data_attrs": [],
+      "data_slots": [
+        "field-group"
+      ],
+      "data_slot": "field-group",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "@container/field-group",
+        "[&>[data-slot=field-group]]:gap-4",
+        "data-[slot=checkbox-group]:gap-3",
+        "flex",
+        "flex-col",
+        "gap-7",
+        "group/field-group",
+        "w-full"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "Field",
+      "data_attrs": [
+        {
+          "name": "data-orientation",
+          "value": "{orientation}"
+        }
+      ],
+      "data_slots": [
+        "field"
+      ],
+      "data_slot": "field",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "orientation",
+            "default": "\"vertical\""
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": true,
+      "variants_used": [
+        "fieldVariants"
+      ]
+    },
+    {
+      "name": "FieldContent",
+      "data_attrs": [],
+      "data_slots": [
+        "field-content"
+      ],
+      "data_slot": "field-content",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "flex-1",
+        "flex-col",
+        "gap-1.5",
+        "group/field-content",
+        "leading-snug"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "FieldLabel",
+      "data_attrs": [],
+      "data_slots": [
+        "field-label"
+      ],
+      "data_slot": "field-label",
+      "wraps": null,
+      "renders": "Label",
+      "slot_tags": {
+        "field-label": "Label"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "[&>*]:data-[slot=field]:p-4",
+        "dark:has-data-[state=checked]:bg-primary/10",
+        "flex",
+        "gap-2",
+        "group-data-[disabled=true]/field:opacity-50",
+        "group/field-label",
+        "has-[>[data-slot=field]]:border",
+        "has-[>[data-slot=field]]:flex-col",
+        "has-[>[data-slot=field]]:rounded-md",
+        "has-[>[data-slot=field]]:w-full",
+        "has-data-[state=checked]:bg-primary/5",
+        "has-data-[state=checked]:border-primary",
+        "leading-snug",
+        "peer/field-label",
+        "w-fit"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "FieldTitle",
+      "data_attrs": [],
+      "data_slots": [
+        "field-label"
+      ],
+      "data_slot": "field-label",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "font-medium",
+        "gap-2",
+        "group-data-[disabled=true]/field:opacity-50",
+        "items-center",
+        "leading-snug",
+        "text-sm",
+        "w-fit"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "FieldDescription",
+      "data_attrs": [],
+      "data_slots": [
+        "field-description"
+      ],
+      "data_slot": "field-description",
+      "wraps": null,
+      "renders": "p",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "[&>a:hover]:text-primary",
+        "[&>a]:underline",
+        "[&>a]:underline-offset-4",
+        "[[data-variant=legend]+&]:-mt-1.5",
+        "font-normal",
+        "group-has-[[data-orientation=horizontal]]/field:text-balance",
+        "last:mt-0",
+        "leading-normal",
+        "nth-last-2:-mt-1",
+        "text-muted-foreground",
+        "text-sm"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "FieldSeparator",
+      "data_attrs": [
+        {
+          "name": "data-content",
+          "value": "{!!children}"
+        }
+      ],
+      "data_slots": [
+        "field-separator",
+        "field-separator-content"
+      ],
+      "data_slot": "field-separator",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "children"
+          },
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "children",
+            "type": "React.ReactNode"
+          }
+        ]
+      },
+      "class_tokens": [
+        "-my-2",
+        "absolute",
+        "bg-background",
+        "block",
+        "group-data-[variant=outline]/field-group:-mb-2",
+        "h-5",
+        "inset-0",
+        "mx-auto",
+        "px-2",
+        "relative",
+        "text-muted-foreground",
+        "text-sm",
+        "top-1/2",
+        "w-fit"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "FieldError",
+      "data_attrs": [],
+      "data_slots": [
+        "field-error"
+      ],
+      "data_slot": "field-error",
+      "wraps": null,
+      "renders": "ul",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "children"
+          },
+          {
+            "name": "errors"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "errors",
+            "type": "Array<{ message?: string"
+          }
+        ]
+      },
+      "class_tokens": [
+        "flex",
+        "flex-col",
+        "font-normal",
+        "gap-1",
+        "list-disc",
+        "ml-4",
+        "text-destructive",
+        "text-sm"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {
+    "fieldVariants": {
+      "base": "group/field flex w-full gap-3 data-[invalid=true]:text-destructive",
+      "variants": {
+        "orientation": {
+          "vertical": [
+            "flex-col [&>*]:w-full [&>.sr-only]:w-auto"
+          ],
+          "horizontal": [
+            "flex-row items-center",
+            "[&>[data-slot=field-label]]:flex-auto",
+            "has-[>[data-slot=field-content]]:items-start has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px"
+          ],
+          "responsive": [
+            "flex-col @md/field-group:flex-row @md/field-group:items-center [&>*]:w-full @md/field-group:[&>*]:w-auto [&>.sr-only]:w-auto",
+            "@md/field-group:[&>[data-slot=field-label]]:flex-auto",
+            "@md/field-group:has-[>[data-slot=field-content]]:items-start @md/field-group:has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px"
+          ]
+        }
+      },
+      "defaults": {
+        "orientation": "vertical"
+      },
+      "compound": [],
+      "tokens": [
+        "@md/field-group:[&>*]:w-auto",
+        "@md/field-group:[&>[data-slot=field-label]]:flex-auto",
+        "@md/field-group:flex-row",
+        "@md/field-group:has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px",
+        "@md/field-group:has-[>[data-slot=field-content]]:items-start",
+        "@md/field-group:items-center",
+        "[&>*]:w-full",
+        "[&>.sr-only]:w-auto",
+        "[&>[data-slot=field-label]]:flex-auto",
+        "data-[invalid=true]:text-destructive",
+        "flex",
+        "flex-col",
+        "flex-row",
+        "gap-3",
+        "group/field",
+        "has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px",
+        "has-[>[data-slot=field-content]]:items-start",
+        "items-center",
+        "vertical",
+        "w-full"
+      ]
+    }
+  },
+  "class_tokens": [
+    "-my-2",
+    "@container/field-group",
+    "@md/field-group:[&>*]:w-auto",
+    "@md/field-group:[&>[data-slot=field-label]]:flex-auto",
+    "@md/field-group:flex-row",
+    "@md/field-group:has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px",
+    "@md/field-group:has-[>[data-slot=field-content]]:items-start",
+    "@md/field-group:items-center",
+    "[&>*]:data-[slot=field]:p-4",
+    "[&>*]:w-full",
+    "[&>.sr-only]:w-auto",
+    "[&>[data-slot=field-group]]:gap-4",
+    "[&>[data-slot=field-label]]:flex-auto",
+    "[&>a:hover]:text-primary",
+    "[&>a]:underline",
+    "[&>a]:underline-offset-4",
+    "[[data-variant=legend]+&]:-mt-1.5",
+    "absolute",
+    "bg-background",
+    "block",
+    "dark:has-data-[state=checked]:bg-primary/10",
+    "data-[invalid=true]:text-destructive",
+    "data-[slot=checkbox-group]:gap-3",
+    "data-[variant=label]:text-sm",
+    "data-[variant=legend]:text-base",
+    "flex",
+    "flex-1",
+    "flex-col",
+    "flex-row",
+    "font-medium",
+    "font-normal",
+    "gap-1",
+    "gap-1.5",
+    "gap-2",
+    "gap-3",
+    "gap-6",
+    "gap-7",
+    "group-data-[disabled=true]/field:opacity-50",
+    "group-data-[variant=outline]/field-group:-mb-2",
+    "group-has-[[data-orientation=horizontal]]/field:text-balance",
+    "group/field",
+    "group/field-content",
+    "group/field-group",
+    "group/field-label",
+    "h-5",
+    "has-[>[data-slot=checkbox-group]]:gap-3",
+    "has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px",
+    "has-[>[data-slot=field-content]]:items-start",
+    "has-[>[data-slot=field]]:border",
+    "has-[>[data-slot=field]]:flex-col",
+    "has-[>[data-slot=field]]:rounded-md",
+    "has-[>[data-slot=field]]:w-full",
+    "has-[>[data-slot=radio-group]]:gap-3",
+    "has-data-[state=checked]:bg-primary/5",
+    "has-data-[state=checked]:border-primary",
+    "inset-0",
+    "items-center",
+    "last:mt-0",
+    "leading-normal",
+    "leading-snug",
+    "list-disc",
+    "mb-3",
+    "ml-4",
+    "mx-auto",
+    "nth-last-2:-mt-1",
+    "peer/field-label",
+    "px-2",
+    "relative",
+    "text-destructive",
+    "text-muted-foreground",
+    "text-sm",
+    "top-1/2",
+    "vertical",
+    "w-fit",
+    "w-full"
+  ],
+  "data_attrs": [
+    "data-content",
+    "data-orientation",
+    "data-variant"
+  ],
+  "data_slots": [
+    "field",
+    "field-content",
+    "field-description",
+    "field-error",
+    "field-group",
+    "field-label",
+    "field-legend",
+    "field-separator",
+    "field-separator-content",
+    "field-set"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [],
+  "third_party": [],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [
+    "label",
+    "separator"
+  ],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn"
+  ],
+  "extra_files": []
+}

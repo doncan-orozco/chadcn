@@ -1,0 +1,18 @@
+# frozen_string_literal: true
+
+source "https://rubygems.org"
+
+# The Phlex side of the shadcn parity harness (dev kit, not packaged): a DB-less Rails app that mounts the gem through its own engine only.
+gem "rails", "~> 8.1.2"
+gem "propshaft"
+gem "importmap-rails"
+gem "turbo-rails"
+gem "stimulus-rails"
+gem "tailwindcss-rails"
+gem "phlex-rails"
+gem "puma", ">= 5.0"
+gem "phlex-shadcn", path: "../.."
+
+group :test do
+  gem "minitest", "~> 6.0"
+end

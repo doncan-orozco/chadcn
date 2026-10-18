@@ -1,0 +1,602 @@
+{
+  "name": "attachment",
+  "style": "new-york-v4",
+  "source_sha": "243feb168430d012",
+  "use_client": false,
+  "tier": "static",
+  "exports": [
+    "Attachment",
+    "AttachmentGroup",
+    "AttachmentMedia",
+    "AttachmentContent",
+    "AttachmentTitle",
+    "AttachmentDescription",
+    "AttachmentActions",
+    "AttachmentAction",
+    "AttachmentTrigger"
+  ],
+  "parts": [
+    {
+      "name": "Attachment",
+      "data_attrs": [
+        {
+          "name": "data-state",
+          "value": "{state}"
+        },
+        {
+          "name": "data-size",
+          "value": "{size}"
+        },
+        {
+          "name": "data-orientation",
+          "value": "{orientation}"
+        }
+      ],
+      "data_slots": [
+        "attachment"
+      ],
+      "data_slot": "attachment",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "state",
+            "default": "\"done\""
+          },
+          {
+            "name": "size",
+            "default": "\"default\""
+          },
+          {
+            "name": "orientation",
+            "default": "\"horizontal\""
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "state",
+            "type": "\"idle\" | \"uploading\" | \"processing\" | \"error\" | \"done\""
+          }
+        ]
+      },
+      "class_tokens": [],
+      "uses_cva": true,
+      "variants_used": [
+        "attachmentVariants"
+      ]
+    },
+    {
+      "name": "AttachmentMedia",
+      "data_attrs": [
+        {
+          "name": "data-variant",
+          "value": "{variant}"
+        }
+      ],
+      "data_slots": [
+        "attachment-media"
+      ],
+      "data_slot": "attachment-media",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "variant",
+            "default": "\"icon\""
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": true,
+      "variants_used": [
+        "attachmentMediaVariants"
+      ]
+    },
+    {
+      "name": "AttachmentContent",
+      "data_attrs": [],
+      "data_slots": [
+        "attachment-content"
+      ],
+      "data_slot": "attachment-content",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex-1",
+        "group-data-[orientation=vertical]/attachment:px-1",
+        "leading-tight",
+        "max-w-full",
+        "min-w-0"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "AttachmentTitle",
+      "data_attrs": [],
+      "data_slots": [
+        "attachment-title"
+      ],
+      "data_slot": "attachment-title",
+      "wraps": null,
+      "renders": "span",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "block",
+        "font-medium",
+        "group-data-[state=processing]/attachment:shimmer",
+        "group-data-[state=uploading]/attachment:shimmer",
+        "max-w-full",
+        "min-w-0",
+        "truncate"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "AttachmentDescription",
+      "data_attrs": [],
+      "data_slots": [
+        "attachment-description"
+      ],
+      "data_slot": "attachment-description",
+      "wraps": null,
+      "renders": "span",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "block",
+        "group-data-[state=error]/attachment:text-destructive/80",
+        "max-w-full",
+        "min-w-0",
+        "mt-0.5",
+        "text-muted-foreground",
+        "text-xs",
+        "truncate"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "AttachmentActions",
+      "data_attrs": [],
+      "data_slots": [
+        "attachment-actions"
+      ],
+      "data_slot": "attachment-actions",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "group-data-[orientation=vertical]/attachment:absolute",
+        "group-data-[orientation=vertical]/attachment:gap-1",
+        "group-data-[orientation=vertical]/attachment:right-3",
+        "group-data-[orientation=vertical]/attachment:top-3",
+        "items-center",
+        "relative",
+        "shrink-0",
+        "z-20"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "AttachmentAction",
+      "data_attrs": [],
+      "data_slots": [
+        "attachment-action"
+      ],
+      "data_slot": "attachment-action",
+      "wraps": null,
+      "renders": "Button",
+      "slot_tags": {
+        "attachment-action": "Button"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "variant"
+          },
+          {
+            "name": "size",
+            "default": "\"icon-xs\""
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "AttachmentTrigger",
+      "data_attrs": [],
+      "data_slots": [
+        "attachment-trigger"
+      ],
+      "data_slot": "attachment-trigger",
+      "wraps": "Comp",
+      "renders": "Comp",
+      "slot_tags": {
+        "attachment-trigger": "Comp"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "asChild",
+            "default": "false"
+          },
+          {
+            "name": "type"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "asChild",
+            "type": "boolean"
+          }
+        ]
+      },
+      "class_tokens": [
+        "absolute",
+        "inset-0",
+        "outline-none",
+        "z-10"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "AttachmentGroup",
+      "data_attrs": [],
+      "data_slots": [
+        "attachment-group"
+      ],
+      "data_slot": "attachment-group",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "*:data-[slot=attachment]:flex-none",
+        "*:data-[slot=attachment]:snap-start",
+        "flex",
+        "gap-3",
+        "min-w-0",
+        "overflow-x-auto",
+        "overscroll-x-contain",
+        "py-1",
+        "scroll-fade-x",
+        "scroll-px-1",
+        "scrollbar-none",
+        "snap-mandatory",
+        "snap-x"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {
+    "attachmentVariants": {
+      "base": "group/attachment relative flex w-fit max-w-full min-w-0 shrink-0 flex-wrap rounded-xl border bg-card text-card-foreground transition-colors focus-within:ring-1 focus-within:ring-ring/50 has-[>a,>button]:hover:bg-muted/50 data-[state=error]:border-destructive/30 data-[state=idle]:border-dashed",
+      "variants": {
+        "size": {
+          "default": "gap-2 text-sm has-data-[slot=attachment-content]:px-2.5 has-data-[slot=attachment-content]:py-2 has-data-[slot=attachment-media]:p-2",
+          "sm": "gap-2.5 text-xs has-data-[slot=attachment-content]:px-2 has-data-[slot=attachment-content]:py-1.5 has-data-[slot=attachment-media]:p-1.5",
+          "xs": "gap-1.5 rounded-lg text-xs has-data-[slot=attachment-content]:px-1.5 has-data-[slot=attachment-content]:py-1 has-data-[slot=attachment-media]:p-1"
+        },
+        "orientation": {
+          "horizontal": "min-w-40 items-center",
+          "vertical": "w-24 flex-col has-data-[slot=attachment-content]:w-30"
+        }
+      },
+      "defaults": {},
+      "compound": [],
+      "tokens": [
+        "bg-card",
+        "border",
+        "data-[state=error]:border-destructive/30",
+        "data-[state=idle]:border-dashed",
+        "flex",
+        "flex-col",
+        "flex-wrap",
+        "focus-within:ring-1",
+        "focus-within:ring-ring/50",
+        "gap-1.5",
+        "gap-2",
+        "gap-2.5",
+        "group/attachment",
+        "has-[>a,>button]:hover:bg-muted/50",
+        "has-data-[slot=attachment-content]:px-1.5",
+        "has-data-[slot=attachment-content]:px-2",
+        "has-data-[slot=attachment-content]:px-2.5",
+        "has-data-[slot=attachment-content]:py-1",
+        "has-data-[slot=attachment-content]:py-1.5",
+        "has-data-[slot=attachment-content]:py-2",
+        "has-data-[slot=attachment-content]:w-30",
+        "has-data-[slot=attachment-media]:p-1",
+        "has-data-[slot=attachment-media]:p-1.5",
+        "has-data-[slot=attachment-media]:p-2",
+        "items-center",
+        "max-w-full",
+        "min-w-0",
+        "min-w-40",
+        "relative",
+        "rounded-lg",
+        "rounded-xl",
+        "shrink-0",
+        "text-card-foreground",
+        "text-sm",
+        "text-xs",
+        "transition-colors",
+        "w-24",
+        "w-fit"
+      ]
+    },
+    "attachmentMediaVariants": {
+      "base": "relative flex aspect-square w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-muted text-foreground group-data-[orientation=vertical]/attachment:w-full group-data-[size=sm]/attachment:w-8 group-data-[size=xs]/attachment:w-7 group-data-[size=xs]/attachment:rounded-md group-data-[state=error]/attachment:bg-destructive/10 group-data-[state=error]/attachment:text-destructive group-data-[orientation=vertical]/attachment:*:data-[slot=spinner]:size-6! [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 group-data-[orientation=vertical]/attachment:[&_svg:not([class*='size-'])]:size-6 group-data-[size=xs]/attachment:[&_svg:not([class*='size-'])]:size-3.5",
+      "variants": {
+        "variant": {
+          "icon": "",
+          "image": "opacity-60 group-data-[state=done]/attachment:opacity-100 group-data-[state=idle]/attachment:opacity-100 *:[img]:aspect-square *:[img]:w-full *:[img]:object-cover"
+        }
+      },
+      "defaults": {
+        "variant": "icon"
+      },
+      "compound": [],
+      "tokens": [
+        "*:[img]:aspect-square",
+        "*:[img]:object-cover",
+        "*:[img]:w-full",
+        "[&_svg:not([class*='size-'])]:size-4",
+        "[&_svg]:pointer-events-none",
+        "aspect-square",
+        "bg-muted",
+        "flex",
+        "group-data-[orientation=vertical]/attachment:*:data-[slot=spinner]:size-6!",
+        "group-data-[orientation=vertical]/attachment:[&_svg:not([class*='size-'])]:size-6",
+        "group-data-[orientation=vertical]/attachment:w-full",
+        "group-data-[size=sm]/attachment:w-8",
+        "group-data-[size=xs]/attachment:[&_svg:not([class*='size-'])]:size-3.5",
+        "group-data-[size=xs]/attachment:rounded-md",
+        "group-data-[size=xs]/attachment:w-7",
+        "group-data-[state=done]/attachment:opacity-100",
+        "group-data-[state=error]/attachment:bg-destructive/10",
+        "group-data-[state=error]/attachment:text-destructive",
+        "group-data-[state=idle]/attachment:opacity-100",
+        "icon",
+        "items-center",
+        "justify-center",
+        "opacity-60",
+        "overflow-hidden",
+        "relative",
+        "rounded-lg",
+        "shrink-0",
+        "text-foreground",
+        "w-10"
+      ]
+    }
+  },
+  "class_tokens": [
+    "*:[img]:aspect-square",
+    "*:[img]:object-cover",
+    "*:[img]:w-full",
+    "*:data-[slot=attachment]:flex-none",
+    "*:data-[slot=attachment]:snap-start",
+    "[&_svg:not([class*='size-'])]:size-4",
+    "[&_svg]:pointer-events-none",
+    "absolute",
+    "aspect-square",
+    "bg-card",
+    "bg-muted",
+    "block",
+    "border",
+    "data-[state=error]:border-destructive/30",
+    "data-[state=idle]:border-dashed",
+    "flex",
+    "flex-1",
+    "flex-col",
+    "flex-wrap",
+    "focus-within:ring-1",
+    "focus-within:ring-ring/50",
+    "font-medium",
+    "gap-1.5",
+    "gap-2",
+    "gap-2.5",
+    "gap-3",
+    "group-data-[orientation=vertical]/attachment:*:data-[slot=spinner]:size-6!",
+    "group-data-[orientation=vertical]/attachment:[&_svg:not([class*='size-'])]:size-6",
+    "group-data-[orientation=vertical]/attachment:absolute",
+    "group-data-[orientation=vertical]/attachment:gap-1",
+    "group-data-[orientation=vertical]/attachment:px-1",
+    "group-data-[orientation=vertical]/attachment:right-3",
+    "group-data-[orientation=vertical]/attachment:top-3",
+    "group-data-[orientation=vertical]/attachment:w-full",
+    "group-data-[size=sm]/attachment:w-8",
+    "group-data-[size=xs]/attachment:[&_svg:not([class*='size-'])]:size-3.5",
+    "group-data-[size=xs]/attachment:rounded-md",
+    "group-data-[size=xs]/attachment:w-7",
+    "group-data-[state=done]/attachment:opacity-100",
+    "group-data-[state=error]/attachment:bg-destructive/10",
+    "group-data-[state=error]/attachment:text-destructive",
+    "group-data-[state=error]/attachment:text-destructive/80",
+    "group-data-[state=idle]/attachment:opacity-100",
+    "group-data-[state=processing]/attachment:shimmer",
+    "group-data-[state=uploading]/attachment:shimmer",
+    "group/attachment",
+    "has-[>a,>button]:hover:bg-muted/50",
+    "has-data-[slot=attachment-content]:px-1.5",
+    "has-data-[slot=attachment-content]:px-2",
+    "has-data-[slot=attachment-content]:px-2.5",
+    "has-data-[slot=attachment-content]:py-1",
+    "has-data-[slot=attachment-content]:py-1.5",
+    "has-data-[slot=attachment-content]:py-2",
+    "has-data-[slot=attachment-content]:w-30",
+    "has-data-[slot=attachment-media]:p-1",
+    "has-data-[slot=attachment-media]:p-1.5",
+    "has-data-[slot=attachment-media]:p-2",
+    "icon",
+    "inset-0",
+    "items-center",
+    "justify-center",
+    "leading-tight",
+    "max-w-full",
+    "min-w-0",
+    "min-w-40",
+    "mt-0.5",
+    "opacity-60",
+    "outline-none",
+    "overflow-hidden",
+    "overflow-x-auto",
+    "overscroll-x-contain",
+    "py-1",
+    "relative",
+    "rounded-lg",
+    "rounded-xl",
+    "scroll-fade-x",
+    "scroll-px-1",
+    "scrollbar-none",
+    "shrink-0",
+    "snap-mandatory",
+    "snap-x",
+    "text-card-foreground",
+    "text-foreground",
+    "text-muted-foreground",
+    "text-sm",
+    "text-xs",
+    "transition-colors",
+    "truncate",
+    "w-10",
+    "w-24",
+    "w-fit",
+    "z-10",
+    "z-20"
+  ],
+  "data_attrs": [
+    "data-orientation",
+    "data-size",
+    "data-state",
+    "data-variant"
+  ],
+  "data_slots": [
+    "attachment",
+    "attachment-action",
+    "attachment-actions",
+    "attachment-content",
+    "attachment-description",
+    "attachment-group",
+    "attachment-media",
+    "attachment-title",
+    "attachment-trigger"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [
+    "Slot"
+  ],
+  "third_party": [],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [
+    "button"
+  ],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn",
+    "radix-ui"
+  ],
+  "extra_files": []
+}

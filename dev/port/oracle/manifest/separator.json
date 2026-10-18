@@ -1,0 +1,82 @@
+{
+  "name": "separator",
+  "style": "new-york-v4",
+  "source_sha": "ad7d5403fe337160",
+  "use_client": true,
+  "tier": "radix_stateful",
+  "exports": [
+    "Separator"
+  ],
+  "parts": [
+    {
+      "name": "Separator",
+      "data_attrs": [],
+      "data_slots": [
+        "separator"
+      ],
+      "data_slot": "separator",
+      "wraps": "SeparatorPrimitive.Root",
+      "renders": "SeparatorPrimitive.Root",
+      "slot_tags": {
+        "separator": "SeparatorPrimitive.Root"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "orientation",
+            "default": "\"horizontal\""
+          },
+          {
+            "name": "decorative",
+            "default": "true"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "bg-border",
+        "data-[orientation=horizontal]:h-px",
+        "data-[orientation=horizontal]:w-full",
+        "data-[orientation=vertical]:h-full",
+        "data-[orientation=vertical]:w-px",
+        "shrink-0"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "bg-border",
+    "data-[orientation=horizontal]:h-px",
+    "data-[orientation=horizontal]:w-full",
+    "data-[orientation=vertical]:h-full",
+    "data-[orientation=vertical]:w-px",
+    "shrink-0"
+  ],
+  "data_attrs": [],
+  "data_slots": [
+    "separator"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [
+    "Separator"
+  ],
+  "third_party": [],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn",
+    "radix-ui"
+  ],
+  "extra_files": []
+}

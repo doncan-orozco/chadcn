@@ -1,0 +1,59 @@
+{
+  "name": "direction",
+  "style": "new-york-v4",
+  "source_sha": "84ae2ad658207f0e",
+  "use_client": true,
+  "tier": "radix_stateful",
+  "exports": [
+    "DirectionProvider",
+    "useDirection"
+  ],
+  "parts": [
+    {
+      "name": "DirectionProvider",
+      "data_attrs": [],
+      "data_slots": [],
+      "data_slot": null,
+      "wraps": null,
+      "renders": "Direction.DirectionProvider",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "dir"
+          },
+          {
+            "name": "direction"
+          },
+          {
+            "name": "children"
+          }
+        ],
+        "typed": [
+          {
+            "name": "direction",
+            "type": "React.ComponentProps<typeof Direction.DirectionProvider>[\"dir\"]"
+          }
+        ]
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [],
+  "data_attrs": [],
+  "data_slots": [],
+  "non_rendered_slots": [],
+  "radix_primitives": [
+    "Direction"
+  ],
+  "third_party": [],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [],
+  "extra_files": []
+}

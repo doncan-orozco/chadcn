@@ -1,0 +1,19 @@
+{
+  "case": "19-run-resume",
+  "kind": "run",
+  "description": "The run is interrupted after 2 batches and restarted (init again): completed components are not dispatched again and the run finishes.",
+  "concurrency": 4,
+  "halt_after_batches": 2,
+  "resume": true,
+  "expect": {
+    "completed": true,
+    "stop_reason": null,
+    "dispatched_once": true,
+    "final_status": {
+      "_theme": "done",
+      "_harness": "done",
+      "button": "done",
+      "alert-dialog": "done"
+    }
+  }
+}

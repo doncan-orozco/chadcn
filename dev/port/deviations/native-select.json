@@ -1,0 +1,7 @@
+{
+  "reason": "React controlled value on <select> sets only option.selected (property, react-dom updateOptions with setDefaultSelected=false); a server render can only express it as the selected attribute, so value: renders selected=\"\" on the matching NativeSelect::Option. Selected option, displayed text and select.value are identical.",
+  "allow_tokens": [],
+  "allow_missing_tokens": [],
+  "api": ["NativeSelect: value: renders selected=\"\" on the matching option (React sets only the selected property)"],
+  "attributes": ["option[selected] when NativeSelect value: is used (scenario controlled__value)"]
+}

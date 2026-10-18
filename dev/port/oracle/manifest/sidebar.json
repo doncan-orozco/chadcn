@@ -1,0 +1,1599 @@
+{
+  "name": "sidebar",
+  "style": "new-york-v4",
+  "source_sha": "2ba1a9b9422f4172",
+  "use_client": true,
+  "tier": "client",
+  "exports": [
+    "Sidebar",
+    "SidebarContent",
+    "SidebarFooter",
+    "SidebarGroup",
+    "SidebarGroupAction",
+    "SidebarGroupContent",
+    "SidebarGroupLabel",
+    "SidebarHeader",
+    "SidebarInput",
+    "SidebarInset",
+    "SidebarMenu",
+    "SidebarMenuAction",
+    "SidebarMenuBadge",
+    "SidebarMenuButton",
+    "SidebarMenuItem",
+    "SidebarMenuSkeleton",
+    "SidebarMenuSub",
+    "SidebarMenuSubButton",
+    "SidebarMenuSubItem",
+    "SidebarProvider",
+    "SidebarRail",
+    "SidebarSeparator",
+    "SidebarTrigger",
+    "useSidebar"
+  ],
+  "parts": [
+    {
+      "name": "useSidebar",
+      "data_attrs": [],
+      "data_slots": [],
+      "data_slot": null,
+      "wraps": null,
+      "renders": null,
+      "slot_tags": {},
+      "props": {
+        "destructured": [],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SidebarProvider",
+      "data_attrs": [
+        {
+          "name": "data-state",
+          "value": "expanded"
+        }
+      ],
+      "data_slots": [
+        "sidebar-wrapper"
+      ],
+      "data_slot": "sidebar-wrapper",
+      "wraps": null,
+      "renders": "SidebarContext.Provider",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "defaultOpen",
+            "default": "true"
+          },
+          {
+            "name": "open: openProp"
+          },
+          {
+            "name": "onOpenChange: setOpenProp"
+          },
+          {
+            "name": "className"
+          },
+          {
+            "name": "style"
+          },
+          {
+            "name": "children"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "open",
+            "type": "openProp,"
+          },
+          {
+            "name": "onOpenChange",
+            "type": "setOpenProp,"
+          },
+          {
+            "name": "defaultOpen",
+            "type": "boolean"
+          },
+          {
+            "name": "open",
+            "type": "boolean"
+          },
+          {
+            "name": "onOpenChange",
+            "type": "(open: boolean) => void"
+          }
+        ]
+      },
+      "class_tokens": [
+        "flex",
+        "group/sidebar-wrapper",
+        "has-data-[variant=inset]:bg-sidebar",
+        "min-h-svh",
+        "w-full"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "Sidebar",
+      "data_attrs": [
+        {
+          "name": "data-sidebar",
+          "value": "sidebar"
+        },
+        {
+          "name": "data-mobile",
+          "value": "true"
+        },
+        {
+          "name": "data-state",
+          "value": "{state}"
+        },
+        {
+          "name": "data-collapsible",
+          "value": "{state === \"collapsed\" ? collapsible : \"\"}"
+        },
+        {
+          "name": "data-variant",
+          "value": "{variant}"
+        },
+        {
+          "name": "data-side",
+          "value": "{side}"
+        }
+      ],
+      "data_slots": [
+        "sidebar",
+        "sidebar-gap",
+        "sidebar-container",
+        "sidebar-inner"
+      ],
+      "data_slot": "sidebar",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {
+        "sidebar": "SheetContent"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "side",
+            "default": "\"left\""
+          },
+          {
+            "name": "variant",
+            "default": "\"sidebar\""
+          },
+          {
+            "name": "collapsible",
+            "default": "\"offcanvas\""
+          },
+          {
+            "name": "className"
+          },
+          {
+            "name": "children"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "side",
+            "type": "\"left\" | \"right\""
+          },
+          {
+            "name": "variant",
+            "type": "\"sidebar\" | \"floating\" | \"inset\""
+          },
+          {
+            "name": "collapsible",
+            "type": "\"offcanvas\" | \"icon\" | \"none\""
+          }
+        ]
+      },
+      "class_tokens": [
+        "[&>button]:hidden",
+        "bg-sidebar",
+        "bg-transparent",
+        "duration-200",
+        "ease-linear",
+        "fixed",
+        "flex",
+        "flex-col",
+        "floating",
+        "group",
+        "group-data-[collapsible=icon]:w-(--sidebar-width-icon)",
+        "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]",
+        "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]",
+        "group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]",
+        "group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]",
+        "group-data-[collapsible=offcanvas]:w-0",
+        "group-data-[side=left]:border-r",
+        "group-data-[side=right]:border-l",
+        "group-data-[side=right]:rotate-180",
+        "group-data-[variant=floating]:border",
+        "group-data-[variant=floating]:border-sidebar-border",
+        "group-data-[variant=floating]:rounded-lg",
+        "group-data-[variant=floating]:shadow-sm",
+        "h-full",
+        "h-svh",
+        "hidden",
+        "inset",
+        "inset-y-0",
+        "left",
+        "left-0",
+        "md:block",
+        "md:flex",
+        "p-0",
+        "p-2",
+        "peer",
+        "relative",
+        "right-0",
+        "sr-only",
+        "text-sidebar-foreground",
+        "transition-[left,right,width]",
+        "transition-[width]",
+        "w-(--sidebar-width)",
+        "w-full",
+        "z-10"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SidebarTrigger",
+      "data_attrs": [
+        {
+          "name": "data-sidebar",
+          "value": "trigger"
+        }
+      ],
+      "data_slots": [
+        "sidebar-trigger"
+      ],
+      "data_slot": "sidebar-trigger",
+      "wraps": null,
+      "renders": "Button",
+      "slot_tags": {
+        "sidebar-trigger": "Button"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "onClick"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "size-7",
+        "sr-only"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SidebarRail",
+      "data_attrs": [
+        {
+          "name": "data-sidebar",
+          "value": "rail"
+        }
+      ],
+      "data_slots": [
+        "sidebar-rail"
+      ],
+      "data_slot": "sidebar-rail",
+      "wraps": null,
+      "renders": "button",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "-translate-x-1/2",
+        "[[data-side=left][data-collapsible=offcanvas]_&]:-right-2",
+        "[[data-side=left][data-state=collapsed]_&]:cursor-e-resize",
+        "[[data-side=right][data-collapsible=offcanvas]_&]:-left-2",
+        "[[data-side=right][data-state=collapsed]_&]:cursor-w-resize",
+        "absolute",
+        "after:absolute",
+        "after:inset-y-0",
+        "after:left-1/2",
+        "after:w-[2px]",
+        "ease-linear",
+        "group-data-[collapsible=offcanvas]:after:left-full",
+        "group-data-[collapsible=offcanvas]:translate-x-0",
+        "group-data-[side=left]:-right-4",
+        "group-data-[side=right]:left-0",
+        "hidden",
+        "hover:after:bg-sidebar-border",
+        "hover:group-data-[collapsible=offcanvas]:bg-sidebar",
+        "in-data-[side=left]:cursor-w-resize",
+        "in-data-[side=right]:cursor-e-resize",
+        "inset-y-0",
+        "sm:flex",
+        "transition-all",
+        "w-4",
+        "z-20"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SidebarInset",
+      "data_attrs": [],
+      "data_slots": [
+        "sidebar-inset"
+      ],
+      "data_slot": "sidebar-inset",
+      "wraps": null,
+      "renders": "main",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "bg-background",
+        "flex",
+        "flex-1",
+        "flex-col",
+        "md:peer-data-[variant=inset]:m-2",
+        "md:peer-data-[variant=inset]:ml-0",
+        "md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2",
+        "md:peer-data-[variant=inset]:rounded-xl",
+        "md:peer-data-[variant=inset]:shadow-sm",
+        "relative",
+        "w-full"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SidebarInput",
+      "data_attrs": [
+        {
+          "name": "data-sidebar",
+          "value": "input"
+        }
+      ],
+      "data_slots": [
+        "sidebar-input"
+      ],
+      "data_slot": "sidebar-input",
+      "wraps": null,
+      "renders": "Input",
+      "slot_tags": {
+        "sidebar-input": "Input"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "bg-background",
+        "h-8",
+        "shadow-none",
+        "w-full"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SidebarHeader",
+      "data_attrs": [
+        {
+          "name": "data-sidebar",
+          "value": "header"
+        }
+      ],
+      "data_slots": [
+        "sidebar-header"
+      ],
+      "data_slot": "sidebar-header",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "flex-col",
+        "gap-2",
+        "p-2"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SidebarFooter",
+      "data_attrs": [
+        {
+          "name": "data-sidebar",
+          "value": "footer"
+        }
+      ],
+      "data_slots": [
+        "sidebar-footer"
+      ],
+      "data_slot": "sidebar-footer",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "flex-col",
+        "gap-2",
+        "p-2"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SidebarSeparator",
+      "data_attrs": [
+        {
+          "name": "data-sidebar",
+          "value": "separator"
+        }
+      ],
+      "data_slots": [
+        "sidebar-separator"
+      ],
+      "data_slot": "sidebar-separator",
+      "wraps": null,
+      "renders": "Separator",
+      "slot_tags": {
+        "sidebar-separator": "Separator"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "bg-sidebar-border",
+        "mx-2",
+        "w-auto"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SidebarContent",
+      "data_attrs": [
+        {
+          "name": "data-sidebar",
+          "value": "content"
+        }
+      ],
+      "data_slots": [
+        "sidebar-content"
+      ],
+      "data_slot": "sidebar-content",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "flex-1",
+        "flex-col",
+        "gap-2",
+        "group-data-[collapsible=icon]:overflow-hidden",
+        "min-h-0",
+        "overflow-auto"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SidebarGroup",
+      "data_attrs": [
+        {
+          "name": "data-sidebar",
+          "value": "group"
+        }
+      ],
+      "data_slots": [
+        "sidebar-group"
+      ],
+      "data_slot": "sidebar-group",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "flex-col",
+        "min-w-0",
+        "p-2",
+        "relative",
+        "w-full"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SidebarGroupLabel",
+      "data_attrs": [
+        {
+          "name": "data-sidebar",
+          "value": "group-label"
+        }
+      ],
+      "data_slots": [
+        "sidebar-group-label"
+      ],
+      "data_slot": "sidebar-group-label",
+      "wraps": "Comp",
+      "renders": "Comp",
+      "slot_tags": {
+        "sidebar-group-label": "Comp"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "asChild",
+            "default": "false"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "asChild",
+            "type": "boolean"
+          }
+        ]
+      },
+      "class_tokens": [
+        "[&>svg]:shrink-0",
+        "[&>svg]:size-4",
+        "duration-200",
+        "ease-linear",
+        "flex",
+        "focus-visible:ring-2",
+        "font-medium",
+        "group-data-[collapsible=icon]:-mt-8",
+        "group-data-[collapsible=icon]:opacity-0",
+        "h-8",
+        "items-center",
+        "outline-hidden",
+        "px-2",
+        "ring-sidebar-ring",
+        "rounded-md",
+        "shrink-0",
+        "text-sidebar-foreground/70",
+        "text-xs",
+        "transition-[margin,opacity]"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SidebarGroupAction",
+      "data_attrs": [
+        {
+          "name": "data-sidebar",
+          "value": "group-action"
+        }
+      ],
+      "data_slots": [
+        "sidebar-group-action"
+      ],
+      "data_slot": "sidebar-group-action",
+      "wraps": "Comp",
+      "renders": "Comp",
+      "slot_tags": {
+        "sidebar-group-action": "Comp"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "asChild",
+            "default": "false"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "asChild",
+            "type": "boolean"
+          }
+        ]
+      },
+      "class_tokens": [
+        "[&>svg]:shrink-0",
+        "[&>svg]:size-4",
+        "absolute",
+        "after:-inset-2",
+        "after:absolute",
+        "aspect-square",
+        "flex",
+        "focus-visible:ring-2",
+        "group-data-[collapsible=icon]:hidden",
+        "hover:bg-sidebar-accent",
+        "hover:text-sidebar-accent-foreground",
+        "items-center",
+        "justify-center",
+        "md:after:hidden",
+        "outline-hidden",
+        "p-0",
+        "right-3",
+        "ring-sidebar-ring",
+        "rounded-md",
+        "text-sidebar-foreground",
+        "top-3.5",
+        "transition-transform",
+        "w-5"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SidebarGroupContent",
+      "data_attrs": [
+        {
+          "name": "data-sidebar",
+          "value": "group-content"
+        }
+      ],
+      "data_slots": [
+        "sidebar-group-content"
+      ],
+      "data_slot": "sidebar-group-content",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "text-sm",
+        "w-full"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SidebarMenu",
+      "data_attrs": [
+        {
+          "name": "data-sidebar",
+          "value": "menu"
+        }
+      ],
+      "data_slots": [
+        "sidebar-menu"
+      ],
+      "data_slot": "sidebar-menu",
+      "wraps": null,
+      "renders": "ul",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "flex-col",
+        "gap-1",
+        "min-w-0",
+        "w-full"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SidebarMenuItem",
+      "data_attrs": [
+        {
+          "name": "data-sidebar",
+          "value": "menu-item"
+        }
+      ],
+      "data_slots": [
+        "sidebar-menu-item"
+      ],
+      "data_slot": "sidebar-menu-item",
+      "wraps": null,
+      "renders": "li",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "group/menu-item",
+        "relative"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SidebarMenuButton",
+      "data_attrs": [
+        {
+          "name": "data-sidebar",
+          "value": "menu-button"
+        },
+        {
+          "name": "data-size",
+          "value": "{size}"
+        },
+        {
+          "name": "data-active",
+          "value": "{isActive}"
+        }
+      ],
+      "data_slots": [
+        "sidebar-menu-button"
+      ],
+      "data_slot": "sidebar-menu-button",
+      "wraps": "Comp",
+      "renders": "Tooltip",
+      "slot_tags": {
+        "sidebar-menu-button": "Comp"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "asChild",
+            "default": "false"
+          },
+          {
+            "name": "isActive",
+            "default": "false"
+          },
+          {
+            "name": "variant",
+            "default": "\"default\""
+          },
+          {
+            "name": "size",
+            "default": "\"default\""
+          },
+          {
+            "name": "tooltip"
+          },
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "asChild",
+            "type": "boolean"
+          },
+          {
+            "name": "isActive",
+            "type": "boolean"
+          },
+          {
+            "name": "tooltip",
+            "type": "string | React.ComponentProps<typeof TooltipContent>"
+          }
+        ]
+      },
+      "class_tokens": [],
+      "uses_cva": true,
+      "variants_used": [
+        "sidebarMenuButtonVariants"
+      ]
+    },
+    {
+      "name": "SidebarMenuAction",
+      "data_attrs": [
+        {
+          "name": "data-sidebar",
+          "value": "menu-action"
+        }
+      ],
+      "data_slots": [
+        "sidebar-menu-action"
+      ],
+      "data_slot": "sidebar-menu-action",
+      "wraps": "Comp",
+      "renders": "Comp",
+      "slot_tags": {
+        "sidebar-menu-action": "Comp"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "asChild",
+            "default": "false"
+          },
+          {
+            "name": "showOnHover",
+            "default": "false"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "asChild",
+            "type": "boolean"
+          },
+          {
+            "name": "showOnHover",
+            "type": "boolean"
+          }
+        ]
+      },
+      "class_tokens": [
+        "[&>svg]:shrink-0",
+        "[&>svg]:size-4",
+        "absolute",
+        "after:-inset-2",
+        "after:absolute",
+        "aspect-square",
+        "data-[state=open]:opacity-100",
+        "flex",
+        "focus-visible:ring-2",
+        "group-data-[collapsible=icon]:hidden",
+        "group-focus-within/menu-item:opacity-100",
+        "group-hover/menu-item:opacity-100",
+        "hover:bg-sidebar-accent",
+        "hover:text-sidebar-accent-foreground",
+        "items-center",
+        "justify-center",
+        "md:after:hidden",
+        "md:opacity-0",
+        "outline-hidden",
+        "p-0",
+        "peer-data-[active=true]/menu-button:text-sidebar-accent-foreground",
+        "peer-data-[size=default]/menu-button:top-1.5",
+        "peer-data-[size=lg]/menu-button:top-2.5",
+        "peer-data-[size=sm]/menu-button:top-1",
+        "peer-hover/menu-button:text-sidebar-accent-foreground",
+        "right-1",
+        "ring-sidebar-ring",
+        "rounded-md",
+        "text-sidebar-foreground",
+        "top-1.5",
+        "transition-transform",
+        "w-5"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SidebarMenuBadge",
+      "data_attrs": [
+        {
+          "name": "data-sidebar",
+          "value": "menu-badge"
+        }
+      ],
+      "data_slots": [
+        "sidebar-menu-badge"
+      ],
+      "data_slot": "sidebar-menu-badge",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "absolute",
+        "flex",
+        "font-medium",
+        "group-data-[collapsible=icon]:hidden",
+        "h-5",
+        "items-center",
+        "justify-center",
+        "min-w-5",
+        "peer-data-[active=true]/menu-button:text-sidebar-accent-foreground",
+        "peer-data-[size=default]/menu-button:top-1.5",
+        "peer-data-[size=lg]/menu-button:top-2.5",
+        "peer-data-[size=sm]/menu-button:top-1",
+        "peer-hover/menu-button:text-sidebar-accent-foreground",
+        "pointer-events-none",
+        "px-1",
+        "right-1",
+        "rounded-md",
+        "select-none",
+        "tabular-nums",
+        "text-sidebar-foreground",
+        "text-xs"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SidebarMenuSkeleton",
+      "data_attrs": [
+        {
+          "name": "data-sidebar",
+          "value": "menu-skeleton"
+        },
+        {
+          "name": "data-sidebar",
+          "value": "menu-skeleton-icon"
+        },
+        {
+          "name": "data-sidebar",
+          "value": "menu-skeleton-text"
+        }
+      ],
+      "data_slots": [
+        "sidebar-menu-skeleton"
+      ],
+      "data_slot": "sidebar-menu-skeleton",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "showIcon",
+            "default": "false"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "showIcon",
+            "type": "boolean"
+          }
+        ]
+      },
+      "class_tokens": [
+        "flex",
+        "flex-1",
+        "gap-2",
+        "h-4",
+        "h-8",
+        "items-center",
+        "max-w-(--skeleton-width)",
+        "px-2",
+        "rounded-md",
+        "size-4"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SidebarMenuSub",
+      "data_attrs": [
+        {
+          "name": "data-sidebar",
+          "value": "menu-sub"
+        }
+      ],
+      "data_slots": [
+        "sidebar-menu-sub"
+      ],
+      "data_slot": "sidebar-menu-sub",
+      "wraps": null,
+      "renders": "ul",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "border-l",
+        "border-sidebar-border",
+        "flex",
+        "flex-col",
+        "gap-1",
+        "group-data-[collapsible=icon]:hidden",
+        "min-w-0",
+        "mx-3.5",
+        "px-2.5",
+        "py-0.5",
+        "translate-x-px"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SidebarMenuSubItem",
+      "data_attrs": [
+        {
+          "name": "data-sidebar",
+          "value": "menu-sub-item"
+        }
+      ],
+      "data_slots": [
+        "sidebar-menu-sub-item"
+      ],
+      "data_slot": "sidebar-menu-sub-item",
+      "wraps": null,
+      "renders": "li",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "group/menu-sub-item",
+        "relative"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SidebarMenuSubButton",
+      "data_attrs": [
+        {
+          "name": "data-sidebar",
+          "value": "menu-sub-button"
+        },
+        {
+          "name": "data-size",
+          "value": "{size}"
+        },
+        {
+          "name": "data-active",
+          "value": "{isActive}"
+        }
+      ],
+      "data_slots": [
+        "sidebar-menu-sub-button"
+      ],
+      "data_slot": "sidebar-menu-sub-button",
+      "wraps": "Comp",
+      "renders": "Comp",
+      "slot_tags": {
+        "sidebar-menu-sub-button": "Comp"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "asChild",
+            "default": "false"
+          },
+          {
+            "name": "size",
+            "default": "\"md\""
+          },
+          {
+            "name": "isActive",
+            "default": "false"
+          },
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "asChild",
+            "type": "boolean"
+          },
+          {
+            "name": "size",
+            "type": "\"sm\" | \"md\""
+          },
+          {
+            "name": "isActive",
+            "type": "boolean"
+          }
+        ]
+      },
+      "class_tokens": [
+        "-translate-x-px",
+        "[&>span:last-child]:truncate",
+        "[&>svg]:shrink-0",
+        "[&>svg]:size-4",
+        "[&>svg]:text-sidebar-accent-foreground",
+        "active:bg-sidebar-accent",
+        "active:text-sidebar-accent-foreground",
+        "aria-disabled:opacity-50",
+        "aria-disabled:pointer-events-none",
+        "data-[active=true]:bg-sidebar-accent",
+        "data-[active=true]:text-sidebar-accent-foreground",
+        "disabled:opacity-50",
+        "disabled:pointer-events-none",
+        "flex",
+        "focus-visible:ring-2",
+        "gap-2",
+        "group-data-[collapsible=icon]:hidden",
+        "h-7",
+        "hover:bg-sidebar-accent",
+        "hover:text-sidebar-accent-foreground",
+        "items-center",
+        "md",
+        "min-w-0",
+        "outline-hidden",
+        "overflow-hidden",
+        "px-2",
+        "ring-sidebar-ring",
+        "rounded-md",
+        "sm",
+        "text-sidebar-foreground",
+        "text-sm",
+        "text-xs"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {
+    "sidebarMenuButtonVariants": {
+      "base": "peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm ring-sidebar-ring outline-hidden transition-[width,height,padding] group-has-data-[sidebar=menu-action]/menu-item:pr-8 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0",
+      "variants": {
+        "variant": {
+          "default": "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+          "outline": "bg-background shadow-[0_0_0_1px_var(--sidebar-border)] hover:bg-sidebar-accent hover:text-sidebar-accent-foreground hover:shadow-[0_0_0_1px_var(--sidebar-accent)]"
+        },
+        "size": {
+          "default": "h-8 text-sm",
+          "sm": "h-7 text-xs",
+          "lg": "h-12 text-sm group-data-[collapsible=icon]:p-0!"
+        }
+      },
+      "defaults": {
+        "variant": "default",
+        "size": "default"
+      },
+      "compound": [],
+      "tokens": [
+        "[&>span:last-child]:truncate",
+        "[&>svg]:shrink-0",
+        "[&>svg]:size-4",
+        "active:bg-sidebar-accent",
+        "active:text-sidebar-accent-foreground",
+        "aria-disabled:opacity-50",
+        "aria-disabled:pointer-events-none",
+        "bg-background",
+        "data-[active=true]:bg-sidebar-accent",
+        "data-[active=true]:font-medium",
+        "data-[active=true]:text-sidebar-accent-foreground",
+        "data-[state=open]:hover:bg-sidebar-accent",
+        "data-[state=open]:hover:text-sidebar-accent-foreground",
+        "default",
+        "disabled:opacity-50",
+        "disabled:pointer-events-none",
+        "flex",
+        "focus-visible:ring-2",
+        "gap-2",
+        "group-data-[collapsible=icon]:p-0!",
+        "group-data-[collapsible=icon]:p-2!",
+        "group-data-[collapsible=icon]:size-8!",
+        "group-has-data-[sidebar=menu-action]/menu-item:pr-8",
+        "h-12",
+        "h-7",
+        "h-8",
+        "hover:bg-sidebar-accent",
+        "hover:shadow-[0_0_0_1px_var(--sidebar-accent)]",
+        "hover:text-sidebar-accent-foreground",
+        "items-center",
+        "outline-hidden",
+        "overflow-hidden",
+        "p-2",
+        "peer/menu-button",
+        "ring-sidebar-ring",
+        "rounded-md",
+        "shadow-[0_0_0_1px_var(--sidebar-border)]",
+        "text-left",
+        "text-sm",
+        "text-xs",
+        "transition-[width,height,padding]",
+        "w-full"
+      ]
+    }
+  },
+  "class_tokens": [
+    "-translate-x-1/2",
+    "-translate-x-px",
+    "[&>button]:hidden",
+    "[&>span:last-child]:truncate",
+    "[&>svg]:shrink-0",
+    "[&>svg]:size-4",
+    "[&>svg]:text-sidebar-accent-foreground",
+    "[[data-side=left][data-collapsible=offcanvas]_&]:-right-2",
+    "[[data-side=left][data-state=collapsed]_&]:cursor-e-resize",
+    "[[data-side=right][data-collapsible=offcanvas]_&]:-left-2",
+    "[[data-side=right][data-state=collapsed]_&]:cursor-w-resize",
+    "absolute",
+    "active:bg-sidebar-accent",
+    "active:text-sidebar-accent-foreground",
+    "after:-inset-2",
+    "after:absolute",
+    "after:inset-y-0",
+    "after:left-1/2",
+    "after:w-[2px]",
+    "aria-disabled:opacity-50",
+    "aria-disabled:pointer-events-none",
+    "aspect-square",
+    "bg-background",
+    "bg-sidebar",
+    "bg-sidebar-border",
+    "bg-transparent",
+    "border-l",
+    "border-sidebar-border",
+    "data-[active=true]:bg-sidebar-accent",
+    "data-[active=true]:font-medium",
+    "data-[active=true]:text-sidebar-accent-foreground",
+    "data-[state=open]:hover:bg-sidebar-accent",
+    "data-[state=open]:hover:text-sidebar-accent-foreground",
+    "data-[state=open]:opacity-100",
+    "default",
+    "disabled:opacity-50",
+    "disabled:pointer-events-none",
+    "duration-200",
+    "ease-linear",
+    "fixed",
+    "flex",
+    "flex-1",
+    "flex-col",
+    "floating",
+    "focus-visible:ring-2",
+    "font-medium",
+    "gap-1",
+    "gap-2",
+    "group",
+    "group-data-[collapsible=icon]:-mt-8",
+    "group-data-[collapsible=icon]:hidden",
+    "group-data-[collapsible=icon]:opacity-0",
+    "group-data-[collapsible=icon]:overflow-hidden",
+    "group-data-[collapsible=icon]:p-0!",
+    "group-data-[collapsible=icon]:p-2!",
+    "group-data-[collapsible=icon]:size-8!",
+    "group-data-[collapsible=icon]:w-(--sidebar-width-icon)",
+    "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]",
+    "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]",
+    "group-data-[collapsible=offcanvas]:after:left-full",
+    "group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]",
+    "group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]",
+    "group-data-[collapsible=offcanvas]:translate-x-0",
+    "group-data-[collapsible=offcanvas]:w-0",
+    "group-data-[side=left]:-right-4",
+    "group-data-[side=left]:border-r",
+    "group-data-[side=right]:border-l",
+    "group-data-[side=right]:left-0",
+    "group-data-[side=right]:rotate-180",
+    "group-data-[variant=floating]:border",
+    "group-data-[variant=floating]:border-sidebar-border",
+    "group-data-[variant=floating]:rounded-lg",
+    "group-data-[variant=floating]:shadow-sm",
+    "group-focus-within/menu-item:opacity-100",
+    "group-has-data-[sidebar=menu-action]/menu-item:pr-8",
+    "group-hover/menu-item:opacity-100",
+    "group/menu-item",
+    "group/menu-sub-item",
+    "group/sidebar-wrapper",
+    "h-12",
+    "h-4",
+    "h-5",
+    "h-7",
+    "h-8",
+    "h-full",
+    "h-svh",
+    "has-data-[variant=inset]:bg-sidebar",
+    "hidden",
+    "hover:after:bg-sidebar-border",
+    "hover:bg-sidebar-accent",
+    "hover:group-data-[collapsible=offcanvas]:bg-sidebar",
+    "hover:shadow-[0_0_0_1px_var(--sidebar-accent)]",
+    "hover:text-sidebar-accent-foreground",
+    "in-data-[side=left]:cursor-w-resize",
+    "in-data-[side=right]:cursor-e-resize",
+    "inset",
+    "inset-y-0",
+    "items-center",
+    "justify-center",
+    "left",
+    "left-0",
+    "max-w-(--skeleton-width)",
+    "md",
+    "md:after:hidden",
+    "md:block",
+    "md:flex",
+    "md:opacity-0",
+    "md:peer-data-[variant=inset]:m-2",
+    "md:peer-data-[variant=inset]:ml-0",
+    "md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2",
+    "md:peer-data-[variant=inset]:rounded-xl",
+    "md:peer-data-[variant=inset]:shadow-sm",
+    "min-h-0",
+    "min-h-svh",
+    "min-w-0",
+    "min-w-5",
+    "mx-2",
+    "mx-3.5",
+    "outline-hidden",
+    "overflow-auto",
+    "overflow-hidden",
+    "p-0",
+    "p-2",
+    "peer",
+    "peer-data-[active=true]/menu-button:text-sidebar-accent-foreground",
+    "peer-data-[size=default]/menu-button:top-1.5",
+    "peer-data-[size=lg]/menu-button:top-2.5",
+    "peer-data-[size=sm]/menu-button:top-1",
+    "peer-hover/menu-button:text-sidebar-accent-foreground",
+    "peer/menu-button",
+    "pointer-events-none",
+    "px-1",
+    "px-2",
+    "px-2.5",
+    "py-0.5",
+    "relative",
+    "right-0",
+    "right-1",
+    "right-3",
+    "ring-sidebar-ring",
+    "rounded-md",
+    "select-none",
+    "shadow-[0_0_0_1px_var(--sidebar-border)]",
+    "shadow-none",
+    "shrink-0",
+    "size-4",
+    "size-7",
+    "sm",
+    "sm:flex",
+    "sr-only",
+    "tabular-nums",
+    "text-left",
+    "text-sidebar-foreground",
+    "text-sidebar-foreground/70",
+    "text-sm",
+    "text-xs",
+    "top-1.5",
+    "top-3.5",
+    "transition-[left,right,width]",
+    "transition-[margin,opacity]",
+    "transition-[width,height,padding]",
+    "transition-[width]",
+    "transition-all",
+    "transition-transform",
+    "translate-x-px",
+    "w-(--sidebar-width)",
+    "w-4",
+    "w-5",
+    "w-auto",
+    "w-full",
+    "z-10",
+    "z-20"
+  ],
+  "data_attrs": [
+    "data-active",
+    "data-collapsible",
+    "data-mobile",
+    "data-side",
+    "data-sidebar",
+    "data-size",
+    "data-state",
+    "data-variant"
+  ],
+  "data_slots": [
+    "sidebar",
+    "sidebar-container",
+    "sidebar-content",
+    "sidebar-footer",
+    "sidebar-gap",
+    "sidebar-group",
+    "sidebar-group-action",
+    "sidebar-group-content",
+    "sidebar-group-label",
+    "sidebar-header",
+    "sidebar-inner",
+    "sidebar-input",
+    "sidebar-inset",
+    "sidebar-menu",
+    "sidebar-menu-action",
+    "sidebar-menu-badge",
+    "sidebar-menu-button",
+    "sidebar-menu-item",
+    "sidebar-menu-skeleton",
+    "sidebar-menu-sub",
+    "sidebar-menu-sub-button",
+    "sidebar-menu-sub-item",
+    "sidebar-rail",
+    "sidebar-separator",
+    "sidebar-trigger",
+    "sidebar-wrapper"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [
+    "Slot"
+  ],
+  "third_party": [],
+  "icons": [
+    "PanelLeftIcon"
+  ],
+  "text_literals": [
+    "Sidebar",
+    "Displays the mobile sidebar.",
+    "Toggle Sidebar"
+  ],
+  "registry_dependencies": [
+    "button",
+    "input",
+    "separator",
+    "sheet",
+    "skeleton",
+    "tooltip"
+  ],
+  "hooks": [
+    "use-mobile"
+  ],
+  "npm_dependencies": [
+    "class-variance-authority",
+    "cn",
+    "lucide-react",
+    "radix-ui"
+  ],
+  "extra_files": []
+}

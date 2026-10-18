@@ -1,0 +1,851 @@
+{
+  "name": "combobox",
+  "style": "new-york-v4",
+  "source_sha": "4f88734887ed6928",
+  "use_client": true,
+  "tier": "third_party",
+  "exports": [
+    "Combobox",
+    "ComboboxInput",
+    "ComboboxContent",
+    "ComboboxList",
+    "ComboboxItem",
+    "ComboboxGroup",
+    "ComboboxLabel",
+    "ComboboxCollection",
+    "ComboboxEmpty",
+    "ComboboxSeparator",
+    "ComboboxChips",
+    "ComboboxChip",
+    "ComboboxChipsInput",
+    "ComboboxTrigger",
+    "ComboboxValue",
+    "useComboboxAnchor"
+  ],
+  "parts": [
+    {
+      "name": "ComboboxValue",
+      "data_attrs": [],
+      "data_slots": [
+        "combobox-value"
+      ],
+      "data_slot": "combobox-value",
+      "wraps": "ComboboxPrimitive.Value",
+      "renders": "ComboboxPrimitive.Value",
+      "slot_tags": {
+        "combobox-value": "ComboboxPrimitive.Value"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ComboboxTrigger",
+      "data_attrs": [],
+      "data_slots": [
+        "combobox-trigger",
+        "combobox-trigger-icon"
+      ],
+      "data_slot": "combobox-trigger",
+      "wraps": "ComboboxPrimitive.Trigger",
+      "renders": "ComboboxPrimitive.Trigger",
+      "slot_tags": {
+        "combobox-trigger": "ComboboxPrimitive.Trigger",
+        "combobox-trigger-icon": "ChevronDownIcon"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "children"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "[&_svg:not([class*='size-'])]:size-4",
+        "pointer-events-none",
+        "size-4",
+        "text-muted-foreground"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ComboboxClear",
+      "data_attrs": [],
+      "data_slots": [
+        "combobox-clear"
+      ],
+      "data_slot": "combobox-clear",
+      "wraps": "ComboboxPrimitive.Clear",
+      "renders": "ComboboxPrimitive.Clear",
+      "slot_tags": {
+        "combobox-clear": "ComboboxPrimitive.Clear"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "pointer-events-none"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ComboboxInput",
+      "data_attrs": [],
+      "data_slots": [
+        "input-group-button"
+      ],
+      "data_slot": "input-group-button",
+      "wraps": "ComboboxPrimitive.Input",
+      "renders": "InputGroup",
+      "slot_tags": {
+        "input-group-button": "InputGroupButton"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "children"
+          },
+          {
+            "name": "disabled",
+            "default": "false"
+          },
+          {
+            "name": "showTrigger",
+            "default": "true"
+          },
+          {
+            "name": "showClear",
+            "default": "false"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "showTrigger",
+            "type": "boolean"
+          },
+          {
+            "name": "showClear",
+            "type": "boolean"
+          }
+        ]
+      },
+      "class_tokens": [
+        "data-pressed:bg-transparent",
+        "group-has-data-[slot=combobox-clear]/input-group:hidden",
+        "w-auto"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ComboboxContent",
+      "data_attrs": [
+        {
+          "name": "data-chips",
+          "value": "{!!anchor}"
+        }
+      ],
+      "data_slots": [
+        "combobox-content"
+      ],
+      "data_slot": "combobox-content",
+      "wraps": "ComboboxPrimitive.Portal",
+      "renders": "ComboboxPrimitive.Portal",
+      "slot_tags": {
+        "combobox-content": "ComboboxPrimitive.Popup"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "side",
+            "default": "\"bottom\""
+          },
+          {
+            "name": "sideOffset",
+            "default": "6"
+          },
+          {
+            "name": "align",
+            "default": "\"start\""
+          },
+          {
+            "name": "alignOffset",
+            "default": "0"
+          },
+          {
+            "name": "anchor"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "*:data-[slot=input-group]:bg-input/30",
+        "*:data-[slot=input-group]:border-input/30",
+        "*:data-[slot=input-group]:h-8",
+        "*:data-[slot=input-group]:m-1",
+        "*:data-[slot=input-group]:mb-0",
+        "*:data-[slot=input-group]:shadow-none",
+        "bg-popover",
+        "data-[chips=true]:min-w-(--anchor-width)",
+        "data-[side=bottom]:slide-in-from-top-2",
+        "data-[side=left]:slide-in-from-right-2",
+        "data-[side=right]:slide-in-from-left-2",
+        "data-[side=top]:slide-in-from-bottom-2",
+        "data-closed:animate-out",
+        "data-closed:fade-out-0",
+        "data-closed:zoom-out-95",
+        "data-open:animate-in",
+        "data-open:fade-in-0",
+        "data-open:zoom-in-95",
+        "duration-100",
+        "group/combobox-content",
+        "isolate",
+        "max-h-96",
+        "max-w-(--available-width)",
+        "min-w-[calc(var(--anchor-width)+--spacing(7))]",
+        "origin-(--transform-origin)",
+        "overflow-hidden",
+        "relative",
+        "ring-1",
+        "ring-foreground/10",
+        "rounded-md",
+        "shadow-md",
+        "text-popover-foreground",
+        "w-(--anchor-width)",
+        "z-50"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ComboboxList",
+      "data_attrs": [],
+      "data_slots": [
+        "combobox-list"
+      ],
+      "data_slot": "combobox-list",
+      "wraps": "ComboboxPrimitive.List",
+      "renders": "ComboboxPrimitive.List",
+      "slot_tags": {
+        "combobox-list": "ComboboxPrimitive.List"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "data-empty:p-0",
+        "max-h-[min(calc(--spacing(96)---spacing(9)),calc(var(--available-height)---spacing(9)))]",
+        "overflow-y-auto",
+        "p-1",
+        "scroll-py-1"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ComboboxItem",
+      "data_attrs": [],
+      "data_slots": [
+        "combobox-item",
+        "combobox-item-indicator"
+      ],
+      "data_slot": "combobox-item",
+      "wraps": "ComboboxPrimitive.Item",
+      "renders": "ComboboxPrimitive.Item",
+      "slot_tags": {
+        "combobox-item": "ComboboxPrimitive.Item",
+        "combobox-item-indicator": "ComboboxPrimitive.ItemIndicator"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "children"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "[&_svg:not([class*='size-'])]:size-4",
+        "[&_svg]:pointer-events-none",
+        "[&_svg]:shrink-0",
+        "absolute",
+        "cursor-default",
+        "data-[disabled]:opacity-50",
+        "data-[disabled]:pointer-events-none",
+        "data-highlighted:bg-accent",
+        "data-highlighted:text-accent-foreground",
+        "flex",
+        "gap-2",
+        "items-center",
+        "justify-center",
+        "outline-hidden",
+        "pl-2",
+        "pointer-coarse:size-5",
+        "pointer-events-none",
+        "pr-8",
+        "py-1.5",
+        "relative",
+        "right-2",
+        "rounded-sm",
+        "select-none",
+        "size-4",
+        "text-sm",
+        "w-full"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ComboboxGroup",
+      "data_attrs": [],
+      "data_slots": [
+        "combobox-group"
+      ],
+      "data_slot": "combobox-group",
+      "wraps": "ComboboxPrimitive.Group",
+      "renders": "ComboboxPrimitive.Group",
+      "slot_tags": {
+        "combobox-group": "ComboboxPrimitive.Group"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ComboboxLabel",
+      "data_attrs": [],
+      "data_slots": [
+        "combobox-label"
+      ],
+      "data_slot": "combobox-label",
+      "wraps": "ComboboxPrimitive.GroupLabel",
+      "renders": "ComboboxPrimitive.GroupLabel",
+      "slot_tags": {
+        "combobox-label": "ComboboxPrimitive.GroupLabel"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "pointer-coarse:px-3",
+        "pointer-coarse:py-2",
+        "pointer-coarse:text-sm",
+        "px-2",
+        "py-1.5",
+        "text-muted-foreground",
+        "text-xs"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ComboboxCollection",
+      "data_attrs": [],
+      "data_slots": [
+        "combobox-collection"
+      ],
+      "data_slot": "combobox-collection",
+      "wraps": "ComboboxPrimitive.Collection",
+      "renders": "ComboboxPrimitive.Collection",
+      "slot_tags": {
+        "combobox-collection": "ComboboxPrimitive.Collection"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ComboboxEmpty",
+      "data_attrs": [],
+      "data_slots": [
+        "combobox-empty"
+      ],
+      "data_slot": "combobox-empty",
+      "wraps": "ComboboxPrimitive.Empty",
+      "renders": "ComboboxPrimitive.Empty",
+      "slot_tags": {
+        "combobox-empty": "ComboboxPrimitive.Empty"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "group-data-empty/combobox-content:flex",
+        "hidden",
+        "justify-center",
+        "py-2",
+        "text-center",
+        "text-muted-foreground",
+        "text-sm",
+        "w-full"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ComboboxSeparator",
+      "data_attrs": [],
+      "data_slots": [
+        "combobox-separator"
+      ],
+      "data_slot": "combobox-separator",
+      "wraps": "ComboboxPrimitive.Separator",
+      "renders": "ComboboxPrimitive.Separator",
+      "slot_tags": {
+        "combobox-separator": "ComboboxPrimitive.Separator"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "-mx-1",
+        "bg-border",
+        "h-px",
+        "my-1"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ComboboxChips",
+      "data_attrs": [],
+      "data_slots": [
+        "combobox-chips"
+      ],
+      "data_slot": "combobox-chips",
+      "wraps": "ComboboxPrimitive.Chips",
+      "renders": "ComboboxPrimitive.Chips",
+      "slot_tags": {
+        "combobox-chips": "ComboboxPrimitive.Chips"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "bg-clip-padding",
+        "bg-transparent",
+        "border",
+        "border-input",
+        "dark:bg-input/30",
+        "dark:has-aria-invalid:border-destructive/50",
+        "dark:has-aria-invalid:ring-destructive/40",
+        "flex",
+        "flex-wrap",
+        "focus-within:border-ring",
+        "focus-within:ring-[3px]",
+        "focus-within:ring-ring/50",
+        "gap-1.5",
+        "has-aria-invalid:border-destructive",
+        "has-aria-invalid:ring-[3px]",
+        "has-aria-invalid:ring-destructive/20",
+        "has-data-[slot=combobox-chip]:px-1.5",
+        "items-center",
+        "min-h-9",
+        "px-2.5",
+        "py-1.5",
+        "rounded-md",
+        "shadow-xs",
+        "text-sm",
+        "transition-[color,box-shadow]"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ComboboxChip",
+      "data_attrs": [],
+      "data_slots": [
+        "combobox-chip",
+        "combobox-chip-remove"
+      ],
+      "data_slot": "combobox-chip",
+      "wraps": "ComboboxPrimitive.Chip",
+      "renders": "ComboboxPrimitive.Chip",
+      "slot_tags": {
+        "combobox-chip": "ComboboxPrimitive.Chip",
+        "combobox-chip-remove": "Button"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "children"
+          },
+          {
+            "name": "showRemove",
+            "default": "true"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "showRemove",
+            "type": "boolean"
+          }
+        ]
+      },
+      "class_tokens": [
+        "-ml-1",
+        "bg-muted",
+        "flex",
+        "font-medium",
+        "gap-1",
+        "h-[calc(--spacing(5.5))]",
+        "has-data-[slot=combobox-chip-remove]:pr-0",
+        "has-disabled:cursor-not-allowed",
+        "has-disabled:opacity-50",
+        "has-disabled:pointer-events-none",
+        "hover:opacity-100",
+        "items-center",
+        "justify-center",
+        "opacity-50",
+        "pointer-events-none",
+        "px-1.5",
+        "rounded-sm",
+        "text-foreground",
+        "text-xs",
+        "w-fit",
+        "whitespace-nowrap"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ComboboxChipsInput",
+      "data_attrs": [],
+      "data_slots": [
+        "combobox-chip-input"
+      ],
+      "data_slot": "combobox-chip-input",
+      "wraps": "ComboboxPrimitive.Input",
+      "renders": "ComboboxPrimitive.Input",
+      "slot_tags": {
+        "combobox-chip-input": "ComboboxPrimitive.Input"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "children"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex-1",
+        "min-w-16",
+        "outline-none"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "useComboboxAnchor",
+      "data_attrs": [],
+      "data_slots": [],
+      "data_slot": null,
+      "wraps": null,
+      "renders": null,
+      "slot_tags": {},
+      "props": {
+        "destructured": [],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "*:data-[slot=input-group]:bg-input/30",
+    "*:data-[slot=input-group]:border-input/30",
+    "*:data-[slot=input-group]:h-8",
+    "*:data-[slot=input-group]:m-1",
+    "*:data-[slot=input-group]:mb-0",
+    "*:data-[slot=input-group]:shadow-none",
+    "-ml-1",
+    "-mx-1",
+    "[&_svg:not([class*='size-'])]:size-4",
+    "[&_svg]:pointer-events-none",
+    "[&_svg]:shrink-0",
+    "absolute",
+    "bg-border",
+    "bg-clip-padding",
+    "bg-muted",
+    "bg-popover",
+    "bg-transparent",
+    "border",
+    "border-input",
+    "cursor-default",
+    "dark:bg-input/30",
+    "dark:has-aria-invalid:border-destructive/50",
+    "dark:has-aria-invalid:ring-destructive/40",
+    "data-[chips=true]:min-w-(--anchor-width)",
+    "data-[disabled]:opacity-50",
+    "data-[disabled]:pointer-events-none",
+    "data-[side=bottom]:slide-in-from-top-2",
+    "data-[side=left]:slide-in-from-right-2",
+    "data-[side=right]:slide-in-from-left-2",
+    "data-[side=top]:slide-in-from-bottom-2",
+    "data-closed:animate-out",
+    "data-closed:fade-out-0",
+    "data-closed:zoom-out-95",
+    "data-empty:p-0",
+    "data-highlighted:bg-accent",
+    "data-highlighted:text-accent-foreground",
+    "data-open:animate-in",
+    "data-open:fade-in-0",
+    "data-open:zoom-in-95",
+    "data-pressed:bg-transparent",
+    "duration-100",
+    "flex",
+    "flex-1",
+    "flex-wrap",
+    "focus-within:border-ring",
+    "focus-within:ring-[3px]",
+    "focus-within:ring-ring/50",
+    "font-medium",
+    "gap-1",
+    "gap-1.5",
+    "gap-2",
+    "group-data-empty/combobox-content:flex",
+    "group-has-data-[slot=combobox-clear]/input-group:hidden",
+    "group/combobox-content",
+    "h-[calc(--spacing(5.5))]",
+    "h-px",
+    "has-aria-invalid:border-destructive",
+    "has-aria-invalid:ring-[3px]",
+    "has-aria-invalid:ring-destructive/20",
+    "has-data-[slot=combobox-chip-remove]:pr-0",
+    "has-data-[slot=combobox-chip]:px-1.5",
+    "has-disabled:cursor-not-allowed",
+    "has-disabled:opacity-50",
+    "has-disabled:pointer-events-none",
+    "hidden",
+    "hover:opacity-100",
+    "isolate",
+    "items-center",
+    "justify-center",
+    "max-h-96",
+    "max-h-[min(calc(--spacing(96)---spacing(9)),calc(var(--available-height)---spacing(9)))]",
+    "max-w-(--available-width)",
+    "min-h-9",
+    "min-w-16",
+    "min-w-[calc(var(--anchor-width)+--spacing(7))]",
+    "my-1",
+    "opacity-50",
+    "origin-(--transform-origin)",
+    "outline-hidden",
+    "outline-none",
+    "overflow-hidden",
+    "overflow-y-auto",
+    "p-1",
+    "pl-2",
+    "pointer-coarse:px-3",
+    "pointer-coarse:py-2",
+    "pointer-coarse:size-5",
+    "pointer-coarse:text-sm",
+    "pointer-events-none",
+    "pr-8",
+    "px-1.5",
+    "px-2",
+    "px-2.5",
+    "py-1.5",
+    "py-2",
+    "relative",
+    "right-2",
+    "ring-1",
+    "ring-foreground/10",
+    "rounded-md",
+    "rounded-sm",
+    "scroll-py-1",
+    "select-none",
+    "shadow-md",
+    "shadow-xs",
+    "size-4",
+    "text-center",
+    "text-foreground",
+    "text-muted-foreground",
+    "text-popover-foreground",
+    "text-sm",
+    "text-xs",
+    "transition-[color,box-shadow]",
+    "w-(--anchor-width)",
+    "w-auto",
+    "w-fit",
+    "w-full",
+    "whitespace-nowrap",
+    "z-50"
+  ],
+  "data_attrs": [
+    "data-chips"
+  ],
+  "data_slots": [
+    "combobox-chip",
+    "combobox-chip-input",
+    "combobox-chip-remove",
+    "combobox-chips",
+    "combobox-clear",
+    "combobox-collection",
+    "combobox-content",
+    "combobox-empty",
+    "combobox-group",
+    "combobox-item",
+    "combobox-item-indicator",
+    "combobox-label",
+    "combobox-list",
+    "combobox-separator",
+    "combobox-trigger",
+    "combobox-trigger-icon",
+    "combobox-value",
+    "input-group-button"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [],
+  "third_party": [
+    "base-ui"
+  ],
+  "icons": [
+    "CheckIcon",
+    "ChevronDownIcon",
+    "XIcon"
+  ],
+  "text_literals": [],
+  "registry_dependencies": [
+    "button",
+    "input-group"
+  ],
+  "hooks": [],
+  "npm_dependencies": [
+    "@base-ui/react",
+    "cn"
+  ],
+  "extra_files": []
+}

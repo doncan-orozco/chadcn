@@ -1,0 +1,646 @@
+{
+  "component": "progress",
+  "scenarios": [
+    {
+      "id": "default",
+      "tree": {
+        "c": "Progress",
+        "props": {
+        }
+      },
+      "steps": [
+
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "value-null",
+      "tree": {
+        "c": "Progress",
+        "props": {
+          "value": null
+        }
+      },
+      "steps": [
+
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "value-0",
+      "tree": {
+        "c": "Progress",
+        "props": {
+          "value": 0
+        }
+      },
+      "steps": [
+
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "value-13",
+      "tree": {
+        "c": "Progress",
+        "props": {
+          "value": 13
+        }
+      },
+      "steps": [
+
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "value-50",
+      "tree": {
+        "c": "Progress",
+        "props": {
+          "value": 50
+        }
+      },
+      "steps": [
+
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "value-66",
+      "tree": {
+        "c": "Progress",
+        "props": {
+          "value": 66
+        }
+      },
+      "steps": [
+
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "value-100",
+      "tree": {
+        "c": "Progress",
+        "props": {
+          "value": 100
+        }
+      },
+      "steps": [
+
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "value-fraction-33-3",
+      "tree": {
+        "c": "Progress",
+        "props": {
+          "value": 33.3
+        }
+      },
+      "steps": [
+
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "value-fraction-12-5",
+      "tree": {
+        "c": "Progress",
+        "props": {
+          "value": 12.5
+        }
+      },
+      "steps": [
+
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "value-negative",
+      "tree": {
+        "c": "Progress",
+        "props": {
+          "value": -10
+        }
+      },
+      "steps": [
+
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "value-over-max",
+      "tree": {
+        "c": "Progress",
+        "props": {
+          "value": 150
+        }
+      },
+      "steps": [
+
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "max-50__value-25",
+      "tree": {
+        "c": "Progress",
+        "props": {
+          "max": 50,
+          "value": 25
+        }
+      },
+      "steps": [
+
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "max-50__value-50",
+      "tree": {
+        "c": "Progress",
+        "props": {
+          "max": 50,
+          "value": 50
+        }
+      },
+      "steps": [
+
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "max-fraction",
+      "tree": {
+        "c": "Progress",
+        "props": {
+          "max": 50.5,
+          "value": 10
+        }
+      },
+      "steps": [
+
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "max-zero-invalid",
+      "tree": {
+        "c": "Progress",
+        "props": {
+          "max": 0,
+          "value": 40
+        }
+      },
+      "steps": [
+
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "max-negative-invalid",
+      "tree": {
+        "c": "Progress",
+        "props": {
+          "max": -5,
+          "value": 40
+        }
+      },
+      "steps": [
+
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "classname-merge",
+      "tree": {
+        "c": "Progress",
+        "props": {
+          "value": 40,
+          "className": "h-4 rounded-md bg-secondary"
+        }
+      },
+      "steps": [
+
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "classname-width",
+      "tree": {
+        "c": "Progress",
+        "props": {
+          "value": 40,
+          "className": "w-[60%]"
+        }
+      },
+      "steps": [
+
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "forwarded-attrs",
+      "tree": {
+        "c": "Progress",
+        "props": {
+          "value": 40,
+          "id": "upload-progress",
+          "aria-label": "Upload progress",
+          "data-testid": "upload",
+          "title": "Upload"
+        }
+      },
+      "steps": [
+
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-labelledby",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "grid gap-2"
+        },
+        "children": [
+          {
+            "c": "_span",
+            "props": {
+              "id": "progress-label"
+            },
+            "children": [
+              "Uploading"
+            ]
+          },
+          {
+            "c": "Progress",
+            "props": {
+              "value": 60,
+              "aria-labelledby": "progress-label"
+            }
+          }
+        ]
+      },
+      "steps": [
+
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "inside-narrow-container",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[60%]"
+        },
+        "children": [
+          {
+            "c": "Progress",
+            "props": {
+              "value": 75
+            }
+          }
+        ]
+      },
+      "steps": [
+
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__no-change",
+      "tree": {
+        "c": "Progress",
+        "props": {
+          "value": 50
+        }
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=progress]"
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=progress-indicator]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus-order__not-focusable",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-4"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button"
+            },
+            "children": [
+              "Before"
+            ]
+          },
+          {
+            "c": "Progress",
+            "props": {
+              "value": 50
+            }
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__progress-demo",
+      "tree": {
+        "c": "Progress",
+        "props": {
+          "value": 13,
+          "className": "w-[60%]"
+        }
+      },
+      "steps": [
+
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__progress-demo-settled",
+      "tree": {
+        "c": "Progress",
+        "props": {
+          "value": 66,
+          "className": "w-[60%]"
+        }
+      },
+      "steps": [
+
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default__dark",
+      "tree": {
+        "c": "Progress",
+        "props": {
+        }
+      },
+      "steps": [
+
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "value-50__dark",
+      "tree": {
+        "c": "Progress",
+        "props": {
+          "value": 50
+        }
+      },
+      "steps": [
+
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "value-100__dark",
+      "tree": {
+        "c": "Progress",
+        "props": {
+          "value": 100
+        }
+      },
+      "steps": [
+
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "classname-merge__dark",
+      "tree": {
+        "c": "Progress",
+        "props": {
+          "value": 40,
+          "className": "h-4 rounded-md bg-secondary"
+        }
+      },
+      "steps": [
+
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__progress-demo__dark",
+      "tree": {
+        "c": "Progress",
+        "props": {
+          "value": 13,
+          "className": "w-[60%]"
+        }
+      },
+      "steps": [
+
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__no-change__dark",
+      "tree": {
+        "c": "Progress",
+        "props": {
+          "value": 50
+        }
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=progress]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "case": "41-parity-batch-args",
+  "kind": "cli",
+  "note": "parity_batch.rb argument and exit-code contract (exit 2 for bad arguments), checked without a browser or servers",
+  "runs": [
+    {
+      "script": "parity_batch.rb",
+      "args": [
+        "--components",
+        "no-such-component",
+        "--no-servers"
+      ],
+      "exit": 2,
+      "error_includes": "no scenario file for"
+    },
+    {
+      "script": "parity_batch.rb",
+      "args": [
+        "--components",
+        "../x",
+        "--no-servers"
+      ],
+      "exit": 2,
+      "error_includes": "invalid name"
+    },
+    {
+      "script": "parity_batch.rb",
+      "args": [
+        "--components",
+        "button",
+        "--themes",
+        "../evil",
+        "--no-servers"
+      ],
+      "exit": 2,
+      "error_includes": "invalid name"
+    },
+    {
+      "script": "parity_batch.rb",
+      "args": [
+        "--bogus"
+      ],
+      "exit": 2,
+      "error_includes": "invalid option"
+    },
+    {
+      "script": "parity_batch.rb",
+      "args": [],
+      "exit": 2,
+      "error_includes": "usage"
+    },
+    {
+      "script": "parity_batch.rb",
+      "args": [
+        "--components",
+        "no-such-component",
+        "--themes",
+        "--no-servers"
+      ],
+      "exit": 2,
+      "error_includes": "no scenario file for"
+    }
+  ]
+}

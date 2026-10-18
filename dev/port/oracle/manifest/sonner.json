@@ -1,0 +1,68 @@
+{
+  "name": "sonner",
+  "style": "new-york-v4",
+  "source_sha": "13ccc9b0fe4248e6",
+  "use_client": true,
+  "tier": "third_party",
+  "exports": [
+    "Toaster"
+  ],
+  "parts": [
+    {
+      "name": "Toaster",
+      "data_attrs": [],
+      "data_slots": [],
+      "data_slot": null,
+      "wraps": null,
+      "renders": "Sonner",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "animate-spin",
+        "group",
+        "size-4",
+        "toaster"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "animate-spin",
+    "group",
+    "size-4",
+    "toaster"
+  ],
+  "data_attrs": [],
+  "data_slots": [],
+  "non_rendered_slots": [],
+  "radix_primitives": [],
+  "third_party": [
+    "next-themes",
+    "sonner"
+  ],
+  "icons": [
+    "CircleCheckIcon",
+    "InfoIcon",
+    "Loader2Icon",
+    "OctagonXIcon",
+    "TriangleAlertIcon"
+  ],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "next-themes",
+    "sonner"
+  ],
+  "extra_files": []
+}

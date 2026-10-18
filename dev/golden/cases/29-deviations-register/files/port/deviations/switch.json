@@ -1,0 +1,9 @@
+{
+  "component": "switch",
+  "reason": "asChild would clone the thumb span.\nNot a meaningful API.",
+  "allow_tokens": [],
+  "allow_missing_tokens": [],
+  "api": [
+    "as_child"
+  ]
+}

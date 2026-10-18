@@ -1,0 +1,454 @@
+{
+  "component": "_primitives-template-mount",
+  "scenarios": [
+    {
+      "id": "unmounted-initial",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "template_mount",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-template-mount",
+          "className": "flex flex-col items-start gap-2",
+          "data-shadcn---probe-template-mount-into-value": "after"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "toggle",
+              "data-action": "click->shadcn---probe-template-mount#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-template-mount-target": "template"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "panel",
+                  "className": "flex flex-col gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "field",
+                      "className": "rounded border px-2 py-1 text-sm",
+                      "type": "text",
+                      "aria-label": "Field"
+                    }
+                  },
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "note"
+                    },
+                    "children": [
+                      "Mounted"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_p",
+            "props": {
+              "data-slot": "after",
+              "className": "text-sm"
+            },
+            "children": [
+              "After the template"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "after-mount-unmount",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "template_mount",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-template-mount",
+          "className": "flex flex-col items-start gap-2",
+          "data-shadcn---probe-template-mount-into-value": "after"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "toggle",
+              "data-action": "click->shadcn---probe-template-mount#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-template-mount-target": "template"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "panel",
+                  "className": "flex flex-col gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "field",
+                      "className": "rounded border px-2 py-1 text-sm",
+                      "type": "text",
+                      "aria-label": "Field"
+                    }
+                  },
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "note"
+                    },
+                    "children": [
+                      "Mounted"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_p",
+            "props": {
+              "data-slot": "after",
+              "className": "text-sm"
+            },
+            "children": [
+              "After the template"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "after-remount-is-fresh",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "template_mount",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-template-mount",
+          "className": "flex flex-col items-start gap-2",
+          "data-shadcn---probe-template-mount-into-value": "after"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "toggle",
+              "data-action": "click->shadcn---probe-template-mount#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-template-mount-target": "template"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "panel",
+                  "className": "flex flex-col gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "field",
+                      "className": "rounded border px-2 py-1 text-sm",
+                      "type": "text",
+                      "aria-label": "Field"
+                    }
+                  },
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "note"
+                    },
+                    "children": [
+                      "Mounted"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_p",
+            "props": {
+              "data-slot": "after",
+              "className": "text-sm"
+            },
+            "children": [
+              "After the template"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        },
+        {
+          "do": "fill",
+          "target": "[data-slot=field]",
+          "value": "typed"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "body-mount-unmount",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "template_mount",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-template-mount",
+          "className": "flex flex-col items-start gap-2",
+          "data-shadcn---probe-template-mount-into-value": "body"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "toggle",
+              "data-action": "click->shadcn---probe-template-mount#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-template-mount-target": "template"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "panel",
+                  "className": "flex flex-col gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "field",
+                      "className": "rounded border px-2 py-1 text-sm",
+                      "type": "text",
+                      "aria-label": "Field"
+                    }
+                  },
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "note"
+                    },
+                    "children": [
+                      "Mounted"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_p",
+            "props": {
+              "data-slot": "after",
+              "className": "text-sm"
+            },
+            "children": [
+              "After the template"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "body-remount-is-fresh",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "template_mount",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-template-mount",
+          "className": "flex flex-col items-start gap-2",
+          "data-shadcn---probe-template-mount-into-value": "body"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "toggle",
+              "data-action": "click->shadcn---probe-template-mount#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-template-mount-target": "template"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "panel",
+                  "className": "flex flex-col gap-2 rounded-md border p-4"
+                },
+                "children": [
+                  {
+                    "c": "_input",
+                    "props": {
+                      "data-slot": "field",
+                      "className": "rounded border px-2 py-1 text-sm",
+                      "type": "text",
+                      "aria-label": "Field"
+                    }
+                  },
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "note"
+                    },
+                    "children": [
+                      "Mounted"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_p",
+            "props": {
+              "data-slot": "after",
+              "className": "text-sm"
+            },
+            "children": [
+              "After the template"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        },
+        {
+          "do": "fill",
+          "target": "[data-slot=field]",
+          "value": "typed"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

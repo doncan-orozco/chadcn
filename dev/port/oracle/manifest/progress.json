@@ -1,0 +1,88 @@
+{
+  "name": "progress",
+  "style": "new-york-v4",
+  "source_sha": "e012e1f7e6e66d11",
+  "use_client": true,
+  "tier": "radix_stateful",
+  "exports": [
+    "Progress"
+  ],
+  "parts": [
+    {
+      "name": "Progress",
+      "data_attrs": [],
+      "data_slots": [
+        "progress",
+        "progress-indicator"
+      ],
+      "data_slot": "progress",
+      "wraps": "ProgressPrimitive.Root",
+      "renders": "ProgressPrimitive.Root",
+      "slot_tags": {
+        "progress": "ProgressPrimitive.Root",
+        "progress-indicator": "ProgressPrimitive.Indicator"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "value"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "bg-primary",
+        "bg-primary/20",
+        "flex-1",
+        "h-2",
+        "h-full",
+        "overflow-hidden",
+        "relative",
+        "rounded-full",
+        "transition-all",
+        "w-full"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "bg-primary",
+    "bg-primary/20",
+    "flex-1",
+    "h-2",
+    "h-full",
+    "overflow-hidden",
+    "relative",
+    "rounded-full",
+    "transition-all",
+    "w-full"
+  ],
+  "data_attrs": [],
+  "data_slots": [
+    "progress",
+    "progress-indicator"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [
+    "Progress"
+  ],
+  "third_party": [],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn",
+    "radix-ui"
+  ],
+  "extra_files": []
+}

@@ -1,0 +1,20 @@
+{
+  "case": "20-run-dispatch-cap",
+  "kind": "run",
+  "description": "A runaway fix loop (500 builder dispatches for one infra task) must trip the global dispatch cap (3 x components) at the next checkpoint, before anything else is dispatched.",
+  "concurrency": 4,
+  "outcomes": {
+    "_theme": {
+      "status": "done",
+      "dispatches": 500
+    }
+  },
+  "expect": {
+    "stop_reason": "dispatch_cap",
+    "never_dispatched": [
+      "_harness",
+      "_primitives",
+      "button"
+    ]
+  }
+}

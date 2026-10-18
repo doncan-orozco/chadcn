@@ -1,0 +1,835 @@
+{
+  "name": "menubar",
+  "style": "new-york-v4",
+  "source_sha": "ca1a7f6775f90951",
+  "use_client": true,
+  "tier": "overlay",
+  "exports": [
+    "Menubar",
+    "MenubarPortal",
+    "MenubarMenu",
+    "MenubarTrigger",
+    "MenubarContent",
+    "MenubarGroup",
+    "MenubarSeparator",
+    "MenubarLabel",
+    "MenubarItem",
+    "MenubarShortcut",
+    "MenubarCheckboxItem",
+    "MenubarRadioGroup",
+    "MenubarRadioItem",
+    "MenubarSub",
+    "MenubarSubTrigger",
+    "MenubarSubContent"
+  ],
+  "parts": [
+    {
+      "name": "Menubar",
+      "data_attrs": [],
+      "data_slots": [
+        "menubar"
+      ],
+      "data_slot": "menubar",
+      "wraps": "MenubarPrimitive.Root",
+      "renders": "MenubarPrimitive.Root",
+      "slot_tags": {
+        "menubar": "MenubarPrimitive.Root"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "bg-background",
+        "border",
+        "flex",
+        "gap-1",
+        "h-9",
+        "items-center",
+        "p-1",
+        "rounded-md",
+        "shadow-xs"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "MenubarMenu",
+      "data_attrs": [],
+      "data_slots": [
+        "menubar-menu"
+      ],
+      "data_slot": "menubar-menu",
+      "wraps": "MenubarPrimitive.Menu",
+      "renders": "MenubarPrimitive.Menu",
+      "slot_tags": {
+        "menubar-menu": "MenubarPrimitive.Menu"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "MenubarGroup",
+      "data_attrs": [],
+      "data_slots": [
+        "menubar-group"
+      ],
+      "data_slot": "menubar-group",
+      "wraps": "MenubarPrimitive.Group",
+      "renders": "MenubarPrimitive.Group",
+      "slot_tags": {
+        "menubar-group": "MenubarPrimitive.Group"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "MenubarPortal",
+      "data_attrs": [],
+      "data_slots": [
+        "menubar-portal"
+      ],
+      "data_slot": "menubar-portal",
+      "wraps": "MenubarPrimitive.Portal",
+      "renders": "MenubarPrimitive.Portal",
+      "slot_tags": {
+        "menubar-portal": "MenubarPrimitive.Portal"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "MenubarRadioGroup",
+      "data_attrs": [],
+      "data_slots": [
+        "menubar-radio-group"
+      ],
+      "data_slot": "menubar-radio-group",
+      "wraps": "MenubarPrimitive.RadioGroup",
+      "renders": "MenubarPrimitive.RadioGroup",
+      "slot_tags": {
+        "menubar-radio-group": "MenubarPrimitive.RadioGroup"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "MenubarTrigger",
+      "data_attrs": [],
+      "data_slots": [
+        "menubar-trigger"
+      ],
+      "data_slot": "menubar-trigger",
+      "wraps": "MenubarPrimitive.Trigger",
+      "renders": "MenubarPrimitive.Trigger",
+      "slot_tags": {
+        "menubar-trigger": "MenubarPrimitive.Trigger"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "data-[state=open]:bg-accent",
+        "data-[state=open]:text-accent-foreground",
+        "flex",
+        "focus:bg-accent",
+        "focus:text-accent-foreground",
+        "font-medium",
+        "items-center",
+        "outline-hidden",
+        "px-2",
+        "py-1",
+        "rounded-sm",
+        "select-none",
+        "text-sm"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "MenubarContent",
+      "data_attrs": [],
+      "data_slots": [
+        "menubar-content"
+      ],
+      "data_slot": "menubar-content",
+      "wraps": "MenubarPrimitive.Content",
+      "renders": "MenubarPortal",
+      "slot_tags": {
+        "menubar-content": "MenubarPrimitive.Content"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "align",
+            "default": "\"start\""
+          },
+          {
+            "name": "alignOffset",
+            "default": "-4"
+          },
+          {
+            "name": "sideOffset",
+            "default": "8"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "bg-popover",
+        "border",
+        "data-[side=bottom]:slide-in-from-top-2",
+        "data-[side=left]:slide-in-from-right-2",
+        "data-[side=right]:slide-in-from-left-2",
+        "data-[side=top]:slide-in-from-bottom-2",
+        "data-[state=closed]:fade-out-0",
+        "data-[state=closed]:zoom-out-95",
+        "data-[state=open]:animate-in",
+        "data-[state=open]:fade-in-0",
+        "data-[state=open]:zoom-in-95",
+        "min-w-[12rem]",
+        "origin-(--radix-menubar-content-transform-origin)",
+        "overflow-hidden",
+        "p-1",
+        "rounded-md",
+        "shadow-md",
+        "text-popover-foreground",
+        "z-50"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "MenubarItem",
+      "data_attrs": [
+        {
+          "name": "data-inset",
+          "value": "{inset}"
+        },
+        {
+          "name": "data-variant",
+          "value": "{variant}"
+        }
+      ],
+      "data_slots": [
+        "menubar-item"
+      ],
+      "data_slot": "menubar-item",
+      "wraps": "MenubarPrimitive.Item",
+      "renders": "MenubarPrimitive.Item",
+      "slot_tags": {
+        "menubar-item": "MenubarPrimitive.Item"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "inset"
+          },
+          {
+            "name": "variant",
+            "default": "\"default\""
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "inset",
+            "type": "boolean"
+          },
+          {
+            "name": "variant",
+            "type": "\"default\" | \"destructive\""
+          }
+        ]
+      },
+      "class_tokens": [
+        "[&_svg:not([class*='size-'])]:size-4",
+        "[&_svg:not([class*='text-'])]:text-muted-foreground",
+        "[&_svg]:pointer-events-none",
+        "[&_svg]:shrink-0",
+        "cursor-default",
+        "dark:data-[variant=destructive]:focus:bg-destructive/20",
+        "data-[disabled]:opacity-50",
+        "data-[disabled]:pointer-events-none",
+        "data-[inset]:pl-8",
+        "data-[variant=destructive]:*:[svg]:text-destructive!",
+        "data-[variant=destructive]:focus:bg-destructive/10",
+        "data-[variant=destructive]:focus:text-destructive",
+        "data-[variant=destructive]:text-destructive",
+        "flex",
+        "focus:bg-accent",
+        "focus:text-accent-foreground",
+        "gap-2",
+        "items-center",
+        "outline-hidden",
+        "px-2",
+        "py-1.5",
+        "relative",
+        "rounded-sm",
+        "select-none",
+        "text-sm"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "MenubarCheckboxItem",
+      "data_attrs": [],
+      "data_slots": [
+        "menubar-checkbox-item"
+      ],
+      "data_slot": "menubar-checkbox-item",
+      "wraps": "MenubarPrimitive.CheckboxItem",
+      "renders": "MenubarPrimitive.CheckboxItem",
+      "slot_tags": {
+        "menubar-checkbox-item": "MenubarPrimitive.CheckboxItem"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "children"
+          },
+          {
+            "name": "checked"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "[&_svg:not([class*='size-'])]:size-4",
+        "[&_svg]:pointer-events-none",
+        "[&_svg]:shrink-0",
+        "absolute",
+        "cursor-default",
+        "data-[disabled]:opacity-50",
+        "data-[disabled]:pointer-events-none",
+        "flex",
+        "focus:bg-accent",
+        "focus:text-accent-foreground",
+        "gap-2",
+        "items-center",
+        "justify-center",
+        "left-2",
+        "outline-hidden",
+        "pl-8",
+        "pointer-events-none",
+        "pr-2",
+        "py-1.5",
+        "relative",
+        "rounded-xs",
+        "select-none",
+        "size-3.5",
+        "size-4",
+        "text-sm"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "MenubarRadioItem",
+      "data_attrs": [],
+      "data_slots": [
+        "menubar-radio-item"
+      ],
+      "data_slot": "menubar-radio-item",
+      "wraps": "MenubarPrimitive.RadioItem",
+      "renders": "MenubarPrimitive.RadioItem",
+      "slot_tags": {
+        "menubar-radio-item": "MenubarPrimitive.RadioItem"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "children"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "[&_svg:not([class*='size-'])]:size-4",
+        "[&_svg]:pointer-events-none",
+        "[&_svg]:shrink-0",
+        "absolute",
+        "cursor-default",
+        "data-[disabled]:opacity-50",
+        "data-[disabled]:pointer-events-none",
+        "fill-current",
+        "flex",
+        "focus:bg-accent",
+        "focus:text-accent-foreground",
+        "gap-2",
+        "items-center",
+        "justify-center",
+        "left-2",
+        "outline-hidden",
+        "pl-8",
+        "pointer-events-none",
+        "pr-2",
+        "py-1.5",
+        "relative",
+        "rounded-xs",
+        "select-none",
+        "size-2",
+        "size-3.5",
+        "text-sm"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "MenubarLabel",
+      "data_attrs": [
+        {
+          "name": "data-inset",
+          "value": "{inset}"
+        }
+      ],
+      "data_slots": [
+        "menubar-label"
+      ],
+      "data_slot": "menubar-label",
+      "wraps": "MenubarPrimitive.Label",
+      "renders": "MenubarPrimitive.Label",
+      "slot_tags": {
+        "menubar-label": "MenubarPrimitive.Label"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "inset"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "inset",
+            "type": "boolean"
+          }
+        ]
+      },
+      "class_tokens": [
+        "data-[inset]:pl-8",
+        "font-medium",
+        "px-2",
+        "py-1.5",
+        "text-sm"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "MenubarSeparator",
+      "data_attrs": [],
+      "data_slots": [
+        "menubar-separator"
+      ],
+      "data_slot": "menubar-separator",
+      "wraps": "MenubarPrimitive.Separator",
+      "renders": "MenubarPrimitive.Separator",
+      "slot_tags": {
+        "menubar-separator": "MenubarPrimitive.Separator"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "-mx-1",
+        "bg-border",
+        "h-px",
+        "my-1"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "MenubarShortcut",
+      "data_attrs": [],
+      "data_slots": [
+        "menubar-shortcut"
+      ],
+      "data_slot": "menubar-shortcut",
+      "wraps": null,
+      "renders": "span",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "ml-auto",
+        "text-muted-foreground",
+        "text-xs",
+        "tracking-widest"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "MenubarSub",
+      "data_attrs": [],
+      "data_slots": [
+        "menubar-sub"
+      ],
+      "data_slot": "menubar-sub",
+      "wraps": "MenubarPrimitive.Sub",
+      "renders": "MenubarPrimitive.Sub",
+      "slot_tags": {
+        "menubar-sub": "MenubarPrimitive.Sub"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "MenubarSubTrigger",
+      "data_attrs": [
+        {
+          "name": "data-inset",
+          "value": "{inset}"
+        }
+      ],
+      "data_slots": [
+        "menubar-sub-trigger"
+      ],
+      "data_slot": "menubar-sub-trigger",
+      "wraps": "MenubarPrimitive.SubTrigger",
+      "renders": "MenubarPrimitive.SubTrigger",
+      "slot_tags": {
+        "menubar-sub-trigger": "MenubarPrimitive.SubTrigger"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "inset"
+          },
+          {
+            "name": "children"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "inset",
+            "type": "boolean"
+          }
+        ]
+      },
+      "class_tokens": [
+        "cursor-default",
+        "data-[inset]:pl-8",
+        "data-[state=open]:bg-accent",
+        "data-[state=open]:text-accent-foreground",
+        "flex",
+        "focus:bg-accent",
+        "focus:text-accent-foreground",
+        "h-4",
+        "items-center",
+        "ml-auto",
+        "outline-none",
+        "px-2",
+        "py-1.5",
+        "rounded-sm",
+        "select-none",
+        "text-sm",
+        "w-4"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "MenubarSubContent",
+      "data_attrs": [],
+      "data_slots": [
+        "menubar-sub-content"
+      ],
+      "data_slot": "menubar-sub-content",
+      "wraps": "MenubarPrimitive.SubContent",
+      "renders": "MenubarPrimitive.SubContent",
+      "slot_tags": {
+        "menubar-sub-content": "MenubarPrimitive.SubContent"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "bg-popover",
+        "border",
+        "data-[side=bottom]:slide-in-from-top-2",
+        "data-[side=left]:slide-in-from-right-2",
+        "data-[side=right]:slide-in-from-left-2",
+        "data-[side=top]:slide-in-from-bottom-2",
+        "data-[state=closed]:animate-out",
+        "data-[state=closed]:fade-out-0",
+        "data-[state=closed]:zoom-out-95",
+        "data-[state=open]:animate-in",
+        "data-[state=open]:fade-in-0",
+        "data-[state=open]:zoom-in-95",
+        "min-w-[8rem]",
+        "origin-(--radix-menubar-content-transform-origin)",
+        "overflow-hidden",
+        "p-1",
+        "rounded-md",
+        "shadow-lg",
+        "text-popover-foreground",
+        "z-50"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "-mx-1",
+    "[&_svg:not([class*='size-'])]:size-4",
+    "[&_svg:not([class*='text-'])]:text-muted-foreground",
+    "[&_svg]:pointer-events-none",
+    "[&_svg]:shrink-0",
+    "absolute",
+    "bg-background",
+    "bg-border",
+    "bg-popover",
+    "border",
+    "cursor-default",
+    "dark:data-[variant=destructive]:focus:bg-destructive/20",
+    "data-[disabled]:opacity-50",
+    "data-[disabled]:pointer-events-none",
+    "data-[inset]:pl-8",
+    "data-[side=bottom]:slide-in-from-top-2",
+    "data-[side=left]:slide-in-from-right-2",
+    "data-[side=right]:slide-in-from-left-2",
+    "data-[side=top]:slide-in-from-bottom-2",
+    "data-[state=closed]:animate-out",
+    "data-[state=closed]:fade-out-0",
+    "data-[state=closed]:zoom-out-95",
+    "data-[state=open]:animate-in",
+    "data-[state=open]:bg-accent",
+    "data-[state=open]:fade-in-0",
+    "data-[state=open]:text-accent-foreground",
+    "data-[state=open]:zoom-in-95",
+    "data-[variant=destructive]:*:[svg]:text-destructive!",
+    "data-[variant=destructive]:focus:bg-destructive/10",
+    "data-[variant=destructive]:focus:text-destructive",
+    "data-[variant=destructive]:text-destructive",
+    "fill-current",
+    "flex",
+    "focus:bg-accent",
+    "focus:text-accent-foreground",
+    "font-medium",
+    "gap-1",
+    "gap-2",
+    "h-4",
+    "h-9",
+    "h-px",
+    "items-center",
+    "justify-center",
+    "left-2",
+    "min-w-[12rem]",
+    "min-w-[8rem]",
+    "ml-auto",
+    "my-1",
+    "origin-(--radix-menubar-content-transform-origin)",
+    "outline-hidden",
+    "outline-none",
+    "overflow-hidden",
+    "p-1",
+    "pl-8",
+    "pointer-events-none",
+    "pr-2",
+    "px-2",
+    "py-1",
+    "py-1.5",
+    "relative",
+    "rounded-md",
+    "rounded-sm",
+    "rounded-xs",
+    "select-none",
+    "shadow-lg",
+    "shadow-md",
+    "shadow-xs",
+    "size-2",
+    "size-3.5",
+    "size-4",
+    "text-muted-foreground",
+    "text-popover-foreground",
+    "text-sm",
+    "text-xs",
+    "tracking-widest",
+    "w-4",
+    "z-50"
+  ],
+  "data_attrs": [
+    "data-inset",
+    "data-variant"
+  ],
+  "data_slots": [
+    "menubar",
+    "menubar-checkbox-item",
+    "menubar-content",
+    "menubar-group",
+    "menubar-item",
+    "menubar-label",
+    "menubar-menu",
+    "menubar-portal",
+    "menubar-radio-group",
+    "menubar-radio-item",
+    "menubar-separator",
+    "menubar-shortcut",
+    "menubar-sub",
+    "menubar-sub-content",
+    "menubar-sub-trigger",
+    "menubar-trigger"
+  ],
+  "non_rendered_slots": [
+    "menubar-menu",
+    "menubar-portal",
+    "menubar-sub"
+  ],
+  "radix_primitives": [
+    "Menubar"
+  ],
+  "third_party": [],
+  "icons": [
+    "CheckIcon",
+    "ChevronRightIcon",
+    "CircleIcon"
+  ],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn",
+    "radix-ui"
+  ],
+  "extra_files": []
+}

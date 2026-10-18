@@ -1,0 +1,7 @@
+{
+  "reason": "Radix keeps the closed SelectContent in a detached DocumentFragment (react-select 2.3.8 index.mjs L285-299) so items register and the selected ItemText reaches SelectValue without anything in the document. Rails cannot render a detached fragment, so the closed Content markup is server-rendered inside an inert <template> next to the Trigger; template content is not part of the document tree (no [data-slot] node, no box, no a11y node) and the shadcn--select controller removes the <template> element on connect(), so the post-connect DOM equals Radix. First paint (and no-JS) only.",
+  "allow_tokens": [],
+  "allow_missing_tokens": [],
+  "api": [],
+  "structure": ["template sibling of Select::Trigger before connect()"]
+}

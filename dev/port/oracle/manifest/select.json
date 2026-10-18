@@ -1,0 +1,587 @@
+{
+  "name": "select",
+  "style": "new-york-v4",
+  "source_sha": "962830436bd0b7ee",
+  "use_client": true,
+  "tier": "overlay",
+  "exports": [
+    "Select",
+    "SelectContent",
+    "SelectGroup",
+    "SelectItem",
+    "SelectLabel",
+    "SelectScrollDownButton",
+    "SelectScrollUpButton",
+    "SelectSeparator",
+    "SelectTrigger",
+    "SelectValue"
+  ],
+  "parts": [
+    {
+      "name": "Select",
+      "data_attrs": [],
+      "data_slots": [
+        "select"
+      ],
+      "data_slot": "select",
+      "wraps": "SelectPrimitive.Root",
+      "renders": "SelectPrimitive.Root",
+      "slot_tags": {
+        "select": "SelectPrimitive.Root"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SelectGroup",
+      "data_attrs": [],
+      "data_slots": [
+        "select-group"
+      ],
+      "data_slot": "select-group",
+      "wraps": "SelectPrimitive.Group",
+      "renders": "SelectPrimitive.Group",
+      "slot_tags": {
+        "select-group": "SelectPrimitive.Group"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SelectValue",
+      "data_attrs": [],
+      "data_slots": [
+        "select-value"
+      ],
+      "data_slot": "select-value",
+      "wraps": "SelectPrimitive.Value",
+      "renders": "SelectPrimitive.Value",
+      "slot_tags": {
+        "select-value": "SelectPrimitive.Value"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SelectTrigger",
+      "data_attrs": [
+        {
+          "name": "data-size",
+          "value": "{size}"
+        }
+      ],
+      "data_slots": [
+        "select-trigger"
+      ],
+      "data_slot": "select-trigger",
+      "wraps": "SelectPrimitive.Trigger",
+      "renders": "SelectPrimitive.Trigger",
+      "slot_tags": {
+        "select-trigger": "SelectPrimitive.Trigger"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "size",
+            "default": "\"default\""
+          },
+          {
+            "name": "children"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "size",
+            "type": "\"sm\" | \"default\""
+          }
+        ]
+      },
+      "class_tokens": [
+        "*:data-[slot=select-value]:flex",
+        "*:data-[slot=select-value]:gap-2",
+        "*:data-[slot=select-value]:items-center",
+        "*:data-[slot=select-value]:line-clamp-1",
+        "[&_svg:not([class*='size-'])]:size-4",
+        "[&_svg:not([class*='text-'])]:text-muted-foreground",
+        "[&_svg]:pointer-events-none",
+        "[&_svg]:shrink-0",
+        "aria-invalid:border-destructive",
+        "aria-invalid:ring-destructive/20",
+        "bg-transparent",
+        "border",
+        "border-input",
+        "dark:aria-invalid:ring-destructive/40",
+        "dark:bg-input/30",
+        "dark:hover:bg-input/50",
+        "data-[placeholder]:text-muted-foreground",
+        "data-[size=default]:h-9",
+        "data-[size=sm]:h-8",
+        "disabled:cursor-not-allowed",
+        "disabled:opacity-50",
+        "flex",
+        "focus-visible:border-ring",
+        "focus-visible:ring-[3px]",
+        "focus-visible:ring-ring/50",
+        "gap-2",
+        "items-center",
+        "justify-between",
+        "opacity-50",
+        "outline-none",
+        "px-3",
+        "py-2",
+        "rounded-md",
+        "shadow-xs",
+        "size-4",
+        "text-sm",
+        "transition-[color,box-shadow]",
+        "w-fit",
+        "whitespace-nowrap"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SelectContent",
+      "data_attrs": [],
+      "data_slots": [
+        "select-content"
+      ],
+      "data_slot": "select-content",
+      "wraps": "SelectPrimitive.Portal",
+      "renders": "SelectPrimitive.Portal",
+      "slot_tags": {
+        "select-content": "SelectPrimitive.Content"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "children"
+          },
+          {
+            "name": "position",
+            "default": "\"item-aligned\""
+          },
+          {
+            "name": "align",
+            "default": "\"center\""
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "bg-popover",
+        "border",
+        "data-[side=bottom]:slide-in-from-top-2",
+        "data-[side=bottom]:translate-y-1",
+        "data-[side=left]:-translate-x-1",
+        "data-[side=left]:slide-in-from-right-2",
+        "data-[side=right]:slide-in-from-left-2",
+        "data-[side=right]:translate-x-1",
+        "data-[side=top]:-translate-y-1",
+        "data-[side=top]:slide-in-from-bottom-2",
+        "data-[state=closed]:animate-out",
+        "data-[state=closed]:fade-out-0",
+        "data-[state=closed]:zoom-out-95",
+        "data-[state=open]:animate-in",
+        "data-[state=open]:fade-in-0",
+        "data-[state=open]:zoom-in-95",
+        "h-[var(--radix-select-trigger-height)]",
+        "max-h-(--radix-select-content-available-height)",
+        "min-w-[8rem]",
+        "min-w-[var(--radix-select-trigger-width)]",
+        "origin-(--radix-select-content-transform-origin)",
+        "overflow-x-hidden",
+        "overflow-y-auto",
+        "p-1",
+        "popper",
+        "relative",
+        "rounded-md",
+        "scroll-my-1",
+        "shadow-md",
+        "text-popover-foreground",
+        "w-full",
+        "z-50"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SelectLabel",
+      "data_attrs": [],
+      "data_slots": [
+        "select-label"
+      ],
+      "data_slot": "select-label",
+      "wraps": "SelectPrimitive.Label",
+      "renders": "SelectPrimitive.Label",
+      "slot_tags": {
+        "select-label": "SelectPrimitive.Label"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "px-2",
+        "py-1.5",
+        "text-muted-foreground",
+        "text-xs"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SelectItem",
+      "data_attrs": [],
+      "data_slots": [
+        "select-item",
+        "select-item-indicator"
+      ],
+      "data_slot": "select-item",
+      "wraps": "SelectPrimitive.Item",
+      "renders": "SelectPrimitive.Item",
+      "slot_tags": {
+        "select-item": "SelectPrimitive.Item"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "children"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "*:[span]:last:flex",
+        "*:[span]:last:gap-2",
+        "*:[span]:last:items-center",
+        "[&_svg:not([class*='size-'])]:size-4",
+        "[&_svg:not([class*='text-'])]:text-muted-foreground",
+        "[&_svg]:pointer-events-none",
+        "[&_svg]:shrink-0",
+        "absolute",
+        "cursor-default",
+        "data-[disabled]:opacity-50",
+        "data-[disabled]:pointer-events-none",
+        "flex",
+        "focus:bg-accent",
+        "focus:text-accent-foreground",
+        "gap-2",
+        "items-center",
+        "justify-center",
+        "outline-hidden",
+        "pl-2",
+        "pr-8",
+        "py-1.5",
+        "relative",
+        "right-2",
+        "rounded-sm",
+        "select-none",
+        "size-3.5",
+        "size-4",
+        "text-sm",
+        "w-full"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SelectSeparator",
+      "data_attrs": [],
+      "data_slots": [
+        "select-separator"
+      ],
+      "data_slot": "select-separator",
+      "wraps": "SelectPrimitive.Separator",
+      "renders": "SelectPrimitive.Separator",
+      "slot_tags": {
+        "select-separator": "SelectPrimitive.Separator"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "-mx-1",
+        "bg-border",
+        "h-px",
+        "my-1",
+        "pointer-events-none"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SelectScrollUpButton",
+      "data_attrs": [],
+      "data_slots": [
+        "select-scroll-up-button"
+      ],
+      "data_slot": "select-scroll-up-button",
+      "wraps": "SelectPrimitive.ScrollUpButton",
+      "renders": "SelectPrimitive.ScrollUpButton",
+      "slot_tags": {
+        "select-scroll-up-button": "SelectPrimitive.ScrollUpButton"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "cursor-default",
+        "flex",
+        "items-center",
+        "justify-center",
+        "py-1",
+        "size-4"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "SelectScrollDownButton",
+      "data_attrs": [],
+      "data_slots": [
+        "select-scroll-down-button"
+      ],
+      "data_slot": "select-scroll-down-button",
+      "wraps": "SelectPrimitive.ScrollDownButton",
+      "renders": "SelectPrimitive.ScrollDownButton",
+      "slot_tags": {
+        "select-scroll-down-button": "SelectPrimitive.ScrollDownButton"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "cursor-default",
+        "flex",
+        "items-center",
+        "justify-center",
+        "py-1",
+        "size-4"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "*:[span]:last:flex",
+    "*:[span]:last:gap-2",
+    "*:[span]:last:items-center",
+    "*:data-[slot=select-value]:flex",
+    "*:data-[slot=select-value]:gap-2",
+    "*:data-[slot=select-value]:items-center",
+    "*:data-[slot=select-value]:line-clamp-1",
+    "-mx-1",
+    "[&_svg:not([class*='size-'])]:size-4",
+    "[&_svg:not([class*='text-'])]:text-muted-foreground",
+    "[&_svg]:pointer-events-none",
+    "[&_svg]:shrink-0",
+    "absolute",
+    "aria-invalid:border-destructive",
+    "aria-invalid:ring-destructive/20",
+    "bg-border",
+    "bg-popover",
+    "bg-transparent",
+    "border",
+    "border-input",
+    "cursor-default",
+    "dark:aria-invalid:ring-destructive/40",
+    "dark:bg-input/30",
+    "dark:hover:bg-input/50",
+    "data-[disabled]:opacity-50",
+    "data-[disabled]:pointer-events-none",
+    "data-[placeholder]:text-muted-foreground",
+    "data-[side=bottom]:slide-in-from-top-2",
+    "data-[side=bottom]:translate-y-1",
+    "data-[side=left]:-translate-x-1",
+    "data-[side=left]:slide-in-from-right-2",
+    "data-[side=right]:slide-in-from-left-2",
+    "data-[side=right]:translate-x-1",
+    "data-[side=top]:-translate-y-1",
+    "data-[side=top]:slide-in-from-bottom-2",
+    "data-[size=default]:h-9",
+    "data-[size=sm]:h-8",
+    "data-[state=closed]:animate-out",
+    "data-[state=closed]:fade-out-0",
+    "data-[state=closed]:zoom-out-95",
+    "data-[state=open]:animate-in",
+    "data-[state=open]:fade-in-0",
+    "data-[state=open]:zoom-in-95",
+    "disabled:cursor-not-allowed",
+    "disabled:opacity-50",
+    "flex",
+    "focus-visible:border-ring",
+    "focus-visible:ring-[3px]",
+    "focus-visible:ring-ring/50",
+    "focus:bg-accent",
+    "focus:text-accent-foreground",
+    "gap-2",
+    "h-[var(--radix-select-trigger-height)]",
+    "h-px",
+    "items-center",
+    "justify-between",
+    "justify-center",
+    "max-h-(--radix-select-content-available-height)",
+    "min-w-[8rem]",
+    "min-w-[var(--radix-select-trigger-width)]",
+    "my-1",
+    "opacity-50",
+    "origin-(--radix-select-content-transform-origin)",
+    "outline-hidden",
+    "outline-none",
+    "overflow-x-hidden",
+    "overflow-y-auto",
+    "p-1",
+    "pl-2",
+    "pointer-events-none",
+    "popper",
+    "pr-8",
+    "px-2",
+    "px-3",
+    "py-1",
+    "py-1.5",
+    "py-2",
+    "relative",
+    "right-2",
+    "rounded-md",
+    "rounded-sm",
+    "scroll-my-1",
+    "select-none",
+    "shadow-md",
+    "shadow-xs",
+    "size-3.5",
+    "size-4",
+    "text-muted-foreground",
+    "text-popover-foreground",
+    "text-sm",
+    "text-xs",
+    "transition-[color,box-shadow]",
+    "w-fit",
+    "w-full",
+    "whitespace-nowrap",
+    "z-50"
+  ],
+  "data_attrs": [
+    "data-size"
+  ],
+  "data_slots": [
+    "select",
+    "select-content",
+    "select-group",
+    "select-item",
+    "select-item-indicator",
+    "select-label",
+    "select-scroll-down-button",
+    "select-scroll-up-button",
+    "select-separator",
+    "select-trigger",
+    "select-value"
+  ],
+  "non_rendered_slots": [
+    "select"
+  ],
+  "radix_primitives": [
+    "Select"
+  ],
+  "third_party": [],
+  "icons": [
+    "CheckIcon",
+    "ChevronDownIcon",
+    "ChevronUpIcon"
+  ],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn",
+    "radix-ui"
+  ],
+  "extra_files": []
+}

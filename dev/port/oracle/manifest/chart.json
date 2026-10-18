@@ -1,0 +1,452 @@
+{
+  "name": "chart",
+  "style": "new-york-v4",
+  "source_sha": "35e2fa755465ef8e",
+  "use_client": true,
+  "tier": "third_party",
+  "exports": [
+    "ChartContainer",
+    "ChartTooltip",
+    "ChartTooltipContent",
+    "ChartLegend",
+    "ChartLegendContent",
+    "ChartStyle"
+  ],
+  "parts": [
+    {
+      "name": "useChart",
+      "data_attrs": [],
+      "data_slots": [],
+      "data_slot": null,
+      "wraps": null,
+      "renders": null,
+      "slot_tags": {},
+      "props": {
+        "destructured": [],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ChartContainer",
+      "data_attrs": [
+        {
+          "name": "data-chart",
+          "value": "{chartId}"
+        }
+      ],
+      "data_slots": [
+        "chart"
+      ],
+      "data_slot": "chart",
+      "wraps": "RechartsPrimitive.ResponsiveContainer",
+      "renders": "ChartContext.Provider",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "id"
+          },
+          {
+            "name": "className"
+          },
+          {
+            "name": "children"
+          },
+          {
+            "name": "config"
+          },
+          {
+            "name": "initialDimension",
+            "default": "INITIAL_DIMENSION"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "config",
+            "type": "ChartConfig"
+          },
+          {
+            "name": "children",
+            "type": "React.ComponentProps<"
+          },
+          {
+            "name": "initialDimension",
+            "type": "{"
+          },
+          {
+            "name": "width",
+            "type": "number"
+          },
+          {
+            "name": "height",
+            "type": "number"
+          }
+        ]
+      },
+      "class_tokens": [
+        "[&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground",
+        "[&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50",
+        "[&_.recharts-curve.recharts-tooltip-cursor]:stroke-border",
+        "[&_.recharts-dot[stroke='#fff']]:stroke-transparent",
+        "[&_.recharts-layer]:outline-hidden",
+        "[&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border",
+        "[&_.recharts-radial-bar-background-sector]:fill-muted",
+        "[&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted",
+        "[&_.recharts-reference-line_[stroke='#ccc']]:stroke-border",
+        "[&_.recharts-sector[stroke='#fff']]:stroke-transparent",
+        "[&_.recharts-sector]:outline-hidden",
+        "[&_.recharts-surface]:outline-hidden",
+        "aspect-video",
+        "flex",
+        "justify-center",
+        "text-xs"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ChartStyle",
+      "data_attrs": [],
+      "data_slots": [],
+      "data_slot": null,
+      "wraps": null,
+      "renders": "style",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "id"
+          },
+          {
+            "name": "config"
+          }
+        ],
+        "typed": [
+          {
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "name": "config",
+            "type": "ChartConfig"
+          }
+        ]
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ChartTooltipContent",
+      "data_attrs": [],
+      "data_slots": [],
+      "data_slot": null,
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "active"
+          },
+          {
+            "name": "payload"
+          },
+          {
+            "name": "className"
+          },
+          {
+            "name": "indicator",
+            "default": "\"dot\""
+          },
+          {
+            "name": "hideLabel",
+            "default": "false"
+          },
+          {
+            "name": "hideIndicator",
+            "default": "false"
+          },
+          {
+            "name": "label"
+          },
+          {
+            "name": "labelFormatter"
+          },
+          {
+            "name": "labelClassName"
+          },
+          {
+            "name": "formatter"
+          },
+          {
+            "name": "color"
+          },
+          {
+            "name": "nameKey"
+          },
+          {
+            "name": "labelKey"
+          }
+        ],
+        "typed": [
+          {
+            "name": "hideLabel",
+            "type": "boolean"
+          },
+          {
+            "name": "hideIndicator",
+            "type": "boolean"
+          },
+          {
+            "name": "indicator",
+            "type": "\"line\" | \"dot\" | \"dashed\""
+          },
+          {
+            "name": "nameKey",
+            "type": "string"
+          },
+          {
+            "name": "labelKey",
+            "type": "string"
+          }
+        ]
+      },
+      "class_tokens": [
+        "[&>svg]:h-2.5",
+        "[&>svg]:text-muted-foreground",
+        "[&>svg]:w-2.5",
+        "bg-(--color-bg)",
+        "bg-background",
+        "bg-transparent",
+        "border",
+        "border-(--color-border)",
+        "border-[1.5px]",
+        "border-border/50",
+        "border-dashed",
+        "dashed",
+        "dot",
+        "flex",
+        "flex-1",
+        "flex-wrap",
+        "font-medium",
+        "font-mono",
+        "gap-1.5",
+        "gap-2",
+        "grid",
+        "h-2.5",
+        "items-center",
+        "items-end",
+        "items-start",
+        "items-stretch",
+        "justify-between",
+        "leading-none",
+        "line",
+        "min-w-[8rem]",
+        "my-0.5",
+        "px-2.5",
+        "py-1.5",
+        "rounded-[2px]",
+        "rounded-lg",
+        "shadow-xl",
+        "shrink-0",
+        "tabular-nums",
+        "text-foreground",
+        "text-muted-foreground",
+        "text-xs",
+        "w-0",
+        "w-1",
+        "w-2.5",
+        "w-full"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ChartLegendContent",
+      "data_attrs": [],
+      "data_slots": [],
+      "data_slot": null,
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "hideIcon",
+            "default": "false"
+          },
+          {
+            "name": "payload"
+          },
+          {
+            "name": "verticalAlign",
+            "default": "\"bottom\""
+          },
+          {
+            "name": "nameKey"
+          }
+        ],
+        "typed": [
+          {
+            "name": "hideIcon",
+            "type": "boolean"
+          },
+          {
+            "name": "nameKey",
+            "type": "string"
+          }
+        ]
+      },
+      "class_tokens": [
+        "[&>svg]:h-3",
+        "[&>svg]:text-muted-foreground",
+        "[&>svg]:w-3",
+        "flex",
+        "gap-1.5",
+        "gap-4",
+        "h-2",
+        "items-center",
+        "justify-center",
+        "pb-3",
+        "pt-3",
+        "rounded-[2px]",
+        "shrink-0",
+        "top",
+        "w-2"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "getPayloadConfigFromPayload",
+      "data_attrs": [],
+      "data_slots": [],
+      "data_slot": null,
+      "wraps": null,
+      "renders": null,
+      "slot_tags": {},
+      "props": {
+        "destructured": [],
+        "typed": [
+          {
+            "name": "config",
+            "type": "ChartConfig,"
+          },
+          {
+            "name": "payload",
+            "type": "unknown,"
+          },
+          {
+            "name": "key",
+            "type": "string"
+          }
+        ]
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "[&>svg]:h-2.5",
+    "[&>svg]:h-3",
+    "[&>svg]:text-muted-foreground",
+    "[&>svg]:w-2.5",
+    "[&>svg]:w-3",
+    "[&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground",
+    "[&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50",
+    "[&_.recharts-curve.recharts-tooltip-cursor]:stroke-border",
+    "[&_.recharts-dot[stroke='#fff']]:stroke-transparent",
+    "[&_.recharts-layer]:outline-hidden",
+    "[&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border",
+    "[&_.recharts-radial-bar-background-sector]:fill-muted",
+    "[&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted",
+    "[&_.recharts-reference-line_[stroke='#ccc']]:stroke-border",
+    "[&_.recharts-sector[stroke='#fff']]:stroke-transparent",
+    "[&_.recharts-sector]:outline-hidden",
+    "[&_.recharts-surface]:outline-hidden",
+    "aspect-video",
+    "bg-(--color-bg)",
+    "bg-background",
+    "bg-transparent",
+    "border",
+    "border-(--color-border)",
+    "border-[1.5px]",
+    "border-border/50",
+    "border-dashed",
+    "dashed",
+    "dot",
+    "flex",
+    "flex-1",
+    "flex-wrap",
+    "font-medium",
+    "font-mono",
+    "gap-1.5",
+    "gap-2",
+    "gap-4",
+    "grid",
+    "h-2",
+    "h-2.5",
+    "items-center",
+    "items-end",
+    "items-start",
+    "items-stretch",
+    "justify-between",
+    "justify-center",
+    "leading-none",
+    "line",
+    "min-w-[8rem]",
+    "my-0.5",
+    "pb-3",
+    "pt-3",
+    "px-2.5",
+    "py-1.5",
+    "rounded-[2px]",
+    "rounded-lg",
+    "shadow-xl",
+    "shrink-0",
+    "tabular-nums",
+    "text-foreground",
+    "text-muted-foreground",
+    "text-xs",
+    "top",
+    "w-0",
+    "w-1",
+    "w-2",
+    "w-2.5",
+    "w-full"
+  ],
+  "data_attrs": [
+    "data-chart"
+  ],
+  "data_slots": [
+    "chart"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [],
+  "third_party": [
+    "recharts"
+  ],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn",
+    "lucide-react",
+    "recharts@3.8.0"
+  ],
+  "extra_files": []
+}

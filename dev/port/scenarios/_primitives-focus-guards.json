@@ -1,0 +1,436 @@
+{
+  "component": "_primitives-focus-guards",
+  "scenarios": [
+    {
+      "id": "no-guards-initial",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "focus_guards",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-focus-guards",
+          "className": "flex flex-col items-start gap-2"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "toggle-a",
+              "data-action": "click->shadcn---probe-focus-guards#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-focus-guards-name-param": "a"
+            },
+            "children": [
+              "Guards A"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "toggle-b",
+              "data-action": "click->shadcn---probe-focus-guards#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-focus-guards-name-param": "b"
+            },
+            "children": [
+              "Guards B"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "last",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Last"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "guard-takes-first-tab",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "focus_guards",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-focus-guards",
+          "className": "flex flex-col items-start gap-2"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "toggle-a",
+              "data-action": "click->shadcn---probe-focus-guards#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-focus-guards-name-param": "a"
+            },
+            "children": [
+              "Guards A"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "toggle-b",
+              "data-action": "click->shadcn---probe-focus-guards#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-focus-guards-name-param": "b"
+            },
+            "children": [
+              "Guards B"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "last",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Last"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=toggle-a]"
+        },
+        {
+          "do": "tab",
+          "shift": true
+        },
+        {
+          "do": "tab",
+          "shift": true
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "guard-takes-last-tab",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "focus_guards",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-focus-guards",
+          "className": "flex flex-col items-start gap-2"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "toggle-a",
+              "data-action": "click->shadcn---probe-focus-guards#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-focus-guards-name-param": "a"
+            },
+            "children": [
+              "Guards A"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "toggle-b",
+              "data-action": "click->shadcn---probe-focus-guards#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-focus-guards-name-param": "b"
+            },
+            "children": [
+              "Guards B"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "last",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Last"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=toggle-a]"
+        },
+        {
+          "do": "focus",
+          "target": "[data-slot=last]"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "guards-removed-on-release",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "focus_guards",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-focus-guards",
+          "className": "flex flex-col items-start gap-2"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "toggle-a",
+              "data-action": "click->shadcn---probe-focus-guards#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-focus-guards-name-param": "a"
+            },
+            "children": [
+              "Guards A"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "toggle-b",
+              "data-action": "click->shadcn---probe-focus-guards#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-focus-guards-name-param": "b"
+            },
+            "children": [
+              "Guards B"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "last",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Last"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=toggle-a]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=toggle-a]"
+        },
+        {
+          "do": "tab",
+          "shift": true
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "guards-ref-counted",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "focus_guards",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-focus-guards",
+          "className": "flex flex-col items-start gap-2"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "toggle-a",
+              "data-action": "click->shadcn---probe-focus-guards#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-focus-guards-name-param": "a"
+            },
+            "children": [
+              "Guards A"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "toggle-b",
+              "data-action": "click->shadcn---probe-focus-guards#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-focus-guards-name-param": "b"
+            },
+            "children": [
+              "Guards B"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "last",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Last"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=toggle-a]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=toggle-b]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=toggle-a]"
+        },
+        {
+          "do": "tab",
+          "shift": true
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "guards-removed-with-last-release",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "focus_guards",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-focus-guards",
+          "className": "flex flex-col items-start gap-2"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "toggle-a",
+              "data-action": "click->shadcn---probe-focus-guards#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-focus-guards-name-param": "a"
+            },
+            "children": [
+              "Guards A"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "toggle-b",
+              "data-action": "click->shadcn---probe-focus-guards#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-focus-guards-name-param": "b"
+            },
+            "children": [
+              "Guards B"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "last",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Last"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=toggle-a]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=toggle-b]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=toggle-a]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=toggle-b]"
+        },
+        {
+          "do": "tab",
+          "shift": true
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "component": "hover-card",
+  "reason": "Radix renders no content node while the hover card is closed and creates it on the client inside a body portal. The server must ship the HoverCardContent markup somewhere and the trigger (the controller host, an <a>) cannot contain it, so HoverCard::Content emits an inert <template> sibling at its call site. The template has no data-slot, generates no box and its content is not part of the document, so DOM node lists, boxes and accessibility match the oracle. Same pattern as tooltip.",
+  "allow_tokens": [],
+  "allow_missing_tokens": [],
+  "api": [
+    "HoverCard::Content renders an inert <template data-shadcn--hover-card-template> (no data-slot) holding the content markup while closed"
+  ]
+}

@@ -1,0 +1,374 @@
+{
+  "component": "_primitives-presence",
+  "scenarios": [
+    {
+      "id": "closed-initial",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "presence",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-presence",
+          "className": "flex flex-col items-start gap-2"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "toggle",
+              "data-action": "click->shadcn---probe-presence#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-presence-target": "template"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "panel",
+                  "className": "rounded-md border p-4 data-[state=closed]:animate-out data-[state=closed]:[animation-duration:500ms]!"
+                },
+                "children": [
+                  "Panel"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "open-initial",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "presence",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-presence",
+          "className": "flex flex-col items-start gap-2",
+          "data-shadcn---probe-presence-open-value": "true"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "toggle",
+              "data-action": "click->shadcn---probe-presence#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-presence-target": "template"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "panel",
+                  "className": "rounded-md border p-4 data-[state=closed]:animate-out data-[state=closed]:[animation-duration:500ms]!"
+                },
+                "children": [
+                  "Panel"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "toggle-without-animation",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "presence",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-presence",
+          "className": "flex flex-col items-start gap-2"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "toggle",
+              "data-action": "click->shadcn---probe-presence#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-presence-target": "template"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "panel",
+                  "className": "rounded-md border p-4 data-[state=closed]:animate-out data-[state=closed]:[animation-duration:500ms]!"
+                },
+                "children": [
+                  "Panel"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "exit-animation-keeps-node",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "presence",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-presence",
+          "className": "flex flex-col items-start gap-2",
+          "data-shadcn---probe-presence-open-value": "true"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "toggle",
+              "data-action": "click->shadcn---probe-presence#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-presence-target": "template"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "panel",
+                  "className": "rounded-md border p-4 data-[state=closed]:animate-out data-[state=closed]:[animation-duration:500ms]!"
+                },
+                "children": [
+                  "Panel"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        },
+        {
+          "do": "wait",
+          "ms": 100
+        },
+        {
+          "do": "wait",
+          "ms": 900
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": true
+    },
+    {
+      "id": "reopen-during-exit",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "presence",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-presence",
+          "className": "flex flex-col items-start gap-2",
+          "data-shadcn---probe-presence-open-value": "true"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "toggle",
+              "data-action": "click->shadcn---probe-presence#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-presence-target": "template"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "panel",
+                  "className": "rounded-md border p-4 data-[state=closed]:animate-out data-[state=closed]:[animation-duration:500ms]!"
+                },
+                "children": [
+                  "Panel"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        },
+        {
+          "do": "wait",
+          "ms": 900
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": true
+    },
+    {
+      "id": "enter-then-exit-animated",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "presence",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-presence",
+          "className": "flex flex-col items-start gap-2"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "toggle",
+              "data-action": "click->shadcn---probe-presence#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "_template",
+            "props": {
+              "data-shadcn---probe-presence-target": "template"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "panel",
+                  "className": "rounded-md border p-4 data-[state=closed]:animate-out data-[state=closed]:[animation-duration:500ms]!"
+                },
+                "children": [
+                  "Panel"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        },
+        {
+          "do": "wait",
+          "ms": 900
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        },
+        {
+          "do": "wait",
+          "ms": 900
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": true
+    }
+  ]
+}

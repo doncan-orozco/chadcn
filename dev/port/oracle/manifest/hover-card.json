@@ -1,0 +1,170 @@
+{
+  "name": "hover-card",
+  "style": "new-york-v4",
+  "source_sha": "73f59aa759656501",
+  "use_client": true,
+  "tier": "overlay",
+  "exports": [
+    "HoverCard",
+    "HoverCardTrigger",
+    "HoverCardContent"
+  ],
+  "parts": [
+    {
+      "name": "HoverCard",
+      "data_attrs": [],
+      "data_slots": [
+        "hover-card"
+      ],
+      "data_slot": "hover-card",
+      "wraps": "HoverCardPrimitive.Root",
+      "renders": "HoverCardPrimitive.Root",
+      "slot_tags": {
+        "hover-card": "HoverCardPrimitive.Root"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "HoverCardTrigger",
+      "data_attrs": [],
+      "data_slots": [
+        "hover-card-trigger"
+      ],
+      "data_slot": "hover-card-trigger",
+      "wraps": "HoverCardPrimitive.Trigger",
+      "renders": "HoverCardPrimitive.Trigger",
+      "slot_tags": {
+        "hover-card-trigger": "HoverCardPrimitive.Trigger"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "HoverCardContent",
+      "data_attrs": [],
+      "data_slots": [
+        "hover-card-portal",
+        "hover-card-content"
+      ],
+      "data_slot": "hover-card-portal",
+      "wraps": "HoverCardPrimitive.Portal",
+      "renders": "HoverCardPrimitive.Portal",
+      "slot_tags": {
+        "hover-card-portal": "HoverCardPrimitive.Portal",
+        "hover-card-content": "HoverCardPrimitive.Content"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "align",
+            "default": "\"center\""
+          },
+          {
+            "name": "sideOffset",
+            "default": "4"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "bg-popover",
+        "border",
+        "data-[side=bottom]:slide-in-from-top-2",
+        "data-[side=left]:slide-in-from-right-2",
+        "data-[side=right]:slide-in-from-left-2",
+        "data-[side=top]:slide-in-from-bottom-2",
+        "data-[state=closed]:animate-out",
+        "data-[state=closed]:fade-out-0",
+        "data-[state=closed]:zoom-out-95",
+        "data-[state=open]:animate-in",
+        "data-[state=open]:fade-in-0",
+        "data-[state=open]:zoom-in-95",
+        "origin-(--radix-hover-card-content-transform-origin)",
+        "outline-hidden",
+        "p-4",
+        "rounded-md",
+        "shadow-md",
+        "text-popover-foreground",
+        "w-64",
+        "z-50"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "bg-popover",
+    "border",
+    "data-[side=bottom]:slide-in-from-top-2",
+    "data-[side=left]:slide-in-from-right-2",
+    "data-[side=right]:slide-in-from-left-2",
+    "data-[side=top]:slide-in-from-bottom-2",
+    "data-[state=closed]:animate-out",
+    "data-[state=closed]:fade-out-0",
+    "data-[state=closed]:zoom-out-95",
+    "data-[state=open]:animate-in",
+    "data-[state=open]:fade-in-0",
+    "data-[state=open]:zoom-in-95",
+    "origin-(--radix-hover-card-content-transform-origin)",
+    "outline-hidden",
+    "p-4",
+    "rounded-md",
+    "shadow-md",
+    "text-popover-foreground",
+    "w-64",
+    "z-50"
+  ],
+  "data_attrs": [],
+  "data_slots": [
+    "hover-card",
+    "hover-card-content",
+    "hover-card-portal",
+    "hover-card-trigger"
+  ],
+  "non_rendered_slots": [
+    "hover-card",
+    "hover-card-portal"
+  ],
+  "radix_primitives": [
+    "HoverCard"
+  ],
+  "third_party": [],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn",
+    "radix-ui"
+  ],
+  "extra_files": []
+}

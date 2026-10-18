@@ -1,0 +1,5468 @@
+{
+  "component": "bubble",
+  "scenarios": [
+    {
+      "id": "defaults",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {},
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "defaults__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {},
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__align-start",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "default",
+              "align": "start"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "default",
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-secondary__align-start",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "secondary",
+              "align": "start"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-secondary__align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "secondary",
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-muted__align-start",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted",
+              "align": "start"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-muted__align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted",
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-tinted__align-start",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "tinted",
+              "align": "start"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-tinted__align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "tinted",
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__align-start",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "outline",
+              "align": "start"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "outline",
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-ghost__align-start",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "ghost",
+              "align": "start"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-ghost__align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "ghost",
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-destructive__align-start",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "destructive",
+              "align": "start"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-destructive__align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "destructive",
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "default"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-secondary__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "secondary"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-muted__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-tinted__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "tinted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "outline"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-ghost__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "ghost"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-destructive__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "destructive"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-ghost__long-text-full-width",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "ghost"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "I can group messages, switch sides, and keep the whole thread easy to scan. This sentence is long enough to wrap onto several lines inside the eighty percent max width."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "align-end__default-variant",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__variant-default__button",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "default"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "I forgot my password"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=bubble-content]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__variant-default__button__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "default"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "I forgot my password"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=bubble-content]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__variant-secondary__button",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "secondary"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "I forgot my password"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=bubble-content]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__variant-secondary__button__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "secondary"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "I forgot my password"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=bubble-content]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__variant-muted__button",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "I forgot my password"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=bubble-content]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__variant-muted__button__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "I forgot my password"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=bubble-content]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__variant-tinted__button",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "tinted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "I forgot my password"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=bubble-content]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__variant-tinted__button__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "tinted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "I forgot my password"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=bubble-content]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__variant-outline__button",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "outline"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "I forgot my password"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=bubble-content]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__variant-outline__button__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "outline"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "I forgot my password"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=bubble-content]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__variant-ghost__button",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "ghost"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "I forgot my password"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=bubble-content]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__variant-ghost__button__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "ghost"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "I forgot my password"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=bubble-content]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__variant-destructive__button",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "destructive"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "I forgot my password"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=bubble-content]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__variant-destructive__button__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "destructive"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "I forgot my password"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=bubble-content]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__variant-default__link",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {},
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_a",
+                    "props": {
+                      "href": "#bubble"
+                    },
+                    "children": [
+                      "Open the thread"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=bubble-content]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__variant-outline__link__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "outline"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_a",
+                    "props": {
+                      "href": "#bubble"
+                    },
+                    "children": [
+                      "Open the thread"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=bubble-content]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__div-content-no-effect",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {},
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=bubble-content]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus__as-child-button-tab",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "tinted",
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "I need help with my subscription"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus__as-child-button-tab__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "tinted",
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "I need help with my subscription"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus__as-child-link-tab",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "outline"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_a",
+                    "props": {
+                      "href": "#bubble"
+                    },
+                    "children": [
+                      "Open the thread"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus__ghost-button-tab",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "ghost"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "Something else. Talk to a human."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus__div-content-not-focusable",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {},
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus__div-content-tabindex",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {},
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "tabIndex": 0
+                },
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__content-as-child-button-multiline",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted",
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "I can group messages, switch sides, and keep the whole thread easy to scan. This sentence is long enough to wrap onto several lines inside the eighty percent max width."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__content-as-child-anchor-classname",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {},
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "asChild": true,
+                  "className": "underline"
+                },
+                "children": [
+                  {
+                    "c": "_a",
+                    "props": {
+                      "href": "#bubble",
+                      "className": "font-medium"
+                    },
+                    "children": [
+                      "Open the thread"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__content-as-child-child-data-slot-wins",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {},
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "data-slot": "custom"
+                    },
+                    "children": [
+                      "Child slot"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__content-as-child-child-classname-conflict",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {},
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "className": "rounded-none px-6"
+                    },
+                    "children": [
+                      "Plain join"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__long-text-wraps",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "I can group messages, switch sides, and keep the whole thread easy to scan. This sentence is long enough to wrap onto several lines inside the eighty percent max width."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__long-text-wraps__align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "I can group messages, switch sides, and keep the whole thread easy to scan. This sentence is long enough to wrap onto several lines inside the eighty percent max width."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__unbroken-word",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "SupercalifragilisticexpialidociousSupercalifragilisticexpialidociousSupercalifragilisticexpialidociousSupercalifragilisticexpialidocious"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__empty",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {},
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__nested-elements",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "secondary"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Hello! Are you actually ",
+                      {
+                        "c": "_strong",
+                        "props": {},
+                        "children": [
+                          "thinking"
+                        ]
+                      },
+                      "?"
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "You can also render ",
+                      {
+                        "c": "_code",
+                        "props": {},
+                        "children": [
+                          "code"
+                        ]
+                      },
+                      " in it."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__icon-and-text",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "outline"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "className": "flex items-center gap-2"
+                },
+                "children": [
+                  "<icon:check>",
+                  "Delivered"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__multiple-contents",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "First part."
+                ]
+              },
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Second part of the same message."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__multiple-contents__align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "First part."
+                ]
+              },
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Second part of the same message."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__whitespace-pre-line",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted",
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "className": "whitespace-pre-line"
+                },
+                "children": [
+                  "Line one.\n\nLine three after a blank line."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "reactions__defaults",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-12 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "I can group messages, switch sides, and keep the whole thread easy to scan. This sentence is long enough to wrap onto several lines inside the eighty percent max width."
+                ]
+              },
+              {
+                "c": "BubbleReactions",
+                "props": {
+                  "role": "img",
+                  "aria-label": "Reaction: thumbs up"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "👍"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "reactions__defaults__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-12 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "I can group messages, switch sides, and keep the whole thread easy to scan. This sentence is long enough to wrap onto several lines inside the eighty percent max width."
+                ]
+              },
+              {
+                "c": "BubbleReactions",
+                "props": {
+                  "role": "img",
+                  "aria-label": "Reaction: thumbs up"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "👍"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "reactions__side-top__align-start",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-12 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "I can group messages, switch sides, and keep the whole thread easy to scan. This sentence is long enough to wrap onto several lines inside the eighty percent max width."
+                ]
+              },
+              {
+                "c": "BubbleReactions",
+                "props": {
+                  "side": "top",
+                  "align": "start"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "👍"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "reactions__side-top__align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-12 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "I can group messages, switch sides, and keep the whole thread easy to scan. This sentence is long enough to wrap onto several lines inside the eighty percent max width."
+                ]
+              },
+              {
+                "c": "BubbleReactions",
+                "props": {
+                  "side": "top",
+                  "align": "end"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "👍"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "reactions__side-bottom__align-start",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-12 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "I can group messages, switch sides, and keep the whole thread easy to scan. This sentence is long enough to wrap onto several lines inside the eighty percent max width."
+                ]
+              },
+              {
+                "c": "BubbleReactions",
+                "props": {
+                  "side": "bottom",
+                  "align": "start"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "👍"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "reactions__side-bottom__align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-12 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "I can group messages, switch sides, and keep the whole thread easy to scan. This sentence is long enough to wrap onto several lines inside the eighty percent max width."
+                ]
+              },
+              {
+                "c": "BubbleReactions",
+                "props": {
+                  "side": "bottom",
+                  "align": "end"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "👍"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "reactions__side-top__align-start__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-12 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "default",
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "I can group messages, switch sides, and keep the whole thread easy to scan. This sentence is long enough to wrap onto several lines inside the eighty percent max width."
+                ]
+              },
+              {
+                "c": "BubbleReactions",
+                "props": {
+                  "side": "top",
+                  "align": "start"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "👍"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "reactions__bubble-align-end__reactions-align-start",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-12 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "I can group messages, switch sides, and keep the whole thread easy to scan. This sentence is long enough to wrap onto several lines inside the eighty percent max width."
+                ]
+              },
+              {
+                "c": "BubbleReactions",
+                "props": {
+                  "align": "start",
+                  "aria-label": "Reactions: eyes"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "👀"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "reactions__multiple",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-12 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "I can group messages, switch sides, and keep the whole thread easy to scan. This sentence is long enough to wrap onto several lines inside the eighty percent max width."
+                ]
+              },
+              {
+                "c": "BubbleReactions",
+                "props": {
+                  "role": "img",
+                  "aria-label": "Reactions: thumbs up, fire, eyes, and 2 more"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "👍"
+                    ]
+                  },
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "🔥"
+                    ]
+                  },
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "👀"
+                    ]
+                  },
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "+2"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "reactions__with-button",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-12 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "destructive"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "I can group messages, switch sides, and keep the whole thread easy to scan. This sentence is long enough to wrap onto several lines inside the eighty percent max width."
+                ]
+              },
+              {
+                "c": "BubbleReactions",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "className": "px-2 text-xs"
+                    },
+                    "children": [
+                      "Yes, run it"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "reactions__with-button__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-12 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "destructive"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "I can group messages, switch sides, and keep the whole thread easy to scan. This sentence is long enough to wrap onto several lines inside the eighty percent max width."
+                ]
+              },
+              {
+                "c": "BubbleReactions",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "className": "px-2 text-xs"
+                    },
+                    "children": [
+                      "Yes, run it"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "reactions__with-icon-button",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-12 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "I can group messages, switch sides, and keep the whole thread easy to scan. This sentence is long enough to wrap onto several lines inside the eighty percent max width."
+                ]
+              },
+              {
+                "c": "BubbleReactions",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "aria-label": "Read"
+                    },
+                    "children": [
+                      "<icon:check>"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "reactions__empty",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-12 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "I can group messages, switch sides, and keep the whole thread easy to scan. This sentence is long enough to wrap onto several lines inside the eighty percent max width."
+                ]
+              },
+              {
+                "c": "BubbleReactions",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "👍"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group__basic",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "BubbleGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "Bubble",
+                "props": {
+                  "variant": "muted"
+                },
+                "children": [
+                  {
+                    "c": "BubbleContent",
+                    "props": {},
+                    "children": [
+                      "Hey! Want to see chat bubbles?"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "Bubble",
+                "props": {
+                  "variant": "muted"
+                },
+                "children": [
+                  {
+                    "c": "BubbleContent",
+                    "props": {},
+                    "children": [
+                      "I can group messages and switch sides."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group__align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "BubbleGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "Bubble",
+                "props": {
+                  "align": "end"
+                },
+                "children": [
+                  {
+                    "c": "BubbleContent",
+                    "props": {},
+                    "children": [
+                      "You tell me!"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "Bubble",
+                "props": {
+                  "align": "end"
+                },
+                "children": [
+                  {
+                    "c": "BubbleContent",
+                    "props": {},
+                    "children": [
+                      "It worked yesterday. You broke it!"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group__mixed-align",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "BubbleGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "Bubble",
+                "props": {
+                  "variant": "muted"
+                },
+                "children": [
+                  {
+                    "c": "BubbleContent",
+                    "props": {},
+                    "children": [
+                      "Start side."
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "Bubble",
+                "props": {
+                  "align": "end"
+                },
+                "children": [
+                  {
+                    "c": "BubbleContent",
+                    "props": {},
+                    "children": [
+                      "End side."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group__basic__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "BubbleGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "Bubble",
+                "props": {
+                  "variant": "muted"
+                },
+                "children": [
+                  {
+                    "c": "BubbleContent",
+                    "props": {},
+                    "children": [
+                      "Hey! Want to see chat bubbles?"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "Bubble",
+                "props": {
+                  "align": "end"
+                },
+                "children": [
+                  {
+                    "c": "BubbleContent",
+                    "props": {},
+                    "children": [
+                      "Sure."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group__empty",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "BubbleGroup",
+            "props": {},
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "context__message-group-align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "group/message flex flex-col",
+              "data-align": "end"
+            },
+            "children": [
+              {
+                "c": "Bubble",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BubbleContent",
+                    "props": {},
+                    "children": [
+                      "Hey! Want to see chat bubbles?"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "context__message-group-align-start",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "group/message flex flex-col",
+              "data-align": "start"
+            },
+            "children": [
+              {
+                "c": "Bubble",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BubbleContent",
+                    "props": {},
+                    "children": [
+                      "Hey! Want to see chat bubbles?"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "context__no-flex-parent",
+      "tree": {
+        "c": "Bubble",
+        "props": {
+          "align": "end"
+        },
+        "children": [
+          {
+            "c": "BubbleContent",
+            "props": {},
+            "children": [
+              "Hey! Want to see chat bubbles?"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__bubble-classname-max-w",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "className": "max-w-full"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "I can group messages, switch sides, and keep the whole thread easy to scan. This sentence is long enough to wrap onto several lines inside the eighty percent max width."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__bubble-classname-gap",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "className": "gap-3"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "One."
+                ]
+              },
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Two."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__bubble-forwarded-attrs",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "id": "bubble-1",
+              "data-testid": "msg",
+              "aria-label": "Message from Ada",
+              "title": "Sent 4:32 PM"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__bubble-data-align-attr-wins",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "data-align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__content-classname-rounded",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {},
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "className": "rounded-none"
+                },
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__content-classname-padding",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {},
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "className": "px-4 py-1"
+                },
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__content-classname-wrap",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "className": "wrap-anywhere"
+                },
+                "children": [
+                  "SupercalifragilisticexpialidociousSupercalifragilisticexpialidociousSupercalifragilisticexpialidociousSupercalifragilisticexpialidocious"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__content-forwarded-attrs",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {},
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "id": "c1",
+                  "data-testid": "content",
+                  "title": "Body"
+                },
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__content-data-slot-override",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {},
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "data-slot": "custom"
+                },
+                "children": [
+                  "Hey! Want to see chat bubbles?"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__reactions-classname-p-0",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-12 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "I can group messages, switch sides, and keep the whole thread easy to scan. This sentence is long enough to wrap onto several lines inside the eighty percent max width."
+                ]
+              },
+              {
+                "c": "BubbleReactions",
+                "props": {
+                  "className": "p-0"
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "aria-label": "Read"
+                    },
+                    "children": [
+                      "<icon:check>"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__reactions-classname-ring",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-12 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "I can group messages, switch sides, and keep the whole thread easy to scan. This sentence is long enough to wrap onto several lines inside the eighty percent max width."
+                ]
+              },
+              {
+                "c": "BubbleReactions",
+                "props": {
+                  "className": "ring-0"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "👍"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__reactions-classname-position",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-12 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "I can group messages, switch sides, and keep the whole thread easy to scan. This sentence is long enough to wrap onto several lines inside the eighty percent max width."
+                ]
+              },
+              {
+                "c": "BubbleReactions",
+                "props": {
+                  "side": "top",
+                  "className": "top-2 translate-y-0"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "👍"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__reactions-forwarded-attrs",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-12 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "I can group messages, switch sides, and keep the whole thread easy to scan. This sentence is long enough to wrap onto several lines inside the eighty percent max width."
+                ]
+              },
+              {
+                "c": "BubbleReactions",
+                "props": {
+                  "id": "r1",
+                  "data-testid": "reactions",
+                  "role": "img",
+                  "aria-label": "Reaction: fire"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "🔥"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__group-classname-gap",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "BubbleGroup",
+            "props": {
+              "className": "gap-4"
+            },
+            "children": [
+              {
+                "c": "Bubble",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BubbleContent",
+                    "props": {},
+                    "children": [
+                      "One."
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "Bubble",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BubbleContent",
+                    "props": {},
+                    "children": [
+                      "Two."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__group-forwarded-attrs",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "BubbleGroup",
+            "props": {
+              "id": "thread",
+              "role": "log",
+              "aria-label": "Conversation"
+            },
+            "children": [
+              {
+                "c": "Bubble",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BubbleContent",
+                    "props": {},
+                    "children": [
+                      "One."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__bubble-demo",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Hey there! what's up?"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "BubbleGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "Bubble",
+                "props": {
+                  "variant": "muted"
+                },
+                "children": [
+                  {
+                    "c": "BubbleContent",
+                    "props": {},
+                    "children": [
+                      "Hey! Want to see chat bubbles?"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "Bubble",
+                "props": {
+                  "variant": "muted"
+                },
+                "children": [
+                  {
+                    "c": "BubbleContent",
+                    "props": {},
+                    "children": [
+                      "I can group messages, switch sides, and keep the whole thread easy to scan."
+                    ]
+                  },
+                  {
+                    "c": "BubbleReactions",
+                    "props": {
+                      "role": "img",
+                      "aria-label": "Reaction: thumbs up"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {},
+                        "children": [
+                          "👍"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Bubble",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Sure. Hit me with your best demo."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Yes. You are reading a demo that is demoing itself. Very meta. Very on-brand."
+                ]
+              },
+              {
+                "c": "BubbleReactions",
+                "props": {
+                  "role": "img",
+                  "aria-label": "Reactions: thumbs up, fire, eyes, and 2 more"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "👍"
+                    ]
+                  },
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "🔥"
+                    ]
+                  },
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "👀"
+                    ]
+                  },
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "+2"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__bubble-alignment",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "This bubble is aligned to the start. This is the default alignment."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Bubble",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "This bubble is aligned to the end. Use this for user messages."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__bubble-collapsible",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "How can I help you today?"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted",
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {
+                  "className": "whitespace-pre-line"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {},
+                        "children": [
+                          "The accessibility review found two focus states that were visually too subtle in dark mode.\n\nI checked the dialog, menu, and drawer paths because each one renders focusable control..."
+                        ]
+                      },
+                      {
+                        "c": "_button",
+                        "props": {
+                          "type": "button",
+                          "className": "gap-1 p-0 text-muted-foreground"
+                        },
+                        "children": [
+                          "Show more",
+                          "<icon:chevron-down>"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__bubble-group-demo",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Can you tell me what's the issue?"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "BubbleGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "Bubble",
+                "props": {
+                  "align": "end"
+                },
+                "children": [
+                  {
+                    "c": "BubbleContent",
+                    "props": {},
+                    "children": [
+                      "You tell me!"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "Bubble",
+                "props": {
+                  "align": "end"
+                },
+                "children": [
+                  {
+                    "c": "BubbleContent",
+                    "props": {},
+                    "children": [
+                      "It worked yesterday. You broke it!"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "Bubble",
+                "props": {
+                  "align": "end"
+                },
+                "children": [
+                  {
+                    "c": "BubbleContent",
+                    "props": {},
+                    "children": [
+                      "Find the bug and fix it."
+                    ]
+                  },
+                  {
+                    "c": "BubbleReactions",
+                    "props": {
+                      "aria-label": "Reactions: eyes",
+                      "align": "start"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {},
+                        "children": [
+                          "👀"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Want me to diff yesterday's you against today's you? It's a bit embarrassing."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__bubble-link-button",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "How can I help you today?"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "BubbleGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "Bubble",
+                "props": {
+                  "variant": "tinted",
+                  "align": "end"
+                },
+                "children": [
+                  {
+                    "c": "BubbleContent",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_button",
+                        "props": {},
+                        "children": [
+                          "I forgot my password"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "Bubble",
+                "props": {
+                  "variant": "tinted",
+                  "align": "end"
+                },
+                "children": [
+                  {
+                    "c": "BubbleContent",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_button",
+                        "props": {},
+                        "children": [
+                          "I need help with my subscription"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "Bubble",
+                "props": {
+                  "variant": "tinted",
+                  "align": "end"
+                },
+                "children": [
+                  {
+                    "c": "BubbleContent",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_button",
+                        "props": {},
+                        "children": [
+                          "Something else. Talk to a human."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__bubble-markdown",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "align": "end",
+              "variant": "muted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Hello! Are you actually ",
+                      {
+                        "c": "_strong",
+                        "props": {},
+                        "children": [
+                          "thinking"
+                        ]
+                      },
+                      "?"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "ghost"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Ghost bubbles work for assistant text, ",
+                      {
+                        "c": "_strong",
+                        "props": {},
+                        "children": [
+                          "markdown"
+                        ]
+                      },
+                      ", and other content that should not be framed."
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "This is perfect for assistant messages that should not have a frame and can take the full width of the container. You can also render ",
+                      {
+                        "c": "_code",
+                        "props": {},
+                        "children": [
+                          "code"
+                        ]
+                      },
+                      " in it."
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Ghost bubbles are full width and can take the full width of the container."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__bubble-popover",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-4 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Run the build script."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "destructive"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Failed to run the command."
+                ]
+              },
+              {
+                "c": "BubbleReactions",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "aria-label": "Show error details",
+                      "className": "aria-expanded:text-destructive"
+                    },
+                    "children": [
+                      "<icon:info>"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__bubble-reactions",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-12 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted",
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "I don't need tests, I know my code works."
+                ]
+              },
+              {
+                "c": "BubbleReactions",
+                "props": {
+                  "align": "start",
+                  "role": "img",
+                  "aria-label": "Reactions: thumbs up, surprised"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "👍"
+                    ]
+                  },
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "😮"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Bold. Fine I'll add some tests. I'll let you know when they're done."
+                ]
+              },
+              {
+                "c": "BubbleReactions",
+                "props": {
+                  "role": "img",
+                  "aria-label": "Reactions: eyes, rocket, and 2 more"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "👀"
+                    ]
+                  },
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "🚀"
+                    ]
+                  },
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "+2"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "default",
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Tests passed on the first try. All 142 of them. Looking good!"
+                ]
+              },
+              {
+                "c": "BubbleReactions",
+                "props": {
+                  "side": "top",
+                  "align": "start",
+                  "role": "img",
+                  "aria-label": "Reactions: party popper, clapping hands"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "🎉"
+                    ]
+                  },
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "👏"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "destructive"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Are you sure I can run this command?"
+                ]
+              },
+              {
+                "c": "BubbleReactions",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "Yes, run it"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__bubble-tooltip",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-4 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "secondary"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Did you remove the stale route?"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Bubble",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Yes, removed it from the registry."
+                ]
+              },
+              {
+                "c": "BubbleReactions",
+                "props": {
+                  "className": "p-0"
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "<icon:check>"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__bubble-variants",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-12 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {},
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "This is the default primary bubble."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "secondary",
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "This is the secondary variant."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "This one is muted. It uses a lower emphasis color for the chat bubble."
+                ]
+              },
+              {
+                "c": "BubbleReactions",
+                "props": {
+                  "role": "img",
+                  "aria-label": "Reaction: thumbs up"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "👍"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "tinted",
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "This one is tinted. The tint is a softer color derived from the primary color."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "outline"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "We can also use an outlined variant."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "destructive",
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Or a destructive variant with a reaction."
+                ]
+              },
+              {
+                "c": "BubbleReactions",
+                "props": {
+                  "role": "img",
+                  "aria-label": "Reaction: fire"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "🔥"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "ghost"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Ghost bubbles work for assistant text, ",
+                      {
+                        "c": "_strong",
+                        "props": {},
+                        "children": [
+                          "markdown"
+                        ]
+                      },
+                      ", and other content that should not be framed."
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "This is perfect for assistant messages that should not have a frame and can take the full width of the container. You can also render ",
+                      {
+                        "c": "_code",
+                        "props": {},
+                        "children": [
+                          "code"
+                        ]
+                      },
+                      " in it."
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Ghost bubbles are full width and can take the full width of the container."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__bubble-variants__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-12 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {},
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "This is the default primary bubble."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "secondary",
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "This is the secondary variant."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "This one is muted. It uses a lower emphasis color for the chat bubble."
+                ]
+              },
+              {
+                "c": "BubbleReactions",
+                "props": {
+                  "role": "img",
+                  "aria-label": "Reaction: thumbs up"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "👍"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "tinted",
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "This one is tinted. The tint is a softer color derived from the primary color."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "outline"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "We can also use an outlined variant."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "destructive",
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Or a destructive variant with a reaction."
+                ]
+              },
+              {
+                "c": "BubbleReactions",
+                "props": {
+                  "role": "img",
+                  "aria-label": "Reaction: fire"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "🔥"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "ghost"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Ghost bubbles work for assistant text, ",
+                      {
+                        "c": "_strong",
+                        "props": {},
+                        "children": [
+                          "markdown"
+                        ]
+                      },
+                      ", and other content that should not be framed."
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "This is perfect for assistant messages that should not have a frame and can take the full width of the container. You can also render ",
+                      {
+                        "c": "_code",
+                        "props": {},
+                        "children": [
+                          "code"
+                        ]
+                      },
+                      " in it."
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Ghost bubbles are full width and can take the full width of the container."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__bubble-demo__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Bubble",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Hey there! what's up?"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "BubbleGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "Bubble",
+                "props": {
+                  "variant": "muted"
+                },
+                "children": [
+                  {
+                    "c": "BubbleContent",
+                    "props": {},
+                    "children": [
+                      "Hey! Want to see chat bubbles?"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "Bubble",
+                "props": {
+                  "variant": "muted"
+                },
+                "children": [
+                  {
+                    "c": "BubbleContent",
+                    "props": {},
+                    "children": [
+                      "I can group messages, switch sides, and keep the whole thread easy to scan."
+                    ]
+                  },
+                  {
+                    "c": "BubbleReactions",
+                    "props": {
+                      "role": "img",
+                      "aria-label": "Reaction: thumbs up"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {},
+                        "children": [
+                          "👍"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Bubble",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Sure. Hit me with your best demo."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Bubble",
+            "props": {
+              "variant": "muted"
+            },
+            "children": [
+              {
+                "c": "BubbleContent",
+                "props": {},
+                "children": [
+                  "Yes. You are reading a demo that is demoing itself. Very meta. Very on-brand."
+                ]
+              },
+              {
+                "c": "BubbleReactions",
+                "props": {
+                  "role": "img",
+                  "aria-label": "Reactions: thumbs up, fire, eyes, and 2 more"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "👍"
+                    ]
+                  },
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "🔥"
+                    ]
+                  },
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "👀"
+                    ]
+                  },
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "+2"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

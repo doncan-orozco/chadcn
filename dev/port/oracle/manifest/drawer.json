@@ -1,0 +1,447 @@
+{
+  "name": "drawer",
+  "style": "new-york-v4",
+  "source_sha": "63f04fe50a4bf29b",
+  "use_client": true,
+  "tier": "third_party",
+  "exports": [
+    "Drawer",
+    "DrawerPortal",
+    "DrawerOverlay",
+    "DrawerTrigger",
+    "DrawerClose",
+    "DrawerContent",
+    "DrawerHeader",
+    "DrawerFooter",
+    "DrawerTitle",
+    "DrawerDescription"
+  ],
+  "parts": [
+    {
+      "name": "Drawer",
+      "data_attrs": [],
+      "data_slots": [
+        "drawer"
+      ],
+      "data_slot": "drawer",
+      "wraps": "DrawerPrimitive.Root",
+      "renders": "DrawerPrimitive.Root",
+      "slot_tags": {
+        "drawer": "DrawerPrimitive.Root"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "DrawerTrigger",
+      "data_attrs": [],
+      "data_slots": [
+        "drawer-trigger"
+      ],
+      "data_slot": "drawer-trigger",
+      "wraps": "DrawerPrimitive.Trigger",
+      "renders": "DrawerPrimitive.Trigger",
+      "slot_tags": {
+        "drawer-trigger": "DrawerPrimitive.Trigger"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "DrawerPortal",
+      "data_attrs": [],
+      "data_slots": [
+        "drawer-portal"
+      ],
+      "data_slot": "drawer-portal",
+      "wraps": "DrawerPrimitive.Portal",
+      "renders": "DrawerPrimitive.Portal",
+      "slot_tags": {
+        "drawer-portal": "DrawerPrimitive.Portal"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "DrawerClose",
+      "data_attrs": [],
+      "data_slots": [
+        "drawer-close"
+      ],
+      "data_slot": "drawer-close",
+      "wraps": "DrawerPrimitive.Close",
+      "renders": "DrawerPrimitive.Close",
+      "slot_tags": {
+        "drawer-close": "DrawerPrimitive.Close"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "DrawerOverlay",
+      "data_attrs": [],
+      "data_slots": [
+        "drawer-overlay"
+      ],
+      "data_slot": "drawer-overlay",
+      "wraps": "DrawerPrimitive.Overlay",
+      "renders": "DrawerPrimitive.Overlay",
+      "slot_tags": {
+        "drawer-overlay": "DrawerPrimitive.Overlay"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "bg-black/50",
+        "data-[state=closed]:animate-out",
+        "data-[state=closed]:fade-out-0",
+        "data-[state=open]:animate-in",
+        "data-[state=open]:fade-in-0",
+        "fixed",
+        "inset-0",
+        "z-50"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "DrawerContent",
+      "data_attrs": [],
+      "data_slots": [
+        "drawer-portal",
+        "drawer-content"
+      ],
+      "data_slot": "drawer-portal",
+      "wraps": "DrawerPrimitive.Content",
+      "renders": "DrawerPortal",
+      "slot_tags": {
+        "drawer-portal": "DrawerPortal",
+        "drawer-content": "DrawerPrimitive.Content"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "children"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "bg-background",
+        "bg-muted",
+        "data-[vaul-drawer-direction=bottom]:border-t",
+        "data-[vaul-drawer-direction=bottom]:bottom-0",
+        "data-[vaul-drawer-direction=bottom]:inset-x-0",
+        "data-[vaul-drawer-direction=bottom]:max-h-[80vh]",
+        "data-[vaul-drawer-direction=bottom]:mt-24",
+        "data-[vaul-drawer-direction=bottom]:rounded-t-lg",
+        "data-[vaul-drawer-direction=left]:border-r",
+        "data-[vaul-drawer-direction=left]:inset-y-0",
+        "data-[vaul-drawer-direction=left]:left-0",
+        "data-[vaul-drawer-direction=left]:sm:max-w-sm",
+        "data-[vaul-drawer-direction=left]:w-3/4",
+        "data-[vaul-drawer-direction=right]:border-l",
+        "data-[vaul-drawer-direction=right]:inset-y-0",
+        "data-[vaul-drawer-direction=right]:right-0",
+        "data-[vaul-drawer-direction=right]:sm:max-w-sm",
+        "data-[vaul-drawer-direction=right]:w-3/4",
+        "data-[vaul-drawer-direction=top]:border-b",
+        "data-[vaul-drawer-direction=top]:inset-x-0",
+        "data-[vaul-drawer-direction=top]:max-h-[80vh]",
+        "data-[vaul-drawer-direction=top]:mb-24",
+        "data-[vaul-drawer-direction=top]:rounded-b-lg",
+        "data-[vaul-drawer-direction=top]:top-0",
+        "fixed",
+        "flex",
+        "flex-col",
+        "group-data-[vaul-drawer-direction=bottom]/drawer-content:block",
+        "group/drawer-content",
+        "h-2",
+        "h-auto",
+        "hidden",
+        "mt-4",
+        "mx-auto",
+        "rounded-full",
+        "shrink-0",
+        "w-[100px]",
+        "z-50"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "DrawerHeader",
+      "data_attrs": [],
+      "data_slots": [
+        "drawer-header"
+      ],
+      "data_slot": "drawer-header",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "flex-col",
+        "gap-0.5",
+        "group-data-[vaul-drawer-direction=bottom]/drawer-content:text-center",
+        "group-data-[vaul-drawer-direction=top]/drawer-content:text-center",
+        "md:gap-1.5",
+        "md:text-left",
+        "p-4"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "DrawerFooter",
+      "data_attrs": [],
+      "data_slots": [
+        "drawer-footer"
+      ],
+      "data_slot": "drawer-footer",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "flex-col",
+        "gap-2",
+        "mt-auto",
+        "p-4"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "DrawerTitle",
+      "data_attrs": [],
+      "data_slots": [
+        "drawer-title"
+      ],
+      "data_slot": "drawer-title",
+      "wraps": "DrawerPrimitive.Title",
+      "renders": "DrawerPrimitive.Title",
+      "slot_tags": {
+        "drawer-title": "DrawerPrimitive.Title"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "font-semibold",
+        "text-foreground"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "DrawerDescription",
+      "data_attrs": [],
+      "data_slots": [
+        "drawer-description"
+      ],
+      "data_slot": "drawer-description",
+      "wraps": "DrawerPrimitive.Description",
+      "renders": "DrawerPrimitive.Description",
+      "slot_tags": {
+        "drawer-description": "DrawerPrimitive.Description"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "text-muted-foreground",
+        "text-sm"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "bg-background",
+    "bg-black/50",
+    "bg-muted",
+    "data-[state=closed]:animate-out",
+    "data-[state=closed]:fade-out-0",
+    "data-[state=open]:animate-in",
+    "data-[state=open]:fade-in-0",
+    "data-[vaul-drawer-direction=bottom]:border-t",
+    "data-[vaul-drawer-direction=bottom]:bottom-0",
+    "data-[vaul-drawer-direction=bottom]:inset-x-0",
+    "data-[vaul-drawer-direction=bottom]:max-h-[80vh]",
+    "data-[vaul-drawer-direction=bottom]:mt-24",
+    "data-[vaul-drawer-direction=bottom]:rounded-t-lg",
+    "data-[vaul-drawer-direction=left]:border-r",
+    "data-[vaul-drawer-direction=left]:inset-y-0",
+    "data-[vaul-drawer-direction=left]:left-0",
+    "data-[vaul-drawer-direction=left]:sm:max-w-sm",
+    "data-[vaul-drawer-direction=left]:w-3/4",
+    "data-[vaul-drawer-direction=right]:border-l",
+    "data-[vaul-drawer-direction=right]:inset-y-0",
+    "data-[vaul-drawer-direction=right]:right-0",
+    "data-[vaul-drawer-direction=right]:sm:max-w-sm",
+    "data-[vaul-drawer-direction=right]:w-3/4",
+    "data-[vaul-drawer-direction=top]:border-b",
+    "data-[vaul-drawer-direction=top]:inset-x-0",
+    "data-[vaul-drawer-direction=top]:max-h-[80vh]",
+    "data-[vaul-drawer-direction=top]:mb-24",
+    "data-[vaul-drawer-direction=top]:rounded-b-lg",
+    "data-[vaul-drawer-direction=top]:top-0",
+    "fixed",
+    "flex",
+    "flex-col",
+    "font-semibold",
+    "gap-0.5",
+    "gap-2",
+    "group-data-[vaul-drawer-direction=bottom]/drawer-content:block",
+    "group-data-[vaul-drawer-direction=bottom]/drawer-content:text-center",
+    "group-data-[vaul-drawer-direction=top]/drawer-content:text-center",
+    "group/drawer-content",
+    "h-2",
+    "h-auto",
+    "hidden",
+    "inset-0",
+    "md:gap-1.5",
+    "md:text-left",
+    "mt-4",
+    "mt-auto",
+    "mx-auto",
+    "p-4",
+    "rounded-full",
+    "shrink-0",
+    "text-foreground",
+    "text-muted-foreground",
+    "text-sm",
+    "w-[100px]",
+    "z-50"
+  ],
+  "data_attrs": [],
+  "data_slots": [
+    "drawer",
+    "drawer-close",
+    "drawer-content",
+    "drawer-description",
+    "drawer-footer",
+    "drawer-header",
+    "drawer-overlay",
+    "drawer-portal",
+    "drawer-title",
+    "drawer-trigger"
+  ],
+  "non_rendered_slots": [
+    "drawer-portal"
+  ],
+  "radix_primitives": [],
+  "third_party": [
+    "vaul"
+  ],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn",
+    "vaul"
+  ],
+  "extra_files": []
+}

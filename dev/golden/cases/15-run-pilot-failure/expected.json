@@ -1,0 +1,24 @@
+{
+  "case": "15-run-pilot-failure",
+  "kind": "run",
+  "description": "A pilot component cannot go green: the run must STOP at the pilot checkpoint, before any later pilot mini-wave or fan-out component is dispatched.",
+  "concurrency": 4,
+  "outcomes": {
+    "switch": "blocked"
+  },
+  "expect": {
+    "stop_reason": "pilot_blocked",
+    "never_dispatched": [
+      "dialog",
+      "badge",
+      "card",
+      "alert-dialog"
+    ],
+    "final_status": {
+      "switch": "blocked",
+      "button": "done",
+      "dialog": "pending",
+      "badge": "pending"
+    }
+  }
+}

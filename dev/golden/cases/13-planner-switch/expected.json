@@ -1,0 +1,9 @@
+{
+  "case": "13-planner-switch",
+  "kind": "planner",
+  "component": "switch",
+  "description": "Planner on an interactive Radix component (switch: size option, checked/unchecked, disabled, keyboard). Output must include a Behavior section and stepped scenarios (Tab focus, Space, click).",
+  "min_scenarios": 10,
+  "must_have_dark": true,
+  "must_have_step_kinds": ["press", "click", "tab"]
+}

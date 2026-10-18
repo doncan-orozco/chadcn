@@ -1,0 +1,331 @@
+{
+  "name": "avatar",
+  "style": "new-york-v4",
+  "source_sha": "0c5c48b8a1dff4fd",
+  "use_client": true,
+  "tier": "radix_stateful",
+  "exports": [
+    "Avatar",
+    "AvatarImage",
+    "AvatarFallback",
+    "AvatarBadge",
+    "AvatarGroup",
+    "AvatarGroupCount"
+  ],
+  "parts": [
+    {
+      "name": "Avatar",
+      "data_attrs": [
+        {
+          "name": "data-size",
+          "value": "{size}"
+        }
+      ],
+      "data_slots": [
+        "avatar"
+      ],
+      "data_slot": "avatar",
+      "wraps": "AvatarPrimitive.Root",
+      "renders": "AvatarPrimitive.Root",
+      "slot_tags": {
+        "avatar": "AvatarPrimitive.Root"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "size",
+            "default": "\"default\""
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "size",
+            "type": "\"default\" | \"sm\" | \"lg\""
+          }
+        ]
+      },
+      "class_tokens": [
+        "data-[size=lg]:size-10",
+        "data-[size=sm]:size-6",
+        "flex",
+        "group/avatar",
+        "overflow-hidden",
+        "relative",
+        "rounded-full",
+        "select-none",
+        "shrink-0",
+        "size-8"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "AvatarImage",
+      "data_attrs": [],
+      "data_slots": [
+        "avatar-image"
+      ],
+      "data_slot": "avatar-image",
+      "wraps": "AvatarPrimitive.Image",
+      "renders": "AvatarPrimitive.Image",
+      "slot_tags": {
+        "avatar-image": "AvatarPrimitive.Image"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "aspect-square",
+        "size-full"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "AvatarFallback",
+      "data_attrs": [],
+      "data_slots": [
+        "avatar-fallback"
+      ],
+      "data_slot": "avatar-fallback",
+      "wraps": "AvatarPrimitive.Fallback",
+      "renders": "AvatarPrimitive.Fallback",
+      "slot_tags": {
+        "avatar-fallback": "AvatarPrimitive.Fallback"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "bg-muted",
+        "flex",
+        "group-data-[size=sm]/avatar:text-xs",
+        "items-center",
+        "justify-center",
+        "rounded-full",
+        "size-full",
+        "text-muted-foreground",
+        "text-sm"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "AvatarBadge",
+      "data_attrs": [],
+      "data_slots": [
+        "avatar-badge"
+      ],
+      "data_slot": "avatar-badge",
+      "wraps": null,
+      "renders": "span",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "absolute",
+        "bg-primary",
+        "bottom-0",
+        "group-data-[size=default]/avatar:[&>svg]:size-2",
+        "group-data-[size=default]/avatar:size-2.5",
+        "group-data-[size=lg]/avatar:[&>svg]:size-2",
+        "group-data-[size=lg]/avatar:size-3",
+        "group-data-[size=sm]/avatar:[&>svg]:hidden",
+        "group-data-[size=sm]/avatar:size-2",
+        "inline-flex",
+        "items-center",
+        "justify-center",
+        "right-0",
+        "ring-2",
+        "ring-background",
+        "rounded-full",
+        "select-none",
+        "text-primary-foreground",
+        "z-10"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "AvatarGroup",
+      "data_attrs": [],
+      "data_slots": [
+        "avatar-group"
+      ],
+      "data_slot": "avatar-group",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "*:data-[slot=avatar]:ring-2",
+        "*:data-[slot=avatar]:ring-background",
+        "-space-x-2",
+        "flex",
+        "group/avatar-group"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "AvatarGroupCount",
+      "data_attrs": [],
+      "data_slots": [
+        "avatar-group-count"
+      ],
+      "data_slot": "avatar-group-count",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "[&>svg]:size-4",
+        "bg-muted",
+        "flex",
+        "group-has-data-[size=lg]/avatar-group:[&>svg]:size-5",
+        "group-has-data-[size=lg]/avatar-group:size-10",
+        "group-has-data-[size=sm]/avatar-group:[&>svg]:size-3",
+        "group-has-data-[size=sm]/avatar-group:size-6",
+        "items-center",
+        "justify-center",
+        "relative",
+        "ring-2",
+        "ring-background",
+        "rounded-full",
+        "shrink-0",
+        "size-8",
+        "text-muted-foreground",
+        "text-sm"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "*:data-[slot=avatar]:ring-2",
+    "*:data-[slot=avatar]:ring-background",
+    "-space-x-2",
+    "[&>svg]:size-4",
+    "absolute",
+    "aspect-square",
+    "bg-muted",
+    "bg-primary",
+    "bottom-0",
+    "data-[size=lg]:size-10",
+    "data-[size=sm]:size-6",
+    "flex",
+    "group-data-[size=default]/avatar:[&>svg]:size-2",
+    "group-data-[size=default]/avatar:size-2.5",
+    "group-data-[size=lg]/avatar:[&>svg]:size-2",
+    "group-data-[size=lg]/avatar:size-3",
+    "group-data-[size=sm]/avatar:[&>svg]:hidden",
+    "group-data-[size=sm]/avatar:size-2",
+    "group-data-[size=sm]/avatar:text-xs",
+    "group-has-data-[size=lg]/avatar-group:[&>svg]:size-5",
+    "group-has-data-[size=lg]/avatar-group:size-10",
+    "group-has-data-[size=sm]/avatar-group:[&>svg]:size-3",
+    "group-has-data-[size=sm]/avatar-group:size-6",
+    "group/avatar",
+    "group/avatar-group",
+    "inline-flex",
+    "items-center",
+    "justify-center",
+    "overflow-hidden",
+    "relative",
+    "right-0",
+    "ring-2",
+    "ring-background",
+    "rounded-full",
+    "select-none",
+    "shrink-0",
+    "size-8",
+    "size-full",
+    "text-muted-foreground",
+    "text-primary-foreground",
+    "text-sm",
+    "z-10"
+  ],
+  "data_attrs": [
+    "data-size"
+  ],
+  "data_slots": [
+    "avatar",
+    "avatar-badge",
+    "avatar-fallback",
+    "avatar-group",
+    "avatar-group-count",
+    "avatar-image"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [
+    "Avatar"
+  ],
+  "third_party": [],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn",
+    "radix-ui"
+  ],
+  "extra_files": []
+}

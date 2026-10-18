@@ -1,0 +1,1568 @@
+{
+  "component": "_primitives-collection",
+  "scenarios": [
+    {
+      "id": "initial",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-collection",
+          "className": "flex w-96 flex-col gap-3 text-sm"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "controls",
+              "className": "flex gap-2"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "read",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Read"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "prepend",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Prepend"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "append",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Append"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "toggle",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Toggle"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "list",
+              "className": "flex flex-wrap gap-2"
+            },
+            "children": [
+              {
+                "c": "_span",
+                "props": {
+                  "data-slot": "item-a",
+                  "className": "rounded bg-muted px-2 py-1",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Alpha"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "group",
+                  "className": "flex gap-2 rounded border p-1"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "item-b",
+                      "className": "rounded bg-muted px-2 py-1",
+                      "data-radix-collection-item": ""
+                    },
+                    "children": [
+                      "Beta"
+                    ]
+                  },
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "item-c",
+                      "className": "rounded bg-muted px-2 py-1",
+                      "data-radix-collection-item": ""
+                    },
+                    "children": [
+                      "Gamma"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_span",
+                "props": {
+                  "data-slot": "item-d",
+                  "className": "rounded bg-muted px-2 py-1",
+                  "data-radix-collection-item": "",
+                  "data-text-value": "Delta override"
+                },
+                "children": [
+                  "Delta"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_p",
+            "props": {
+              "data-slot": "out"
+            },
+            "children": []
+          },
+          {
+            "c": "_p",
+            "props": {
+              "data-slot": "out-all"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "read",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-collection",
+          "className": "flex w-96 flex-col gap-3 text-sm"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "controls",
+              "className": "flex gap-2"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "read",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Read"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "prepend",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Prepend"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "append",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Append"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "toggle",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Toggle"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "list",
+              "className": "flex flex-wrap gap-2"
+            },
+            "children": [
+              {
+                "c": "_span",
+                "props": {
+                  "data-slot": "item-a",
+                  "className": "rounded bg-muted px-2 py-1",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Alpha"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "group",
+                  "className": "flex gap-2 rounded border p-1"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "item-b",
+                      "className": "rounded bg-muted px-2 py-1",
+                      "data-radix-collection-item": ""
+                    },
+                    "children": [
+                      "Beta"
+                    ]
+                  },
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "item-c",
+                      "className": "rounded bg-muted px-2 py-1",
+                      "data-radix-collection-item": ""
+                    },
+                    "children": [
+                      "Gamma"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_span",
+                "props": {
+                  "data-slot": "item-d",
+                  "className": "rounded bg-muted px-2 py-1",
+                  "data-radix-collection-item": "",
+                  "data-text-value": "Delta override"
+                },
+                "children": [
+                  "Delta"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_p",
+            "props": {
+              "data-slot": "out"
+            },
+            "children": []
+          },
+          {
+            "c": "_p",
+            "props": {
+              "data-slot": "out-all"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=read]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled-initial",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-collection",
+          "className": "flex w-96 flex-col gap-3 text-sm"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "controls",
+              "className": "flex gap-2"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "read",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Read"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "prepend",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Prepend"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "append",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Append"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "toggle",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Toggle"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "list",
+              "className": "flex flex-wrap gap-2"
+            },
+            "children": [
+              {
+                "c": "_span",
+                "props": {
+                  "data-slot": "item-a",
+                  "className": "rounded bg-muted px-2 py-1",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Alpha"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "group",
+                  "className": "flex gap-2 rounded border p-1"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "item-b",
+                      "className": "rounded bg-muted px-2 py-1",
+                      "data-radix-collection-item": ""
+                    },
+                    "children": [
+                      "Beta"
+                    ]
+                  },
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "item-c",
+                      "className": "rounded bg-muted px-2 py-1 opacity-50",
+                      "data-radix-collection-item": "",
+                      "data-disabled": ""
+                    },
+                    "children": [
+                      "Gamma"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_span",
+                "props": {
+                  "data-slot": "item-d",
+                  "className": "rounded bg-muted px-2 py-1",
+                  "data-radix-collection-item": "",
+                  "data-text-value": "Delta override"
+                },
+                "children": [
+                  "Delta"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_p",
+            "props": {
+              "data-slot": "out"
+            },
+            "children": []
+          },
+          {
+            "c": "_p",
+            "props": {
+              "data-slot": "out-all"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=read]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled-first-and-last",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-collection",
+          "className": "flex w-96 flex-col gap-3 text-sm"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "controls",
+              "className": "flex gap-2"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "read",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Read"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "prepend",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Prepend"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "append",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Append"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "toggle",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Toggle"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "list",
+              "className": "flex flex-wrap gap-2"
+            },
+            "children": [
+              {
+                "c": "_span",
+                "props": {
+                  "data-slot": "item-a",
+                  "className": "rounded bg-muted px-2 py-1 opacity-50",
+                  "data-radix-collection-item": "",
+                  "data-disabled": ""
+                },
+                "children": [
+                  "Alpha"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "group",
+                  "className": "flex gap-2 rounded border p-1"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "item-b",
+                      "className": "rounded bg-muted px-2 py-1",
+                      "data-radix-collection-item": ""
+                    },
+                    "children": [
+                      "Beta"
+                    ]
+                  },
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "item-c",
+                      "className": "rounded bg-muted px-2 py-1",
+                      "data-radix-collection-item": ""
+                    },
+                    "children": [
+                      "Gamma"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_span",
+                "props": {
+                  "data-slot": "item-d",
+                  "className": "rounded bg-muted px-2 py-1 opacity-50",
+                  "data-radix-collection-item": "",
+                  "data-disabled": "",
+                  "data-text-value": "Delta override"
+                },
+                "children": [
+                  "Delta"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_p",
+            "props": {
+              "data-slot": "out"
+            },
+            "children": []
+          },
+          {
+            "c": "_p",
+            "props": {
+              "data-slot": "out-all"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=read]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "prepend",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-collection",
+          "className": "flex w-96 flex-col gap-3 text-sm"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "controls",
+              "className": "flex gap-2"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "read",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Read"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "prepend",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Prepend"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "append",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Append"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "toggle",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Toggle"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "list",
+              "className": "flex flex-wrap gap-2"
+            },
+            "children": [
+              {
+                "c": "_span",
+                "props": {
+                  "data-slot": "item-a",
+                  "className": "rounded bg-muted px-2 py-1",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Alpha"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "group",
+                  "className": "flex gap-2 rounded border p-1"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "item-b",
+                      "className": "rounded bg-muted px-2 py-1",
+                      "data-radix-collection-item": ""
+                    },
+                    "children": [
+                      "Beta"
+                    ]
+                  },
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "item-c",
+                      "className": "rounded bg-muted px-2 py-1",
+                      "data-radix-collection-item": ""
+                    },
+                    "children": [
+                      "Gamma"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_span",
+                "props": {
+                  "data-slot": "item-d",
+                  "className": "rounded bg-muted px-2 py-1",
+                  "data-radix-collection-item": "",
+                  "data-text-value": "Delta override"
+                },
+                "children": [
+                  "Delta"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_p",
+            "props": {
+              "data-slot": "out"
+            },
+            "children": []
+          },
+          {
+            "c": "_p",
+            "props": {
+              "data-slot": "out-all"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=prepend]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=read]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=prepend]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=read]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "append",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-collection",
+          "className": "flex w-96 flex-col gap-3 text-sm"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "controls",
+              "className": "flex gap-2"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "read",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Read"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "prepend",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Prepend"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "append",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Append"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "toggle",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Toggle"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "list",
+              "className": "flex flex-wrap gap-2"
+            },
+            "children": [
+              {
+                "c": "_span",
+                "props": {
+                  "data-slot": "item-a",
+                  "className": "rounded bg-muted px-2 py-1",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Alpha"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "group",
+                  "className": "flex gap-2 rounded border p-1"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "item-b",
+                      "className": "rounded bg-muted px-2 py-1",
+                      "data-radix-collection-item": ""
+                    },
+                    "children": [
+                      "Beta"
+                    ]
+                  },
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "item-c",
+                      "className": "rounded bg-muted px-2 py-1",
+                      "data-radix-collection-item": ""
+                    },
+                    "children": [
+                      "Gamma"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_span",
+                "props": {
+                  "data-slot": "item-d",
+                  "className": "rounded bg-muted px-2 py-1",
+                  "data-radix-collection-item": "",
+                  "data-text-value": "Delta override"
+                },
+                "children": [
+                  "Delta"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_p",
+            "props": {
+              "data-slot": "out"
+            },
+            "children": []
+          },
+          {
+            "c": "_p",
+            "props": {
+              "data-slot": "out-all"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=append]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=append]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=read]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "toggle-disabled",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-collection",
+          "className": "flex w-96 flex-col gap-3 text-sm"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "controls",
+              "className": "flex gap-2"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "read",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Read"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "prepend",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Prepend"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "append",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Append"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "toggle",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Toggle"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "list",
+              "className": "flex flex-wrap gap-2"
+            },
+            "children": [
+              {
+                "c": "_span",
+                "props": {
+                  "data-slot": "item-a",
+                  "className": "rounded bg-muted px-2 py-1",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Alpha"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "group",
+                  "className": "flex gap-2 rounded border p-1"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "item-b",
+                      "className": "rounded bg-muted px-2 py-1",
+                      "data-radix-collection-item": ""
+                    },
+                    "children": [
+                      "Beta"
+                    ]
+                  },
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "item-c",
+                      "className": "rounded bg-muted px-2 py-1",
+                      "data-radix-collection-item": ""
+                    },
+                    "children": [
+                      "Gamma"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_span",
+                "props": {
+                  "data-slot": "item-d",
+                  "className": "rounded bg-muted px-2 py-1",
+                  "data-radix-collection-item": "",
+                  "data-text-value": "Delta override"
+                },
+                "children": [
+                  "Delta"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_p",
+            "props": {
+              "data-slot": "out"
+            },
+            "children": []
+          },
+          {
+            "c": "_p",
+            "props": {
+              "data-slot": "out-all"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=read]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=read]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "toggle-from-disabled",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-collection",
+          "className": "flex w-96 flex-col gap-3 text-sm"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "controls",
+              "className": "flex gap-2"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "read",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Read"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "prepend",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Prepend"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "append",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Append"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "toggle",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Toggle"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "list",
+              "className": "flex flex-wrap gap-2"
+            },
+            "children": [
+              {
+                "c": "_span",
+                "props": {
+                  "data-slot": "item-a",
+                  "className": "rounded bg-muted px-2 py-1",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Alpha"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "group",
+                  "className": "flex gap-2 rounded border p-1"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "item-b",
+                      "className": "rounded bg-muted px-2 py-1 opacity-50",
+                      "data-radix-collection-item": "",
+                      "data-disabled": ""
+                    },
+                    "children": [
+                      "Beta"
+                    ]
+                  },
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "item-c",
+                      "className": "rounded bg-muted px-2 py-1",
+                      "data-radix-collection-item": ""
+                    },
+                    "children": [
+                      "Gamma"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_span",
+                "props": {
+                  "data-slot": "item-d",
+                  "className": "rounded bg-muted px-2 py-1",
+                  "data-radix-collection-item": "",
+                  "data-text-value": "Delta override"
+                },
+                "children": [
+                  "Delta"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_p",
+            "props": {
+              "data-slot": "out"
+            },
+            "children": []
+          },
+          {
+            "c": "_p",
+            "props": {
+              "data-slot": "out-all"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=read]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=read]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "mixed-dynamic",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-collection",
+          "className": "flex w-96 flex-col gap-3 text-sm"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "controls",
+              "className": "flex gap-2"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "read",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Read"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "prepend",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Prepend"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "append",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Append"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "toggle",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Toggle"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "list",
+              "className": "flex flex-wrap gap-2"
+            },
+            "children": [
+              {
+                "c": "_span",
+                "props": {
+                  "data-slot": "item-a",
+                  "className": "rounded bg-muted px-2 py-1",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Alpha"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "group",
+                  "className": "flex gap-2 rounded border p-1"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "item-b",
+                      "className": "rounded bg-muted px-2 py-1",
+                      "data-radix-collection-item": ""
+                    },
+                    "children": [
+                      "Beta"
+                    ]
+                  },
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "item-c",
+                      "className": "rounded bg-muted px-2 py-1",
+                      "data-radix-collection-item": ""
+                    },
+                    "children": [
+                      "Gamma"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_span",
+                "props": {
+                  "data-slot": "item-d",
+                  "className": "rounded bg-muted px-2 py-1",
+                  "data-radix-collection-item": "",
+                  "data-text-value": "Delta override"
+                },
+                "children": [
+                  "Delta"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_p",
+            "props": {
+              "data-slot": "out"
+            },
+            "children": []
+          },
+          {
+            "c": "_p",
+            "props": {
+              "data-slot": "out-all"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=prepend]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=append]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=read]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=prepend]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=read]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-collection",
+          "className": "flex w-96 flex-col gap-3 text-sm"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "controls",
+              "className": "flex gap-2"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "read",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Read"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "prepend",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Prepend"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "append",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Append"
+                ]
+              },
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "toggle",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Toggle"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "list",
+              "className": "flex flex-wrap gap-2"
+            },
+            "children": [
+              {
+                "c": "_span",
+                "props": {
+                  "data-slot": "item-a",
+                  "className": "rounded bg-muted px-2 py-1",
+                  "data-radix-collection-item": ""
+                },
+                "children": [
+                  "Alpha"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "group",
+                  "className": "flex gap-2 rounded border p-1"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "item-b",
+                      "className": "rounded bg-muted px-2 py-1",
+                      "data-radix-collection-item": ""
+                    },
+                    "children": [
+                      "Beta"
+                    ]
+                  },
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "item-c",
+                      "className": "rounded bg-muted px-2 py-1",
+                      "data-radix-collection-item": ""
+                    },
+                    "children": [
+                      "Gamma"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_span",
+                "props": {
+                  "data-slot": "item-d",
+                  "className": "rounded bg-muted px-2 py-1",
+                  "data-radix-collection-item": "",
+                  "data-text-value": "Delta override"
+                },
+                "children": [
+                  "Delta"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_p",
+            "props": {
+              "data-slot": "out"
+            },
+            "children": []
+          },
+          {
+            "c": "_p",
+            "props": {
+              "data-slot": "out-all"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=read]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

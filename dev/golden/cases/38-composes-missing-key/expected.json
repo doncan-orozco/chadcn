@@ -1,0 +1,12 @@
+{
+  "case": "38-composes-missing-key",
+  "kind": "scenario",
+  "component": "button",
+  "description": "Badge export used in a button scenario without a composes key still fails.",
+  "must_detect": [
+    "SC_UNKNOWN_COMPONENT"
+  ],
+  "must_not_detect": [
+    "SC_COMPOSES_INVALID"
+  ]
+}

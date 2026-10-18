@@ -1,0 +1,6 @@
+{
+  "reason": "Radix Label skips the caller's onMouseDown when the target is inside button/input/select/textarea (label.mjs:18-19); Ruby callers use data-action listeners, which Stimulus always fires, so that suppression of caller handlers cannot be reproduced. The label's own double-click preventDefault logic is identical.",
+  "allow_tokens": [],
+  "allow_missing_tokens": [],
+  "api": ["Label: caller mousedown data-action is not suppressed for targets inside button/input/select/textarea"]
+}

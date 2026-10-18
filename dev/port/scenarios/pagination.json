@@ -1,0 +1,5161 @@
+{
+  "component": "pagination",
+  "scenarios": [
+    {
+      "id": "defaults",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "isActive": true
+                    },
+                    "children": [
+                      "2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "3"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "defaults__dark",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "isActive": true
+                    },
+                    "children": [
+                      "2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "3"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__pagination-demo",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationPrevious",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "isActive": true
+                    },
+                    "children": [
+                      "2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationEllipsis",
+                    "props": {},
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationNext",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__pagination-demo__dark",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationPrevious",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "isActive": true
+                    },
+                    "children": [
+                      "2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationEllipsis",
+                    "props": {},
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationNext",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-pagination__empty",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": []
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-content__empty",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-item__text-only",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  "Plain text item"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-item__empty",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-link__default",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-link__no-href",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {},
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-link__active",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "isActive": true
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-link__active-false",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "isActive": false
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-previous__default",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationPrevious",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-previous__default__dark",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationPrevious",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-previous__no-href",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationPrevious",
+                    "props": {},
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-previous__active",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationPrevious",
+                    "props": {
+                      "href": "#",
+                      "isActive": true
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-next__default",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationNext",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-next__default__dark",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationNext",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-next__active",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationNext",
+                    "props": {
+                      "href": "#",
+                      "isActive": true
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-ellipsis__default",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationEllipsis",
+                    "props": {},
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-ellipsis__default__dark",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationEllipsis",
+                    "props": {},
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "link-ghost__size-default",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "size": "default"
+                    },
+                    "children": [
+                      "Page 1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "link-ghost__size-xs",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "size": "xs"
+                    },
+                    "children": [
+                      "Page 1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "link-ghost__size-sm",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "size": "sm"
+                    },
+                    "children": [
+                      "Page 1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "link-ghost__size-lg",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "size": "lg"
+                    },
+                    "children": [
+                      "Page 1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "link-ghost__size-icon",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "size": "icon"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "link-ghost__size-icon-xs",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "size": "icon-xs"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "link-ghost__size-icon-sm",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "size": "icon-sm"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "link-ghost__size-icon-lg",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "size": "icon-lg"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "link-ghost__size-unset__dark",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "link-ghost__size-default__dark",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "size": "default"
+                    },
+                    "children": [
+                      "Page 1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "link-outline__size-default",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "size": "default",
+                      "isActive": true
+                    },
+                    "children": [
+                      "Page 1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "link-outline__size-xs",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "size": "xs",
+                      "isActive": true
+                    },
+                    "children": [
+                      "Page 1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "link-outline__size-sm",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "size": "sm",
+                      "isActive": true
+                    },
+                    "children": [
+                      "Page 1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "link-outline__size-lg",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "size": "lg",
+                      "isActive": true
+                    },
+                    "children": [
+                      "Page 1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "link-outline__size-icon",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "size": "icon",
+                      "isActive": true
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "link-outline__size-icon-xs",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "size": "icon-xs",
+                      "isActive": true
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "link-outline__size-icon-sm",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "size": "icon-sm",
+                      "isActive": true
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "link-outline__size-icon-lg",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "size": "icon-lg",
+                      "isActive": true
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "link-outline__size-unset__dark",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "isActive": true
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "link-outline__size-default__dark",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "size": "default",
+                      "isActive": true
+                    },
+                    "children": [
+                      "Page 1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__link-icon-only",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "aria-label": "Go to first page"
+                    },
+                    "children": [
+                      "<icon:chevrons-left>"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__link-icon-text",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "size": "default"
+                    },
+                    "children": [
+                      "<icon:chevrons-left>",
+                      "First"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__link-text-icon",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "size": "default"
+                    },
+                    "children": [
+                      "Last",
+                      "<icon:chevrons-right>"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__link-icon-sized",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "<icon:chevrons-right>"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__link-multi-digit-overflow",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "1000"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__link-long-text-default-size",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "size": "default"
+                    },
+                    "children": [
+                      "A very long page label that keeps going"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 320,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__link-empty",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__many-pages-narrow",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationPrevious",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "4"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "isActive": true
+                    },
+                    "children": [
+                      "5"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "6"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "7"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "8"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "9"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationNext",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 320,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__first-page",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "isActive": true
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationEllipsis",
+                    "props": {},
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationNext",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__last-page",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationPrevious",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationEllipsis",
+                    "props": {},
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "8"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "9"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "isActive": true
+                    },
+                    "children": [
+                      "10"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "state-link-ghost__hover",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationPrevious",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "isActive": true
+                    },
+                    "children": [
+                      "2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationEllipsis",
+                    "props": {},
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationNext",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=pagination-link] >> nth=1"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "state-link-ghost__hover__dark",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationPrevious",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "isActive": true
+                    },
+                    "children": [
+                      "2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationEllipsis",
+                    "props": {},
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationNext",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=pagination-link] >> nth=1"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "state-link-outline__hover",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationPrevious",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "isActive": true
+                    },
+                    "children": [
+                      "2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationEllipsis",
+                    "props": {},
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationNext",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=pagination-link][data-active=true]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "state-link-outline__hover__dark",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationPrevious",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "isActive": true
+                    },
+                    "children": [
+                      "2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationEllipsis",
+                    "props": {},
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationNext",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=pagination-link][data-active=true]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "state-previous__hover",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationPrevious",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "isActive": true
+                    },
+                    "children": [
+                      "2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationEllipsis",
+                    "props": {},
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationNext",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "role=link[name=\"Go to previous page\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "state-next__hover",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationPrevious",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "isActive": true
+                    },
+                    "children": [
+                      "2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationEllipsis",
+                    "props": {},
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationNext",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "role=link[name=\"Go to next page\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "state-ellipsis__hover",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationPrevious",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "isActive": true
+                    },
+                    "children": [
+                      "2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationEllipsis",
+                    "props": {},
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationNext",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=pagination-ellipsis]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "state-link__focus-visible",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationPrevious",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "isActive": true
+                    },
+                    "children": [
+                      "2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationEllipsis",
+                    "props": {},
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationNext",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "state-link__focus-visible__dark",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationPrevious",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "isActive": true
+                    },
+                    "children": [
+                      "2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationEllipsis",
+                    "props": {},
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationNext",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "state-link-outline__focus-visible",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationPrevious",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "isActive": true
+                    },
+                    "children": [
+                      "2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationEllipsis",
+                    "props": {},
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationNext",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "state-tab-order__full",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationPrevious",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "isActive": true
+                    },
+                    "children": [
+                      "2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationEllipsis",
+                    "props": {},
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationNext",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "state-link__focus-click",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationPrevious",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "isActive": true
+                    },
+                    "children": [
+                      "2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationEllipsis",
+                    "props": {},
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationNext",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=pagination-link] >> nth=1"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "state-link__aria-invalid",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "aria-invalid": "true"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "state-link__aria-invalid__dark",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "aria-invalid": "true"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "state-link__aria-invalid-focus",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "aria-invalid": "true"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "state-link__aria-disabled",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "aria-disabled": "true",
+                      "tabIndex": -1
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "responsive__below-sm",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationPrevious",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "isActive": true
+                    },
+                    "children": [
+                      "2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationEllipsis",
+                    "props": {},
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationNext",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 600,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "responsive__below-sm__dark",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationPrevious",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "isActive": true
+                    },
+                    "children": [
+                      "2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationEllipsis",
+                    "props": {},
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationNext",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 600,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "responsive__resize-across-sm",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationPrevious",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "isActive": true
+                    },
+                    "children": [
+                      "2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationEllipsis",
+                    "props": {},
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationNext",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "viewport",
+          "width": 600,
+          "height": 700
+        },
+        {
+          "do": "viewport",
+          "width": 900,
+          "height": 700
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__nav-class-merge-conflict",
+      "tree": {
+        "c": "Pagination",
+        "props": {
+          "className": "justify-start mx-0 w-auto"
+        },
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__nav-aria-label-override",
+      "tree": {
+        "c": "Pagination",
+        "props": {
+          "aria-label": "Search results pages"
+        },
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__nav-role-override",
+      "tree": {
+        "c": "Pagination",
+        "props": {
+          "role": "region"
+        },
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__nav-forwarded-attrs",
+      "tree": {
+        "c": "Pagination",
+        "props": {
+          "id": "pager",
+          "data-testid": "pager",
+          "aria-describedby": "pager-help"
+        },
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__content-class-merge-conflict",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {
+              "className": "gap-3 flex-col"
+            },
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "2"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__content-forwarded-attrs",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {
+              "id": "pager-list",
+              "data-foo": "bar"
+            },
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__item-class-not-merged",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {
+                  "className": "p-2 p-4 border"
+                },
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__item-forwarded-attrs",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {
+                  "id": "item-1",
+                  "aria-label": "first",
+                  "data-slot": "custom-item"
+                },
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__link-class-merge-conflict",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "className": "rounded-full size-10 gap-4"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__link-active-class-merge-conflict",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "isActive": true,
+                      "className": "border-primary bg-primary text-primary-foreground"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__link-forwarded-attrs",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "id": "page-1",
+                      "target": "_blank",
+                      "rel": "noopener",
+                      "aria-label": "Page 1",
+                      "title": "First"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__link-data-slot-override",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "data-slot": "custom-link"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__link-aria-current-override",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "isActive": true,
+                      "aria-current": "step"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__link-data-active-override",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationLink",
+                    "props": {
+                      "href": "#",
+                      "data-active": "yes"
+                    },
+                    "children": [
+                      "1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__previous-class-merge-conflict",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationPrevious",
+                    "props": {
+                      "href": "#",
+                      "className": "px-4 gap-2 sm:pl-4"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__previous-aria-label-override",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationPrevious",
+                    "props": {
+                      "href": "#",
+                      "aria-label": "Previous results"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__previous-size-override",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationPrevious",
+                    "props": {
+                      "href": "#",
+                      "size": "icon"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__previous-size-lg",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationPrevious",
+                    "props": {
+                      "href": "#",
+                      "size": "lg"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__previous-ignores-children",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationPrevious",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "ignored child"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__next-class-merge-conflict",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationNext",
+                    "props": {
+                      "href": "#",
+                      "className": "px-4 gap-2 sm:pr-4"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__next-aria-label-override",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationNext",
+                    "props": {
+                      "href": "#",
+                      "aria-label": "Next results"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__next-size-sm",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationNext",
+                    "props": {
+                      "href": "#",
+                      "size": "sm"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__next-ignores-children",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationNext",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "ignored child"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__next-forwarded-attrs",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationNext",
+                    "props": {
+                      "href": "/page/3",
+                      "id": "next",
+                      "rel": "next",
+                      "data-slot": "custom-next"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__ellipsis-class-merge-conflict",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationEllipsis",
+                    "props": {
+                      "className": "size-6 justify-start"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__ellipsis-forwarded-attrs",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationEllipsis",
+                    "props": {
+                      "id": "more",
+                      "data-foo": "bar",
+                      "aria-hidden": "false"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__ellipsis-ignores-children",
+      "tree": {
+        "c": "Pagination",
+        "props": {},
+        "children": [
+          {
+            "c": "PaginationContent",
+            "props": {},
+            "children": [
+              {
+                "c": "PaginationItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "PaginationEllipsis",
+                    "props": {},
+                    "children": [
+                      "ignored child"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

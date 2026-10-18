@@ -1,0 +1,58 @@
+{
+  "case": "14-run-happy",
+  "kind": "run",
+  "description": "Full run, all builders succeed: infra respects its internal dependencies, pilots before fan-out, dependencies before dependents, nothing dispatched twice, run completes.",
+  "concurrency": 4,
+  "expect": {
+    "completed": true,
+    "stop_reason": null,
+    "dispatched_once": true,
+    "dispatched_before": [
+      [
+        "_theme",
+        "_harness"
+      ],
+      [
+        "_base",
+        "_harness"
+      ],
+      [
+        "_icons",
+        "_harness"
+      ],
+      [
+        "_harness",
+        "_primitives"
+      ],
+      [
+        "_primitives",
+        "button"
+      ],
+      [
+        "button",
+        "dialog"
+      ],
+      [
+        "dialog",
+        "badge"
+      ],
+      [
+        "dialog",
+        "card"
+      ],
+      [
+        "button",
+        "alert-dialog"
+      ]
+    ],
+    "final_status": {
+      "button": "done",
+      "switch": "done",
+      "dialog": "done",
+      "badge": "done",
+      "card": "done",
+      "alert-dialog": "done",
+      "_primitives": "done"
+    }
+  }
+}

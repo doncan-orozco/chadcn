@@ -1,0 +1,10 @@
+{
+  "component": "card",
+  "reason": "Needs one extra token | with a pipe.",
+  "allow_tokens": [
+    "bg-white"
+  ],
+  "allow_missing_tokens": [
+    "border"
+  ]
+}

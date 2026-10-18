@@ -1,0 +1,11 @@
+{
+  "case": "04-dialog-reimplements",
+  "kind": "agent",
+  "component": "dialog",
+  "description": "Controller re-implements Esc, focus trap and scroll lock although primitives exist; no focus return; no Presence; listener not released.",
+  "static_must_pass": false,
+  "agent_must_find": ["Q_PRIMITIVE_REUSE", "Q_CLEANUP"],
+  "agent_must_mention": ["focus"],
+  "agent_may_find": ["Q_STATE_VIA_CLASS", "Q_SCENARIO_GAP"],
+  "must_not_detect": []
+}

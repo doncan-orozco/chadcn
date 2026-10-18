@@ -1,0 +1,1608 @@
+{
+  "component": "_primitives-hover-intent",
+  "scenarios": [
+    {
+      "id": "tooltip-delayed-open",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-hover-intent",
+          "data-parity-options": "{\"kind\":\"tooltip\",\"side\":\"top\",\"sideOffset\":8,\"delayDuration\":400,\"skipDelayDuration\":300}",
+          "className": "flex items-start gap-16 pt-32"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger A"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content A"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "outside",
+              "className": "mt-24 h-10 w-24 rounded-md border border-dashed text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 100
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=outside]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tooltip-skip-delay",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-hover-intent",
+          "data-parity-options": "{\"kind\":\"tooltip\",\"side\":\"top\",\"sideOffset\":8,\"delayDuration\":400,\"skipDelayDuration\":300}",
+          "className": "flex items-start gap-16 pt-32"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger A"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content A"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "outside",
+              "className": "mt-24 h-10 w-24 rounded-md border border-dashed text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 550
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=trigger] >> nth=1"
+        },
+        {
+          "do": "wait",
+          "ms": 30
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=outside]"
+        },
+        {
+          "do": "wait",
+          "ms": 450
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 100
+        },
+        {
+          "do": "wait",
+          "ms": 450
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tooltip-skip-window-expires",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-hover-intent",
+          "data-parity-options": "{\"kind\":\"tooltip\",\"side\":\"top\",\"sideOffset\":8,\"delayDuration\":400,\"skipDelayDuration\":300}",
+          "className": "flex items-start gap-16 pt-32"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger A"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content A"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "outside",
+              "className": "mt-24 h-10 w-24 rounded-md border border-dashed text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 550
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=outside]"
+        },
+        {
+          "do": "wait",
+          "ms": 450
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=trigger] >> nth=1"
+        },
+        {
+          "do": "wait",
+          "ms": 100
+        },
+        {
+          "do": "wait",
+          "ms": 450
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tooltip-leave-before-delay",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-hover-intent",
+          "data-parity-options": "{\"kind\":\"tooltip\",\"side\":\"top\",\"sideOffset\":8,\"delayDuration\":400,\"skipDelayDuration\":300}",
+          "className": "flex items-start gap-16 pt-32"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger A"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content A"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "outside",
+              "className": "mt-24 h-10 w-24 rounded-md border border-dashed text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 100
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=outside]"
+        },
+        {
+          "do": "wait",
+          "ms": 550
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tooltip-zero-delay",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-hover-intent",
+          "data-parity-options": "{\"kind\":\"tooltip\",\"side\":\"top\",\"sideOffset\":8,\"delayDuration\":0,\"skipDelayDuration\":300}",
+          "className": "flex items-start gap-16 pt-32"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger A"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content A"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "outside",
+              "className": "mt-24 h-10 w-24 rounded-md border border-dashed text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 60
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=outside]"
+        },
+        {
+          "do": "wait",
+          "ms": 30
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tooltip-skip-disabled",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-hover-intent",
+          "data-parity-options": "{\"kind\":\"tooltip\",\"side\":\"top\",\"sideOffset\":8,\"delayDuration\":400,\"skipDelayDuration\":0}",
+          "className": "flex items-start gap-16 pt-32"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger A"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content A"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "outside",
+              "className": "mt-24 h-10 w-24 rounded-md border border-dashed text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 550
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=trigger] >> nth=1"
+        },
+        {
+          "do": "wait",
+          "ms": 30
+        },
+        {
+          "do": "wait",
+          "ms": 500
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tooltip-focus-instant",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-hover-intent",
+          "data-parity-options": "{\"kind\":\"tooltip\",\"side\":\"top\",\"sideOffset\":8,\"delayDuration\":400,\"skipDelayDuration\":300}",
+          "className": "flex items-start gap-16 pt-32"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger A"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content A"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "outside",
+              "className": "mt-24 h-10 w-24 rounded-md border border-dashed text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[data-slot=trigger]"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab",
+          "shift": true
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tooltip-click-closes",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-hover-intent",
+          "data-parity-options": "{\"kind\":\"tooltip\",\"side\":\"top\",\"sideOffset\":8,\"delayDuration\":400,\"skipDelayDuration\":300}",
+          "className": "flex items-start gap-16 pt-32"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger A"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content A"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "outside",
+              "className": "mt-24 h-10 w-24 rounded-md border border-dashed text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 550
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "mousedown",
+          "target": "[data-slot=trigger]"
+        },
+        {
+          "do": "mouseup",
+          "target": "[data-slot=trigger]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tooltip-hoverable-to-content",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-hover-intent",
+          "data-parity-options": "{\"kind\":\"tooltip\",\"side\":\"top\",\"sideOffset\":8,\"delayDuration\":400,\"skipDelayDuration\":300,\"hoverable\":true}",
+          "className": "flex items-start gap-16 pt-32"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger A"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content A"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "outside",
+              "className": "mt-24 h-10 w-24 rounded-md border border-dashed text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 550
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=content]"
+        },
+        {
+          "do": "wait",
+          "ms": 100
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=outside]"
+        },
+        {
+          "do": "wait",
+          "ms": 100
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tooltip-hoverable-away",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-hover-intent",
+          "data-parity-options": "{\"kind\":\"tooltip\",\"side\":\"top\",\"sideOffset\":8,\"delayDuration\":400,\"skipDelayDuration\":300,\"hoverable\":true}",
+          "className": "flex items-start gap-16 pt-32"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger A"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content A"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "outside",
+              "className": "mt-24 h-10 w-24 rounded-md border border-dashed text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 550
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=outside]"
+        },
+        {
+          "do": "wait",
+          "ms": 100
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tooltip-hoverable-to-other-trigger",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-hover-intent",
+          "data-parity-options": "{\"kind\":\"tooltip\",\"side\":\"top\",\"sideOffset\":8,\"delayDuration\":400,\"skipDelayDuration\":300,\"hoverable\":true}",
+          "className": "flex items-start gap-16 pt-32"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger A"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content A"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "outside",
+              "className": "mt-24 h-10 w-24 rounded-md border border-dashed text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 550
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=trigger] >> nth=1"
+        },
+        {
+          "do": "wait",
+          "ms": 100
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=outside]"
+        },
+        {
+          "do": "wait",
+          "ms": 100
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "tooltip-side-bottom-dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-hover-intent",
+          "data-parity-options": "{\"kind\":\"tooltip\",\"side\":\"bottom\",\"sideOffset\":8,\"delayDuration\":400,\"skipDelayDuration\":300,\"align\":\"start\"}",
+          "className": "flex items-start gap-16 pt-32"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger A"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content A"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "outside",
+              "className": "mt-24 h-10 w-24 rounded-md border border-dashed text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=trigger] >> nth=1"
+        },
+        {
+          "do": "wait",
+          "ms": 550
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover-card-open-close",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-hover-intent",
+          "data-parity-options": "{\"kind\":\"hover-card\",\"side\":\"bottom\",\"sideOffset\":8,\"openDelay\":400,\"closeDelay\":400}",
+          "className": "flex items-start gap-16 pt-32"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger A"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content A"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "outside",
+              "className": "mt-24 h-10 w-24 rounded-md border border-dashed text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 100
+        },
+        {
+          "do": "wait",
+          "ms": 450
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=outside]"
+        },
+        {
+          "do": "wait",
+          "ms": 100
+        },
+        {
+          "do": "wait",
+          "ms": 450
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover-card-content-hover",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-hover-intent",
+          "data-parity-options": "{\"kind\":\"hover-card\",\"side\":\"bottom\",\"sideOffset\":8,\"openDelay\":400,\"closeDelay\":400}",
+          "className": "flex items-start gap-16 pt-32"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger A"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content A"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "outside",
+              "className": "mt-24 h-10 w-24 rounded-md border border-dashed text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 550
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=content]"
+        },
+        {
+          "do": "wait",
+          "ms": 550
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=outside]"
+        },
+        {
+          "do": "wait",
+          "ms": 100
+        },
+        {
+          "do": "wait",
+          "ms": 450
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover-card-reenter",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-hover-intent",
+          "data-parity-options": "{\"kind\":\"hover-card\",\"side\":\"bottom\",\"sideOffset\":8,\"openDelay\":400,\"closeDelay\":400}",
+          "className": "flex items-start gap-16 pt-32"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger A"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content A"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "outside",
+              "className": "mt-24 h-10 w-24 rounded-md border border-dashed text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 550
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=outside]"
+        },
+        {
+          "do": "wait",
+          "ms": 100
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 550
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover-card-switch",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-hover-intent",
+          "data-parity-options": "{\"kind\":\"hover-card\",\"side\":\"bottom\",\"sideOffset\":8,\"openDelay\":400,\"closeDelay\":400}",
+          "className": "flex items-start gap-16 pt-32"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger A"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content A"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "outside",
+              "className": "mt-24 h-10 w-24 rounded-md border border-dashed text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 550
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=trigger] >> nth=1"
+        },
+        {
+          "do": "wait",
+          "ms": 100
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover-card-focus",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-hover-intent",
+          "data-parity-options": "{\"kind\":\"hover-card\",\"side\":\"bottom\",\"sideOffset\":8,\"openDelay\":400,\"closeDelay\":400}",
+          "className": "flex items-start gap-16 pt-32"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger A"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content A"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "data-slot": "trigger",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm",
+              "type": "button"
+            },
+            "children": [
+              "Trigger B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "content",
+              "className": "z-50 w-40 rounded-md border bg-popover p-2 text-sm text-popover-foreground"
+            },
+            "children": [
+              "Content B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "outside",
+              "className": "mt-24 h-10 w-24 rounded-md border border-dashed text-sm"
+            },
+            "children": [
+              "Outside"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[data-slot=trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 100
+        },
+        {
+          "do": "wait",
+          "ms": 450
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "wait",
+          "ms": 100
+        },
+        {
+          "do": "wait",
+          "ms": 450
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

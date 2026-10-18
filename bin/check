@@ -8,6 +8,16 @@ root="$(git rev-parse --show-toplevel 2>/dev/null || true)"
 
 bundle exec rake test
 bundle exec rake test:engine
+# The dev kit's parity harness: a DB-less dummy app with its own bundle (Tailwind builds first because the parity page links it).
+if [ -f dev/dummy/Gemfile ]; then
+  (
+    cd dev/dummy
+    export BUNDLE_GEMFILE="$(pwd)/Gemfile"
+    bundle install --quiet
+    bin/rails tailwindcss:build
+    bin/rails test
+  )
+fi
 bundle exec rubocop
 bundle exec bundler-audit check --update
 if [ -n "$root" ] && [ -f "$root/.claude/scripts/gem/gem_check.rb" ]; then

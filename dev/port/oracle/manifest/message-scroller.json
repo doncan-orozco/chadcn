@@ -1,0 +1,355 @@
+{
+  "name": "message-scroller",
+  "style": "new-york-v4",
+  "source_sha": "9f7580a8c9a59d28",
+  "use_client": true,
+  "tier": "third_party",
+  "exports": [
+    "MessageScrollerProvider",
+    "MessageScroller",
+    "MessageScrollerViewport",
+    "MessageScrollerContent",
+    "MessageScrollerItem",
+    "MessageScrollerButton",
+    "useMessageScroller",
+    "useMessageScrollerScrollable",
+    "useMessageScrollerVisibility"
+  ],
+  "parts": [
+    {
+      "name": "MessageScrollerProvider",
+      "data_attrs": [],
+      "data_slots": [],
+      "data_slot": null,
+      "wraps": "MessageScrollerPrimitive.Provider",
+      "renders": "MessageScrollerPrimitive.Provider",
+      "slot_tags": {},
+      "props": {
+        "destructured": [],
+        "typed": [
+          {
+            "name": "props",
+            "type": "React.ComponentProps<typeof MessageScrollerPrimitive.Provider>"
+          }
+        ]
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "MessageScroller",
+      "data_attrs": [],
+      "data_slots": [
+        "message-scroller"
+      ],
+      "data_slot": "message-scroller",
+      "wraps": "MessageScrollerPrimitive.Root",
+      "renders": "MessageScrollerPrimitive.Root",
+      "slot_tags": {
+        "message-scroller": "MessageScrollerPrimitive.Root"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "flex-col",
+        "group/message-scroller",
+        "min-h-0",
+        "overflow-hidden",
+        "relative",
+        "size-full"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "MessageScrollerViewport",
+      "data_attrs": [],
+      "data_slots": [
+        "message-scroller-viewport"
+      ],
+      "data_slot": "message-scroller-viewport",
+      "wraps": "MessageScrollerPrimitive.Viewport",
+      "renders": "MessageScrollerPrimitive.Viewport",
+      "slot_tags": {
+        "message-scroller-viewport": "MessageScrollerPrimitive.Viewport"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "contain-content",
+        "data-autoscrolling:scrollbar-none",
+        "data-pending-scroll:invisible",
+        "min-h-0",
+        "min-w-0",
+        "overflow-y-auto",
+        "overscroll-contain",
+        "scroll-fade-b",
+        "scrollbar-gutter-stable",
+        "scrollbar-thin",
+        "size-full"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "MessageScrollerContent",
+      "data_attrs": [],
+      "data_slots": [
+        "message-scroller-content"
+      ],
+      "data_slot": "message-scroller-content",
+      "wraps": "MessageScrollerPrimitive.Content",
+      "renders": "MessageScrollerPrimitive.Content",
+      "slot_tags": {
+        "message-scroller-content": "MessageScrollerPrimitive.Content"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "flex-col",
+        "gap-8",
+        "h-max",
+        "min-h-full"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "MessageScrollerItem",
+      "data_attrs": [],
+      "data_slots": [
+        "message-scroller-item"
+      ],
+      "data_slot": "message-scroller-item",
+      "wraps": "MessageScrollerPrimitive.Item",
+      "renders": "MessageScrollerPrimitive.Item",
+      "slot_tags": {
+        "message-scroller-item": "MessageScrollerPrimitive.Item"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "scrollAnchor",
+            "default": "false"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "[contain-intrinsic-size:auto_10rem]",
+        "[content-visibility:auto]",
+        "min-w-0",
+        "shrink-0"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "MessageScrollerButton",
+      "data_attrs": [
+        {
+          "name": "data-direction",
+          "value": "{direction}"
+        },
+        {
+          "name": "data-variant",
+          "value": "{variant}"
+        },
+        {
+          "name": "data-size",
+          "value": "{size}"
+        }
+      ],
+      "data_slots": [
+        "message-scroller-button"
+      ],
+      "data_slot": "message-scroller-button",
+      "wraps": "MessageScrollerPrimitive.Button",
+      "renders": "MessageScrollerPrimitive.Button",
+      "slot_tags": {
+        "message-scroller-button": "MessageScrollerPrimitive.Button"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "direction",
+            "default": "\"end\""
+          },
+          {
+            "name": "className"
+          },
+          {
+            "name": "children"
+          },
+          {
+            "name": "render"
+          },
+          {
+            "name": "variant",
+            "default": "\"secondary\""
+          },
+          {
+            "name": "size",
+            "default": "\"icon-sm\""
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "-translate-x-1/2",
+        "absolute",
+        "bg-background",
+        "border-border",
+        "data-[active=false]:duration-400",
+        "data-[active=false]:ease-[cubic-bezier(0.7,0,0.84,0)]",
+        "data-[active=false]:opacity-0",
+        "data-[active=false]:pointer-events-none",
+        "data-[active=false]:scale-95",
+        "data-[active=true]:ease-[cubic-bezier(0.23,1,0.32,1)]",
+        "data-[active=true]:opacity-100",
+        "data-[active=true]:scale-100",
+        "data-[active=true]:translate-y-0",
+        "data-[direction=end]:bottom-4",
+        "data-[direction=end]:data-[active=false]:translate-y-full",
+        "data-[direction=start]:[&_svg]:rotate-180",
+        "data-[direction=start]:data-[active=false]:-translate-y-full",
+        "data-[direction=start]:top-4",
+        "duration-200",
+        "hover:bg-muted",
+        "hover:text-foreground",
+        "inset-s-1/2",
+        "rtl:translate-x-1/2",
+        "sr-only",
+        "text-foreground",
+        "transition-[translate,scale,opacity]"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "-translate-x-1/2",
+    "[contain-intrinsic-size:auto_10rem]",
+    "[content-visibility:auto]",
+    "absolute",
+    "bg-background",
+    "border-border",
+    "contain-content",
+    "data-[active=false]:duration-400",
+    "data-[active=false]:ease-[cubic-bezier(0.7,0,0.84,0)]",
+    "data-[active=false]:opacity-0",
+    "data-[active=false]:pointer-events-none",
+    "data-[active=false]:scale-95",
+    "data-[active=true]:ease-[cubic-bezier(0.23,1,0.32,1)]",
+    "data-[active=true]:opacity-100",
+    "data-[active=true]:scale-100",
+    "data-[active=true]:translate-y-0",
+    "data-[direction=end]:bottom-4",
+    "data-[direction=end]:data-[active=false]:translate-y-full",
+    "data-[direction=start]:[&_svg]:rotate-180",
+    "data-[direction=start]:data-[active=false]:-translate-y-full",
+    "data-[direction=start]:top-4",
+    "data-autoscrolling:scrollbar-none",
+    "data-pending-scroll:invisible",
+    "duration-200",
+    "flex",
+    "flex-col",
+    "gap-8",
+    "group/message-scroller",
+    "h-max",
+    "hover:bg-muted",
+    "hover:text-foreground",
+    "inset-s-1/2",
+    "min-h-0",
+    "min-h-full",
+    "min-w-0",
+    "overflow-hidden",
+    "overflow-y-auto",
+    "overscroll-contain",
+    "relative",
+    "rtl:translate-x-1/2",
+    "scroll-fade-b",
+    "scrollbar-gutter-stable",
+    "scrollbar-thin",
+    "shrink-0",
+    "size-full",
+    "sr-only",
+    "text-foreground",
+    "transition-[translate,scale,opacity]"
+  ],
+  "data_attrs": [
+    "data-direction",
+    "data-size",
+    "data-variant"
+  ],
+  "data_slots": [
+    "message-scroller",
+    "message-scroller-button",
+    "message-scroller-content",
+    "message-scroller-item",
+    "message-scroller-viewport"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [],
+  "third_party": [
+    "@shadcn/react"
+  ],
+  "icons": [
+    "ArrowDownIcon"
+  ],
+  "text_literals": [],
+  "registry_dependencies": [
+    "button"
+  ],
+  "hooks": [],
+  "npm_dependencies": [
+    "@shadcn/react",
+    "cn"
+  ],
+  "extra_files": []
+}

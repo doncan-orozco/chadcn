@@ -1,0 +1,63 @@
+{
+  "name": "skeleton",
+  "style": "new-york-v4",
+  "source_sha": "f51ce0fcd31e5c31",
+  "use_client": false,
+  "tier": "static",
+  "exports": [
+    "Skeleton"
+  ],
+  "parts": [
+    {
+      "name": "Skeleton",
+      "data_attrs": [],
+      "data_slots": [
+        "skeleton"
+      ],
+      "data_slot": "skeleton",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "animate-pulse",
+        "bg-accent",
+        "rounded-md"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "animate-pulse",
+    "bg-accent",
+    "rounded-md"
+  ],
+  "data_attrs": [],
+  "data_slots": [
+    "skeleton"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [],
+  "third_party": [],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn"
+  ],
+  "extra_files": []
+}

@@ -1,0 +1,528 @@
+{
+  "component": "_primitives-pointer-capture",
+  "scenarios": [
+    {
+      "id": "click-track",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-slot": "probe",
+          "className": "flex w-64 flex-col gap-3",
+          "data-controller": "shadcn---probe-pointer-capture",
+          "data-probe-value": "25",
+          "data-probe-min": "0",
+          "data-probe-max": "100",
+          "data-probe-step": "1"
+        },
+        "children": [
+          {
+            "c": "_span",
+            "props": {
+              "dir": "ltr",
+              "data-orientation": "horizontal",
+              "aria-disabled": "false",
+              "data-probe": "root",
+              "className": "relative flex h-5 w-full touch-none items-center select-none",
+              "style": "--radix-slider-thumb-transform: translateX(-50%)",
+              "data-shadcn---probe-pointer-capture-target": "root"
+            },
+            "children": [
+              {
+                "c": "_span",
+                "props": {
+                  "data-orientation": "horizontal",
+                  "className": "relative h-1.5 w-full grow rounded-full bg-muted"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-orientation": "horizontal",
+                      "className": "absolute h-full rounded-full bg-primary",
+                      "style": "left: 0%; right: 75%"
+                    }
+                  }
+                ]
+              },
+              {
+                "c": "_span",
+                "props": {
+                  "style": "transform: var(--radix-slider-thumb-transform); position: absolute; left: calc(25% + 4.0px)"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "role": "slider",
+                      "tabindex": 0,
+                      "aria-label": "Value",
+                      "aria-valuemin": 0,
+                      "aria-valuemax": 100,
+                      "aria-valuenow": 25,
+                      "aria-orientation": "horizontal",
+                      "data-orientation": "horizontal",
+                      "className": "block size-4 rounded-full border border-primary bg-background",
+                      "data-shadcn---probe-pointer-capture-target": "thumb"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_output",
+            "props": {
+              "data-slot": "readout",
+              "className": "text-xs",
+              "data-shadcn---probe-pointer-capture-target": "readout"
+            }
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "outside",
+              "data-probe": "outside",
+              "className": "h-16 w-full rounded border"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-probe=root]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 700,
+        "height": 500
+      },
+      "animations": false
+    },
+    {
+      "id": "click-track-position",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-slot": "probe",
+          "className": "flex w-64 flex-col gap-3",
+          "data-controller": "shadcn---probe-pointer-capture",
+          "data-probe-value": "25",
+          "data-probe-min": "0",
+          "data-probe-max": "100",
+          "data-probe-step": "10"
+        },
+        "children": [
+          {
+            "c": "_span",
+            "props": {
+              "dir": "ltr",
+              "data-orientation": "horizontal",
+              "aria-disabled": "false",
+              "data-probe": "root",
+              "className": "relative flex h-5 w-full touch-none items-center select-none",
+              "style": "--radix-slider-thumb-transform: translateX(-50%)",
+              "data-shadcn---probe-pointer-capture-target": "root"
+            },
+            "children": [
+              {
+                "c": "_span",
+                "props": {
+                  "data-orientation": "horizontal",
+                  "className": "relative h-1.5 w-full grow rounded-full bg-muted"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-orientation": "horizontal",
+                      "className": "absolute h-full rounded-full bg-primary",
+                      "style": "left: 0%; right: 75%"
+                    }
+                  }
+                ]
+              },
+              {
+                "c": "_span",
+                "props": {
+                  "style": "transform: var(--radix-slider-thumb-transform); position: absolute; left: calc(25% + 4.0px)"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "role": "slider",
+                      "tabindex": 0,
+                      "aria-label": "Value",
+                      "aria-valuemin": 0,
+                      "aria-valuemax": 100,
+                      "aria-valuenow": 25,
+                      "aria-orientation": "horizontal",
+                      "data-orientation": "horizontal",
+                      "className": "block size-4 rounded-full border border-primary bg-background",
+                      "data-shadcn---probe-pointer-capture-target": "thumb"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_output",
+            "props": {
+              "data-slot": "readout",
+              "className": "text-xs",
+              "data-shadcn---probe-pointer-capture-target": "readout"
+            }
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "outside",
+              "data-probe": "outside",
+              "className": "h-16 w-full rounded border"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-probe=root]",
+          "position": {
+            "x": 200,
+            "y": 10
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 700,
+        "height": 500
+      },
+      "animations": false
+    },
+    {
+      "id": "drag-thumb",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-slot": "probe",
+          "className": "flex w-64 flex-col gap-3",
+          "data-controller": "shadcn---probe-pointer-capture",
+          "data-probe-value": "25",
+          "data-probe-min": "0",
+          "data-probe-max": "100",
+          "data-probe-step": "1"
+        },
+        "children": [
+          {
+            "c": "_span",
+            "props": {
+              "dir": "ltr",
+              "data-orientation": "horizontal",
+              "aria-disabled": "false",
+              "data-probe": "root",
+              "className": "relative flex h-5 w-full touch-none items-center select-none",
+              "style": "--radix-slider-thumb-transform: translateX(-50%)",
+              "data-shadcn---probe-pointer-capture-target": "root"
+            },
+            "children": [
+              {
+                "c": "_span",
+                "props": {
+                  "data-orientation": "horizontal",
+                  "className": "relative h-1.5 w-full grow rounded-full bg-muted"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-orientation": "horizontal",
+                      "className": "absolute h-full rounded-full bg-primary",
+                      "style": "left: 0%; right: 75%"
+                    }
+                  }
+                ]
+              },
+              {
+                "c": "_span",
+                "props": {
+                  "style": "transform: var(--radix-slider-thumb-transform); position: absolute; left: calc(25% + 4.0px)"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "role": "slider",
+                      "tabindex": 0,
+                      "aria-label": "Value",
+                      "aria-valuemin": 0,
+                      "aria-valuemax": 100,
+                      "aria-valuenow": 25,
+                      "aria-orientation": "horizontal",
+                      "data-orientation": "horizontal",
+                      "className": "block size-4 rounded-full border border-primary bg-background",
+                      "data-shadcn---probe-pointer-capture-target": "thumb"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_output",
+            "props": {
+              "data-slot": "readout",
+              "className": "text-xs",
+              "data-shadcn---probe-pointer-capture-target": "readout"
+            }
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "outside",
+              "data-probe": "outside",
+              "className": "h-16 w-full rounded border"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "mousedown",
+          "target": "[role=slider]"
+        },
+        {
+          "do": "mouseup",
+          "target": "[data-probe=root]",
+          "position": {
+            "x": 160,
+            "y": 10
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 700,
+        "height": 500
+      },
+      "animations": false
+    },
+    {
+      "id": "drag-release-outside",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-slot": "probe",
+          "className": "flex w-64 flex-col gap-3",
+          "data-controller": "shadcn---probe-pointer-capture",
+          "data-probe-value": "25",
+          "data-probe-min": "0",
+          "data-probe-max": "100",
+          "data-probe-step": "1"
+        },
+        "children": [
+          {
+            "c": "_span",
+            "props": {
+              "dir": "ltr",
+              "data-orientation": "horizontal",
+              "aria-disabled": "false",
+              "data-probe": "root",
+              "className": "relative flex h-5 w-full touch-none items-center select-none",
+              "style": "--radix-slider-thumb-transform: translateX(-50%)",
+              "data-shadcn---probe-pointer-capture-target": "root"
+            },
+            "children": [
+              {
+                "c": "_span",
+                "props": {
+                  "data-orientation": "horizontal",
+                  "className": "relative h-1.5 w-full grow rounded-full bg-muted"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-orientation": "horizontal",
+                      "className": "absolute h-full rounded-full bg-primary",
+                      "style": "left: 0%; right: 75%"
+                    }
+                  }
+                ]
+              },
+              {
+                "c": "_span",
+                "props": {
+                  "style": "transform: var(--radix-slider-thumb-transform); position: absolute; left: calc(25% + 4.0px)"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "role": "slider",
+                      "tabindex": 0,
+                      "aria-label": "Value",
+                      "aria-valuemin": 0,
+                      "aria-valuemax": 100,
+                      "aria-valuenow": 25,
+                      "aria-orientation": "horizontal",
+                      "data-orientation": "horizontal",
+                      "className": "block size-4 rounded-full border border-primary bg-background",
+                      "data-shadcn---probe-pointer-capture-target": "thumb"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_output",
+            "props": {
+              "data-slot": "readout",
+              "className": "text-xs",
+              "data-shadcn---probe-pointer-capture-target": "readout"
+            }
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "outside",
+              "data-probe": "outside",
+              "className": "h-16 w-full rounded border"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "mousedown",
+          "target": "[role=slider]"
+        },
+        {
+          "do": "mouseup",
+          "target": "[data-probe=outside]",
+          "position": {
+            "x": 10,
+            "y": 30
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 700,
+        "height": 500
+      },
+      "animations": false
+    },
+    {
+      "id": "drag-past-start",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-slot": "probe",
+          "className": "flex w-64 flex-col gap-3",
+          "data-controller": "shadcn---probe-pointer-capture",
+          "data-probe-value": "60",
+          "data-probe-min": "0",
+          "data-probe-max": "100",
+          "data-probe-step": "1"
+        },
+        "children": [
+          {
+            "c": "_span",
+            "props": {
+              "dir": "ltr",
+              "data-orientation": "horizontal",
+              "aria-disabled": "false",
+              "data-probe": "root",
+              "className": "relative flex h-5 w-full touch-none items-center select-none",
+              "style": "--radix-slider-thumb-transform: translateX(-50%)",
+              "data-shadcn---probe-pointer-capture-target": "root"
+            },
+            "children": [
+              {
+                "c": "_span",
+                "props": {
+                  "data-orientation": "horizontal",
+                  "className": "relative h-1.5 w-full grow rounded-full bg-muted"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-orientation": "horizontal",
+                      "className": "absolute h-full rounded-full bg-primary",
+                      "style": "left: 0%; right: 40%"
+                    }
+                  }
+                ]
+              },
+              {
+                "c": "_span",
+                "props": {
+                  "style": "transform: var(--radix-slider-thumb-transform); position: absolute; left: calc(60% + -1.5999999999999996px)"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "role": "slider",
+                      "tabindex": 0,
+                      "aria-label": "Value",
+                      "aria-valuemin": 0,
+                      "aria-valuemax": 100,
+                      "aria-valuenow": 60,
+                      "aria-orientation": "horizontal",
+                      "data-orientation": "horizontal",
+                      "className": "block size-4 rounded-full border border-primary bg-background",
+                      "data-shadcn---probe-pointer-capture-target": "thumb"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_output",
+            "props": {
+              "data-slot": "readout",
+              "className": "text-xs",
+              "data-shadcn---probe-pointer-capture-target": "readout"
+            }
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "outside",
+              "data-probe": "outside",
+              "className": "h-16 w-full rounded border"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "mousedown",
+          "target": "[role=slider]"
+        },
+        {
+          "do": "mouseup",
+          "target": "[data-probe=outside]",
+          "position": {
+            "x": 0,
+            "y": 30
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 700,
+        "height": 500
+      },
+      "animations": false
+    }
+  ]
+}

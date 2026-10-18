@@ -1,0 +1,436 @@
+{
+  "component": "_primitives-direction",
+  "scenarios": [
+    {
+      "id": "no-provider-no-local",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-80 flex-col gap-3"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "c1",
+              "data-controller": "shadcn---probe-direction",
+              "className": "rounded border p-2 text-sm"
+            },
+            "children": [
+              "consumer c1"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "provider-rtl",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-80 flex-col gap-3"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "c1",
+              "data-controller": "shadcn---probe-direction",
+              "className": "rounded border p-2 text-sm",
+              "data-provider-dir": "rtl",
+              "dir": "rtl"
+            },
+            "children": [
+              "consumer c1"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "provider-ltr",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-80 flex-col gap-3"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "c1",
+              "data-controller": "shadcn---probe-direction",
+              "className": "rounded border p-2 text-sm",
+              "data-provider-dir": "ltr",
+              "dir": "ltr"
+            },
+            "children": [
+              "consumer c1"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "local-wins-over-provider",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-80 flex-col gap-3"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "c1",
+              "data-controller": "shadcn---probe-direction",
+              "className": "rounded border p-2 text-sm",
+              "data-provider-dir": "rtl",
+              "dir": "rtl",
+              "data-local-dir": "ltr"
+            },
+            "children": [
+              "consumer c1"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "c2",
+              "data-controller": "shadcn---probe-direction",
+              "className": "rounded border p-2 text-sm",
+              "data-provider-dir": "ltr",
+              "dir": "ltr",
+              "data-local-dir": "rtl"
+            },
+            "children": [
+              "consumer c2"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "local-without-provider",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-80 flex-col gap-3"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "c1",
+              "data-controller": "shadcn---probe-direction",
+              "className": "rounded border p-2 text-sm",
+              "data-local-dir": "rtl"
+            },
+            "children": [
+              "consumer c1"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "c2",
+              "data-controller": "shadcn---probe-direction",
+              "className": "rounded border p-2 text-sm",
+              "data-local-dir": "ltr"
+            },
+            "children": [
+              "consumer c2"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "empty-values-fall-through",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-80 flex-col gap-3"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "c1",
+              "data-controller": "shadcn---probe-direction",
+              "className": "rounded border p-2 text-sm",
+              "data-provider-dir": "rtl",
+              "dir": "rtl",
+              "data-local-dir": ""
+            },
+            "children": [
+              "consumer c1"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "c2",
+              "data-controller": "shadcn---probe-direction",
+              "className": "rounded border p-2 text-sm",
+              "data-provider-dir": "",
+              "data-local-dir": "rtl"
+            },
+            "children": [
+              "consumer c2"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "provider-without-value-is-ltr",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-80 flex-col gap-3"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "c1",
+              "data-controller": "shadcn---probe-direction",
+              "className": "rounded border p-2 text-sm",
+              "data-provider-dir": ""
+            },
+            "children": [
+              "consumer c1"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "ancestor-dir-attribute-is-ignored",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-80 flex-col gap-3"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "dir": "rtl",
+              "className": "rounded border p-2"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "c1",
+                  "data-controller": "shadcn---probe-direction",
+                  "className": "rounded border p-2 text-sm"
+                },
+                "children": [
+                  "consumer c1"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "mixed-siblings",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-80 flex-col gap-3"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "c1",
+              "data-controller": "shadcn---probe-direction",
+              "className": "rounded border p-2 text-sm",
+              "data-provider-dir": "rtl",
+              "dir": "rtl"
+            },
+            "children": [
+              "consumer c1"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "c2",
+              "data-controller": "shadcn---probe-direction",
+              "className": "rounded border p-2 text-sm"
+            },
+            "children": [
+              "consumer c2"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "c3",
+              "data-controller": "shadcn---probe-direction",
+              "className": "rounded border p-2 text-sm",
+              "data-provider-dir": "ltr",
+              "dir": "ltr",
+              "data-local-dir": "rtl"
+            },
+            "children": [
+              "consumer c3"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "c4",
+              "data-controller": "shadcn---probe-direction",
+              "className": "rounded border p-2 text-sm",
+              "data-local-dir": "rtl"
+            },
+            "children": [
+              "consumer c4"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-80 flex-col gap-3"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "c1",
+              "data-controller": "shadcn---probe-direction",
+              "className": "rounded border p-2 text-sm",
+              "data-provider-dir": "rtl",
+              "dir": "rtl"
+            },
+            "children": [
+              "consumer c1"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

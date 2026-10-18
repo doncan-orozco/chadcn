@@ -1,0 +1,3716 @@
+{
+  "component": "breadcrumb",
+  "scenarios": [
+    {
+      "id": "defaults",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#components"
+                        },
+                        "children": [
+                          "Components"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Breadcrumb"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "defaults__dark",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#components"
+                        },
+                        "children": [
+                          "Components"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Breadcrumb"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-breadcrumb__empty",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": []
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-list__empty",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-item__text-only",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  "Plain text item"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-link__plain-anchor",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "href": "#home"
+                    },
+                    "children": [
+                      "Home"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-link__plain-anchor-no-href",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {},
+                    "children": [
+                      "Home"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-link__as-child",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#home"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-page__default",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Current page"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-page__default__dark",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Current page"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-separator__default-chevron",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Page"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-separator__custom-icon",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": [
+                  "<icon:slash>"
+                ]
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#components"
+                        },
+                        "children": [
+                          "Components"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": [
+                  "<icon:slash>"
+                ]
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Breadcrumb"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-separator__custom-icon__dark",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": [
+                  "<icon:slash>"
+                ]
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#components"
+                        },
+                        "children": [
+                          "Components"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": [
+                  "<icon:slash>"
+                ]
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Breadcrumb"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-separator__custom-text",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": [
+                  "/"
+                ]
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Page"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-separator__standalone",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-ellipsis__default",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbEllipsis",
+                    "props": {},
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Breadcrumb"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-ellipsis__default__dark",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbEllipsis",
+                    "props": {},
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Breadcrumb"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "part-ellipsis__size-4",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbEllipsis",
+                    "props": {
+                      "className": "size-4"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__icon-text-link",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "href": "#"
+                    },
+                    "children": [
+                      "<icon:house>",
+                      "Home"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Settings"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__icon-only-link",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "href": "#",
+                      "aria-label": "Home"
+                    },
+                    "children": [
+                      "<icon:house>"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Settings"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__text-icon-item",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  },
+                  "<icon:chevron-down>"
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Settings"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__long-text-wraps",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#docs"
+                        },
+                        "children": [
+                          "Documentation for building your application"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#fetch"
+                        },
+                        "children": [
+                          "Data fetching, caching and revalidating"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "An extremely long current page title that has to wrap"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 320,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__long-unbroken-word",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Supercalifragilisticexpialidocious_and_more_text_without_spaces"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 320,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__single-page-only",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Home"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "state-link__hover",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#components"
+                        },
+                        "children": [
+                          "Components"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Breadcrumb"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=breadcrumb-link] >> nth=0"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "state-link__hover__dark",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#components"
+                        },
+                        "children": [
+                          "Components"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Breadcrumb"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=breadcrumb-link] >> nth=0"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "state-link-plain__hover",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "href": "#home"
+                    },
+                    "children": [
+                      "Home"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=breadcrumb-link]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "state-page__hover",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#components"
+                        },
+                        "children": [
+                          "Components"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Breadcrumb"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=breadcrumb-page]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "state-link__focus-visible",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#components"
+                        },
+                        "children": [
+                          "Components"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Breadcrumb"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "responsive__below-sm",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#components"
+                        },
+                        "children": [
+                          "Components"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Breadcrumb"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 600,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "responsive__resize-across-sm",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#components"
+                        },
+                        "children": [
+                          "Components"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Breadcrumb"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "viewport",
+          "width": 600,
+          "height": 700
+        },
+        {
+          "do": "viewport",
+          "width": 900,
+          "height": 700
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__breadcrumb-aria-label-override",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {
+          "aria-label": "You are here"
+        },
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Home"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__breadcrumb-class-not-merged",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {
+          "className": "p-2 p-4 border"
+        },
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Home"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__breadcrumb-forwarded-attrs",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {
+          "id": "trail",
+          "data-testid": "crumbs",
+          "aria-describedby": "trail-help"
+        },
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Home"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__list-class-merge-conflict",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {
+              "className": "gap-4 text-base"
+            },
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Page"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__list-forwarded-attrs",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {
+              "id": "trail-list",
+              "data-foo": "bar"
+            },
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Page"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__item-class-merge-conflict",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {
+                  "className": "gap-4 flex"
+                },
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__item-forwarded-attrs",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {
+                  "id": "item-1",
+                  "aria-label": "first"
+                },
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__link-class-merge",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "href": "#",
+                      "className": "transition-none text-primary"
+                    },
+                    "children": [
+                      "Home"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__link-as-child-class-join",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true,
+                      "className": "underline"
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#",
+                          "className": "font-medium hover:text-primary"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__link-as-child-child-attrs-win",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true,
+                      "data-slot": "ignored",
+                      "title": "slot"
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#",
+                          "title": "child",
+                          "data-slot": "custom-link"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__link-as-child-span",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {},
+                        "children": [
+                          "Not a link"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__link-forwarded-attrs",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "href": "#",
+                      "id": "home-link",
+                      "target": "_blank",
+                      "rel": "noopener",
+                      "aria-label": "Go home"
+                    },
+                    "children": [
+                      "Home"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__page-class-merge-conflict",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {
+                      "className": "font-semibold text-primary"
+                    },
+                    "children": [
+                      "Page"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__page-aria-override",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {
+                      "aria-current": "location",
+                      "aria-disabled": "false"
+                    },
+                    "children": [
+                      "Page"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__separator-class-merge-conflict",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {
+                  "className": "[&>svg]:size-5"
+                },
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Page"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__separator-attrs-override",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {
+                  "role": "separator",
+                  "aria-hidden": "false",
+                  "id": "sep-1"
+                },
+                "children": [
+                  "|"
+                ]
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Page"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__ellipsis-class-merge-conflict",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbEllipsis",
+                    "props": {
+                      "className": "size-6 justify-start"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__ellipsis-forwarded-attrs",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbEllipsis",
+                    "props": {
+                      "id": "more",
+                      "data-foo": "bar",
+                      "aria-hidden": "false"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__ellipsis-ignores-children",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbEllipsis",
+                    "props": {},
+                    "children": [
+                      "ignored child"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__breadcrumb-demo",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "/"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "className": "flex items-center gap-1"
+                    },
+                    "children": [
+                      {
+                        "c": "BreadcrumbEllipsis",
+                        "props": {
+                          "className": "size-4"
+                        },
+                        "children": []
+                      },
+                      {
+                        "c": "_span",
+                        "props": {
+                          "className": "sr-only"
+                        },
+                        "children": [
+                          "Toggle menu"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "/docs/components"
+                        },
+                        "children": [
+                          "Components"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Breadcrumb"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__breadcrumb-demo__dark",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "/"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "className": "flex items-center gap-1"
+                    },
+                    "children": [
+                      {
+                        "c": "BreadcrumbEllipsis",
+                        "props": {
+                          "className": "size-4"
+                        },
+                        "children": []
+                      },
+                      {
+                        "c": "_span",
+                        "props": {
+                          "className": "sr-only"
+                        },
+                        "children": [
+                          "Toggle menu"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "/docs/components"
+                        },
+                        "children": [
+                          "Components"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Breadcrumb"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__breadcrumb-separator",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "/"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": [
+                  "<icon:slash>"
+                ]
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "/components"
+                        },
+                        "children": [
+                          "Components"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": [
+                  "<icon:slash>"
+                ]
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Breadcrumb"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__breadcrumb-dropdown",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "/"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": [
+                  "<icon:slash>"
+                ]
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "className": "flex items-center gap-1 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-3.5"
+                    },
+                    "children": [
+                      "Components",
+                      "<icon:chevron-down>"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": [
+                  "<icon:slash>"
+                ]
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Breadcrumb"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__breadcrumb-ellipsis",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "/"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbEllipsis",
+                    "props": {},
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "/docs/components"
+                        },
+                        "children": [
+                          "Components"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Breadcrumb"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__breadcrumb-link",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "/"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "/components"
+                        },
+                        "children": [
+                          "Components"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {},
+                    "children": [
+                      "Breadcrumb"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__breadcrumb-responsive",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "className": "flex items-center gap-1",
+                      "aria-label": "Toggle menu"
+                    },
+                    "children": [
+                      {
+                        "c": "BreadcrumbEllipsis",
+                        "props": {
+                          "className": "size-4"
+                        },
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true,
+                      "className": "max-w-20 truncate md:max-w-none"
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "Data Fetching"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {
+                      "className": "max-w-20 truncate md:max-w-none"
+                    },
+                    "children": [
+                      "Caching and Revalidating"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__breadcrumb-responsive__below-md",
+      "tree": {
+        "c": "Breadcrumb",
+        "props": {},
+        "children": [
+          {
+            "c": "BreadcrumbList",
+            "props": {},
+            "children": [
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "Home"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "className": "flex items-center gap-1",
+                      "aria-label": "Toggle menu"
+                    },
+                    "children": [
+                      {
+                        "c": "BreadcrumbEllipsis",
+                        "props": {
+                          "className": "size-4"
+                        },
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbLink",
+                    "props": {
+                      "asChild": true,
+                      "className": "max-w-20 truncate md:max-w-none"
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "Data Fetching"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "BreadcrumbSeparator",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "BreadcrumbItem",
+                "props": {},
+                "children": [
+                  {
+                    "c": "BreadcrumbPage",
+                    "props": {
+                      "className": "max-w-20 truncate md:max-w-none"
+                    },
+                    "children": [
+                      "Caching and Revalidating"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 600,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

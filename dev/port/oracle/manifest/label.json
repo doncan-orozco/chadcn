@@ -1,0 +1,84 @@
+{
+  "name": "label",
+  "style": "new-york-v4",
+  "source_sha": "344bde38b8531615",
+  "use_client": true,
+  "tier": "radix_stateful",
+  "exports": [
+    "Label"
+  ],
+  "parts": [
+    {
+      "name": "Label",
+      "data_attrs": [],
+      "data_slots": [
+        "label"
+      ],
+      "data_slot": "label",
+      "wraps": "LabelPrimitive.Root",
+      "renders": "LabelPrimitive.Root",
+      "slot_tags": {
+        "label": "LabelPrimitive.Root"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "font-medium",
+        "gap-2",
+        "group-data-[disabled=true]:opacity-50",
+        "group-data-[disabled=true]:pointer-events-none",
+        "items-center",
+        "leading-none",
+        "peer-disabled:cursor-not-allowed",
+        "peer-disabled:opacity-50",
+        "select-none",
+        "text-sm"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "flex",
+    "font-medium",
+    "gap-2",
+    "group-data-[disabled=true]:opacity-50",
+    "group-data-[disabled=true]:pointer-events-none",
+    "items-center",
+    "leading-none",
+    "peer-disabled:cursor-not-allowed",
+    "peer-disabled:opacity-50",
+    "select-none",
+    "text-sm"
+  ],
+  "data_attrs": [],
+  "data_slots": [
+    "label"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [
+    "Label"
+  ],
+  "third_party": [],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn",
+    "radix-ui"
+  ],
+  "extra_files": []
+}

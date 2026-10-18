@@ -1,0 +1,193 @@
+{
+  "case": "09-state-waves",
+  "kind": "state",
+  "description": "port_state.rb on the 6-component fixture graph: infra is wave 0 with internal dependencies (_harness after _theme/_base/_icons, _primitives after _harness); pilots go first with mini-waves (dialog after button because it depends on it); fan-out starts after the last pilot and respects dependencies; progress is resumable; re-init keeps progress unless the oracle source changed.",
+  "assertions": [
+    {
+      "component": "_base",
+      "wave": 0,
+      "kind": "infra"
+    },
+    {
+      "component": "_theme",
+      "wave": 0,
+      "kind": "infra"
+    },
+    {
+      "component": "button",
+      "wave": 1,
+      "kind": "pilot"
+    },
+    {
+      "component": "switch",
+      "wave": 1,
+      "kind": "pilot"
+    },
+    {
+      "component": "dialog",
+      "kind": "pilot",
+      "wave_after": "button"
+    },
+    {
+      "component": "badge",
+      "kind": "fanout",
+      "wave_after": "dialog"
+    },
+    {
+      "component": "card",
+      "kind": "fanout",
+      "wave_after": "dialog"
+    },
+    {
+      "component": "alert-dialog",
+      "kind": "fanout",
+      "wave_after": "button"
+    }
+  ],
+  "flow": [
+    {
+      "next": {
+        "wave": 0,
+        "kind": "infra",
+        "includes": [
+          "_theme",
+          "_base",
+          "_icons"
+        ]
+      }
+    },
+    {
+      "set": [
+        "_theme",
+        "done"
+      ]
+    },
+    {
+      "set": [
+        "_base",
+        "done"
+      ]
+    },
+    {
+      "set": [
+        "_icons",
+        "done"
+      ]
+    },
+    {
+      "next": {
+        "wave": 0,
+        "kind": "infra",
+        "includes": [
+          "_harness"
+        ]
+      }
+    },
+    {
+      "set": [
+        "_harness",
+        "done"
+      ]
+    },
+    {
+      "next": {
+        "wave": 0,
+        "kind": "infra",
+        "includes": [
+          "_primitives"
+        ]
+      }
+    },
+    {
+      "set": [
+        "_primitives",
+        "done"
+      ]
+    },
+    {
+      "next": {
+        "wave": 1,
+        "kind": "pilot",
+        "includes": [
+          "button",
+          "switch"
+        ]
+      }
+    },
+    {
+      "set": [
+        "button",
+        "done"
+      ]
+    },
+    {
+      "set": [
+        "switch",
+        "done"
+      ]
+    },
+    {
+      "next": {
+        "wave": 2,
+        "kind": "pilot",
+        "includes": [
+          "dialog"
+        ]
+      }
+    },
+    {
+      "reinit_preserves": "button"
+    },
+    {
+      "mutate_sha_then_reinit": "switch"
+    },
+    {
+      "set": [
+        "switch",
+        "done"
+      ]
+    },
+    {
+      "set": [
+        "dialog",
+        "done"
+      ]
+    },
+    {
+      "next": {
+        "wave": 3,
+        "kind": "fanout",
+        "includes": [
+          "badge",
+          "card"
+        ]
+      }
+    },
+    {
+      "set_wave": [
+        3,
+        "done"
+      ]
+    },
+    {
+      "next": {
+        "wave": 4,
+        "kind": "fanout",
+        "includes": [
+          "alert-dialog"
+        ]
+      }
+    },
+    {
+      "set": [
+        "alert-dialog",
+        "done"
+      ]
+    },
+    {
+      "next": {
+        "done": true
+      }
+    }
+  ]
+}

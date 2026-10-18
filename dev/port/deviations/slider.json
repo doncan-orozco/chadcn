@@ -1,0 +1,6 @@
+{
+  "reason": "shadcn Slider always passes Track plus Thumb children to SliderPrimitive.Root, and Radix Slot throws unless it receives exactly one element child, so asChild cannot render in React; as_child is therefore not offered",
+  "allow_tokens": [],
+  "allow_missing_tokens": [],
+  "api": ["Slider: as_child not supported"]
+}

@@ -1,0 +1,4918 @@
+{
+  "component": "tooltip",
+  "scenarios": [
+    {
+      "id": "default__closed",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default__closed-dark",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__delayed-open",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=tooltip-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover__delayed-open-dark",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=tooltip-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus__instant-open",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus__instant-open-dark",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus-blur__closes",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_button",
+                "children": [
+                  "Next"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus-shift-tab__closes",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "children": [
+                  "Prev"
+                ]
+              },
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab",
+          "shift": true
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus-escape__closes",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Escape"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover-escape__closes",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=tooltip-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "press",
+          "key": "Escape"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover-click-trigger__closes",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=tooltip-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=tooltip-trigger]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover-leave-outside__closes",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=tooltip-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "hover",
+          "target": "[data-testid=outside]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover-to-content__stays-open",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=tooltip-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=tooltip-content]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover-content-then-outside__closes",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=tooltip-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=tooltip-content]"
+        },
+        {
+          "do": "hover",
+          "target": "[data-testid=outside]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "hover-content-back-to-trigger__stays-open",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=tooltip-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=tooltip-content]"
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=tooltip-trigger]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "provider-disable-hoverable-content__closes-on-leave",
+      "tree": {
+        "c": "TooltipProvider",
+        "props": {
+          "disableHoverableContent": true
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=tooltip-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=tooltip-content]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "root-disable-hoverable-content__closes-on-leave",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "props": {
+                  "disableHoverableContent": true
+                },
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=tooltip-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=tooltip-content]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "root-hoverable-overrides-provider__stays-open",
+      "tree": {
+        "c": "TooltipProvider",
+        "props": {
+          "disableHoverableContent": true
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "props": {
+                  "disableHoverableContent": false
+                },
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=tooltip-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=tooltip-content]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "pointerdown-outside__closes",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=outside]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "click-with-delay__does-not-open",
+      "tree": {
+        "c": "TooltipProvider",
+        "props": {
+          "delayDuration": 700
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=tooltip-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 900
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "provider-delay-700__delayed-open",
+      "tree": {
+        "c": "TooltipProvider",
+        "props": {
+          "delayDuration": 700
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=tooltip-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        },
+        {
+          "do": "wait",
+          "ms": 600
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "provider-delay-700__leave-before-delay-cancels",
+      "tree": {
+        "c": "TooltipProvider",
+        "props": {
+          "delayDuration": 700
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=tooltip-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        },
+        {
+          "do": "hover",
+          "target": "[data-testid=outside]"
+        },
+        {
+          "do": "wait",
+          "ms": 700
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "provider-delay-700__focus-is-instant",
+      "tree": {
+        "c": "TooltipProvider",
+        "props": {
+          "delayDuration": 700
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "root-delay-override__0",
+      "tree": {
+        "c": "TooltipProvider",
+        "props": {
+          "delayDuration": 700
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "props": {
+                  "delayDuration": 0
+                },
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=tooltip-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "root-delay-override__500",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "props": {
+                  "delayDuration": 500
+                },
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=tooltip-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 200
+        },
+        {
+          "do": "wait",
+          "ms": 500
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "skip-delay__instant-open",
+      "tree": {
+        "c": "TooltipProvider",
+        "props": {
+          "delayDuration": 700
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Alpha"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Alpha tip"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              },
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Beta"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Beta tip"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "role=button[name=\"Alpha\"]"
+        },
+        {
+          "do": "wait",
+          "ms": 900
+        },
+        {
+          "do": "hover",
+          "target": "[data-testid=outside]"
+        },
+        {
+          "do": "hover",
+          "target": "role=button[name=\"Beta\"]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "skip-delay-expired__delayed-open",
+      "tree": {
+        "c": "TooltipProvider",
+        "props": {
+          "delayDuration": 700
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Alpha"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Alpha tip"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              },
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Beta"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Beta tip"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "role=button[name=\"Alpha\"]"
+        },
+        {
+          "do": "wait",
+          "ms": 900
+        },
+        {
+          "do": "hover",
+          "target": "[data-testid=outside]"
+        },
+        {
+          "do": "wait",
+          "ms": 500
+        },
+        {
+          "do": "hover",
+          "target": "role=button[name=\"Beta\"]"
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        },
+        {
+          "do": "wait",
+          "ms": 600
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "skip-delay-zero__always-delayed",
+      "tree": {
+        "c": "TooltipProvider",
+        "props": {
+          "delayDuration": 700,
+          "skipDelayDuration": 0
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Alpha"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Alpha tip"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              },
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Beta"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Beta tip"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "role=button[name=\"Alpha\"]"
+        },
+        {
+          "do": "wait",
+          "ms": 900
+        },
+        {
+          "do": "hover",
+          "target": "[data-testid=outside]"
+        },
+        {
+          "do": "hover",
+          "target": "role=button[name=\"Beta\"]"
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        },
+        {
+          "do": "wait",
+          "ms": 600
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "skip-delay-default-0__delayed-then-instant",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Alpha"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Alpha tip"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              },
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Beta"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Beta tip"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "role=button[name=\"Alpha\"]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "hover",
+          "target": "[data-testid=outside]"
+        },
+        {
+          "do": "hover",
+          "target": "role=button[name=\"Beta\"]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "open-second-closes-first",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Alpha"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Alpha tip"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              },
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Beta"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Beta tip"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "hover",
+          "target": "role=button[name=\"Beta\"]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default-open__instant-open",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "props": {
+                  "defaultOpen": true
+                },
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        },
+        {
+          "do": "press",
+          "key": "Escape"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default-open__instant-open-dark",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "props": {
+                  "defaultOpen": true
+                },
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "controlled-open-true__stays-open",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "props": {
+                  "open": true
+                },
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "press",
+          "key": "Escape"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=outside]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "controlled-open-false__stays-closed",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "props": {
+                  "open": false
+                },
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=tooltip-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-top__align-start",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "props": {
+                  "defaultOpen": true
+                },
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "props": {
+                      "side": "top",
+                      "align": "start"
+                    },
+                    "children": [
+                      "Add to library, a longer label"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-top__align-center",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "props": {
+                  "defaultOpen": true
+                },
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "props": {
+                      "side": "top",
+                      "align": "center"
+                    },
+                    "children": [
+                      "Add to library, a longer label"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-top__align-end",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "props": {
+                  "defaultOpen": true
+                },
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "props": {
+                      "side": "top",
+                      "align": "end"
+                    },
+                    "children": [
+                      "Add to library, a longer label"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-right__align-start",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "props": {
+                  "defaultOpen": true
+                },
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "props": {
+                      "side": "right",
+                      "align": "start"
+                    },
+                    "children": [
+                      "Add to library, a longer label"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-right__align-center",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "props": {
+                  "defaultOpen": true
+                },
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "props": {
+                      "side": "right",
+                      "align": "center"
+                    },
+                    "children": [
+                      "Add to library, a longer label"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-right__align-end",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "props": {
+                  "defaultOpen": true
+                },
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "props": {
+                      "side": "right",
+                      "align": "end"
+                    },
+                    "children": [
+                      "Add to library, a longer label"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-bottom__align-start",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "props": {
+                  "defaultOpen": true
+                },
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "props": {
+                      "side": "bottom",
+                      "align": "start"
+                    },
+                    "children": [
+                      "Add to library, a longer label"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-bottom__align-center",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "props": {
+                  "defaultOpen": true
+                },
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "props": {
+                      "side": "bottom",
+                      "align": "center"
+                    },
+                    "children": [
+                      "Add to library, a longer label"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-bottom__align-end",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "props": {
+                  "defaultOpen": true
+                },
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "props": {
+                      "side": "bottom",
+                      "align": "end"
+                    },
+                    "children": [
+                      "Add to library, a longer label"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-left__align-start",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "props": {
+                  "defaultOpen": true
+                },
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "props": {
+                      "side": "left",
+                      "align": "start"
+                    },
+                    "children": [
+                      "Add to library, a longer label"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-left__align-center",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "props": {
+                  "defaultOpen": true
+                },
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "props": {
+                      "side": "left",
+                      "align": "center"
+                    },
+                    "children": [
+                      "Add to library, a longer label"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-left__align-end",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "props": {
+                  "defaultOpen": true
+                },
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "props": {
+                      "side": "left",
+                      "align": "end"
+                    },
+                    "children": [
+                      "Add to library, a longer label"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-right__dark",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "props": {
+                  "defaultOpen": true
+                },
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "props": {
+                      "side": "right"
+                    },
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "side-offset-8",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "props": {
+                  "defaultOpen": true
+                },
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "props": {
+                      "sideOffset": 8
+                    },
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "align-offset-12",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "props": {
+                  "defaultOpen": true
+                },
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "props": {
+                      "align": "start",
+                      "alignOffset": 12
+                    },
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "arrow-padding__align-start",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "props": {
+                  "defaultOpen": true
+                },
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "props": {
+                      "align": "start",
+                      "arrowPadding": 4
+                    },
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "collision-top-edge__flips-bottom",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex justify-center"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "props": {
+                  "defaultOpen": true
+                },
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "collision-top-edge__avoid-collisions-false",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex justify-center"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "props": {
+                  "defaultOpen": true
+                },
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "props": {
+                      "avoidCollisions": false
+                    },
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "collision-left-edge__shifts",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-start"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "props": {
+                  "defaultOpen": true
+                },
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "A tooltip with a much longer label than the trigger"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "collision-left-edge__sticky-always",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-start"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "props": {
+                  "defaultOpen": true
+                },
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "props": {
+                      "sticky": "always",
+                      "align": "end"
+                    },
+                    "children": [
+                      "A tooltip with a much longer label than the trigger"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "collision-padding-24",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex justify-center pt-6"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "props": {
+                  "defaultOpen": true
+                },
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "props": {
+                      "collisionPadding": 24
+                    },
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "collision-viewport-resize__repositions",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-end pr-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "props": {
+                  "defaultOpen": true
+                },
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "props": {
+                      "side": "right"
+                    },
+                    "children": [
+                      "Add to library, a longer label"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        },
+        {
+          "do": "viewport",
+          "width": 420,
+          "height": 700
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-label__visually-hidden-tooltip",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "props": {
+                      "aria-label": "Library shortcut"
+                    },
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-id__describedby",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "props": {
+                      "id": "custom-tip"
+                    },
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "trigger-aria-describedby__merged",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "_span",
+                "props": {
+                  "id": "extra-desc",
+                  "className": "sr-only"
+                },
+                "children": [
+                  "Extra"
+                ]
+              },
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "props": {
+                      "aria-describedby": "extra-desc"
+                    },
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "classname__content-merge",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "props": {
+                      "className": "rounded-full bg-primary px-6"
+                    },
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "classname__trigger",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "props": {
+                      "className": "rounded-md border px-3 py-1 underline"
+                    },
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "forwarded-attrs",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "props": {
+                      "data-testid": "trig",
+                      "aria-label": "More info",
+                      "id": "trig-1"
+                    },
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "props": {
+                      "data-testid": "tip",
+                      "dir": "ltr"
+                    },
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "trigger-disabled__no-focus",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "children": [
+                  "Prev"
+                ]
+              },
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "props": {
+                      "disabled": true
+                    },
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=tooltip-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "as-child__anchor",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#docs",
+                          "className": "underline"
+                        },
+                        "children": [
+                          "Docs"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Escape"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "long-content__wraps",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "props": {
+                      "className": "max-w-48"
+                    },
+                    "children": [
+                      "This is a long tooltip text that should wrap across several lines with balanced text"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "icon-trigger__aria-label",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "props": {
+                      "aria-label": "Add"
+                    },
+                    "children": [
+                      "<icon:plus>"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "force-mount__unmounts-when-closed",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "props": {
+                      "forceMount": true
+                    },
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Escape"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "animation__enter",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=tooltip-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 40
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": true
+    },
+    {
+      "id": "animation__exit-closed-state",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        },
+        {
+          "do": "press",
+          "key": "Escape"
+        },
+        {
+          "do": "wait",
+          "ms": 40
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": true
+    },
+    {
+      "id": "animation__exit-closed-state-dark",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "children": [
+                      "Hover"
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Add to library"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-testid": "outside",
+                  "className": "size-16"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        },
+        {
+          "do": "press",
+          "key": "Escape"
+        },
+        {
+          "do": "wait",
+          "ms": 40
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": true
+    },
+    {
+      "id": "example__tooltip-demo",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_button",
+                        "props": {
+                          "className": "inline-flex items-center justify-center rounded-md border px-4 py-2 text-sm"
+                        },
+                        "children": [
+                          "Hover"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      {
+                        "c": "_p",
+                        "children": [
+                          "Add to library"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=tooltip-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__tooltip-demo-dark",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_button",
+                        "props": {
+                          "className": "inline-flex items-center justify-center rounded-md border px-4 py-2 text-sm"
+                        },
+                        "children": [
+                          "Hover"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      {
+                        "c": "_p",
+                        "children": [
+                          "Add to library"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=tooltip-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__tooltip-sides",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex flex-wrap gap-2"
+                },
+                "children": [
+                  {
+                    "c": "Tooltip",
+                    "children": [
+                      {
+                        "c": "TooltipTrigger",
+                        "props": {
+                          "asChild": true
+                        },
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "className": "inline-flex items-center justify-center rounded-md border px-4 py-2 text-sm w-fit capitalize"
+                            },
+                            "children": [
+                              "Left"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TooltipContent",
+                        "props": {
+                          "side": "left"
+                        },
+                        "children": [
+                          {
+                            "c": "_p",
+                            "children": [
+                              "Add to library"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "Tooltip",
+                    "children": [
+                      {
+                        "c": "TooltipTrigger",
+                        "props": {
+                          "asChild": true
+                        },
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "className": "inline-flex items-center justify-center rounded-md border px-4 py-2 text-sm w-fit capitalize"
+                            },
+                            "children": [
+                              "Top"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TooltipContent",
+                        "props": {
+                          "side": "top"
+                        },
+                        "children": [
+                          {
+                            "c": "_p",
+                            "children": [
+                              "Add to library"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "Tooltip",
+                    "children": [
+                      {
+                        "c": "TooltipTrigger",
+                        "props": {
+                          "asChild": true
+                        },
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "className": "inline-flex items-center justify-center rounded-md border px-4 py-2 text-sm w-fit capitalize"
+                            },
+                            "children": [
+                              "Bottom"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TooltipContent",
+                        "props": {
+                          "side": "bottom"
+                        },
+                        "children": [
+                          {
+                            "c": "_p",
+                            "children": [
+                              "Add to library"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "Tooltip",
+                    "children": [
+                      {
+                        "c": "TooltipTrigger",
+                        "props": {
+                          "asChild": true
+                        },
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "className": "inline-flex items-center justify-center rounded-md border px-4 py-2 text-sm w-fit capitalize"
+                            },
+                            "children": [
+                              "Right"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TooltipContent",
+                        "props": {
+                          "side": "right"
+                        },
+                        "children": [
+                          {
+                            "c": "_p",
+                            "children": [
+                              "Add to library"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "role=button[name=\"Left\"]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "hover",
+          "target": "role=button[name=\"Top\"]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "hover",
+          "target": "role=button[name=\"Bottom\"]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "hover",
+          "target": "role=button[name=\"Right\"]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__tooltip-keyboard",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_button",
+                        "props": {
+                          "className": "inline-flex size-8 items-center justify-center rounded-md border",
+                          "aria-label": "Save"
+                        },
+                        "children": [
+                          "<icon:save>"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      "Save Changes ",
+                      {
+                        "c": "_kbd",
+                        "props": {
+                          "className": "rounded-sm px-1 font-sans text-xs"
+                        },
+                        "children": [
+                          "S"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__tooltip-disabled",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "Tooltip",
+                "children": [
+                  {
+                    "c": "TooltipTrigger",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "className": "inline-block w-fit"
+                        },
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "className": "inline-flex items-center justify-center rounded-md border px-4 py-2 text-sm",
+                              "disabled": true
+                            },
+                            "children": [
+                              "Disabled"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "TooltipContent",
+                    "children": [
+                      {
+                        "c": "_p",
+                        "children": [
+                          "This feature is currently unavailable"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=tooltip-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__tooltip-rtl",
+      "tree": {
+        "c": "TooltipProvider",
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex h-[600px] items-center justify-center gap-24"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex flex-wrap gap-2",
+                  "dir": "rtl"
+                },
+                "children": [
+                  {
+                    "c": "Tooltip",
+                    "children": [
+                      {
+                        "c": "TooltipTrigger",
+                        "props": {
+                          "asChild": true
+                        },
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "className": "inline-flex items-center justify-center rounded-md border px-4 py-2 text-sm w-fit capitalize"
+                            },
+                            "children": [
+                              "Left"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TooltipContent",
+                        "props": {
+                          "side": "left"
+                        },
+                        "children": [
+                          "Add to library"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "Tooltip",
+                    "children": [
+                      {
+                        "c": "TooltipTrigger",
+                        "props": {
+                          "asChild": true
+                        },
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "className": "inline-flex items-center justify-center rounded-md border px-4 py-2 text-sm w-fit capitalize"
+                            },
+                            "children": [
+                              "Top"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TooltipContent",
+                        "props": {
+                          "side": "top"
+                        },
+                        "children": [
+                          "Add to library"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "Tooltip",
+                    "children": [
+                      {
+                        "c": "TooltipTrigger",
+                        "props": {
+                          "asChild": true
+                        },
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "className": "inline-flex items-center justify-center rounded-md border px-4 py-2 text-sm w-fit capitalize"
+                            },
+                            "children": [
+                              "Bottom"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TooltipContent",
+                        "props": {
+                          "side": "bottom"
+                        },
+                        "children": [
+                          "Add to library"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "Tooltip",
+                    "children": [
+                      {
+                        "c": "TooltipTrigger",
+                        "props": {
+                          "asChild": true
+                        },
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "className": "inline-flex items-center justify-center rounded-md border px-4 py-2 text-sm w-fit capitalize"
+                            },
+                            "children": [
+                              "Right"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "TooltipContent",
+                        "props": {
+                          "side": "right"
+                        },
+                        "children": [
+                          "Add to library"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "role=button[name=\"Left\"]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "hover",
+          "target": "role=button[name=\"Right\"]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

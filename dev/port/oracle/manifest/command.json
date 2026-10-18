@@ -1,0 +1,488 @@
+{
+  "name": "command",
+  "style": "new-york-v4",
+  "source_sha": "319e9264567dd46f",
+  "use_client": true,
+  "tier": "third_party",
+  "exports": [
+    "Command",
+    "CommandDialog",
+    "CommandInput",
+    "CommandList",
+    "CommandEmpty",
+    "CommandGroup",
+    "CommandItem",
+    "CommandShortcut",
+    "CommandSeparator"
+  ],
+  "parts": [
+    {
+      "name": "Command",
+      "data_attrs": [],
+      "data_slots": [
+        "command"
+      ],
+      "data_slot": "command",
+      "wraps": null,
+      "renders": "CommandPrimitive",
+      "slot_tags": {
+        "command": "CommandPrimitive"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "bg-popover",
+        "flex",
+        "flex-col",
+        "h-full",
+        "overflow-hidden",
+        "rounded-md",
+        "text-popover-foreground",
+        "w-full"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "CommandDialog",
+      "data_attrs": [],
+      "data_slots": [],
+      "data_slot": null,
+      "wraps": null,
+      "renders": "Dialog",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "title",
+            "default": "\"Command Palette\""
+          },
+          {
+            "name": "description",
+            "default": "\"Search for a command to run...\""
+          },
+          {
+            "name": "children"
+          },
+          {
+            "name": "className"
+          },
+          {
+            "name": "showCloseButton",
+            "default": "true"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "name": "showCloseButton",
+            "type": "boolean"
+          }
+        ]
+      },
+      "class_tokens": [
+        "**:data-[slot=command-input-wrapper]:h-12",
+        "[&_[cmdk-group-heading]]:font-medium",
+        "[&_[cmdk-group-heading]]:px-2",
+        "[&_[cmdk-group-heading]]:text-muted-foreground",
+        "[&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0",
+        "[&_[cmdk-group]]:px-2",
+        "[&_[cmdk-input-wrapper]_svg]:h-5",
+        "[&_[cmdk-input-wrapper]_svg]:w-5",
+        "[&_[cmdk-input]]:h-12",
+        "[&_[cmdk-item]]:px-2",
+        "[&_[cmdk-item]]:py-3",
+        "[&_[cmdk-item]_svg]:h-5",
+        "[&_[cmdk-item]_svg]:w-5",
+        "overflow-hidden",
+        "p-0",
+        "sr-only"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "CommandInput",
+      "data_attrs": [],
+      "data_slots": [
+        "command-input-wrapper",
+        "command-input"
+      ],
+      "data_slot": "command-input-wrapper",
+      "wraps": "CommandPrimitive.Input",
+      "renders": "div",
+      "slot_tags": {
+        "command-input": "CommandPrimitive.Input"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "bg-transparent",
+        "border-b",
+        "disabled:cursor-not-allowed",
+        "disabled:opacity-50",
+        "flex",
+        "gap-2",
+        "h-10",
+        "h-9",
+        "items-center",
+        "opacity-50",
+        "outline-hidden",
+        "placeholder:text-muted-foreground",
+        "px-3",
+        "py-3",
+        "rounded-md",
+        "shrink-0",
+        "size-4",
+        "text-sm",
+        "w-full"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "CommandList",
+      "data_attrs": [],
+      "data_slots": [
+        "command-list"
+      ],
+      "data_slot": "command-list",
+      "wraps": "CommandPrimitive.List",
+      "renders": "CommandPrimitive.List",
+      "slot_tags": {
+        "command-list": "CommandPrimitive.List"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "max-h-[300px]",
+        "overflow-x-hidden",
+        "overflow-y-auto",
+        "scroll-py-1"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "CommandEmpty",
+      "data_attrs": [],
+      "data_slots": [
+        "command-empty"
+      ],
+      "data_slot": "command-empty",
+      "wraps": "CommandPrimitive.Empty",
+      "renders": "CommandPrimitive.Empty",
+      "slot_tags": {
+        "command-empty": "CommandPrimitive.Empty"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "py-6",
+        "text-center",
+        "text-sm"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "CommandGroup",
+      "data_attrs": [],
+      "data_slots": [
+        "command-group"
+      ],
+      "data_slot": "command-group",
+      "wraps": "CommandPrimitive.Group",
+      "renders": "CommandPrimitive.Group",
+      "slot_tags": {
+        "command-group": "CommandPrimitive.Group"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "[&_[cmdk-group-heading]]:font-medium",
+        "[&_[cmdk-group-heading]]:px-2",
+        "[&_[cmdk-group-heading]]:py-1.5",
+        "[&_[cmdk-group-heading]]:text-muted-foreground",
+        "[&_[cmdk-group-heading]]:text-xs",
+        "overflow-hidden",
+        "p-1",
+        "text-foreground"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "CommandSeparator",
+      "data_attrs": [],
+      "data_slots": [
+        "command-separator"
+      ],
+      "data_slot": "command-separator",
+      "wraps": "CommandPrimitive.Separator",
+      "renders": "CommandPrimitive.Separator",
+      "slot_tags": {
+        "command-separator": "CommandPrimitive.Separator"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "-mx-1",
+        "bg-border",
+        "h-px"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "CommandItem",
+      "data_attrs": [],
+      "data_slots": [
+        "command-item"
+      ],
+      "data_slot": "command-item",
+      "wraps": "CommandPrimitive.Item",
+      "renders": "CommandPrimitive.Item",
+      "slot_tags": {
+        "command-item": "CommandPrimitive.Item"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "[&_svg:not([class*='size-'])]:size-4",
+        "[&_svg:not([class*='text-'])]:text-muted-foreground",
+        "[&_svg]:pointer-events-none",
+        "[&_svg]:shrink-0",
+        "cursor-default",
+        "data-[disabled=true]:opacity-50",
+        "data-[disabled=true]:pointer-events-none",
+        "data-[selected=true]:bg-accent",
+        "data-[selected=true]:text-accent-foreground",
+        "flex",
+        "gap-2",
+        "items-center",
+        "outline-hidden",
+        "px-2",
+        "py-1.5",
+        "relative",
+        "rounded-sm",
+        "select-none",
+        "text-sm"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "CommandShortcut",
+      "data_attrs": [],
+      "data_slots": [
+        "command-shortcut"
+      ],
+      "data_slot": "command-shortcut",
+      "wraps": null,
+      "renders": "span",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "ml-auto",
+        "text-muted-foreground",
+        "text-xs",
+        "tracking-widest"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "**:data-[slot=command-input-wrapper]:h-12",
+    "-mx-1",
+    "[&_[cmdk-group-heading]]:font-medium",
+    "[&_[cmdk-group-heading]]:px-2",
+    "[&_[cmdk-group-heading]]:py-1.5",
+    "[&_[cmdk-group-heading]]:text-muted-foreground",
+    "[&_[cmdk-group-heading]]:text-xs",
+    "[&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0",
+    "[&_[cmdk-group]]:px-2",
+    "[&_[cmdk-input-wrapper]_svg]:h-5",
+    "[&_[cmdk-input-wrapper]_svg]:w-5",
+    "[&_[cmdk-input]]:h-12",
+    "[&_[cmdk-item]]:px-2",
+    "[&_[cmdk-item]]:py-3",
+    "[&_[cmdk-item]_svg]:h-5",
+    "[&_[cmdk-item]_svg]:w-5",
+    "[&_svg:not([class*='size-'])]:size-4",
+    "[&_svg:not([class*='text-'])]:text-muted-foreground",
+    "[&_svg]:pointer-events-none",
+    "[&_svg]:shrink-0",
+    "bg-border",
+    "bg-popover",
+    "bg-transparent",
+    "border-b",
+    "cursor-default",
+    "data-[disabled=true]:opacity-50",
+    "data-[disabled=true]:pointer-events-none",
+    "data-[selected=true]:bg-accent",
+    "data-[selected=true]:text-accent-foreground",
+    "disabled:cursor-not-allowed",
+    "disabled:opacity-50",
+    "flex",
+    "flex-col",
+    "gap-2",
+    "h-10",
+    "h-9",
+    "h-full",
+    "h-px",
+    "items-center",
+    "max-h-[300px]",
+    "ml-auto",
+    "opacity-50",
+    "outline-hidden",
+    "overflow-hidden",
+    "overflow-x-hidden",
+    "overflow-y-auto",
+    "p-0",
+    "p-1",
+    "placeholder:text-muted-foreground",
+    "px-2",
+    "px-3",
+    "py-1.5",
+    "py-3",
+    "py-6",
+    "relative",
+    "rounded-md",
+    "rounded-sm",
+    "scroll-py-1",
+    "select-none",
+    "shrink-0",
+    "size-4",
+    "sr-only",
+    "text-center",
+    "text-foreground",
+    "text-muted-foreground",
+    "text-popover-foreground",
+    "text-sm",
+    "text-xs",
+    "tracking-widest",
+    "w-full"
+  ],
+  "data_attrs": [],
+  "data_slots": [
+    "command",
+    "command-empty",
+    "command-group",
+    "command-input",
+    "command-input-wrapper",
+    "command-item",
+    "command-list",
+    "command-separator",
+    "command-shortcut"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [],
+  "third_party": [
+    "cmdk"
+  ],
+  "icons": [
+    "SearchIcon"
+  ],
+  "text_literals": [],
+  "registry_dependencies": [
+    "dialog"
+  ],
+  "hooks": [],
+  "npm_dependencies": [
+    "cmdk",
+    "cn"
+  ],
+  "extra_files": []
+}

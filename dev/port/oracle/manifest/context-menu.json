@@ -1,0 +1,766 @@
+{
+  "name": "context-menu",
+  "style": "new-york-v4",
+  "source_sha": "bcde5df1ed9887bb",
+  "use_client": true,
+  "tier": "overlay",
+  "exports": [
+    "ContextMenu",
+    "ContextMenuTrigger",
+    "ContextMenuContent",
+    "ContextMenuItem",
+    "ContextMenuCheckboxItem",
+    "ContextMenuRadioItem",
+    "ContextMenuLabel",
+    "ContextMenuSeparator",
+    "ContextMenuShortcut",
+    "ContextMenuGroup",
+    "ContextMenuPortal",
+    "ContextMenuSub",
+    "ContextMenuSubContent",
+    "ContextMenuSubTrigger",
+    "ContextMenuRadioGroup"
+  ],
+  "parts": [
+    {
+      "name": "ContextMenu",
+      "data_attrs": [],
+      "data_slots": [
+        "context-menu"
+      ],
+      "data_slot": "context-menu",
+      "wraps": "ContextMenuPrimitive.Root",
+      "renders": "ContextMenuPrimitive.Root",
+      "slot_tags": {
+        "context-menu": "ContextMenuPrimitive.Root"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ContextMenuTrigger",
+      "data_attrs": [],
+      "data_slots": [
+        "context-menu-trigger"
+      ],
+      "data_slot": "context-menu-trigger",
+      "wraps": "ContextMenuPrimitive.Trigger",
+      "renders": "ContextMenuPrimitive.Trigger",
+      "slot_tags": {
+        "context-menu-trigger": "ContextMenuPrimitive.Trigger"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ContextMenuGroup",
+      "data_attrs": [],
+      "data_slots": [
+        "context-menu-group"
+      ],
+      "data_slot": "context-menu-group",
+      "wraps": "ContextMenuPrimitive.Group",
+      "renders": "ContextMenuPrimitive.Group",
+      "slot_tags": {
+        "context-menu-group": "ContextMenuPrimitive.Group"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ContextMenuPortal",
+      "data_attrs": [],
+      "data_slots": [
+        "context-menu-portal"
+      ],
+      "data_slot": "context-menu-portal",
+      "wraps": "ContextMenuPrimitive.Portal",
+      "renders": "ContextMenuPrimitive.Portal",
+      "slot_tags": {
+        "context-menu-portal": "ContextMenuPrimitive.Portal"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ContextMenuSub",
+      "data_attrs": [],
+      "data_slots": [
+        "context-menu-sub"
+      ],
+      "data_slot": "context-menu-sub",
+      "wraps": "ContextMenuPrimitive.Sub",
+      "renders": "ContextMenuPrimitive.Sub",
+      "slot_tags": {
+        "context-menu-sub": "ContextMenuPrimitive.Sub"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ContextMenuRadioGroup",
+      "data_attrs": [],
+      "data_slots": [
+        "context-menu-radio-group"
+      ],
+      "data_slot": "context-menu-radio-group",
+      "wraps": "ContextMenuPrimitive.RadioGroup",
+      "renders": "ContextMenuPrimitive.RadioGroup",
+      "slot_tags": {
+        "context-menu-radio-group": "ContextMenuPrimitive.RadioGroup"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ContextMenuSubTrigger",
+      "data_attrs": [
+        {
+          "name": "data-inset",
+          "value": "{inset}"
+        }
+      ],
+      "data_slots": [
+        "context-menu-sub-trigger"
+      ],
+      "data_slot": "context-menu-sub-trigger",
+      "wraps": "ContextMenuPrimitive.SubTrigger",
+      "renders": "ContextMenuPrimitive.SubTrigger",
+      "slot_tags": {
+        "context-menu-sub-trigger": "ContextMenuPrimitive.SubTrigger"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "inset"
+          },
+          {
+            "name": "children"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "inset",
+            "type": "boolean"
+          }
+        ]
+      },
+      "class_tokens": [
+        "[&_svg:not([class*='size-'])]:size-4",
+        "[&_svg:not([class*='text-'])]:text-muted-foreground",
+        "[&_svg]:pointer-events-none",
+        "[&_svg]:shrink-0",
+        "cursor-default",
+        "data-[inset]:pl-8",
+        "data-[state=open]:bg-accent",
+        "data-[state=open]:text-accent-foreground",
+        "flex",
+        "focus:bg-accent",
+        "focus:text-accent-foreground",
+        "items-center",
+        "ml-auto",
+        "outline-hidden",
+        "px-2",
+        "py-1.5",
+        "rounded-sm",
+        "select-none",
+        "text-sm"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ContextMenuSubContent",
+      "data_attrs": [],
+      "data_slots": [
+        "context-menu-sub-content"
+      ],
+      "data_slot": "context-menu-sub-content",
+      "wraps": "ContextMenuPrimitive.SubContent",
+      "renders": "ContextMenuPrimitive.SubContent",
+      "slot_tags": {
+        "context-menu-sub-content": "ContextMenuPrimitive.SubContent"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "bg-popover",
+        "border",
+        "data-[side=bottom]:slide-in-from-top-2",
+        "data-[side=left]:slide-in-from-right-2",
+        "data-[side=right]:slide-in-from-left-2",
+        "data-[side=top]:slide-in-from-bottom-2",
+        "data-[state=closed]:animate-out",
+        "data-[state=closed]:fade-out-0",
+        "data-[state=closed]:zoom-out-95",
+        "data-[state=open]:animate-in",
+        "data-[state=open]:fade-in-0",
+        "data-[state=open]:zoom-in-95",
+        "min-w-[8rem]",
+        "origin-(--radix-context-menu-content-transform-origin)",
+        "overflow-hidden",
+        "p-1",
+        "rounded-md",
+        "shadow-lg",
+        "text-popover-foreground",
+        "z-50"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ContextMenuContent",
+      "data_attrs": [],
+      "data_slots": [
+        "context-menu-content"
+      ],
+      "data_slot": "context-menu-content",
+      "wraps": "ContextMenuPrimitive.Portal",
+      "renders": "ContextMenuPrimitive.Portal",
+      "slot_tags": {
+        "context-menu-content": "ContextMenuPrimitive.Content"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "bg-popover",
+        "border",
+        "data-[side=bottom]:slide-in-from-top-2",
+        "data-[side=left]:slide-in-from-right-2",
+        "data-[side=right]:slide-in-from-left-2",
+        "data-[side=top]:slide-in-from-bottom-2",
+        "data-[state=closed]:animate-out",
+        "data-[state=closed]:fade-out-0",
+        "data-[state=closed]:zoom-out-95",
+        "data-[state=open]:animate-in",
+        "data-[state=open]:fade-in-0",
+        "data-[state=open]:zoom-in-95",
+        "max-h-(--radix-context-menu-content-available-height)",
+        "min-w-[8rem]",
+        "origin-(--radix-context-menu-content-transform-origin)",
+        "overflow-x-hidden",
+        "overflow-y-auto",
+        "p-1",
+        "rounded-md",
+        "shadow-md",
+        "text-popover-foreground",
+        "z-50"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ContextMenuItem",
+      "data_attrs": [
+        {
+          "name": "data-inset",
+          "value": "{inset}"
+        },
+        {
+          "name": "data-variant",
+          "value": "{variant}"
+        }
+      ],
+      "data_slots": [
+        "context-menu-item"
+      ],
+      "data_slot": "context-menu-item",
+      "wraps": "ContextMenuPrimitive.Item",
+      "renders": "ContextMenuPrimitive.Item",
+      "slot_tags": {
+        "context-menu-item": "ContextMenuPrimitive.Item"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "inset"
+          },
+          {
+            "name": "variant",
+            "default": "\"default\""
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "inset",
+            "type": "boolean"
+          },
+          {
+            "name": "variant",
+            "type": "\"default\" | \"destructive\""
+          }
+        ]
+      },
+      "class_tokens": [
+        "[&_svg:not([class*='size-'])]:size-4",
+        "[&_svg:not([class*='text-'])]:text-muted-foreground",
+        "[&_svg]:pointer-events-none",
+        "[&_svg]:shrink-0",
+        "cursor-default",
+        "dark:data-[variant=destructive]:focus:bg-destructive/20",
+        "data-[disabled]:opacity-50",
+        "data-[disabled]:pointer-events-none",
+        "data-[inset]:pl-8",
+        "data-[variant=destructive]:*:[svg]:text-destructive!",
+        "data-[variant=destructive]:focus:bg-destructive/10",
+        "data-[variant=destructive]:focus:text-destructive",
+        "data-[variant=destructive]:text-destructive",
+        "flex",
+        "focus:bg-accent",
+        "focus:text-accent-foreground",
+        "gap-2",
+        "items-center",
+        "outline-hidden",
+        "px-2",
+        "py-1.5",
+        "relative",
+        "rounded-sm",
+        "select-none",
+        "text-sm"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ContextMenuCheckboxItem",
+      "data_attrs": [],
+      "data_slots": [
+        "context-menu-checkbox-item"
+      ],
+      "data_slot": "context-menu-checkbox-item",
+      "wraps": "ContextMenuPrimitive.CheckboxItem",
+      "renders": "ContextMenuPrimitive.CheckboxItem",
+      "slot_tags": {
+        "context-menu-checkbox-item": "ContextMenuPrimitive.CheckboxItem"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "children"
+          },
+          {
+            "name": "checked"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "[&_svg:not([class*='size-'])]:size-4",
+        "[&_svg]:pointer-events-none",
+        "[&_svg]:shrink-0",
+        "absolute",
+        "cursor-default",
+        "data-[disabled]:opacity-50",
+        "data-[disabled]:pointer-events-none",
+        "flex",
+        "focus:bg-accent",
+        "focus:text-accent-foreground",
+        "gap-2",
+        "items-center",
+        "justify-center",
+        "left-2",
+        "outline-hidden",
+        "pl-8",
+        "pointer-events-none",
+        "pr-2",
+        "py-1.5",
+        "relative",
+        "rounded-sm",
+        "select-none",
+        "size-3.5",
+        "size-4",
+        "text-sm"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ContextMenuRadioItem",
+      "data_attrs": [],
+      "data_slots": [
+        "context-menu-radio-item"
+      ],
+      "data_slot": "context-menu-radio-item",
+      "wraps": "ContextMenuPrimitive.RadioItem",
+      "renders": "ContextMenuPrimitive.RadioItem",
+      "slot_tags": {
+        "context-menu-radio-item": "ContextMenuPrimitive.RadioItem"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "children"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "[&_svg:not([class*='size-'])]:size-4",
+        "[&_svg]:pointer-events-none",
+        "[&_svg]:shrink-0",
+        "absolute",
+        "cursor-default",
+        "data-[disabled]:opacity-50",
+        "data-[disabled]:pointer-events-none",
+        "fill-current",
+        "flex",
+        "focus:bg-accent",
+        "focus:text-accent-foreground",
+        "gap-2",
+        "items-center",
+        "justify-center",
+        "left-2",
+        "outline-hidden",
+        "pl-8",
+        "pointer-events-none",
+        "pr-2",
+        "py-1.5",
+        "relative",
+        "rounded-sm",
+        "select-none",
+        "size-2",
+        "size-3.5",
+        "text-sm"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ContextMenuLabel",
+      "data_attrs": [
+        {
+          "name": "data-inset",
+          "value": "{inset}"
+        }
+      ],
+      "data_slots": [
+        "context-menu-label"
+      ],
+      "data_slot": "context-menu-label",
+      "wraps": "ContextMenuPrimitive.Label",
+      "renders": "ContextMenuPrimitive.Label",
+      "slot_tags": {
+        "context-menu-label": "ContextMenuPrimitive.Label"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "inset"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "inset",
+            "type": "boolean"
+          }
+        ]
+      },
+      "class_tokens": [
+        "data-[inset]:pl-8",
+        "font-medium",
+        "px-2",
+        "py-1.5",
+        "text-foreground",
+        "text-sm"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ContextMenuSeparator",
+      "data_attrs": [],
+      "data_slots": [
+        "context-menu-separator"
+      ],
+      "data_slot": "context-menu-separator",
+      "wraps": "ContextMenuPrimitive.Separator",
+      "renders": "ContextMenuPrimitive.Separator",
+      "slot_tags": {
+        "context-menu-separator": "ContextMenuPrimitive.Separator"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "-mx-1",
+        "bg-border",
+        "h-px",
+        "my-1"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ContextMenuShortcut",
+      "data_attrs": [],
+      "data_slots": [
+        "context-menu-shortcut"
+      ],
+      "data_slot": "context-menu-shortcut",
+      "wraps": null,
+      "renders": "span",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "ml-auto",
+        "text-muted-foreground",
+        "text-xs",
+        "tracking-widest"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "-mx-1",
+    "[&_svg:not([class*='size-'])]:size-4",
+    "[&_svg:not([class*='text-'])]:text-muted-foreground",
+    "[&_svg]:pointer-events-none",
+    "[&_svg]:shrink-0",
+    "absolute",
+    "bg-border",
+    "bg-popover",
+    "border",
+    "cursor-default",
+    "dark:data-[variant=destructive]:focus:bg-destructive/20",
+    "data-[disabled]:opacity-50",
+    "data-[disabled]:pointer-events-none",
+    "data-[inset]:pl-8",
+    "data-[side=bottom]:slide-in-from-top-2",
+    "data-[side=left]:slide-in-from-right-2",
+    "data-[side=right]:slide-in-from-left-2",
+    "data-[side=top]:slide-in-from-bottom-2",
+    "data-[state=closed]:animate-out",
+    "data-[state=closed]:fade-out-0",
+    "data-[state=closed]:zoom-out-95",
+    "data-[state=open]:animate-in",
+    "data-[state=open]:bg-accent",
+    "data-[state=open]:fade-in-0",
+    "data-[state=open]:text-accent-foreground",
+    "data-[state=open]:zoom-in-95",
+    "data-[variant=destructive]:*:[svg]:text-destructive!",
+    "data-[variant=destructive]:focus:bg-destructive/10",
+    "data-[variant=destructive]:focus:text-destructive",
+    "data-[variant=destructive]:text-destructive",
+    "fill-current",
+    "flex",
+    "focus:bg-accent",
+    "focus:text-accent-foreground",
+    "font-medium",
+    "gap-2",
+    "h-px",
+    "items-center",
+    "justify-center",
+    "left-2",
+    "max-h-(--radix-context-menu-content-available-height)",
+    "min-w-[8rem]",
+    "ml-auto",
+    "my-1",
+    "origin-(--radix-context-menu-content-transform-origin)",
+    "outline-hidden",
+    "overflow-hidden",
+    "overflow-x-hidden",
+    "overflow-y-auto",
+    "p-1",
+    "pl-8",
+    "pointer-events-none",
+    "pr-2",
+    "px-2",
+    "py-1.5",
+    "relative",
+    "rounded-md",
+    "rounded-sm",
+    "select-none",
+    "shadow-lg",
+    "shadow-md",
+    "size-2",
+    "size-3.5",
+    "size-4",
+    "text-foreground",
+    "text-muted-foreground",
+    "text-popover-foreground",
+    "text-sm",
+    "text-xs",
+    "tracking-widest",
+    "z-50"
+  ],
+  "data_attrs": [
+    "data-inset",
+    "data-variant"
+  ],
+  "data_slots": [
+    "context-menu",
+    "context-menu-checkbox-item",
+    "context-menu-content",
+    "context-menu-group",
+    "context-menu-item",
+    "context-menu-label",
+    "context-menu-portal",
+    "context-menu-radio-group",
+    "context-menu-radio-item",
+    "context-menu-separator",
+    "context-menu-shortcut",
+    "context-menu-sub",
+    "context-menu-sub-content",
+    "context-menu-sub-trigger",
+    "context-menu-trigger"
+  ],
+  "non_rendered_slots": [
+    "context-menu",
+    "context-menu-portal",
+    "context-menu-sub"
+  ],
+  "radix_primitives": [
+    "ContextMenu"
+  ],
+  "third_party": [],
+  "icons": [
+    "CheckIcon",
+    "ChevronRightIcon",
+    "CircleIcon"
+  ],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn",
+    "radix-ui"
+  ],
+  "extra_files": []
+}

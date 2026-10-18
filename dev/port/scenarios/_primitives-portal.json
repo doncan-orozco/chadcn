@@ -1,0 +1,219 @@
+{
+  "component": "_primitives-portal",
+  "scenarios": [
+    {
+      "id": "body",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "portal",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-portal",
+          "className": "flex flex-col items-start gap-2"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "toggle",
+              "data-action": "click->shadcn---probe-portal#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "item",
+              "data-shadcn---probe-portal-target": "item",
+              "className": "rounded-md border p-4"
+            },
+            "children": [
+              "Portaled item"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "body-release-and-back",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "portal",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-portal",
+          "className": "flex flex-col items-start gap-2"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "toggle",
+              "data-action": "click->shadcn---probe-portal#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "item",
+              "data-shadcn---probe-portal-target": "item",
+              "className": "rounded-md border p-4"
+            },
+            "children": [
+              "Portaled item"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "container",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "portal",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-portal",
+          "className": "flex flex-col items-start gap-2",
+          "data-shadcn---probe-portal-container-value": "#portal-target"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "toggle",
+              "data-action": "click->shadcn---probe-portal#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "item",
+              "data-shadcn---probe-portal-target": "item",
+              "className": "rounded-md border p-4"
+            },
+            "children": [
+              "Portaled item"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "id": "portal-target",
+              "data-slot": "container",
+              "className": "rounded-md border border-dashed p-4"
+            },
+            "children": [
+              "Container"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "container-release",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "portal",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-portal",
+          "className": "flex flex-col items-start gap-2",
+          "data-shadcn---probe-portal-container-value": "#portal-target"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "toggle",
+              "data-action": "click->shadcn---probe-portal#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm"
+            },
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "item",
+              "data-shadcn---probe-portal-target": "item",
+              "className": "rounded-md border p-4"
+            },
+            "children": [
+              "Portaled item"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "id": "portal-target",
+              "data-slot": "container",
+              "className": "rounded-md border border-dashed p-4"
+            },
+            "children": [
+              "Container"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=toggle]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

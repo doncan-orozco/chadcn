@@ -1,0 +1,5 @@
+{
+  "case": "32-cn-differential",
+  "kind": "cn",
+  "description": "The oracle's cn (JS twMerge, version installed in the catalog) and the port's cn (Ruby tailwind_merge) must agree on every pairwise merge of the class strings in the fixture sources. With tailwind-merge 2.x the catalog disagrees on Tailwind 4 syntax (w-(--x), outline-hidden, size-6!), which is why the catalog pins tailwind-merge@3. SKIPPED when the catalog has no node_modules."
+}

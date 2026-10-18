@@ -1,0 +1,10 @@
+{
+  "case": "43-clean-comments-and-wordarrays",
+  "kind": "static",
+  "component": "badge",
+  "description": "False-positive control for the G1 scanner: same port as case 06 plus a comment with an apostrophe (it's), a single-quoted literal and a %w[] word array. G1 must report nothing.",
+  "must_detect": [],
+  "must_not_detect": [
+    "*"
+  ]
+}

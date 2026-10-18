@@ -1,0 +1,3417 @@
+{
+  "component": "empty",
+  "scenarios": [
+    {
+      "id": "default__all-parts",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "icon"
+                    },
+                    "children": [
+                      "<icon:folder-code>"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "No Projects Yet"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "You haven't created any projects yet. Get started by creating your first project."
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "EmptyContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "className": "flex gap-2"
+                    },
+                    "children": [
+                      {
+                        "c": "_button",
+                        "props": {
+                          "type": "button"
+                        },
+                        "children": [
+                          "Create Project"
+                        ]
+                      },
+                      {
+                        "c": "_button",
+                        "props": {
+                          "type": "button"
+                        },
+                        "children": [
+                          "Import Project"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default__all-parts__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "icon"
+                    },
+                    "children": [
+                      "<icon:folder-code>"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "No Projects Yet"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "You haven't created any projects yet. Get started by creating your first project."
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "EmptyContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "className": "flex gap-2"
+                    },
+                    "children": [
+                      {
+                        "c": "_button",
+                        "props": {
+                          "type": "button"
+                        },
+                        "children": [
+                          "Create Project"
+                        ]
+                      },
+                      {
+                        "c": "_button",
+                        "props": {
+                          "type": "button"
+                        },
+                        "children": [
+                          "Import Project"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "media__variant-default-implicit",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {},
+                    "children": [
+                      "<icon:inbox>"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "No messages"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "Your inbox is empty."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "media__variant-default-implicit__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {},
+                    "children": [
+                      "<icon:inbox>"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "No messages"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "Your inbox is empty."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "media__variant-default-explicit",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "default"
+                    },
+                    "children": [
+                      "<icon:inbox>"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "No messages"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "Your inbox is empty."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "media__variant-default-explicit__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "default"
+                    },
+                    "children": [
+                      "<icon:inbox>"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "No messages"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "Your inbox is empty."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "media__variant-icon",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "icon"
+                    },
+                    "children": [
+                      "<icon:inbox>"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "No messages"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "Your inbox is empty."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "media__variant-icon__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "icon"
+                    },
+                    "children": [
+                      "<icon:inbox>"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "No messages"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "Your inbox is empty."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "media__variant-icon__svg-with-size-class",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "icon"
+                    },
+                    "children": [
+                      {
+                        "c": "_svg",
+                        "props": {
+                          "className": "size-4",
+                          "viewBox": "0 0 24 24",
+                          "xmlns": "http://www.w3.org/2000/svg"
+                        },
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "Sized icon"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "An svg with a size- class keeps its own size."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "media__variant-default__svg-with-size-class",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_svg",
+                        "props": {
+                          "className": "size-4",
+                          "viewBox": "0 0 24 24",
+                          "xmlns": "http://www.w3.org/2000/svg"
+                        },
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "Sized icon"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "Default variant with a sized svg."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "media__variant-icon__no-children",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "icon"
+                    },
+                    "children": []
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "Empty media"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "media__variant-icon__text-child",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "icon"
+                    },
+                    "children": [
+                      "AB"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "Text media"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "media__variant-default__avatar-like",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "className": "flex size-12 items-center justify-center rounded-full bg-muted"
+                        },
+                        "children": [
+                          "LR"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "User Offline"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "This user is currently offline."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "media__variant-default__avatar-like__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "className": "flex size-12 items-center justify-center rounded-full bg-muted"
+                        },
+                        "children": [
+                          "LR"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "User Offline"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "This user is currently offline."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "media__variant-icon__multiple-icons",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "icon"
+                    },
+                    "children": [
+                      "<icon:star>",
+                      "<icon:heart>"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "Two icons"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__empty-root",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__title-only",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "Nothing here"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__title-only__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "Nothing here"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__description-only",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "Nothing to show yet."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__description-only__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "Nothing to show yet."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__header-without-media",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "404 - Not Found"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "The page you're looking for doesn't exist."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__parts-outside-header",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyMedia",
+                "props": {
+                  "variant": "icon"
+                },
+                "children": [
+                  "<icon:bell>"
+                ]
+              },
+              {
+                "c": "EmptyTitle",
+                "props": {},
+                "children": [
+                  "Loose title"
+                ]
+              },
+              {
+                "c": "EmptyDescription",
+                "props": {},
+                "children": [
+                  "Loose description"
+                ]
+              },
+              {
+                "c": "EmptyContent",
+                "props": {},
+                "children": [
+                  "Loose content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__empty-content-only",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "Upload Files"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__empty-content-only__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "Upload Files"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__empty-content-text",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyContent",
+                "props": {},
+                "children": [
+                  "Plain text inside content inherits text-sm and text-balance."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__long-text-wraps",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "icon"
+                    },
+                    "children": [
+                      "<icon:inbox>"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "A very long title that will wrap over more than one line inside the header"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "This is a deliberately long description that must wrap over several lines so that text-balance, max-w-sm and the relaxed line height of the description are all visible in the snapshot of both harnesses."
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "EmptyContent",
+                "props": {},
+                "children": [
+                  "This is a deliberately long description that must wrap over several lines so that text-balance, max-w-sm and the relaxed line height of the description are all visible in the snapshot of both harnesses."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__long-text-wraps__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "icon"
+                    },
+                    "children": [
+                      "<icon:inbox>"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "A very long title that will wrap over more than one line inside the header"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "This is a deliberately long description that must wrap over several lines so that text-balance, max-w-sm and the relaxed line height of the description are all visible in the snapshot of both harnesses."
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "EmptyContent",
+                "props": {},
+                "children": [
+                  "This is a deliberately long description that must wrap over several lines so that text-balance, max-w-sm and the relaxed line height of the description are all visible in the snapshot of both harnesses."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__unbroken-word-min-w-0",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-64 p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyContent",
+                "props": {},
+                "children": [
+                  "Supercalifragilisticexpialidocious-unbroken-token-that-is-much-wider-than-the-container-max-width-of-sm"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__description-with-link",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "Need help? ",
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "Contact support"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__description-with-link__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "Need help? ",
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "Contact support"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "state__description-link-hover",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "Need help? ",
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "Contact support"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=empty-description] > a"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "state__description-link-hover__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "Need help? ",
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "Contact support"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=empty-description] > a"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__description-nested-link-not-direct-child",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "Nested ",
+                      {
+                        "c": "_span",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_a",
+                            "props": {
+                              "href": "#"
+                            },
+                            "children": [
+                              "link"
+                            ]
+                          }
+                        ]
+                      },
+                      " is not styled by [&>a]."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=empty-description] span > a"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "layout__flex-1-in-flex-parent",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-96 w-full max-w-2xl"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {
+              "className": "border"
+            },
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "icon"
+                    },
+                    "children": [
+                      "<icon:cloud>"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "Fills parent"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "Empty grows with flex-1."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "layout__viewport-below-md",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {
+              "className": "border"
+            },
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "icon"
+                    },
+                    "children": [
+                      "<icon:cloud>"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "Small screen"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "Padding is p-6 below md."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 600,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "layout__viewport-resize-across-md",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {
+              "className": "border"
+            },
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "icon"
+                    },
+                    "children": [
+                      "<icon:cloud>"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "Resize"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "Padding switches to md:p-12 at 768px."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "viewport",
+          "width": 900,
+          "height": 700
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 600,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class__border-dashed-needs-border",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {
+              "className": "border"
+            },
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "Dashed border"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class__border-dashed-needs-border__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {
+              "className": "border"
+            },
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "Dashed border"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class__merge-conflict-root",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {
+              "className": "p-2 gap-2 rounded-none items-start text-left"
+            },
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "icon"
+                    },
+                    "children": [
+                      "<icon:inbox>"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "Overrides"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "Caller classes win."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class__merge-conflict-header",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {
+                  "className": "max-w-lg gap-4 items-start text-left"
+                },
+                "children": [
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "Header override"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "Description"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class__merge-conflict-media-icon",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "icon",
+                      "className": "rounded-full size-12 bg-primary text-primary-foreground mb-0"
+                    },
+                    "children": [
+                      "<icon:inbox>"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "Media override"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class__merge-conflict-media-icon__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "icon",
+                      "className": "rounded-full size-12 bg-primary text-primary-foreground mb-0"
+                    },
+                    "children": [
+                      "<icon:inbox>"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "Media override"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class__merge-conflict-media-default",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "className": "bg-muted rounded-md p-2"
+                    },
+                    "children": [
+                      "<icon:inbox>"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "Media override"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class__merge-conflict-title",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyTitle",
+                    "props": {
+                      "className": "text-2xl font-bold tracking-normal"
+                    },
+                    "children": [
+                      "Title override"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class__merge-conflict-description",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyDescription",
+                    "props": {
+                      "className": "text-xs text-foreground"
+                    },
+                    "children": [
+                      "Description override ",
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "link"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class__merge-conflict-content",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyContent",
+                "props": {
+                  "className": "max-w-md flex-row gap-2 text-base"
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "One"
+                    ]
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "Two"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "attrs__forwarded",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {
+              "id": "empty-root",
+              "role": "status",
+              "aria-live": "polite",
+              "data-testid": "empty"
+            },
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {
+                  "id": "empty-header",
+                  "data-testid": "header"
+                },
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "icon",
+                      "id": "empty-media",
+                      "aria-hidden": "true",
+                      "data-testid": "media"
+                    },
+                    "children": [
+                      "<icon:inbox>"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {
+                      "id": "empty-title",
+                      "role": "heading",
+                      "aria-level": "2"
+                    },
+                    "children": [
+                      "Forwarded"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {
+                      "id": "empty-desc",
+                      "title": "tooltip text"
+                    },
+                    "children": [
+                      "Attributes pass through."
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "EmptyContent",
+                "props": {
+                  "id": "empty-content",
+                  "data-testid": "content"
+                },
+                "children": [
+                  "Content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "attrs__data-slot-override",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {
+              "data-slot": "custom-empty"
+            },
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {
+                  "data-slot": "custom-header"
+                },
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "data-slot": "custom-media"
+                    },
+                    "children": [
+                      "<icon:inbox>"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {
+                      "data-slot": "custom-title"
+                    },
+                    "children": [
+                      "Override"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {
+                      "data-slot": "custom-desc"
+                    },
+                    "children": [
+                      "Override"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "EmptyContent",
+                "props": {
+                  "data-slot": "custom-content"
+                },
+                "children": [
+                  "Override"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "attrs__data-variant-override",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "icon",
+                      "data-variant": "custom"
+                    },
+                    "children": [
+                      "<icon:inbox>"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "data-variant override"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "attrs__aria-labelledby",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {
+              "aria-labelledby": "et"
+            },
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyTitle",
+                    "props": {
+                      "id": "et"
+                    },
+                    "children": [
+                      "Labelled"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__empty-demo",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "icon"
+                    },
+                    "children": [
+                      "<icon:folder-code>"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "No Projects Yet"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "You haven't created any projects yet. Get started by creating your first project."
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "EmptyContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "className": "flex gap-2"
+                    },
+                    "children": [
+                      {
+                        "c": "_button",
+                        "props": {
+                          "type": "button"
+                        },
+                        "children": [
+                          "Create Project"
+                        ]
+                      },
+                      {
+                        "c": "_button",
+                        "props": {
+                          "type": "button"
+                        },
+                        "children": [
+                          "Import Project"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_a",
+                "props": {
+                  "href": "#",
+                  "className": "text-muted-foreground"
+                },
+                "children": [
+                  "Learn More ",
+                  "<icon:arrow-up-right>"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__empty-demo__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "icon"
+                    },
+                    "children": [
+                      "<icon:folder-code>"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "No Projects Yet"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "You haven't created any projects yet. Get started by creating your first project."
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "EmptyContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "className": "flex gap-2"
+                    },
+                    "children": [
+                      {
+                        "c": "_button",
+                        "props": {
+                          "type": "button"
+                        },
+                        "children": [
+                          "Create Project"
+                        ]
+                      },
+                      {
+                        "c": "_button",
+                        "props": {
+                          "type": "button"
+                        },
+                        "children": [
+                          "Import Project"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_a",
+                "props": {
+                  "href": "#",
+                  "className": "text-muted-foreground"
+                },
+                "children": [
+                  "Learn More ",
+                  "<icon:arrow-up-right>"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__empty-icon",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "grid gap-8 md:grid-cols-2"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "icon"
+                    },
+                    "children": [
+                      "<icon:inbox>"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "No messages"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "Your inbox is empty. New messages will appear here."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "icon"
+                    },
+                    "children": [
+                      "<icon:star>"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "No favorites"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "Items you mark as favorites will appear here."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "icon"
+                    },
+                    "children": [
+                      "<icon:heart>"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "No likes yet"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "Content you like will be saved here for easy access."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "icon"
+                    },
+                    "children": [
+                      "<icon:bookmark>"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "No bookmarks"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "Save interesting content by bookmarking it."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__empty-avatar",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "className": "relative flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-muted",
+                          "data-slot": "avatar"
+                        },
+                        "children": [
+                          "LR"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "User Offline"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "This user is currently offline. You can leave a message to notify them or try again later."
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "EmptyContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "Leave Message"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__empty-avatar-group",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex -space-x-2 *:data-[slot=avatar]:size-12 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:ring-background *:data-[slot=avatar]:grayscale"
+                        },
+                        "children": [
+                          {
+                            "c": "_span",
+                            "props": {
+                              "className": "relative flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-muted",
+                              "data-slot": "avatar"
+                            },
+                            "children": [
+                              "CN"
+                            ]
+                          },
+                          {
+                            "c": "_span",
+                            "props": {
+                              "className": "relative flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-muted",
+                              "data-slot": "avatar"
+                            },
+                            "children": [
+                              "LR"
+                            ]
+                          },
+                          {
+                            "c": "_span",
+                            "props": {
+                              "className": "relative flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-muted",
+                              "data-slot": "avatar"
+                            },
+                            "children": [
+                              "ER"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "No Team Members"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "Invite your team to collaborate on this project."
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "EmptyContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "<icon:plus>",
+                      "Invite Members"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__empty-input-group",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {},
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "404 - Not Found"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "The page you're looking for doesn't exist. Try searching for what you need below."
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "EmptyContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "className": "flex w-full items-center gap-2 rounded-md border sm:w-3/4"
+                    },
+                    "children": [
+                      "<icon:search>",
+                      {
+                        "c": "_input",
+                        "props": {
+                          "placeholder": "Try searching for pages..."
+                        },
+                        "children": []
+                      },
+                      {
+                        "c": "_kbd",
+                        "props": {},
+                        "children": [
+                          "/"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "Need help? ",
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#"
+                        },
+                        "children": [
+                          "Contact support"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__empty-outline",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {
+              "className": "border border-dashed"
+            },
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "icon"
+                    },
+                    "children": [
+                      "<icon:cloud>"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "Cloud Storage Empty"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "Upload files to your cloud storage to access them anywhere."
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "EmptyContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "Upload Files"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__empty-outline__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {
+              "className": "border border-dashed"
+            },
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "icon"
+                    },
+                    "children": [
+                      "<icon:cloud>"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "Cloud Storage Empty"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "Upload files to your cloud storage to access them anywhere."
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "EmptyContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "Upload Files"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__empty-background",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "h-96 w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {
+              "className": "h-full bg-gradient-to-b from-muted/50 from-30% to-background"
+            },
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "icon"
+                    },
+                    "children": [
+                      "<icon:bell>"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "No Notifications"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "You're all caught up. New notifications will appear here."
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "EmptyContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "<icon:refresh-ccw>",
+                      "Refresh"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__empty-background__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "h-96 w-full max-w-2xl p-4"
+        },
+        "children": [
+          {
+            "c": "Empty",
+            "props": {
+              "className": "h-full bg-gradient-to-b from-muted/50 from-30% to-background"
+            },
+            "children": [
+              {
+                "c": "EmptyHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "EmptyMedia",
+                    "props": {
+                      "variant": "icon"
+                    },
+                    "children": [
+                      "<icon:bell>"
+                    ]
+                  },
+                  {
+                    "c": "EmptyTitle",
+                    "props": {},
+                    "children": [
+                      "No Notifications"
+                    ]
+                  },
+                  {
+                    "c": "EmptyDescription",
+                    "props": {},
+                    "children": [
+                      "You're all caught up. New notifications will appear here."
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "EmptyContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "<icon:refresh-ccw>",
+                      "Refresh"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

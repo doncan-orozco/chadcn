@@ -1,0 +1,9 @@
+{
+  "component": "navigation-menu",
+  "reason": "Radix renders no node for NavigationMenuContent, the inner NavigationMenuViewport div or NavigationMenuIndicator while they are unmounted, and creates them on the client: contents are registered and rendered inside the viewport (or in place when there is no viewport), the indicator is portaled into the List's indicator-track div. The server must ship that markup somewhere, so Content (at its call site in the li), Viewport (inside the shadcn wrapper div) and Indicator (at its call site) emit inert <template> elements the controller clones from. Templates have no data-slot, generate no box and their content is not part of the document, so DOM node lists, boxes and accessibility match the oracle. Same pattern as tooltip and hover-card.",
+  "allow_tokens": [],
+  "allow_missing_tokens": [],
+  "api": [
+    "NavigationMenu::Content, NavigationMenu::Viewport and NavigationMenu::Indicator render inert <template data-shadcn--navigation-menu-target> elements (no data-slot) holding their markup while unmounted"
+  ]
+}

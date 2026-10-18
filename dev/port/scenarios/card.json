@@ -1,0 +1,3273 @@
+{
+  "component": "card",
+  "scenarios": [
+    {
+      "id": "default__all-parts",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {},
+                    "children": [
+                      "Card Title"
+                    ]
+                  },
+                  {
+                    "c": "CardDescription",
+                    "props": {},
+                    "children": [
+                      "Card Description"
+                    ]
+                  },
+                  {
+                    "c": "CardAction",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {},
+                        "children": [
+                          "Action"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Content"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardFooter",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Footer"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default__all-parts__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {},
+                    "children": [
+                      "Card Title"
+                    ]
+                  },
+                  {
+                    "c": "CardDescription",
+                    "props": {},
+                    "children": [
+                      "Card Description"
+                    ]
+                  },
+                  {
+                    "c": "CardAction",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {},
+                        "children": [
+                          "Action"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Content"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardFooter",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Footer"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "card__text-only",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              "Plain card body text"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "card__text-only__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              "Plain card body text"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "card__empty",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "header__title-only",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {},
+                    "children": [
+                      "Card Title"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "header__title-description",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {},
+                    "children": [
+                      "Card Title"
+                    ]
+                  },
+                  {
+                    "c": "CardDescription",
+                    "props": {},
+                    "children": [
+                      "Card Description"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Content"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "header__title-description__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {},
+                    "children": [
+                      "Card Title"
+                    ]
+                  },
+                  {
+                    "c": "CardDescription",
+                    "props": {},
+                    "children": [
+                      "Card Description"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Content"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "header__with-action",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {},
+                    "children": [
+                      "Card Title"
+                    ]
+                  },
+                  {
+                    "c": "CardDescription",
+                    "props": {},
+                    "children": [
+                      "Card Description"
+                    ]
+                  },
+                  {
+                    "c": "CardAction",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {},
+                        "children": [
+                          "Action"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "header__with-action__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {},
+                    "children": [
+                      "Card Title"
+                    ]
+                  },
+                  {
+                    "c": "CardDescription",
+                    "props": {},
+                    "children": [
+                      "Card Description"
+                    ]
+                  },
+                  {
+                    "c": "CardAction",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {},
+                        "children": [
+                          "Action"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "header__action-only-title",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {},
+                    "children": [
+                      "Card Title"
+                    ]
+                  },
+                  {
+                    "c": "CardAction",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {},
+                        "children": [
+                          "Action"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "header__action-first-in-dom",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "CardAction",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {},
+                        "children": [
+                          "Action"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "CardTitle",
+                    "props": {},
+                    "children": [
+                      "Card Title"
+                    ]
+                  },
+                  {
+                    "c": "CardDescription",
+                    "props": {},
+                    "children": [
+                      "Card Description"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "header__action-long-text-wraps",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {},
+                    "children": [
+                      "A considerably long card title that has to wrap onto several lines inside the header grid"
+                    ]
+                  },
+                  {
+                    "c": "CardDescription",
+                    "props": {},
+                    "children": [
+                      "A long description that also wraps across more than one line so the action stays pinned to the first row on the right side."
+                    ]
+                  },
+                  {
+                    "c": "CardAction",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_button",
+                        "props": {
+                          "type": "button"
+                        },
+                        "children": [
+                          "Sign Up"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "header__border-b",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {
+                  "className": "border-b"
+                },
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {},
+                    "children": [
+                      "Card Title"
+                    ]
+                  },
+                  {
+                    "c": "CardDescription",
+                    "props": {},
+                    "children": [
+                      "Card Description"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Content"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "header__border-b__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {
+                  "className": "border-b"
+                },
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {},
+                    "children": [
+                      "Card Title"
+                    ]
+                  },
+                  {
+                    "c": "CardDescription",
+                    "props": {},
+                    "children": [
+                      "Card Description"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Content"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "header__border-b-with-action",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {
+                  "className": "border-b"
+                },
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {},
+                    "children": [
+                      "Card Title"
+                    ]
+                  },
+                  {
+                    "c": "CardDescription",
+                    "props": {},
+                    "children": [
+                      "Card Description"
+                    ]
+                  },
+                  {
+                    "c": "CardAction",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {},
+                        "children": [
+                          "Action"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Content"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__only",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Content"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__rich-children",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "First paragraph of content."
+                    ]
+                  },
+                  {
+                    "c": "_ul",
+                    "props": {
+                      "className": "list-disc pl-4"
+                    },
+                    "children": [
+                      {
+                        "c": "_li",
+                        "props": {},
+                        "children": [
+                          "One"
+                        ]
+                      },
+                      {
+                        "c": "_li",
+                        "props": {},
+                        "children": [
+                          "Two"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "footer__default",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Content"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardFooter",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Footer"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "footer__multiple-children",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Content"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardFooter",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "Cancel"
+                    ]
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "Deploy"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "footer__border-t",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Content"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardFooter",
+                "props": {
+                  "className": "border-t"
+                },
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Footer"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "footer__border-t__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Content"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardFooter",
+                "props": {
+                  "className": "border-t"
+                },
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Footer"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "footer__class-merge-flex-col",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Content"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardFooter",
+                "props": {
+                  "className": "flex-col gap-2"
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "className": "w-full"
+                    },
+                    "children": [
+                      "Login"
+                    ]
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "className": "w-full"
+                    },
+                    "children": [
+                      "Login with Google"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "footer__class-merge-justify-between",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Content"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardFooter",
+                "props": {
+                  "className": "flex justify-between"
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "Cancel"
+                    ]
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "Deploy"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "title__long-text-wraps",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {},
+                    "children": [
+                      "A considerably long card title that has to wrap onto several lines because leading-none is tight"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "description__long-text-wraps",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {},
+                    "children": [
+                      "Card Title"
+                    ]
+                  },
+                  {
+                    "c": "CardDescription",
+                    "props": {},
+                    "children": [
+                      "A long description paragraph that wraps across several lines to exercise text-sm line height and muted foreground color in both themes."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "description__long-text-wraps__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {},
+                    "children": [
+                      "Card Title"
+                    ]
+                  },
+                  {
+                    "c": "CardDescription",
+                    "props": {},
+                    "children": [
+                      "A long description paragraph that wraps across several lines to exercise text-sm line height and muted foreground color in both themes."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "title__empty",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {},
+                    "children": [
+                      ""
+                    ]
+                  },
+                  {
+                    "c": "CardDescription",
+                    "props": {},
+                    "children": [
+                      "Card Description"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class-merge__card-conflicts",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {
+              "className": "w-[350px] rounded-none gap-2 py-4 shadow-none"
+            },
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {},
+                    "children": [
+                      "Card Title"
+                    ]
+                  },
+                  {
+                    "c": "CardDescription",
+                    "props": {},
+                    "children": [
+                      "Card Description"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Content"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class-merge__card-bg-override",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {
+              "className": "bg-muted text-foreground border-0"
+            },
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {},
+                    "children": [
+                      "Card Title"
+                    ]
+                  },
+                  {
+                    "c": "CardDescription",
+                    "props": {},
+                    "children": [
+                      "Card Description"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Content"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class-merge__card-bg-override__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {
+              "className": "bg-muted text-foreground border-0"
+            },
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {},
+                    "children": [
+                      "Card Title"
+                    ]
+                  },
+                  {
+                    "c": "CardDescription",
+                    "props": {},
+                    "children": [
+                      "Card Description"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Content"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class-merge__header-px",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {
+                  "className": "px-4 gap-1"
+                },
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {},
+                    "children": [
+                      "Card Title"
+                    ]
+                  },
+                  {
+                    "c": "CardDescription",
+                    "props": {},
+                    "children": [
+                      "Card Description"
+                    ]
+                  },
+                  {
+                    "c": "CardAction",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {},
+                        "children": [
+                          "Action"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardContent",
+                "props": {
+                  "className": "px-4"
+                },
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Content"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardFooter",
+                "props": {
+                  "className": "px-4"
+                },
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Footer"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class-merge__header-grid-cols",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {
+                  "className": "grid-cols-[2fr_1fr]"
+                },
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {},
+                    "children": [
+                      "Card Title"
+                    ]
+                  },
+                  {
+                    "c": "CardDescription",
+                    "props": {},
+                    "children": [
+                      "Card Description"
+                    ]
+                  },
+                  {
+                    "c": "CardAction",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {},
+                        "children": [
+                          "Action"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class-merge__title-description",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {
+                      "className": "text-2xl font-bold leading-tight"
+                    },
+                    "children": [
+                      "Card Title"
+                    ]
+                  },
+                  {
+                    "c": "CardDescription",
+                    "props": {
+                      "className": "text-xs text-foreground"
+                    },
+                    "children": [
+                      "Card Description"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class-merge__action-placement",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {},
+                    "children": [
+                      "Card Title"
+                    ]
+                  },
+                  {
+                    "c": "CardDescription",
+                    "props": {},
+                    "children": [
+                      "Card Description"
+                    ]
+                  },
+                  {
+                    "c": "CardAction",
+                    "props": {
+                      "className": "self-center justify-self-start"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {},
+                        "children": [
+                          "Action"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "container-query__header-narrow",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[220px] p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {
+                      "className": "text-sm @[250px]/card-header:text-2xl"
+                    },
+                    "children": [
+                      "Card Title"
+                    ]
+                  },
+                  {
+                    "c": "CardDescription",
+                    "props": {},
+                    "children": [
+                      "Card Description"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "container-query__header-wide",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[420px] p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {
+                      "className": "text-sm @[250px]/card-header:text-2xl"
+                    },
+                    "children": [
+                      "Card Title"
+                    ]
+                  },
+                  {
+                    "c": "CardDescription",
+                    "props": {},
+                    "children": [
+                      "Card Description"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "attrs__forwarded",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {
+              "id": "billing-card",
+              "role": "region",
+              "title": "Billing",
+              "aria-labelledby": "card-title-billing",
+              "aria-describedby": "card-desc-billing",
+              "data-testid": "card"
+            },
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {
+                  "data-testid": "card-header"
+                },
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {
+                      "id": "card-title-billing"
+                    },
+                    "children": [
+                      "Billing"
+                    ]
+                  },
+                  {
+                    "c": "CardDescription",
+                    "props": {
+                      "id": "card-desc-billing"
+                    },
+                    "children": [
+                      "Manage your plan"
+                    ]
+                  },
+                  {
+                    "c": "CardAction",
+                    "props": {
+                      "data-testid": "card-action"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {},
+                        "children": [
+                          "Pro"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardContent",
+                "props": {
+                  "data-testid": "card-content"
+                },
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Content"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardFooter",
+                "props": {
+                  "data-testid": "card-footer"
+                },
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Footer"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "attrs__style-and-tabindex",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {
+              "tabIndex": 0,
+              "style": {
+                "maxWidth": "320px"
+              },
+              "aria-label": "Focusable card"
+            },
+            "children": [
+              {
+                "c": "CardContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Content"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "attrs__data-slot-override",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {
+              "data-slot": "custom-card"
+            },
+            "children": [
+              {
+                "c": "CardContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Content"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "dom-order__caller-order",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardFooter",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Footer"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Content"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "CardDescription",
+                    "props": {},
+                    "children": [
+                      "Card Description"
+                    ]
+                  },
+                  {
+                    "c": "CardTitle",
+                    "props": {},
+                    "children": [
+                      "Card Title"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "nested__card-in-card",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full max-w-md p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {},
+                    "children": [
+                      "Outer"
+                    ]
+                  },
+                  {
+                    "c": "CardDescription",
+                    "props": {},
+                    "children": [
+                      "Outer card"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "Card",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "CardHeader",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "CardTitle",
+                            "props": {},
+                            "children": [
+                              "Inner"
+                            ]
+                          },
+                          {
+                            "c": "CardDescription",
+                            "props": {},
+                            "children": [
+                              "Inner card"
+                            ]
+                          },
+                          {
+                            "c": "CardAction",
+                            "props": {},
+                            "children": [
+                              {
+                                "c": "_span",
+                                "props": {},
+                                "children": [
+                                  "Action"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "CardContent",
+                        "props": {},
+                        "children": [
+                          {
+                            "c": "_p",
+                            "props": {},
+                            "children": [
+                              "Card Content"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "viewport__narrow",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full p-2"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {},
+                    "children": [
+                      "Card Title"
+                    ]
+                  },
+                  {
+                    "c": "CardDescription",
+                    "props": {},
+                    "children": [
+                      "Card Description"
+                    ]
+                  },
+                  {
+                    "c": "CardAction",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {},
+                        "children": [
+                          "Action"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Content"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardFooter",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Footer"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 320,
+        "height": 640
+      },
+      "animations": false
+    },
+    {
+      "id": "viewport__narrow__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-full p-2"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {},
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {},
+                    "children": [
+                      "Card Title"
+                    ]
+                  },
+                  {
+                    "c": "CardDescription",
+                    "props": {},
+                    "children": [
+                      "Card Description"
+                    ]
+                  },
+                  {
+                    "c": "CardAction",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {},
+                        "children": [
+                          "Action"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Content"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardFooter",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Card Footer"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 320,
+        "height": 640
+      },
+      "animations": false
+    },
+    {
+      "id": "example__card-demo",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full justify-center p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {
+              "className": "w-full max-w-sm"
+            },
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {},
+                    "children": [
+                      "Login to your account"
+                    ]
+                  },
+                  {
+                    "c": "CardDescription",
+                    "props": {},
+                    "children": [
+                      "Enter your email below to login to your account"
+                    ]
+                  },
+                  {
+                    "c": "CardAction",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_button",
+                        "props": {
+                          "type": "button"
+                        },
+                        "children": [
+                          "Sign Up"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_form",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex flex-col gap-6"
+                        },
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "className": "grid gap-2"
+                            },
+                            "children": [
+                              {
+                                "c": "_label",
+                                "props": {
+                                  "htmlFor": "email",
+                                  "className": "text-sm font-medium"
+                                },
+                                "children": [
+                                  "Email"
+                                ]
+                              },
+                              {
+                                "c": "_input",
+                                "props": {
+                                  "className": "h-9 w-full rounded-md border px-3",
+                                  "id": "email",
+                                  "type": "email",
+                                  "placeholder": "m@example.com",
+                                  "required": true
+                                },
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "c": "_div",
+                            "props": {
+                              "className": "grid gap-2"
+                            },
+                            "children": [
+                              {
+                                "c": "_div",
+                                "props": {
+                                  "className": "flex items-center"
+                                },
+                                "children": [
+                                  {
+                                    "c": "_label",
+                                    "props": {
+                                      "htmlFor": "password",
+                                      "className": "text-sm font-medium"
+                                    },
+                                    "children": [
+                                      "Password"
+                                    ]
+                                  },
+                                  {
+                                    "c": "_a",
+                                    "props": {
+                                      "href": "#",
+                                      "className": "ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                                    },
+                                    "children": [
+                                      "Forgot your password?"
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "c": "_input",
+                                "props": {
+                                  "className": "h-9 w-full rounded-md border px-3",
+                                  "id": "password",
+                                  "type": "password",
+                                  "required": true
+                                },
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardFooter",
+                "props": {
+                  "className": "flex-col gap-2"
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "submit",
+                      "className": "w-full"
+                    },
+                    "children": [
+                      "Login"
+                    ]
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "className": "w-full"
+                    },
+                    "children": [
+                      "Login with Google"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__card-demo__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full justify-center p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {
+              "className": "w-full max-w-sm"
+            },
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {},
+                    "children": [
+                      "Login to your account"
+                    ]
+                  },
+                  {
+                    "c": "CardDescription",
+                    "props": {},
+                    "children": [
+                      "Enter your email below to login to your account"
+                    ]
+                  },
+                  {
+                    "c": "CardAction",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_button",
+                        "props": {
+                          "type": "button"
+                        },
+                        "children": [
+                          "Sign Up"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_form",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex flex-col gap-6"
+                        },
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "className": "grid gap-2"
+                            },
+                            "children": [
+                              {
+                                "c": "_label",
+                                "props": {
+                                  "htmlFor": "email",
+                                  "className": "text-sm font-medium"
+                                },
+                                "children": [
+                                  "Email"
+                                ]
+                              },
+                              {
+                                "c": "_input",
+                                "props": {
+                                  "className": "h-9 w-full rounded-md border px-3",
+                                  "id": "email",
+                                  "type": "email",
+                                  "placeholder": "m@example.com",
+                                  "required": true
+                                },
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "c": "_div",
+                            "props": {
+                              "className": "grid gap-2"
+                            },
+                            "children": [
+                              {
+                                "c": "_div",
+                                "props": {
+                                  "className": "flex items-center"
+                                },
+                                "children": [
+                                  {
+                                    "c": "_label",
+                                    "props": {
+                                      "htmlFor": "password",
+                                      "className": "text-sm font-medium"
+                                    },
+                                    "children": [
+                                      "Password"
+                                    ]
+                                  },
+                                  {
+                                    "c": "_a",
+                                    "props": {
+                                      "href": "#",
+                                      "className": "ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                                    },
+                                    "children": [
+                                      "Forgot your password?"
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "c": "_input",
+                                "props": {
+                                  "className": "h-9 w-full rounded-md border px-3",
+                                  "id": "password",
+                                  "type": "password",
+                                  "required": true
+                                },
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardFooter",
+                "props": {
+                  "className": "flex-col gap-2"
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "submit",
+                      "className": "w-full"
+                    },
+                    "children": [
+                      "Login"
+                    ]
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button",
+                      "className": "w-full"
+                    },
+                    "children": [
+                      "Login with Google"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__card-with-form",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full justify-center p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {
+              "className": "w-[350px]"
+            },
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {},
+                    "children": [
+                      "Create project"
+                    ]
+                  },
+                  {
+                    "c": "CardDescription",
+                    "props": {},
+                    "children": [
+                      "Deploy your new project in one-click."
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_form",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "grid w-full items-center gap-6"
+                        },
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "className": "flex flex-col gap-3"
+                            },
+                            "children": [
+                              {
+                                "c": "_label",
+                                "props": {
+                                  "htmlFor": "name",
+                                  "className": "text-sm font-medium"
+                                },
+                                "children": [
+                                  "Name"
+                                ]
+                              },
+                              {
+                                "c": "_input",
+                                "props": {
+                                  "className": "h-9 w-full rounded-md border px-3",
+                                  "id": "name",
+                                  "placeholder": "Name of your project"
+                                },
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "c": "_div",
+                            "props": {
+                              "className": "flex flex-col gap-3"
+                            },
+                            "children": [
+                              {
+                                "c": "_label",
+                                "props": {
+                                  "htmlFor": "framework",
+                                  "className": "text-sm font-medium"
+                                },
+                                "children": [
+                                  "Framework"
+                                ]
+                              },
+                              {
+                                "c": "_select",
+                                "props": {
+                                  "id": "framework",
+                                  "className": "h-9 w-full rounded-md border px-3"
+                                },
+                                "children": [
+                                  {
+                                    "c": "_option",
+                                    "props": {
+                                      "value": ""
+                                    },
+                                    "children": [
+                                      "Select"
+                                    ]
+                                  },
+                                  {
+                                    "c": "_option",
+                                    "props": {
+                                      "value": "next"
+                                    },
+                                    "children": [
+                                      "Next.js"
+                                    ]
+                                  },
+                                  {
+                                    "c": "_option",
+                                    "props": {
+                                      "value": "sveltekit"
+                                    },
+                                    "children": [
+                                      "SvelteKit"
+                                    ]
+                                  },
+                                  {
+                                    "c": "_option",
+                                    "props": {
+                                      "value": "astro"
+                                    },
+                                    "children": [
+                                      "Astro"
+                                    ]
+                                  },
+                                  {
+                                    "c": "_option",
+                                    "props": {
+                                      "value": "nuxt"
+                                    },
+                                    "children": [
+                                      "Nuxt.js"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardFooter",
+                "props": {
+                  "className": "flex justify-between"
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "Cancel"
+                    ]
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "Deploy"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__card-with-form__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full justify-center p-4"
+        },
+        "children": [
+          {
+            "c": "Card",
+            "props": {
+              "className": "w-[350px]"
+            },
+            "children": [
+              {
+                "c": "CardHeader",
+                "props": {},
+                "children": [
+                  {
+                    "c": "CardTitle",
+                    "props": {},
+                    "children": [
+                      "Create project"
+                    ]
+                  },
+                  {
+                    "c": "CardDescription",
+                    "props": {},
+                    "children": [
+                      "Deploy your new project in one-click."
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_form",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "grid w-full items-center gap-6"
+                        },
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "className": "flex flex-col gap-3"
+                            },
+                            "children": [
+                              {
+                                "c": "_label",
+                                "props": {
+                                  "htmlFor": "name",
+                                  "className": "text-sm font-medium"
+                                },
+                                "children": [
+                                  "Name"
+                                ]
+                              },
+                              {
+                                "c": "_input",
+                                "props": {
+                                  "className": "h-9 w-full rounded-md border px-3",
+                                  "id": "name",
+                                  "placeholder": "Name of your project"
+                                },
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "c": "_div",
+                            "props": {
+                              "className": "flex flex-col gap-3"
+                            },
+                            "children": [
+                              {
+                                "c": "_label",
+                                "props": {
+                                  "htmlFor": "framework",
+                                  "className": "text-sm font-medium"
+                                },
+                                "children": [
+                                  "Framework"
+                                ]
+                              },
+                              {
+                                "c": "_select",
+                                "props": {
+                                  "id": "framework",
+                                  "className": "h-9 w-full rounded-md border px-3"
+                                },
+                                "children": [
+                                  {
+                                    "c": "_option",
+                                    "props": {
+                                      "value": ""
+                                    },
+                                    "children": [
+                                      "Select"
+                                    ]
+                                  },
+                                  {
+                                    "c": "_option",
+                                    "props": {
+                                      "value": "next"
+                                    },
+                                    "children": [
+                                      "Next.js"
+                                    ]
+                                  },
+                                  {
+                                    "c": "_option",
+                                    "props": {
+                                      "value": "sveltekit"
+                                    },
+                                    "children": [
+                                      "SvelteKit"
+                                    ]
+                                  },
+                                  {
+                                    "c": "_option",
+                                    "props": {
+                                      "value": "astro"
+                                    },
+                                    "children": [
+                                      "Astro"
+                                    ]
+                                  },
+                                  {
+                                    "c": "_option",
+                                    "props": {
+                                      "value": "nuxt"
+                                    },
+                                    "children": [
+                                      "Nuxt.js"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CardFooter",
+                "props": {
+                  "className": "flex justify-between"
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "Cancel"
+                    ]
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "type": "button"
+                    },
+                    "children": [
+                      "Deploy"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

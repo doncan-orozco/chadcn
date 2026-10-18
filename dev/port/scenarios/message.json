@@ -1,0 +1,4971 @@
+{
+  "component": "message",
+  "scenarios": [
+    {
+      "id": "defaults",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "I already checked the logs."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "defaults__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "I already checked the logs."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "align-start",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {
+              "align": "start"
+            },
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "I already checked the logs."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "align-start__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {
+              "align": "start"
+            },
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "I already checked the logs."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "I already checked the logs."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "align-end__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "I already checked the logs."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "full__align-start",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "avatar",
+                      "data-size": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar-fallback"
+                        },
+                        "children": [
+                          "R"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageHeader",
+                    "props": {},
+                    "children": [
+                      "Olivia"
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Deploying to prod real quick."
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {},
+                    "children": [
+                      "Delivered"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "full__align-start__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "avatar",
+                      "data-size": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar-fallback"
+                        },
+                        "children": [
+                          "R"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageHeader",
+                    "props": {},
+                    "children": [
+                      "Olivia"
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Deploying to prod real quick."
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {},
+                    "children": [
+                      "Delivered"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "full__align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "avatar",
+                      "data-size": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar-fallback"
+                        },
+                        "children": [
+                          "R"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageHeader",
+                    "props": {},
+                    "children": [
+                      "Olivia"
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Deploying to prod real quick."
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {},
+                    "children": [
+                      "Delivered"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "full__align-end__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "avatar",
+                      "data-size": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar-fallback"
+                        },
+                        "children": [
+                          "R"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageHeader",
+                    "props": {},
+                    "children": [
+                      "Olivia"
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Deploying to prod real quick."
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {},
+                    "children": [
+                      "Delivered"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "avatar__without-footer",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "avatar",
+                      "data-size": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar-fallback"
+                        },
+                        "children": [
+                          "R"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "No footer here."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "avatar__with-footer",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "avatar",
+                      "data-size": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar-fallback"
+                        },
+                        "children": [
+                          "R"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Footer below."
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {},
+                    "children": [
+                      "Delivered"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "avatar__with-footer__align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "avatar",
+                      "data-size": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar-fallback"
+                        },
+                        "children": [
+                          "ME"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Footer below."
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {},
+                    "children": [
+                      "Delivered"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "avatar__empty",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {},
+                "children": []
+              },
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Empty avatar placeholder."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "avatar__icon",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {},
+                "children": [
+                  "<icon:bot>"
+                ]
+              },
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Icon avatar."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "avatar__footer-outside-message",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "avatar",
+                      "data-size": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar-fallback"
+                        },
+                        "children": [
+                          "R"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "MessageFooter",
+                "props": {},
+                "children": [
+                  "Delivered"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__data-slot-children__align-start",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageHeader",
+                    "props": {},
+                    "children": [
+                      "Has data-slot"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {},
+                    "children": [
+                      "Plain child without data-slot"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "custom"
+                    },
+                    "children": [
+                      "Custom data-slot child"
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {},
+                    "children": [
+                      "Footer"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__data-slot-children__align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageHeader",
+                    "props": {},
+                    "children": [
+                      "Has data-slot"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {},
+                    "children": [
+                      "Plain child without data-slot"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "custom"
+                    },
+                    "children": [
+                      "Custom data-slot child"
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {},
+                    "children": [
+                      "Footer"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__data-slot-children__align-end__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageHeader",
+                    "props": {},
+                    "children": [
+                      "Has data-slot"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {},
+                    "children": [
+                      "Plain child without data-slot"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "custom"
+                    },
+                    "children": [
+                      "Custom data-slot child"
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {},
+                    "children": [
+                      "Footer"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__long-text-wrap",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Supercalifragilisticexpialidociousandthensomeunbrokentextthatmustwrapinsidethemessagecontentcolumn followed by a normal sentence that wraps across several lines inside the narrow container."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__long-text-wrap__align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "avatar",
+                      "data-size": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar-fallback"
+                        },
+                        "children": [
+                          "ME"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  "Supercalifragilisticexpialidociousandthensomeunbrokentextthatmustwrapinsidethemessagecontentcolumn followed by a normal sentence that wraps across several lines inside the narrow container."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "header__text",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageHeader",
+                    "props": {},
+                    "children": [
+                      "Olivia"
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Hi."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "header__text__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageHeader",
+                    "props": {},
+                    "children": [
+                      "Olivia"
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Hi."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "header__long-text",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageHeader",
+                    "props": {},
+                    "children": [
+                      "Supercalifragilisticexpialidociousandthensomeunbrokentextthatmustwrapinsidethemessagecontentcolumn followed by a normal sentence that wraps across several lines inside the narrow container."
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Hi."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "header__icon-text",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageHeader",
+                    "props": {},
+                    "children": [
+                      "<icon:bot>",
+                      "Assistant"
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Hi."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "footer__text__align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Sent."
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {},
+                    "children": [
+                      "Delivered"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "footer__text__align-end__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Sent."
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {},
+                    "children": [
+                      "Delivered"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "footer__multiple-items__align-start",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Sent."
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {
+                      "className": "gap-2"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {},
+                        "children": [
+                          "Read"
+                        ]
+                      },
+                      {
+                        "c": "_span",
+                        "props": {
+                          "className": "font-normal"
+                        },
+                        "children": [
+                          "Yesterday"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "footer__multiple-items__align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Sent."
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {
+                      "className": "gap-2"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {},
+                        "children": [
+                          "Read"
+                        ]
+                      },
+                      {
+                        "c": "_span",
+                        "props": {
+                          "className": "font-normal"
+                        },
+                        "children": [
+                          "Yesterday"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "header-footer__outside-message",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-align": "end"
+            },
+            "children": [
+              {
+                "c": "MessageHeader",
+                "props": {},
+                "children": [
+                  "Olivia"
+                ]
+              },
+              {
+                "c": "MessageFooter",
+                "props": {},
+                "children": [
+                  "Delivered"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "ghost-descendant__align-start",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageHeader",
+                    "props": {},
+                    "children": [
+                      "Olivia"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-variant": "ghost"
+                    },
+                    "children": [
+                      "Descendant with data-variant=ghost"
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {},
+                    "children": [
+                      "Delivered"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "ghost-descendant__align-start__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageHeader",
+                    "props": {},
+                    "children": [
+                      "Olivia"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-variant": "ghost"
+                    },
+                    "children": [
+                      "Descendant with data-variant=ghost"
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {},
+                    "children": [
+                      "Delivered"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "ghost-descendant__align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageHeader",
+                    "props": {},
+                    "children": [
+                      "Olivia"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-variant": "ghost"
+                    },
+                    "children": [
+                      "Descendant with data-variant=ghost"
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {},
+                    "children": [
+                      "Delivered"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "non-ghost-descendant",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageHeader",
+                    "props": {},
+                    "children": [
+                      "Olivia"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-variant": "outline"
+                    },
+                    "children": [
+                      "Descendant with data-variant=outline"
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {},
+                    "children": [
+                      "Delivered"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group__two-messages",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-6 py-12"
+        },
+        "children": [
+          {
+            "c": "MessageGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "Message",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageAvatar",
+                    "props": {},
+                    "children": []
+                  },
+                  {
+                    "c": "MessageContent",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_p",
+                        "props": {},
+                        "children": [
+                          "I checked the registry addresses."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "Message",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageAvatar",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar",
+                          "data-size": "default"
+                        },
+                        "children": [
+                          {
+                            "c": "_span",
+                            "props": {
+                              "data-slot": "avatar-fallback"
+                            },
+                            "children": [
+                              "CN"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "MessageContent",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_p",
+                        "props": {},
+                        "children": [
+                          "The JSON now lives under the UI registry."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group__two-messages__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-6 py-12"
+        },
+        "children": [
+          {
+            "c": "MessageGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "Message",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageAvatar",
+                    "props": {},
+                    "children": []
+                  },
+                  {
+                    "c": "MessageContent",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_p",
+                        "props": {},
+                        "children": [
+                          "I checked the registry addresses."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "Message",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageAvatar",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar",
+                          "data-size": "default"
+                        },
+                        "children": [
+                          {
+                            "c": "_span",
+                            "props": {
+                              "data-slot": "avatar-fallback"
+                            },
+                            "children": [
+                              "CN"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "MessageContent",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_p",
+                        "props": {},
+                        "children": [
+                          "The JSON now lives under the UI registry."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group__mixed-align",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-6 py-12"
+        },
+        "children": [
+          {
+            "c": "MessageGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "Message",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageContent",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_p",
+                        "props": {},
+                        "children": [
+                          "I already checked the logs."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "Message",
+                "props": {
+                  "align": "end"
+                },
+                "children": [
+                  {
+                    "c": "MessageContent",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_p",
+                        "props": {},
+                        "children": [
+                          "I already checked the logs."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "Message",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageContent",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_p",
+                        "props": {},
+                        "children": [
+                          "I already checked the logs."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "empty__all-parts",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "MessageGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "Message",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageAvatar",
+                    "props": {},
+                    "children": []
+                  },
+                  {
+                    "c": "MessageContent",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "MessageHeader",
+                        "props": {},
+                        "children": []
+                      },
+                      {
+                        "c": "MessageFooter",
+                        "props": {},
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "empty__message",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {},
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "rtl__align-start",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "dir": "rtl",
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "avatar",
+                      "data-size": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar-fallback"
+                        },
+                        "children": [
+                          "R"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageHeader",
+                    "props": {},
+                    "children": [
+                      "Olivia"
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Deploying to prod real quick."
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {},
+                    "children": [
+                      "Delivered"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "rtl__align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "dir": "rtl",
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "avatar",
+                      "data-size": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar-fallback"
+                        },
+                        "children": [
+                          "R"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageHeader",
+                    "props": {},
+                    "children": [
+                      "Olivia"
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Deploying to prod real quick."
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {},
+                    "children": [
+                      "Delivered"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__group-classname",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "MessageGroup",
+            "props": {
+              "className": "gap-4"
+            },
+            "children": [
+              {
+                "c": "Message",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageContent",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_p",
+                        "props": {},
+                        "children": [
+                          "I already checked the logs."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "Message",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageContent",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_p",
+                        "props": {},
+                        "children": [
+                          "I already checked the logs."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__message-classname",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {
+              "className": "gap-4 text-base"
+            },
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "avatar",
+                      "data-size": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar-fallback"
+                        },
+                        "children": [
+                          "R"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Merged."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__message-classname-flex-row__align-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {
+              "align": "end",
+              "className": "flex-row"
+            },
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "avatar",
+                      "data-size": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar-fallback"
+                        },
+                        "children": [
+                          "R"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Both kept."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__avatar-classname",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {
+                  "className": "min-w-10 rounded-md bg-primary text-primary-foreground self-start"
+                },
+                "children": [
+                  "AI"
+                ]
+              },
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Merged."
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {},
+                    "children": [
+                      "x"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__content-classname",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {
+                  "className": "gap-4 w-auto"
+                },
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "One"
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Two"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__header-classname",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageHeader",
+                    "props": {
+                      "className": "px-0 text-sm text-foreground"
+                    },
+                    "children": [
+                      "Olivia"
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Hi."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__footer-classname",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Hi."
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {
+                      "className": "px-1 justify-start text-destructive"
+                    },
+                    "children": [
+                      "Failed to send"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__forwarded-attrs",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "MessageGroup",
+            "props": {
+              "id": "thread",
+              "role": "log",
+              "aria-label": "Conversation",
+              "data-testid": "group"
+            },
+            "children": [
+              {
+                "c": "Message",
+                "props": {
+                  "id": "m1",
+                  "aria-label": "Message from Olivia",
+                  "data-testid": "message",
+                  "title": "msg"
+                },
+                "children": [
+                  {
+                    "c": "MessageAvatar",
+                    "props": {
+                      "aria-hidden": "true",
+                      "data-testid": "avatar"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar",
+                          "data-size": "default"
+                        },
+                        "children": [
+                          {
+                            "c": "_span",
+                            "props": {
+                              "data-slot": "avatar-fallback"
+                            },
+                            "children": [
+                              "O"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "MessageContent",
+                    "props": {
+                      "id": "c1",
+                      "data-testid": "content"
+                    },
+                    "children": [
+                      {
+                        "c": "MessageHeader",
+                        "props": {
+                          "id": "h1",
+                          "data-testid": "header"
+                        },
+                        "children": [
+                          "Olivia"
+                        ]
+                      },
+                      {
+                        "c": "_p",
+                        "props": {},
+                        "children": [
+                          "Hello."
+                        ]
+                      },
+                      {
+                        "c": "MessageFooter",
+                        "props": {
+                          "id": "f1",
+                          "data-testid": "footer"
+                        },
+                        "children": [
+                          "Delivered"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__message-data-align-attr-wins",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {
+              "data-align": "end"
+            },
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "avatar",
+                      "data-size": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar-fallback"
+                        },
+                        "children": [
+                          "R"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageHeader",
+                    "props": {},
+                    "children": [
+                      "Olivia"
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Attr wins."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__message-data-align-attr-over-prop",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {
+              "align": "end",
+              "data-align": "start"
+            },
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "avatar",
+                      "data-size": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar-fallback"
+                        },
+                        "children": [
+                          "R"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageHeader",
+                    "props": {},
+                    "children": [
+                      "Olivia"
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Attr wins over prop."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__footer-data-slot-override",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "avatar",
+                      "data-size": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar-fallback"
+                        },
+                        "children": [
+                          "R"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Hi."
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {
+                      "data-slot": "custom-footer"
+                    },
+                    "children": [
+                      "Not a message-footer anymore"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__message-data-slot-override",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {
+              "data-slot": "chat-row",
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageHeader",
+                    "props": {},
+                    "children": [
+                      "Still grouped"
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Hi."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__message-demo",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-6 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "avatar",
+                      "data-size": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar-fallback"
+                        },
+                        "children": [
+                          "ME"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "bubble",
+                      "data-variant": "default",
+                      "data-align": "start"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "bubble-content"
+                        },
+                        "children": [
+                          "Deploying to prod real quick."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "avatar",
+                      "data-size": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar-fallback"
+                        },
+                        "children": [
+                          "R"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "bubble",
+                      "data-variant": "muted",
+                      "data-align": "start"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "bubble-content"
+                        },
+                        "children": [
+                          "It's 4:55 PM. On a Friday."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Message",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "avatar",
+                      "data-size": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar-fallback"
+                        },
+                        "children": [
+                          "ME"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "bubble",
+                      "data-variant": "default",
+                      "data-align": "start"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "bubble-content"
+                        },
+                        "children": [
+                          "It's a one-line change."
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {},
+                    "children": [
+                      "Delivered"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "avatar",
+                      "data-size": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar-fallback"
+                        },
+                        "children": [
+                          "R"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "bubble-group"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "bubble",
+                          "data-variant": "muted",
+                          "data-align": "start"
+                        },
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "data-slot": "bubble-content"
+                            },
+                            "children": [
+                              "It's always a one-line change 😭."
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "bubble",
+                          "data-variant": "muted",
+                          "data-align": "start"
+                        },
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "data-slot": "bubble-content"
+                            },
+                            "children": [
+                              "Alright, let me take a look."
+                            ]
+                          },
+                          {
+                            "c": "_div",
+                            "props": {
+                              "data-slot": "bubble-reactions",
+                              "data-align": "end",
+                              "data-side": "bottom",
+                              "aria-label": "Reactions: thumbs up"
+                            },
+                            "children": [
+                              {
+                                "c": "_span",
+                                "props": {},
+                                "children": [
+                                  "👍"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__message-demo__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-6 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "avatar",
+                      "data-size": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar-fallback"
+                        },
+                        "children": [
+                          "ME"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "bubble",
+                      "data-variant": "default",
+                      "data-align": "start"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "bubble-content"
+                        },
+                        "children": [
+                          "Deploying to prod real quick."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "avatar",
+                      "data-size": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar-fallback"
+                        },
+                        "children": [
+                          "R"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "bubble",
+                      "data-variant": "muted",
+                      "data-align": "start"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "bubble-content"
+                        },
+                        "children": [
+                          "It's 4:55 PM. On a Friday."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Message",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "avatar",
+                      "data-size": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar-fallback"
+                        },
+                        "children": [
+                          "ME"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "bubble",
+                      "data-variant": "default",
+                      "data-align": "start"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "bubble-content"
+                        },
+                        "children": [
+                          "It's a one-line change."
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {},
+                    "children": [
+                      "Delivered"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "avatar",
+                      "data-size": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar-fallback"
+                        },
+                        "children": [
+                          "R"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "bubble-group"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "bubble",
+                          "data-variant": "muted",
+                          "data-align": "start"
+                        },
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "data-slot": "bubble-content"
+                            },
+                            "children": [
+                              "It's always a one-line change 😭."
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "bubble",
+                          "data-variant": "muted",
+                          "data-align": "start"
+                        },
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "data-slot": "bubble-content"
+                            },
+                            "children": [
+                              "Alright, let me take a look."
+                            ]
+                          },
+                          {
+                            "c": "_div",
+                            "props": {
+                              "data-slot": "bubble-reactions",
+                              "data-align": "end",
+                              "data-side": "bottom",
+                              "aria-label": "Reactions: thumbs up"
+                            },
+                            "children": [
+                              {
+                                "c": "_span",
+                                "props": {},
+                                "children": [
+                                  "👍"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__message-actions",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "bubble",
+                      "data-variant": "muted",
+                      "data-align": "start"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "bubble-content"
+                        },
+                        "children": [
+                          "The install failure is coming from the workspace package."
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_button",
+                        "props": {
+                          "type": "button",
+                          "data-slot": "button",
+                          "data-variant": "ghost",
+                          "data-size": "icon",
+                          "aria-label": "Copy",
+                          "title": "Copy"
+                        },
+                        "children": [
+                          "<icon:copy>"
+                        ]
+                      },
+                      {
+                        "c": "_button",
+                        "props": {
+                          "type": "button",
+                          "data-slot": "button",
+                          "data-variant": "ghost",
+                          "data-size": "icon",
+                          "aria-label": "Like",
+                          "title": "Like"
+                        },
+                        "children": [
+                          "<icon:thumbs-up>"
+                        ]
+                      },
+                      {
+                        "c": "_button",
+                        "props": {
+                          "type": "button",
+                          "data-slot": "button",
+                          "data-variant": "ghost",
+                          "data-size": "icon",
+                          "aria-label": "Dislike",
+                          "title": "Dislike"
+                        },
+                        "children": [
+                          "<icon:thumbs-down>"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Message",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "bubble",
+                      "data-variant": "default",
+                      "data-align": "start"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "bubble-content"
+                        },
+                        "children": [
+                          "Okay drop me a link. Taking a look..."
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {
+                      "className": "gap-2"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "className": "font-normal text-destructive"
+                        },
+                        "children": [
+                          "Failed to send"
+                        ]
+                      },
+                      {
+                        "c": "_button",
+                        "props": {
+                          "type": "button",
+                          "data-slot": "button",
+                          "data-variant": "ghost",
+                          "data-size": "icon-xs",
+                          "aria-label": "Retry",
+                          "title": "Retry"
+                        },
+                        "children": [
+                          "<icon:refresh-ccw>"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__message-actions__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "bubble",
+                      "data-variant": "muted",
+                      "data-align": "start"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "bubble-content"
+                        },
+                        "children": [
+                          "The install failure is coming from the workspace package."
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_button",
+                        "props": {
+                          "type": "button",
+                          "data-slot": "button",
+                          "data-variant": "ghost",
+                          "data-size": "icon",
+                          "aria-label": "Copy",
+                          "title": "Copy"
+                        },
+                        "children": [
+                          "<icon:copy>"
+                        ]
+                      },
+                      {
+                        "c": "_button",
+                        "props": {
+                          "type": "button",
+                          "data-slot": "button",
+                          "data-variant": "ghost",
+                          "data-size": "icon",
+                          "aria-label": "Like",
+                          "title": "Like"
+                        },
+                        "children": [
+                          "<icon:thumbs-up>"
+                        ]
+                      },
+                      {
+                        "c": "_button",
+                        "props": {
+                          "type": "button",
+                          "data-slot": "button",
+                          "data-variant": "ghost",
+                          "data-size": "icon",
+                          "aria-label": "Dislike",
+                          "title": "Dislike"
+                        },
+                        "children": [
+                          "<icon:thumbs-down>"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Message",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "bubble",
+                      "data-variant": "default",
+                      "data-align": "start"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "bubble-content"
+                        },
+                        "children": [
+                          "Okay drop me a link. Taking a look..."
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {
+                      "className": "gap-2"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "className": "font-normal text-destructive"
+                        },
+                        "children": [
+                          "Failed to send"
+                        ]
+                      },
+                      {
+                        "c": "_button",
+                        "props": {
+                          "type": "button",
+                          "data-slot": "button",
+                          "data-variant": "ghost",
+                          "data-size": "icon-xs",
+                          "aria-label": "Retry",
+                          "title": "Retry"
+                        },
+                        "children": [
+                          "<icon:refresh-ccw>"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__message-attachment",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "attachment",
+                      "data-state": "done",
+                      "data-size": "default",
+                      "data-orientation": "vertical"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "attachment-media",
+                          "data-variant": "image"
+                        },
+                        "children": [
+                          "<icon:image>"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "bubble",
+                      "data-variant": "default",
+                      "data-align": "start"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "bubble-content"
+                        },
+                        "children": [
+                          "Here's the image. Can you add it to the PDF? Use it for the cover page."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "bubble",
+                      "data-variant": "muted",
+                      "data-align": "start"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "bubble-content"
+                        },
+                        "children": [
+                          "Done. Here's the PDF with the image added as the cover page."
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "attachment",
+                      "data-state": "done",
+                      "data-size": "default",
+                      "data-orientation": "horizontal"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "attachment-media",
+                          "data-variant": "icon"
+                        },
+                        "children": [
+                          "<icon:file-text>"
+                        ]
+                      },
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "attachment-content"
+                        },
+                        "children": [
+                          {
+                            "c": "_span",
+                            "props": {
+                              "data-slot": "attachment-title"
+                            },
+                            "children": [
+                              "sales-dashboard.pdf"
+                            ]
+                          },
+                          {
+                            "c": "_span",
+                            "props": {
+                              "data-slot": "attachment-description"
+                            },
+                            "children": [
+                              "PDF · 2.4 MB"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "attachment-actions"
+                        },
+                        "children": [
+                          {
+                            "c": "_button",
+                            "props": {
+                              "type": "button",
+                              "data-slot": "attachment-action",
+                              "data-variant": "secondary",
+                              "data-size": "icon-sm",
+                              "title": "Download",
+                              "aria-label": "Download"
+                            },
+                            "children": [
+                              "<icon:download>"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Message",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "bubble",
+                      "data-variant": "default",
+                      "data-align": "start"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "bubble-content"
+                        },
+                        "children": [
+                          "Thanks. Looks good."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__message-avatar",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-6 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "avatar",
+                      "data-size": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar-fallback"
+                        },
+                        "children": [
+                          "R"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "bubble",
+                      "data-variant": "muted",
+                      "data-align": "start"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "bubble-content"
+                        },
+                        "children": [
+                          "The build failed during dependency installation."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Message",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "avatar",
+                      "data-size": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar-fallback"
+                        },
+                        "children": [
+                          "R"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "bubble",
+                      "data-variant": "default",
+                      "data-align": "start"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "bubble-content"
+                        },
+                        "children": [
+                          "Can you share the exact error?"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "avatar",
+                      "data-size": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar-fallback"
+                        },
+                        "children": [
+                          "R"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "bubble-group"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "bubble",
+                          "data-variant": "muted",
+                          "data-align": "start"
+                        },
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "data-slot": "bubble-content"
+                            },
+                            "children": [
+                              "Here's the error from the logs"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "bubble",
+                          "data-variant": "muted",
+                          "data-align": "start"
+                        },
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "data-slot": "bubble-content"
+                            },
+                            "children": [
+                              "Something went wrong with the build. The libraries are not installed correctly. Try running the build again."
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__message-group",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-6 py-12"
+        },
+        "children": [
+          {
+            "c": "MessageGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "Message",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageAvatar",
+                    "props": {},
+                    "children": []
+                  },
+                  {
+                    "c": "MessageContent",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "bubble",
+                          "data-variant": "muted",
+                          "data-align": "start"
+                        },
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "data-slot": "bubble-content"
+                            },
+                            "children": [
+                              "I checked the registry addresses."
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "Message",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageAvatar",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar",
+                          "data-size": "default"
+                        },
+                        "children": [
+                          {
+                            "c": "_span",
+                            "props": {
+                              "data-slot": "avatar-fallback"
+                            },
+                            "children": [
+                              "CN"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "MessageContent",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "bubble",
+                          "data-variant": "muted",
+                          "data-align": "start"
+                        },
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "data-slot": "bubble-content"
+                            },
+                            "children": [
+                              "The component and example JSON now live under the UI registry."
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__message-header-footer",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageHeader",
+                    "props": {},
+                    "children": [
+                      "Olivia"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "bubble",
+                      "data-variant": "muted",
+                      "data-align": "start"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "bubble-content"
+                        },
+                        "children": [
+                          "I already checked the logs."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Message",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "bubble",
+                      "data-variant": "default",
+                      "data-align": "start"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "bubble-content"
+                        },
+                        "children": [
+                          "Send the report to the team. Ping @shadcn if you need help."
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {},
+                        "children": [
+                          "Read ",
+                          {
+                            "c": "_span",
+                            "props": {
+                              "className": "font-normal"
+                            },
+                            "children": [
+                              "Yesterday"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__message-header-footer__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageHeader",
+                    "props": {},
+                    "children": [
+                      "Olivia"
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "bubble",
+                      "data-variant": "muted",
+                      "data-align": "start"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "bubble-content"
+                        },
+                        "children": [
+                          "I already checked the logs."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Message",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "bubble",
+                      "data-variant": "default",
+                      "data-align": "start"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "bubble-content"
+                        },
+                        "children": [
+                          "Send the report to the team. Ping @shadcn if you need help."
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {},
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {},
+                        "children": [
+                          "Read ",
+                          {
+                            "c": "_span",
+                            "props": {
+                              "className": "font-normal"
+                            },
+                            "children": [
+                              "Yesterday"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__message-markdown",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "bubble",
+                      "data-variant": "default",
+                      "data-align": "start"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "bubble-content"
+                        },
+                        "children": [
+                          "How do I render markdown in a message?"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "data-slot": "bubble",
+                      "data-variant": "ghost",
+                      "data-align": "start"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "data-slot": "bubble-content"
+                        },
+                        "children": [
+                          {
+                            "c": "_p",
+                            "props": {},
+                            "children": [
+                              "Here's how to render markdown in a message:"
+                            ]
+                          },
+                          {
+                            "c": "_ol",
+                            "props": {},
+                            "children": [
+                              {
+                                "c": "_li",
+                                "props": {},
+                                "children": [
+                                  "Render assistant text through ",
+                                  {
+                                    "c": "_strong",
+                                    "props": {},
+                                    "children": [
+                                      "Markdown"
+                                    ]
+                                  },
+                                  "."
+                                ]
+                              },
+                              {
+                                "c": "_li",
+                                "props": {},
+                                "children": [
+                                  "Keep user messages as plain text."
+                                ]
+                              },
+                              {
+                                "c": "_li",
+                                "props": {},
+                                "children": [
+                                  "Use a ",
+                                  {
+                                    "c": "_code",
+                                    "props": {},
+                                    "children": [
+                                      "ghost"
+                                    ]
+                                  },
+                                  " bubble so the response is unframed."
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "viewport__narrow",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Message",
+            "props": {
+              "align": "end"
+            },
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "avatar",
+                      "data-size": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar-fallback"
+                        },
+                        "children": [
+                          "R"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageHeader",
+                    "props": {},
+                    "children": [
+                      "Olivia"
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Deploying to prod real quick."
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {},
+                    "children": [
+                      "Delivered"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Message",
+            "props": {},
+            "children": [
+              {
+                "c": "MessageAvatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "data-slot": "avatar",
+                      "data-size": "default"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "data-slot": "avatar-fallback"
+                        },
+                        "children": [
+                          "R"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "MessageContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "MessageHeader",
+                    "props": {},
+                    "children": [
+                      "Olivia"
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {},
+                    "children": [
+                      "Deploying to prod real quick."
+                    ]
+                  },
+                  {
+                    "c": "MessageFooter",
+                    "props": {},
+                    "children": [
+                      "Delivered"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 360,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

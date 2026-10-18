@@ -1,0 +1,20 @@
+{
+  "case": "28-auditor-doc-vs-source",
+  "kind": "agent",
+  "component": "_slot",
+  "description": "The project doc and the unit test both claim Slot class merging is conflict-resolved, the code follows them, but the real Radix mergeProps (given verbatim in the fixture) joins plainly. The auditor must side with the source: Q_SPEC_DRIFT, MANDATORY, DOC_CONTRADICTS_SOURCE, mentioning className.",
+  "static_must_pass": false,
+  "agent_must_find": [
+    "Q_SPEC_DRIFT"
+  ],
+  "agent_must_be_mandatory": [
+    "Q_SPEC_DRIFT"
+  ],
+  "agent_must_mention": [
+    "class",
+    "DOC_CONTRADICTS_SOURCE"
+  ],
+  "agent_may_find": [],
+  "must_not_detect": [],
+  "notes": "Probe word changed from `className` to `class` after the first post-restart run: the fixture's doc and Ruby code say `class`, so the literal `className` was an arbitrary synonym, not a requirement. Severity MANDATORY and the DOC_CONTRADICTS_SOURCE marker are unchanged."
+}

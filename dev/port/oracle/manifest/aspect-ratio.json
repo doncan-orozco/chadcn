@@ -1,0 +1,56 @@
+{
+  "name": "aspect-ratio",
+  "style": "new-york-v4",
+  "source_sha": "b1c157886236782c",
+  "use_client": true,
+  "tier": "radix_stateful",
+  "exports": [
+    "AspectRatio"
+  ],
+  "parts": [
+    {
+      "name": "AspectRatio",
+      "data_attrs": [],
+      "data_slots": [
+        "aspect-ratio"
+      ],
+      "data_slot": "aspect-ratio",
+      "wraps": "AspectRatioPrimitive.Root",
+      "renders": "AspectRatioPrimitive.Root",
+      "slot_tags": {
+        "aspect-ratio": "AspectRatioPrimitive.Root"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [],
+  "data_attrs": [],
+  "data_slots": [
+    "aspect-ratio"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [
+    "AspectRatio"
+  ],
+  "third_party": [],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "radix-ui"
+  ],
+  "extra_files": []
+}

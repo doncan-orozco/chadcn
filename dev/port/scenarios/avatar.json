@@ -1,0 +1,2460 @@
+{
+  "component": "avatar",
+  "scenarios": [
+    {
+      "id": "default",
+      "tree": {
+        "c": "Avatar",
+        "props": {},
+        "children": [
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "CN"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "size-default__fallback",
+      "tree": {
+        "c": "Avatar",
+        "props": {
+          "size": "default"
+        },
+        "children": [
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "CN"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "size-default__image-loaded",
+      "tree": {
+        "c": "Avatar",
+        "props": {
+          "size": "default"
+        },
+        "children": [
+          {
+            "c": "AvatarImage",
+            "props": {
+              "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2NCcgaGVpZ2h0PSc2NCc+PHJlY3Qgd2lkdGg9JzY0JyBoZWlnaHQ9JzY0JyBmaWxsPSdncmF5Jy8+PC9zdmc+",
+              "alt": "@shadcn"
+            },
+            "children": []
+          },
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "CN"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "size-default__image-error",
+      "tree": {
+        "c": "Avatar",
+        "props": {
+          "size": "default"
+        },
+        "children": [
+          {
+            "c": "AvatarImage",
+            "props": {
+              "src": "data:image/png;base64,AAAA",
+              "alt": "@shadcn"
+            },
+            "children": []
+          },
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "CN"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "size-sm__fallback",
+      "tree": {
+        "c": "Avatar",
+        "props": {
+          "size": "sm"
+        },
+        "children": [
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "CN"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "size-sm__image-loaded",
+      "tree": {
+        "c": "Avatar",
+        "props": {
+          "size": "sm"
+        },
+        "children": [
+          {
+            "c": "AvatarImage",
+            "props": {
+              "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2NCcgaGVpZ2h0PSc2NCc+PHJlY3Qgd2lkdGg9JzY0JyBoZWlnaHQ9JzY0JyBmaWxsPSdncmF5Jy8+PC9zdmc+",
+              "alt": "@shadcn"
+            },
+            "children": []
+          },
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "CN"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "size-sm__image-error",
+      "tree": {
+        "c": "Avatar",
+        "props": {
+          "size": "sm"
+        },
+        "children": [
+          {
+            "c": "AvatarImage",
+            "props": {
+              "src": "data:image/png;base64,AAAA",
+              "alt": "@shadcn"
+            },
+            "children": []
+          },
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "CN"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "size-lg__fallback",
+      "tree": {
+        "c": "Avatar",
+        "props": {
+          "size": "lg"
+        },
+        "children": [
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "CN"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "size-lg__image-loaded",
+      "tree": {
+        "c": "Avatar",
+        "props": {
+          "size": "lg"
+        },
+        "children": [
+          {
+            "c": "AvatarImage",
+            "props": {
+              "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2NCcgaGVpZ2h0PSc2NCc+PHJlY3Qgd2lkdGg9JzY0JyBoZWlnaHQ9JzY0JyBmaWxsPSdncmF5Jy8+PC9zdmc+",
+              "alt": "@shadcn"
+            },
+            "children": []
+          },
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "CN"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "size-lg__image-error",
+      "tree": {
+        "c": "Avatar",
+        "props": {
+          "size": "lg"
+        },
+        "children": [
+          {
+            "c": "AvatarImage",
+            "props": {
+              "src": "data:image/png;base64,AAAA",
+              "alt": "@shadcn"
+            },
+            "children": []
+          },
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "CN"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "image__no-src",
+      "tree": {
+        "c": "Avatar",
+        "props": {},
+        "children": [
+          {
+            "c": "AvatarImage",
+            "props": {
+              "alt": "@shadcn"
+            },
+            "children": []
+          },
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "CN"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "image__empty-src",
+      "tree": {
+        "c": "Avatar",
+        "props": {},
+        "children": [
+          {
+            "c": "AvatarImage",
+            "props": {
+              "src": "",
+              "alt": "@shadcn"
+            },
+            "children": []
+          },
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "CN"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "image__loaded-no-fallback",
+      "tree": {
+        "c": "Avatar",
+        "props": {},
+        "children": [
+          {
+            "c": "AvatarImage",
+            "props": {
+              "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2NCcgaGVpZ2h0PSc2NCc+PHJlY3Qgd2lkdGg9JzY0JyBoZWlnaHQ9JzY0JyBmaWxsPSdncmF5Jy8+PC9zdmc+",
+              "alt": "@shadcn"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "image__error-no-fallback",
+      "tree": {
+        "c": "Avatar",
+        "props": {},
+        "children": [
+          {
+            "c": "AvatarImage",
+            "props": {
+              "src": "data:image/png;base64,AAAA",
+              "alt": "@shadcn"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "image__fallback-before-image",
+      "tree": {
+        "c": "Avatar",
+        "props": {},
+        "children": [
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "CN"
+            ]
+          },
+          {
+            "c": "AvatarImage",
+            "props": {
+              "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2NCcgaGVpZ2h0PSc2NCc+PHJlY3Qgd2lkdGg9JzY0JyBoZWlnaHQ9JzY0JyBmaWxsPSdncmF5Jy8+PC9zdmc+",
+              "alt": "@shadcn"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "image__referrer-policy-cross-origin",
+      "tree": {
+        "c": "Avatar",
+        "props": {},
+        "children": [
+          {
+            "c": "AvatarImage",
+            "props": {
+              "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2NCcgaGVpZ2h0PSc2NCc+PHJlY3Qgd2lkdGg9JzY0JyBoZWlnaHQ9JzY0JyBmaWxsPSdncmF5Jy8+PC9zdmc+",
+              "alt": "@shadcn",
+              "referrerPolicy": "no-referrer",
+              "crossOrigin": "anonymous"
+            },
+            "children": []
+          },
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "CN"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "fallback-delay__image-error",
+      "tree": {
+        "c": "Avatar",
+        "props": {},
+        "children": [
+          {
+            "c": "AvatarImage",
+            "props": {
+              "src": "data:image/png;base64,AAAA",
+              "alt": "@shadcn"
+            },
+            "children": []
+          },
+          {
+            "c": "AvatarFallback",
+            "props": {
+              "delayMs": 3000
+            },
+            "children": [
+              "CN"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        },
+        {
+          "do": "wait",
+          "ms": 3500
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "fallback-delay__no-image",
+      "tree": {
+        "c": "Avatar",
+        "props": {},
+        "children": [
+          {
+            "c": "AvatarFallback",
+            "props": {
+              "delayMs": 3000
+            },
+            "children": [
+              "CN"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        },
+        {
+          "do": "wait",
+          "ms": 3500
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "fallback-delay__image-loaded",
+      "tree": {
+        "c": "Avatar",
+        "props": {},
+        "children": [
+          {
+            "c": "AvatarImage",
+            "props": {
+              "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2NCcgaGVpZ2h0PSc2NCc+PHJlY3Qgd2lkdGg9JzY0JyBoZWlnaHQ9JzY0JyBmaWxsPSdncmF5Jy8+PC9zdmc+",
+              "alt": "@shadcn"
+            },
+            "children": []
+          },
+          {
+            "c": "AvatarFallback",
+            "props": {
+              "delayMs": 3000
+            },
+            "children": [
+              "CN"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        },
+        {
+          "do": "wait",
+          "ms": 3500
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "fallback__long-text",
+      "tree": {
+        "c": "Avatar",
+        "props": {},
+        "children": [
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "ABCDEFGHIJ"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "fallback__empty",
+      "tree": {
+        "c": "Avatar",
+        "props": {},
+        "children": [
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "fallback__icon",
+      "tree": {
+        "c": "Avatar",
+        "props": {},
+        "children": [
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "<icon:user>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "badge__size-default",
+      "tree": {
+        "c": "Avatar",
+        "props": {
+          "size": "default"
+        },
+        "children": [
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "CN"
+            ]
+          },
+          {
+            "c": "AvatarBadge",
+            "props": {},
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "badge-icon__size-default",
+      "tree": {
+        "c": "Avatar",
+        "props": {
+          "size": "default"
+        },
+        "children": [
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "CN"
+            ]
+          },
+          {
+            "c": "AvatarBadge",
+            "props": {},
+            "children": [
+              "<icon:check>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "badge__size-sm",
+      "tree": {
+        "c": "Avatar",
+        "props": {
+          "size": "sm"
+        },
+        "children": [
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "CN"
+            ]
+          },
+          {
+            "c": "AvatarBadge",
+            "props": {},
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "badge-icon__size-sm",
+      "tree": {
+        "c": "Avatar",
+        "props": {
+          "size": "sm"
+        },
+        "children": [
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "CN"
+            ]
+          },
+          {
+            "c": "AvatarBadge",
+            "props": {},
+            "children": [
+              "<icon:check>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "badge__size-lg",
+      "tree": {
+        "c": "Avatar",
+        "props": {
+          "size": "lg"
+        },
+        "children": [
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "CN"
+            ]
+          },
+          {
+            "c": "AvatarBadge",
+            "props": {},
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "badge-icon__size-lg",
+      "tree": {
+        "c": "Avatar",
+        "props": {
+          "size": "lg"
+        },
+        "children": [
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "CN"
+            ]
+          },
+          {
+            "c": "AvatarBadge",
+            "props": {},
+            "children": [
+              "<icon:check>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "badge__image-loaded",
+      "tree": {
+        "c": "Avatar",
+        "props": {},
+        "children": [
+          {
+            "c": "AvatarImage",
+            "props": {
+              "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2NCcgaGVpZ2h0PSc2NCc+PHJlY3Qgd2lkdGg9JzY0JyBoZWlnaHQ9JzY0JyBmaWxsPSdncmF5Jy8+PC9zdmc+",
+              "alt": "@shadcn"
+            },
+            "children": []
+          },
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "CN"
+            ]
+          },
+          {
+            "c": "AvatarBadge",
+            "props": {},
+            "children": []
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "badge__class-merge",
+      "tree": {
+        "c": "Avatar",
+        "props": {},
+        "children": [
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "CN"
+            ]
+          },
+          {
+            "c": "AvatarBadge",
+            "props": {
+              "className": "bg-green-600 dark:bg-green-800"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group__fallbacks",
+      "tree": {
+        "c": "AvatarGroup",
+        "props": {},
+        "children": [
+          {
+            "c": "Avatar",
+            "props": {},
+            "children": [
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "CN"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Avatar",
+            "props": {},
+            "children": [
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "LR"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Avatar",
+            "props": {},
+            "children": [
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "ER"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group__images",
+      "tree": {
+        "c": "AvatarGroup",
+        "props": {},
+        "children": [
+          {
+            "c": "Avatar",
+            "props": {},
+            "children": [
+              {
+                "c": "AvatarImage",
+                "props": {
+                  "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2NCcgaGVpZ2h0PSc2NCc+PHJlY3Qgd2lkdGg9JzY0JyBoZWlnaHQ9JzY0JyBmaWxsPSdncmF5Jy8+PC9zdmc+",
+                  "alt": "@shadcn"
+                },
+                "children": []
+              },
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "CN"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Avatar",
+            "props": {},
+            "children": [
+              {
+                "c": "AvatarImage",
+                "props": {
+                  "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2NCcgaGVpZ2h0PSc2NCc+PHJlY3Qgd2lkdGg9JzY0JyBoZWlnaHQ9JzY0JyBmaWxsPSdncmF5Jy8+PC9zdmc+",
+                  "alt": "@shadcn"
+                },
+                "children": []
+              },
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "LR"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Avatar",
+            "props": {},
+            "children": [
+              {
+                "c": "AvatarImage",
+                "props": {
+                  "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2NCcgaGVpZ2h0PSc2NCc+PHJlY3Qgd2lkdGg9JzY0JyBoZWlnaHQ9JzY0JyBmaWxsPSdncmF5Jy8+PC9zdmc+",
+                  "alt": "@shadcn"
+                },
+                "children": []
+              },
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "ER"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group-count__size-default",
+      "tree": {
+        "c": "AvatarGroup",
+        "props": {},
+        "children": [
+          {
+            "c": "Avatar",
+            "props": {},
+            "children": [
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "CN"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Avatar",
+            "props": {},
+            "children": [
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "LR"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Avatar",
+            "props": {},
+            "children": [
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "ER"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AvatarGroupCount",
+            "props": {},
+            "children": [
+              "+3"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group-count-icon__size-default",
+      "tree": {
+        "c": "AvatarGroup",
+        "props": {},
+        "children": [
+          {
+            "c": "Avatar",
+            "props": {},
+            "children": [
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "CN"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Avatar",
+            "props": {},
+            "children": [
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "LR"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Avatar",
+            "props": {},
+            "children": [
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "ER"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AvatarGroupCount",
+            "props": {},
+            "children": [
+              "<icon:plus>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group-count__size-sm",
+      "tree": {
+        "c": "AvatarGroup",
+        "props": {},
+        "children": [
+          {
+            "c": "Avatar",
+            "props": {
+              "size": "sm"
+            },
+            "children": [
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "CN"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Avatar",
+            "props": {
+              "size": "sm"
+            },
+            "children": [
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "LR"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Avatar",
+            "props": {
+              "size": "sm"
+            },
+            "children": [
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "ER"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AvatarGroupCount",
+            "props": {},
+            "children": [
+              "+3"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group-count-icon__size-sm",
+      "tree": {
+        "c": "AvatarGroup",
+        "props": {},
+        "children": [
+          {
+            "c": "Avatar",
+            "props": {
+              "size": "sm"
+            },
+            "children": [
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "CN"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Avatar",
+            "props": {
+              "size": "sm"
+            },
+            "children": [
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "LR"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Avatar",
+            "props": {
+              "size": "sm"
+            },
+            "children": [
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "ER"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AvatarGroupCount",
+            "props": {},
+            "children": [
+              "<icon:plus>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group-count__size-lg",
+      "tree": {
+        "c": "AvatarGroup",
+        "props": {},
+        "children": [
+          {
+            "c": "Avatar",
+            "props": {
+              "size": "lg"
+            },
+            "children": [
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "CN"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Avatar",
+            "props": {
+              "size": "lg"
+            },
+            "children": [
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "LR"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Avatar",
+            "props": {
+              "size": "lg"
+            },
+            "children": [
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "ER"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AvatarGroupCount",
+            "props": {},
+            "children": [
+              "+3"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group-count-icon__size-lg",
+      "tree": {
+        "c": "AvatarGroup",
+        "props": {},
+        "children": [
+          {
+            "c": "Avatar",
+            "props": {
+              "size": "lg"
+            },
+            "children": [
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "CN"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Avatar",
+            "props": {
+              "size": "lg"
+            },
+            "children": [
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "LR"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Avatar",
+            "props": {
+              "size": "lg"
+            },
+            "children": [
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "ER"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AvatarGroupCount",
+            "props": {},
+            "children": [
+              "<icon:plus>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group-count__class-merge",
+      "tree": {
+        "c": "AvatarGroup",
+        "props": {},
+        "children": [
+          {
+            "c": "Avatar",
+            "props": {},
+            "children": [
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "CN"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Avatar",
+            "props": {},
+            "children": [
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "LR"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Avatar",
+            "props": {},
+            "children": [
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "ER"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AvatarGroupCount",
+            "props": {
+              "className": "bg-primary text-primary-foreground"
+            },
+            "children": [
+              "+9"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "group__class-merge",
+      "tree": {
+        "c": "AvatarGroup",
+        "props": {
+          "className": "-space-x-4"
+        },
+        "children": [
+          {
+            "c": "Avatar",
+            "props": {},
+            "children": [
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "CN"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Avatar",
+            "props": {},
+            "children": [
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "LR"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Avatar",
+            "props": {},
+            "children": [
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "ER"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__class-merge-root",
+      "tree": {
+        "c": "Avatar",
+        "props": {
+          "className": "rounded-lg"
+        },
+        "children": [
+          {
+            "c": "AvatarImage",
+            "props": {
+              "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2NCcgaGVpZ2h0PSc2NCc+PHJlY3Qgd2lkdGg9JzY0JyBoZWlnaHQ9JzY0JyBmaWxsPSdncmF5Jy8+PC9zdmc+",
+              "alt": "@shadcn"
+            },
+            "children": []
+          },
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "CN"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__class-merge-fallback",
+      "tree": {
+        "c": "Avatar",
+        "props": {
+          "className": "rounded-lg"
+        },
+        "children": [
+          {
+            "c": "AvatarFallback",
+            "props": {
+              "className": "rounded-lg"
+            },
+            "children": [
+              "ER"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__class-merge-image",
+      "tree": {
+        "c": "Avatar",
+        "props": {},
+        "children": [
+          {
+            "c": "AvatarImage",
+            "props": {
+              "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2NCcgaGVpZ2h0PSc2NCc+PHJlY3Qgd2lkdGg9JzY0JyBoZWlnaHQ9JzY0JyBmaWxsPSdncmF5Jy8+PC9zdmc+",
+              "alt": "@shadcn",
+              "className": "grayscale"
+            },
+            "children": []
+          },
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "CN"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__forwarded-attrs",
+      "tree": {
+        "c": "Avatar",
+        "props": {
+          "id": "user-avatar",
+          "aria-label": "Avatar of shadcn",
+          "data-testid": "avatar",
+          "title": "shadcn"
+        },
+        "children": [
+          {
+            "c": "AvatarImage",
+            "props": {
+              "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2NCcgaGVpZ2h0PSc2NCc+PHJlY3Qgd2lkdGg9JzY0JyBoZWlnaHQ9JzY0JyBmaWxsPSdncmF5Jy8+PC9zdmc+",
+              "alt": "@shadcn",
+              "data-testid": "img",
+              "title": "photo"
+            },
+            "children": []
+          },
+          {
+            "c": "AvatarFallback",
+            "props": {
+              "data-testid": "fb",
+              "aria-hidden": "true"
+            },
+            "children": [
+              "CN"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__forwarded-attrs-badge-group",
+      "tree": {
+        "c": "AvatarGroup",
+        "props": {
+          "id": "team",
+          "aria-label": "Team",
+          "role": "group"
+        },
+        "children": [
+          {
+            "c": "Avatar",
+            "props": {},
+            "children": [
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "CN"
+                ]
+              },
+              {
+                "c": "AvatarBadge",
+                "props": {
+                  "aria-label": "online",
+                  "data-testid": "badge"
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "c": "AvatarGroupCount",
+            "props": {
+              "data-testid": "count",
+              "title": "3 more"
+            },
+            "children": [
+              "+3"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__data-size-override",
+      "tree": {
+        "c": "Avatar",
+        "props": {
+          "data-size": "lg"
+        },
+        "children": [
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "CN"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__as-child-root",
+      "tree": {
+        "c": "Avatar",
+        "props": {
+          "asChild": true
+        },
+        "children": [
+          {
+            "c": "_a",
+            "props": {
+              "href": "#profile"
+            },
+            "children": [
+              {
+                "c": "AvatarImage",
+                "props": {
+                  "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2NCcgaGVpZ2h0PSc2NCc+PHJlY3Qgd2lkdGg9JzY0JyBoZWlnaHQ9JzY0JyBmaWxsPSdncmF5Jy8+PC9zdmc+",
+                  "alt": "@shadcn"
+                },
+                "children": []
+              },
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "CN"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "wait",
+          "ms": 300
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__as-child-fallback",
+      "tree": {
+        "c": "Avatar",
+        "props": {},
+        "children": [
+          {
+            "c": "AvatarFallback",
+            "props": {
+              "asChild": true
+            },
+            "children": [
+              {
+                "c": "_a",
+                "props": {
+                  "href": "#profile"
+                },
+                "children": [
+                  "CN"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__as-child-image",
+      "tree": {
+        "c": "Avatar",
+        "props": {},
+        "children": [
+          {
+            "c": "AvatarImage",
+            "props": {
+              "asChild": true,
+              "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2NCcgaGVpZ2h0PSc2NCc+PHJlY3Qgd2lkdGg9JzY0JyBoZWlnaHQ9JzY0JyBmaWxsPSdncmF5Jy8+PC9zdmc+"
+            },
+            "children": [
+              {
+                "c": "_img",
+                "props": {
+                  "alt": "@shadcn"
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "CN"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "dark__fallback",
+      "tree": {
+        "c": "Avatar",
+        "props": {},
+        "children": [
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "CN"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "dark__size-sm__fallback",
+      "tree": {
+        "c": "Avatar",
+        "props": {
+          "size": "sm"
+        },
+        "children": [
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "CN"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "dark__size-lg__fallback",
+      "tree": {
+        "c": "Avatar",
+        "props": {
+          "size": "lg"
+        },
+        "children": [
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "CN"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "dark__image-loaded",
+      "tree": {
+        "c": "Avatar",
+        "props": {},
+        "children": [
+          {
+            "c": "AvatarImage",
+            "props": {
+              "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2NCcgaGVpZ2h0PSc2NCc+PHJlY3Qgd2lkdGg9JzY0JyBoZWlnaHQ9JzY0JyBmaWxsPSdncmF5Jy8+PC9zdmc+",
+              "alt": "@shadcn"
+            },
+            "children": []
+          },
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "CN"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "dark__badge-icon",
+      "tree": {
+        "c": "Avatar",
+        "props": {},
+        "children": [
+          {
+            "c": "AvatarFallback",
+            "props": {},
+            "children": [
+              "CN"
+            ]
+          },
+          {
+            "c": "AvatarBadge",
+            "props": {},
+            "children": [
+              "<icon:check>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "dark__group-count",
+      "tree": {
+        "c": "AvatarGroup",
+        "props": {},
+        "children": [
+          {
+            "c": "Avatar",
+            "props": {},
+            "children": [
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "CN"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Avatar",
+            "props": {},
+            "children": [
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "LR"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Avatar",
+            "props": {},
+            "children": [
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "ER"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "AvatarGroupCount",
+            "props": {},
+            "children": [
+              "+3"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__avatar-demo",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-row flex-wrap items-center gap-12"
+        },
+        "children": [
+          {
+            "c": "Avatar",
+            "props": {},
+            "children": [
+              {
+                "c": "AvatarImage",
+                "props": {
+                  "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2NCcgaGVpZ2h0PSc2NCc+PHJlY3Qgd2lkdGg9JzY0JyBoZWlnaHQ9JzY0JyBmaWxsPSdncmF5Jy8+PC9zdmc+",
+                  "alt": "@shadcn"
+                },
+                "children": []
+              },
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "CN"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Avatar",
+            "props": {
+              "className": "rounded-lg"
+            },
+            "children": [
+              {
+                "c": "AvatarImage",
+                "props": {
+                  "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2NCcgaGVpZ2h0PSc2NCc+PHJlY3Qgd2lkdGg9JzY0JyBoZWlnaHQ9JzY0JyBmaWxsPSdncmF5Jy8+PC9zdmc+",
+                  "alt": "@evilrabbit"
+                },
+                "children": []
+              },
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "ER"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:ring-background *:data-[slot=avatar]:grayscale"
+            },
+            "children": [
+              {
+                "c": "Avatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "AvatarImage",
+                    "props": {
+                      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2NCcgaGVpZ2h0PSc2NCc+PHJlY3Qgd2lkdGg9JzY0JyBoZWlnaHQ9JzY0JyBmaWxsPSdncmF5Jy8+PC9zdmc+",
+                      "alt": "@shadcn"
+                    },
+                    "children": []
+                  },
+                  {
+                    "c": "AvatarFallback",
+                    "props": {},
+                    "children": [
+                      "CN"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "Avatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "AvatarImage",
+                    "props": {
+                      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2NCcgaGVpZ2h0PSc2NCc+PHJlY3Qgd2lkdGg9JzY0JyBoZWlnaHQ9JzY0JyBmaWxsPSdncmF5Jy8+PC9zdmc+",
+                      "alt": "@maxleiter"
+                    },
+                    "children": []
+                  },
+                  {
+                    "c": "AvatarFallback",
+                    "props": {},
+                    "children": [
+                      "LR"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "Avatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "AvatarImage",
+                    "props": {
+                      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2NCcgaGVpZ2h0PSc2NCc+PHJlY3Qgd2lkdGg9JzY0JyBoZWlnaHQ9JzY0JyBmaWxsPSdncmF5Jy8+PC9zdmc+",
+                      "alt": "@evilrabbit"
+                    },
+                    "children": []
+                  },
+                  {
+                    "c": "AvatarFallback",
+                    "props": {},
+                    "children": [
+                      "ER"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__avatar-demo-dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-row flex-wrap items-center gap-12"
+        },
+        "children": [
+          {
+            "c": "Avatar",
+            "props": {},
+            "children": [
+              {
+                "c": "AvatarImage",
+                "props": {
+                  "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2NCcgaGVpZ2h0PSc2NCc+PHJlY3Qgd2lkdGg9JzY0JyBoZWlnaHQ9JzY0JyBmaWxsPSdncmF5Jy8+PC9zdmc+",
+                  "alt": "@shadcn"
+                },
+                "children": []
+              },
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "CN"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Avatar",
+            "props": {
+              "className": "rounded-lg"
+            },
+            "children": [
+              {
+                "c": "AvatarImage",
+                "props": {
+                  "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2NCcgaGVpZ2h0PSc2NCc+PHJlY3Qgd2lkdGg9JzY0JyBoZWlnaHQ9JzY0JyBmaWxsPSdncmF5Jy8+PC9zdmc+",
+                  "alt": "@evilrabbit"
+                },
+                "children": []
+              },
+              {
+                "c": "AvatarFallback",
+                "props": {},
+                "children": [
+                  "ER"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:ring-background *:data-[slot=avatar]:grayscale"
+            },
+            "children": [
+              {
+                "c": "Avatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "AvatarImage",
+                    "props": {
+                      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2NCcgaGVpZ2h0PSc2NCc+PHJlY3Qgd2lkdGg9JzY0JyBoZWlnaHQ9JzY0JyBmaWxsPSdncmF5Jy8+PC9zdmc+",
+                      "alt": "@shadcn"
+                    },
+                    "children": []
+                  },
+                  {
+                    "c": "AvatarFallback",
+                    "props": {},
+                    "children": [
+                      "CN"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "Avatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "AvatarImage",
+                    "props": {
+                      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2NCcgaGVpZ2h0PSc2NCc+PHJlY3Qgd2lkdGg9JzY0JyBoZWlnaHQ9JzY0JyBmaWxsPSdncmF5Jy8+PC9zdmc+",
+                      "alt": "@maxleiter"
+                    },
+                    "children": []
+                  },
+                  {
+                    "c": "AvatarFallback",
+                    "props": {},
+                    "children": [
+                      "LR"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "Avatar",
+                "props": {},
+                "children": [
+                  {
+                    "c": "AvatarImage",
+                    "props": {
+                      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2NCcgaGVpZ2h0PSc2NCc+PHJlY3Qgd2lkdGg9JzY0JyBoZWlnaHQ9JzY0JyBmaWxsPSdncmF5Jy8+PC9zdmc+",
+                      "alt": "@evilrabbit"
+                    },
+                    "children": []
+                  },
+                  {
+                    "c": "AvatarFallback",
+                    "props": {},
+                    "children": [
+                      "ER"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

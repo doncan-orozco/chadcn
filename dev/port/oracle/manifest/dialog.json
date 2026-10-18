@@ -1,0 +1,482 @@
+{
+  "name": "dialog",
+  "style": "new-york-v4",
+  "source_sha": "2ade6074e5fad0a4",
+  "use_client": true,
+  "tier": "overlay",
+  "exports": [
+    "Dialog",
+    "DialogClose",
+    "DialogContent",
+    "DialogDescription",
+    "DialogFooter",
+    "DialogHeader",
+    "DialogOverlay",
+    "DialogPortal",
+    "DialogTitle",
+    "DialogTrigger"
+  ],
+  "parts": [
+    {
+      "name": "Dialog",
+      "data_attrs": [],
+      "data_slots": [
+        "dialog"
+      ],
+      "data_slot": "dialog",
+      "wraps": "DialogPrimitive.Root",
+      "renders": "DialogPrimitive.Root",
+      "slot_tags": {
+        "dialog": "DialogPrimitive.Root"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "DialogTrigger",
+      "data_attrs": [],
+      "data_slots": [
+        "dialog-trigger"
+      ],
+      "data_slot": "dialog-trigger",
+      "wraps": "DialogPrimitive.Trigger",
+      "renders": "DialogPrimitive.Trigger",
+      "slot_tags": {
+        "dialog-trigger": "DialogPrimitive.Trigger"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "DialogPortal",
+      "data_attrs": [],
+      "data_slots": [
+        "dialog-portal"
+      ],
+      "data_slot": "dialog-portal",
+      "wraps": "DialogPrimitive.Portal",
+      "renders": "DialogPrimitive.Portal",
+      "slot_tags": {
+        "dialog-portal": "DialogPrimitive.Portal"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "DialogClose",
+      "data_attrs": [],
+      "data_slots": [
+        "dialog-close"
+      ],
+      "data_slot": "dialog-close",
+      "wraps": "DialogPrimitive.Close",
+      "renders": "DialogPrimitive.Close",
+      "slot_tags": {
+        "dialog-close": "DialogPrimitive.Close"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "DialogOverlay",
+      "data_attrs": [],
+      "data_slots": [
+        "dialog-overlay"
+      ],
+      "data_slot": "dialog-overlay",
+      "wraps": "DialogPrimitive.Overlay",
+      "renders": "DialogPrimitive.Overlay",
+      "slot_tags": {
+        "dialog-overlay": "DialogPrimitive.Overlay"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "bg-black/50",
+        "data-[state=closed]:animate-out",
+        "data-[state=closed]:fade-out-0",
+        "data-[state=open]:animate-in",
+        "data-[state=open]:fade-in-0",
+        "fixed",
+        "inset-0",
+        "z-50"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "DialogContent",
+      "data_attrs": [],
+      "data_slots": [
+        "dialog-portal",
+        "dialog-content",
+        "dialog-close"
+      ],
+      "data_slot": "dialog-portal",
+      "wraps": "DialogPrimitive.Content",
+      "renders": "DialogPortal",
+      "slot_tags": {
+        "dialog-portal": "DialogPortal",
+        "dialog-content": "DialogPrimitive.Content",
+        "dialog-close": "DialogPrimitive.Close"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "children"
+          },
+          {
+            "name": "showCloseButton",
+            "default": "true"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "showCloseButton",
+            "type": "boolean"
+          }
+        ]
+      },
+      "class_tokens": [
+        "[&_svg:not([class*='size-'])]:size-4",
+        "[&_svg]:pointer-events-none",
+        "[&_svg]:shrink-0",
+        "absolute",
+        "bg-background",
+        "border",
+        "data-[state=closed]:animate-out",
+        "data-[state=closed]:fade-out-0",
+        "data-[state=closed]:zoom-out-95",
+        "data-[state=open]:animate-in",
+        "data-[state=open]:bg-accent",
+        "data-[state=open]:fade-in-0",
+        "data-[state=open]:text-muted-foreground",
+        "data-[state=open]:zoom-in-95",
+        "disabled:pointer-events-none",
+        "duration-200",
+        "fixed",
+        "focus:outline-hidden",
+        "focus:ring-2",
+        "focus:ring-offset-2",
+        "focus:ring-ring",
+        "gap-4",
+        "grid",
+        "hover:opacity-100",
+        "left-[50%]",
+        "max-w-[calc(100%-2rem)]",
+        "opacity-70",
+        "outline-none",
+        "p-6",
+        "right-4",
+        "ring-offset-background",
+        "rounded-lg",
+        "rounded-xs",
+        "shadow-lg",
+        "sm:max-w-lg",
+        "sr-only",
+        "top-4",
+        "top-[50%]",
+        "transition-opacity",
+        "translate-x-[-50%]",
+        "translate-y-[-50%]",
+        "w-full",
+        "z-50"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "DialogHeader",
+      "data_attrs": [],
+      "data_slots": [
+        "dialog-header"
+      ],
+      "data_slot": "dialog-header",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "flex-col",
+        "gap-2",
+        "sm:text-left",
+        "text-center"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "DialogFooter",
+      "data_attrs": [],
+      "data_slots": [
+        "dialog-footer"
+      ],
+      "data_slot": "dialog-footer",
+      "wraps": "DialogPrimitive.Close",
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "showCloseButton",
+            "default": "false"
+          },
+          {
+            "name": "children"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "showCloseButton",
+            "type": "boolean"
+          }
+        ]
+      },
+      "class_tokens": [
+        "flex",
+        "flex-col-reverse",
+        "gap-2",
+        "sm:flex-row",
+        "sm:justify-end"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "DialogTitle",
+      "data_attrs": [],
+      "data_slots": [
+        "dialog-title"
+      ],
+      "data_slot": "dialog-title",
+      "wraps": "DialogPrimitive.Title",
+      "renders": "DialogPrimitive.Title",
+      "slot_tags": {
+        "dialog-title": "DialogPrimitive.Title"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "font-semibold",
+        "leading-none",
+        "text-lg"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "DialogDescription",
+      "data_attrs": [],
+      "data_slots": [
+        "dialog-description"
+      ],
+      "data_slot": "dialog-description",
+      "wraps": "DialogPrimitive.Description",
+      "renders": "DialogPrimitive.Description",
+      "slot_tags": {
+        "dialog-description": "DialogPrimitive.Description"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "text-muted-foreground",
+        "text-sm"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "[&_svg:not([class*='size-'])]:size-4",
+    "[&_svg]:pointer-events-none",
+    "[&_svg]:shrink-0",
+    "absolute",
+    "bg-background",
+    "bg-black/50",
+    "border",
+    "data-[state=closed]:animate-out",
+    "data-[state=closed]:fade-out-0",
+    "data-[state=closed]:zoom-out-95",
+    "data-[state=open]:animate-in",
+    "data-[state=open]:bg-accent",
+    "data-[state=open]:fade-in-0",
+    "data-[state=open]:text-muted-foreground",
+    "data-[state=open]:zoom-in-95",
+    "disabled:pointer-events-none",
+    "duration-200",
+    "fixed",
+    "flex",
+    "flex-col",
+    "flex-col-reverse",
+    "focus:outline-hidden",
+    "focus:ring-2",
+    "focus:ring-offset-2",
+    "focus:ring-ring",
+    "font-semibold",
+    "gap-2",
+    "gap-4",
+    "grid",
+    "hover:opacity-100",
+    "inset-0",
+    "leading-none",
+    "left-[50%]",
+    "max-w-[calc(100%-2rem)]",
+    "opacity-70",
+    "outline-none",
+    "p-6",
+    "right-4",
+    "ring-offset-background",
+    "rounded-lg",
+    "rounded-xs",
+    "shadow-lg",
+    "sm:flex-row",
+    "sm:justify-end",
+    "sm:max-w-lg",
+    "sm:text-left",
+    "sr-only",
+    "text-center",
+    "text-lg",
+    "text-muted-foreground",
+    "text-sm",
+    "top-4",
+    "top-[50%]",
+    "transition-opacity",
+    "translate-x-[-50%]",
+    "translate-y-[-50%]",
+    "w-full",
+    "z-50"
+  ],
+  "data_attrs": [],
+  "data_slots": [
+    "dialog",
+    "dialog-close",
+    "dialog-content",
+    "dialog-description",
+    "dialog-footer",
+    "dialog-header",
+    "dialog-overlay",
+    "dialog-portal",
+    "dialog-title",
+    "dialog-trigger"
+  ],
+  "non_rendered_slots": [
+    "dialog",
+    "dialog-portal"
+  ],
+  "radix_primitives": [
+    "Dialog"
+  ],
+  "third_party": [],
+  "icons": [
+    "XIcon"
+  ],
+  "text_literals": [
+    "Close"
+  ],
+  "registry_dependencies": [
+    "button"
+  ],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn",
+    "radix-ui"
+  ],
+  "extra_files": []
+}

@@ -1,0 +1,408 @@
+{
+  "component": "_primitives-scroll-lock",
+  "scenarios": [
+    {
+      "id": "unlocked-initial",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "scroll_lock",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-scroll-lock",
+          "className": "flex flex-col items-start gap-2"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "lock-a",
+              "data-action": "click->shadcn---probe-scroll-lock#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-scroll-lock-name-param": "a"
+            },
+            "children": [
+              "Lock A"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "lock-b",
+              "data-action": "click->shadcn---probe-scroll-lock#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-scroll-lock-name-param": "b"
+            },
+            "children": [
+              "Lock B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "tall",
+              "className": "h-[1600px] w-64 rounded-md border"
+            },
+            "children": [
+              "Tall content"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "lock-and-release",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "scroll_lock",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-scroll-lock",
+          "className": "flex flex-col items-start gap-2"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "lock-a",
+              "data-action": "click->shadcn---probe-scroll-lock#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-scroll-lock-name-param": "a"
+            },
+            "children": [
+              "Lock A"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "lock-b",
+              "data-action": "click->shadcn---probe-scroll-lock#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-scroll-lock-name-param": "b"
+            },
+            "children": [
+              "Lock B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "tall",
+              "className": "h-[1600px] w-64 rounded-md border"
+            },
+            "children": [
+              "Tall content"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=lock-a]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=lock-a]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "ref-counted-release-first",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "scroll_lock",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-scroll-lock",
+          "className": "flex flex-col items-start gap-2"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "lock-a",
+              "data-action": "click->shadcn---probe-scroll-lock#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-scroll-lock-name-param": "a"
+            },
+            "children": [
+              "Lock A"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "lock-b",
+              "data-action": "click->shadcn---probe-scroll-lock#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-scroll-lock-name-param": "b"
+            },
+            "children": [
+              "Lock B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "tall",
+              "className": "h-[1600px] w-64 rounded-md border"
+            },
+            "children": [
+              "Tall content"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=lock-a]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=lock-b]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=lock-a]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=lock-b]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "ref-counted-release-last-first",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "scroll_lock",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-scroll-lock",
+          "className": "flex flex-col items-start gap-2"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "lock-a",
+              "data-action": "click->shadcn---probe-scroll-lock#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-scroll-lock-name-param": "a"
+            },
+            "children": [
+              "Lock A"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "lock-b",
+              "data-action": "click->shadcn---probe-scroll-lock#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-scroll-lock-name-param": "b"
+            },
+            "children": [
+              "Lock B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "tall",
+              "className": "h-[1600px] w-64 rounded-md border"
+            },
+            "children": [
+              "Tall content"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=lock-a]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=lock-b]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=lock-b]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=lock-a]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "relock-after-release",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "scroll_lock",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-scroll-lock",
+          "className": "flex flex-col items-start gap-2"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "lock-a",
+              "data-action": "click->shadcn---probe-scroll-lock#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-scroll-lock-name-param": "a"
+            },
+            "children": [
+              "Lock A"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "lock-b",
+              "data-action": "click->shadcn---probe-scroll-lock#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-scroll-lock-name-param": "b"
+            },
+            "children": [
+              "Lock B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "tall",
+              "className": "h-[1600px] w-64 rounded-md border"
+            },
+            "children": [
+              "Tall content"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=lock-a]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=lock-a]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=lock-a]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "lock-keeps-layout",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-probe": "scroll_lock",
+          "data-slot": "probe",
+          "data-controller": "shadcn---probe-scroll-lock",
+          "className": "flex flex-col items-start gap-2"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "lock-a",
+              "data-action": "click->shadcn---probe-scroll-lock#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-scroll-lock-name-param": "a"
+            },
+            "children": [
+              "Lock A"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-slot": "lock-b",
+              "data-action": "click->shadcn---probe-scroll-lock#toggle",
+              "className": "rounded-md border px-3 py-1 text-sm",
+              "data-shadcn---probe-scroll-lock-name-param": "b"
+            },
+            "children": [
+              "Lock B"
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-slot": "tall",
+              "className": "h-[1600px] w-64 rounded-md border"
+            },
+            "children": [
+              "Tall content"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=lock-a]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "case": "17-run-ratio-stop",
+  "kind": "run",
+  "oracle": "case",
+  "description": "3 of 8 components in one fan-out wave are blocked (> 25%): stop the wave after the batch that crossed the threshold; the rest is never dispatched.",
+  "init_args": [
+    "--pilot",
+    "none"
+  ],
+  "concurrency": 4,
+  "outcomes": {
+    "a": "blocked",
+    "b": "blocked",
+    "c": "blocked"
+  },
+  "expect": {
+    "stop_reason": "wave_blocked_ratio",
+    "never_dispatched": [
+      "e",
+      "f",
+      "g",
+      "h"
+    ],
+    "final_status": {
+      "a": "blocked",
+      "d": "done",
+      "e": "pending"
+    }
+  }
+}

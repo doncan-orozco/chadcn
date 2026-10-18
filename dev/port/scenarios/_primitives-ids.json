@@ -1,0 +1,478 @@
+{
+  "component": "_primitives-ids",
+  "scenarios": [
+    {
+      "id": "generated-id",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-80 flex-col gap-3"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-controller": "shadcn---probe-ids",
+              "data-slot": "pair-1",
+              "className": "flex flex-col gap-2"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "trigger",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Trigger 1"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "panel",
+                  "className": "rounded border p-2 text-sm"
+                },
+                "children": [
+                  "Panel 1"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "server-id-wins",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-80 flex-col gap-3"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-controller": "shadcn---probe-ids",
+              "data-slot": "pair-1",
+              "className": "flex flex-col gap-2"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "trigger",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Trigger 1"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "panel",
+                  "className": "rounded border p-2 text-sm",
+                  "id": "server-panel"
+                },
+                "children": [
+                  "Panel 1"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "many-unique",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-80 flex-col gap-3"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-controller": "shadcn---probe-ids",
+              "data-slot": "pair-1",
+              "className": "flex flex-col gap-2"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "trigger",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Trigger 1"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "panel",
+                  "className": "rounded border p-2 text-sm"
+                },
+                "children": [
+                  "Panel 1"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-controller": "shadcn---probe-ids",
+              "data-slot": "pair-2",
+              "className": "flex flex-col gap-2"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "trigger",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Trigger 2"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "panel",
+                  "className": "rounded border p-2 text-sm"
+                },
+                "children": [
+                  "Panel 2"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-controller": "shadcn---probe-ids",
+              "data-slot": "pair-3",
+              "className": "flex flex-col gap-2"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "trigger",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Trigger 3"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "panel",
+                  "className": "rounded border p-2 text-sm"
+                },
+                "children": [
+                  "Panel 3"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "mixed-server-and-generated",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-80 flex-col gap-3"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-controller": "shadcn---probe-ids",
+              "data-slot": "pair-1",
+              "className": "flex flex-col gap-2"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "trigger",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Trigger 1"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "panel",
+                  "className": "rounded border p-2 text-sm"
+                },
+                "children": [
+                  "Panel 1"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-controller": "shadcn---probe-ids",
+              "data-slot": "pair-2",
+              "className": "flex flex-col gap-2"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "trigger",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Trigger 2"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "panel",
+                  "className": "rounded border p-2 text-sm",
+                  "id": "server-b"
+                },
+                "children": [
+                  "Panel 2"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-controller": "shadcn---probe-ids",
+              "data-slot": "pair-3",
+              "className": "flex flex-col gap-2"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "trigger",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Trigger 3"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "panel",
+                  "className": "rounded border p-2 text-sm"
+                },
+                "children": [
+                  "Panel 3"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard-focus",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-80 flex-col gap-3"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-controller": "shadcn---probe-ids",
+              "data-slot": "pair-1",
+              "className": "flex flex-col gap-2"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "trigger",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Trigger 1"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "panel",
+                  "className": "rounded border p-2 text-sm",
+                  "id": "server-a"
+                },
+                "children": [
+                  "Panel 1"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "data-controller": "shadcn---probe-ids",
+              "data-slot": "pair-2",
+              "className": "flex flex-col gap-2"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "trigger",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Trigger 2"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "panel",
+                  "className": "rounded border p-2 text-sm"
+                },
+                "children": [
+                  "Panel 2"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "[data-slot=pair-1] [data-slot=trigger]"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-80 flex-col gap-3"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "data-controller": "shadcn---probe-ids",
+              "data-slot": "pair-1",
+              "className": "flex flex-col gap-2"
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "data-slot": "trigger",
+                  "className": "rounded border px-2 py-1 text-sm"
+                },
+                "children": [
+                  "Trigger 1"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "data-slot": "panel",
+                  "className": "rounded border p-2 text-sm"
+                },
+                "children": [
+                  "Panel 1"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

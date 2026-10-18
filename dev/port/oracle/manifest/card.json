@@ -1,0 +1,292 @@
+{
+  "name": "card",
+  "style": "new-york-v4",
+  "source_sha": "ef8305b12c3112da",
+  "use_client": false,
+  "tier": "static",
+  "exports": [
+    "Card",
+    "CardHeader",
+    "CardFooter",
+    "CardTitle",
+    "CardAction",
+    "CardDescription",
+    "CardContent"
+  ],
+  "parts": [
+    {
+      "name": "Card",
+      "data_attrs": [],
+      "data_slots": [
+        "card"
+      ],
+      "data_slot": "card",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "bg-card",
+        "border",
+        "flex",
+        "flex-col",
+        "gap-6",
+        "py-6",
+        "rounded-xl",
+        "shadow-sm",
+        "text-card-foreground"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "CardHeader",
+      "data_attrs": [],
+      "data_slots": [
+        "card-header"
+      ],
+      "data_slot": "card-header",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "@container/card-header",
+        "[.border-b]:pb-6",
+        "auto-rows-min",
+        "gap-2",
+        "grid",
+        "grid-rows-[auto_auto]",
+        "has-data-[slot=card-action]:grid-cols-[1fr_auto]",
+        "items-start",
+        "px-6"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "CardTitle",
+      "data_attrs": [],
+      "data_slots": [
+        "card-title"
+      ],
+      "data_slot": "card-title",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "font-semibold",
+        "leading-none"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "CardDescription",
+      "data_attrs": [],
+      "data_slots": [
+        "card-description"
+      ],
+      "data_slot": "card-description",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "text-muted-foreground",
+        "text-sm"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "CardAction",
+      "data_attrs": [],
+      "data_slots": [
+        "card-action"
+      ],
+      "data_slot": "card-action",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "col-start-2",
+        "justify-self-end",
+        "row-span-2",
+        "row-start-1",
+        "self-start"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "CardContent",
+      "data_attrs": [],
+      "data_slots": [
+        "card-content"
+      ],
+      "data_slot": "card-content",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "px-6"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "CardFooter",
+      "data_attrs": [],
+      "data_slots": [
+        "card-footer"
+      ],
+      "data_slot": "card-footer",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "[.border-t]:pt-6",
+        "flex",
+        "items-center",
+        "px-6"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "@container/card-header",
+    "[.border-b]:pb-6",
+    "[.border-t]:pt-6",
+    "auto-rows-min",
+    "bg-card",
+    "border",
+    "col-start-2",
+    "flex",
+    "flex-col",
+    "font-semibold",
+    "gap-2",
+    "gap-6",
+    "grid",
+    "grid-rows-[auto_auto]",
+    "has-data-[slot=card-action]:grid-cols-[1fr_auto]",
+    "items-center",
+    "items-start",
+    "justify-self-end",
+    "leading-none",
+    "px-6",
+    "py-6",
+    "rounded-xl",
+    "row-span-2",
+    "row-start-1",
+    "self-start",
+    "shadow-sm",
+    "text-card-foreground",
+    "text-muted-foreground",
+    "text-sm"
+  ],
+  "data_attrs": [],
+  "data_slots": [
+    "card",
+    "card-action",
+    "card-content",
+    "card-description",
+    "card-footer",
+    "card-header",
+    "card-title"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [],
+  "third_party": [],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn"
+  ],
+  "extra_files": []
+}

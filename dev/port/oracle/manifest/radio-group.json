@@ -1,0 +1,162 @@
+{
+  "name": "radio-group",
+  "style": "new-york-v4",
+  "source_sha": "cfc4f99ee68be2fb",
+  "use_client": true,
+  "tier": "radix_stateful",
+  "exports": [
+    "RadioGroup",
+    "RadioGroupItem"
+  ],
+  "parts": [
+    {
+      "name": "RadioGroup",
+      "data_attrs": [],
+      "data_slots": [
+        "radio-group"
+      ],
+      "data_slot": "radio-group",
+      "wraps": "RadioGroupPrimitive.Root",
+      "renders": "RadioGroupPrimitive.Root",
+      "slot_tags": {
+        "radio-group": "RadioGroupPrimitive.Root"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "gap-3",
+        "grid"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "RadioGroupItem",
+      "data_attrs": [],
+      "data_slots": [
+        "radio-group-item",
+        "radio-group-indicator"
+      ],
+      "data_slot": "radio-group-item",
+      "wraps": "RadioGroupPrimitive.Item",
+      "renders": "RadioGroupPrimitive.Item",
+      "slot_tags": {
+        "radio-group-item": "RadioGroupPrimitive.Item",
+        "radio-group-indicator": "RadioGroupPrimitive.Indicator"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "-translate-x-1/2",
+        "-translate-y-1/2",
+        "absolute",
+        "aria-invalid:border-destructive",
+        "aria-invalid:ring-destructive/20",
+        "aspect-square",
+        "border",
+        "border-input",
+        "dark:aria-invalid:ring-destructive/40",
+        "dark:bg-input/30",
+        "disabled:cursor-not-allowed",
+        "disabled:opacity-50",
+        "fill-primary",
+        "flex",
+        "focus-visible:border-ring",
+        "focus-visible:ring-[3px]",
+        "focus-visible:ring-ring/50",
+        "items-center",
+        "justify-center",
+        "left-1/2",
+        "outline-none",
+        "relative",
+        "rounded-full",
+        "shadow-xs",
+        "shrink-0",
+        "size-2",
+        "size-4",
+        "text-primary",
+        "top-1/2",
+        "transition-[color,box-shadow]"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "-translate-x-1/2",
+    "-translate-y-1/2",
+    "absolute",
+    "aria-invalid:border-destructive",
+    "aria-invalid:ring-destructive/20",
+    "aspect-square",
+    "border",
+    "border-input",
+    "dark:aria-invalid:ring-destructive/40",
+    "dark:bg-input/30",
+    "disabled:cursor-not-allowed",
+    "disabled:opacity-50",
+    "fill-primary",
+    "flex",
+    "focus-visible:border-ring",
+    "focus-visible:ring-[3px]",
+    "focus-visible:ring-ring/50",
+    "gap-3",
+    "grid",
+    "items-center",
+    "justify-center",
+    "left-1/2",
+    "outline-none",
+    "relative",
+    "rounded-full",
+    "shadow-xs",
+    "shrink-0",
+    "size-2",
+    "size-4",
+    "text-primary",
+    "top-1/2",
+    "transition-[color,box-shadow]"
+  ],
+  "data_attrs": [],
+  "data_slots": [
+    "radio-group",
+    "radio-group-indicator",
+    "radio-group-item"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [
+    "RadioGroup"
+  ],
+  "third_party": [],
+  "icons": [
+    "CircleIcon"
+  ],
+  "text_literals": [],
+  "registry_dependencies": [],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn",
+    "radix-ui"
+  ],
+  "extra_files": []
+}

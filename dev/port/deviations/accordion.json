@@ -1,0 +1,6 @@
+{
+  "reason": "shadcn AccordionTrigger always renders children plus ChevronDownIcon (Radix Slot throws with two children) and AccordionContent always wraps children in its own div (asChild would slot onto that internal div), so as_child is not offered on Trigger and Content",
+  "allow_tokens": [],
+  "allow_missing_tokens": [],
+  "api": ["Accordion::Trigger: as_child not supported", "Accordion::Content: as_child not supported"]
+}

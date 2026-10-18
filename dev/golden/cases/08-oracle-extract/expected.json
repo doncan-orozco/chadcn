@@ -1,0 +1,150 @@
+{
+  "case": "08-oracle-extract",
+  "kind": "extract",
+  "description": "Deterministic extraction facts from the checked-in registry fixtures (guards against regex regressions in oracle_extract.rb).",
+  "assertions": [
+    {
+      "manifest": "button",
+      "path": "cva.buttonVariants.variants.size",
+      "keys_include": [
+        "default",
+        "xs",
+        "sm",
+        "lg",
+        "icon",
+        "icon-xs",
+        "icon-sm",
+        "icon-lg"
+      ]
+    },
+    {
+      "manifest": "button",
+      "path": "cva.buttonVariants.defaults",
+      "equals": {
+        "variant": "default",
+        "size": "default"
+      }
+    },
+    {
+      "manifest": "button",
+      "path": "data_attrs",
+      "includes": [
+        "data-size",
+        "data-variant"
+      ]
+    },
+    {
+      "manifest": "badge",
+      "path": "cva.badgeVariants.variants.variant",
+      "keys_include": [
+        "default",
+        "secondary",
+        "destructive",
+        "outline",
+        "ghost",
+        "link"
+      ]
+    },
+    {
+      "manifest": "switch",
+      "path": "data_slots",
+      "equals": [
+        "switch",
+        "switch-thumb"
+      ]
+    },
+    {
+      "manifest": "switch",
+      "path": "tier",
+      "equals": "radix_stateful"
+    },
+    {
+      "manifest": "dialog",
+      "path": "tier",
+      "equals": "overlay"
+    },
+    {
+      "manifest": "dialog",
+      "path": "data_slots",
+      "includes": [
+        "dialog",
+        "dialog-trigger",
+        "dialog-content",
+        "dialog-overlay",
+        "dialog-title"
+      ]
+    },
+    {
+      "manifest": "dialog",
+      "path": "registry_dependencies",
+      "equals": [
+        "button"
+      ]
+    },
+    {
+      "manifest": "dialog",
+      "path": "icons",
+      "includes": [
+        "XIcon"
+      ]
+    },
+    {
+      "manifest": "card",
+      "path": "parts",
+      "min_count": 7
+    },
+    {
+      "manifest": "alert-dialog",
+      "path": "registry_dependencies",
+      "includes": [
+        "button"
+      ]
+    },
+    {
+      "graph": "wave_before",
+      "before": "button",
+      "after": "dialog"
+    },
+    {
+      "graph": "wave_before",
+      "before": "button",
+      "after": "alert-dialog"
+    },
+    {
+      "manifest": "sonner",
+      "path": "parts.0.name",
+      "equals": "Toaster"
+    },
+    {
+      "manifest": "sonner",
+      "path": "class_tokens",
+      "includes": [
+        "toaster",
+        "group",
+        "size-4",
+        "animate-spin"
+      ]
+    },
+    {
+      "manifest": "sonner",
+      "path": "tier",
+      "equals": "third_party"
+    },
+    {
+      "manifest": "dialog",
+      "path": "non_rendered_slots",
+      "equals": [
+        "dialog",
+        "dialog-portal"
+      ]
+    },
+    {
+      "manifest": "dialog",
+      "path": "data_slots",
+      "includes": [
+        "dialog-content",
+        "dialog-trigger"
+      ]
+    }
+  ]
+}

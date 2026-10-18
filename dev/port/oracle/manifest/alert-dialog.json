@@ -1,0 +1,541 @@
+{
+  "name": "alert-dialog",
+  "style": "new-york-v4",
+  "source_sha": "b3dfb83e54ed8c82",
+  "use_client": true,
+  "tier": "overlay",
+  "exports": [
+    "AlertDialog",
+    "AlertDialogAction",
+    "AlertDialogCancel",
+    "AlertDialogContent",
+    "AlertDialogDescription",
+    "AlertDialogFooter",
+    "AlertDialogHeader",
+    "AlertDialogMedia",
+    "AlertDialogOverlay",
+    "AlertDialogPortal",
+    "AlertDialogTitle",
+    "AlertDialogTrigger"
+  ],
+  "parts": [
+    {
+      "name": "AlertDialog",
+      "data_attrs": [],
+      "data_slots": [
+        "alert-dialog"
+      ],
+      "data_slot": "alert-dialog",
+      "wraps": "AlertDialogPrimitive.Root",
+      "renders": "AlertDialogPrimitive.Root",
+      "slot_tags": {
+        "alert-dialog": "AlertDialogPrimitive.Root"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "AlertDialogTrigger",
+      "data_attrs": [],
+      "data_slots": [
+        "alert-dialog-trigger"
+      ],
+      "data_slot": "alert-dialog-trigger",
+      "wraps": "AlertDialogPrimitive.Trigger",
+      "renders": "AlertDialogPrimitive.Trigger",
+      "slot_tags": {
+        "alert-dialog-trigger": "AlertDialogPrimitive.Trigger"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "AlertDialogPortal",
+      "data_attrs": [],
+      "data_slots": [
+        "alert-dialog-portal"
+      ],
+      "data_slot": "alert-dialog-portal",
+      "wraps": "AlertDialogPrimitive.Portal",
+      "renders": "AlertDialogPrimitive.Portal",
+      "slot_tags": {
+        "alert-dialog-portal": "AlertDialogPrimitive.Portal"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "AlertDialogOverlay",
+      "data_attrs": [],
+      "data_slots": [
+        "alert-dialog-overlay"
+      ],
+      "data_slot": "alert-dialog-overlay",
+      "wraps": "AlertDialogPrimitive.Overlay",
+      "renders": "AlertDialogPrimitive.Overlay",
+      "slot_tags": {
+        "alert-dialog-overlay": "AlertDialogPrimitive.Overlay"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "bg-black/50",
+        "data-[state=closed]:animate-out",
+        "data-[state=closed]:fade-out-0",
+        "data-[state=open]:animate-in",
+        "data-[state=open]:fade-in-0",
+        "fixed",
+        "inset-0",
+        "z-50"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "AlertDialogContent",
+      "data_attrs": [
+        {
+          "name": "data-size",
+          "value": "{size}"
+        }
+      ],
+      "data_slots": [
+        "alert-dialog-content"
+      ],
+      "data_slot": "alert-dialog-content",
+      "wraps": "AlertDialogPrimitive.Content",
+      "renders": "AlertDialogPortal",
+      "slot_tags": {
+        "alert-dialog-content": "AlertDialogPrimitive.Content"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "size",
+            "default": "\"default\""
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "size",
+            "type": "\"default\" | \"sm\""
+          }
+        ]
+      },
+      "class_tokens": [
+        "bg-background",
+        "border",
+        "data-[size=default]:sm:max-w-lg",
+        "data-[size=sm]:max-w-xs",
+        "data-[state=closed]:animate-out",
+        "data-[state=closed]:fade-out-0",
+        "data-[state=closed]:zoom-out-95",
+        "data-[state=open]:animate-in",
+        "data-[state=open]:fade-in-0",
+        "data-[state=open]:zoom-in-95",
+        "duration-200",
+        "fixed",
+        "gap-4",
+        "grid",
+        "group/alert-dialog-content",
+        "left-[50%]",
+        "max-w-[calc(100%-2rem)]",
+        "p-6",
+        "rounded-lg",
+        "shadow-lg",
+        "top-[50%]",
+        "translate-x-[-50%]",
+        "translate-y-[-50%]",
+        "w-full",
+        "z-50"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "AlertDialogHeader",
+      "data_attrs": [],
+      "data_slots": [
+        "alert-dialog-header"
+      ],
+      "data_slot": "alert-dialog-header",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "gap-1.5",
+        "grid",
+        "grid-rows-[auto_1fr]",
+        "has-data-[slot=alert-dialog-media]:gap-x-6",
+        "has-data-[slot=alert-dialog-media]:grid-rows-[auto_auto_1fr]",
+        "place-items-center",
+        "sm:group-data-[size=default]/alert-dialog-content:has-data-[slot=alert-dialog-media]:grid-rows-[auto_1fr]",
+        "sm:group-data-[size=default]/alert-dialog-content:place-items-start",
+        "sm:group-data-[size=default]/alert-dialog-content:text-left",
+        "text-center"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "AlertDialogFooter",
+      "data_attrs": [],
+      "data_slots": [
+        "alert-dialog-footer"
+      ],
+      "data_slot": "alert-dialog-footer",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "flex",
+        "flex-col-reverse",
+        "gap-2",
+        "group-data-[size=sm]/alert-dialog-content:grid",
+        "group-data-[size=sm]/alert-dialog-content:grid-cols-2",
+        "sm:flex-row",
+        "sm:justify-end"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "AlertDialogTitle",
+      "data_attrs": [],
+      "data_slots": [
+        "alert-dialog-title"
+      ],
+      "data_slot": "alert-dialog-title",
+      "wraps": "AlertDialogPrimitive.Title",
+      "renders": "AlertDialogPrimitive.Title",
+      "slot_tags": {
+        "alert-dialog-title": "AlertDialogPrimitive.Title"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "font-semibold",
+        "sm:group-data-[size=default]/alert-dialog-content:group-has-data-[slot=alert-dialog-media]/alert-dialog-content:col-start-2",
+        "text-lg"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "AlertDialogDescription",
+      "data_attrs": [],
+      "data_slots": [
+        "alert-dialog-description"
+      ],
+      "data_slot": "alert-dialog-description",
+      "wraps": "AlertDialogPrimitive.Description",
+      "renders": "AlertDialogPrimitive.Description",
+      "slot_tags": {
+        "alert-dialog-description": "AlertDialogPrimitive.Description"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "text-muted-foreground",
+        "text-sm"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "AlertDialogMedia",
+      "data_attrs": [],
+      "data_slots": [
+        "alert-dialog-media"
+      ],
+      "data_slot": "alert-dialog-media",
+      "wraps": null,
+      "renders": "div",
+      "slot_tags": {},
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "*:[svg:not([class*='size-'])]:size-8",
+        "bg-muted",
+        "inline-flex",
+        "items-center",
+        "justify-center",
+        "mb-2",
+        "rounded-md",
+        "size-16",
+        "sm:group-data-[size=default]/alert-dialog-content:row-span-2"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "AlertDialogAction",
+      "data_attrs": [],
+      "data_slots": [
+        "alert-dialog-action"
+      ],
+      "data_slot": "alert-dialog-action",
+      "wraps": "AlertDialogPrimitive.Action",
+      "renders": "Button",
+      "slot_tags": {
+        "alert-dialog-action": "AlertDialogPrimitive.Action"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "variant",
+            "default": "\"default\""
+          },
+          {
+            "name": "size",
+            "default": "\"default\""
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "AlertDialogCancel",
+      "data_attrs": [],
+      "data_slots": [
+        "alert-dialog-cancel"
+      ],
+      "data_slot": "alert-dialog-cancel",
+      "wraps": "AlertDialogPrimitive.Cancel",
+      "renders": "Button",
+      "slot_tags": {
+        "alert-dialog-cancel": "AlertDialogPrimitive.Cancel"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "variant",
+            "default": "\"outline\""
+          },
+          {
+            "name": "size",
+            "default": "\"default\""
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [],
+      "uses_cva": false,
+      "variants_used": []
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "*:[svg:not([class*='size-'])]:size-8",
+    "bg-background",
+    "bg-black/50",
+    "bg-muted",
+    "border",
+    "data-[size=default]:sm:max-w-lg",
+    "data-[size=sm]:max-w-xs",
+    "data-[state=closed]:animate-out",
+    "data-[state=closed]:fade-out-0",
+    "data-[state=closed]:zoom-out-95",
+    "data-[state=open]:animate-in",
+    "data-[state=open]:fade-in-0",
+    "data-[state=open]:zoom-in-95",
+    "duration-200",
+    "fixed",
+    "flex",
+    "flex-col-reverse",
+    "font-semibold",
+    "gap-1.5",
+    "gap-2",
+    "gap-4",
+    "grid",
+    "grid-rows-[auto_1fr]",
+    "group-data-[size=sm]/alert-dialog-content:grid",
+    "group-data-[size=sm]/alert-dialog-content:grid-cols-2",
+    "group/alert-dialog-content",
+    "has-data-[slot=alert-dialog-media]:gap-x-6",
+    "has-data-[slot=alert-dialog-media]:grid-rows-[auto_auto_1fr]",
+    "inline-flex",
+    "inset-0",
+    "items-center",
+    "justify-center",
+    "left-[50%]",
+    "max-w-[calc(100%-2rem)]",
+    "mb-2",
+    "p-6",
+    "place-items-center",
+    "rounded-lg",
+    "rounded-md",
+    "shadow-lg",
+    "size-16",
+    "sm:flex-row",
+    "sm:group-data-[size=default]/alert-dialog-content:group-has-data-[slot=alert-dialog-media]/alert-dialog-content:col-start-2",
+    "sm:group-data-[size=default]/alert-dialog-content:has-data-[slot=alert-dialog-media]:grid-rows-[auto_1fr]",
+    "sm:group-data-[size=default]/alert-dialog-content:place-items-start",
+    "sm:group-data-[size=default]/alert-dialog-content:row-span-2",
+    "sm:group-data-[size=default]/alert-dialog-content:text-left",
+    "sm:justify-end",
+    "text-center",
+    "text-lg",
+    "text-muted-foreground",
+    "text-sm",
+    "top-[50%]",
+    "translate-x-[-50%]",
+    "translate-y-[-50%]",
+    "w-full",
+    "z-50"
+  ],
+  "data_attrs": [
+    "data-size"
+  ],
+  "data_slots": [
+    "alert-dialog",
+    "alert-dialog-action",
+    "alert-dialog-cancel",
+    "alert-dialog-content",
+    "alert-dialog-description",
+    "alert-dialog-footer",
+    "alert-dialog-header",
+    "alert-dialog-media",
+    "alert-dialog-overlay",
+    "alert-dialog-portal",
+    "alert-dialog-title",
+    "alert-dialog-trigger"
+  ],
+  "non_rendered_slots": [
+    "alert-dialog",
+    "alert-dialog-portal"
+  ],
+  "radix_primitives": [
+    "AlertDialog"
+  ],
+  "third_party": [],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [
+    "button"
+  ],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn",
+    "radix-ui"
+  ],
+  "extra_files": []
+}

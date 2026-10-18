@@ -1,0 +1,42 @@
+{
+  "case": "24-oracle-audit-detects",
+  "kind": "oracle_audit",
+  "description": "Seeded extractor misses: sonner loses its parts and class tokens and is misclassified as a Radix component (it imports the sonner library), switch loses a data-slot, button loses its cva table. The audit must flag each.",
+  "mutate": [
+    {
+      "manifest": "sonner",
+      "set": {
+        "parts": [],
+        "class_tokens": []
+      }
+    },
+    {
+      "manifest": "switch",
+      "set": {
+        "data_slots": [
+          "switch"
+        ]
+      }
+    },
+    {
+      "manifest": "button",
+      "set": {
+        "cva": {}
+      }
+    },
+    {
+      "manifest": "sonner",
+      "set": {
+        "tier": "radix_stateful"
+      }
+    }
+  ],
+  "must_detect": [
+    "AUDIT_PART_COUNT",
+    "AUDIT_NO_TOKENS",
+    "AUDIT_SLOT_MISMATCH",
+    "AUDIT_CVA_COUNT",
+    "AUDIT_TIER_LIBRARY"
+  ],
+  "must_not_detect": []
+}

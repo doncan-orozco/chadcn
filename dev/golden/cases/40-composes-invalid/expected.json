@@ -1,0 +1,10 @@
+{
+  "case": "40-composes-invalid",
+  "kind": "scenario",
+  "component": "button",
+  "description": "composes naming self and an unknown component fails with SC_COMPOSES_INVALID.",
+  "must_detect": [
+    "SC_COMPOSES_INVALID"
+  ],
+  "must_not_detect": []
+}

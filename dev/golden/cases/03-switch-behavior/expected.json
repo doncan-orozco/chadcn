@@ -1,0 +1,11 @@
+{
+  "case": "03-switch-behavior",
+  "kind": "agent",
+  "component": "switch",
+  "description": "Markup passes G1; the Stimulus controller toggles classes instead of data-state/aria-checked, adds a redundant keydown handler that duplicates the native button click, and leaks a document listener and an interval.",
+  "static_must_pass": true,
+  "agent_must_find": ["Q_STATE_VIA_CLASS", "Q_CLEANUP"],
+  "agent_must_mention": ["keydown"],
+  "agent_may_find": ["Q_PRIMITIVE_REUSE", "Q_API_SURFACE"],
+  "must_not_detect": ["G1_SLOT_MISSING", "G1_TOKEN_MISSING", "G1_TOKEN_EXTRA", "G1_KWARG_MISSING", "G1_DATA_ATTR_MISSING"]
+}

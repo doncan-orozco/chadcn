@@ -1,0 +1,5 @@
+{
+  "case": "35-server-ports",
+  "kind": "server_ports",
+  "description": "servers.rb never assumes a free :3000/:5173: when another process holds the default Rails port it picks a different free one (a puma from another project is common), and the two ports it hands out are distinct."
+}

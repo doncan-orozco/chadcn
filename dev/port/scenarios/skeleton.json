@@ -1,0 +1,490 @@
+{
+  "component": "skeleton",
+  "scenarios": [
+    {
+      "id": "defaults",
+      "tree": {
+        "c": "Skeleton",
+        "props": {
+          "className": "h-4 w-[250px]"
+        },
+        "children": []
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "defaults__dark",
+      "tree": {
+        "c": "Skeleton",
+        "props": {
+          "className": "h-4 w-[250px]"
+        },
+        "children": []
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "empty__no-size",
+      "tree": {
+        "c": "Skeleton",
+        "props": {},
+        "children": []
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "empty__no-size__dark",
+      "tree": {
+        "c": "Skeleton",
+        "props": {},
+        "children": []
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__text-child",
+      "tree": {
+        "c": "Skeleton",
+        "props": {
+          "className": "h-6 w-[200px]"
+        },
+        "children": [
+          "Loading"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__text-child__dark",
+      "tree": {
+        "c": "Skeleton",
+        "props": {
+          "className": "h-6 w-[200px]"
+        },
+        "children": [
+          "Loading"
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__nested-child",
+      "tree": {
+        "c": "Skeleton",
+        "props": {
+          "className": "p-4 w-[250px]"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "h-4 w-full"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__nested-child__dark",
+      "tree": {
+        "c": "Skeleton",
+        "props": {
+          "className": "p-4 w-[250px]"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "h-4 w-full"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__class-merge-rounded-full",
+      "tree": {
+        "c": "Skeleton",
+        "props": {
+          "className": "size-12 rounded-full"
+        },
+        "children": []
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__class-merge-rounded-full__dark",
+      "tree": {
+        "c": "Skeleton",
+        "props": {
+          "className": "size-12 rounded-full"
+        },
+        "children": []
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__class-merge-bg",
+      "tree": {
+        "c": "Skeleton",
+        "props": {
+          "className": "h-4 w-[250px] bg-primary"
+        },
+        "children": []
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__class-merge-bg__dark",
+      "tree": {
+        "c": "Skeleton",
+        "props": {
+          "className": "h-4 w-[250px] bg-primary"
+        },
+        "children": []
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__skeleton-demo",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex items-center space-x-4"
+        },
+        "children": [
+          {
+            "c": "Skeleton",
+            "props": {
+              "className": "h-12 w-12 rounded-full"
+            },
+            "children": []
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "space-y-2"
+            },
+            "children": [
+              {
+                "c": "Skeleton",
+                "props": {
+                  "className": "h-4 w-[250px]"
+                },
+                "children": []
+              },
+              {
+                "c": "Skeleton",
+                "props": {
+                  "className": "h-4 w-[200px]"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__skeleton-demo__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex items-center space-x-4"
+        },
+        "children": [
+          {
+            "c": "Skeleton",
+            "props": {
+              "className": "h-12 w-12 rounded-full"
+            },
+            "children": []
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "space-y-2"
+            },
+            "children": [
+              {
+                "c": "Skeleton",
+                "props": {
+                  "className": "h-4 w-[250px]"
+                },
+                "children": []
+              },
+              {
+                "c": "Skeleton",
+                "props": {
+                  "className": "h-4 w-[200px]"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__skeleton-card",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col space-y-3"
+        },
+        "children": [
+          {
+            "c": "Skeleton",
+            "props": {
+              "className": "h-[125px] w-[250px] rounded-xl"
+            },
+            "children": []
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "space-y-2"
+            },
+            "children": [
+              {
+                "c": "Skeleton",
+                "props": {
+                  "className": "h-4 w-[250px]"
+                },
+                "children": []
+              },
+              {
+                "c": "Skeleton",
+                "props": {
+                  "className": "h-4 w-[200px]"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__skeleton-card__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col space-y-3"
+        },
+        "children": [
+          {
+            "c": "Skeleton",
+            "props": {
+              "className": "h-[125px] w-[250px] rounded-xl"
+            },
+            "children": []
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "space-y-2"
+            },
+            "children": [
+              {
+                "c": "Skeleton",
+                "props": {
+                  "className": "h-4 w-[250px]"
+                },
+                "children": []
+              },
+              {
+                "c": "Skeleton",
+                "props": {
+                  "className": "h-4 w-[200px]"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__forwarded-attrs",
+      "tree": {
+        "c": "Skeleton",
+        "props": {
+          "id": "sk-1",
+          "role": "status",
+          "aria-label": "Loading",
+          "aria-busy": "true",
+          "data-testid": "skeleton",
+          "style": {
+            "width": "300px"
+          },
+          "className": "h-4 w-[250px]"
+        },
+        "children": []
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__data-slot-override",
+      "tree": {
+        "c": "Skeleton",
+        "props": {
+          "data-slot": "custom-skeleton",
+          "className": "h-4 w-[250px]"
+        },
+        "children": []
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "motion__pulse",
+      "tree": {
+        "c": "Skeleton",
+        "props": {
+          "className": "h-4 w-[250px]"
+        },
+        "children": []
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": true
+    },
+    {
+      "id": "motion__pulse__dark",
+      "tree": {
+        "c": "Skeleton",
+        "props": {
+          "className": "h-4 w-[250px]"
+        },
+        "children": []
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": true
+    }
+  ]
+}

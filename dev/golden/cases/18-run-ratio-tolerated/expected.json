@@ -1,0 +1,26 @@
+{
+  "case": "18-run-ratio-tolerated",
+  "kind": "run",
+  "oracle": "case",
+  "description": "2 of 8 blocked is exactly 25%, not more: the run continues and completes.",
+  "init_args": [
+    "--pilot",
+    "none"
+  ],
+  "concurrency": 4,
+  "outcomes": {
+    "a": "blocked",
+    "b": "blocked"
+  },
+  "expect": {
+    "completed": true,
+    "stop_reason": null,
+    "dispatched_once": true,
+    "final_status": {
+      "a": "blocked",
+      "b": "blocked",
+      "c": "done",
+      "h": "done"
+    }
+  }
+}

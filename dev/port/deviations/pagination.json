@@ -1,0 +1,6 @@
+{
+  "reason": "No rendered deviation. The aria-label sentences of Previous and Next (Go to previous page, Go to next page) are plain text copied from the oracle, but the static gate reads four-word literals as Tailwind classes; the words are allow-listed only to silence that false positive.",
+  "allow_tokens": ["Go", "to", "previous", "next", "page"],
+  "allow_missing_tokens": [],
+  "api": []
+}

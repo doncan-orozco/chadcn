@@ -1,0 +1,4331 @@
+{
+  "component": "marker",
+  "scenarios": [
+    {
+      "id": "defaults",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {},
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Explored 4 files"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "defaults__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {},
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Explored 4 files"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "default"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Conversation compacted"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__icon",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "default"
+            },
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:git-branch>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Switched to a new branch"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "default"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Conversation compacted"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__icon__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "default"
+            },
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:git-branch>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Switched to a new branch"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-separator",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "separator"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Conversation compacted"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-separator__icon",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "separator"
+            },
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:git-branch>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Switched to a new branch"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-separator__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "separator"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Conversation compacted"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-separator__icon__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "separator"
+            },
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:git-branch>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Switched to a new branch"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-border",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "border"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Conversation compacted"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-border__icon",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "border"
+            },
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:git-branch>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Switched to a new branch"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-border__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "border"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Conversation compacted"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-border__icon__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "border"
+            },
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:git-branch>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Switched to a new branch"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__text-then-icon",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {},
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Opened implementation notes"
+                ]
+              },
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:file-text>"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__separator__text-then-icon",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "separator"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Opened implementation notes"
+                ]
+              },
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:file-text>"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__icon-only",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "aria-label": "Branch switched"
+            },
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:git-branch>"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__separator__icon-only",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "separator",
+              "aria-label": "Branch switched"
+            },
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:git-branch>"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__raw-text-child",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {},
+            "children": [
+              "Plain text without MarkerContent"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__empty",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {},
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__separator__empty",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "separator"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__border__empty",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "border"
+            },
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__long-text-wraps",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {},
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:search>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Reviewed the implementation notes, compared them with the pull request and summarised every remaining change for the release candidate"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 360,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__long-unbroken-word",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {},
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:search>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "release-candidate-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 360,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__separator__long-text",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "separator"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Reviewed the implementation notes, compared them with the pull request and summarised every remaining change for the release candidate"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 360,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__border__long-text",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "border"
+            },
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:search>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Reviewed the implementation notes, compared them with the pull request and summarised every remaining change for the release candidate"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 360,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__multiple-contents",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {},
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:search>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Explored"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "4 files"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__icon-multiple-svgs",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {},
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:git-branch>",
+                  "<icon:search>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Two icons in one MarkerIcon"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__svg-direct-child",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {},
+            "children": [
+              "<icon:git-branch>",
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Icon without MarkerIcon"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__link-child",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {},
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:git-branch>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Opened ",
+                  {
+                    "c": "_a",
+                    "props": {
+                      "href": "#pr"
+                    },
+                    "children": [
+                      "pull request #42"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__link-child__hover",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {},
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:git-branch>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Opened ",
+                  {
+                    "c": "_a",
+                    "props": {
+                      "href": "#pr"
+                    },
+                    "children": [
+                      "pull request #42"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=marker-content] > a"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__link-child__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {},
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:git-branch>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Opened ",
+                  {
+                    "c": "_a",
+                    "props": {
+                      "href": "#pr"
+                    },
+                    "children": [
+                      "pull request #42"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__link-child__hover__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {},
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:git-branch>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Opened ",
+                  {
+                    "c": "_a",
+                    "props": {
+                      "href": "#pr"
+                    },
+                    "children": [
+                      "pull request #42"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=marker-content] > a"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__link-nested-not-direct",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {},
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {},
+                    "children": [
+                      "See ",
+                      {
+                        "c": "_a",
+                        "props": {
+                          "href": "#pr"
+                        },
+                        "children": [
+                          "the pull request"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=marker-content] a"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__link-child__focus-visible",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {},
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Opened ",
+                  {
+                    "c": "_a",
+                    "props": {
+                      "href": "#pr"
+                    },
+                    "children": [
+                      "pull request #42"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__separator__link-child",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "separator"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_a",
+                    "props": {
+                      "href": "#today"
+                    },
+                    "children": [
+                      "Today"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=marker-content] > a"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "div__hover-no-effect",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {},
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:git-branch>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Switched to a new branch"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=marker]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__as-child-anchor",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "asChild": true
+            },
+            "children": [
+              {
+                "c": "_a",
+                "props": {
+                  "href": "#links-and-buttons"
+                },
+                "children": [
+                  {
+                    "c": "MarkerIcon",
+                    "props": {},
+                    "children": [
+                      "<icon:git-branch>"
+                    ]
+                  },
+                  {
+                    "c": "MarkerContent",
+                    "props": {},
+                    "children": [
+                      "View the pull request"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__as-child-anchor__hover",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "asChild": true
+            },
+            "children": [
+              {
+                "c": "_a",
+                "props": {
+                  "href": "#links-and-buttons"
+                },
+                "children": [
+                  {
+                    "c": "MarkerIcon",
+                    "props": {},
+                    "children": [
+                      "<icon:git-branch>"
+                    ]
+                  },
+                  {
+                    "c": "MarkerContent",
+                    "props": {},
+                    "children": [
+                      "View the pull request"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=marker]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__as-child-anchor__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "asChild": true
+            },
+            "children": [
+              {
+                "c": "_a",
+                "props": {
+                  "href": "#links-and-buttons"
+                },
+                "children": [
+                  {
+                    "c": "MarkerIcon",
+                    "props": {},
+                    "children": [
+                      "<icon:git-branch>"
+                    ]
+                  },
+                  {
+                    "c": "MarkerContent",
+                    "props": {},
+                    "children": [
+                      "View the pull request"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__as-child-anchor__hover__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "asChild": true
+            },
+            "children": [
+              {
+                "c": "_a",
+                "props": {
+                  "href": "#links-and-buttons"
+                },
+                "children": [
+                  {
+                    "c": "MarkerIcon",
+                    "props": {},
+                    "children": [
+                      "<icon:git-branch>"
+                    ]
+                  },
+                  {
+                    "c": "MarkerContent",
+                    "props": {},
+                    "children": [
+                      "View the pull request"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=marker]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__as-child-anchor__focus-visible",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "asChild": true
+            },
+            "children": [
+              {
+                "c": "_a",
+                "props": {
+                  "href": "#links-and-buttons"
+                },
+                "children": [
+                  {
+                    "c": "MarkerIcon",
+                    "props": {},
+                    "children": [
+                      "<icon:git-branch>"
+                    ]
+                  },
+                  {
+                    "c": "MarkerContent",
+                    "props": {},
+                    "children": [
+                      "View the pull request"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__as-child-anchor__separator",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "asChild": true,
+              "variant": "separator"
+            },
+            "children": [
+              {
+                "c": "_a",
+                "props": {
+                  "href": "#today"
+                },
+                "children": [
+                  {
+                    "c": "MarkerContent",
+                    "props": {},
+                    "children": [
+                      "Today"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=marker]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__as-child-anchor__border",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "asChild": true,
+              "variant": "border"
+            },
+            "children": [
+              {
+                "c": "_a",
+                "props": {
+                  "href": "#files"
+                },
+                "children": [
+                  {
+                    "c": "MarkerIcon",
+                    "props": {},
+                    "children": [
+                      "<icon:file-text>"
+                    ]
+                  },
+                  {
+                    "c": "MarkerContent",
+                    "props": {},
+                    "children": [
+                      "Opened implementation notes"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=marker]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__as-child-button",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "asChild": true
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "type": "button",
+                  "className": "transition-colors hover:text-foreground"
+                },
+                "children": [
+                  {
+                    "c": "MarkerIcon",
+                    "props": {},
+                    "children": [
+                      "<icon:rotate-ccw>"
+                    ]
+                  },
+                  {
+                    "c": "MarkerContent",
+                    "props": {},
+                    "children": [
+                      "Revert this change"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__as-child-button__hover",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "asChild": true
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "type": "button",
+                  "className": "transition-colors hover:text-foreground"
+                },
+                "children": [
+                  {
+                    "c": "MarkerIcon",
+                    "props": {},
+                    "children": [
+                      "<icon:rotate-ccw>"
+                    ]
+                  },
+                  {
+                    "c": "MarkerContent",
+                    "props": {},
+                    "children": [
+                      "Revert this change"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=marker]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__as-child-button__focus-visible",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "asChild": true
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "type": "button",
+                  "className": "transition-colors hover:text-foreground"
+                },
+                "children": [
+                  {
+                    "c": "MarkerIcon",
+                    "props": {},
+                    "children": [
+                      "<icon:rotate-ccw>"
+                    ]
+                  },
+                  {
+                    "c": "MarkerContent",
+                    "props": {},
+                    "children": [
+                      "Revert this change"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__as-child-button__no-hover-class",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "asChild": true
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "type": "button"
+                },
+                "children": [
+                  {
+                    "c": "MarkerIcon",
+                    "props": {},
+                    "children": [
+                      "<icon:rotate-ccw>"
+                    ]
+                  },
+                  {
+                    "c": "MarkerContent",
+                    "props": {},
+                    "children": [
+                      "Revert this change"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=marker]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__as-child-anchor-classname",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "asChild": true,
+              "className": "gap-4"
+            },
+            "children": [
+              {
+                "c": "_a",
+                "props": {
+                  "href": "#x",
+                  "className": "no-underline gap-1 text-foreground"
+                },
+                "children": [
+                  {
+                    "c": "MarkerIcon",
+                    "props": {},
+                    "children": [
+                      "<icon:git-branch>"
+                    ]
+                  },
+                  {
+                    "c": "MarkerContent",
+                    "props": {},
+                    "children": [
+                      "Child classes join after slot classes"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__as-child-child-data-slot-wins",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "asChild": true
+            },
+            "children": [
+              {
+                "c": "_a",
+                "props": {
+                  "href": "#x",
+                  "data-slot": "link"
+                },
+                "children": [
+                  {
+                    "c": "MarkerContent",
+                    "props": {},
+                    "children": [
+                      "Child data-slot wins"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__as-child-child-data-variant-wins",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "asChild": true,
+              "variant": "separator"
+            },
+            "children": [
+              {
+                "c": "_a",
+                "props": {
+                  "href": "#x",
+                  "data-variant": "border"
+                },
+                "children": [
+                  {
+                    "c": "MarkerContent",
+                    "props": {},
+                    "children": [
+                      "Child data-variant wins"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__as-child-style-merge",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "asChild": true,
+              "style": {
+                "color": "red",
+                "paddingTop": "4px"
+              }
+            },
+            "children": [
+              {
+                "c": "_a",
+                "props": {
+                  "href": "#x",
+                  "style": {
+                    "color": "blue"
+                  }
+                },
+                "children": [
+                  {
+                    "c": "MarkerContent",
+                    "props": {},
+                    "children": [
+                      "Style merged, child wins"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__as-child-span",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "asChild": true,
+              "variant": "separator"
+            },
+            "children": [
+              {
+                "c": "_span",
+                "props": {
+                  "id": "today-marker"
+                },
+                "children": [
+                  {
+                    "c": "MarkerContent",
+                    "props": {},
+                    "children": [
+                      "Today"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__class-merge-flex-col",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "className": "flex-col"
+            },
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:book-open-check>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Syncing completed"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__class-conflict",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "className": "gap-4 text-xs text-foreground"
+            },
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:search>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Explored 4 files"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__class-conflict__border",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "border",
+              "className": "border-b-2 border-primary pb-4"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Row boundary"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__class-conflict__separator",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "separator",
+              "className": "before:bg-primary after:h-0.5"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Custom lines"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__icon-class-merge",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {},
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {
+                  "className": "size-6 text-primary"
+                },
+                "children": [
+                  "<icon:git-branch>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "MarkerIcon size override"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__content-class-merge",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {},
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:search>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {
+                  "className": "font-medium text-foreground min-w-12"
+                },
+                "children": [
+                  "Explored 4 files"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__content-separator-class-conflict",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "separator"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {
+                  "className": "text-left flex-1"
+                },
+                "children": [
+                  "Left aligned"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__forwarded-attrs",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "id": "marker-1",
+              "role": "status",
+              "aria-live": "polite",
+              "title": "Status",
+              "data-testid": "marker"
+            },
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {
+                  "id": "marker-icon-1",
+                  "data-testid": "icon"
+                },
+                "children": [
+                  "<icon:search>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {
+                  "id": "marker-content-1",
+                  "aria-label": "Explored four files"
+                },
+                "children": [
+                  "Explored 4 files"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__data-slot-override",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "data-slot": "custom-marker"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Caller data-slot wins"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__data-variant-override",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "data-variant": "separator"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "data-variant without separator lines"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__icon-aria-hidden-override",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {},
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {
+                  "aria-hidden": "false",
+                  "role": "img",
+                  "aria-label": "Branch"
+                },
+                "children": [
+                  "<icon:git-branch>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Icon exposed"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__content-data-slot-override",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {},
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {
+                  "data-slot": "custom-content"
+                },
+                "children": [
+                  "Content data-slot override"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "context__separator-outside-marker-group",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "group/marker",
+              "data-variant": "separator"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Content inside a foreign group/marker"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "context__narrow-container",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-48 flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "separator"
+            },
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:search>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Worked for 42s"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "context__inline-parent",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "py-12"
+        },
+        "children": [
+          {
+            "c": "_span",
+            "props": {},
+            "children": [
+              "Before "
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {},
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Block marker in flow"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_span",
+            "props": {},
+            "children": [
+              " after"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "rtl__default-icon",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12",
+          "dir": "rtl"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {},
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:git-branch>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Switched to a new branch"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "rtl__separator-icon",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12",
+          "dir": "rtl"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "separator"
+            },
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:search>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Explored 4 files"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "rtl__border",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12",
+          "dir": "rtl"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "border"
+            },
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:file-text>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Opened implementation notes"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "status__role-status-shimmer",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "role": "status"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {
+                  "className": "shimmer"
+                },
+                "children": [
+                  "Thinking..."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__marker-demo",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {},
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:git-branch>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Switched to a new branch"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {
+              "role": "status"
+            },
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:loader-circle>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {
+                  "className": "shimmer"
+                },
+                "children": [
+                  "Thinking..."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "separator"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Conversation compacted"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {},
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:search>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Explored 4 files"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__marker-demo__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {},
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:git-branch>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Switched to a new branch"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {
+              "role": "status"
+            },
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:loader-circle>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {
+                  "className": "shimmer"
+                },
+                "children": [
+                  "Thinking..."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "separator"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Conversation compacted"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {},
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:search>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Explored 4 files"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__marker-border",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-3 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "border"
+            },
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:git-branch>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Switched to release-candidate"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "border"
+            },
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:search>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Reviewed 8 related files"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "border"
+            },
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:file-text>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Opened implementation notes"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__marker-border__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-3 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "border"
+            },
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:git-branch>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Switched to release-candidate"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "border"
+            },
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:search>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Reviewed 8 related files"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "border"
+            },
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:file-text>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Opened implementation notes"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__marker-icon",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-12 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {},
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:git-branch>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Switched to a new branch"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "separator"
+            },
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:search>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Explored 4 files"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {
+              "className": "flex-col"
+            },
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:book-open-check>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Syncing completed"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__marker-icon__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-12 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {},
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:git-branch>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Switched to a new branch"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "separator"
+            },
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:search>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Explored 4 files"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {
+              "className": "flex-col"
+            },
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:book-open-check>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Syncing completed"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__marker-link-button",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "asChild": true
+            },
+            "children": [
+              {
+                "c": "_a",
+                "props": {
+                  "href": "#links-and-buttons"
+                },
+                "children": [
+                  {
+                    "c": "MarkerIcon",
+                    "props": {},
+                    "children": [
+                      "<icon:git-branch>"
+                    ]
+                  },
+                  {
+                    "c": "MarkerContent",
+                    "props": {},
+                    "children": [
+                      "View the pull request"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {
+              "asChild": true
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "type": "button",
+                  "className": "transition-colors hover:text-foreground"
+                },
+                "children": [
+                  {
+                    "c": "MarkerIcon",
+                    "props": {},
+                    "children": [
+                      "<icon:rotate-ccw>"
+                    ]
+                  },
+                  {
+                    "c": "MarkerContent",
+                    "props": {},
+                    "children": [
+                      "Revert this change"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__marker-link-button__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "asChild": true
+            },
+            "children": [
+              {
+                "c": "_a",
+                "props": {
+                  "href": "#links-and-buttons"
+                },
+                "children": [
+                  {
+                    "c": "MarkerIcon",
+                    "props": {},
+                    "children": [
+                      "<icon:git-branch>"
+                    ]
+                  },
+                  {
+                    "c": "MarkerContent",
+                    "props": {},
+                    "children": [
+                      "View the pull request"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {
+              "asChild": true
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "type": "button",
+                  "className": "transition-colors hover:text-foreground"
+                },
+                "children": [
+                  {
+                    "c": "MarkerIcon",
+                    "props": {},
+                    "children": [
+                      "<icon:rotate-ccw>"
+                    ]
+                  },
+                  {
+                    "c": "MarkerContent",
+                    "props": {},
+                    "children": [
+                      "Revert this change"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__marker-separator",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "separator"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Today"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "separator"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Worked for 42s"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "separator"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Conversation compacted"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__marker-separator__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "separator"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Today"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "separator"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Worked for 42s"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "separator"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Conversation compacted"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__marker-shimmer",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "role": "status"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {
+                  "className": "shimmer"
+                },
+                "children": [
+                  "Thinking..."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "separator",
+              "role": "status"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {
+                  "className": "shimmer"
+                },
+                "children": [
+                  "Reading 4 files"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__marker-shimmer__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "role": "status"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {
+                  "className": "shimmer"
+                },
+                "children": [
+                  "Thinking..."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "separator",
+              "role": "status"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {
+                  "className": "shimmer"
+                },
+                "children": [
+                  "Reading 4 files"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__marker-status",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "role": "status"
+            },
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:loader-circle>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Compacting conversation"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "separator",
+              "role": "status"
+            },
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:loader-circle>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Running tests"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__marker-status__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "role": "status"
+            },
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:loader-circle>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Compacting conversation"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "separator",
+              "role": "status"
+            },
+            "children": [
+              {
+                "c": "MarkerIcon",
+                "props": {},
+                "children": [
+                  "<icon:loader-circle>"
+                ]
+              },
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "Running tests"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__marker-variants",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {},
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "A default marker for inline notes."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "separator"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "A separator marker"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "border"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "A border marker for row boundaries."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__marker-variants__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {},
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "A default marker for inline notes."
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "separator"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "A separator marker"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {
+              "variant": "border"
+            },
+            "children": [
+              {
+                "c": "MarkerContent",
+                "props": {},
+                "children": [
+                  "A border marker for row boundaries."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__marker-link-button__hover-link",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "asChild": true
+            },
+            "children": [
+              {
+                "c": "_a",
+                "props": {
+                  "href": "#links-and-buttons"
+                },
+                "children": [
+                  {
+                    "c": "MarkerIcon",
+                    "props": {},
+                    "children": [
+                      "<icon:git-branch>"
+                    ]
+                  },
+                  {
+                    "c": "MarkerContent",
+                    "props": {},
+                    "children": [
+                      "View the pull request"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {
+              "asChild": true
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "type": "button",
+                  "className": "transition-colors hover:text-foreground"
+                },
+                "children": [
+                  {
+                    "c": "MarkerIcon",
+                    "props": {},
+                    "children": [
+                      "<icon:rotate-ccw>"
+                    ]
+                  },
+                  {
+                    "c": "MarkerContent",
+                    "props": {},
+                    "children": [
+                      "Revert this change"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "a[data-slot=marker]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__marker-link-button__hover-button",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "asChild": true
+            },
+            "children": [
+              {
+                "c": "_a",
+                "props": {
+                  "href": "#links-and-buttons"
+                },
+                "children": [
+                  {
+                    "c": "MarkerIcon",
+                    "props": {},
+                    "children": [
+                      "<icon:git-branch>"
+                    ]
+                  },
+                  {
+                    "c": "MarkerContent",
+                    "props": {},
+                    "children": [
+                      "View the pull request"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {
+              "asChild": true
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "type": "button",
+                  "className": "transition-colors hover:text-foreground"
+                },
+                "children": [
+                  {
+                    "c": "MarkerIcon",
+                    "props": {},
+                    "children": [
+                      "<icon:rotate-ccw>"
+                    ]
+                  },
+                  {
+                    "c": "MarkerContent",
+                    "props": {},
+                    "children": [
+                      "Revert this change"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "button[data-slot=marker]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__marker-link-button__tab",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex w-full max-w-sm flex-col gap-8 py-12"
+        },
+        "children": [
+          {
+            "c": "Marker",
+            "props": {
+              "asChild": true
+            },
+            "children": [
+              {
+                "c": "_a",
+                "props": {
+                  "href": "#links-and-buttons"
+                },
+                "children": [
+                  {
+                    "c": "MarkerIcon",
+                    "props": {},
+                    "children": [
+                      "<icon:git-branch>"
+                    ]
+                  },
+                  {
+                    "c": "MarkerContent",
+                    "props": {},
+                    "children": [
+                      "View the pull request"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Marker",
+            "props": {
+              "asChild": true
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "type": "button",
+                  "className": "transition-colors hover:text-foreground"
+                },
+                "children": [
+                  {
+                    "c": "MarkerIcon",
+                    "props": {},
+                    "children": [
+                      "<icon:rotate-ccw>"
+                    ]
+                  },
+                  {
+                    "c": "MarkerContent",
+                    "props": {},
+                    "children": [
+                      "Revert this change"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

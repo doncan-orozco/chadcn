@@ -1,0 +1,192 @@
+{
+  "name": "toggle-group",
+  "style": "new-york-v4",
+  "source_sha": "45186473eaa30a96",
+  "use_client": true,
+  "tier": "radix_stateful",
+  "exports": [
+    "ToggleGroup",
+    "ToggleGroupItem"
+  ],
+  "parts": [
+    {
+      "name": "ToggleGroup",
+      "data_attrs": [
+        {
+          "name": "data-variant",
+          "value": "{variant}"
+        },
+        {
+          "name": "data-size",
+          "value": "{size}"
+        },
+        {
+          "name": "data-spacing",
+          "value": "{spacing}"
+        }
+      ],
+      "data_slots": [
+        "toggle-group"
+      ],
+      "data_slot": "toggle-group",
+      "wraps": "ToggleGroupPrimitive.Root",
+      "renders": "ToggleGroupPrimitive.Root",
+      "slot_tags": {
+        "toggle-group": "ToggleGroupPrimitive.Root"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "variant"
+          },
+          {
+            "name": "size"
+          },
+          {
+            "name": "spacing",
+            "default": "0"
+          },
+          {
+            "name": "children"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": [
+          {
+            "name": "spacing",
+            "type": "number"
+          }
+        ]
+      },
+      "class_tokens": [
+        "data-[spacing=default]:data-[variant=outline]:shadow-xs",
+        "flex",
+        "gap-[--spacing(var(--gap))]",
+        "group/toggle-group",
+        "items-center",
+        "rounded-md",
+        "w-fit"
+      ],
+      "uses_cva": false,
+      "variants_used": []
+    },
+    {
+      "name": "ToggleGroupItem",
+      "data_attrs": [
+        {
+          "name": "data-variant",
+          "value": "{context.variant || variant}"
+        },
+        {
+          "name": "data-size",
+          "value": "{context.size || size}"
+        },
+        {
+          "name": "data-spacing",
+          "value": "{context.spacing}"
+        }
+      ],
+      "data_slots": [
+        "toggle-group-item"
+      ],
+      "data_slot": "toggle-group-item",
+      "wraps": "ToggleGroupPrimitive.Item",
+      "renders": "ToggleGroupPrimitive.Item",
+      "slot_tags": {
+        "toggle-group-item": "ToggleGroupPrimitive.Item"
+      },
+      "props": {
+        "destructured": [
+          {
+            "name": "className"
+          },
+          {
+            "name": "children"
+          },
+          {
+            "name": "variant"
+          },
+          {
+            "name": "size"
+          },
+          {
+            "name": "...props",
+            "rest": true
+          }
+        ],
+        "typed": []
+      },
+      "class_tokens": [
+        "data-[spacing=0]:data-[variant=outline]:border-l-0",
+        "data-[spacing=0]:data-[variant=outline]:first:border-l",
+        "data-[spacing=0]:first:rounded-l-md",
+        "data-[spacing=0]:last:rounded-r-md",
+        "data-[spacing=0]:rounded-none",
+        "data-[spacing=0]:shadow-none",
+        "focus-visible:z-10",
+        "focus:z-10",
+        "min-w-0",
+        "px-3",
+        "shrink-0",
+        "w-auto"
+      ],
+      "uses_cva": true,
+      "variants_used": [
+        "toggleVariants"
+      ]
+    }
+  ],
+  "cva": {},
+  "class_tokens": [
+    "data-[spacing=0]:data-[variant=outline]:border-l-0",
+    "data-[spacing=0]:data-[variant=outline]:first:border-l",
+    "data-[spacing=0]:first:rounded-l-md",
+    "data-[spacing=0]:last:rounded-r-md",
+    "data-[spacing=0]:rounded-none",
+    "data-[spacing=0]:shadow-none",
+    "data-[spacing=default]:data-[variant=outline]:shadow-xs",
+    "flex",
+    "focus-visible:z-10",
+    "focus:z-10",
+    "gap-[--spacing(var(--gap))]",
+    "group/toggle-group",
+    "items-center",
+    "min-w-0",
+    "px-3",
+    "rounded-md",
+    "shrink-0",
+    "w-auto",
+    "w-fit"
+  ],
+  "data_attrs": [
+    "data-size",
+    "data-spacing",
+    "data-variant"
+  ],
+  "data_slots": [
+    "toggle-group",
+    "toggle-group-item"
+  ],
+  "non_rendered_slots": [],
+  "radix_primitives": [
+    "ToggleGroup"
+  ],
+  "third_party": [],
+  "icons": [],
+  "text_literals": [],
+  "registry_dependencies": [
+    "toggle"
+  ],
+  "hooks": [],
+  "npm_dependencies": [
+    "cn",
+    "radix-ui"
+  ],
+  "extra_files": []
+}

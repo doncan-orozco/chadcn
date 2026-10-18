@@ -1,0 +1,3103 @@
+{
+  "component": "collapsible",
+  "scenarios": [
+    {
+      "id": "closed__rest",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2"
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "closed__rest__dark",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2"
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default-open__rest",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2",
+          "defaultOpen": true
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default-open__rest__dark",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2",
+          "defaultOpen": true
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "click__open",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2"
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=collapsible-trigger]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "click__open__dark",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2"
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=collapsible-trigger]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "click__open-then-close",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2"
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=collapsible-trigger]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=collapsible-trigger]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default-open__click-close-then-reopen",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2",
+          "defaultOpen": true
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=collapsible-trigger]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=collapsible-trigger]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__enter-toggles",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2"
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__space-toggles",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2"
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": " "
+        },
+        {
+          "do": "press",
+          "key": " "
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "trigger__focus-visible",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2"
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__tab-skips-hidden-content",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2"
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": [
+              {
+                "c": "_a",
+                "props": {
+                  "href": "#inside"
+                },
+                "children": [
+                  "Inside link"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "keyboard__tab-into-open-content",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2"
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": [
+              {
+                "c": "_a",
+                "props": {
+                  "href": "#inside"
+                },
+                "children": [
+                  "Inside link"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__closed",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2",
+          "disabled": true
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__closed__dark",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2",
+          "disabled": true
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__click-noop",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2",
+          "disabled": true
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=collapsible-trigger]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__default-open",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2",
+          "disabled": true,
+          "defaultOpen": true
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__tab-skips-trigger",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2",
+          "disabled": true
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button"
+            },
+            "children": [
+              "After"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "controlled-closed__click-no-change",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2",
+          "open": false
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=collapsible-trigger]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "controlled-open__rest",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2",
+          "open": true
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "controlled-open__click-no-change",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2",
+          "open": true
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=collapsible-trigger]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "as-child__trigger__closed",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2"
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "props": {
+              "asChild": true
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "className": "group inline-flex size-8 items-center justify-center rounded-md hover:bg-accent"
+                },
+                "children": [
+                  "<icon:chevrons-up-down>",
+                  {
+                    "c": "_span",
+                    "props": {
+                      "className": "sr-only"
+                    },
+                    "children": [
+                      "Toggle"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "as-child__trigger__click-open",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2"
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "props": {
+              "asChild": true
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "className": "group inline-flex size-8 items-center justify-center rounded-md hover:bg-accent"
+                },
+                "children": [
+                  "<icon:chevrons-up-down>",
+                  {
+                    "c": "_span",
+                    "props": {
+                      "className": "sr-only"
+                    },
+                    "children": [
+                      "Toggle"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Toggle\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "as-child__trigger__group-data-state",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2"
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "props": {
+              "asChild": true
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "className": "group inline-flex w-full items-center gap-2 rounded-md px-4 py-2 text-sm font-medium"
+                },
+                "children": [
+                  "Product details",
+                  {
+                    "c": "_span",
+                    "props": {
+                      "className": "ml-auto size-4 rounded-sm bg-muted-foreground group-data-[state=open]:rotate-45"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Product details\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "as-child__trigger__disabled",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2",
+          "disabled": true
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "props": {
+              "asChild": true
+            },
+            "children": [
+              {
+                "c": "_button",
+                "props": {
+                  "className": "group inline-flex size-8 items-center justify-center rounded-md hover:bg-accent disabled:opacity-50"
+                },
+                "children": [
+                  "<icon:chevrons-up-down>",
+                  {
+                    "c": "_span",
+                    "props": {
+                      "className": "sr-only"
+                    },
+                    "children": [
+                      "Toggle"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "as-child__root",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "asChild": true,
+          "defaultOpen": true
+        },
+        "children": [
+          {
+            "c": "_section",
+            "props": {
+              "className": "flex w-[350px] flex-col gap-2 data-[state=open]:bg-muted"
+            },
+            "children": [
+              {
+                "c": "CollapsibleTrigger",
+                "children": [
+                  "Toggle"
+                ]
+              },
+              {
+                "c": "CollapsibleContent",
+                "children": [
+                  "Section body"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=collapsible-trigger]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "as-child__content__closed-then-open",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2"
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "props": {
+              "asChild": true
+            },
+            "children": [
+              {
+                "c": "_article",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Article body"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=collapsible-trigger]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=collapsible-trigger]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "as-child__content__default-open",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2",
+          "defaultOpen": true
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "props": {
+              "asChild": true
+            },
+            "children": [
+              {
+                "c": "_article",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Article body"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class-merge__all-parts",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "w-80 rounded-lg border p-4 data-[state=open]:bg-muted",
+          "defaultOpen": true
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "props": {
+              "className": "text-sm font-medium underline"
+            },
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "props": {
+              "className": "flex flex-col gap-2 pt-2"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "forwarded-attrs__all-parts",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2",
+          "defaultOpen": true,
+          "id": "orders",
+          "data-testid": "orders-root",
+          "aria-label": "Orders",
+          "dir": "rtl"
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "props": {
+              "id": "orders-toggle",
+              "data-testid": "orders-trigger",
+              "aria-describedby": "orders-hint"
+            },
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "_p",
+            "props": {
+              "id": "orders-hint"
+            },
+            "children": [
+              "Shows the order lines"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "props": {
+              "data-testid": "orders-content",
+              "aria-live": "polite"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "trigger__caller-type-submit",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2"
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "props": {
+              "type": "submit"
+            },
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=collapsible-trigger]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "caller-content-id__dangling-aria-controls",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2",
+          "defaultOpen": true
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "props": {
+              "id": "my-content"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=collapsible-trigger]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=collapsible-trigger]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "multiple-triggers__shared-state",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2"
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Open details"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": [
+              "Details"
+            ]
+          },
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Close details"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Open details\"]"
+        },
+        {
+          "do": "click",
+          "target": "role=button[name=\"Close details\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__force-mount__closed",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2"
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "props": {
+              "forceMount": true
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=collapsible-trigger]"
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=collapsible-trigger]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content__empty__open",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2",
+          "defaultOpen": true
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": []
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "trigger__icon-and-text",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2"
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "<icon:chevron-down>",
+              "Show more"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=collapsible-trigger]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "trigger__icon-only-aria-label",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2"
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "props": {
+              "aria-label": "Toggle details"
+            },
+            "children": [
+              "<icon:chevrons-up-down>"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=collapsible-trigger]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "trigger__long-text-wraps",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "w-48"
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "A trigger label long enough to wrap onto a second line in a narrow collapsible"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=collapsible-trigger]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "nested__independent-state",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2",
+          "defaultOpen": true
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Outer"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "children": [
+              {
+                "c": "Collapsible",
+                "children": [
+                  {
+                    "c": "CollapsibleTrigger",
+                    "children": [
+                      "Inner"
+                    ]
+                  },
+                  {
+                    "c": "CollapsibleContent",
+                    "children": [
+                      "Inner body"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Inner\"]"
+        },
+        {
+          "do": "click",
+          "target": "role=button[name=\"Outer\"]"
+        },
+        {
+          "do": "click",
+          "target": "role=button[name=\"Outer\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "animation__open-close",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2"
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "props": {
+              "className": "overflow-hidden data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=collapsible-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "wait",
+          "ms": 250
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=collapsible-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "wait",
+          "ms": 250
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": true
+    },
+    {
+      "id": "animation__default-open-no-mount-animation",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2",
+          "defaultOpen": true
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "props": {
+              "className": "overflow-hidden data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=collapsible-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": true
+    },
+    {
+      "id": "animation__reopen-during-exit",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2",
+          "defaultOpen": true
+        },
+        "children": [
+          {
+            "c": "CollapsibleTrigger",
+            "children": [
+              "Toggle"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "props": {
+              "className": "overflow-hidden data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  "Hidden content"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=collapsible-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        },
+        {
+          "do": "click",
+          "target": "[data-slot=collapsible-trigger]"
+        },
+        {
+          "do": "wait",
+          "ms": 300
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": true
+    },
+    {
+      "id": "example__collapsible-demo",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center justify-between gap-4 px-4"
+            },
+            "children": [
+              {
+                "c": "_h4",
+                "props": {
+                  "className": "text-sm font-semibold"
+                },
+                "children": [
+                  "@peduarte starred 3 repositories"
+                ]
+              },
+              {
+                "c": "CollapsibleTrigger",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "className": "inline-flex size-8 items-center justify-center rounded-md hover:bg-accent hover:text-accent-foreground"
+                    },
+                    "children": [
+                      "<icon:chevrons-up-down>",
+                      {
+                        "c": "_span",
+                        "props": {
+                          "className": "sr-only"
+                        },
+                        "children": [
+                          "Toggle"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "rounded-md border px-4 py-2 font-mono text-sm"
+            },
+            "children": [
+              "@radix-ui/primitives"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "props": {
+              "className": "flex flex-col gap-2"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 font-mono text-sm"
+                },
+                "children": [
+                  "@radix-ui/colors"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 font-mono text-sm"
+                },
+                "children": [
+                  "@stitches/react"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Toggle\"]"
+        },
+        {
+          "do": "click",
+          "target": "role=button[name=\"Toggle\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__collapsible-demo__dark",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center justify-between gap-4 px-4"
+            },
+            "children": [
+              {
+                "c": "_h4",
+                "props": {
+                  "className": "text-sm font-semibold"
+                },
+                "children": [
+                  "@peduarte starred 3 repositories"
+                ]
+              },
+              {
+                "c": "CollapsibleTrigger",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "className": "inline-flex size-8 items-center justify-center rounded-md hover:bg-accent hover:text-accent-foreground"
+                    },
+                    "children": [
+                      "<icon:chevrons-up-down>",
+                      {
+                        "c": "_span",
+                        "props": {
+                          "className": "sr-only"
+                        },
+                        "children": [
+                          "Toggle"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "rounded-md border px-4 py-2 font-mono text-sm"
+            },
+            "children": [
+              "@radix-ui/primitives"
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "props": {
+              "className": "flex flex-col gap-2"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 font-mono text-sm"
+                },
+                "children": [
+                  "@radix-ui/colors"
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 font-mono text-sm"
+                },
+                "children": [
+                  "@stitches/react"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Toggle\"]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__collapsible-demo-order",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center justify-between gap-4 px-4"
+            },
+            "children": [
+              {
+                "c": "_h4",
+                "props": {
+                  "className": "text-sm font-semibold"
+                },
+                "children": [
+                  "Order #4189"
+                ]
+              },
+              {
+                "c": "CollapsibleTrigger",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "className": "inline-flex size-8 items-center justify-center rounded-md hover:bg-accent hover:text-accent-foreground"
+                    },
+                    "children": [
+                      "<icon:chevrons-up-down>",
+                      {
+                        "c": "_span",
+                        "props": {
+                          "className": "sr-only"
+                        },
+                        "children": [
+                          "Toggle details"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center justify-between rounded-md border px-4 py-2 text-sm"
+            },
+            "children": [
+              {
+                "c": "_span",
+                "props": {
+                  "className": "text-muted-foreground"
+                },
+                "children": [
+                  "Status"
+                ]
+              },
+              {
+                "c": "_span",
+                "props": {
+                  "className": "font-medium"
+                },
+                "children": [
+                  "Shipped"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "props": {
+              "className": "flex flex-col gap-2"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {
+                      "className": "font-medium"
+                    },
+                    "children": [
+                      "Shipping address"
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {
+                      "className": "text-muted-foreground"
+                    },
+                    "children": [
+                      "100 Market St, San Francisco"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {
+                      "className": "font-medium"
+                    },
+                    "children": [
+                      "Items"
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {
+                      "className": "text-muted-foreground"
+                    },
+                    "children": [
+                      "2x Studio Headphones"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Toggle details\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__collapsible-rtl",
+      "tree": {
+        "c": "Collapsible",
+        "props": {
+          "className": "flex w-[350px] flex-col gap-2",
+          "dir": "rtl"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center justify-between gap-4 px-4"
+            },
+            "children": [
+              {
+                "c": "_h4",
+                "props": {
+                  "className": "text-sm font-semibold"
+                },
+                "children": [
+                  "الطلب #4189"
+                ]
+              },
+              {
+                "c": "CollapsibleTrigger",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "className": "inline-flex size-8 items-center justify-center rounded-md hover:bg-accent hover:text-accent-foreground"
+                    },
+                    "children": [
+                      "<icon:chevrons-up-down>",
+                      {
+                        "c": "_span",
+                        "props": {
+                          "className": "sr-only"
+                        },
+                        "children": [
+                          "Toggle details"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-center justify-between rounded-md border px-4 py-2 text-sm"
+            },
+            "children": [
+              {
+                "c": "_span",
+                "props": {
+                  "className": "text-muted-foreground"
+                },
+                "children": [
+                  "الحالة"
+                ]
+              },
+              {
+                "c": "_span",
+                "props": {
+                  "className": "font-medium"
+                },
+                "children": [
+                  "تم الشحن"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "CollapsibleContent",
+            "props": {
+              "className": "flex flex-col gap-2"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {
+                      "className": "font-medium"
+                    },
+                    "children": [
+                      "عنوان الشحن"
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {
+                      "className": "text-muted-foreground"
+                    },
+                    "children": [
+                      "100 Market St, San Francisco"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-md border px-4 py-2 text-sm"
+                },
+                "children": [
+                  {
+                    "c": "_p",
+                    "props": {
+                      "className": "font-medium"
+                    },
+                    "children": [
+                      "العناصر"
+                    ]
+                  },
+                  {
+                    "c": "_p",
+                    "props": {
+                      "className": "text-muted-foreground"
+                    },
+                    "children": [
+                      "2x سماعات الاستوديو"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Toggle details\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__collapsible-basic",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "mx-auto w-full max-w-sm rounded-xl border p-6"
+        },
+        "children": [
+          {
+            "c": "Collapsible",
+            "props": {
+              "className": "rounded-md data-[state=open]:bg-muted"
+            },
+            "children": [
+              {
+                "c": "CollapsibleTrigger",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "className": "group inline-flex w-full items-center gap-2 rounded-md px-4 py-2 text-sm font-medium hover:bg-accent"
+                    },
+                    "children": [
+                      "Product details",
+                      {
+                        "c": "_span",
+                        "props": {
+                          "className": "ml-auto inline-flex group-data-[state=open]:rotate-180"
+                        },
+                        "children": [
+                          "<icon:chevron-down>"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CollapsibleContent",
+                "props": {
+                  "className": "flex flex-col items-start gap-2 p-2.5 pt-0 text-sm"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "children": [
+                      "This panel can be expanded or collapsed to reveal additional content."
+                    ]
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "className": "rounded-md bg-primary px-2 py-1 text-xs text-primary-foreground"
+                    },
+                    "children": [
+                      "Learn More"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Product details\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__collapsible-basic__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "mx-auto w-full max-w-sm rounded-xl border p-6"
+        },
+        "children": [
+          {
+            "c": "Collapsible",
+            "props": {
+              "className": "rounded-md data-[state=open]:bg-muted"
+            },
+            "children": [
+              {
+                "c": "CollapsibleTrigger",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "className": "group inline-flex w-full items-center gap-2 rounded-md px-4 py-2 text-sm font-medium hover:bg-accent"
+                    },
+                    "children": [
+                      "Product details",
+                      {
+                        "c": "_span",
+                        "props": {
+                          "className": "ml-auto inline-flex group-data-[state=open]:rotate-180"
+                        },
+                        "children": [
+                          "<icon:chevron-down>"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CollapsibleContent",
+                "props": {
+                  "className": "flex flex-col items-start gap-2 p-2.5 pt-0 text-sm"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "children": [
+                      "This panel can be expanded or collapsed to reveal additional content."
+                    ]
+                  },
+                  {
+                    "c": "_button",
+                    "props": {
+                      "className": "rounded-md bg-primary px-2 py-1 text-xs text-primary-foreground"
+                    },
+                    "children": [
+                      "Learn More"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Product details\"]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__collapsible-file-tree",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "mx-auto flex w-full max-w-[16rem] flex-col gap-1 rounded-xl border p-4"
+        },
+        "children": [
+          {
+            "c": "Collapsible",
+            "children": [
+              {
+                "c": "CollapsibleTrigger",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "className": "group inline-flex w-full items-center justify-start gap-1.5 rounded-md px-3 py-1.5 text-sm hover:bg-accent hover:text-accent-foreground"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "className": "inline-flex transition-transform group-data-[state=open]:rotate-90"
+                        },
+                        "children": [
+                          "<icon:chevron-right>"
+                        ]
+                      },
+                      "<icon:folder>",
+                      "components"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CollapsibleContent",
+                "props": {
+                  "className": "mt-1 ml-5"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "className": "flex flex-col gap-1"
+                    },
+                    "children": [
+                      {
+                        "c": "Collapsible",
+                        "children": [
+                          {
+                            "c": "CollapsibleTrigger",
+                            "props": {
+                              "asChild": true
+                            },
+                            "children": [
+                              {
+                                "c": "_button",
+                                "props": {
+                                  "className": "group inline-flex w-full items-center justify-start gap-1.5 rounded-md px-3 py-1.5 text-sm hover:bg-accent hover:text-accent-foreground"
+                                },
+                                "children": [
+                                  {
+                                    "c": "_span",
+                                    "props": {
+                                      "className": "inline-flex transition-transform group-data-[state=open]:rotate-90"
+                                    },
+                                    "children": [
+                                      "<icon:chevron-right>"
+                                    ]
+                                  },
+                                  "<icon:folder>",
+                                  "ui"
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "c": "CollapsibleContent",
+                            "props": {
+                              "className": "mt-1 ml-5"
+                            },
+                            "children": [
+                              {
+                                "c": "_div",
+                                "props": {
+                                  "className": "flex flex-col gap-1"
+                                },
+                                "children": [
+                                  {
+                                    "c": "_button",
+                                    "props": {
+                                      "className": "inline-flex w-full items-center justify-start gap-2 px-3 py-1.5 text-sm text-foreground"
+                                    },
+                                    "children": [
+                                      "<icon:file>",
+                                      {
+                                        "c": "_span",
+                                        "children": [
+                                          "button.tsx"
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "c": "_button",
+                                    "props": {
+                                      "className": "inline-flex w-full items-center justify-start gap-2 px-3 py-1.5 text-sm text-foreground"
+                                    },
+                                    "children": [
+                                      "<icon:file>",
+                                      {
+                                        "c": "_span",
+                                        "children": [
+                                          "card.tsx"
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "_button",
+                        "props": {
+                          "className": "inline-flex w-full items-center justify-start gap-2 px-3 py-1.5 text-sm text-foreground"
+                        },
+                        "children": [
+                          "<icon:file>",
+                          {
+                            "c": "_span",
+                            "children": [
+                              "login-form.tsx"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "Collapsible",
+            "children": [
+              {
+                "c": "CollapsibleTrigger",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "className": "group inline-flex w-full items-center justify-start gap-1.5 rounded-md px-3 py-1.5 text-sm hover:bg-accent hover:text-accent-foreground"
+                    },
+                    "children": [
+                      {
+                        "c": "_span",
+                        "props": {
+                          "className": "inline-flex transition-transform group-data-[state=open]:rotate-90"
+                        },
+                        "children": [
+                          "<icon:chevron-right>"
+                        ]
+                      },
+                      "<icon:folder>",
+                      "lib"
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CollapsibleContent",
+                "props": {
+                  "className": "mt-1 ml-5"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "className": "flex flex-col gap-1"
+                    },
+                    "children": [
+                      {
+                        "c": "_button",
+                        "props": {
+                          "className": "inline-flex w-full items-center justify-start gap-2 px-3 py-1.5 text-sm text-foreground"
+                        },
+                        "children": [
+                          "<icon:file>",
+                          {
+                            "c": "_span",
+                            "children": [
+                              "utils.ts"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "_button",
+                        "props": {
+                          "className": "inline-flex w-full items-center justify-start gap-2 px-3 py-1.5 text-sm text-foreground"
+                        },
+                        "children": [
+                          "<icon:file>",
+                          {
+                            "c": "_span",
+                            "children": [
+                              "cn.ts"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "className": "inline-flex w-full items-center justify-start gap-2 px-3 py-1.5 text-sm text-foreground"
+            },
+            "children": [
+              "<icon:file>",
+              {
+                "c": "_span",
+                "children": [
+                  "app.tsx"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"components\"]"
+        },
+        {
+          "do": "click",
+          "target": "role=button[name=\"ui\"]"
+        },
+        {
+          "do": "click",
+          "target": "role=button[name=\"lib\"]"
+        },
+        {
+          "do": "click",
+          "target": "role=button[name=\"components\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__collapsible-settings",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "mx-auto w-full max-w-xs rounded-xl border p-4"
+        },
+        "children": [
+          {
+            "c": "Collapsible",
+            "props": {
+              "className": "flex items-start gap-2"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "grid w-full grid-cols-2 gap-2"
+                },
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "className": "flex flex-col gap-1"
+                    },
+                    "children": [
+                      {
+                        "c": "_label",
+                        "props": {
+                          "className": "sr-only"
+                        },
+                        "children": [
+                          "Radius X"
+                        ]
+                      },
+                      {
+                        "c": "_input",
+                        "props": {
+                          "placeholder": "0",
+                          "className": "h-9 w-full rounded-md border px-3 text-sm"
+                        },
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "className": "flex flex-col gap-1"
+                    },
+                    "children": [
+                      {
+                        "c": "_label",
+                        "props": {
+                          "className": "sr-only"
+                        },
+                        "children": [
+                          "Radius Y"
+                        ]
+                      },
+                      {
+                        "c": "_input",
+                        "props": {
+                          "placeholder": "0",
+                          "className": "h-9 w-full rounded-md border px-3 text-sm"
+                        },
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "c": "CollapsibleContent",
+                    "props": {
+                      "className": "col-span-full grid grid-cols-subgrid gap-2"
+                    },
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex flex-col gap-1"
+                        },
+                        "children": [
+                          {
+                            "c": "_label",
+                            "props": {
+                              "className": "sr-only"
+                            },
+                            "children": [
+                              "Radius X"
+                            ]
+                          },
+                          {
+                            "c": "_input",
+                            "props": {
+                              "placeholder": "0",
+                              "className": "h-9 w-full rounded-md border px-3 text-sm"
+                            },
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex flex-col gap-1"
+                        },
+                        "children": [
+                          {
+                            "c": "_label",
+                            "props": {
+                              "className": "sr-only"
+                            },
+                            "children": [
+                              "Radius Y"
+                            ]
+                          },
+                          {
+                            "c": "_input",
+                            "props": {
+                              "placeholder": "0",
+                              "className": "h-9 w-full rounded-md border px-3 text-sm"
+                            },
+                            "children": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CollapsibleTrigger",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "_button",
+                    "props": {
+                      "className": "inline-flex size-9 shrink-0 items-center justify-center rounded-md border",
+                      "aria-label": "Toggle radius"
+                    },
+                    "children": [
+                      "<icon:maximize>"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Toggle radius\"]"
+        },
+        {
+          "do": "click",
+          "target": "role=button[name=\"Toggle radius\"]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

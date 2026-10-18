@@ -1,0 +1,864 @@
+{
+  "component": "aspect-ratio",
+  "scenarios": [
+    {
+      "id": "default",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[450px]"
+        },
+        "children": [
+          {
+            "c": "AspectRatio",
+            "props": {
+              "className": "bg-muted"
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default__empty",
+      "tree": {
+        "c": "AspectRatio",
+        "props": {}
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "ratio-1",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[450px]"
+        },
+        "children": [
+          {
+            "c": "AspectRatio",
+            "props": {
+              "ratio": 1,
+              "className": "bg-muted"
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "ratio-16-9",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[450px]"
+        },
+        "children": [
+          {
+            "c": "AspectRatio",
+            "props": {
+              "ratio": 1.7777777777777777,
+              "className": "bg-muted"
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "ratio-4-3",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[450px]"
+        },
+        "children": [
+          {
+            "c": "AspectRatio",
+            "props": {
+              "ratio": 1.3333333333333333,
+              "className": "bg-muted"
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "ratio-3-2",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[450px]"
+        },
+        "children": [
+          {
+            "c": "AspectRatio",
+            "props": {
+              "ratio": 1.5,
+              "className": "bg-muted"
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "ratio-21-9",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[450px]"
+        },
+        "children": [
+          {
+            "c": "AspectRatio",
+            "props": {
+              "ratio": 2.3333333333333335,
+              "className": "bg-muted"
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "ratio-9-16",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[450px]"
+        },
+        "children": [
+          {
+            "c": "AspectRatio",
+            "props": {
+              "ratio": 0.5625,
+              "className": "bg-muted"
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "ratio-2",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[450px]"
+        },
+        "children": [
+          {
+            "c": "AspectRatio",
+            "props": {
+              "ratio": 2,
+              "className": "bg-muted"
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "ratio-16-9__full-width",
+      "tree": {
+        "c": "AspectRatio",
+        "props": {
+          "ratio": 1.7777777777777777,
+          "className": "bg-muted"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-text",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[450px]"
+        },
+        "children": [
+          {
+            "c": "AspectRatio",
+            "props": {
+              "ratio": 1.7777777777777777,
+              "className": "flex items-center justify-center rounded-md bg-muted text-sm"
+            },
+            "children": [
+              "16 / 9"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-long-text-overflow",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[450px]"
+        },
+        "children": [
+          {
+            "c": "AspectRatio",
+            "props": {
+              "ratio": 4.0,
+              "className": "rounded-md bg-muted p-2 text-sm"
+            },
+            "children": [
+              "Long content that is taller than the box the ratio allows, so it overflows the absolutely positioned inner element instead of growing it. Long content that is taller than the box the ratio allows, so it overflows the absolutely positioned inner element instead of growing it. Long content that is taller than the box the ratio allows, so it overflows the absolutely positioned inner element instead of growing it. "
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-image",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[450px]"
+        },
+        "children": [
+          {
+            "c": "AspectRatio",
+            "props": {
+              "ratio": 1.7777777777777777,
+              "className": "rounded-lg bg-muted"
+            },
+            "children": [
+              {
+                "c": "_img",
+                "props": {
+                  "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1600' height='900'><rect width='1600' height='900' fill='%23888'/></svg>",
+                  "alt": "Photo by Drew Beamer",
+                  "className": "h-full w-full rounded-lg object-cover dark:brightness-[0.2] dark:grayscale"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-nested-parts",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[450px]"
+        },
+        "children": [
+          {
+            "c": "AspectRatio",
+            "props": {
+              "ratio": 1,
+              "className": "grid grid-cols-2 gap-2 rounded-md bg-muted p-2"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-sm bg-background"
+                }
+              },
+              {
+                "c": "_div",
+                "props": {
+                  "className": "rounded-sm bg-primary"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class-verbatim-no-merge",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[450px]"
+        },
+        "children": [
+          {
+            "c": "AspectRatio",
+            "props": {
+              "ratio": 1.7777777777777777,
+              "className": "rounded-md rounded-lg bg-muted bg-accent"
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class-merge-position-override",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[450px]"
+        },
+        "children": [
+          {
+            "c": "AspectRatio",
+            "props": {
+              "ratio": 1.7777777777777777,
+              "className": "static bg-muted"
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "forwarded-attrs",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[450px]"
+        },
+        "children": [
+          {
+            "c": "AspectRatio",
+            "props": {
+              "ratio": 1.7777777777777777,
+              "id": "hero-media",
+              "role": "img",
+              "aria-label": "Hero media",
+              "data-testid": "hero",
+              "title": "Hero",
+              "className": "bg-muted"
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "style-merge-forced-position",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[450px]"
+        },
+        "children": [
+          {
+            "c": "AspectRatio",
+            "props": {
+              "ratio": 1.7777777777777777,
+              "className": "bg-muted",
+              "style": {
+                "opacity": 0.5,
+                "position": "static",
+                "top": "20px"
+              }
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "as-child-img",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[450px]"
+        },
+        "children": [
+          {
+            "c": "AspectRatio",
+            "props": {
+              "ratio": 1.7777777777777777,
+              "asChild": true,
+              "className": "rounded-lg"
+            },
+            "children": [
+              {
+                "c": "_img",
+                "props": {
+                  "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1600' height='900'><rect width='1600' height='900' fill='%23888'/></svg>",
+                  "alt": "Slotted image",
+                  "className": "object-cover"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "as-child-a-focus",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[450px]"
+        },
+        "children": [
+          {
+            "c": "AspectRatio",
+            "props": {
+              "ratio": 1.7777777777777777,
+              "asChild": true,
+              "className": "rounded-lg bg-muted outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
+            },
+            "children": [
+              {
+                "c": "_a",
+                "props": {
+                  "href": "#media"
+                },
+                "children": [
+                  "Media link"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focusable-child__tab",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[450px]"
+        },
+        "children": [
+          {
+            "c": "AspectRatio",
+            "props": {
+              "ratio": 1.7777777777777777,
+              "className": "flex items-center justify-center rounded-md bg-muted"
+            },
+            "children": [
+              {
+                "c": "_a",
+                "props": {
+                  "href": "#inside",
+                  "className": "underline"
+                },
+                "children": [
+                  "Inside link"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "hover",
+          "target": "[data-slot=aspect-ratio]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "resize__fluid-width",
+      "tree": {
+        "c": "AspectRatio",
+        "props": {
+          "ratio": 1.7777777777777777,
+          "className": "bg-muted"
+        }
+      },
+      "steps": [
+        {
+          "do": "viewport",
+          "width": 480,
+          "height": 700
+        },
+        {
+          "do": "viewport",
+          "width": 1280,
+          "height": 800
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "resize__fixed-wrapper",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-1/2"
+        },
+        "children": [
+          {
+            "c": "AspectRatio",
+            "props": {
+              "ratio": 1.3333333333333333,
+              "className": "bg-muted"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "viewport",
+          "width": 375,
+          "height": 667
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__aspect-ratio-demo",
+      "tree": {
+        "c": "AspectRatio",
+        "props": {
+          "ratio": 1.7777777777777777,
+          "className": "rounded-lg bg-muted"
+        },
+        "children": [
+          {
+            "c": "_img",
+            "props": {
+              "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1600' height='900'><rect width='1600' height='900' fill='%23888'/></svg>",
+              "alt": "Photo by Drew Beamer",
+              "className": "h-full w-full rounded-lg object-cover dark:brightness-[0.2] dark:grayscale"
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__aspect-ratio-demo__docs-wrapper",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[450px]"
+        },
+        "children": [
+          {
+            "c": "AspectRatio",
+            "props": {
+              "ratio": 1.7777777777777777,
+              "className": "rounded-lg bg-muted"
+            },
+            "children": [
+              {
+                "c": "_img",
+                "props": {
+                  "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1600' height='900'><rect width='1600' height='900' fill='%23888'/></svg>",
+                  "alt": "Photo by Drew Beamer",
+                  "className": "h-full w-full rounded-lg object-cover dark:brightness-[0.2] dark:grayscale"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[450px]"
+        },
+        "children": [
+          {
+            "c": "AspectRatio",
+            "props": {
+              "className": "bg-muted"
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "ratio-16-9__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[450px]"
+        },
+        "children": [
+          {
+            "c": "AspectRatio",
+            "props": {
+              "ratio": 1.7777777777777777,
+              "className": "bg-muted"
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-image__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[450px]"
+        },
+        "children": [
+          {
+            "c": "AspectRatio",
+            "props": {
+              "ratio": 1.7777777777777777,
+              "className": "rounded-lg bg-muted"
+            },
+            "children": [
+              {
+                "c": "_img",
+                "props": {
+                  "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1600' height='900'><rect width='1600' height='900' fill='%23888'/></svg>",
+                  "alt": "Photo by Drew Beamer",
+                  "className": "h-full w-full rounded-lg object-cover dark:brightness-[0.2] dark:grayscale"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__aspect-ratio-demo__dark",
+      "tree": {
+        "c": "AspectRatio",
+        "props": {
+          "ratio": 1.7777777777777777,
+          "className": "rounded-lg bg-muted"
+        },
+        "children": [
+          {
+            "c": "_img",
+            "props": {
+              "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1600' height='900'><rect width='1600' height='900' fill='%23888'/></svg>",
+              "alt": "Photo by Drew Beamer",
+              "className": "h-full w-full rounded-lg object-cover dark:brightness-[0.2] dark:grayscale"
+            }
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__aspect-ratio-demo__docs-wrapper__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "w-[450px]"
+        },
+        "children": [
+          {
+            "c": "AspectRatio",
+            "props": {
+              "ratio": 1.7777777777777777,
+              "className": "rounded-lg bg-muted"
+            },
+            "children": [
+              {
+                "c": "_img",
+                "props": {
+                  "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1600' height='900'><rect width='1600' height='900' fill='%23888'/></svg>",
+                  "alt": "Photo by Drew Beamer",
+                  "className": "h-full w-full rounded-lg object-cover dark:brightness-[0.2] dark:grayscale"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

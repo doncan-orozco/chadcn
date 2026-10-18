@@ -1,0 +1,3292 @@
+{
+  "component": "button",
+  "scenarios": [
+    {
+      "id": "defaults",
+      "tree": {
+        "c": "Button",
+        "props": {},
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "defaults__dark",
+      "tree": {
+        "c": "Button",
+        "props": {},
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__size-default",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "default",
+          "size": "default"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__size-xs",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "default",
+          "size": "xs"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__size-sm",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "default",
+          "size": "sm"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__size-lg",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "default",
+          "size": "lg"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__size-icon",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "aria-label": "Submit",
+          "variant": "default",
+          "size": "icon"
+        },
+        "children": [
+          "<icon:arrow-up>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__size-icon-xs",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "aria-label": "Submit",
+          "variant": "default",
+          "size": "icon-xs"
+        },
+        "children": [
+          "<icon:arrow-up>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__size-icon-sm",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "aria-label": "Submit",
+          "variant": "default",
+          "size": "icon-sm"
+        },
+        "children": [
+          "<icon:arrow-up>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__size-icon-lg",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "aria-label": "Submit",
+          "variant": "default",
+          "size": "icon-lg"
+        },
+        "children": [
+          "<icon:arrow-up>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-destructive__size-default",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "destructive",
+          "size": "default"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-destructive__size-xs",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "destructive",
+          "size": "xs"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-destructive__size-sm",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "destructive",
+          "size": "sm"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-destructive__size-lg",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "destructive",
+          "size": "lg"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-destructive__size-icon",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "aria-label": "Submit",
+          "variant": "destructive",
+          "size": "icon"
+        },
+        "children": [
+          "<icon:arrow-up>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-destructive__size-icon-xs",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "aria-label": "Submit",
+          "variant": "destructive",
+          "size": "icon-xs"
+        },
+        "children": [
+          "<icon:arrow-up>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-destructive__size-icon-sm",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "aria-label": "Submit",
+          "variant": "destructive",
+          "size": "icon-sm"
+        },
+        "children": [
+          "<icon:arrow-up>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-destructive__size-icon-lg",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "aria-label": "Submit",
+          "variant": "destructive",
+          "size": "icon-lg"
+        },
+        "children": [
+          "<icon:arrow-up>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__size-default",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "outline",
+          "size": "default"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__size-xs",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "outline",
+          "size": "xs"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__size-sm",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "outline",
+          "size": "sm"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__size-lg",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "outline",
+          "size": "lg"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__size-icon",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "aria-label": "Submit",
+          "variant": "outline",
+          "size": "icon"
+        },
+        "children": [
+          "<icon:arrow-up>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__size-icon-xs",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "aria-label": "Submit",
+          "variant": "outline",
+          "size": "icon-xs"
+        },
+        "children": [
+          "<icon:arrow-up>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__size-icon-sm",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "aria-label": "Submit",
+          "variant": "outline",
+          "size": "icon-sm"
+        },
+        "children": [
+          "<icon:arrow-up>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__size-icon-lg",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "aria-label": "Submit",
+          "variant": "outline",
+          "size": "icon-lg"
+        },
+        "children": [
+          "<icon:arrow-up>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-secondary__size-default",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "secondary",
+          "size": "default"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-secondary__size-xs",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "secondary",
+          "size": "xs"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-secondary__size-sm",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "secondary",
+          "size": "sm"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-secondary__size-lg",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "secondary",
+          "size": "lg"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-secondary__size-icon",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "aria-label": "Submit",
+          "variant": "secondary",
+          "size": "icon"
+        },
+        "children": [
+          "<icon:arrow-up>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-secondary__size-icon-xs",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "aria-label": "Submit",
+          "variant": "secondary",
+          "size": "icon-xs"
+        },
+        "children": [
+          "<icon:arrow-up>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-secondary__size-icon-sm",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "aria-label": "Submit",
+          "variant": "secondary",
+          "size": "icon-sm"
+        },
+        "children": [
+          "<icon:arrow-up>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-secondary__size-icon-lg",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "aria-label": "Submit",
+          "variant": "secondary",
+          "size": "icon-lg"
+        },
+        "children": [
+          "<icon:arrow-up>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-ghost__size-default",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "ghost",
+          "size": "default"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-ghost__size-xs",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "ghost",
+          "size": "xs"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-ghost__size-sm",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "ghost",
+          "size": "sm"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-ghost__size-lg",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "ghost",
+          "size": "lg"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-ghost__size-icon",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "aria-label": "Submit",
+          "variant": "ghost",
+          "size": "icon"
+        },
+        "children": [
+          "<icon:arrow-up>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-ghost__size-icon-xs",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "aria-label": "Submit",
+          "variant": "ghost",
+          "size": "icon-xs"
+        },
+        "children": [
+          "<icon:arrow-up>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-ghost__size-icon-sm",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "aria-label": "Submit",
+          "variant": "ghost",
+          "size": "icon-sm"
+        },
+        "children": [
+          "<icon:arrow-up>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-ghost__size-icon-lg",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "aria-label": "Submit",
+          "variant": "ghost",
+          "size": "icon-lg"
+        },
+        "children": [
+          "<icon:arrow-up>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-link__size-default",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "link",
+          "size": "default"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-link__size-xs",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "link",
+          "size": "xs"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-link__size-sm",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "link",
+          "size": "sm"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-link__size-lg",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "link",
+          "size": "lg"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-link__size-icon",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "aria-label": "Submit",
+          "variant": "link",
+          "size": "icon"
+        },
+        "children": [
+          "<icon:arrow-up>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-link__size-icon-xs",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "aria-label": "Submit",
+          "variant": "link",
+          "size": "icon-xs"
+        },
+        "children": [
+          "<icon:arrow-up>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-link__size-icon-sm",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "aria-label": "Submit",
+          "variant": "link",
+          "size": "icon-sm"
+        },
+        "children": [
+          "<icon:arrow-up>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-link__size-icon-lg",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "aria-label": "Submit",
+          "variant": "link",
+          "size": "icon-lg"
+        },
+        "children": [
+          "<icon:arrow-up>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__dark",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "default"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-destructive__dark",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "destructive"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__dark",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "outline"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-secondary__dark",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "secondary"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-ghost__dark",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "ghost"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-link__dark",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "link"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-icon-text__size-default",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "size": "default"
+        },
+        "children": [
+          "<icon:plus>",
+          "New item"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-text-icon__size-default",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "size": "default"
+        },
+        "children": [
+          "Next",
+          "<icon:chevron-right>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-icon-text__size-xs",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "size": "xs"
+        },
+        "children": [
+          "<icon:plus>",
+          "New item"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-text-icon__size-xs",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "size": "xs"
+        },
+        "children": [
+          "Next",
+          "<icon:chevron-right>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-icon-text__size-sm",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "size": "sm"
+        },
+        "children": [
+          "<icon:plus>",
+          "New item"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-text-icon__size-sm",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "size": "sm"
+        },
+        "children": [
+          "Next",
+          "<icon:chevron-right>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-icon-text__size-lg",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "size": "lg"
+        },
+        "children": [
+          "<icon:plus>",
+          "New item"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-text-icon__size-lg",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "size": "lg"
+        },
+        "children": [
+          "Next",
+          "<icon:chevron-right>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-icon-text__variant-outline",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "outline"
+        },
+        "children": [
+          "<icon:git-branch>",
+          "New Branch"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-icon-only__aria-label",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "aria-label": "Submit",
+          "variant": "outline",
+          "size": "icon"
+        },
+        "children": [
+          "<icon:arrow-up>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-two-icons__size-icon-xs",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "size": "icon-xs",
+          "aria-label": "Swap"
+        },
+        "children": [
+          "<icon:arrow-up>",
+          "<icon:arrow-down>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-long-text__nowrap",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "style": {
+            "width": "160px"
+          }
+        },
+        "children": [
+          {
+            "c": "Button",
+            "props": {},
+            "children": [
+              "A very long button label that would wrap in a narrow container"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-empty",
+      "tree": {
+        "c": "Button",
+        "props": {},
+        "children": []
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-empty__size-icon",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "size": "icon",
+          "aria-label": "Empty"
+        },
+        "children": []
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__hover",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "default"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=button]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__focus-visible",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "default"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__disabled",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "default",
+          "disabled": true
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__aria-invalid",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "default",
+          "aria-invalid": true
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-destructive__hover",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "destructive"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=button]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-destructive__focus-visible",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "destructive"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-destructive__disabled",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "destructive",
+          "disabled": true
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-destructive__aria-invalid",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "destructive",
+          "aria-invalid": true
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__hover",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "outline"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=button]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__focus-visible",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "outline"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__disabled",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "outline",
+          "disabled": true
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__aria-invalid",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "outline",
+          "aria-invalid": true
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-secondary__hover",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "secondary"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=button]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-secondary__focus-visible",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "secondary"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-secondary__disabled",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "secondary",
+          "disabled": true
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-secondary__aria-invalid",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "secondary",
+          "aria-invalid": true
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-ghost__hover",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "ghost"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=button]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-ghost__focus-visible",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "ghost"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-ghost__disabled",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "ghost",
+          "disabled": true
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-ghost__aria-invalid",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "ghost",
+          "aria-invalid": true
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-link__hover",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "link"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=button]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-link__focus-visible",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "link"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-link__disabled",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "link",
+          "disabled": true
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-link__aria-invalid",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "link",
+          "aria-invalid": true
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__hover",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "disabled": true
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=button]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__tab-skips",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "disabled": true
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__size-icon",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "aria-label": "Submit",
+          "variant": "outline",
+          "size": "icon",
+          "disabled": true
+        },
+        "children": [
+          "<icon:arrow-up>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid__focus-visible",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "outline",
+          "aria-invalid": true
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid__destructive-focus-visible",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "destructive",
+          "aria-invalid": true
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus-visible__press-enter",
+      "tree": {
+        "c": "Button",
+        "props": {},
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus-visible__press-space",
+      "tree": {
+        "c": "Button",
+        "props": {},
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Space"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "click__mouse-focus",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "outline"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=button]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__hover__dark",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "default"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=button]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-default__focus-visible__dark",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "default"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-destructive__hover__dark",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "destructive"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=button]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-destructive__focus-visible__dark",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "destructive"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__hover__dark",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "outline"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=button]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-outline__focus-visible__dark",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "outline"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-secondary__hover__dark",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "secondary"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=button]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-secondary__focus-visible__dark",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "secondary"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-ghost__hover__dark",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "ghost"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=button]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-ghost__focus-visible__dark",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "ghost"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-link__hover__dark",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "link"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=button]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "variant-link__focus-visible__dark",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "link"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid__dark",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "outline",
+          "aria-invalid": true
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid__focus-visible__dark",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "outline",
+          "aria-invalid": true
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__dark",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "outline",
+          "disabled": true
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "content-icon-text__dark",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "secondary"
+        },
+        "children": [
+          "<icon:plus>",
+          "New item"
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__classname-conflict-rounded-full",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "aria-label": "Submit",
+          "variant": "outline",
+          "size": "icon",
+          "className": "rounded-full"
+        },
+        "children": [
+          "<icon:arrow-up>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__classname-conflict-padding",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "className": "px-8 h-12"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__classname-conflict-bg",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "secondary",
+          "className": "bg-primary text-primary-foreground"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__classname-additive",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "className": "w-full"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__as-child-anchor",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "asChild": true
+        },
+        "children": [
+          {
+            "c": "_a",
+            "props": {
+              "href": "/login"
+            },
+            "children": [
+              "Login"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__as-child-anchor-variant-size",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "asChild": true,
+          "variant": "outline",
+          "size": "sm"
+        },
+        "children": [
+          {
+            "c": "_a",
+            "props": {
+              "href": "#docs",
+              "className": "underline"
+            },
+            "children": [
+              "<icon:book-open>",
+              "Docs"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__as-child-anchor-classname",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "asChild": true,
+          "variant": "link",
+          "className": "px-0"
+        },
+        "children": [
+          {
+            "c": "_a",
+            "props": {
+              "href": "#x",
+              "data-slot": "link"
+            },
+            "children": [
+              "Child slot wins"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__as-child-anchor__hover",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "asChild": true
+        },
+        "children": [
+          {
+            "c": "_a",
+            "props": {
+              "href": "#login"
+            },
+            "children": [
+              "Login"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=button]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__as-child-anchor__focus-visible",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "asChild": true,
+          "variant": "outline"
+        },
+        "children": [
+          {
+            "c": "_a",
+            "props": {
+              "href": "#login"
+            },
+            "children": [
+              "Login"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__as-child-aria-describedby-merge",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "asChild": true,
+          "aria-describedby": "hint-a shared"
+        },
+        "children": [
+          {
+            "c": "_a",
+            "props": {
+              "href": "#d",
+              "aria-describedby": "hint-b shared"
+            },
+            "children": [
+              "Described"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__as-child-style-merge",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "asChild": true,
+          "style": {
+            "minWidth": "200px",
+            "color": "red"
+          }
+        },
+        "children": [
+          {
+            "c": "_a",
+            "props": {
+              "href": "#s",
+              "style": {
+                "color": "blue"
+              }
+            },
+            "children": [
+              "Styled"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__forwarded-attrs",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "id": "save-btn",
+          "type": "submit",
+          "name": "intent",
+          "value": "save",
+          "title": "Save draft",
+          "data-testid": "save",
+          "aria-describedby": "save-hint"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__type-button",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "type": "button"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__no-type-default",
+      "tree": {
+        "c": "Button",
+        "props": {},
+        "children": [
+          "No type attribute"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__form-attr",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "form": "f1",
+          "formNoValidate": true,
+          "type": "submit"
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__tabindex-negative",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "tabIndex": -1
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "api__style-forwarded",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "style": {
+            "minWidth": "200px"
+          }
+        },
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__button-demo",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-wrap items-center gap-2 md:flex-row"
+        },
+        "children": [
+          {
+            "c": "Button",
+            "props": {
+              "variant": "outline"
+            },
+            "children": [
+              "Button"
+            ]
+          },
+          {
+            "c": "Button",
+            "props": {
+              "variant": "outline",
+              "size": "icon",
+              "aria-label": "Submit"
+            },
+            "children": [
+              "<icon:arrow-up>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__button-default",
+      "tree": {
+        "c": "Button",
+        "props": {},
+        "children": [
+          "Button"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__button-secondary",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "secondary"
+        },
+        "children": [
+          "Secondary"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__button-destructive",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "destructive"
+        },
+        "children": [
+          "Destructive"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__button-outline",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "outline"
+        },
+        "children": [
+          "Outline"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__button-ghost",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "ghost"
+        },
+        "children": [
+          "Ghost"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__button-link",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "link"
+        },
+        "children": [
+          "Link"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__button-with-icon",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "outline",
+          "size": "sm"
+        },
+        "children": [
+          "<icon:git-branch>",
+          " New Branch"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__button-loading",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "size": "sm",
+          "variant": "outline",
+          "disabled": true
+        },
+        "children": [
+          "<icon:loader-circle>",
+          "Submit"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__button-icon",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "variant": "outline",
+          "size": "icon"
+        },
+        "children": [
+          "<icon:circle-fading-arrow-up>"
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__button-as-child",
+      "tree": {
+        "c": "Button",
+        "props": {
+          "asChild": true
+        },
+        "children": [
+          {
+            "c": "_a",
+            "props": {
+              "href": "/login"
+            },
+            "children": [
+              "Login"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__button-rounded",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col gap-8"
+        },
+        "children": [
+          {
+            "c": "Button",
+            "props": {
+              "variant": "outline",
+              "size": "icon",
+              "className": "rounded-full"
+            },
+            "children": [
+              "<icon:arrow-up>"
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__button-size",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-8 sm:flex-row"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-start gap-2"
+            },
+            "children": [
+              {
+                "c": "Button",
+                "props": {
+                  "size": "sm",
+                  "variant": "outline"
+                },
+                "children": [
+                  "Small"
+                ]
+              },
+              {
+                "c": "Button",
+                "props": {
+                  "size": "icon-sm",
+                  "variant": "outline",
+                  "aria-label": "Submit"
+                },
+                "children": [
+                  "<icon:arrow-up-right>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-start gap-2"
+            },
+            "children": [
+              {
+                "c": "Button",
+                "props": {
+                  "variant": "outline"
+                },
+                "children": [
+                  "Default"
+                ]
+              },
+              {
+                "c": "Button",
+                "props": {
+                  "size": "icon",
+                  "variant": "outline",
+                  "aria-label": "Submit"
+                },
+                "children": [
+                  "<icon:arrow-up-right>"
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex items-start gap-2"
+            },
+            "children": [
+              {
+                "c": "Button",
+                "props": {
+                  "variant": "outline",
+                  "size": "lg"
+                },
+                "children": [
+                  "Large"
+                ]
+              },
+              {
+                "c": "Button",
+                "props": {
+                  "size": "icon-lg",
+                  "variant": "outline",
+                  "aria-label": "Submit"
+                },
+                "children": [
+                  "<icon:arrow-up-right>"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}
