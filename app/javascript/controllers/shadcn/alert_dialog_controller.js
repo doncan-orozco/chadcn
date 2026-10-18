@@ -8,8 +8,9 @@ import DialogController from "controllers/shadcn/dialog_controller"
 // - pointer-down-outside / interact-outside: always prevented and hidden from the caller, so outside presses never close.
 // Listeners sit on window (capture for the hidden ones, bubble for open-auto-focus so caller handlers run first).
 export default class extends DialogController {
+  // The listeners go first: super.connect() mounts an open alert and its auto focus fires while it runs.
   connect() {
-    super.connect()
+    this.abortAlert?.abort()
     this.abortAlert = new AbortController()
     const { signal } = this.abortAlert
     const own = (event) => event.target === this.element
@@ -26,6 +27,7 @@ export default class extends DialogController {
       event.preventDefault()
       if (!prevented) this.#cancel?.focus({ preventScroll: true })
     }, { signal })
+    super.connect()
   }
 
   disconnect() {

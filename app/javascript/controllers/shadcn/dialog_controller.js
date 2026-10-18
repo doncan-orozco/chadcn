@@ -26,6 +26,12 @@ export default class extends Controller {
     this.disconnected = false
     this.hasInteractedOutside = false
     this.hasPointerDownOutside = false
+    this.caching = false
+    this.restoreTimer = null
+    this.restorePending = false
+    this.restoreOpen = false
+    this.abortCache = new AbortController()
+    document.addEventListener("turbo:before-cache", () => this.#resetForCache(), { signal: this.abortCache.signal })
     this.#syncTriggers()
     this.templates().forEach((template) => {
       if (this.openValue || this.#options(template).forceMount) this.#mount(template)
@@ -34,8 +40,59 @@ export default class extends Controller {
 
   disconnect() {
     this.disconnected = true
+    this.abortCache?.abort()
+    this.#cancelRestore()
     this.#cancelPending()
     ;[...this.parts].forEach((part) => this.#unmount(part))
+  }
+
+  // A page snapshot must not carry the mounted overlay, the scroll lock, the aria-hidden siblings or the open state: the
+  // portaled nodes live in <body>, outside the controller element, so they would be restored without their controller.
+  // Unmounts at once (no exit animation, no focus return) and closes an uncontrolled dialog; a controlled one keeps the
+  // value the server rendered and mounts again from it on connect.
+  //
+  // Turbo takes the snapshot one timer tick after this event (PageView#cacheSnapshot -> nextEventLoopTick, hence the two
+  // ticks below), and also takes it for visits that keep the page (a link to #hash). So an open dialog is opened again
+  // once the snapshot is taken, if this controller is still connected: a real navigation replaces the page later and
+  // disconnects it, which cancels the pending restore.
+  #resetForCache() {
+    const wasOpen = this.openValue || this.restoreOpen // a second before-cache inside the window carries the pending restore forward
+    this.#cancelRestore()
+    this.caching = true
+    this.#cancelPending()
+    ;[...this.parts].forEach((part) => this.#unmount(part))
+    this.caching = false
+    if (!this.controlledValue) this.openValue = false
+    this.shown = false
+    this.#syncTriggers()
+    this.restorePending = true
+    this.restoreOpen = wasOpen
+    this.restoreTimer = setTimeout(() => {
+      this.restoreTimer = setTimeout(() => this.#restoreAfterCache(wasOpen))
+    })
+  }
+
+  #restoreAfterCache(wasOpen) {
+    this.restoreTimer = null
+    this.restorePending = false
+    this.restoreOpen = false
+    if (this.disconnected) return
+    if (wasOpen) {
+      if (!this.controlledValue) this.openValue = true
+      this.#sync()
+      return
+    }
+    // A closed dialog keeps its forceMount parts: the page stayed, so nothing else would mount them again.
+    this.templates().forEach((template) => {
+      if (this.#options(template).forceMount && !this.parts.some((part) => part.template === template)) this.#mount(template)
+    })
+  }
+
+  #cancelRestore() {
+    clearTimeout(this.restoreTimer)
+    this.restoreTimer = null
+    this.restorePending = false
+    this.restoreOpen = false
   }
 
   toggle(event) {
@@ -267,7 +324,7 @@ export default class extends Controller {
   }
 
   #autoFocusOnUnmount(event) {
-    if (this.disconnected) return event.preventDefault()
+    if (this.disconnected || this.caching) return event.preventDefault()
     if (this.dispatch("close-auto-focus").defaultPrevented) return event.preventDefault()
     event.preventDefault()
     if (this.modalValue || !this.hasInteractedOutside) this.trigger?.focus()

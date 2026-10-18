@@ -67,3 +67,15 @@ for (const prevented of ["pointer-down-outside", "interact-outside"]) {
 positioningTests(browserTest, {
   component: "hover-card", scenario: "default__closed", template: "template[data-shadcn--hover-card-template]", controller: "shadcn--hover-card", trigger, content, open, close
 });
+
+browserTest("hover-card: a controlled open value is reconciled when it changes", async ({ open: openPage }) => {
+  const page = await openPage("controlled-open-false__stays-closed");
+  const set = (value) => page.evaluate(({ selector, value }) => document.querySelector(selector).setAttribute("data-shadcn--hover-card-open-value", value), { selector: '[data-controller~="shadcn--hover-card"]', value: String(value) });
+  assert.equal(await isOpen(page), false);
+  await set(true);
+  await page.waitForSelector(content);
+  assert.equal(await page.locator(trigger).getAttribute("data-state"), "open");
+  await set(false);
+  await page.waitForSelector(content, { state: "detached" });
+  assert.equal(await page.locator(trigger).getAttribute("data-state"), "closed");
+});

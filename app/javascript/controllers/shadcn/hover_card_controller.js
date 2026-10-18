@@ -40,6 +40,16 @@ export default class extends Controller {
     this.syncTrigger()
   }
 
+  // Controlled value: the content follows the attribute the caller re-renders (the first call runs before connect).
+  openValueChanged() {
+    if (!this.template || this.openValue === this.isOpen) return
+    this.isOpen = this.openValue
+    if (this.isOpen) this.mount()
+    else this.unmount()
+    this.intent.sync(this.isOpen)
+    this.syncTrigger()
+  }
+
   disconnect() {
     if (!this.template) return
     this.reset()
