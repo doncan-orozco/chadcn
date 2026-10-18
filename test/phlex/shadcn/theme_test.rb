@@ -117,4 +117,21 @@ class Phlex::Shadcn::ThemeTest < Phlex::Shadcn::TestCase
     assert_empty Theme.validate(palette)[:errors]
     assert(Theme.validate(palette, strict: true)[:errors].any? { |e| e.include?("muted-foreground") })
   end
+
+  test "render_colors writes required variables first, extras after and --radius last in :root" do
+    palette = Theme::Palette.new(
+      root: { "radius" => "0.5rem", "brand" => "oklch(0.6 0.2 30)", "ring" => "oklch(0.5 0 0)", "background" => "oklch(1 0 0)" },
+      dark: { "brand" => "oklch(0.7 0.2 30)", "background" => "oklch(0.1 0 0)" }
+    )
+
+    css = Theme.render_colors(palette)
+    root, dark = css.split("\n.dark {")
+    root_names = root.scan(/--([\w-]+):/).flatten
+
+    assert_equal %w[background ring brand radius], root_names
+    assert_equal %w[background brand], dark.scan(/--([\w-]+):/).flatten
+    assert_match(/\A:root \{\n  --background: oklch\(1 0 0\);/, css)
+    assert_includes css, ".dark {"
+    assert_equal palette.root, Theme.parse(css).root
+  end
 end

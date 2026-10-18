@@ -14,6 +14,7 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 
 ### Added
 
+- `Phlex::Shadcn::Theme.render_colors` is public.
 - Gem skeleton: Zeitwerk loader, version, license files and a standalone test harness.
 - The 50 ported components as `Phlex::Shadcn::<Name>` with their parts nested under the root (`Phlex::Shadcn::Dialog::Content`),
   generated yielded-root helpers (`dialog.content { ... }`), `as_child:` with Radix Slot semantics and `**attrs` merging on every

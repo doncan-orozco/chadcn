@@ -227,6 +227,11 @@ module Phlex
 
       # ---- rendering and file operations ---------------------------------------------------------
 
+      # Renders a palette as the `:root { }` / `.dark { }` text that theme.css and the preset files hold: the required variables first
+      # (in {REQUIRED} order), any extras after them, and `--radius` last in `:root`.
+      #
+      # @param palette [Palette] the parsed variables for `:root` and `.dark`
+      # @return [String] the CSS text, ending with a newline
       def render_colors(palette)
         root = palette.root.dup
         radius = root.delete("radius")
@@ -311,7 +316,7 @@ module Phlex
 
       # Parsing, color math and file helpers behind the methods above.
       private_class_method :block, :variables, :normalize_value, :luminance, :to_linear_rgb, :oklch_to_linear, :hsl_to_linear,
-                           :srgb_to_linear, :hue_sector, :render_colors, :write_colors, :fill, :read_source
+                           :srgb_to_linear, :hue_sector, :write_colors, :fill, :read_source
     end
   end
 end
