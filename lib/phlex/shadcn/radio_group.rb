@@ -23,6 +23,8 @@ class Phlex::Shadcn::RadioGroup < Phlex::Shadcn::Base
   ROOT_KEY = :shadcn_radio_group_root
   # Classes of the root element.
   # @return [String]
+  #
+  # @api private
   CLASSES = "grid gap-3"
   # Allowed values of `orientation:`.
   # @return [Array<String>]

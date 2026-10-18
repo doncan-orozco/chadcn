@@ -26,6 +26,8 @@ class Phlex::Shadcn::ButtonGroup < Phlex::Shadcn::Base
   # Classes shared by every orientation.
   #
   # @return [String]
+  #
+  # @api private
   BASE = "flex w-fit items-stretch has-[>[data-slot=button-group]]:gap-2 [&>*]:focus-visible:relative [&>*]:focus-visible:z-10 has-[select[aria-hidden=true]:last-child]:[&>[data-slot=select-trigger]:last-of-type]:rounded-r-md [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1"
 
   # Orientation => Tailwind classes; the keys are the accepted values of `orientation:`.
@@ -72,6 +74,8 @@ class Phlex::Shadcn::ButtonGroup < Phlex::Shadcn::Base
     # Default separator classes.
     #
     # @return [String]
+    #
+    # @api private
     CLASS_NAME = "relative m-0! self-stretch bg-input data-[orientation=vertical]:h-auto"
 
     # @param orientation [String, Symbol] separator orientation, "vertical" or "horizontal"
@@ -98,6 +102,8 @@ class Phlex::Shadcn::ButtonGroup < Phlex::Shadcn::Base
     # Default text classes.
     #
     # @return [String]
+    #
+    # @api private
     CLASS_NAME = "flex items-center gap-2 rounded-md border bg-muted px-4 text-sm font-medium shadow-xs [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4"
 
     # @param as_child [false, Symbol, String, Phlex::Shadcn::Base]

@@ -11,6 +11,8 @@ using Phlex::Shadcn::Values::Refinements
 class Phlex::Shadcn::Label < Phlex::Shadcn::Base
   # Label classes, including the disabled styles driven by a sibling or a group.
   # @return [String]
+  #
+  # @api private
   BASE = "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
   # Stimulus identifier.
   #

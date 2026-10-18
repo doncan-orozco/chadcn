@@ -25,6 +25,8 @@ class Phlex::Shadcn::ToggleGroup < Phlex::Shadcn::Base
   # Classes of the root element.
   #
   # @return [String]
+  #
+  # @api private
   CLASSES = "group/toggle-group flex w-fit items-center gap-[--spacing(var(--gap))] rounded-md data-[spacing=default]:data-[variant=outline]:shadow-xs"
   # Allowed values of `type:`.
   #
