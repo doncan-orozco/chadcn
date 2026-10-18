@@ -13,11 +13,22 @@ module Phlex
     # between `theme:colors:start/end` markers and holds a plain shadcn theme (`:root {}` + `.dark {}`),
     # so anything copied from ui.shadcn.com/themes pastes in unchanged.
     module Theme
+      # Raised for an unusable theme: unknown preset, missing markers, a palette with errors, no `:root`/`.dark` block, or no theme
+      # directory configured.
       class Error < StandardError; end
 
+      # Marker that opens the colors section of theme.css (rewritten by {.use} and {.import}).
+      #
+      # @return [String]
       COLORS_START = "/* theme:colors:start */"
+      # Marker that closes the colors section of theme.css.
+      #
+      # @return [String]
       COLORS_END = "/* theme:colors:end */"
 
+      # Variables every theme has to define in both `:root` and `.dark` (the shadcn v4 contract).
+      #
+      # @return [Array<String>]
       REQUIRED = %w[
         background foreground card card-foreground popover popover-foreground primary primary-foreground
         secondary secondary-foreground muted muted-foreground accent accent-foreground destructive border input ring
@@ -25,6 +36,9 @@ module Phlex
         sidebar sidebar-foreground sidebar-primary sidebar-primary-foreground sidebar-accent sidebar-accent-foreground
         sidebar-border sidebar-ring
       ].freeze
+      # Variables required in `:root` only.
+      #
+      # @return [Array<String>]
       ROOT_ONLY = %w[radius].freeze
 
       # Foreground/background pairs that carry text. Alpha colors are skipped (cannot be judged alone).
@@ -34,6 +48,9 @@ module Phlex
         %w[accent-foreground accent], %w[sidebar-foreground sidebar], %w[sidebar-primary-foreground sidebar-primary],
         %w[sidebar-accent-foreground sidebar-accent]
       ].freeze
+      # Minimum text contrast ratio (WCAG AA) a foreground/background pair has to reach; below it {.check} warns, or fails when strict.
+      #
+      # @return [Float]
       MIN_CONTRAST = 4.5
 
       # Parsed palette: variables for :root and for .dark.
@@ -50,9 +67,22 @@ module Phlex
       # Whether a directory has been configured (`dir` raises while it is not).
       def configured? = !Phlex::Shadcn.config.theme_dir.nil?
 
+      # Path of the theme file the tasks edit.
+      #
+      # @return [String] `<dir>/theme.css`
+      # @raise [Phlex::Shadcn::Theme::Error] when no theme directory is configured
       def theme_file = File.join(dir, "theme.css")
+
+      # Directory of the preset palettes.
+      #
+      # @return [String] `<dir>/presets`
+      # @raise [Phlex::Shadcn::Theme::Error] when no theme directory is configured
       def presets_dir = File.join(dir, "presets")
 
+      # Names of the available presets (`neutral`, `slate`...), from the `.css` files in {.presets_dir}.
+      #
+      # @return [Array<String>] sorted names, without the extension
+      # @raise [Phlex::Shadcn::Theme::Error] when no theme directory is configured
       def presets
         Dir[File.join(presets_dir, "*.css")].map { |f| File.basename(f, ".css") }.sort
       end
@@ -269,6 +299,12 @@ module Phlex
         end
       end
 
+      # Validates the current theme.css: variables complete in light and dark, valid values, text contrast.
+      #
+      # @param strict [Boolean] when true a contrast below {MIN_CONTRAST} is an error instead of a warning
+      # @return [Hash{Symbol => Array<String>}] `{ errors: [...], warnings: [...] }`
+      # @raise [Phlex::Shadcn::Theme::Error] when no theme directory is configured
+      # @raise [Errno::ENOENT] when theme.css does not exist
       def check(strict: false)
         validate(parse(File.read(theme_file)), strict: strict)
       end

@@ -1,0 +1,15 @@
+--title "phlex-shadcn"
+--markup markdown
+--readme README.md
+--no-private
+--hide-api private
+--exclude lib/phlex/shadcn/icons/catalog.rb
+lib/**/*.rb
+-
+CHANGELOG.md
+docs/api-conventions.md
+docs/display.md
+docs/form-controls.md
+docs/disclosure-and-navigation.md
+docs/overlays.md
+docs/menus-and-select.md

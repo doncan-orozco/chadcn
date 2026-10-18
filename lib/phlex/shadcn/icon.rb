@@ -10,6 +10,10 @@ class Phlex::Shadcn::Icon < Phlex::Shadcn::Base
     super()
   end
 
+  # Renders the `svg` with the icon paths, `aria-hidden` and the lucide classes; your `**attrs` are merged in.
+  #
+  # @raise [ArgumentError] when the icon name is unknown to the catalog
+  # @return [void]
   def view_template
     key = Phlex::Shadcn::Icons::Catalog::ALIASES.fetch(@name) { normalize(@name) }
     nodes = Phlex::Shadcn::Icons::Catalog::NODES.fetch(key) do

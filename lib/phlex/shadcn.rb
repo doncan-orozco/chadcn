@@ -5,14 +5,21 @@ require "phlex"
 require "tailwind_merge"
 require "zeitwerk"
 
+# Phlex, the view library; this gem adds the shadcn/ui components under {Phlex::Shadcn}.
 module Phlex
   # shadcn/ui components for Phlex.
   module Shadcn
+    # Absolute path of the installed gem (where `lib`, `app` and `vendor` live); see {.root}.
+    #
+    # @return [Pathname]
     ROOT = Pathname.new(File.expand_path("../..", __dir__)).freeze
 
     # The gem's root directory (where `lib`, `app` and `vendor` live), e.g. for a Tailwind `@source` line.
     def self.root = ROOT
 
+    # Zeitwerk loader of `lib/phlex/shadcn/**` (`Loader.eager_load` loads every component at once).
+    #
+    # @api private
     Loader = Zeitwerk::Loader.for_gem_extension(Phlex)
     # The engine is required explicitly below, only inside an app, and is never autoloaded or eager loaded.
     Loader.ignore(File.join(__dir__, "shadcn/engine.rb"))

@@ -6,6 +6,7 @@ require "phlex/shadcn"
 
 module Phlex
   module Shadcn
+    # Rails generators of the gem (`rails g phlex:shadcn:install`).
     module Generators
       # `rails g phlex:shadcn:install` wires the gem into a host that uses tailwindcss-rails:
       #
