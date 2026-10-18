@@ -17,10 +17,26 @@ export default class extends Controller {
   }
   static targets = ["list", "trigger", "content", "deferred"]
 
+  restoreTimer = null
+
   connect() {
-    this.current = this.valueValue
-    this.animationGuard = true
+    this.#setup()
+    document.addEventListener("turbo:before-cache", this.onBeforeCache)
+  }
+
+  disconnect() {
+    document.removeEventListener("turbo:before-cache", this.onBeforeCache)
+    clearTimeout(this.restoreTimer)
+    this.restoring = false
+    this.#teardown()
+  }
+
+  #setup() {
     this.triggers = this.triggerTargets.map((el) => ({ el, value: el.getAttribute("data-shadcn--tabs-item-value") }))
+    // The selection lives in the DOM: a snapshot (or a set-up after before-cache) keeps the tab the user chose.
+    const active = this.triggers.find(({ el }) => el.dataset.state === "active")
+    this.current = !this.controlledValue && active ? active.value : this.valueValue
+    this.animationGuard = true
     this.panels = this.#buildPanels()
     const list = this.hasListTarget ? this.listTarget : null
     this.roving = list && rovingFocus(list, {
@@ -32,11 +48,32 @@ export default class extends Controller {
     this.ready = true
   }
 
-  disconnect() {
+  #teardown() {
     this.ready = false
     this.roving?.release()
+    this.#restorePanels()
+  }
+
+  #restorePanels() {
     this.panels?.forEach((panel) => this.#restore(panel))
     this.panels = []
+  }
+
+  // A page snapshot must hold the server markup (an inactive panel with its body template). Only the panels are put back: the
+  // triggers and their roving tab stop are what the user sees on a visit that keeps the page (a link to #hash), and Turbo takes
+  // the snapshot one timer tick after this event (hence the two ticks below). The panels are built again from the snapshot-shaped
+  // markup once it is taken; a real navigation disconnects the controller first, which cancels that.
+  onBeforeCache = () => {
+    clearTimeout(this.restoreTimer)
+    this.#restorePanels()
+    this.restoring = true
+    this.restoreTimer = setTimeout(() => {
+      this.restoreTimer = setTimeout(() => {
+        this.panels = this.#buildPanels()
+        this.restoring = false
+        this.#apply(this.current)
+      })
+    })
   }
 
   valueValueChanged() {
@@ -85,6 +122,7 @@ export default class extends Controller {
 
   // Controlled: dispatch only. Uncontrolled: update the DOM, then dispatch once per actual change.
   #request(value) {
+    if (this.restoring) return // the panels are put back for the snapshot; they are built again two ticks later
     if (this.controlledValue) {
       if (value !== this.current) this.dispatch("value-change", { detail: { value }, cancelable: false })
       return
@@ -218,13 +256,18 @@ export default class extends Controller {
   // Back to the server shape so a Turbo cache snapshot reconnects to equivalent markup.
   #restore(panel) {
     panel.presence?.release()
+    const inactive = !panel.forceMount && panel.el?.dataset.state !== "active"
     if (panel.asChild) {
-      if (!panel.el) {
-        panel.body.setAttribute("data-shadcn--tabs-item-value", panel.value)
-        panel.body.setAttribute("data-shadcn--tabs-as-child", "true")
-        panel.anchor.replaceWith(panel.body)
-      } else panel.anchor.remove()
-      return
+      if (panel.el && !inactive) return panel.anchor.remove()
+      panel.el?.remove() // an exit animation still running
+      panel.el = null
+      panel.body.setAttribute("data-shadcn--tabs-item-value", panel.value)
+      panel.body.setAttribute("data-shadcn--tabs-as-child", "true")
+      return panel.anchor.replaceWith(panel.body)
+    }
+    if (inactive && panel.mounted) {
+      panel.el.hidden = true // release() cancels the onExited that would hide the panel
+      panel.mounted = false
     }
     if (!panel.mounted) panel.el.replaceChildren(panel.body)
   }

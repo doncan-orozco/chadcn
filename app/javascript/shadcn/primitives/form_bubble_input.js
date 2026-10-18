@@ -111,15 +111,27 @@ export class FormBubbleInput {
     if (changed) this.input.dispatchEvent(new Event("click", { bubbles: !(userInteraction && propagationStopped) }))
   }
 
-  /** Removes the input, the resize observer and the form reset listener; safe to call twice. */
+  /**
+   * Removes the resize observer, the pending frame and the form reset listener, and the input it created; safe to call twice.
+   * A server-rendered input it adopted stays in the DOM (it carries the name, required and form of the control), so a
+   * reconnect adopts it again.
+   */
   release() {
     this.#resizeObserver?.disconnect()
-    this.#form()?.removeEventListener("reset", this.#resetListener)
-    this.input?.remove()
+    this.#resizeObserver = null
+    cancelAnimationFrame(this.#frame)
+    this.#frame = 0
+    this.#boundForm?.removeEventListener("reset", this.#resetListener)
+    this.#boundForm = null
+    if (!this.#adopted) this.input?.remove()
+    this.#adopted = false
     this.input = null
   }
 
   #resizeObserver
+  #frame = 0
+  #adopted = false
+  #boundForm = null
   #onReset
   #resetListener = () => this.#onReset?.()
 
@@ -127,7 +139,8 @@ export class FormBubbleInput {
     const tagName = this.type === "select" ? "select" : "input"
     // Server-rendered bubble input directly after the control is adopted instead of duplicated.
     const next = this.control.nextElementSibling
-    this.input = next?.tagName.toLowerCase() === tagName && next.getAttribute("aria-hidden") === "true" ? next : this.#create(tagName)
+    this.#adopted = next?.tagName.toLowerCase() === tagName && next.getAttribute("aria-hidden") === "true"
+    this.input = this.#adopted ? next : this.#create(tagName)
     if (this.type === "select") this.#renderOptions()
     this.#applyAttributes()
     this.#applyStyle()
@@ -135,7 +148,8 @@ export class FormBubbleInput {
     if (this.type === "checkbox") this.input.indeterminate = this.state.indeterminate === true
     if (this.type !== "select") this.input.defaultChecked = this.checked
     this.#observeSize()
-    this.#form()?.addEventListener("reset", this.#resetListener)
+    this.#boundForm = this.#form()
+    this.#boundForm?.addEventListener("reset", this.#resetListener)
   }
 
   #create(tagName) {
@@ -178,12 +192,12 @@ export class FormBubbleInput {
   // Radix useSize: border box of the control, updated on the next frame after a resize.
   #observeSize() {
     if (this.type === "select" || typeof ResizeObserver === "undefined") return
-    let frame = 0
     this.#resizeObserver = new ResizeObserver((entries) => {
       const entry = entries[0]
       if (!entry) return
-      cancelAnimationFrame(frame)
-      frame = requestAnimationFrame(() => {
+      cancelAnimationFrame(this.#frame)
+      this.#frame = requestAnimationFrame(() => {
+        if (!this.input) return
         const box = [].concat(entry.borderBoxSize)[0]
         this.#size(box ? box.inlineSize : this.control.offsetWidth, box ? box.blockSize : this.control.offsetHeight)
       })

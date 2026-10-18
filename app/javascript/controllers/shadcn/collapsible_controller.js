@@ -15,7 +15,21 @@ export default class extends Controller {
   static values = { controlled: Boolean, disabled: Boolean, contentId: String }
   static targets = ["trigger", "content", "body"]
 
+  restoreTimer = null
+
   connect() {
+    this.#setup()
+    document.addEventListener("turbo:before-cache", this.onBeforeCache)
+  }
+
+  disconnect() {
+    document.removeEventListener("turbo:before-cache", this.onBeforeCache)
+    clearTimeout(this.restoreTimer)
+    this.restoring = false
+    this.#teardown()
+  }
+
+  #setup() {
     const childTemplates = this.bodyTargets.filter((el) => el.hasAttribute("data-shadcn--collapsible-slot"))
     this.records = [
       ...this.contentTargets.map((el) => this.#record(el)),
@@ -23,13 +37,50 @@ export default class extends Controller {
     ]
   }
 
-  disconnect() {
+  #teardown() {
     this.records?.forEach((record) => record.collapsible?.release())
     this.records = []
   }
 
+  // A page snapshot must hold the server markup: a closed content with its body template, a closed as_child content as its
+  // template (connect() took them over, so a restored page could never open the content). Turbo takes the snapshot one timer
+  // tick after this event (hence the two ticks below) and also for visits that keep the page (a link to #hash), so the
+  // controller is set up again once the snapshot is taken; a real navigation disconnects it first, which cancels that.
+  onBeforeCache = () => {
+    clearTimeout(this.restoreTimer)
+    this.records?.forEach((record) => this.#restoreMarkup(record))
+    this.#teardown()
+    this.restoring = true
+    this.restoreTimer = setTimeout(() => {
+      this.restoreTimer = setTimeout(() => {
+        this.#setup()
+        this.restoring = false
+      })
+    })
+  }
+
+  #restoreMarkup(record) {
+    const closed = this.element.dataset.state !== "open"
+    if (record.child) {
+      if (record.el && (!closed || record.forceMount)) return record.anchor.remove()
+      record.el?.remove() // an exit animation still running
+      record.el = null
+      record.template.setAttribute("data-shadcn--collapsible-target", "body")
+      record.template.setAttribute("data-shadcn--collapsible-slot", "child")
+      return record.anchor.replaceWith(record.template)
+    }
+    if (record.forceMount || !closed) return
+    // An exit animation still running is finished here: release() cancels the onExited that would hide the content.
+    record.el.hidden = true
+    record.el.style.removeProperty("--radix-collapsible-content-height")
+    record.el.style.removeProperty("--radix-collapsible-content-width")
+    record.body.setAttribute("data-shadcn--collapsible-target", "body")
+    record.el.replaceChildren(record.body)
+    record.mounted = false
+  }
+
   toggle(event) {
-    if (event.defaultPrevented) return
+    if (event.defaultPrevented || this.restoring) return
     const next = this.element.dataset.state !== "open"
     if (!this.controlledValue) this.#set(next)
     this.dispatch("open-change", { detail: { open: next }, cancelable: false })

@@ -17,7 +17,20 @@ export default class extends Controller {
   static targets = ["scrollbar"]
   static values = { type: { type: String, default: "hover" }, scrollHideDelay: { type: Number, default: 600 } }
 
+  restoreTimer = null
+
   connect() {
+    this.#setup()
+    document.addEventListener("turbo:before-cache", this.onBeforeCache)
+  }
+
+  disconnect() {
+    document.removeEventListener("turbo:before-cache", this.onBeforeCache)
+    clearTimeout(this.restoreTimer)
+    this.#teardown()
+  }
+
+  #setup() {
     this.viewport = this.element.querySelector(":scope > [data-radix-scroll-area-viewport]")
     this.content = this.viewport.firstElementChild
     this.dir = direction(this.element)
@@ -33,9 +46,11 @@ export default class extends Controller {
     })
   }
 
-  disconnect() {
+  #teardown() {
     this.element.removeEventListener("pointerenter", this.onRootEnter)
     this.element.removeEventListener("pointerleave", this.onRootLeave)
+    if (!this.records) return
+
     this.records.forEach((record) => {
       clearTimeout(record.hideTimer)
       record.scrollEnd.cancel()
@@ -44,6 +59,24 @@ export default class extends Controller {
       if (record.node) this.#unmount(record)
     })
     this.#syncCorner()
+    this.records = []
+  }
+
+  // A page snapshot must not hold a mounted scrollbar (or the corner): the restored controller mounts its own next to it, so
+  // the scrollbars would be doubled. Turbo takes the snapshot one timer tick after this event (hence the two ticks below) and
+  // also for visits that keep the page (a link to #hash), so the controller is set up again once the snapshot is taken; a real
+  // navigation disconnects it first, which cancels that.
+  onBeforeCache = () => {
+    clearTimeout(this.restoreTimer)
+    const hovered = this.records?.some((record) => record.hover) ?? false
+    this.#teardown()
+    this.restoreTimer = setTimeout(() => {
+      this.restoreTimer = setTimeout(() => {
+        this.#setup()
+        // The pointer may still be inside the root: no pointerenter will tell the new records.
+        if (hovered && this.typeValue === "hover" && this.element.matches(":hover")) this.onRootEnter()
+      })
+    })
   }
 
   // Radix sets this state from a native listener, which React 19 renders in a scheduler task, not synchronously.

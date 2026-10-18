@@ -5,7 +5,20 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["image", "fallback"]
 
+  restoreTimer = null
+
   connect() {
+    this.#setup()
+    document.addEventListener("turbo:before-cache", this.onBeforeCache)
+  }
+
+  disconnect() {
+    document.removeEventListener("turbo:before-cache", this.onBeforeCache)
+    clearTimeout(this.restoreTimer)
+    this.#teardown()
+  }
+
+  #setup() {
     this.status = "idle"
     this.fallbacks = this.fallbackTargets.map((el) => this.#fallbackRecord(el))
     this.imageRecord = this.hasImageTarget ? { template: this.imageTarget, node: null } : null
@@ -14,7 +27,7 @@ export default class extends Controller {
     if (this.imageRecord) this.#loadImage()
   }
 
-  disconnect() {
+  #teardown() {
     this.#cleanupImage()
     this.fallbacks?.forEach((record) => {
       clearTimeout(record.timer)
@@ -22,6 +35,18 @@ export default class extends Controller {
     })
     this.status = "idle"
     this.#render()
+  }
+
+  // A page snapshot must hold the server markup (the image as its template, the fallback in place), not the mounted image
+  // next to an emptied fallback template that a restored controller could not clone. Turbo takes the snapshot one timer tick
+  // after this event (hence the two ticks below) and also for visits that keep the page (a link to #hash), so the controller
+  // is set up again once the snapshot is taken; a real navigation disconnects it first, which cancels that.
+  onBeforeCache = () => {
+    clearTimeout(this.restoreTimer)
+    this.#teardown()
+    this.restoreTimer = setTimeout(() => {
+      this.restoreTimer = setTimeout(() => this.#setup())
+    })
   }
 
   #fallbackRecord(el) {
@@ -66,6 +91,7 @@ export default class extends Controller {
     this.stopLoading = () => {
       image.removeEventListener("load", onLoad)
       image.removeEventListener("error", onError)
+      image.src = "" // the detached image stops loading
     }
     this.#setStatus(this.#statusOf(image))
   }
@@ -106,7 +132,7 @@ export default class extends Controller {
   }
 
   #toggleFallback(record, mounted) {
-    if (mounted === Boolean(record.node)) return
+    if (mounted === Boolean(record.node) || (mounted && !record.prototype)) return
     if (mounted) {
       record.node = record.prototype.cloneNode(true)
       record.placeholder.replaceWith(record.node)

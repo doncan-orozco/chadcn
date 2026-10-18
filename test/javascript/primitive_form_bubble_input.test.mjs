@@ -131,3 +131,46 @@ primitiveTest("form_bubble_input: sync() applies disabled and required to the na
     return { before, during, after: [input.disabled, input.required] };`);
   assert.deepEqual(result, { before: [false, false], during: [true, true], after: [false, false] });
 }, { html });
+
+primitiveTest("form_bubble_input: release() cancels the pending resize frame, so running it later raises nothing", async (page) => {
+  await run(page, make('{ type: "checkbox" }'));
+  const result = await page.evaluate(async () => {
+    const original = window.requestAnimationFrame.bind(window);
+    const held = new Map();
+    window.requestAnimationFrame = (callback) => { const id = original(() => {}); held.set(id, callback); return id };
+    window.cancelAnimationFrame = (id) => { held.delete(id) };
+    document.getElementById("control").style.width = "70px";
+    await new Promise((resolve) => setTimeout(resolve, 150)); // the ResizeObserver notification schedules the frame
+    const scheduled = held.size;
+    window.__bubble.release();
+    const pending = held.size;
+    let error = null;
+    try { held.forEach((callback) => callback()) } catch (caught) { error = String(caught) }
+    return { scheduled, pending, error };
+  });
+  assert.deepEqual(result, { scheduled: 1, pending: 0, error: null });
+}, { html });
+
+primitiveTest("form_bubble_input: release() leaves an adopted server-rendered input in place and a new instance adopts it again", async (page) => {
+  const result = await run(page, `
+    document.getElementById("control").insertAdjacentHTML("afterend", '<input id="ssr" type="checkbox" name="terms" required form="form" aria-hidden="true" tabindex="-1">');
+    ${make('{ type: "checkbox", name: "terms", required: true, form: "form" }')}
+    bubble.release();
+    const kept = document.getElementById("ssr");
+    const afterRelease = { inDom: !!kept?.isConnected, name: kept?.name, required: kept?.required, form: kept?.getAttribute("form"), present: bubble.present };
+    const again = new FormBubbleInput(control, { type: "checkbox", name: "terms", required: true, form: "form" });
+    return { afterRelease, adoptedAgain: control.nextElementSibling === kept && again.present, inputs: document.querySelectorAll("input").length };`);
+  assert.deepEqual(result, { afterRelease: { inDom: true, name: "terms", required: true, form: "form", present: false }, adoptedAgain: true, inputs: 1 });
+}, { html });
+
+primitiveTest("form_bubble_input: release() after the control left the form still stops the reset callback", async (page) => {
+  const result = await run(page, `
+    let resets = 0;
+    ${make("{ type: \"checkbox\", onReset: () => resets++ }")}
+    const form = document.getElementById("form");
+    control.remove();
+    bubble.release();
+    form.reset();
+    return resets;`);
+  assert.equal(result, 0);
+}, { html });

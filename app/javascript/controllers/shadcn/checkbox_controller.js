@@ -31,6 +31,7 @@ export default class extends Controller {
   disconnect() {
     this.presence?.release()
     this.presence = null
+    this.watched = null // the instance is reused on reconnect: connect() must watch the indicator again
     this.bubble?.release()
   }
 
