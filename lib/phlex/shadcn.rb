@@ -21,8 +21,9 @@ module Phlex
     #
     # @api private
     Loader = Zeitwerk::Loader.for_gem_extension(Phlex)
-    # The engine is required explicitly below, only inside an app, and is never autoloaded or eager loaded.
-    Loader.ignore(File.join(__dir__, "shadcn/engine.rb"))
+    # The engine (and the files under engine/ it requires itself) is required explicitly below, only inside an app, and is never
+    # autoloaded or eager loaded.
+    Loader.ignore(File.join(__dir__, "shadcn/engine.rb"), File.join(__dir__, "shadcn/engine"))
     Loader.setup
 
     # @return [Phlex::Shadcn::Configuration] the gem's settings

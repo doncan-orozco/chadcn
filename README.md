@@ -109,7 +109,13 @@ of Radix Dialog.
 ```ruby
 config.phlex_shadcn.theme_dir = "app/assets/tailwind/theme"  # where theme.css and presets/ live; relative to the app root
 config.phlex_shadcn.theme_task_aliases = true                 # false when the app defines its own theme:* rake tasks
+config.phlex_shadcn.hide_tailwind_stubs = true                # false to leave the tailwindcss-rails stubs to Propshaft
 ```
+
+`hide_tailwind_stubs` keeps the stubs tailwindcss-rails writes to `app/assets/builds/tailwind/` (Tailwind input, not browser
+stylesheets) out of `stylesheet_link_tag :app` through a guarded hook into Propshaft's private file filter. When a Propshaft release
+drops that hook the engine logs a warning at boot and serves the stubs again: link `"tailwind"` explicitly instead of `:app`, or set
+the option to `false` to silence the warning. Like `theme_task_aliases`, set it in `config/application.rb`.
 
 `theme_dir` precedence at boot: `config.phlex_shadcn.theme_dir`, then a value set with `Phlex::Shadcn.configure` before the app
 initializes, then the default. In a Rails app set it in `config/application.rb`, not in an initializer: a `configure` call in
