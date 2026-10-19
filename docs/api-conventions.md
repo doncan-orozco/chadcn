@@ -89,11 +89,29 @@ A trigger part renders its own `<button>`; never nest a `Button` inside it as co
   keeps it in the DOM.
 - Controlled: `open:`, `value:`, `checked:`, `pressed:` render that state; user actions only dispatch the change event and the server
   (or your JavaScript) renders the next state, like React's `value` + `onValueChange`.
-- Callbacks are DOM events named `shadcn--<component>:<event>`, dispatched on the component's host element and bubbling, with the
-  payload in `event.detail`: `open-change` (`{ open }`), `value-change` (`{ value }`), `value-commit` (slider), `checked-change`
-  (menu checkbox items), `select` (menu items), `link-select` (navigation menu), `open-auto-focus` / `close-auto-focus`
-  (cancelable, like Radix). Listen with Stimulus (`data: { action: "shadcn--dialog:open-change->form#changed" }`) or
-  `addEventListener`.
+- Callbacks are DOM events named `shadcn--<component>:<event>`, bubbling, with the payload in `event.detail`: `open-change`
+  (`{ open }`), `value-change` (`{ value }`), `value-commit` (slider), `checked-change` (`{ checked }`: checkbox, switch, menu
+  checkbox items), `pressed-change` (`{ pressed }`: toggle), `open-mobile-change` (sidebar), `select` (menu items), `link-select`
+  (navigation menu), and the cancelable events of the overlays and menus, like Radix: `open-auto-focus` / `close-auto-focus`
+  (no detail) and the dismiss events `escape-key-down` / `pointer-down-outside` / `focus-outside` / `interact-outside`
+  (`{ originalEvent }`). Most are dispatched on the component's controller element. The exceptions: menu `select`,
+  `checked-change` and the radio items' `value-change` fire on the item; a submenu's `open-change` fires on its `SubTrigger`;
+  NavigationMenu's `link-select` fires on the link; the focus and dismiss events of DropdownMenu, ContextMenu and Menubar (and
+  the dismiss events of NavigationMenu) fire on their content, except `close-auto-focus` of DropdownMenu and ContextMenu, which
+  fires on their controller element (Menubar's fires on the content). Menu content is portaled to `<body>`, so listen on
+  `document` for the events that fire inside it, not on the trigger. Listen with Stimulus
+  (`data: { action: "shadcn--dialog:open-change->form#changed" }`) or `addEventListener`.
+- Turbo: controllers that leave state in the DOM (overlays, accordion, collapsible, tabs, avatar, scroll area) listen to
+  `turbo:before-cache` on `document`. The snapshot holds the closed state; a modal that was open is unmounted from it and, on a
+  visit that keeps the page, re-opens afterwards (`open-auto-focus` fires again).
+- Default texts: the visible and screen-reader texts of `Pagination::Previous`/`Next`/`Ellipsis`, `Sidebar::Trigger`, the mobile
+  `Sidebar` sheet, the `Slider` thumbs and the `Dialog`/`Sheet` close button (`close_label:`) are keyword arguments whose defaults
+  are the React strings (`label:`, `aria_label:`, `mobile_title:`, `min_label:`...). Other fixed labels (the `Pagination`,
+  `Breadcrumb` and `NavigationMenu` landmarks, `Spinner`,
+  `Sidebar::Rail`) are overridden through `aria: { label: ... }` (and `title:` on the rail); the caller's attributes win.
+- Theme controller: `data-controller="shadcn--theme"` stores `light` or `dark` in `localStorage` under `shadcn-theme`
+  (`data-shadcn--theme-storage-key-value` overrides it; `system` clears the key) and dispatches `shadcn--theme:changed`
+  (`{ theme }`, one of `light`, `dark`, `system`).
 
 ## DOM contract
 

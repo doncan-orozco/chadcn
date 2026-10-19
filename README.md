@@ -13,10 +13,12 @@ each one checked against the React original in a browser.
 
 ## Requirements
 
-- Ruby 3.2 or newer, [Phlex](https://www.phlex.fun) 2.3 or newer.
+- Ruby 3.2 or newer and [Phlex](https://www.phlex.fun) 2.x from 2.3 (`~> 2.3`; Phlex 3 is not supported). CI runs the gem suite
+  on Ruby 3.2, 3.3, 3.4 and 4.0, each against the current Phlex 2.x and against Phlex 2.3.
 - Tailwind CSS 4 (the components use Tailwind utility classes; with Rails, `tailwindcss-rails`).
 - For the interactive components: Stimulus 3 (`@hotwired/stimulus`). With Rails, `importmap-rails` (the gem's engine adds its pins).
-- With Rails, `phlex-rails` renders Phlex views from controllers; the gem itself depends only on `phlex`, `tailwind_merge` and `zeitwerk`.
+- With Rails, `phlex-rails` renders Phlex views from controllers; the gem itself depends only on `phlex`, `tailwind_merge` and
+  `zeitwerk` (no Nokogiri, no Active Support).
 
 ## Rails: from zero to a Button and a Dialog
 
@@ -221,7 +223,15 @@ end
 - Icons: `render Phlex::Shadcn::Icon.new("check")` renders the Lucide SVG (lucide-react 0.577.0 markup), sized by the parent
   component's selectors like in shadcn.
 - Dark mode is the `.dark` class on an ancestor (`<html>`); `data-controller="shadcn--theme"` with the actions `setLight`,
-  `setDark`, `setSystem` and `toggle` manages it and remembers the choice.
+  `setDark`, `setSystem` and `toggle` manages it and remembers the choice in `localStorage` under `shadcn-theme`
+  (`data-shadcn--theme-storage-key-value="my-key"` changes it; blocked storage falls back to the system preference). A script that
+  sets the class before first paint has to read the same key.
+- Turbo: the overlay, disclosure, avatar and scroll-area controllers handle `turbo:before-cache`, so a cached page has no open
+  modal, scroll lock or `aria-hidden` siblings.
+- Default texts (`Previous`, `Next`, `More pages`, `More`, `Close`, the sidebar trigger and mobile sheet, the slider thumb labels...)
+  are keyword arguments: pass translated strings, for example `Phlex::Shadcn::Pagination::Previous.new(label: t(".previous"))`.
+  Fixed landmark labels (`Spinner`, `NavigationMenu`, `Sidebar::Rail`...) take `aria: { label: ... }`; see
+  [docs/api-conventions.md](docs/api-conventions.md).
 
 The API of every component is in the YARD documentation (`bundle exec yard server` in the gem, or rubydoc.info once released) and,
 per family, in [`docs/`](docs/): [conventions](docs/api-conventions.md), [display](docs/display.md), [form controls](docs/form-controls.md),
@@ -241,8 +251,10 @@ bin/rails phlex_shadcn:theme:import[path-or-url]        # paste a theme (file, h
 STRICT=1 bin/rails phlex_shadcn:theme:check             # variables complete in light and dark, valid format, text contrast
 ```
 
-`theme:list|use|import|check` are short aliases (`config.phlex_shadcn.theme_task_aliases = false` turns them off). Older themes with
-bare HSL triplets (`240 10% 3.9%`) are wrapped on import. Run `bin/rails tailwindcss:build` after a change.
+A URL source of `import` must be `https` (timeouts, three redirects at most, 256 KiB at most), and values that could break out of
+the CSS block are rejected; a failure prints its message (the list of errors for an invalid theme), without a backtrace.
+`theme:list|use|import|check` are short aliases (`config.phlex_shadcn.theme_task_aliases = false` turns them off). Older themes
+with bare HSL triplets (`240 10% 3.9%`) are wrapped on import. Run `bin/rails tailwindcss:build` after a change.
 
 ## Upgrade notes
 
@@ -253,6 +265,10 @@ and removals are deprecated for one minor version first.
   is `Phlex::Shadcn::Dialog::Content`); Stimulus identifiers `v2--<name>` are `shadcn--<name>` (`data-v2--dialog-part` is
   `data-shadcn--dialog-part`, events `v2--dialog:open-change` are `shadcn--dialog:open-change`); the controllers moved from
   `controllers/v2/` to `controllers/shadcn/` and the primitives from `v2/primitives/` to `shadcn/primitives/`.
+- The default key of the `shadcn--theme` controller is `shadcn-theme` (it was `papyro-theme`); set
+  `data-shadcn--theme-storage-key-value="papyro-theme"` to keep stored choices. The probe controllers and `theme_panel_controller.js`
+  are no longer shipped: remove any pin or registration of `shadcn--_probe-*` or `shadcn--theme-panel`.
+- `Direction::Provider` without `dir:` or `direction:` keeps the outer direction instead of resetting to `ltr`.
 - The gem no longer depends on `activesupport`; code that relied on it being loaded by the gem has to require it itself.
 - Replace a host-side bridge (asset paths and importmap pins for the gem's JavaScript) by the engine: remove the bridge and run
   `bin/rails g phlex:shadcn:install`.
@@ -264,7 +280,11 @@ cd gems/phlex-shadcn
 bundle install
 bin/check                      # rake test, rake test:engine, rubocop, bundler-audit and the gem gate
 bundle exec yard stats --list-undoc   # the public API has to be 100% documented
+bin/smoke --docs               # every Ruby example of this README and docs/ renders in a plain process
 ```
+
+The browser tests of the Stimulus controllers run from the repository root with `bin/rails test:javascript` (Playwright; it starts
+the dev servers; the CI job `js-tests` runs the same suite).
 
 The plain suite (`rake test`) never loads Rails; `rake test:engine` boots a minimal Rails application in-process to test the engine
 and the install generator. The parity gates that compare every component to the React original in a browser live in the port's

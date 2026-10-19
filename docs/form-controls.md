@@ -19,7 +19,7 @@ Inputs, buttons and the `Field` layout primitives. Interactive ones carry a Stim
 | `Textarea` | `default_value:`, `value:` | none | |
 | `Toggle` | `variant:` (`default`, `outline`), `size:` (`default`, `sm`, `lg`), `pressed:`, `default_pressed:`, `disabled:`, `as_child:`; `Toggle.variants` | none | `pressed-change` |
 | `ToggleGroup` | `type:` (`single` or `multiple`, required), `value:`, `default_value:`, `variant:`, `size:`, `spacing:`, `disabled:`, `roving_focus:`, `orientation:`, `dir:`, `loop:`, `as_child:` | `Item` (`value:`, `variant:`, `size:`...) `toggle_group.item` | `value-change` |
-| `Slider` | `default_value:`, `value:` (arrays for ranges), `min:`, `max:`, `step:`, `orientation:`, `disabled:`, `inverted:`, `min_steps_between_thumbs:`, `preserve_thumb_order:`, `name:`, `form:`, `dir:` | none (track, range and thumbs are rendered from the values) | `value-change`, `value-commit` |
+| `Slider` | `default_value:`, `value:` (arrays for ranges), `min:`, `max:`, `step:`, `orientation:`, `disabled:`, `inverted:`, `min_steps_between_thumbs:`, `preserve_thumb_order:`, `name:`, `form:`, `dir:`, `min_label:` ("Minimum"), `max_label:` ("Maximum"), `value_label:` ("Value %<index>d of %<count>d", a `Kernel.format` template for three or more thumbs) | none (track, range and thumbs are rendered from the values) | `value-change`, `value-commit` |
 
 `checked:`, `value:` and `pressed:` are the controlled forms: the component renders that state and only dispatches the event; the
 `default_*` keywords start uncontrolled. The checkbox, switch and radio group render the hidden `<input>` Radix adds when `name:` is

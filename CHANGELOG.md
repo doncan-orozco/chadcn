@@ -14,7 +14,6 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 
 ### Added
 
-- `Phlex::Shadcn::Theme.render_colors` is public.
 - Gem skeleton: Zeitwerk loader, version, license files and a standalone test harness.
 - The 50 ported components as `Phlex::Shadcn::<Name>` with their parts nested under the root (`Phlex::Shadcn::Dialog::Content`),
   generated yielded-root helpers (`dialog.content { ... }`), `as_child:` with Radix Slot semantics and `**attrs` merging on every
@@ -34,6 +33,16 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 - README covering install, Rails and non-Rails setup, Tailwind `@source`, the theme file and presets, Stimulus registration,
   `as_child` and the generated helpers, and upgrade notes; `.yardopts` publishing only the documented promise (`--hide-api private`,
   `--no-private`); one guide per family under `docs/` plus `docs/api-conventions.md`.
+- Localizable default strings, as keyword arguments whose defaults are the exact React strings (the DOM does not change):
+  `Pagination::Previous` (`label:`, `aria_label:`), `Pagination::Next` (`label:`, `aria_label:`), `Pagination::Ellipsis` (`label:`),
+  `Breadcrumb::Ellipsis` (`label:`), `Dialog::Content`, `Dialog::Footer` and `Sheet::Content` (`close_label:`), `Sidebar::Trigger`
+  (`label:`), `Sidebar` (`mobile_title:`, `mobile_description:`) and `Slider` (`min_label:`, `max_label:`, `value_label:`, a
+  `Kernel.format` template with `%<index>d` and `%<count>d` for three or more thumbs).
+- The `shadcn--theme` controller reads its `localStorage` key from `data-shadcn--theme-storage-key-value` (default `shadcn-theme`).
+- The built gem includes `docs/*.md` and `.yardopts`; `gem_check` gained the rules `GEMSPEC_DEV_MATERIAL` and `GEMSPEC_METADATA`.
+- CI: a Ruby 3.2 to 4.0 matrix against the current Phlex 2.x and the Phlex 2.3 lower bound, a plain-Phlex smoke, a clean-app
+  smoke, a `js-tests` job running the Stimulus browser suite (`test/javascript`, the suite the host's `bin/rails test:javascript`
+  runs) and a `docs` job that renders every Ruby example of the README and `docs/` (`bin/smoke --docs`).
 
 ### Changed
 
@@ -42,6 +51,46 @@ Relative to the in-app port (`Components::V2`):
 - Stimulus identifiers use the `shadcn--` prefix (`shadcn--dialog`, `data-shadcn--dialog-part`, ...); the controllers live under
   `app/javascript/controllers/shadcn/` and are pinned `under: "controllers/shadcn"`, the shared primitives are imported as
   `shadcn/primitives/<name>`.
+
+Since the first extraction of the gem:
+
+- `Phlex::Shadcn::Theme`: the public API is the methods `use`, `import`, `check`, `presets`, `dir`, `configured?`, `theme_file`
+  and `presets_dir` plus `Theme::Error`, the `COLORS_START` / `COLORS_END` markers, the `REQUIRED` / `ROOT_ONLY` variable lists and
+  `MIN_CONTRAST` (a snapshot test pins the whole surface); `parse`, `validate`, `contrast`, `render_colors`, `Palette`, the
+  import limits and the value filter are `@api private`. A failure to fetch, read or parse the imported source is a
+  `Theme::Error` (a missing `theme.css` stays `Errno::ENOENT`); the `phlex_shadcn:theme:*` tasks print either as its message
+  (for an invalid theme, the list of errors), without a backtrace, and exit non-zero.
+- `Theme.import` is hardened: only `https` URLs (credentials refused), 5 s open and 10 s read timeouts, at most 3 redirects and a
+  256 KiB body cap. Values containing `/* */`, `{`, `}`, `;`, a backslash or `url(` are rejected (also by `theme:check` on a
+  hand-edited `theme.css`), an unbalanced `:root` or `.dark` block raises `unterminated ... block`, and the `source:` comment written
+  into `theme.css` is single-line.
+- The `shadcn--theme` controller's default storage key is `shadcn-theme` (it was the host-specific `papyro-theme`; pass
+  `data-shadcn--theme-storage-key-value="papyro-theme"` to keep stored choices). Only `light` and `dark` are accepted from storage,
+  and blocked or throwing storage degrades to the system preference. A pre-paint script must read the same key.
+- `Direction::Provider` without `dir:` or `direction:` keeps the outer direction instead of resetting to `ltr` (a registered
+  deviation from React).
+- The probe controllers used by the browser tests (`shadcn--_probe-*`) and `shadcn--theme-panel` are no longer packaged, so
+  consumer import maps no longer pin them; they live in `dev/dummy`.
+- The class-string constants of the form and button components (`Button`, `ButtonGroup`, `Checkbox`, `Input`, `Label`,
+  `NativeSelect`, `RadioGroup`, `Switch`, `Textarea`, `Toggle`, `ToggleGroup`) and `Slider::ROOT_CLASS`, `TRACK_CLASS`,
+  `RANGE_CLASS` and `THUMB_CLASS` are `@api private` (`VARIANTS`, `SIZES`, `Slider::ORIENTATIONS`, `DIRECTIONS` and
+  `THUMB_TRANSFORM` stay public).
+- `gemspec` `homepage`, `source_code_uri` and `changelog_uri` are well-formed and derived from one block at the top of the file.
+
+### Fixed
+
+- `Select::Item` no longer needs Nokogiri (text is derived with a quote-aware tag strip); a plain-Phlex `Select` renders, and
+  `nokogiri` is not a dependency. YARD builds without warnings.
+- Dialog, AlertDialog and Sheet unmount their portaled overlay on `turbo:before-cache`: a cached page has no open modal, scroll
+  lock or `aria-hidden` siblings. A dialog open on a visit that keeps the page (a `#hash` link) re-opens after the snapshot.
+- `AlertDialog` open on first paint focuses its Cancel button; `HoverCard` with `data-shadcn--hover-card-open-value` follows the
+  attribute when it changes.
+- Accordion, collapsible, tabs, avatar and scroll-area keep closed bodies, the avatar fallback and no scrollbar in the Turbo
+  snapshot and set the live page up again afterwards; `FormBubbleInput` no longer removes a server-rendered input.
+- Fresh Rails apps no longer link the Tailwind engine stub (`app/assets/builds/tailwind/*.css`) with `stylesheet_link_tag :app`
+  (a browser 404 that also disclosed a filesystem path): the engine hides it through Propshaft's private
+  `LoadPath#without_dotfiles` (present in 1.2 and 1.3). With a Propshaft that lacks that method it logs a warning at boot; link
+  `"tailwind"` explicitly there.
 
 ### Removed
 
