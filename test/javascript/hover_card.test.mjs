@@ -9,6 +9,19 @@ const isOpen = (page) => page.locator(content).count().then((n) => n > 0);
 // The trigger is an <a> without href (not focusable), so hover opens it after the open delay (700ms).
 const open = async (page) => { await page.mouse.move(2, 2); await page.hover(trigger); await page.waitForSelector(content, { timeout: 5000 }); await settle(page); };
 const close = async (page) => { await page.keyboard.press("Escape"); await page.waitForSelector(content, { state: "detached" }); };
+// turbo:before-cache resets the hover intent (re-audit R106-3). The controller is reconnected with short delays so the waits
+// stay short: open 100 ms, close 5 s by default (a re-hover inside the close delay is what a stale open flag used to swallow).
+const reconnectWithDelays = (page, { openDelay = 100, closeDelay = 5000 } = {}) => page.evaluate(({ openDelay, closeDelay }) => new Promise((resolve) => {
+  const host = document.querySelector('[data-controller~="shadcn--hover-card"]');
+  host.setAttribute("data-shadcn--hover-card-open-delay-value", String(openDelay));
+  host.setAttribute("data-shadcn--hover-card-close-delay-value", String(closeDelay));
+  host.setAttribute("data-controller", "");
+  requestAnimationFrame(() => { host.setAttribute("data-controller", "shadcn--hover-card"); resolve(); });
+}), { openDelay, closeDelay });
+const dispatchBeforeCache = (page) => page.evaluate(async () => {
+  document.dispatchEvent(new Event("turbo:before-cache"));
+  for (let tick = 0; tick < 3; tick++) await new Promise((resolve) => setTimeout(resolve));
+});
 
 browserTest("hover-card: touch input never opens it (pointerenter is ignored for pointerType touch)", async ({ open: openPage }) => {
   const page = await openPage("default__closed");
@@ -77,5 +90,51 @@ browserTest("hover-card: a controlled open value is reconciled when it changes",
   assert.equal(await page.locator(trigger).getAttribute("data-state"), "open");
   await set(false);
   await page.waitForSelector(content, { state: "detached" });
+  assert.equal(await page.locator(trigger).getAttribute("data-state"), "closed");
+});
+
+browserTest("hover-card: a hover-opened card torn down by before-cache opens again on the next hover (no stale open flag)", async ({ open: openPage }) => {
+  const page = await openPage("default__closed");
+  await reconnectWithDelays(page);
+  await settle(page);
+  await open(page);
+  await page.mouse.move(2, 2); // the close delay (5 s) is pending: the intent still says open
+  await dispatchBeforeCache(page);
+  assert.equal(await isOpen(page), false, "the snapshot holds no card");
+  await page.hover(trigger);
+  await page.waitForSelector(content, { timeout: 2000 });
+  assert.equal(await page.locator(trigger).getAttribute("data-state"), "open");
+});
+
+browserTest("hover-card: after before-cache the card is re-armed from the pointer still on the trigger", async ({ open: openPage }) => {
+  const page = await openPage("default__closed");
+  await reconnectWithDelays(page);
+  await settle(page);
+  await page.mouse.move(2, 2);
+  await page.hover(trigger);
+  await dispatchBeforeCache(page);
+  assert.equal(await isOpen(page), false, "nothing is mounted inside the snapshot window");
+  await page.waitForSelector(content, { timeout: 2000 }); // the pointer stayed: the card comes back after the open delay (re-arm)
+  assert.equal(await page.locator(trigger).getAttribute("data-state"), "open");
+});
+
+// The open timer is armed (0 ms) right before the event, so without the drop it fires on the tick Turbo snapshots in and mounts the
+// card into the snapshot. The pointer and the focus are elsewhere, so no re-arm follows either.
+browserTest("hover-card: before-cache drops a pending open timer, so no card is mounted into the snapshot", async ({ open: openPage }) => {
+  const page = await openPage("default__closed");
+  await page.mouse.move(2, 2);
+  await reconnectWithDelays(page, { openDelay: 0 });
+  await settle(page);
+  const mounted = await page.evaluate(async () => {
+    const count = () => document.querySelectorAll("[data-slot=hover-card-content]").length;
+    const host = document.querySelector('[data-controller~="shadcn--hover-card"]');
+    host.dispatchEvent(new PointerEvent("pointerenter", { pointerType: "mouse" })); // arms the open timer
+    document.dispatchEvent(new Event("turbo:before-cache"));
+    await new Promise((resolve) => setTimeout(resolve)); // the snapshot tick
+    const atSnapshot = count();
+    for (let tick = 0; tick < 2; tick++) await new Promise((resolve) => setTimeout(resolve));
+    return { atSnapshot, afterWindow: count() };
+  });
+  assert.deepEqual(mounted, { atSnapshot: 0, afterWindow: 0 }, "the pending open timer was dropped");
   assert.equal(await page.locator(trigger).getAttribute("data-state"), "closed");
 });

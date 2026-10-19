@@ -136,6 +136,37 @@ browserTest("dialog: a closed dialog keeps its forceMount parts through before-c
   assert.equal(await scrollLocked(page), lockedBefore);
 });
 
+// A controlled forceMount dialog that the app closes while the restore is pending (inside the two timer ticks after before-cache)
+// must get its forceMount parts back: #sync() is a no-op by then, so only the remount loop can mount them (re-audit R106-2).
+browserTest("dialog: a controlled forceMount dialog closed inside the restore window keeps its forceMount parts", async ({ open }) => {
+  const page = await open("closed__rest", "dialog");
+  const host = '[data-controller~="shadcn--dialog"]';
+  await page.evaluate((host) => new Promise((resolve) => {
+    const el = document.querySelector(host);
+    el.querySelectorAll("template[data-shadcn--dialog-template]").forEach((t) => t.setAttribute("data-shadcn--dialog-options", JSON.stringify({ forceMount: true })));
+    el.setAttribute("data-shadcn--dialog-controlled-value", "true");
+    el.setAttribute("data-controller", "");
+    requestAnimationFrame(() => { el.setAttribute("data-controller", "shadcn--dialog"); resolve(); });
+  }), host);
+  await settle(page);
+  const parts = () => page.locator("[data-slot=dialog-content], [data-slot=dialog-overlay]");
+  const closedCount = await parts().count();
+  const lockedWhileClosed = await scrollLocked(page); // Radix keeps RemoveScroll on a mounted modal content, open or not
+  assert.ok(closedCount >= 1, "precondition: forceMount parts are mounted while closed");
+  await page.evaluate((host) => document.querySelector(host).setAttribute("data-shadcn--dialog-open-value", "true"), host);
+  await page.waitForSelector("[data-slot=dialog-content][data-state=open]");
+  await settle(page);
+  await page.evaluate(async (host) => {
+    document.dispatchEvent(new Event("turbo:before-cache"));
+    document.querySelector(host).setAttribute("data-shadcn--dialog-open-value", "false"); // the app closes it inside the window
+    for (let tick = 0; tick < 3; tick++) await new Promise((resolve) => setTimeout(resolve));
+  }, host);
+  await settle(page);
+  assert.equal(await parts().count(), closedCount, "the forceMount parts are mounted again");
+  assert.deepEqual(await parts().evaluateAll((els) => els.map((el) => el.getAttribute("data-state"))), Array(closedCount).fill("closed"));
+  assert.equal(await scrollLocked(page), lockedWhileClosed);
+});
+
 // The destructive Action comes before Cancel in the DOM, so only the redirect to Cancel (not the first tabbable) passes.
 browserTest("alert-dialog: open on first paint focuses the Cancel button, not the first tabbable", async ({ open }) => {
   const page = await open("closed__rest", "alert-dialog");

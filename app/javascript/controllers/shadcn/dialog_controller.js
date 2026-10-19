@@ -80,9 +80,9 @@ export default class extends Controller {
     if (wasOpen) {
       if (!this.controlledValue) this.openValue = true
       this.#sync()
-      return
     }
-    // A closed dialog keeps its forceMount parts: the page stayed, so nothing else would mount them again.
+    // A closed dialog keeps its forceMount parts: the page stayed, so nothing else would mount them again. This also covers a
+    // controlled dialog the app closed inside the window (#sync() was a no-op then); the guard makes it a no-op after #open().
     this.templates().forEach((template) => {
       if (this.#options(template).forceMount && !this.parts.some((part) => part.template === template)) this.#mount(template)
     })
