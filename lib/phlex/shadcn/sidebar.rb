@@ -137,10 +137,14 @@ class Phlex::Shadcn::Sidebar < Phlex::Shadcn::Base
   # @param side [String, Symbol] `left` or `right` (default: "left")
   # @param variant [String, Symbol] `sidebar`, `floating` or `inset` (default: "sidebar")
   # @param collapsible [String, Symbol] `offcanvas`, `icon` or `none` (default: "offcanvas")
+  # @param mobile_title [String] screen-reader title of the mobile sheet (default: "Sidebar")
+  # @param mobile_description [String, nil] screen-reader description of the mobile sheet (default: "Displays the mobile sidebar.")
   # @param attrs [Hash] HTML attributes for the container `div` (the `div` itself with `collapsible: "none"`); `class:` is
   #   tailwind-merged, `data:` and `aria:` are deep-merged
   # @raise [ArgumentError] when `side`, `variant` or `collapsible` is unknown
-  def initialize(side: "left", variant: "sidebar", collapsible: "offcanvas", **attrs)
+  def initialize(side: "left", variant: "sidebar", collapsible: "offcanvas", mobile_title: "Sidebar", mobile_description: nil, **attrs)
+    @mobile_title = mobile_title
+    @mobile_description = mobile_description || MOBILE_DESCRIPTION.join(" ")
     @side = option(SIDES, side, "left", "side")
     @variant = option(VARIANTS, variant, "sidebar", "variant")
     @collapsible = option(COLLAPSIBLES, collapsible, "offcanvas", "collapsible")
@@ -202,8 +206,8 @@ class Phlex::Shadcn::Sidebar < Phlex::Shadcn::Base
         render Phlex::Shadcn::Sheet::Content.new(side: @side, class: MOBILE_CLASSES, style: "--sidebar-width: #{SIDEBAR_WIDTH_MOBILE};",
                                                  data: { sidebar: "sidebar", slot: "sidebar", mobile: "true" }) do
           render Phlex::Shadcn::Sheet::Header.new(class: "sr-only") do
-            render(Phlex::Shadcn::Sheet::Title.new) { "Sidebar" }
-            render(Phlex::Shadcn::Sheet::Description.new) { MOBILE_DESCRIPTION.join(" ") }
+            render(Phlex::Shadcn::Sheet::Title.new) { @mobile_title }
+            render(Phlex::Shadcn::Sheet::Description.new) { @mobile_description }
           end
           div(class: "flex h-full w-full flex-col", data: { shadcn__sidebar_target: "mobileBody" })
         end

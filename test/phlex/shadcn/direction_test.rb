@@ -29,7 +29,21 @@ class Phlex::Shadcn::DirectionTest < Phlex::Shadcn::TestCase
   end
 
   test "provider renders no markup and scopes the value" do
-    assert_equal "<span>ltr</span><span>rtl</span><span>ltr</span><span>ltr</span><span>ltr</span>", Page.new.call
+    assert_equal "<span>ltr</span><span>rtl</span><span>ltr</span><span>rtl</span><span>ltr</span>", Page.new.call
+  end
+
+  test "a nested provider without a direction keeps the outer one, and an inner one overrides it" do
+    page = Class.new(Phlex::Shadcn::Base) do
+      define_method(:view_template) do
+        render(Phlex::Shadcn::Direction::Provider.new(dir: "rtl")) do
+          render(Phlex::Shadcn::Direction::Provider.new) { render Probe.new }
+          render(Phlex::Shadcn::Direction::Provider.new(direction: "ltr")) { render Probe.new }
+          render Probe.new
+        end
+      end
+    end
+
+    assert_equal "<span>rtl</span><span>ltr</span><span>rtl</span>", page.new.call
   end
 
   test "direction wins over dir" do

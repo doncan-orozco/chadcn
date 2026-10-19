@@ -97,6 +97,23 @@ class Phlex::Shadcn::SidebarTest < Phlex::Shadcn::TestCase
     assert_equal "Toggle Sidebar", button.at_css(".sr-only").text
   end
 
+  test "trigger label can be overridden" do
+    button = fragment(provider { render(Sidebar::Trigger.new(label: "Alternar barra lateral")) }).at_css("[data-slot=sidebar-trigger]")
+
+    assert_equal "Alternar barra lateral", button.at_css(".sr-only").text
+  end
+
+  test "mobile sheet title and description default to the React strings and can be overridden" do
+    sheet = ->(**props) { fragment(provider { render(Sidebar.new(**props)) }).at_css("template template") }
+    default = sheet.call
+    custom = sheet.call(mobile_title: "Barra lateral", mobile_description: "Muestra la barra lateral móvil.")
+
+    assert_equal "Sidebar", default.at_css("[data-slot=sheet-title]").text
+    assert_equal "Displays the mobile sidebar.", default.at_css("[data-slot=sheet-description]").text
+    assert_equal "Barra lateral", custom.at_css("[data-slot=sheet-title]").text
+    assert_equal "Muestra la barra lateral móvil.", custom.at_css("[data-slot=sheet-description]").text
+  end
+
   test "rail defaults can be overridden" do
     rail = fragment(provider { render(Sidebar::Rail.new(title: "Other")) }).at_css("[data-slot=sidebar-rail]")
 

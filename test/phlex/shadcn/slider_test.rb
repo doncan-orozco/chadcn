@@ -36,6 +36,15 @@ class Phlex::Shadcn::SliderTest < Phlex::Shadcn::TestCase
     assert_includes thumbs.first.parent["style"], "left: calc(25% + 0px)"
   end
 
+  test "thumb names default to the React strings and can be overridden" do
+    names = ->(**props) { slider(**props).css("[role=slider]").map { |t| t["aria-label"] } }
+
+    assert_equal(%w[Minimum Maximum], names.call(default_value: [ 1, 2 ]))
+    assert_equal([ "Value 1 of 3", "Value 2 of 3", "Value 3 of 3" ], names.call(default_value: [ 1, 2, 3 ]))
+    assert_equal(%w[Mínimo Máximo], names.call(default_value: [ 1, 2 ], min_label: "Mínimo", max_label: "Máximo"))
+    assert_equal([ "1/3", "2/3", "3/3" ], names.call(default_value: [ 1, 2, 3 ], value_label: "%<index>d/%<count>d"))
+  end
+
   test "no values renders two thumbs and hides the second" do
     thumbs = slider.css("[role=slider]")
 

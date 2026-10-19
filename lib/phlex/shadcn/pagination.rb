@@ -93,18 +93,22 @@ class Phlex::Shadcn::Pagination < Phlex::Shadcn::Base
   # @example
   #   pg.item { pg.previous(href: "?page=1") }
   class Previous < Phlex::Shadcn::Base
+    # @param label [String] visible text (default: "Previous")
+    # @param aria_label [String] accessible name of the link (default: "Go to previous page")
     # @param attrs [Hash] HTML attributes merged onto the element
-    def initialize(**attrs)
+    def initialize(label: "Previous", aria_label: "Go to previous page", **attrs)
+      @label = label
+      @aria_label = aria_label
       @attrs = attrs
       super()
     end
 
     # @return [void]
     def view_template
-      attrs = merge_attrs({ aria: { label: "Go to previous page" }, size: "default", class: "gap-1 px-2.5 sm:pl-2.5" }, @attrs)
+      attrs = merge_attrs({ aria: { label: @aria_label }, size: "default", class: "gap-1 px-2.5 sm:pl-2.5" }, @attrs)
       render Phlex::Shadcn::Pagination::Link.new(**attrs) do
         render Phlex::Shadcn::Icon.new("chevron-left")
-        span(class: "hidden sm:block") { plain "Previous" }
+        span(class: "hidden sm:block") { plain @label }
       end
     end
   end
@@ -114,17 +118,21 @@ class Phlex::Shadcn::Pagination < Phlex::Shadcn::Base
   # @example
   #   pg.item { pg.next(href: "?page=3") }
   class Next < Phlex::Shadcn::Base
+    # @param label [String] visible text (default: "Next")
+    # @param aria_label [String] accessible name of the link (default: "Go to next page")
     # @param attrs [Hash] HTML attributes merged onto the element
-    def initialize(**attrs)
+    def initialize(label: "Next", aria_label: "Go to next page", **attrs)
+      @label = label
+      @aria_label = aria_label
       @attrs = attrs
       super()
     end
 
     # @return [void]
     def view_template
-      attrs = merge_attrs({ aria: { label: "Go to next page" }, size: "default", class: "gap-1 px-2.5 sm:pr-2.5" }, @attrs)
+      attrs = merge_attrs({ aria: { label: @aria_label }, size: "default", class: "gap-1 px-2.5 sm:pr-2.5" }, @attrs)
       render Phlex::Shadcn::Pagination::Link.new(**attrs) do
-        span(class: "hidden sm:block") { plain "Next" }
+        span(class: "hidden sm:block") { plain @label }
         render Phlex::Shadcn::Icon.new("chevron-right")
       end
     end
@@ -132,8 +140,10 @@ class Phlex::Shadcn::Pagination < Phlex::Shadcn::Base
 
   # A collapsed-pages marker: ellipsis icon plus a screen-reader label.
   class Ellipsis < Phlex::Shadcn::Base
+    # @param label [String] screen-reader text (default: "More pages")
     # @param attrs [Hash] HTML attributes merged onto the element
-    def initialize(**attrs)
+    def initialize(label: "More pages", **attrs)
+      @label = label
       @attrs = attrs
       super()
     end
@@ -143,7 +153,7 @@ class Phlex::Shadcn::Pagination < Phlex::Shadcn::Base
       defaults = { aria: { hidden: "true" }, data: { slot: "pagination-ellipsis" }, class: "flex size-9 items-center justify-center" }
       span(**merge_attrs(defaults, @attrs)) do
         render Phlex::Shadcn::Icon.new("ellipsis", class: "size-4")
-        span(class: "sr-only") { plain "More pages" }
+        span(class: "sr-only") { plain @label }
       end
     end
   end

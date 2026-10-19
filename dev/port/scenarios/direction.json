@@ -1758,11 +1758,11 @@
       "animations": false
     },
     {
-      "id": "nested__inner-without-dir-resets",
+      "id": "nested__inner-without-dir-ltr-outer",
       "tree": {
         "c": "DirectionProvider",
         "props": {
-          "direction": "rtl"
+          "direction": "ltr"
         },
         "children": [
           {
@@ -1986,7 +1986,7 @@
         "height": 700
       },
       "animations": false,
-      "note": "inner provider without value shadows the outer one: inner consumer ltr (useDirection: undefined || ltr)"
+      "note": "inner provider without value inside an ltr outer one: inner consumer ltr in React (undefined || ltr) and in the port (keeps the outer ltr). The rtl-outer case differs on purpose (deviation direction, RB-13) and is pinned by test/phlex/shadcn/direction_test.rb"
     },
     {
       "id": "sibling-after-provider-unaffected",

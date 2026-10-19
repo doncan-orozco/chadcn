@@ -56,6 +56,18 @@ class Phlex::Shadcn::PaginationTest < Phlex::Shadcn::TestCase
     assert_not_includes large["class"].split, "h-9"
   end
 
+  test "previous, next and ellipsis strings can be overridden" do
+    previous = fragment(Pagination::Previous.new(href: "#", label: "Anterior", aria_label: "Ir a la página anterior").call).at_css("a")
+    following = fragment(Pagination::Next.new(href: "#", label: "Siguiente", aria_label: "Ir a la página siguiente").call).at_css("a")
+    ellipsis = fragment(Pagination::Ellipsis.new(label: "Más páginas").call)
+
+    assert_equal "Ir a la página anterior", previous["aria-label"]
+    assert_equal "Anterior", previous.at_css("span").text
+    assert_equal "Ir a la página siguiente", following["aria-label"]
+    assert_equal "Siguiente", following.at_css("span").text
+    assert_equal "Más páginas", ellipsis.at_css(".sr-only").text
+  end
+
   test "ellipsis is hidden from assistive technology and labelled" do
     ellipsis = fragment(Pagination::Ellipsis.new.call).at_css("[data-slot=pagination-ellipsis]")
 

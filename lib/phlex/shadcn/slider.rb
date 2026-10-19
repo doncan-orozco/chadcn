@@ -26,16 +26,20 @@ class Phlex::Shadcn::Slider < Phlex::Shadcn::Base
   # @return [Array<String>]
   DIRECTIONS = %w[ltr rtl].freeze
   # Classes of the root span.
-  # @return [String]
+  #
+  # @api private
   ROOT_CLASS = "relative flex w-full touch-none items-center select-none data-[disabled]:opacity-50 data-[orientation=vertical]:h-full data-[orientation=vertical]:min-h-44 data-[orientation=vertical]:w-auto data-[orientation=vertical]:flex-col"
   # Classes of the track span.
-  # @return [String]
+  #
+  # @api private
   TRACK_CLASS = "relative grow overflow-hidden rounded-full bg-muted data-[orientation=horizontal]:h-1.5 data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-1.5"
   # Classes of the filled range span.
-  # @return [String]
+  #
+  # @api private
   RANGE_CLASS = "absolute bg-primary data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full"
   # Classes of each thumb.
-  # @return [String]
+  #
+  # @api private
   THUMB_CLASS = "block size-4 shrink-0 rounded-full border border-primary bg-white shadow-sm ring-ring/50 transition-[color,box-shadow] hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
   # Per-orientation transform exposed as `--radix-slider-thumb-transform`.
   # @return [Hash{String => String}]
@@ -58,11 +62,15 @@ class Phlex::Shadcn::Slider < Phlex::Shadcn::Base
   #   so without `value:`/`default_value:` (two thumb elements, one value) the name stays `name`
   # @param form [String, nil] id of the associated `<form>`
   # @param dir [String, Symbol, nil] one of {DIRECTIONS}; the surrounding direction provider's direction is the default for horizontal sliders only
+  # @param min_label [String] `aria-label` of the first thumb of a two-thumb slider (default: "Minimum")
+  # @param max_label [String] `aria-label` of the second thumb of a two-thumb slider (default: "Maximum")
+  # @param value_label [String] `format` template of the thumb `aria-label` with more than two thumbs; `%<index>d` is the
+  #   1-based position and `%<count>d` the number of thumbs (default: "Value %<index>d of %<count>d")
   # @param attrs [Hash] HTML attributes for the root span (`class:` merged last, `aria:`, `data:`, `style:`)
   # @raise [ArgumentError] when `orientation:` or `dir:` is not an allowed value
   def initialize(default_value: nil, value: nil, min: 0, max: 100, step: 1, orientation: "horizontal", disabled: false,
                  inverted: false, min_steps_between_thumbs: 0, preserve_thumb_order: false, name: nil, form: nil,
-                 dir: nil, **attrs)
+                 dir: nil, min_label: "Minimum", max_label: "Maximum", value_label: "Value %<index>d of %<count>d", **attrs)
     @controlled = value.is_a?(Array)
     @min = min
     @max = max
@@ -78,6 +86,9 @@ class Phlex::Shadcn::Slider < Phlex::Shadcn::Base
     @values = (@controlled ? value : default_value) || [ min ]
     initial = [ value, default_value ].find { |candidate| candidate.is_a?(Array) } || [ min, max ]
     @thumb_count = initial.length
+    @min_label = min_label
+    @max_label = max_label
+    @value_label = value_label
     @attrs = attrs
     super()
   end
@@ -172,8 +183,8 @@ class Phlex::Shadcn::Slider < Phlex::Shadcn::Base
   def thumb_label(index)
     case @values.length
     when 0, 1 then nil
-    when 2 then %w[Minimum Maximum][index]
-    else "Value #{index + 1} of #{@values.length}"
+    when 2 then [ @min_label, @max_label ][index]
+    else Kernel.format(@value_label, index: index + 1, count: @values.length)
     end
   end
 

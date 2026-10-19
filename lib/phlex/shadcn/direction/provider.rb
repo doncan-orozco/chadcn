@@ -8,7 +8,7 @@
 #   end
 # @see Phlex::Shadcn::Direction
 class Phlex::Shadcn::Direction::Provider < Phlex::Shadcn::Base
-  # `direction:` wins over `dir:`; both nil leaves the inherited direction untouched for the block.
+  # `direction:` wins over `dir:`; both nil leaves the inherited direction (an outer provider's, or none) untouched for the block.
   #
   # @param dir [String, Symbol, nil] `ltr` or `rtl` (default: nil)
   # @param direction [String, Symbol, nil] same as `dir:`, takes precedence (default: nil)
@@ -29,7 +29,7 @@ class Phlex::Shadcn::Direction::Provider < Phlex::Shadcn::Base
   # @return [void]
   def view_template
     previous = context[Phlex::Shadcn::Direction::KEY]
-    context[Phlex::Shadcn::Direction::KEY] = @value
+    context[Phlex::Shadcn::Direction::KEY] = @value unless @value.nil?
     yield self if block_given?
   ensure
     context[Phlex::Shadcn::Direction::KEY] = previous

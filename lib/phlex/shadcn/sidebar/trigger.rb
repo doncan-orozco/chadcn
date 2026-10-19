@@ -11,14 +11,16 @@ class Phlex::Shadcn::Sidebar::Trigger < Phlex::Shadcn::Base
 
   # @param variant [String, Symbol] {Phlex::Shadcn::Button} variant (default: "ghost")
   # @param size [String, Symbol] {Phlex::Shadcn::Button} size (default: "icon")
+  # @param label [String] screen-reader label of the button (default: "Toggle Sidebar")
   # @param attrs [Hash] attributes forwarded to the Button; `class:` is tailwind-merged over `size-7`, `data-action` runs before the toggle
   # @raise [ArgumentError] when `as_child:` is given, or on render without a {Phlex::Shadcn::Sidebar::Provider}
-  def initialize(variant: "ghost", size: "icon", **attrs)
+  def initialize(variant: "ghost", size: "icon", label: "Toggle Sidebar", **attrs)
     # The Button Slot would receive two children (icon + label) and throw (slot:38-47).
     raise ArgumentError, "Sidebar::Trigger cannot take as_child; it renders two children" if attrs.key?(:as_child)
 
     @variant = variant
     @size = size
+    @label = label
     @attrs = attrs
     super()
   end
@@ -32,7 +34,7 @@ class Phlex::Shadcn::Sidebar::Trigger < Phlex::Shadcn::Base
     attrs = attrs.merge(data: { sidebar: "trigger", slot: "sidebar-trigger" }.merge(attrs[:data]))
     render Phlex::Shadcn::Button.new(variant: @variant, size: @size, class: cn("size-7", @attrs[:class]), **attrs) do
       render Phlex::Shadcn::Icon.new("panel-left")
-      span(class: "sr-only") { "Toggle Sidebar" }
+      span(class: "sr-only") { @label }
     end
   end
 end
