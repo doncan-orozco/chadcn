@@ -15,11 +15,12 @@ class Phlex::Shadcn::ThemeImportTest < Phlex::Shadcn::TestCase
   # Scripted answers by URL; records every start call. A String is a 200 body, a Class raises
   # before any response, a Hash is a status (+ location/chunks, + error: raised after the chunks are yielded).
   class FakeNet
-    attr_reader :requests, :options
+    attr_reader :requests, :encodings, :options
 
     def initialize(routes)
       @routes = routes
       @requests = []
+      @encodings = []
     end
 
     def start(host, port, **options)
@@ -34,6 +35,7 @@ class Phlex::Shadcn::ThemeImportTest < Phlex::Shadcn::TestCase
 
     Http = Struct.new(:net, :host, :port) do
       def request(request)
+        net.encodings << request["Accept-Encoding"]
         response = Response.new(net.answer("https://#{host}#{request.path}"))
         yield response
         response
@@ -118,7 +120,7 @@ class Phlex::Shadcn::ThemeImportTest < Phlex::Shadcn::TestCase
   end
 
   test "a connection timeout, a refused connection and a TLS error become Theme::Error" do
-    [ Net::OpenTimeout, Net::ReadTimeout, Errno::ECONNREFUSED, SocketError, OpenSSL::SSL::SSLError ].each do |failure|
+    [ Net::OpenTimeout, Net::ReadTimeout, Errno::ECONNREFUSED, SocketError, OpenSSL::SSL::SSLError, OpenSSL::X509::StoreError ].each do |failure|
       with_network_failure(failure) do
         error = assert_raises(Theme::Error) { Theme.import("https://example.com/t.css") }
 
@@ -127,10 +129,26 @@ class Phlex::Shadcn::ThemeImportTest < Phlex::Shadcn::TestCase
     end
   end
 
-  test "a corrupt compressed body becomes Theme::Error" do
-    with_network("https://example.com/t.css" => { status: 200, error: Zlib::DataError }) do
-      assert_import_fails("https://example.com/t.css", /cannot fetch/)
+  test "a malformed status line or header becomes Theme::Error" do
+    [ Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError ].each do |failure|
+      with_network("https://example.com/t.css" => { status: 200, error: failure }) do
+        assert_import_fails("https://example.com/t.css", /cannot fetch/)
+      end
     end
+  end
+
+  test "the body is requested uncompressed, so nothing is ever inflated" do
+    with_network("https://example.com/t.css" => PRESET_CSS) do |net|
+      Theme.import("https://example.com/t.css")
+
+      assert_equal [ "identity" ], net.encodings
+    end
+  end
+
+  test "an unstubbed request is a test failure, not a Theme::Error" do
+    error = assert_raises(Minitest::Assertion) { Theme.import("https://example.com/t.css") }
+
+    assert_match(/unstubbed Net::HTTP.start\("example.com"\)/, error.message)
   end
 
   test "a URL with credentials is rejected before any request and never echoed" do
@@ -191,6 +209,30 @@ class Phlex::Shadcn::ThemeImportTest < Phlex::Shadcn::TestCase
     with_network("https://example.com/big.css" => { status: 200, chunks: chunks }) do
       assert_import_fails("https://example.com/big.css", /larger than 256 KiB/)
     end
+  end
+
+  def exact_cap_css = "#{PRESET_CSS}/*#{' ' * (Theme::IMPORT_MAX_BYTES - PRESET_CSS.bytesize - 4)}*/"
+
+  test "a body of exactly the size cap is accepted from a URL" do
+    assert_equal Theme::IMPORT_MAX_BYTES, exact_cap_css.bytesize
+    with_network("https://example.com/t.css" => { status: 200, chunks: [ exact_cap_css ] }) { Theme.import("https://example.com/t.css") }
+
+    assert_includes theme_css, "source: imported https://example.com/t.css"
+  end
+
+  test "a stdin source of exactly the size cap is accepted" do
+    Theme.import("-", input: StringIO.new(exact_cap_css))
+
+    assert_includes theme_css, "source: imported -"
+  end
+
+  test "a file or stdin source over the size cap is refused" do
+    big = "a" * (Theme::IMPORT_MAX_BYTES + 1)
+    path = File.join(@theme_dir, "big.css")
+    File.write(path, big)
+
+    assert_import_fails(path, /larger than 256 KiB/)
+    assert_import_fails("-", /larger than 256 KiB/, input: StringIO.new(big))
   end
 
   test "a body that is not UTF-8 is refused" do

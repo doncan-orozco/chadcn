@@ -6,7 +6,6 @@ require "uri"
 require "fileutils"
 require "openssl"
 require "timeout"
-require "zlib"
 
 module Phlex
   module Shadcn
@@ -23,8 +22,8 @@ module Phlex
     #   Phlex::Shadcn::Theme.use("slate")
     #   Phlex::Shadcn::Theme.check # => { errors: [], warnings: [] }
     module Theme
-      # Raised for an unusable theme: unknown preset, missing markers, a palette with errors, no `:root`/`.dark` block, or no theme
-      # directory configured.
+      # Raised for an unusable theme: unknown preset, missing markers, a palette with errors, no `:root`/`.dark` block, no theme
+      # directory configured, or an import source that cannot be read or fetched. A missing theme.css is the plain `Errno::ENOENT`.
       class Error < StandardError; end
 
       # Marker that opens the colors section of theme.css (rewritten by {.use} and {.import}).
@@ -71,7 +70,7 @@ module Phlex
       # @api private
       # @return [Integer]
       IMPORT_MAX_REDIRECTS = 3
-      # Largest body, in bytes, {.import} accepts from a URL.
+      # Largest source, in bytes, {.import} accepts (from a URL, a file or stdin).
       #
       # @api private
       # @return [Integer]
@@ -316,8 +315,8 @@ module Phlex
         ].flatten.join("\n")
       end
 
-      # Replaces the colors section of theme.css and returns the validation result. Atomic: nothing is
-      # written when the palette has errors.
+      # Replaces the colors section of theme.css and returns the validation result. Nothing is written when the palette has
+      # errors, and the file is replaced in one step (written next to it, then renamed), so a failure half-way leaves it as it was.
       #
       # @api private
       def write_colors(palette, source_label:)
@@ -328,8 +327,21 @@ module Phlex
         raise Error, "#{theme_file} lacks the #{COLORS_START} / #{COLORS_END} markers" unless css.include?(COLORS_START) && css.include?(COLORS_END)
 
         section = "#{COLORS_START}\n/* source: #{comment_text(source_label)} */\n#{render_colors(palette)}#{COLORS_END}"
-        File.write(theme_file, css.sub(/#{Regexp.escape(COLORS_START)}.*?#{Regexp.escape(COLORS_END)}/mo, section.gsub("\\", "\\\\\\\\")))
+        replace_theme_file(css.sub(/#{Regexp.escape(COLORS_START)}.*?#{Regexp.escape(COLORS_END)}/mo) { section })
         result
+      end
+
+      # Writes the new theme.css next to the old one (same permissions, a name unique to this process) and renames it over, so
+      # readers never see a half-written file.
+      #
+      # @api private
+      def replace_theme_file(css)
+        temp = "#{theme_file}.#{Process.pid}.tmp"
+        File.write(temp, css)
+        File.chmod(File.stat(theme_file).mode & 0o7777, temp)
+        File.rename(temp, theme_file)
+      ensure
+        File.delete(temp) if temp && File.exist?(temp)
       end
 
       # Text that is safe inside a CSS comment: one line, no comment delimiters, bounded length.
@@ -343,15 +355,15 @@ module Phlex
       #
       # @param name [String] preset name, one of {.presets}
       # @return [Hash{Symbol => Array<String>}] the validation result, `{ errors: [], warnings: [...] }`
-      # @raise [Phlex::Shadcn::Theme::Error] for an unknown preset, a preset with errors, a theme.css without the color markers,
-      #   or no configured theme directory
+      # @raise [Phlex::Shadcn::Theme::Error] for an unknown preset (only a name listed by {.presets}, never a path), a preset with
+      #   errors, a theme.css without the color markers, or no configured theme directory
+      # @raise [Errno::ENOENT] when theme.css does not exist
       # @example
       #   Phlex::Shadcn::Theme.use("slate")
       def use(name)
-        file = File.join(presets_dir, "#{name}.css")
-        raise Error, "unknown preset '#{name}'. Available: #{presets.join(', ')}" unless File.exist?(file)
+        raise Error, "unknown preset '#{name}'. Available: #{presets.join(', ')}" unless presets.include?(name.to_s)
 
-        write_colors(parse(File.read(file)), source_label: "preset #{name}")
+        write_colors(parse(File.read(File.join(presets_dir, "#{name}.css"))), source_label: "preset #{name}")
       end
 
       # Rewrites the colors of theme.css from a shadcn theme pasted from ui.shadcn.com/themes. Variables the pasted theme lacks
@@ -359,15 +371,21 @@ module Phlex
       # the result is invalid.
       #
       # A URL has to be `https`: it is fetched with a 5 s open and 10 s read timeout, at most 3 redirects (each `https`) and a
-      # 256 KiB body. Values that could break theme.css (comment delimiters, braces, semicolons, backslashes, `url(`) are rejected.
-      # A URL with credentials (`https://user:pass@host`) is refused, also as a redirect target.
+      # 256 KiB body (the same cap applies to a file or stdin source). Values that could break theme.css (comment delimiters,
+      # braces, semicolons, backslashes, `url(`) are rejected. A URL with credentials (`https://user:pass@host`) is refused, also
+      # as a redirect target.
+      #
+      # Developer tooling, run by the developer on their own machine: the URL is fetched as given, with no host allow-list
+      # (loopback and link-local addresses are reachable, also through redirects). Never pass untrusted input, and do not expose
+      # it to end users.
       #
       # @param source [String] path to a CSS file, an `https://` URL, or `"-"` for the `input` stream
       # @param input [IO] where `"-"` is read from
       # @return [Hash{Symbol => Array<String>}] `{ errors: [], warnings: [...], filled: [...] }`
       # @raise [Phlex::Shadcn::Theme::Error] for an unreadable or unreachable source, a non-https URL, a URL with credentials, a non-200 answer, too many
-      #   redirects, an oversize or non-UTF-8 body, a theme without `:root`/`.dark` blocks, an invalid palette, a theme.css without
+      #   redirects, an oversize or non-UTF-8 source, a theme without `:root`/`.dark` blocks, an invalid palette, a theme.css without
       #   the color markers, or no configured theme directory
+      # @raise [Errno::ENOENT] when theme.css does not exist
       # @example
       #   Phlex::Shadcn::Theme.import("https://example.com/my-theme.css")
       #   Phlex::Shadcn::Theme.import("my-theme.css")
@@ -399,15 +417,19 @@ module Phlex
         values
       end
 
+      # Every source is capped at {IMPORT_MAX_BYTES} (a file or stream is read one byte past the cap to tell) and has to be UTF-8.
+      #
       # @api private
       def read_source(source, input)
         css = if source == "-"
-          input.read
+          input.read(IMPORT_MAX_BYTES + 1) || ""
         elsif source.match?(%r{\A[a-z][a-z0-9+.-]*://}i)
           fetch(source)
         else
           read_file(source)
         end
+        raise Error, "#{comment_text(source)} is larger than #{IMPORT_MAX_BYTES / 1024} KiB" if css.bytesize > IMPORT_MAX_BYTES
+
         css = css.dup.force_encoding(Encoding::UTF_8)
         raise Error, "#{comment_text(source)} is not valid UTF-8 text" unless css.valid_encoding?
 
@@ -416,7 +438,7 @@ module Phlex
 
       # @api private
       def read_file(path)
-        File.read(path)
+        File.binread(path, IMPORT_MAX_BYTES + 1) || ""
       rescue SystemCallError => e
         raise Error, "cannot read #{path}: #{e.message}"
       end
@@ -459,6 +481,8 @@ module Phlex
       end
 
       # One request. Returns [status, Location header, body]; the body is read only for a 200 and capped at {IMPORT_MAX_BYTES}.
+      # The request asks for an identity encoding, so nothing is inflated and no Zlib error can occur. Every failure the client
+      # raises (timeouts, DNS and socket errors, TLS, a malformed status line or header) is wrapped in {Error}.
       #
       # @api private
       def http_get(uri)
@@ -473,7 +497,8 @@ module Phlex
           end
         end
         answer
-      rescue Timeout::Error, SocketError, SystemCallError, IOError, OpenSSL::SSL::SSLError, Net::HTTPBadResponse, Net::ProtocolError, Zlib::Error => e
+      rescue Timeout::Error, SocketError, SystemCallError, IOError, OpenSSL::OpenSSLError, Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError,
+             Net::ProtocolError => e
         raise Error, "cannot fetch #{uri}: #{e.message}"
       end
 
@@ -500,8 +525,8 @@ module Phlex
 
       # Parsing, color math and file helpers behind the methods above.
       private_class_method :block, :variables, :normalize_value, :luminance, :to_linear_rgb, :oklch_to_linear, :hsl_to_linear,
-                           :srgb_to_linear, :hue_sector, :write_colors, :comment_text, :fill, :read_source, :read_file, :fetch,
-                           :redirect_target, :https_uri, :http_get, :capped_body
+                           :srgb_to_linear, :hue_sector, :write_colors, :replace_theme_file, :comment_text, :fill, :read_source, :read_file,
+                           :fetch, :redirect_target, :https_uri, :http_get, :capped_body
     end
   end
 end
