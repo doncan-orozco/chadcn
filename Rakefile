@@ -21,3 +21,12 @@ namespace :test do
 end
 
 task default: [ :test, "test:engine" ]
+
+namespace :public_api do
+  desc "Regenerate test/fixtures/public_api.txt from the current public surface (review the diff, add a CHANGELOG entry)"
+  task :update do
+    sh({ "PUBLIC_API_UPDATE" => "1", "CI" => nil }, FileUtils::RUBY, "-Itest", "-Ilib", "test/public_api_test.rb",
+       "-n", "test_public_surface_matches_the_fixture")
+    sh FileUtils::RUBY, "-Itest", "-Ilib", "test/public_api_test.rb"
+  end
+end
