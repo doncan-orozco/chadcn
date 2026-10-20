@@ -21,6 +21,10 @@ module Phlex
     #   config.phlex_shadcn.theme_dir = "app/assets/tailwind/theme"   # where theme.css and presets/ live; relative to the app root
     #   config.phlex_shadcn.theme_task_aliases = true                 # false when the app defines its own theme:* tasks
     #   config.phlex_shadcn.hide_tailwind_stubs = true                # false to leave the tailwindcss-rails stubs to Propshaft
+    #   config.phlex_shadcn.override_dir = "app/components/phlex_shadcn"  # where ejected components live (`rails g phlex:shadcn:eject`)
+    #
+    # `override_dir` is read while the app boots, before its autoload paths exist: set it in config/application.rb or
+    # config/environments/*.rb (config/initializers/*.rb raise). Ejecting a component needs a restart; editing an ejected file reloads.
     #
     # `theme_dir` wins over a value already set with Phlex::Shadcn.configure, which wins over the default.
     #
@@ -31,6 +35,8 @@ module Phlex
 
       # Where theme.css and presets/ live in the app (the default of `config.phlex_shadcn.theme_dir`).
       DEFAULT_THEME_DIR = "app/assets/tailwind/theme"
+      # Where ejected components live by default (the default of `config.phlex_shadcn.override_dir`).
+      DEFAULT_OVERRIDE_DIR = "app/components/phlex_shadcn"
       JAVASCRIPT_DIRECTORIES = %w[app/javascript vendor/javascript].freeze
       # Where tailwindcss-rails writes one stub per engine, inside the app's own builds root (Tailwindcss::Engines.bundle).
       TAILWIND_STUBS_DIR = "app/assets/builds/tailwind"
@@ -53,6 +59,38 @@ module Phlex
       # to false to serve them yourself or to keep Propshaft untouched; the stubs then stay linked by `stylesheet_link_tag :app`.
       # Read by an engine initializer, so set it in config/application.rb (like theme_task_aliases).
       config.phlex_shadcn.hide_tailwind_stubs = true
+      # Directory of ejected components, relative to the app root (nil: DEFAULT_OVERRIDE_DIR). Read by the loader initializer.
+      config.phlex_shadcn.override_dir = nil
+
+      # Sets up the loader of the gem's components. Not at require time (Bundler.require runs before the app is configured), but
+      # before Rails sets its autoload paths, after config/application.rb and config/environments/*.rb. The override directory is
+      # mounted on the app's main autoloader, so an ejected file is reloaded like any app code (dev/decisions/eject-override.md).
+      # Precedence: config.phlex_shadcn.override_dir, then a value already set with Phlex::Shadcn.configure, then the default.
+      initializer "phlex_shadcn.loader", before: :set_autoload_paths do |app|
+        configured = app.config.phlex_shadcn.override_dir
+        override_dir = app.root.join(configured || Phlex::Shadcn.config.override_dir || DEFAULT_OVERRIDE_DIR).to_s
+        app.config.phlex_shadcn.resolved_override_dir = override_dir
+        if Phlex::Shadcn.setup?
+          # A component was referenced before the app initialized (config/application.rb, an environment file): the loader is already up.
+          next unless File.directory?(override_dir)
+
+          raise Phlex::Shadcn::Configuration::LateSettingError,
+                "phlex-shadcn components were loaded before the application initialized, so #{override_dir} is ignored: " \
+                "do not reference Phlex::Shadcn components in config/application.rb or config/environments/*.rb"
+        end
+        Phlex::Shadcn.configure { |config| config.override_dir = override_dir }
+        Phlex::Shadcn.setup(override_loader: ::Rails.autoloaders.main)
+      end
+
+      # config/initializers/*.rb load after the loader is set up: a late config.phlex_shadcn.override_dir would be ignored silently.
+      initializer "phlex_shadcn.late_override_dir", after: :load_config_initializers do |app|
+        configured = app.config.phlex_shadcn.override_dir
+        next if configured.nil? || app.root.join(configured).to_s == app.config.phlex_shadcn.resolved_override_dir
+
+        raise Phlex::Shadcn::Configuration::LateSettingError,
+              "config.phlex_shadcn.override_dir was changed after phlex-shadcn loaded its components, so it is ignored: " \
+              "set it in config/application.rb or config/environments/*.rb"
+      end
 
       initializer "phlex_shadcn.assets" do |app|
         if app.config.respond_to?(:assets)

@@ -1,6 +1,6 @@
 # Decision: ejected components live in an override directory that shadows the gem
 
-Status: proposed by the spike (item #169), productionized by the eject-generator item (#179).
+Status: proposed by the spike (item #169), built by the eject-generator item (#179); "As built" at the end records where the build differs from the proposal.
 Proof: `dev/spikes/eject/override_test.rb` (see the test count in the Gate output, run with the Gate command of #169).
 
 ## Decision
@@ -66,7 +66,7 @@ override in force for a leaf and for a nested part under a gem-owned `Dialog`. A
 otherwise a new file is skipped silently and a removed one raises `NameError` (Zeitwerk reasoning, not exercised by the spike; #179's engine test verifies it); the `Ejected` doctor check also reports override files that shadow no gem file. The Rails integration (main autoloader + `bin/dev` edit/reload) is
 verified in the eject-generator item's engine test, which is not possible here: this item owns only `dev/spikes` and this note.
 Constraint to document: a gem class that holds a reference to an ejected class in a constant survives a reload; the gem does not do this today
-(Pagination, ButtonGroup, Dialog::Footer, AlertDialog::ActionButton look the constant up at render time).
+(Pagination, ButtonGroup, Dialog::Footer, AlertDialog::ActionButton look the constant up at render time). Not true everywhere, found by the #179 review: `Toaster` is an alias constant of `Sonner::Toaster` (ejecting `sonner` therefore also ejects `toaster.rb`, `Overrides::COMPANIONS`), and gem classes `include` `Direction::Consumer`, `DropdownMenu::Support` and `*::Support` parts; an edit of an ejected copy of those reaches the gem classes only after a restart (the generator says so).
 
 ## Gem upgrade and stale copies
 
@@ -90,3 +90,39 @@ whole `dialog/` directory is ignored in the gem loader. This is the cost of unit
 ## Not blocked
 
 The override directory works cleanly; no human decision is needed beyond approving the Rails initializer order above.
+
+## As built (#179)
+
+Proven by `test/engine/eject_test.rb` (a Rails application booted per scenario in a child process) and
+`test/generators/eject_generator_test.rb`. Deviations from the proposal above:
+
+- **Plain Phlex has one switch only**: the environment variable `PHLEX_SHADCN_OVERRIDE_DIR`, read at require time. There is no
+  `Phlex::Shadcn.setup(override_dir:)` for users and no `phlex/shadcn/lazy`: a script that wants another order sets the variable
+  before the `require`. `Phlex::Shadcn.setup(override_loader: nil)` exists as `@api private`; it is what the engine calls.
+- **What is required by hand before the loader is set up**: `configuration.rb` (the override directory is a setting that the
+  setup reads, and `Phlex::Shadcn.configure` runs before it) and `engine/overrides.rb` (`Phlex::Shadcn::Overrides`, plain Ruby: which gem
+  files a directory shadows, the component list, the file header). Both are ignored by the gem loader.
+- **Rails**: `initializer "phlex_shadcn.loader", before: :set_autoload_paths` calls `Phlex::Shadcn.setup(override_loader: Rails.autoloaders.main)`.
+  The setup only does `push_dir(dir, namespace: Phlex::Shadcn)` on a loader it is given (the owner, Rails, sets it up later: setting
+  up Rails' main autoloader early breaks `enable_reloading`). The default directory is `app/components/phlex_shadcn`; it is used only
+  when it exists, a missing one is ignored. A second initializer, `after: :load_config_initializers`, raises
+  `Configuration::LateSettingError` when `config.phlex_shadcn.override_dir` changed after the loader was set up (the
+  `Phlex::Shadcn.configure` route raises from `Configuration#override_dir=`).
+- **Nested root directory**: `app/components/phlex_shadcn` is a root of the main autoloader inside the root `app/components`; Zeitwerk
+  skips a nested root in its parent, so nothing becomes `PhlexShadcn::Button`. Proven in lazy and eager mode.
+- **Dev reload, proven**: editing an ejected file is picked up by `Rails.application.reloader.reload!`; adding a file while the server runs
+  is skipped silently and the gem's component keeps winning; removing an ejected file leaves `NameError: uninitialized constant`.
+  Both are fixed by a restart; the generator says so.
+- **Header**: two comment lines, `# Ejected from phlex-shadcn <version> (lib/phlex/shadcn/<path>) sha256:<digest of the gem file>`.
+  Ruby still reads a `# frozen_string_literal: true` below them.
+- **Doctor `ejected`** (`doctor/checks/ejected.rb`) warns on: gem file changed since the copy (digest differs; a new gem version whose file is
+  identical is fine), parts the ejected unit lacks, a file without header, and a headed file whose gem file is gone. A file without a header
+  that shadows no gem file is the app's own component and is left alone.
+- **Generator**: `rails g phlex:shadcn:eject NAME...` (`button`, `Button`, `alert-dialog`, `dialog/content`), `--list`, `--diff` (a
+  `diff -u` of the gem's file and the copy), `--force`, `--dir` (a path relative to the app root, default the configured override
+  directory). Without `--force` nothing at all is written when one target exists. Infrastructure (`base`, `configuration`, `doctor`, `engine`,
+  `icons`, `theme`, `values`, `version`) cannot be ejected.
+- **Review additions (#179)**: a component used before the app initializes (railties loaded, `initialize!` not run) sets the loader up
+  on the spot through `Phlex::Shadcn.const_missing`; the engine then raises `LateSettingError` only if that dropped an existing override directory.
+  Files in the override directory named like gem infrastructure (`base.rb`...) shadow nothing. `Overrides` stays in `engine/overrides.rb`
+  (the item's Owns) although it is plain Ruby.

@@ -67,6 +67,7 @@ class Phlex::Shadcn::Collapsible < Phlex::Shadcn::Base
 class Phlex::Shadcn::Collapsible::Content < Phlex::Shadcn::Base
 class Phlex::Shadcn::Collapsible::Trigger < Phlex::Shadcn::Base
 class Phlex::Shadcn::Configuration
+class Phlex::Shadcn::Configuration::LateSettingError < StandardError
 class Phlex::Shadcn::ContextMenu < Phlex::Shadcn::Base
 class Phlex::Shadcn::ContextMenu::CheckboxItem < Phlex::Shadcn::Base
 class Phlex::Shadcn::ContextMenu::Content < Phlex::Shadcn::Base
@@ -519,6 +520,8 @@ method Phlex::Shadcn::Collapsible::Content#initialize (force_mount: false, as_ch
 method Phlex::Shadcn::Collapsible::Content#view_template (&block)
 method Phlex::Shadcn::Collapsible::Trigger#initialize (as_child: false, **attrs)
 method Phlex::Shadcn::Collapsible::Trigger#view_template ()
+method Phlex::Shadcn::Configuration#override_dir ()
+method Phlex::Shadcn::Configuration#override_dir= (value)
 method Phlex::Shadcn::Configuration#theme_dir ()
 method Phlex::Shadcn::Configuration#theme_dir= (value)
 method Phlex::Shadcn::ContextMenu#checkbox_item (**attrs, &block)
