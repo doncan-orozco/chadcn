@@ -1,0 +1,10 @@
+en:
+  catalog:
+    title: "phlex-shadcn catalog"
+    subtitle:
+      one: "%{count} ported component, rendered from its scenario file"
+      other: "%{count} ported components, rendered from their scenario files"
+    nav: "Components"
+    theme_panel: "Theme panel"
+    scenario: "scenario %{id} (%{count} in total)"
+    unavailable: "This preview could not be rendered (%{error})."
