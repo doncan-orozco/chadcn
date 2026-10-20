@@ -42,11 +42,15 @@ class SmokeRunnerTest < Minitest::Test
     end
   end
 
-  def test_the_docs_fences_include_the_readme_and_every_guide
+  def test_the_docs_fences_include_the_readme_and_every_guide_with_ruby
     files = Smoke::Docs.new(GEM_ROOT).fences.map { |fence| fence[:file] }.uniq
 
     assert_includes files, "README.md"
-    Dir[GEM_ROOT.join("docs/*.md").to_s].each { |page| assert_includes files, "docs/#{File.basename(page)}" }
+    Dir[GEM_ROOT.join("docs/*.md").to_s].each do |page|
+      next unless File.read(page).include?("```ruby") # a prose-only page has no fence to include
+
+      assert_includes files, "docs/#{File.basename(page)}"
+    end
   end
 
   def test_every_known_red_fence_matches_exactly_one_fence
