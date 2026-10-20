@@ -40,6 +40,10 @@ module Phlex
       require_relative "engine/tailwind_stub_filter"
       private_constant :TailwindStubFilter
 
+      # Declares the gem's JavaScript precompiled in Sprockets apps (dev/decisions/sprockets.md).
+      require_relative "engine/sprockets"
+      private_constant :SprocketsAssets
+
       config.phlex_shadcn = ActiveSupport::OrderedOptions.new
       config.phlex_shadcn.theme_dir = nil
       # Short `theme:list|use|import|check` aliases of the phlex_shadcn:theme:* tasks. Turn them off while the app defines its own
@@ -58,6 +62,13 @@ module Phlex
         end
       end
 
+      # Sprockets apps only (Propshaft ignores the precompile list): the pinned files have to be declared precompiled.
+      initializer "phlex_shadcn.sprockets" do |app|
+        next unless defined?(::Sprockets::Railtie) && app.config.respond_to?(:assets)
+
+        SprocketsAssets.install(app.config.assets, directories: JAVASCRIPT_DIRECTORIES.map { |dir| root.join(dir) })
+      end
+
       initializer "phlex_shadcn.importmap", before: "importmap" do |app|
         if app.config.respond_to?(:importmap)
           app.config.importmap.paths << root.join("config/importmap.rb")
@@ -69,9 +80,11 @@ module Phlex
       # Propshaft must not serve it. tailwindcss-rails excludes the app's own app/assets/tailwind for the same reason. (Propshaft only
       # excludes load-path roots; the stub tailwindcss-rails writes to app/assets/builds/tailwind/ is hidden by TailwindStubFilter below.)
       initializer "phlex_shadcn.exclude_tailwind_inputs", before: "propshaft.append_assets_path" do |app|
-        if app.config.respond_to?(:assets) && app.config.assets.respond_to?(:excluded_paths)
+        # Propshaft only: Sprockets has no excluded_paths (reading it on its options object answers nil).
+        excluded = app.config.respond_to?(:assets) && app.config.assets.excluded_paths
+        if excluded
           path = root.join("app/assets/tailwind")
-          app.config.assets.excluded_paths << path unless app.config.assets.excluded_paths.map(&:to_s).include?(path.to_s)
+          excluded << path unless excluded.map(&:to_s).include?(path.to_s)
         end
       end
 

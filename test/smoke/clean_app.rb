@@ -34,8 +34,21 @@ module Smoke
     # Theme variables, token mapping and vendored animations: present only if the generator's theme and engine-bundle imports resolve.
     BUNDLE_MARKERS = [ "--primary", "var(--primary)", "animate-in" ].freeze
 
-    def initialize(gem_root, javascript: "importmap", app_dir: ENV.fetch("SMOKE_APP_DIR", nil), keep: ENV["SMOKE_KEEP"] == "1")
+    # Rails 8.1's `rails new` only offers Propshaft; a Sprockets app is the same app with sprockets-rails, a manifest.js and the
+    # importmap/Tailwind installers, as an upgraded Rails 7 app has it (dev/decisions/sprockets.md).
+    SPROCKETS_GEMS = %w[sprockets-rails importmap-rails turbo-rails stimulus-rails tailwindcss-rails].freeze
+    SPROCKETS_MANIFEST = <<~JS
+      //= link_tree ../images
+      //= link_directory ../stylesheets .css
+      //= link_tree ../builds
+      //= link_tree ../../javascript .js
+    JS
+    SPROCKETS_RAILS_NEW_OPTIONS = %w[--skip-asset-pipeline --skip-javascript].freeze
+
+    def initialize(gem_root, javascript: "importmap", assets: "propshaft", app_dir: ENV.fetch("SMOKE_APP_DIR", nil),
+                   keep: ENV["SMOKE_KEEP"] == "1")
       @javascript = javascript
+      @assets = assets
       @gem_root = Pathname.new(gem_root)
       @readme = Readme.new(@gem_root.join("README.md"))
       @app_dir = Pathname.new(app_dir || Dir.mktmpdir("phlex-shadcn-smoke-app-")).expand_path
@@ -63,6 +76,7 @@ module Smoke
       say "rails new #{@app_dir}"
       run(ENV.fetch("SMOKE_RAILS", "rails"), "new", @app_dir.to_s, *RAILS_NEW_OPTIONS, *rails_new_pipeline_options, chdir: @app_dir.dirname)
       install_tailwindcss_rails if esbuild?
+      install_sprockets if sprockets?
       raise "rails new did not install tailwindcss-rails" unless @app_dir.join("app/assets/tailwind/application.css").file?
     end
 
@@ -81,6 +95,7 @@ module Smoke
       end
       build_javascript if esbuild?
       run_doctor
+      precompile_assets if sprockets?
       write(@app_dir.join("app/views/demo/index.rb"), @readme.view_source)
       write(@app_dir.join("app/controllers/demo_controller.rb"), @readme.controller_source)
       routes = @app_dir.join("config/routes.rb")
@@ -89,7 +104,23 @@ module Smoke
 
     # `rails new --css tailwind` on a bundler app picks the node Tailwind CLI; the gem needs tailwindcss-rails, so an esbuild app adds it the way
     # the README asks ("tailwindcss-rails installed already").
-    def rails_new_pipeline_options = esbuild? ? %w[--javascript esbuild] : %w[--css tailwind --javascript importmap]
+    def rails_new_pipeline_options
+      return SPROCKETS_RAILS_NEW_OPTIONS if sprockets?
+
+      esbuild? ? %w[--javascript esbuild] : %w[--css tailwind --javascript importmap]
+    end
+
+    # Sprockets + importmap + Tailwind, installed the way each gem documents it for an app that was not generated with them.
+    def install_sprockets
+      raise "the sprockets smoke supports importmap only" if esbuild?
+
+      say "sprockets-rails, importmap, turbo, stimulus and tailwindcss-rails installers"
+      run("bundle", "add", *SPROCKETS_GEMS, chdir: @app_dir)
+      write(@app_dir.join("app/assets/config/manifest.js"), SPROCKETS_MANIFEST)
+      FileUtils.mkdir_p(@app_dir.join("app/assets/builds"))
+      FileUtils.touch(@app_dir.join("app/assets/builds/.keep"))
+      %w[importmap:install turbo:install stimulus:install tailwindcss:install].each { |task| run("bin/rails", task, chdir: @app_dir) }
+    end
 
     def install_tailwindcss_rails
       say "bundle add tailwindcss-rails && bin/rails tailwindcss:install"
@@ -101,9 +132,30 @@ module Smoke
     def run_doctor
       say "bin/rails phlex_shadcn:doctor"
       run("bin/rails", "phlex_shadcn:doctor", chdir: @app_dir)
+      return unless sprockets?
+
+      # Warnings do not fail the doctor: the Sprockets app has to pass its pipeline check.
+      output = unbundled { IO.popen([ "bin/rails", "phlex_shadcn:doctor" ], chdir: @app_dir.to_s, err: %i[child out], &:read) }
+      raise "the doctor does not pass the asset pipeline check:\n#{output}" unless output.include?("[PASS] asset pipeline: Sprockets")
+    end
+
+    # Production build: every declared asset (the gem's JavaScript included) compiles and gets a digest in public/assets.
+    def precompile_assets
+      say "RAILS_ENV=production bin/rails assets:precompile"
+      success = unbundled { system({ "RAILS_ENV" => "production", "SECRET_KEY_BASE_DUMMY" => "1" }, "bin/rails", "assets:precompile", chdir: @app_dir.to_s) }
+      raise "assets:precompile failed" unless success
+
+      compiled = Dir[@app_dir.join("public/assets/controllers/shadcn/dialog_controller-*.js").to_s]
+      raise "assets:precompile did not compile the gem's dialog controller" if compiled.empty?
+
+      # The development server must serve from Sprockets, not from the built files in public/assets (assets:clobber would also delete
+      # the Tailwind build).
+      FileUtils.rm_rf(@app_dir.join("public/assets"))
     end
 
     def esbuild? = @javascript == "esbuild"
+
+    def sprockets? = @assets == "sprockets"
 
     # The pipeline's own build (what bin/dev's Procfile runs in watch mode): bundles the copied controllers into builds/application.js.
     def build_javascript
@@ -158,6 +210,7 @@ module Smoke
       missing = (esbuild? ? ESBUILD_MARKUP : MARKUP).reject { |marker| body.include?(marker) }
       raise "GET #{DEMO_PATH} lacks #{missing.join(', ')}:\n#{body}" if missing.any?
 
+      check_served_assets(port, body)
       css = File.read(@app_dir.join("app/assets/builds/tailwind.css"))
       unscanned = SOURCE_UTILITIES.reject { |marker| css.include?(marker) }
       raise "the Tailwind build lacks #{unscanned.join(', ')}: no @source line reached the gem's Ruby files" if unscanned.any?
@@ -166,6 +219,19 @@ module Smoke
       raise "the Tailwind build lacks #{unimported.join(', ')}: the theme or engine-bundle import did not resolve" if unimported.any?
 
       say "GET #{DEMO_PATH} renders the Button and the Dialog; the Tailwind build contains the gem's classes"
+    end
+
+    # Every stylesheet and module the page links answers 200: Sprockets refuses (or 404s) assets that were not declared precompiled.
+    def check_served_assets(port, body)
+      urls = body.scan(%r{(?:href|src)="(/assets/[^"]+)"}).flatten.uniq
+      urls += body.scan(%r{"(/assets/[^"]+\.js)"}).flatten
+      urls.uniq!
+      raise "GET #{DEMO_PATH} links no /assets file:\n#{body}" if urls.empty?
+
+      broken = urls.reject { |url| Net::HTTP.get_response(URI("http://127.0.0.1:#{port}#{url}")).code == "200" }
+      raise "these linked assets are not served: #{broken.join(', ')}" if broken.any?
+
+      say "#{urls.size} linked assets answer 200"
     end
 
     def browser_scenario(port)
