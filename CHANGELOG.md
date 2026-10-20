@@ -3,8 +3,10 @@
 All notable changes to this gem are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and the gem adheres to [Semantic Versioning](https://semver.org/).
 
-Each release records the shadcn/ui registry it tracks: the style, the `shadcn` CLI version the oracle was extracted with, and the
-digest of the extracted oracle (the React sources and manifests every component is compared against).
+Each release records the shadcn/ui registry it tracks (`dev/decisions/shadcn-tracking.md` in the repository): the style, the `shadcn`
+CLI version and the `@shadcn/react` version the oracle was extracted with, the digest of the extracted oracle (the React sources and
+manifests every component is compared against), the number of oracle components, the fetch date, and the versions of Radix UI
+(`radix-ui`), Lucide (`lucide-react`) and the vendored `@floating-ui/dom`.
 
 ## [Unreleased]
 
@@ -42,8 +44,36 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
   next to the Radix `positioner`). Compared with Base UI in 151 parity scenarios; no new JavaScript dependency (no cmdk, fuse.js or
   Base UI).
 - Primitives `scorer` (fuzzy match and ranking, with its own unit tests) and `anchor_positioner`.
+- `bin/rails phlex_shadcn:doctor` diagnoses a host app's phlex-shadcn setup with one PASS/WARN/FAIL line per check and a one-line fix under each warning or failure
+  (asset pipeline, ejected components, engine bundle, JavaScript pipeline, Phlex versions, Propshaft stub filter, `@source` block,
+  Stimulus controllers, Tailwind, theme files and theme import). `phlex_shadcn:doctor[json]` or `JSON=1` prints JSON for CI and
+  agents, `CSS=path` points it at another Tailwind entry file, and it exits 1 when any check fails (warnings do not fail it).
+- `rails g phlex:shadcn:install --js auto|importmap|esbuild`: the generator detects the JavaScript pipeline (`auto`, the default: a
+  `config/importmap.rb` means importmap, `package.json` with jsbundling-rails or an esbuild build script means esbuild; with neither it
+  writes no JavaScript). For
+  jsbundling-rails/esbuild apps, which have no importmap, it copies the gem's controllers and primitives into `app/javascript` (managed
+  copies with relative imports), writes `controllers/shadcn/index.js`, adds the import to `application.js` and adds `@floating-ui/dom`
+  with yarn, pnpm, bun or npm; the doctor fails when a copy is stale (`dev/decisions/js-bundlers.md`).
+- Sprockets 4 support: with Sprockets the engine declares the gem's JavaScript in `config.assets.precompile`, and the doctor's
+  `asset pipeline` check names the pipeline and checks that `manifest.js` links the Tailwind build. The supported matrix (Propshaft with
+  importmap or esbuild, Sprockets 4 with importmap; Sprockets with esbuild not covered; Sprockets below 4 unsupported) is in
+  `docs/compatibility.md` and `dev/decisions/sprockets.md`.
+- `rails g phlex:shadcn:eject NAME...` copies a component (a compound one with all its parts; `dialog/content` ejects one part) into
+  `app/components/phlex_shadcn`, where it replaces the gem's file. Options `--list`, `--diff`, `--force`, `--skip`, `--pretend` and
+  `--dir`; the copy's header records the gem version and a digest, and the doctor's `ejected components` check warns on a stale copy.
+  New public configuration: `Phlex::Shadcn::Configuration#override_dir` and `#override_dir=` (Rails: `config.phlex_shadcn.override_dir`
+  in `config/application.rb` or `config/environments/*.rb`; plain Phlex: the environment variable `PHLEX_SHADCN_OVERRIDE_DIR`), and
+  `Phlex::Shadcn::Configuration::LateSettingError`, raised when the directory is set after the components loaded. Editing an ejected
+  file reloads; adding or removing one needs a restart (`dev/decisions/eject-override.md`).
+- `llms.txt`, `llms-full.txt` and `skills/phlex-shadcn/SKILL.md` ship with the gem, generated from the YARD docs and the Stimulus
+  controllers (`rake llms:generate`); `rake llms:check` and `rake test` fail when they drift.
+- `bin/demo` serves the component catalog of `dev/dummy` on a free port, and `bin/bench` prints allocations and time per render of
+  representative components (`--check` compares allocations with `dev/bench/baseline.json`). Both belong to the dev kit and are not
+  packaged.
+- `docs/compatibility.md`: the supported Ruby, Phlex, Rails, Tailwind and Stimulus versions, the asset pipelines, what CI proves and the
+  Phlex 3 policy; the policy for tracking shadcn/ui releases is `dev/decisions/shadcn-tracking.md` (repository only).
 - Gem skeleton: Zeitwerk loader, version, license files and a standalone test harness.
-- The 53 ported components as `Phlex::Shadcn::<Name>` with their parts nested under the root (`Phlex::Shadcn::Dialog::Content`),
+- The 54 ported components (the four above included) as `Phlex::Shadcn::<Name>` with their parts nested under the root (`Phlex::Shadcn::Dialog::Content`),
   generated yielded-root helpers (`dialog.content { ... }`), `as_child:` with Radix Slot semantics and `**attrs` merging on every
   part; the Stimulus controllers `shadcn--<name>` and the shared primitives they build on.
 - Rails engine (loaded only when `Rails::Engine` is defined): importmap pins for the Stimulus controllers, primitives and vendored
@@ -73,6 +103,13 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
   runs) and a `docs` job that renders every Ruby example of the README and `docs/` (`bin/smoke --docs`).
 
 ### Changed
+
+- The gem's Zeitwerk loader is set up by an engine initializer that runs before Rails sets its autoload paths, instead of at require
+  time, so the override directory of ejected components is known first. `Loader.setup` therefore no longer runs when the gem is
+  required in a Rails app; a component referenced before the app initializes (in `config/application.rb`, say) sets the loader up on
+  first lookup. Without Rails the loader is still set up at require time.
+- `Base#cn` memoizes merged class strings (bounded cache, internal; no public API change), which cut allocations per render:
+  `bin/bench` button 57 to 41, card 197 to 119, select 882 to 597, dialog 540 to 378, table 7115 to 4339 (Ruby 4.0.0, Phlex 2.4.1).
 
 Relative to the in-app port (`Components::V2`):
 
@@ -107,6 +144,7 @@ Since the first extraction of the gem:
 
 ### Fixed
 
+- The engine no longer raises `NoMethodError` at boot in apps without Propshaft (`config.assets.excluded_paths`).
 - `Select::Item` no longer needs Nokogiri (text is derived with a quote-aware tag strip); a plain-Phlex `Select` renders, and
   `nokogiri` is not a dependency. YARD builds without warnings.
 - Dialog, AlertDialog and Sheet unmount their portaled overlay on `turbo:before-cache`: a cached page has no open modal, scroll

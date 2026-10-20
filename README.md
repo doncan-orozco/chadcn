@@ -1,8 +1,8 @@
 # phlex-shadcn
 
 [shadcn/ui](https://ui.shadcn.com) for [Phlex](https://www.phlex.fun): the same component API, the same Tailwind class strings and
-the same Radix behavior, as Phlex views with Stimulus controllers. Fifty components (`Button`, `Dialog`, `Select`, `Sidebar`...),
-each one checked against the React original in a browser.
+the same behavior as the React originals (Radix, and the libraries shadcn wraps), as Phlex views with Stimulus controllers. 54 components (`Button`, `Dialog`, `Select`, `Sidebar`,
+`Toaster`, `Command`, `Combobox`, `Calendar`...), each one checked against the React original in a browser.
 
 > Status: pre-release (0.x). The public API follows semantic versioning from the first release; see [CHANGELOG.md](CHANGELOG.md).
 
@@ -11,14 +11,33 @@ each one checked against the React original in a browser.
 - Behavior lives in Stimulus controllers named `shadcn--<component>`; they ship in the gem with the shared primitives they use.
 - Colors come from one shadcn-format theme file you own; anything pasted from ui.shadcn.com/themes works unchanged.
 
+## Why phlex-shadcn
+
+- **The shadcn markup, verbatim.** Class strings, structure, `data-slot` attributes and variants are copied from the shadcn/ui
+  registry, so the HTML follows the React original (each deliberate difference is recorded in `dev/port/DEVIATIONS.md` and
+  `dev/port/deviations/` of the repository) and shadcn's documentation, themes and examples apply.
+- **Radix-equivalent behavior.** Dialogs, menus, selects, tooltips and the rest are Stimulus controllers on shared primitives
+  (dismissable layer, focus scope, roving focus, positioning, scroll lock...). In the repository's dev kit (not packaged), browser
+  parity tests render every component next to the React original and compare DOM, styles and behavior.
+- **Small runtime.** The only runtime dependencies are `phlex`, `tailwind_merge` and `zeitwerk`: no Active Support, no Nokogiri, and no
+  new JavaScript library for `Toaster`, `Command`, `Combobox` or `Calendar` (besides Stimulus, the only JavaScript dependency is
+  `@floating-ui/dom` for positioning, vendored for importmap apps and added from npm for esbuild apps).
+- **Upgrades are a `bundle update`** (and your usual `tailwindcss:build`). The components, controllers and CSS live in the gem, not copied into your app (the two
+  exceptions you opt into: [ejected components](#eject-a-component) and, with esbuild, the managed JavaScript copies).
+- **An escape hatch.** [Eject](#eject-a-component) one component into your app when you need to change its markup, and keep the rest
+  upgrading with the gem.
+
 ## Requirements
 
 - Ruby 3.2 or newer and [Phlex](https://www.phlex.fun) 2.x from 2.3 (`~> 2.3`; Phlex 3 is not supported). CI runs the gem suite
   on Ruby 3.2, 3.3, 3.4 and 4.0, each against the current Phlex 2.x and against Phlex 2.3.
 - Tailwind CSS 4 (the components use Tailwind utility classes; with Rails, `tailwindcss-rails`).
-- For the interactive components: Stimulus 3 (`@hotwired/stimulus`). With Rails, `importmap-rails` (the gem's engine adds its pins).
+- For the interactive components: Stimulus 3 (`@hotwired/stimulus`). With Rails, `importmap-rails` (the gem's engine adds its pins) or
+  `jsbundling-rails` with esbuild (see [JavaScript pipelines](#javascript-pipelines)).
 - With Rails, `phlex-rails` renders Phlex views from controllers; the gem itself depends only on `phlex`, `tailwind_merge` and
   `zeitwerk` (no Nokogiri, no Active Support).
+- The supported versions of Ruby, Phlex, Rails and the asset pipelines, what CI proves and the Phlex 3 policy are in
+  [docs/compatibility.md](docs/compatibility.md).
 
 ## Rails: from zero to a Button and a Dialog
 
@@ -104,12 +123,91 @@ The Button renders `<button data-slot="button" data-variant="outline" data-size=
 shadcn class string; clicking the trigger opens a modal dialog with the overlay, focus trap, Escape and outside-click dismissal
 of Radix Dialog.
 
+### JavaScript pipelines
+
+`rails g phlex:shadcn:install --js auto|importmap|esbuild` chooses how the gem's Stimulus controllers reach the browser. The default,
+`auto`, detects the pipeline: a `config/importmap.rb` means importmap; otherwise a `package.json` together with `jsbundling-rails` in the
+bundle (or an `esbuild` build script in `package.json`) means esbuild. `--js importmap` or `--js esbuild` overrides the detection (any jsbundling-rails app is treated as esbuild; only esbuild is smoke-tested);
+when neither is found the generator says so and writes no JavaScript.
+
+- **importmap** (Rails' default and the setup above): nothing is written, the engine pins the controllers, the primitives and the
+  vendored `@floating-ui/dom`.
+- **esbuild** (no importmap, so nothing pins the gem's files): the generator copies the gem's controllers into
+  `app/javascript/controllers/shadcn/` and its primitives into `app/javascript/shadcn/primitives/` (managed copies with relative
+  imports and a "managed by" header; edits are overwritten), writes `app/javascript/controllers/shadcn/index.js` (it registers every
+  controller as `shadcn--<name>` with your `application`), adds `import "./controllers/shadcn"` to `app/javascript/application.js`
+  and adds `@floating-ui/dom` to `package.json` with your package manager (yarn, pnpm or bun when their lock file is present,
+  npm otherwise). Run `bin/rails javascript:build` afterwards. The copies are the only part of the gem that can go stale: run the
+  generator again after every gem update (it is idempotent and prints `identical` for current files), and `bin/rails phlex_shadcn:doctor`
+  fails when a copy is missing or differs. The reasoning is in `dev/decisions/js-bundlers.md` of the repository (not packaged).
+
+### Asset pipelines
+
+| Rails | Assets | JavaScript | Status |
+|---|---|---|---|
+| 8.1 | Propshaft | importmap | supported, the default setup; covered by the clean-app smoke in CI |
+| 8.1 | Propshaft | esbuild (jsbundling-rails) | supported; covered by a smoke run by hand (`bin/smoke --app --js esbuild`), not in CI yet |
+| 8.1 | Sprockets 4 (sprockets-rails 3.5) | importmap | supported; covered by a smoke run by hand (`bin/smoke --app --assets sprockets`), not in CI yet |
+| 8.1 | Sprockets | esbuild | not covered: no smoke proves it |
+| any | Sprockets below 4, or Sass/SCSS instead of the Tailwind CLI | any | not supported |
+
+On Sprockets 4 the engine declares the gem's JavaScript precompiled itself (sprockets-rails refuses assets that are not declared, and
+your `manifest.js` cannot link files inside a gem). Your `app/assets/config/manifest.js` has to link the Tailwind build
+(`//= link_tree ../builds`, which `tailwindcss-rails` writes, or `//= link tailwind.css`) and the layout uses
+`stylesheet_link_tag "tailwind"`. The Propshaft-only
+`hide_tailwind_stubs` option does nothing under Sprockets. The doctor names the pipeline and checks the manifest. Details:
+`dev/decisions/sprockets.md` in the repository.
+
+### Check the setup: the doctor
+
+```bash
+bin/rails phlex_shadcn:doctor                # one PASS / WARN / FAIL line per check, a "fix:" line under each problem
+JSON=1 bin/rails phlex_shadcn:doctor         # the same as JSON, for CI and agents (bin/rails "phlex_shadcn:doctor[json]" does the same)
+CSS=app/assets/tailwind/admin.css bin/rails phlex_shadcn:doctor   # a Tailwind entry file other than app/assets/tailwind/application.css
+```
+
+The task exits 1 when any check fails (warnings do not fail it), so it can gate a CI job. The checks, one file each under
+`lib/phlex/shadcn/doctor/checks/`:
+
+| Check | Looks at |
+|---|---|
+| `asset pipeline` | Propshaft or Sprockets (below 4 warns), and for Sprockets that `manifest.js` links the Tailwind build |
+| `ejected components` | stale or incomplete ejected copies (see [Eject](#eject-a-component)) |
+| `engine bundle` | the managed block imports the engine bundle and `tailwindcss:build` has built it |
+| `javascript pipeline` | importmap-rails, or the esbuild copies being present, registered and current |
+| `phlex versions` | Phlex inside `~> 2.3`, and phlex-rails on the same major |
+| `propshaft stub filter` | the hook that hides the Tailwind stubs works (not applicable without Propshaft) |
+| `source block` | the managed block exists and its `@source` points at the gem's `lib` |
+| `stimulus controllers` | the gem's `shadcn--*` controllers get registered |
+| `tailwind` | `tailwindcss-rails` 4 and Tailwind 4, and `@import "tailwindcss"` in the entry file |
+| `theme files` | `theme.css` and `presets/` in the theme directory |
+| `theme import` | the managed block imports `theme.css` |
+
+A run on a healthy app (paths shortened):
+
+```
+[PASS] asset pipeline: Propshaft 1.3.2
+[PASS] ejected components: nothing ejected (every component loads from the gem)
+[PASS] engine bundle: app/assets/builds/tailwind/phlex-shadcn is imported and built
+[PASS] javascript pipeline: importmap-rails 2.2.3: the gem's controllers and primitives are pinned by its engine
+[PASS] phlex versions: phlex 2.4.1 (~> 2.3), phlex-rails 2.4.0
+[PASS] propshaft stub filter: the Tailwind stubs are hidden from the served assets
+[PASS] source block: @source points at the gem's lib
+[PASS] stimulus controllers: app/javascript/controllers/index.js registers the controllers namespace, where the gem's shadcn--* controllers are
+[PASS] tailwind: tailwindcss-rails 4.6.0, Tailwind 4.3.3
+[PASS] theme files: theme.css and presets/ in app/assets/tailwind/theme
+[PASS] theme import: the block imports app/assets/tailwind/theme/theme.css
+
+11 passed, 0 warnings, 0 failed
+```
+
 ### Configuration (`config/application.rb`)
 
 ```ruby
 config.phlex_shadcn.theme_dir = "app/assets/tailwind/theme"  # where theme.css and presets/ live; relative to the app root
 config.phlex_shadcn.theme_task_aliases = true                 # false when the app defines its own theme:* rake tasks
 config.phlex_shadcn.hide_tailwind_stubs = true                # false to leave the tailwindcss-rails stubs to Propshaft
+config.phlex_shadcn.override_dir = "app/components/phlex_shadcn"  # ejected components; see Eject a component
 ```
 
 `hide_tailwind_stubs` keeps the stubs tailwindcss-rails writes to `app/assets/builds/tailwind/` (Tailwind input, not browser
@@ -180,7 +278,7 @@ in turn (or take `@floating-ui/dom` from npm). You have to resolve all of those 
 2. A bundler alias: map `controllers/shadcn` to `<gem root>/app/javascript/controllers/shadcn` and `shadcn` to
    `<gem root>/app/javascript/shadcn`, and install `@floating-ui/dom` from npm.
 
-Rails users need none of this: the gem's engine pins everything through importmap-rails (`config/importmap.rb`). Then register each
+Rails apps on importmap-rails need none of this (the engine pins everything in `config/importmap.rb`); esbuild apps use the generator, see [JavaScript pipelines](#javascript-pipelines). Then register each
 controller under its `shadcn--<name>` identifier:
 
 ```js
@@ -239,9 +337,139 @@ end
   Fixed landmark labels (`Spinner`, `NavigationMenu`, `Sidebar::Rail`...) take `aria: { label: ... }`; see
   [docs/api-conventions.md](docs/api-conventions.md).
 
-The API of every component is in the YARD documentation (`bundle exec yard server` in the gem, or rubydoc.info once released) and,
+The API of every component is in the YARD documentation (`bundle exec yard server` in the gem) and,
 per family, in [`docs/`](docs/): [conventions](docs/api-conventions.md), [display](docs/display.md), [form controls](docs/form-controls.md),
 [disclosure and navigation](docs/disclosure-and-navigation.md), [overlays](docs/overlays.md), [menus and select](docs/menus-and-select.md).
+[Compatibility](docs/compatibility.md) lists the supported Ruby, Phlex, Rails and Tailwind versions and the Phlex 3 policy.
+
+### Toaster, Command, Combobox, Calendar and the date picker
+
+Four components port libraries that shadcn wraps (sonner, cmdk, Base UI's combobox, react-day-picker) without taking those libraries
+as dependencies: the behavior is rewritten as Stimulus controllers on shared primitives, and the markup follows shadcn's.
+
+```ruby
+# Toaster (sonner): render it once in the layout; the flash becomes toasts
+render Phlex::Shadcn::Toaster.new(flash: { notice: "Saved", alert: "Could not send" }, position: "top-center")
+
+# Command (cmdk): a searchable palette; Command::Dialog puts the same list in a dialog
+render Phlex::Shadcn::Command.new do |command|
+  command.input(placeholder: "Type a command or search...")
+  command.list do
+    command.empty { "No results found." }
+    command.group(heading: "Suggestions") do
+      command.item(value: "calendar") { "Calendar" }
+      command.item(value: "search") { "Search" }
+    end
+  end
+end
+
+# Combobox (Base UI): an input with a filtered list, submits the selected item, e.g. framework=next.js
+render Phlex::Shadcn::Combobox.new(items: %w[next.js sveltekit astro], name: "framework") do |combobox|
+  combobox.input(placeholder: "Select a framework")
+  combobox.content do
+    combobox.empty { "No items found." }
+    combobox.list { |item| combobox.item(value: item) { item } }
+  end
+end
+
+# Calendar (react-day-picker): native Date and Intl, hidden ISO inputs with name:
+render Phlex::Shadcn::Calendar.new(mode: :single, selected: Date.new(2026, 3, 15), name: "starts_on")
+```
+
+- **Toaster.** Toasts come from the flash (`Toaster.new(flash:)`), from a Turbo Stream that appends a `Sonner::Toast` to the Toaster
+  (`turbo_stream.append "toaster", Phlex::Shadcn::Sonner::Toast.new(type: :success, title: "Saved")`) and from JavaScript
+  (`window.Toaster.success("Saved")`). Compared with sonner, there are no React elements: `window.Toaster.custom` takes a DOM node (or a function returning one),
+  `window.Toaster.promise` works as in sonner, and the flash and Turbo Stream toasts are server-rendered `<template>`s with text only.
+  `error` toasts are also announced through an assertive live region.
+  See [display](docs/display.md#toasts-the-toaster).
+- **Command.** The built-in `scorer` primitive replaces cmdk's `command-score`, and it is not the same algorithm: the scores are
+  different numbers. The parity scenarios use queries where both rank identically, but that is not guaranteed in general: items cmdk
+  scores equally (a tie) can come out in another order, `command-score` matches `"app"` against `"Apricot"` and the scorer does not,
+  and whitespace in the query is ignored instead of matched. See [menus and select](docs/menus-and-select.md#command-and-combobox).
+- **Combobox.** The default `filter:` is `"fuzzy"` (the same scorer, so `"nxt"` finds `next.js`). Pass `filter: :contains` for Base
+  UI's own substring matching and `filter: nil` for no filtering. Single and multiple (chips) selection, grouped items and a clear
+  button are supported, and `name:` submits through hidden inputs.
+- **Calendar.** Single, multiple and range modes. Month and weekday names and the labels are exact for English and Spanish
+  (`locale: :es`); other locales are `Intl` approximations with English labels. `name:` renders ISO 8601 (`YYYY-MM-DD`) hidden inputs.
+  See [form controls](docs/form-controls.md#example-a-calendar-and-a-date-picker).
+- **Date picker.** There is no `DatePicker` class: shadcn's date picker is a block (an example), not a registry component. It is a
+  composition of `Popover`, a `Button` trigger and a `Calendar` with an external hidden input, using the `Calendar` keywords `input:`
+  (the hidden ISO input to read and write), `label:` (the element that shows the formatted date) and `close_on_select:`. The full,
+  tested recipe is in [form controls](docs/form-controls.md#example-a-calendar-and-a-date-picker).
+
+## Eject a component
+
+When a component's markup has to change, copy it into your app. The copy replaces the gem's file, and every other component keeps
+loading from the gem:
+
+```bash
+bin/rails g phlex:shadcn:eject button                # app/components/phlex_shadcn/button.rb
+bin/rails g phlex:shadcn:eject alert-dialog          # a compound component is ejected as a unit: alert_dialog.rb and every part under alert_dialog/
+bin/rails g phlex:shadcn:eject dialog/content        # one part only; Dialog and its other parts keep loading from the gem
+bin/rails g phlex:shadcn:eject --list                # what can be ejected, and what already is
+bin/rails g phlex:shadcn:eject button --diff         # the gem's current file against your copy
+```
+
+Names can be written `button`, `Button`, `alert-dialog` or `dialog/content`. Options: `--list`, `--diff`, `--force` (overwrite; without it
+nothing is written when any target exists), `--skip` (leave existing files alone), `--pretend` (print what would happen) and
+`--dir` (the override directory, relative to the app root). Each copy starts with two comment lines recording the gem version and the
+SHA-256 of the file it came from. Edit the copy: it defines the same constant (`Phlex::Shadcn::Button`) and the gem's own file is not
+loaded for it. Tailwind scans it like any file of your app.
+
+The override directory is `app/components/phlex_shadcn` by default (used when it exists). To move it, set it **before the app boots**,
+in `config/application.rb` or `config/environments/*.rb`:
+
+```ruby
+# config/application.rb
+config.phlex_shadcn.override_dir = "app/components/shadcn"
+```
+
+The directory is read once, when the gem's components are set up. Setting `override_dir` later (from `config/initializers`, or with
+`Phlex::Shadcn.configure` after the components loaded) raises `Phlex::Shadcn::Configuration::LateSettingError` instead of being ignored.
+Without Rails, set the environment variable `PHLEX_SHADCN_OVERRIDE_DIR` before `require "phlex/shadcn"`.
+
+- Restart the server after ejecting. Editing an ejected file reloads like the rest of your app code, but adding or removing an ejected
+  file needs a restart.
+- Some gem classes include code from `direction`, `direction/consumer`, `dropdown_menu` and any `<component>/support` part when they
+  load, so an edit to those copies reaches the gem's classes only after a restart. The generator prints a warning when you eject them.
+- `bin/rails phlex_shadcn:doctor` warns about stale copies (check `ejected components`): the gem's file changed since you ejected
+  (compare with `--diff`), a part of an ejected unit is missing, or a copy lost its header. Updating the gem does not update your copy.
+- Ejecting `sonner` (or `sonner/toaster`) also ejects `toaster.rb`, the `Toaster` alias.
+- Infrastructure files (`base`, `configuration`, `doctor`, `engine`, `icons`, `theme`, `values`, `version`) cannot be ejected. The design notes are in
+  `dev/decisions/eject-override.md` of the repository (not packaged).
+
+## Performance
+
+`bin/bench` (in the gem directory; plain Phlex, no Rails) renders representative components and prints microseconds and Ruby object
+allocations per render. Allocation counts are deterministic and are what `bin/bench --check` compares with `dev/bench/baseline.json` (run it by hand: it is not part of `bin/check` or CI, and it skips with a warning on another Ruby or Phlex version); times vary from run to run and are
+informational only. Merged class strings are memoized in `Base`, which cut allocations per render (Ruby 4.0.0, Phlex 2.4.1; the "before" column is `dev/bench/baseline.json` as committed
+with the benchmark in `18c4cbd`, the "after" column is the current file):
+
+| Scenario | Allocations per render before the cache | after |
+|---|---|---|
+| `button` (one outline Button) | 57 | 41 |
+| `card` (Card with header, title, description, content, footer) | 197 | 119 |
+| `select` | 882 | 597 |
+| `dialog` | 540 | 378 |
+| `table` | 7115 | 4339 |
+
+`reference`, the same Button hand-written in plain Phlex, is 13 allocations. A run on Ruby 4.0.0 and Phlex 2.4.1 (arm64 macOS)
+printed 8.2 microseconds for `button` against 2.9 for `reference`, 29.7 for `card`, 196.0 for `select`, 105.5 for `dialog` and
+1084.7 for `table`. Absolute times depend on the machine; the allocation counts depend on the Ruby and Phlex versions. The benchmark
+makes no comparison with other libraries.
+
+## For AI assistants
+
+`llms.txt`, `llms-full.txt` and `skills/phlex-shadcn/SKILL.md` ship with the gem. They are generated from the YARD documentation and
+the Stimulus controllers, so they list every component with its constructor keywords, variants, parts, controller values and events,
+plus short usage rules, and a drift fails `rake llms:check` and `rake test` (through `test/llms_drift_test.rb`): `rake llms:generate` regenerates them. Change a component's
+keywords, parts or Stimulus API, then run `rake llms:generate` and commit the result.
+
+## The demo
+
+`bin/demo` (in the gem directory, `bin/demo --port 3100` for a port) builds the Tailwind CSS of the dummy app in `dev/dummy` and serves
+its component catalog on a free local port, so you can try every component and the theme. It is part of the repository's dev kit and
+is not packaged with the gem: run it from a checkout.
 
 ## Theme
 
@@ -276,6 +504,11 @@ and removals are deprecated for one minor version first.
   are no longer shipped: remove any pin or registration of `shadcn--_probe-*` or `shadcn--theme-panel`.
 - `Direction::Provider` without `dir:` or `direction:` keeps the outer direction instead of resetting to `ltr`.
 - The gem no longer depends on `activesupport`; code that relied on it being loaded by the gem has to require it itself.
+- The gem's Zeitwerk loader is no longer set up when the gem is required. In a Rails app the engine sets it up in an initializer that
+  runs before Rails sets its autoload paths (after `config/application.rb` and `config/environments/*.rb`), so the override directory
+  of [ejected components](#eject-a-component) is known first; without Rails it still happens at require time. A component referenced
+  before the app initializes (in `config/application.rb`, say) sets the loader up on first lookup, and the app then refuses to boot
+  with `LateSettingError` if that dropped an existing override directory.
 - Replace a host-side bridge (asset paths and importmap pins for the gem's JavaScript) by the engine: remove the bridge and run
   `bin/rails g phlex:shadcn:install`.
 
@@ -287,7 +520,12 @@ bundle install
 bin/check                      # rake test, rake test:engine, rubocop, bundler-audit and the gem gate
 bundle exec yard stats --list-undoc   # the public API has to be 100% documented
 bin/smoke --docs               # every Ruby example of this README and docs/ renders in a plain process
+bin/bench                      # allocations and time per render (bin/bench --check compares allocations with dev/bench/baseline.json)
+bundle exec rake llms:generate # regenerate llms.txt, llms-full.txt and the agent skill (rake llms:check fails on drift)
+bin/demo                       # the component catalog of dev/dummy on a free local port
 ```
+
+Run these with `env -u BUNDLE_GEMFILE` if your shell exports a `BUNDLE_GEMFILE` for another project.
 
 The browser tests of the Stimulus controllers run from the repository root with `bin/rails test:javascript` (Playwright; it starts
 the dev servers; the CI job `js-tests` runs the same suite).

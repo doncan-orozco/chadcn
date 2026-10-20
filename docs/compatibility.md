@@ -16,6 +16,19 @@ What phlex-shadcn supports today, what CI proves, and what happens when Phlex 3 
 
 The gem itself depends only on `phlex`, `tailwind_merge` and `zeitwerk`. Rails, `phlex-rails`, `importmap-rails` and `tailwindcss-rails` are the host app's choice, not dependencies.
 
+## Asset and JavaScript pipelines
+
+| Rails | Assets | JavaScript | Status |
+|---|---|---|---|
+| 8.1 | Propshaft | importmap | supported; the clean-app smoke runs it in CI |
+| 8.1 | Propshaft | esbuild (jsbundling-rails) | supported; `bin/smoke --app --js esbuild` run by hand, not in CI yet |
+| 8.1 | Sprockets 4 (sprockets-rails 3.5) | importmap | supported; `bin/smoke --app --assets sprockets` run by hand, not in CI yet |
+| 8.1 | Sprockets | esbuild | not covered: no smoke proves it |
+| any | Sprockets below 4, or Sass/SCSS instead of the Tailwind CLI | any | not supported |
+
+The install generator chooses the JavaScript pipeline with `--js auto|importmap|esbuild`, and `bin/rails phlex_shadcn:doctor` names the
+asset pipeline and checks the setup; both are described in the README.
+
 ## What CI proves
 
 The gem workflow runs the plain-Phlex suite, the Rails engine and generator suite, RuboCop, the dependency audit, the YARD coverage check and the packaging check on every Ruby in the table, each against two Phlex versions:
