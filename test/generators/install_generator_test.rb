@@ -238,4 +238,148 @@ class InstallGeneratorTest < Rails::Generators::TestCase
     assert_match(/phlex-shadcn:start/, output, "the message shows the lines to add by hand")
     assert_equal "body { color: red; }\n", css, "the file is left untouched"
   end
+
+  ESBUILD_PACKAGE = <<~JSON
+    {"scripts": {"build": "esbuild app/javascript/*.* --bundle --outdir=app/assets/builds"}, "dependencies": {"@floating-ui/dom": "^1.8.0"}}
+  JSON
+
+  def esbuild_app(package: ESBUILD_PACKAGE)
+    write("package.json", package)
+    write("app/javascript/application.js", %(import "@hotwired/turbo-rails"\nimport "./controllers"\n))
+  end
+
+  test "an esbuild app gets the controllers and primitives as relative-import copies, registered and imported" do
+    esbuild_app
+    run_generator
+
+    assert_file "app/javascript/controllers/shadcn/dialog_controller.js" do |source|
+      assert_includes source, %(from "../../shadcn/primitives/presence")
+      assert_match(%r{\A// Managed by}, source)
+      refute_match(%r{from "(shadcn/primitives|controllers/shadcn)/}, source)
+    end
+    assert_file "app/javascript/controllers/shadcn/sheet_controller.js", %r{from "\./dialog_controller"}
+    assert_file "app/javascript/shadcn/primitives/roving_focus.js", %r{from "\./direction"}
+    assert_file "app/javascript/controllers/shadcn/index.js" do |source|
+      assert_includes source, %(import { application } from "../application")
+      assert_includes source, %(application.register("shadcn--dropdown-menu", DropdownMenuController))
+    end
+    assert_file "app/javascript/application.js", %r{import "\./controllers/shadcn"\n\z}
+    assert_no_file "app/javascript/controllers/shadcn/index_controller.js"
+  end
+
+  test "every gem controller is registered in the esbuild index" do
+    esbuild_app
+    run_generator
+    index = File.read(File.join(destination_root, "app/javascript/controllers/shadcn/index.js"))
+    controllers = Phlex::Shadcn.root.join("app/javascript/controllers/shadcn").children.map { |file| file.basename.to_s.delete_suffix("_controller.js") }
+
+    controllers.each { |name| assert_includes index, "application.register(\"shadcn--#{name.tr('_', '-')}\"," }
+  end
+
+  test "no copy keeps an importmap-only specifier" do
+    Phlex::Shadcn::Generators::JsBundle.files(Phlex::Shadcn.root).each do |path, content|
+      refute_match(%r{["'](shadcn/primitives|controllers/shadcn)/}, content, path)
+    end
+  end
+
+  test "specifiers are rewritten in every quote and import form" do
+    source = %(import a from 'shadcn/primitives/x'\nimport "shadcn/primitives/y"\nconst m = await import("controllers/shadcn/z")\n)
+    rewritten = Phlex::Shadcn::Generators::JsBundle.send(:relative_specifiers, source, "app/javascript/controllers/shadcn")
+
+    assert_equal %(import a from '../../shadcn/primitives/x'\nimport "../../shadcn/primitives/y"\nconst m = await import("./z")\n), rewritten
+  end
+
+  test "pnpm and bun lock files choose their package manager" do
+    esbuild_app(package: %({"scripts": {"build": "esbuild"}}))
+    write("pnpm-lock.yaml", "")
+
+    assert_match(%r{pnpm add @floating-ui/dom}, run_generator(%w[--pretend]))
+    FileUtils.rm(File.join(destination_root, "pnpm-lock.yaml"))
+    write("bun.lockb", "")
+
+    assert_match(%r{bun add @floating-ui/dom}, run_generator(%w[--pretend]))
+  end
+
+  test "a commented-out import does not count and a single-quoted one does" do
+    esbuild_app
+    write("app/javascript/application.js", %(// import "./controllers/shadcn"\n))
+    run_generator
+
+    assert_equal 2, File.read(File.join(destination_root, "app/javascript/application.js")).scan("./controllers/shadcn").size
+    write("app/javascript/application.js", %(import './controllers/shadcn'\n))
+    run_generator
+
+    assert_equal 1, File.read(File.join(destination_root, "app/javascript/application.js")).scan("./controllers/shadcn").size
+  end
+
+  test "an esbuild app run twice changes nothing" do
+    esbuild_app
+    run_generator
+    first = snapshot
+    output = run_generator
+
+    assert_equal first, snapshot
+    assert_match(%r{identical\s+app/javascript/controllers/shadcn/dialog_controller.js}, output)
+    assert_equal 1, File.read(File.join(destination_root, "app/javascript/application.js")).scan("controllers/shadcn").size
+  end
+
+  test "an esbuild run refreshes a copy that went stale" do
+    esbuild_app
+    run_generator
+    write("app/javascript/shadcn/primitives/presence.js", "// stale\n")
+    output = run_generator
+
+    assert_match(%r{update\s+app/javascript/shadcn/primitives/presence.js}, output)
+    assert_file "app/javascript/shadcn/primitives/presence.js", /export/
+  end
+
+  test "an esbuild app without floating-ui gets it from its package manager" do
+    esbuild_app(package: %({"scripts": {"build": "esbuild app/javascript/*.*"}}))
+    write("yarn.lock", "")
+    output = run_generator %w[--pretend]
+
+    assert_match(%r{run\s+yarn add @floating-ui/dom@\^1\.8\.0}, output)
+  end
+
+  test "the package manager follows the lock file" do
+    esbuild_app(package: %({"scripts": {"build": "esbuild"}}))
+
+    assert_match(%r{npm install @floating-ui/dom}, run_generator(%w[--pretend]))
+  end
+
+  test "an importmap app is left alone" do
+    write("config/importmap.rb", %(pin "application"\n))
+    write("package.json", ESBUILD_PACKAGE)
+    run_generator
+
+    assert_no_file "app/javascript/controllers/shadcn/dialog_controller.js"
+  end
+
+  test "--js importmap skips the JavaScript copies even when a build script exists" do
+    esbuild_app
+    run_generator %w[--js importmap]
+
+    assert_no_file "app/javascript/controllers/shadcn/index.js"
+  end
+
+  test "an app without a detectable pipeline gets no JavaScript" do
+    run_generator
+
+    assert_no_file "app/javascript/controllers/shadcn/index.js"
+  end
+
+  test "--js esbuild without a package.json fails with a clear message" do
+    output = run_failing_generator(%w[--js esbuild])
+
+    assert_match(/package.json not found/, output)
+    assert_no_file "app/javascript/controllers/shadcn/index.js"
+    assert_no_file "app/javascript/shadcn/primitives/presence.js"
+  end
+
+  test "an esbuild app without application.js is told what to add" do
+    write("package.json", ESBUILD_PACKAGE)
+    output = run_generator
+
+    assert_match(%r{add `import "\./controllers/shadcn"`}, output)
+  end
 end

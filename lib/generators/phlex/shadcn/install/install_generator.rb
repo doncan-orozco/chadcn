@@ -3,6 +3,7 @@
 require "rails/generators"
 require "pathname"
 require "phlex/shadcn"
+require_relative "js_bundle"
 
 module Phlex
   module Shadcn
@@ -13,7 +14,10 @@ module Phlex
       # 1. writes one marker-delimited block into the Tailwind entry file (app/assets/tailwind/application.css) right after
       #    `@import "tailwindcss";`: the `@source` line for the gem's Ruby files (Tailwind 4 only generates the classes it finds in
       #    scanned files, so without it the components render unstyled), the import of the engine bundle and of the theme file;
-      # 2. copies the default theme (theme.css and presets/) into the host's theme directory unless they already exist.
+      # 2. copies the default theme (theme.css and presets/) into the host's theme directory unless they already exist;
+      # 3. in an esbuild (jsbundling-rails) app, which has no importmap to get the gem's pins from, copies the Stimulus controllers and
+      #    primitives into app/javascript, registers them and adds @floating-ui/dom (see dev/decisions/js-bundlers.md). An importmap
+      #    app needs nothing: the engine pins the gem's JavaScript.
       #
       # It is idempotent: a second run rewrites the same block and skips the existing theme files, so nothing changes. The block is
       # managed by the generator; edits inside the markers are overwritten. (The engine's own CSS also carries a relative `@source`,
@@ -30,6 +34,8 @@ module Phlex
         class_option :theme_dir, type: :string,
                                  desc: "Where theme.css and presets/ are kept (default: config.phlex_shadcn.theme_dir, " \
                                        "else #{Phlex::Shadcn::Engine::DEFAULT_THEME_DIR})"
+        class_option :js, type: :string, default: "auto", enum: %w[auto importmap esbuild],
+                          desc: "The JavaScript pipeline of the app (auto detects importmap-rails or jsbundling-rails with esbuild)"
 
         BLOCK_START = "/* phlex-shadcn:start (managed by rails g phlex:shadcn:install) */"
         BLOCK_END = "/* phlex-shadcn:end */"
@@ -62,8 +68,21 @@ module Phlex
           directory "presets", File.join(theme_dir, "presets"), skip: true
         end
 
+        def install_javascript
+          return say("No importmap or jsbundling esbuild setup found: add --js importmap|esbuild to wire the gem's JavaScript.", :yellow) if pipeline == :unknown
+          return unless pipeline == :esbuild
+
+          package = File.join(destination_root, "package.json")
+          raise Thor::Error, "package.json not found: --js esbuild needs a jsbundling-rails app" unless File.file?(package)
+
+          add_floating_ui(package)
+          write_js_files
+          import_in_application
+        end
+
         def show_next_steps
           say "\nRun bin/rails tailwindcss:build (it bundles the engine CSS) and restart the server.", :green
+          say "Run the generator again after updating the gem: it refreshes the copied JavaScript.", :green if pipeline == :esbuild
           return if theme_dir == (configured_theme_dir || Phlex::Shadcn::Engine::DEFAULT_THEME_DIR)
 
           say "The theme tasks look in #{configured_theme_dir || Phlex::Shadcn::Engine::DEFAULT_THEME_DIR}: set " \
@@ -71,6 +90,53 @@ module Phlex
         end
 
         private
+
+        # @return [Symbol] :importmap, :esbuild, or :unknown (then nothing JavaScript related is written)
+        def pipeline
+          @pipeline ||= options[:js] == "auto" ? JsBundle.pipeline(destination_root, Gem.loaded_specs) : options[:js].to_sym
+        end
+
+        def write_js_files
+          JsBundle.files(Phlex::Shadcn.root).each do |path, content|
+            full = File.join(destination_root, path)
+            existing = File.file?(full) ? File.binread(full).force_encoding(Encoding::UTF_8) : nil
+            next say_status(:identical, path, :blue) if existing == content
+
+            unless options[:pretend]
+              FileUtils.mkdir_p(File.dirname(full))
+              File.binwrite(full, content)
+            end
+            say_status(existing ? :update : :create, path, :green)
+          end
+        end
+
+        def import_in_application
+          path = File.join(destination_root, JsBundle::ENTRY)
+          unless File.file?(path)
+            return say("#{JsBundle::ENTRY} not found: add `#{JsBundle::APPLICATION_IMPORT}` to your JavaScript entry file.", :yellow)
+          end
+
+          text = File.read(path)
+          return say_status(:identical, JsBundle::ENTRY, :blue) if text.match?(JsBundle::APPLICATION_IMPORT_PATTERN)
+
+          eol = text.include?("\r\n") ? "\r\n" : "\n"
+          File.write(path, "#{text.chomp}#{eol}#{JsBundle::APPLICATION_IMPORT}#{eol}") unless options[:pretend]
+          say_status(:insert, JsBundle::ENTRY, :green)
+        end
+
+        def add_floating_ui(package)
+          return say_status(:identical, "package.json (#{JsBundle::FLOATING_UI})", :blue) if JsBundle.floating_ui?(File.read(package))
+
+          inside(destination_root) { run "#{package_manager_add} #{JsBundle::FLOATING_UI}@#{JsBundle::FLOATING_UI_REQUIREMENT}", abort_on_failure: true }
+        end
+
+        def package_manager_add
+          if File.file?(File.join(destination_root, "yarn.lock")) then "yarn add"
+          elsif File.file?(File.join(destination_root, "pnpm-lock.yaml")) then "pnpm add"
+          elsif %w[bun.lockb bun.lock].any? { |lock| File.file?(File.join(destination_root, lock)) } then "bun add"
+          else "npm install"
+          end
+        end
 
         def css_path = File.expand_path(options[:css], destination_root)
 

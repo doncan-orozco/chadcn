@@ -17,13 +17,16 @@ module Smoke
   # or the dev kit's dev/react-shadcn-catalog/node_modules). Never run by `rake test`.
   class CleanApp
     RAILS_NEW_OPTIONS = %w[
-      --css tailwind --javascript importmap --skip-git --skip-docker --skip-kamal --skip-ci --skip-solid --skip-active-record
+      --skip-git --skip-docker --skip-kamal --skip-ci --skip-solid --skip-active-record
       --skip-active-storage --skip-active-job --skip-action-mailer --skip-action-mailbox --skip-action-text --skip-action-cable
       --skip-jbuilder --skip-test --skip-system-test --skip-rubocop --skip-brakeman --skip-bundler-audit --skip-thruster
       --skip-dev-gems --skip-bootsnap
     ].freeze
     MARKUP = [ 'data-slot="button"', 'data-variant="outline"', 'data-controller="shadcn--dialog"', 'data-slot="dialog-trigger"',
                'data-slot="dialog-content"', '"controllers/shadcn/dialog_controller"' ].freeze
+    # esbuild apps have no importmap: the controller registration is bundled into app/assets/builds/application.js instead.
+    ESBUILD_MARKUP = MARKUP.first(5).freeze
+    ESBUILD_BUNDLE_MARKERS = [ "shadcn--dialog", "shadcn--dropdown-menu", "computePosition" ].freeze
     GEM_LINE = 'gem "phlex-shadcn"'
     DEMO_PATH = "/demo"
     # Arbitrary-value utilities that only the gem's Ruby files use: generated only if an @source line reaches the gem.
@@ -31,7 +34,8 @@ module Smoke
     # Theme variables, token mapping and vendored animations: present only if the generator's theme and engine-bundle imports resolve.
     BUNDLE_MARKERS = [ "--primary", "var(--primary)", "animate-in" ].freeze
 
-    def initialize(gem_root, app_dir: ENV.fetch("SMOKE_APP_DIR", nil), keep: ENV["SMOKE_KEEP"] == "1")
+    def initialize(gem_root, javascript: "importmap", app_dir: ENV.fetch("SMOKE_APP_DIR", nil), keep: ENV["SMOKE_KEEP"] == "1")
+      @javascript = javascript
       @gem_root = Pathname.new(gem_root)
       @readme = Readme.new(@gem_root.join("README.md"))
       @app_dir = Pathname.new(app_dir || Dir.mktmpdir("phlex-shadcn-smoke-app-")).expand_path
@@ -57,7 +61,8 @@ module Smoke
       FileUtils.rm_rf(@app_dir)
       FileUtils.mkdir_p(@app_dir.dirname)
       say "rails new #{@app_dir}"
-      run(ENV.fetch("SMOKE_RAILS", "rails"), "new", @app_dir.to_s, *RAILS_NEW_OPTIONS, chdir: @app_dir.dirname)
+      run(ENV.fetch("SMOKE_RAILS", "rails"), "new", @app_dir.to_s, *RAILS_NEW_OPTIONS, *rails_new_pipeline_options, chdir: @app_dir.dirname)
+      install_tailwindcss_rails if esbuild?
       raise "rails new did not install tailwindcss-rails" unless @app_dir.join("app/assets/tailwind/application.css").file?
     end
 
@@ -74,10 +79,39 @@ module Smoke
         say phlex_rails
         run(*phlex_rails.split, chdir: @app_dir)
       end
+      build_javascript if esbuild?
+      run_doctor
       write(@app_dir.join("app/views/demo/index.rb"), @readme.view_source)
       write(@app_dir.join("app/controllers/demo_controller.rb"), @readme.controller_source)
       routes = @app_dir.join("config/routes.rb")
       File.write(routes, File.read(routes).sub(/^end\s*\z/, "  get \"#{DEMO_PATH}\", to: \"demo#index\"\nend\n"))
+    end
+
+    # `rails new --css tailwind` on a bundler app picks the node Tailwind CLI; the gem needs tailwindcss-rails, so an esbuild app adds it the way
+    # the README asks ("tailwindcss-rails installed already").
+    def rails_new_pipeline_options = esbuild? ? %w[--javascript esbuild] : %w[--css tailwind --javascript importmap]
+
+    def install_tailwindcss_rails
+      say "bundle add tailwindcss-rails && bin/rails tailwindcss:install"
+      run("bundle", "add", "tailwindcss-rails", chdir: @app_dir)
+      run("bin/rails", "tailwindcss:install", chdir: @app_dir)
+    end
+
+    # The doctor exits 1 on any failed check: it must accept what the README's steps produced, in either pipeline.
+    def run_doctor
+      say "bin/rails phlex_shadcn:doctor"
+      run("bin/rails", "phlex_shadcn:doctor", chdir: @app_dir)
+    end
+
+    def esbuild? = @javascript == "esbuild"
+
+    # The pipeline's own build (what bin/dev's Procfile runs in watch mode): bundles the copied controllers into builds/application.js.
+    def build_javascript
+      say "bin/rails javascript:build"
+      run("bin/rails", "javascript:build", chdir: @app_dir)
+      bundle = @app_dir.join("app/assets/builds/application.js").read
+      missing = ESBUILD_BUNDLE_MARKERS.reject { |marker| bundle.include?(marker) }
+      raise "the esbuild bundle lacks #{missing.join(', ')}: the copied controllers were not bundled" if missing.any?
     end
 
     def append_gemfile_lines
@@ -121,7 +155,7 @@ module Smoke
 
     def check_http(port)
       body = get(port).body
-      missing = MARKUP.reject { |marker| body.include?(marker) }
+      missing = (esbuild? ? ESBUILD_MARKUP : MARKUP).reject { |marker| body.include?(marker) }
       raise "GET #{DEMO_PATH} lacks #{missing.join(', ')}:\n#{body}" if missing.any?
 
       css = File.read(@app_dir.join("app/assets/builds/tailwind.css"))

@@ -61,6 +61,19 @@ class SmokeRunnerTest < Minitest::Test
     end
   end
 
+  def test_the_app_smoke_accepts_only_the_known_javascript_pipelines
+    status = nil
+    capture_io { status = Smoke::Runner.call(%w[--app --js sprockets]) }
+
+    assert_equal 2, status
+    assert_includes Smoke::Runner::USAGE, "--js"
+  end
+
+  def test_the_esbuild_smoke_expects_the_bundled_controllers
+    assert_includes Smoke::CleanApp::ESBUILD_BUNDLE_MARKERS, "shadcn--dialog"
+    refute_includes Smoke::CleanApp::ESBUILD_MARKUP.join, "controllers/shadcn/dialog_controller", "an esbuild page has no importmap"
+  end
+
   def test_the_plain_smoke_passes_offline_without_rails
     result = Smoke::Plain.new(GEM_ROOT).call
 

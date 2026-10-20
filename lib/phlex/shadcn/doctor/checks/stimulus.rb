@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "generators/phlex/shadcn/install/js_bundle"
+
 module Phlex
   module Shadcn
     module Doctor
@@ -18,6 +20,11 @@ module Phlex
           def self.call(context)
             unless context.gem_version("stimulus-rails")
               return Result.failure(NAME, "stimulus-rails is not in the bundle", fix: "bundle add stimulus-rails && bin/rails stimulus:install")
+            end
+
+            # An esbuild app has no importmap namespace: the generator's managed index.js registers the controllers (see the javascript pipeline check).
+            if Generators::JsBundle.pipeline(context.root, context.gems) == :esbuild && context.path(Generators::JsBundle::INDEX).file?
+              return Result.passed(NAME, "#{Generators::JsBundle::INDEX} registers the gem's shadcn--* controllers")
             end
 
             registered = FILES.find { |file| registers?(context.read(context.path(file))) }
