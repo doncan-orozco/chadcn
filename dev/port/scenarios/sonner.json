@@ -1,0 +1,4541 @@
+{
+  "component": "sonner",
+  "scenarios": [
+    {
+      "id": "empty__no-toasts",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "empty__no-toasts-dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "api__container-aria-label",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "Toaster",
+            "props": {
+              "containerAriaLabel": "Alerts",
+              "hotkey": [
+                "altKey",
+                "KeyJ"
+              ]
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "snapshot"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "default__message",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"message\",\"message\":\"Event has been created\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "default__message-dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"message\",\"message\":\"Event has been created\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "type__success",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"This is a success toast\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "type__info",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"info\",\"message\":\"This is a info toast\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "type__warning",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"warning\",\"message\":\"This is a warning toast\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "type__error",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"error\",\"message\":\"This is a error toast\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "type__loading",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"loading\",\"message\":\"This is a loading toast\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "type__success-dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"This is a success toast\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "type__error-dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"error\",\"message\":\"This is an error toast\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "description__with-description",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"message\",\"message\":\"Event has been created\",\"data\":{\"description\":\"Sunday, December 03, 2023 at 9:00 AM\"}}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toast]",
+        "[data-title]",
+        "[data-description]"
+      ]
+    },
+    {
+      "id": "action__button",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"message\",\"message\":\"Event has been created\",\"data\":{\"action\":{\"label\":\"Undo\"}}}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toast]",
+        "[data-content]",
+        "[data-button]"
+      ]
+    },
+    {
+      "id": "action__click-dismisses",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"message\",\"message\":\"Event has been created\",\"data\":{\"action\":{\"label\":\"Undo\"}}}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        },
+        {
+          "do": "click",
+          "target": "[data-action]"
+        },
+        {
+          "do": "wait",
+          "ms": 400
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toast]",
+        "[data-button]"
+      ]
+    },
+    {
+      "id": "cancel__button",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"message\",\"message\":\"Event has been created\",\"data\":{\"cancel\":{\"label\":\"Cancel\"}}}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toast]",
+        "[data-content]",
+        "[data-button]"
+      ]
+    },
+    {
+      "id": "cancel__and-action",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"message\",\"message\":\"Event has been created\",\"data\":{\"cancel\":{\"label\":\"Cancel\"},\"action\":{\"label\":\"Undo\"}}}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toast]",
+        "[data-content]",
+        "[data-button]"
+      ]
+    },
+    {
+      "id": "cancel__click-dismisses",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"message\",\"message\":\"Event has been created\",\"data\":{\"cancel\":{\"label\":\"Cancel\"}}}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        },
+        {
+          "do": "click",
+          "target": "[data-cancel]"
+        },
+        {
+          "do": "wait",
+          "ms": 400
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toast]",
+        "[data-button]"
+      ]
+    },
+    {
+      "id": "close-button__toaster-prop",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Saved\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "closeButton": true
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toast]",
+        "[data-close-button]",
+        "[data-icon]"
+      ]
+    },
+    {
+      "id": "close-button__toast-data",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Saved\",\"data\":{\"closeButton\":true}}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toast]",
+        "[data-close-button]"
+      ]
+    },
+    {
+      "id": "close-button__click-dismisses",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Saved\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "closeButton": true
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        },
+        {
+          "do": "click",
+          "target": "[data-close-button]"
+        },
+        {
+          "do": "wait",
+          "ms": 400
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toast]",
+        "[data-close-button]"
+      ]
+    },
+    {
+      "id": "close-button__aria-label",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Saved\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "closeButton": true,
+              "toastOptions": {
+                "closeButtonAriaLabel": "Dismiss notification"
+              }
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toast]",
+        "[data-close-button]"
+      ]
+    },
+    {
+      "id": "close-button__hover-and-focus",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Saved\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "closeButton": true
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        },
+        {
+          "do": "hover",
+          "target": "[data-close-button]"
+        },
+        {
+          "do": "focus",
+          "target": "[data-close-button]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toast]",
+        "[data-close-button]"
+      ]
+    },
+    {
+      "id": "rich-colors__success",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"This is a success toast\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "richColors": true
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "rich-colors__info",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"info\",\"message\":\"This is a info toast\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "richColors": true
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "rich-colors__warning",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"warning\",\"message\":\"This is a warning toast\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "richColors": true
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "rich-colors__error",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"error\",\"message\":\"This is a error toast\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "richColors": true
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "rich-colors__success-dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"This is a success toast\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "richColors": true
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "rich-colors__toast-data",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"error\",\"message\":\"Failed\",\"data\":{\"richColors\":true}}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "rich-colors__false",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"error\",\"message\":\"Not rich\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "richColors": false
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "toaster-id__other-toaster-ignored",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Elsewhere\",\"data\":{\"toasterId\":\"side\",\"duration\":300}}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        },
+        {
+          "do": "wait",
+          "ms": 600
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "invert__toaster-prop",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"message\",\"message\":\"Inverted\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "invert": true
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "invert__toast-data",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Inverted\",\"data\":{\"invert\":true}}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "theme__dark-prop",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Dark toaster\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "theme": "dark"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "theme__light-prop-in-dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Light toaster\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "theme": "light"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "position__top-left",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Positioned\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "position": "top-left"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "position__top-center",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Positioned\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "position": "top-center"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "position__top-right",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Positioned\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "position": "top-right"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "position__bottom-left",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Positioned\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "position": "bottom-left"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "position__bottom-center",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Positioned\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "position": "bottom-center"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "position__bottom-right",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Positioned\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "position": "bottom-right"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "position__per-toast",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Bottom\"}",
+              "data-testid": "a",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "A"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"info\",\"message\":\"Top left\",\"data\":{\"position\":\"top-left\"}}",
+              "data-testid": "b",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "B"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=a]"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=b]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "offset__number",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Offset\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "offset": 48
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "offset__string",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Offset\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "offset": "4rem"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "offset__object",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Offset\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "offset": {
+                "bottom": 80,
+                "right": 8
+              }
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "offset__mobile",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Offset\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "mobileOffset": 40
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 480,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "dir__rtl",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Right to left\",\"data\":{\"description\":\"Description\"}}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "dir": "rtl",
+              "closeButton": true
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]",
+        "[data-close-button]"
+      ]
+    },
+    {
+      "id": "stack__collapsed",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"First toast\"}",
+              "data-testid": "a",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "One"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"info\",\"message\":\"Second toast\"}",
+              "data-testid": "b",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Two"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"warning\",\"message\":\"Third toast\"}",
+              "data-testid": "c",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Three"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=a]"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=b]"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=c]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "stack__expand-on-hover",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"First toast\"}",
+              "data-testid": "a",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "One"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"info\",\"message\":\"Second toast\"}",
+              "data-testid": "b",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Two"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"warning\",\"message\":\"Third toast\"}",
+              "data-testid": "c",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Three"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=a]"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=b]"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=c]"
+        },
+        {
+          "do": "hover",
+          "target": "[data-sonner-toast]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "stack__collapse-on-leave",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"First toast\"}",
+              "data-testid": "a",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "One"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"info\",\"message\":\"Second toast\"}",
+              "data-testid": "b",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Two"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"warning\",\"message\":\"Third toast\"}",
+              "data-testid": "c",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Three"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=a]"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=b]"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=c]"
+        },
+        {
+          "do": "hover",
+          "target": "[data-sonner-toast]"
+        },
+        {
+          "do": "hover",
+          "target": "[data-testid=a]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "stack__expand-prop",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"First toast\"}",
+              "data-testid": "a",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "One"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"info\",\"message\":\"Second toast\"}",
+              "data-testid": "b",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Two"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"warning\",\"message\":\"Third toast\"}",
+              "data-testid": "c",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Three"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "expand": true
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=a]"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=b]"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=c]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "stack__top-position",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"First toast\"}",
+              "data-testid": "a",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "One"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"info\",\"message\":\"Second toast\"}",
+              "data-testid": "b",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Two"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"warning\",\"message\":\"Third toast\"}",
+              "data-testid": "c",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Three"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "position": "top-right"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=a]"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=b]"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=c]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "stack__visible-toasts-two",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"First toast\"}",
+              "data-testid": "a",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "One"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"info\",\"message\":\"Second toast\"}",
+              "data-testid": "b",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Two"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"warning\",\"message\":\"Third toast\"}",
+              "data-testid": "c",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Three"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "visibleToasts": 2
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=a]"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=b]"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=c]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "stack__gap",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"First toast\"}",
+              "data-testid": "a",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "One"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"info\",\"message\":\"Second toast\"}",
+              "data-testid": "b",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Two"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"warning\",\"message\":\"Third toast\"}",
+              "data-testid": "c",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Three"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "gap": 24,
+              "expand": true
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=a]"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=b]"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=c]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "stack__hidden-beyond-visible",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"First toast\"}",
+              "data-testid": "a",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "One"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"info\",\"message\":\"Second toast\"}",
+              "data-testid": "b",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Two"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"warning\",\"message\":\"Third toast\"}",
+              "data-testid": "c",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Three"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"error\",\"message\":\"Fourth toast\"}",
+              "data-testid": "d",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Four"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=a]"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=b]"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=c]"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=d]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "stack__mixed-heights",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"message\",\"message\":\"Short\"}",
+              "data-testid": "a",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Short"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"message\",\"message\":\"A much longer toast title that wraps to a second line inside the toast\",\"data\":{\"description\":\"And a description\"}}",
+              "data-testid": "b",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Long"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "expand": true
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=a]"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=b]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "hotkey__expands-and-focuses",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"First toast\"}",
+              "data-testid": "a",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "One"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"info\",\"message\":\"Second toast\"}",
+              "data-testid": "b",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Two"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"warning\",\"message\":\"Third toast\"}",
+              "data-testid": "c",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Three"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=a]"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=b]"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=c]"
+        },
+        {
+          "do": "press",
+          "key": "Alt+KeyT"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "hotkey__escape-collapses",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"First toast\"}",
+              "data-testid": "a",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "One"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"info\",\"message\":\"Second toast\"}",
+              "data-testid": "b",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Two"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"warning\",\"message\":\"Third toast\"}",
+              "data-testid": "c",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Three"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=a]"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=b]"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=c]"
+        },
+        {
+          "do": "press",
+          "key": "Alt+KeyT"
+        },
+        {
+          "do": "press",
+          "key": "Escape"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "hotkey__custom",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"First toast\"}",
+              "data-testid": "a",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "One"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"info\",\"message\":\"Second toast\"}",
+              "data-testid": "b",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Two"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"warning\",\"message\":\"Third toast\"}",
+              "data-testid": "c",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Three"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "hotkey": [
+                "altKey",
+                "KeyJ"
+              ]
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=a]"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=b]"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=c]"
+        },
+        {
+          "do": "press",
+          "key": "Alt+KeyJ"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "duration__auto-dismiss",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Short lived\",\"data\":{\"duration\":300}}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        },
+        {
+          "do": "wait",
+          "ms": 150
+        },
+        {
+          "do": "wait",
+          "ms": 700
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "duration__toaster-prop",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Short lived\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "duration": 300
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        },
+        {
+          "do": "wait",
+          "ms": 850
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "duration__hover-pauses",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Short lived\",\"data\":{\"duration\":500}}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        },
+        {
+          "do": "hover",
+          "target": "[data-sonner-toast]"
+        },
+        {
+          "do": "wait",
+          "ms": 900
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "duration__long",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Stays\",\"data\":{\"duration\":100000}}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        },
+        {
+          "do": "wait",
+          "ms": 600
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "dismiss__by-id",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Dismiss me\",\"data\":{\"id\":\"one\",\"duration\":100000}}",
+              "data-testid": "a",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"dismiss\",\"id\":\"one\"}",
+              "data-testid": "b",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Dismiss"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=a]"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=b]"
+        },
+        {
+          "do": "wait",
+          "ms": 500
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "dismiss__all",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"First toast\"}",
+              "data-testid": "a",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "One"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"info\",\"message\":\"Second toast\"}",
+              "data-testid": "b",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Two"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"warning\",\"message\":\"Third toast\"}",
+              "data-testid": "c",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Three"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"dismiss\"}",
+              "data-testid": "z",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Dismiss all"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=a]"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=b]"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=c]"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=z]"
+        },
+        {
+          "do": "wait",
+          "ms": 500
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "dismiss__not-dismissible",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Stays\",\"data\":{\"dismissible\":false,\"duration\":100000}}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "closeButton": true
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toast]",
+        "[data-close-button]"
+      ]
+    },
+    {
+      "id": "update__same-id",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"loading\",\"message\":\"Saving...\",\"data\":{\"id\":\"x\"}}",
+              "data-testid": "a",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Saved\",\"data\":{\"id\":\"x\"}}",
+              "data-testid": "b",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Done"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=a]"
+        },
+        {
+          "do": "click",
+          "target": "[data-testid=b]"
+        },
+        {
+          "do": "wait",
+          "ms": 100
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "promise__success",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"promise\",\"delay\":300,\"outcome\":\"resolve\",\"messages\":{\"loading\":\"Loading...\",\"success\":\"Done\",\"error\":\"Failed\"}}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        },
+        {
+          "do": "wait",
+          "ms": 150
+        },
+        {
+          "do": "wait",
+          "ms": 500
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "promise__error",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"promise\",\"delay\":300,\"outcome\":\"reject\",\"messages\":{\"loading\":\"Loading...\",\"success\":\"Done\",\"error\":\"Failed\"}}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        },
+        {
+          "do": "wait",
+          "ms": 150
+        },
+        {
+          "do": "wait",
+          "ms": 500
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "icon__none",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"No icon\",\"data\":{\"icon\":null}}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "toast-options__class-names",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Custom\",\"data\":{\"description\":\"Desc\"}}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "toastOptions": {
+                "classNames": {
+                  "toast": "border-2",
+                  "title": "font-bold",
+                  "description": "italic",
+                  "icon": "text-primary",
+                  "content": "gap-2"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-title]",
+        "[data-description]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "toast-options__class-name",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"message\",\"message\":\"Custom\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "toastOptions": {
+                "className": "my-toast",
+                "style": {
+                  "color": "red"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "toast-options__unstyled",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Unstyled\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "toastOptions": {
+                "unstyled": true
+              }
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "toast-options__per-type-class",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"error\",\"message\":\"Error\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "toastOptions": {
+                "classNames": {
+                  "error": "border-red-500"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "toast-data__class-name",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"message\",\"message\":\"Custom\",\"data\":{\"className\":\"extra\",\"descriptionClassName\":\"desc\",\"description\":\"d\"}}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toast]",
+        "[data-description]"
+      ]
+    },
+    {
+      "id": "toast-data__test-id",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"message\",\"message\":\"Test id\",\"data\":{\"testId\":\"my-toast\"}}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "animations__enter",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Entering\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        },
+        {
+          "do": "wait",
+          "ms": 100
+        },
+        {
+          "do": "wait",
+          "ms": 500
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": true,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "animations__exit",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Leaving\"}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        },
+        {
+          "do": "wait",
+          "ms": 600
+        },
+        {
+          "do": "hover",
+          "target": "[data-sonner-toast]"
+        },
+        {
+          "do": "hover",
+          "target": "[data-testid=t]"
+        },
+        {
+          "do": "wait",
+          "ms": 50
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": true,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toaster]",
+        "[data-sonner-toast]",
+        "[data-icon]",
+        "[data-content]"
+      ]
+    },
+    {
+      "id": "swipe__right-dismisses",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Swipe me\",\"data\":{\"duration\":100000}}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        },
+        {
+          "do": "mousedown",
+          "target": "[data-sonner-toast]",
+          "position": {
+            "x": 20,
+            "y": 20
+          }
+        },
+        {
+          "do": "hover",
+          "target": "[data-sonner-toast]"
+        },
+        {
+          "do": "mouseup",
+          "target": "[data-sonner-toast]",
+          "position": {
+            "x": 300,
+            "y": 20
+          }
+        },
+        {
+          "do": "wait",
+          "ms": 400
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toast]"
+      ]
+    },
+    {
+      "id": "swipe__below-threshold-snaps-back",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Swipe me\",\"data\":{\"duration\":100000}}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {}
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        },
+        {
+          "do": "mousedown",
+          "target": "[data-sonner-toast]",
+          "position": {
+            "x": 100,
+            "y": 20
+          }
+        },
+        {
+          "do": "hover",
+          "target": "[data-sonner-toast]"
+        },
+        {
+          "do": "mouseup",
+          "target": "[data-sonner-toast]",
+          "position": {
+            "x": 105,
+            "y": 20
+          }
+        },
+        {
+          "do": "wait",
+          "ms": 400
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toast]"
+      ]
+    },
+    {
+      "id": "swipe__down-dismisses-bottom",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "data-controller": "shadcn---probe-toast",
+          "className": "flex justify-center gap-2 pt-[300px]"
+        },
+        "children": [
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-parity-toast": "{\"method\":\"success\",\"message\":\"Swipe me\",\"data\":{\"duration\":100000}}",
+              "data-testid": "t",
+              "className": "inline-flex h-9 items-center rounded-md border px-3 text-sm"
+            },
+            "children": [
+              "Show"
+            ]
+          },
+          {
+            "c": "Toaster",
+            "props": {
+              "swipeDirections": [
+                "bottom"
+              ]
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-testid=t]"
+        },
+        {
+          "do": "mousedown",
+          "target": "[data-sonner-toast]",
+          "position": {
+            "x": 100,
+            "y": 10
+          }
+        },
+        {
+          "do": "hover",
+          "target": "[data-sonner-toast]"
+        },
+        {
+          "do": "mouseup",
+          "target": "[data-sonner-toast]",
+          "position": {
+            "x": 100,
+            "y": 60
+          }
+        },
+        {
+          "do": "wait",
+          "ms": 400
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "section[aria-live]",
+        "[data-sonner-toast]"
+      ]
+    }
+  ]
+}

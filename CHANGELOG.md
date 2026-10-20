@@ -14,8 +14,14 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 
 ### Added
 
+- `Phlex::Shadcn::Toaster` (`Sonner::Toaster`) and `Sonner::Toast`: shadcn's sonner Toaster as a dependency-free port (no sonner, no
+  React). A Stimulus controller (`shadcn--sonner`) on the new `toast_stack` primitive reproduces the library's stacking, auto-dismiss,
+  pause on hover, swipe, hotkey (Alt+T) and `data-*` state; the stylesheet ships as `app/assets/tailwind/phlex-shadcn/sonner.css`. Toasts
+  come from `window.Toaster` (sonner's `toast` API), the flash (`Toaster.new(flash:)`), a Turbo Stream that appends a `Sonner::Toast` to
+  the Toaster id, or the `shadcn--sonner:show` event; dismiss, auto-close, action and cancel are events. Compared with sonner in 81
+  parity scenarios; `error` toasts are also announced through an assertive live region (recorded deviation).
 - Gem skeleton: Zeitwerk loader, version, license files and a standalone test harness.
-- The 50 ported components as `Phlex::Shadcn::<Name>` with their parts nested under the root (`Phlex::Shadcn::Dialog::Content`),
+- The 51 ported components as `Phlex::Shadcn::<Name>` with their parts nested under the root (`Phlex::Shadcn::Dialog::Content`),
   generated yielded-root helpers (`dialog.content { ... }`), `as_child:` with Radix Slot semantics and `**attrs` merging on every
   part; the Stimulus controllers `shadcn--<name>` and the shared primitives they build on.
 - Rails engine (loaded only when `Rails::Engine` is defined): importmap pins for the Stimulus controllers, primitives and vendored

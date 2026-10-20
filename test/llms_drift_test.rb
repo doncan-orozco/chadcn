@@ -26,7 +26,7 @@ class LlmsDriftTest < Minitest::Test
     components = components.reject { |c| c.tag(:api)&.text == "private" || c.visibility != :public || c.name == :Icon }
     full = File.read(File.join(GEM_DIR, "llms-full.txt"))
 
-    assert_equal 50, components.size
+    assert_equal 51, components.size
     components.each do |component|
       assert_includes full, "## #{component.name}\n", "#{component.name} is missing from llms-full.txt"
       assert_includes full, "Phlex::Shadcn::#{component.name}.new(", "#{component.name} has no constructor line"

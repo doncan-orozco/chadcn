@@ -251,6 +251,9 @@ class Phlex::Shadcn::Sidebar::State < Data
 class Phlex::Shadcn::Sidebar::Trigger < Phlex::Shadcn::Base
 class Phlex::Shadcn::Skeleton < Phlex::Shadcn::Base
 class Phlex::Shadcn::Slider < Phlex::Shadcn::Base
+class Phlex::Shadcn::Sonner < Phlex::Shadcn::Base
+class Phlex::Shadcn::Sonner::Toast < Phlex::Shadcn::Base
+class Phlex::Shadcn::Sonner::Toaster < Phlex::Shadcn::Base
 class Phlex::Shadcn::Spinner < Phlex::Shadcn::Base
 class Phlex::Shadcn::Switch < Phlex::Shadcn::Base
 class Phlex::Shadcn::Table < Phlex::Shadcn::Base
@@ -342,11 +345,13 @@ const Phlex::Shadcn::Sidebar::SIDES [left, right]
 const Phlex::Shadcn::Sidebar::VARIANTS [sidebar, floating, inset]
 const Phlex::Shadcn::Slider::DIRECTIONS [ltr, rtl]
 const Phlex::Shadcn::Slider::ORIENTATIONS [horizontal, vertical]
+const Phlex::Shadcn::Sonner::TYPES [default, success, info, warning, error, loading]
 const Phlex::Shadcn::Theme::COLORS_END
 const Phlex::Shadcn::Theme::COLORS_START
 const Phlex::Shadcn::Theme::MIN_CONTRAST
 const Phlex::Shadcn::Theme::REQUIRED [background, foreground, card, card-foreground, popover, popover-foreground, primary, primary-foreground, secondary, secondary-foreground, muted, muted-foreground, accent, accent-foreground, destructive, border, input, ring, chart-1, chart-2, chart-3, chart-4, chart-5, sidebar, sidebar-foreground, sidebar-primary, sidebar-primary-foreground, sidebar-accent, sidebar-accent-foreground, sidebar-border, sidebar-ring]
 const Phlex::Shadcn::Theme::ROOT_ONLY [radius]
+const Phlex::Shadcn::Toaster
 const Phlex::Shadcn::Toggle::SIZES [default, sm, lg]
 const Phlex::Shadcn::Toggle::VARIANTS [default, outline]
 const Phlex::Shadcn::ToggleGroup::DIRECTIONS [ltr, rtl]
@@ -1002,6 +1007,14 @@ method Phlex::Shadcn::Skeleton#initialize (**attrs)
 method Phlex::Shadcn::Skeleton#view_template ()
 method Phlex::Shadcn::Slider#initialize (default_value: nil, value: nil, min: 0, max: 100, step: 1, orientation: "horizontal", disabled: false, inverted: false, min_steps_between_thumbs: 0, preserve_thumb_order: false, name: nil, form: nil, dir: nil, min_label: "Minimum", max_label: "Maximum", value_label: "Value %<index>d of %<count>d", **attrs)
 method Phlex::Shadcn::Slider#view_template ()
+method Phlex::Shadcn::Sonner#initialize (**options)
+method Phlex::Shadcn::Sonner#toast (**attrs, &block)
+method Phlex::Shadcn::Sonner#toaster (**attrs, &block)
+method Phlex::Shadcn::Sonner#view_template ()
+method Phlex::Shadcn::Sonner::Toast#initialize (title: nil, description: nil, type: nil, id: nil, duration: nil, position: nil, dismissible: nil, close_button: nil, rich_colors: nil, invert: nil, icon: nil, action: nil, cancel: nil, toaster_id: nil, test_id: nil, **attrs)
+method Phlex::Shadcn::Sonner::Toast#view_template (&block)
+method Phlex::Shadcn::Sonner::Toaster#initialize (position: "bottom-right", theme: "system", rich_colors: nil, expand: false, close_button: false, invert: false, duration: nil, visible_toasts: 3, gap: 14, offset: nil, mobile_offset: nil, dir: nil, hotkey: DEFAULT_HOTKEY, container_aria_label: "Notifications", swipe_directions: nil, toast_options: nil, icons: nil, style: nil, toaster_id: nil, flash: nil, toasts: nil, **attrs)
+method Phlex::Shadcn::Sonner::Toaster#view_template ()
 method Phlex::Shadcn::Spinner#initialize (**attrs)
 method Phlex::Shadcn::Spinner#view_template ()
 method Phlex::Shadcn::Switch#initialize (size: "default", checked: nil, default_checked: false, disabled: false, required: nil, name: nil, value: "on", form: nil, **attrs)
@@ -1265,6 +1278,8 @@ Phlex::Shadcn::Sidebar#provider
 Phlex::Shadcn::Sidebar#rail
 Phlex::Shadcn::Sidebar#separator
 Phlex::Shadcn::Sidebar#trigger
+Phlex::Shadcn::Sonner#toast
+Phlex::Shadcn::Sonner#toaster
 Phlex::Shadcn::Table#body
 Phlex::Shadcn::Table#caption
 Phlex::Shadcn::Table#cell

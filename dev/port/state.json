@@ -13,8 +13,7 @@
     "form",
     "input-otp",
     "message-scroller",
-    "resizable",
-    "sonner"
+    "resizable"
   ],
   "oracle": {
     "style": "new-york-v4",
@@ -749,6 +748,18 @@
         "toggle"
       ],
       "source_sha": "45186473eaa30a96"
+    },
+    "sonner": {
+      "status": "pending",
+      "tier": "third_party",
+      "wave": 3,
+      "iteration": 0,
+      "note": null,
+      "last_green_sha": null,
+      "updated_at": "2026-10-20T02:44:33Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "13ccc9b0fe4248e6"
     }
   }
 }
