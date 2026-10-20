@@ -14,6 +14,15 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 
 ### Added
 
+- `Phlex::Shadcn::Calendar` (`Calendar::DayButton`): shadcn's react-day-picker calendar as a dependency-free port (no react-day-picker, no
+  date-fns): native `Date` and `Intl` only. Single, multiple and range modes, min/max, disabled matchers, outside days, fixed weeks, week
+  numbers, `label` and dropdown captions, several months, `dir: "rtl"`, month and weekday names and first day of week from `Intl` (English
+  and Spanish verified), and react-day-picker's grid keyboard model (arrows, PageUp/PageDown, Shift+PageUp/PageDown, Home/End) in the
+  `shadcn--calendar` controller on the new pure `date_grid` primitive. `name:` renders ISO 8601 (`YYYY-MM-DD`) hidden inputs; selection and
+  month changes are the `shadcn--calendar:select` and `:month-change` events. Compared with react-day-picker 10.0.2 in 169 parity scenarios.
+  shadcn's date picker is a block, not a registry component, so the date picker is a documented, tested composition (Popover, Button,
+  Calendar and an external hidden ISO input; `input:`, `label:` and `close_on_select:`), not a class (see docs/form-controls.md). The
+  gem now ships 54 component roots (llms drift test count 53 to 54).
 - `Phlex::Shadcn::Toaster` (`Sonner::Toaster`) and `Sonner::Toast`: shadcn's sonner Toaster as a dependency-free port (no sonner, no
   React). A Stimulus controller (`shadcn--sonner`) on the new `toast_stack` primitive reproduces the library's stacking, auto-dismiss,
   pause on hover, swipe, hotkey (Alt+T) and `data-*` state; the stylesheet ships as `app/assets/tailwind/phlex-shadcn/sonner.css`. Toasts

@@ -55,6 +55,8 @@ class Phlex::Shadcn::Button < Phlex::Shadcn::Base
 class Phlex::Shadcn::ButtonGroup < Phlex::Shadcn::Base
 class Phlex::Shadcn::ButtonGroup::Separator < Phlex::Shadcn::Base
 class Phlex::Shadcn::ButtonGroup::Text < Phlex::Shadcn::Base
+class Phlex::Shadcn::Calendar < Phlex::Shadcn::Base
+class Phlex::Shadcn::Calendar::DayButton < Phlex::Shadcn::Base
 class Phlex::Shadcn::Card < Phlex::Shadcn::Base
 class Phlex::Shadcn::Card::Action < Phlex::Shadcn::Base
 class Phlex::Shadcn::Card::Content < Phlex::Shadcn::Base
@@ -518,6 +520,10 @@ method Phlex::Shadcn::ButtonGroup::Separator#initialize (orientation: "vertical"
 method Phlex::Shadcn::ButtonGroup::Separator#view_template ()
 method Phlex::Shadcn::ButtonGroup::Text#initialize (as_child: false, **attrs)
 method Phlex::Shadcn::ButtonGroup::Text#view_template ()
+method Phlex::Shadcn::Calendar#initialize (mode: nil, selected: nil, default_month: nil, month: nil, today: nil, number_of_months: 1, show_outside_days: true, caption_layout: "label", button_variant: "ghost", locale: nil, week_starts_on: nil, fixed_weeks: false, show_week_number: false, disabled: nil, hidden: nil, modifiers: nil, modifiers_class_names: nil, class_names: nil, formatters: nil, components: nil, start_month: nil, end_month: nil, min: nil, max: nil, required: nil, exclude_disabled: false, reset_on_select: false, disable_navigation: false, hide_navigation: false, hide_weekdays: false, paged_navigation: false, auto_focus: false, footer: nil, dir: nil, name: nil, input: nil, label: nil, close_on_select: false, **attrs)
+method Phlex::Shadcn::Calendar#view_template ()
+method Phlex::Shadcn::Calendar::DayButton#initialize (day:, modifiers: NO_MODIFIERS, **attrs)
+method Phlex::Shadcn::Calendar::DayButton#view_template ()
 method Phlex::Shadcn::Card#action (**attrs, &block)
 method Phlex::Shadcn::Card#content (**attrs, &block)
 method Phlex::Shadcn::Card#description (**attrs, &block)
@@ -1217,6 +1223,7 @@ Phlex::Shadcn::Bubble#group
 Phlex::Shadcn::Bubble#reactions
 Phlex::Shadcn::ButtonGroup#separator
 Phlex::Shadcn::ButtonGroup#text
+Phlex::Shadcn::Calendar#day_button
 Phlex::Shadcn::Card#action
 Phlex::Shadcn::Card#content
 Phlex::Shadcn::Card#description

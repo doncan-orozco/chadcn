@@ -1,0 +1,6427 @@
+{
+  "component": "calendar",
+  "composes": [
+    "popover",
+    "card",
+    "select",
+    "field",
+    "input-group"
+  ],
+  "scenarios": [
+    {
+      "id": "default__no-mode",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "default__no-mode__dark",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01"
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "default__no-mode__outside-days-off",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "showOutsideDays": false
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "default__no-mode__nav-click",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": ".rdp-button_next"
+        },
+        {
+          "do": "click",
+          "target": ".rdp-button_previous"
+        },
+        {
+          "do": "click",
+          "target": ".rdp-button_previous"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "classname__merge",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "className": "p-0 w-full rounded-lg border [--cell-size:--spacing(10)]"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "attrs__forwarded",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "id": "booking-calendar",
+          "title": "Booking",
+          "aria-label": "Booking calendar",
+          "data-testid": "cal"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "lang__override",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "lang": "en-GB"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "class-names__override",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "classNames": {
+            "weekday": "flex-1 text-xs uppercase",
+            "caption_label": "text-base font-semibold"
+          }
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-single__rest",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-single__rest__dark",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single"
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-single__selected",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "selected": "$date:2026-03-10"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-single__selected__dark",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "selected": "$date:2026-03-10"
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-single__selected-today",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "selected": "$date:2026-03-15"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-single__click-select",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-20\"] button"
+        },
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-20\"] button"
+        },
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-03\"] button"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-single__click-change",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "selected": "$date:2026-03-10"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-12\"] button"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-single__required",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "selected": "$date:2026-03-10",
+          "required": true
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-10\"] button"
+        },
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-11\"] button"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-single__required-false",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "selected": "$date:2026-03-10",
+          "required": false
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-10\"] button"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-single__click-outside-day",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-04-02\"] button"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-single__hover",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "selected": "$date:2026-03-10"
+        }
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "td[data-day=\"2026-03-18\"] button"
+        },
+        {
+          "do": "hover",
+          "target": "td[data-day=\"2026-03-10\"] button"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-single__hover__dark",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "selected": "$date:2026-03-10"
+        }
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "td[data-day=\"2026-03-18\"] button"
+        },
+        {
+          "do": "hover",
+          "target": "td[data-day=\"2026-03-10\"] button"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-single__month-controlled",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "mode": "single",
+          "month": "$date:2026-05-01"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": ".rdp-button_next"
+        },
+        {
+          "do": "click",
+          "target": ".rdp-button_previous"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-single__month-controlled__keyboard",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "mode": "single",
+          "month": "$date:2026-05-01"
+        }
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "td[data-day=\"2026-05-31\"] button"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-single__today-default-month",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "mode": "single",
+          "today": "$date:2026-07-04"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-single__auto-focus",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "selected": "$date:2026-03-10",
+          "autoFocus": true
+        }
+      },
+      "steps": [
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "keyboard__tab-into-grid",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "Calendar",
+            "props": {
+              "today": "$date:2026-03-15",
+              "defaultMonth": "$date:2026-03-01",
+              "mode": "single"
+            }
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab",
+          "shift": true
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "keyboard__tab-into-grid__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "Calendar",
+            "props": {
+              "today": "$date:2026-03-15",
+              "defaultMonth": "$date:2026-03-01",
+              "mode": "single"
+            }
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab",
+          "shift": true
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "keyboard__arrows",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single"
+        }
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "td[data-day=\"2026-03-15\"] button"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "ArrowUp"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "keyboard__home-end",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single"
+        }
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "td[data-day=\"2026-03-18\"] button"
+        },
+        {
+          "do": "press",
+          "key": "Home"
+        },
+        {
+          "do": "press",
+          "key": "End"
+        },
+        {
+          "do": "press",
+          "key": "End"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "keyboard__page",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single"
+        }
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "td[data-day=\"2026-03-15\"] button"
+        },
+        {
+          "do": "press",
+          "key": "PageDown"
+        },
+        {
+          "do": "press",
+          "key": "PageUp"
+        },
+        {
+          "do": "press",
+          "key": "Shift+PageDown"
+        },
+        {
+          "do": "press",
+          "key": "Shift+PageUp"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "keyboard__shift-arrows",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single"
+        }
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "td[data-day=\"2026-03-15\"] button"
+        },
+        {
+          "do": "press",
+          "key": "Shift+ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "Shift+ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "Shift+ArrowDown"
+        },
+        {
+          "do": "press",
+          "key": "Shift+ArrowUp"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "keyboard__month-edge",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single"
+        }
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "td[data-day=\"2026-03-31\"] button"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowUp"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "keyboard__into-outside-day",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single"
+        }
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "td[data-day=\"2026-03-02\"] button"
+        },
+        {
+          "do": "press",
+          "key": "ArrowUp"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "keyboard__page-clamp",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "mode": "single",
+          "defaultMonth": "$date:2026-01-01"
+        }
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "td[data-day=\"2026-01-31\"] button"
+        },
+        {
+          "do": "press",
+          "key": "PageDown"
+        },
+        {
+          "do": "press",
+          "key": "PageUp"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "keyboard__enter-space-select",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single"
+        }
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "td[data-day=\"2026-03-15\"] button"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": " "
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "keyboard__skip-disabled",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "disabled": {
+            "dayOfWeek": [
+              0,
+              6
+            ]
+          }
+        }
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "td[data-day=\"2026-03-13\"] button"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "ArrowDown"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "keyboard__blur-and-return",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "Calendar",
+            "props": {
+              "today": "$date:2026-03-15",
+              "defaultMonth": "$date:2026-03-01",
+              "mode": "single"
+            }
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "td[data-day=\"2026-03-15\"] button"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab",
+          "shift": true
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "keyboard__nav-then-tab",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "Calendar",
+            "props": {
+              "today": "$date:2026-03-15",
+              "defaultMonth": "$date:2026-03-01",
+              "mode": "single",
+              "selected": "$date:2026-03-10"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": ".rdp-button_next"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "keyboard__weekstarts-monday",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "weekStartsOn": 1
+        }
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "td[data-day=\"2026-03-18\"] button"
+        },
+        {
+          "do": "press",
+          "key": "Home"
+        },
+        {
+          "do": "press",
+          "key": "End"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "nav__next-prev",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": ".rdp-button_next"
+        },
+        {
+          "do": "click",
+          "target": ".rdp-button_previous"
+        },
+        {
+          "do": "click",
+          "target": ".rdp-button_previous"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav",
+        ".rdp-nav button",
+        ".rdp-chevron",
+        ".rdp-caption_label",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "nav__next-prev__dark",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": ".rdp-button_next"
+        },
+        {
+          "do": "click",
+          "target": ".rdp-button_previous"
+        },
+        {
+          "do": "click",
+          "target": ".rdp-button_previous"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav",
+        ".rdp-nav button",
+        ".rdp-chevron",
+        ".rdp-caption_label",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "nav__start-end-month",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "startMonth": "$date:2026-02-01",
+          "endMonth": "$date:2026-04-01"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": ".rdp-button_previous"
+        },
+        {
+          "do": "click",
+          "target": ".rdp-button_previous"
+        },
+        {
+          "do": "click",
+          "target": ".rdp-button_next"
+        },
+        {
+          "do": "click",
+          "target": ".rdp-button_next"
+        },
+        {
+          "do": "click",
+          "target": ".rdp-button_next"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav",
+        ".rdp-nav button",
+        ".rdp-chevron",
+        ".rdp-caption_label",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "nav__start-end-month__keyboard",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "startMonth": "$date:2026-03-01",
+          "endMonth": "$date:2026-03-01"
+        }
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "td[data-day=\"2026-03-31\"] button"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "PageDown"
+        },
+        {
+          "do": "press",
+          "key": "Home"
+        },
+        {
+          "do": "focus",
+          "target": "td[data-day=\"2026-03-02\"] button"
+        },
+        {
+          "do": "press",
+          "key": "ArrowUp"
+        },
+        {
+          "do": "press",
+          "key": "PageUp"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav",
+        ".rdp-nav button",
+        ".rdp-chevron",
+        ".rdp-caption_label",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "nav__initial-month-clamped",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "mode": "single",
+          "defaultMonth": "$date:2026-09-01",
+          "endMonth": "$date:2026-06-01"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav",
+        ".rdp-nav button",
+        ".rdp-chevron",
+        ".rdp-caption_label",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "nav__hover-focus",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single"
+        }
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": ".rdp-button_next"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav",
+        ".rdp-nav button",
+        ".rdp-chevron",
+        ".rdp-caption_label",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "nav__hover-focus__dark",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single"
+        }
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": ".rdp-button_next"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav",
+        ".rdp-nav button",
+        ".rdp-chevron",
+        ".rdp-caption_label",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "button-variant__outline",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "buttonVariant": "outline"
+        }
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": ".rdp-button_next"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav",
+        ".rdp-nav button",
+        ".rdp-chevron",
+        ".rdp-caption_label",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "button-variant__outline__dark",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "buttonVariant": "outline"
+        }
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": ".rdp-button_next"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav",
+        ".rdp-nav button",
+        ".rdp-chevron",
+        ".rdp-caption_label",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "button-variant__default",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "buttonVariant": "default"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav",
+        ".rdp-nav button",
+        ".rdp-chevron",
+        ".rdp-caption_label",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "button-variant__secondary",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "buttonVariant": "secondary",
+          "startMonth": "$date:2026-03-01"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav",
+        ".rdp-nav button",
+        ".rdp-chevron",
+        ".rdp-caption_label",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "disable-navigation",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "disableNavigation": true
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": ".rdp-button_next"
+        },
+        {
+          "do": "focus",
+          "target": "td[data-day=\"2026-03-31\"] button"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "PageDown"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav",
+        ".rdp-nav button",
+        ".rdp-chevron",
+        ".rdp-caption_label",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "hide-navigation",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "hideNavigation": true
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav",
+        ".rdp-nav button",
+        ".rdp-chevron",
+        ".rdp-caption_label",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "hide-weekdays",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "hideWeekdays": true
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "paged-navigation",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "numberOfMonths": 2,
+          "pagedNavigation": true
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": ".rdp-button_next"
+        },
+        {
+          "do": "click",
+          "target": ".rdp-button_previous"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav",
+        ".rdp-nav button",
+        ".rdp-chevron",
+        ".rdp-caption_label",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "footer",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "footer": "Pick a day."
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-footer",
+        ".rdp-day",
+        ".rdp-caption_label"
+      ]
+    },
+    {
+      "id": "disabled__before",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "disabled": {
+            "before": "$date:2026-03-10"
+          }
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "disabled__before__dark",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "disabled": {
+            "before": "$date:2026-03-10"
+          }
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "disabled__after",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "disabled": {
+            "after": "$date:2026-03-20"
+          }
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "disabled__matchers-mixed",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "disabled": [
+            {
+              "after": "$date:2026-03-25"
+            },
+            {
+              "dayOfWeek": [
+                0,
+                6
+              ]
+            },
+            "$date:2026-03-12",
+            {
+              "from": "$date:2026-03-16",
+              "to": "$date:2026-03-18"
+            }
+          ]
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "disabled__dates-array",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "disabled": [
+            "$date:2026-03-03",
+            "$date:2026-03-04",
+            "$date:2026-03-15"
+          ]
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "disabled__interval-closed",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "disabled": {
+            "before": "$date:2026-03-20",
+            "after": "$date:2026-03-10"
+          }
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "disabled__interval-open",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "disabled": {
+            "before": "$date:2026-03-10",
+            "after": "$date:2026-03-20"
+          }
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "disabled__day-of-week-single",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "disabled": {
+            "dayOfWeek": 3
+          }
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "disabled__all",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "Calendar",
+            "props": {
+              "today": "$date:2026-03-15",
+              "defaultMonth": "$date:2026-03-01",
+              "mode": "single",
+              "disabled": true
+            }
+          },
+          {
+            "c": "_button",
+            "props": {
+              "type": "button",
+              "data-testid": "after"
+            },
+            "children": [
+              "After"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "disabled__click",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "disabled": "$date:2026-03-12"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-12\"] button"
+        },
+        {
+          "do": "hover",
+          "target": "td[data-day=\"2026-03-12\"] button"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "disabled__selected",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "selected": "$date:2026-03-12",
+          "disabled": "$date:2026-03-12"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "hidden__matcher",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "hidden": [
+            "$date:2026-03-04",
+            {
+              "dayOfWeek": 0
+            }
+          ]
+        }
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "td[data-day=\"2026-03-03\"] button"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "outside-days__off",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "showOutsideDays": false
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "outside-days__off__dark",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "showOutsideDays": false
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "fixed-weeks",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "mode": "single",
+          "fixedWeeks": true,
+          "defaultMonth": "$date:2026-02-01"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "fixed-weeks__dark",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "mode": "single",
+          "fixedWeeks": true,
+          "defaultMonth": "$date:2026-02-01"
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "fixed-weeks__outside-off",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "mode": "single",
+          "fixedWeeks": true,
+          "showOutsideDays": false,
+          "defaultMonth": "$date:2026-02-01"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "fixed-weeks__two-months",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "mode": "single",
+          "fixedWeeks": true,
+          "numberOfMonths": 2,
+          "defaultMonth": "$date:2026-02-01"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "week-starts-on__monday",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "weekStartsOn": 1
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "week-starts-on__saturday",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "weekStartsOn": 6,
+          "showWeekNumber": true
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-week_number",
+        ".rdp-week_number_header",
+        ".rdp-weekday",
+        ".rdp-day",
+        ".rdp-caption_label"
+      ]
+    },
+    {
+      "id": "week-numbers",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "showWeekNumber": true
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-week_number",
+        ".rdp-week_number_header",
+        ".rdp-weekday",
+        ".rdp-day",
+        ".rdp-caption_label"
+      ]
+    },
+    {
+      "id": "week-numbers__dark",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "showWeekNumber": true
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-week_number",
+        ".rdp-week_number_header",
+        ".rdp-weekday",
+        ".rdp-day",
+        ".rdp-caption_label"
+      ]
+    },
+    {
+      "id": "week-numbers__no-mode",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "showWeekNumber": true
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-week_number",
+        ".rdp-week_number_header",
+        ".rdp-weekday",
+        ".rdp-day",
+        ".rdp-caption_label"
+      ]
+    },
+    {
+      "id": "week-numbers__dec-2026",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "mode": "single",
+          "showWeekNumber": true,
+          "defaultMonth": "$date:2026-12-01"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-week_number",
+        ".rdp-week_number_header",
+        ".rdp-weekday",
+        ".rdp-day",
+        ".rdp-caption_label"
+      ]
+    },
+    {
+      "id": "week-numbers__es-jan-2027",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "mode": "single",
+          "showWeekNumber": true,
+          "locale": "$locale:es",
+          "defaultMonth": "$date:2027-01-01"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-week_number",
+        ".rdp-week_number_header",
+        ".rdp-weekday",
+        ".rdp-day",
+        ".rdp-caption_label"
+      ]
+    },
+    {
+      "id": "week-numbers__selected-first-column",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "showWeekNumber": true,
+          "selected": "$date:2026-03-01"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-week_number",
+        ".rdp-week_number_header",
+        ".rdp-weekday",
+        ".rdp-day",
+        ".rdp-caption_label"
+      ]
+    },
+    {
+      "id": "week-numbers__selected-last-column",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "selected": "$date:2026-03-07"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "locale-es",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "locale": "$locale:es"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "locale-es__dark",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "locale": "$locale:es"
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "locale-es__selected-today",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "locale": "$locale:es",
+          "selected": "$date:2026-03-15"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "locale-es__no-mode",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "locale": "$locale:es"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "locale-es__dropdown",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "locale": "$locale:es",
+          "captionLayout": "dropdown"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-dropdown",
+        ".rdp-caption_label",
+        ".rdp-dropdowns > span",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "locale-es__week-starts-on-sunday",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "locale": "$locale:es",
+          "weekStartsOn": 0
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "locale-es__keyboard",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "locale": "$locale:es"
+        }
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "td[data-day=\"2026-03-18\"] button"
+        },
+        {
+          "do": "press",
+          "key": "Home"
+        },
+        {
+          "do": "press",
+          "key": "End"
+        },
+        {
+          "do": "press",
+          "key": "PageDown"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "locale-en",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "locale": "$locale:en",
+          "selected": "$date:2026-03-02"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "dir-rtl",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "dir": "rtl"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-chevron",
+        ".rdp-caption_label",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "dir-rtl__dark",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "dir": "rtl"
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-chevron",
+        ".rdp-caption_label",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "dir-rtl__keyboard",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "dir": "rtl"
+        }
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "td[data-day=\"2026-03-15\"] button"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "Home"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "dir-rtl__locale-es",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "dir": "rtl",
+          "locale": "$locale:es",
+          "selected": "$date:2026-03-10"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "dir-rtl__range",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "range",
+          "dir": "rtl",
+          "selected": {
+            "from": "$date:2026-03-10",
+            "to": "$date:2026-03-18"
+          }
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-multiple__selected",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "multiple",
+          "selected": [
+            "$date:2026-03-03",
+            "$date:2026-03-10",
+            "$date:2026-03-20"
+          ]
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-multiple__selected__dark",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "multiple",
+          "selected": [
+            "$date:2026-03-03",
+            "$date:2026-03-10",
+            "$date:2026-03-20"
+          ]
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-multiple__rest",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "multiple"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-multiple__click",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "multiple"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-05\"] button"
+        },
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-06\"] button"
+        },
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-05\"] button"
+        },
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-06\"] button"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-multiple__min",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "multiple",
+          "min": 2,
+          "selected": [
+            "$date:2026-03-10",
+            "$date:2026-03-12"
+          ]
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-10\"] button"
+        },
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-14\"] button"
+        },
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-10\"] button"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-multiple__max",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "multiple",
+          "max": 2,
+          "selected": [
+            "$date:2026-03-10",
+            "$date:2026-03-12"
+          ]
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-20\"] button"
+        },
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-21\"] button"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-multiple__required",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "multiple",
+          "required": true,
+          "selected": [
+            "$date:2026-03-10"
+          ]
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-10\"] button"
+        },
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-11\"] button"
+        },
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-10\"] button"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-multiple__keyboard",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "multiple"
+        }
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "td[data-day=\"2026-03-15\"] button"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": " "
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-range__selected",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "range",
+          "selected": {
+            "from": "$date:2026-03-10",
+            "to": "$date:2026-03-14"
+          }
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-range__selected__dark",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "range",
+          "selected": {
+            "from": "$date:2026-03-10",
+            "to": "$date:2026-03-14"
+          }
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-range__rest",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "range"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-range__click-start-end",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "range"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-10\"] button"
+        },
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-16\"] button"
+        },
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-12\"] button"
+        },
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-08\"] button"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-range__from-only",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "range",
+          "selected": {
+            "from": "$date:2026-03-10"
+          }
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-14\"] button"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-range__click-before-from",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "range",
+          "selected": {
+            "from": "$date:2026-03-10"
+          }
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-05\"] button"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-range__click-same-day",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "range",
+          "selected": {
+            "from": "$date:2026-03-10",
+            "to": "$date:2026-03-10"
+          }
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-10\"] button"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-range__click-ends",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "range",
+          "selected": {
+            "from": "$date:2026-03-10",
+            "to": "$date:2026-03-14"
+          }
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-10\"] button"
+        },
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-20\"] button"
+        },
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-20\"] button"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-range__min",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "range",
+          "min": 3
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-10\"] button"
+        },
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-11\"] button"
+        },
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-15\"] button"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-range__max",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "range",
+          "max": 3,
+          "selected": {
+            "from": "$date:2026-03-10",
+            "to": "$date:2026-03-12"
+          }
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-20\"] button"
+        },
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-22\"] button"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-range__required",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "range",
+          "required": true,
+          "selected": {
+            "from": "$date:2026-03-10",
+            "to": "$date:2026-03-10"
+          }
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-10\"] button"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-range__exclude-disabled",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "range",
+          "excludeDisabled": true,
+          "disabled": "$date:2026-03-12"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-10\"] button"
+        },
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-14\"] button"
+        },
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-16\"] button"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-range__reset-on-select",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "range",
+          "resetOnSelect": true,
+          "selected": {
+            "from": "$date:2026-03-10",
+            "to": "$date:2026-03-14"
+          }
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-20\"] button"
+        },
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-22\"] button"
+        },
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-22\"] button"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-range__two-months",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "range",
+          "numberOfMonths": 2,
+          "selected": {
+            "from": "$date:2026-03-25",
+            "to": "$date:2026-04-05"
+          }
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-range__two-months__dark",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "range",
+          "numberOfMonths": 2,
+          "selected": {
+            "from": "$date:2026-03-25",
+            "to": "$date:2026-04-05"
+          }
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-range__week-numbers",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "range",
+          "showWeekNumber": true,
+          "selected": {
+            "from": "$date:2026-03-01",
+            "to": "$date:2026-03-14"
+          }
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-week_number",
+        ".rdp-week_number_header",
+        ".rdp-weekday",
+        ".rdp-day",
+        ".rdp-caption_label"
+      ]
+    },
+    {
+      "id": "mode-range__hover",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "range",
+          "selected": {
+            "from": "$date:2026-03-10",
+            "to": "$date:2026-03-14"
+          }
+        }
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "td[data-day=\"2026-03-12\"] button"
+        },
+        {
+          "do": "hover",
+          "target": "td[data-day=\"2026-03-20\"] button"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "mode-range__outside-selected",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "range",
+          "selected": {
+            "from": "$date:2026-03-28",
+            "to": "$date:2026-04-03"
+          }
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "number-of-months-2",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "numberOfMonths": 2
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": ".rdp-button_next"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav",
+        ".rdp-nav button",
+        ".rdp-chevron",
+        ".rdp-caption_label",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "number-of-months-2__dark",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "numberOfMonths": 2
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": ".rdp-button_next"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav",
+        ".rdp-nav button",
+        ".rdp-chevron",
+        ".rdp-caption_label",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "number-of-months-2__keyboard",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "numberOfMonths": 2
+        }
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "td[data-day=\"2026-03-31\"] button"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "PageDown"
+        },
+        {
+          "do": "press",
+          "key": "PageUp"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "number-of-months-2__end-month",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "numberOfMonths": 2,
+          "endMonth": "$date:2026-04-01"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": ".rdp-button_next"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav",
+        ".rdp-nav button",
+        ".rdp-chevron",
+        ".rdp-caption_label",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "number-of-months-3",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "numberOfMonths": 3
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 1100,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "number-of-months-2__narrow",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "numberOfMonths": 2
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 500,
+        "height": 900
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "caption-dropdown",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "captionLayout": "dropdown"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-dropdown",
+        ".rdp-caption_label",
+        ".rdp-dropdowns > span",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "caption-dropdown__dark",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "captionLayout": "dropdown"
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-dropdown",
+        ".rdp-caption_label",
+        ".rdp-dropdowns > span",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "caption-dropdown__change-month",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "captionLayout": "dropdown"
+        }
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": ".rdp-months_dropdown"
+        },
+        {
+          "do": "type",
+          "text": "Jun"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-dropdown",
+        ".rdp-caption_label",
+        ".rdp-dropdowns > span",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "caption-dropdown__change-year",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "captionLayout": "dropdown"
+        }
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": ".rdp-years_dropdown"
+        },
+        {
+          "do": "type",
+          "text": "2024"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-dropdown",
+        ".rdp-caption_label",
+        ".rdp-dropdowns > span",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "caption-dropdown__focus",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "captionLayout": "dropdown"
+        }
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-dropdown",
+        ".rdp-caption_label",
+        ".rdp-dropdowns > span",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "caption-dropdown__start-end",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "captionLayout": "dropdown",
+          "startMonth": "$date:2025-06-01",
+          "endMonth": "$date:2026-08-01"
+        }
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": ".rdp-years_dropdown"
+        },
+        {
+          "do": "type",
+          "text": "2025"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-dropdown",
+        ".rdp-dropdown option",
+        ".rdp-caption_label",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "caption-dropdown__nav-end",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "mode": "single",
+          "captionLayout": "dropdown",
+          "defaultMonth": "$date:2026-12-01"
+        }
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": ".rdp-button_next"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-dropdown",
+        ".rdp-caption_label",
+        ".rdp-dropdowns > span",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "caption-dropdown__two-months",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "captionLayout": "dropdown",
+          "numberOfMonths": 2
+        }
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": ".rdp-month:nth-child(3) .rdp-months_dropdown"
+        },
+        {
+          "do": "type",
+          "text": "Sep"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-dropdown",
+        ".rdp-caption_label",
+        ".rdp-dropdowns > span",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "caption-dropdown__disable-navigation",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "captionLayout": "dropdown",
+          "disableNavigation": true
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-dropdown",
+        ".rdp-caption_label",
+        ".rdp-dropdowns > span",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "caption-dropdown-months",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "captionLayout": "dropdown-months"
+        }
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": ".rdp-months_dropdown"
+        },
+        {
+          "do": "type",
+          "text": "Aug"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-dropdown",
+        ".rdp-caption_label",
+        ".rdp-dropdowns > span",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "caption-dropdown-months__dark",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "captionLayout": "dropdown-months"
+        }
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": ".rdp-months_dropdown"
+        },
+        {
+          "do": "type",
+          "text": "Aug"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-dropdown",
+        ".rdp-caption_label",
+        ".rdp-dropdowns > span",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "caption-dropdown-years",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "captionLayout": "dropdown-years"
+        }
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": ".rdp-years_dropdown"
+        },
+        {
+          "do": "type",
+          "text": "2020"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-dropdown",
+        ".rdp-caption_label",
+        ".rdp-dropdowns > span",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "caption-dropdown-years__dark",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "captionLayout": "dropdown-years"
+        }
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": ".rdp-years_dropdown"
+        },
+        {
+          "do": "type",
+          "text": "2020"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-dropdown",
+        ".rdp-caption_label",
+        ".rdp-dropdowns > span",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "caption-label__explicit",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "captionLayout": "label"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "modifiers__class-names",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "modifiers": {
+            "booked": [
+              "$date:2026-03-16",
+              "$date:2026-03-17",
+              "$date:2026-03-18",
+              "$date:2026-03-19",
+              "$date:2026-03-20"
+            ],
+            "weekend": {
+              "dayOfWeek": [
+                0,
+                6
+              ]
+            }
+          },
+          "modifiersClassNames": {
+            "booked": "[&>button]:line-through opacity-100",
+            "weekend": "font-semibold"
+          }
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "day-button__selected",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "w-16 [--cell-size:--spacing(8)]"
+            },
+            "children": [
+              {
+                "c": "CalendarDayButton",
+                "props": {
+                  "day": {
+                    "date": "$date:2026-03-15"
+                  },
+                  "modifiers": {
+                    "selected": true
+                  }
+                },
+                "children": [
+                  "15"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=button]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "day-button__selected__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "w-16 [--cell-size:--spacing(8)]"
+            },
+            "children": [
+              {
+                "c": "CalendarDayButton",
+                "props": {
+                  "day": {
+                    "date": "$date:2026-03-15"
+                  },
+                  "modifiers": {
+                    "selected": true
+                  }
+                },
+                "children": [
+                  "15"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=button]"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "day-button__plain",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "w-16 [--cell-size:--spacing(8)]"
+            },
+            "children": [
+              {
+                "c": "CalendarDayButton",
+                "props": {
+                  "day": {
+                    "date": "$date:2026-03-15"
+                  },
+                  "modifiers": {}
+                },
+                "children": [
+                  "15"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "day-button__not-selected",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "w-16 [--cell-size:--spacing(8)]"
+            },
+            "children": [
+              {
+                "c": "CalendarDayButton",
+                "props": {
+                  "day": {
+                    "date": "$date:2026-03-15"
+                  },
+                  "modifiers": {
+                    "selected": false
+                  }
+                },
+                "children": [
+                  "15"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "day-button__range-start",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "w-16 [--cell-size:--spacing(8)]"
+            },
+            "children": [
+              {
+                "c": "CalendarDayButton",
+                "props": {
+                  "day": {
+                    "date": "$date:2026-03-15"
+                  },
+                  "modifiers": {
+                    "selected": true,
+                    "range_start": true,
+                    "range_end": false,
+                    "range_middle": false
+                  }
+                },
+                "children": [
+                  "15"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "day-button__range-middle",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "w-16 [--cell-size:--spacing(8)]"
+            },
+            "children": [
+              {
+                "c": "CalendarDayButton",
+                "props": {
+                  "day": {
+                    "date": "$date:2026-03-15"
+                  },
+                  "modifiers": {
+                    "selected": true,
+                    "range_start": false,
+                    "range_end": false,
+                    "range_middle": true
+                  }
+                },
+                "children": [
+                  "15"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "day-button__range-end",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "w-16 [--cell-size:--spacing(8)]"
+            },
+            "children": [
+              {
+                "c": "CalendarDayButton",
+                "props": {
+                  "day": {
+                    "date": "$date:2026-03-15"
+                  },
+                  "modifiers": {
+                    "selected": true,
+                    "range_start": false,
+                    "range_end": true,
+                    "range_middle": false
+                  }
+                },
+                "children": [
+                  "15"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "day-button__range-end__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "w-16 [--cell-size:--spacing(8)]"
+            },
+            "children": [
+              {
+                "c": "CalendarDayButton",
+                "props": {
+                  "day": {
+                    "date": "$date:2026-03-15"
+                  },
+                  "modifiers": {
+                    "selected": true,
+                    "range_start": false,
+                    "range_end": true,
+                    "range_middle": false
+                  }
+                },
+                "children": [
+                  "15"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "day-button__classname",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex flex-col items-start gap-4 p-4"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "w-16 [--cell-size:--spacing(8)]"
+            },
+            "children": [
+              {
+                "c": "CalendarDayButton",
+                "props": {
+                  "day": {
+                    "date": "$date:2026-03-15"
+                  },
+                  "modifiers": {
+                    "selected": true
+                  },
+                  "className": "rounded-full"
+                },
+                "children": [
+                  "15"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__calendar-demo",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "mode": "single",
+          "selected": "$date:2026-03-15",
+          "today": "$date:2026-03-15",
+          "className": "rounded-md border shadow-sm",
+          "captionLayout": "dropdown"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-dropdown",
+        ".rdp-caption_label",
+        ".rdp-dropdowns > span",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "example__calendar-demo__dark",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "mode": "single",
+          "selected": "$date:2026-03-15",
+          "today": "$date:2026-03-15",
+          "className": "rounded-md border shadow-sm",
+          "captionLayout": "dropdown"
+        }
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-dropdown",
+        ".rdp-caption_label",
+        ".rdp-dropdowns > span",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "example__calendar-basic",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "className": "rounded-lg border"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "example__calendar-caption",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "today": "$date:2026-03-15",
+          "defaultMonth": "$date:2026-03-01",
+          "mode": "single",
+          "captionLayout": "dropdown",
+          "className": "rounded-lg border"
+        }
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-dropdown",
+        ".rdp-caption_label",
+        ".rdp-dropdowns > span",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "example__calendar-multiple",
+      "tree": {
+        "c": "Card",
+        "props": {
+          "className": "mx-auto w-fit p-0"
+        },
+        "children": [
+          {
+            "c": "CardContent",
+            "props": {
+              "className": "p-0"
+            },
+            "children": [
+              {
+                "c": "Calendar",
+                "props": {
+                  "today": "$date:2026-03-15",
+                  "defaultMonth": "$date:2026-03-01",
+                  "mode": "multiple"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-04\"] button"
+        },
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-09\"] button"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "example__calendar-range",
+      "tree": {
+        "c": "Card",
+        "props": {
+          "className": "mx-auto w-fit p-0"
+        },
+        "children": [
+          {
+            "c": "CardContent",
+            "props": {
+              "className": "p-0"
+            },
+            "children": [
+              {
+                "c": "Calendar",
+                "props": {
+                  "mode": "range",
+                  "today": "$date:2026-03-15",
+                  "defaultMonth": "$date:2026-01-12",
+                  "selected": {
+                    "from": "$date:2026-01-12",
+                    "to": "$date:2026-02-11"
+                  },
+                  "numberOfMonths": 2,
+                  "disabled": [
+                    {
+                      "after": "$date:2026-03-15"
+                    },
+                    {
+                      "before": "$date:1900-01-01"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": ".rdp-button_next"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "example__calendar-week-numbers",
+      "tree": {
+        "c": "Card",
+        "props": {
+          "className": "mx-auto w-fit p-0"
+        },
+        "children": [
+          {
+            "c": "CardContent",
+            "props": {
+              "className": "p-0"
+            },
+            "children": [
+              {
+                "c": "Calendar",
+                "props": {
+                  "mode": "single",
+                  "today": "$date:2026-03-15",
+                  "defaultMonth": "$date:2026-02-03",
+                  "selected": "$date:2026-02-03",
+                  "showWeekNumber": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-week_number",
+        ".rdp-week_number_header",
+        ".rdp-weekday",
+        ".rdp-day",
+        ".rdp-caption_label"
+      ]
+    },
+    {
+      "id": "example__calendar-booked-dates",
+      "tree": {
+        "c": "Card",
+        "props": {
+          "className": "mx-auto w-fit p-0"
+        },
+        "children": [
+          {
+            "c": "CardContent",
+            "props": {
+              "className": "p-0"
+            },
+            "children": [
+              {
+                "c": "Calendar",
+                "props": {
+                  "mode": "single",
+                  "today": "$date:2026-03-15",
+                  "defaultMonth": "$date:2026-02-03",
+                  "selected": "$date:2026-02-03",
+                  "disabled": [
+                    "$date:2026-02-12",
+                    "$date:2026-02-13",
+                    "$date:2026-02-14",
+                    "$date:2026-02-15",
+                    "$date:2026-02-16",
+                    "$date:2026-02-17",
+                    "$date:2026-02-18",
+                    "$date:2026-02-19",
+                    "$date:2026-02-20",
+                    "$date:2026-02-21",
+                    "$date:2026-02-22",
+                    "$date:2026-02-23",
+                    "$date:2026-02-24",
+                    "$date:2026-02-25",
+                    "$date:2026-02-26"
+                  ],
+                  "modifiers": {
+                    "booked": [
+                      "$date:2026-02-12",
+                      "$date:2026-02-13",
+                      "$date:2026-02-14",
+                      "$date:2026-02-15",
+                      "$date:2026-02-16",
+                      "$date:2026-02-17",
+                      "$date:2026-02-18",
+                      "$date:2026-02-19",
+                      "$date:2026-02-20",
+                      "$date:2026-02-21",
+                      "$date:2026-02-22",
+                      "$date:2026-02-23",
+                      "$date:2026-02-24",
+                      "$date:2026-02-25",
+                      "$date:2026-02-26"
+                    ]
+                  },
+                  "modifiersClassNames": {
+                    "booked": "[&>button]:line-through opacity-100"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "example__calendar-custom-days",
+      "tree": {
+        "c": "Card",
+        "props": {
+          "className": "mx-auto w-fit p-0"
+        },
+        "children": [
+          {
+            "c": "CardContent",
+            "props": {
+              "className": "p-0"
+            },
+            "children": [
+              {
+                "c": "Calendar",
+                "props": {
+                  "mode": "range",
+                  "today": "$date:2026-03-15",
+                  "defaultMonth": "$date:2026-12-08",
+                  "selected": {
+                    "from": "$date:2026-12-08",
+                    "to": "$date:2026-12-18"
+                  },
+                  "numberOfMonths": 1,
+                  "captionLayout": "dropdown",
+                  "className": "[--cell-size:--spacing(10)] md:[--cell-size:--spacing(12)]"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-dropdown",
+        ".rdp-caption_label",
+        ".rdp-dropdowns > span",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "example__calendar-presets",
+      "tree": {
+        "c": "Card",
+        "props": {
+          "className": "mx-auto w-fit max-w-[300px]"
+        },
+        "children": [
+          {
+            "c": "CardContent",
+            "children": [
+              {
+                "c": "Calendar",
+                "props": {
+                  "mode": "single",
+                  "today": "$date:2026-03-15",
+                  "selected": "$date:2026-02-12",
+                  "month": "$date:2026-03-01",
+                  "fixedWeeks": true,
+                  "className": "p-0 [--cell-size:--spacing(9.5)]"
+                }
+              }
+            ]
+          },
+          {
+            "c": "CardFooter",
+            "props": {
+              "className": "flex flex-wrap gap-2 border-t"
+            },
+            "children": [
+              {
+                "c": "Button",
+                "props": {
+                  "variant": "outline",
+                  "size": "sm",
+                  "className": "flex-1"
+                },
+                "children": [
+                  "Today"
+                ]
+              },
+              {
+                "c": "Button",
+                "props": {
+                  "variant": "outline",
+                  "size": "sm",
+                  "className": "flex-1"
+                },
+                "children": [
+                  "Tomorrow"
+                ]
+              },
+              {
+                "c": "Button",
+                "props": {
+                  "variant": "outline",
+                  "size": "sm",
+                  "className": "flex-1"
+                },
+                "children": [
+                  "In 3 days"
+                ]
+              },
+              {
+                "c": "Button",
+                "props": {
+                  "variant": "outline",
+                  "size": "sm",
+                  "className": "flex-1"
+                },
+                "children": [
+                  "In a week"
+                ]
+              },
+              {
+                "c": "Button",
+                "props": {
+                  "variant": "outline",
+                  "size": "sm",
+                  "className": "flex-1"
+                },
+                "children": [
+                  "In 2 weeks"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": ".rdp-button_next"
+        },
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-18\"] button"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "example__calendar-time",
+      "tree": {
+        "c": "Card",
+        "props": {
+          "className": "mx-auto w-fit"
+        },
+        "children": [
+          {
+            "c": "CardContent",
+            "children": [
+              {
+                "c": "Calendar",
+                "props": {
+                  "mode": "single",
+                  "today": "$date:2026-03-15",
+                  "selected": "$date:2026-03-12",
+                  "className": "p-0"
+                }
+              }
+            ]
+          },
+          {
+            "c": "CardFooter",
+            "props": {
+              "className": "border-t bg-card"
+            },
+            "children": [
+              {
+                "c": "FieldGroup",
+                "children": [
+                  {
+                    "c": "Field",
+                    "children": [
+                      {
+                        "c": "FieldLabel",
+                        "props": {
+                          "htmlFor": "time-from"
+                        },
+                        "children": [
+                          "Start Time"
+                        ]
+                      },
+                      {
+                        "c": "InputGroup",
+                        "children": [
+                          {
+                            "c": "InputGroupInput",
+                            "props": {
+                              "id": "time-from",
+                              "type": "time",
+                              "step": "1",
+                              "defaultValue": "10:30:00",
+                              "className": "appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
+                            }
+                          },
+                          {
+                            "c": "InputGroupAddon",
+                            "children": [
+                              "<icon:clock-2>"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "Field",
+                    "children": [
+                      {
+                        "c": "FieldLabel",
+                        "props": {
+                          "htmlFor": "time-to"
+                        },
+                        "children": [
+                          "End Time"
+                        ]
+                      },
+                      {
+                        "c": "InputGroup",
+                        "children": [
+                          {
+                            "c": "InputGroupInput",
+                            "props": {
+                              "id": "time-to",
+                              "type": "time",
+                              "step": "1",
+                              "defaultValue": "12:30:00",
+                              "className": "appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
+                            }
+                          },
+                          {
+                            "c": "InputGroupAddon",
+                            "children": [
+                              "<icon:clock-2>"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-month_grid",
+        ".rdp-weekday",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "example__calendar-rtl",
+      "tree": {
+        "c": "Calendar",
+        "props": {
+          "mode": "single",
+          "selected": "$date:2026-03-15",
+          "today": "$date:2026-03-15",
+          "className": "rounded-lg border [--cell-size:--spacing(9)]",
+          "captionLayout": "dropdown",
+          "dir": "rtl"
+        }
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": "td[data-day=\"2026-03-15\"] button"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-chevron",
+        ".rdp-dropdown",
+        ".rdp-caption_label",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "example__date-picker-demo",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[640px] items-start justify-center p-8"
+        },
+        "children": [
+          {
+            "c": "Popover",
+            "children": [
+              {
+                "c": "PopoverTrigger",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "Button",
+                    "props": {
+                      "variant": "outline",
+                      "className": "w-[240px] justify-start text-left font-normal text-muted-foreground"
+                    },
+                    "children": [
+                      "<icon:calendar>",
+                      {
+                        "c": "_span",
+                        "children": [
+                          "Pick a date"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PopoverContent",
+                "props": {
+                  "className": "w-auto p-0",
+                  "align": "start"
+                },
+                "children": [
+                  {
+                    "c": "Calendar",
+                    "props": {
+                      "today": "$date:2026-03-15",
+                      "defaultMonth": "$date:2026-03-01",
+                      "mode": "single"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Pick a date\"]"
+        },
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-20\"] button"
+        },
+        {
+          "do": "press",
+          "key": "Escape"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "example__date-picker-demo__dark",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[640px] items-start justify-center p-8"
+        },
+        "children": [
+          {
+            "c": "Popover",
+            "children": [
+              {
+                "c": "PopoverTrigger",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "Button",
+                    "props": {
+                      "variant": "outline",
+                      "className": "w-[240px] justify-start text-left font-normal text-muted-foreground"
+                    },
+                    "children": [
+                      "<icon:calendar>",
+                      {
+                        "c": "_span",
+                        "children": [
+                          "Pick a date"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PopoverContent",
+                "props": {
+                  "className": "w-auto p-0",
+                  "align": "start"
+                },
+                "children": [
+                  {
+                    "c": "Calendar",
+                    "props": {
+                      "today": "$date:2026-03-15",
+                      "defaultMonth": "$date:2026-03-01",
+                      "mode": "single"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Pick a date\"]"
+        },
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-20\"] button"
+        },
+        {
+          "do": "press",
+          "key": "Escape"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "example__date-picker-demo__keyboard",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[640px] items-start justify-center p-8"
+        },
+        "children": [
+          {
+            "c": "Popover",
+            "children": [
+              {
+                "c": "PopoverTrigger",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "Button",
+                    "props": {
+                      "variant": "outline",
+                      "className": "w-[240px] justify-start text-left font-normal text-muted-foreground"
+                    },
+                    "children": [
+                      "<icon:calendar>",
+                      {
+                        "c": "_span",
+                        "children": [
+                          "Pick a date"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PopoverContent",
+                "props": {
+                  "className": "w-auto p-0",
+                  "align": "start"
+                },
+                "children": [
+                  {
+                    "c": "Calendar",
+                    "props": {
+                      "today": "$date:2026-03-15",
+                      "defaultMonth": "$date:2026-03-01",
+                      "mode": "single"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "example__date-picker-with-range",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[640px] items-start justify-center p-8"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "grid gap-2"
+            },
+            "children": [
+              {
+                "c": "Popover",
+                "children": [
+                  {
+                    "c": "PopoverTrigger",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "Button",
+                        "props": {
+                          "id": "date",
+                          "variant": "outline",
+                          "className": "w-[300px] justify-start text-left font-normal"
+                        },
+                        "children": [
+                          "<icon:calendar>",
+                          "Jan 20, 2022 - Feb 09, 2022"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "PopoverContent",
+                    "props": {
+                      "className": "w-auto p-0",
+                      "align": "start"
+                    },
+                    "children": [
+                      {
+                        "c": "Calendar",
+                        "props": {
+                          "mode": "range",
+                          "today": "$date:2026-03-15",
+                          "defaultMonth": "$date:2022-01-20",
+                          "selected": {
+                            "from": "$date:2022-01-20",
+                            "to": "$date:2022-02-09"
+                          },
+                          "numberOfMonths": 2
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "#date"
+        },
+        {
+          "do": "click",
+          "target": "td[data-day=\"2022-01-25\"] button"
+        },
+        {
+          "do": "click",
+          "target": ".rdp-button_next"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 1000,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "example__date-picker-with-presets",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[640px] items-start justify-center p-8"
+        },
+        "children": [
+          {
+            "c": "Popover",
+            "children": [
+              {
+                "c": "PopoverTrigger",
+                "props": {
+                  "asChild": true
+                },
+                "children": [
+                  {
+                    "c": "Button",
+                    "props": {
+                      "variant": "outline",
+                      "className": "w-[240px] justify-start text-left font-normal text-muted-foreground"
+                    },
+                    "children": [
+                      "<icon:calendar>",
+                      {
+                        "c": "_span",
+                        "children": [
+                          "Pick a date"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "PopoverContent",
+                "props": {
+                  "align": "start",
+                  "className": "flex w-auto flex-col space-y-2 p-2"
+                },
+                "children": [
+                  {
+                    "c": "Select",
+                    "children": [
+                      {
+                        "c": "SelectTrigger",
+                        "children": [
+                          {
+                            "c": "SelectValue",
+                            "props": {
+                              "placeholder": "Select"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "c": "SelectContent",
+                        "props": {
+                          "position": "popper"
+                        },
+                        "children": [
+                          {
+                            "c": "SelectItem",
+                            "props": {
+                              "value": "0"
+                            },
+                            "children": [
+                              "Today"
+                            ]
+                          },
+                          {
+                            "c": "SelectItem",
+                            "props": {
+                              "value": "1"
+                            },
+                            "children": [
+                              "Tomorrow"
+                            ]
+                          },
+                          {
+                            "c": "SelectItem",
+                            "props": {
+                              "value": "3"
+                            },
+                            "children": [
+                              "In 3 days"
+                            ]
+                          },
+                          {
+                            "c": "SelectItem",
+                            "props": {
+                              "value": "7"
+                            },
+                            "children": [
+                              "In a week"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "_div",
+                    "props": {
+                      "className": "rounded-md border"
+                    },
+                    "children": [
+                      {
+                        "c": "Calendar",
+                        "props": {
+                          "today": "$date:2026-03-15",
+                          "defaultMonth": "$date:2026-03-01",
+                          "mode": "single"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "role=button[name=\"Pick a date\"]"
+        },
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-11\"] button"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "example__date-picker-basic",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[640px] items-start justify-center p-8"
+        },
+        "children": [
+          {
+            "c": "Field",
+            "props": {
+              "className": "mx-auto w-44"
+            },
+            "children": [
+              {
+                "c": "FieldLabel",
+                "props": {
+                  "htmlFor": "date-picker-simple"
+                },
+                "children": [
+                  "Date"
+                ]
+              },
+              {
+                "c": "Popover",
+                "children": [
+                  {
+                    "c": "PopoverTrigger",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "Button",
+                        "props": {
+                          "variant": "outline",
+                          "id": "date-picker-simple",
+                          "className": "justify-start font-normal"
+                        },
+                        "children": [
+                          {
+                            "c": "_span",
+                            "children": [
+                              "Pick a date"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "PopoverContent",
+                    "props": {
+                      "className": "w-auto p-0",
+                      "align": "start"
+                    },
+                    "children": [
+                      {
+                        "c": "Calendar",
+                        "props": {
+                          "today": "$date:2026-03-15",
+                          "defaultMonth": "$date:2026-03-01",
+                          "mode": "single"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "#date-picker-simple"
+        },
+        {
+          "do": "click",
+          "target": "td[data-day=\"2026-03-09\"] button"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-caption_label",
+        ".rdp-day"
+      ]
+    },
+    {
+      "id": "example__date-picker-dob",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex h-[640px] items-start justify-center p-8"
+        },
+        "children": [
+          {
+            "c": "Field",
+            "props": {
+              "className": "mx-auto w-44"
+            },
+            "children": [
+              {
+                "c": "FieldLabel",
+                "props": {
+                  "htmlFor": "date"
+                },
+                "children": [
+                  "Date of birth"
+                ]
+              },
+              {
+                "c": "Popover",
+                "children": [
+                  {
+                    "c": "PopoverTrigger",
+                    "props": {
+                      "asChild": true
+                    },
+                    "children": [
+                      {
+                        "c": "Button",
+                        "props": {
+                          "variant": "outline",
+                          "id": "date",
+                          "className": "justify-start font-normal"
+                        },
+                        "children": [
+                          "Select date"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "PopoverContent",
+                    "props": {
+                      "className": "w-auto overflow-hidden p-0",
+                      "align": "start"
+                    },
+                    "children": [
+                      {
+                        "c": "Calendar",
+                        "props": {
+                          "today": "$date:2026-03-15",
+                          "defaultMonth": "$date:2026-03-01",
+                          "mode": "single",
+                          "captionLayout": "dropdown"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "#date"
+        },
+        {
+          "do": "focus",
+          "target": ".rdp-years_dropdown"
+        },
+        {
+          "do": "type",
+          "text": "1990"
+        },
+        {
+          "do": "click",
+          "target": "td[data-day=\"1990-03-14\"] button"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".rdp-nav button",
+        ".rdp-dropdown",
+        ".rdp-caption_label",
+        ".rdp-day"
+      ]
+    }
+  ]
+}

@@ -11,12 +11,16 @@
 #     (Combobox::List item, Combobox::Value values): the template is rendered once per element of an Array argument, or once;
 #     "$item" / "$item.<path>" in a string prop or text child become that element (not inside a nested `_Each`)
 #   - a string prop "$ref:<css selector>" is passed as the selector string (React side: a lazy ref)
+#   - a string anywhere inside a prop value "$date:YYYY-MM-DD" is passed as the ISO string "YYYY-MM-DD" (React side: a local Date);
+#     "$locale:es" is passed as the BCP 47 tag "es" (React side: the react-day-picker locale)
 # dx: "helpers" renders nested parts through the YIELDED root (`root.header { ... }`) instead of `Root::Header.new`.
 class ShadcnParity::TreeRenderer < Phlex::HTML
   class Error < StandardError; end
 
   ICON = /\A<icon:([\w-]+)>/
   REF = /\A\$ref:/
+  DATE = /\A\$date:(\d{4}-\d{2}-\d{2})\z/
+  LOCALE = /\A\$locale:(.+)\z/
   PARITY_ROOTS = %w[Probe ProbeGroup].freeze
   Target = Struct.new(:klass, :root, :helper)
 
@@ -160,7 +164,18 @@ class ShadcnParity::TreeRenderer < Phlex::HTML
       key = "class" if key == "className"
       value = css_properties(value) if key == "style" && value.is_a?(Hash)
       value = value.sub(REF, "") if value.is_a?(String) && value.match?(REF)
+      value = plain_values(value)
       out[(key.match?(/[-:]/) ? key : key.underscore).to_sym] = value
+    end
+  end
+
+  # "$date:2026-03-15" -> "2026-03-15", "$locale:es" -> "es" (exact shapes, like Harness.tsx; anything else stays verbatim), at any depth (nested hashes keep their React key names).
+  def plain_values(value)
+    case value
+    when String then (value[DATE, 1] || value[LOCALE, 1]) || value
+    when Array then value.map { |v| plain_values(v) }
+    when Hash then value.key?("c") ? value : value.transform_values { |v| plain_values(v) }
+    else value
     end
   end
 

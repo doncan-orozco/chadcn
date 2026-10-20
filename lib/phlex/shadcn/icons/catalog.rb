@@ -43,6 +43,7 @@ module Phlex::Shadcn::Icons::Catalog
     "circle-user" => "<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><circle cx=\"12\" cy=\"10\" r=\"3\"></circle><path d=\"M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662\"></path>",
     "citrus" => "<path d=\"M21.66 17.67a1.08 1.08 0 0 1-.04 1.6A12 12 0 0 1 4.73 2.38a1.1 1.1 0 0 1 1.61-.04z\"></path><path d=\"M19.65 15.66A8 8 0 0 1 8.35 4.34\"></path><path d=\"m14 10-5.5 5.5\"></path><path d=\"M14 17.85V10H6.15\"></path>",
     "clock" => "<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><path d=\"M12 6v6l4 2\"></path>",
+    "clock-2" => "<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><path d=\"M12 6v6l4-2\"></path>",
     "cloud" => "<path d=\"M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z\"></path>",
     "code" => "<path d=\"m16 18 6-6-6-6\"></path><path d=\"m8 6-6 6 6 6\"></path>",
     "command" => "<path d=\"M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3\"></path>",
@@ -115,6 +116,7 @@ module Phlex::Shadcn::Icons::Catalog
 
   # full class attribute for icons whose lucide-react markup carries several `lucide-*` classes
   CLASSES = {
+    "clock-2" => "lucide lucide-clock2 lucide-clock-2",
     "link-2" => "lucide lucide-link2 lucide-link-2",
     "trash-2" => "lucide lucide-trash2 lucide-trash-2"
   }.freeze

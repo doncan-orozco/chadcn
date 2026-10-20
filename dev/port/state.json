@@ -4,7 +4,6 @@
     "third_party"
   ],
   "skipped": [
-    "calendar",
     "carousel",
     "chart",
     "drawer",
@@ -787,6 +786,20 @@
         "input-group"
       ],
       "source_sha": "4f88734887ed6928"
+    },
+    "calendar": {
+      "status": "pending",
+      "tier": "third_party",
+      "wave": 4,
+      "iteration": 0,
+      "note": null,
+      "last_green_sha": null,
+      "updated_at": "2026-10-20T07:30:15Z",
+      "kind": "fanout",
+      "deps": [
+        "button"
+      ],
+      "source_sha": "78ed2cc49dafc5bb"
     }
   }
 }

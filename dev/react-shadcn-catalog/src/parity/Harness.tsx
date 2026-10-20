@@ -9,9 +9,13 @@
 //     "$item" / "$item.<path>" in a string prop or text child are replaced by that element (not inside a nested `_Each`)
 //   - a string prop value "$ref:<css selector>" becomes a lazy ref ({ current: document.querySelector(selector) }); the Phlex
 //     side passes the selector string
+//   - a string anywhere inside a prop value "$date:YYYY-MM-DD" becomes a local-midnight Date (Calendar `selected`, `today`,
+//     `disabled` matchers...); the Phlex side passes the ISO string. "$locale:es" becomes the react-day-picker locale `es`
+//     ("en-GB" -> enGB); the Phlex side passes the BCP 47 tag
 import * as React from "react"
 import * as Lucide from "lucide-react"
 import * as probes from "./probes"
+import * as dayPickerLocales from "react-day-picker/locale"
 
 // Parity only: SidebarMenuSkeleton draws its width from Math.random() (floor(r * 40) + 50 percent). Pin r = 0.5 (70 percent)
 // so it matches the Phlex parity controller, which pins the same width.
@@ -93,8 +97,28 @@ function expandEach(each: Node, arg: unknown, key: number): React.ReactNode {
 
 const lazyRef = (selector: string) => ({ get current() { return document.querySelector(selector) } })
 
+const DATE = /^\$date:(\d{4})-(\d{2})-(\d{2})$/
+
+// "$date:2026-03-15" -> Date(2026, 2, 15) and "$locale:es" -> the react-day-picker locale, at any depth of a prop value.
+function reviveValue(value: unknown): unknown {
+  if (typeof value === "string") {
+    const date = value.match(DATE)
+    if (date) return new Date(Number(date[1]), Number(date[2]) - 1, Number(date[3]))
+    if (value.startsWith("$locale:")) {
+      const key = value.slice(8).replace(/-(\w)/g, (_, c: string) => c.toUpperCase())
+      const locale = (dayPickerLocales as Record<string, unknown>)[key === "en" ? "enUS" : key]
+      if (!locale) throw new ParityError(`unknown locale ${value}`)
+      return locale
+    }
+    return value
+  }
+  if (Array.isArray(value)) return value.map(reviveValue)
+  if (value && typeof value === "object" && (value as { c?: unknown }).c === undefined) return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, reviveValue(v)]))
+  return value
+}
+
 function refProps(props: Record<string, unknown>) {
-  return Object.fromEntries(Object.entries(props).map(([k, v]) => [k, typeof v === "string" && v.startsWith("$ref:") ? lazyRef(v.slice(5)) : v]))
+  return Object.fromEntries(Object.entries(props).map(([k, v]) => [k, typeof v === "string" && v.startsWith("$ref:") ? lazyRef(v.slice(5)) : reviveValue(v)]))
 }
 
 function renderNode(node: Node, key?: number): React.ReactNode {

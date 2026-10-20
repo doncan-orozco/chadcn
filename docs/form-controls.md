@@ -8,6 +8,7 @@ Inputs, buttons and the `Field` layout primitives. Interactive ones carry a Stim
 |---|---|---|---|
 | `Button` | `variant:` (`default`, `destructive`, `outline`, `secondary`, `ghost`, `link`), `size:` (`default`, `xs`, `sm`, `lg`, `icon`, `icon-xs`, `icon-sm`, `icon-lg`), `as_child:`; `Button.variants(variant:, size:, class:)` | none | |
 | `ButtonGroup` | `orientation:` (`horizontal`, `vertical`); `ButtonGroup.variants` | `Separator` (`orientation:`) `button_group.separator`, `Text` (`as_child:`) `button_group.text` | |
+| `Calendar` | `mode:` (`single`, `multiple`, `range`, none = a plain grid), `selected:`, `default_month:`, `month:` (controlled), `today:`, `number_of_months:`, `caption_layout:` (`label`, `dropdown`, `dropdown-months`, `dropdown-years`), `show_outside_days:`, `fixed_weeks:`, `show_week_number:`, `week_starts_on:`, `locale:`, `dir:`, `disabled:`, `hidden:`, `modifiers:`, `modifiers_class_names:`, `class_names:`, `start_month:`, `end_month:`, `min:`, `max:`, `required:`, `exclude_disabled:`, `reset_on_select:`, `button_variant:`, `footer:`, `formatters:`, `name:`, `input:`, `label:`, `close_on_select:` | `DayButton` (`day:`, `modifiers:`) `calendar.day_button` | `select`, `month-change` |
 | `Checkbox` | `checked:` (`true`, `false`, `"indeterminate"`), `default_checked:`, `disabled:`, `required:`, `name:`, `value:` (`"on"`), `form:` | none | `checked-change` |
 | `Field` | `orientation:` (`vertical`, `horizontal`, `responsive`); `Field.variants` | `Set` `field.set`, `Legend` (`variant:` `legend`, `label`) `field.legend`, `Group` `field.group`, `Content` `field.content`, `Label` `field.label`, `Title` `field.title`, `Description` `field.description`, `Separator` `field.separator`, `Error` (`errors:`) `field.error` | |
 | `Input` | `type:`, `default_value:` | none | |
@@ -53,6 +54,75 @@ end
 `Field::Error.new(errors:)` renders one message or a list, mirroring shadcn's `FieldError`: each entry has a `message` key (symbol or
 string) or a `#message` method, blank messages are dropped, and a block replaces `errors:` with custom content.
 
+## Example: a calendar and a date picker
+
+`Calendar` is shadcn's `Calendar` (react-day-picker) written with native `Date` and `Intl` only: no date library is shipped. Dates are
+`Date`, `Time` or `"YYYY-MM-DD"` strings and are always read as local dates. The server renders the shell and the navigation; the
+`shadcn--calendar` controller builds the months in the browser. It dispatches `shadcn--calendar:select` (`detail: { selected, date,
+modifiers }`) and `shadcn--calendar:month-change` (`detail: { month }`), both bubbling.
+
+```ruby
+render Phlex::Shadcn::Calendar.new(mode: :single, selected: Date.new(2026, 3, 15), class: "rounded-md border shadow-sm")
+
+# a range over two months, weeks starting on Monday, weekends and the days before March 2026 disabled
+render Phlex::Shadcn::Calendar.new(
+  mode: :range, number_of_months: 2, week_starts_on: 1, selected: { from: Date.new(2026, 3, 10), to: Date.new(2026, 3, 14) },
+  disabled: [ { day_of_week: [ 0, 6 ] }, { before: Date.new(2026, 3, 1) } ]
+)
+
+# month and year dropdowns between two months, Spanish text, custom modifier
+render Phlex::Shadcn::Calendar.new(
+  mode: :single, caption_layout: :dropdown, locale: :es, start_month: Date.new(2020, 1, 1), end_month: Date.new(2030, 12, 1),
+  modifiers: { booked: [ Date.new(2026, 3, 16), Date.new(2026, 3, 17) ] }, modifiers_class_names: { booked: "line-through" }
+)
+```
+
+There is no `DatePicker` component (shadcn has none either: its date pickers are examples). The composition is a `Popover`, a `Button`
+trigger and a `Calendar`. Keep the form field OUTSIDE `Popover::Content`: the content is an inert `<template>` that is mounted into
+`body` on open and removed on close, so anything inside it is not in the form. `input:` is the source of truth: the calendar reads the
+input's value every time it opens and writes `YYYY-MM-DD` back (then dispatches bubbling `input` and `change`); `label:` is an element
+whose text shows the formatted selection (its first text is the placeholder, and it gets `data-empty="true|false"` for styling);
+`close_on_select: true` closes the popover once the selection is complete.
+
+```ruby
+date = Date.new(2026, 3, 10) # the model's value, nil when empty
+# date-fns "PPP", the text the controller writes into the label: March 10th, 2026
+ordinal = date && ((11..13).cover?(date.day % 100) ? "th" : { 1 => "st", 2 => "nd", 3 => "rd" }.fetch(date.day % 10, "th"))
+
+form(action: "/events", method: "post") do
+  input(type: "hidden", id: "event_date", name: "event[date]", value: date&.iso8601)
+  render Phlex::Shadcn::Popover.new do
+    render Phlex::Shadcn::Popover::Trigger.new(as_child: Phlex::Shadcn::Button.new(variant: "outline", class: "w-[240px] justify-start text-left font-normal has-[[data-empty=true]]:text-muted-foreground")) do
+      render Phlex::Shadcn::Icon.new("calendar")
+      span(id: "event_date_label", data: { shadcn__calendar_placeholder: "Pick a date", empty: date.nil?.to_s }) { date ? date.strftime("%B #{date.day}#{ordinal}, %Y") : "Pick a date" }
+    end
+    render Phlex::Shadcn::Popover::Content.new(class: "w-auto p-0", align: "start") do
+      render Phlex::Shadcn::Calendar.new(mode: :single, selected: date, input: "#event_date", label: "#event_date_label", close_on_select: true)
+    end
+  end
+end
+```
+
+The calendar only connects when the popover opens, so the server renders the label in its final state: the text, `data-empty`, and the
+placeholder in `data-shadcn--calendar-placeholder` (the controller falls back to it when the selection is cleared; without the attribute
+the label's first text becomes the placeholder, which is wrong when the label already shows a date). Format the text like the controller
+does (`March 10th, 2026` for English; other locales use `Intl` `dateStyle: "long"`), or the label changes the first time it is used.
+An `input:` or `label:` selector that matches nothing logs an error and is ignored; `input: { from:, to: }` is only valid for `mode: :range`.
+An `input:` value that does not fully parse (in any mode) logs a warning and is read as no selection.
+
+A range picker takes one selector per input (`input: { from: "#stay_from", to: "#stay_to" }`) or a single input holding
+`YYYY-MM-DD/YYYY-MM-DD`; a multiple picker holds `YYYY-MM-DD,YYYY-MM-DD`. A calendar that is not inside a popover can submit by itself
+with `name:`: it renders hidden inputs (`name`, `name[]` or `name[from]` and `name[to]`) that the controller keeps in sync. A multiple
+calendar starts its `name[]` list with one blank value (like Rails' check box collections) so an empty selection still submits the key;
+call `compact_blank` on the array.
+
+```ruby
+form(action: "/stays", method: "post") do
+  render Phlex::Shadcn::Calendar.new(mode: :range, name: "stay", selected: { from: Date.new(2026, 3, 10) }, number_of_months: 2)
+  render Phlex::Shadcn::Button.new(type: "submit") { "Book" }
+end
+```
+
 ## Example: radio group and toggle group
 
 ```ruby
@@ -86,6 +156,10 @@ a(href: "/more", class: Phlex::Shadcn::Button.variants(variant: "outline", size:
 
 ## Notes
 
+- `Calendar` text is exact for the default locale and `es`; other `locale:` tags use `Intl` names with English labels (see its
+  deviations). Functions cannot cross from Ruby, so `formatters:` take `Intl.DateTimeFormat` option hashes, matchers are data, and `month:`
+  is moved by setting the `data-shadcn--calendar-month-value` attribute. `Calendar::DayButton` is the shadcn `CalendarDayButton`; the
+  calendar clones one for every day.
 - `Slider` dispatches `value-change` while dragging and `value-commit` when the pointer is released or a key is pressed, as Radix.
 - `ToggleGroup.new(type:)` is required (React has no default); `variant:` and `size:` on the group cascade to its items, an item may
   override them.
