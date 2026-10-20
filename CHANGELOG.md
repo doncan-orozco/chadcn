@@ -20,8 +20,21 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
   come from `window.Toaster` (sonner's `toast` API), the flash (`Toaster.new(flash:)`), a Turbo Stream that appends a `Sonner::Toast` to
   the Toaster id, or the `shadcn--sonner:show` event; dismiss, auto-close, action and cancel are events. Compared with sonner in 81
   parity scenarios; `error` toasts are also announced through an assertive live region (recorded deviation).
+- `Phlex::Shadcn::Command` (with `Command::Dialog`, `Input`, `List`, `Empty`, `Group`, `Item`, `Shortcut`, `Separator`): shadcn's
+  cmdk palette without cmdk. A Stimulus controller (`shadcn--command`) reproduces cmdk's DOM (`cmdk-*` attributes, `aria-activedescendant`),
+  keyboard model (arrows, Home/End, Ctrl+N/P/J/K, Enter) and group hiding, and ranks items with the new built-in `scorer` primitive
+  (subsequence match with prefix and word-boundary bonuses and diacritic folding); the dialog variant renders `Phlex::Shadcn::Dialog`.
+  Compared with cmdk in 128 parity scenarios; selection and search changes are events (`shadcn--command:select`, `:search-change`,
+  `:value-change`).
+- `Phlex::Shadcn::Combobox` (`Input`, `Trigger`, `Clear`, `Value`, `Content`, `List`, `Item`, `Group`, `Label`, `Collection`, `Empty`,
+  `Separator`, `Chips`, `Chip`, `ChipsInput`): shadcn's Base UI combobox with single and multiple (chips) selection, grouped items,
+  clear button, `filter: "fuzzy"` (default, the scorer) or `"contains"` (Base UI's matching), and native form submission through hidden
+  inputs (`name:`), restored from a Turbo snapshot. Positioned by the new `anchor_positioner` primitive (Base UI's anchor positioning,
+  next to the Radix `positioner`). Compared with Base UI in 151 parity scenarios; no new JavaScript dependency (no cmdk, fuse.js or
+  Base UI).
+- Primitives `scorer` (fuzzy match and ranking, with its own unit tests) and `anchor_positioner`.
 - Gem skeleton: Zeitwerk loader, version, license files and a standalone test harness.
-- The 51 ported components as `Phlex::Shadcn::<Name>` with their parts nested under the root (`Phlex::Shadcn::Dialog::Content`),
+- The 53 ported components as `Phlex::Shadcn::<Name>` with their parts nested under the root (`Phlex::Shadcn::Dialog::Content`),
   generated yielded-root helpers (`dialog.content { ... }`), `as_child:` with Radix Slot semantics and `**attrs` merging on every
   part; the Stimulus controllers `shadcn--<name>` and the shared primitives they build on.
 - Rails engine (loaded only when `Rails::Engine` is defined): importmap pins for the Stimulus controllers, primitives and vendored

@@ -7,8 +7,6 @@
     "calendar",
     "carousel",
     "chart",
-    "combobox",
-    "command",
     "drawer",
     "form",
     "input-otp",
@@ -760,6 +758,35 @@
       "kind": "fanout",
       "deps": [],
       "source_sha": "13ccc9b0fe4248e6"
+    },
+    "command": {
+      "status": "done",
+      "tier": "third_party",
+      "wave": 5,
+      "iteration": 0,
+      "note": "ported in #178",
+      "last_green_sha": null,
+      "updated_at": "2026-10-20T05:34:24Z",
+      "kind": "fanout",
+      "deps": [
+        "dialog"
+      ],
+      "source_sha": "319e9264567dd46f"
+    },
+    "combobox": {
+      "status": "done",
+      "tier": "third_party",
+      "wave": 5,
+      "iteration": 0,
+      "note": "ported in #178",
+      "last_green_sha": null,
+      "updated_at": "2026-10-20T05:34:24Z",
+      "kind": "fanout",
+      "deps": [
+        "button",
+        "input-group"
+      ],
+      "source_sha": "4f88734887ed6928"
     }
   }
 }

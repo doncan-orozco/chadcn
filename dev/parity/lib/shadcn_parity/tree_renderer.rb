@@ -7,11 +7,16 @@
 #   - c "DialogTrigger": Phlex::Shadcn::Dialog::Trigger (root prefix stripped); "Button" -> Phlex::Shadcn::Button
 #   - children: strings are text; a string starting with "<icon:name>" renders that icon (rest is text)
 #   - asChild: true: the single child node becomes the `as_child:` instance and its children the content
+#   - a child { "c": "_Each", "children": [template...] } turns the parent's block into one that takes the yielded argument
+#     (Combobox::List item, Combobox::Value values): the template is rendered once per element of an Array argument, or once;
+#     "$item" / "$item.<path>" in a string prop or text child become that element (not inside a nested `_Each`)
+#   - a string prop "$ref:<css selector>" is passed as the selector string (React side: a lazy ref)
 # dx: "helpers" renders nested parts through the YIELDED root (`root.header { ... }`) instead of `Root::Header.new`.
 class ShadcnParity::TreeRenderer < Phlex::HTML
   class Error < StandardError; end
 
   ICON = /\A<icon:([\w-]+)>/
+  REF = /\A\$ref:/
   PARITY_ROOTS = %w[Probe ProbeGroup].freeze
   Target = Struct.new(:klass, :root, :helper)
 
@@ -36,6 +41,7 @@ class ShadcnParity::TreeRenderer < Phlex::HTML
     props = component_props(node["props"])
     props[:as_child] = as_child_instance(node, roots) if node.dig("props", "asChild") == true
     content = props.key?(:as_child) ? as_child_node(node)["children"] : node["children"]
+    return render_each_node(node, target, props, content, roots) if each_node?(content)
 
     if @dx && target.root && roots[target.root]
       roots[target.root].public_send(target.helper, **props) { render_children(content, roots) }
@@ -43,6 +49,45 @@ class ShadcnParity::TreeRenderer < Phlex::HTML
       render(target.klass.new(**props)) { |root| render_children(content, root.is_a?(target.klass) ? roots.merge(target.klass => root) : roots) }
     else
       render(target.klass.new(**props)) { render_children(content, roots) }
+    end
+  end
+
+  def each_node?(children)
+    Array(children).any? { |child| child.is_a?(Hash) && child["c"] == "_Each" }
+  end
+
+  # The parent's block receives the argument its component yields; `_Each` children are expanded against it.
+  def render_each_node(_node, target, props, content, roots)
+    block = proc do |arg = nil|
+      expanded = Array(content).flat_map { |child| child.is_a?(Hash) && child["c"] == "_Each" ? expand_each(child, arg) : [ child ] }
+      render_children(expanded, roots)
+    end
+    if @dx && target.root && roots[target.root]
+      roots[target.root].public_send(target.helper, **props, &block)
+    else
+      render(target.klass.new(**props), &block)
+    end
+  end
+
+  def expand_each(each, arg)
+    (arg.is_a?(Array) ? arg : [ arg ]).flat_map { |element| Array(each["children"]).map { |template| substitute(template, element) } }
+  end
+
+  # "$item" / "$item.a.b" -> the element (or its property); a nested `_Each` keeps its own children for its own argument.
+  def substitute(value, item)
+    case value
+    when String
+      return item if value == "$item"
+      return value unless value.start_with?("$item.")
+
+      value.delete_prefix("$item.").split(".").reduce(item) { |acc, part| acc.is_a?(Hash) ? acc[part] : nil }
+    when Array then value.map { |v| substitute(v, item) }
+    when Hash
+      return value.merge("props" => substitute(value["props"] || {}, item)) if value["c"] == "_Each"
+      return value.transform_values { |v| substitute(v, item) } unless value.key?("c")
+
+      value.merge("props" => substitute(value["props"] || {}, item), "children" => Array(value["children"]).map { |child| substitute(child, item) })
+    else value
     end
   end
 
@@ -114,6 +159,7 @@ class ShadcnParity::TreeRenderer < Phlex::HTML
       key = key.sub(/\Aaria([A-Z])/) { "aria-#{Regexp.last_match(1).downcase}" }
       key = "class" if key == "className"
       value = css_properties(value) if key == "style" && value.is_a?(Hash)
+      value = value.sub(REF, "") if value.is_a?(String) && value.match?(REF)
       out[(key.match?(/[-:]/) ? key : key.underscore).to_sym] = value
     end
   end

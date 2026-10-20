@@ -1,4 +1,4 @@
-# Menus and select
+# Menus, select, command and combobox
 
 Dropdown menu, context menu, menubar and select. Their controllers (`shadcn--dropdown-menu`, `shadcn--context-menu`,
 `shadcn--menubar`, `shadcn--select`) implement the Radix menu behavior: roving focus, typeahead, submenus with the pointer grace
@@ -147,3 +147,43 @@ end
 - `Select` keeps the chosen `value` in `Select::Value` and in the hidden native `<select>` when `name:` is given, so it submits with
   the form; `Select::Content` defaults to `position: "item-aligned"` like Radix, `position: "popper"` anchors it to the trigger.
 - `Menubar.new(value:)` controls which menu is open; `loop:` wraps keyboard navigation between triggers.
+
+## Command and combobox
+
+Searchable lists. `Command` is shadcn's cmdk palette and `Combobox` its Base UI select-with-input; both filter with the built-in
+`scorer` primitive (no fuse.js, cmdk or Base UI is loaded).
+
+```ruby
+# command palette
+render Phlex::Shadcn::Command.new do |command|
+  command.input(placeholder: "Type a command or search...")
+  command.list do
+    command.empty { "No results found." }
+    command.group(heading: "Suggestions") do
+      command.item(value: "calendar", keywords: %w[date]) { "Calendar" }
+      command.item(value: "search") { "Search emoji" }
+    end
+    command.separator
+    command.item(disabled: true) { "Calculator" }
+  end
+end
+
+# the same list in a dialog. It has no trigger slot and is controlled by open: (Cmd+K is yours to bind): re-render it with
+# open: true to show it (or use default_open: true for a dialog that starts open)
+render Phlex::Shadcn::Command::Dialog.new(open: true) { |command| command.input(placeholder: "Search...") }
+
+# combobox, submitted in a form as framework=next.js
+render Phlex::Shadcn::Combobox.new(items: %w[next.js sveltekit astro], name: "framework") do |combobox|
+  combobox.input(placeholder: "Select a framework")
+  combobox.content do
+    combobox.empty { "No items found." }
+    combobox.list { |item| combobox.item(value: item) { item } }
+  end
+end
+```
+
+- `Command::Item` dispatches `shadcn--command:select`; the search box dispatches `shadcn--command:search-change`. Set a custom
+  matcher from JavaScript with `controller.filter = (value, search, keywords) => score`.
+- `Combobox.new(multiple: true)` shows chips (`Combobox::Chips`, `Chip`, `ChipsInput`) and submits one hidden input per selection;
+  `Combobox::Input.new(show_clear: true)` adds the clear button; `filter: :contains` matches like Base UI, `filter: nil` disables filtering.
+- Both keep working across Turbo navigations: Command restores the server render from the page snapshot, while Combobox restores the current selection.

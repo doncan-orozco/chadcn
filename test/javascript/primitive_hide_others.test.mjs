@@ -66,3 +66,37 @@ primitiveTest("hide_others: accepts several targets and an explicit parent", asy
   assert.deepEqual(result.hidden, ["sibling"]);
   assert.equal(result.left, 0);
 }, { html });
+
+primitiveTest("hide_others: { marker: false } sets aria-hidden without the data-aria-hidden marker and releases cleanly", async (page) => {
+  const result = await page.evaluate(async (snap) => {
+    const { hideOthers } = await import("shadcn/primitives/hide_others");
+    const take = new Function(`return (${snap})()`);
+    const release = hideOthers(document.getElementById("target"), document.body, { marker: false });
+    const hidden = take();
+    release();
+    return { hidden, released: take() };
+  }, snapshot.toString());
+  assert.deepEqual(result.hidden.header, ["true", null]);
+  assert.deepEqual(result.hidden.sibling, ["true", null]);
+  assert.deepEqual(result.released.header, [null, null]);
+  assert.deepEqual(result.released.already, ["true", null]);
+}, { html });
+
+primitiveTest("hide_others: a { marker: false } call and a default-marker call on the same nodes compose and release in any order", async (page) => {
+  const result = await page.evaluate(async (snap) => {
+    const { hideOthers } = await import("shadcn/primitives/hide_others");
+    const take = new Function(`return (${snap})()`);
+    const target = document.getElementById("target");
+    const releaseBare = hideOthers(target, document.body, { marker: false });
+    const releaseMarked = hideOthers(target, document.body);
+    const both = take();
+    releaseBare();
+    const afterBare = take();
+    releaseMarked();
+    return { both, afterBare, released: take() };
+  }, snapshot.toString());
+  assert.equal(result.both.sibling[0], "true");
+  assert.equal(result.afterBare.sibling[0], "true", "still hidden by the marked call");
+  assert.deepEqual(result.released.sibling, [null, null]);
+  assert.deepEqual(result.released.header, [null, null]);
+}, { html });

@@ -66,6 +66,31 @@ class Phlex::Shadcn::Checkbox < Phlex::Shadcn::Base
 class Phlex::Shadcn::Collapsible < Phlex::Shadcn::Base
 class Phlex::Shadcn::Collapsible::Content < Phlex::Shadcn::Base
 class Phlex::Shadcn::Collapsible::Trigger < Phlex::Shadcn::Base
+class Phlex::Shadcn::Combobox < Phlex::Shadcn::Base
+class Phlex::Shadcn::Combobox::Chip < Phlex::Shadcn::Base
+class Phlex::Shadcn::Combobox::Chips < Phlex::Shadcn::Base
+class Phlex::Shadcn::Combobox::ChipsInput < Phlex::Shadcn::Base
+class Phlex::Shadcn::Combobox::Clear < Phlex::Shadcn::Base
+class Phlex::Shadcn::Combobox::Collection < Phlex::Shadcn::Base
+class Phlex::Shadcn::Combobox::Content < Phlex::Shadcn::Base
+class Phlex::Shadcn::Combobox::Empty < Phlex::Shadcn::Base
+class Phlex::Shadcn::Combobox::Group < Phlex::Shadcn::Base
+class Phlex::Shadcn::Combobox::Input < Phlex::Shadcn::Base
+class Phlex::Shadcn::Combobox::Item < Phlex::Shadcn::Base
+class Phlex::Shadcn::Combobox::Label < Phlex::Shadcn::Base
+class Phlex::Shadcn::Combobox::List < Phlex::Shadcn::Base
+class Phlex::Shadcn::Combobox::Separator < Phlex::Shadcn::Base
+class Phlex::Shadcn::Combobox::Trigger < Phlex::Shadcn::Base
+class Phlex::Shadcn::Combobox::Value < Phlex::Shadcn::Base
+class Phlex::Shadcn::Command < Phlex::Shadcn::Base
+class Phlex::Shadcn::Command::Dialog < Phlex::Shadcn::Base
+class Phlex::Shadcn::Command::Empty < Phlex::Shadcn::Base
+class Phlex::Shadcn::Command::Group < Phlex::Shadcn::Base
+class Phlex::Shadcn::Command::Input < Phlex::Shadcn::Base
+class Phlex::Shadcn::Command::Item < Phlex::Shadcn::Base
+class Phlex::Shadcn::Command::List < Phlex::Shadcn::Base
+class Phlex::Shadcn::Command::Separator < Phlex::Shadcn::Base
+class Phlex::Shadcn::Command::Shortcut < Phlex::Shadcn::Base
 class Phlex::Shadcn::Configuration
 class Phlex::Shadcn::Configuration::LateSettingError < StandardError
 class Phlex::Shadcn::ContextMenu < Phlex::Shadcn::Base
@@ -318,6 +343,7 @@ const Phlex::Shadcn::Bubble::VARIANTS [default, secondary, muted, tinted, outlin
 const Phlex::Shadcn::Button::SIZES [default, xs, sm, lg, icon, icon-xs, icon-sm, icon-lg]
 const Phlex::Shadcn::Button::VARIANTS [default, destructive, outline, secondary, ghost, link]
 const Phlex::Shadcn::ButtonGroup::ORIENTATIONS [horizontal, vertical]
+const Phlex::Shadcn::Command::Item::KEYWORDS
 const Phlex::Shadcn::Direction::VALUES [ltr, rtl]
 const Phlex::Shadcn::Empty::Media::VARIANTS [default, icon]
 const Phlex::Shadcn::Field::ORIENTATIONS [vertical, horizontal, responsive]
@@ -520,6 +546,78 @@ method Phlex::Shadcn::Collapsible::Content#initialize (force_mount: false, as_ch
 method Phlex::Shadcn::Collapsible::Content#view_template (&block)
 method Phlex::Shadcn::Collapsible::Trigger#initialize (as_child: false, **attrs)
 method Phlex::Shadcn::Collapsible::Trigger#view_template ()
+method Phlex::Shadcn::Combobox#chip (**attrs, &block)
+method Phlex::Shadcn::Combobox#chips (**attrs, &block)
+method Phlex::Shadcn::Combobox#chips_input (**attrs, &block)
+method Phlex::Shadcn::Combobox#clear (**attrs, &block)
+method Phlex::Shadcn::Combobox#collection (**attrs, &block)
+method Phlex::Shadcn::Combobox#content (**attrs, &block)
+method Phlex::Shadcn::Combobox#empty (**attrs, &block)
+method Phlex::Shadcn::Combobox#group (**attrs, &block)
+method Phlex::Shadcn::Combobox#initialize (items: nil, multiple: false, value: nil, default_value: nil, input_value: nil, default_input_value: nil, open: nil, default_open: false, name: nil, form: nil, auto_complete: nil, id: nil, disabled: false, read_only: false, required: false, auto_highlight: false, keep_highlight: false, highlight_item_on_hover: true, loop_focus: true, open_on_input_click: true, modal: false, limit: NO_LIMIT, submit_on_item_click: false, filter: "fuzzy", locale: nil, item_to_string_label: nil, item_to_string_value: nil, item_equal_to_value: nil)
+method Phlex::Shadcn::Combobox#input (**attrs, &block)
+method Phlex::Shadcn::Combobox#item (**attrs, &block)
+method Phlex::Shadcn::Combobox#label (**attrs, &block)
+method Phlex::Shadcn::Combobox#list (**attrs, &block)
+method Phlex::Shadcn::Combobox#separator (**attrs, &block)
+method Phlex::Shadcn::Combobox#trigger (**attrs, &block)
+method Phlex::Shadcn::Combobox#value (**attrs, &block)
+method Phlex::Shadcn::Combobox#view_template ()
+method Phlex::Shadcn::Combobox::Chip#initialize (show_remove: true, **attrs)
+method Phlex::Shadcn::Combobox::Chip#view_template (&block)
+method Phlex::Shadcn::Combobox::Chips#initialize (**attrs)
+method Phlex::Shadcn::Combobox::Chips#view_template ()
+method Phlex::Shadcn::Combobox::ChipsInput#initialize (disabled: false, **attrs)
+method Phlex::Shadcn::Combobox::ChipsInput#view_template ()
+method Phlex::Shadcn::Combobox::Clear#initialize (disabled: false, **attrs)
+method Phlex::Shadcn::Combobox::Clear#view_template ()
+method Phlex::Shadcn::Combobox::Collection#view_template (&block)
+method Phlex::Shadcn::Combobox::Content#initialize (side: "bottom", side_offset: 6, align: "start", align_offset: 0, anchor: nil, **attrs)
+method Phlex::Shadcn::Combobox::Content#view_template ()
+method Phlex::Shadcn::Combobox::Empty#initialize (**attrs)
+method Phlex::Shadcn::Combobox::Empty#view_template ()
+method Phlex::Shadcn::Combobox::Group#initialize (items: nil, **attrs)
+method Phlex::Shadcn::Combobox::Group#view_template ()
+method Phlex::Shadcn::Combobox::Input#initialize (disabled: false, show_trigger: true, show_clear: false, **attrs)
+method Phlex::Shadcn::Combobox::Input#view_template (&block)
+method Phlex::Shadcn::Combobox::Item#initialize (value: nil, disabled: false, **attrs)
+method Phlex::Shadcn::Combobox::Item#view_template (&block)
+method Phlex::Shadcn::Combobox::Label#initialize (**attrs)
+method Phlex::Shadcn::Combobox::Label#view_template ()
+method Phlex::Shadcn::Combobox::List#initialize (**attrs)
+method Phlex::Shadcn::Combobox::List#view_template (&block)
+method Phlex::Shadcn::Combobox::Separator#initialize (**attrs)
+method Phlex::Shadcn::Combobox::Separator#view_template ()
+method Phlex::Shadcn::Combobox::Trigger#initialize (as_child: false, disabled: false, **attrs)
+method Phlex::Shadcn::Combobox::Trigger#view_template (&block)
+method Phlex::Shadcn::Combobox::Value#initialize (placeholder: nil)
+method Phlex::Shadcn::Combobox::Value#view_template (&block)
+method Phlex::Shadcn::Command#dialog (**attrs, &block)
+method Phlex::Shadcn::Command#empty (**attrs, &block)
+method Phlex::Shadcn::Command#group (**attrs, &block)
+method Phlex::Shadcn::Command#initialize (label: nil, value: nil, default_value: nil, should_filter: true, loop: false, disable_pointer_selection: false, vim_bindings: true, **attrs)
+method Phlex::Shadcn::Command#input (**attrs)
+method Phlex::Shadcn::Command#item (**attrs, &block)
+method Phlex::Shadcn::Command#list (**attrs, &block)
+method Phlex::Shadcn::Command#separator (**attrs)
+method Phlex::Shadcn::Command#shortcut (**attrs, &block)
+method Phlex::Shadcn::Command#view_template ()
+method Phlex::Shadcn::Command::Dialog#initialize (title: "Command Palette", description: "Search for a command to run...", show_close_button: true, open: nil, default_open: false, modal: true, **attrs)
+method Phlex::Shadcn::Command::Dialog#view_template (&block)
+method Phlex::Shadcn::Command::Empty#initialize (**attrs)
+method Phlex::Shadcn::Command::Empty#view_template ()
+method Phlex::Shadcn::Command::Group#initialize (heading: nil, value: nil, force_mount: false, **attrs)
+method Phlex::Shadcn::Command::Group#view_template ()
+method Phlex::Shadcn::Command::Input#initialize (value: nil, **attrs)
+method Phlex::Shadcn::Command::Input#view_template ()
+method Phlex::Shadcn::Command::Item#initialize (value: nil, keywords: KEYWORDS, disabled: false, force_mount: false, as_child: false, **attrs)
+method Phlex::Shadcn::Command::Item#view_template ()
+method Phlex::Shadcn::Command::List#initialize (label: "Suggestions", **attrs)
+method Phlex::Shadcn::Command::List#view_template ()
+method Phlex::Shadcn::Command::Separator#initialize (always_render: false, **attrs)
+method Phlex::Shadcn::Command::Separator#view_template ()
+method Phlex::Shadcn::Command::Shortcut#initialize (**attrs)
+method Phlex::Shadcn::Command::Shortcut#view_template ()
 method Phlex::Shadcn::Configuration#override_dir ()
 method Phlex::Shadcn::Configuration#override_dir= (value)
 method Phlex::Shadcn::Configuration#theme_dir ()
@@ -1127,6 +1225,29 @@ Phlex::Shadcn::Card#header
 Phlex::Shadcn::Card#title
 Phlex::Shadcn::Collapsible#content
 Phlex::Shadcn::Collapsible#trigger
+Phlex::Shadcn::Combobox#chip
+Phlex::Shadcn::Combobox#chips
+Phlex::Shadcn::Combobox#chips_input
+Phlex::Shadcn::Combobox#clear
+Phlex::Shadcn::Combobox#collection
+Phlex::Shadcn::Combobox#content
+Phlex::Shadcn::Combobox#empty
+Phlex::Shadcn::Combobox#group
+Phlex::Shadcn::Combobox#input
+Phlex::Shadcn::Combobox#item
+Phlex::Shadcn::Combobox#label
+Phlex::Shadcn::Combobox#list
+Phlex::Shadcn::Combobox#separator
+Phlex::Shadcn::Combobox#trigger
+Phlex::Shadcn::Combobox#value
+Phlex::Shadcn::Command#dialog
+Phlex::Shadcn::Command#empty
+Phlex::Shadcn::Command#group
+Phlex::Shadcn::Command#input
+Phlex::Shadcn::Command#item
+Phlex::Shadcn::Command#list
+Phlex::Shadcn::Command#separator
+Phlex::Shadcn::Command#shortcut
 Phlex::Shadcn::ContextMenu#checkbox_item
 Phlex::Shadcn::ContextMenu#content
 Phlex::Shadcn::ContextMenu#group

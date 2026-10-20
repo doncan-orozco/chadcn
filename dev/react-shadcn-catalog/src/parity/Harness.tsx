@@ -4,6 +4,11 @@
 //   - c = "_a" / "_div" ... (underscore + lowercase): raw HTML element, props become attributes
 //   - c = "_Probe" ... (underscore + capital): harness stub component from ./probes
 //   - children strings are text; a string starting with "<icon:name>" renders that lucide icon (rest of the string is text)
+//   - a child `{ "c": "_Each", "children": [template...] }` turns the parent's children into a render function (Base UI lists,
+//     groups and multiple-value chips): the template is rendered once per element of the argument (Array) or once with it;
+//     "$item" / "$item.<path>" in a string prop or text child are replaced by that element (not inside a nested `_Each`)
+//   - a string prop value "$ref:<css selector>" becomes a lazy ref ({ current: document.querySelector(selector) }); the Phlex
+//     side passes the selector string
 import * as React from "react"
 import * as Lucide from "lucide-react"
 import * as probes from "./probes"
@@ -57,8 +62,50 @@ function renderChild(child: Node | string, key: number): React.ReactNode {
   )
 }
 
+const isEach = (child: Node | string): child is Node => typeof child !== "string" && child.c === "_Each"
+
+// "$item" / "$item.a.b" -> the element (or its property). Does not descend into the children of a nested `_Each`.
+function substitute(value: unknown, item: unknown): unknown {
+  if (typeof value === "string") {
+    if (value === "$item") return item
+    if (value.startsWith("$item.")) return value.slice(6).split(".").reduce<unknown>((acc, part) => (acc as Record<string, unknown> | undefined)?.[part], item)
+    return value
+  }
+  if (Array.isArray(value)) return value.map((v) => substitute(v, item))
+  if (value && typeof value === "object") {
+    const node = value as Node
+    if (typeof node.c === "string") {
+      return { ...node, props: substitute(node.props ?? {}, item), children: isEach(node) ? node.children : (node.children ?? []).map((c) => substitute(c, item)) }
+    }
+    return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, substitute(v, item)]))
+  }
+  return value
+}
+
+function expandEach(each: Node, arg: unknown, key: number): React.ReactNode {
+  const elements = Array.isArray(arg) ? arg : [arg]
+  return elements.map((element, index) => (
+    <React.Fragment key={`${key}-${index}-${JSON.stringify(element)}`}>
+      {(each.children ?? []).map((template, i) => renderChild(substitute(template, element) as Node | string, i))}
+    </React.Fragment>
+  ))
+}
+
+const lazyRef = (selector: string) => ({ get current() { return document.querySelector(selector) } })
+
+function refProps(props: Record<string, unknown>) {
+  return Object.fromEntries(Object.entries(props).map(([k, v]) => [k, typeof v === "string" && v.startsWith("$ref:") ? lazyRef(v.slice(5)) : v]))
+}
+
 function renderNode(node: Node, key?: number): React.ReactNode {
-  const props = { ...(node.props ?? {}), key }
+  const props = { ...refProps(node.props ?? {}), key }
+  const each = (node.children ?? []).find(isEach)
+  if (each) {
+    const render = (arg: unknown) => (node.children ?? []).map((child, i) => (child === each ? expandEach(each, arg, i) : renderChild(child, i)))
+    const component = registry[node.c]
+    if (!component) throw new ParityError(`unknown component ${node.c}`)
+    return React.createElement(component, props, render)
+  }
   const kids = (node.children ?? []).map(renderChild)
   const children = kids.length ? kids : undefined
   if (/^_[a-z]/.test(node.c)) {

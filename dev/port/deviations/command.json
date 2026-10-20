@@ -1,0 +1,21 @@
+{
+  "component": "command",
+  "reason": "shadcn's command.tsx wraps the React-only cmdk library. A Phlex port with no JavaScript dependency (maintainer constraint of the phlex-shadcn-adoption epic, item #178) re-implements cmdk's DOM and state machine in the shadcn--command Stimulus controller and ranks with the scorer primitive, so the rendered DOM (cmdk-* attributes, roles, aria-selected/data-selected, aria-activedescendant, hidden groups, mounted/unmounted items, separators and Empty, item order after sorting) equals the oracle in the scenarios. The differences are the ones a server render or Ruby forces: (1) CommandEmpty exists in React only while the filtered count is 0, which the server cannot know before the items render, so its markup is shipped in an inert <template> (no data-slot, not in the document) at its JSX position and mounted by the controller; (2) cmdk's filter prop is a JS function and has no Ruby value, so it is assigned on the controller from JavaScript; (3) callbacks are events: Item onSelect is shadcn--command:select and Input onValueChange is shadcn--command:search-change (renamed because the root onValueChange already maps to value-change); (4) cmdk asChild on the root, Input, List and Group clones the child around cmdk's internal wrapper and is not offered (Item supports as_child); (5) with a controlled value, cmdk 1.1.1 computes selectedItemId before the items re-render, so aria-activedescendant lags one step when the caller does not feed the value back; the port keeps it in sync with the selection. (6) The default description of Command::Dialog, 'Search for a command to run...', is the React default prose; the G1 static gate reads a 5-word string as a class string, so its words are listed in allow_tokens (precedent: deviations/pagination.json).",
+  "allow_tokens": [
+    "Search",
+    "a",
+    "command",
+    "for",
+    "run...",
+    "to"
+  ],
+  "allow_missing_tokens": [],
+  "api": [
+    "Command::Empty renders an inert <template data-shadcn--command-target=\"empty\"> (no data-slot) holding its markup; the controller mounts it while the filtered count is 0",
+    "Command filter (JS function) is assigned from JavaScript on the shadcn--command controller, not passed from Ruby",
+    "Command::Item onSelect is the event shadcn--command:select; Command::Input onValueChange is the event shadcn--command:search-change",
+    "as_child is supported on Command::Item only; Command, Command::Input, Command::List and Command::Group do not offer it",
+    "Controlled value: aria-activedescendant follows the selection immediately (cmdk 1.1.1 lags one step when the caller does not update value)",
+    "Command::Group renders the raw value attribute next to the trimmed data-value, like cmdk's spread props"
+  ]
+}

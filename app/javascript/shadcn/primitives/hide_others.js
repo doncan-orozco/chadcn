@@ -13,12 +13,14 @@ const uncontrolled = new WeakMap()
  * Marks every sibling along the path from the targets up to `parent` as `aria-hidden` (ref-counted, nesting-safe).
  * @param {Element | Element[]} targets Elements that stay exposed.
  * @param {Element} [parent=document.body]
+ * @param {object} [options]
+ * @param {boolean} [options.marker=true] Set `false` to hide with `aria-hidden` only (no `data-aria-hidden` marker), e.g. Base UI.
  * @returns {() => void} release: undoes only what this call hid. Single-use: a second call decrements the shared
  *   counters again and can un-hide nodes another modal still needs.
  * @example
  * const release = hideOthers(dialogEl)
  */
-export function hideOthers(targets, parent = document.body) {
+export function hideOthers(targets, parent = document.body, { marker: useMarker = true } = {}) {
   const list = (Array.isArray(targets) ? targets : [targets]).filter(Boolean)
   list.push(...parent.querySelectorAll("[aria-live], script"))
 
@@ -42,12 +44,14 @@ export function hideOthers(targets, parent = document.body) {
       const current = child.getAttribute("aria-hidden")
       const alreadyHidden = current !== null && current !== "false"
       const counter = (counters.get(child) || 0) + 1
-      const marker = (markers.get(child) || 0) + 1
       counters.set(child, counter)
-      markers.set(child, marker)
       hidden.push(child)
       if (counter === 1 && alreadyHidden) uncontrolled.set(child, true)
-      if (marker === 1) child.setAttribute("data-aria-hidden", "true")
+      if (useMarker) {
+        const marker = (markers.get(child) || 0) + 1
+        markers.set(child, marker)
+        if (marker === 1) child.setAttribute("data-aria-hidden", "true")
+      }
       if (!alreadyHidden) child.setAttribute("aria-hidden", "true")
     }
   }
@@ -56,13 +60,14 @@ export function hideOthers(targets, parent = document.body) {
   return function release() {
     hidden.forEach((child) => {
       const counter = counters.get(child) - 1
-      const marker = markers.get(child) - 1
       counters.set(child, counter)
-      markers.set(child, marker)
       if (!counter) {
         if (!uncontrolled.has(child)) child.removeAttribute("aria-hidden")
         uncontrolled.delete(child)
       }
+      if (!useMarker) return
+      const marker = markers.get(child) - 1
+      markers.set(child, marker)
       if (!marker) child.removeAttribute("data-aria-hidden")
     })
   }
