@@ -49,6 +49,19 @@ class PackagingTest < Minitest::Test
     assert_empty listed - built[:files]
   end
 
+  def test_the_generated_llms_files_and_the_agent_skill_are_packaged
+    assert_includes built[:files], "llms.txt"
+    assert_includes built[:files], "llms-full.txt"
+    assert_includes built[:files], "skills/phlex-shadcn/SKILL.md"
+  end
+
+  def test_the_agent_skill_has_frontmatter_and_stays_short
+    skill = File.read(File.join(GEM_DIR, "skills/phlex-shadcn/SKILL.md"))
+
+    assert_match(/\A---\nname: phlex-shadcn\ndescription: ".+"\n---\n/, skill)
+    assert_operator skill.lines.size, :<=, 60, "SKILL.md must stay short: long reference material lives in llms-full.txt"
+  end
+
   def test_no_dev_only_controller_is_packaged
     leaked = built[:files].grep(%r{(?:\A|/)(?:_probe_[^/]*|theme_panel_controller\.js)\z})
 

@@ -30,3 +30,13 @@ namespace :public_api do
     sh FileUtils::RUBY, "-Itest", "-Ilib", "test/public_api_test.rb"
   end
 end
+
+namespace :llms do
+  llms_cli = ->(command) { sh FileUtils::RUBY, File.expand_path("dev/llms/cli.rb", __dir__), command }
+
+  desc "Regenerate llms.txt, llms-full.txt and skills/phlex-shadcn/SKILL.md from the YARD docs and the Stimulus controllers"
+  task(:generate) { llms_cli.call("generate") }
+
+  desc "Fail when the committed llms files differ from what `llms:generate` produces"
+  task(:check) { llms_cli.call("check") }
+end
