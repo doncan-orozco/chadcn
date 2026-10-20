@@ -1,0 +1,13 @@
+{
+  "tolerance": 0.02,
+  "ruby": "4.0.0",
+  "phlex": "2.4.1",
+  "allocations": {
+    "reference": 13,
+    "button": 57,
+    "card": 197,
+    "select": 882,
+    "dialog": 540,
+    "table": 7115
+  }
+}
