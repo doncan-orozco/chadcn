@@ -101,9 +101,26 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 - CI: a Ruby 3.2 to 4.0 matrix against the current Phlex 2.x and the Phlex 2.3 lower bound, a plain-Phlex smoke, a clean-app
   smoke, a `js-tests` job running the Stimulus browser suite (`test/javascript`, the suite the host's `bin/rails test:javascript`
   runs) and a `docs` job that renders every Ruby example of the README and `docs/` (`bin/smoke --docs`).
+- CI: the esbuild and Sprockets clean-app smokes (`bin/smoke --app --js esbuild` and `--assets sprockets`) run on every gem change
+  (job `clean-app-variants`, `dev/decisions/ci-smokes.md`).
+- `bin/bench --check --expect-improvement SCENARIO=PERCENT[,...]` exits 1 unless each named scenario allocates at least that percent
+  less than a baseline: `dev/bench/baseline.json`, or another one given with `--against FILE_OR_GIT_REV` (a baseline file or a git
+  revision), so a performance change can prove its gain. It compares allocations only and, unlike plain `--check`, never skips when the
+  baseline was recorded on another Ruby or Phlex version: it exits 1 and asks for a baseline recorded there.
+- `gem_check` accepts a same-line `# gem_check:allow GEM_ESCAPES_ROOT -- reason` marker for an intentional host path, honoured only in
+  the doctor (`lib/phlex/shadcn/doctor/`); `dev/decisions/gem-check-host-paths.md`.
 
 ### Changed
 
+- A caller's `data-controller` no longer replaces a component's own: `merge_attrs` (and `as_child`) appends the caller's controller
+  names after the component's and de-duplicates them, so `Calendar.new(data: { controller: "x" })` renders
+  `data-controller="shadcn--calendar x"` instead of an inert calendar. The component's controller cannot be removed through `data:`
+  (not even with `controller: nil`); `data-action` still concatenates and every other `data:` key still lets the caller win
+  (`dev/decisions/data-controller-merge.md`). Behavior change for callers who relied on replacing the controller.
+- `Phlex::Shadcn::Overrides` and `Phlex::Shadcn::JsBundle` (the install generator's JavaScript helper, formerly
+  `Generators::JsBundle`) now live under `lib/phlex/shadcn/` (`@api private`).
+- The signatures printed in `llms-full.txt` and the public-surface snapshot are rendered identically on Ruby 3.2 to 4.0; negative
+  keyword defaults no longer print a doubled comma (`align_offset: -4,,`).
 - The gem's Zeitwerk loader is set up by an engine initializer that runs before Rails sets its autoload paths, instead of at require
   time, so the override directory of ejected components is known first. `Loader.setup` therefore no longer runs when the gem is
   required in a Rails app; a component referenced before the app initializes (in `config/application.rb`, say) sets the loader up on
