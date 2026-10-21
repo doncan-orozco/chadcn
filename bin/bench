@@ -7,7 +7,9 @@
 #   bin/bench --check         compare allocations with dev/bench/baseline.json; exit 1 when a scenario exceeds baseline + tolerance
 #   bin/bench --record        rewrite dev/bench/baseline.json with today's allocations
 # --check skips the gate with a warning when the baseline was recorded on another Ruby or Phlex version (re-record there).
-# Unknown flags exit 2. Tests: ruby dev/bench/runner_test.rb
+#   bin/bench --check --expect-improvement button=25,card=20   exit 1 unless each scenario allocates that percent less than the
+#                             baseline (--against FILE_OR_GIT_REV picks another one); never skips, see --help
+# Unknown or malformed flags exit 2. Tests: ruby dev/bench/runner_test.rb (from the gem directory)
 # Time is reported but never gated (flaky); allocations per render are the gate. The implementation lives in dev/bench/.
 require_relative "../dev/bench/runner"
 
