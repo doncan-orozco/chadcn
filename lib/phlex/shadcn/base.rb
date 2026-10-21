@@ -154,7 +154,8 @@ class Phlex::Shadcn::Base < Phlex::HTML
   end
 
   # Component defaults + caller attrs: `data:`/`aria:` deep-merged (caller wins), `class` through `cn`
-  # (caller wins on Tailwind conflicts), `data-action` descriptors concatenated (defaults first).
+  # (caller wins on Tailwind conflicts), `data-action` descriptors and `data-controller` names concatenated
+  # (defaults first; controller names de-duplicated, see dev/decisions/data-controller-merge.md).
   #
   # @api private
   def merge_attrs(defaults, attrs)
@@ -167,6 +168,7 @@ class Phlex::Shadcn::Base < Phlex::HTML
       actions = [ default_action, caller_action ].reject_blank
       merged[:data] = (merged[:data] || {}).merge(action: actions.join(" ")) if actions.any?
     end
+    merge_controllers(merged, defaults.dig(:data, :controller), attrs[:data])
     resolved = cn(defaults[:class], attrs[:class])
     css = @slot_class.nil? ? resolved : flatten_class_inputs([ @slot_class, resolved ]).join(" ")
     css.empty? ? merged.except(:class) : merged.merge(class: css)
@@ -187,6 +189,31 @@ class Phlex::Shadcn::Base < Phlex::HTML
   end
 
   private
+
+  # `data-controller` is a token list: the component's identifiers first, then the caller's, de-duplicated. A caller cannot
+  # remove the component's controller (not even with `controller: nil`), like `data-action`. When the caller passed no
+  # controller key `merge_deep` kept the default and nothing is allocated; otherwise the fresh `data` hash that
+  # `merge_deep` built is replaced by a copy, never one the caller still holds.
+  def merge_controllers(merged, default_controller, caller_data)
+    return if default_controller.nil? || caller_data.nil? || !caller_data.key?(:controller)
+
+    merged[:data] = merged[:data].merge(controller: controller_tokens(default_controller, caller_data[:controller]).join(" "))
+  end
+
+  # Whitespace-separated identifiers from strings, symbols, arrays or sets (blank entries dropped), in order, de-duplicated.
+  def controller_tokens(first, second)
+    tokens = []
+    [ first, second ].each { |value| add_controller_tokens(tokens, value) }
+    tokens.uniq
+  end
+
+  def add_controller_tokens(tokens, value)
+    case value
+    when nil then nil
+    when Array, Set then value.each { |item| add_controller_tokens(tokens, item) }
+    else tokens.concat(value.to_s.split)
+    end
+  end
 
   def merge_classes(inputs)
     flattened = flatten_class_inputs(inputs)
@@ -237,7 +264,7 @@ class Phlex::Shadcn::Base < Phlex::HTML
     data = merged[:data] = (merged[:data] || {}).dup # never mutate a hash the caller or the child still holds
     actions = [ child.dig(:data, :action), slot.dig(:data, :action) ].reject_blank
     data[:action] = actions.join(" ") if actions.any?
-    controllers = [ slot.dig(:data, :controller), child.dig(:data, :controller) ].reject_blank.flat_map { |c| c.to_s.split }.uniq
+    controllers = controller_tokens(slot.dig(:data, :controller), child.dig(:data, :controller))
     data[:controller] = controllers.join(" ") if controllers.any?
     merged.delete(:data) if data.empty?
 
