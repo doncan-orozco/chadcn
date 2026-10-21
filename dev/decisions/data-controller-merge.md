@@ -1,6 +1,6 @@
 # Decision: a caller's `data-controller` is appended to the component's, never a replacement
 
-Status: decided and implemented by item #202 (phlex-shadcn-adoption-followups). Proof: `test/phlex/shadcn/base_merge_attrs_test.rb`.
+Status: decided and implemented by item #202 (phlex-shadcn-adoption-followups); normalization of the caller value on every path added by item #239 (phlex-shadcn-hardening, PR #245). Proof: `test/phlex/shadcn/base_merge_attrs_test.rb`.
 
 ## The bug
 
@@ -14,10 +14,41 @@ already unioned the controllers of slot and child, but the child's own `merge_at
 
 `data-controller` is a space separated token list. The result is the component's controller names followed by the caller's, split on
 whitespace and de-duplicated, joined by one space: `shadcn--calendar` + `x` => `shadcn--calendar x`; `shadcn--x` + `shadcn--x mine`
-=> `shadcn--x mine`. A caller controller on a component without one is kept as is, and a component controller with no caller one is
-untouched. An explicit `nil` or blank caller value keeps the component's controller (it is not an opt-out), like `data-action`; Array and
-Set values (Phlex token lists) and Symbols are accepted and flattened to names. Every other `data:`/`aria:` key keeps the deep-merge rule (caller wins), `data-action` keeps its concatenation (defaults
-first), and `class` keeps going through `cn`. The Slot merge (`as_child`) already behaved this way and is now consistent end to end.
+=> `shadcn--x mine`. A component controller with no caller one is untouched. Every other `data:`/`aria:` key keeps the deep-merge rule
+(caller wins), `data-action` keeps its concatenation (defaults first), and `class` keeps going through `cn`.
+
+The caller's value is normalized the same way on every path, whether or not the component has a controller of its own, and on
+`as_child`:
+
+- It is flattened: String, Symbol, Array (nested too) and Set (Phlex token lists) all become names.
+- Each string is split on whitespace, and the names are de-duplicated, keeping the first occurrence.
+- `nil`, `false` and blank entries (`""`, `"  "`) are dropped. `false` is blank (it never becomes the name `"false"`), also inside a list.
+- An empty result removes the `data-controller` attribute (a component without a controller of its own renders none) instead of
+  emitting `data-controller=""`.
+- A caller `nil`, `false` or blank value is not an opt-out: the component's own controller stays, like `data-action`.
+
+Real renders (plain Phlex process, `Phlex::Shadcn` loaded, class attribute elided):
+
+```
+Badge.new(data: { controller: ["a", "b a"] })        => <span data-slot="badge" data-variant="default" data-controller="a b" ...>
+Badge.new(data: { controller: Set[:a, "a b"] })      => <span ... data-controller="a b" ...>
+Badge.new(data: { controller: "  a   b " })          => <span ... data-controller="a b" ...>
+Badge.new(data: { controller: nil })                 => <span data-slot="badge" data-variant="default" ...>   (no attribute)
+Badge.new(data: { controller: false })               => same, no attribute
+Badge.new(data: { controller: "" })                  => same, no attribute
+Badge.new(data: { controller: [nil, false, ""] })    => same, no attribute
+Calendar.new(data: { controller: "x" })              => <div lang="en-US" data-slot="calendar" data-controller="shadcn--calendar x" ...>
+Calendar.new(data: { controller: ["x", "shadcn--calendar"] }) => data-controller="shadcn--calendar x"
+Calendar.new(data: { controller: nil })              => data-controller="shadcn--calendar"
+Calendar.new(data: { controller: false })            => data-controller="shadcn--calendar"
+Calendar.new(data: { controller: "" })               => data-controller="shadcn--calendar"
+Badge.new(as_child: :a, data: { controller: ["a", "b a"] }) => <a data-slot="badge" ... data-controller="a b" ...>
+Badge.new(as_child: :a, data: { controller: false })        => <a data-slot="badge" ...>   (no attribute)
+```
+
+`as_child` follows the same rule on both targets. Onto a component instance the Slot merge (`slot_merge`) unions the slot's and the
+child's tokens (slot first) and the child's own `merge_attrs` then puts its default controller first, followed by that union; onto a bare tag (Symbol or String) there is no component
+controller, but the slot's list is still normalized (`normalize_slot_controller`).
 
 ## Why append and not replace
 
@@ -40,8 +71,12 @@ really wants an inert element can use the plain tag.
 
 ## Implementation notes
 
-- `merge_attrs` calls a private `merge_controllers`; `slot_merge` shares the `controller_tokens` helper. It returns early (key-presence check)
-  when the caller passed no `controller:` key, so the common path allocates nothing new (`bin/bench --check` unchanged).
-- It writes into the `data` hash that `canonical_attrs`/`merge_deep` built for this call, never into a hash the caller holds
-  (covered by a frozen-input test).
+- `merge_attrs` calls a private `merge_controllers`, which returns early (key-presence check) when the caller passed no `controller:` key,
+  so the common path allocates nothing new (`bin/bench --check` unchanged). Otherwise it builds the list with `controller_tokens`
+  (the recursive `add_controller_tokens` drops nil and false, recurses into Array/Set and calls `to_s.split` on anything else; `controller_tokens` then calls `uniq!`) and writes it
+  through `with_controllers`, which returns a copy of `data` with the joined names, or without the key when the list is empty.
+- `canonical_attrs` (through `canonical_value`) leaves the `controller` value untouched (no boolean stringification), so `false` reaches the normalizer and is dropped.
+- `slot_merge` (component instance) and `normalize_slot_controller` (bare tag) share `controller_tokens`; `normalize_slot_controller` writes through
+  `with_controllers`, while `slot_merge` writes the joined names into (or deletes the key from) its own copy of `data`.
+- Nothing is written into a hash the caller holds (`with_controllers` copies; covered by frozen-input tests).
 - The render cache memoizes class strings only, so it is unaffected.
