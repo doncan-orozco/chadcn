@@ -46,6 +46,13 @@ B. The point of the rule is that deliberate host knowledge is visible and bounde
 - `gem_check` still passes on main unchanged: the doctor's `File.join` forms never matched the rule, so no existing rule was weakened and no finding appears or disappears.
 - Follow-up (shared note on #206): change `doctor/context.rb` (`DEFAULT_CSS`) and `doctor/checks/engine_bundle.rb` (`BUNDLE`) from `File.join(...)` to a marked literal, and `doctor/checks/stimulus.rb` (`FILES`, a `%w[]` host-path list the regex cannot see) to quoted, marked literals.
 
-## Related: the memoized `Base#cn` cache
+## Related: the process-wide state of `Phlex::Shadcn::Base`
 
-The skill's R4 says "no global mutable state". PR #189 added a process-wide memo to `Phlex::Shadcn::Base#cn`. It is a recorded exception (skill, section Namespacing) under explicit conditions: pure, bounded, accessed only through a load-time `Mutex`, `@api private` (read only by the gem's own cache test), and holding no configuration or request state. The older `Base.tw_merger` memo is recorded as a weaker case (lazy, unlocked) with a revisit condition (build it eagerly next time `base.rb` is touched).
+The skill's R4 says "no global mutable state". Two process-wide objects in `Phlex::Shadcn::Base` are a recorded exception (skill `ruby-gem-conventions`, section Namespacing), under explicit conditions: pure, bounded, safe under threads, `@api private`, and holding no configuration or request state.
+
+- The `Base#cn` result memo (PR #189): `CN_CACHE`, bounded by `CN_CACHE_LIMIT` (cleared when full), read and written only while holding `CN_CACHE_LOCK`, a `Mutex` created when `base.rb` loads.
+- `Base.tw_merger` (item #242, PR #254): one default-configuration `TailwindMerge::Merger` in `TW_MERGER`, also created when `base.rb` loads. It is thread-safe through its own internal `LruRedux::ThreadSafeCache`, so it does not use `CN_CACHE_LOCK`.
+
+All four constants (`TW_MERGER`, `CN_CACHE`, `CN_CACHE_LIMIT`, `CN_CACHE_LOCK`) are private constants of `Base`, not class-level instance variables: constants are looked up through inheritance, so every subclass shares the single instance on purpose and `Subclass.tw_merger` cannot see an empty per-class variable. Nothing is built lazily: a `||=` on first use can create two mergers or two locks when threads race. Outside `cn` and its helper `cn_cached`, the memo is reached only through `@api private` test hooks: `cn_cache` returns a frozen snapshot taken under the lock (never the live hash) and `clear_cn_cache` empties the memo under the lock. `test/phlex/shadcn/base_cache_test.rb` proves in a fresh process that exactly one merger is built at load and that racing first uses share it and the cache.
+
+Earlier this note recorded `Base.tw_merger` as a lazy, unlocked memo with a revisit condition; that condition was met by #242 and nothing is left to revisit. A new memo that does not meet these conditions violates R4 and needs its own entry in the skill with a removal or revisit condition.
