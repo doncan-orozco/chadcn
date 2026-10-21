@@ -82,38 +82,56 @@ class Phlex::Shadcn::Base < Phlex::HTML
     @slot_class = slot_class
   end
 
-  # Memoized TailwindMerge::Merger shared by every component (class-level).
-  #
-  # @api private
-  def self.tw_merger
-    @tw_merger ||= TailwindMerge::Merger.new
-  end
+  # Process-wide state (the merger, the `cn` cache and its lock) is held in private constants of `Base`, not in class-level
+  # instance variables: constants are looked up through inheritance, so every subclass shares the ONE instance on purpose
+  # (the results are pure functions of their inputs) and `Subclass.tw_merger` can never see its own empty per-class variable.
+  # All of it is created eagerly at load time: a lazy `||=` can build two mergers or two locks when threads race on first use.
+
+  # The merger is thread-safe itself (its internal LRU cache is a `LruRedux::ThreadSafeCache`).
+  TW_MERGER = TailwindMerge::Merger.new
+  private_constant :TW_MERGER
 
   # Upper bound of memoized `cn` results. Callers may pass arbitrary class strings, so the cache is cleared when it fills
   # up (cheap, and a full cache means the workload is not repeating anyway).
   CN_CACHE_LIMIT = 2048
   private_constant :CN_CACHE_LIMIT
 
-  # Created eagerly at load time: a lazy `||=` could build two locks under true parallelism or a thread switch.
-  @cn_cache = {}
-  @cn_cache_lock = Mutex.new
+  CN_CACHE = {} # rubocop:disable Style/MutableConstant -- the memo itself; only touched while holding CN_CACHE_LOCK
+  CN_CACHE_LOCK = Mutex.new
+  private_constant :CN_CACHE, :CN_CACHE_LOCK
 
-  # Process-wide memo of `cn` results, keyed by every input of the merge (defaults, variant, size and caller classes; the
-  # slot class is joined outside `cn`). Values are frozen strings; guarded by a mutex for threaded servers and non-MRI runtimes.
+  # The TailwindMerge::Merger shared by every component (built at load time).
   #
   # @api private
-  def self.cn_cache = @cn_cache # rubocop:disable Style/TrivialAccessors -- attr_reader would hide the @api private tag from YARD
+  def self.tw_merger = TW_MERGER
+
+  # Frozen point-in-time copy of the process-wide memo of `cn` results (keys are every input of the merge: defaults, variant,
+  # size and caller classes; the slot class is joined outside `cn`). Values are frozen strings. The live hash is never
+  # exposed: it is read and written only while holding the mutex (threaded servers, non-MRI runtimes). For the gem's own tests.
+  #
+  # @api private
+  # @return [Hash{Array<String, nil> => String}]
+  def self.cn_cache = CN_CACHE_LOCK.synchronize { CN_CACHE.dup.freeze }
+
+  # Empties the memo while holding the mutex. For the gem's own tests.
+  #
+  # @api private
+  # @return [void]
+  def self.clear_cn_cache
+    CN_CACHE_LOCK.synchronize { CN_CACHE.clear }
+    nil
+  end
 
   # @api private
   def self.cn_cached(inputs)
-    hit = @cn_cache_lock.synchronize { @cn_cache[inputs] }
+    hit = CN_CACHE_LOCK.synchronize { CN_CACHE[inputs] }
     return hit if hit
 
     result = yield.freeze
     key = inputs.map { |input| input.nil? || input.frozen? ? input : input.dup.freeze }.freeze
-    @cn_cache_lock.synchronize do
-      @cn_cache.clear if @cn_cache.size >= CN_CACHE_LIMIT
-      @cn_cache[key] = result
+    CN_CACHE_LOCK.synchronize do
+      CN_CACHE.clear if CN_CACHE.size >= CN_CACHE_LIMIT
+      CN_CACHE[key] = result
     end
     result
   end

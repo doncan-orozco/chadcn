@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "open3"
 require "phlex/test_case"
 
 class Phlex::Shadcn::BaseCacheTest < Phlex::Shadcn::TestCase
@@ -9,7 +10,7 @@ class Phlex::Shadcn::BaseCacheTest < Phlex::Shadcn::TestCase
     def slot!(value) = receive_slot({}, value)
   end
 
-  def setup = Phlex::Shadcn::Base.cn_cache.clear
+  def setup = Phlex::Shadcn::Base.clear_cn_cache
 
   test "cached cn equals an uncached merge, on a miss and on a hit" do
     expected = TailwindMerge::Merger.new.merge("px-2 py-1 px-4")
@@ -79,6 +80,67 @@ class Phlex::Shadcn::BaseCacheTest < Phlex::Shadcn::TestCase
 
     assert_equal({ a: 1 }, two[:data])
     assert_equal "p-1", two[:class]
+  end
+
+  # First use runs in a fresh process: the merger is slowed down (every `Merger.new` sleeps, so a lazy memo would let
+  # many threads build one) BEFORE the gem loads, then a barrier releases the threads at once on a cold cache.
+  RACE_SCRIPT = <<~RUBY
+    require "tailwind_merge"
+    $built = Queue.new
+    TailwindMerge::Merger.singleton_class.prepend(Module.new do
+      def new(...)
+        $built << 1
+        sleep 0.02
+        super
+      end
+    end)
+    require "phlex/shadcn"
+    base = Phlex::Shadcn::Base
+    built_at_load = $built.size
+    probe = Class.new(base) { public :cn }
+    ready = Queue.new
+    go = Queue.new
+    threads = Array.new(24) do |t|
+      Thread.new do
+        ready << t
+        go.pop
+        [base.tw_merger.object_id, probe.tw_merger.object_id, probe.new.cn("px-2 py-1", "px-4"), base.cn_cache.frozen?]
+      end
+    end
+    24.times { ready.pop }
+    24.times { go << true }
+    results = threads.map(&:value)
+    puts [built_at_load, $built.size, results.flat_map { |r| r[0, 2] }.uniq.size, results.map { |r| r[2] }.uniq.inspect, results.all? { |r| r[3] }].join("|")
+  RUBY
+
+  test "first use from many threads shares one merger and one cache, built at load" do
+    lib = File.expand_path("../../../lib", __dir__)
+    out, err, status = Open3.capture3(RbConfig.ruby, "-I", lib, "-e", RACE_SCRIPT)
+
+    assert_predicate status, :success?, err
+    # mergers built at load, mergers built after the threads started, distinct mergers seen, distinct results, frozen snapshots
+    assert_equal "1|1|1|[\"py-1 px-4\"]|true", out.strip
+  end
+
+  test "cn_cache is a frozen snapshot, never the live hash" do
+    Probe.new.cn("p-1", "m-1")
+    snapshot = Phlex::Shadcn::Base.cn_cache
+
+    assert_predicate snapshot, :frozen?
+    assert_equal 1, snapshot.size
+    assert_raises(FrozenError) { snapshot.clear }
+    Probe.new.cn("p-2", "m-2")
+
+    assert_equal 1, snapshot.size
+    assert_equal 2, Phlex::Shadcn::Base.cn_cache.size
+  end
+
+  test "subclasses share the one merger and the one cache" do
+    assert_same Phlex::Shadcn::Base.tw_merger, Probe.tw_merger
+    Probe.new.cn("p-1", "m-1")
+
+    assert_equal 1, Phlex::Shadcn::Base.cn_cache.size
+    assert_equal 1, Probe.cn_cache.size
   end
 
   test "safe under concurrent use" do
