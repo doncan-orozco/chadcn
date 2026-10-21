@@ -18,6 +18,11 @@ module Phlex
           # (A 4.3.0 prerelease sorts below 4.3.0 and fails: intended, the released task is what was verified.)
           MINIMUM_ENGINE_SUPPORT = Gem::Version.new("4.3.0")
 
+          # The fix hint for every tailwindcss-rails below the minimum (3.x and 4.x alike).
+          # @return [String]
+          def self.update_hint = "bundle update tailwindcss-rails (#{MINIMUM_ENGINE_SUPPORT} or newer)"
+          private_class_method :update_hint
+
           # @param context [Context]
           # @return [Result]
           def self.call(context)
@@ -26,18 +31,18 @@ module Phlex
 
             if tailwind_rails < MINIMUM
               return Result.failure(NAME, "tailwindcss-rails #{tailwind_rails} found, the engine bundle needs tailwindcss-rails 4",
-                                    fix: "bundle update tailwindcss-rails (4.x) and move the entry file to @import \"tailwindcss\";")
+                                    fix: "#{update_hint} and move the entry file to @import \"tailwindcss\";")
             end
 
             if tailwind_rails < MINIMUM_ENGINE_SUPPORT
               return Result.failure(NAME, "tailwindcss-rails #{tailwind_rails} found, it cannot bundle an engine's CSS before #{MINIMUM_ENGINE_SUPPORT}",
-                                    fix: "bundle update tailwindcss-rails (#{MINIMUM_ENGINE_SUPPORT} or newer), then bin/rails tailwindcss:build")
+                                    fix: "#{update_hint}, then bin/rails tailwindcss:build")
             end
 
             version = context.gem_version("tailwindcss-ruby") || tailwind_rails
             if version < MINIMUM
               return Result.failure(NAME, "Tailwind #{version} found, the components need Tailwind 4",
-                                    fix: "bundle update tailwindcss-rails (4.x) and move the entry file to @import \"tailwindcss\";")
+                                    fix: "#{update_hint} and move the entry file to @import \"tailwindcss\";")
             end
 
             css = context.css_text
