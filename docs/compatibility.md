@@ -21,8 +21,8 @@ The gem itself depends only on `phlex`, `tailwind_merge` and `zeitwerk`. Rails, 
 | Rails | Assets | JavaScript | Status |
 |---|---|---|---|
 | 8.1 | Propshaft | importmap | supported; the clean-app smoke runs it in CI |
-| 8.1 | Propshaft | esbuild (jsbundling-rails) | supported; `bin/smoke --app --js esbuild` run by hand, not in CI yet |
-| 8.1 | Sprockets 4 (sprockets-rails 3.5) | importmap | supported; `bin/smoke --app --assets sprockets` run by hand, not in CI yet |
+| 8.1 | Propshaft | esbuild (jsbundling-rails) | supported; covered by a CI smoke (`bin/smoke --app --js esbuild`, job `clean-app-variants`) |
+| 8.1 | Sprockets 4 (sprockets-rails 3.5) | importmap | supported; covered by a CI smoke (`bin/smoke --app --assets sprockets`, job `clean-app-variants`) |
 | 8.1 | Sprockets | esbuild | not covered: no smoke proves it |
 | any | Sprockets below 4, or Sass/SCSS instead of the Tailwind CLI | any | not supported |
 
@@ -36,7 +36,7 @@ The gem workflow runs the plain-Phlex suite, the Rails engine and generator suit
 - the current Phlex 2.x (the committed `Gemfile`);
 - Phlex 2.3, the floor of the constraint (`test/smoke/gemfiles/phlex_2.3.gemfile` in the repository).
 
-A plain-Phlex smoke renders the components with Rails not loaded, and a clean-app job follows the README in a new Rails app and drives a browser scenario. A version outside this matrix may work, but nothing tests it and bugs reported against it are triaged after those inside it.
+A plain-Phlex smoke renders the components with Rails not loaded, and clean-app jobs follow the README in a new Rails app and drive a browser scenario (importmap, plus esbuild and Sprockets in `clean-app-variants`). A version outside this matrix may work, but nothing tests it and bugs reported against it are triaged after those inside it.
 
 ## Phlex 3
 

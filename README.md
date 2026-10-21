@@ -146,8 +146,8 @@ when neither is found the generator says so and writes no JavaScript.
 | Rails | Assets | JavaScript | Status |
 |---|---|---|---|
 | 8.1 | Propshaft | importmap | supported, the default setup; covered by the clean-app smoke in CI |
-| 8.1 | Propshaft | esbuild (jsbundling-rails) | supported; covered by a smoke run by hand (`bin/smoke --app --js esbuild`), not in CI yet |
-| 8.1 | Sprockets 4 (sprockets-rails 3.5) | importmap | supported; covered by a smoke run by hand (`bin/smoke --app --assets sprockets`), not in CI yet |
+| 8.1 | Propshaft | esbuild (jsbundling-rails) | supported; covered by a CI smoke (`bin/smoke --app --js esbuild`, job `clean-app-variants`) |
+| 8.1 | Sprockets 4 (sprockets-rails 3.5) | importmap | supported; covered by a CI smoke (`bin/smoke --app --assets sprockets`, job `clean-app-variants`) |
 | 8.1 | Sprockets | esbuild | not covered: no smoke proves it |
 | any | Sprockets below 4, or Sass/SCSS instead of the Tailwind CLI | any | not supported |
 
@@ -313,7 +313,8 @@ end
 
 - Every class takes `**attrs`: `class:` is merged last through tailwind-merge (your classes win on conflicts), `data:` and `aria:`
   hashes deep-merge with the component's own, React DOM prop names are accepted (`tab_index:`, `html_for:`), and flat `"aria-label":` /
-  `"data-state":` keys are folded into those hashes.
+  `"data-state":` keys are folded into those hashes. A `data-controller` or `data-action` you pass is appended after the component's own, not
+  replacing them, and the component's own controller cannot be removed (`dev/decisions/data-controller-merge.md` of the repository, not packaged).
 - Variant-like options take strings or symbols: `variant: "outline"` and `variant: :outline`, `size: "icon-sm"` and `size: :icon_sm`.
   An unknown value raises `ArgumentError`.
 - `as_child:` is React's `asChild`: `false` (the default element), a tag symbol (`as_child: :a`) or a component instance
@@ -435,7 +436,7 @@ Without Rails, set the environment variable `PHLEX_SHADCN_OVERRIDE_DIR` before `
 - `bin/rails phlex_shadcn:doctor` warns about stale copies (check `ejected components`): the gem's file changed since you ejected
   (compare with `--diff`), a part of an ejected unit is missing, or a copy lost its header. Updating the gem does not update your copy.
 - Ejecting `sonner` (or `sonner/toaster`) also ejects `toaster.rb`, the `Toaster` alias.
-- Infrastructure files (`base`, `configuration`, `doctor`, `engine`, `icons`, `theme`, `values`, `version`) cannot be ejected. The design notes are in
+- Infrastructure files (`base`, `configuration`, `doctor`, `engine`, `icons`, `js_bundle`, `overrides`, `theme`, `values`, `version`) cannot be ejected. The design notes are in
   `dev/decisions/eject-override.md` of the repository (not packaged).
 
 ## Performance

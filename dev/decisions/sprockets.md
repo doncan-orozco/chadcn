@@ -30,8 +30,8 @@ Tailwind build (tailwindcss-rails writes `app/assets/builds/tailwind.css`, the a
 | Rails | Assets | JavaScript | CSS | Status |
 |---|---|---|---|---|
 | 8.1 | Propshaft | importmap | tailwindcss-rails | supported, smoke in CI (`bin/smoke --app`) |
-| 8.1 | Propshaft | esbuild (jsbundling) | tailwindcss-rails | supported, smoke (`--js esbuild`), see js-bundlers.md |
-| 8.1 | Sprockets 4 (sprockets-rails 3.5) | importmap | tailwindcss-rails | supported; `bin/smoke --app --assets sprockets` (development server, doctor, `assets:precompile` in production mode, browser dialog) run by hand at #177; not in CI yet |
+| 8.1 | Propshaft | esbuild (jsbundling) | tailwindcss-rails | supported, CI smoke (`--js esbuild`, job `clean-app-variants`), see js-bundlers.md |
+| 8.1 | Sprockets 4 (sprockets-rails 3.5) | importmap | tailwindcss-rails | supported; `bin/smoke --app --assets sprockets` (development server, doctor, `assets:precompile` in production mode, browser dialog) first checked manually at #177, now a CI smoke (job `clean-app-variants`) |
 | 8.1 | Sprockets | esbuild | tailwindcss-rails | not covered: the copied JavaScript is bundled by esbuild and linked as `application.js`, which does not touch the asset pipeline, but no smoke proves it |
 | any | sprockets < 4 (any sprockets-rails), or Sass/SCSS instead of the Tailwind CLI | any | any | not supported (manifest.js is a Sprockets 4 concept; the doctor says so; the gem's CSS is bundled by the Tailwind CLI, never by Sprockets) |
 
@@ -53,7 +53,7 @@ already says "not applicable" without Propshaft, so the hook warning appears onl
 
 ## Follow-ups (not done here, by Owns)
 
-- CI: `.github/workflows/phlex-shadcn.yml` runs only `bin/smoke --app`; a matrix row `--assets sprockets` (and `--js esbuild`) is a follow-up.
+- CI: done by #204, see dev/decisions/ci-smokes.md.
 - CHANGELOG and README belong to docs-sync #181; the user-facing text is posted as a `shared` note on #177. The Sprockets user must have
   `//= link_tree ../builds` (or `//= link tailwind.css`) in `app/assets/config/manifest.js`.
 - Sprockets also puts the gem's `app/assets/tailwind` folder on its load path (harmless: it is served only if linked).

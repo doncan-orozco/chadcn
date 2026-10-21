@@ -45,7 +45,7 @@ computes the files; the generator writes them and the doctor compares against th
 ## Consequences and later items
 
 - "esbuild" means any jsbundling-rails app: the copies use relative imports, which webpack, rollup and bun resolve as well; only
-  esbuild is exercised by the smoke test.
+  esbuild is exercised by the smoke test (in CI: job `clean-app-variants`, see dev/decisions/ci-smokes.md).
 - The doctor's `stimulus controllers` check (`doctor/checks/stimulus.rb`, added to this item's scope as a deliberate, recorded deviation) accepts the managed `index.js`
   in an esbuild app: an esbuild app has no `controllers` importmap namespace, so the check would fail on a correct install.
   Recorded here and as a blocker note on #175 (epic-flow R5).
