@@ -14,6 +14,8 @@ fi
 
 bundle exec rake test
 bundle exec rake test:engine
+# The benchmark runner is a dev-kit script (not packaged), so rake test does not pick its tests up.
+bundle exec ruby dev/bench/runner_test.rb
 # The dev kit's parity harness: a DB-less dummy app with its own bundle (Tailwind builds first because the parity page links it).
 (
   cd dev/dummy

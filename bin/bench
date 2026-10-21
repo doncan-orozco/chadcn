@@ -9,7 +9,8 @@
 # --check skips the gate with a warning when the baseline was recorded on another Ruby or Phlex version (re-record there).
 #   bin/bench --check --expect-improvement button=25,card=20   exit 1 unless each scenario allocates that percent less than the
 #                             baseline (--against FILE_OR_GIT_REV picks another one); never skips, see --help
-# Unknown or malformed flags exit 2. Tests: ruby dev/bench/runner_test.rb (from the gem directory)
+# --expect-improvement may be repeated (merged; a scenario named twice exits 2); --against once. An invalid baseline file exits 1 before
+# anything is measured. Unknown or malformed flags exit 2. Tests: ruby dev/bench/runner_test.rb (from the gem directory)
 # Time is reported but never gated (flaky); allocations per render are the gate. The implementation lives in dev/bench/.
 require_relative "../dev/bench/runner"
 
