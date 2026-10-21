@@ -12,7 +12,7 @@ module Phlex
       # @api private
       class Context
         # The Tailwind entry file `rails g phlex:shadcn:install` edits, relative to the app root.
-        DEFAULT_CSS = File.join("app", "assets", "tailwind", "application.css")
+        DEFAULT_CSS = "app/assets/tailwind/application.css" # gem_check:allow GEM_ESCAPES_ROOT -- the doctor reads the host Tailwind entry file
         # The supported Phlex range when the gem's own specification is not loaded.
         DEFAULT_PHLEX_REQUIREMENT = "~> 2.3"
 

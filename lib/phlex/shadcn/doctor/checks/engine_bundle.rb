@@ -9,7 +9,7 @@ module Phlex
         # @api private
         module EngineBundle
           NAME = "engine bundle"
-          BUNDLE = File.join("app", "assets", "builds", "tailwind", "phlex-shadcn")
+          BUNDLE = "app/assets/builds/tailwind/phlex-shadcn" # gem_check:allow GEM_ESCAPES_ROOT -- the doctor checks the host engine bundle
 
           # @param context [Context]
           # @return [Result]
