@@ -326,6 +326,9 @@ browserTest("combobox: while open everything outside is aria-hidden and the page
 browserTest("combobox: a modal popup locks the page scroll and closes on a backdrop press", async ({ open }) => {
   const page = await open("modal__outside-click-closes");
   await page.click(input);
+  // The dismissable layer arms its outside-press listener one task after the popup opens (Radix parity); the lock and the backdrop
+  // are there at once, so asserting them does not prove the press will be heard. settle() queues a zero-delay timer behind it.
+  await settle(page);
   assert.equal(await page.evaluate(() => document.body.hasAttribute("data-scroll-locked")), true);
   assert.equal(await page.locator("div[role=presentation][aria-hidden=true]").count(), 1);
   await page.mouse.click(5, 5);
