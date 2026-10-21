@@ -31,7 +31,8 @@ the same behavior as the React originals (Radix, and the libraries shadcn wraps)
 
 - Ruby 3.2 or newer and [Phlex](https://www.phlex.fun) 2.x from 2.3 (`~> 2.3`; Phlex 3 is not supported). CI runs the gem suite
   on Ruby 3.2, 3.3, 3.4 and 4.0, each against the current Phlex 2.x and against Phlex 2.3.
-- Tailwind CSS 4 (the components use Tailwind utility classes; with Rails, `tailwindcss-rails`).
+- Tailwind CSS 4 (the components use Tailwind utility classes). With Rails, `tailwindcss-rails` 4.3.0 or newer: 4.3.0 is the first release that
+  bundles an engine's CSS (`tailwindcss:engines`), which is how the gem's styles reach your app. `phlex_shadcn:doctor` reports an older one as a failure.
 - For the interactive components: Stimulus 3 (`@hotwired/stimulus`). With Rails, `importmap-rails` (the gem's engine adds its pins) or
   `jsbundling-rails` with esbuild (see [JavaScript pipelines](#javascript-pipelines)).
 - With Rails, `phlex-rails` renders Phlex views from controllers; the gem itself depends only on `phlex`, `tailwind_merge` and
@@ -179,7 +180,7 @@ The task exits 1 when any check fails (warnings do not fail it), so it can gate 
 | `propshaft stub filter` | the hook that hides the Tailwind stubs works (not applicable without Propshaft) |
 | `source block` | the managed block exists and its `@source` points at the gem's `lib` |
 | `stimulus controllers` | the gem's `shadcn--*` controllers get registered |
-| `tailwind` | `tailwindcss-rails` 4 and Tailwind 4, and `@import "tailwindcss"` in the entry file |
+| `tailwind` | `tailwindcss-rails` 4.3.0 or newer (a 4.x below it fails with `tailwindcss-rails X found, it cannot bundle an engine's CSS before 4.3.0`, a 3.x with `tailwindcss-rails X found, the engine bundle needs tailwindcss-rails 4`) and Tailwind 4, and `@import "tailwindcss"` in the entry file |
 | `theme files` | `theme.css` and `presets/` in the theme directory |
 | `theme import` | the managed block imports `theme.css` |
 

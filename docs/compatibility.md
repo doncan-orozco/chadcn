@@ -11,7 +11,7 @@ What phlex-shadcn supports today, what CI proves, and what happens when Phlex 3 
 | tailwind_merge | `~> 1.4` | gemspec |
 | zeitwerk | `~> 2.7` | gemspec |
 | Rails (optional) | `~> 8.1` | the engine loads only when `Rails::Engine` is defined; CI runs the engine tests on the locked Rails 8.1 and, on the freshly resolved runs (Ruby 3.2, the Phlex 2.3 floor) and the clean `rails new` app, on the newest Rails 8.x allowed by `~> 8.1` |
-| Tailwind CSS | 4 (with Rails, `tailwindcss-rails`) | the components use Tailwind 4 syntax and theme variables |
+| Tailwind CSS | 4 (with Rails, `tailwindcss-rails` 4.3.0 or newer) | the components use Tailwind 4 syntax and theme variables; 4.3.0 is the first `tailwindcss-rails` that bundles an engine's CSS (`tailwindcss:engines`), and `phlex_shadcn:doctor` fails with `tailwindcss-rails X found, it cannot bundle an engine's CSS before 4.3.0` below it |
 | Stimulus | 3 (`@hotwired/stimulus`) | needed only by the interactive components |
 
 The gem itself depends only on `phlex`, `tailwind_merge` and `zeitwerk`. Rails, `phlex-rails`, `importmap-rails` and `tailwindcss-rails` are the host app's choice, not dependencies.
