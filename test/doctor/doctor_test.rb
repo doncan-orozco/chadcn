@@ -93,6 +93,32 @@ class DoctorTest < Minitest::Test
     assert_check run, "tailwind", :fail, "tailwindcss-rails (4.x)"
   end
 
+  def test_a_tailwind_rails_without_engine_bundling_fails
+    build_healthy_app
+    # tailwindcss-rails 4.2.3 has no tailwindcss:engines task (added in 4.3.0), so the gem's engine CSS would never be bundled.
+    run = report(gems: GEMS.merge("tailwindcss-rails" => Gem::Version.new("4.2.3")))
+
+    assert_check run, "tailwind", :fail, "4.3.0 or newer"
+    assert_equal "4.3.0", Phlex::Shadcn::Doctor::Checks::Tailwind::MINIMUM_ENGINE_SUPPORT.to_s
+  end
+
+  def test_the_first_tailwind_rails_with_engine_bundling_passes
+    build_healthy_app
+
+    assert_check report(gems: GEMS.merge("tailwindcss-rails" => Gem::Version.new("4.3.0"))), "tailwind", :pass
+  end
+
+  def test_the_stimulus_fix_names_the_first_registration_file
+    build_healthy_app
+    write("app/javascript/controllers/index.js", "// nothing registered\n")
+
+    assert_check report, "stimulus controllers", :fail, "to app/javascript/controllers/index.js"
+  end
+
+  def test_the_usage_lists_every_format
+    assert_includes Phlex::Shadcn::Doctor::Report::USAGE, "phlex_shadcn:doctor[text|json]"
+  end
+
   def test_a_tailwind_3_entry_file_fails
     build_healthy_app
     write("app/assets/tailwind/application.css", "@tailwind base;\n")

@@ -65,6 +65,23 @@ class EngineTest::DoctorTask < Minitest::Test
     ENV.delete("JSON")
   end
 
+  def test_an_unknown_format_is_rejected_with_the_usage_and_a_non_zero_exit
+    status = nil
+    out, err = capture_io { status, = run_task("jsn") }
+
+    assert_equal 1, status
+    assert_empty out
+    assert_includes err, %(unknown format "jsn")
+    assert_includes err, Phlex::Shadcn::Doctor::Report::USAGE
+  end
+
+  def test_the_text_format_is_accepted
+    status, out = run_task("text")
+
+    assert_equal 1, status
+    assert_includes out, "[FAIL] source block"
+  end
+
   def test_a_report_without_failures_exits_zero
     report = Phlex::Shadcn::Doctor::Report.new([ Phlex::Shadcn::Doctor::Result.passed("x", "ok") ])
     original = Phlex::Shadcn::Doctor.method(:run)

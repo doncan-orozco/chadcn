@@ -14,6 +14,12 @@ module Phlex
         LABELS = STATUSES.to_h { |status| [ status, status.to_s.upcase ] }.freeze
         private_constant :LABELS
 
+        # The output formats the rake task accepts as its argument (`phlex_shadcn:doctor[json]`); text is the default.
+        FORMATS = %w[text json].freeze
+
+        # What the rake task prints, on stderr, when its format argument is not one of {FORMATS}.
+        USAGE = "usage: bin/rails phlex_shadcn:doctor[#{FORMATS.join('|')}] (JSON=1 selects json, CSS=path names the Tailwind entry file)".freeze
+
         # @return [Array<Result>]
         attr_reader :results
 
