@@ -120,13 +120,26 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 - `Phlex::Shadcn::Overrides` and `Phlex::Shadcn::JsBundle` (the install generator's JavaScript helper, formerly
   `Generators::JsBundle`) now live under `lib/phlex/shadcn/` (`@api private`).
 - The signatures printed in `llms-full.txt` and the public-surface snapshot are rendered identically on Ruby 3.2 to 4.0; negative
-  keyword defaults no longer print a doubled comma (`align_offset: -4,,`).
+  keyword defaults no longer print a doubled comma (`align_offset: -4,,`). A default that spans several lines is joined onto one
+  line, except line breaks inside a string literal, which are kept; a default that cannot be rendered raises an error naming the method
+  and the parameter.
+- Behavior change in `phlex_shadcn:doctor`: the `tailwind` check now FAILS for tailwindcss-rails older than 4.3.0 (the first release
+  that bundles an engine's CSS, `tailwindcss:engines`); hosts on 4.0 to 4.2.x passed before and now exit 1 until they run
+  `bundle update tailwindcss-rails`. An unknown format argument (`phlex_shadcn:doctor[jsn]`) is rejected with a usage message on
+  stderr and exit 1, instead of printing text.
+- `bin/check` also runs the `bin/bench` tests (`dev/bench/runner_test.rb`).
 - The gem's Zeitwerk loader is set up by an engine initializer that runs before Rails sets its autoload paths, instead of at require
   time, so the override directory of ejected components is known first. `Loader.setup` therefore no longer runs when the gem is
   required in a Rails app; a component referenced before the app initializes (in `config/application.rb`, say) sets the loader up on
   first lookup. Without Rails the loader is still set up at require time.
 - `Base#cn` memoizes merged class strings (bounded cache, internal; no public API change), which cut allocations per render:
   `bin/bench` button 57 to 41, card 197 to 119, select 882 to 597, dialog 540 to 378, table 7115 to 4339 (Ruby 4.0.0, Phlex 2.4.1).
+- `gem_check` (repo tooling) strips comments with Ruby's lexer (Ripper), so commented-out code no longer triggers or hides a
+  finding, and `GEM_ESCAPES_ROOT` now sees a host path written as `%w[app/assets/x]`, `File.join("app", "assets", ...)`, an
+  interpolated or concatenated string (`+`, `<<`, adjacent literals, `.join` chains, backslash continuations), `Pathname("app") /
+  "assets"` or `./app/...`, not only a quote directly before `app/`. The `# gem_check:allow GEM_ESCAPES_ROOT -- reason` marker keeps
+  its meaning but must now be a real comment. Not detected: a paren-less `File.join "app", "assets"`; a heredoc body that starts with
+  a host path is flagged and cannot carry a marker (write it as a quoted literal).
 
 Relative to the in-app port (`Components::V2`):
 
@@ -174,6 +187,13 @@ Since the first extraction of the gem:
   (a browser 404 that also disclosed a filesystem path): the engine hides it through Propshaft's private
   `LoadPath#without_dotfiles` (present in 1.2 and 1.3). With a Propshaft that lacks that method it logs a warning at boot; link
   `"tailwind"` explicitly there.
+- A caller's `data-controller` is normalized the same way on every path: strings, symbols, arrays and sets are flattened, split on
+  whitespace and de-duplicated, and nil, `false` and blank entries are dropped (an empty result removes the attribute). This now also
+  holds for components that have no controller of their own and for `as_child` onto a bare tag.
+- `bin/bench` rejects a repeated `--against` (exit 2) and merges a repeated `--expect-improvement` instead of keeping only the last
+  one (a scenario named twice exits 2). The default `dev/bench/baseline.json` is validated like an `--against` file: an unreadable or
+  malformed one exits 1 with a message (for plain runs, `--json` and `--check` alike; `--record` warns and rewrites it instead), and
+  the baseline is validated before anything is measured.
 
 ### Removed
 
