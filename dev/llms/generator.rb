@@ -114,7 +114,7 @@ module Phlex
         method = YARD::Registry.at("#{object.path}#initialize")
         return [ "**attrs", [] ] unless method
 
-        [ Signature.list(method.parameters), method.tags(:param) ]
+        [ Signature.list(method.parameters, owner: method.path), method.tags(:param) ]
       end
 
       def example(object)

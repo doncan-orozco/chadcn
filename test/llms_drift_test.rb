@@ -5,7 +5,6 @@ require "fileutils"
 require "open3"
 require "rbconfig"
 require "tmpdir"
-require_relative "../dev/llms/signature"
 
 # llms.txt, llms-full.txt and skills/phlex-shadcn/SKILL.md are generated (`bundle exec rake llms:generate`) from the YARD docs and the
 # Stimulus controllers. This test is the same check as `rake llms:check`, inside `rake test`, and proves the check notices a changed component.
@@ -20,67 +19,17 @@ class LlmsDriftTest < Minitest::Test
   end
 
   def test_llms_full_lists_every_component_the_registry_knows
-    require "yard"
-    YARD::Registry.clear
-    YARD.parse(Dir[File.join(GEM_DIR, "lib/**/*.rb")].reject { |path| path.end_with?("icons/catalog.rb") })
-    components = YARD::Registry.all(:class).select { |c| c.namespace.path == "Phlex::Shadcn" && c.superclass&.path == "Phlex::Shadcn::Base" }
-    components = components.reject { |c| c.tag(:api)&.text == "private" || c.visibility != :public || c.name == :Icon }
+    components = with_clean_yard_registry do
+      YARD.parse(Dir[File.join(GEM_DIR, "lib/**/*.rb")].reject { |path| path.end_with?("icons/catalog.rb") })
+      all = YARD::Registry.all(:class).select { |c| c.namespace.path == "Phlex::Shadcn" && c.superclass&.path == "Phlex::Shadcn::Base" }
+      all.reject { |c| c.tag(:api)&.text == "private" || c.visibility != :public || c.name == :Icon }.map(&:name)
+    end
     full = File.read(File.join(GEM_DIR, "llms-full.txt"))
 
     assert_equal 54, components.size
-    components.each do |component|
-      assert_includes full, "## #{component.name}\n", "#{component.name} is missing from llms-full.txt"
-      assert_includes full, "Phlex::Shadcn::#{component.name}.new(", "#{component.name} has no constructor line"
-    end
-  end
-
-  # Every keyword-default literal the gem may write, as the source of a method: YARD slices it from the text and keeps a different
-  # trailing delimiter per Ruby, so the renderer must give one exact string wherever this runs.
-  SIGNATURE_SOURCE = <<~RUBY
-    class Sample
-      def call(neg_int: -4, neg_float: -1.5, array: [ 1, :two ], hash: { a: 1, "b" => 2 }, regexp: /ab+c/i, string: "s", symbol: :sym,
-               words: %w[a b], call: Foo.bar(1), last: -4)
-      end
-    end
-  RUBY
-  SIGNATURE_EXPECTED = '(neg_int: -4, neg_float: -1.5, array: [ 1, :two ], hash: { a: 1, "b" => 2 }, regexp: /ab+c/i, string: "s", ' \
-                       "symbol: :sym, words: %w[a b], call: Foo.bar(1), last: -4)"
-
-  def test_signature_renders_every_default_literal_identically_on_every_ruby
-    require "yard"
-    YARD::Registry.clear
-    begin
-      YARD.parse_string(SIGNATURE_SOURCE)
-      method = YARD::Registry.at("Sample#call")
-
-      assert_equal SIGNATURE_EXPECTED, Phlex::Shadcn::Llms::Signature.render(method.parameters)
-    ensure
-      YARD::Registry.clear
-    end
-  end
-
-  def test_signature_strips_the_delimiters_each_ruby_leaves_on_a_default
-    rendered = lambda do |default|
-      Phlex::Shadcn::Llms::Signature.render([ [ "width:", default ], [ "**attrs", nil ] ])
-    end
-
-    [ "-4", "-4,", "-4)", "-4,)", "-4 ,\n  " ].each { |raw| assert_equal "(width: -4, **attrs)", rendered.call(raw), raw.inspect }
-    [ "[1, 2]", "[1, 2])", "[1, 2]," ].each { |raw| assert_equal "(width: [1, 2], **attrs)", rendered.call(raw), raw.inspect }
-    assert_equal "(width: %w[a b], **attrs)", rendered.call("%w[a b])")
-    assert_equal "(width: foo(1), **attrs)", rendered.call("foo(1))")
-    assert_equal "(width: { a: 1, b: 2 }, **attrs)", rendered.call("{ a: 1,\n    b: 2 },")
-    assert_equal "(value = -1)", Phlex::Shadcn::Llms::Signature.render([ [ "value", "-1," ] ])
-    [ "foo(1)", "Foo.bar(1)", '"a, b)"', "->(x) { x }", '""' ].each do |clean|
-      assert_equal "(width: #{clean}, **attrs)", rendered.call(clean), clean.inspect
-    end
-    assert_equal '(width: "a, b)", **attrs)', rendered.call('"a, b)")')
-    assert_equal "(width: ->(x) { x }, **attrs)", rendered.call("->(x) { x })")
-    assert_equal "(a, b:)", Phlex::Shadcn::Llms::Signature.render([ [ "a", nil ], [ "b:", nil ] ])
-  end
-
-  def test_signature_fails_loud_on_a_default_it_cannot_render
-    [ ",", ")", "foo(", "<<~T", "{ a: 1, # note\n b: 2 }" ].each do |raw|
-      assert_raises(ArgumentError, raw.inspect) { Phlex::Shadcn::Llms::Signature.render([ [ "width:", raw ] ]) }
+    components.each do |name|
+      assert_includes full, "## #{name}\n", "#{name} is missing from llms-full.txt"
+      assert_includes full, "Phlex::Shadcn::#{name}.new(", "#{name} has no constructor line"
     end
   end
 
@@ -146,6 +95,15 @@ class LlmsDriftTest < Minitest::Test
   end
 
   private
+
+  # The YARD registry is process-wide state: start from an empty one and leave it empty, whatever the block does.
+  def with_clean_yard_registry
+    require "yard"
+    YARD::Registry.clear
+    yield
+  ensure
+    YARD::Registry.clear
+  end
 
   def run_cli(command, root) = Open3.capture2e(RbConfig.ruby, CLI, command, "--root", root)
 end

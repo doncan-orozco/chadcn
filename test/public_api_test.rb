@@ -92,7 +92,7 @@ module PublicApiSnapshot
     superclass && superclass != "Object" ? " < #{superclass}" : ""
   end
 
-  def signature(method) = Phlex::Shadcn::Llms::Signature.render(method.parameters)
+  def signature(method) = Phlex::Shadcn::Llms::Signature.render(method.parameters, owner: method.path)
 
   # `root#helper`: `Base.const_added` defines one helper per nested part class of a root, so each public nested component
   # class of the registry is one helper of its parent (checked against the real class, so a missing helper fails loudly).
