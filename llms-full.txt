@@ -950,7 +950,7 @@ Constructor: `Phlex::Shadcn::Menubar.new(value: nil, default_value: nil, loop: t
 Parts (class, yielded-root helper, constructor):
 
 - `Menubar::CheckboxItem` / `checkbox_item`: `new(checked: false, disabled: false, text_value: nil, as_child: false, **attrs)` A menu item with a checked state (`role="menuitemcheckbox"`).
-- `Menubar::Content` / `content`: `new(side: "bottom", side_offset: 8, align: "start", align_offset: -4,, avoid_collisions: true, collision_padding: 0, collision_boundary: nil, sticky: "partial", hide_when_detached: false, update_position_strategy: "optimized", arrow_padding: 0, loop: false, force_mount: false, as_child: false, **attrs)` shadcn MenubarContent = Portal + Radix Content: the popup holding the items of one `Menu`.
+- `Menubar::Content` / `content`: `new(side: "bottom", side_offset: 8, align: "start", align_offset: -4, avoid_collisions: true, collision_padding: 0, collision_boundary: nil, sticky: "partial", hide_when_detached: false, update_position_strategy: "optimized", arrow_padding: 0, loop: false, force_mount: false, as_child: false, **attrs)` shadcn MenubarContent = Portal + Radix Content: the popup holding the items of one `Menu`.
 - `Menubar::Group` / `group`: `new(as_child: false, **attrs)` A plain grouping of items (`role="group"`, `data-slot="menubar-group"`).
 - `Menubar::Item` / `item`: `new(variant: "default", inset: nil, disabled: false, text_value: nil, as_child: false, **attrs)` A menu item (`role="menuitem"`).
 - `Menubar::Label` / `label`: `new(inset: nil, as_child: false, **attrs)` A non-interactive label for a group of items (`data-slot="menubar-label"`).

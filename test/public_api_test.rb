@@ -16,6 +16,7 @@
 
 require "test_helper"
 require "yard"
+require_relative "../dev/llms/signature"
 
 # Builds the snapshot text from the YARD registry (tags, signatures and the generated yielded-root helpers, which are derived from the registry
 # and checked against the real classes).
@@ -91,16 +92,7 @@ module PublicApiSnapshot
     superclass && superclass != "Object" ? " < #{superclass}" : ""
   end
 
-  def signature(method)
-    params = method.parameters.map do |name, default|
-      if default
-        name.end_with?(":") ? "#{name} #{default}" : "#{name} = #{default}"
-      else
-        name
-      end
-    end
-    "(#{params.join(', ')})"
-  end
+  def signature(method) = Phlex::Shadcn::Llms::Signature.render(method.parameters)
 
   # `root#helper`: `Base.const_added` defines one helper per nested part class of a root, so each public nested component
   # class of the registry is one helper of its parent (checked against the real class, so a missing helper fails loudly).

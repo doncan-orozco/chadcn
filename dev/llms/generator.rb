@@ -2,6 +2,7 @@
 
 require "fileutils"
 require "yard"
+require_relative "signature"
 
 module Phlex
   module Shadcn
@@ -113,14 +114,7 @@ module Phlex
         method = YARD::Registry.at("#{object.path}#initialize")
         return [ "**attrs", [] ] unless method
 
-        params = method.parameters.map do |name, default|
-          if default
-            name.end_with?(":") ? "#{name} #{default}" : "#{name} = #{default}"
-          else
-            name
-          end
-        end
-        [ params.join(", "), method.tags(:param) ]
+        [ Signature.list(method.parameters), method.tags(:param) ]
       end
 
       def example(object)
