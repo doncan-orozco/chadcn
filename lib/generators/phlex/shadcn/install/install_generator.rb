@@ -3,7 +3,6 @@
 require "rails/generators"
 require "pathname"
 require "phlex/shadcn"
-require_relative "js_bundle"
 
 module Phlex
   module Shadcn

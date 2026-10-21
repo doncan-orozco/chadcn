@@ -8,15 +8,15 @@ module Phlex
     # directory shadows, which components can be ejected, and the header an ejected copy carries. Used by the gem's loader setup
     # (lib/phlex/shadcn.rb), the eject generator and the `ejected` doctor check, so none of them knows how the others read the directory.
     #
-    # It lives under engine/ only because that directory is not autoloaded: the loader needs it BEFORE it is set up, so
-    # lib/phlex/shadcn.rb requires it explicitly. It needs no framework.
+    # The loader needs it BEFORE it is set up, so lib/phlex/shadcn.rb requires it explicitly and ignores it in the loader (like
+    # configuration.rb); the path still follows the constant. It needs no framework.
     #
     # @api private
     module Overrides
       # The gem's component sources: the Zeitwerk root of the gem loader.
       GEM_DIR = File.join(Shadcn::ROOT, "lib/phlex/shadcn").freeze
-      # Top-level names that are not components: the base class, settings, tooling and the engine.
-      INFRASTRUCTURE = %w[base configuration doctor engine icons theme values version].freeze
+      # Top-level names that are not components: the base class, settings, tooling, the engine and the plain-Ruby helpers.
+      INFRASTRUCTURE = %w[base configuration doctor engine icons js_bundle overrides theme values version].freeze
       # First line of an ejected file: the gem version it was copied from, the gem file and the SHA-256 of that file's text.
       HEADER = /\A# Ejected from phlex-shadcn (?<version>\S+) \((?<source>[^)\n]+)\) sha256:(?<digest>\h{64})$/
       # The component names `phlex-shadcn:eject` accepts: snake_case, with `/` for a nested part (`dialog/content`).

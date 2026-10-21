@@ -277,14 +277,14 @@ class InstallGeneratorTest < Rails::Generators::TestCase
   end
 
   test "no copy keeps an importmap-only specifier" do
-    Phlex::Shadcn::Generators::JsBundle.files(Phlex::Shadcn.root).each do |path, content|
+    Phlex::Shadcn::JsBundle.files(Phlex::Shadcn.root).each do |path, content|
       refute_match(%r{["'](shadcn/primitives|controllers/shadcn)/}, content, path)
     end
   end
 
   test "specifiers are rewritten in every quote and import form" do
     source = %(import a from 'shadcn/primitives/x'\nimport "shadcn/primitives/y"\nconst m = await import("controllers/shadcn/z")\n)
-    rewritten = Phlex::Shadcn::Generators::JsBundle.send(:relative_specifiers, source, "app/javascript/controllers/shadcn")
+    rewritten = Phlex::Shadcn::JsBundle.send(:relative_specifiers, source, "app/javascript/controllers/shadcn")
 
     assert_equal %(import a from '../../shadcn/primitives/x'\nimport "../../shadcn/primitives/y"\nconst m = await import("./z")\n), rewritten
   end

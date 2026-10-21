@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "generators/phlex/shadcn/install/js_bundle"
-
 module Phlex
   module Shadcn
     module Doctor
@@ -13,8 +11,6 @@ module Phlex
         # @api private
         module JsPipeline
           NAME = "javascript pipeline"
-          JsBundle = Generators::JsBundle
-          private_constant :JsBundle
 
           # @param context [Context]
           # @return [Result]

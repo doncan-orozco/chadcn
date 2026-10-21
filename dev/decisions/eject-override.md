@@ -100,7 +100,7 @@ Proven by `test/engine/eject_test.rb` (a Rails application booted per scenario i
   `Phlex::Shadcn.setup(override_dir:)` for users and no `phlex/shadcn/lazy`: a script that wants another order sets the variable
   before the `require`. `Phlex::Shadcn.setup(override_loader: nil)` exists as `@api private`; it is what the engine calls.
 - **What is required by hand before the loader is set up**: `configuration.rb` (the override directory is a setting that the
-  setup reads, and `Phlex::Shadcn.configure` runs before it) and `engine/overrides.rb` (`Phlex::Shadcn::Overrides`, plain Ruby: which gem
+  setup reads, and `Phlex::Shadcn.configure` runs before it) and `overrides.rb` (`Phlex::Shadcn::Overrides`, plain Ruby: which gem
   files a directory shadows, the component list, the file header). Both are ignored by the gem loader.
 - **Rails**: `initializer "phlex_shadcn.loader", before: :set_autoload_paths` calls `Phlex::Shadcn.setup(override_loader: Rails.autoloaders.main)`.
   The setup only does `push_dir(dir, namespace: Phlex::Shadcn)` on a loader it is given (the owner, Rails, sets it up later: setting
@@ -121,8 +121,8 @@ Proven by `test/engine/eject_test.rb` (a Rails application booted per scenario i
 - **Generator**: `rails g phlex:shadcn:eject NAME...` (`button`, `Button`, `alert-dialog`, `dialog/content`), `--list`, `--diff` (a
   `diff -u` of the gem's file and the copy), `--force`, `--dir` (a path relative to the app root, default the configured override
   directory). Without `--force` nothing at all is written when one target exists. Infrastructure (`base`, `configuration`, `doctor`, `engine`,
-  `icons`, `theme`, `values`, `version`) cannot be ejected.
+  `icons`, `js_bundle`, `overrides`, `theme`, `values`, `version`) cannot be ejected.
 - **Review additions (#179)**: a component used before the app initializes (railties loaded, `initialize!` not run) sets the loader up
   on the spot through `Phlex::Shadcn.const_missing`; the engine then raises `LateSettingError` only if that dropped an existing override directory.
-  Files in the override directory named like gem infrastructure (`base.rb`...) shadow nothing. `Overrides` stays in `engine/overrides.rb`
-  (the item's Owns) although it is plain Ruby.
+  Files in the override directory named like gem infrastructure (`base.rb`...) shadow nothing. `Overrides` first lived in `engine/overrides.rb`; #205 moved it to `overrides.rb` so path and constant agree. It is
+  still required by hand and ignored by the loader (needed before the setup), and `overrides` / `js_bundle` joined `Overrides::INFRASTRUCTURE`.

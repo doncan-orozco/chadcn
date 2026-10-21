@@ -352,6 +352,20 @@ class EngineTest::Eject < Minitest::Test
     refute Overrides.ejectable?("../base")
   end
 
+  # #205 moved overrides.rb and js_bundle.rb into the gem loader's directory: they are tooling, never ejectable or shadowable.
+  def test_the_plain_ruby_helpers_are_neither_components_nor_shadowable
+    %w[js_bundle overrides configuration].each do |name|
+      refute_includes Overrides.components, name
+      refute Overrides.ejectable?(name), "#{name} is infrastructure"
+    end
+
+    FileUtils.mkdir_p(override("."))
+    override("js_bundle.rb").write("# frozen_string_literal: true\n")
+    override("overrides.rb").write("# frozen_string_literal: true\n")
+
+    assert_empty Overrides.shadowed(@root.join(DIR).to_s)
+  end
+
   # The doctor check
 
   def check(gem_dir: Overrides::GEM_DIR, version: "0.1.0")

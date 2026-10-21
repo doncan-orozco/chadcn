@@ -24,11 +24,14 @@ module Phlex
     Loader = Zeitwerk::Loader.for_gem_extension(Phlex)
     # The engine (and the files under engine/ it requires itself) is required explicitly below, only inside an app, and is never
     # autoloaded or eager loaded.
-    Loader.ignore(File.join(__dir__, "shadcn/engine.rb"), File.join(__dir__, "shadcn/engine"), File.join(__dir__, "shadcn/configuration.rb"))
-    # The loader is set up later (see .setup), once the override directory is known, so what the setup reads is required by hand:
-    # the settings (the override directory is one of them) and engine/overrides.rb, which is plain Ruby.
+    Loader.ignore(File.join(__dir__, "shadcn/engine.rb"), File.join(__dir__, "shadcn/engine"))
+    # The loader is set up later (see .setup), once the override directory is known, so what the setup reads is required by hand and
+    # kept away from the loader: the settings (the override directory is one of them) and overrides.rb, which is plain Ruby. Their
+    # paths follow their constants, so a loader that did manage them would find the same names; they are ignored only because they
+    # must exist before it is set up.
+    Loader.ignore(File.join(__dir__, "shadcn/configuration.rb"), File.join(__dir__, "shadcn/overrides.rb"))
     require_relative "shadcn/configuration"
-    require_relative "shadcn/engine/overrides"
+    require_relative "shadcn/overrides"
     @setup = false
     SETUP_LOCK = Monitor.new
     private_constant :SETUP_LOCK

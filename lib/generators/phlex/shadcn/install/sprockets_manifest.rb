@@ -4,8 +4,8 @@ module Phlex
   module Shadcn
     module Generators
       # Where a Sprockets app declares the assets it serves, see dev/decisions/sprockets.md. Plain Ruby, no Rails: it lives here, next to
-      # js_bundle.rb, because gem_check (GEM_ESCAPES_ROOT) allows app/... layout paths only in the generators, and the doctor reads them
-      # from here (same precedent as JsBundle).
+      # js_layout.rb, because gem_check (GEM_ESCAPES_ROOT) allows app/... layout paths only in the generators, and the doctor reads them
+      # from here (same precedent as JsLayout).
       #
       # @api private
       module SprocketsManifest
