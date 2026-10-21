@@ -101,6 +101,88 @@ class GemCheckRulesTest < Minitest::Test
     assert_includes codes, "GEMSPEC_FILES"
   end
 
+  HOST_PATH = 'DEFAULT_CSS = "app/assets/tailwind/application.css"'
+  MARKER = "# gem_check:allow GEM_ESCAPES_ROOT -- the doctor reads the host stylesheet"
+  DOCTOR = "lib/phlex/shadcn/doctor/context.rb"
+
+  def test_a_hard_coded_host_path_in_core_code_is_reported
+    write("lib/phlex/x/helper.rb", "#{HOST_PATH}\n")
+
+    assert_equal [ [ "lib/phlex/x/helper.rb", 1 ] ], escapes
+  end
+
+  def test_a_marked_host_path_in_a_doctor_file_is_allowed
+    write(DOCTOR, "#{HOST_PATH} #{MARKER}\n")
+
+    assert_equal [], findings
+  end
+
+  def test_the_same_marked_literal_outside_the_doctor_still_fails
+    write("lib/phlex/x/helper.rb", "#{HOST_PATH} #{MARKER}\n")
+
+    assert_equal [ [ "lib/phlex/x/helper.rb", 1 ] ], escapes
+  end
+
+  def test_an_unmarked_host_path_in_a_doctor_file_still_fails
+    write(DOCTOR, "#{HOST_PATH}\n")
+
+    assert_equal [ [ DOCTOR, 1 ] ], escapes
+  end
+
+  def test_a_marker_without_a_reason_does_not_allow_the_path
+    write(DOCTOR, "#{HOST_PATH} # gem_check:allow GEM_ESCAPES_ROOT\n")
+
+    assert_equal [ [ DOCTOR, 1 ] ], escapes
+  end
+
+  def test_a_marker_for_another_rule_does_not_allow_the_path
+    write(DOCTOR, "#{HOST_PATH} # gem_check:allow GEM_RAILS_REFERENCE -- not this rule\n")
+
+    assert_equal [ [ DOCTOR, 1 ] ], escapes
+  end
+
+  def test_a_marker_on_another_line_does_not_allow_the_path
+    write(DOCTOR, "#{MARKER}\n#{HOST_PATH}\n")
+
+    assert_equal [ [ DOCTOR, 2 ] ], escapes
+  end
+
+  def test_a_marker_inside_a_string_does_not_allow_the_path
+    write(DOCTOR, %(#{HOST_PATH} + "#{MARKER}"\n))
+
+    assert_equal [ [ DOCTOR, 1 ] ], escapes
+  end
+
+  def test_a_marker_at_the_tail_of_a_string_does_not_allow_the_path
+    write(DOCTOR, %(#{HOST_PATH} + " #{MARKER}"\n))
+
+    assert_equal [ [ DOCTOR, 1 ] ], escapes
+  end
+
+  def test_the_doctor_root_file_is_outside_the_allowlist
+    write("lib/phlex/shadcn/doctor.rb", "#{HOST_PATH} #{MARKER}\n")
+
+    assert_equal [ [ "lib/phlex/shadcn/doctor.rb", 1 ] ], escapes
+  end
+
+  def test_another_namespace_doctor_is_outside_the_allowlist
+    write("lib/phlex/x/doctor/check.rb", "#{HOST_PATH} #{MARKER}\n")
+
+    assert_equal [ [ "lib/phlex/x/doctor/check.rb", 1 ] ], escapes
+  end
+
+  def test_a_marker_never_allows_require_relative_leaving_the_gem
+    write(DOCTOR, "require_relative \"../../../../../secret\" #{MARKER}\n")
+
+    assert_equal [ [ DOCTOR, 1 ] ], escapes
+  end
+
+  def test_generator_files_need_no_marker
+    write("lib/generators/x/install/manifest.rb", "#{HOST_PATH}\n")
+
+    assert_equal [], findings
+  end
+
   private
 
   def write(path, content)
@@ -113,6 +195,8 @@ class GemCheckRulesTest < Minitest::Test
     out, = Open3.capture2(RbConfig.ruby, SCRIPT, "--gem-dir", @gem, "--host-dir", @dir)
     JSON.parse(out)["findings"]
   end
+
+  def escapes = findings.select { |f| f["code"] == "GEM_ESCAPES_ROOT" }.map { |f| [ f["file"], f["line"] ] }
 
   def codes = findings.map { |f| f["code"] }
 end
