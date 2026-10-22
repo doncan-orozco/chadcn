@@ -41,7 +41,9 @@ module Chadcn
       TAILWIND_IMPORT = /^@import\s+["']tailwindcss["'][^;\n]*;[ \t]*(?=\r?$)/
       MANAGED_BLOCK = /#{Regexp.escape(BLOCK_START)}.*?#{Regexp.escape(BLOCK_END)}/m
       ENGINE_BUNDLE = "app/assets/builds/tailwind/chadcn"
-      private_constant :BLOCK_START, :BLOCK_END, :TAILWIND_IMPORT, :MANAGED_BLOCK, :ENGINE_BUNDLE
+      # The last line of a run that wrote everything: no notice, no kept theme file, not --pretend.
+      SUCCESS = "Installed. Your app just got a jawline."
+      private_constant :BLOCK_START, :BLOCK_END, :TAILWIND_IMPORT, :MANAGED_BLOCK, :ENGINE_BUNDLE, :SUCCESS
 
       # Scripted installs (CI, smoke tests) must see a failure: Rails generators exit 0 on Thor::Error unless this is true.
       def self.exit_on_failure? = true
@@ -62,12 +64,13 @@ module Chadcn
       end
 
       def copy_default_theme
+        @kept_theme = kept_theme_file?
         copy_file "theme.css", File.join(theme_dir, "theme.css"), skip: true
         directory "presets", File.join(theme_dir, "presets"), skip: true
       end
 
       def install_javascript
-        return say("No importmap or jsbundling esbuild setup found: add --js importmap|esbuild to wire the gem's JavaScript.", :yellow) if pipeline == :unknown
+        return notice("No importmap or jsbundling esbuild setup found: add --js importmap|esbuild to wire the gem's JavaScript.") if pipeline == :unknown
         return unless pipeline == :esbuild
 
         package = File.join(destination_root, "package.json")
@@ -81,13 +84,29 @@ module Chadcn
       def show_next_steps
         say "\nRun bin/rails tailwindcss:build (it bundles the engine CSS) and restart the server.", :green
         say "Run the generator again after updating the gem: it refreshes the copied JavaScript.", :green if pipeline == :esbuild
-        return if theme_dir == (configured_theme_dir || Chadcn::Engine::DEFAULT_THEME_DIR)
-
-        say "The theme tasks look in #{configured_theme_dir || Chadcn::Engine::DEFAULT_THEME_DIR}: set " \
-            "config.chadcn.theme_dir = \"#{theme_dir}\" in config/application.rb.", :yellow
+        unless theme_dir == (configured_theme_dir || Chadcn::Engine::DEFAULT_THEME_DIR)
+          notice "The theme tasks look in #{configured_theme_dir || Chadcn::Engine::DEFAULT_THEME_DIR}: set " \
+                 "config.chadcn.theme_dir = \"#{theme_dir}\" in config/application.rb."
+        end
+        say SUCCESS, :green unless options[:pretend] || @notice || @kept_theme
       end
 
       private
+
+      # Something the developer has to do by hand; a run that printed one ends without the success line.
+      def notice(message)
+        @notice = true
+        say(message, :yellow)
+      end
+
+      # @return [Boolean] true when a theme file the generator ships already exists with other content (the copy keeps it)
+      def kept_theme_file?
+        source = Pathname.new(self.class.source_root)
+        [ "theme.css", *Dir.glob("presets/**/*", base: source.to_s) ].any? do |path|
+          target = File.expand_path(File.join(theme_dir, path), destination_root)
+          source.join(path).file? && File.file?(target) && File.binread(target) != source.join(path).binread
+        end
+      end
 
       # @return [Symbol] :importmap, :esbuild, or :unknown (then nothing JavaScript related is written)
       def pipeline
@@ -111,7 +130,7 @@ module Chadcn
       def import_in_application
         path = File.join(destination_root, JsBundle::ENTRY)
         unless File.file?(path)
-          return say("#{JsBundle::ENTRY} not found: add `#{JsBundle::APPLICATION_IMPORT}` to your JavaScript entry file.", :yellow)
+          return notice("#{JsBundle::ENTRY} not found: add `#{JsBundle::APPLICATION_IMPORT}` to your JavaScript entry file.")
         end
 
         text = File.read(path)

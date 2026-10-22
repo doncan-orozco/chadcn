@@ -15,6 +15,9 @@ class InstallGeneratorTest < Rails::Generators::TestCase
     @import "./components/other.css";
   CSS
 
+  SUCCESS_LINE = "Installed. Your app just got a jawline."
+  REFRESH_REMINDER = "Run the generator again after updating the gem: it refreshes the copied JavaScript."
+
   # The booted test app configures a custom theme_dir; the generator reads it, so each test starts from "not configured".
   setup do
     @configured_theme_dir = Rails.application.config.chadcn.theme_dir
@@ -93,6 +96,56 @@ class InstallGeneratorTest < Rails::Generators::TestCase
 
     assert_equal first, snapshot
     assert_match(%r{identical\s+app/assets/tailwind/application.css}, output)
+  end
+
+  test "a clean install ends with the success line, after the next steps" do
+    write("config/importmap.rb", %(pin "application"\n))
+    lines = run_generator.lines.map(&:chomp).reject(&:empty?)
+
+    assert_equal SUCCESS_LINE, lines[-1]
+    assert_match(/restart the server/, lines[-2])
+  end
+
+  test "a second clean run says it again: nothing was skipped" do
+    write("config/importmap.rb", %(pin "application"\n))
+    run_generator
+
+    assert_includes run_generator, SUCCESS_LINE
+  end
+
+  test "no success line when the generator kept an edited theme file" do
+    write("config/importmap.rb", %(pin "application"\n))
+    write("app/assets/tailwind/theme/theme.css", "/* my own colors */\n")
+
+    refute_includes run_generator, SUCCESS_LINE
+  end
+
+  test "no success line when the JavaScript pipeline is unknown" do
+    output = run_generator
+
+    assert_includes output, "No importmap or jsbundling esbuild setup found"
+    refute_includes output, SUCCESS_LINE
+  end
+
+  test "no success line with a theme_dir hint" do
+    write("config/importmap.rb", %(pin "application"\n))
+
+    refute_includes run_generator(%w[--theme-dir config/theme]), SUCCESS_LINE
+  end
+
+  test "no success line with --pretend" do
+    write("config/importmap.rb", %(pin "application"\n))
+
+    refute_includes run_generator(%w[--pretend]), SUCCESS_LINE
+  end
+
+  test "no success line when the generator kept an edited preset" do
+    write("config/importmap.rb", %(pin "application"\n))
+    write("app/assets/tailwind/theme/presets/slate.css", "/* my own slate */\n")
+    output = run_generator
+
+    assert_file "app/assets/tailwind/theme/presets/slate.css", /my own slate/
+    refute_includes output, SUCCESS_LINE
   end
 
   test "keeps the theme the developer edited" do
@@ -381,5 +434,21 @@ class InstallGeneratorTest < Rails::Generators::TestCase
     output = run_generator
 
     assert_match(%r{add `import "\./controllers/chadcn"`}, output)
+  end
+
+  test "no success line when an esbuild app has no entry file to import into, and the notice copy is unchanged" do
+    write("package.json", ESBUILD_PACKAGE)
+    output = run_generator
+
+    assert_includes output, "app/javascript/application.js not found: add `import \"./controllers/chadcn\"` to your JavaScript entry file."
+    refute_includes output, SUCCESS_LINE
+  end
+
+  test "a clean esbuild install ends with the success line after the refresh reminder" do
+    esbuild_app
+    lines = run_generator.lines.map(&:chomp).reject(&:empty?)
+
+    assert_equal SUCCESS_LINE, lines[-1]
+    assert_equal REFRESH_REMINDER, lines[-2]
   end
 end

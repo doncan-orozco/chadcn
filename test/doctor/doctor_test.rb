@@ -307,6 +307,32 @@ class DoctorTest < Minitest::Test
     assert_match(/\d+ passed, \d+ warnings, \d+ failed\z/, text)
   end
 
+  def test_a_clean_text_report_ends_with_the_success_line_after_the_summary
+    build_healthy_app
+    lines = report.to_text.lines.map(&:chomp)
+
+    assert_match(/\A\d+ passed, 0 warnings, 0 failed\z/, lines[-2])
+    assert_equal "All checks passed. You're in peak condition.", lines[-1]
+  end
+
+  def test_a_report_with_a_warning_keeps_the_neutral_text_and_has_no_success_line
+    text = Doctor::Report.new([ Doctor::Result.passed("a", "ok"), Doctor::Result.warning("b", "odd", fix: "look") ]).to_text
+
+    assert_equal "[PASS] a: ok\n[WARN] b: odd\n       fix: look\n\n1 passed, 1 warnings, 0 failed", text
+  end
+
+  def test_a_report_with_a_failure_keeps_the_neutral_text_and_has_no_success_line
+    text = Doctor::Report.new([ Doctor::Result.failure("a", "broken", fix: "repair") ]).to_text
+
+    assert_equal "[FAIL] a: broken\n       fix: repair\n\n0 passed, 0 warnings, 1 failed", text
+  end
+
+  def test_the_json_report_never_carries_the_success_line
+    build_healthy_app
+
+    refute_includes report.to_json, "peak condition"
+  end
+
   def test_the_javascript_pipeline_is_checked
     build_healthy_app
     FileUtils.rm_f(@root.join("config/importmap.rb"))

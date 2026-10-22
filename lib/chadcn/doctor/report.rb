@@ -19,6 +19,9 @@ module Chadcn
       # What the rake task prints, on stderr, when its format argument is not one of {FORMATS}.
       USAGE = "usage: bin/rails chadcn:doctor[#{FORMATS.join('|')}] (JSON=1 selects json, CSS=path names the Tailwind entry file)".freeze
 
+      # The last line of a text report with no warning and no failure (never in the JSON report: CI and agents parse that).
+      SUCCESS = "All checks passed. You're in peak condition."
+
       # @return [Array<Result>]
       attr_reader :results
 
@@ -37,13 +40,16 @@ module Chadcn
       # @return [String] the report as JSON, for CI and agents
       def to_json(*) = JSON.pretty_generate(to_h)
 
-      # @return [String] one line per check, a "fix:" line under each warning and failure, and a summary
+      # @return [String] one line per check, a "fix:" line under each warning and failure, a summary and, when nothing warned or
+      #   failed, {SUCCESS}
       def to_text
+        summary = counts
         lines = results.flat_map do |result|
           line = "[#{LABELS.fetch(result.status)}] #{result.name}: #{result.message}"
           result.fix ? [ line, "       fix: #{result.fix}" ] : [ line ]
         end
-        lines << "" << "#{counts[:pass]} passed, #{counts[:warn]} warnings, #{counts[:fail]} failed"
+        lines << "" << "#{summary[:pass]} passed, #{summary[:warn]} warnings, #{summary[:fail]} failed"
+        lines << SUCCESS if summary[:warn].zero? && summary[:fail].zero?
         lines.join("\n")
       end
     end

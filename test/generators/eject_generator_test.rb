@@ -40,6 +40,15 @@ class EjectGeneratorTest < Rails::Generators::TestCase
     assert_equal gem_file("button.rb"), Overrides.strip_header(ejected("button.rb"))
   end
 
+  test "eject prints no success line" do
+    output = eject("button")
+
+    assert_path_exists File.join(destination_root, DIR, "button.rb")
+    assert_includes output, "button.rb"
+    refute_includes output, "Installed. Your app just got a jawline."
+    refute_includes output, "All checks passed. You're in peak condition."
+  end
+
   test "the header keeps the frozen string literal magic comment effective" do
     path = File.join(destination_root, DIR, "probe.rb")
     FileUtils.mkdir_p(File.dirname(path))

@@ -90,6 +90,7 @@ class EngineTest::DoctorTask < Minitest::Test
 
     assert_equal 0, status
     assert_includes out, "1 passed"
+    assert_equal "All checks passed. You're in peak condition.", out.lines.last.chomp
   ensure
     Chadcn::Doctor.define_singleton_method(:run, original)
   end
