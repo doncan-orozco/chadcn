@@ -13,7 +13,7 @@ Every part: `class:` goes through `cn` last (caller wins), `**attrs` pass throug
 
 | React | Ruby | Notes |
 |---|---|---|
-| `NavigationMenu` (tsx:7-29, `NavigationMenuPrimitive.Root`; Radix props nm:47-58) | `Components::V2::NavigationMenu.new(viewport: true, value: nil, default_value: "", delay_duration: 200, skip_delay_duration: 300, orientation: "horizontal", dir: nil, activation_mode: "automatic", class: nil, **attrs) { ... }` | Renders `<nav>`; it is the Stimulus host (`shadcn--navigation-menu`). `viewport:` shadcn prop (default `true`, tsx:10): rendered as `data-viewport="true"\|"false"` and, when true, the Root renders `NavigationMenu::Viewport` itself after the block (tsx:26). `value:` non-nil = controlled (`""` = all closed); `nil` = uncontrolled starting at `default_value` (nm:66-85, `defaultValue ?? ""`). Values are the Item values (Strings). `delay_duration`/`skip_delay_duration` Integers in ms. `orientation:` `"horizontal" \| "vertical"`. `dir:` `"ltr" \| "rtl"`; nil = `Components::V2::Direction` provider value or `"ltr"` (`useDirection`, never `html[dir]`). `activation_mode:` `"automatic" \| "manual"` (nm:24-27, 56; manual disables every hover open/close, nm:129-152). No `as_child:` (shadcn renders children plus the Viewport inside the Root, so a Radix Slot would receive several children and throw). |
+| `NavigationMenu` (tsx:7-29, `NavigationMenuPrimitive.Root`; Radix props nm:47-58) | `Components::V2::NavigationMenu.new(viewport: true, value: nil, default_value: "", delay_duration: 200, skip_delay_duration: 300, orientation: "horizontal", dir: nil, activation_mode: "automatic", class: nil, **attrs) { ... }` | Renders `<nav>`; it is the Stimulus host (`chadcn--navigation-menu`). `viewport:` shadcn prop (default `true`, tsx:10): rendered as `data-viewport="true"\|"false"` and, when true, the Root renders `NavigationMenu::Viewport` itself after the block (tsx:26). `value:` non-nil = controlled (`""` = all closed); `nil` = uncontrolled starting at `default_value` (nm:66-85, `defaultValue ?? ""`). Values are the Item values (Strings). `delay_duration`/`skip_delay_duration` Integers in ms. `orientation:` `"horizontal" \| "vertical"`. `dir:` `"ltr" \| "rtl"`; nil = `Components::V2::Direction` provider value or `"ltr"` (`useDirection`, never `html[dir]`). `activation_mode:` `"automatic" \| "manual"` (nm:24-27, 56; manual disables every hover open/close, nm:129-152). No `as_child:` (shadcn renders children plus the Viewport inside the Root, so a Radix Slot would receive several children and throw). |
 | `NavigationMenuList` (tsx:31-45) | `NavigationMenu::List.new(as_child: false, class: nil, **attrs) { ... }` | `<ul>` inside Radix's indicator-track `<div style="position: relative">` (nm:283-284). Attrs/class go on the `ul`, never on the track div. `as_child:` replaces the `ul` (Radix `Primitive.ul`). |
 | `NavigationMenuItem` (tsx:47-57) | `NavigationMenu::Item.new(value: nil, as_child: false, class: nil, **attrs) { ... }` | `<li>`. `value:` the item's String value; nil = a generated id (nm:293-294 `useId`). `as_child:` replaces the `li`. |
 | `NavigationMenuTrigger` (tsx:63-82) | `NavigationMenu::Trigger.new(disabled: false, class: nil, **attrs) { ... }` | `<button>` (no `type` attribute: Radix `Primitive.button` sets none, nm:346). Class = `cn(NavigationMenu.trigger_style, "group", class)` (tsx:71). No `as_child:` (shadcn appends a text node and the chevron, so a Radix Slot would get several children and throw). `id:` from the caller replaces the generated trigger id (nm:348 then `...triggerProps`) while the content's `aria-labelledby` keeps the generated one (dangling, as in React). |
@@ -25,7 +25,7 @@ Every part: `class:` goes through `cn` last (caller wins), `**attrs` pass throug
 
 Not ported: `ref`; `NavigationMenuSub` (Radix export, not exported by shadcn).
 
-Events (dispatched with `this.dispatch` by the `shadcn--navigation-menu` controller, `bubbles: true`, prefix `shadcn--navigation-menu:`):
+Events (dispatched with `this.dispatch` by the `chadcn--navigation-menu` controller, `bubbles: true`, prefix `chadcn--navigation-menu:`):
 
 | Event | Target | Radix origin | detail | cancelable | default action when not prevented |
 |---|---|---|---|---|---|
@@ -35,7 +35,7 @@ Events (dispatched with `this.dispatch` by the `shadcn--navigation-menu` control
 | `pointer-down-outside` | content | `onPointerDownOutside` (nm:637-642) | `{ originalEvent }` | yes | close (the port prevents it itself for triggers / viewport as Radix does) |
 | `focus-outside` | content | `onFocusOutside` (nm:627-636) | `{ originalEvent }` | yes | close (prevented by Radix unless focus left the nav from inside it) |
 
-Callers listen with `data-action="shadcn--navigation-menu:value-change->foo#bar"` on an ancestor or on the nav.
+Callers listen with `data-action="chadcn--navigation-menu:value-change->foo#bar"` on an ancestor or on the nav.
 
 ## Structure
 
@@ -46,7 +46,7 @@ Server render, closed, `viewport: true` (DOM order exact; `T1/C1` are the ids ab
 ```html
 <nav aria-label="Main" data-orientation="horizontal" dir="ltr" data-slot="navigation-menu" data-viewport="true"
      class="group/navigation-menu relative flex max-w-max flex-1 items-center justify-center"
-     data-controller="shadcn--navigation-menu" data-shadcn--navigation-menu-*-value="...">
+     data-controller="chadcn--navigation-menu" data-chadcn--navigation-menu-*-value="...">
   <div style="position: relative;">                       <!-- Radix indicator track, no data-slot, no class (nm:284) -->
     <ul dir="ltr" data-orientation="horizontal" data-slot="navigation-menu-list"
         class="group flex flex-1 list-none items-center justify-center gap-1">
@@ -55,7 +55,7 @@ Server render, closed, `viewport: true` (DOM order exact; `T1/C1` are the ids ab
                 class="group inline-flex h-9 ... data-[state=open]:focus:bg-accent group">
           Getting started <svg ... class="lucide lucide-chevron-down relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180" aria-hidden="true">...</svg>
         </button>
-        <template data-shadcn--navigation-menu-target="contentTemplate" data-value="...">...Content markup...</template>
+        <template data-chadcn--navigation-menu-target="contentTemplate" data-value="...">...Content markup...</template>
       </li>
       <li data-slot="navigation-menu-item" class="relative">
         <a href="#docs" data-slot="navigation-menu-link" class="...link classes merged with trigger_style...">Docs</a>
@@ -63,7 +63,7 @@ Server render, closed, `viewport: true` (DOM order exact; `T1/C1` are the ids ab
     </ul>
   </div>
   <div class="absolute top-full left-0 isolate z-50 flex justify-center">   <!-- shadcn wrapper (tsx:104-108), always rendered when viewport: true -->
-    <template data-shadcn--navigation-menu-target="viewportTemplate">...Viewport markup...</template>
+    <template data-chadcn--navigation-menu-target="viewportTemplate">...Viewport markup...</template>
   </div>
 </nav>
 ```
@@ -172,8 +172,8 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 One structural, invisible deviation (`gems/chadcn/dev/port/deviations/navigation-menu.json`), same pattern as Tooltip/HoverCard:
 
-- `NavigationMenu::Content` (call site, inside the `li`), `NavigationMenu::Viewport` (inside the shadcn wrapper div) and `NavigationMenu::Indicator` (call site) emit inert `<template data-shadcn--navigation-menu-target="...">` elements holding their markup while unmounted. Reason: Radix renders nothing for them while closed and creates the nodes on the client (contents inside the viewport via a registry, the indicator via a portal into the List track). The templates have no `data-slot`, no box and their content is not part of the document, so G2 node lists, boxes and a11y are unaffected.
+- `NavigationMenu::Content` (call site, inside the `li`), `NavigationMenu::Viewport` (inside the shadcn wrapper div) and `NavigationMenu::Indicator` (call site) emit inert `<template data-chadcn--navigation-menu-target="...">` elements holding their markup while unmounted. Reason: Radix renders nothing for them while closed and creates the nodes on the client (contents inside the viewport via a registry, the indicator via a portal into the List track). The templates have no `data-slot`, no box and their content is not part of the document, so G2 node lists, boxes and a11y are unaffected.
 
 ```json
-{ "component": "navigation-menu", "reason": "...", "allow_tokens": [], "allow_missing_tokens": [], "api": ["NavigationMenu::Content, ::Viewport and ::Indicator render inert <template data-shadcn--navigation-menu-target> elements (no data-slot) holding their markup while unmounted"] }
+{ "component": "navigation-menu", "reason": "...", "allow_tokens": [], "allow_missing_tokens": [], "api": ["NavigationMenu::Content, ::Viewport and ::Indicator render inert <template data-chadcn--navigation-menu-target> elements (no data-slot) holding their markup while unmounted"] }
 ```

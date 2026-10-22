@@ -8,7 +8,7 @@
         "props": {
           "data-probe": "focus_scope",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-focus-scope",
+          "data-controller": "chadcn---probe-focus-scope",
           "className": "flex flex-col items-start gap-2"
         },
         "children": [
@@ -28,7 +28,7 @@
             "props": {
               "type": "button",
               "data-slot": "open",
-              "data-action": "click->shadcn---probe-focus-scope#open",
+              "data-action": "click->chadcn---probe-focus-scope#open",
               "className": "rounded-md border px-3 py-1 text-sm"
             },
             "children": [
@@ -49,7 +49,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-focus-scope-target": "template"
+              "data-chadcn---probe-focus-scope-target": "template"
             },
             "children": [
               {
@@ -83,7 +83,7 @@
                     "props": {
                       "type": "button",
                       "data-slot": "close",
-                      "data-action": "click->shadcn---probe-focus-scope#close",
+                      "data-action": "click->chadcn---probe-focus-scope#close",
                       "className": "rounded-md border px-3 py-1 text-sm"
                     },
                     "children": [
@@ -133,7 +133,7 @@
         "props": {
           "data-probe": "focus_scope",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-focus-scope",
+          "data-controller": "chadcn---probe-focus-scope",
           "className": "flex flex-col items-start gap-2"
         },
         "children": [
@@ -153,7 +153,7 @@
             "props": {
               "type": "button",
               "data-slot": "open",
-              "data-action": "click->shadcn---probe-focus-scope#open",
+              "data-action": "click->chadcn---probe-focus-scope#open",
               "className": "rounded-md border px-3 py-1 text-sm"
             },
             "children": [
@@ -174,7 +174,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-focus-scope-target": "template"
+              "data-chadcn---probe-focus-scope-target": "template"
             },
             "children": [
               {
@@ -208,7 +208,7 @@
                     "props": {
                       "type": "button",
                       "data-slot": "close",
-                      "data-action": "click->shadcn---probe-focus-scope#close",
+                      "data-action": "click->chadcn---probe-focus-scope#close",
                       "className": "rounded-md border px-3 py-1 text-sm"
                     },
                     "children": [
@@ -263,9 +263,9 @@
         "props": {
           "data-probe": "focus_scope",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-focus-scope",
+          "data-controller": "chadcn---probe-focus-scope",
           "className": "flex flex-col items-start gap-2",
-          "data-shadcn---probe-focus-scope-prevent-mount-focus-value": "true"
+          "data-chadcn---probe-focus-scope-prevent-mount-focus-value": "true"
         },
         "children": [
           {
@@ -284,7 +284,7 @@
             "props": {
               "type": "button",
               "data-slot": "open",
-              "data-action": "click->shadcn---probe-focus-scope#open",
+              "data-action": "click->chadcn---probe-focus-scope#open",
               "className": "rounded-md border px-3 py-1 text-sm"
             },
             "children": [
@@ -305,7 +305,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-focus-scope-target": "template"
+              "data-chadcn---probe-focus-scope-target": "template"
             },
             "children": [
               {
@@ -339,7 +339,7 @@
                     "props": {
                       "type": "button",
                       "data-slot": "close",
-                      "data-action": "click->shadcn---probe-focus-scope#close",
+                      "data-action": "click->chadcn---probe-focus-scope#close",
                       "className": "rounded-md border px-3 py-1 text-sm"
                     },
                     "children": [
@@ -394,7 +394,7 @@
         "props": {
           "data-probe": "focus_scope",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-focus-scope",
+          "data-controller": "chadcn---probe-focus-scope",
           "className": "flex flex-col items-start gap-2"
         },
         "children": [
@@ -414,7 +414,7 @@
             "props": {
               "type": "button",
               "data-slot": "open",
-              "data-action": "click->shadcn---probe-focus-scope#open",
+              "data-action": "click->chadcn---probe-focus-scope#open",
               "className": "rounded-md border px-3 py-1 text-sm"
             },
             "children": [
@@ -435,7 +435,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-focus-scope-target": "template"
+              "data-chadcn---probe-focus-scope-target": "template"
             },
             "children": [
               {
@@ -469,7 +469,7 @@
                     "props": {
                       "type": "button",
                       "data-slot": "close",
-                      "data-action": "click->shadcn---probe-focus-scope#close",
+                      "data-action": "click->chadcn---probe-focus-scope#close",
                       "className": "rounded-md border px-3 py-1 text-sm"
                     },
                     "children": [
@@ -532,9 +532,9 @@
         "props": {
           "data-probe": "focus_scope",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-focus-scope",
+          "data-controller": "chadcn---probe-focus-scope",
           "className": "flex flex-col items-start gap-2",
-          "data-shadcn---probe-focus-scope-prevent-unmount-focus-value": "true"
+          "data-chadcn---probe-focus-scope-prevent-unmount-focus-value": "true"
         },
         "children": [
           {
@@ -553,7 +553,7 @@
             "props": {
               "type": "button",
               "data-slot": "open",
-              "data-action": "click->shadcn---probe-focus-scope#open",
+              "data-action": "click->chadcn---probe-focus-scope#open",
               "className": "rounded-md border px-3 py-1 text-sm"
             },
             "children": [
@@ -574,7 +574,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-focus-scope-target": "template"
+              "data-chadcn---probe-focus-scope-target": "template"
             },
             "children": [
               {
@@ -608,7 +608,7 @@
                     "props": {
                       "type": "button",
                       "data-slot": "close",
-                      "data-action": "click->shadcn---probe-focus-scope#close",
+                      "data-action": "click->chadcn---probe-focus-scope#close",
                       "className": "rounded-md border px-3 py-1 text-sm"
                     },
                     "children": [
@@ -671,7 +671,7 @@
         "props": {
           "data-probe": "focus_scope",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-focus-scope",
+          "data-controller": "chadcn---probe-focus-scope",
           "className": "flex flex-col items-start gap-2"
         },
         "children": [
@@ -691,7 +691,7 @@
             "props": {
               "type": "button",
               "data-slot": "open",
-              "data-action": "click->shadcn---probe-focus-scope#open",
+              "data-action": "click->chadcn---probe-focus-scope#open",
               "className": "rounded-md border px-3 py-1 text-sm"
             },
             "children": [
@@ -712,7 +712,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-focus-scope-target": "template"
+              "data-chadcn---probe-focus-scope-target": "template"
             },
             "children": [
               {
@@ -746,7 +746,7 @@
                     "props": {
                       "type": "button",
                       "data-slot": "close",
-                      "data-action": "click->shadcn---probe-focus-scope#close",
+                      "data-action": "click->chadcn---probe-focus-scope#close",
                       "className": "rounded-md border px-3 py-1 text-sm"
                     },
                     "children": [
@@ -810,9 +810,9 @@
         "props": {
           "data-probe": "focus_scope",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-focus-scope",
+          "data-controller": "chadcn---probe-focus-scope",
           "className": "flex flex-col items-start gap-2",
-          "data-shadcn---probe-focus-scope-loop-value": "true"
+          "data-chadcn---probe-focus-scope-loop-value": "true"
         },
         "children": [
           {
@@ -831,7 +831,7 @@
             "props": {
               "type": "button",
               "data-slot": "open",
-              "data-action": "click->shadcn---probe-focus-scope#open",
+              "data-action": "click->chadcn---probe-focus-scope#open",
               "className": "rounded-md border px-3 py-1 text-sm"
             },
             "children": [
@@ -852,7 +852,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-focus-scope-target": "template"
+              "data-chadcn---probe-focus-scope-target": "template"
             },
             "children": [
               {
@@ -886,7 +886,7 @@
                     "props": {
                       "type": "button",
                       "data-slot": "close",
-                      "data-action": "click->shadcn---probe-focus-scope#close",
+                      "data-action": "click->chadcn---probe-focus-scope#close",
                       "className": "rounded-md border px-3 py-1 text-sm"
                     },
                     "children": [
@@ -953,9 +953,9 @@
         "props": {
           "data-probe": "focus_scope",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-focus-scope",
+          "data-controller": "chadcn---probe-focus-scope",
           "className": "flex flex-col items-start gap-2",
-          "data-shadcn---probe-focus-scope-loop-value": "true"
+          "data-chadcn---probe-focus-scope-loop-value": "true"
         },
         "children": [
           {
@@ -974,7 +974,7 @@
             "props": {
               "type": "button",
               "data-slot": "open",
-              "data-action": "click->shadcn---probe-focus-scope#open",
+              "data-action": "click->chadcn---probe-focus-scope#open",
               "className": "rounded-md border px-3 py-1 text-sm"
             },
             "children": [
@@ -995,7 +995,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-focus-scope-target": "template"
+              "data-chadcn---probe-focus-scope-target": "template"
             },
             "children": [
               {
@@ -1029,7 +1029,7 @@
                     "props": {
                       "type": "button",
                       "data-slot": "close",
-                      "data-action": "click->shadcn---probe-focus-scope#close",
+                      "data-action": "click->chadcn---probe-focus-scope#close",
                       "className": "rounded-md border px-3 py-1 text-sm"
                     },
                     "children": [
@@ -1092,10 +1092,10 @@
         "props": {
           "data-probe": "focus_scope",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-focus-scope",
+          "data-controller": "chadcn---probe-focus-scope",
           "className": "flex flex-col items-start gap-2",
-          "data-shadcn---probe-focus-scope-trapped-value": "true",
-          "data-shadcn---probe-focus-scope-loop-value": "true"
+          "data-chadcn---probe-focus-scope-trapped-value": "true",
+          "data-chadcn---probe-focus-scope-loop-value": "true"
         },
         "children": [
           {
@@ -1114,7 +1114,7 @@
             "props": {
               "type": "button",
               "data-slot": "open",
-              "data-action": "click->shadcn---probe-focus-scope#open",
+              "data-action": "click->chadcn---probe-focus-scope#open",
               "className": "rounded-md border px-3 py-1 text-sm"
             },
             "children": [
@@ -1135,7 +1135,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-focus-scope-target": "template"
+              "data-chadcn---probe-focus-scope-target": "template"
             },
             "children": [
               {
@@ -1169,7 +1169,7 @@
                     "props": {
                       "type": "button",
                       "data-slot": "close",
-                      "data-action": "click->shadcn---probe-focus-scope#close",
+                      "data-action": "click->chadcn---probe-focus-scope#close",
                       "className": "rounded-md border px-3 py-1 text-sm"
                     },
                     "children": [
@@ -1239,9 +1239,9 @@
         "props": {
           "data-probe": "focus_scope",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-focus-scope",
+          "data-controller": "chadcn---probe-focus-scope",
           "className": "flex flex-col items-start gap-2",
-          "data-shadcn---probe-focus-scope-trapped-value": "true"
+          "data-chadcn---probe-focus-scope-trapped-value": "true"
         },
         "children": [
           {
@@ -1260,7 +1260,7 @@
             "props": {
               "type": "button",
               "data-slot": "open",
-              "data-action": "click->shadcn---probe-focus-scope#open",
+              "data-action": "click->chadcn---probe-focus-scope#open",
               "className": "rounded-md border px-3 py-1 text-sm"
             },
             "children": [
@@ -1281,7 +1281,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-focus-scope-target": "template"
+              "data-chadcn---probe-focus-scope-target": "template"
             },
             "children": [
               {
@@ -1315,7 +1315,7 @@
                     "props": {
                       "type": "button",
                       "data-slot": "close",
-                      "data-action": "click->shadcn---probe-focus-scope#close",
+                      "data-action": "click->chadcn---probe-focus-scope#close",
                       "className": "rounded-md border px-3 py-1 text-sm"
                     },
                     "children": [
@@ -1382,10 +1382,10 @@
         "props": {
           "data-probe": "focus_scope",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-focus-scope",
+          "data-controller": "chadcn---probe-focus-scope",
           "className": "flex flex-col items-start gap-2",
-          "data-shadcn---probe-focus-scope-trapped-value": "true",
-          "data-shadcn---probe-focus-scope-loop-value": "true"
+          "data-chadcn---probe-focus-scope-trapped-value": "true",
+          "data-chadcn---probe-focus-scope-loop-value": "true"
         },
         "children": [
           {
@@ -1404,7 +1404,7 @@
             "props": {
               "type": "button",
               "data-slot": "open",
-              "data-action": "click->shadcn---probe-focus-scope#open",
+              "data-action": "click->chadcn---probe-focus-scope#open",
               "className": "rounded-md border px-3 py-1 text-sm"
             },
             "children": [
@@ -1425,7 +1425,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-focus-scope-target": "template"
+              "data-chadcn---probe-focus-scope-target": "template"
             },
             "children": [
               {
@@ -1459,7 +1459,7 @@
                     "props": {
                       "type": "button",
                       "data-slot": "close",
-                      "data-action": "click->shadcn---probe-focus-scope#close",
+                      "data-action": "click->chadcn---probe-focus-scope#close",
                       "className": "rounded-md border px-3 py-1 text-sm"
                     },
                     "children": [

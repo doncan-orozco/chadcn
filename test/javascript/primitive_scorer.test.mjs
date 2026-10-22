@@ -2,7 +2,7 @@ import { assert, primitiveTest } from "./primitives_support.mjs";
 
 primitiveTest("scorer: an empty or blank query matches everything with the same score and rank keeps the original order", async (page) => {
   const result = await page.evaluate(async () => {
-    const { score, scoreItem, rank, EMPTY_QUERY_SCORE } = await import("shadcn/primitives/scorer");
+    const { score, scoreItem, rank, EMPTY_QUERY_SCORE } = await import("chadcn/primitives/scorer");
     const items = ["Banana", "Apple", "Cherry"];
     return {
       empty: score("", "Banana") === EMPTY_QUERY_SCORE,
@@ -17,7 +17,7 @@ primitiveTest("scorer: an empty or blank query matches everything with the same 
 
 primitiveTest("scorer: the query must be a subsequence of the text, otherwise the score is 0", async (page) => {
   const result = await page.evaluate(async () => {
-    const { score } = await import("shadcn/primitives/scorer");
+    const { score } = await import("chadcn/primitives/scorer");
     return {
       subsequence: score("gthb", "GitHub") > 0,
       outOfOrder: score("hg", "GitHub"),
@@ -31,7 +31,7 @@ primitiveTest("scorer: the query must be a subsequence of the text, otherwise th
 
 primitiveTest("scorer: ranking prefers an exact match, a prefix, a word boundary, consecutive characters, then shorter texts", async (page) => {
   const result = await page.evaluate(async () => {
-    const { score, rank } = await import("shadcn/primitives/scorer");
+    const { score, rank } = await import("chadcn/primitives/scorer");
     const order = (query, items) => rank(query, items).map((r) => r.item);
     return {
       exactFirst: order("calendar", ["Calendar Settings", "calendar", "Open calendar"]),
@@ -58,7 +58,7 @@ primitiveTest("scorer: ranking prefers an exact match, a prefix, a word boundary
 
 primitiveTest("scorer: ties keep the original order (stable)", async (page) => {
   const result = await page.evaluate(async () => {
-    const { rank } = await import("shadcn/primitives/scorer");
+    const { rank } = await import("chadcn/primitives/scorer");
     const items = [{ id: 1, t: "Item" }, { id: 2, t: "Item" }, { id: 3, t: "Item" }];
     return rank("it", items, { text: (item) => item.t }).map((r) => r.item.id);
   });
@@ -67,7 +67,7 @@ primitiveTest("scorer: ties keep the original order (stable)", async (page) => {
 
 primitiveTest("scorer: case and diacritics are folded in both directions and offsets stay aligned with the original", async (page) => {
   const result = await page.evaluate(async () => {
-    const { score, fold, rank } = await import("shadcn/primitives/scorer");
+    const { score, fold, rank } = await import("chadcn/primitives/scorer");
     return {
       accentInText: score("cafe", "Café") > 0,
       accentInQuery: score("café", "Cafe") > 0,
@@ -86,7 +86,7 @@ primitiveTest("scorer: case and diacritics are folded in both directions and off
 
 primitiveTest("scorer: keywords also match but rank below the same text match; the query ignores whitespace", async (page) => {
   const result = await page.evaluate(async () => {
-    const { scoreItem, rank } = await import("shadcn/primitives/scorer");
+    const { scoreItem, rank } = await import("chadcn/primitives/scorer");
     const items = [{ t: "Settings", k: ["preferences"] }, { t: "Preferences", k: [] }];
     return {
       viaKeyword: scoreItem("prefs", "Settings", ["preferences"]) > 0,
@@ -100,7 +100,7 @@ primitiveTest("scorer: keywords also match but rank below the same text match; t
 
 primitiveTest("scorer: ranking a few thousand items is fast", async (page) => {
   const result = await page.evaluate(async () => {
-    const { rank } = await import("shadcn/primitives/scorer");
+    const { rank } = await import("chadcn/primitives/scorer");
     const items = Array.from({ length: 5000 }, (_, i) => `Command number ${i} for the palette`);
     const started = performance.now();
     const hits = rank("cmd pal", items).length;
@@ -112,7 +112,7 @@ primitiveTest("scorer: ranking a few thousand items is fast", async (page) => {
 
 primitiveTest("scorer: the exact bonus ignores whitespace in the text, like in the query", async (page) => {
   const result = await page.evaluate(async () => {
-    const { rank } = await import("shadcn/primitives/scorer");
+    const { rank } = await import("chadcn/primitives/scorer");
     return rank("newyork", ["New York City", "New York"]).map((r) => r.item);
   });
   assert.deepEqual(result, ["New York", "New York City"]);
@@ -120,7 +120,7 @@ primitiveTest("scorer: the exact bonus ignores whitespace in the text, like in t
 
 primitiveTest("scorer: letters without a decomposition fold to one base letter", async (page) => {
   const result = await page.evaluate(async () => {
-    const { score, fold } = await import("shadcn/primitives/scorer");
+    const { score, fold } = await import("chadcn/primitives/scorer");
     return { folded: fold("Øłđðı ßæþ"), found: score("lodz", "Łódź") > 0, oslo: score("osl", "Øsløy") > 0 };
   });
   assert.deepEqual(result, { folded: "olddi ßæþ", found: true, oslo: true });
@@ -128,7 +128,7 @@ primitiveTest("scorer: letters without a decomposition fold to one base letter",
 
 primitiveTest("scorer: a long text does not overflow the call stack", async (page) => {
   const result = await page.evaluate(async () => {
-    const { score } = await import("shadcn/primitives/scorer");
+    const { score } = await import("chadcn/primitives/scorer");
     return score("a", "a".repeat(200000)) > 0;
   });
   assert.equal(result, true);

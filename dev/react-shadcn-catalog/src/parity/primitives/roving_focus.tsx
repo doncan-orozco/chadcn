@@ -1,6 +1,6 @@
 // React twin of app/javascript/v2/primitives/roving_focus.js: the RAW @radix-ui/react-roving-focus group over the same markup.
-// Rendered by Harness.tsx for `_div[data-controller="shadcn---probe-roving-focus"]`; the Phlex side wires the Stimulus probe
-// (gems/chadcn/dev/dummy/app/javascript/controllers/shadcn/_probe_roving_focus_controller.js) to the identical tree.
+// Rendered by Harness.tsx for `_div[data-controller="chadcn---probe-roving-focus"]`; the Phlex side wires the Stimulus probe
+// (gems/chadcn/dev/dummy/app/javascript/controllers/chadcn/_probe_roving_focus_controller.js) to the identical tree.
 //   group props : data-roving-loop="true", data-roving-dir="rtl|ltr", data-orientation (server value; Radix recomputes it)
 //   item marker : data-roving-item (item), data-disabled (focusable=false), data-active (Radix `active`)
 // `tabIndex` / `data-orientation` / `style` in the tree are the SERVER-rendered values for Phlex; Radix owns them here, so they are stripped.
@@ -31,4 +31,4 @@ function RovingFocusProbe({ children, ...props }: AnyProps) {
   )
 }
 
-export const probe = { controller: "shadcn---probe-roving-focus", Component: RovingFocusProbe }
+export const probe = { controller: "chadcn---probe-roving-focus", Component: RovingFocusProbe }

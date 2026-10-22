@@ -69,10 +69,10 @@ live on the instance. A few helpers share a name with an HTML element (`header`,
 
   ```ruby
   render Chadcn::Dialog.new(data: { controller: "x", action: "click->x#go" })
-  # <div style="display: contents" data-controller="shadcn--dialog x" ... data-action="click->x#go"></div>
+  # <div style="display: contents" data-controller="chadcn--dialog x" ... data-action="click->x#go"></div>
   # Dialog has no data-action of its own, so only the caller's renders.
-  # data: { controller: nil } and data: { controller: "shadcn--dialog x" } render data-controller="shadcn--dialog" and
-  # data-controller="shadcn--dialog x" respectively; the other data-* attributes of the host are elided above.
+  # data: { controller: nil } and data: { controller: "chadcn--dialog x" } render data-controller="chadcn--dialog" and
+  # data-controller="chadcn--dialog x" respectively; the other data-* attributes of the host are elided above.
   ```
 - Variant-like options accept strings and symbols with the React keys: `variant: "outline"` or `:outline`, `size: "icon-sm"` or
   `:icon_sm`. The defaults equal React's `defaultVariants`; an unknown value raises `ArgumentError` with the accepted values.
@@ -102,7 +102,7 @@ A trigger part renders its own `<button>`; never nest a `Button` inside it as co
   keeps it in the DOM.
 - Controlled: `open:`, `value:`, `checked:`, `pressed:` render that state; user actions only dispatch the change event and the server
   (or your JavaScript) renders the next state, like React's `value` + `onValueChange`.
-- Callbacks are DOM events named `shadcn--<component>:<event>`, bubbling, with the payload in `event.detail`: `open-change`
+- Callbacks are DOM events named `chadcn--<component>:<event>`, bubbling, with the payload in `event.detail`: `open-change`
   (`{ open }`), `value-change` (`{ value }`), `value-commit` (slider), `checked-change` (`{ checked }`: checkbox, switch, menu
   checkbox items), `pressed-change` (`{ pressed }`: toggle), `open-mobile-change` (sidebar), `select` (menu items), `link-select`
   (navigation menu), and the cancelable events of the overlays and menus, like Radix: `open-auto-focus` / `close-auto-focus`
@@ -113,7 +113,7 @@ A trigger part renders its own `<button>`; never nest a `Button` inside it as co
   the dismiss events of NavigationMenu) fire on their content, except `close-auto-focus` of DropdownMenu and ContextMenu, which
   fires on their controller element (Menubar's fires on the content). Menu content is portaled to `<body>`, so listen on
   `document` for the events that fire inside it, not on the trigger. Listen with Stimulus
-  (`data: { action: "shadcn--dialog:open-change->form#changed" }`) or `addEventListener`.
+  (`data: { action: "chadcn--dialog:open-change->form#changed" }`) or `addEventListener`.
 - Turbo: controllers that leave state in the DOM (overlays, accordion, collapsible, tabs, avatar, scroll area) listen to
   `turbo:before-cache` on `document`. The snapshot holds the closed state; a modal that was open is unmounted from it and, on a
   visit that keeps the page, re-opens afterwards (`open-auto-focus` fires again).
@@ -122,8 +122,8 @@ A trigger part renders its own `<button>`; never nest a `Button` inside it as co
   are the React strings (`label:`, `aria_label:`, `mobile_title:`, `min_label:`...). Other fixed labels (the `Pagination`,
   `Breadcrumb` and `NavigationMenu` landmarks, `Spinner`,
   `Sidebar::Rail`) are overridden through `aria: { label: ... }` (and `title:` on the rail); the caller's attributes win.
-- Theme controller: `data-controller="shadcn--theme"` stores `light` or `dark` in `localStorage` under `shadcn-theme`
-  (`data-shadcn--theme-storage-key-value` overrides it; `system` clears the key) and dispatches `shadcn--theme:changed`
+- Theme controller: `data-controller="chadcn--theme"` stores `light` or `dark` in `localStorage` under `shadcn-theme`
+  (`data-chadcn--theme-storage-key-value` overrides it; `system` clears the key) and dispatches `chadcn--theme:changed`
   (`{ theme }`, one of `light`, `dark`, `system`).
 
 ## DOM contract

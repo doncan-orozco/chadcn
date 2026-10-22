@@ -29,7 +29,7 @@ class Chadcn::TabsTest < Chadcn::TestCase
 
     assert_equal "ltr", root["dir"]
     assert_equal "horizontal", root["data-orientation"]
-    assert_equal "shadcn--tabs", root["data-controller"]
+    assert_equal "chadcn--tabs", root["data-controller"]
     assert_equal "t", root["id"]
     assert_equal "x", root["data-testid"]
     assert_includes root["class"], "w-full"
@@ -100,7 +100,7 @@ class Chadcn::TabsTest < Chadcn::TestCase
     rtl, ltr = fragment(provided).css("[data-slot=tabs]")
 
     assert_equal "rtl", rtl["dir"]
-    assert_equal "rtl", rtl["data-shadcn--tabs-dir-value"]
+    assert_equal "rtl", rtl["data-chadcn--tabs-dir-value"]
     assert_equal "ltr", ltr["dir"]
     assert_equal "ltr", fragment(render_view { render(Tabs.new) { } }).at_css("[data-slot=tabs]")["dir"]
   end
@@ -127,18 +127,18 @@ class Chadcn::TabsTest < Chadcn::TestCase
   test "controlled value, manual activation and vertical orientation reach the controller values" do
     root = fragment(tabs(root: { value: "b", activation_mode: "manual", orientation: "vertical" })).at_css("[data-slot=tabs]")
 
-    assert_equal "b", root["data-shadcn--tabs-value-value"]
-    assert_equal "true", root["data-shadcn--tabs-controlled-value"]
-    assert_equal "manual", root["data-shadcn--tabs-activation-mode-value"]
+    assert_equal "b", root["data-chadcn--tabs-value-value"]
+    assert_equal "true", root["data-chadcn--tabs-controlled-value"]
+    assert_equal "manual", root["data-chadcn--tabs-activation-mode-value"]
     assert_equal "vertical", root["data-orientation"]
-    assert_equal "automatic", fragment(tabs(root: { activation_mode: "bogus" })).at_css("[data-slot=tabs]")["data-shadcn--tabs-activation-mode-value"]
+    assert_equal "automatic", fragment(tabs(root: { activation_mode: "bogus" })).at_css("[data-slot=tabs]")["data-chadcn--tabs-activation-mode-value"]
   end
 
   test "list loop, line variant and style" do
     list = fragment(tabs(list: { variant: :line, loop: false, style: "color: red" })).at_css("[data-slot=tabs-list]")
 
     assert_equal "line", list["data-variant"]
-    assert_equal "false", list["data-shadcn--tabs-loop-value"]
+    assert_equal "false", list["data-chadcn--tabs-loop-value"]
     assert_includes list["style"], "color: red"
     assert_equal Tabs.list_variants(variant: "default"), Tabs.list_variants(variant: "unknown")
   end
@@ -150,7 +150,7 @@ class Chadcn::TabsTest < Chadcn::TestCase
     panel = fragment(html).at_css("[data-slot=tabs-content]")
 
     assert_equal "inactive", panel["data-state"]
-    assert_equal "true", panel["data-shadcn--tabs-force-mount"]
+    assert_equal "true", panel["data-chadcn--tabs-force-mount"]
     assert_nil panel["hidden"]
     assert_nil panel.at_css("template")
 

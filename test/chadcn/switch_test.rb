@@ -37,7 +37,7 @@ class Chadcn::SwitchTest < Chadcn::TestCase
     assert_includes html, "bg-red-500"
     assert_includes html, 'id="s1"'
     assert_includes html, 'aria-label="Mode"'
-    assert_includes html, 'data-action="click->x#y click->shadcn--switch#toggle"'
+    assert_includes html, 'data-action="click->x#y click->chadcn--switch#toggle"'
   end
 
   test "stringifies boolean aria values" do
@@ -48,7 +48,7 @@ class Chadcn::SwitchTest < Chadcn::TestCase
     html = render_switch(checked: true, default_checked: false, name: "n", value: "yes", form: "f1", required: true)
     input = Nokogiri::HTML5.fragment(html).at_css("input")
 
-    assert_includes html, 'data-shadcn--switch-controlled-value="true"'
+    assert_includes html, 'data-chadcn--switch-controlled-value="true"'
     assert_includes html, 'aria-required="true"'
     assert_equal %w[n yes f1], [ input["name"], input["value"], input["form"] ]
     assert input.key?("checked")

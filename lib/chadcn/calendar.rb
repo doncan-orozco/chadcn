@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # shadcn `Calendar` (new-york-v4), which wraps react-day-picker 10. Spec: docs/shadcn-port/specs/calendar.md.
-# Behavior: controllers/shadcn/calendar_controller.js, on `Date` and `Intl` only (no date library).
+# Behavior: controllers/chadcn/calendar_controller.js, on `Date` and `Intl` only (no date library).
 #
 # The server renders the root, the months container with its navigation, the optional footer and hidden inputs, and one inert
 # `<template>` of part prototypes holding every class string; the Stimulus controller builds the months and the grid from them.
@@ -16,8 +16,8 @@
 #   render Chadcn::Calendar.new(mode: :single, disabled: [ { day_of_week: [ 0, 6 ] }, { before: Date.today } ],
 #                                      modifiers: { booked: [ Date.new(2026, 3, 16) ] }, modifiers_class_names: { booked: "line-through" })
 #
-# Events (bubbling, on the root): `shadcn--calendar:select` with `detail: { selected, date, modifiers }` and
-# `shadcn--calendar:month-change` with `detail: { month }`. See {file:docs/form-controls.md} for the date picker composition
+# Events (bubbling, on the root): `chadcn--calendar:select` with `detail: { selected, date, modifiers }` and
+# `chadcn--calendar:month-change` with `detail: { month }`. See {file:docs/form-controls.md} for the date picker composition
 # (Popover + Button + Calendar + hidden input).
 #
 # The nested {DayButton} is the shadcn `CalendarDayButton`; the controller clones a prototype of it for every day.
@@ -39,7 +39,7 @@ class Chadcn::Calendar < Chadcn::Base
   #   `{ from:, to: }` (range); dates are `Date`, `Time` or `YYYY-MM-DD` strings
   # @param default_month [Date, Time, String, nil] first displayed month (uncontrolled)
   # @param month [Date, Time, String, nil] controlled first displayed month; the caller moves it by setting the
-  #   `data-shadcn--calendar-month-value` attribute
+  #   `data-chadcn--calendar-month-value` attribute
   # @param today [Date, Time, String, nil] the day highlighted as today; nil uses the browser's date
   # @param number_of_months [Integer] months shown side by side
   # @param show_outside_days [Boolean] show the days of the neighbouring months
@@ -105,7 +105,7 @@ class Chadcn::Calendar < Chadcn::Base
       overrides: @options.class_names, merger: method(:cn)
     )
     div(**root_attrs) do
-      div(class: @classes[:months], data: { shadcn__calendar_target: "months" }) { navigation unless @options.hide_navigation }
+      div(class: @classes[:months], data: { chadcn__calendar_target: "months" }) { navigation unless @options.hide_navigation }
       footer_element if @options.footer
       hidden_inputs if @options.name
       parts_template
@@ -123,14 +123,14 @@ class Chadcn::Calendar < Chadcn::Base
   def root_data
     {
       slot: "calendar", mode: @options.mode, required: @options.required, multiple_months: (true if @options.multiple_months?),
-      week_numbers: (true if @options.show_week_number), controller: "shadcn--calendar",
-      shadcn__calendar_config_value: json(@options.config(@classes)), shadcn__calendar_month_value: @options.month
+      week_numbers: (true if @options.show_week_number), controller: "chadcn--calendar",
+      chadcn__calendar_config_value: json(@options.config(@classes)), chadcn__calendar_month_value: @options.month
     }
   end
 
   def navigation
     state = @options.navigation
-    nav(class: @classes[:nav], aria: { label: labels["nav"] }, data: { shadcn__calendar_target: "nav" }) do
+    nav(class: @classes[:nav], aria: { label: labels["nav"] }, data: { chadcn__calendar_target: "nav" }) do
       nav_button(:previous, "chevron-left", state[:previous])
       nav_button(:next, "chevron-right", state[:next])
     end
@@ -138,7 +138,7 @@ class Chadcn::Calendar < Chadcn::Base
 
   def nav_button(direction, icon, enabled)
     button(type: "button", class: @classes[:"button_#{direction}"], aria: { label: labels[direction.to_s], disabled: ("true" unless enabled) },
-           tabindex: (-1 unless enabled), data: { shadcn__calendar_target: direction.to_s, action: "click->shadcn--calendar##{direction}" }) do
+           tabindex: (-1 unless enabled), data: { chadcn__calendar_target: direction.to_s, action: "click->chadcn--calendar##{direction}" }) do
       render Chadcn::Icon.new(icon, class: cn("size-4", @classes[:chevron]), disabled: (true unless enabled))
     end
   end
@@ -147,7 +147,7 @@ class Chadcn::Calendar < Chadcn::Base
     div(class: @classes[:footer], role: "status", aria: { live: "polite" }) { plain @options.footer }
   end
 
-  # Hidden inputs of `name:`, kept in sync by the controller (`data-shadcn--calendar-field` tells it what each one holds).
+  # Hidden inputs of `name:`, kept in sync by the controller (`data-chadcn--calendar-field` tells it what each one holds).
   def hidden_inputs
     case @options.mode
     when "multiple"
@@ -161,6 +161,6 @@ class Chadcn::Calendar < Chadcn::Base
   end
 
   def hidden_input(name, value, field)
-    input(type: "hidden", name:, value: value.to_s, data: { shadcn__calendar_field: field })
+    input(type: "hidden", name:, value: value.to_s, data: { chadcn__calendar_field: field })
   end
 end

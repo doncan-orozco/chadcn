@@ -29,7 +29,7 @@ Components::V2::Avatar::GroupCount.new(class: nil, **attrs) { ... }
 
 - Every part: `class:` merged last through `cn` (tailwind_merge), caller wins; `**attrs` (`id`, `alt`, `title`, `aria: {}`, `data: {}`, `"aria-label":`, `role`...) pass through and deep-merge (shadcn-port R6). `alt:` on `Avatar::Image` is a plain attr.
 - `Avatar`: avatar.tsx renders `data-slot="avatar" data-size={size}` BEFORE `{...props}`, so a caller `data: { size: }` / `data: { slot: }` in `**attrs` overrides them (React spread semantics). `class` is not overridable that way (destructured into `cn`).
-- Events: `shadcn--avatar:loading-status-change`, `detail: { status }` with `status` in `"idle" | "loading" | "loaded" | "error"` (Radix `onLoadingStatusChange`, avatar.mjs:50,59-69, a prop of `AvatarImage`). Dispatched from the Avatar Root element (the controller host; the `<img>` is not in the DOM until loaded), bubbles, not cancelable (Radix's callback is not preventable). Fired only when the status differs from the previous one, the previous one starting at the context value of the first render, `"idle"` (avatar.mjs:62-68).
+- Events: `chadcn--avatar:loading-status-change`, `detail: { status }` with `status` in `"idle" | "loading" | "loaded" | "error"` (Radix `onLoadingStatusChange`, avatar.mjs:50,59-69, a prop of `AvatarImage`). Dispatched from the Avatar Root element (the controller host; the `<img>` is not in the DOM until loaded), bubbles, not cancelable (Radix's callback is not preventable). Fired only when the status differs from the previous one, the previous one starting at the context value of the first render, `"idle"` (avatar.mjs:62-68).
 - `ref` has no equivalent.
 
 ## Structure
@@ -70,15 +70,15 @@ Part `Avatar::GroupCount` (`data-slot="avatar-group-count"`):
 - tag `div`, `data-slot="avatar-group-count"`, static, children (text like `+3` or an icon).
 - Classes verbatim: `relative flex size-8 shrink-0 items-center justify-center rounded-full bg-muted text-sm text-muted-foreground ring-2 ring-background group-has-data-[size=lg]/avatar-group:size-10 group-has-data-[size=sm]/avatar-group:size-6 [&>svg]:size-4 group-has-data-[size=lg]/avatar-group:[&>svg]:size-5 group-has-data-[size=sm]/avatar-group:[&>svg]:size-3`, then `class:`.
 
-Server vs Stimulus (controller `shadcn--avatar`, host = the Avatar Root element):
+Server vs Stimulus (controller `chadcn--avatar`, host = the Avatar Root element):
 - The server renders Root, Badge, Group, GroupCount exactly as above, and a Fallback WITHOUT `delay_ms` as a live element (identical to React SSR, works without JS).
-- `Avatar::Image` is server-rendered as the complete `<img data-slot="avatar-image" ...>` inside an inert `<template data-shadcn--avatar-target="image">` at its position. A Fallback WITH `delay_ms` is rendered the same way inside `<template data-shadcn--avatar-target="fallback" data-shadcn--avatar-delay-ms-value="...">` (or an equivalent value carrier on the template). Template contents are not part of the document, so the snapshot (and the a11y tree) equals React's "not mounted"; the template node itself is declared in Deviations.
-- To unmount a live Fallback when the image loads, the controller swaps it for a `<template data-shadcn--avatar-target="fallback">` holding it (so it can be restored); to mount, it swaps a template for its content in place. DOM order is therefore always the caller's order.
+- `Avatar::Image` is server-rendered as the complete `<img data-slot="avatar-image" ...>` inside an inert `<template data-chadcn--avatar-target="image">` at its position. A Fallback WITH `delay_ms` is rendered the same way inside `<template data-chadcn--avatar-target="fallback" data-chadcn--avatar-delay-ms-value="...">` (or an equivalent value carrier on the template). Template contents are not part of the document, so the snapshot (and the a11y tree) equals React's "not mounted"; the template node itself is declared in Deviations.
+- To unmount a live Fallback when the image loads, the controller swaps it for a `<template data-chadcn--avatar-target="fallback">` holding it (so it can be restored); to mount, it swaps a template for its content in place. DOM order is therefore always the caller's order.
 - No ids are generated; no aria is set by the component.
 
 ## Behavior
 
-Composes no shared primitive: the planned set (`.ai/skills/radix-stimulus/references/primitives.md`) has no image-loading module, and in Radix this logic is private to `react-avatar` (avatar.mjs:88-124, no other package uses it), so it lives in the `shadcn--avatar` controller. (radix-stimulus "Media/layout" lists an `image-loading-status` helper; if the orchestrator adds it as a primitive, the controller uses it instead.) No focus, keyboard, pointer, dismissal, scroll lock, Presence or positioning: Radix Avatar has none (avatar.mjs contains no event handlers besides image `load`/`error`).
+Composes no shared primitive: the planned set (`.ai/skills/radix-stimulus/references/primitives.md`) has no image-loading module, and in Radix this logic is private to `react-avatar` (avatar.mjs:88-124, no other package uses it), so it lives in the `chadcn--avatar` controller. (radix-stimulus "Media/layout" lists an `image-loading-status` helper; if the orchestrator adds it as a primitive, the controller uses it instead.) No focus, keyboard, pointer, dismissal, scroll lock, Presence or positioning: Radix Avatar has none (avatar.mjs contains no event handlers besides image `load`/`error`).
 
 States (Radix `ImageLoadingStatus`, avatar.mjs:15-20): `idle` -> `loading` -> `loaded` | `error`. One status per Root (context, avatar.mjs:30-32), shared by Image and Fallback.
 

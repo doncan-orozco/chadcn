@@ -25,7 +25,7 @@ class Chadcn::Combobox::Empty < Chadcn::Base
   def view_template(&)
     root_model
     attrs = merge_attrs({ role: "status", class: CLASSES, aria: { live: "polite", atomic: "true" },
-                          data: { slot: "combobox-empty", shadcn__combobox_part: "empty" } }, @attrs)
+                          data: { slot: "combobox-empty", chadcn__combobox_part: "empty" } }, @attrs)
     div(**attrs, &)
   end
 end

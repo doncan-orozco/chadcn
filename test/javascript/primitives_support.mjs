@@ -1,7 +1,7 @@
-// Unit-test harness for the shadcn primitives (app/javascript/shadcn/primitives/*.js). The real modules run in Chromium
+// Unit-test harness for the shadcn primitives (app/javascript/chadcn/primitives/*.js). The real modules run in Chromium
 // (Playwright); there is no jsdom, no Rails server, no vite and no servers.json. A page at http://primitives.test/ is served
-// from memory through page.route: its importmap maps the `shadcn/primitives/<name>` specifiers (and the vendored
-// @floating-ui packages) to the gem files, so a test does `await import("shadcn/primitives/presence")` inside page.evaluate.
+// from memory through page.route: its importmap maps the `chadcn/primitives/<name>` specifiers (and the vendored
+// @floating-ui packages) to the gem files, so a test does `await import("chadcn/primitives/presence")` inside page.evaluate.
 // Playwright is resolved from the gem's dev kit (dev/react-shadcn-catalog/node_modules): CHADCN_PLAYWRIGHT (a directory with
 // node_modules/playwright), CHADCN_DEV_ROOT (relative paths are resolved from the working directory), the dev kit of this
 // checkout, else the one of the main checkout when this is a git worktree (worktrees do not carry node_modules).
@@ -13,7 +13,7 @@ import assert from "node:assert/strict";
 
 export { assert };
 
-const PRIMITIVES_DIR = path.join(GEM_ROOT, "app/javascript/shadcn/primitives");
+const PRIMITIVES_DIR = path.join(GEM_ROOT, "app/javascript/chadcn/primitives");
 const VENDOR_DIR = path.join(GEM_ROOT, "vendor/javascript");
 const ORIGIN = "http://primitives.test";
 
@@ -29,7 +29,7 @@ const importMap = () => {
     "@floating-ui/utils/dom": "/vendor/@floating-ui--utils--dom.js",
   };
   for (const file of fs.readdirSync(PRIMITIVES_DIR)) {
-    if (file.endsWith(".js")) imports[`shadcn/primitives/${file.slice(0, -3)}`] = `/primitives/${file}`;
+    if (file.endsWith(".js")) imports[`chadcn/primitives/${file.slice(0, -3)}`] = `/primitives/${file}`;
   }
   return { imports };
 };

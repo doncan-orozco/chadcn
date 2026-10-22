@@ -53,22 +53,22 @@ class Chadcn::ComboboxTest < Chadcn::TestCase
 
   def attrs(nodes, name) = nodes.map { |node| node[name] }
 
-  def config_of(doc) = JSON.parse(doc.at_css("[data-controller]")["data-shadcn--combobox-config-value"])
+  def config_of(doc) = JSON.parse(doc.at_css("[data-controller]")["data-chadcn--combobox-config-value"])
 
-  def popup_html(doc) = fragment(doc.at_css("template[data-shadcn--combobox-part=content-template]").inner_html)
+  def popup_html(doc) = fragment(doc.at_css("template[data-chadcn--combobox-part=content-template]").inner_html)
 
   test "the root renders one display: contents host with the controller values and no data-slot" do
     host = single(root: { default_value: "Astro", name: "framework" }).at_css("[data-controller]")
 
     assert_equal "div", host.name
     assert_equal "display: contents", host["style"]
-    assert_equal "shadcn--combobox", host["data-controller"]
+    assert_equal "chadcn--combobox", host["data-controller"]
     assert_nil host["data-slot"]
     assert_nil host["class"]
-    assert_equal '["Astro"]', host["data-shadcn--combobox-selected-value"]
-    assert_equal "false", host["data-shadcn--combobox-open-value"]
-    assert_equal "Astro", host["data-shadcn--combobox-input-value-value"]
-    config = JSON.parse(host["data-shadcn--combobox-config-value"])
+    assert_equal '["Astro"]', host["data-chadcn--combobox-selected-value"]
+    assert_equal "false", host["data-chadcn--combobox-open-value"]
+    assert_equal "Astro", host["data-chadcn--combobox-input-value-value"]
+    config = JSON.parse(host["data-chadcn--combobox-config-value"])
 
     assert_equal(FRAMEWORKS, config["items"].map { |item| item["k"] })
     assert_equal "fuzzy", config["filter"]
@@ -217,13 +217,13 @@ class Chadcn::ComboboxTest < Chadcn::TestCase
 
     assert_equal "", static.at_css("[data-slot=input-group-control]")["data-list-empty"]
     assert_equal "", popup_html(static).at_css("[data-slot=combobox-list]")["data-empty"]
-    assert_equal "apple", popup_html(static).at_css("[data-slot=combobox-item]")["data-shadcn--combobox-key"]
+    assert_equal "apple", popup_html(static).at_css("[data-slot=combobox-item]")["data-chadcn--combobox-key"]
   end
 
   test "the content ships in an inert template with the positioner, popup classes and options" do
     doc = single(content: { side: :inline_end, align: "end", side_offset: 8, align_offset: -4, class: "w-60" })
-    template = doc.at_css("template[data-shadcn--combobox-part=content-template]")
-    options = JSON.parse(template["data-shadcn--combobox-options"])
+    template = doc.at_css("template[data-chadcn--combobox-part=content-template]")
+    options = JSON.parse(template["data-chadcn--combobox-options"])
 
     assert_equal({ "side" => "inline-end", "sideOffset" => 8, "align" => "end", "alignOffset" => -4, "anchor" => nil }, options)
     positioner = popup_html(doc).at_css("div[role=presentation]")
@@ -242,7 +242,7 @@ class Chadcn::ComboboxTest < Chadcn::TestCase
 
   test "an anchor marks the popup data-chips and travels as the positioning selector" do
     doc = multiple
-    options = JSON.parse(doc.at_css("template[data-shadcn--combobox-part=content-template]")["data-shadcn--combobox-options"])
+    options = JSON.parse(doc.at_css("template[data-chadcn--combobox-part=content-template]")["data-chadcn--combobox-options"])
 
     assert_equal "[data-slot=combobox-chips]", options["anchor"]
     assert_equal "true", popup_html(doc).at_css("[data-slot=combobox-content]")["data-chips"]
@@ -260,7 +260,7 @@ class Chadcn::ComboboxTest < Chadcn::TestCase
     assert_equal 3, items.size
     assert_equal %w[combobox-1-0 combobox-1-1 combobox-1-2], attrs(items, "id")
     assert_equal %w[option], attrs(items, "role").uniq
-    assert_equal %w[Next.js remix astro], attrs(items, "data-shadcn--combobox-key")
+    assert_equal %w[Next.js remix astro], attrs(items, "data-chadcn--combobox-key")
   end
 
   test "Hash items accept Symbol and String keys alike and submit their value" do
@@ -268,7 +268,7 @@ class Chadcn::ComboboxTest < Chadcn::TestCase
     strings = { "value" => "remix", "label" => "Remix" }
     [ symbols, strings ].each do |item|
       doc = single(root: { items: [ item ], default_value: strings })
-      config = JSON.parse(doc.at_css("[data-controller]")["data-shadcn--combobox-config-value"])
+      config = JSON.parse(doc.at_css("[data-controller]")["data-chadcn--combobox-config-value"])
 
       assert_equal [ { "k" => "remix", "l" => "Remix" } ], config["items"]
       assert_equal "remix", doc.at_css("input[aria-hidden=true]")["value"]
@@ -282,7 +282,7 @@ class Chadcn::ComboboxTest < Chadcn::TestCase
 
     assert_equal "Remix", doc.at_css("[data-slot=input-group-control]")["value"]
     assert_equal "remix", doc.at_css("input[aria-hidden=true]")["value"]
-    assert_equal '["remix"]', doc.at_css("[data-controller]")["data-shadcn--combobox-selected-value"]
+    assert_equal '["remix"]', doc.at_css("[data-controller]")["data-chadcn--combobox-selected-value"]
   end
 
   test "selected items are marked and get the check mark; disabled items are marked" do
@@ -371,7 +371,7 @@ class Chadcn::ComboboxTest < Chadcn::TestCase
     assert_nil selected["data-placeholder"]
     assert_nil selected.at_css("[data-slot=combobox-value]")
     assert_equal "Next.js, Astro", texts.call({ multiple: true, default_value: [ "Next.js", "Astro" ] }, nil).xpath("text()").text
-    markers = attrs(selected.css("template"), "data-shadcn--combobox-part") - %w[value-prototype]
+    markers = attrs(selected.css("template"), "data-chadcn--combobox-part") - %w[value-prototype]
 
     assert_equal %w[value-start value-end], markers
   end
@@ -385,7 +385,7 @@ class Chadcn::ComboboxTest < Chadcn::TestCase
     trigger = doc.at_css("[data-slot=combobox-trigger]")
 
     assert_equal "Remix", trigger.css("> strong").text
-    prototypes = trigger.css("template[data-shadcn--combobox-part=value-prototype]")
+    prototypes = trigger.css("template[data-chadcn--combobox-part=value-prototype]")
 
     assert_equal FRAMEWORKS + [ "" ], attrs(prototypes, "data-key")
     assert_equal "<strong>Astro</strong>", prototypes.find { |template| template["data-key"] == "Astro" }.inner_html
@@ -531,7 +531,7 @@ class Chadcn::ComboboxTest < Chadcn::TestCase
 
     assert_equal "Bo", doc.at_css("[data-slot=input-group-control]")["value"]
     assert_equal "2", doc.at_css("input[aria-hidden=true]")["value"]
-    assert_equal '["2"]', doc.at_css("[data-controller]")["data-shadcn--combobox-selected-value"]
+    assert_equal '["2"]', doc.at_css("[data-controller]")["data-chadcn--combobox-selected-value"]
     assert_equal(%w[Ana Bo], config_of(doc)["items"].map { |item| item["l"] })
   end
 

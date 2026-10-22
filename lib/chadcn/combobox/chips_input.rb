@@ -26,7 +26,7 @@ class Chadcn::Combobox::ChipsInput < Chadcn::Base
     model = root_model
     model.input_outside = true
     defaults = control_attrs(model).merge(id: model.id, class: CLASSES)
-    defaults[:data] = defaults[:data].merge(slot: "combobox-chip-input", shadcn__combobox_part: "input")
+    defaults[:data] = defaults[:data].merge(slot: "combobox-chip-input", chadcn__combobox_part: "input")
     defaults[:data][:disabled] = "" if @disabled
     attrs = merge_attrs(defaults, @attrs)
     attrs[:disabled] = true if @disabled

@@ -28,7 +28,7 @@ class Chadcn::Sheet::Overlay < Chadcn::Base
 
     attrs = merge_attrs({
                           class: CLASSES, style: "pointer-events: auto", data: { slot: "sheet-overlay", state: "open",
-                                                                                 shadcn__dialog_part: "overlay" }
+                                                                                 chadcn__dialog_part: "overlay" }
                         }, @attrs)
     render_part(:div, @as_child, attrs, &)
   end

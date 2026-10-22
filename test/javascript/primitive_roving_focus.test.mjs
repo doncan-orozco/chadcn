@@ -8,7 +8,7 @@ const items = `
 const html = `<button id="before">before</button><div id="group" tabindex="0" data-orientation="horizontal">${items}</div><button id="after">after</button>`;
 
 const start = (page, options = "{}") => page.evaluate(async (options) => {
-  const { rovingFocus } = await import("shadcn/primitives/roving_focus");
+  const { rovingFocus } = await import("chadcn/primitives/roving_focus");
   window.__log = [];
   const log = window.__log;
   window.__roving = rovingFocus(document.getElementById("group"), new Function("log", `return (${options})`)(log));

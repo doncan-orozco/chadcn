@@ -3,7 +3,7 @@
 using Chadcn::Values::Refinements
 
 # shadcn ScrollArea over Radix ScrollArea (Root, Viewport, Scrollbar, Thumb, Corner). Spec: docs/shadcn-port/specs/scroll-area.md.
-# Behavior: controllers/shadcn/scroll_area_controller.js (one controller on the root div; it mounts the scrollbars kept in templates).
+# Behavior: controllers/chadcn/scroll_area_controller.js (one controller on the root div; it mounts the scrollbars kept in templates).
 #
 # The block receives the scroll area, which has the `scroll_bar` helper (equal to `render ScrollArea::ScrollBar.new`).
 # The vertical scrollbar is always rendered; render a horizontal one inside the block to enable that axis.
@@ -90,8 +90,8 @@ class Chadcn::ScrollArea < Chadcn::Base
       class: ROOT_CLASS,
       style: [ ROOT_STYLE, style_string(@attrs[:style]).unless_blank&.then { |css| "#{css};" } ].compact.join(" "),
       data: {
-        slot: "scroll-area", controller: "shadcn--scroll-area",
-        shadcn__scroll_area_type_value: @type, shadcn__scroll_area_scroll_hide_delay_value: @scroll_hide_delay
+        slot: "scroll-area", controller: "chadcn--scroll-area",
+        chadcn__scroll_area_type_value: @type, chadcn__scroll_area_scroll_hide_delay_value: @scroll_hide_delay
       }
     }
   end
@@ -150,7 +150,7 @@ class Chadcn::ScrollArea < Chadcn::Base
       raise ArgumentError, "#{self.class.name} must be rendered inside a #{Chadcn::ScrollArea.name}" unless state
 
       state[:orientations] << @orientation
-      template(data: { shadcn__scroll_area_target: "scrollbar", shadcn__scroll_area_force_mount: (@force_mount ? "true" : nil) }) do
+      template(data: { chadcn__scroll_area_target: "scrollbar", chadcn__scroll_area_force_mount: (@force_mount ? "true" : nil) }) do
         div(**merge_attrs(defaults, @attrs)) do
           template do
             div(data: { state: "visible", slot: "scroll-area-thumb" }, class: THUMB_CLASS,

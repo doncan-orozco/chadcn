@@ -12,7 +12,7 @@
           {
             "c": "_div",
             "props": {
-              "data-controller": "shadcn---probe-ids",
+              "data-controller": "chadcn---probe-ids",
               "data-slot": "pair-1",
               "className": "flex flex-col gap-2"
             },
@@ -64,7 +64,7 @@
           {
             "c": "_div",
             "props": {
-              "data-controller": "shadcn---probe-ids",
+              "data-controller": "chadcn---probe-ids",
               "data-slot": "pair-1",
               "className": "flex flex-col gap-2"
             },
@@ -117,7 +117,7 @@
           {
             "c": "_div",
             "props": {
-              "data-controller": "shadcn---probe-ids",
+              "data-controller": "chadcn---probe-ids",
               "data-slot": "pair-1",
               "className": "flex flex-col gap-2"
             },
@@ -147,7 +147,7 @@
           {
             "c": "_div",
             "props": {
-              "data-controller": "shadcn---probe-ids",
+              "data-controller": "chadcn---probe-ids",
               "data-slot": "pair-2",
               "className": "flex flex-col gap-2"
             },
@@ -177,7 +177,7 @@
           {
             "c": "_div",
             "props": {
-              "data-controller": "shadcn---probe-ids",
+              "data-controller": "chadcn---probe-ids",
               "data-slot": "pair-3",
               "className": "flex flex-col gap-2"
             },
@@ -229,7 +229,7 @@
           {
             "c": "_div",
             "props": {
-              "data-controller": "shadcn---probe-ids",
+              "data-controller": "chadcn---probe-ids",
               "data-slot": "pair-1",
               "className": "flex flex-col gap-2"
             },
@@ -259,7 +259,7 @@
           {
             "c": "_div",
             "props": {
-              "data-controller": "shadcn---probe-ids",
+              "data-controller": "chadcn---probe-ids",
               "data-slot": "pair-2",
               "className": "flex flex-col gap-2"
             },
@@ -290,7 +290,7 @@
           {
             "c": "_div",
             "props": {
-              "data-controller": "shadcn---probe-ids",
+              "data-controller": "chadcn---probe-ids",
               "data-slot": "pair-3",
               "className": "flex flex-col gap-2"
             },
@@ -342,7 +342,7 @@
           {
             "c": "_div",
             "props": {
-              "data-controller": "shadcn---probe-ids",
+              "data-controller": "chadcn---probe-ids",
               "data-slot": "pair-1",
               "className": "flex flex-col gap-2"
             },
@@ -373,7 +373,7 @@
           {
             "c": "_div",
             "props": {
-              "data-controller": "shadcn---probe-ids",
+              "data-controller": "chadcn---probe-ids",
               "data-slot": "pair-2",
               "className": "flex flex-col gap-2"
             },
@@ -433,7 +433,7 @@
           {
             "c": "_div",
             "props": {
-              "data-controller": "shadcn---probe-ids",
+              "data-controller": "chadcn---probe-ids",
               "data-slot": "pair-1",
               "className": "flex flex-col gap-2"
             },

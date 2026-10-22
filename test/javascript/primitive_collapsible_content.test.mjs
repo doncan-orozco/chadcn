@@ -6,7 +6,7 @@ const css = `
   #el { width: 120px; height: 50px; overflow: hidden }
 `;
 const html = '<div id="el" class="animated" data-state="closed" hidden>content</div>';
-const run = (page, body) => page.evaluate(new Function(`return (async () => { const { collapsibleContent } = await import("shadcn/primitives/collapsible_content"); const el = document.getElementById("el"); ${body} })()`));
+const run = (page, body) => page.evaluate(new Function(`return (async () => { const { collapsibleContent } = await import("chadcn/primitives/collapsible_content"); const el = document.getElementById("el"); ${body} })()`));
 const vars = `(() => ({ height: el.style.getPropertyValue("--radix-collapsible-content-height"), width: el.style.getPropertyValue("--radix-collapsible-content-width") }))()`;
 
 primitiveTest("collapsible_content: setOpen(true) reveals the content and measures its size variables", async (page) => {

@@ -12,7 +12,7 @@ Namespace `Components::V2::ContextMenu`. Every option accepts strings and symbol
 | React export | Ruby call (kwargs with defaults) | Notes / source |
 |---|---|---|
 | `ContextMenu` | `Components::V2::ContextMenu.new(open: nil, dir: nil, modal: true) { ... }` | Renders NO element (`non_rendered_slots`; CM:21-53). There is NO `default_open:`: Radix Root props are only `open`, `onOpenChange`, `dir`, `modal` (CM.d:12-18; `defaultProp: false`, CM:37). `open:` non-nil = controlled: user actions only dispatch `open-change`. `open: true` before any interaction anchors the content at the viewport point (0, 0) (initial `point` state, CM:61; Radix logs a dev warning, CM:27-31). `modal:` default `true` (CM:22). `dir:` `"ltr" \| "rtl"`, nil -> `"ltr"` (`useDirection`, never `html[dir]`). Unknown kwargs raise `ArgumentError`. |
-| `ContextMenuTrigger` | `ContextMenu::Trigger.new(disabled: false, as_child: false, class: nil, **attrs) { ... }` | `<span>` (CM:84-111). Hosts the `shadcn--context-menu` controller. `style:` is merged AFTER `-webkit-touch-callout: none` (caller wins, CM:91). |
+| `ContextMenuTrigger` | `ContextMenu::Trigger.new(disabled: false, as_child: false, class: nil, **attrs) { ... }` | `<span>` (CM:84-111). Hosts the `chadcn--context-menu` controller. `style:` is merged AFTER `-webkit-touch-callout: none` (caller wins, CM:91). |
 | `ContextMenuPortal` | `ContextMenu::Portal.new(force_mount: false, container: nil) { ... }` | Renders NO element (CM:115-119, M:122-126). `container:` CSS selector (DOM-reference translation, as in dropdown-menu). Only meaningful around `SubContent` (shadcn `Content` portals itself, tsx:100). |
 | `ContextMenuContent` | `ContextMenu::Content.new(align_offset: 0, avoid_collisions: true, collision_padding: 0, collision_boundary: nil, sticky: "partial", hide_when_detached: false, update_position_strategy: "optimized", arrow_padding: 0, loop: false, force_mount: false, as_child: false, class: nil, **attrs) { ... }` | `side`, `side_offset`, `align` are NOT options: the type omits them (CM.d:30 `Omit<MenuContentProps, 'onEntryFocus' \| 'side' \| 'sideOffset' \| 'align'>`) and the code forces `side: "right", sideOffset: 2, align: "start"` after the caller props (CM:131-136). Passing them raises `ArgumentError`. Other defaults are Radix popper/menu defaults (same as dropdown-menu spec). Always portaled (tsx:100). |
 | `ContextMenuGroup` | `ContextMenu::Group.new(as_child: false, class: nil, **attrs) { ... }` | `div role="group"` (M:382-387). |
@@ -29,7 +29,7 @@ Namespace `Components::V2::ContextMenu`. Every option accepts strings and symbol
 
 Not exported by shadcn: `ContextMenuArrow`, `ContextMenuItemIndicator` (internal to CheckboxItem/RadioItem).
 
-### Events (`this.dispatch`, prefix `shadcn--context-menu`, all `bubbles: true`)
+### Events (`this.dispatch`, prefix `chadcn--context-menu`, all `bubbles: true`)
 
 Same set and semantics as dropdown-menu: `open-change` (`{ open }`, on the Trigger for the root, on the SubTrigger for a sub; CM:35-40, CM:224-229), `select` (cancelable, keeps the menu open, M:405-416), `checked-change` (`{ checked }`, M:519, fires even if `select` was prevented), `value-change` (`{ value }`, M:555), `escape-key-down`, `pointer-down-outside`, `focus-outside`, `interact-outside` (cancelable, DL:54-99), `open-auto-focus` (cancelable, M:293-296), `close-auto-focus` (cancelable; the caller's handler runs first, CM:137-143). Content lives in `body`, so callers use `@document` actions or listen on the item.
 
@@ -64,7 +64,7 @@ Server: all static attributes (role, aria-orientation, data-slot, data-variant, 
 
 ## Behavior
 
-Composes primitives: `portal`, `presence`, `positioner` (with a virtual point reference), `dismissable_layer`, `focus_scope`, `focus_guards`, `scroll_lock`, `hide_others`, `roving_focus`, `typeahead`, `submenu_grace`, `collection`, `ids`, `direction`. One controller `shadcn--context-menu` on the Trigger handles the root and its subs; menu-content logic must be the same shared code as `shadcn--dropdown-menu` (one menu module, two triggers).
+Composes primitives: `portal`, `presence`, `positioner` (with a virtual point reference), `dismissable_layer`, `focus_scope`, `focus_guards`, `scroll_lock`, `hide_others`, `roving_focus`, `typeahead`, `submenu_grace`, `collection`, `ids`, `direction`. One controller `chadcn--context-menu` on the Trigger handles the root and its subs; menu-content logic must be the same shared code as `chadcn--dropdown-menu` (one menu module, two triggers).
 
 ### States
 
@@ -147,7 +147,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 - `Components::V2::Icon` (`check` in CheckboxItem, `circle` in RadioItem, `chevron-right` in SubTrigger; lucide 0.577.0, classes tsx:74, 154, 178).
 - `Components::V2::Base` (`render_as_child`, `merge_attrs`, `cn`).
-- Shared menu module with `shadcn--dropdown-menu` (content, items, subs, typeahead), via the primitives above. No other V2 component is rendered.
+- Shared menu module with `chadcn--dropdown-menu` (content, items, subs, typeahead), via the primitives above. No other V2 component is rendered.
 
 ## Deviations
 

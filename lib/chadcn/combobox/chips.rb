@@ -30,7 +30,7 @@ class Chadcn::Combobox::Chips < Chadcn::Base
   def view_template(&)
     model = root_model
     model.input_outside = true
-    defaults = { class: CLASSES, data: { slot: "combobox-chips", shadcn__combobox_part: "chips" } }
+    defaults = { class: CLASSES, data: { slot: "combobox-chips", chadcn__combobox_part: "chips" } }
     defaults[:role] = "toolbar" if model.selection.any?
     div(**merge_attrs(defaults, @attrs), &)
   end

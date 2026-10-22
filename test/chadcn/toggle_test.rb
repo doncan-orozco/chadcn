@@ -41,7 +41,7 @@ class Chadcn::ToggleTest < Chadcn::TestCase
     assert_not_includes out, "h-9"
     assert_includes out, 'id="x"'
     assert_includes out, 'type="submit"'
-    assert_includes out, 'data-action="click->a#b click->shadcn--toggle#toggle"'
+    assert_includes out, 'data-action="click->a#b click->chadcn--toggle#toggle"'
   end
 
   test "variants helper" do

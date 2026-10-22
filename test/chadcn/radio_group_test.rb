@@ -64,7 +64,7 @@ class Chadcn::RadioGroupTest < Chadcn::TestCase
     assert item.key?("disabled")
     assert_equal "true", item["aria-invalid"]
     assert_equal "", item["data-radix-collection-item"]
-    assert_includes item["data-action"], "click->shadcn--radio-group#select"
+    assert_includes item["data-action"], "click->chadcn--radio-group#select"
     bubble = item.next_element
 
     assert_equal "radio", bubble["type"]
@@ -112,7 +112,7 @@ class Chadcn::RadioGroupTest < Chadcn::TestCase
   test "controlled value, name and form reach the bubble inputs" do
     doc = fragment(group(root: { value: "b", name: "plan", form: "f1", required: true }))
 
-    assert_equal "true", doc.at_css("[data-slot=radio-group]")["data-shadcn--radio-group-controlled-value"]
+    assert_equal "true", doc.at_css("[data-slot=radio-group]")["data-chadcn--radio-group-controlled-value"]
     assert_equal "checked", doc.at_css("button[value=b]")["data-state"]
     assert_equal(%w[plan plan], doc.css("input").map { |i| i["name"] })
     assert_equal(%w[f1 f1], doc.css("input").map { |i| i["form"] })

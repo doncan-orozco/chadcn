@@ -4,12 +4,12 @@ import { assert, settle } from "./support.mjs";
 // Turbo page cache: the snapshot is taken after turbo:before-cache, so the overlays must be gone by then (radix-stimulus
 // R10). The restore is simulated by re-inserting the controller host as it is in that snapshot, which connects a new one.
 const CASES = [
-  { component: "dialog", controller: "shadcn--dialog", scenario: "closed__rest", content: "[data-slot=dialog-content]", overlay: "[data-slot=dialog-overlay]" },
-  { component: "sheet", controller: "shadcn--sheet", scenario: "closed__rest", content: "[data-slot=sheet-content]", overlay: "[data-slot=sheet-overlay]" },
-  { component: "alert-dialog", controller: "shadcn--alert-dialog", scenario: "closed__rest", content: "[data-slot=alert-dialog-content]", overlay: "[data-slot=alert-dialog-overlay]" }
+  { component: "dialog", controller: "chadcn--dialog", scenario: "closed__rest", content: "[data-slot=dialog-content]", overlay: "[data-slot=dialog-overlay]" },
+  { component: "sheet", controller: "chadcn--sheet", scenario: "closed__rest", content: "[data-slot=sheet-content]", overlay: "[data-slot=sheet-overlay]" },
+  { component: "alert-dialog", controller: "chadcn--alert-dialog", scenario: "closed__rest", content: "[data-slot=alert-dialog-content]", overlay: "[data-slot=alert-dialog-overlay]" }
 ];
 
-const trigger = (c) => `[data-controller~="${c.controller}"] [data-shadcn--dialog-part=trigger], [data-controller~="${c.controller}"] [data-slot$=-trigger]`;
+const trigger = (c) => `[data-controller~="${c.controller}"] [data-chadcn--dialog-part=trigger], [data-controller~="${c.controller}"] [data-slot$=-trigger]`;
 
 // What Turbo's snapshot would contain one timer tick after the event (the controller restores a staying page after that).
 const snapshotAfterBeforeCache = (page, c) => page.evaluate(async ({ controller, content, overlay }) => {
@@ -117,10 +117,10 @@ for (const c of CASES) {
 browserTest("dialog: a closed dialog keeps its forceMount parts through before-cache on a staying page", async ({ open }) => {
   const page = await open("closed__rest", "dialog");
   await page.evaluate(() => new Promise((resolve) => {
-    const host = document.querySelector('[data-controller~="shadcn--dialog"]');
-    host.querySelectorAll("template[data-shadcn--dialog-template]").forEach((t) => t.setAttribute("data-shadcn--dialog-options", JSON.stringify({ forceMount: true })));
+    const host = document.querySelector('[data-controller~="chadcn--dialog"]');
+    host.querySelectorAll("template[data-chadcn--dialog-template]").forEach((t) => t.setAttribute("data-chadcn--dialog-options", JSON.stringify({ forceMount: true })));
     host.setAttribute("data-controller", "");
-    requestAnimationFrame(() => { host.setAttribute("data-controller", "shadcn--dialog"); resolve(); });
+    requestAnimationFrame(() => { host.setAttribute("data-controller", "chadcn--dialog"); resolve(); });
   }));
   await settle(page);
   const mounted = () => page.locator("[data-slot=dialog-content], [data-slot=dialog-overlay]").count();
@@ -140,25 +140,25 @@ browserTest("dialog: a closed dialog keeps its forceMount parts through before-c
 // must get its forceMount parts back: #sync() is a no-op by then, so only the remount loop can mount them (re-audit R106-2).
 browserTest("dialog: a controlled forceMount dialog closed inside the restore window keeps its forceMount parts", async ({ open }) => {
   const page = await open("closed__rest", "dialog");
-  const host = '[data-controller~="shadcn--dialog"]';
+  const host = '[data-controller~="chadcn--dialog"]';
   await page.evaluate((host) => new Promise((resolve) => {
     const el = document.querySelector(host);
-    el.querySelectorAll("template[data-shadcn--dialog-template]").forEach((t) => t.setAttribute("data-shadcn--dialog-options", JSON.stringify({ forceMount: true })));
-    el.setAttribute("data-shadcn--dialog-controlled-value", "true");
+    el.querySelectorAll("template[data-chadcn--dialog-template]").forEach((t) => t.setAttribute("data-chadcn--dialog-options", JSON.stringify({ forceMount: true })));
+    el.setAttribute("data-chadcn--dialog-controlled-value", "true");
     el.setAttribute("data-controller", "");
-    requestAnimationFrame(() => { el.setAttribute("data-controller", "shadcn--dialog"); resolve(); });
+    requestAnimationFrame(() => { el.setAttribute("data-controller", "chadcn--dialog"); resolve(); });
   }), host);
   await settle(page);
   const parts = () => page.locator("[data-slot=dialog-content], [data-slot=dialog-overlay]");
   const closedCount = await parts().count();
   const lockedWhileClosed = await scrollLocked(page); // Radix keeps RemoveScroll on a mounted modal content, open or not
   assert.ok(closedCount >= 1, "precondition: forceMount parts are mounted while closed");
-  await page.evaluate((host) => document.querySelector(host).setAttribute("data-shadcn--dialog-open-value", "true"), host);
+  await page.evaluate((host) => document.querySelector(host).setAttribute("data-chadcn--dialog-open-value", "true"), host);
   await page.waitForSelector("[data-slot=dialog-content][data-state=open]");
   await settle(page);
   await page.evaluate(async (host) => {
     document.dispatchEvent(new Event("turbo:before-cache"));
-    document.querySelector(host).setAttribute("data-shadcn--dialog-open-value", "false"); // the app closes it inside the window
+    document.querySelector(host).setAttribute("data-chadcn--dialog-open-value", "false"); // the app closes it inside the window
     for (let tick = 0; tick < 3; tick++) await new Promise((resolve) => setTimeout(resolve));
   }, host);
   await settle(page);
@@ -171,17 +171,17 @@ browserTest("dialog: a controlled forceMount dialog closed inside the restore wi
 browserTest("alert-dialog: open on first paint focuses the Cancel button, not the first tabbable", async ({ open }) => {
   const page = await open("closed__rest", "alert-dialog");
   await page.evaluate(() => {
-    const host = document.querySelector('[data-controller~="shadcn--alert-dialog"]');
+    const host = document.querySelector('[data-controller~="chadcn--alert-dialog"]');
     const restored = host.cloneNode(true);
-    const content = restored.querySelector("template[data-shadcn--dialog-template]").content;
-    const cancel = content.querySelector("[data-shadcn--alert-dialog-part=cancel]");
+    const content = restored.querySelector("template[data-chadcn--dialog-template]").content;
+    const cancel = content.querySelector("[data-chadcn--alert-dialog-part=cancel]");
     const action = content.querySelector("[data-slot=alert-dialog-action]");
     cancel.before(action);
-    restored.setAttribute("data-shadcn--alert-dialog-open-value", "true");
+    restored.setAttribute("data-chadcn--alert-dialog-open-value", "true");
     host.replaceWith(restored);
   });
   await page.waitForSelector("[data-slot=alert-dialog-content]");
   await settle(page);
-  const active = await page.evaluate(() => document.activeElement?.getAttribute("data-shadcn--alert-dialog-part"));
+  const active = await page.evaluate(() => document.activeElement?.getAttribute("data-chadcn--alert-dialog-part"));
   assert.equal(active, "cancel");
 });

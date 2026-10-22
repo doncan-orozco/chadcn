@@ -101,14 +101,14 @@ class Chadcn::Sidebar::MenuButton < Chadcn::Base
     controllers = attrs.dig(:data, :controller)
     return attrs unless controllers
 
-    attrs.merge(data: attrs[:data].merge(controller: "shadcn--tooltip #{controllers}"))
+    attrs.merge(data: attrs[:data].merge(controller: "chadcn--tooltip #{controllers}"))
   end
 
   def content_options(options, sidebar)
     hidden = sidebar.state != "collapsed" || sidebar.is_mobile
     defaults = { side: "right", align: "center", hidden: }
     # Only the computed `hidden` is kept current by the controller; a caller value is never touched.
-    defaults[:data] = { shadcn__sidebar_tooltip: sidebar.id } unless options.key?(:hidden)
+    defaults[:data] = { chadcn__sidebar_tooltip: sidebar.id } unless options.key?(:hidden)
     defaults.merge_deep(options)
   end
 

@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-# shadcn Combobox (Base UI `Combobox`, not Radix). Spec: dev/port/specs/combobox.md. Behavior: controllers/shadcn/combobox_controller.js.
+# shadcn Combobox (Base UI `Combobox`, not Radix). Spec: dev/port/specs/combobox.md. Behavior: controllers/chadcn/combobox_controller.js.
 # No JavaScript dependency: the Stimulus controller re-implements Base UI's state machine (open, highlight, filter, selection, chips)
 # on the shared primitives and ranks with the scorer primitive.
 #
 # Root of the Combobox family (an input with a filterable popup list, single or multiple selection). Base UI's Root renders no element:
-# this one renders a `display: contents` host that carries the `shadcn--combobox` controller, then the block, then the hidden inputs a
+# this one renders a `display: contents` host that carries the `chadcn--combobox` controller, then the block, then the hidden inputs a
 # native form submits. The closed popup ships in an inert `<template>` (see {Combobox::Content}).
 #
 # Items are Strings, Hashes (`value:`/`label:`, Symbol or String keys alike) or groups (`{ value:, items: [...] }`). Pass them as
@@ -31,7 +31,7 @@
 #     end
 #   end
 #
-# Events (Stimulus `dispatch`, bubbling, prefix `shadcn--combobox:`; `preventDefault()` is Base UI's `eventDetails.cancel()`):
+# Events (Stimulus `dispatch`, bubbling, prefix `chadcn--combobox:`; `preventDefault()` is Base UI's `eventDetails.cancel()`):
 # `value-change` (`{ value, reason }`), `open-change` (`{ open, reason }`), `input-value-change` (`{ inputValue, reason }`),
 # `item-highlighted` (`{ value, index, reason }`, not cancelable) and `open-change-complete` (`{ open }`, not cancelable). With a
 # controlled `value:`/`open:`/`input_value:` the event fires and the DOM waits for the caller to change the matching attribute.
@@ -149,11 +149,11 @@ class Chadcn::Combobox < Chadcn::Base
 
   def host_data(model)
     {
-      controller: "shadcn--combobox",
-      shadcn__combobox_config_value: json(config(model)),
-      shadcn__combobox_selected_value: json(model.selected_keys),
-      shadcn__combobox_open_value: model.open?.to_s,
-      shadcn__combobox_input_value_value: model.input_value
+      controller: "chadcn--combobox",
+      chadcn__combobox_config_value: json(config(model)),
+      chadcn__combobox_selected_value: json(model.selected_keys),
+      chadcn__combobox_open_value: model.open?.to_s,
+      chadcn__combobox_input_value_value: model.input_value
     }
   end
 
@@ -175,7 +175,7 @@ class Chadcn::Combobox < Chadcn::Base
     attrs = {
       tabindex: "-1", aria: { hidden: "true" }, value: model.multiple? ? "" : model.selected_keys.first.to_s,
       style: named ? VISUALLY_HIDDEN_INPUT : VISUALLY_HIDDEN, form: model.form, autocomplete: model.auto_complete,
-      disabled: model.disabled?, readonly: model.read_only?, data: { shadcn__combobox_part: "hidden-input" },
+      disabled: model.disabled?, readonly: model.read_only?, data: { chadcn__combobox_part: "hidden-input" },
       required: model.required? && !(model.multiple? && model.selection.any?)
     }
     attrs[:id] = "#{model.id}-hidden-input" unless named
@@ -185,7 +185,7 @@ class Chadcn::Combobox < Chadcn::Base
 
     model.selected_keys.each do |key|
       native_input(type: "hidden", form: model.form, name: model.name, value: key, disabled: model.disabled?,
-                   data: { shadcn__combobox_part: "form-value" })
+                   data: { chadcn__combobox_part: "form-value" })
     end
   end
 

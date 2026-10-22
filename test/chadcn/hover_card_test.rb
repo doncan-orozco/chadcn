@@ -21,16 +21,16 @@ class Chadcn::HoverCardTest < Chadcn::TestCase
 
     assert_match(/<a [^>]*data-slot="hover-card-trigger"/, out)
     assert_includes out, 'data-state="closed"'
-    assert_includes out, 'data-controller="shadcn--hover-card"'
-    assert_includes out, 'data-shadcn--hover-card-open-delay-value="700"'
-    assert_includes out, 'data-shadcn--hover-card-close-delay-value="300"'
+    assert_includes out, 'data-controller="chadcn--hover-card"'
+    assert_includes out, 'data-chadcn--hover-card-open-delay-value="700"'
+    assert_includes out, 'data-chadcn--hover-card-close-delay-value="300"'
     assert_not_includes out, "aria-"
   end
 
   test "content is shipped in an inert template with the oracle classes" do
     out = render_card(content: { class: "w-80", side: :left, dir: "rtl" })
 
-    assert_match(/<template data-shadcn--hover-card-template="hover-card-content-\d+"/, out)
+    assert_match(/<template data-chadcn--hover-card-template="hover-card-content-\d+"/, out)
     assert_includes out, 'data-slot="hover-card-content"'
     assert_includes out, "w-80"
     assert_not_includes out, "w-64"
@@ -44,8 +44,8 @@ class Chadcn::HoverCardTest < Chadcn::TestCase
     out = render_card(root: { open: true, open_delay: 100 })
 
     assert_includes out, 'data-state="open"'
-    assert_includes out, 'data-shadcn--hover-card-controlled-value="true"'
-    assert_includes out, 'data-shadcn--hover-card-open-delay-value="100"'
+    assert_includes out, 'data-chadcn--hover-card-controlled-value="true"'
+    assert_includes out, 'data-chadcn--hover-card-open-delay-value="100"'
   end
 
   test "as_child merges onto the child" do
@@ -77,7 +77,7 @@ class Chadcn::HoverCardTest < Chadcn::TestCase
   test "content positioning keywords are serialized for the controller" do
     out = render_card(content: { side: :top, side_offset: 8, align: :start, align_offset: 2, avoid_collisions: false, collision_padding: 4,
                                  collision_boundary: "#b", arrow_padding: 3, sticky: :always, hide_when_detached: true, update_position_strategy: :always })
-    options = JSON.parse(Nokogiri::HTML5.fragment(out).at_css("template[data-shadcn--hover-card-template]")["data-options"])
+    options = JSON.parse(Nokogiri::HTML5.fragment(out).at_css("template[data-chadcn--hover-card-template]")["data-options"])
 
     assert_equal({ "side" => "top", "sideOffset" => 8, "align" => "start", "alignOffset" => 2, "avoidCollisions" => false, "collisionPadding" => 4,
                    "collisionBoundary" => "#b", "arrowPadding" => 3, "sticky" => "always", "hideWhenDetached" => true,
@@ -86,7 +86,7 @@ class Chadcn::HoverCardTest < Chadcn::TestCase
 
   test "force_mount is accepted and has no effect" do
     out = render_card(content: { force_mount: true })
-    options = JSON.parse(Nokogiri::HTML5.fragment(out).at_css("template[data-shadcn--hover-card-template]")["data-options"])
+    options = JSON.parse(Nokogiri::HTML5.fragment(out).at_css("template[data-chadcn--hover-card-template]")["data-options"])
 
     assert_not_includes options, "forceMount"
   end
@@ -94,8 +94,8 @@ class Chadcn::HoverCardTest < Chadcn::TestCase
   test "open_delay and close_delay reach the trigger" do
     trigger = Nokogiri::HTML5.fragment(render_card(root: { open_delay: 10, close_delay: 20 })).at_css("a")
 
-    assert_equal "10", trigger["data-shadcn--hover-card-open-delay-value"]
-    assert_equal "20", trigger["data-shadcn--hover-card-close-delay-value"]
+    assert_equal "10", trigger["data-chadcn--hover-card-open-delay-value"]
+    assert_equal "20", trigger["data-chadcn--hover-card-close-delay-value"]
   end
 
   test "attrs merge onto the trigger" do

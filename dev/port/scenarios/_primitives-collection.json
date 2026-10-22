@@ -6,7 +6,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-collection",
+          "data-controller": "chadcn---probe-collection",
           "className": "flex w-96 flex-col gap-3 text-sm"
         },
         "children": [
@@ -151,7 +151,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-collection",
+          "data-controller": "chadcn---probe-collection",
           "className": "flex w-96 flex-col gap-3 text-sm"
         },
         "children": [
@@ -301,7 +301,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-collection",
+          "data-controller": "chadcn---probe-collection",
           "className": "flex w-96 flex-col gap-3 text-sm"
         },
         "children": [
@@ -452,7 +452,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-collection",
+          "data-controller": "chadcn---probe-collection",
           "className": "flex w-96 flex-col gap-3 text-sm"
         },
         "children": [
@@ -604,7 +604,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-collection",
+          "data-controller": "chadcn---probe-collection",
           "className": "flex w-96 flex-col gap-3 text-sm"
         },
         "children": [
@@ -766,7 +766,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-collection",
+          "data-controller": "chadcn---probe-collection",
           "className": "flex w-96 flex-col gap-3 text-sm"
         },
         "children": [
@@ -924,7 +924,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-collection",
+          "data-controller": "chadcn---probe-collection",
           "className": "flex w-96 flex-col gap-3 text-sm"
         },
         "children": [
@@ -1086,7 +1086,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-collection",
+          "data-controller": "chadcn---probe-collection",
           "className": "flex w-96 flex-col gap-3 text-sm"
         },
         "children": [
@@ -1245,7 +1245,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-collection",
+          "data-controller": "chadcn---probe-collection",
           "className": "flex w-96 flex-col gap-3 text-sm"
         },
         "children": [
@@ -1419,7 +1419,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-collection",
+          "data-controller": "chadcn---probe-collection",
           "className": "flex w-96 flex-col gap-3 text-sm"
         },
         "children": [

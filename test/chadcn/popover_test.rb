@@ -22,8 +22,8 @@ class Chadcn::PopoverTest < Chadcn::TestCase
     assert_includes out, 'data-slot="popover-trigger"'
     assert_includes out, 'aria-haspopup="dialog"'
     assert_includes out, 'aria-expanded="false"'
-    assert_includes out, 'data-controller="shadcn--popover"'
-    assert_match(/<template data-shadcn--popover-template="popover-\d+"/, out)
+    assert_includes out, 'data-controller="chadcn--popover"'
+    assert_match(/<template data-chadcn--popover-template="popover-\d+"/, out)
     assert_includes out, 'data-slot="popover-content"'
     assert_includes out, 'role="dialog"'
   end
@@ -80,7 +80,7 @@ class Chadcn::PopoverTest < Chadcn::TestCase
   test "content positioning keywords are serialized for the controller" do
     out = render_popover(content: { side: :top, side_offset: 8, align: :start, align_offset: 2, avoid_collisions: false, collision_padding: 4,
                                     collision_boundary: "#b", arrow_padding: 3, sticky: :always, hide_when_detached: true, update_position_strategy: :always })
-    options = JSON.parse(Nokogiri::HTML5.fragment(out).at_css("template[data-shadcn--popover-template]")["data-options"])
+    options = JSON.parse(Nokogiri::HTML5.fragment(out).at_css("template[data-chadcn--popover-template]")["data-options"])
 
     assert_equal({ "side" => "top", "sideOffset" => 8, "align" => "start", "alignOffset" => 2, "avoidCollisions" => false, "collisionPadding" => 4,
                    "collisionBoundary" => "#b", "arrowPadding" => 3, "sticky" => "always", "hideWhenDetached" => true,
@@ -89,7 +89,7 @@ class Chadcn::PopoverTest < Chadcn::TestCase
 
   test "force_mount is accepted and has no effect" do
     out = render_popover(content: { force_mount: true })
-    options = JSON.parse(Nokogiri::HTML5.fragment(out).at_css("template[data-shadcn--popover-template]")["data-options"])
+    options = JSON.parse(Nokogiri::HTML5.fragment(out).at_css("template[data-chadcn--popover-template]")["data-options"])
 
     assert_not_includes options, "forceMount"
   end
@@ -104,7 +104,7 @@ class Chadcn::PopoverTest < Chadcn::TestCase
       end
     end.new.call
 
-    assert_equal "true", Nokogiri::HTML5.fragment(html).at_css("[data-controller=shadcn--popover]")["data-shadcn--popover-modal-value"]
+    assert_equal "true", Nokogiri::HTML5.fragment(html).at_css("[data-controller=chadcn--popover]")["data-chadcn--popover-modal-value"]
   end
 
   test "anchor and header parts merge their class" do

@@ -3,7 +3,7 @@ import { assert, primitiveTest } from "./primitives_support.mjs";
 // date_grid is pure date math on native Date/Intl; these run in Chromium like the other primitives. `grid(page, fn, arg)` runs `fn(g, arg)`
 // in the page with the module as `g`. `zone(page, id)` moves the page's time zone (DST days differ per zone).
 const grid = (page, fn, arg) => page.evaluate(async ({ source, arg }) => {
-  const g = await import("shadcn/primitives/date_grid");
+  const g = await import("chadcn/primitives/date_grid");
   return (0, eval)(`(${source})`)(g, arg);
 }, { source: fn.toString(), arg });
 

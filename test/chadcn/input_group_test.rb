@@ -25,8 +25,8 @@ class Chadcn::InputGroupTest < Chadcn::TestCase
 
     assert_includes out, 'data-align="inline-end"'
     assert_includes out, 'data-slot="input-group-addon"'
-    assert_includes out, 'data-controller="shadcn--input-group"'
-    assert_includes out, 'data-action="click->shadcn--input-group#focusControl"'
+    assert_includes out, 'data-controller="chadcn--input-group"'
+    assert_includes out, 'data-action="click->chadcn--input-group#focusControl"'
     assert_includes render_part(IG::Addon, align: "block-start"), "w-full justify-start"
     assert_raises(ArgumentError) { render_part(IG::Addon, align: "middle") }
   end
@@ -36,7 +36,7 @@ class Chadcn::InputGroupTest < Chadcn::TestCase
     kept = render_part(IG::Addon, data: { action: "keydown->x#y" })
 
     assert_not_includes replaced, "focusControl"
-    assert_includes kept, "keydown->x#y click->shadcn--input-group#focusControl"
+    assert_includes kept, "keydown->x#y click->chadcn--input-group#focusControl"
   end
 
   test "button defaults to ghost xs and forwards size data" do

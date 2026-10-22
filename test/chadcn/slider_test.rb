@@ -84,8 +84,8 @@ class Chadcn::SliderTest < Chadcn::TestCase
 
   test "unknown dir raises and controlled value is flagged" do
     assert_raises(ArgumentError) { slider(dir: "up") }
-    assert_equal "true", slider(value: [ 10 ]).at_css("[data-slot=slider]")["data-shadcn--slider-controlled-value"]
-    assert_equal "false", slider(default_value: [ 10 ]).at_css("[data-slot=slider]")["data-shadcn--slider-controlled-value"]
+    assert_equal "true", slider(value: [ 10 ]).at_css("[data-slot=slider]")["data-chadcn--slider-controlled-value"]
+    assert_equal "false", slider(default_value: [ 10 ]).at_css("[data-slot=slider]")["data-chadcn--slider-controlled-value"]
   end
 
   test "constant tables" do
@@ -103,7 +103,7 @@ class Chadcn::SliderTest < Chadcn::TestCase
   test "a non-Array value is ignored and the slider stays uncontrolled" do
     doc = slider(value: "x", default_value: [ 10 ])
 
-    assert_equal "false", doc.at_css("[data-slot=slider]")["data-shadcn--slider-controlled-value"]
+    assert_equal "false", doc.at_css("[data-slot=slider]")["data-chadcn--slider-controlled-value"]
     assert_equal "10", doc.at_css("[role=slider]")["aria-valuenow"]
   end
 
@@ -120,13 +120,13 @@ class Chadcn::SliderTest < Chadcn::TestCase
                  preserve_thumb_order: true, form: "f", name: "n")
     root = doc.at_css("[data-slot=slider]")
 
-    assert_equal "10", root["data-shadcn--slider-min-value"]
-    assert_equal "50", root["data-shadcn--slider-max-value"]
-    assert_equal "5", root["data-shadcn--slider-step-value"]
-    assert_equal "true", root["data-shadcn--slider-inverted-value"]
-    assert_equal "2", root["data-shadcn--slider-min-steps-between-thumbs-value"]
-    assert_equal "true", root["data-shadcn--slider-preserve-thumb-order-value"]
-    assert_equal "f", root["data-shadcn--slider-form-value"]
+    assert_equal "10", root["data-chadcn--slider-min-value"]
+    assert_equal "50", root["data-chadcn--slider-max-value"]
+    assert_equal "5", root["data-chadcn--slider-step-value"]
+    assert_equal "true", root["data-chadcn--slider-inverted-value"]
+    assert_equal "2", root["data-chadcn--slider-min-steps-between-thumbs-value"]
+    assert_equal "true", root["data-chadcn--slider-preserve-thumb-order-value"]
+    assert_equal "f", root["data-chadcn--slider-form-value"]
     assert_equal "f", doc.at_css("input")["form"]
     assert_equal "right: 0%; left: 62.5%;", doc.at_css("[data-slot=slider-range]")["style"]
     assert_equal "25", doc.at_css("[role=slider]")["aria-valuenow"]

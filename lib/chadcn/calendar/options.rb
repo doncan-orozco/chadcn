@@ -96,7 +96,7 @@ class Chadcn::Calendar::Options
   # @return [Boolean] whether the root has `data-multiple-months`
   def multiple_months? = @number_of_months > 1
 
-  # The hash the controller reads from `data-shadcn--calendar-config-value` (camelCase keys, dates as ISO strings). Nil entries are dropped.
+  # The hash the controller reads from `data-chadcn--calendar-config-value` (camelCase keys, dates as ISO strings). Nil entries are dropped.
   #
   # @param classes [Hash{Symbol => String}] the finished class strings ({Chadcn::Calendar::Classes.build})
   # @return [Hash{String => Object}]

@@ -7,7 +7,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"top\",\"align\":\"start\",\"sideOffset\":8}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -47,7 +47,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"top\",\"align\":\"center\",\"sideOffset\":8}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -87,7 +87,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"top\",\"align\":\"end\",\"sideOffset\":8}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -127,7 +127,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"right\",\"align\":\"start\",\"sideOffset\":8}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -167,7 +167,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"right\",\"align\":\"center\",\"sideOffset\":8}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -207,7 +207,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"right\",\"align\":\"end\",\"sideOffset\":8}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -247,7 +247,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":8}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -287,7 +287,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"bottom\",\"align\":\"center\",\"sideOffset\":8}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -327,7 +327,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"bottom\",\"align\":\"end\",\"sideOffset\":8}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -367,7 +367,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"left\",\"align\":\"start\",\"sideOffset\":8}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -407,7 +407,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"left\",\"align\":\"center\",\"sideOffset\":8}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -447,7 +447,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"left\",\"align\":\"end\",\"sideOffset\":8}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -487,7 +487,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -527,7 +527,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":12,\"alignOffset\":6}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -567,7 +567,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"right\",\"align\":\"end\",\"sideOffset\":4,\"alignOffset\":-10}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -607,7 +607,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"top\",\"sideOffset\":6}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -647,7 +647,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":6}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -687,7 +687,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"left\",\"sideOffset\":6}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -727,7 +727,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"right\",\"sideOffset\":6}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -767,7 +767,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"top\",\"align\":\"end\",\"sideOffset\":6}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -807,7 +807,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":6}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -847,7 +847,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":6}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -887,7 +887,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"right\",\"sideOffset\":6}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -927,7 +927,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":6,\"collisionPadding\":24}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -967,7 +967,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"top\",\"sideOffset\":6,\"collisionPadding\":{\"top\":40,\"left\":30}}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -1007,7 +1007,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":6,\"sticky\":\"partial\"}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -1047,7 +1047,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":6,\"sticky\":\"always\"}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -1087,7 +1087,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"top\",\"sideOffset\":6,\"avoidCollisions\":false}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -1127,7 +1127,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":6,\"avoidCollisions\":false}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -1167,7 +1167,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"top\",\"sideOffset\":2,\"arrow\":true}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -1207,7 +1207,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"right\",\"sideOffset\":2,\"arrow\":true}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -1247,7 +1247,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":2,\"arrow\":true}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -1287,7 +1287,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"left\",\"sideOffset\":2,\"arrow\":true}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -1327,7 +1327,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":2,\"arrow\":true,\"arrowPadding\":8}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -1367,7 +1367,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"top\",\"align\":\"end\",\"sideOffset\":2,\"arrow\":true,\"arrowPadding\":8}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -1407,7 +1407,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":2,\"arrow\":true}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -1447,7 +1447,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"top\",\"sideOffset\":2,\"arrow\":true}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -1487,7 +1487,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":4}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -1527,7 +1527,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":4}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -1567,7 +1567,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":4}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -1607,7 +1607,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"right\",\"sideOffset\":4}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -1647,7 +1647,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"top\",\"align\":\"start\",\"sideOffset\":4,\"arrow\":true}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -1687,7 +1687,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"left\",\"align\":\"end\",\"sideOffset\":4}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -1727,7 +1727,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":4,\"hideWhenDetached\":true}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -1767,7 +1767,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":4,\"hideWhenDetached\":true}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "fixed left-[100px] top-[100px] h-16 w-48 overflow-hidden border"
         },
         "children": [
@@ -1807,7 +1807,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":4}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "fixed left-[100px] top-[100px] h-16 w-48 overflow-hidden border"
         },
         "children": [
@@ -1861,7 +1861,7 @@
             "c": "_div",
             "props": {
               "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":4,\"boundary\":\"#box\"}",
-              "data-controller": "shadcn---probe-positioner",
+              "data-controller": "chadcn---probe-positioner",
               "className": "relative"
             },
             "children": [
@@ -1903,7 +1903,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"right\",\"sideOffset\":6}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -1954,7 +1954,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"bottom\",\"sideOffset\":6,\"arrow\":true}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [
@@ -1994,7 +1994,7 @@
         "c": "_div",
         "props": {
           "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":6}",
-          "data-controller": "shadcn---probe-positioner",
+          "data-controller": "chadcn---probe-positioner",
           "className": "relative"
         },
         "children": [

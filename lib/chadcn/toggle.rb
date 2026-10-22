@@ -87,8 +87,8 @@ class Chadcn::Toggle < Chadcn::Base
     {
       type: "button",
       aria: { pressed: @pressed },
-      data: { state: @pressed ? "on" : "off", slot: "toggle", controller: "shadcn--toggle",
-              shadcn__toggle_controlled_value: @controlled, shadcn__toggle_disabled_value: @disabled,
+      data: { state: @pressed ? "on" : "off", slot: "toggle", controller: "chadcn--toggle",
+              chadcn__toggle_controlled_value: @controlled, chadcn__toggle_disabled_value: @disabled,
               **(@disabled ? { disabled: "" } : {}) },
       disabled: @disabled
     }
@@ -96,7 +96,7 @@ class Chadcn::Toggle < Chadcn::Base
 
   # Radix runs the consumer onClick first, then the toggle: our action goes last.
   def with_action(attrs)
-    action = [ attrs.dig(:data, :action), "click->shadcn--toggle#toggle" ].reject_blank.join(" ")
+    action = [ attrs.dig(:data, :action), "click->chadcn--toggle#toggle" ].reject_blank.join(" ")
     attrs.merge(data: attrs[:data].merge(action:))
   end
 end

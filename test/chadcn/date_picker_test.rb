@@ -21,7 +21,7 @@ class Chadcn::DatePickerTest < Chadcn::TestCase
           render Popover.new do
             render Popover::Trigger.new(as_child: Chadcn::Button.new(variant: "outline", class: "w-[240px] justify-start text-left font-normal")) do
               render Chadcn::Icon.new("calendar")
-              span(id: "event_date_label", data: { shadcn__calendar_placeholder: "Pick a date", empty: date.nil?.to_s }) do
+              span(id: "event_date_label", data: { chadcn__calendar_placeholder: "Pick a date", empty: date.nil?.to_s }) do
                 date ? date.strftime("%B #{date.day}#{suffix}, %Y") : "Pick a date"
               end
             end
@@ -57,7 +57,7 @@ class Chadcn::DatePickerTest < Chadcn::TestCase
   test "the calendar sits inside the popover content template and is wired to the input and the label" do
     fragment = doc(date_picker(date: Date.new(2026, 3, 10)))
     calendar = fragment.at_css("template [data-slot=calendar]")
-    config = JSON.parse(calendar["data-shadcn--calendar-config-value"])
+    config = JSON.parse(calendar["data-chadcn--calendar-config-value"])
 
     assert_predicate calendar.ancestors("template"), :any?
     assert_equal "single", config["mode"]
@@ -67,14 +67,14 @@ class Chadcn::DatePickerTest < Chadcn::TestCase
     label = fragment.at_css("#event_date_label")
 
     assert_equal "March 10th, 2026", label.text
-    assert_equal "Pick a date", label["data-shadcn--calendar-placeholder"]
+    assert_equal "Pick a date", label["data-chadcn--calendar-placeholder"]
     assert_equal "false", label["data-empty"]
   end
 
   test "an empty picker renders the placeholder text with data-empty true; ordinals follow date-fns" do
     label = doc(date_picker).at_css("#event_date_label")
 
-    assert_equal [ "Pick a date", "Pick a date", "true" ], [ label.text, label["data-shadcn--calendar-placeholder"], label["data-empty"] ]
+    assert_equal [ "Pick a date", "Pick a date", "true" ], [ label.text, label["data-chadcn--calendar-placeholder"], label["data-empty"] ]
     suffixes = [ 1, 2, 3, 4, 11, 12, 13, 21, 22, 23, 31 ].map { |day| ordinal(day) }
 
     assert_equal %w[st nd rd th th th th st nd rd st], suffixes
@@ -92,9 +92,9 @@ class Chadcn::DatePickerTest < Chadcn::TestCase
 
   test "range pickers take a selector per input and a multiple picker none" do
     range = Calendar.new(mode: :range, input: { from: "#from", to: "#to" }).call
-    config = JSON.parse(doc(range).at_css("[data-slot=calendar]")["data-shadcn--calendar-config-value"])
+    config = JSON.parse(doc(range).at_css("[data-slot=calendar]")["data-chadcn--calendar-config-value"])
 
     assert_equal({ "from" => "#from", "to" => "#to" }, config["input"])
-    assert_equal "multiple", JSON.parse(doc(Calendar.new(mode: :multiple).call).at_css("[data-slot=calendar]")["data-shadcn--calendar-config-value"])["mode"]
+    assert_equal "multiple", JSON.parse(doc(Calendar.new(mode: :multiple).call).at_css("[data-slot=calendar]")["data-chadcn--calendar-config-value"])["mode"]
   end
 end

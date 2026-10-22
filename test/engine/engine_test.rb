@@ -92,16 +92,18 @@ class EngineTest::Wiring < Minitest::Test
   def test_importmap_pins_the_controllers_the_primitives_and_floating_ui
     pins = imports
 
-    assert_equal "/assets/controllers/shadcn/dialog_controller.js", pins["controllers/shadcn/dialog_controller"]
-    assert_equal "/assets/shadcn/primitives/presence.js", pins["shadcn/primitives/presence"]
+    assert_equal "/assets/controllers/chadcn/dialog_controller.js", pins["controllers/chadcn/dialog_controller"]
+    assert_equal "/assets/chadcn/primitives/presence.js", pins["chadcn/primitives/presence"]
     assert_equal "/assets/@floating-ui--dom.js", pins["@floating-ui/dom"]
     assert_equal "/assets/@floating-ui--utils--dom.js", pins["@floating-ui/utils/dom"]
   end
 
   def test_every_pinned_gem_file_exists
-    pins = imports.select { |name, _| name.start_with?("controllers/shadcn/", "shadcn/", "@floating-ui/") }
+    prefixes = %w[controllers/chadcn/ chadcn/ @floating-ui/]
+    pins = imports.select { |name, _| name.start_with?(*prefixes) }
 
-    refute_empty pins
+    # One check per prefix: a renamed prefix that matches nothing must fail, not shrink the coverage silently.
+    prefixes.each { |prefix| refute_empty(pins.keys.select { |name| name.start_with?(prefix) }, prefix) }
     missing = pins.values.reject do |url|
       logical = url.delete_prefix("/assets/")
       %w[app/javascript vendor/javascript].any? { |dir| GEM_ROOT.join(dir, logical).file? }

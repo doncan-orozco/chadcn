@@ -40,9 +40,9 @@ class Chadcn::Combobox::Content < Chadcn::Base
   def view_template(&)
     model = root_model
     options = { side: @side, sideOffset: @side_offset, align: @align, alignOffset: @align_offset, anchor: @anchor }
-    template(data: { shadcn__combobox_part: "content-template", shadcn__combobox_options: json(options) }) do
+    template(data: { chadcn__combobox_part: "content-template", chadcn__combobox_options: json(options) }) do
       # The Positioner is the element that gets `--anchor-width` & co. and the translate; the Popup sits inside it.
-      div(role: "presentation", class: "isolate z-50", data: { shadcn__combobox_part: "positioner" }) do
+      div(role: "presentation", class: "isolate z-50", data: { chadcn__combobox_part: "positioner" }) do
         model.in_popup = true
         div(**popup_attrs(model), &)
         model.in_popup = false
@@ -54,7 +54,7 @@ class Chadcn::Combobox::Content < Chadcn::Base
 
   def popup_attrs(model)
     defaults = { tabindex: "-1", role: model.input_outside ? "presentation" : "dialog", class: CLASSES,
-                 data: { slot: "combobox-content", chips: (!@anchor.nil?).to_s, shadcn__combobox_part: "popup" } }
+                 data: { slot: "combobox-content", chips: (!@anchor.nil?).to_s, chadcn__combobox_part: "popup" } }
     defaults[:id] = model.popup_id unless model.input_outside
     merge_attrs(defaults, @attrs)
   end

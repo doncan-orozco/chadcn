@@ -49,10 +49,10 @@ class Chadcn::Accordion::Trigger < Chadcn::Base
                           aria: { controls: (item[:content_id] if item[:open]), expanded: item[:open],
                                   disabled: ("true" if item[:open] && !root[:collapsible]) },
                           data: { state:, disabled: disabled_data(item), orientation: root[:orientation], slot: "accordion-trigger",
-                                  shadcn__accordion_target: "trigger" }
+                                  chadcn__accordion_target: "trigger" }
                         }, @attrs)
     # Radix composes the consumer onClick first, then the toggle: our action goes last.
-    action = [ attrs.dig(:data, :action), "click->shadcn--accordion#toggle" ].reject_blank.join(" ")
+    action = [ attrs.dig(:data, :action), "click->chadcn--accordion#toggle" ].reject_blank.join(" ")
     attrs.merge(data: attrs[:data].merge(action:))
   end
 end

@@ -1,7 +1,7 @@
 # Menus, select, command and combobox
 
-Dropdown menu, context menu, menubar and select. Their controllers (`shadcn--dropdown-menu`, `shadcn--context-menu`,
-`shadcn--menubar`, `shadcn--select`) implement the Radix menu behavior: roving focus, typeahead, submenus with the pointer grace
+Dropdown menu, context menu, menubar and select. Their controllers (`chadcn--dropdown-menu`, `chadcn--context-menu`,
+`chadcn--menubar`, `chadcn--select`) implement the Radix menu behavior: roving focus, typeahead, submenus with the pointer grace
 area, checkbox and radio items, keyboard selection, and Floating UI positioning. Conventions: [api-conventions.md](api-conventions.md).
 
 The three menus share the same part set; the root and the trigger differ.
@@ -182,7 +182,7 @@ render Chadcn::Combobox.new(items: %w[next.js sveltekit astro], name: "framework
 end
 ```
 
-- `Command::Item` dispatches `shadcn--command:select`; the search box dispatches `shadcn--command:search-change`. Set a custom
+- `Command::Item` dispatches `chadcn--command:select`; the search box dispatches `chadcn--command:search-change`. Set a custom
   matcher from JavaScript with `controller.filter = (value, search, keywords) => score`.
 - `Combobox.new(multiple: true)` shows chips (`Combobox::Chips`, `Chip`, `ChipsInput`) and submits one hidden input per selection;
   `Combobox::Input.new(show_clear: true)` adds the clear button; `filter: :contains` matches like Base UI, `filter: nil` disables filtering.

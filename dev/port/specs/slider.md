@@ -28,12 +28,12 @@ Components::V2::Slider.new(
 
 - Thumb count, verbatim from slider.tsx `_values`: `value` if it is an Array, else `default_value` if it is an Array, else `[min, max]`. One Thumb per entry. NOTE the shadcn quirk: with neither `value:` nor `default_value:` shadcn renders TWO thumbs while Radix holds ONE value (`[min]`, slider.mjs:52; shadcn passes `defaultValue={undefined}` so the destructuring default applies), so the second thumb has no value and is hidden (see Structure). The port must reproduce it.
 - Radix value state = `value` (controlled) or `default_value || [min]` (uncontrolled). Initial values are NOT clamped or snapped (slider.mjs:69-71 stores them as given); only updates are.
-- `value:` (controlled): the server renders that state; user input does NOT change the DOM, it only dispatches `shadcn--slider:value-change` (ucs.mjs:38-42: `onChange` only when the computed array differs from `prop`, i.e. when `updateValues` did not return `prevValues`) and still moves focus to the affected thumb (focus is done inside Radix's `onChange`, slider.mjs:72-80). Callers re-render the next state from the server.
+- `value:` (controlled): the server renders that state; user input does NOT change the DOM, it only dispatches `chadcn--slider:value-change` (ucs.mjs:38-42: `onChange` only when the computed array differs from `prop`, i.e. when `updateValues` did not return `prevValues`) and still moves focus to the affected thumb (focus is done inside Radix's `onChange`, slider.mjs:72-80). Callers re-render the next state from the server.
 - `default_value:` (uncontrolled): the controller owns state after connect.
 - Strings and symbols for `orientation:`/`dir:` (`:vertical`, `"vertical"`). Numbers are Integer or Float; rendered with JS `Number#toString` semantics (`50`, not `50.0`; `0.6`, `33.333333333333336`), see Structure.
 - Events (dispatched from the Root span, `bubbles: true`, NOT cancelable; Radix `onValueChange`/`onValueCommit` are not preventable):
-  - `shadcn--slider:value-change`, `detail: { value: [Number...] }` (Radix `onValueChange`, slider.mjs:79). Uncontrolled: after the DOM is updated (useUncontrolledState effect, ucs.mjs:62-67); controlled: instead of updating.
-  - `shadcn--slider:value-commit`, `detail: { value: [Number...] }` (Radix `onValueCommit`): keyboard (Home/End/step keys) when the values changed (slider.mjs:120, 163, 169, 186); pointer at pointerup when the values differ from those at pointerdown (slider.mjs:101-104, String comparison). At slide end Radix passes the values of the last render (slider.mjs:103 `onValueCommit(values)`), i.e. the current values; the port dispatches the current values.
+  - `chadcn--slider:value-change`, `detail: { value: [Number...] }` (Radix `onValueChange`, slider.mjs:79). Uncontrolled: after the DOM is updated (useUncontrolledState effect, ucs.mjs:62-67); controlled: instead of updating.
+  - `chadcn--slider:value-commit`, `detail: { value: [Number...] }` (Radix `onValueCommit`): keyboard (Home/End/step keys) when the values changed (slider.mjs:120, 163, 169, 186); pointer at pointerup when the values differ from those at pointerdown (slider.mjs:101-104, String comparison). At slide end Radix passes the values of the last render (slider.mjs:103 `onValueCommit(values)`), i.e. the current values; the port dispatches the current values.
 - `as_child:` is NOT offered: see Deviations.
 - `ref`, `onValueChange`, `onValueCommit` callbacks: no Ruby equivalent beyond the events above. `onPointerDown`/`onKeyDown` etc. are plain DOM listeners via `data: { action: }`; Radix runs the consumer handler first and skips its own if `event.defaultPrevented` (`composeEventHandlers`, slider.mjs:148, 356, 368, 378, 382), so the controller checks `defaultPrevented`.
 
@@ -43,7 +43,7 @@ Server-rendered DOM for `Slider.new(default_value: [25, 75])` horizontal LTR out
 
 ```html
 <span dir="ltr" data-orientation="horizontal" aria-disabled="false" data-slot="slider"
-      class="<Root classes>" style="--radix-slider-thumb-transform: translateX(-50%);" data-controller="shadcn--slider">
+      class="<Root classes>" style="--radix-slider-thumb-transform: translateX(-50%);" data-controller="chadcn--slider">
   <span data-orientation="horizontal" data-slot="slider-track" class="<Track classes>">
     <span data-orientation="horizontal" data-slot="slider-range" class="<Range classes>" style="left: 25%; right: 25%;"></span>
   </span>
@@ -98,7 +98,7 @@ Bubble input (no data-slot), `SliderBubbleInput` slider.mjs:561-592:
 
 Number formatting: every number in an attribute or style (aria-value*, percentages, px offsets, input value) uses JS `String(Number)` semantics (integers without `.0`, shortest round-trip decimals). The Ruby side must format accordingly (`50`, `12.5`, `33.333333333333336`, negative offsets as `+ -4px`).
 
-Server vs Stimulus: the server renders every attribute above for the initial values, with thumb wrapper offsets of `0px` (size unknown on the server, identical to React's first render where `useSize` is still undefined). Stimulus (`shadcn--slider`, host = the Root span) measures the thumbs on connect and writes the in-bounds offsets, removes non-form bubble inputs, and on every change updates `aria-valuenow`, the Range and wrapper styles, and the bubble inputs. Thumb elements never move in the DOM; values are re-sorted across them. Styles are written through `element.style` (like React) so the serialized `style` attribute matches the oracle's CSSOM serialization. No ids are generated.
+Server vs Stimulus: the server renders every attribute above for the initial values, with thumb wrapper offsets of `0px` (size unknown on the server, identical to React's first render where `useSize` is still undefined). Stimulus (`chadcn--slider`, host = the Root span) measures the thumbs on connect and writes the in-bounds offsets, removes non-form bubble inputs, and on every change updates `aria-valuenow`, the Range and wrapper styles, and the bubble inputs. Thumb elements never move in the DOM; values are re-sorted across them. Styles are written through `element.style` (like React) so the serialized `style` attribute matches the oracle's CSSOM serialization. No ids are generated.
 
 ## Behavior
 

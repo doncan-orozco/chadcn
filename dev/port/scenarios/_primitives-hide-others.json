@@ -8,9 +8,9 @@
         "props": {
           "data-probe": "hide_others",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-hide-others",
+          "data-controller": "chadcn---probe-hide-others",
           "className": "flex flex-col items-start gap-2",
-          "data-shadcn---probe-hide-others-scope-value": "body"
+          "data-chadcn---probe-hide-others-scope-value": "body"
         },
         "children": [
           {
@@ -18,9 +18,9 @@
             "props": {
               "type": "button",
               "data-slot": "toggle-a",
-              "data-action": "click->shadcn---probe-hide-others#toggle",
+              "data-action": "click->chadcn---probe-hide-others#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-hide-others-name-param": "modal-a"
+              "data-chadcn---probe-hide-others-name-param": "modal-a"
             },
             "children": [
               "Modal a"
@@ -31,9 +31,9 @@
             "props": {
               "type": "button",
               "data-slot": "toggle-b",
-              "data-action": "click->shadcn---probe-hide-others#toggle",
+              "data-action": "click->chadcn---probe-hide-others#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-hide-others-name-param": "modal-b"
+              "data-chadcn---probe-hide-others-name-param": "modal-b"
             },
             "children": [
               "Modal b"
@@ -52,7 +52,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-hide-others-target": "template",
+              "data-chadcn---probe-hide-others-target": "template",
               "data-name": "other",
               "data-into": "body",
               "data-auto": "true"
@@ -73,7 +73,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-hide-others-target": "template",
+              "data-chadcn---probe-hide-others-target": "template",
               "data-name": "modal-a",
               "data-into": "body"
             },
@@ -93,7 +93,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-hide-others-target": "template",
+              "data-chadcn---probe-hide-others-target": "template",
               "data-name": "modal-b",
               "data-into": "body"
             },
@@ -127,9 +127,9 @@
         "props": {
           "data-probe": "hide_others",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-hide-others",
+          "data-controller": "chadcn---probe-hide-others",
           "className": "flex flex-col items-start gap-2",
-          "data-shadcn---probe-hide-others-scope-value": "body"
+          "data-chadcn---probe-hide-others-scope-value": "body"
         },
         "children": [
           {
@@ -137,9 +137,9 @@
             "props": {
               "type": "button",
               "data-slot": "toggle-a",
-              "data-action": "click->shadcn---probe-hide-others#toggle",
+              "data-action": "click->chadcn---probe-hide-others#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-hide-others-name-param": "modal-a"
+              "data-chadcn---probe-hide-others-name-param": "modal-a"
             },
             "children": [
               "Modal a"
@@ -150,9 +150,9 @@
             "props": {
               "type": "button",
               "data-slot": "toggle-b",
-              "data-action": "click->shadcn---probe-hide-others#toggle",
+              "data-action": "click->chadcn---probe-hide-others#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-hide-others-name-param": "modal-b"
+              "data-chadcn---probe-hide-others-name-param": "modal-b"
             },
             "children": [
               "Modal b"
@@ -171,7 +171,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-hide-others-target": "template",
+              "data-chadcn---probe-hide-others-target": "template",
               "data-name": "other",
               "data-into": "body",
               "data-auto": "true"
@@ -192,7 +192,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-hide-others-target": "template",
+              "data-chadcn---probe-hide-others-target": "template",
               "data-name": "modal-a",
               "data-into": "body"
             },
@@ -212,7 +212,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-hide-others-target": "template",
+              "data-chadcn---probe-hide-others-target": "template",
               "data-name": "modal-b",
               "data-into": "body"
             },
@@ -251,9 +251,9 @@
         "props": {
           "data-probe": "hide_others",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-hide-others",
+          "data-controller": "chadcn---probe-hide-others",
           "className": "flex flex-col items-start gap-2",
-          "data-shadcn---probe-hide-others-scope-value": "body"
+          "data-chadcn---probe-hide-others-scope-value": "body"
         },
         "children": [
           {
@@ -261,9 +261,9 @@
             "props": {
               "type": "button",
               "data-slot": "toggle-a",
-              "data-action": "click->shadcn---probe-hide-others#toggle",
+              "data-action": "click->chadcn---probe-hide-others#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-hide-others-name-param": "modal-a"
+              "data-chadcn---probe-hide-others-name-param": "modal-a"
             },
             "children": [
               "Modal a"
@@ -274,9 +274,9 @@
             "props": {
               "type": "button",
               "data-slot": "toggle-b",
-              "data-action": "click->shadcn---probe-hide-others#toggle",
+              "data-action": "click->chadcn---probe-hide-others#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-hide-others-name-param": "modal-b"
+              "data-chadcn---probe-hide-others-name-param": "modal-b"
             },
             "children": [
               "Modal b"
@@ -295,7 +295,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-hide-others-target": "template",
+              "data-chadcn---probe-hide-others-target": "template",
               "data-name": "other",
               "data-into": "body",
               "data-auto": "true"
@@ -316,7 +316,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-hide-others-target": "template",
+              "data-chadcn---probe-hide-others-target": "template",
               "data-name": "modal-a",
               "data-into": "body"
             },
@@ -336,7 +336,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-hide-others-target": "template",
+              "data-chadcn---probe-hide-others-target": "template",
               "data-name": "modal-b",
               "data-into": "body"
             },
@@ -379,9 +379,9 @@
         "props": {
           "data-probe": "hide_others",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-hide-others",
+          "data-controller": "chadcn---probe-hide-others",
           "className": "flex flex-col items-start gap-2",
-          "data-shadcn---probe-hide-others-scope-value": "body"
+          "data-chadcn---probe-hide-others-scope-value": "body"
         },
         "children": [
           {
@@ -389,9 +389,9 @@
             "props": {
               "type": "button",
               "data-slot": "toggle-a",
-              "data-action": "click->shadcn---probe-hide-others#toggle",
+              "data-action": "click->chadcn---probe-hide-others#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-hide-others-name-param": "modal-a"
+              "data-chadcn---probe-hide-others-name-param": "modal-a"
             },
             "children": [
               "Modal a"
@@ -402,9 +402,9 @@
             "props": {
               "type": "button",
               "data-slot": "toggle-b",
-              "data-action": "click->shadcn---probe-hide-others#toggle",
+              "data-action": "click->chadcn---probe-hide-others#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-hide-others-name-param": "modal-b"
+              "data-chadcn---probe-hide-others-name-param": "modal-b"
             },
             "children": [
               "Modal b"
@@ -423,7 +423,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-hide-others-target": "template",
+              "data-chadcn---probe-hide-others-target": "template",
               "data-name": "other",
               "data-into": "body",
               "data-auto": "true"
@@ -444,7 +444,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-hide-others-target": "template",
+              "data-chadcn---probe-hide-others-target": "template",
               "data-name": "modal-a",
               "data-into": "body"
             },
@@ -464,7 +464,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-hide-others-target": "template",
+              "data-chadcn---probe-hide-others-target": "template",
               "data-name": "modal-b",
               "data-into": "body"
             },
@@ -507,9 +507,9 @@
         "props": {
           "data-probe": "hide_others",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-hide-others",
+          "data-controller": "chadcn---probe-hide-others",
           "className": "flex flex-col items-start gap-2",
-          "data-shadcn---probe-hide-others-scope-value": "body"
+          "data-chadcn---probe-hide-others-scope-value": "body"
         },
         "children": [
           {
@@ -517,9 +517,9 @@
             "props": {
               "type": "button",
               "data-slot": "toggle-a",
-              "data-action": "click->shadcn---probe-hide-others#toggle",
+              "data-action": "click->chadcn---probe-hide-others#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-hide-others-name-param": "modal-a"
+              "data-chadcn---probe-hide-others-name-param": "modal-a"
             },
             "children": [
               "Modal a"
@@ -530,9 +530,9 @@
             "props": {
               "type": "button",
               "data-slot": "toggle-b",
-              "data-action": "click->shadcn---probe-hide-others#toggle",
+              "data-action": "click->chadcn---probe-hide-others#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-hide-others-name-param": "modal-b"
+              "data-chadcn---probe-hide-others-name-param": "modal-b"
             },
             "children": [
               "Modal b"
@@ -551,7 +551,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-hide-others-target": "template",
+              "data-chadcn---probe-hide-others-target": "template",
               "data-name": "other",
               "data-into": "body",
               "data-auto": "true"
@@ -572,7 +572,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-hide-others-target": "template",
+              "data-chadcn---probe-hide-others-target": "template",
               "data-name": "modal-a",
               "data-into": "body"
             },
@@ -592,7 +592,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-hide-others-target": "template",
+              "data-chadcn---probe-hide-others-target": "template",
               "data-name": "modal-b",
               "data-into": "body"
             },
@@ -639,9 +639,9 @@
         "props": {
           "data-probe": "hide_others",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-hide-others",
+          "data-controller": "chadcn---probe-hide-others",
           "className": "flex flex-col items-start gap-2",
-          "data-shadcn---probe-hide-others-scope-value": "body"
+          "data-chadcn---probe-hide-others-scope-value": "body"
         },
         "children": [
           {
@@ -649,9 +649,9 @@
             "props": {
               "type": "button",
               "data-slot": "toggle-a",
-              "data-action": "click->shadcn---probe-hide-others#toggle",
+              "data-action": "click->chadcn---probe-hide-others#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-hide-others-name-param": "modal-a"
+              "data-chadcn---probe-hide-others-name-param": "modal-a"
             },
             "children": [
               "Modal a"
@@ -662,9 +662,9 @@
             "props": {
               "type": "button",
               "data-slot": "toggle-b",
-              "data-action": "click->shadcn---probe-hide-others#toggle",
+              "data-action": "click->chadcn---probe-hide-others#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-hide-others-name-param": "modal-b"
+              "data-chadcn---probe-hide-others-name-param": "modal-b"
             },
             "children": [
               "Modal b"
@@ -683,7 +683,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-hide-others-target": "template",
+              "data-chadcn---probe-hide-others-target": "template",
               "data-name": "other",
               "data-into": "body",
               "data-auto": "true"
@@ -704,7 +704,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-hide-others-target": "template",
+              "data-chadcn---probe-hide-others-target": "template",
               "data-name": "modal-a",
               "data-into": "body"
             },
@@ -724,7 +724,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-hide-others-target": "template",
+              "data-chadcn---probe-hide-others-target": "template",
               "data-name": "modal-b",
               "data-into": "body"
             },
@@ -771,9 +771,9 @@
         "props": {
           "data-probe": "hide_others",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-hide-others",
+          "data-controller": "chadcn---probe-hide-others",
           "className": "flex flex-col items-start gap-2",
-          "data-shadcn---probe-hide-others-scope-value": "root"
+          "data-chadcn---probe-hide-others-scope-value": "root"
         },
         "children": [
           {
@@ -781,9 +781,9 @@
             "props": {
               "type": "button",
               "data-slot": "toggle-a",
-              "data-action": "click->shadcn---probe-hide-others#toggle",
+              "data-action": "click->chadcn---probe-hide-others#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-hide-others-name-param": "modal-a"
+              "data-chadcn---probe-hide-others-name-param": "modal-a"
             },
             "children": [
               "Modal a"
@@ -794,9 +794,9 @@
             "props": {
               "type": "button",
               "data-slot": "toggle-b",
-              "data-action": "click->shadcn---probe-hide-others#toggle",
+              "data-action": "click->chadcn---probe-hide-others#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-hide-others-name-param": "modal-b"
+              "data-chadcn---probe-hide-others-name-param": "modal-b"
             },
             "children": [
               "Modal b"
@@ -815,7 +815,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-hide-others-target": "template",
+              "data-chadcn---probe-hide-others-target": "template",
               "data-name": "other",
               "data-into": "after",
               "data-auto": "true"
@@ -836,7 +836,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-hide-others-target": "template",
+              "data-chadcn---probe-hide-others-target": "template",
               "data-name": "modal-a",
               "data-into": "after"
             },
@@ -856,7 +856,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-hide-others-target": "template",
+              "data-chadcn---probe-hide-others-target": "template",
               "data-name": "modal-b",
               "data-into": "after"
             },
@@ -895,9 +895,9 @@
         "props": {
           "data-probe": "hide_others",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-hide-others",
+          "data-controller": "chadcn---probe-hide-others",
           "className": "flex flex-col items-start gap-2",
-          "data-shadcn---probe-hide-others-scope-value": "root"
+          "data-chadcn---probe-hide-others-scope-value": "root"
         },
         "children": [
           {
@@ -905,9 +905,9 @@
             "props": {
               "type": "button",
               "data-slot": "toggle-a",
-              "data-action": "click->shadcn---probe-hide-others#toggle",
+              "data-action": "click->chadcn---probe-hide-others#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-hide-others-name-param": "modal-a"
+              "data-chadcn---probe-hide-others-name-param": "modal-a"
             },
             "children": [
               "Modal a"
@@ -918,9 +918,9 @@
             "props": {
               "type": "button",
               "data-slot": "toggle-b",
-              "data-action": "click->shadcn---probe-hide-others#toggle",
+              "data-action": "click->chadcn---probe-hide-others#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-hide-others-name-param": "modal-b"
+              "data-chadcn---probe-hide-others-name-param": "modal-b"
             },
             "children": [
               "Modal b"
@@ -939,7 +939,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-hide-others-target": "template",
+              "data-chadcn---probe-hide-others-target": "template",
               "data-name": "other",
               "data-into": "after",
               "data-auto": "true"
@@ -960,7 +960,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-hide-others-target": "template",
+              "data-chadcn---probe-hide-others-target": "template",
               "data-name": "modal-a",
               "data-into": "after"
             },
@@ -980,7 +980,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-hide-others-target": "template",
+              "data-chadcn---probe-hide-others-target": "template",
               "data-name": "modal-b",
               "data-into": "after"
             },

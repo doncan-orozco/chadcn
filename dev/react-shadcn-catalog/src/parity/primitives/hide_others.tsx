@@ -6,7 +6,7 @@ import { createPortal } from "react-dom"
 import { hideOthers } from "aria-hidden"
 import { actionOf, items, isTemplate, templateName, only, type El } from "./_overlay"
 
-const C = "shadcn---probe-hide-others"
+const C = "chadcn---probe-hide-others"
 
 function Hider({ child, parent }: { child: El; parent: () => HTMLElement }) {
   const ref = React.useRef<HTMLElement>(null)
@@ -43,4 +43,4 @@ function HideOthersProbe({ children, ...props }: Record<string, any>) {
 }
 
 // Harness.tsx renders the raw root whose data-controller is `controller` with this component.
-export const probe = { controller: "shadcn---probe-hide-others", Component: HideOthersProbe }
+export const probe = { controller: "chadcn---probe-hide-others", Component: HideOthersProbe }

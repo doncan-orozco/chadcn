@@ -45,7 +45,7 @@ class Chadcn::Tabs::Content < Chadcn::Base
       if present
         block&.call
       else
-        template(data: { shadcn__tabs_target: "deferred" }) { block&.call }
+        template(data: { chadcn__tabs_target: "deferred" }) { block&.call }
       end
     end
   end
@@ -55,7 +55,7 @@ class Chadcn::Tabs::Content < Chadcn::Base
   # The element as it will look when it mounts after a value change (active, no mount animation guard).
   def render_deferred(root, &block)
     attrs = content_attrs(root, true).merge(style: join_style(@style))
-    template(data: { shadcn__tabs_target: "deferred", shadcn__tabs_item_value: @value, shadcn__tabs_as_child: "true" }) do
+    template(data: { chadcn__tabs_target: "deferred", chadcn__tabs_item_value: @value, chadcn__tabs_as_child: "true" }) do
       render_as_child(@as_child, **attrs.reject_blank, &block)
     end
   end
@@ -72,7 +72,7 @@ class Chadcn::Tabs::Content < Chadcn::Base
                   class: CLASSES,
                   aria: { labelledby: "#{root[:base_id]}-trigger-#{@value}" },
                   data: { state: selected ? "active" : "inactive", orientation: root[:orientation], slot: "tabs-content",
-                          shadcn__tabs_target: "content", shadcn__tabs_item_value: @value, shadcn__tabs_force_mount: @force_mount.to_s, shadcn__tabs_as_child: (@as_child ? "true" : nil) }
+                          chadcn__tabs_target: "content", chadcn__tabs_item_value: @value, chadcn__tabs_force_mount: @force_mount.to_s, chadcn__tabs_as_child: (@as_child ? "true" : nil) }
                 }, @attrs)
   end
 end

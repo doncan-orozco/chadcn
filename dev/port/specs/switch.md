@@ -22,9 +22,9 @@ Components::V2::Switch.new(
 ```
 
 - `size:` accepted as `"sm"`, `:sm`, `"default"`, `:default`. Rendered as `data-size="<size>"` on the Root (switch.tsx `data-size={size}`); there is no cva table, the size styling is entirely `data-[size=...]` / `group-data-[size=...]/switch` classes.
-- `checked:` (controlled): the server renders that state; a click/Space/Enter does NOT change `data-state`/`aria-checked`, it only dispatches `shadcn--switch:checked-change` with `detail: { checked: !checked }` (useControllableState `setValue`: in controlled mode it calls `onChange(nextValue(prop))` only when it differs from `prop` and never stores it). Callers re-render the next state from the server.
+- `checked:` (controlled): the server renders that state; a click/Space/Enter does NOT change `data-state`/`aria-checked`, it only dispatches `chadcn--switch:checked-change` with `detail: { checked: !checked }` (useControllableState `setValue`: in controlled mode it calls `onChange(nextValue(prop))` only when it differs from `prop` and never stores it). Callers re-render the next state from the server.
 - `default_checked:` (uncontrolled): the controller owns state after connect.
-- Events: `shadcn--switch:checked-change`, `detail: { checked: <Boolean> }`, dispatched from the Root button after every user toggle (uncontrolled: after the DOM is updated, like useUncontrolledState's effect calling onChange; controlled: instead of updating). Not cancelable (Radix `onCheckedChange` is not preventable). `onClick` callers use plain `data: { action: "click->x#y" }`; Radix runs the consumer onClick first and skips the toggle only if it called `preventDefault()` (`composeEventHandlers`), so the controller must check `event.defaultPrevented` before toggling.
+- Events: `chadcn--switch:checked-change`, `detail: { checked: <Boolean> }`, dispatched from the Root button after every user toggle (uncontrolled: after the DOM is updated, like useUncontrolledState's effect calling onChange; controlled: instead of updating). Not cancelable (Radix `onCheckedChange` is not preventable). `onClick` callers use plain `data: { action: "click->x#y" }`; Radix runs the consumer onClick first and skips the toggle only if it called `preventDefault()` (`composeEventHandlers`), so the controller must check `event.defaultPrevented` before toggling.
 - `as_child:` is NOT offered: see Deviations (shadcn always passes the Thumb as the Root's only child, so Radix Slot would merge the switch onto the Thumb span).
 - `ref` has no equivalent.
 
@@ -34,7 +34,7 @@ Server-rendered DOM (DOM order: button, then the optional bubble input as a foll
 
 ```html
 <button type="button" role="switch" aria-checked="false" data-state="unchecked" value="on"
-        data-slot="switch" data-size="default" class="<Root classes>" data-controller="shadcn--switch" ...>
+        data-slot="switch" data-size="default" class="<Root classes>" data-controller="chadcn--switch" ...>
   <span data-state="unchecked" data-slot="switch-thumb" class="<Thumb classes>"></span>
 </button>
 <input type="checkbox" aria-hidden="true" tabindex="-1" value="on"
@@ -53,7 +53,7 @@ Bubble input (no data-slot; Radix `SwitchBubbleInput`, switch.mjs:186-264):
 - `input type="checkbox" aria-hidden="true" tabindex="-1"`, `checked=""` attribute when the initial state is checked (React `defaultChecked` reflects to the content attribute, switch.mjs:236), `required=""`, `disabled=""`, `name`, `value`, `form` when given. Style in Radix order: `width`/`height` (only once measured, see Behavior), then `position: absolute; pointer-events: none; opacity: 0; margin: 0px; transform: translateX(-100%)` (switch.mjs:250-261).
 - Rendered iff it is a form control: `!!form || !!control.closest("form")`; before the control is mounted Radix assumes `true` (switch.mjs:45-48, "so that events bubble to forms without JS (SSR)"). Port: the server ALWAYS renders it (identical to Radix SSR, keeps no-JS form submission); the controller removes it in `connect()` when the button has no `form:` and no `closest("form")`. Post-connect DOM therefore equals the React DOM in both cases.
 
-Server vs Stimulus: the server renders every attribute above for the initial state. Stimulus (`shadcn--switch`, host = the button itself) updates `aria-checked`, `data-state` on button and thumb, the bubble input's `checked` property, and the input's width/height. No ids are generated (only a caller `id:`, typically for `<label for>`).
+Server vs Stimulus: the server renders every attribute above for the initial state. Stimulus (`chadcn--switch`, host = the button itself) updates `aria-checked`, `data-state` on button and thumb, the bubble input's `checked` property, and the input's width/height. No ids are generated (only a caller `id:`, typically for `<label for>`).
 
 ## Behavior
 
@@ -63,7 +63,7 @@ Transitions (switch.mjs:110-117, `onClick` composed after the consumer onClick):
 1. On the button's native `click` (unless `event.defaultPrevented`): count a user interaction, toggle (`setChecked(prev => !prev)`).
 2. If the bubble input exists and it is a form control: remember whether a consumer already stopped propagation; if not, `event.stopPropagation()` on the button click (the form sees the input's click instead).
 3. When `checked` changes (switch.mjs:208-229): set the input's `checked` via the native `HTMLInputElement.prototype` setter (property, not attribute) and dispatch `new Event("click", { bubbles })` on the input, where `bubbles = !(isUserInteraction && consumerStoppedPropagation)`. For non-user changes (form reset, controlled re-render) the input's own click listener stops propagation (`shouldStopClickPropagationRef`, switch.mjs:223, 245-249). An `Event` (not `MouseEvent`) "click" has no activation behavior, so it does not re-toggle the checkbox.
-4. Dispatch `shadcn--switch:checked-change` `{ checked }`.
+4. Dispatch `chadcn--switch:checked-change` `{ checked }`.
 - Controlled (`checked:` given): step 1 computes `!checked` and dispatches the event but the DOM stays on the server-rendered state (useControllableState lines 37-43).
 
 Keyboard: NONE handled by Radix. The Root is a native `<button>`, so Space (on keyup) and Enter (on keydown) both produce a `click` and toggle. The controller must not add key handlers (radix-dom-contract "Switch and Toggle have NO key handler"; confirmed: switch.mjs has no `onKeyDown`). Tab focuses the button (native tab order; disabled buttons are skipped). Focus ring only on `:focus-visible` (Tailwind classes); a mouse click focuses without a visible ring.

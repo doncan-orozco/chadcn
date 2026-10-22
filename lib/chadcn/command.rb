@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-# shadcn Command (the React-only `cmdk` library). Spec: dev/port/specs/command.md. Behavior: controllers/shadcn/command_controller.js.
+# shadcn Command (the React-only `cmdk` library). Spec: dev/port/specs/command.md. Behavior: controllers/chadcn/command_controller.js.
 # No JavaScript dependency: the Stimulus controller re-implements cmdk's DOM and state machine and ranks with the scorer primitive.
 #
 # Root of the Command family (a filterable, keyboard-driven list of actions). Renders the root `div`, the sr-only `label`, and
-# carries the `shadcn--command` Stimulus controller. Parts are rendered with the explicit classes or with the helpers generated
+# carries the `chadcn--command` Stimulus controller. Parts are rendered with the explicit classes or with the helpers generated
 # on the yielded root (one per part).
 #
 # @example Explicit form
@@ -27,7 +27,7 @@
 #     end
 #   end
 #
-# Events (Stimulus `dispatch`, prefix `shadcn--command:`): `value-change` (controlled `value:` only), `search-change` (the input)
+# Events (Stimulus `dispatch`, prefix `chadcn--command:`): `value-change` (controlled `value:` only), `search-change` (the input)
 # and `select` (an item). A JS `filter` function is assigned on the controller: `controller.filter = (value, search, keywords) => number`.
 #
 # Generated helpers (each forwards `**attrs` and the block to the part):
@@ -108,11 +108,11 @@ class Chadcn::Command < Chadcn::Base
     {
       tabindex: "-1", "cmdk-root": "", class: CLASSES,
       data: {
-        slot: "command", controller: "shadcn--command",
-        shadcn__command_value_value: @value, shadcn__command_controlled_value: @controlled.to_s,
-        shadcn__command_should_filter_value: @should_filter.to_s, shadcn__command_loop_value: @loop.to_s,
-        shadcn__command_vim_bindings_value: @vim_bindings.to_s,
-        shadcn__command_disable_pointer_selection_value: @disable_pointer_selection.to_s
+        slot: "command", controller: "chadcn--command",
+        chadcn__command_value_value: @value, chadcn__command_controlled_value: @controlled.to_s,
+        chadcn__command_should_filter_value: @should_filter.to_s, chadcn__command_loop_value: @loop.to_s,
+        chadcn__command_vim_bindings_value: @vim_bindings.to_s,
+        chadcn__command_disable_pointer_selection_value: @disable_pointer_selection.to_s
       }
     }
   end

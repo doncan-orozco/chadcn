@@ -61,7 +61,7 @@ class Chadcn::InputGroup < Chadcn::Base
   end
 
   # Content placed beside or above/below the control (helper: `group.addon`). Clicking it focuses the control through the
-  # `shadcn--input-group` controller, unless the caller passes its own `click` action.
+  # `chadcn--input-group` controller, unless the caller passes its own `click` action.
   #
   # @example
   #   group.addon(align: "inline-start") { "https://" }
@@ -85,12 +85,12 @@ class Chadcn::InputGroup < Chadcn::Base
     #
     # @return [String]
     # @api private
-    CONTROLLER = "shadcn--input-group"
+    CONTROLLER = "chadcn--input-group"
     # Stimulus action descriptor.
     #
     # @return [String]
     # @api private
-    ACTION = "click->shadcn--input-group#focusControl"
+    ACTION = "click->chadcn--input-group#focusControl"
 
     # @param align [String, Symbol, nil] one of ALIGNS; nil means "inline-start"; underscores are normalized (`:inline_end`)
     # @param attrs [Hash] HTML attributes merged onto the addon `<div>`

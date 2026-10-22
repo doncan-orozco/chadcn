@@ -78,7 +78,7 @@ class Chadcn::Select::Content < Chadcn::Base
     return capture(&block) if collecting?
 
     state = select_state
-    template(data: { shadcn__select_template: "#{state[:base]}-content", shadcn__select_indicator: capture do
+    template(data: { chadcn__select_template: "#{state[:base]}-content", chadcn__select_indicator: capture do
       indicator
     end, options: json(@options) }) do
       div(**content_attrs(state)) do

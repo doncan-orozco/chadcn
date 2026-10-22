@@ -54,7 +54,7 @@ Indicator (Radix `ProgressIndicator`, `data-slot="progress-indicator"`), progres
 
 Ids: none generated (only a caller `id:`, e.g. for `aria-labelledby` from a label element).
 
-Server vs Stimulus: the server renders everything. There is no `shadcn--progress` controller and no `data-controller` attribute: Radix Progress has no effects, listeners, timers or state of its own (progress.mjs has no `useEffect`/`useState`/handler). A value change in React is a re-render; in the port it is a server re-render (Turbo Stream replace or morph). With morphing, the Indicator element is kept and its `style` updated in place, so the `transition-all` class animates the transform exactly like the React re-render in `progress-demo`.
+Server vs Stimulus: the server renders everything. There is no `chadcn--progress` controller and no `data-controller` attribute: Radix Progress has no effects, listeners, timers or state of its own (progress.mjs has no `useEffect`/`useState`/handler). A value change in React is a re-render; in the port it is a server re-render (Turbo Stream replace or morph). With morphing, the Indicator element is kept and its `style` updated in place, so the `transition-all` class animates the transform exactly like the React re-render in `progress-demo`.
 
 ## Behavior
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # shadcn Sheet (Radix Dialog with side-aware styling). Spec: docs/shadcn-port/specs/sheet.md. Behavior:
-# controllers/shadcn/sheet_controller.js, which reuses the dialog controller.
+# controllers/chadcn/sheet_controller.js, which reuses the dialog controller.
 #
 # Radix Root renders no element; the port renders one display: contents host that carries the Stimulus controller (a
 # trigger cannot host it: zero, one or several triggers, or a controlled open). Portal children are shipped in an inert
@@ -82,11 +82,11 @@ class Chadcn::Sheet < Chadcn::Base
 
   def host_data(root)
     {
-      controller: "shadcn--sheet",
-      shadcn__sheet_open_value: root[:open].to_s,
-      shadcn__sheet_controlled_value: root[:controlled].to_s,
-      shadcn__sheet_modal_value: root[:modal].to_s,
-      shadcn__sheet_id_value: root[:content_id]
+      controller: "chadcn--sheet",
+      chadcn__sheet_open_value: root[:open].to_s,
+      chadcn__sheet_controlled_value: root[:controlled].to_s,
+      chadcn__sheet_modal_value: root[:modal].to_s,
+      chadcn__sheet_id_value: root[:content_id]
     }
   end
 end

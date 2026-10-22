@@ -14,7 +14,7 @@ class Chadcn::Sheet::Portal < Chadcn::Base
     root = root_context
     previous = context[Chadcn::Sheet::PORTAL_KEY]
     context[Chadcn::Sheet::PORTAL_KEY] = true
-    template(data: { shadcn__dialog_template: root[:content_id], shadcn__dialog_options: "{}" }) { yield if block_given? }
+    template(data: { chadcn__dialog_template: root[:content_id], chadcn__dialog_options: "{}" }) { yield if block_given? }
   ensure
     context[Chadcn::Sheet::PORTAL_KEY] = previous
   end

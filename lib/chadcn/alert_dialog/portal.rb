@@ -28,7 +28,7 @@ class Chadcn::AlertDialog::Portal < Chadcn::Base
     root = root_context
     previous = context[Chadcn::AlertDialog::PORTAL_KEY]
     context[Chadcn::AlertDialog::PORTAL_KEY] = true
-    template(data: { shadcn__dialog_template: root[:content_id], shadcn__dialog_options: json(@options) }) { yield if block_given? }
+    template(data: { chadcn__dialog_template: root[:content_id], chadcn__dialog_options: json(@options) }) { yield if block_given? }
   ensure
     context[Chadcn::AlertDialog::PORTAL_KEY] = previous
   end

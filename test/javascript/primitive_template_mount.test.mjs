@@ -4,7 +4,7 @@ const html = '<div id="host"><template id="tpl">text<p class="a">one</p><p class
 
 primitiveTest("template_mount: inserts the template content right after the <template> by default", async (page) => {
   const result = await page.evaluate(async () => {
-    const { mountTemplate } = await import("shadcn/primitives/template_mount");
+    const { mountTemplate } = await import("chadcn/primitives/template_mount");
     const mount = mountTemplate(document.getElementById("tpl"));
     return {
       order: [...document.getElementById("host").children].map((el) => el.id || el.className || el.tagName),
@@ -17,7 +17,7 @@ primitiveTest("template_mount: inserts the template content right after the <tem
 
 primitiveTest("template_mount: `into` an element appends there (portal) and unmount removes every inserted node", async (page) => {
   const result = await page.evaluate(async () => {
-    const { mountTemplate } = await import("shadcn/primitives/template_mount");
+    const { mountTemplate } = await import("chadcn/primitives/template_mount");
     const tpl = document.getElementById("tpl");
     const mount = mountTemplate(tpl, { into: document.body });
     const mounted = { inBody: document.body.lastElementChild.className, text: document.body.textContent.includes("text") };
@@ -33,7 +33,7 @@ primitiveTest("template_mount: `into` an element appends there (portal) and unmo
 
 primitiveTest("template_mount: every mount is a fresh clone (no state survives unmount)", async (page) => {
   const result = await page.evaluate(async () => {
-    const { mountTemplate } = await import("shadcn/primitives/template_mount");
+    const { mountTemplate } = await import("chadcn/primitives/template_mount");
     const tpl = document.getElementById("tpl");
     const first = mountTemplate(tpl);
     first.nodes[0].dataset.touched = "yes";

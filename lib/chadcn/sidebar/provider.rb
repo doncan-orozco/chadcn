@@ -63,8 +63,8 @@ class Chadcn::Sidebar::Provider < Chadcn::Base
 
   def wrapper_data
     {
-      slot: "sidebar-wrapper", controller: "shadcn--sidebar", shadcn__sidebar_open_value: @open.to_s, shadcn__sidebar_controlled_value: @controlled.to_s,
-      shadcn__sidebar_open_mobile_value: "false", shadcn__sidebar_id_value: context[Chadcn::Sidebar::CONTEXT_KEY].id
+      slot: "sidebar-wrapper", controller: "chadcn--sidebar", chadcn__sidebar_open_value: @open.to_s, chadcn__sidebar_controlled_value: @controlled.to_s,
+      chadcn__sidebar_open_mobile_value: "false", chadcn__sidebar_id_value: context[Chadcn::Sidebar::CONTEXT_KEY].id
     }
   end
 

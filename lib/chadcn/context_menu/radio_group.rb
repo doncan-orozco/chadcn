@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # shadcn ContextMenuRadioGroup: a +div+ with +role="group"+ that holds {RadioItem}s. Controlled only, like Radix: +value:+ decides
-# which RadioItem is checked and +shadcn--context-menu:value-change+ (+detail.value+) reports the user's choice. Like {Group},
+# which RadioItem is checked and +chadcn--context-menu:value-change+ (+detail.value+) reports the user's choice. Like {Group},
 # a caller +class+ is emitted verbatim.
 #
 # @example

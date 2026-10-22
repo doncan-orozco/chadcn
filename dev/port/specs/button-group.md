@@ -26,7 +26,7 @@ Components::V2::ButtonGroup.variants(orientation: nil)  # React buttonGroupVaria
 - `variants(orientation:)` reproduces cva exactly (cva.mjs:23-27): `nil` -> default `"horizontal"` classes; `"horizontal"`/`"vertical"` (string or symbol, normalized with `to_s`) -> that entry; any other string -> no orientation classes at all (cva returns `variants[variant][key]` = undefined, it does NOT fall back to the default). Scenario `orientation-invalid-no-variant-classes`. JS `null` (cva.mjs:25) has no Ruby equivalent distinct from `nil`; not part of the API.
 - `orientation:` on `ButtonGroup` is NOT normalized for the attribute: `data-orientation` renders the value given (`data-orientation={orientation}`), and is ABSENT when `orientation:` is `nil` (React omits `undefined` attributes). The port must not render `data-orientation="horizontal"` by default (scenario `defaults` vs `orientation-horizontal`).
 - Blocks: `ButtonGroup` and `ButtonGroup::Text` yield children; an empty block renders an empty element (`children-empty`). `ButtonGroup::Separator` renders no children.
-- Events: none dispatched. `ref`: no equivalent. No Stimulus controller (`shadcn--button-group` does not exist).
+- Events: none dispatched. `ref`: no equivalent. No Stimulus controller (`chadcn--button-group` does not exist).
 
 ## Structure
 

@@ -8,13 +8,13 @@ browserTest.component = "button";
 const KEY = "shadcn-theme";
 const mount = async (page, attributes = "") => {
   await page.evaluate((attrs) => {
-    document.body.insertAdjacentHTML("beforeend", `<div id="theme-host" data-controller="shadcn--theme" ${attrs}></div>`);
+    document.body.insertAdjacentHTML("beforeend", `<div id="theme-host" data-controller="chadcn--theme" ${attrs}></div>`);
   }, attributes);
-  await page.waitForFunction(() => window.Stimulus?.getControllerForElementAndIdentifier(document.querySelector("#theme-host"), "shadcn--theme"));
+  await page.waitForFunction(() => window.Stimulus?.getControllerForElementAndIdentifier(document.querySelector("#theme-host"), "chadcn--theme"));
   await settle(page);
 };
 const html = (page) => page.evaluate(() => ({ dark: document.documentElement.classList.contains("dark"), theme: document.documentElement.dataset.theme }));
-const act = (page, action) => page.evaluate((name) => window.Stimulus.getControllerForElementAndIdentifier(document.querySelector("#theme-host"), "shadcn--theme")[name](), action);
+const act = (page, action) => page.evaluate((name) => window.Stimulus.getControllerForElementAndIdentifier(document.querySelector("#theme-host"), "chadcn--theme")[name](), action);
 
 browserTest("theme: the default storage key is neutral and a stored choice is applied on connect", async ({ open }) => {
   const page = await open("defaults");
@@ -30,11 +30,11 @@ browserTest("theme: the default storage key is neutral and a stored choice is ap
   assert.equal(await page.evaluate((key) => localStorage.getItem(key), KEY), null, "system removes the stored choice");
 });
 
-browserTest("theme: data-shadcn--theme-storage-key-value overrides the key", async ({ open }) => {
+browserTest("theme: data-chadcn--theme-storage-key-value overrides the key", async ({ open }) => {
   const page = await open("defaults");
   await page.emulateMedia({ colorScheme: "light" });
   await page.evaluate(() => { localStorage.clear(); localStorage.setItem("my-app-theme", "dark"); localStorage.setItem("shadcn-theme", "sentinel"); });
-  await mount(page, 'data-shadcn--theme-storage-key-value="my-app-theme"');
+  await mount(page, 'data-chadcn--theme-storage-key-value="my-app-theme"');
   assert.deepEqual(await html(page), { dark: true, theme: "dark" }, "reads the custom key, not the default one");
   await act(page, "setLight");
   await act(page, "toggle");
@@ -74,11 +74,11 @@ browserTest("theme: the system preference is mirrored live while the choice is s
   await page.waitForFunction(() => document.documentElement.classList.contains("dark"));
 });
 
-browserTest("theme: toggle cycles system, light, dark and dispatches shadcn--theme:changed with the choice", async ({ open }) => {
+browserTest("theme: toggle cycles system, light, dark and dispatches chadcn--theme:changed with the choice", async ({ open }) => {
   const page = await open("defaults");
   await page.emulateMedia({ colorScheme: "light" });
   await mount(page);
-  await page.evaluate(() => { window.__themes = []; document.addEventListener("shadcn--theme:changed", (event) => window.__themes.push(event.detail.theme)); });
+  await page.evaluate(() => { window.__themes = []; document.addEventListener("chadcn--theme:changed", (event) => window.__themes.push(event.detail.theme)); });
   for (let i = 0; i < 3; i++) await act(page, "toggle");
   assert.deepEqual(await page.evaluate(() => window.__themes), ["light", "dark", "system"]);
 });
@@ -86,7 +86,7 @@ browserTest("theme: toggle cycles system, light, dark and dispatches shadcn--the
 browserTest("theme: an empty storage key value falls back to the default key", async ({ open }) => {
   const page = await open("defaults");
   await page.emulateMedia({ colorScheme: "light" });
-  await mount(page, 'data-shadcn--theme-storage-key-value=""');
+  await mount(page, 'data-chadcn--theme-storage-key-value=""');
   await act(page, "setDark");
   assert.equal(await page.evaluate((key) => localStorage.getItem(key), KEY), "dark");
   assert.equal(await page.evaluate(() => localStorage.getItem("")), null);

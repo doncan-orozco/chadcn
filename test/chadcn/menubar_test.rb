@@ -34,8 +34,8 @@ class Chadcn::MenubarTest < Chadcn::TestCase
 
     assert_equal "menubar", root["role"]
     assert_equal "horizontal", root["data-orientation"]
-    assert_equal "shadcn--menubar", root["data-controller"]
-    assert_equal "rtl", root["data-shadcn--menubar-dir-value"]
+    assert_equal "chadcn--menubar", root["data-controller"]
+    assert_equal "rtl", root["data-chadcn--menubar-dir-value"]
     assert_equal "mb", root["id"]
     assert_nil root["dir"]
     assert_includes root["class"], "mx-4"
@@ -51,7 +51,7 @@ class Chadcn::MenubarTest < Chadcn::TestCase
     assert_equal "closed", trigger["data-state"]
     assert_nil trigger["aria-controls"]
 
-    content = doc.at_css("template[data-shadcn--menubar-template] [data-slot=menubar-content]")
+    content = doc.at_css("template[data-chadcn--menubar-template] [data-slot=menubar-content]")
 
     assert_equal trigger["id"], content["aria-labelledby"]
     assert_equal "", content["data-radix-menubar-content"]
@@ -64,7 +64,7 @@ class Chadcn::MenubarTest < Chadcn::TestCase
     assert_equal "open", trigger["data-state"]
     assert trigger["aria-controls"]
     assert_equal "false", fragment(bar(root: { value: "edit" })).at_css("[data-slot=menubar-trigger]")["aria-expanded"]
-    assert_equal "true", fragment(bar(root: { value: "edit" })).at_css("[data-slot=menubar]")["data-shadcn--menubar-controlled-value"]
+    assert_equal "true", fragment(bar(root: { value: "edit" })).at_css("[data-slot=menubar]")["data-chadcn--menubar-controlled-value"]
   end
 
   test "disabled trigger" do
@@ -127,8 +127,8 @@ class Chadcn::MenubarTest < Chadcn::TestCase
     provided = render_view { render(provider.new(dir: "rtl")) { render(Menubar.new) { "x" } } }
     local = render_view { render(provider.new(dir: "rtl")) { render(Menubar.new(dir: "ltr")) { "x" } } }
 
-    assert_equal "rtl", fragment(provided).at_css("[data-slot=menubar]")["data-shadcn--menubar-dir-value"]
-    assert_equal "ltr", fragment(local).at_css("[data-slot=menubar]")["data-shadcn--menubar-dir-value"]
+    assert_equal "rtl", fragment(provided).at_css("[data-slot=menubar]")["data-chadcn--menubar-dir-value"]
+    assert_equal "ltr", fragment(local).at_css("[data-slot=menubar]")["data-chadcn--menubar-dir-value"]
   end
 
   test "constants expose the default class tables" do
@@ -150,17 +150,17 @@ class Chadcn::MenubarTest < Chadcn::TestCase
   test "an unsupported dir is ignored and falls back to ltr, loop defaults to true and can be turned off" do
     root = fragment(bar(root: { dir: "up" })).at_css("[data-slot=menubar]")
 
-    assert_equal "ltr", root["data-shadcn--menubar-dir-value"]
-    assert_equal "true", root["data-shadcn--menubar-loop-value"]
-    assert_equal "false", fragment(bar(root: { loop: false })).at_css("[data-slot=menubar]")["data-shadcn--menubar-loop-value"]
+    assert_equal "ltr", root["data-chadcn--menubar-dir-value"]
+    assert_equal "true", root["data-chadcn--menubar-loop-value"]
+    assert_equal "false", fragment(bar(root: { loop: false })).at_css("[data-slot=menubar]")["data-chadcn--menubar-loop-value"]
   end
 
   test "root uncontrolled by default and as_child renders the given element or a component instance" do
     root = fragment(bar).at_css("[data-slot=menubar]")
 
     assert_equal "div", root.name
-    assert_equal "false", root["data-shadcn--menubar-controlled-value"]
-    assert_equal "", root["data-shadcn--menubar-value-value"]
+    assert_equal "false", root["data-chadcn--menubar-controlled-value"]
+    assert_equal "", root["data-chadcn--menubar-value-value"]
 
     as_nav = fragment(render_view { render(Menubar.new(as_child: :nav, class: "extra")) { "x" } }).at_css("[data-slot=menubar]")
 
@@ -176,10 +176,10 @@ class Chadcn::MenubarTest < Chadcn::TestCase
 
   test "menu without value gets an auto value that the trigger exposes, an explicit value is used as is" do
     auto = fragment(render_view { render(Menubar.new) { render(Menubar::Menu.new) { render(Menubar::Trigger.new) { "T" } } } })
-    value = auto.at_css("[data-slot=menubar-trigger]")["data-shadcn--menubar-menu-value"]
+    value = auto.at_css("[data-slot=menubar-trigger]")["data-chadcn--menubar-menu-value"]
 
     assert_match(/\Amenubar-\d+-menu-\d+\z/, value)
-    assert_equal "file", fragment(bar).at_css("[data-slot=menubar-trigger]")["data-shadcn--menubar-menu-value"]
+    assert_equal "file", fragment(bar).at_css("[data-slot=menubar-trigger]")["data-chadcn--menubar-menu-value"]
   end
 
   test "parts raise ArgumentError at render, not at construction, when rendered outside their ancestor" do
@@ -202,7 +202,7 @@ class Chadcn::MenubarTest < Chadcn::TestCase
 
     assert_equal "false", item["aria-checked"]
     assert_equal "unchecked", item["data-state"]
-    assert_equal "a", item["data-shadcn--menubar-value"]
+    assert_equal "a", item["data-chadcn--menubar-value"]
   end
 
   test "checkbox item states: checked, unchecked and the indicator" do
@@ -270,7 +270,7 @@ class Chadcn::MenubarTest < Chadcn::TestCase
   end
 
   test "content serialises positioning options into the template and defaults to bottom start" do
-    template = fragment(bar).at_css("template[data-shadcn--menubar-template]")
+    template = fragment(bar).at_css("template[data-chadcn--menubar-template]")
     options = JSON.parse(template["data-options"])
 
     assert_equal "bottom", options["side"]
@@ -298,7 +298,7 @@ class Chadcn::MenubarTest < Chadcn::TestCase
     content = fragment(bar).at_css("[data-slot=menubar-content]")
 
     assert_includes trigger["class"], "t-extra"
-    assert_equal content["id"], trigger["data-shadcn--menubar-content-id"]
+    assert_equal content["id"], trigger["data-chadcn--menubar-content-id"]
   end
 
   test "sub renders closed by default, open when default_open and controlled when open is given" do
@@ -308,10 +308,10 @@ class Chadcn::MenubarTest < Chadcn::TestCase
       end).at_css("[data-slot=menubar-sub-trigger]")
     end
 
-    assert_equal %w[false closed false], [ sub.call["aria-expanded"], sub.call["data-state"], sub.call["data-shadcn--menubar-sub-controlled"] ]
+    assert_equal %w[false closed false], [ sub.call["aria-expanded"], sub.call["data-state"], sub.call["data-chadcn--menubar-sub-controlled"] ]
     assert_equal "open", sub.call(default_open: true)["data-state"]
     assert sub.call(default_open: true)["aria-controls"]
-    assert_equal %w[open true], [ sub.call(open: true)["data-state"], sub.call(open: true)["data-shadcn--menubar-sub-controlled"] ]
+    assert_equal %w[open true], [ sub.call(open: true)["data-state"], sub.call(open: true)["data-chadcn--menubar-sub-controlled"] ]
   end
 
   test "sub content serialises its options and a portal makes it portal into its container" do

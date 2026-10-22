@@ -18,14 +18,14 @@ Components::V2::Label.new(
 - shadcn's `Label` destructures only `className` and `...props` (label.tsx). No variants, no defaults, no cva (manifest `cva: {}`).
 - Base class string, verbatim (label.tsx, manifest `class_tokens`): `flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50`.
 - `data-slot="label"` is written BEFORE `{...props}` in label.tsx, so a caller `data: { slot: "x" }` wins. `class` is destructured, so it always goes through `cn`.
-- Caller `data-action` descriptors are kept and come FIRST, the component's own `mousedown->shadcn--label#mousedown` LAST (Radix calls `props.onMouseDown` before its own `defaultPrevented` check, label.mjs:19-20); `data-controller` tokens are unioned (caller first, then `shadcn--label`).
+- Caller `data-action` descriptors are kept and come FIRST, the component's own `mousedown->chadcn--label#mousedown` LAST (Radix calls `props.onMouseDown` before its own `defaultPrevented` check, label.mjs:19-20); `data-controller` tokens are unioned (caller first, then `chadcn--label`).
 - No events are dispatched (Radix Label has no `onXChange`). `ref` has no equivalent.
 
 ## Structure
 
 ```html
 <label data-slot="label" class="flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
-       for="terms" data-controller="shadcn--label" data-action="mousedown->shadcn--label#mousedown" ...attrs>
+       for="terms" data-controller="chadcn--label" data-action="mousedown->chadcn--label#mousedown" ...attrs>
   ...children
 </label>
 ```
@@ -53,7 +53,7 @@ onMouseDown: (event) => {
 }
 ```
 
-Stimulus controller `shadcn--label` (host = the label, or the `as_child` element), one action `mousedown->shadcn--label#mousedown`:
+Stimulus controller `chadcn--label` (host = the label, or the `as_child` element), one action `mousedown->chadcn--label#mousedown`:
 1. If `event.target.closest("button, input, select, textarea")` matches, return without doing anything (double-click inside a nested native control keeps its default: text selection inside an input, etc.). Note `closest` also matches ancestors of the label, exactly as in Radix (a Label rendered inside a `<button>` never prevents).
 2. Otherwise, if `!event.defaultPrevented && event.detail > 1`, call `event.preventDefault()`: the second (and later) mousedown of a multi-click does not start a text selection and does not move focus. A first click (`detail === 1`) is never prevented.
 - No values, no targets, no timers, nothing to clean up beyond the Stimulus-managed action. No primitives composed.

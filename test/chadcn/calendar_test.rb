@@ -12,14 +12,14 @@ class Chadcn::CalendarTest < Chadcn::TestCase
 
   def root(doc) = doc.at_css("[data-slot=calendar]")
 
-  def config(doc) = JSON.parse(root(doc)["data-shadcn--calendar-config-value"])
+  def config(doc) = JSON.parse(root(doc)["data-chadcn--calendar-config-value"])
 
   # Nokogiri exposes a <template>'s children inside the document: the prototypes are the elements under the template.
-  def parts(doc) = doc.css("template[data-shadcn--calendar-target=parts] [data-shadcn--calendar-part]")
+  def parts(doc) = doc.css("template[data-chadcn--calendar-target=parts] [data-chadcn--calendar-part]")
 
   def attrs_of(node, *names) = names.map { |name| node[name] }
 
-  def part(doc, name) = parts(doc).find { |node| node["data-shadcn--calendar-part"] == name }
+  def part(doc, name) = parts(doc).find { |node| node["data-chadcn--calendar-part"] == name }
 
   def live(doc, selector) = doc.css(selector).reject { |node| node.ancestors("template").any? }
 
@@ -29,7 +29,7 @@ class Chadcn::CalendarTest < Chadcn::TestCase
     assert_equal "calendar", root(doc)["data-slot"]
     assert_equal "en-US", root(doc)["lang"]
     assert_equal "single", root(doc)["data-mode"]
-    assert_equal "shadcn--calendar", root(doc)["data-controller"]
+    assert_equal "chadcn--calendar", root(doc)["data-controller"]
     months = root(doc).at_css("div.rdp-months")
     nav = months.at_css("nav.rdp-nav")
 
@@ -177,7 +177,7 @@ class Chadcn::CalendarTest < Chadcn::TestCase
 
   test "the template holds a prototype of every part the controller builds" do
     doc = calendar(mode: :range, show_week_number: true)
-    names = parts(doc).map { |node| node["data-shadcn--calendar-part"] }
+    names = parts(doc).map { |node| node["data-chadcn--calendar-part"] }
 
     assert_equal %w[caption caption_label day day_button dropdowns month month_grid months_dropdown status week week_number week_number_header weekday weekdays weeks years_dropdown], names.sort
     assert_equal "true", part(doc, "month_grid")["aria-multiselectable"]
@@ -223,8 +223,8 @@ class Chadcn::CalendarTest < Chadcn::TestCase
   test "the month kwarg is the controlled month value" do
     doc = calendar(month: "2026-05-17")
 
-    assert_equal "2026-05-01", root(doc)["data-shadcn--calendar-month-value"]
-    assert_not root(calendar).key?("data-shadcn--calendar-month-value")
+    assert_equal "2026-05-01", root(doc)["data-chadcn--calendar-month-value"]
+    assert_not root(calendar).key?("data-chadcn--calendar-month-value")
   end
 
   test "invalid options raise ArgumentError" do

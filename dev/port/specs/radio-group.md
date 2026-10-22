@@ -29,7 +29,7 @@ Components::V2::RadioGroup.new(
 - `orientation:` / `dir:` accept strings and symbols; any other value raises `ArgumentError`.
 - Controlled (`value:` given): a click/Space/arrow-select does NOT change `aria-checked`/`data-state`/Indicator/bubble inputs; it only dispatches `value-change` with the item value (useControllableState calls `onChange` only when `next !== prop`). Roving focus state (which item has `tabindex=0`) is NOT controlled and still moves (rf:58-63, no `currentTabStopId` passed by RadioGroup).
 - Uncontrolled: the controller owns the value after connect.
-- Event: `shadcn--radio-group:value-change`, `detail: { value: "<item value>" }`, dispatched from the root element after the DOM update (uncontrolled) or instead of it (controlled). Also dispatched on form reset when the restored value differs (rg:259). Not cancelable (`onValueChange` is not preventable). Consumer `onClick`/`onKeyDown`/`onFocus` on items are plain `data: { action: }`; Radix composes consumer first and skips its own handler when the consumer called `preventDefault()` (`composeEventHandlers`, rg:100, rg:366-373, rf:179-204), so the controller checks `event.defaultPrevented`.
+- Event: `chadcn--radio-group:value-change`, `detail: { value: "<item value>" }`, dispatched from the root element after the DOM update (uncontrolled) or instead of it (controlled). Also dispatched on form reset when the restored value differs (rg:259). Not cancelable (`onValueChange` is not preventable). Consumer `onClick`/`onKeyDown`/`onFocus` on items are plain `data: { action: }`; Radix composes consumer first and skips its own handler when the consumer called `preventDefault()` (`composeEventHandlers`, rg:100, rg:366-373, rf:179-204), so the controller checks `event.defaultPrevented`.
 - `ref` has no equivalent.
 
 ### `RadioGroupItem` -> `Components::V2::RadioGroup::Item`
@@ -53,7 +53,7 @@ Final DOM (after React mount / after Stimulus connect), uncontrolled, `default_v
 
 ```html
 <div role="radiogroup" aria-required="false" dir="ltr" data-slot="radio-group" class="grid gap-3"
-     tabindex="0" style="outline: none;" data-controller="shadcn--radio-group" ...>
+     tabindex="0" style="outline: none;" data-controller="chadcn--radio-group" ...>
   <button type="button" role="radio" aria-checked="false" data-state="unchecked" value="a"
           data-slot="radio-group-item" class="<Item classes>" tabindex="-1" data-radix-collection-item=""></button>
   <button type="button" role="radio" aria-checked="true" data-state="checked" value="b"
@@ -115,7 +115,7 @@ Radix `RadioBubbleInput` (rg:131-208), next sibling of the item button:
 - Style, Radix order: `width`/`height` in px once measured (`...controlSize`, rg:195, from `useSize(control)` = button border-box size), then `position: absolute; pointer-events: none; opacity: 0; margin: 0px; transform: translateX(-100%)` (rg:196-203).
 - Rendered iff a form control: `!!form || !!control.closest("form")`, assumed `true` before mount (rg:49-52, "so that events bubble to forms without JS (SSR)"). Port: the server ALWAYS renders it (identical to Radix SSR); each item's controller logic removes it in `connect()` when the group has no `form:` and the button has no `closest("form")`. Post-connect DOM equals React in both cases.
 
-Server vs Stimulus: the server renders every attribute above for the initial state (including `tabindex` values, `dir`, the Indicator for the checked item and the bubble inputs). Stimulus (`shadcn--radio-group`, host = the root element; there is ONE controller for the group, items are targets, no per-item controller) updates `aria-checked`, `data-state` on items and Indicators, mounts/unmounts Indicators, roving `tabindex`, group `tabindex`, bubble inputs. No ids are generated: Radix's roving `useId` tab-stop ids (rf:144) are internal and never reach the DOM; the port tracks the tab stop by element reference. Only caller `id:` attributes appear (for `<label for>`).
+Server vs Stimulus: the server renders every attribute above for the initial state (including `tabindex` values, `dir`, the Indicator for the checked item and the bubble inputs). Stimulus (`chadcn--radio-group`, host = the root element; there is ONE controller for the group, items are targets, no per-item controller) updates `aria-checked`, `data-state` on items and Indicators, mounts/unmounts Indicators, roving `tabindex`, group `tabindex`, bubble inputs. No ids are generated: Radix's roving `useId` tab-stop ids (rf:144) are internal and never reach the DOM; the port tracks the tab stop by element reference. Only caller `id:` attributes appear (for `<label for>`).
 
 ## Behavior
 
@@ -126,7 +126,7 @@ States: per item `checked` / `unchecked`; orthogonal `disabled` (item or group).
 1. Native `click` on an item button (unless `event.defaultPrevented` by a consumer handler): if the item is NOT checked, count a user interaction and set the group value to the item's value (`onCheck` -> `context.onValueChange(value)`). Clicking an already-checked item does nothing (no event).
 2. If the item has a bubble input and is a form control: record whether the consumer already stopped propagation; if not, `event.stopPropagation()` on the button click (rg:105-108).
 3. On every value change, for every item whose checked flag changed (the newly checked AND the previously checked one), sync its bubble input (rg:151-172): set `checked` through `HTMLInputElement.prototype` setter, dispatch `new Event("click", { bubbles })` with `bubbles = !(isUserInteraction && consumerStoppedPropagation)`; for non-user changes (reset, controlled re-render) the input's own click listener stops propagation (`shouldStopClickPropagationRef`, rg:166, 188-192).
-4. Update DOM (`aria-checked`, `data-state` on button and Indicator, Indicator presence) and dispatch `shadcn--radio-group:value-change`.
+4. Update DOM (`aria-checked`, `data-state` on button and Indicator, Indicator presence) and dispatch `chadcn--radio-group:value-change`.
 - Controlled: step 1 dispatches only; the DOM stays server-rendered.
 - There is no way to uncheck via user input (no toggle-off).
 

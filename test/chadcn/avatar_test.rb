@@ -15,7 +15,7 @@ class Chadcn::AvatarTest < Chadcn::TestCase
 
     assert_includes html, 'data-slot="avatar"'
     assert_includes html, 'data-size="default"'
-    assert_includes html, 'data-controller="shadcn--avatar"'
+    assert_includes html, 'data-controller="chadcn--avatar"'
     assert_includes html, '<span data-slot="avatar-fallback"'
     refute_includes html, "<template"
   end
@@ -40,10 +40,10 @@ class Chadcn::AvatarTest < Chadcn::TestCase
       avatar.fallback(delay_ms: 600) { "CN" }
     end
 
-    assert_includes html, 'data-shadcn--avatar-target="image"'
+    assert_includes html, 'data-chadcn--avatar-target="image"'
     assert_includes html, 'src="/a.png"'
     assert_includes html, 'referrerpolicy="no-referrer"'
-    assert_includes html, 'data-shadcn--avatar-delay-ms="600"'
+    assert_includes html, 'data-chadcn--avatar-delay-ms="600"'
   end
 
   test "as_child renders the given tag" do

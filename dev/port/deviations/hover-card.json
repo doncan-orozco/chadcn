@@ -4,6 +4,6 @@
   "allow_tokens": [],
   "allow_missing_tokens": [],
   "api": [
-    "HoverCard::Content renders an inert <template data-shadcn--hover-card-template> (no data-slot) holding the content markup while closed"
+    "HoverCard::Content renders an inert <template data-chadcn--hover-card-template> (no data-slot) holding the content markup while closed"
   ]
 }

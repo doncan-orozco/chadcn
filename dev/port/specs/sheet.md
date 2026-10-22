@@ -15,7 +15,7 @@ Every part: `class:` goes through `cn` last (caller wins, tailwind-merge), `**at
 
 | React (sheet.tsx) | Ruby | Notes |
 |---|---|---|
-| `Sheet` (`SheetPrimitive.Root`; Radix props `open`, `defaultOpen`, `onOpenChange`, `modal = true`, dialog:30-38) | `Components::V2::Sheet.new(open: nil, default_open: false, modal: true, **attrs) { ... }` | `open:` true/false = controlled: the controller never changes its own state, it only dispatches `open-change` (callers set `data-shadcn--sheet-open-value`). `open: nil` = uncontrolled, starts at `default_open`. Renders no shadcn element (see Structure, deviation 1). |
+| `Sheet` (`SheetPrimitive.Root`; Radix props `open`, `defaultOpen`, `onOpenChange`, `modal = true`, dialog:30-38) | `Components::V2::Sheet.new(open: nil, default_open: false, modal: true, **attrs) { ... }` | `open:` true/false = controlled: the controller never changes its own state, it only dispatches `open-change` (callers set `data-chadcn--sheet-open-value`). `open: nil` = uncontrolled, starts at `default_open`. Renders no shadcn element (see Structure, deviation 1). |
 | `SheetTrigger` | `Components::V2::Sheet::Trigger.new(as_child: false, class: nil, **attrs) { label }` | Toggles (dialog:89 `onOpenToggle`). No default classes. |
 | `SheetClose` | `Components::V2::Sheet::Close.new(as_child: false, class: nil, **attrs) { ... }` | Closes (dialog:311). No default classes. |
 | `SheetPortal` (NOT exported by sheet.tsx; used only inside `SheetContent`) | `Components::V2::Sheet::Portal.new { ... }` | Exists because `Sheet::Content` composes it (same structure as the oracle). Renders nothing itself; its children go to `document.body`. Because the React file does not export it, no caller can pass `forceMount` / `container` to it, so the Ruby class takes no options (no `container:` deviation needed). Not usable in scenarios (not an export). |
@@ -28,7 +28,7 @@ Every part: `class:` goes through `cn` last (caller wins, tailwind-merge), `**at
 
 Options: `modal:`, `open:`, `default_open:`, `show_close_button:`, `force_mount:` are booleans (React types are boolean; strings `"true"`/`"false"` are not accepted).
 
-Events (dispatched with `this.dispatch` from the `shadcn--sheet` host, `bubbles: true`; prefix `shadcn--sheet:`), identical to Dialog because the primitive is the same:
+Events (dispatched with `this.dispatch` from the `chadcn--sheet` host, `bubbles: true`; prefix `chadcn--sheet:`), identical to Dialog because the primitive is the same:
 
 | Event | Radix origin | detail | cancelable | default action when not prevented |
 |---|---|---|---|---|
@@ -65,7 +65,7 @@ end
 
 Class strings below are verbatim from the oracle (order irrelevant, set equality is the gate).
 
-**`Sheet` (data-slot `sheet`) and `Sheet::Portal` (data-slot `sheet-portal`)** render NO element and no `data-slot`: Radix Root is a context provider (dialog:50-71) and Portal maps each child into `Presence > Portal asChild` (dialog:101); `data-slot="sheet"` / `"sheet-portal"` are dropped by Radix and never reach the React DOM. (The manifest lists only `sheet-portal` under `non_rendered_slots`; `sheet` is missing because the extractor's `NO_DOM` pattern matches `DialogPrimitive.Root` but not the alias `SheetPrimitive.Root`. That is an oracle bug, reported as a blocker; the port must still render NO `data-slot="sheet"`, as the React DOM has none.) The port renders one controller host (deviation 1): `<div style="display: contents" data-controller="shadcn--sheet" data-shadcn--sheet-open-value data-shadcn--sheet-modal-value data-shadcn--sheet-controlled-value>` with no `data-slot`, no classes. The host wraps the block in place.
+**`Sheet` (data-slot `sheet`) and `Sheet::Portal` (data-slot `sheet-portal`)** render NO element and no `data-slot`: Radix Root is a context provider (dialog:50-71) and Portal maps each child into `Presence > Portal asChild` (dialog:101); `data-slot="sheet"` / `"sheet-portal"` are dropped by Radix and never reach the React DOM. (The manifest lists only `sheet-portal` under `non_rendered_slots`; `sheet` is missing because the extractor's `NO_DOM` pattern matches `DialogPrimitive.Root` but not the alias `SheetPrimitive.Root`. That is an oracle bug, reported as a blocker; the port must still render NO `data-slot="sheet"`, as the React DOM has none.) The port renders one controller host (deviation 1): `<div style="display: contents" data-controller="chadcn--sheet" data-chadcn--sheet-open-value data-chadcn--sheet-modal-value data-chadcn--sheet-controlled-value>` with no `data-slot`, no classes. The host wraps the block in place.
 
 **Portal and Presence.** Each child of the Portal (Overlay, then Content) is appended **directly** to `document.body`, with no wrapper (po:17 `Primitive.div asChild`), in order Overlay, Content, after existing body children. While closed (and not force-mounted) they do not exist in the DOM (pr:26). Server rendering: closed -> the Portal children are rendered inside one `<template>` in the host (deviation 2; no `data-slot`, inert); open on first render (`default_open: true` / `open: true`) -> rendered in place and moved to `body` in `connect()`. Because the moved nodes leave the controller element, the controller binds their listeners directly.
 
@@ -154,7 +154,7 @@ Timers: none besides `setTimeout(0)` for close autofocus (fs:107) and the outsid
 
 Positioning: none (CSS `fixed` against a viewport edge); no floating-ui. Responsive: `sm:max-w-sm` caps left/right sheets at 24rem from 640px; below it they are `w-3/4` of the viewport.
 
-Primitives composed: `portal`, `presence`, `dismissable_layer` (layer stack, deferred pointer-down, dismissable surfaces), `focus_scope` (trap + loop + auto focus, stack), `focus_guards`, `hide_others`, `scroll_lock`, `ids` (`.ai/skills/radix-stimulus/references/primitives.md`). Controller `shadcn--sheet` (radix-stimulus R12) with values `open` (Boolean), `controlled` (Boolean), `modal` (Boolean, default true). Its logic is the same as `shadcn--dialog`; the builder must share it (import the dialog behavior / primitives), not copy it. `disconnect()` releases every primitive, removes portaled nodes and restores `body`.
+Primitives composed: `portal`, `presence`, `dismissable_layer` (layer stack, deferred pointer-down, dismissable surfaces), `focus_scope` (trap + loop + auto focus, stack), `focus_guards`, `hide_others`, `scroll_lock`, `ids` (`.ai/skills/radix-stimulus/references/primitives.md`). Controller `chadcn--sheet` (radix-stimulus R12) with values `open` (Boolean), `controlled` (Boolean), `modal` (Boolean, default true). Its logic is the same as `chadcn--dialog`; the builder must share it (import the dialog behavior / primitives), not copy it. `disconnect()` releases every primitive, removes portaled nodes and restores `body`.
 
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)
@@ -180,14 +180,14 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 - `Components::V2::Icon` (infra `_icons`): `Icon.new(name: "x", class: "size-4")` inside the Content X close.
 - `Components::V2::Base`: `cn`, `merge_attrs`, `render_as_child`, ids.
-- Primitives `app/javascript/v2/primitives/`: `portal.js`, `presence.js`, `dismissable_layer.js`, `focus_scope.js`, `focus_guards.js`, `hide_others.js`, `scroll_lock.js`, `ids.js`; behavior shared with `shadcn--dialog`.
+- Primitives `app/javascript/v2/primitives/`: `portal.js`, `presence.js`, `dismissable_layer.js`, `focus_scope.js`, `focus_guards.js`, `hide_others.js`, `scroll_lock.js`, `ids.js`; behavior shared with `chadcn--dialog`.
 - No registry dependency (manifest `registry_dependencies: []`): the oracle renders no Button. Callers commonly compose `Components::V2::Button` (trigger / close via `as_child:`), `Components::V2::Input` and `Components::V2::Label`, as in the examples. Scenarios use raw `_button` / `_input` / `_label` elements for them because scenario_coverage only allows dependency exports (same choice as the Popover/HoverCard/Tooltip plans).
 
 ## Deviations
 
 Recorded in `gems/chadcn/dev/port/deviations/sheet.json` (same two structural deviations as Dialog; the Dialog `container:` deviation does not apply because `SheetPortal` is not exported):
 
-1. **Controller host.** `Sheet` must render no element, but Trigger cannot host the controller (zero, one or several triggers; controlled `open` without trigger). One `<div style="display: contents" data-controller="shadcn--sheet">` without `data-slot`, classes or other data attributes wraps the block. Not visible to G2 (no `data-slot`) and layout-neutral.
+1. **Controller host.** `Sheet` must render no element, but Trigger cannot host the controller (zero, one or several triggers; controlled `open` without trigger). One `<div style="display: contents" data-controller="chadcn--sheet">` without `data-slot`, classes or other data attributes wraps the block. Not visible to G2 (no `data-slot`) and layout-neutral.
 2. **Closed Presence parts in a `<template>`.** React does not mount closed Overlay/Content; the server ships their markup in a `<template>` inside the host (inert, not matched by `[data-slot]`, not rendered).
 
 No class tokens are added or removed (`allow_tokens` / `allow_missing_tokens` empty).

@@ -1,5 +1,5 @@
 // React twin of app/javascript/v2/primitives/direction.js: the RAW @radix-ui/react-direction (Provider + useDirection).
-// Tree contract: _div[data-controller="shadcn---probe-direction"] with
+// Tree contract: _div[data-controller="chadcn---probe-direction"] with
 //   data-provider-dir : value of the enclosing DirectionProvider (absent = no provider); on the Phlex side the server writes
 //                       the same value to the consumer's own `dir` attribute, which is what direction.js reads
 //   data-local-dir    : the consumer's own `dir` prop (absent = none)
@@ -20,4 +20,4 @@ function DirectionProbe(props: AnyProps) {
   return provider === undefined ? consumer : <Direction.DirectionProvider dir={provider || undefined}>{consumer}</Direction.DirectionProvider>
 }
 
-export const probe = { controller: "shadcn---probe-direction", Component: DirectionProbe }
+export const probe = { controller: "chadcn---probe-direction", Component: DirectionProbe }

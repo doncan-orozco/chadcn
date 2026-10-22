@@ -27,7 +27,7 @@ class Chadcn::Command::Separator < Chadcn::Base
     root_context
     attrs = merge_attrs({ class: CLASSES, data: { slot: "command-separator" } }, @attrs)
     attrs = with_forced(attrs, { "cmdk-separator": "", role: "separator" })
-    attrs = with_forced(attrs, {}, data: { shadcn__command_always_render: "true" }) if @always_render
+    attrs = with_forced(attrs, {}, data: { chadcn__command_always_render: "true" }) if @always_render
     div(**attrs)
   end
 end

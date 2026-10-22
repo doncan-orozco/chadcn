@@ -1,7 +1,7 @@
 # Overlays
 
-Dialog, alert dialog, sheet, popover, tooltip and hover card. Each root carries a Stimulus controller (`shadcn--dialog`,
-`shadcn--alert-dialog`, `shadcn--sheet`, `shadcn--popover`, `shadcn--tooltip`, `shadcn--hover-card`) that reproduces the Radix
+Dialog, alert dialog, sheet, popover, tooltip and hover card. Each root carries a Stimulus controller (`chadcn--dialog`,
+`chadcn--alert-dialog`, `chadcn--sheet`, `chadcn--popover`, `chadcn--tooltip`, `chadcn--hover-card`) that reproduces the Radix
 behavior: focus trap and return, Escape and outside-pointer dismissal, scroll lock for modals, `aria-*` wiring, positioning with
 Floating UI for the anchored ones. Conventions: [api-conventions.md](api-conventions.md).
 

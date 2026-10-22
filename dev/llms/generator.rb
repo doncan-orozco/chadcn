@@ -14,11 +14,11 @@ module Chadcn
     OUTPUTS = %w[llms.txt llms-full.txt skills/chadcn/SKILL.md].freeze
     # Top-level classes that are not shadcn components (rendered Lucide glyphs): listed under "Helpers", not counted as components.
     HELPERS = %w[Icon].freeze
-    CONTROLLERS_DIR = "app/javascript/controllers/shadcn"
+    CONTROLLERS_DIR = "app/javascript/controllers/chadcn"
     GEMSPEC = File.expand_path("../../chadcn.gemspec", __dir__)
     DISPATCH = /dispatch\(\s*["']([a-z][a-z-]*)["']/
-    PREFIXED = /CustomEvent\(\s*["`]shadcn--[a-z-]+:([a-z][a-z-]*)["`]/
-    SHARED_IMPORT = %r!^import \{([^}]+)\} from "controllers/shadcn/(\w+)_controller"!
+    PREFIXED = /CustomEvent\(\s*["`]chadcn--[a-z-]+:([a-z][a-z-]*)["`]/
+    SHARED_IMPORT = %r!^import \{([^}]+)\} from "controllers/chadcn/(\w+)_controller"!
     HOST_DISPATCH = /controller\.dispatch\(\s*["']([a-z][a-z-]*)["']/
     # A method that forwards its first parameter to dispatch (`#forward(name, event) { ... this.dispatch(name, ...) }`); its closing brace sits at 2-space indent.
     FORWARDER = /^\s+(#?[A-Za-z_]\w*)\((\w+)[^)]*\)\s*\{\n(.*?)^  \}/m
@@ -92,7 +92,7 @@ module Chadcn
     def controllers_of(object)
       base = File.join(root, "lib/chadcn", snake(object.name))
       files = [ "#{base}.rb", *Dir[File.join(base, "**/*.rb")] ].select { |f| File.file?(f) }
-      names = files.flat_map { |f| File.read(f, encoding: "UTF-8").scan(/shadcn--([a-z][a-z-]*)/).flatten }.uniq
+      names = files.flat_map { |f| File.read(f, encoding: "UTF-8").scan(/chadcn--([a-z][a-z-]*)/).flatten }.uniq
       names.select { |n| File.file?(controller_file(n)) }.sort
     end
 
@@ -136,7 +136,7 @@ module Chadcn
 
     # ---- Stimulus readers
 
-    # Values and events of `shadcn--<name>`, following forwarding helpers and `extends <Parent>Controller` (Stimulus dispatches with the
+    # Values and events of `chadcn--<name>`, following forwarding helpers and `extends <Parent>Controller` (Stimulus dispatches with the
     # subclass identifier, so a subclass documents the events and values it inherits).
     def controller_info(name, seen = [])
       source = File.read(controller_file(name), encoding: "UTF-8")
@@ -186,7 +186,7 @@ module Chadcn
     def inherited_controller(source)
       return unless source.match?(/export default class extends (?!Controller\b)\w+/)
 
-      source[%r{^import \w+ from "controllers/shadcn/(\w+)_controller"}, 1]&.tr("_", "-")
+      source[%r{^import \w+ from "controllers/chadcn/(\w+)_controller"}, 1]&.tr("_", "-")
     end
 
     # ---- rendering
@@ -194,7 +194,7 @@ module Chadcn
     def header(title, text) = "# #{title}\n\n> #{text}\n\n"
 
     SUMMARY = "Phlex components that port shadcn/ui 1:1 (same names, same Tailwind classes, same data-slot markup) with Stimulus behavior " \
-              "(`shadcn--*` controllers). Compound components nest their parts (`Dialog::Content`) and also yield a root with one helper per part."
+              "(`chadcn--*` controllers). Compound components nest their parts (`Dialog::Content`) and also yield a root with one helper per part."
 
     def index
       out = +header("chadcn", SUMMARY)
@@ -207,7 +207,7 @@ module Chadcn
       out << "## Components\n\n"
       components.each { |c| out << "- [#{c.name}](#{self.class.repository}/llms-full.txt#component-#{snake(c.name).tr('_', '-')}): #{summary(c.object)}\n" }
       out << "\n## Stimulus controllers\n\n"
-      controller_names.each { |n| out << "- `shadcn--#{n}`\n" }
+      controller_names.each { |n| out << "- `chadcn--#{n}`\n" }
       out
     end
 
@@ -263,9 +263,9 @@ module Chadcn
       out = +""
       component.controllers.each do |name|
         info = controller_info(name)
-        out << "Stimulus: `shadcn--#{name}`"
+        out << "Stimulus: `chadcn--#{name}`"
         out << "; values: #{info[:values].map { |v| "`#{v}`" }.join(', ')}" unless info[:values].empty?
-        out << "; events (prefixed `shadcn--#{name}:`): #{info[:events].map { |e| "`#{e}`" }.join(', ')}" unless info[:events].empty?
+        out << "; events (prefixed `chadcn--#{name}:`): #{info[:events].map { |e| "`#{e}`" }.join(', ')}" unless info[:events].empty?
         out << "\n"
       end
       out << "\n"
@@ -288,7 +288,7 @@ module Chadcn
         2. Compound components nest parts (`Chadcn::Dialog::Content`). The root also yields itself with one helper per part (`dialog.trigger { "Open" }`); both forms render the same markup.
         3. Extra keywords become HTML attributes. `class:` is merged with `tailwind_merge` (yours wins), `data:` and `aria:` are deep-merged. Do not copy shadcn Tailwind classes into your views: they are already applied.
         4. `as_child:` renders the part's props onto another tag or component instead of its default element.
-        5. Behavior comes from Stimulus controllers named `shadcn--<component>`. Events are dispatched as `shadcn--<component>:<event>`; values are set with `data-shadcn--<component>-<value>-value`.
+        5. Behavior comes from Stimulus controllers named `chadcn--<component>`. Events are dispatched as `chadcn--<component>:<event>`; values are set with `data-chadcn--<component>-<value>-value`.
         6. Colors come from shadcn-format CSS variables (`--primary`, `--background`, ...): change the theme file, not the components.
 
         ## Components
@@ -297,7 +297,7 @@ module Chadcn
 
         ## Stimulus controllers
 
-        #{controller_names.map { |n| "`shadcn--#{n}`" }.join(', ')}.
+        #{controller_names.map { |n| "`chadcn--#{n}`" }.join(', ')}.
       MD
     end
   end

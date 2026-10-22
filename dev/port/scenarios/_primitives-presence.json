@@ -8,7 +8,7 @@
         "props": {
           "data-probe": "presence",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-presence",
+          "data-controller": "chadcn---probe-presence",
           "className": "flex flex-col items-start gap-2"
         },
         "children": [
@@ -17,7 +17,7 @@
             "props": {
               "type": "button",
               "data-slot": "toggle",
-              "data-action": "click->shadcn---probe-presence#toggle",
+              "data-action": "click->chadcn---probe-presence#toggle",
               "className": "rounded-md border px-3 py-1 text-sm"
             },
             "children": [
@@ -27,7 +27,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-presence-target": "template"
+              "data-chadcn---probe-presence-target": "template"
             },
             "children": [
               {
@@ -59,9 +59,9 @@
         "props": {
           "data-probe": "presence",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-presence",
+          "data-controller": "chadcn---probe-presence",
           "className": "flex flex-col items-start gap-2",
-          "data-shadcn---probe-presence-open-value": "true"
+          "data-chadcn---probe-presence-open-value": "true"
         },
         "children": [
           {
@@ -69,7 +69,7 @@
             "props": {
               "type": "button",
               "data-slot": "toggle",
-              "data-action": "click->shadcn---probe-presence#toggle",
+              "data-action": "click->chadcn---probe-presence#toggle",
               "className": "rounded-md border px-3 py-1 text-sm"
             },
             "children": [
@@ -79,7 +79,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-presence-target": "template"
+              "data-chadcn---probe-presence-target": "template"
             },
             "children": [
               {
@@ -111,7 +111,7 @@
         "props": {
           "data-probe": "presence",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-presence",
+          "data-controller": "chadcn---probe-presence",
           "className": "flex flex-col items-start gap-2"
         },
         "children": [
@@ -120,7 +120,7 @@
             "props": {
               "type": "button",
               "data-slot": "toggle",
-              "data-action": "click->shadcn---probe-presence#toggle",
+              "data-action": "click->chadcn---probe-presence#toggle",
               "className": "rounded-md border px-3 py-1 text-sm"
             },
             "children": [
@@ -130,7 +130,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-presence-target": "template"
+              "data-chadcn---probe-presence-target": "template"
             },
             "children": [
               {
@@ -179,9 +179,9 @@
         "props": {
           "data-probe": "presence",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-presence",
+          "data-controller": "chadcn---probe-presence",
           "className": "flex flex-col items-start gap-2",
-          "data-shadcn---probe-presence-open-value": "true"
+          "data-chadcn---probe-presence-open-value": "true"
         },
         "children": [
           {
@@ -189,7 +189,7 @@
             "props": {
               "type": "button",
               "data-slot": "toggle",
-              "data-action": "click->shadcn---probe-presence#toggle",
+              "data-action": "click->chadcn---probe-presence#toggle",
               "className": "rounded-md border px-3 py-1 text-sm"
             },
             "children": [
@@ -199,7 +199,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-presence-target": "template"
+              "data-chadcn---probe-presence-target": "template"
             },
             "children": [
               {
@@ -244,9 +244,9 @@
         "props": {
           "data-probe": "presence",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-presence",
+          "data-controller": "chadcn---probe-presence",
           "className": "flex flex-col items-start gap-2",
-          "data-shadcn---probe-presence-open-value": "true"
+          "data-chadcn---probe-presence-open-value": "true"
         },
         "children": [
           {
@@ -254,7 +254,7 @@
             "props": {
               "type": "button",
               "data-slot": "toggle",
-              "data-action": "click->shadcn---probe-presence#toggle",
+              "data-action": "click->chadcn---probe-presence#toggle",
               "className": "rounded-md border px-3 py-1 text-sm"
             },
             "children": [
@@ -264,7 +264,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-presence-target": "template"
+              "data-chadcn---probe-presence-target": "template"
             },
             "children": [
               {
@@ -309,7 +309,7 @@
         "props": {
           "data-probe": "presence",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-presence",
+          "data-controller": "chadcn---probe-presence",
           "className": "flex flex-col items-start gap-2"
         },
         "children": [
@@ -318,7 +318,7 @@
             "props": {
               "type": "button",
               "data-slot": "toggle",
-              "data-action": "click->shadcn---probe-presence#toggle",
+              "data-action": "click->chadcn---probe-presence#toggle",
               "className": "rounded-md border px-3 py-1 text-sm"
             },
             "children": [
@@ -328,7 +328,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-presence-target": "template"
+              "data-chadcn---probe-presence-target": "template"
             },
             "children": [
               {

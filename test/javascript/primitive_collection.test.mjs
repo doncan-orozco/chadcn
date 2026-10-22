@@ -10,7 +10,7 @@ const html = `<div id="list">
 
 primitiveTest("collection: items() returns enabled items in DOM order; includeDisabled keeps data-disabled and disabled ones", async (page) => {
   const result = await page.evaluate(async () => {
-    const { items } = await import("shadcn/primitives/collection");
+    const { items } = await import("chadcn/primitives/collection");
     const list = document.getElementById("list");
     const ids = (nodes) => nodes.map((n) => n.id);
     const before = ids(items(list));
@@ -25,7 +25,7 @@ primitiveTest("collection: items() returns enabled items in DOM order; includeDi
 
 primitiveTest("collection: isDisabled reads data-disabled or the native property; constants name the item attribute", async (page) => {
   const result = await page.evaluate(async () => {
-    const { isDisabled, ITEM_ATTR, ITEM_SELECTOR } = await import("shadcn/primitives/collection");
+    const { isDisabled, ITEM_ATTR, ITEM_SELECTOR } = await import("chadcn/primitives/collection");
     const el = (id) => document.getElementById(id);
     return { a: isDisabled(el("a")), b: isDisabled(el("b")), c: isDisabled(el("c")), span: isDisabled(el("plain")), ITEM_ATTR, ITEM_SELECTOR };
   });
@@ -34,7 +34,7 @@ primitiveTest("collection: isDisabled reads data-disabled or the native property
 
 primitiveTest("collection: textValue prefers data-text-value, else trimmed text; wrapArray rotates from a start index", async (page) => {
   const result = await page.evaluate(async () => {
-    const { textValue, wrapArray } = await import("shadcn/primitives/collection");
+    const { textValue, wrapArray } = await import("chadcn/primitives/collection");
     const el = (id) => document.getElementById(id);
     return {
       override: textValue(el("d")), text: textValue(el("a")),
@@ -46,7 +46,7 @@ primitiveTest("collection: textValue prefers data-text-value, else trimmed text;
 
 primitiveTest("collection: items of a nested collection inside the container are included (documented divergence)", async (page) => {
   const ids = await page.evaluate(async () => {
-    const { items } = await import("shadcn/primitives/collection");
+    const { items } = await import("chadcn/primitives/collection");
     const nested = document.createElement("div");
     nested.innerHTML = '<button data-radix-collection-item id="inner">Inner</button>';
     document.getElementById("list").append(nested);

@@ -22,7 +22,7 @@ class Chadcn::Combobox::Separator < Chadcn::Base
   # @raise [ArgumentError] when rendered outside Combobox
   def view_template
     root_model
-    data = { slot: "combobox-separator", orientation: "horizontal", shadcn__combobox_part: "separator" }
+    data = { slot: "combobox-separator", orientation: "horizontal", chadcn__combobox_part: "separator" }
     div(**merge_attrs({ role: "presentation", class: CLASSES, data: data }, @attrs))
   end
 end

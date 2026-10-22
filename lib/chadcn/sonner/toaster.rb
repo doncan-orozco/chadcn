@@ -2,14 +2,14 @@
 
 # shadcn Toaster (the `Toaster` of shadcn's `sonner.tsx`): the live region the toasts are shown in. Render it once, in the layout.
 #
-# Renders `<section aria-live="polite">` hosting the `shadcn--sonner` controller, the Lucide icons of each toast type as inert templates
+# Renders `<section aria-live="polite">` hosting the `chadcn--sonner` controller, the Lucide icons of each toast type as inert templates
 # and the toasts the server wants to show on load. The stacked `<ol>`/`<li>` toasts are created by the controller, like sonner does.
 #
 # Toasts: `window.Toaster` (JavaScript), `flash:` / `toasts:` / the block (server, on page load), a Turbo Stream that appends a
-# {Chadcn::Sonner::Toast} to this Toaster's `id` (server, later), or the `shadcn--sonner:show` event. The hotkey (default Alt+T)
+# {Chadcn::Sonner::Toast} to this Toaster's `id` (server, later), or the `chadcn--sonner:show` event. The hotkey (default Alt+T)
 # expands the stack and focuses it, Escape collapses it.
 #
-# Events (on the section, bubbling): `shadcn--sonner:dismiss`, `:auto-close` (`detail: { id }`), `:action` and `:cancel`
+# Events (on the section, bubbling): `chadcn--sonner:dismiss`, `:auto-close` (`detail: { id }`), `:action` and `:cancel`
 # (`detail: { id, name }` with the `event` of the toast's action).
 #
 # @example Layout
@@ -118,7 +118,7 @@ class Chadcn::Sonner::Toaster < Chadcn::Base
       id: "toaster",
       tabindex: -1,
       aria: { label: "#{@container_aria_label} #{hotkey_label}", live: "polite", relevant: "additions text", atomic: "false" },
-      data: { controller: "shadcn--sonner", **controller_values }
+      data: { controller: "chadcn--sonner", **controller_values }
     }
   end
 
@@ -127,24 +127,24 @@ class Chadcn::Sonner::Toaster < Chadcn::Base
 
   def controller_values
     {
-      shadcn__sonner_position_value: @position,
-      shadcn__sonner_theme_value: @theme,
-      shadcn__sonner_rich_colors_value: @rich_colors&.to_s,
-      shadcn__sonner_expand_value: @expand,
-      shadcn__sonner_close_button_value: @close_button,
-      shadcn__sonner_invert_value: @invert,
-      shadcn__sonner_visible_toasts_value: @visible_toasts,
-      shadcn__sonner_gap_value: @gap,
-      shadcn__sonner_hotkey_value: json(@hotkey),
-      shadcn__sonner_class_name_value: cn("toaster group", @attrs[:class]),
-      shadcn__sonner_style_value: json(THEME_VARS.merge((@style || {}).transform_keys(&:to_s))),
-      shadcn__sonner_duration_value: @duration,
-      shadcn__sonner_offset_value: (json(@offset) unless @offset.nil?),
-      shadcn__sonner_mobile_offset_value: (json(@mobile_offset) unless @mobile_offset.nil?),
-      shadcn__sonner_dir_value: @dir,
-      shadcn__sonner_swipe_directions_value: (json(@swipe_directions) if @swipe_directions),
-      shadcn__sonner_toast_options_value: (json(toast_options_json) if @toast_options),
-      shadcn__sonner_toaster_id_value: @toaster_id
+      chadcn__sonner_position_value: @position,
+      chadcn__sonner_theme_value: @theme,
+      chadcn__sonner_rich_colors_value: @rich_colors&.to_s,
+      chadcn__sonner_expand_value: @expand,
+      chadcn__sonner_close_button_value: @close_button,
+      chadcn__sonner_invert_value: @invert,
+      chadcn__sonner_visible_toasts_value: @visible_toasts,
+      chadcn__sonner_gap_value: @gap,
+      chadcn__sonner_hotkey_value: json(@hotkey),
+      chadcn__sonner_class_name_value: cn("toaster group", @attrs[:class]),
+      chadcn__sonner_style_value: json(THEME_VARS.merge((@style || {}).transform_keys(&:to_s))),
+      chadcn__sonner_duration_value: @duration,
+      chadcn__sonner_offset_value: (json(@offset) unless @offset.nil?),
+      chadcn__sonner_mobile_offset_value: (json(@mobile_offset) unless @mobile_offset.nil?),
+      chadcn__sonner_dir_value: @dir,
+      chadcn__sonner_swipe_directions_value: (json(@swipe_directions) if @swipe_directions),
+      chadcn__sonner_toast_options_value: (json(toast_options_json) if @toast_options),
+      chadcn__sonner_toaster_id_value: @toaster_id
     }.compact
   end
 
@@ -167,9 +167,9 @@ class Chadcn::Sonner::Toaster < Chadcn::Base
 
   def icon_template(type, override, &)
     if override == false
-      template(data: { shadcn__sonner_icon: type, none: "" })
+      template(data: { chadcn__sonner_icon: type, none: "" })
     else
-      template(data: { shadcn__sonner_icon: type }) { override ? render(override) : yield }
+      template(data: { chadcn__sonner_icon: type }) { override ? render(override) : yield }
     end
   end
 

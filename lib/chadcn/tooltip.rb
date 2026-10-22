@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# shadcn Tooltip (Radix Tooltip). Spec: docs/shadcn-port/specs/tooltip.md. Behavior in controllers/shadcn/tooltip_controller.js.
+# shadcn Tooltip (Radix Tooltip). Spec: docs/shadcn-port/specs/tooltip.md. Behavior in controllers/chadcn/tooltip_controller.js.
 # Provider and Root render no element: they push their options into the Phlex render context for the parts inside.
 using Chadcn::Values::Refinements
 
@@ -124,7 +124,7 @@ class Chadcn::Tooltip < Chadcn::Base
     def view_template(&)
       root = context[CONTEXT_KEY] or raise ArgumentError, "`TooltipTrigger` must be used within `Tooltip`"
       attrs = merge_attrs({
-                            data: { state: root[:open] ? "instant-open" : "closed", slot: "tooltip-trigger", controller: "shadcn--tooltip" }.merge(values(root))
+                            data: { state: root[:open] ? "instant-open" : "closed", slot: "tooltip-trigger", controller: "chadcn--tooltip" }.merge(values(root))
                           }, @attrs)
       attrs[:aria] = (attrs[:aria] || {}).merge(describedby: describedby(attrs, root[:key])) if root[:open]
       return render_as_child(@as_child, **attrs, &) if @as_child
@@ -141,13 +141,13 @@ class Chadcn::Tooltip < Chadcn::Base
 
     def values(root)
       {
-        shadcn__tooltip_open_value: root[:open].to_s,
-        shadcn__tooltip_controlled_value: root[:controlled].to_s,
-        shadcn__tooltip_delay_duration_value: root[:delay_duration],
-        shadcn__tooltip_skip_delay_duration_value: root[:skip_delay_duration],
-        shadcn__tooltip_disable_hoverable_content_value: root[:disable_hoverable_content].to_s,
-        shadcn__tooltip_provider_id_value: root[:provider_id],
-        shadcn__tooltip_content_id_value: root[:key]
+        chadcn__tooltip_open_value: root[:open].to_s,
+        chadcn__tooltip_controlled_value: root[:controlled].to_s,
+        chadcn__tooltip_delay_duration_value: root[:delay_duration],
+        chadcn__tooltip_skip_delay_duration_value: root[:skip_delay_duration],
+        chadcn__tooltip_disable_hoverable_content_value: root[:disable_hoverable_content].to_s,
+        chadcn__tooltip_provider_id_value: root[:provider_id],
+        chadcn__tooltip_content_id_value: root[:key]
       }
     end
   end
@@ -216,7 +216,7 @@ class Chadcn::Tooltip < Chadcn::Base
       attrs = canonical_attrs(@attrs)
       label = attrs.dig(:aria, :label)
       options = @options.merge(dir: attrs[:dir]).compact
-      template(data: { shadcn__tooltip_template: root[:key], options: json(options) }) do
+      template(data: { chadcn__tooltip_template: root[:key], options: json(options) }) do
         div(**content_attrs(attrs, label)) do
           yield if block_given?
           arrow

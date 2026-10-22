@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # shadcn Collapsible over Radix Collapsible. Spec: docs/shadcn-port/specs/collapsible.md.
-# Behavior: controllers/shadcn/collapsible_controller.js.
+# Behavior: controllers/chadcn/collapsible_controller.js.
 #
 # Root of the collapsible. Yields itself, so `trigger` and `content` are yielded-root helpers equal to rendering
 # `Collapsible::Trigger` and `Collapsible::Content`.
@@ -55,10 +55,10 @@ class Chadcn::Collapsible < Chadcn::Base
       slot: "collapsible",
       state: @open ? "open" : "closed",
       disabled: (@disabled ? "" : nil),
-      controller: "shadcn--collapsible",
-      shadcn__collapsible_controlled_value: @controlled.to_s,
-      shadcn__collapsible_disabled_value: @disabled.to_s,
-      shadcn__collapsible_content_id_value: content_id
+      controller: "chadcn--collapsible",
+      chadcn__collapsible_controlled_value: @controlled.to_s,
+      chadcn__collapsible_disabled_value: @disabled.to_s,
+      chadcn__collapsible_content_id_value: content_id
     }
   end
 end

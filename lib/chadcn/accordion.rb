@@ -3,7 +3,7 @@
 using Chadcn::Values::Refinements
 
 # shadcn Accordion over Radix Accordion. Spec: docs/shadcn-port/specs/accordion.md.
-# Behavior: controllers/shadcn/accordion_controller.js.
+# Behavior: controllers/chadcn/accordion_controller.js.
 #
 # Root of the accordion. Yields itself, so the parts are available as yielded-root helpers
 # (`item`, `trigger`, `content`) equal to rendering `Accordion::Item`, `Accordion::Trigger` and `Accordion::Content`.
@@ -71,13 +71,13 @@ class Chadcn::Accordion < Chadcn::Base
     {
       slot: "accordion",
       orientation: @orientation,
-      controller: "shadcn--accordion",
-      shadcn__accordion_type_value: @type,
-      shadcn__accordion_controlled_value: @controlled.to_s,
-      shadcn__accordion_collapsible_value: @collapsible.to_s,
-      shadcn__accordion_disabled_value: @disabled.to_s,
-      shadcn__accordion_orientation_value: @orientation,
-      shadcn__accordion_dir_value: @dir
+      controller: "chadcn--accordion",
+      chadcn__accordion_type_value: @type,
+      chadcn__accordion_controlled_value: @controlled.to_s,
+      chadcn__accordion_collapsible_value: @collapsible.to_s,
+      chadcn__accordion_disabled_value: @disabled.to_s,
+      chadcn__accordion_orientation_value: @orientation,
+      chadcn__accordion_dir_value: @dir
     }
   end
 end

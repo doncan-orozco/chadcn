@@ -67,7 +67,7 @@ class Chadcn::Sheet::Content < Chadcn::Base
 
   # The oracle renders Radix Close directly, so the X button has no data-slot (not sheet-close).
   def close_button
-    button(type: "button", class: cn(CLOSE_CLASSES), data: { shadcn__dialog_part: "close", action: "click->shadcn--sheet#close" }) do
+    button(type: "button", class: cn(CLOSE_CLASSES), data: { chadcn__dialog_part: "close", action: "click->chadcn--sheet#close" }) do
       render Chadcn::Icon.new("x", class: "size-4")
       span(class: "sr-only") { @close_label }
     end
@@ -77,7 +77,7 @@ class Chadcn::Sheet::Content < Chadcn::Base
     attrs = merge_attrs({
                           id: root[:content_id], role: "dialog", tabindex: "-1", class: cn(CLASSES, SIDES.fetch(@side)),
                           aria: { labelledby: (root[:title_id] if root[:title_present]) },
-                          data: { slot: "sheet-content", state: "open", shadcn__dialog_part: "content" }
+                          data: { slot: "sheet-content", state: "open", chadcn__dialog_part: "content" }
                         }, @attrs)
     attrs.merge(aria: (attrs[:aria] || {}).merge(describedby: describedby(root, attrs.dig(:aria, :describedby))))
   end

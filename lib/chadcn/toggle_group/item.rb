@@ -21,7 +21,7 @@ class Chadcn::ToggleGroup::Item < Chadcn::Base
   # Stimulus action wired on the item.
   #
   # @api private
-  ACTION = "click->shadcn--toggle-group#toggle"
+  ACTION = "click->chadcn--toggle-group#toggle"
 
   # @param value [String] identifier of the item inside the group value (coerced with `to_s`)
   # @param variant [String, Symbol, nil] used when the group sets none
@@ -70,7 +70,7 @@ class Chadcn::ToggleGroup::Item < Chadcn::Base
       disabled:,
       data: {
         state: (pressed ? "on" : "off"), disabled: (disabled ? "" : nil), slot: "toggle-group-item",
-        variant:, size:, spacing: root[:spacing], shadcn__toggle_group_item_value: @value
+        variant:, size:, spacing: root[:spacing], chadcn__toggle_group_item_value: @value
       }
     }.merge_deep(roving_attrs(root)).merge_deep(pressed_attrs(root, pressed))
   end

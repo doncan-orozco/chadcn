@@ -28,7 +28,7 @@ class Chadcn::ScrollAreaTest < Chadcn::TestCase
     assert_equal "h-72 static", root["class"]
     assert_equal "position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px; color: red;",
                  root["style"]
-    assert_equal "hover", root["data-shadcn--scroll-area-type-value"]
+    assert_equal "hover", root["data-chadcn--scroll-area-type-value"]
   end
 
   test "viewport wraps the content and enables only the axes with a scrollbar" do
@@ -45,11 +45,11 @@ class Chadcn::ScrollAreaTest < Chadcn::TestCase
 
   test "scrollbars and thumbs wait in templates with the oracle classes" do
     doc = area { |scroll_area| scroll_area.scroll_bar(orientation: "horizontal", force_mount: true, class: "h-4", id: "bar") }
-    bars = doc.css("template[data-shadcn--scroll-area-target=scrollbar]")
+    bars = doc.css("template[data-chadcn--scroll-area-target=scrollbar]")
     horizontal = bars.first.at_css("template").parent
 
     assert_equal 2, bars.size
-    assert_equal "true", bars.first["data-shadcn--scroll-area-force-mount"]
+    assert_equal "true", bars.first["data-chadcn--scroll-area-force-mount"]
     assert_equal "bar", horizontal["id"]
     assert_equal "scroll-area-scrollbar", horizontal["data-slot"]
     assert_includes horizontal["class"], "h-4"
@@ -76,11 +76,11 @@ class Chadcn::ScrollAreaTest < Chadcn::TestCase
   test "scroll_hide_delay and type reach the controller values" do
     root = area(type: "scroll", scroll_hide_delay: 250).at_css("[data-slot=scroll-area]")
 
-    assert_equal "250", root["data-shadcn--scroll-area-scroll-hide-delay-value"]
-    assert_equal "scroll", root["data-shadcn--scroll-area-type-value"]
-    assert_equal "600", area.at_css("[data-slot=scroll-area]")["data-shadcn--scroll-area-scroll-hide-delay-value"]
+    assert_equal "250", root["data-chadcn--scroll-area-scroll-hide-delay-value"]
+    assert_equal "scroll", root["data-chadcn--scroll-area-type-value"]
+    assert_equal "600", area.at_css("[data-slot=scroll-area]")["data-chadcn--scroll-area-scroll-hide-delay-value"]
     assert_predicate ScrollArea::TYPES, :any?
-    ScrollArea::TYPES.each { |type| assert_equal type, area(type:).at_css("[data-slot=scroll-area]")["data-shadcn--scroll-area-type-value"] }
+    ScrollArea::TYPES.each { |type| assert_equal type, area(type:).at_css("[data-slot=scroll-area]")["data-chadcn--scroll-area-type-value"] }
   end
 
   test "dir wins over the direction provider and the provider wins over ltr" do
@@ -97,13 +97,13 @@ class Chadcn::ScrollAreaTest < Chadcn::TestCase
 
   test "scrollbar defaults to vertical, without force mount, and merges caller attrs" do
     doc = area { |scroll_area| scroll_area.scroll_bar(data: { testid: "bar" }, aria: { hidden: true }) }
-    bars = doc.css("template[data-shadcn--scroll-area-target=scrollbar]")
+    bars = doc.css("template[data-chadcn--scroll-area-target=scrollbar]")
     bar = bars.first.at_css("[data-slot=scroll-area-scrollbar]")
 
     assert_equal "vertical", bar["data-orientation"]
     assert_equal "bar", bar["data-testid"]
     assert_equal "true", bar["aria-hidden"]
-    assert_nil bars.first["data-shadcn--scroll-area-force-mount"]
+    assert_nil bars.first["data-chadcn--scroll-area-force-mount"]
     assert_equal %w[vertical horizontal], ScrollArea::ScrollBar::ORIENTATIONS
   end
 

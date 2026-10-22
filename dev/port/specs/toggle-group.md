@@ -33,7 +33,7 @@ Components::V2::ToggleGroup.new(
 - `spacing:` is rendered with JavaScript number formatting (React stringifies the number): `0` -> `"0"`, `2` -> `"2"`, `0.5` -> `"0.5"`, `2.0` -> `"2"` (Ruby must not emit `"2.0"`).
 - Controlled (`value:` given): a click/Space/Enter on an item does NOT change any item's `data-state`/`aria-*`; it only dispatches `value-change` with the would-be value (ucs:38-42: `onChange` only when `next !== prop`; for `multiple` the next array is always a new reference, so it always fires; for `single` it fires unless the next string equals `value`, which cannot happen on a click because a click either activates a different item or deactivates to `""`). Roving tab-stop state is NOT controlled and still moves (rf:58-63).
 - Uncontrolled: the controller owns the value after connect.
-- Event: `shadcn--toggle-group:value-change`, dispatched from the root element, `detail: { value }`:
+- Event: `chadcn--toggle-group:value-change`, dispatched from the root element, `detail: { value }`:
   - single: the newly pressed item's value, or `""` when the pressed item is clicked again (tg:57-58, toggle:30-34 -> tg:163-169 `onItemDeactivate` -> `setValue("")`).
   - multiple: the new Array; activation APPENDS (`[...prevValue, itemValue]`, tg:78) so order is activation order, not DOM order; deactivation filters (tg:82).
   - Uncontrolled: dispatched after the DOM update (useUncontrolledState effect, ucs:62-67); controlled: instead of updating. Not cancelable (`onValueChange` is not preventable).
@@ -65,7 +65,7 @@ Final DOM (after React mount / after Stimulus connect), `type: "single"`, `varia
 ```html
 <div role="radiogroup" dir="ltr" data-slot="toggle-group" data-variant="outline" data-spacing="0"
      class="group/toggle-group flex w-fit items-center gap-[--spacing(var(--gap))] rounded-md data-[spacing=default]:data-[variant=outline]:shadow-xs"
-     tabindex="0" style="outline: none; --gap: 0;" data-controller="shadcn--toggle-group" ...>
+     tabindex="0" style="outline: none; --gap: 0;" data-controller="chadcn--toggle-group" ...>
   <button type="button" role="radio" aria-checked="false" data-state="off" aria-label="Toggle bold"
           data-slot="toggle-group-item" data-variant="outline" data-spacing="0" class="<Item classes>"
           tabindex="-1" data-radix-collection-item="">...children</button>
@@ -109,7 +109,7 @@ Radix: `Collection.ItemSlot` (col, adds `data-radix-collection-item=""`, col:38)
 
 ### Server vs Stimulus
 
-The server renders every attribute above for the initial state (R4): `data-state`, `aria-checked`/`aria-pressed`, `tabindex` values, `dir`, `style`. Stimulus (`shadcn--toggle-group`, ONE controller on the root; items are targets, no per-item controller, no `shadcn--toggle` controller on items) updates item `data-state` + `aria-checked`/`aria-pressed`, roving `tabindex`, root `tabindex`. No ids are generated: Radix's roving `useId` tab-stop ids (rf:144) never reach the DOM; the port tracks the tab stop by element reference.
+The server renders every attribute above for the initial state (R4): `data-state`, `aria-checked`/`aria-pressed`, `tabindex` values, `dir`, `style`. Stimulus (`chadcn--toggle-group`, ONE controller on the root; items are targets, no per-item controller, no `chadcn--toggle` controller on items) updates item `data-state` + `aria-checked`/`aria-pressed`, roving `tabindex`, root `tabindex`. No ids are generated: Radix's roving `useId` tab-stop ids (rf:144) never reach the DOM; the port tracks the tab stop by element reference.
 
 ## Behavior
 
@@ -183,7 +183,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Dependencies
 
-- `Components::V2::Toggle.variants(variant:, size:)` for item classes (registry dependency `toggle`, spec `toggle.md`). Items do NOT render `Components::V2::Toggle` itself (different data-slot, no `shadcn--toggle` controller).
+- `Components::V2::Toggle.variants(variant:, size:)` for item classes (registry dependency `toggle`, spec `toggle.md`). Items do NOT render `Components::V2::Toggle` itself (different data-slot, no `chadcn--toggle` controller).
 - `Components::V2::Direction` (`Consumer` / `use_direction`) for the root `dir` (spec `direction.md`).
 - No icons rendered by the component (manifest `icons: []`). Scenarios use lucide children via `<icon:x>` (`bold`, `italic`, `underline`, `align-left`, `align-center`, `align-right`, `star`, `heart`, `bookmark`), rendered by `Components::V2::Icon` in the harness.
 

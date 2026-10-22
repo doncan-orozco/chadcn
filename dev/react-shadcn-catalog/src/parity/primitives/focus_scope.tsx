@@ -3,7 +3,7 @@ import * as React from "react"
 import { FocusScope } from "@radix-ui/react-focus-scope"
 import { actionOf, flag, items, isTemplate, only, type El } from "./_overlay"
 
-const C = "shadcn---probe-focus-scope"
+const C = "chadcn---probe-focus-scope"
 
 function FocusScopeProbe({ children, ...props }: Record<string, any>) {
   const [open, setOpen] = React.useState(false)
@@ -37,4 +37,4 @@ function FocusScopeProbe({ children, ...props }: Record<string, any>) {
 }
 
 // Harness.tsx renders the raw root whose data-controller is `controller` with this component.
-export const probe = { controller: "shadcn---probe-focus-scope", Component: FocusScopeProbe }
+export const probe = { controller: "chadcn---probe-focus-scope", Component: FocusScopeProbe }

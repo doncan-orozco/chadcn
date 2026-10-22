@@ -4,7 +4,7 @@ const html = '<div id="rtl" dir="rtl"></div><div id="bad" dir="auto"></div><div 
 
 primitiveTest("direction: local dir wins over the element dir attribute; the attribute wins over the ltr default", async (page) => {
   const result = await page.evaluate(async () => {
-    const { direction } = await import("shadcn/primitives/direction");
+    const { direction } = await import("chadcn/primitives/direction");
     const el = (id) => document.getElementById(id);
     return {
       attribute: direction(el("rtl")),
@@ -18,7 +18,7 @@ primitiveTest("direction: local dir wins over the element dir attribute; the att
 
 primitiveTest("direction: invalid values and a missing element fall back; html[dir] and ancestors are never read", async (page) => {
   const result = await page.evaluate(async () => {
-    const { direction } = await import("shadcn/primitives/direction");
+    const { direction } = await import("chadcn/primitives/direction");
     document.documentElement.setAttribute("dir", "rtl");
     const child = document.createElement("div");
     document.getElementById("rtl").append(child);

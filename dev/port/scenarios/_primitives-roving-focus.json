@@ -28,7 +28,7 @@
               "tabIndex": 0,
               "style": "outline: none",
               "data-orientation": "horizontal",
-              "data-controller": "shadcn---probe-roving-focus"
+              "data-controller": "chadcn---probe-roving-focus"
             },
             "children": [
               {
@@ -140,7 +140,7 @@
               "tabIndex": 0,
               "style": "outline: none",
               "data-orientation": "horizontal",
-              "data-controller": "shadcn---probe-roving-focus"
+              "data-controller": "chadcn---probe-roving-focus"
             },
             "children": [
               {
@@ -307,7 +307,7 @@
               "tabIndex": 0,
               "style": "outline: none",
               "data-orientation": "horizontal",
-              "data-controller": "shadcn---probe-roving-focus",
+              "data-controller": "chadcn---probe-roving-focus",
               "data-roving-loop": "true"
             },
             "children": [
@@ -448,7 +448,7 @@
               "tabIndex": 0,
               "style": "outline: none",
               "data-orientation": "vertical",
-              "data-controller": "shadcn---probe-roving-focus"
+              "data-controller": "chadcn---probe-roving-focus"
             },
             "children": [
               {
@@ -596,7 +596,7 @@
               "tabIndex": 0,
               "style": "outline: none",
               "data-orientation": "vertical",
-              "data-controller": "shadcn---probe-roving-focus",
+              "data-controller": "chadcn---probe-roving-focus",
               "data-roving-loop": "true"
             },
             "children": [
@@ -725,7 +725,7 @@
               "tabIndex": 0,
               "style": "outline: none",
               "data-orientation": "horizontal",
-              "data-controller": "shadcn---probe-roving-focus",
+              "data-controller": "chadcn---probe-roving-focus",
               "data-roving-dir": "rtl"
             },
             "children": [
@@ -862,7 +862,7 @@
               "tabIndex": 0,
               "style": "outline: none",
               "data-orientation": "horizontal",
-              "data-controller": "shadcn---probe-roving-focus",
+              "data-controller": "chadcn---probe-roving-focus",
               "data-roving-dir": "rtl",
               "data-roving-loop": "true"
             },
@@ -992,7 +992,7 @@
               "tabIndex": 0,
               "style": "outline: none",
               "data-orientation": "horizontal",
-              "data-controller": "shadcn---probe-roving-focus",
+              "data-controller": "chadcn---probe-roving-focus",
               "data-roving-loop": "true"
             },
             "children": [
@@ -1135,7 +1135,7 @@
               "tabIndex": 0,
               "style": "outline: none",
               "data-orientation": "horizontal",
-              "data-controller": "shadcn---probe-roving-focus"
+              "data-controller": "chadcn---probe-roving-focus"
             },
             "children": [
               {
@@ -1264,7 +1264,7 @@
               "tabIndex": 0,
               "style": "outline: none",
               "data-orientation": "horizontal",
-              "data-controller": "shadcn---probe-roving-focus"
+              "data-controller": "chadcn---probe-roving-focus"
             },
             "children": [
               {
@@ -1396,7 +1396,7 @@
               "tabIndex": 0,
               "style": "outline: none",
               "data-orientation": "horizontal",
-              "data-controller": "shadcn---probe-roving-focus"
+              "data-controller": "chadcn---probe-roving-focus"
             },
             "children": [
               {
@@ -1531,7 +1531,7 @@
               "tabIndex": 0,
               "style": "outline: none",
               "data-orientation": "horizontal",
-              "data-controller": "shadcn---probe-roving-focus"
+              "data-controller": "chadcn---probe-roving-focus"
             },
             "children": [
               {
@@ -1666,7 +1666,7 @@
               "tabIndex": 0,
               "style": "outline: none",
               "data-orientation": "horizontal",
-              "data-controller": "shadcn---probe-roving-focus"
+              "data-controller": "chadcn---probe-roving-focus"
             },
             "children": [
               {
@@ -1802,7 +1802,7 @@
               "tabIndex": 0,
               "style": "outline: none",
               "data-orientation": "horizontal",
-              "data-controller": "shadcn---probe-roving-focus",
+              "data-controller": "chadcn---probe-roving-focus",
               "data-roving-current": "item-b"
             },
             "children": [
@@ -1934,7 +1934,7 @@
               "tabIndex": 0,
               "style": "outline: none",
               "data-orientation": "horizontal",
-              "data-controller": "shadcn---probe-roving-focus"
+              "data-controller": "chadcn---probe-roving-focus"
             },
             "children": [
               {
@@ -2058,7 +2058,7 @@
               "tabIndex": 0,
               "style": "outline: none",
               "data-orientation": "horizontal",
-              "data-controller": "shadcn---probe-roving-focus"
+              "data-controller": "chadcn---probe-roving-focus"
             },
             "children": [
               {

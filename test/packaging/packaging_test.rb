@@ -73,7 +73,7 @@ class PackagingTest < Minitest::Test
   end
 
   def test_the_probes_and_the_theme_panel_live_in_the_dummy_app
-    controllers = File.join(GEM_DIR, "dev/dummy/app/javascript/controllers/shadcn")
+    controllers = File.join(GEM_DIR, "dev/dummy/app/javascript/controllers/chadcn")
 
     refute_empty Dir[File.join(controllers, "_probe_*_controller.js")]
     assert_path_exists File.join(controllers, "theme_panel_controller.js")

@@ -6,13 +6,13 @@ import { actionOf, items } from "./_overlay"
 function PortalProbe({ children, ...props }: Record<string, any>) {
   const [on, setOn] = React.useState(true)
   const [container, setContainer] = React.useState<HTMLElement | null>(null)
-  const selector: string | undefined = props["data-shadcn---probe-portal-container-value"]
+  const selector: string | undefined = props["data-chadcn---probe-portal-container-value"]
   React.useEffect(() => setContainer(selector ? document.querySelector<HTMLElement>(selector) : null), [selector])
 
   return (
-    <div {...props} onClick={(e) => actionOf(e.target, "shadcn---probe-portal")?.method === "toggle" && setOn((v) => !v)}>
+    <div {...props} onClick={(e) => actionOf(e.target, "chadcn---probe-portal")?.method === "toggle" && setOn((v) => !v)}>
       {items(children).map((node) =>
-        React.isValidElement<Record<string, any>>(node) && node.props["data-shadcn---probe-portal-target"] === "item" && on ? (
+        React.isValidElement<Record<string, any>>(node) && node.props["data-chadcn---probe-portal-target"] === "item" && on ? (
           <Portal key={node.key} asChild container={container}>
             {node}
           </Portal>
@@ -25,4 +25,4 @@ function PortalProbe({ children, ...props }: Record<string, any>) {
 }
 
 // Harness.tsx renders the raw root whose data-controller is `controller` with this component.
-export const probe = { controller: "shadcn---probe-portal", Component: PortalProbe }
+export const probe = { controller: "chadcn---probe-portal", Component: PortalProbe }

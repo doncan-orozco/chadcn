@@ -54,7 +54,7 @@ class Chadcn::Menubar::Content < Chadcn::Base
     menu = menu_context
     attrs = menu_content_attrs(classes: CLASSES, slot: "menubar-content", id: menu[:content_id], labelledby: menu[:trigger_id],
                                dir: root[:dir])
-    template(data: { shadcn__menubar_template: menu[:content_id], options: json(@options) }) do
+    template(data: { chadcn__menubar_template: menu[:content_id], options: json(@options) }) do
       render_part(:div, @as_child, attrs) { yield if block_given? }
     end
   end

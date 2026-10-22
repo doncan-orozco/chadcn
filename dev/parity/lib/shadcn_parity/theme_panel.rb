@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 # Live theme preview for developers (parity dummy app): preset select, radius slider, light/dark, contrast badges
-# and "Copy CSS" (a block `bin/rails theme:import` accepts). Nothing is persisted. Behavior: Stimulus `shadcn--theme-panel`;
-# light/dark is the existing `shadcn--theme` controller. See .ai/skills/shadcn-port/references/theme-contract.md.
+# and "Copy CSS" (a block `bin/rails theme:import` accepts). Nothing is persisted. Behavior: Stimulus `chadcn--theme-panel`;
+# light/dark is the existing `chadcn--theme` controller. See .ai/skills/shadcn-port/references/theme-contract.md.
 class ShadcnParity::ThemePanel < Phlex::HTML
   PAIRS = Chadcn::Theme::CONTRAST_PAIRS
 
@@ -10,21 +10,21 @@ class ShadcnParity::ThemePanel < Phlex::HTML
     div(
       class: "mx-auto flex max-w-2xl flex-col gap-6 rounded-xl border bg-card p-6 text-card-foreground",
       data: {
-        controller: "shadcn--theme shadcn--theme-panel",
-        action: "shadcn--theme:changed->shadcn--theme-panel#refresh",
-        shadcn__theme_panel_presets_value: presets.to_json,
-        shadcn__theme_panel_pairs_value: PAIRS.to_json,
-        shadcn__theme_panel_current_value: current_preset
+        controller: "chadcn--theme chadcn--theme-panel",
+        action: "chadcn--theme:changed->chadcn--theme-panel#refresh",
+        chadcn__theme_panel_presets_value: presets.to_json,
+        chadcn__theme_panel_pairs_value: PAIRS.to_json,
+        chadcn__theme_panel_current_value: current_preset
       }
     ) do
       h2(class: "text-lg font-semibold") { "Theme" }
       controls
       swatches
       div(class: "flex items-center gap-3") do
-        button(type: "button", class: button_class, data: { action: "shadcn--theme-panel#copy" }) { "Copy CSS" }
-        span(class: "text-sm text-muted-foreground", data: { shadcn__theme_panel_target: "status" })
+        button(type: "button", class: button_class, data: { action: "chadcn--theme-panel#copy" }) { "Copy CSS" }
+        span(class: "text-sm text-muted-foreground", data: { chadcn__theme_panel_target: "status" })
       end
-      ul(class: "grid grid-cols-1 gap-1 text-sm sm:grid-cols-2", data: { shadcn__theme_panel_target: "contrast" })
+      ul(class: "grid grid-cols-1 gap-1 text-sm sm:grid-cols-2", data: { chadcn__theme_panel_target: "contrast" })
     end
   end
 
@@ -34,17 +34,17 @@ class ShadcnParity::ThemePanel < Phlex::HTML
     div(class: "flex flex-wrap items-end gap-4") do
       label(class: "flex flex-col gap-1 text-sm font-medium") do
         plain "Preset"
-        select(class: "h-9 rounded-md border border-input bg-transparent px-3 text-sm", data: { shadcn__theme_panel_target: "preset", action: "change->shadcn--theme-panel#applyPreset" }) do
+        select(class: "h-9 rounded-md border border-input bg-transparent px-3 text-sm", data: { chadcn__theme_panel_target: "preset", action: "change->chadcn--theme-panel#applyPreset" }) do
           presets.each_key { |name| option(value: name, selected: name == current_preset) { name } }
         end
       end
       label(class: "flex flex-col gap-1 text-sm font-medium") do
         plain "Radius"
-        input(type: "range", min: "0", max: "1.5", step: "0.025", value: "0.625", data: { shadcn__theme_panel_target: "radius", action: "input->shadcn--theme-panel#applyRadius" })
+        input(type: "range", min: "0", max: "1.5", step: "0.025", value: "0.625", data: { chadcn__theme_panel_target: "radius", action: "input->chadcn--theme-panel#applyRadius" })
       end
       div(class: "flex gap-2") do
         %w[Light Dark System].each do |mode|
-          button(type: "button", class: button_class, data: { action: "shadcn--theme##{"set#{mode}"}" }) { mode }
+          button(type: "button", class: button_class, data: { action: "chadcn--theme##{"set#{mode}"}" }) { mode }
         end
       end
     end

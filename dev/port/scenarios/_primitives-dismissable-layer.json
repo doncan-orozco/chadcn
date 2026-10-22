@@ -8,7 +8,7 @@
         "props": {
           "data-probe": "dismissable_layer",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-dismissable",
+          "data-controller": "chadcn---probe-dismissable",
           "className": "flex flex-col items-start gap-2"
         },
         "children": [
@@ -17,9 +17,9 @@
             "props": {
               "type": "button",
               "data-slot": "open-a",
-              "data-action": "click->shadcn---probe-dismissable#open",
+              "data-action": "click->chadcn---probe-dismissable#open",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-dismissable-name-param": "a"
+              "data-chadcn---probe-dismissable-name-param": "a"
             },
             "children": [
               "Open a"
@@ -47,7 +47,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-dismissable-target": "template",
+              "data-chadcn---probe-dismissable-target": "template",
               "data-name": "a"
             },
             "children": [
@@ -72,9 +72,9 @@
                     "props": {
                       "type": "button",
                       "data-slot": "close-a",
-                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "data-action": "click->chadcn---probe-dismissable#close",
                       "className": "rounded-md border px-3 py-1 text-sm",
-                      "data-shadcn---probe-dismissable-name-param": "a"
+                      "data-chadcn---probe-dismissable-name-param": "a"
                     },
                     "children": [
                       "Close"
@@ -109,7 +109,7 @@
         "props": {
           "data-probe": "dismissable_layer",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-dismissable",
+          "data-controller": "chadcn---probe-dismissable",
           "className": "flex flex-col items-start gap-2"
         },
         "children": [
@@ -118,9 +118,9 @@
             "props": {
               "type": "button",
               "data-slot": "open-a",
-              "data-action": "click->shadcn---probe-dismissable#open",
+              "data-action": "click->chadcn---probe-dismissable#open",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-dismissable-name-param": "a"
+              "data-chadcn---probe-dismissable-name-param": "a"
             },
             "children": [
               "Open a"
@@ -148,7 +148,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-dismissable-target": "template",
+              "data-chadcn---probe-dismissable-target": "template",
               "data-name": "a"
             },
             "children": [
@@ -173,9 +173,9 @@
                     "props": {
                       "type": "button",
                       "data-slot": "close-a",
-                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "data-action": "click->chadcn---probe-dismissable#close",
                       "className": "rounded-md border px-3 py-1 text-sm",
-                      "data-shadcn---probe-dismissable-name-param": "a"
+                      "data-chadcn---probe-dismissable-name-param": "a"
                     },
                     "children": [
                       "Close"
@@ -219,9 +219,9 @@
         "props": {
           "data-probe": "dismissable_layer",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-dismissable",
+          "data-controller": "chadcn---probe-dismissable",
           "className": "flex flex-col items-start gap-2",
-          "data-shadcn---probe-dismissable-prevent-escape-value": "true"
+          "data-chadcn---probe-dismissable-prevent-escape-value": "true"
         },
         "children": [
           {
@@ -229,9 +229,9 @@
             "props": {
               "type": "button",
               "data-slot": "open-a",
-              "data-action": "click->shadcn---probe-dismissable#open",
+              "data-action": "click->chadcn---probe-dismissable#open",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-dismissable-name-param": "a"
+              "data-chadcn---probe-dismissable-name-param": "a"
             },
             "children": [
               "Open a"
@@ -259,7 +259,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-dismissable-target": "template",
+              "data-chadcn---probe-dismissable-target": "template",
               "data-name": "a"
             },
             "children": [
@@ -284,9 +284,9 @@
                     "props": {
                       "type": "button",
                       "data-slot": "close-a",
-                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "data-action": "click->chadcn---probe-dismissable#close",
                       "className": "rounded-md border px-3 py-1 text-sm",
-                      "data-shadcn---probe-dismissable-name-param": "a"
+                      "data-chadcn---probe-dismissable-name-param": "a"
                     },
                     "children": [
                       "Close"
@@ -330,7 +330,7 @@
         "props": {
           "data-probe": "dismissable_layer",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-dismissable",
+          "data-controller": "chadcn---probe-dismissable",
           "className": "flex flex-col items-start gap-2"
         },
         "children": [
@@ -339,9 +339,9 @@
             "props": {
               "type": "button",
               "data-slot": "open-a",
-              "data-action": "click->shadcn---probe-dismissable#open",
+              "data-action": "click->chadcn---probe-dismissable#open",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-dismissable-name-param": "a"
+              "data-chadcn---probe-dismissable-name-param": "a"
             },
             "children": [
               "Open a"
@@ -369,7 +369,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-dismissable-target": "template",
+              "data-chadcn---probe-dismissable-target": "template",
               "data-name": "a"
             },
             "children": [
@@ -394,9 +394,9 @@
                     "props": {
                       "type": "button",
                       "data-slot": "close-a",
-                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "data-action": "click->chadcn---probe-dismissable#close",
                       "className": "rounded-md border px-3 py-1 text-sm",
-                      "data-shadcn---probe-dismissable-name-param": "a"
+                      "data-chadcn---probe-dismissable-name-param": "a"
                     },
                     "children": [
                       "Close"
@@ -444,9 +444,9 @@
         "props": {
           "data-probe": "dismissable_layer",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-dismissable",
+          "data-controller": "chadcn---probe-dismissable",
           "className": "flex flex-col items-start gap-2",
-          "data-shadcn---probe-dismissable-prevent-outside-value": "true"
+          "data-chadcn---probe-dismissable-prevent-outside-value": "true"
         },
         "children": [
           {
@@ -454,9 +454,9 @@
             "props": {
               "type": "button",
               "data-slot": "open-a",
-              "data-action": "click->shadcn---probe-dismissable#open",
+              "data-action": "click->chadcn---probe-dismissable#open",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-dismissable-name-param": "a"
+              "data-chadcn---probe-dismissable-name-param": "a"
             },
             "children": [
               "Open a"
@@ -484,7 +484,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-dismissable-target": "template",
+              "data-chadcn---probe-dismissable-target": "template",
               "data-name": "a"
             },
             "children": [
@@ -509,9 +509,9 @@
                     "props": {
                       "type": "button",
                       "data-slot": "close-a",
-                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "data-action": "click->chadcn---probe-dismissable#close",
                       "className": "rounded-md border px-3 py-1 text-sm",
-                      "data-shadcn---probe-dismissable-name-param": "a"
+                      "data-chadcn---probe-dismissable-name-param": "a"
                     },
                     "children": [
                       "Close"
@@ -559,7 +559,7 @@
         "props": {
           "data-probe": "dismissable_layer",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-dismissable",
+          "data-controller": "chadcn---probe-dismissable",
           "className": "flex flex-col items-start gap-2"
         },
         "children": [
@@ -568,9 +568,9 @@
             "props": {
               "type": "button",
               "data-slot": "open-a",
-              "data-action": "click->shadcn---probe-dismissable#open",
+              "data-action": "click->chadcn---probe-dismissable#open",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-dismissable-name-param": "a"
+              "data-chadcn---probe-dismissable-name-param": "a"
             },
             "children": [
               "Open a"
@@ -598,7 +598,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-dismissable-target": "template",
+              "data-chadcn---probe-dismissable-target": "template",
               "data-name": "a"
             },
             "children": [
@@ -623,9 +623,9 @@
                     "props": {
                       "type": "button",
                       "data-slot": "close-a",
-                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "data-action": "click->chadcn---probe-dismissable#close",
                       "className": "rounded-md border px-3 py-1 text-sm",
-                      "data-shadcn---probe-dismissable-name-param": "a"
+                      "data-chadcn---probe-dismissable-name-param": "a"
                     },
                     "children": [
                       "Close"
@@ -673,7 +673,7 @@
         "props": {
           "data-probe": "dismissable_layer",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-dismissable",
+          "data-controller": "chadcn---probe-dismissable",
           "className": "flex flex-col items-start gap-2"
         },
         "children": [
@@ -682,9 +682,9 @@
             "props": {
               "type": "button",
               "data-slot": "open-a",
-              "data-action": "click->shadcn---probe-dismissable#open",
+              "data-action": "click->chadcn---probe-dismissable#open",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-dismissable-name-param": "a"
+              "data-chadcn---probe-dismissable-name-param": "a"
             },
             "children": [
               "Open a"
@@ -712,7 +712,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-dismissable-target": "template",
+              "data-chadcn---probe-dismissable-target": "template",
               "data-name": "a"
             },
             "children": [
@@ -737,9 +737,9 @@
                     "props": {
                       "type": "button",
                       "data-slot": "close-a",
-                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "data-action": "click->chadcn---probe-dismissable#close",
                       "className": "rounded-md border px-3 py-1 text-sm",
-                      "data-shadcn---probe-dismissable-name-param": "a"
+                      "data-chadcn---probe-dismissable-name-param": "a"
                     },
                     "children": [
                       "Close"
@@ -787,7 +787,7 @@
         "props": {
           "data-probe": "dismissable_layer",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-dismissable",
+          "data-controller": "chadcn---probe-dismissable",
           "className": "flex flex-col items-start gap-2"
         },
         "children": [
@@ -796,9 +796,9 @@
             "props": {
               "type": "button",
               "data-slot": "open-a",
-              "data-action": "click->shadcn---probe-dismissable#open",
+              "data-action": "click->chadcn---probe-dismissable#open",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-dismissable-name-param": "a"
+              "data-chadcn---probe-dismissable-name-param": "a"
             },
             "children": [
               "Open a"
@@ -826,7 +826,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-dismissable-target": "template",
+              "data-chadcn---probe-dismissable-target": "template",
               "data-name": "a"
             },
             "children": [
@@ -851,9 +851,9 @@
                     "props": {
                       "type": "button",
                       "data-slot": "close-a",
-                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "data-action": "click->chadcn---probe-dismissable#close",
                       "className": "rounded-md border px-3 py-1 text-sm",
-                      "data-shadcn---probe-dismissable-name-param": "a"
+                      "data-chadcn---probe-dismissable-name-param": "a"
                     },
                     "children": [
                       "Close"
@@ -901,9 +901,9 @@
         "props": {
           "data-probe": "dismissable_layer",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-dismissable",
+          "data-controller": "chadcn---probe-dismissable",
           "className": "flex flex-col items-start gap-2",
-          "data-shadcn---probe-dismissable-modal-value": "true"
+          "data-chadcn---probe-dismissable-modal-value": "true"
         },
         "children": [
           {
@@ -911,9 +911,9 @@
             "props": {
               "type": "button",
               "data-slot": "open-a",
-              "data-action": "click->shadcn---probe-dismissable#open",
+              "data-action": "click->chadcn---probe-dismissable#open",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-dismissable-name-param": "a"
+              "data-chadcn---probe-dismissable-name-param": "a"
             },
             "children": [
               "Open a"
@@ -941,7 +941,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-dismissable-target": "template",
+              "data-chadcn---probe-dismissable-target": "template",
               "data-name": "a"
             },
             "children": [
@@ -966,9 +966,9 @@
                     "props": {
                       "type": "button",
                       "data-slot": "close-a",
-                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "data-action": "click->chadcn---probe-dismissable#close",
                       "className": "rounded-md border px-3 py-1 text-sm",
-                      "data-shadcn---probe-dismissable-name-param": "a"
+                      "data-chadcn---probe-dismissable-name-param": "a"
                     },
                     "children": [
                       "Close"
@@ -1016,9 +1016,9 @@
         "props": {
           "data-probe": "dismissable_layer",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-dismissable",
+          "data-controller": "chadcn---probe-dismissable",
           "className": "flex flex-col items-start gap-2",
-          "data-shadcn---probe-dismissable-modal-value": "true"
+          "data-chadcn---probe-dismissable-modal-value": "true"
         },
         "children": [
           {
@@ -1026,9 +1026,9 @@
             "props": {
               "type": "button",
               "data-slot": "open-a",
-              "data-action": "click->shadcn---probe-dismissable#open",
+              "data-action": "click->chadcn---probe-dismissable#open",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-dismissable-name-param": "a"
+              "data-chadcn---probe-dismissable-name-param": "a"
             },
             "children": [
               "Open a"
@@ -1056,7 +1056,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-dismissable-target": "template",
+              "data-chadcn---probe-dismissable-target": "template",
               "data-name": "a"
             },
             "children": [
@@ -1081,9 +1081,9 @@
                     "props": {
                       "type": "button",
                       "data-slot": "close-a",
-                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "data-action": "click->chadcn---probe-dismissable#close",
                       "className": "rounded-md border px-3 py-1 text-sm",
-                      "data-shadcn---probe-dismissable-name-param": "a"
+                      "data-chadcn---probe-dismissable-name-param": "a"
                     },
                     "children": [
                       "Close"
@@ -1131,7 +1131,7 @@
         "props": {
           "data-probe": "dismissable_layer",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-dismissable",
+          "data-controller": "chadcn---probe-dismissable",
           "className": "flex flex-col items-start gap-2"
         },
         "children": [
@@ -1140,9 +1140,9 @@
             "props": {
               "type": "button",
               "data-slot": "open-a",
-              "data-action": "click->shadcn---probe-dismissable#open",
+              "data-action": "click->chadcn---probe-dismissable#open",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-dismissable-name-param": "a"
+              "data-chadcn---probe-dismissable-name-param": "a"
             },
             "children": [
               "Open a"
@@ -1153,9 +1153,9 @@
             "props": {
               "type": "button",
               "data-slot": "open-b",
-              "data-action": "click->shadcn---probe-dismissable#open",
+              "data-action": "click->chadcn---probe-dismissable#open",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-dismissable-name-param": "b"
+              "data-chadcn---probe-dismissable-name-param": "b"
             },
             "children": [
               "Open b"
@@ -1183,7 +1183,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-dismissable-target": "template",
+              "data-chadcn---probe-dismissable-target": "template",
               "data-name": "a"
             },
             "children": [
@@ -1208,9 +1208,9 @@
                     "props": {
                       "type": "button",
                       "data-slot": "close-a",
-                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "data-action": "click->chadcn---probe-dismissable#close",
                       "className": "rounded-md border px-3 py-1 text-sm",
-                      "data-shadcn---probe-dismissable-name-param": "a"
+                      "data-chadcn---probe-dismissable-name-param": "a"
                     },
                     "children": [
                       "Close"
@@ -1229,9 +1229,9 @@
                     "props": {
                       "type": "button",
                       "data-slot": "open-b-inside",
-                      "data-action": "click->shadcn---probe-dismissable#open",
+                      "data-action": "click->chadcn---probe-dismissable#open",
                       "className": "rounded-md border px-3 py-1 text-sm",
-                      "data-shadcn---probe-dismissable-name-param": "b"
+                      "data-chadcn---probe-dismissable-name-param": "b"
                     },
                     "children": [
                       "Open b"
@@ -1244,7 +1244,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-dismissable-target": "template",
+              "data-chadcn---probe-dismissable-target": "template",
               "data-name": "b"
             },
             "children": [
@@ -1269,9 +1269,9 @@
                     "props": {
                       "type": "button",
                       "data-slot": "close-b",
-                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "data-action": "click->chadcn---probe-dismissable#close",
                       "className": "rounded-md border px-3 py-1 text-sm",
-                      "data-shadcn---probe-dismissable-name-param": "b"
+                      "data-chadcn---probe-dismissable-name-param": "b"
                     },
                     "children": [
                       "Close"
@@ -1331,7 +1331,7 @@
         "props": {
           "data-probe": "dismissable_layer",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-dismissable",
+          "data-controller": "chadcn---probe-dismissable",
           "className": "flex flex-col items-start gap-2"
         },
         "children": [
@@ -1340,9 +1340,9 @@
             "props": {
               "type": "button",
               "data-slot": "open-a",
-              "data-action": "click->shadcn---probe-dismissable#open",
+              "data-action": "click->chadcn---probe-dismissable#open",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-dismissable-name-param": "a"
+              "data-chadcn---probe-dismissable-name-param": "a"
             },
             "children": [
               "Open a"
@@ -1353,9 +1353,9 @@
             "props": {
               "type": "button",
               "data-slot": "open-b",
-              "data-action": "click->shadcn---probe-dismissable#open",
+              "data-action": "click->chadcn---probe-dismissable#open",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-dismissable-name-param": "b"
+              "data-chadcn---probe-dismissable-name-param": "b"
             },
             "children": [
               "Open b"
@@ -1383,7 +1383,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-dismissable-target": "template",
+              "data-chadcn---probe-dismissable-target": "template",
               "data-name": "a"
             },
             "children": [
@@ -1408,9 +1408,9 @@
                     "props": {
                       "type": "button",
                       "data-slot": "close-a",
-                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "data-action": "click->chadcn---probe-dismissable#close",
                       "className": "rounded-md border px-3 py-1 text-sm",
-                      "data-shadcn---probe-dismissable-name-param": "a"
+                      "data-chadcn---probe-dismissable-name-param": "a"
                     },
                     "children": [
                       "Close"
@@ -1431,7 +1431,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-dismissable-target": "template",
+              "data-chadcn---probe-dismissable-target": "template",
               "data-name": "b"
             },
             "children": [
@@ -1456,9 +1456,9 @@
                     "props": {
                       "type": "button",
                       "data-slot": "close-b",
-                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "data-action": "click->chadcn---probe-dismissable#close",
                       "className": "rounded-md border px-3 py-1 text-sm",
-                      "data-shadcn---probe-dismissable-name-param": "b"
+                      "data-chadcn---probe-dismissable-name-param": "b"
                     },
                     "children": [
                       "Close"
@@ -1510,9 +1510,9 @@
         "props": {
           "data-probe": "dismissable_layer",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-dismissable",
+          "data-controller": "chadcn---probe-dismissable",
           "className": "flex flex-col items-start gap-2",
-          "data-shadcn---probe-dismissable-modal-value": "true"
+          "data-chadcn---probe-dismissable-modal-value": "true"
         },
         "children": [
           {
@@ -1520,9 +1520,9 @@
             "props": {
               "type": "button",
               "data-slot": "open-a",
-              "data-action": "click->shadcn---probe-dismissable#open",
+              "data-action": "click->chadcn---probe-dismissable#open",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-dismissable-name-param": "a"
+              "data-chadcn---probe-dismissable-name-param": "a"
             },
             "children": [
               "Open a"
@@ -1533,9 +1533,9 @@
             "props": {
               "type": "button",
               "data-slot": "open-b",
-              "data-action": "click->shadcn---probe-dismissable#open",
+              "data-action": "click->chadcn---probe-dismissable#open",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-dismissable-name-param": "b"
+              "data-chadcn---probe-dismissable-name-param": "b"
             },
             "children": [
               "Open b"
@@ -1563,7 +1563,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-dismissable-target": "template",
+              "data-chadcn---probe-dismissable-target": "template",
               "data-name": "a"
             },
             "children": [
@@ -1588,9 +1588,9 @@
                     "props": {
                       "type": "button",
                       "data-slot": "close-a",
-                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "data-action": "click->chadcn---probe-dismissable#close",
                       "className": "rounded-md border px-3 py-1 text-sm",
-                      "data-shadcn---probe-dismissable-name-param": "a"
+                      "data-chadcn---probe-dismissable-name-param": "a"
                     },
                     "children": [
                       "Close"
@@ -1609,9 +1609,9 @@
                     "props": {
                       "type": "button",
                       "data-slot": "open-b-inside",
-                      "data-action": "click->shadcn---probe-dismissable#open",
+                      "data-action": "click->chadcn---probe-dismissable#open",
                       "className": "rounded-md border px-3 py-1 text-sm",
-                      "data-shadcn---probe-dismissable-name-param": "b"
+                      "data-chadcn---probe-dismissable-name-param": "b"
                     },
                     "children": [
                       "Open b"
@@ -1624,7 +1624,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-dismissable-target": "template",
+              "data-chadcn---probe-dismissable-target": "template",
               "data-name": "b"
             },
             "children": [
@@ -1649,9 +1649,9 @@
                     "props": {
                       "type": "button",
                       "data-slot": "close-b",
-                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "data-action": "click->chadcn---probe-dismissable#close",
                       "className": "rounded-md border px-3 py-1 text-sm",
-                      "data-shadcn---probe-dismissable-name-param": "b"
+                      "data-chadcn---probe-dismissable-name-param": "b"
                     },
                     "children": [
                       "Close"
@@ -1711,9 +1711,9 @@
         "props": {
           "data-probe": "dismissable_layer",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-dismissable",
+          "data-controller": "chadcn---probe-dismissable",
           "className": "flex flex-col items-start gap-2",
-          "data-shadcn---probe-dismissable-modal-value": "true"
+          "data-chadcn---probe-dismissable-modal-value": "true"
         },
         "children": [
           {
@@ -1721,9 +1721,9 @@
             "props": {
               "type": "button",
               "data-slot": "open-a",
-              "data-action": "click->shadcn---probe-dismissable#open",
+              "data-action": "click->chadcn---probe-dismissable#open",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-dismissable-name-param": "a"
+              "data-chadcn---probe-dismissable-name-param": "a"
             },
             "children": [
               "Open a"
@@ -1734,9 +1734,9 @@
             "props": {
               "type": "button",
               "data-slot": "open-b",
-              "data-action": "click->shadcn---probe-dismissable#open",
+              "data-action": "click->chadcn---probe-dismissable#open",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-dismissable-name-param": "b"
+              "data-chadcn---probe-dismissable-name-param": "b"
             },
             "children": [
               "Open b"
@@ -1764,7 +1764,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-dismissable-target": "template",
+              "data-chadcn---probe-dismissable-target": "template",
               "data-name": "a"
             },
             "children": [
@@ -1789,9 +1789,9 @@
                     "props": {
                       "type": "button",
                       "data-slot": "close-a",
-                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "data-action": "click->chadcn---probe-dismissable#close",
                       "className": "rounded-md border px-3 py-1 text-sm",
-                      "data-shadcn---probe-dismissable-name-param": "a"
+                      "data-chadcn---probe-dismissable-name-param": "a"
                     },
                     "children": [
                       "Close"
@@ -1810,9 +1810,9 @@
                     "props": {
                       "type": "button",
                       "data-slot": "open-b-inside",
-                      "data-action": "click->shadcn---probe-dismissable#open",
+                      "data-action": "click->chadcn---probe-dismissable#open",
                       "className": "rounded-md border px-3 py-1 text-sm",
-                      "data-shadcn---probe-dismissable-name-param": "b"
+                      "data-chadcn---probe-dismissable-name-param": "b"
                     },
                     "children": [
                       "Open b"
@@ -1825,7 +1825,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-dismissable-target": "template",
+              "data-chadcn---probe-dismissable-target": "template",
               "data-name": "b"
             },
             "children": [
@@ -1850,9 +1850,9 @@
                     "props": {
                       "type": "button",
                       "data-slot": "close-b",
-                      "data-action": "click->shadcn---probe-dismissable#close",
+                      "data-action": "click->chadcn---probe-dismissable#close",
                       "className": "rounded-md border px-3 py-1 text-sm",
-                      "data-shadcn---probe-dismissable-name-param": "b"
+                      "data-chadcn---probe-dismissable-name-param": "b"
                     },
                     "children": [
                       "Close"

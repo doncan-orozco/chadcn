@@ -1,6 +1,6 @@
 // React twin of app/javascript/v2/primitives/collection.js: the RAW @radix-ui/react-collection over the same markup.
 // Tree contract (identical for the Phlex probe controller):
-//   root            : _div[data-controller="shadcn---probe-collection"]
+//   root            : _div[data-controller="chadcn---probe-collection"]
 //   item            : any element with data-radix-collection-item (data-disabled = disabled item)
 //   data-slot=list  : the container the buttons below add items to
 //   buttons         : read (writes the ordered enabled items to out, all items to out-all), prepend / append (add an item
@@ -81,4 +81,4 @@ function CollectionProbe(props: AnyProps) {
   )
 }
 
-export const probe = { controller: "shadcn---probe-collection", Component: CollectionProbe }
+export const probe = { controller: "chadcn---probe-collection", Component: CollectionProbe }

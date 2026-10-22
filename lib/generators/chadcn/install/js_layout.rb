@@ -12,9 +12,9 @@ module Chadcn
       # The JavaScript root, relative to the app root and to the gem's root alike.
       ROOT = "app/javascript"
       # The Stimulus controllers, relative to the app root (the copies) and to the gem's root (the sources) alike.
-      CONTROLLERS_DIR = "app/javascript/controllers/shadcn"
+      CONTROLLERS_DIR = "app/javascript/controllers/chadcn"
       # The primitives the controllers import, in the gem and in the app copies.
-      PRIMITIVES_DIR = "app/javascript/shadcn/primitives"
+      PRIMITIVES_DIR = "app/javascript/chadcn/primitives"
       # The bundler's entry file, which imports the registration file.
       ENTRY = "app/javascript/application.js"
     end

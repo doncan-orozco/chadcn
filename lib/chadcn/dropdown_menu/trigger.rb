@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Radix DropdownMenuTrigger: a +button+ that hosts the +shadcn--dropdown-menu+ controller for the root menu and all its
+# Radix DropdownMenuTrigger: a +button+ that hosts the +chadcn--dropdown-menu+ controller for the root menu and all its
 # subs. It carries the open/controlled/modal/dir values for the controller and +aria-haspopup+, +aria-expanded+ and
 # +aria-controls+ (only while open). A primary-button pointerdown (no ctrl), Enter or Space
 # toggles the menu; ArrowDown only opens it. All of them are ignored when +disabled+.
@@ -34,7 +34,7 @@ class Chadcn::DropdownMenu::Trigger < Chadcn::Base
                           aria: { haspopup: "menu", expanded: open.to_s, controls: (root[:content_id] if open) },
                           data: {
                             slot: "dropdown-menu-trigger", state: open ? "open" : "closed", disabled: (@disabled ? "" : nil),
-                            controller: "shadcn--dropdown-menu", **values(root)
+                            controller: "chadcn--dropdown-menu", **values(root)
                           }
                         }, @attrs)
     render_part(:button, @as_child, attrs, &)
@@ -44,11 +44,11 @@ class Chadcn::DropdownMenu::Trigger < Chadcn::Base
 
   def values(root)
     {
-      shadcn__dropdown_menu_open_value: root[:open].to_s,
-      shadcn__dropdown_menu_controlled_value: root[:controlled].to_s,
-      shadcn__dropdown_menu_modal_value: root[:modal].to_s,
-      shadcn__dropdown_menu_dir_value: root[:dir],
-      shadcn__dropdown_menu_template_value: root[:content_id]
+      chadcn__dropdown_menu_open_value: root[:open].to_s,
+      chadcn__dropdown_menu_controlled_value: root[:controlled].to_s,
+      chadcn__dropdown_menu_modal_value: root[:modal].to_s,
+      chadcn__dropdown_menu_dir_value: root[:dir],
+      chadcn__dropdown_menu_template_value: root[:content_id]
     }
   end
 end

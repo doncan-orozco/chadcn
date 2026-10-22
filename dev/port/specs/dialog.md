@@ -12,7 +12,7 @@ Every part: `class:` goes through `cn` last (caller wins, tailwind-merge), `**at
 
 | React | Ruby | Notes |
 |---|---|---|
-| `Dialog` (`DialogPrimitive.Root`, props `open`, `defaultOpen`, `onOpenChange`, `modal = true`, dialog:30-38) | `Components::V2::Dialog.new(open: nil, default_open: false, modal: true, **attrs) { ... }` | `open:` given (true/false) = controlled: the controller never changes its own state, it only dispatches `open-change` (callers set `data-shadcn--dialog-open-value`). `open: nil` = uncontrolled, starts at `default_open`. Renders no shadcn element (see Structure, deviation). |
+| `Dialog` (`DialogPrimitive.Root`, props `open`, `defaultOpen`, `onOpenChange`, `modal = true`, dialog:30-38) | `Components::V2::Dialog.new(open: nil, default_open: false, modal: true, **attrs) { ... }` | `open:` given (true/false) = controlled: the controller never changes its own state, it only dispatches `open-change` (callers set `data-chadcn--dialog-open-value`). `open: nil` = uncontrolled, starts at `default_open`. Renders no shadcn element (see Structure, deviation). |
 | `DialogTrigger` | `Components::V2::Dialog::Trigger.new(as_child: false, class: nil, **attrs) { label }` | Toggles (dialog:89 `onOpenToggle`). |
 | `DialogPortal` (`forceMount`, `container`, dialog:98-102) | `Components::V2::Dialog::Portal.new(force_mount: false, container: nil) { ... }` | Renders nothing itself; its children are moved to `container` (default `document.body`). `container:` is a CSS selector string (deviation `api`, a DOM node cannot be passed from Ruby). |
 | `DialogOverlay` (`forceMount`, dialog:107) | `Components::V2::Dialog::Overlay.new(force_mount: false, as_child: false, class: nil, **attrs)` | Rendered only when `modal` (dialog:109). |
@@ -25,7 +25,7 @@ Every part: `class:` goes through `cn` last (caller wins, tailwind-merge), `**at
 
 Options: `modal:`, `open:`, `default_open:`, `show_close_button:`, `force_mount:` are booleans; `"true"`/`"false"` strings are not accepted (React types are boolean).
 
-Events (dispatched with `this.dispatch` from the `shadcn--dialog` host, `bubbles: true`; prefix `shadcn--dialog:`):
+Events (dispatched with `this.dispatch` from the `chadcn--dialog` host, `bubbles: true`; prefix `chadcn--dialog:`):
 
 | Event | Radix origin | detail | cancelable | default action when not prevented |
 |---|---|---|---|---|
@@ -61,7 +61,7 @@ end
 
 Class strings below are verbatim from the oracle (order irrelevant, set equality is the gate).
 
-**`Dialog` (data-slot `dialog`) and `Dialog::Portal` (data-slot `dialog-portal`)** render NO element and no `data-slot` (manifest `non_rendered_slots`; Radix Root is a context provider dialog:50-71, Portal maps each child into `Presence > Portal asChild` dialog:101, `data-slot="dialog-portal"` is dropped). The port renders one controller host (deviation): `<div style="display: contents" data-controller="shadcn--dialog" data-shadcn--dialog-open-value data-shadcn--dialog-modal-value data-shadcn--dialog-controlled-value>` with no `data-slot`, no classes. The host wraps the block in place (inside a caller `<form>` in the demo, exactly where React's tree is).
+**`Dialog` (data-slot `dialog`) and `Dialog::Portal` (data-slot `dialog-portal`)** render NO element and no `data-slot` (manifest `non_rendered_slots`; Radix Root is a context provider dialog:50-71, Portal maps each child into `Presence > Portal asChild` dialog:101, `data-slot="dialog-portal"` is dropped). The port renders one controller host (deviation): `<div style="display: contents" data-controller="chadcn--dialog" data-chadcn--dialog-open-value data-chadcn--dialog-modal-value data-chadcn--dialog-controlled-value>` with no `data-slot`, no classes. The host wraps the block in place (inside a caller `<form>` in the demo, exactly where React's tree is).
 
 **Portal and Presence.** Each child of a Portal (in shadcn: Overlay, then Content) is appended **directly** to `document.body` (or `container`), with no wrapper (po:17 `Primitive.div asChild`), in order Overlay, Content, after existing body children. While closed (and not force-mounted) they do not exist in the DOM (pr:26). Server rendering: closed -> the Portal children are rendered inside one `<template>` in the host (deviation; invisible to the runner, it has no `data-slot`); open on first render (`default_open: true` / `open: true`) -> rendered in place and moved to the container in `connect()`. Because the moved nodes leave the controller element, the controller binds their listeners directly (Stimulus `data-action` scoping does not reach them).
 
@@ -141,7 +141,7 @@ Timers: none besides `setTimeout(0)` for close autofocus (fs:107) and the `point
 
 Positioning: none (CSS-centred `fixed`); no floating-ui.
 
-Primitives composed: `portal`, `presence`, `dismissable_layer` (layer stack, Escape on top layer only, outside pointer/focus detection, body `pointer-events` for modal layers; it has NO deferred pointer-down and NO dismissable-surface option: the `shadcn--dialog` controller implements Radix Dialog's own deferral (dialog:266, a primary press outside arms the dismissal and the following click fires it) in its `onPointerDownOutside` handler), `focus_scope` (trap + loop + auto focus, stack), `focus_guards`, `hide_others`, `scroll_lock`, `ids`. Controller `shadcn--dialog` values: `open` (Boolean), `controlled` (Boolean), `modal` (Boolean, default true). `disconnect()` releases every primitive, removes portaled nodes and restores `body` (Turbo cache must not keep a dialog open).
+Primitives composed: `portal`, `presence`, `dismissable_layer` (layer stack, Escape on top layer only, outside pointer/focus detection, body `pointer-events` for modal layers; it has NO deferred pointer-down and NO dismissable-surface option: the `chadcn--dialog` controller implements Radix Dialog's own deferral (dialog:266, a primary press outside arms the dismissal and the following click fires it) in its `onPointerDownOutside` handler), `focus_scope` (trap + loop + auto focus, stack), `focus_guards`, `hide_others`, `scroll_lock`, `ids`. Controller `chadcn--dialog` values: `open` (Boolean), `controlled` (Boolean), `modal` (Boolean, default true). `disconnect()` releases every primitive, removes portaled nodes and restores `body` (Turbo cache must not keep a dialog open).
 
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)
@@ -176,7 +176,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 Recorded in `gems/chadcn/dev/port/deviations/dialog.json`:
 
-1. **Controller host.** `Dialog` must render no element, but Trigger cannot host the controller (zero, one or several triggers; controlled `open` without trigger). One `<div style="display: contents" data-controller="shadcn--dialog">` without `data-slot`, classes or other data attributes wraps the block. Not visible to G2 (no `data-slot`) and layout-neutral.
+1. **Controller host.** `Dialog` must render no element, but Trigger cannot host the controller (zero, one or several triggers; controlled `open` without trigger). One `<div style="display: contents" data-controller="chadcn--dialog">` without `data-slot`, classes or other data attributes wraps the block. Not visible to G2 (no `data-slot`) and layout-neutral.
 2. **Closed Presence parts in a `<template>`.** React does not mount closed Overlay/Content; the server must ship their markup somewhere, so it goes in a `<template>` inside the host (inert, not in `querySelectorAll("[data-slot]")`, not rendered).
 3. **`Dialog::Portal` `container:`** takes a CSS selector string because a DOM node cannot be passed from Ruby.
 

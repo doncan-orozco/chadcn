@@ -22,11 +22,11 @@ module Smoke
       --skip-jbuilder --skip-test --skip-system-test --skip-rubocop --skip-brakeman --skip-bundler-audit --skip-thruster
       --skip-dev-gems --skip-bootsnap
     ].freeze
-    MARKUP = [ 'data-slot="button"', 'data-variant="outline"', 'data-controller="shadcn--dialog"', 'data-slot="dialog-trigger"',
-               'data-slot="dialog-content"', '"controllers/shadcn/dialog_controller"' ].freeze
+    MARKUP = [ 'data-slot="button"', 'data-variant="outline"', 'data-controller="chadcn--dialog"', 'data-slot="dialog-trigger"',
+               'data-slot="dialog-content"', '"controllers/chadcn/dialog_controller"' ].freeze
     # esbuild apps have no importmap: the controller registration is bundled into app/assets/builds/application.js instead.
     ESBUILD_MARKUP = MARKUP.first(5).freeze
-    ESBUILD_BUNDLE_MARKERS = [ "shadcn--dialog", "shadcn--dropdown-menu", "computePosition" ].freeze
+    ESBUILD_BUNDLE_MARKERS = [ "chadcn--dialog", "chadcn--dropdown-menu", "computePosition" ].freeze
     GEM_LINE = 'gem "chadcn"'
     DEMO_PATH = "/demo"
     # Arbitrary-value utilities that only the gem's Ruby files use: generated only if an @source line reaches the gem.
@@ -145,7 +145,7 @@ module Smoke
       success = unbundled { system({ "RAILS_ENV" => "production", "SECRET_KEY_BASE_DUMMY" => "1" }, "bin/rails", "assets:precompile", chdir: @app_dir.to_s) }
       raise "assets:precompile failed" unless success
 
-      compiled = Dir[@app_dir.join("public/assets/controllers/shadcn/dialog_controller-*.js").to_s]
+      compiled = Dir[@app_dir.join("public/assets/controllers/chadcn/dialog_controller-*.js").to_s]
       raise "assets:precompile did not compile the gem's dialog controller" if compiled.empty?
 
       # The development server must serve from Sprockets, not from the built files in public/assets (assets:clobber would also delete

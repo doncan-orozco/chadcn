@@ -13,7 +13,7 @@
             "c": "_div",
             "props": {
               "data-slot": "c1",
-              "data-controller": "shadcn---probe-direction",
+              "data-controller": "chadcn---probe-direction",
               "className": "rounded border p-2 text-sm"
             },
             "children": [
@@ -46,7 +46,7 @@
             "c": "_div",
             "props": {
               "data-slot": "c1",
-              "data-controller": "shadcn---probe-direction",
+              "data-controller": "chadcn---probe-direction",
               "className": "rounded border p-2 text-sm",
               "data-provider-dir": "rtl",
               "dir": "rtl"
@@ -81,7 +81,7 @@
             "c": "_div",
             "props": {
               "data-slot": "c1",
-              "data-controller": "shadcn---probe-direction",
+              "data-controller": "chadcn---probe-direction",
               "className": "rounded border p-2 text-sm",
               "data-provider-dir": "ltr",
               "dir": "ltr"
@@ -116,7 +116,7 @@
             "c": "_div",
             "props": {
               "data-slot": "c1",
-              "data-controller": "shadcn---probe-direction",
+              "data-controller": "chadcn---probe-direction",
               "className": "rounded border p-2 text-sm",
               "data-provider-dir": "rtl",
               "dir": "rtl",
@@ -130,7 +130,7 @@
             "c": "_div",
             "props": {
               "data-slot": "c2",
-              "data-controller": "shadcn---probe-direction",
+              "data-controller": "chadcn---probe-direction",
               "className": "rounded border p-2 text-sm",
               "data-provider-dir": "ltr",
               "dir": "ltr",
@@ -166,7 +166,7 @@
             "c": "_div",
             "props": {
               "data-slot": "c1",
-              "data-controller": "shadcn---probe-direction",
+              "data-controller": "chadcn---probe-direction",
               "className": "rounded border p-2 text-sm",
               "data-local-dir": "rtl"
             },
@@ -178,7 +178,7 @@
             "c": "_div",
             "props": {
               "data-slot": "c2",
-              "data-controller": "shadcn---probe-direction",
+              "data-controller": "chadcn---probe-direction",
               "className": "rounded border p-2 text-sm",
               "data-local-dir": "ltr"
             },
@@ -212,7 +212,7 @@
             "c": "_div",
             "props": {
               "data-slot": "c1",
-              "data-controller": "shadcn---probe-direction",
+              "data-controller": "chadcn---probe-direction",
               "className": "rounded border p-2 text-sm",
               "data-provider-dir": "rtl",
               "dir": "rtl",
@@ -226,7 +226,7 @@
             "c": "_div",
             "props": {
               "data-slot": "c2",
-              "data-controller": "shadcn---probe-direction",
+              "data-controller": "chadcn---probe-direction",
               "className": "rounded border p-2 text-sm",
               "data-provider-dir": "",
               "data-local-dir": "rtl"
@@ -261,7 +261,7 @@
             "c": "_div",
             "props": {
               "data-slot": "c1",
-              "data-controller": "shadcn---probe-direction",
+              "data-controller": "chadcn---probe-direction",
               "className": "rounded border p-2 text-sm",
               "data-provider-dir": ""
             },
@@ -302,7 +302,7 @@
                 "c": "_div",
                 "props": {
                   "data-slot": "c1",
-                  "data-controller": "shadcn---probe-direction",
+                  "data-controller": "chadcn---probe-direction",
                   "className": "rounded border p-2 text-sm"
                 },
                 "children": [
@@ -337,7 +337,7 @@
             "c": "_div",
             "props": {
               "data-slot": "c1",
-              "data-controller": "shadcn---probe-direction",
+              "data-controller": "chadcn---probe-direction",
               "className": "rounded border p-2 text-sm",
               "data-provider-dir": "rtl",
               "dir": "rtl"
@@ -350,7 +350,7 @@
             "c": "_div",
             "props": {
               "data-slot": "c2",
-              "data-controller": "shadcn---probe-direction",
+              "data-controller": "chadcn---probe-direction",
               "className": "rounded border p-2 text-sm"
             },
             "children": [
@@ -361,7 +361,7 @@
             "c": "_div",
             "props": {
               "data-slot": "c3",
-              "data-controller": "shadcn---probe-direction",
+              "data-controller": "chadcn---probe-direction",
               "className": "rounded border p-2 text-sm",
               "data-provider-dir": "ltr",
               "dir": "ltr",
@@ -375,7 +375,7 @@
             "c": "_div",
             "props": {
               "data-slot": "c4",
-              "data-controller": "shadcn---probe-direction",
+              "data-controller": "chadcn---probe-direction",
               "className": "rounded border p-2 text-sm",
               "data-local-dir": "rtl"
             },
@@ -409,7 +409,7 @@
             "c": "_div",
             "props": {
               "data-slot": "c1",
-              "data-controller": "shadcn---probe-direction",
+              "data-controller": "chadcn---probe-direction",
               "className": "rounded border p-2 text-sm",
               "data-provider-dir": "rtl",
               "dir": "rtl"

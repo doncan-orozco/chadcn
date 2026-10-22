@@ -37,9 +37,9 @@ class Chadcn::DropdownMenuTest < Chadcn::TestCase
     assert_equal "false", trigger["aria-expanded"]
     assert_equal "closed", trigger["data-state"]
     assert_nil trigger["aria-controls"]
-    assert_equal "shadcn--dropdown-menu", trigger["data-controller"]
+    assert_equal "chadcn--dropdown-menu", trigger["data-controller"]
 
-    template = doc.at_css("template[data-shadcn--dropdown-menu-template]")
+    template = doc.at_css("template[data-chadcn--dropdown-menu-template]")
     content = template.at_css("[data-slot=dropdown-menu-content]")
 
     assert_equal "menu", content["role"]
@@ -59,15 +59,15 @@ class Chadcn::DropdownMenuTest < Chadcn::TestCase
     assert_equal "true", trigger["aria-expanded"]
     assert_equal "open", trigger["data-state"]
     assert trigger["aria-controls"]
-    assert_equal "true", trigger["data-shadcn--dropdown-menu-open-value"]
-    assert_equal "false", trigger["data-shadcn--dropdown-menu-controlled-value"]
+    assert_equal "true", trigger["data-chadcn--dropdown-menu-open-value"]
+    assert_equal "false", trigger["data-chadcn--dropdown-menu-controlled-value"]
   end
 
   test "controlled root wins over default_open and is flagged" do
     trigger = fragment(menu(root: { open: false, default_open: true })).at_css("[data-slot=dropdown-menu-trigger]")
 
     assert_equal "closed", trigger["data-state"]
-    assert_equal "true", trigger["data-shadcn--dropdown-menu-controlled-value"]
+    assert_equal "true", trigger["data-chadcn--dropdown-menu-controlled-value"]
   end
 
   test "root renders no element of its own and rejects unknown options" do
@@ -178,7 +178,7 @@ class Chadcn::DropdownMenuTest < Chadcn::TestCase
     end
     doc = fragment(html)
     trigger = doc.at_css("[data-slot=dropdown-menu-sub-trigger]")
-    template = doc.at_css("template[data-shadcn--dropdown-menu-template$='-sub-2-content'], template[data-shadcn--dropdown-menu-template*='-sub-']")
+    template = doc.at_css("template[data-chadcn--dropdown-menu-template$='-sub-2-content'], template[data-chadcn--dropdown-menu-template*='-sub-']")
     content = template.at_css("[data-slot=dropdown-menu-sub-content]")
 
     assert_equal %w[true open true], [ trigger["aria-expanded"], trigger["data-state"], trigger["data-inset"] ]
@@ -245,8 +245,8 @@ class Chadcn::DropdownMenuTest < Chadcn::TestCase
     provided = render_view { render(Chadcn::Direction::Provider.new(dir: "rtl")) { render(DropdownMenu.new) { render(DropdownMenu::Trigger.new) { "x" } } } }
     local = render_view { render(Chadcn::Direction::Provider.new(dir: "rtl")) { render(DropdownMenu.new(dir: "ltr")) { render(DropdownMenu::Trigger.new) { "x" } } } }
 
-    assert_equal "rtl", fragment(provided).at_css("[data-slot=dropdown-menu-trigger]")["data-shadcn--dropdown-menu-dir-value"]
-    assert_equal "ltr", fragment(local).at_css("[data-slot=dropdown-menu-trigger]")["data-shadcn--dropdown-menu-dir-value"]
+    assert_equal "rtl", fragment(provided).at_css("[data-slot=dropdown-menu-trigger]")["data-chadcn--dropdown-menu-dir-value"]
+    assert_equal "ltr", fragment(local).at_css("[data-slot=dropdown-menu-trigger]")["data-chadcn--dropdown-menu-dir-value"]
   end
 
   test "content serializes the positioning options into the template with the documented defaults" do
@@ -309,7 +309,7 @@ class Chadcn::DropdownMenuTest < Chadcn::TestCase
     html = menu { render(DropdownMenu::RadioGroup.new) { render(DropdownMenu::RadioItem.new(value: "a")) { "A" } } }
     empty = fragment(html).at_css("[data-slot=dropdown-menu-radio-item]")
 
-    assert_equal %w[false unchecked a], [ outside["aria-checked"], outside["data-state"], outside["data-shadcn--dropdown-menu-value"] ]
+    assert_equal %w[false unchecked a], [ outside["aria-checked"], outside["data-state"], outside["data-chadcn--dropdown-menu-value"] ]
     assert_equal %w[false unchecked], [ empty["aria-checked"], empty["data-state"] ]
   end
 
@@ -378,7 +378,7 @@ class Chadcn::DropdownMenuTest < Chadcn::TestCase
   test "an unknown dir falls back to ltr without raising" do
     html = render_view { render(DropdownMenu.new(dir: "sideways")) { render(DropdownMenu::Trigger.new) { "x" } } }
 
-    assert_equal "ltr", fragment(html).at_css("button")["data-shadcn--dropdown-menu-dir-value"]
+    assert_equal "ltr", fragment(html).at_css("button")["data-chadcn--dropdown-menu-dir-value"]
   end
 
   test "modal false and dir rtl reach the trigger values and the content" do
@@ -386,8 +386,8 @@ class Chadcn::DropdownMenuTest < Chadcn::TestCase
     doc = fragment(html)
     trigger = doc.at_css("button")
 
-    assert_equal "false", trigger["data-shadcn--dropdown-menu-modal-value"]
-    assert_equal "rtl", trigger["data-shadcn--dropdown-menu-dir-value"]
+    assert_equal "false", trigger["data-chadcn--dropdown-menu-modal-value"]
+    assert_equal "rtl", trigger["data-chadcn--dropdown-menu-dir-value"]
     assert_equal "rtl", doc.at_css("[data-slot=dropdown-menu-content]")["dir"]
   end
 
@@ -402,10 +402,10 @@ class Chadcn::DropdownMenuTest < Chadcn::TestCase
     doc = fragment(html)
     first, second = doc.css("button")
 
-    assert_equal first["data-shadcn--dropdown-menu-template-value"], doc.at_css("template")["data-shadcn--dropdown-menu-template"]
+    assert_equal first["data-chadcn--dropdown-menu-template-value"], doc.at_css("template")["data-chadcn--dropdown-menu-template"]
 
     assert_not_equal first["id"], second["id"]
-    assert_not_equal first["data-shadcn--dropdown-menu-template-value"], second["data-shadcn--dropdown-menu-template-value"]
+    assert_not_equal first["data-chadcn--dropdown-menu-template-value"], second["data-chadcn--dropdown-menu-template-value"]
   end
 
   test "controlled sub menu is flagged on its trigger and open reflects on aria-controls" do
@@ -416,7 +416,7 @@ class Chadcn::DropdownMenuTest < Chadcn::TestCase
     end
     trigger = fragment(html).at_css("[data-slot=dropdown-menu-sub-trigger]")
 
-    assert_equal %w[true closed false], [ trigger["data-shadcn--dropdown-menu-sub-controlled"], trigger["data-state"], trigger["aria-expanded"] ]
+    assert_equal %w[true closed false], [ trigger["data-chadcn--dropdown-menu-sub-controlled"], trigger["data-state"], trigger["aria-expanded"] ]
     assert_nil trigger["aria-controls"]
     assert trigger.key?("data-disabled")
     assert_equal "More", trigger["data-text-value"]
@@ -436,7 +436,7 @@ class Chadcn::DropdownMenuTest < Chadcn::TestCase
         end
       end
     end
-    templates = fragment(html).css("template[data-shadcn--dropdown-menu-template*='-sub-']")
+    templates = fragment(html).css("template[data-chadcn--dropdown-menu-template*='-sub-']")
     outer = JSON.parse(templates.first["data-options"])
     inner = JSON.parse(templates.last["data-options"])
 
@@ -446,7 +446,7 @@ class Chadcn::DropdownMenuTest < Chadcn::TestCase
   end
 
   test "sub content options hold no side key and carry the sub defaults for align and side_offset" do
-    options = JSON.parse(fragment(menu { render(DropdownMenu::Sub.new) { render(DropdownMenu::SubContent.new) { "x" } } }).at_css("template template, template[data-shadcn--dropdown-menu-template*='-sub-']")["data-options"])
+    options = JSON.parse(fragment(menu { render(DropdownMenu::Sub.new) { render(DropdownMenu::SubContent.new) { "x" } } }).at_css("template template, template[data-chadcn--dropdown-menu-template*='-sub-']")["data-options"])
 
     assert_not options.key?("side")
     assert_equal [ "start", 0 ], options.values_at("align", "sideOffset")

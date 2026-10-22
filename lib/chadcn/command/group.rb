@@ -44,6 +44,6 @@ class Chadcn::Command::Group < Chadcn::Base
     attrs = merge_attrs({ class: CLASSES, data: { slot: "command-group" } }, @attrs)
     # React keeps `value` in the rest props it spreads on the div (cmdk:204), then writes the trimmed data-value.
     attrs = with_forced(attrs, { "cmdk-group": "", role: "presentation", value: @value }.compact, data: { value: group_value })
-    @force_mount ? with_forced(attrs, {}, data: { shadcn__command_force_mount: "true" }) : attrs
+    @force_mount ? with_forced(attrs, {}, data: { chadcn__command_force_mount: "true" }) : attrs
   end
 end

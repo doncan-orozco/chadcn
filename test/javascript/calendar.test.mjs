@@ -1,7 +1,7 @@
 import { browserTest } from "./harness.mjs";
 import { assert, settle } from "./support.mjs";
 
-// Behavior of shadcn--calendar that the parity runner cannot compare with React: the events (React has callbacks), node identity across
+// Behavior of chadcn--calendar that the parity runner cannot compare with React: the events (React has callbacks), node identity across
 // renders, reconnection, the port-only form wiring (name:, input:, label:, close_on_select:) and the Intl fallbacks of other locales.
 // Pages are the real parity pages; options that no scenario sets are applied by rewriting the root's config value, which the controller
 // observes (a config change re-renders from scratch).
@@ -15,7 +15,7 @@ const captions = (page) => page.locator(`${ROOT} .rdp-caption_label`).allTextCon
 async function configure(page, patch, selector = ROOT) {
   await page.evaluate(({ patch, selector }) => {
     const root = document.querySelector(selector);
-    const name = "data-shadcn--calendar-config-value";
+    const name = "data-chadcn--calendar-config-value";
     const config = { ...JSON.parse(root.getAttribute(name)), ...patch };
     for (const [key, value] of Object.entries(patch)) if (value === null) delete config[key];
     root.setAttribute(name, JSON.stringify(config));
@@ -28,7 +28,7 @@ async function reconnect(page, selector = ROOT) {
   await page.evaluate(({ selector }) => new Promise((resolve) => {
     const root = document.querySelector(selector);
     root.setAttribute("data-controller", "");
-    requestAnimationFrame(() => { root.setAttribute("data-controller", "shadcn--calendar"); resolve(); });
+    requestAnimationFrame(() => { root.setAttribute("data-controller", "chadcn--calendar"); resolve(); });
   }), { selector });
   await settle(page);
 }
@@ -37,7 +37,7 @@ async function record(page) {
   await page.evaluate(() => {
     window.__calendarEvents = [];
     for (const name of ["select", "month-change"]) {
-      document.addEventListener(`shadcn--calendar:${name}`, (event) => window.__calendarEvents.push({ name, detail: event.detail, bubbles: event.bubbles, cancelable: event.cancelable, target: event.target.dataset.slot }));
+      document.addEventListener(`chadcn--calendar:${name}`, (event) => window.__calendarEvents.push({ name, detail: event.detail, bubbles: event.bubbles, cancelable: event.cancelable, target: event.target.dataset.slot }));
     }
   });
 }
@@ -106,7 +106,7 @@ browserTest("calendar: a controlled month reports month-change but only moves wh
   await page.click(".rdp-button_next");
   assert.deepEqual((await events(page)).map((event) => event.detail.month), ["2026-06-01"]);
   assert.deepEqual(await captions(page), ["May 2026"], "refused like React without onMonthChange");
-  await page.evaluate(() => document.querySelector("[data-slot=calendar]").setAttribute("data-shadcn--calendar-month-value", "2026-06-01"));
+  await page.evaluate(() => document.querySelector("[data-slot=calendar]").setAttribute("data-chadcn--calendar-month-value", "2026-06-01"));
   await settle(page);
   assert.deepEqual(await captions(page), ["June 2026"]);
 });
@@ -177,7 +177,7 @@ browserTest("calendar: changing the config value re-renders (more months, anothe
   const page = await open("mode-single__rest");
   await configure(page, { numberOfMonths: 2 });
   assert.deepEqual(await captions(page), ["March 2026", "April 2026"]);
-  await configure(page, { locale: "es", localeKind: "es", weekStartsOn: 1, firstWeekContainsDate: 1, labels: { ...(await page.evaluate(() => JSON.parse(document.querySelector("[data-slot=calendar]").getAttribute("data-shadcn--calendar-config-value")).labels)), today: "Hoy", selected: "seleccionado" } });
+  await configure(page, { locale: "es", localeKind: "es", weekStartsOn: 1, firstWeekContainsDate: 1, labels: { ...(await page.evaluate(() => JSON.parse(document.querySelector("[data-slot=calendar]").getAttribute("data-chadcn--calendar-config-value")).labels)), today: "Hoy", selected: "seleccionado" } });
   assert.deepEqual(await captions(page), ["marzo 2026", "abril 2026"]);
   assert.equal(await page.locator(".rdp-weekday").first().textContent(), "lu");
 });
@@ -239,7 +239,7 @@ browserTest("calendar: inline name: inputs follow the selection", async ({ open 
   await page.evaluate(() => {
     const root = document.querySelector("[data-slot=calendar]");
     const blank = Object.assign(document.createElement("input"), { type: "hidden", name: "days[]", value: "" });
-    blank.setAttribute("data-shadcn--calendar-field", "blank");
+    blank.setAttribute("data-chadcn--calendar-field", "blank");
     root.append(blank);
   });
   await reconnect(page);
@@ -303,7 +303,7 @@ browserTest("calendar: label: shows the formatted selection, keeps the first tex
   const page = await open("mode-single__rest");
   await page.evaluate(() => document.body.append(Object.assign(document.createElement("span"), { id: "shown", textContent: "Pick a date" })));
   await configure(page, { label: "#shown" });
-  assert.equal(await page.getAttribute("#shown", "data-shadcn--calendar-placeholder"), "Pick a date");
+  assert.equal(await page.getAttribute("#shown", "data-chadcn--calendar-placeholder"), "Pick a date");
   assert.equal(await page.getAttribute("#shown", "data-empty"), "true");
   await page.click(day("2026-03-22"));
   assert.equal(await page.textContent("#shown"), "March 22nd, 2026");
@@ -312,7 +312,7 @@ browserTest("calendar: label: shows the formatted selection, keeps the first tex
   assert.equal(await page.textContent("#shown"), "Pick a date");
   assert.equal(await page.getAttribute("#shown", "data-empty"), "true");
   await reconnect(page);
-  assert.equal(await page.getAttribute("#shown", "data-shadcn--calendar-placeholder"), "Pick a date", "stored once");
+  assert.equal(await page.getAttribute("#shown", "data-chadcn--calendar-placeholder"), "Pick a date", "stored once");
 });
 
 browserTest("calendar: label: formats multiple selections and ranges", async ({ open }) => {
@@ -340,9 +340,9 @@ browserTest("calendar: label: formats multiple selections and ranges", async ({ 
 // The Popover mounts a fresh copy of its content template on every open, so the wiring is applied to the calendar inside the template.
 async function wirePicker(page, config) {
   await page.evaluate((config) => {
-    const template = document.querySelector("template[data-shadcn--popover-template]");
+    const template = document.querySelector("template[data-chadcn--popover-template]");
     const root = template.content.querySelector("[data-slot=calendar]");
-    const name = "data-shadcn--calendar-config-value";
+    const name = "data-chadcn--calendar-config-value";
     root.setAttribute(name, JSON.stringify({ ...JSON.parse(root.getAttribute(name)), ...config }));
   }, config);
 }
@@ -415,9 +415,9 @@ browserTest("calendar: disabled and hidden matchers are data: ranges, intervals 
 browserTest("calendar: a pre-filled label with a declared placeholder falls back to it when the selection is cleared", async ({ open }) => {
   const page = await open("mode-single__rest");
   await page.evaluate(() => document.body.append(Object.assign(document.createElement("span"), { id: "shown", textContent: "March 22nd, 2026" })));
-  await page.evaluate(() => { const label = document.querySelector("#shown"); label.setAttribute("data-shadcn--calendar-placeholder", "Pick a date"); label.setAttribute("data-empty", "false"); });
+  await page.evaluate(() => { const label = document.querySelector("#shown"); label.setAttribute("data-chadcn--calendar-placeholder", "Pick a date"); label.setAttribute("data-empty", "false"); });
   await configure(page, { label: "#shown", selected: "2026-03-22" });
-  assert.equal(await page.getAttribute("#shown", "data-shadcn--calendar-placeholder"), "Pick a date", "the declared placeholder is kept");
+  assert.equal(await page.getAttribute("#shown", "data-chadcn--calendar-placeholder"), "Pick a date", "the declared placeholder is kept");
   assert.equal(await page.getAttribute("#shown", "data-empty"), "false");
   await page.click(day("2026-03-22"));
   assert.equal(await page.textContent("#shown"), "Pick a date");
@@ -446,7 +446,7 @@ browserTest("calendar: without input: the inline name: inputs are the source on 
   const page = await open("mode-single__selected");
   await page.evaluate(() => {
     const field = Object.assign(document.createElement("input"), { type: "hidden", name: "day", value: "2026-03-18" });
-    field.setAttribute("data-shadcn--calendar-field", "single");
+    field.setAttribute("data-chadcn--calendar-field", "single");
     document.querySelector("[data-slot=calendar]").append(field);
   });
   await reconnect(page);

@@ -1,5 +1,5 @@
 // React twin of app/javascript/v2/primitives/form_bubble_input.js: the RAW Radix Checkbox / Switch / RadioGroup / Select whose
-// internal BubbleInput the port reproduces. Rendered by Harness.tsx for `data-controller="shadcn---probe-form-bubble-input"`; the Phlex side
+// internal BubbleInput the port reproduces. Rendered by Harness.tsx for `data-controller="chadcn---probe-form-bubble-input"`; the Phlex side
 // renders the markup from the scenario tree and the Stimulus probe (_probe_form_bubble_input_controller.js) adds the bubble input.
 //   root props : data-slot="form" renders a <form>, anything else a <div> (the no-form case);
 //                data-probe-kind checkbox|switch|radio|select, -name, -value, -checked (true|indeterminate), -required, -disabled,
@@ -114,4 +114,4 @@ function FormBubbleInputProbe({ children: _children, ...rest }: AnyProps) {
   )
 }
 
-export const probe = { controller: "shadcn---probe-form-bubble-input", Component: FormBubbleInputProbe }
+export const probe = { controller: "chadcn---probe-form-bubble-input", Component: FormBubbleInputProbe }

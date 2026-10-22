@@ -68,11 +68,11 @@ try {
   page.on("requestfailed", (request) => errors.push(`requestfailed: ${request.url()} ${request.failure()?.errorText}`));
 
   await page.goto(url, { waitUntil: "load" });
-  await page.locator('[data-controller~="shadcn--dialog"]').waitFor({ state: "attached" });
-  // Rails loads controllers with dynamic imports after the page's load event; click only once shadcn--dialog is connected.
+  await page.locator('[data-controller~="chadcn--dialog"]').waitFor({ state: "attached" });
+  // Rails loads controllers with dynamic imports after the page's load event; click only once chadcn--dialog is connected.
   await page.waitForFunction(() => {
-    const element = document.querySelector('[data-controller~="shadcn--dialog"]');
-    return window.Stimulus && element && window.Stimulus.getControllerForElementAndIdentifier(element, "shadcn--dialog");
+    const element = document.querySelector('[data-controller~="chadcn--dialog"]');
+    return window.Stimulus && element && window.Stimulus.getControllerForElementAndIdentifier(element, "chadcn--dialog");
   }, null, { timeout: TIMEOUT.connect });
   // The step targets the trigger by role, as the parity harness does; once the modal is open Radix hides everything else from
   // assistive technology (aria-hidden on the trigger's ancestors), so the later reads use the data-slot selector.

@@ -17,8 +17,8 @@ Trying a real app found two problems, nothing more:
    Sprockets the options object answers `nil` for it and the initializer raised `NoMethodError` (every `rails` command failed).
    Fixed by running the exclusion only when the option exists.
 2. **Pinned files were refused.** sprockets-rails raises `AssetNotPrecompiledError` for any asset not declared precompiled, and the app's
-   `app/assets/config/manifest.js` cannot link files inside an installed gem. The importmap pins of the gem (`controllers/shadcn/*`,
-   `shadcn/primitives/*`, the vendored `@floating-ui--*`) are therefore declared by the engine in `config.assets.precompile`
+   `app/assets/config/manifest.js` cannot link files inside an installed gem. The importmap pins of the gem (`controllers/chadcn/*`,
+   `chadcn/primitives/*`, the vendored `@floating-ui--*`) are therefore declared by the engine in `config.assets.precompile`
    (`Engine::SprocketsAssets`, only when `Sprockets::Railtie` is loaded; Propshaft ignores that list).
 
 What needed nothing: the asset paths (the engine adds `app/javascript` and `vendor/javascript`, which Sprockets uses as is), the

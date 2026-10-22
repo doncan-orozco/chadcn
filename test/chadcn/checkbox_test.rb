@@ -44,15 +44,15 @@ class Chadcn::CheckboxTest < Chadcn::TestCase
     assert_includes html, "bg-red-500"
     assert_includes html, 'id="c1"'
     assert_includes html, 'name="terms"'
-    assert_includes html, 'data-action="click->x#y click->shadcn--checkbox#toggle'
+    assert_includes html, 'data-action="click->x#y click->chadcn--checkbox#toggle'
   end
 
   test "controlled false stays unchecked and flags the controller as controlled" do
     html = render_checkbox(checked: false)
 
     assert_includes html, 'data-state="unchecked"'
-    assert_includes html, 'data-shadcn--checkbox-controlled-value="true"'
-    assert_includes render_checkbox, 'data-shadcn--checkbox-controlled-value="false"'
+    assert_includes html, 'data-chadcn--checkbox-controlled-value="true"'
+    assert_includes render_checkbox, 'data-chadcn--checkbox-controlled-value="false"'
   end
 
   test "default_checked indeterminate renders mixed" do

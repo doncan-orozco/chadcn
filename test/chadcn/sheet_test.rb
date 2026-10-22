@@ -30,11 +30,11 @@ class Chadcn::SheetTest < Chadcn::TestCase
 
   test "host carries the controller and the closed parts live in a template" do
     doc = fragment(sheet)
-    host = doc.at_css("[data-controller=shadcn--sheet]")
+    host = doc.at_css("[data-controller=chadcn--sheet]")
 
     assert_equal "display: contents", host["style"]
     assert_nil host["data-slot"]
-    assert_equal "false", host["data-shadcn--sheet-open-value"]
+    assert_equal "false", host["data-chadcn--sheet-open-value"]
     assert_equal 1, host.css("[data-slot=sheet-content]").size
     assert host.at_css("template [data-slot=sheet-overlay]")
     assert_equal "sheet-trigger", host.at_css("button")["data-slot"]
@@ -72,13 +72,13 @@ class Chadcn::SheetTest < Chadcn::TestCase
   end
 
   test "root attributes and options land on the host" do
-    host = fragment(sheet(root: { default_open: true, modal: false, class: "x-root", data: { foo: "bar" } })).at_css("[data-controller=shadcn--sheet]")
+    host = fragment(sheet(root: { default_open: true, modal: false, class: "x-root", data: { foo: "bar" } })).at_css("[data-controller=chadcn--sheet]")
 
     assert_includes host["class"], "x-root"
     assert_equal "bar", host["data-foo"]
-    assert_equal "true", host["data-shadcn--sheet-open-value"]
-    assert_equal "false", host["data-shadcn--sheet-controlled-value"]
-    assert_equal "false", host["data-shadcn--sheet-modal-value"]
+    assert_equal "true", host["data-chadcn--sheet-open-value"]
+    assert_equal "false", host["data-chadcn--sheet-controlled-value"]
+    assert_equal "false", host["data-chadcn--sheet-modal-value"]
   end
 
   test "close_label names the x button and show_close_button false removes it" do

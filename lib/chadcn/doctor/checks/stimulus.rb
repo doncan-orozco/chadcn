@@ -3,7 +3,7 @@
 module Chadcn
   module Doctor
     module Checks
-      # The host registers its Stimulus controllers from the `controllers` importmap namespace, where the gem's `shadcn--*` controllers live.
+      # The host registers its Stimulus controllers from the `controllers` importmap namespace, where the gem's `chadcn--*` controllers live.
       #
       # @api private
       module Stimulus
@@ -24,11 +24,11 @@ module Chadcn
 
           # An esbuild app has no importmap namespace: the generator's managed index.js registers the controllers (see the javascript pipeline check).
           if JsBundle.pipeline(context.root, context.gems) == :esbuild && context.path(JsBundle::INDEX).file?
-            return Result.passed(NAME, "#{JsBundle::INDEX} registers the gem's shadcn--* controllers")
+            return Result.passed(NAME, "#{JsBundle::INDEX} registers the gem's chadcn--* controllers")
           end
 
           registered = FILES.find { |file| registers?(context.read(context.path(file))) }
-          return Result.passed(NAME, "#{registered} registers the controllers namespace, where the gem's shadcn--* controllers are") if registered
+          return Result.passed(NAME, "#{registered} registers the controllers namespace, where the gem's chadcn--* controllers are") if registered
 
           Result.failure(NAME, %(no eagerLoadControllersFrom("controllers", application) (or lazyLoadControllersFrom) in #{FILES.join(' or ')}),
                          fix: %(add eagerLoadControllersFrom("controllers", application) to #{FILES.first}))

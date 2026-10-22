@@ -12,11 +12,11 @@ const close = async (page) => { await page.keyboard.press("Escape"); await page.
 // turbo:before-cache resets the hover intent (re-audit R106-3). The controller is reconnected with short delays so the waits
 // stay short: open 100 ms, close 5 s by default (a re-hover inside the close delay is what a stale open flag used to swallow).
 const reconnectWithDelays = (page, { openDelay = 100, closeDelay = 5000 } = {}) => page.evaluate(({ openDelay, closeDelay }) => new Promise((resolve) => {
-  const host = document.querySelector('[data-controller~="shadcn--hover-card"]');
-  host.setAttribute("data-shadcn--hover-card-open-delay-value", String(openDelay));
-  host.setAttribute("data-shadcn--hover-card-close-delay-value", String(closeDelay));
+  const host = document.querySelector('[data-controller~="chadcn--hover-card"]');
+  host.setAttribute("data-chadcn--hover-card-open-delay-value", String(openDelay));
+  host.setAttribute("data-chadcn--hover-card-close-delay-value", String(closeDelay));
   host.setAttribute("data-controller", "");
-  requestAnimationFrame(() => { host.setAttribute("data-controller", "shadcn--hover-card"); resolve(); });
+  requestAnimationFrame(() => { host.setAttribute("data-controller", "chadcn--hover-card"); resolve(); });
 }), { openDelay, closeDelay });
 const dispatchBeforeCache = (page) => page.evaluate(async () => {
   document.dispatchEvent(new Event("turbo:before-cache"));
@@ -50,7 +50,7 @@ browserTest("hover-card: touchstart on the trigger is not default-prevented (Rad
 
 browserTest("hover-card: a caller preventDefault on escape-key-down keeps it open", async ({ open: openPage }) => {
   const page = await openPage("default__closed");
-  await recordEvents(page, "shadcn--hover-card", { prevent: ["escape-key-down"] });
+  await recordEvents(page, "chadcn--hover-card", { prevent: ["escape-key-down"] });
   await open(page);
   await page.keyboard.press("Escape");
   await settle(page);
@@ -60,7 +60,7 @@ browserTest("hover-card: a caller preventDefault on escape-key-down keeps it ope
 
 browserTest("hover-card: open-change fires for every change", async ({ open: openPage }) => {
   const page = await openPage("default__closed");
-  await recordEvents(page, "shadcn--hover-card");
+  await recordEvents(page, "chadcn--hover-card");
   await open(page);
   await close(page);
   assert.deepEqual((await eventLog(page)).filter((e) => e.name === "open-change").map((e) => e.open), [true, false]);
@@ -69,7 +69,7 @@ browserTest("hover-card: open-change fires for every change", async ({ open: ope
 for (const prevented of ["pointer-down-outside", "interact-outside"]) {
   browserTest(`hover-card: a caller preventDefault on ${prevented} keeps it open after an outside click`, async ({ open: openPage }) => {
     const page = await openPage("default__closed");
-    await recordEvents(page, "shadcn--hover-card", { prevent: [prevented] });
+    await recordEvents(page, "chadcn--hover-card", { prevent: [prevented] });
     await open(page);
     await page.click("[data-testid=outside]");
     await settle(page);
@@ -78,12 +78,12 @@ for (const prevented of ["pointer-down-outside", "interact-outside"]) {
 }
 
 positioningTests(browserTest, {
-  component: "hover-card", scenario: "default__closed", template: "template[data-shadcn--hover-card-template]", controller: "shadcn--hover-card", trigger, content, open, close
+  component: "hover-card", scenario: "default__closed", template: "template[data-chadcn--hover-card-template]", controller: "chadcn--hover-card", trigger, content, open, close
 });
 
 browserTest("hover-card: a controlled open value is reconciled when it changes", async ({ open: openPage }) => {
   const page = await openPage("controlled-open-false__stays-closed");
-  const set = (value) => page.evaluate(({ selector, value }) => document.querySelector(selector).setAttribute("data-shadcn--hover-card-open-value", value), { selector: '[data-controller~="shadcn--hover-card"]', value: String(value) });
+  const set = (value) => page.evaluate(({ selector, value }) => document.querySelector(selector).setAttribute("data-chadcn--hover-card-open-value", value), { selector: '[data-controller~="chadcn--hover-card"]', value: String(value) });
   assert.equal(await isOpen(page), false);
   await set(true);
   await page.waitForSelector(content);
@@ -127,7 +127,7 @@ browserTest("hover-card: before-cache drops a pending open timer, so no card is 
   await settle(page);
   const mounted = await page.evaluate(async () => {
     const count = () => document.querySelectorAll("[data-slot=hover-card-content]").length;
-    const host = document.querySelector('[data-controller~="shadcn--hover-card"]');
+    const host = document.querySelector('[data-controller~="chadcn--hover-card"]');
     host.dispatchEvent(new PointerEvent("pointerenter", { pointerType: "mouse" })); // arms the open timer
     document.dispatchEvent(new Event("turbo:before-cache"));
     await new Promise((resolve) => setTimeout(resolve)); // the snapshot tick

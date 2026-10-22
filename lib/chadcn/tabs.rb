@@ -3,7 +3,7 @@
 using Chadcn::Values::Refinements
 
 # shadcn Tabs over Radix Tabs. Spec: docs/shadcn-port/specs/tabs.md.
-# Behavior: controllers/shadcn/tabs_controller.js.
+# Behavior: controllers/chadcn/tabs_controller.js.
 #
 # Root of the tabs. Yields itself, so `list`, `trigger` and `content` are yielded-root helpers equal to rendering
 # `Tabs::List`, `Tabs::Trigger` and `Tabs::Content`.
@@ -88,12 +88,12 @@ class Chadcn::Tabs < Chadcn::Base
     {
       slot: "tabs",
       orientation: @orientation,
-      controller: "shadcn--tabs",
-      shadcn__tabs_value_value: @value,
-      shadcn__tabs_controlled_value: @controlled.to_s,
-      shadcn__tabs_activation_mode_value: @activation_mode,
-      shadcn__tabs_orientation_value: @orientation,
-      shadcn__tabs_dir_value: context[ROOT_KEY][:dir]
+      controller: "chadcn--tabs",
+      chadcn__tabs_value_value: @value,
+      chadcn__tabs_controlled_value: @controlled.to_s,
+      chadcn__tabs_activation_mode_value: @activation_mode,
+      chadcn__tabs_orientation_value: @orientation,
+      chadcn__tabs_dir_value: context[ROOT_KEY][:dir]
     }
   end
 end

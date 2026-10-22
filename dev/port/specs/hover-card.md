@@ -19,7 +19,7 @@ Every part: `class:` goes through `cn` last (caller wins), `**attrs` pass throug
 
 Not ported: `ref`; `HoverCardArrow` (not exported by shadcn); `HoverCardPortal` as a separate part (shadcn's `HoverCardContent` always wraps it; its slot `hover-card-portal` never reaches the DOM).
 
-Events (dispatched with `this.dispatch` by the `shadcn--hover-card` controller on the trigger element, `bubbles: true`, prefix `shadcn--hover-card:`):
+Events (dispatched with `this.dispatch` by the `chadcn--hover-card` controller on the trigger element, `bubbles: true`, prefix `chadcn--hover-card:`):
 
 | Event | Radix origin | detail | cancelable | default action when not prevented |
 |---|---|---|---|---|
@@ -45,13 +45,13 @@ end
 Server render (closed, default):
 
 ```html
-<a data-state="closed" data-slot="hover-card-trigger" data-controller="shadcn--hover-card" data-shadcn--hover-card-*-value="...">Hover</a>
-<template data-shadcn--hover-card-template="<key>"> ...Content markup below... </template>
+<a data-state="closed" data-slot="hover-card-trigger" data-controller="chadcn--hover-card" data-chadcn--hover-card-*-value="...">Hover</a>
+<template data-chadcn--hover-card-template="<key>"> ...Content markup below... </template>
 ```
 
 - `hover-card` (Root) and `hover-card-portal` (Portal): **no element, no data-slot** (manifest `non_rendered_slots`; radix-dom-contract "Parts that render no element").
-- `hover-card-trigger` (Trigger, hc:86-98): `Primitive.a` wrapped in `PopperPrimitive.Anchor asChild`. Attributes: `data-state` = `open | closed` (hc:89), then caller attrs (can override), `data-slot="hover-card-trigger"`. No `href` unless the caller passes one (so a bare trigger is NOT focusable), no `type`, no `role`, no `aria-*`, no `tabindex`, no `id`. While the content is mounted and placed, Popper Anchor adds `data-radix-popper-side` / `data-radix-popper-align` with the placed side/align (popper:83-95), removed again when the content unmounts (popper:183-189 `setPlacementState(undefined)`). With `as_child:` the same attributes land on the child element (`<button data-state="closed" data-slot="hover-card-trigger">` for a `_button` child; a V2 child keeps its own `data-slot`). The trigger is the Stimulus host (`data-controller="shadcn--hover-card"`) with values `open`, `controlled`, `open-delay`, `close-delay`, `template-key`, and the Content positioning values (`side`, `side-offset`, `align`, `align-offset`, `avoid-collisions`, `collision-padding`, `arrow-padding`, `sticky`, `hide-when-detached`, `update-position-strategy`, `dir`).
-- Content while closed: nothing in the live DOM (Portal Presence `present = context.open`, hc:108; Content Presence hc:117). The port renders the content markup inside an inert `<template data-shadcn--hover-card-template="<key>">` emitted at the `HoverCard::Content` call site (no data-slot, no box; deviation, same pattern as Tooltip). `<key>` is a per-render counter (Radix renders no id anywhere in HoverCard, so no id is rendered on the content).
+- `hover-card-trigger` (Trigger, hc:86-98): `Primitive.a` wrapped in `PopperPrimitive.Anchor asChild`. Attributes: `data-state` = `open | closed` (hc:89), then caller attrs (can override), `data-slot="hover-card-trigger"`. No `href` unless the caller passes one (so a bare trigger is NOT focusable), no `type`, no `role`, no `aria-*`, no `tabindex`, no `id`. While the content is mounted and placed, Popper Anchor adds `data-radix-popper-side` / `data-radix-popper-align` with the placed side/align (popper:83-95), removed again when the content unmounts (popper:183-189 `setPlacementState(undefined)`). With `as_child:` the same attributes land on the child element (`<button data-state="closed" data-slot="hover-card-trigger">` for a `_button` child; a V2 child keeps its own `data-slot`). The trigger is the Stimulus host (`data-controller="chadcn--hover-card"`) with values `open`, `controlled`, `open-delay`, `close-delay`, `template-key`, and the Content positioning values (`side`, `side-offset`, `align`, `align-offset`, `avoid-collisions`, `collision-padding`, `arrow-padding`, `sticky`, `hide-when-detached`, `update-position-strategy`, `dir`).
+- Content while closed: nothing in the live DOM (Portal Presence `present = context.open`, hc:108; Content Presence hc:117). The port renders the content markup inside an inert `<template data-chadcn--hover-card-template="<key>">` emitted at the `HoverCard::Content` call site (no data-slot, no box; deviation, same pattern as Tooltip). `<key>` is a per-render counter (Radix renders no id anywhere in HoverCard, so no id is rendered on the content).
 - Content while open, appended directly to `document.body` (Portal; no wrapper besides Popper's):
 
 ```html
@@ -140,8 +140,8 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 One structural, invisible deviation (`gems/chadcn/dev/port/deviations/hover-card.json`), identical in shape to Tooltip's:
 
-- `HoverCard::Content` emits an inert `<template data-shadcn--hover-card-template="<key>">` at its call site that carries the content markup until the controller mounts it in `body`. Reason: Radix renders nothing while closed and creates the node on the client in a body portal; the server must ship the markup somewhere and the trigger (the controller host, an `<a>`) cannot contain it. The template has no `data-slot`, generates no box, and its content is not in the document, so G2 node lists, boxes and a11y are unaffected.
+- `HoverCard::Content` emits an inert `<template data-chadcn--hover-card-template="<key>">` at its call site that carries the content markup until the controller mounts it in `body`. Reason: Radix renders nothing while closed and creates the node on the client in a body portal; the server must ship the markup somewhere and the trigger (the controller host, an `<a>`) cannot contain it. The template has no `data-slot`, generates no box, and its content is not in the document, so G2 node lists, boxes and a11y are unaffected.
 
 ```json
-{ "component": "hover-card", "reason": "...", "allow_tokens": [], "allow_missing_tokens": [], "api": ["HoverCard::Content renders an inert <template data-shadcn--hover-card-template> (no data-slot) holding the content markup while closed"] }
+{ "component": "hover-card", "reason": "...", "allow_tokens": [], "allow_missing_tokens": [], "api": ["HoverCard::Content renders an inert <template data-chadcn--hover-card-template> (no data-slot) holding the content markup while closed"] }
 ```

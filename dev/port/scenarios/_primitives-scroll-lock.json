@@ -8,7 +8,7 @@
         "props": {
           "data-probe": "scroll_lock",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-scroll-lock",
+          "data-controller": "chadcn---probe-scroll-lock",
           "className": "flex flex-col items-start gap-2"
         },
         "children": [
@@ -17,9 +17,9 @@
             "props": {
               "type": "button",
               "data-slot": "lock-a",
-              "data-action": "click->shadcn---probe-scroll-lock#toggle",
+              "data-action": "click->chadcn---probe-scroll-lock#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-scroll-lock-name-param": "a"
+              "data-chadcn---probe-scroll-lock-name-param": "a"
             },
             "children": [
               "Lock A"
@@ -30,9 +30,9 @@
             "props": {
               "type": "button",
               "data-slot": "lock-b",
-              "data-action": "click->shadcn---probe-scroll-lock#toggle",
+              "data-action": "click->chadcn---probe-scroll-lock#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-scroll-lock-name-param": "b"
+              "data-chadcn---probe-scroll-lock-name-param": "b"
             },
             "children": [
               "Lock B"
@@ -65,7 +65,7 @@
         "props": {
           "data-probe": "scroll_lock",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-scroll-lock",
+          "data-controller": "chadcn---probe-scroll-lock",
           "className": "flex flex-col items-start gap-2"
         },
         "children": [
@@ -74,9 +74,9 @@
             "props": {
               "type": "button",
               "data-slot": "lock-a",
-              "data-action": "click->shadcn---probe-scroll-lock#toggle",
+              "data-action": "click->chadcn---probe-scroll-lock#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-scroll-lock-name-param": "a"
+              "data-chadcn---probe-scroll-lock-name-param": "a"
             },
             "children": [
               "Lock A"
@@ -87,9 +87,9 @@
             "props": {
               "type": "button",
               "data-slot": "lock-b",
-              "data-action": "click->shadcn---probe-scroll-lock#toggle",
+              "data-action": "click->chadcn---probe-scroll-lock#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-scroll-lock-name-param": "b"
+              "data-chadcn---probe-scroll-lock-name-param": "b"
             },
             "children": [
               "Lock B"
@@ -131,7 +131,7 @@
         "props": {
           "data-probe": "scroll_lock",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-scroll-lock",
+          "data-controller": "chadcn---probe-scroll-lock",
           "className": "flex flex-col items-start gap-2"
         },
         "children": [
@@ -140,9 +140,9 @@
             "props": {
               "type": "button",
               "data-slot": "lock-a",
-              "data-action": "click->shadcn---probe-scroll-lock#toggle",
+              "data-action": "click->chadcn---probe-scroll-lock#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-scroll-lock-name-param": "a"
+              "data-chadcn---probe-scroll-lock-name-param": "a"
             },
             "children": [
               "Lock A"
@@ -153,9 +153,9 @@
             "props": {
               "type": "button",
               "data-slot": "lock-b",
-              "data-action": "click->shadcn---probe-scroll-lock#toggle",
+              "data-action": "click->chadcn---probe-scroll-lock#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-scroll-lock-name-param": "b"
+              "data-chadcn---probe-scroll-lock-name-param": "b"
             },
             "children": [
               "Lock B"
@@ -205,7 +205,7 @@
         "props": {
           "data-probe": "scroll_lock",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-scroll-lock",
+          "data-controller": "chadcn---probe-scroll-lock",
           "className": "flex flex-col items-start gap-2"
         },
         "children": [
@@ -214,9 +214,9 @@
             "props": {
               "type": "button",
               "data-slot": "lock-a",
-              "data-action": "click->shadcn---probe-scroll-lock#toggle",
+              "data-action": "click->chadcn---probe-scroll-lock#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-scroll-lock-name-param": "a"
+              "data-chadcn---probe-scroll-lock-name-param": "a"
             },
             "children": [
               "Lock A"
@@ -227,9 +227,9 @@
             "props": {
               "type": "button",
               "data-slot": "lock-b",
-              "data-action": "click->shadcn---probe-scroll-lock#toggle",
+              "data-action": "click->chadcn---probe-scroll-lock#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-scroll-lock-name-param": "b"
+              "data-chadcn---probe-scroll-lock-name-param": "b"
             },
             "children": [
               "Lock B"
@@ -279,7 +279,7 @@
         "props": {
           "data-probe": "scroll_lock",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-scroll-lock",
+          "data-controller": "chadcn---probe-scroll-lock",
           "className": "flex flex-col items-start gap-2"
         },
         "children": [
@@ -288,9 +288,9 @@
             "props": {
               "type": "button",
               "data-slot": "lock-a",
-              "data-action": "click->shadcn---probe-scroll-lock#toggle",
+              "data-action": "click->chadcn---probe-scroll-lock#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-scroll-lock-name-param": "a"
+              "data-chadcn---probe-scroll-lock-name-param": "a"
             },
             "children": [
               "Lock A"
@@ -301,9 +301,9 @@
             "props": {
               "type": "button",
               "data-slot": "lock-b",
-              "data-action": "click->shadcn---probe-scroll-lock#toggle",
+              "data-action": "click->chadcn---probe-scroll-lock#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-scroll-lock-name-param": "b"
+              "data-chadcn---probe-scroll-lock-name-param": "b"
             },
             "children": [
               "Lock B"
@@ -349,7 +349,7 @@
         "props": {
           "data-probe": "scroll_lock",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-scroll-lock",
+          "data-controller": "chadcn---probe-scroll-lock",
           "className": "flex flex-col items-start gap-2"
         },
         "children": [
@@ -358,9 +358,9 @@
             "props": {
               "type": "button",
               "data-slot": "lock-a",
-              "data-action": "click->shadcn---probe-scroll-lock#toggle",
+              "data-action": "click->chadcn---probe-scroll-lock#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-scroll-lock-name-param": "a"
+              "data-chadcn---probe-scroll-lock-name-param": "a"
             },
             "children": [
               "Lock A"
@@ -371,9 +371,9 @@
             "props": {
               "type": "button",
               "data-slot": "lock-b",
-              "data-action": "click->shadcn---probe-scroll-lock#toggle",
+              "data-action": "click->chadcn---probe-scroll-lock#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-scroll-lock-name-param": "b"
+              "data-chadcn---probe-scroll-lock-name-param": "b"
             },
             "children": [
               "Lock B"

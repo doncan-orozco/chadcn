@@ -33,7 +33,7 @@
         "app/assets/tailwind/foundation/**",
         "gems/chadcn/app/assets/tailwind/chadcn/** (bug fixes only)",
         "app/assets/tailwind/vendor/**",
-        "gems/chadcn/app/javascript/controllers/shadcn/theme_controller.js",
+        "gems/chadcn/app/javascript/controllers/chadcn/theme_controller.js",
         "gems/chadcn/dev/react-shadcn-catalog/src/index.css",
         "lib/shadcn/**",
         "lib/tasks/theme.rake",

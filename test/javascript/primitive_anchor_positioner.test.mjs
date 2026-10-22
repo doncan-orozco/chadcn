@@ -9,7 +9,7 @@ const run = (page, body) => page.evaluate(new Function(`return (async () => { ${
 
 // Creates the positioner and resolves once the first placement happened.
 const place = (options = "{}") => `
-  const { anchorPositioner } = await import("shadcn/primitives/anchor_positioner");
+  const { anchorPositioner } = await import("chadcn/primitives/anchor_positioner");
   const anchor = document.getElementById("anchor");
   const floating = document.getElementById("floating");
   const opts = ${options};
@@ -21,7 +21,7 @@ const rect = `const r = (el) => { const b = el.getBoundingClientRect(); return {
 
 primitiveTest("anchor positioner: stays off the page, invisible and fixed until the first placement", async (page) => {
   const result = await run(page, `
-    const { anchorPositioner } = await import("shadcn/primitives/anchor_positioner");
+    const { anchorPositioner } = await import("chadcn/primitives/anchor_positioner");
     const floating = document.getElementById("floating");
     const placement = anchorPositioner(document.getElementById("anchor"), floating, {});
     const before = { position: floating.style.position, opacity: floating.style.opacity, width: floating.style.getPropertyValue("--available-width") };
@@ -110,7 +110,7 @@ primitiveTest("anchor positioner: lazyFlip keeps the side it flipped to while th
     return { first, second: floating.dataset.side };`);
   assert.deepEqual(result, { first: "top", second: "top" });
   const eager = await run(page, `
-    const { anchorPositioner } = await import("shadcn/primitives/anchor_positioner");
+    const { anchorPositioner } = await import("chadcn/primitives/anchor_positioner");
     const floating = document.getElementById("floating");
     floating.style.height = "10px";
     let placed;
@@ -146,7 +146,7 @@ primitiveTest("anchor positioner: update() changes the side and autoUpdate follo
 
 primitiveTest("anchor positioner: onPlace reports every placement and release() stops tracking, idempotently", async (page) => {
   const result = await run(page, `
-    const { anchorPositioner } = await import("shadcn/primitives/anchor_positioner");
+    const { anchorPositioner } = await import("chadcn/primitives/anchor_positioner");
     const floating = document.getElementById("floating");
     const anchor = document.getElementById("anchor");
     const placements = [];

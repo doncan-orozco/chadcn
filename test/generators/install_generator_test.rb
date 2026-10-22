@@ -252,41 +252,41 @@ class InstallGeneratorTest < Rails::Generators::TestCase
     esbuild_app
     run_generator
 
-    assert_file "app/javascript/controllers/shadcn/dialog_controller.js" do |source|
-      assert_includes source, %(from "../../shadcn/primitives/presence")
+    assert_file "app/javascript/controllers/chadcn/dialog_controller.js" do |source|
+      assert_includes source, %(from "../../chadcn/primitives/presence")
       assert_match(%r{\A// Managed by}, source)
-      refute_match(%r{from "(shadcn/primitives|controllers/shadcn)/}, source)
+      refute_match(%r{from "(chadcn/primitives|controllers/chadcn)/}, source)
     end
-    assert_file "app/javascript/controllers/shadcn/sheet_controller.js", %r{from "\./dialog_controller"}
-    assert_file "app/javascript/shadcn/primitives/roving_focus.js", %r{from "\./direction"}
-    assert_file "app/javascript/controllers/shadcn/index.js" do |source|
+    assert_file "app/javascript/controllers/chadcn/sheet_controller.js", %r{from "\./dialog_controller"}
+    assert_file "app/javascript/chadcn/primitives/roving_focus.js", %r{from "\./direction"}
+    assert_file "app/javascript/controllers/chadcn/index.js" do |source|
       assert_includes source, %(import { application } from "../application")
-      assert_includes source, %(application.register("shadcn--dropdown-menu", DropdownMenuController))
+      assert_includes source, %(application.register("chadcn--dropdown-menu", DropdownMenuController))
     end
-    assert_file "app/javascript/application.js", %r{import "\./controllers/shadcn"\n\z}
-    assert_no_file "app/javascript/controllers/shadcn/index_controller.js"
+    assert_file "app/javascript/application.js", %r{import "\./controllers/chadcn"\n\z}
+    assert_no_file "app/javascript/controllers/chadcn/index_controller.js"
   end
 
   test "every gem controller is registered in the esbuild index" do
     esbuild_app
     run_generator
-    index = File.read(File.join(destination_root, "app/javascript/controllers/shadcn/index.js"))
-    controllers = Chadcn.root.join("app/javascript/controllers/shadcn").children.map { |file| file.basename.to_s.delete_suffix("_controller.js") }
+    index = File.read(File.join(destination_root, "app/javascript/controllers/chadcn/index.js"))
+    controllers = Chadcn.root.join("app/javascript/controllers/chadcn").children.map { |file| file.basename.to_s.delete_suffix("_controller.js") }
 
-    controllers.each { |name| assert_includes index, "application.register(\"shadcn--#{name.tr('_', '-')}\"," }
+    controllers.each { |name| assert_includes index, "application.register(\"chadcn--#{name.tr('_', '-')}\"," }
   end
 
   test "no copy keeps an importmap-only specifier" do
     Chadcn::JsBundle.files(Chadcn.root).each do |path, content|
-      refute_match(%r{["'](shadcn/primitives|controllers/shadcn)/}, content, path)
+      refute_match(%r{["'](chadcn/primitives|controllers/chadcn)/}, content, path)
     end
   end
 
   test "specifiers are rewritten in every quote and import form" do
-    source = %(import a from 'shadcn/primitives/x'\nimport "shadcn/primitives/y"\nconst m = await import("controllers/shadcn/z")\n)
-    rewritten = Chadcn::JsBundle.send(:relative_specifiers, source, "app/javascript/controllers/shadcn")
+    source = %(import a from 'chadcn/primitives/x'\nimport "chadcn/primitives/y"\nconst m = await import("controllers/chadcn/z")\n)
+    rewritten = Chadcn::JsBundle.send(:relative_specifiers, source, "app/javascript/controllers/chadcn")
 
-    assert_equal %(import a from '../../shadcn/primitives/x'\nimport "../../shadcn/primitives/y"\nconst m = await import("./z")\n), rewritten
+    assert_equal %(import a from '../../chadcn/primitives/x'\nimport "../../chadcn/primitives/y"\nconst m = await import("./z")\n), rewritten
   end
 
   test "pnpm and bun lock files choose their package manager" do
@@ -302,14 +302,14 @@ class InstallGeneratorTest < Rails::Generators::TestCase
 
   test "a commented-out import does not count and a single-quoted one does" do
     esbuild_app
-    write("app/javascript/application.js", %(// import "./controllers/shadcn"\n))
+    write("app/javascript/application.js", %(// import "./controllers/chadcn"\n))
     run_generator
 
-    assert_equal 2, File.read(File.join(destination_root, "app/javascript/application.js")).scan("./controllers/shadcn").size
-    write("app/javascript/application.js", %(import './controllers/shadcn'\n))
+    assert_equal 2, File.read(File.join(destination_root, "app/javascript/application.js")).scan("./controllers/chadcn").size
+    write("app/javascript/application.js", %(import './controllers/chadcn'\n))
     run_generator
 
-    assert_equal 1, File.read(File.join(destination_root, "app/javascript/application.js")).scan("./controllers/shadcn").size
+    assert_equal 1, File.read(File.join(destination_root, "app/javascript/application.js")).scan("./controllers/chadcn").size
   end
 
   test "an esbuild app run twice changes nothing" do
@@ -319,18 +319,18 @@ class InstallGeneratorTest < Rails::Generators::TestCase
     output = run_generator
 
     assert_equal first, snapshot
-    assert_match(%r{identical\s+app/javascript/controllers/shadcn/dialog_controller.js}, output)
-    assert_equal 1, File.read(File.join(destination_root, "app/javascript/application.js")).scan("controllers/shadcn").size
+    assert_match(%r{identical\s+app/javascript/controllers/chadcn/dialog_controller.js}, output)
+    assert_equal 1, File.read(File.join(destination_root, "app/javascript/application.js")).scan("controllers/chadcn").size
   end
 
   test "an esbuild run refreshes a copy that went stale" do
     esbuild_app
     run_generator
-    write("app/javascript/shadcn/primitives/presence.js", "// stale\n")
+    write("app/javascript/chadcn/primitives/presence.js", "// stale\n")
     output = run_generator
 
-    assert_match(%r{update\s+app/javascript/shadcn/primitives/presence.js}, output)
-    assert_file "app/javascript/shadcn/primitives/presence.js", /export/
+    assert_match(%r{update\s+app/javascript/chadcn/primitives/presence.js}, output)
+    assert_file "app/javascript/chadcn/primitives/presence.js", /export/
   end
 
   test "an esbuild app without floating-ui gets it from its package manager" do
@@ -352,34 +352,34 @@ class InstallGeneratorTest < Rails::Generators::TestCase
     write("package.json", ESBUILD_PACKAGE)
     run_generator
 
-    assert_no_file "app/javascript/controllers/shadcn/dialog_controller.js"
+    assert_no_file "app/javascript/controllers/chadcn/dialog_controller.js"
   end
 
   test "--js importmap skips the JavaScript copies even when a build script exists" do
     esbuild_app
     run_generator %w[--js importmap]
 
-    assert_no_file "app/javascript/controllers/shadcn/index.js"
+    assert_no_file "app/javascript/controllers/chadcn/index.js"
   end
 
   test "an app without a detectable pipeline gets no JavaScript" do
     run_generator
 
-    assert_no_file "app/javascript/controllers/shadcn/index.js"
+    assert_no_file "app/javascript/controllers/chadcn/index.js"
   end
 
   test "--js esbuild without a package.json fails with a clear message" do
     output = run_failing_generator(%w[--js esbuild])
 
     assert_match(/package.json not found/, output)
-    assert_no_file "app/javascript/controllers/shadcn/index.js"
-    assert_no_file "app/javascript/shadcn/primitives/presence.js"
+    assert_no_file "app/javascript/controllers/chadcn/index.js"
+    assert_no_file "app/javascript/chadcn/primitives/presence.js"
   end
 
   test "an esbuild app without application.js is told what to add" do
     write("package.json", ESBUILD_PACKAGE)
     output = run_generator
 
-    assert_match(%r{add `import "\./controllers/shadcn"`}, output)
+    assert_match(%r{add `import "\./controllers/chadcn"`}, output)
   end
 end

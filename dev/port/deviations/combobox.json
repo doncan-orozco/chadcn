@@ -4,11 +4,11 @@
   "allow_tokens": [],
   "allow_missing_tokens": [],
   "api": [
-    "Combobox renders one <div style=\"display: contents\" data-controller=\"shadcn--combobox\"> host (no data-slot, classes or other data attributes besides controller wiring) around its children and hidden inputs",
+    "Combobox renders one <div style=\"display: contents\" data-controller=\"chadcn--combobox\"> host (no data-slot, classes or other data attributes besides controller wiring) around its children and hidden inputs",
     "Combobox::Content anchor: is a CSS selector string instead of an element/ref; useComboboxAnchor has no Ruby equivalent",
     "Combobox::Trigger as_child: stands for Base UI's render prop",
     "item_to_string_label:, item_to_string_value:, item_equal_to_value: are Ruby callables evaluated on the server; item equality defaults to == instead of Object.is",
-    "filter: takes the named filters \"fuzzy\" (default, primitives/scorer.js), \"contains\" (Base UI Intl.Collator) or nil instead of a function; Base UI callbacks are the shadcn--combobox:* events",
+    "filter: takes the named filters \"fuzzy\" (default, primitives/scorer.js), \"contains\" (Base UI Intl.Collator) or nil instead of a function; Base UI callbacks are the chadcn--combobox:* events",
     "inline, grid, virtualized, filteredItems, filterQuery, actionsRef and inputRef are not ported",
     "value-change reports the item's form value ({ value }), not the item object; item identity on the client is the form value and equality callables run on the server",
     "modal: true locks the page scroll and adds the backdrop but does not trap focus (the input keeps it; Tab leaves and closes, like the non-modal popup)"
@@ -18,6 +18,6 @@
     "closed Combobox::Content markup inside an inert <template>, mounted into body > div[data-base-ui-portal] and removed on close",
     "Combobox::Value ships inert <template> markers around its live content (start, end) and the block output of each possible selection inside the start marker; they stay in the document (not removed on connect) so a Turbo snapshot can rebuild chips and the selected label",
     "Combobox::Clear ships its closed button in an inert <template> before the live button, and Combobox::List ships the item indicator in an inert <template>, so the controller can mount them after a client-side selection",
-    "data-shadcn--combobox-* markers on parts (ignored by the runner) carry item identity and part roles for the controller"
+    "data-chadcn--combobox-* markers on parts (ignored by the runner) carry item identity and part roles for the controller"
   ]
 }

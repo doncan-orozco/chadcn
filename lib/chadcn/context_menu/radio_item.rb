@@ -4,7 +4,7 @@ using Chadcn::Values::Refinements
 
 # shadcn ContextMenuRadioItem: a +div+ with +role="menuitemradio"+ and a circle indicator. It is checked when the enclosing
 # {RadioGroup}'s +value:+ equals its +value:+ (compared as strings); outside a RadioGroup it is never checked. Selecting it
-# dispatches the cancelable +select+ and then +shadcn--context-menu:value-change+ (with +detail.value+, the item's +value:+ as a
+# dispatches the cancelable +select+ and then +chadcn--context-menu:value-change+ (with +detail.value+, the item's +value:+ as a
 # string), and closes the menu unless +select+ was prevented.
 #
 # @example
@@ -18,7 +18,7 @@ class Chadcn::ContextMenu::RadioItem < Chadcn::Base
   INDICATOR_CLASSES = "pointer-events-none absolute left-2 flex size-3.5 items-center justify-center"
 
   # @param value [String, Symbol, Integer] the value reported on selection (required keyword; stored as a string in
-  #   +data-shadcn--dropdown-menu-value+)
+  #   +data-chadcn--dropdown-menu-value+)
   # @param disabled [Boolean] +true+ renders +data-disabled+ and +aria-disabled="true"+ (default +false+)
   # @param text_value [String, nil] rendered as +data-text-value+ (typeahead text); omitted when +nil+
   # @param as_child [false, Symbol, String, Chadcn::Base] +false+ renders the default element; a tag Symbol/String
@@ -44,7 +44,7 @@ class Chadcn::ContextMenu::RadioItem < Chadcn::Base
     defaults = item_attrs(disabled: @disabled, text_value: @text_value).merge_deep(
       role: "menuitemradio", class: CLASSES,
       aria: { checked: checked.to_s },
-      data: { slot: "context-menu-radio-item", state: checked ? "checked" : "unchecked", shadcn__dropdown_menu_value: @value }
+      data: { slot: "context-menu-radio-item", state: checked ? "checked" : "unchecked", chadcn__dropdown_menu_value: @value }
     )
     render_part(:div, @as_child, merge_attrs(defaults, @attrs)) do
       span(class: INDICATOR_CLASSES) do

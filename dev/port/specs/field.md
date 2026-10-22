@@ -51,7 +51,7 @@ Components::V2::Field.variants(orientation: "vertical", class: nil) # => class s
 
 ## Structure
 
-Every part is server-rendered; nothing is set client-side except what `Components::V2::Label` itself wires (its `shadcn--label` controller/action, ignored by the parity runner). No ids generated, no `aria-*` added, no `data-state`. In every part the tsx writes its own attributes BEFORE `{...props}`, so a caller attr with the same name wins: `role`, `data-slot`, `data-orientation` (Field), `data-variant` (Legend), `data-content` (Separator). `className` is always destructured, so `class:` never replaces the base, it is merged. Scenarios `field__role-override`, `field__data-orientation-attr-override`, `field-legend__data-variant-override`, `field-separator__data-content-override`, `field-label__data-slot-override`.
+Every part is server-rendered; nothing is set client-side except what `Components::V2::Label` itself wires (its `chadcn--label` controller/action, ignored by the parity runner). No ids generated, no `aria-*` added, no `data-state`. In every part the tsx writes its own attributes BEFORE `{...props}`, so a caller attr with the same name wins: `role`, `data-slot`, `data-orientation` (Field), `data-variant` (Legend), `data-content` (Separator). `className` is always destructured, so `class:` never replaces the base, it is merged. Scenarios `field__role-override`, `field__data-orientation-attr-override`, `field-legend__data-variant-override`, `field-separator__data-content-override`, `field-label__data-slot-override`.
 
 ```html
 <fieldset data-slot="field-set" class="flex flex-col gap-6 has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3">

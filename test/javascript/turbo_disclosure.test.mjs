@@ -33,60 +33,60 @@ const afterSnapshotTicks = (page) => page.evaluate(async () => { for (let tick =
 
 browserTest("accordion: a closed item keeps its body in the snapshot and opens after the restore", async ({ open }) => {
   const page = await open("single__all-closed", "accordion")
-  const html = await snapshot(page, "shadcn--accordion")
+  const html = await snapshot(page, "chadcn--accordion")
   assert.ok(await countIn(page, html, "template") >= 1, "the closed bodies are in the snapshot")
 
-  await restore(page, "shadcn--accordion", html)
-  const trigger = page.locator("[data-shadcn--accordion-target~=trigger]").first()
+  await restore(page, "chadcn--accordion", html)
+  const trigger = page.locator("[data-chadcn--accordion-target~=trigger]").first()
   await trigger.click()
   await settle(page)
   assert.equal(await trigger.getAttribute("aria-expanded"), "true")
-  assert.ok(await page.locator("[data-shadcn--accordion-target~=content]").first().evaluate((el) => el.childElementCount) > 0, "content is mounted")
-  assert.equal(await page.locator("[data-shadcn--accordion-target~=content] template").count(), 0)
+  assert.ok(await page.locator("[data-chadcn--accordion-target~=content]").first().evaluate((el) => el.childElementCount) > 0, "content is mounted")
+  assert.equal(await page.locator("[data-chadcn--accordion-target~=content] template").count(), 0)
 })
 
 browserTest("accordion: an open item keeps its content and state through the snapshot", async ({ open }) => {
   const page = await open("single__default-value-open", "accordion")
-  const before = await page.locator("[data-shadcn--accordion-target~=item][data-state=open]").count()
+  const before = await page.locator("[data-chadcn--accordion-target~=item][data-state=open]").count()
   assert.ok(before > 0, "precondition: an item is open")
-  const html = await snapshot(page, "shadcn--accordion")
-  await restore(page, "shadcn--accordion", html)
-  assert.equal(await page.locator("[data-shadcn--accordion-target~=item][data-state=open]").count(), before)
-  assert.ok(await page.locator("[data-shadcn--accordion-target~=item][data-state=open] [data-shadcn--accordion-target~=content]").first().evaluate((el) => el.childElementCount) > 0)
+  const html = await snapshot(page, "chadcn--accordion")
+  await restore(page, "chadcn--accordion", html)
+  assert.equal(await page.locator("[data-chadcn--accordion-target~=item][data-state=open]").count(), before)
+  assert.ok(await page.locator("[data-chadcn--accordion-target~=item][data-state=open] [data-chadcn--accordion-target~=content]").first().evaluate((el) => el.childElementCount) > 0)
 })
 
 browserTest("accordion: the live page still opens items after a snapshot that is not followed by a navigation", async ({ open }) => {
   const page = await open("single__all-closed", "accordion")
-  await snapshot(page, "shadcn--accordion")
+  await snapshot(page, "chadcn--accordion")
   await afterSnapshotTicks(page)
-  const trigger = page.locator("[data-shadcn--accordion-target~=trigger]").first()
+  const trigger = page.locator("[data-chadcn--accordion-target~=trigger]").first()
   await trigger.click()
   await settle(page)
   assert.equal(await trigger.getAttribute("aria-expanded"), "true")
-  assert.ok(await page.locator("[data-shadcn--accordion-target~=content]").first().evaluate((el) => el.childElementCount) > 0)
+  assert.ok(await page.locator("[data-chadcn--accordion-target~=content]").first().evaluate((el) => el.childElementCount) > 0)
 })
 
 browserTest("collapsible: a closed content keeps its body in the snapshot and opens after the restore", async ({ open }) => {
   const page = await open("closed__rest", "collapsible")
-  const html = await snapshot(page, "shadcn--collapsible")
+  const html = await snapshot(page, "chadcn--collapsible")
   assert.ok(await countIn(page, html, "template") >= 1, "the closed body is in the snapshot")
 
-  await restore(page, "shadcn--collapsible", html)
-  const trigger = page.locator("[data-shadcn--collapsible-target~=trigger]").first()
+  await restore(page, "chadcn--collapsible", html)
+  const trigger = page.locator("[data-chadcn--collapsible-target~=trigger]").first()
   await trigger.click()
   await settle(page)
   assert.equal(await trigger.getAttribute("aria-expanded"), "true")
-  assert.ok(await page.locator("[data-shadcn--collapsible-target~=content]").first().evaluate((el) => el.childElementCount) > 0, "content is mounted")
+  assert.ok(await page.locator("[data-chadcn--collapsible-target~=content]").first().evaluate((el) => el.childElementCount) > 0, "content is mounted")
 })
 
 browserTest("collapsible: an open content survives the snapshot and can be closed and reopened", async ({ open }) => {
   const page = await open("default-open__rest", "collapsible")
-  const html = await snapshot(page, "shadcn--collapsible")
-  await restore(page, "shadcn--collapsible", html)
-  const content = page.locator("[data-shadcn--collapsible-target~=content]").first()
+  const html = await snapshot(page, "chadcn--collapsible")
+  await restore(page, "chadcn--collapsible", html)
+  const content = page.locator("[data-chadcn--collapsible-target~=content]").first()
   assert.equal(await content.getAttribute("data-state"), "open")
   assert.ok(await content.evaluate((el) => el.childElementCount) > 0)
-  const trigger = page.locator("[data-shadcn--collapsible-target~=trigger]").first()
+  const trigger = page.locator("[data-chadcn--collapsible-target~=trigger]").first()
   await trigger.click()
   await settle(page)
   await trigger.click()
@@ -96,10 +96,10 @@ browserTest("collapsible: an open content survives the snapshot and can be close
 
 browserTest("tabs: an inactive panel keeps its body in the snapshot and shows it after the restore", async ({ open }) => {
   const page = await open("default", "tabs")
-  const html = await snapshot(page, "shadcn--tabs")
+  const html = await snapshot(page, "chadcn--tabs")
   assert.ok(await countIn(page, html, "template") >= 1, "the inactive bodies are in the snapshot")
 
-  await restore(page, "shadcn--tabs", html)
+  await restore(page, "chadcn--tabs", html)
   const triggers = page.locator("[role=tab]")
   assert.ok(await triggers.count() > 1, "precondition: two tabs")
   await triggers.nth(1).click()
@@ -121,10 +121,10 @@ browserTest("avatar: a loaded image does not raise after the snapshot, the resto
   const page = await open("size-default__image-loaded", "avatar")
   await page.waitForSelector("[data-slot=avatar-image]")
   const errors = consoleErrors(page)
-  const html = await snapshot(page, "shadcn--avatar")
+  const html = await snapshot(page, "chadcn--avatar")
   assert.equal(await countIn(page, html, "[data-slot=avatar-image]"), 0, "the snapshot holds the image only as its template")
 
-  await restore(page, "shadcn--avatar", html)
+  await restore(page, "chadcn--avatar", html)
   await page.waitForSelector("[data-slot=avatar-image]")
   assert.equal(await page.locator("[data-slot=avatar-image]").count(), 1)
   await afterSnapshotTicks(page)
@@ -136,7 +136,7 @@ browserTest("avatar: a fallback survives a reconnect after the image loaded", as
   await page.waitForSelector("[data-slot=avatar-image]")
   const errors = consoleErrors(page)
   await page.evaluate(async () => {
-    const root = document.querySelector('[data-controller~="shadcn--avatar"]')
+    const root = document.querySelector('[data-controller~="chadcn--avatar"]')
     const parent = root.parentNode
     const next = root.nextSibling
     root.remove()
@@ -152,7 +152,7 @@ browserTest("avatar: a fallback survives a reconnect after the image loaded", as
 browserTest("avatar: the live page keeps its image after a snapshot that is not followed by a navigation", async ({ open }) => {
   const page = await open("size-default__image-loaded", "avatar")
   await page.waitForSelector("[data-slot=avatar-image]")
-  await snapshot(page, "shadcn--avatar")
+  await snapshot(page, "chadcn--avatar")
   await afterSnapshotTicks(page)
   await page.waitForSelector("[data-slot=avatar-image]")
   assert.equal(await page.locator("[data-slot=avatar-image]").count(), 1)
@@ -162,17 +162,17 @@ const SCROLLBAR = "[data-slot=scroll-area-scrollbar]"
 
 browserTest("scroll-area: the snapshot has no mounted scrollbar and the restore does not duplicate them", async ({ open }) => {
   const page = await open("default__hover", "scroll-area")
-  await page.locator(host("shadcn--scroll-area")).first().hover()
+  await page.locator(host("chadcn--scroll-area")).first().hover()
   await page.waitForSelector(SCROLLBAR)
   assert.equal(await page.locator(SCROLLBAR).count(), 1, "precondition: one scrollbar while hovered")
 
-  const html = await snapshot(page, "shadcn--scroll-area")
+  const html = await snapshot(page, "chadcn--scroll-area")
   assert.equal(await countIn(page, html, SCROLLBAR), 0, "no mounted scrollbar in the snapshot")
 
-  await restore(page, "shadcn--scroll-area", html)
+  await restore(page, "chadcn--scroll-area", html)
   assert.equal(await page.locator(SCROLLBAR).count(), 0)
   await page.mouse.move(0, 0)
-  await page.locator(host("shadcn--scroll-area")).first().hover()
+  await page.locator(host("chadcn--scroll-area")).first().hover()
   await page.waitForSelector(SCROLLBAR)
   await settle(page)
   assert.equal(await page.locator(SCROLLBAR).count(), 1, "exactly one scrollbar after the restore")
@@ -180,9 +180,9 @@ browserTest("scroll-area: the snapshot has no mounted scrollbar and the restore 
 
 browserTest("scroll-area: the live page shows its scrollbar again after a snapshot that is not followed by a navigation", async ({ open }) => {
   const page = await open("default__hover", "scroll-area")
-  await snapshot(page, "shadcn--scroll-area")
+  await snapshot(page, "chadcn--scroll-area")
   await afterSnapshotTicks(page)
-  await page.locator(host("shadcn--scroll-area")).first().hover()
+  await page.locator(host("chadcn--scroll-area")).first().hover()
   await page.waitForSelector(SCROLLBAR)
   assert.equal(await page.locator(SCROLLBAR).count(), 1)
 })
@@ -190,7 +190,7 @@ browserTest("scroll-area: the live page shows its scrollbar again after a snapsh
 browserTest("checkbox: disconnecting and reconnecting keeps the bubble input's name, required and form", async ({ open }) => {
   const page = await open("form__bubble-input__value-required-disabled", "checkbox")
   const read = () => page.evaluate(() => {
-    const control = document.querySelector('[data-controller~="shadcn--checkbox"]')
+    const control = document.querySelector('[data-controller~="chadcn--checkbox"]')
     const input = control.nextElementSibling
     return { tag: input?.tagName, name: input?.name, required: input?.required, form: input?.getAttribute("form"), value: input?.getAttribute("value"), inputs: document.querySelectorAll("input[aria-hidden=true]").length }
   })
@@ -199,7 +199,7 @@ browserTest("checkbox: disconnecting and reconnecting keeps the bubble input's n
   assert.ok(before.name, "precondition: the input is named")
 
   await page.evaluate(async () => {
-    const control = document.querySelector('[data-controller~="shadcn--checkbox"]')
+    const control = document.querySelector('[data-controller~="chadcn--checkbox"]')
     const parent = control.parentNode
     const input = control.nextElementSibling
     const after = input?.nextSibling ?? null
@@ -215,12 +215,12 @@ browserTest("checkbox: disconnecting and reconnecting keeps the bubble input's n
 browserTest("checkbox: a checked checkbox can be unchecked after a reconnect", async ({ open }) => {
   const page = await open("form__bubble-input", "checkbox")
   const errors = consoleErrors(page)
-  const box = page.locator(host("shadcn--checkbox")).first()
+  const box = page.locator(host("chadcn--checkbox")).first()
   await box.click()
   await settle(page)
   assert.equal(await box.getAttribute("data-state"), "checked")
   await page.evaluate(async () => {
-    const control = document.querySelector('[data-controller~="shadcn--checkbox"]')
+    const control = document.querySelector('[data-controller~="chadcn--checkbox"]')
     const parent = control.parentNode
     const next = control.nextSibling
     control.remove()
@@ -236,9 +236,9 @@ browserTest("checkbox: a checked checkbox can be unchecked after a reconnect", a
 
 browserTest("scroll-area: a hovered root keeps its scrollbar through a snapshot that is not followed by a navigation", async ({ open }) => {
   const page = await open("default__hover", "scroll-area")
-  await page.locator(host("shadcn--scroll-area")).first().hover()
+  await page.locator(host("chadcn--scroll-area")).first().hover()
   await page.waitForSelector(SCROLLBAR)
-  await snapshot(page, "shadcn--scroll-area")
+  await snapshot(page, "chadcn--scroll-area")
   await afterSnapshotTicks(page)
   await page.waitForSelector(SCROLLBAR) // no pointer move: the new controller learns about the pointer that is already inside
   await settle(page)
@@ -260,12 +260,12 @@ const allRestored = (page, html, selector) => page.evaluate(({ html, selector })
 
 browserTest("accordion: an item snapshotted mid exit animation is closed, hidden and keeps its body", async ({ open }) => {
   const page = await open("single__collapsible__default-value-open", "accordion")
-  const closed = "[data-shadcn--accordion-target~=content][data-state=closed]"
+  const closed = "[data-chadcn--accordion-target~=content][data-state=closed]"
   await holdExit(page, closed)
-  const handle = await page.locator("[data-shadcn--accordion-target~=item][data-state=open] [data-shadcn--accordion-target~=content]").first().elementHandle()
-  await page.locator("[data-shadcn--accordion-target~=item][data-state=open] [data-shadcn--accordion-target~=trigger]").first().click()
+  const handle = await page.locator("[data-chadcn--accordion-target~=item][data-state=open] [data-chadcn--accordion-target~=content]").first().elementHandle()
+  await page.locator("[data-chadcn--accordion-target~=item][data-state=open] [data-chadcn--accordion-target~=trigger]").first().click()
   assert.ok(await handle.evaluate((el) => el.dataset.state === "closed" && !el.hidden && el.childElementCount > 0), "precondition: exit running")
-  const html = await snapshot(page, "shadcn--accordion")
+  const html = await snapshot(page, "chadcn--accordion")
   assert.ok(await allRestored(page, html, closed))
   await afterSnapshotTicks(page)
   assert.equal(await handle.evaluate((el) => el.hidden), true, "the live page does not keep the exiting content visible")
@@ -273,12 +273,12 @@ browserTest("accordion: an item snapshotted mid exit animation is closed, hidden
 
 browserTest("collapsible: a content snapshotted mid exit animation is closed, hidden and keeps its body", async ({ open }) => {
   const page = await open("default-open__rest", "collapsible")
-  const closed = "[data-shadcn--collapsible-target~=content][data-state=closed]"
+  const closed = "[data-chadcn--collapsible-target~=content][data-state=closed]"
   await holdExit(page, closed)
-  const content = page.locator("[data-shadcn--collapsible-target~=content]").first()
-  await page.locator("[data-shadcn--collapsible-target~=trigger]").first().click()
+  const content = page.locator("[data-chadcn--collapsible-target~=content]").first()
+  await page.locator("[data-chadcn--collapsible-target~=trigger]").first().click()
   assert.ok(await content.evaluate((el) => !el.hidden && el.childElementCount > 0), "precondition: exit running")
-  const html = await snapshot(page, "shadcn--collapsible")
+  const html = await snapshot(page, "chadcn--collapsible")
   assert.ok(await allRestored(page, html, closed))
   await afterSnapshotTicks(page)
   assert.equal(await content.evaluate((el) => el.hidden), true)
@@ -291,7 +291,7 @@ browserTest("tabs: a panel snapshotted mid exit animation is inactive, hidden an
   const leaving = await page.locator("[role=tabpanel][data-state=active]").first().elementHandle()
   await page.locator("[role=tab]").nth(1).click()
   assert.ok(await leaving.evaluate((el) => el.dataset.state === "inactive" && !el.hidden), "precondition: exit running")
-  const html = await snapshot(page, "shadcn--tabs")
+  const html = await snapshot(page, "chadcn--tabs")
   assert.ok(await allRestored(page, html, inactive))
   await afterSnapshotTicks(page)
   assert.equal(await leaving.evaluate((el) => el.hidden), true)

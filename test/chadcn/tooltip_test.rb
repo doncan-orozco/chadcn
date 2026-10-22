@@ -23,7 +23,7 @@ class Chadcn::TooltipTest < Chadcn::TestCase
 
     assert_includes out, 'data-slot="tooltip-trigger"'
     assert_includes out, 'data-state="closed"'
-    assert_includes out, 'data-controller="shadcn--tooltip"'
+    assert_includes out, 'data-controller="chadcn--tooltip"'
     assert_not_includes out, "type="
     assert_not_includes out, 'data-slot="tooltip-provider"'
   end
@@ -31,7 +31,7 @@ class Chadcn::TooltipTest < Chadcn::TestCase
   test "content is shipped in an inert template with the oracle classes and arrow" do
     out = render_tooltip(content: { class: "max-w-48" })
 
-    assert_match(/<template data-shadcn--tooltip-template="tooltip-content-\d+"/, out)
+    assert_match(/<template data-chadcn--tooltip-template="tooltip-content-\d+"/, out)
     assert_includes out, 'data-slot="tooltip-content"'
     assert_includes out, 'role="tooltip"'
     assert_includes out, "max-w-48"
@@ -53,9 +53,9 @@ class Chadcn::TooltipTest < Chadcn::TestCase
   end
 
   test "delay falls back to the provider and the root wins" do
-    assert_includes render_tooltip(provider: { delay_duration: 700 }), 'data-shadcn--tooltip-delay-duration-value="700"'
+    assert_includes render_tooltip(provider: { delay_duration: 700 }), 'data-chadcn--tooltip-delay-duration-value="700"'
     assert_includes render_tooltip(provider: { delay_duration: 700 }, root: { delay_duration: 500 }),
-                    'data-shadcn--tooltip-delay-duration-value="500"'
+                    'data-chadcn--tooltip-delay-duration-value="500"'
   end
 
   test "options reach the template and as_child merges onto the child" do
@@ -91,7 +91,7 @@ class Chadcn::TooltipTest < Chadcn::TestCase
   test "content positioning keywords are serialized for the controller" do
     out = render_tooltip(content: { side: :top, side_offset: 8, align: :start, align_offset: 2, avoid_collisions: false, collision_padding: 4,
                                     collision_boundary: "#b", arrow_padding: 3, sticky: :always, hide_when_detached: true, update_position_strategy: :always })
-    options = JSON.parse(Nokogiri::HTML5.fragment(out).at_css("template[data-shadcn--tooltip-template]")["data-options"])
+    options = JSON.parse(Nokogiri::HTML5.fragment(out).at_css("template[data-chadcn--tooltip-template]")["data-options"])
 
     assert_equal({ "side" => "top", "sideOffset" => 8, "align" => "start", "alignOffset" => 2, "avoidCollisions" => false, "collisionPadding" => 4,
                    "collisionBoundary" => "#b", "arrowPadding" => 3, "sticky" => "always", "hideWhenDetached" => true,
@@ -100,7 +100,7 @@ class Chadcn::TooltipTest < Chadcn::TestCase
 
   test "force_mount is accepted and has no effect" do
     out = render_tooltip(content: { force_mount: true })
-    options = JSON.parse(Nokogiri::HTML5.fragment(out).at_css("template[data-shadcn--tooltip-template]")["data-options"])
+    options = JSON.parse(Nokogiri::HTML5.fragment(out).at_css("template[data-chadcn--tooltip-template]")["data-options"])
 
     assert_not_includes options, "forceMount"
   end
@@ -108,9 +108,9 @@ class Chadcn::TooltipTest < Chadcn::TestCase
   test "the provider options reach the tooltips" do
     out = render_tooltip(provider: { delay_duration: 100, skip_delay_duration: 200, disable_hoverable_content: true })
 
-    assert_includes out, 'data-shadcn--tooltip-delay-duration-value="100"'
-    assert_includes out, 'data-shadcn--tooltip-skip-delay-duration-value="200"'
-    assert_includes out, 'data-shadcn--tooltip-disable-hoverable-content-value="true"'
+    assert_includes out, 'data-chadcn--tooltip-delay-duration-value="100"'
+    assert_includes out, 'data-chadcn--tooltip-skip-delay-duration-value="200"'
+    assert_includes out, 'data-chadcn--tooltip-disable-hoverable-content-value="true"'
   end
 
   test "trigger and content raise outside a tooltip" do

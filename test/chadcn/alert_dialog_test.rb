@@ -32,10 +32,10 @@ class Chadcn::AlertDialogTest < Chadcn::TestCase
   end
 
   test "host carries the controller and the closed parts live in a template" do
-    host = fragment(dialog).at_css("[data-controller=shadcn--alert-dialog]")
+    host = fragment(dialog).at_css("[data-controller=chadcn--alert-dialog]")
 
     assert_equal "display: contents", host["style"]
-    assert_equal "false", host["data-shadcn--alert-dialog-open-value"]
+    assert_equal "false", host["data-chadcn--alert-dialog-open-value"]
     assert host.at_css("template [data-slot=alert-dialog-overlay]")
     assert_equal "alert-dialog-trigger", host.at_css("button")["data-slot"]
   end
@@ -84,18 +84,18 @@ class Chadcn::AlertDialogTest < Chadcn::TestCase
   end
 
   test "root attributes and options land on the host" do
-    host = fragment(dialog(root: { default_open: true, class: "x-root", data: { foo: "bar" } })).at_css("[data-controller=shadcn--alert-dialog]")
+    host = fragment(dialog(root: { default_open: true, class: "x-root", data: { foo: "bar" } })).at_css("[data-controller=chadcn--alert-dialog]")
 
     assert_includes host["class"], "x-root"
     assert_equal "bar", host["data-foo"]
-    assert_equal "true", host["data-shadcn--alert-dialog-open-value"]
+    assert_equal "true", host["data-chadcn--alert-dialog-open-value"]
   end
 
   test "portal forwards force_mount and container to the controller" do
     html = render_view do
       render(AlertDialog.new) { render(AlertDialog::Portal.new(force_mount: true, container: "#c")) { "" } }
     end
-    options = JSON.parse(fragment(html).at_css("template[data-shadcn--dialog-options]")["data-shadcn--dialog-options"])
+    options = JSON.parse(fragment(html).at_css("template[data-chadcn--dialog-options]")["data-chadcn--dialog-options"])
 
     assert_equal({ "forceMount" => true, "container" => "#c" }, options)
   end

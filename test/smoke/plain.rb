@@ -32,7 +32,7 @@ module Smoke
         module Views; class Base < Phlex::HTML; end; module Demo; end; end
         #{@readme.view_source}
         html = Views::Demo::Index.new.call
-        %w[data-slot="button" data-controller="shadcn--dialog" data-slot="dialog-trigger" data-slot="dialog-content" data-slot="dialog-title"].each do |marker|
+        %w[data-slot="button" data-controller="chadcn--dialog" data-slot="dialog-trigger" data-slot="dialog-content" data-slot="dialog-title"].each do |marker|
           abort("the README view did not render \#{marker}: \#{html}") unless html.include?(marker)
         end
 

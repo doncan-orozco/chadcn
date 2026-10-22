@@ -11,14 +11,14 @@ const titles = (page) => page.locator(`${toasts} [data-title]`).allTextContents(
 
 // What Chadcn::Sonner::Toast renders (test/chadcn/sonner_test.rb asserts the same markup).
 const toastTemplate = (attrs, title, description) =>
-  `<template data-shadcn--sonner-toast="" ${attrs}><div data-title="">${title}</div>${description ? `<div data-description="">${description}</div>` : ""}</template>`;
+  `<template data-chadcn--sonner-toast="" ${attrs}><div data-title="">${title}</div>${description ? `<div data-description="">${description}</div>` : ""}</template>`;
 
 // Reconnects the Toaster controller the way a page load does: templates already inside the section are the flash.
 const reconnectWith = (page, html) => page.evaluate((html) => new Promise((resolve) => {
   const host = document.querySelector("section[aria-live]");
   host.setAttribute("data-controller", "");
   host.insertAdjacentHTML("beforeend", html);
-  requestAnimationFrame(() => { host.setAttribute("data-controller", "shadcn--sonner"); resolve(); });
+  requestAnimationFrame(() => { host.setAttribute("data-controller", "chadcn--sonner"); resolve(); });
 }), html);
 
 const streamAppend = (page, html) => page.evaluate((html) => window.Turbo.renderStreamMessage(`<turbo-stream action="append" target="toaster"><template>${html}</template></turbo-stream>`), html);
@@ -38,7 +38,7 @@ browserTest("sonner: flash toasts rendered with the page are shown on connect, t
   assert.deepEqual((await titles(page)).sort(), ["Nope", "Plain", "Saved"]);
   assert.deepEqual(await page.locator(toasts).evaluateAll((els) => els.map((el) => el.getAttribute("data-type")).filter(Boolean).sort()), ["error", "success"]);
   assert.equal(await count(page, `${toasts}:not([data-type])`), 1, "a plain toast has no type");
-  assert.equal(await count(page, `${section} > template[data-shadcn--sonner-toast]`), 0);
+  assert.equal(await count(page, `${section} > template[data-chadcn--sonner-toast]`), 0);
 });
 
 browserTest("sonner: a Turbo Stream append onto the Toaster id shows a toast", async ({ open }) => {
@@ -76,7 +76,7 @@ browserTest("sonner: window.Toaster shows, updates and dismisses toasts", async 
 
 browserTest("sonner: the show event creates a toast from any element", async ({ open }) => {
   const page = await open("empty__no-toasts");
-  await page.evaluate(() => document.body.dispatchEvent(new CustomEvent("shadcn--sonner:show", { bubbles: true, detail: { message: "From an event", type: "warning" } })));
+  await page.evaluate(() => document.body.dispatchEvent(new CustomEvent("chadcn--sonner:show", { bubbles: true, detail: { message: "From an event", type: "warning" } })));
   await page.waitForSelector(toasts);
   assert.deepEqual(await titles(page), ["From an event"]);
   assert.equal(await page.locator(toasts).getAttribute("data-type"), "warning");
@@ -96,7 +96,7 @@ browserTest("sonner: an error is also announced through an assertive alert regio
 
 browserTest("sonner: action and cancel dispatch events; an unsafe href never navigates", async ({ open }) => {
   const page = await open("empty__no-toasts");
-  await page.evaluate(() => { window.__log = []; document.addEventListener("shadcn--sonner:action", (e) => window.__log.push(["action", e.detail.name, e.detail.id])); document.addEventListener("shadcn--sonner:cancel", (e) => window.__log.push(["cancel", e.detail.name])); });
+  await page.evaluate(() => { window.__log = []; document.addEventListener("chadcn--sonner:action", (e) => window.__log.push(["action", e.detail.name, e.detail.id])); document.addEventListener("chadcn--sonner:cancel", (e) => window.__log.push(["cancel", e.detail.name])); });
   await streamAppend(page, toastTemplate('data-id="a" data-duration="100000" data-action-label="Undo" data-action-event="undo" data-action-href="javascript:window.__pwned=1" data-cancel-label="Keep" data-cancel-event="keep"', "Deleted"));
   await page.waitForSelector("[data-action]");
   const before = page.url();
@@ -109,7 +109,7 @@ browserTest("sonner: action and cancel dispatch events; an unsafe href never nav
 
 browserTest("sonner: dismiss and auto-close are dispatched with the toast id", async ({ open }) => {
   const page = await open("empty__no-toasts");
-  await page.evaluate(() => { window.__log = []; for (const name of ["dismiss", "auto-close"]) document.addEventListener(`shadcn--sonner:${name}`, (e) => window.__log.push([name, e.detail.id])); });
+  await page.evaluate(() => { window.__log = []; for (const name of ["dismiss", "auto-close"]) document.addEventListener(`chadcn--sonner:${name}`, (e) => window.__log.push([name, e.detail.id])); });
   await page.evaluate(() => { window.Toaster.message("Short", { id: "short", duration: 100 }); window.Toaster.message("Closed by hand", { id: "hand", duration: 100000, dismissible: true }); });
   await page.waitForFunction(() => window.__log.some(([name]) => name === "auto-close"));
   await page.evaluate(() => window.Toaster.dismiss("hand"));
@@ -184,7 +184,7 @@ browserTest("sonner: href handling has a positive control: a same-origin http(s)
 
 browserTest("sonner: a type that is not a toast kind never reaches another function", async ({ open }) => {
   const page = await open("empty__no-toasts");
-  await page.evaluate(() => document.body.dispatchEvent(new CustomEvent("shadcn--sonner:show", { bubbles: true, detail: { message: "Plain", type: "constructor" } })));
+  await page.evaluate(() => document.body.dispatchEvent(new CustomEvent("chadcn--sonner:show", { bubbles: true, detail: { message: "Plain", type: "constructor" } })));
   await page.waitForSelector(toasts);
   assert.equal(await page.locator(toasts).getAttribute("data-type"), null);
   assert.deepEqual(await titles(page), ["Plain"]);
@@ -211,7 +211,7 @@ browserTest("sonner: a Toaster with a toaster_id ignores other toasts, and anoth
     const second = first.cloneNode(false);
     second.id = "side";
     second.innerHTML = first.innerHTML;
-    second.setAttribute("data-shadcn--sonner-toaster-id-value", "side");
+    second.setAttribute("data-chadcn--sonner-toaster-id-value", "side");
     document.body.append(second);
   });
   await settle(page);

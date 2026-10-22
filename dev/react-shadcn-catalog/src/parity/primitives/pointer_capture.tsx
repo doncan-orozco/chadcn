@@ -1,6 +1,6 @@
 // React twin of app/javascript/v2/primitives/pointer_capture.js: the RAW Radix Slider (its SliderImpl owns the
 // setPointerCapture / hasPointerCapture / releasePointerCapture handlers). Rendered by Harness.tsx for
-// `data-controller="shadcn---probe-pointer-capture"`; the Phlex side renders the markup of the scenario tree and the Stimulus probe
+// `data-controller="chadcn---probe-pointer-capture"`; the Phlex side renders the markup of the scenario tree and the Stimulus probe
 // (_probe_pointer_capture_controller.js) drives the primitive. Config: data-probe-value / -min / -max / -step on the root;
 // the tree children are the Phlex markup only.
 // The readout shows what the drag produced: value, commits and how many pointermoves happened with the capture held.
@@ -42,4 +42,4 @@ function PointerCaptureProbe({ children: _children, ...rest }: AnyProps) {
   )
 }
 
-export const probe = { controller: "shadcn---probe-pointer-capture", Component: PointerCaptureProbe }
+export const probe = { controller: "chadcn---probe-pointer-capture", Component: PointerCaptureProbe }

@@ -20,22 +20,22 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
   date-fns): native `Date` and `Intl` only. Single, multiple and range modes, min/max, disabled matchers, outside days, fixed weeks, week
   numbers, `label` and dropdown captions, several months, `dir: "rtl"`, month and weekday names and first day of week from `Intl` (English
   and Spanish verified), and react-day-picker's grid keyboard model (arrows, PageUp/PageDown, Shift+PageUp/PageDown, Home/End) in the
-  `shadcn--calendar` controller on the new pure `date_grid` primitive. `name:` renders ISO 8601 (`YYYY-MM-DD`) hidden inputs; selection and
-  month changes are the `shadcn--calendar:select` and `:month-change` events. Compared with react-day-picker 10.0.2 in 169 parity scenarios.
+  `chadcn--calendar` controller on the new pure `date_grid` primitive. `name:` renders ISO 8601 (`YYYY-MM-DD`) hidden inputs; selection and
+  month changes are the `chadcn--calendar:select` and `:month-change` events. Compared with react-day-picker 10.0.2 in 169 parity scenarios.
   shadcn's date picker is a block, not a registry component, so the date picker is a documented, tested composition (Popover, Button,
   Calendar and an external hidden ISO input; `input:`, `label:` and `close_on_select:`), not a class (see docs/form-controls.md). The
   gem now ships 54 component roots (llms drift test count 53 to 54).
 - `Chadcn::Toaster` (`Sonner::Toaster`) and `Sonner::Toast`: shadcn's sonner Toaster as a dependency-free port (no sonner, no
-  React). A Stimulus controller (`shadcn--sonner`) on the new `toast_stack` primitive reproduces the library's stacking, auto-dismiss,
+  React). A Stimulus controller (`chadcn--sonner`) on the new `toast_stack` primitive reproduces the library's stacking, auto-dismiss,
   pause on hover, swipe, hotkey (Alt+T) and `data-*` state; the stylesheet ships as `app/assets/tailwind/chadcn/sonner.css`. Toasts
   come from `window.Toaster` (sonner's `toast` API), the flash (`Toaster.new(flash:)`), a Turbo Stream that appends a `Sonner::Toast` to
-  the Toaster id, or the `shadcn--sonner:show` event; dismiss, auto-close, action and cancel are events. Compared with sonner in 81
+  the Toaster id, or the `chadcn--sonner:show` event; dismiss, auto-close, action and cancel are events. Compared with sonner in 81
   parity scenarios; `error` toasts are also announced through an assertive live region (recorded deviation).
 - `Chadcn::Command` (with `Command::Dialog`, `Input`, `List`, `Empty`, `Group`, `Item`, `Shortcut`, `Separator`): shadcn's
-  cmdk palette without cmdk. A Stimulus controller (`shadcn--command`) reproduces cmdk's DOM (`cmdk-*` attributes, `aria-activedescendant`),
+  cmdk palette without cmdk. A Stimulus controller (`chadcn--command`) reproduces cmdk's DOM (`cmdk-*` attributes, `aria-activedescendant`),
   keyboard model (arrows, Home/End, Ctrl+N/P/J/K, Enter) and group hiding, and ranks items with the new built-in `scorer` primitive
   (subsequence match with prefix and word-boundary bonuses and diacritic folding); the dialog variant renders `Chadcn::Dialog`.
-  Compared with cmdk in 128 parity scenarios; selection and search changes are events (`shadcn--command:select`, `:search-change`,
+  Compared with cmdk in 128 parity scenarios; selection and search changes are events (`chadcn--command:select`, `:search-change`,
   `:value-change`).
 - `Chadcn::Combobox` (`Input`, `Trigger`, `Clear`, `Value`, `Content`, `List`, `Item`, `Group`, `Label`, `Collection`, `Empty`,
   `Separator`, `Chips`, `Chip`, `ChipsInput`): shadcn's Base UI combobox with single and multiple (chips) selection, grouped items,
@@ -52,7 +52,7 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
   `config/importmap.rb` means importmap, `package.json` with jsbundling-rails or an esbuild build script means esbuild; with neither it
   writes no JavaScript). For
   jsbundling-rails/esbuild apps, which have no importmap, it copies the gem's controllers and primitives into `app/javascript` (managed
-  copies with relative imports), writes `controllers/shadcn/index.js`, adds the import to `application.js` and adds `@floating-ui/dom`
+  copies with relative imports), writes `controllers/chadcn/index.js`, adds the import to `application.js` and adds `@floating-ui/dom`
   with yarn, pnpm, bun or npm; the doctor fails when a copy is stale (`dev/decisions/js-bundlers.md`).
 - Sprockets 4 support: with Sprockets the engine declares the gem's JavaScript in `config.assets.precompile`, and the doctor's
   `asset pipeline` check names the pipeline and checks that `manifest.js` links the Tailwind build. The supported matrix (Propshaft with
@@ -75,7 +75,7 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 - Gem skeleton: Zeitwerk loader, version, license files and a standalone test harness.
 - The 54 ported components (the four above included) as `Chadcn::<Name>` with their parts nested under the root (`Chadcn::Dialog::Content`),
   generated yielded-root helpers (`dialog.content { ... }`), `as_child:` with Radix Slot semantics and `**attrs` merging on every
-  part; the Stimulus controllers `shadcn--<name>` and the shared primitives they build on.
+  part; the Stimulus controllers `chadcn--<name>` and the shared primitives they build on.
 - Rails engine (loaded only when `Rails::Engine` is defined): importmap pins for the Stimulus controllers, primitives and vendored
   floating-ui, asset paths, and the Tailwind entry `app/assets/tailwind/chadcn/engine.css` bundled by tailwindcss-rails.
   The engine's Tailwind inputs are excluded from Propshaft so they are never served or linked.
@@ -96,7 +96,7 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
   `Breadcrumb::Ellipsis` (`label:`), `Dialog::Content`, `Dialog::Footer` and `Sheet::Content` (`close_label:`), `Sidebar::Trigger`
   (`label:`), `Sidebar` (`mobile_title:`, `mobile_description:`) and `Slider` (`min_label:`, `max_label:`, `value_label:`, a
   `Kernel.format` template with `%<index>d` and `%<count>d` for three or more thumbs).
-- The `shadcn--theme` controller reads its `localStorage` key from `data-shadcn--theme-storage-key-value` (default `shadcn-theme`).
+- The `chadcn--theme` controller reads its `localStorage` key from `data-chadcn--theme-storage-key-value` (default `shadcn-theme`).
 - The built gem includes `docs/*.md` and `.yardopts`; `gem_check` gained the rules `GEMSPEC_DEV_MATERIAL` and `GEMSPEC_METADATA`.
 - CI: a Ruby 3.2 to 4.0 matrix against the current Phlex 2.x and the Phlex 2.3 lower bound, a plain-Phlex smoke, a clean-app
   smoke, a `js-tests` job running the Stimulus browser suite (`test/javascript`, the suite the host's `bin/rails test:javascript`
@@ -113,7 +113,7 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 ### Changed
 
 - Renamed from phlex-shadcn (Phlex::Shadcn) to chadcn (Chadcn). The gem is unreleased, so there is no compatibility alias. Every
-  renamed spelling (the Stimulus `shadcn--` prefix is unchanged in this release):
+  renamed spelling:
   - renamed the gem `phlex-shadcn` to `chadcn` (`gem "chadcn"`, `chadcn.gemspec`, `require "chadcn"`);
   - renamed the module `Phlex::Shadcn` to the top-level `Chadcn` (`Phlex::Shadcn::Dialog::Content` is `Chadcn::Dialog::Content`);
   - renamed the source paths `lib/phlex/shadcn.rb` and `lib/phlex/shadcn/` to `lib/chadcn.rb` and `lib/chadcn/`;
@@ -128,10 +128,15 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
     `rails g chadcn:install`);
   - renamed the theme directory `app/assets/tailwind/phlex-shadcn/` to `app/assets/tailwind/chadcn/`;
   - renamed the engine and its bundle `builds/tailwind/phlex-shadcn` to `builds/tailwind/chadcn`;
-  - renamed the agent skill `skills/phlex-shadcn/` to `skills/chadcn/`.
+  - renamed the agent skill `skills/phlex-shadcn/` to `skills/chadcn/`;
+  - renamed the Stimulus prefix `shadcn--` to `chadcn--` (identifiers such as `chadcn--dialog`, their actions, targets, values,
+    outlets and events such as `chadcn--sonner:show`);
+  - renamed the Phlex data keys `shadcn__` to `chadcn__` (`data: { chadcn__dialog_target: ... }`);
+  - renamed the JavaScript paths `app/javascript/controllers/shadcn/` and `app/javascript/shadcn/` to `controllers/chadcn/` and
+    `app/javascript/chadcn/` (importmap `under: "chadcn"`, imports `chadcn/primitives/...`).
 - A caller's `data-controller` no longer replaces a component's own: `merge_attrs` (and `as_child`) appends the caller's controller
   names after the component's and de-duplicates them, so `Calendar.new(data: { controller: "x" })` renders
-  `data-controller="shadcn--calendar x"` instead of an inert calendar. The component's controller cannot be removed through `data:`
+  `data-controller="chadcn--calendar x"` instead of an inert calendar. The component's controller cannot be removed through `data:`
   (not even with `controller: nil`); `data-action` still concatenates and every other `data:` key still lets the caller win
   (`dev/decisions/data-controller-merge.md`). Behavior change for callers who relied on replacing the controller.
 - `Chadcn::Overrides` and `Chadcn::JsBundle` (the install generator's JavaScript helper, formerly
@@ -160,9 +165,9 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 
 Relative to the in-app port (`Components::V2`):
 
-- Stimulus identifiers use the `shadcn--` prefix (`shadcn--dialog`, `data-shadcn--dialog-part`, ...); the controllers live under
-  `app/javascript/controllers/shadcn/` and are pinned `under: "controllers/shadcn"`, the shared primitives are imported as
-  `shadcn/primitives/<name>`.
+- Stimulus identifiers use the `chadcn--` prefix (`chadcn--dialog`, `data-chadcn--dialog-part`, ...); the controllers live under
+  `app/javascript/controllers/chadcn/` and are pinned `under: "controllers/chadcn"`, the shared primitives are imported as
+  `chadcn/primitives/<name>`.
 
 Since the first extraction of the gem:
 
@@ -176,12 +181,12 @@ Since the first extraction of the gem:
   256 KiB body cap. Values containing `/* */`, `{`, `}`, `;`, a backslash or `url(` are rejected (also by `theme:check` on a
   hand-edited `theme.css`), an unbalanced `:root` or `.dark` block raises `unterminated ... block`, and the `source:` comment written
   into `theme.css` is single-line.
-- The `shadcn--theme` controller's default storage key is `shadcn-theme` (it was the host-specific `papyro-theme`; pass
-  `data-shadcn--theme-storage-key-value="papyro-theme"` to keep stored choices). Only `light` and `dark` are accepted from storage,
+- The `chadcn--theme` controller's default storage key is `shadcn-theme` (it was the host-specific `papyro-theme`; pass
+  `data-chadcn--theme-storage-key-value="papyro-theme"` to keep stored choices). Only `light` and `dark` are accepted from storage,
   and blocked or throwing storage degrades to the system preference. A pre-paint script must read the same key.
 - `Direction::Provider` without `dir:` or `direction:` keeps the outer direction instead of resetting to `ltr` (a registered
   deviation from React).
-- The probe controllers used by the browser tests (`shadcn--_probe-*`) and `shadcn--theme-panel` are no longer packaged, so
+- The probe controllers used by the browser tests (`chadcn--_probe-*`) and `chadcn--theme-panel` are no longer packaged, so
   consumer import maps no longer pin them; they live in `dev/dummy`.
 - The class-string constants of the form and button components (`Button`, `ButtonGroup`, `Checkbox`, `Input`, `Label`,
   `NativeSelect`, `RadioGroup`, `Switch`, `Textarea`, `Toggle`, `ToggleGroup`) and `Slider::ROOT_CLASS`, `TRACK_CLASS`,
@@ -196,7 +201,7 @@ Since the first extraction of the gem:
   `nokogiri` is not a dependency. YARD builds without warnings.
 - Dialog, AlertDialog and Sheet unmount their portaled overlay on `turbo:before-cache`: a cached page has no open modal, scroll
   lock or `aria-hidden` siblings. A dialog open on a visit that keeps the page (a `#hash` link) re-opens after the snapshot.
-- `AlertDialog` open on first paint focuses its Cancel button; `HoverCard` with `data-shadcn--hover-card-open-value` follows the
+- `AlertDialog` open on first paint focuses its Cancel button; `HoverCard` with `data-chadcn--hover-card-open-value` follows the
   attribute when it changes.
 - Accordion, collapsible, tabs, avatar and scroll-area keep closed bodies, the avatar fallback and no scrollbar in the Turbo
   snapshot and set the live page up again afterwards; `FormBubbleInput` no longer removes a server-rendered input.

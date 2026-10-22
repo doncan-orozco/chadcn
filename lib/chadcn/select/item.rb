@@ -7,7 +7,7 @@ require "cgi/escape"
 #
 # Renders a +div role="option"+ with a check indicator when its value is the selected one, and the block as its text.
 # The hidden native +<option>+ text is also the block text, never +text_value:+ (which only feeds typeahead through
-# +data-shadcn--select-text-value+).
+# +data-chadcn--select-text-value+).
 #
 # @example
 #   select.item(value: "apple", text_value: "Apple") { "Apple" }
@@ -25,7 +25,7 @@ class Chadcn::Select::Item < Chadcn::Base
 
   # @param value [String, Symbol, Integer] value of the option (converted with +to_s+); required
   # @param disabled [Boolean] not selectable or focusable (+aria-disabled+, +data-disabled+, no +tabindex+)
-  # @param text_value [String, nil] text used for typeahead (+data-shadcn--select-text-value+); defaults to the stripped text of the block
+  # @param text_value [String, nil] text used for typeahead (+data-chadcn--select-text-value+); defaults to the stripped text of the block
   # @param attrs [Hash] HTML attributes merged into the element (+class+ is merged with Tailwind conflict resolution, +data+/+aria+ deep-merged, caller wins)
   # @raise [ArgumentError] at construction when +value:+ is missing or +as_child:+ is passed (not supported, as in React)
   def initialize(value:, disabled: false, text_value: nil, **attrs)
@@ -62,7 +62,7 @@ class Chadcn::Select::Item < Chadcn::Base
       aria: { labelledby: text_id, selected: "false", disabled: (true if @disabled) },
       data: {
         slot: "select-item", state: selected ? "checked" : "unchecked", disabled: (@disabled ? "" : nil), radix_collection_item: "",
-        shadcn__select_value: @value, shadcn__select_text_value: @text_value
+        chadcn__select_value: @value, chadcn__select_text_value: @text_value
       }
     }
   end

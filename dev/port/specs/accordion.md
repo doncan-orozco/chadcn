@@ -42,7 +42,7 @@ Components::V2::Accordion::Content.new(
 ```
 
 - Strings and symbols are accepted for `type`, `orientation`, `dir` (shadcn-port R4). `value`/`default_value` are item values (Strings) and are compared as strings.
-- Events: `shadcn--accordion:value-change`, dispatched from the root element, `detail: { value }` where `value` is a String for single (`""` after collapsing) and an Array for multiple. Not cancelable (Radix `onValueChange` is not preventable). Uncontrolled: dispatched after the DOM is updated (useUncontrolledState effect, controllable.mjs:62-66). Controlled: dispatched instead of updating, only when the computed value differs from `value:` (controllable.mjs:38-43). Single non-collapsible: clicking the open item calls `onItemClose` which does nothing (`collapsible && setValue("")`, accordion.mjs:75), so no event.
+- Events: `chadcn--accordion:value-change`, dispatched from the root element, `detail: { value }` where `value` is a String for single (`""` after collapsing) and an Array for multiple. Not cancelable (Radix `onValueChange` is not preventable). Uncontrolled: dispatched after the DOM is updated (useUncontrolledState effect, controllable.mjs:62-66). Controlled: dispatched instead of updating, only when the computed value differs from `value:` (controllable.mjs:38-43). Single non-collapsible: clicking the open item calls `onItemClose` which does nothing (`collapsible && setValue("")`, accordion.mjs:75), so no event.
 - Consumer click handlers on the Trigger (`data: { action: "click->x#y" }`) run first; Radix skips the toggle if the consumer called `preventDefault()` (`composeEventHandlers(props.onClick, context.onOpenToggle)`, collapsible.mjs:73). The controller must check `event.defaultPrevented`.
 - `as_child:` on `Accordion` and `Accordion::Item` uses `Components::V2::Base#render_as_child` (tag symbol or instance); the block is the slotted element's content. Not offered on Trigger and Content: see Deviations.
 - `ref`, `onKeyDown` on Root and per-item `onOpenChange` have no Ruby equivalent (Radix Item overrides `onOpenChange`, accordion.mjs:239).
@@ -52,7 +52,7 @@ Components::V2::Accordion::Content.new(
 DOM (uncontrolled, single, item-1 open, item-2 closed; ids shown as `T1/C1/T2/C2`, React `useId` values, normalized by the runner):
 
 ```html
-<div data-slot="accordion" class="w-full" data-orientation="vertical" data-controller="shadcn--accordion">
+<div data-slot="accordion" class="w-full" data-orientation="vertical" data-controller="chadcn--accordion">
   <div data-state="open" data-orientation="vertical" data-slot="accordion-item" class="border-b last:border-b-0">
     <h3 data-orientation="vertical" data-state="open" class="flex">
       <button type="button" aria-controls="C1" aria-expanded="true" data-state="open" data-orientation="vertical"
@@ -79,7 +79,7 @@ DOM (uncontrolled, single, item-1 open, item-2 closed; ids shown as `T1/C1/T2/C2
 
 Part `Accordion` (Root, `data-slot="accordion"`; accordion.mjs:191-206, accordion.tsx `Accordion`):
 - tag `div` (or the `as_child` element). Attributes: caller attrs, `data-slot="accordion"`, `data-orientation="vertical|horizontal"` (always). No classes from shadcn (only caller `class:`). Radix renders NO `role`, NO `dir`, NO `data-disabled`, NO `aria-orientation` on the root (`type`, `value`, `defaultValue`, `collapsible`, `disabled`, `dir`, `orientation` are destructured away, accordion.mjs:41, 55-61, 117-123). Collection.Slot adds no attribute (collection.mjs:29-34).
-- Controller host: `data-controller="shadcn--accordion"` on this element (Stimulus wiring, not compared). Values: `type`, `value` (JSON), `controlled` (Boolean), `collapsible`, `disabled`, `orientation`, `dir`.
+- Controller host: `data-controller="chadcn--accordion"` on this element (Stimulus wiring, not compared). Values: `type`, `value` (JSON), `controlled` (Boolean), `collapsible`, `disabled`, `orientation`, `dir`.
 
 Part `Accordion::Item` (`AccordionItem`, `data-slot="accordion-item"`; accordion.mjs:213-251 -> collapsible.mjs:19-55):
 - tag `div`. Attributes: `data-state="open|closed"`, `data-disabled=""` only when the item or root is disabled (collapsible.mjs:47), `data-orientation`, caller attrs, `data-slot="accordion-item"`.
@@ -101,7 +101,7 @@ Part `Accordion::Content` (`AccordionContent`, `data-slot="accordion-content"`; 
 
 Ids: each Item owns a trigger id (accordion.mjs:219) and a content id (collapsible.mjs:40), server-generated from a per-render counter in `Components::V2::Base` ids (runner normalizes by first-seen order). A caller `id:` on Trigger replaces the button id (spread after, accordion.mjs:285-287) but the content's `aria-labelledby` keeps the generated trigger id; a caller `id:` on Content replaces its id (collapsible.mjs:128-130) but the trigger's `aria-controls` keeps the generated content id. Both relations dangle, as in React (scenario `caller-ids-override__dangling-relations`).
 
-Server vs Stimulus: the server renders every attribute above for the initial state, including `hidden`, `aria-controls` for open items and, for initially open items, `transition-duration: 0s; animation-name: none` in the content style. Closed content bodies are rendered by the server inside a `<template data-shadcn--accordion-target="body">` within the content div (so they exist without a round trip); `connect()` moves each template's content into an in-memory fragment and removes the template, so the post-connect DOM equals React's (empty closed content). Stimulus then owns: toggling, `data-state` on item/h3/button/content, `aria-expanded`, `aria-controls`, `aria-disabled`, `hidden`, inserting/removing the inner div, measurement CSS vars, keyboard navigation, events.
+Server vs Stimulus: the server renders every attribute above for the initial state, including `hidden`, `aria-controls` for open items and, for initially open items, `transition-duration: 0s; animation-name: none` in the content style. Closed content bodies are rendered by the server inside a `<template data-chadcn--accordion-target="body">` within the content div (so they exist without a round trip); `connect()` moves each template's content into an in-memory fragment and removes the template, so the post-connect DOM equals React's (empty closed content). Stimulus then owns: toggling, `data-state` on item/h3/button/content, `aria-expanded`, `aria-controls`, `aria-disabled`, `hidden`, inserting/removing the inner div, measurement CSS vars, keyboard navigation, events.
 
 ## Behavior
 
@@ -135,7 +135,7 @@ Presence and measurement (collapsible.mjs:79-140, presence.mjs:20-130), reproduc
 - Close: set `data-state="closed"` immediately (trigger, h3, item, content), keep the content visible with children, re-measure the same way, then Presence: if the computed `animation-name` is `none` (motion disabled by the runner, reduced motion, or no animation) hide in the same frame (`UNMOUNT`, presence.mjs:66-67); otherwise wait for `animationend`/`animationcancel` of the current animation on the content itself (presence.mjs:83-97), then set `hidden=""` and remove the inner div, setting `animation-fill-mode: forwards` for one `setTimeout(0)` tick as Presence does (presence.mjs:88-95). Re-opening during the exit animation cancels the unmount (`unmountSuspended` -> `MOUNT`). After close, the measured collapsible vars stay in the style attribute.
 - `force_mount: true`: content is never `hidden` and always has its inner div; `data-state` still toggles; mount prevention applies as for an open item.
 
-Primitives composed: `presence` (exit-animation wait, Radix rules above), `collection` (ordered enabled triggers of this root only), `ids` (server ids first). The measurement/mount-prevention logic is identical in Collapsible and should live in ONE shared module (e.g. a `collapsible_content` helper next to `presence.js`), not inside the accordion controller. No `roving_focus` (Radix Accordion does not use RovingFocusGroup). Controller `shadcn--accordion`: one per root, targets item/trigger/header/content/body, `disconnect()` removes listeners and cancels pending animation waits/timeouts; on Turbo restore `connect()` reconciles from `data-state` (radix-stimulus R4, R10).
+Primitives composed: `presence` (exit-animation wait, Radix rules above), `collection` (ordered enabled triggers of this root only), `ids` (server ids first). The measurement/mount-prevention logic is identical in Collapsible and should live in ONE shared module (e.g. a `collapsible_content` helper next to `presence.js`), not inside the accordion controller. No `roving_focus` (Radix Accordion does not use RovingFocusGroup). Controller `chadcn--accordion`: one per root, targets item/trigger/header/content/body, `disconnect()` removes listeners and cancels pending animation waits/timeouts; on Turbo restore `connect()` reconciles from `data-state` (radix-stimulus R4, R10).
 
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)

@@ -1,7 +1,7 @@
 // Shared helpers of the overlay-family primitive probes (this directory's *.tsx files, default-exported by name; see
 // gems/chadcn/dev/port/scenarios/_primitives-*.json). A probe scenario is a RAW element tree whose root carries
 // `data-probe="<name>"`; the Harness renders that root with the matching component instead of a plain element.
-// The Phlex side renders the very same tree and wires it with a Stimulus probe controller (`shadcn---probe-<name>`),
+// The Phlex side renders the very same tree and wires it with a Stimulus probe controller (`chadcn---probe-<name>`),
 // so the markup lives once, in the scenario. `<template>` children are the conditional (mounted-on-demand) content.
 import * as React from "react"
 
@@ -16,7 +16,7 @@ export function items(children: React.ReactNode): React.ReactNode[] {
 
 export const templateName = (template: El): string => template.props["data-name"] ?? "default"
 
-/** `data-action="click->shadcn---probe-x#method"` of the closest actionable ancestor, with its `*-param` attributes. */
+/** `data-action="click->chadcn---probe-x#method"` of the closest actionable ancestor, with its `*-param` attributes. */
 export function actionOf(target: EventTarget | null, controller: string): { method: string; params: Record<string, string>; element: Element } | null {
   const element = (target as Element | null)?.closest?.("[data-action]")
   if (!element) return null

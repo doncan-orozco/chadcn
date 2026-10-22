@@ -11,7 +11,7 @@ function CollapsibleContentProbe({ children, ...props }: Record<string, any>) {
   const [trigger, content] = items(children) as El[]
   const template = items(content.props.children).find(isTemplate) as El
   return (
-    <Collapsible.Root {...strip(props)} defaultOpen={flag(props, "shadcn---probe-collapsible-content", "open")}>
+    <Collapsible.Root {...strip(props)} defaultOpen={flag(props, "chadcn---probe-collapsible-content", "open")}>
       <Collapsible.Trigger {...strip(trigger.props)} />
       <Collapsible.Content {...strip(content.props)}>{template.props.children}</Collapsible.Content>
     </Collapsible.Root>
@@ -19,4 +19,4 @@ function CollapsibleContentProbe({ children, ...props }: Record<string, any>) {
 }
 
 // Harness.tsx renders the raw root whose data-controller is `controller` with this component.
-export const probe = { controller: "shadcn---probe-collapsible-content", Component: CollapsibleContentProbe }
+export const probe = { controller: "chadcn---probe-collapsible-content", Component: CollapsibleContentProbe }

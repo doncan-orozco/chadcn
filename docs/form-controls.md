@@ -1,8 +1,8 @@
 # Form controls
 
-Inputs, buttons and the `Field` layout primitives. Interactive ones carry a Stimulus controller (`shadcn--checkbox`,
-`shadcn--switch`, `shadcn--radio-group`, `shadcn--toggle`, `shadcn--toggle-group`, `shadcn--slider`, `shadcn--input-group`,
-`shadcn--label`) and dispatch `shadcn--<name>:<event>` events. Conventions: [api-conventions.md](api-conventions.md).
+Inputs, buttons and the `Field` layout primitives. Interactive ones carry a Stimulus controller (`chadcn--checkbox`,
+`chadcn--switch`, `chadcn--radio-group`, `chadcn--toggle`, `chadcn--toggle-group`, `chadcn--slider`, `chadcn--input-group`,
+`chadcn--label`) and dispatch `chadcn--<name>:<event>` events. Conventions: [api-conventions.md](api-conventions.md).
 
 | Component | Root kwargs (besides `**attrs`) | Parts (class and generated helper) | Events |
 |---|---|---|---|
@@ -58,8 +58,8 @@ string) or a `#message` method, blank messages are dropped, and a block replaces
 
 `Calendar` is shadcn's `Calendar` (react-day-picker) written with native `Date` and `Intl` only: no date library is shipped. Dates are
 `Date`, `Time` or `"YYYY-MM-DD"` strings and are always read as local dates. The server renders the shell and the navigation; the
-`shadcn--calendar` controller builds the months in the browser. It dispatches `shadcn--calendar:select` (`detail: { selected, date,
-modifiers }`) and `shadcn--calendar:month-change` (`detail: { month }`), both bubbling.
+`chadcn--calendar` controller builds the months in the browser. It dispatches `chadcn--calendar:select` (`detail: { selected, date,
+modifiers }`) and `chadcn--calendar:month-change` (`detail: { month }`), both bubbling.
 
 ```ruby
 render Chadcn::Calendar.new(mode: :single, selected: Date.new(2026, 3, 15), class: "rounded-md border shadow-sm")
@@ -94,7 +94,7 @@ form(action: "/events", method: "post") do
   render Chadcn::Popover.new do
     render Chadcn::Popover::Trigger.new(as_child: Chadcn::Button.new(variant: "outline", class: "w-[240px] justify-start text-left font-normal has-[[data-empty=true]]:text-muted-foreground")) do
       render Chadcn::Icon.new("calendar")
-      span(id: "event_date_label", data: { shadcn__calendar_placeholder: "Pick a date", empty: date.nil?.to_s }) { date ? date.strftime("%B #{date.day}#{ordinal}, %Y") : "Pick a date" }
+      span(id: "event_date_label", data: { chadcn__calendar_placeholder: "Pick a date", empty: date.nil?.to_s }) { date ? date.strftime("%B #{date.day}#{ordinal}, %Y") : "Pick a date" }
     end
     render Chadcn::Popover::Content.new(class: "w-auto p-0", align: "start") do
       render Chadcn::Calendar.new(mode: :single, selected: date, input: "#event_date", label: "#event_date_label", close_on_select: true)
@@ -104,7 +104,7 @@ end
 ```
 
 The calendar only connects when the popover opens, so the server renders the label in its final state: the text, `data-empty`, and the
-placeholder in `data-shadcn--calendar-placeholder` (the controller falls back to it when the selection is cleared; without the attribute
+placeholder in `data-chadcn--calendar-placeholder` (the controller falls back to it when the selection is cleared; without the attribute
 the label's first text becomes the placeholder, which is wrong when the label already shows a date). Format the text like the controller
 does (`March 10th, 2026` for English; other locales use `Intl` `dateStyle: "long"`), or the label changes the first time it is used.
 An `input:` or `label:` selector that matches nothing logs an error and is ignored; `input: { from:, to: }` is only valid for `mode: :range`.
@@ -158,7 +158,7 @@ a(href: "/more", class: Chadcn::Button.variants(variant: "outline", size: "sm"))
 
 - `Calendar` text is exact for the default locale and `es`; other `locale:` tags use `Intl` names with English labels (see its
   deviations). Functions cannot cross from Ruby, so `formatters:` take `Intl.DateTimeFormat` option hashes, matchers are data, and `month:`
-  is moved by setting the `data-shadcn--calendar-month-value` attribute. `Calendar::DayButton` is the shadcn `CalendarDayButton`; the
+  is moved by setting the `data-chadcn--calendar-month-value` attribute. `Calendar::DayButton` is the shadcn `CalendarDayButton`; the
   calendar clones one for every day.
 - `Slider` dispatches `value-change` while dragging and `value-commit` when the pointer is released or a key is pressed, as Radix.
 - `ToggleGroup.new(type:)` is required (React has no default); `variant:` and `size:` on the group cascade to its items, an item may

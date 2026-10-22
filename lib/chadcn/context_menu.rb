@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # shadcn ContextMenu (Radix ContextMenu over the Menu code shared with DropdownMenu). Spec: port spec (dev kit).
-# Behavior lives in controllers/shadcn/context_menu_controller.js (hosted by the {Trigger}).
+# Behavior lives in controllers/chadcn/context_menu_controller.js (hosted by the {Trigger}).
 #
 # The root renders no element: it pushes its state into the Phlex render context for the parts inside. Only {Trigger},
 # {Content}, {Sub} and {SubContent} read that state and raise +ArgumentError+ at render time outside a ContextMenu ({SubTrigger}
@@ -10,7 +10,7 @@
 # markup in an inert +<template>+ that the controller clones while the menu is open. A right click (or a long press with touch
 # or pen) on the {Trigger} opens the menu at the pointer.
 #
-# Events and focus: every event is named +shadcn--context-menu:<name>+. The root dispatches +open-change+ (+detail.open+; the
+# Events and focus: every event is named +chadcn--context-menu:<name>+. The root dispatches +open-change+ (+detail.open+; the
 # only state change a controlled menu performs). Selecting an item dispatches the cancelable +select+ on the item (preventing it
 # keeps the menu open), then +checked-change+ (+detail.checked+) for a {CheckboxItem} or +value-change+ (+detail.value+) for a
 # {RadioItem}; those two are not cancelable and fire even when +select+ was prevented. The content forwards the cancelable
@@ -130,7 +130,7 @@ class Chadcn::ContextMenu < Chadcn::Base
   DIRECTIONS = %w[ltr rtl].freeze
 
   # @param open [Boolean, nil] +nil+ (default) leaves the menu uncontrolled and closed on first render. Any non-nil value makes it
-  #   controlled: it is rendered open or closed and the controller only dispatches +shadcn--context-menu:open-change+; it never
+  #   controlled: it is rendered open or closed and the controller only dispatches +chadcn--context-menu:open-change+; it never
   #   flips the state itself. Radix has no default open for the root (there is no +default_open:+; passing it raises
   #   +ArgumentError+ at construction)
   # @param dir [String, Symbol, nil] +"ltr"+ or +"rtl"+ sets the direction of the menu; any other value (including +nil+) is

@@ -2,7 +2,7 @@
 
 using Chadcn::Values::Refinements
 
-# A menu item (+role="menuitem"+). Choosing it dispatches a cancelable +select+ event (+shadcn--menubar:select+) on the item
+# A menu item (+role="menuitem"+). Choosing it dispatches a cancelable +select+ event (+chadcn--menubar:select+) on the item
 # and closes the menu unless the event is prevented.
 #
 # @example

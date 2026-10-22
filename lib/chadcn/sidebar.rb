@@ -5,7 +5,7 @@
 # Render it inside a {Sidebar::Provider}; the block receives the sidebar, which has one helper per part
 # (`sidebar.header`, `sidebar.menu_button`, ...) equal to `render Sidebar::Header.new(...)`. `Sidebar.use_sidebar` reads the state.
 #
-# Spec: docs/shadcn-port/specs/sidebar.md. Behavior: controllers/shadcn/sidebar_controller.js.
+# Spec: docs/shadcn-port/specs/sidebar.md. Behavior: controllers/chadcn/sidebar_controller.js.
 #
 # React picks the desktop or the mobile (Sheet) tree on the client. The server renders the first React render (desktop)
 # plus an inert template with the mobile Sheet; the controller swaps them on mobile (deviations/sidebar.json).
@@ -183,7 +183,7 @@ class Chadcn::Sidebar < Chadcn::Base
   def desktop(sidebar, &block)
     div(class: OUTER_CLASSES, data: {
           state: sidebar.state, collapsible: sidebar.state == "collapsed" ? @collapsible : "", variant: @variant, side: @side,
-          slot: "sidebar", shadcn__sidebar_target: "sidebar", shadcn__sidebar_collapsible_param: @collapsible
+          slot: "sidebar", chadcn__sidebar_target: "sidebar", chadcn__sidebar_collapsible_param: @collapsible
         }) do
       div(data: { slot: "sidebar-gap" },
           class: cn(GAP_CLASSES, "group-data-[collapsible=offcanvas]:w-0", "group-data-[side=right]:rotate-180",
@@ -201,7 +201,7 @@ class Chadcn::Sidebar < Chadcn::Base
   # The mobile Sheet (tsx:183-205), mounted by the controller only on mobile viewports. The block is NOT repeated here:
   # the controller moves the single server-rendered copy into mobileBody.
   def mobile
-    template(data: { shadcn__sidebar_target: "mobile" }) do
+    template(data: { chadcn__sidebar_target: "mobile" }) do
       render Chadcn::Sheet.new(open: false) do
         render Chadcn::Sheet::Content.new(side: @side, class: MOBILE_CLASSES, style: "--sidebar-width: #{SIDEBAR_WIDTH_MOBILE};",
                                           data: { sidebar: "sidebar", slot: "sidebar", mobile: "true" }) do
@@ -209,7 +209,7 @@ class Chadcn::Sidebar < Chadcn::Base
             render(Chadcn::Sheet::Title.new) { @mobile_title }
             render(Chadcn::Sheet::Description.new) { @mobile_description }
           end
-          div(class: "flex h-full w-full flex-col", data: { shadcn__sidebar_target: "mobileBody" })
+          div(class: "flex h-full w-full flex-col", data: { chadcn__sidebar_target: "mobileBody" })
         end
       end
     end

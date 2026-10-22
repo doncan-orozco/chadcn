@@ -10,7 +10,7 @@ Namespace `Components::V2::DropdownMenu`. Every option accepts strings and symbo
 | React export | Ruby call (kwargs with defaults) | Notes / source |
 |---|---|---|
 | `DropdownMenu` | `Components::V2::DropdownMenu.new(open: nil, default_open: false, modal: true, dir: nil) { ... }` | Renders NO element (manifest `non_rendered_slots`; DM:41-54). `open:` non-nil = controlled (server renders that state; user actions only dispatch `open-change`, DM:35-40 `useControllableState`). `default_open:` initial uncontrolled state. `modal:` default `true` (DM:31). `dir:` `"ltr" \| "rtl"`; when nil the direction is `"ltr"` (`useDirection(dir)` reads the prop or a DirectionProvider, never `html[dir]`). Unknown kwargs raise `ArgumentError` (Radix Root takes no DOM props). |
-| `DropdownMenuTrigger` | `DropdownMenu::Trigger.new(as_child: false, disabled: false, **attrs) { ... }` | `<button type="button">` (DM:65-75). Hosts the `shadcn--dropdown-menu` controller. Caller `id:` wins over the generated id (DM:75 spreads `triggerProps` after `id`), but Content keeps `aria-labelledby` pointing to the generated trigger id, exactly as Radix (relation then resolves to nothing). |
+| `DropdownMenuTrigger` | `DropdownMenu::Trigger.new(as_child: false, disabled: false, **attrs) { ... }` | `<button type="button">` (DM:65-75). Hosts the `chadcn--dropdown-menu` controller. Caller `id:` wins over the generated id (DM:75 spreads `triggerProps` after `id`), but Content keeps `aria-labelledby` pointing to the generated trigger id, exactly as Radix (relation then resolves to nothing). |
 | `DropdownMenuPortal` | `DropdownMenu::Portal.new(force_mount: false, container: nil) { ... }` | Renders NO element (M:122-126). `container:` is a CSS selector string (React takes a DOM node; a node reference has no Ruby form, see api-mapping `ref` row); default `document.body`. Only meaningful around `SubContent` (shadcn's `Content` already wraps itself in a Portal, tsx:39). |
 | `DropdownMenuContent` | `DropdownMenu::Content.new(side: "bottom", side_offset: 4, align: "center", align_offset: 0, avoid_collisions: true, collision_padding: 0, collision_boundary: nil, sticky: "partial", hide_when_detached: false, update_position_strategy: "optimized", arrow_padding: 0, loop: false, force_mount: false, as_child: false, class: nil, **attrs) { ... }` | `side_offset` default is shadcn's `4` (tsx:35), all others are Radix defaults (P:96-110, M:186). `side`: `top right bottom left`; `align`: `start center end`; `sticky`: `partial always`; `update_position_strategy`: `optimized always`; `collision_padding`: Integer or Hash `{ top:, right:, bottom:, left: }` (missing keys 0, P:116); `collision_boundary`: CSS selector or array of selectors. Always portaled (tsx:39). `force_mount:` is accepted for API parity but has NO effect: shadcn wraps Content in a `DropdownMenuPrimitive.Portal` that is not force-mounted (tsx:38-39), and that Portal's own Presence (`present: forceMount \|\| context.open`, M:123-125) unmounts everything while closed; the oracle scenario `content__force-mount-closed` renders nothing. |
 | `DropdownMenuGroup` | `DropdownMenu::Group.new(as_child: false, class: nil, **attrs) { ... }` | `div role="group"` (M:382-387). No classes in the oracle. |
@@ -27,7 +27,7 @@ Namespace `Components::V2::DropdownMenu`. Every option accepts strings and symbo
 
 Not exported by shadcn, so not part of the API: `DropdownMenuArrow`, `DropdownMenuItemIndicator` (used internally by CheckboxItem/RadioItem), `asChild` on the root.
 
-### Events (`this.dispatch`, prefix `shadcn--dropdown-menu`, all `bubbles: true`)
+### Events (`this.dispatch`, prefix `chadcn--dropdown-menu`, all `bubbles: true`)
 
 | Event | Dispatched on | `detail` | Cancelable | Radix equivalent |
 |---|---|---|---|---|
@@ -42,7 +42,7 @@ Not exported by shadcn, so not part of the API: `DropdownMenuArrow`, `DropdownMe
 | `open-auto-focus` | Content | `{}` | yes: content is not focused (M:293-296) | `onOpenAutoFocus` |
 | `close-auto-focus` | Content | `{}` | yes: focus is not returned to the trigger (DM:114-118 composes the caller first) | `onCloseAutoFocus` |
 
-Content in the body is outside any caller controller element, so callers listen with a global action (`data-action="shadcn--dropdown-menu:select@document->foo#bar"`) or on the item element itself. `onClick`, `onPointerMove`... are plain DOM events (`data: { action: }`), composed before the port's own handlers as Radix `composeEventHandlers` does (caller first; `event.preventDefault()` in a caller `click` on an Item suppresses selection, M:424).
+Content in the body is outside any caller controller element, so callers listen with a global action (`data-action="chadcn--dropdown-menu:select@document->foo#bar"`) or on the item element itself. `onClick`, `onPointerMove`... are plain DOM events (`data: { action: }`), composed before the port's own handlers as Radix `composeEventHandlers` does (caller first; `event.preventDefault()` in a caller `click` on an Item suppresses selection, M:424).
 
 ## Structure
 
@@ -70,7 +70,7 @@ Note: `radix-dom-contract.md` "Verified corrections" says SubTrigger always carr
 
 ### DOM order and what the server renders
 
-Closed (initial, uncontrolled): the server renders the Trigger in place and the Content markup inside an inert `<template>` immediately after it (same for an un-portaled SubContent: a `<template>` in place after its SubTrigger; a portaled SubContent: a `<template>` in place). The template carries no `data-slot`, no classes, no text in the live DOM (its content is a DocumentFragment, invisible to `querySelectorAll`, layout and the a11y tree), so the post-connect DOM equals Radix's "nothing mounted while closed" (Presence, M:125, M:135). It is the mechanism, not a deviation. Only the controller wiring (`data-shadcn--dropdown-menu-*-value`, an id for lookup) may sit on it.
+Closed (initial, uncontrolled): the server renders the Trigger in place and the Content markup inside an inert `<template>` immediately after it (same for an un-portaled SubContent: a `<template>` in place after its SubTrigger; a portaled SubContent: a `<template>` in place). The template carries no `data-slot`, no classes, no text in the live DOM (its content is a DocumentFragment, invisible to `querySelectorAll`, layout and the a11y tree), so the post-connect DOM equals Radix's "nothing mounted while closed" (Presence, M:125, M:135). It is the mechanism, not a deviation. Only the controller wiring (`data-chadcn--dropdown-menu-*-value`, an id for lookup) may sit on it.
 
 Open (on open, or initial when `open:`/`default_open:` is true; for a SubContent also `force_mount:` while its parent Content is mounted): the controller clones the Content into `<div data-radix-popper-content-wrapper dir=... style="position: fixed; left: 0; top: 0; transform: translate(x, y); min-width: max-content; z-index: <computed z-index of content, 50>; --radix-popper-transform-origin: ...">` (P:210-232) and appends the wrapper to the container (default `document.body`, end of body; M:125 Portal). A server-rendered open menu is rendered inline and moved there in `connect()`. Focus guards: while any menu content is mounted, `span[data-radix-focus-guard]` (tabindex 0, opacity 0, position fixed, pointer-events none, FG:39-47) is the first and the last child of `body`, ref-counted (FG:14-36). A portaled SubContent is appended to the container as another wrapper; an un-portaled SubContent's wrapper sits inside the parent Content right after its SubTrigger.
 
@@ -82,7 +82,7 @@ Server: every static attribute above (role, aria-haspopup, aria-orientation, dat
 
 ## Behavior
 
-Composes primitives: `portal`, `presence`, `positioner`, `dismissable_layer`, `focus_scope`, `focus_guards`, `scroll_lock`, `hide_others`, `roving_focus`, `typeahead`, `submenu_grace`, `collection`, `ids`, `direction`. One controller `shadcn--dropdown-menu` on the Trigger handles the root and its subs.
+Composes primitives: `portal`, `presence`, `positioner`, `dismissable_layer`, `focus_scope`, `focus_guards`, `scroll_lock`, `hide_others`, `roving_focus`, `typeahead`, `submenu_grace`, `collection`, `ids`, `direction`. One controller `chadcn--dropdown-menu` on the Trigger handles the root and its subs.
 
 ### States
 

@@ -58,7 +58,7 @@ class Chadcn::AccordionTest < Chadcn::TestCase
     assert_equal "closed", other["data-state"]
     assert_equal "", closed["hidden"]
     assert_nil other.at_css("button")["aria-controls"]
-    assert closed.at_css("template[data-shadcn--accordion-target=body]")
+    assert closed.at_css("template[data-chadcn--accordion-target=body]")
   end
 
   test "collapsible and multiple drop aria-disabled" do
@@ -136,8 +136,8 @@ class Chadcn::AccordionTest < Chadcn::TestCase
     provided = render_view { render(Chadcn::Direction::Provider.new(dir: "rtl")) { render(Accordion.new) } }
     local = render_view { render(Chadcn::Direction::Provider.new(dir: "rtl")) { render(Accordion.new(dir: "ltr")) } }
 
-    assert_equal "rtl", fragment(provided).at_css("[data-slot=accordion]")["data-shadcn--accordion-dir-value"]
-    assert_equal "ltr", fragment(local).at_css("[data-slot=accordion]")["data-shadcn--accordion-dir-value"]
+    assert_equal "rtl", fragment(provided).at_css("[data-slot=accordion]")["data-chadcn--accordion-dir-value"]
+    assert_equal "ltr", fragment(local).at_css("[data-slot=accordion]")["data-chadcn--accordion-dir-value"]
   end
 
   test "content force_mount renders a closed body and root orientation reaches items" do
@@ -145,7 +145,7 @@ class Chadcn::AccordionTest < Chadcn::TestCase
     region = doc.at_css("[data-slot=accordion-content]")
 
     assert_equal "horizontal", doc.at_css("[data-slot=accordion-item]")["data-orientation"]
-    assert_equal "true", region["data-shadcn--accordion-force-mount"]
+    assert_equal "true", region["data-chadcn--accordion-force-mount"]
     assert_includes region.text, "Body one"
     assert_nil region.at_css("template")
   end
@@ -153,8 +153,8 @@ class Chadcn::AccordionTest < Chadcn::TestCase
   test "controlled value and type reach the controller values" do
     root = fragment(accordion(root: { type: "multiple", value: %w[a b] })).at_css("[data-slot=accordion]")
 
-    assert_equal "multiple", root["data-shadcn--accordion-type-value"]
-    assert_equal "true", root["data-shadcn--accordion-controlled-value"]
+    assert_equal "multiple", root["data-chadcn--accordion-type-value"]
+    assert_equal "true", root["data-chadcn--accordion-controlled-value"]
     states = fragment(accordion(root: { type: "multiple", value: %w[a b] })).css("[data-slot=accordion-item]").map { |i| i["data-state"] }
 
     assert_equal %w[open open], states

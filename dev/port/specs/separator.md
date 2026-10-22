@@ -55,7 +55,7 @@ Part `Separator` (`data-slot="separator"`):
 
 No runtime behavior. `sep.mjs` has no state, no effects, no event handlers, no timers: it only computes attributes during render (sep.mjs:17-20). The tier `radix_stateful` comes from the manifest's classification of the Radix import, not from behavior.
 
-- No Stimulus controller is written (`shadcn--separator` does not exist); attaching one would add DOM attributes the oracle lacks.
+- No Stimulus controller is written (`chadcn--separator` does not exist); attaching one would add DOM attributes the oracle lacks.
 - Keyboard: none. The element is never focusable; `Tab` skips it (scenario `focus-skip__tab`, which tabs between two links around a non-decorative vertical separator).
 - Pointer: none; no hover/focus/disabled classes in the source, so no hover scenarios.
 - Sizing: horizontal is `h-px w-full`; vertical is `h-full w-px`, which only has height when the parent has a definite height (demo uses `h-5`) or the separator is a stretched flex item (scenario `vertical-in-stretch-row`). `shrink-0` keeps it from collapsing in flex rows/columns (scenario `in-flex-column`). Width follows the container on resize (scenario `resize__full-width`, `viewport` steps).

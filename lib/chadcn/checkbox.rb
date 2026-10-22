@@ -5,9 +5,9 @@ using Chadcn::Values::Refinements
 
 # A checkbox: a `<button role="checkbox">` plus the hidden form input Radix renders.
 #
-# Driven by the `shadcn--checkbox` Stimulus controller. Pass `checked:` for a controlled checkbox (the
+# Driven by the `chadcn--checkbox` Stimulus controller. Pass `checked:` for a controlled checkbox (the
 # controller will not toggle the state itself) or `default_checked:` for an uncontrolled one. User input dispatches
-# the `shadcn--checkbox:checked-change` event (`detail: { checked }`, where `checked` is true, false or "indeterminate");
+# the `chadcn--checkbox:checked-change` event (`detail: { checked }`, where `checked` is true, false or "indeterminate");
 # a form reset that changes the state dispatches it too. The hidden input is removed by the controller when the
 # checkbox is not inside a `<form>` and has no `form:`.
 #
@@ -85,7 +85,7 @@ class Chadcn::Checkbox < Chadcn::Base
 
   # Radix composes the consumer handlers first, then its own: our actions go last.
   def root_with_action(attrs)
-    action = [ attrs.dig(:data, :action), "click->shadcn--checkbox#toggle keydown->shadcn--checkbox#keydown" ].reject_blank.join(" ")
+    action = [ attrs.dig(:data, :action), "click->chadcn--checkbox#toggle keydown->chadcn--checkbox#keydown" ].reject_blank.join(" ")
     attrs.merge(data: attrs[:data].merge(action:))
   end
 
@@ -94,8 +94,8 @@ class Chadcn::Checkbox < Chadcn::Base
       type: "button",
       role: "checkbox",
       aria: { checked: ARIA_CHECKED.fetch(state), **(@required.nil? ? {} : { required: @required }) },
-      data: { state:, slot: "checkbox", controller: "shadcn--checkbox", shadcn__checkbox_controlled_value: @controlled,
-              shadcn__checkbox_indicator_html_value: indicator_html,
+      data: { state:, slot: "checkbox", controller: "chadcn--checkbox", chadcn__checkbox_controlled_value: @controlled,
+              chadcn__checkbox_indicator_html_value: indicator_html,
               **(@disabled ? { disabled: "" } : {}) },
       disabled: @disabled,
       value: @value,

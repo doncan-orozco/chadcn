@@ -10,7 +10,7 @@ const active = (page) => page.evaluate(() => document.activeElement.id);
 const start = async (page, options = "{}", selector = "scope") => {
   await page.focus("#before");
   await page.evaluate(async ([options, selector]) => {
-    const { focusScope } = await import("shadcn/primitives/focus_scope");
+    const { focusScope } = await import("chadcn/primitives/focus_scope");
     window.__log = [];
     const opts = new Function("log", `return (${options})`)(window.__log);
     (window.__releases ??= {})[selector] = focusScope(document.getElementById(selector), opts);
@@ -91,7 +91,7 @@ primitiveTest("focus_scope: a trapped scope without loop keeps Tab inside at the
 primitiveTest("focus_scope: nested scopes pause the outer one and resume it on release", async (page) => {
   await start(page, "{ trapped: true }");
   await page.evaluate(async () => {
-    const { focusScope } = await import("shadcn/primitives/focus_scope");
+    const { focusScope } = await import("chadcn/primitives/focus_scope");
     window.__focusins = [];
     document.addEventListener("focusin", (event) => window.__focusins.push(event.target.id));
     window.__releases.inner = focusScope(document.getElementById("inner"), { trapped: true });
@@ -122,7 +122,7 @@ primitiveTest("focus_scope: the MutationObserver is disconnected on release (a r
 primitiveTest("focus_scope: releasing nested scopes outer-first leaves the inner trap active", async (page) => {
   await start(page, "{ trapped: true }");
   await page.evaluate(async () => {
-    const { focusScope } = await import("shadcn/primitives/focus_scope");
+    const { focusScope } = await import("chadcn/primitives/focus_scope");
     window.__releases.inner = focusScope(document.getElementById("inner"), { trapped: true });
   });
   await release(page, "scope");
@@ -134,7 +134,7 @@ primitiveTest("focus_scope: releasing nested scopes outer-first leaves the inner
 primitiveTest("focus_scope: onMountAutoFocus is not dispatched when focus is already inside the container at mount", async (page) => {
   await page.focus("#one");
   await page.evaluate(async () => {
-    const { focusScope } = await import("shadcn/primitives/focus_scope");
+    const { focusScope } = await import("chadcn/primitives/focus_scope");
     window.__log = [];
     window.__release = focusScope(document.getElementById("scope"), { onMountAutoFocus: () => window.__log.push("mount") });
   });

@@ -8,7 +8,7 @@ const html = `
 
 primitiveTest("dismissable_layer: Escape dismisses only the top layer; onEscape can prevent the dismissal", async (page) => {
   const result = await page.evaluate(async () => {
-    const { dismissable } = await import("shadcn/primitives/dismissable_layer");
+    const { dismissable } = await import("chadcn/primitives/dismissable_layer");
     const log = [];
     const keydown = () => document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true, cancelable: true }));
     const lower = dismissable(document.getElementById("layer"), { onEscape: () => log.push("lower:escape"), onDismiss: () => log.push("lower:dismiss") });
@@ -31,7 +31,7 @@ primitiveTest("dismissable_layer: Escape dismisses only the top layer; onEscape 
 
 primitiveTest("dismissable_layer: pointerdown outside dismisses; inside and branches do not; a caller can cancel", async (page) => {
   await page.evaluate(async () => {
-    const { dismissable } = await import("shadcn/primitives/dismissable_layer");
+    const { dismissable } = await import("chadcn/primitives/dismissable_layer");
     window.__log = [];
     window.__cancel = false;
     window.__release = dismissable(document.getElementById("layer"), {
@@ -55,7 +55,7 @@ primitiveTest("dismissable_layer: pointerdown outside dismisses; inside and bran
 
 primitiveTest("dismissable_layer: the pointerdown that opened the layer cannot close it (listener starts on the next tick)", async (page) => {
   const log = await page.evaluate(async () => {
-    const { dismissable } = await import("shadcn/primitives/dismissable_layer");
+    const { dismissable } = await import("chadcn/primitives/dismissable_layer");
     const log = [];
     const release = dismissable(document.getElementById("layer"), { onDismiss: () => log.push("dismiss") });
     document.getElementById("outside").dispatchEvent(new PointerEvent("pointerdown", { bubbles: true, pointerType: "mouse" }));
@@ -67,7 +67,7 @@ primitiveTest("dismissable_layer: the pointerdown that opened the layer cannot c
 
 primitiveTest("dismissable_layer: focus moving outside is reported; focus inside a layer opened later is not outside", async (page) => {
   await page.evaluate(async () => {
-    const { dismissable } = await import("shadcn/primitives/dismissable_layer");
+    const { dismissable } = await import("chadcn/primitives/dismissable_layer");
     window.__log = [];
     window.__lower = dismissable(document.getElementById("layer"), { onFocusOutside: () => window.__log.push("lower:focus-outside") });
     window.__upper = dismissable(document.getElementById("child"), { onFocusOutside: () => window.__log.push("upper:focus-outside") });
@@ -81,7 +81,7 @@ primitiveTest("dismissable_layer: focus moving outside is reported; focus inside
 
 primitiveTest("dismissable_layer: disableOutsidePointerEvents blocks the body, keeps the layers usable and restores on release", async (page) => {
   const result = await page.evaluate(async () => {
-    const { dismissable } = await import("shadcn/primitives/dismissable_layer");
+    const { dismissable } = await import("chadcn/primitives/dismissable_layer");
     document.body.style.pointerEvents = "auto";
     const read = () => ({ body: document.body.style.pointerEvents, layer: document.getElementById("layer").style.pointerEvents, child: document.getElementById("child").style.pointerEvents });
     const modal = dismissable(document.getElementById("layer"), { disableOutsidePointerEvents: true });
@@ -101,7 +101,7 @@ primitiveTest("dismissable_layer: disableOutsidePointerEvents blocks the body, k
 
 primitiveTest("dismissable_layer: release() removes every listener and style", async (page) => {
   await page.evaluate(async () => {
-    const { dismissable } = await import("shadcn/primitives/dismissable_layer");
+    const { dismissable } = await import("chadcn/primitives/dismissable_layer");
     window.__log = [];
     const log = (name) => () => window.__log.push(name);
     window.__release = dismissable(document.getElementById("layer"), {
@@ -119,7 +119,7 @@ primitiveTest("dismissable_layer: release() removes every listener and style", a
 
 primitiveTest("dismissable_layer: release() before the next tick cancels the deferred pointerdown listener", async (page) => {
   await page.evaluate(async () => {
-    const { dismissable } = await import("shadcn/primitives/dismissable_layer");
+    const { dismissable } = await import("chadcn/primitives/dismissable_layer");
     window.__log = [];
     dismissable(document.getElementById("layer"), { onDismiss: () => window.__log.push("dismiss") })();
   });
@@ -130,7 +130,7 @@ primitiveTest("dismissable_layer: release() before the next tick cancels the def
 
 primitiveTest("dismissable_layer: a touch pointerdown followed by release() does not dismiss on the later click", async (page) => {
   await page.evaluate(async () => {
-    const { dismissable } = await import("shadcn/primitives/dismissable_layer");
+    const { dismissable } = await import("chadcn/primitives/dismissable_layer");
     window.__log = [];
     window.__release = dismissable(document.getElementById("layer"), { onDismiss: () => window.__log.push("dismiss") });
   });
@@ -147,7 +147,7 @@ primitiveTest("dismissable_layer: a touch pointerdown followed by release() does
 
 primitiveTest("dismissable_layer: positive control, Escape before release() dismisses", async (page) => {
   const log = await page.evaluate(async () => {
-    const { dismissable } = await import("shadcn/primitives/dismissable_layer");
+    const { dismissable } = await import("chadcn/primitives/dismissable_layer");
     const log = [];
     const release = dismissable(document.getElementById("layer"), { onDismiss: () => log.push("dismiss") });
     document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true, cancelable: true }));
@@ -160,7 +160,7 @@ primitiveTest("dismissable_layer: positive control, Escape before release() dism
 
 primitiveTest("dismissable_layer: positive control, a touch pointerdown outside then a click dismisses", async (page) => {
   await page.evaluate(async () => {
-    const { dismissable } = await import("shadcn/primitives/dismissable_layer");
+    const { dismissable } = await import("chadcn/primitives/dismissable_layer");
     window.__log = [];
     dismissable(document.getElementById("layer"), { onDismiss: () => window.__log.push("dismiss") });
   });

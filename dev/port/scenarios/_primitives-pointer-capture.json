@@ -8,7 +8,7 @@
         "props": {
           "data-slot": "probe",
           "className": "flex w-64 flex-col gap-3",
-          "data-controller": "shadcn---probe-pointer-capture",
+          "data-controller": "chadcn---probe-pointer-capture",
           "data-probe-value": "25",
           "data-probe-min": "0",
           "data-probe-max": "100",
@@ -24,7 +24,7 @@
               "data-probe": "root",
               "className": "relative flex h-5 w-full touch-none items-center select-none",
               "style": "--radix-slider-thumb-transform: translateX(-50%)",
-              "data-shadcn---probe-pointer-capture-target": "root"
+              "data-chadcn---probe-pointer-capture-target": "root"
             },
             "children": [
               {
@@ -62,7 +62,7 @@
                       "aria-orientation": "horizontal",
                       "data-orientation": "horizontal",
                       "className": "block size-4 rounded-full border border-primary bg-background",
-                      "data-shadcn---probe-pointer-capture-target": "thumb"
+                      "data-chadcn---probe-pointer-capture-target": "thumb"
                     }
                   }
                 ]
@@ -74,7 +74,7 @@
             "props": {
               "data-slot": "readout",
               "className": "text-xs",
-              "data-shadcn---probe-pointer-capture-target": "readout"
+              "data-chadcn---probe-pointer-capture-target": "readout"
             }
           },
           {
@@ -107,7 +107,7 @@
         "props": {
           "data-slot": "probe",
           "className": "flex w-64 flex-col gap-3",
-          "data-controller": "shadcn---probe-pointer-capture",
+          "data-controller": "chadcn---probe-pointer-capture",
           "data-probe-value": "25",
           "data-probe-min": "0",
           "data-probe-max": "100",
@@ -123,7 +123,7 @@
               "data-probe": "root",
               "className": "relative flex h-5 w-full touch-none items-center select-none",
               "style": "--radix-slider-thumb-transform: translateX(-50%)",
-              "data-shadcn---probe-pointer-capture-target": "root"
+              "data-chadcn---probe-pointer-capture-target": "root"
             },
             "children": [
               {
@@ -161,7 +161,7 @@
                       "aria-orientation": "horizontal",
                       "data-orientation": "horizontal",
                       "className": "block size-4 rounded-full border border-primary bg-background",
-                      "data-shadcn---probe-pointer-capture-target": "thumb"
+                      "data-chadcn---probe-pointer-capture-target": "thumb"
                     }
                   }
                 ]
@@ -173,7 +173,7 @@
             "props": {
               "data-slot": "readout",
               "className": "text-xs",
-              "data-shadcn---probe-pointer-capture-target": "readout"
+              "data-chadcn---probe-pointer-capture-target": "readout"
             }
           },
           {
@@ -210,7 +210,7 @@
         "props": {
           "data-slot": "probe",
           "className": "flex w-64 flex-col gap-3",
-          "data-controller": "shadcn---probe-pointer-capture",
+          "data-controller": "chadcn---probe-pointer-capture",
           "data-probe-value": "25",
           "data-probe-min": "0",
           "data-probe-max": "100",
@@ -226,7 +226,7 @@
               "data-probe": "root",
               "className": "relative flex h-5 w-full touch-none items-center select-none",
               "style": "--radix-slider-thumb-transform: translateX(-50%)",
-              "data-shadcn---probe-pointer-capture-target": "root"
+              "data-chadcn---probe-pointer-capture-target": "root"
             },
             "children": [
               {
@@ -264,7 +264,7 @@
                       "aria-orientation": "horizontal",
                       "data-orientation": "horizontal",
                       "className": "block size-4 rounded-full border border-primary bg-background",
-                      "data-shadcn---probe-pointer-capture-target": "thumb"
+                      "data-chadcn---probe-pointer-capture-target": "thumb"
                     }
                   }
                 ]
@@ -276,7 +276,7 @@
             "props": {
               "data-slot": "readout",
               "className": "text-xs",
-              "data-shadcn---probe-pointer-capture-target": "readout"
+              "data-chadcn---probe-pointer-capture-target": "readout"
             }
           },
           {
@@ -317,7 +317,7 @@
         "props": {
           "data-slot": "probe",
           "className": "flex w-64 flex-col gap-3",
-          "data-controller": "shadcn---probe-pointer-capture",
+          "data-controller": "chadcn---probe-pointer-capture",
           "data-probe-value": "25",
           "data-probe-min": "0",
           "data-probe-max": "100",
@@ -333,7 +333,7 @@
               "data-probe": "root",
               "className": "relative flex h-5 w-full touch-none items-center select-none",
               "style": "--radix-slider-thumb-transform: translateX(-50%)",
-              "data-shadcn---probe-pointer-capture-target": "root"
+              "data-chadcn---probe-pointer-capture-target": "root"
             },
             "children": [
               {
@@ -371,7 +371,7 @@
                       "aria-orientation": "horizontal",
                       "data-orientation": "horizontal",
                       "className": "block size-4 rounded-full border border-primary bg-background",
-                      "data-shadcn---probe-pointer-capture-target": "thumb"
+                      "data-chadcn---probe-pointer-capture-target": "thumb"
                     }
                   }
                 ]
@@ -383,7 +383,7 @@
             "props": {
               "data-slot": "readout",
               "className": "text-xs",
-              "data-shadcn---probe-pointer-capture-target": "readout"
+              "data-chadcn---probe-pointer-capture-target": "readout"
             }
           },
           {
@@ -424,7 +424,7 @@
         "props": {
           "data-slot": "probe",
           "className": "flex w-64 flex-col gap-3",
-          "data-controller": "shadcn---probe-pointer-capture",
+          "data-controller": "chadcn---probe-pointer-capture",
           "data-probe-value": "60",
           "data-probe-min": "0",
           "data-probe-max": "100",
@@ -440,7 +440,7 @@
               "data-probe": "root",
               "className": "relative flex h-5 w-full touch-none items-center select-none",
               "style": "--radix-slider-thumb-transform: translateX(-50%)",
-              "data-shadcn---probe-pointer-capture-target": "root"
+              "data-chadcn---probe-pointer-capture-target": "root"
             },
             "children": [
               {
@@ -478,7 +478,7 @@
                       "aria-orientation": "horizontal",
                       "data-orientation": "horizontal",
                       "className": "block size-4 rounded-full border border-primary bg-background",
-                      "data-shadcn---probe-pointer-capture-target": "thumb"
+                      "data-chadcn---probe-pointer-capture-target": "thumb"
                     }
                   }
                 ]
@@ -490,7 +490,7 @@
             "props": {
               "data-slot": "readout",
               "className": "text-xs",
-              "data-shadcn---probe-pointer-capture-target": "readout"
+              "data-chadcn---probe-pointer-capture-target": "readout"
             }
           },
           {

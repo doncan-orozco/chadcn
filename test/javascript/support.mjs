@@ -1,4 +1,4 @@
-// Browser-driven tests for the shadcn Stimulus controllers: behavior that the parity runner cannot express (touch input,
+// Browser-driven tests for the chadcn Stimulus controllers: behavior that the parity runner cannot express (touch input,
 // cancelable public events, positioner options). They load the real Phlex parity page (real importmap, real controllers)
 // and use the Playwright of react-shadcn-catalog. Run with `bin/rails test:javascript` (starts the dev servers).
 import fs from "node:fs";
@@ -59,7 +59,7 @@ export async function reconnectWithOptions(page, { template, controller, options
   await settle(page);
 }
 
-// Collects the public events (`shadcn--x:name`) a controller dispatches, optionally preventing some of them.
+// Collects the public events (`chadcn--x:name`) a controller dispatches, optionally preventing some of them.
 export async function recordEvents(page, prefix, { prevent = [] } = {}) {
   await page.evaluate(({ prefix, prevent }) => {
     window.__events = [];

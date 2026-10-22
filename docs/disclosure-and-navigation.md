@@ -1,7 +1,7 @@
 # Disclosure and navigation
 
 Accordion, collapsible, tabs, breadcrumb, pagination, navigation menu, sidebar, scroll area and the direction provider. Controllers:
-`shadcn--accordion`, `shadcn--collapsible`, `shadcn--tabs`, `shadcn--navigation-menu`, `shadcn--sidebar`, `shadcn--scroll-area`.
+`chadcn--accordion`, `chadcn--collapsible`, `chadcn--tabs`, `chadcn--navigation-menu`, `chadcn--sidebar`, `chadcn--scroll-area`.
 Conventions: [api-conventions.md](api-conventions.md).
 
 | Component | Root kwargs (besides `**attrs`) | Parts (class and generated helper) | Events |

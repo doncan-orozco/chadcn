@@ -4,13 +4,13 @@
   "allow_tokens": [],
   "allow_missing_tokens": [],
   "structure": [
-    "Sidebar (collapsible offcanvas|icon) renders an inert <template data-shadcn--sidebar-target=\"mobile\"> sibling (no data-slot, no classes) after the desktop [data-slot=sidebar] node, holding Components::V2::Sheet(open: false) > Sheet::Content(data-slot=sidebar, data-mobile=true) whose own host is the display: contents element declared in deviations/sheet.json",
-    "on mobile the shadcn--sidebar controller detaches the desktop [data-slot=sidebar] node and moves the server-rendered block nodes into the Sheet content body (and back on desktop) instead of re-rendering them",
+    "Sidebar (collapsible offcanvas|icon) renders an inert <template data-chadcn--sidebar-target=\"mobile\"> sibling (no data-slot, no classes) after the desktop [data-slot=sidebar] node, holding Components::V2::Sheet(open: false) > Sheet::Content(data-slot=sidebar, data-mobile=true) whose own host is the display: contents element declared in deviations/sheet.json",
+    "on mobile the chadcn--sidebar controller detaches the desktop [data-slot=sidebar] node and moves the server-rendered block nodes into the Sheet content body (and back on desktop) instead of re-rendering them",
     "SidebarMenuSkeleton text width is random in production on both sides (oracle Math.floor(Math.random() * 40) + 50 percent; port rand(40) + 50) but PINNED to 70 percent on the parity pages only: the React harness stubs Math.random = 0.5 and the Phlex parity controller wraps the render in MenuSkeleton.with_pinned_width(70)"
   ],
   "api": [
-    "Sidebar::Provider: shadcn--sidebar:open-change is always dispatched and an uncontrolled Provider always updates; React's 'onOpenChange without open' (state never updates) has no equivalent",
+    "Sidebar::Provider: chadcn--sidebar:open-change is always dispatched and an uncontrolled Provider always updates; React's 'onOpenChange without open' (state never updates) has no equivalent",
     "Sidebar::Rail: a caller data-action is added to the built-in toggle; React's caller onClick replaces it",
-    "Sidebar::Provider: extra informational event shadcn--sidebar:open-mobile-change (React exposes openMobile only via useSidebar)"
+    "Sidebar::Provider: extra informational event chadcn--sidebar:open-mobile-change (React exposes openMobile only via useSidebar)"
   ]
 }

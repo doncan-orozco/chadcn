@@ -30,7 +30,7 @@ class Chadcn::Combobox::Group < Chadcn::Base
     previous = context[CONTEXT_KEY]
     group = context[CONTEXT_KEY] = { items: @items, label_id: "#{model.id}-group-label-#{model.next_counter}" }
     attrs = merge_attrs({ role: "group", aria: { labelledby: group[:label_id] },
-                          data: { slot: "combobox-group", shadcn__combobox_part: "group" } }, @attrs)
+                          data: { slot: "combobox-group", chadcn__combobox_part: "group" } }, @attrs)
     div(**attrs, &)
   ensure
     context[CONTEXT_KEY] = previous

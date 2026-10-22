@@ -34,4 +34,4 @@ function TypeaheadProbe({ children, ...props }: AnyProps) {
   )
 }
 
-export const probe = { controller: "shadcn---probe-typeahead", Component: TypeaheadProbe }
+export const probe = { controller: "chadcn---probe-typeahead", Component: TypeaheadProbe }

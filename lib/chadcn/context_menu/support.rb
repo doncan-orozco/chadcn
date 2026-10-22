@@ -3,7 +3,7 @@
 using Chadcn::Values::Refinements
 
 # Context menu flavour of the dropdown menu part helpers (item markup, position options, as_child switch).
-# The data-shadcn--dropdown-menu-* names are the shared menu module's contract (template, sub ids, radio value).
+# The data-chadcn--dropdown-menu-* names are the shared menu module's contract (template, sub ids, radio value).
 #
 # @api private
 module Chadcn::ContextMenu::Support

@@ -14,13 +14,13 @@ class Chadcn::Sheet::Close < Chadcn::Base
     super()
   end
 
-  # data-shadcn--dialog-part is the marker the shared dialog controller looks for.
+  # data-chadcn--dialog-part is the marker the shared dialog controller looks for.
   #
   # @yield the button content
   # @return [void]
   def view_template(&)
     attrs = merge_attrs({
-                          type: "button", data: { slot: "sheet-close", shadcn__dialog_part: "close", action: "click->shadcn--sheet#close" }
+                          type: "button", data: { slot: "sheet-close", chadcn__dialog_part: "close", action: "click->chadcn--sheet#close" }
                         }, @attrs)
     render_part(:button, @as_child, attrs, &)
   end

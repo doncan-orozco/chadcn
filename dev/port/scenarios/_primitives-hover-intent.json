@@ -6,7 +6,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-hover-intent",
+          "data-controller": "chadcn---probe-hover-intent",
           "data-parity-options": "{\"kind\":\"tooltip\",\"side\":\"top\",\"sideOffset\":8,\"delayDuration\":400,\"skipDelayDuration\":300}",
           "className": "flex items-start gap-16 pt-32"
         },
@@ -99,7 +99,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-hover-intent",
+          "data-controller": "chadcn---probe-hover-intent",
           "data-parity-options": "{\"kind\":\"tooltip\",\"side\":\"top\",\"sideOffset\":8,\"delayDuration\":400,\"skipDelayDuration\":300}",
           "className": "flex items-start gap-16 pt-32"
         },
@@ -208,7 +208,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-hover-intent",
+          "data-controller": "chadcn---probe-hover-intent",
           "data-parity-options": "{\"kind\":\"tooltip\",\"side\":\"top\",\"sideOffset\":8,\"delayDuration\":400,\"skipDelayDuration\":300}",
           "className": "flex items-start gap-16 pt-32"
         },
@@ -309,7 +309,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-hover-intent",
+          "data-controller": "chadcn---probe-hover-intent",
           "data-parity-options": "{\"kind\":\"tooltip\",\"side\":\"top\",\"sideOffset\":8,\"delayDuration\":400,\"skipDelayDuration\":300}",
           "className": "flex items-start gap-16 pt-32"
         },
@@ -398,7 +398,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-hover-intent",
+          "data-controller": "chadcn---probe-hover-intent",
           "data-parity-options": "{\"kind\":\"tooltip\",\"side\":\"top\",\"sideOffset\":8,\"delayDuration\":0,\"skipDelayDuration\":300}",
           "className": "flex items-start gap-16 pt-32"
         },
@@ -487,7 +487,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-hover-intent",
+          "data-controller": "chadcn---probe-hover-intent",
           "data-parity-options": "{\"kind\":\"tooltip\",\"side\":\"top\",\"sideOffset\":8,\"delayDuration\":400,\"skipDelayDuration\":0}",
           "className": "flex items-start gap-16 pt-32"
         },
@@ -580,7 +580,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-hover-intent",
+          "data-controller": "chadcn---probe-hover-intent",
           "data-parity-options": "{\"kind\":\"tooltip\",\"side\":\"top\",\"sideOffset\":8,\"delayDuration\":400,\"skipDelayDuration\":300}",
           "className": "flex items-start gap-16 pt-32"
         },
@@ -664,7 +664,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-hover-intent",
+          "data-controller": "chadcn---probe-hover-intent",
           "data-parity-options": "{\"kind\":\"tooltip\",\"side\":\"top\",\"sideOffset\":8,\"delayDuration\":400,\"skipDelayDuration\":300}",
           "className": "flex items-start gap-16 pt-32"
         },
@@ -761,7 +761,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-hover-intent",
+          "data-controller": "chadcn---probe-hover-intent",
           "data-parity-options": "{\"kind\":\"tooltip\",\"side\":\"top\",\"sideOffset\":8,\"delayDuration\":400,\"skipDelayDuration\":300,\"hoverable\":true}",
           "className": "flex items-start gap-16 pt-32"
         },
@@ -858,7 +858,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-hover-intent",
+          "data-controller": "chadcn---probe-hover-intent",
           "data-parity-options": "{\"kind\":\"tooltip\",\"side\":\"top\",\"sideOffset\":8,\"delayDuration\":400,\"skipDelayDuration\":300,\"hoverable\":true}",
           "className": "flex items-start gap-16 pt-32"
         },
@@ -947,7 +947,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-hover-intent",
+          "data-controller": "chadcn---probe-hover-intent",
           "data-parity-options": "{\"kind\":\"tooltip\",\"side\":\"top\",\"sideOffset\":8,\"delayDuration\":400,\"skipDelayDuration\":300,\"hoverable\":true}",
           "className": "flex items-start gap-16 pt-32"
         },
@@ -1044,7 +1044,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-hover-intent",
+          "data-controller": "chadcn---probe-hover-intent",
           "data-parity-options": "{\"kind\":\"tooltip\",\"side\":\"bottom\",\"sideOffset\":8,\"delayDuration\":400,\"skipDelayDuration\":300,\"align\":\"start\"}",
           "className": "flex items-start gap-16 pt-32"
         },
@@ -1125,7 +1125,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-hover-intent",
+          "data-controller": "chadcn---probe-hover-intent",
           "data-parity-options": "{\"kind\":\"hover-card\",\"side\":\"bottom\",\"sideOffset\":8,\"openDelay\":400,\"closeDelay\":400}",
           "className": "flex items-start gap-16 pt-32"
         },
@@ -1222,7 +1222,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-hover-intent",
+          "data-controller": "chadcn---probe-hover-intent",
           "data-parity-options": "{\"kind\":\"hover-card\",\"side\":\"bottom\",\"sideOffset\":8,\"openDelay\":400,\"closeDelay\":400}",
           "className": "flex items-start gap-16 pt-32"
         },
@@ -1323,7 +1323,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-hover-intent",
+          "data-controller": "chadcn---probe-hover-intent",
           "data-parity-options": "{\"kind\":\"hover-card\",\"side\":\"bottom\",\"sideOffset\":8,\"openDelay\":400,\"closeDelay\":400}",
           "className": "flex items-start gap-16 pt-32"
         },
@@ -1420,7 +1420,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-hover-intent",
+          "data-controller": "chadcn---probe-hover-intent",
           "data-parity-options": "{\"kind\":\"hover-card\",\"side\":\"bottom\",\"sideOffset\":8,\"openDelay\":400,\"closeDelay\":400}",
           "className": "flex items-start gap-16 pt-32"
         },
@@ -1513,7 +1513,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-hover-intent",
+          "data-controller": "chadcn---probe-hover-intent",
           "data-parity-options": "{\"kind\":\"hover-card\",\"side\":\"bottom\",\"sideOffset\":8,\"openDelay\":400,\"closeDelay\":400}",
           "className": "flex items-start gap-16 pt-32"
         },

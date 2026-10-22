@@ -8,8 +8,8 @@ module Chadcn
   # Bundler.require).
   #
   # A host that installs the gem gets, without copying any file:
-  #   - the importmap pins for the Stimulus controllers (`controllers/shadcn/*`), the shared primitives (`shadcn/primitives/*`) and the
-  #     vendored floating-ui files, so the host's `eagerLoadControllersFrom("controllers")` registers the `shadcn--*` controllers;
+  #   - the importmap pins for the Stimulus controllers (`controllers/chadcn/*`), the shared primitives (`chadcn/primitives/*`) and the
+  #     vendored floating-ui files, so the host's `eagerLoadControllersFrom("controllers")` registers the `chadcn--*` controllers;
   #   - the gem's JavaScript and vendor directories on the asset load path (and watched by importmap's development cache sweeper);
   #   - the theme tooling (`Chadcn::Theme`, rake tasks `chadcn:theme:*`) pointed at the host's theme directory
   #     (`Chadcn.config.theme_dir`, set from `config.chadcn.theme_dir`);

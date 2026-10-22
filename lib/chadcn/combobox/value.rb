@@ -31,11 +31,11 @@ class Chadcn::Combobox::Value < Chadcn::Base
     protos = block ? prototypes(model, &block) : {}
     # A block that renders nothing for any item (for example the parity harness' empty block) means "no content block".
     protos = {} if protos.values.all? { |html| html.strip.empty? }
-    template(data: { shadcn__combobox_part: "value-start", placeholder: @placeholder.to_s, has_placeholder: (@placeholder.nil? ? "false" : "true") }) do
-      protos.each { |key, html| template(data: { shadcn__combobox_part: "value-prototype", key: key }) { raw(safe(html)) } }
+    template(data: { chadcn__combobox_part: "value-start", placeholder: @placeholder.to_s, has_placeholder: (@placeholder.nil? ? "false" : "true") }) do
+      protos.each { |key, html| template(data: { chadcn__combobox_part: "value-prototype", key: key }) { raw(safe(html)) } }
     end
     current(model, protos.any? ? block : nil)
-    template(data: { shadcn__combobox_part: "value-end" })
+    template(data: { chadcn__combobox_part: "value-end" })
   end
 
   private

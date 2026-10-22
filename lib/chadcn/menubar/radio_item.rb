@@ -39,7 +39,7 @@ class Chadcn::Menubar::RadioItem < Chadcn::Base
     defaults = item_attrs(disabled: @disabled, text_value: @text_value).merge_deep(
       role: "menuitemradio", class: CLASSES,
       aria: { checked: checked.to_s },
-      data: { slot: "menubar-radio-item", state: checked ? "checked" : "unchecked", shadcn__menubar_value: @value }
+      data: { slot: "menubar-radio-item", state: checked ? "checked" : "unchecked", chadcn__menubar_value: @value }
     )
     render_part(:div, @as_child, merge_attrs(defaults, @attrs)) do
       span(class: INDICATOR_CLASSES) do

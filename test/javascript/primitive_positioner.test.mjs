@@ -6,7 +6,7 @@ const html = `
 
 // Creates the positioner and resolves once the first placement happened.
 const place = (options = "{}") => `
-  const { positioner } = await import("shadcn/primitives/positioner");
+  const { positioner } = await import("chadcn/primitives/positioner");
   const anchor = document.getElementById("anchor");
   const content = document.getElementById("content");
   const opts = ${options};
@@ -17,7 +17,7 @@ const run = (page, body) => page.evaluate(new Function(`return (async () => { ${
 
 primitiveTest("positioner: sideAndAlign splits a placement and defaults the align to center", async (page) => {
   const result = await page.evaluate(async () => {
-    const { sideAndAlign } = await import("shadcn/primitives/positioner");
+    const { sideAndAlign } = await import("chadcn/primitives/positioner");
     return [sideAndAlign("top"), sideAndAlign("left-start"), sideAndAlign("bottom-end")];
   });
   assert.deepEqual(result, [["top", "center"], ["left", "start"], ["bottom", "end"]]);
@@ -25,7 +25,7 @@ primitiveTest("positioner: sideAndAlign splits a placement and defaults the alig
 
 primitiveTest("positioner: ensureWrapper wraps the content once and reuses an existing wrapper", async (page) => {
   const result = await page.evaluate(async () => {
-    const { ensureWrapper } = await import("shadcn/primitives/positioner");
+    const { ensureWrapper } = await import("chadcn/primitives/positioner");
     const content = document.getElementById("content");
     const wrapper = ensureWrapper(content);
     return { wrapped: wrapper.hasAttribute("data-radix-popper-content-wrapper"), parent: content.parentElement === wrapper, again: ensureWrapper(content) === wrapper, wrappers: document.querySelectorAll("[data-radix-popper-content-wrapper]").length };
@@ -67,7 +67,7 @@ primitiveTest("positioner: flips to the opposite side on collision and avoidColl
     return side;`);
   assert.equal(flipped, "top");
   const kept = await run(page, `
-    const { positioner } = await import("shadcn/primitives/positioner");
+    const { positioner } = await import("chadcn/primitives/positioner");
     const content = document.getElementById("content");
     const anchor = document.getElementById("anchor");
     const placed = new Promise((resolve) => positioner(anchor, content, { avoidCollisions: false, onPlaced: resolve }));

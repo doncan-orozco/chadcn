@@ -8,9 +8,9 @@
         "props": {
           "data-probe": "template_mount",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-template-mount",
+          "data-controller": "chadcn---probe-template-mount",
           "className": "flex flex-col items-start gap-2",
-          "data-shadcn---probe-template-mount-into-value": "after"
+          "data-chadcn---probe-template-mount-into-value": "after"
         },
         "children": [
           {
@@ -18,7 +18,7 @@
             "props": {
               "type": "button",
               "data-slot": "toggle",
-              "data-action": "click->shadcn---probe-template-mount#toggle",
+              "data-action": "click->chadcn---probe-template-mount#toggle",
               "className": "rounded-md border px-3 py-1 text-sm"
             },
             "children": [
@@ -28,7 +28,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-template-mount-target": "template"
+              "data-chadcn---probe-template-mount-target": "template"
             },
             "children": [
               {
@@ -87,9 +87,9 @@
         "props": {
           "data-probe": "template_mount",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-template-mount",
+          "data-controller": "chadcn---probe-template-mount",
           "className": "flex flex-col items-start gap-2",
-          "data-shadcn---probe-template-mount-into-value": "after"
+          "data-chadcn---probe-template-mount-into-value": "after"
         },
         "children": [
           {
@@ -97,7 +97,7 @@
             "props": {
               "type": "button",
               "data-slot": "toggle",
-              "data-action": "click->shadcn---probe-template-mount#toggle",
+              "data-action": "click->chadcn---probe-template-mount#toggle",
               "className": "rounded-md border px-3 py-1 text-sm"
             },
             "children": [
@@ -107,7 +107,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-template-mount-target": "template"
+              "data-chadcn---probe-template-mount-target": "template"
             },
             "children": [
               {
@@ -175,9 +175,9 @@
         "props": {
           "data-probe": "template_mount",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-template-mount",
+          "data-controller": "chadcn---probe-template-mount",
           "className": "flex flex-col items-start gap-2",
-          "data-shadcn---probe-template-mount-into-value": "after"
+          "data-chadcn---probe-template-mount-into-value": "after"
         },
         "children": [
           {
@@ -185,7 +185,7 @@
             "props": {
               "type": "button",
               "data-slot": "toggle",
-              "data-action": "click->shadcn---probe-template-mount#toggle",
+              "data-action": "click->chadcn---probe-template-mount#toggle",
               "className": "rounded-md border px-3 py-1 text-sm"
             },
             "children": [
@@ -195,7 +195,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-template-mount-target": "template"
+              "data-chadcn---probe-template-mount-target": "template"
             },
             "children": [
               {
@@ -272,9 +272,9 @@
         "props": {
           "data-probe": "template_mount",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-template-mount",
+          "data-controller": "chadcn---probe-template-mount",
           "className": "flex flex-col items-start gap-2",
-          "data-shadcn---probe-template-mount-into-value": "body"
+          "data-chadcn---probe-template-mount-into-value": "body"
         },
         "children": [
           {
@@ -282,7 +282,7 @@
             "props": {
               "type": "button",
               "data-slot": "toggle",
-              "data-action": "click->shadcn---probe-template-mount#toggle",
+              "data-action": "click->chadcn---probe-template-mount#toggle",
               "className": "rounded-md border px-3 py-1 text-sm"
             },
             "children": [
@@ -292,7 +292,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-template-mount-target": "template"
+              "data-chadcn---probe-template-mount-target": "template"
             },
             "children": [
               {
@@ -360,9 +360,9 @@
         "props": {
           "data-probe": "template_mount",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-template-mount",
+          "data-controller": "chadcn---probe-template-mount",
           "className": "flex flex-col items-start gap-2",
-          "data-shadcn---probe-template-mount-into-value": "body"
+          "data-chadcn---probe-template-mount-into-value": "body"
         },
         "children": [
           {
@@ -370,7 +370,7 @@
             "props": {
               "type": "button",
               "data-slot": "toggle",
-              "data-action": "click->shadcn---probe-template-mount#toggle",
+              "data-action": "click->chadcn---probe-template-mount#toggle",
               "className": "rounded-md border px-3 py-1 text-sm"
             },
             "children": [
@@ -380,7 +380,7 @@
           {
             "c": "_template",
             "props": {
-              "data-shadcn---probe-template-mount-target": "template"
+              "data-chadcn---probe-template-mount-target": "template"
             },
             "children": [
               {

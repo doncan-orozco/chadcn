@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # shadcn RadioGroup over Radix RadioGroup. Spec: docs/shadcn-port/specs/radio-group.md.
-# Behavior: controllers/shadcn/radio_group_controller.js (one controller per group, items are not controllers).
+# Behavior: controllers/chadcn/radio_group_controller.js (one controller per group, items are not controllers).
 #
 # Yields itself, so items are available as `group.item(value: "a")` (see {RadioGroup::Item}).
 #
@@ -99,13 +99,13 @@ class Chadcn::RadioGroup < Chadcn::Base
       style: "outline: none;",
       class: CLASSES,
       data: {
-        slot: "radio-group", orientation: @orientation, controller: "shadcn--radio-group",
+        slot: "radio-group", orientation: @orientation, controller: "chadcn--radio-group",
         disabled: (@disabled ? "" : nil),
-        shadcn__radio_group_controlled_value: @controlled.to_s,
-        shadcn__radio_group_loop_value: @loop.to_s,
-        shadcn__radio_group_orientation_value: @orientation,
-        shadcn__radio_group_dir_value: @dir,
-        shadcn__radio_group_indicator_html_value: indicator_html
+        chadcn__radio_group_controlled_value: @controlled.to_s,
+        chadcn__radio_group_loop_value: @loop.to_s,
+        chadcn__radio_group_orientation_value: @orientation,
+        chadcn__radio_group_dir_value: @dir,
+        chadcn__radio_group_indicator_html_value: indicator_html
       }
     }
   end

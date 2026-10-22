@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-# A toast the server asks the {Toaster} to show. Renders an inert `<template data-shadcn--sonner-toast>` that the Toaster's controller
+# A toast the server asks the {Toaster} to show. Renders an inert `<template data-chadcn--sonner-toast>` that the Toaster's controller
 # turns into a toast and removes: put it inside the Toaster (flash, `toasts:`, the block) or append it to the Toaster with a Turbo Stream.
 #
 # The title and description are plain text (never HTML). `action:` and `cancel:` are `{ label:, href:, event: }` hashes: `href` visits that
-# http(s) URL, `event` is the `name` of the `shadcn--sonner:action` / `shadcn--sonner:cancel` event the Toaster dispatches.
+# http(s) URL, `event` is the `name` of the `chadcn--sonner:action` / `chadcn--sonner:cancel` event the Toaster dispatches.
 #
 # @example
 #   render Chadcn::Sonner::Toast.new(type: :error, title: "Could not save", description: "Try again", action: { label: "Retry", event: "retry" })
@@ -45,7 +45,7 @@ class Chadcn::Sonner::Toast < Chadcn::Base
   # @return [void]
   def view_template(&block)
     data = @options.compact.transform_values { |value| [ true, false ].include?(value) ? value.to_s : value }
-    template(**merge_attrs({ data: { shadcn__sonner_toast: "", **data } }, @attrs)) do
+    template(**merge_attrs({ data: { chadcn__sonner_toast: "", **data } }, @attrs)) do
       div(data: { title: "" }) { @title ? plain(@title.to_s) : (yield if block) }
       div(data: { description: "" }) { plain(@description.to_s) } if @description
     end

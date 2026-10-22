@@ -48,8 +48,8 @@ class Chadcn::ContextMenuTest < Chadcn::TestCase
     provided = render_view { render(provider.new(dir: "rtl")) { render(ContextMenu.new) { render(ContextMenu::Trigger.new) { "x" } } } }
     local = render_view { render(provider.new(dir: "rtl")) { render(ContextMenu.new(dir: "ltr")) { render(ContextMenu::Trigger.new) { "x" } } } }
 
-    assert_equal "rtl", fragment(provided).at_css("[data-slot=context-menu-trigger]")["data-shadcn--context-menu-dir-value"]
-    assert_equal "ltr", fragment(local).at_css("[data-slot=context-menu-trigger]")["data-shadcn--context-menu-dir-value"]
+    assert_equal "rtl", fragment(provided).at_css("[data-slot=context-menu-trigger]")["data-chadcn--context-menu-dir-value"]
+    assert_equal "ltr", fragment(local).at_css("[data-slot=context-menu-trigger]")["data-chadcn--context-menu-dir-value"]
   end
 
   test "trigger is a bare span hosting the controller" do
@@ -57,7 +57,7 @@ class Chadcn::ContextMenuTest < Chadcn::TestCase
 
     assert_equal "span", trigger.name
     assert_equal "closed", trigger["data-state"]
-    assert_equal "shadcn--context-menu", trigger["data-controller"]
+    assert_equal "chadcn--context-menu", trigger["data-controller"]
     assert_equal "-webkit-touch-callout: none", trigger["style"]
     %w[id aria-haspopup aria-expanded type tabindex class].each { |name| assert_nil trigger[name], name }
   end
@@ -73,7 +73,7 @@ class Chadcn::ContextMenuTest < Chadcn::TestCase
   end
 
   test "content ships in a template with forced placement and no id" do
-    template = fragment(menu(content: { class: "w-64" })).at_css("template[data-shadcn--dropdown-menu-template]")
+    template = fragment(menu(content: { class: "w-64" })).at_css("template[data-chadcn--dropdown-menu-template]")
     content = template.at_css("[data-slot=context-menu-content]")
     options = JSON.parse(template["data-options"])
 
@@ -94,7 +94,7 @@ class Chadcn::ContextMenuTest < Chadcn::TestCase
     trigger = fragment(menu(root: { open: true })).at_css("[data-slot=context-menu-trigger]")
 
     assert_equal "open", trigger["data-state"]
-    assert_equal "true", trigger["data-shadcn--context-menu-controlled-value"]
+    assert_equal "true", trigger["data-chadcn--context-menu-controlled-value"]
   end
 
   test "item variants, inset and disabled" do
@@ -238,31 +238,31 @@ class Chadcn::ContextMenuTest < Chadcn::TestCase
     doc = fragment(menu(root: { dir: "rtl", modal: false }))
     trigger = doc.at_css("[data-slot=context-menu-trigger]")
 
-    assert_equal "rtl", trigger["data-shadcn--context-menu-dir-value"]
-    assert_equal "false", trigger["data-shadcn--context-menu-modal-value"]
+    assert_equal "rtl", trigger["data-chadcn--context-menu-dir-value"]
+    assert_equal "false", trigger["data-chadcn--context-menu-modal-value"]
     assert_equal "rtl", doc.at_css("[data-slot=context-menu-content]")["dir"]
   end
 
   test "root ignores a dir that is not ltr or rtl and falls back to ltr" do
     trigger = fragment(menu(root: { dir: "auto" })).at_css("[data-slot=context-menu-trigger]")
 
-    assert_equal "ltr", trigger["data-shadcn--context-menu-dir-value"]
-    assert_equal "true", trigger["data-shadcn--context-menu-modal-value"]
+    assert_equal "ltr", trigger["data-chadcn--context-menu-dir-value"]
+    assert_equal "true", trigger["data-chadcn--context-menu-modal-value"]
   end
 
   test "controlled root false renders closed and marks the trigger controlled" do
     trigger = fragment(menu(root: { open: false })).at_css("[data-slot=context-menu-trigger]")
 
     assert_equal "closed", trigger["data-state"]
-    assert_equal "true", trigger["data-shadcn--context-menu-controlled-value"]
-    assert_equal "false", trigger["data-shadcn--context-menu-open-value"]
+    assert_equal "true", trigger["data-chadcn--context-menu-controlled-value"]
+    assert_equal "false", trigger["data-chadcn--context-menu-open-value"]
   end
 
   test "ids are unique per menu within one render" do
     html = render_view do
       2.times { render(ContextMenu.new) { render(ContextMenu::Trigger.new) { "x" } } }
     end
-    values = fragment(html).css("[data-slot=context-menu-trigger]").map { |el| el["data-shadcn--context-menu-template-value"] }
+    values = fragment(html).css("[data-slot=context-menu-trigger]").map { |el| el["data-chadcn--context-menu-template-value"] }
 
     assert_equal %w[context-menu-1-content context-menu-2-content], values
   end
@@ -273,7 +273,7 @@ class Chadcn::ContextMenuTest < Chadcn::TestCase
 
     assert_equal "a", trigger.name
     assert_equal "/x", trigger["href"]
-    assert_equal "shadcn--context-menu", trigger["data-controller"]
+    assert_equal "chadcn--context-menu", trigger["data-controller"]
     assert_equal "p-1", trigger["class"]
   end
 
@@ -330,7 +330,7 @@ class Chadcn::ContextMenuTest < Chadcn::TestCase
     item = fragment(menu { render(ContextMenu::RadioItem.new(value: :a)) { "x" } }).at_css("[data-slot=context-menu-radio-item]")
 
     assert_equal "false", item["aria-checked"]
-    assert_equal "a", item["data-shadcn--dropdown-menu-value"]
+    assert_equal "a", item["data-chadcn--dropdown-menu-value"]
     assert_raises(ArgumentError) { ContextMenu::RadioItem.new }
   end
 
@@ -433,7 +433,7 @@ class Chadcn::ContextMenuTest < Chadcn::TestCase
     assert_equal "open", trigger["data-state"]
     assert_equal "true", trigger["aria-expanded"]
     assert_equal content["id"], trigger["aria-controls"]
-    assert_equal "true", trigger["data-shadcn--dropdown-menu-sub-controlled"]
+    assert_equal "true", trigger["data-chadcn--dropdown-menu-sub-controlled"]
     assert_equal "true", trigger["data-inset"]
     assert_equal "true", trigger["aria-disabled"]
     assert trigger.at_css("svg.lucide-chevron-right")
@@ -446,7 +446,7 @@ class Chadcn::ContextMenuTest < Chadcn::TestCase
     trigger = fragment(html).at_css("[data-slot=context-menu-sub-trigger]")
 
     assert_equal "open", trigger["data-state"]
-    assert_equal "false", trigger["data-shadcn--dropdown-menu-sub-controlled"]
+    assert_equal "false", trigger["data-chadcn--dropdown-menu-sub-controlled"]
   end
 
   test "sub content follows the root direction and serializes its options" do

@@ -8,8 +8,8 @@ module Chadcn
   # The gem's JavaScript as files an esbuild (jsbundling-rails) app can bundle, see dev/decisions/js-bundlers.md. Plain Ruby, no
   # framework: the install generator writes what {.files} returns and the doctor compares the app with it.
   #
-  # The gem's controllers and primitives import each other by the importmap names (`shadcn/primitives/presence`,
-  # `controllers/shadcn/dialog_controller`), which a bundler cannot resolve. The copies get relative specifiers instead; nothing
+  # The gem's controllers and primitives import each other by the importmap names (`chadcn/primitives/presence`,
+  # `controllers/chadcn/dialog_controller`), which a bundler cannot resolve. The copies get relative specifiers instead; nothing
   # else in a file changes except the header line.
   #
   # @api private
@@ -23,11 +23,11 @@ module Chadcn
     FLOATING_UI_REQUIREMENT = "^1.8.0"
     # The bundler's entry file, which imports the registration file.
     ENTRY = Generators::JsLayout::ENTRY
-    APPLICATION_IMPORT = %(import "./controllers/shadcn")
+    APPLICATION_IMPORT = %(import "./controllers/chadcn")
     # An active (not commented out) import of the registration file, in either quote style.
-    APPLICATION_IMPORT_PATTERN = %r{^\s*import\s+["']\./controllers/shadcn(?:/index(?:\.js)?)?["']}
+    APPLICATION_IMPORT_PATTERN = %r{^\s*import\s+["']\./controllers/chadcn(?:/index(?:\.js)?)?["']}
     HEADER = "// Managed by `rails g chadcn:install` (copied from the chadcn gem); edits are overwritten by the next run."
-    SPECIFIER = %r{((?:from|import)\s*\(?\s*)(["'])(shadcn/primitives/|controllers/shadcn/)([^"']+)\2}
+    SPECIFIER = %r{((?:from|import)\s*\(?\s*)(["'])(chadcn/primitives/|controllers/chadcn/)([^"']+)\2}
     CONTROLLER_FILE = /_controller\.js\z/
 
     # @param root [Pathname, String] the app root
@@ -75,11 +75,11 @@ module Chadcn
     end
 
     # @param paths [Array<String>] app-relative controller paths
-    # @return [String] the file registering them as `shadcn--<name>`
+    # @return [String] the file registering them as `chadcn--<name>`
     def self.index(paths)
       names = paths.map { |path| File.basename(path, "_controller.js") }.sort
       imports = names.map { |name| %(import #{class_name(name)} from "./#{name}_controller") }
-      registrations = names.map { |name| %(application.register("shadcn--#{name.tr('_', '-')}", #{class_name(name)})) }
+      registrations = names.map { |name| %(application.register("chadcn--#{name.tr('_', '-')}", #{class_name(name)})) }
       [ HEADER, %(import { application } from "../application"), "", *imports, "", *registrations, "" ].join("\n")
     end
     private_class_method :index
@@ -98,7 +98,7 @@ module Chadcn
     end
     private_class_method :copies
 
-    # Rewrites `from "shadcn/primitives/x"` / `from "controllers/shadcn/x"` to the path from the file's directory.
+    # Rewrites `from "chadcn/primitives/x"` / `from "controllers/chadcn/x"` to the path from the file's directory.
     def self.relative_specifiers(source, directory)
       source.gsub(SPECIFIER) do
         keyword, quote, namespace, name = Regexp.last_match.captures

@@ -30,7 +30,7 @@ class Chadcn::NavigationMenuTest < Chadcn::TestCase
 
   def part(html, slot) = fragment(html).at_css("[data-slot=#{slot}]")
 
-  def template_target(html, target) = fragment(html).at_css("template[data-shadcn--navigation-menu-target=#{target}]")
+  def template_target(html, target) = fragment(html).at_css("template[data-chadcn--navigation-menu-target=#{target}]")
 
   test "root is the controller host with the oracle attributes" do
     nav = part(render_menu, "navigation-menu")
@@ -40,9 +40,9 @@ class Chadcn::NavigationMenuTest < Chadcn::TestCase
     assert_equal "ltr", nav["dir"]
     assert_equal "horizontal", nav["data-orientation"]
     assert_equal "true", nav["data-viewport"]
-    assert_equal "shadcn--navigation-menu", nav["data-controller"]
-    assert_equal "200", nav["data-shadcn--navigation-menu-delay-duration-value"]
-    assert_equal "300", nav["data-shadcn--navigation-menu-skip-delay-duration-value"]
+    assert_equal "chadcn--navigation-menu", nav["data-controller"]
+    assert_equal "200", nav["data-chadcn--navigation-menu-delay-duration-value"]
+    assert_equal "300", nav["data-chadcn--navigation-menu-skip-delay-duration-value"]
     %w[group/navigation-menu relative flex max-w-max].each { |token| assert_includes nav["class"].split, token }
   end
 
@@ -158,39 +158,39 @@ class Chadcn::NavigationMenuTest < Chadcn::TestCase
     out = render_menu(root: { value: "docs" })
     nav = part(out, "navigation-menu")
 
-    assert_equal "true", nav["data-shadcn--navigation-menu-controlled-value"]
-    assert_equal "docs", nav["data-shadcn--navigation-menu-value-value"]
+    assert_equal "true", nav["data-chadcn--navigation-menu-controlled-value"]
+    assert_equal "docs", nav["data-chadcn--navigation-menu-value-value"]
     assert_equal "true", part(out, "navigation-menu-trigger")["aria-expanded"]
 
     closed = render_menu(root: { value: "", default_value: "docs" })
 
-    assert_equal "true", part(closed, "navigation-menu")["data-shadcn--navigation-menu-controlled-value"]
+    assert_equal "true", part(closed, "navigation-menu")["data-chadcn--navigation-menu-controlled-value"]
     assert_equal "false", part(closed, "navigation-menu-trigger")["aria-expanded"]
   end
 
   test "default_value is uncontrolled" do
     nav = part(render_menu(root: { default_value: "docs" }), "navigation-menu")
 
-    assert_equal "false", nav["data-shadcn--navigation-menu-controlled-value"]
-    assert_equal "docs", nav["data-shadcn--navigation-menu-value-value"]
+    assert_equal "false", nav["data-chadcn--navigation-menu-controlled-value"]
+    assert_equal "docs", nav["data-chadcn--navigation-menu-value-value"]
   end
 
   test "delays, activation mode and orientation reach the controller values" do
     nav = part(render_menu(root: { delay_duration: 10, skip_delay_duration: 20, activation_mode: :manual, orientation: "vertical" }),
                "navigation-menu")
 
-    assert_equal "10", nav["data-shadcn--navigation-menu-delay-duration-value"]
-    assert_equal "20", nav["data-shadcn--navigation-menu-skip-delay-duration-value"]
-    assert_equal "manual", nav["data-shadcn--navigation-menu-activation-mode-value"]
-    assert_equal "vertical", nav["data-shadcn--navigation-menu-orientation-value"]
-    assert_equal "automatic", part(render_menu, "navigation-menu")["data-shadcn--navigation-menu-activation-mode-value"]
+    assert_equal "10", nav["data-chadcn--navigation-menu-delay-duration-value"]
+    assert_equal "20", nav["data-chadcn--navigation-menu-skip-delay-duration-value"]
+    assert_equal "manual", nav["data-chadcn--navigation-menu-activation-mode-value"]
+    assert_equal "vertical", nav["data-chadcn--navigation-menu-orientation-value"]
+    assert_equal "automatic", part(render_menu, "navigation-menu")["data-chadcn--navigation-menu-activation-mode-value"]
     assert_equal "horizontal", part(render_menu(root: { orientation: "diagonal" }), "navigation-menu")["data-orientation"]
   end
 
   test "documents current behavior: an unknown activation mode is forwarded as given (Tabs normalizes, the menu does not)" do
     nav = part(render_menu(root: { activation_mode: "sideways" }), "navigation-menu")
 
-    assert_equal "sideways", nav["data-shadcn--navigation-menu-activation-mode-value"]
+    assert_equal "sideways", nav["data-chadcn--navigation-menu-activation-mode-value"]
   end
 
   test "dir comes from the direction provider unless set" do
@@ -200,7 +200,7 @@ class Chadcn::NavigationMenuTest < Chadcn::TestCase
     nav = part(inherited, "navigation-menu")
 
     assert_equal "rtl", nav["dir"]
-    assert_equal "rtl", nav["data-shadcn--navigation-menu-dir-value"]
+    assert_equal "rtl", nav["data-chadcn--navigation-menu-dir-value"]
 
     explicit = render_view do
       render(Chadcn::Direction::Provider.new(dir: "rtl")) { render(NavigationMenu.new(viewport: false, dir: "ltr")) }
@@ -208,7 +208,7 @@ class Chadcn::NavigationMenuTest < Chadcn::TestCase
     local = part(explicit, "navigation-menu")
 
     assert_equal "ltr", local["dir"]
-    assert_equal "ltr", local["data-shadcn--navigation-menu-dir-value"]
+    assert_equal "ltr", local["data-chadcn--navigation-menu-dir-value"]
   end
 
   test "list and item render ul and li, or the as_child element, with caller attrs" do
@@ -243,7 +243,7 @@ class Chadcn::NavigationMenuTest < Chadcn::TestCase
 
   test "content as_child merges onto the child and is a template" do
     out = render_menu(content: { as_child: :section, class: "p-9" })
-    section = Nokogiri::HTML5.fragment(out).at_css("template[data-shadcn--navigation-menu-target=contentTemplate]").at_css("section")
+    section = Nokogiri::HTML5.fragment(out).at_css("template[data-chadcn--navigation-menu-target=contentTemplate]").at_css("section")
 
     assert_equal "navigation-menu-content", section["data-slot"]
     assert_includes section["class"].split, "p-9"
@@ -258,8 +258,8 @@ class Chadcn::NavigationMenuTest < Chadcn::TestCase
       end
     end
     doc = Nokogiri::HTML5.fragment(out)
-    indicator = doc.at_css("template[data-shadcn--navigation-menu-target=indicatorTemplate]")
-    viewport = doc.at_css("template[data-shadcn--navigation-menu-target=viewportTemplate]")
+    indicator = doc.at_css("template[data-chadcn--navigation-menu-target=indicatorTemplate]")
+    viewport = doc.at_css("template[data-chadcn--navigation-menu-target=viewportTemplate]")
 
     assert_equal "true", indicator["data-force-mount"]
     assert_equal "true", viewport["data-force-mount"]

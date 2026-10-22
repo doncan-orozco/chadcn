@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-# Renders a +button+ with +role="combobox"+ and the +data-controller="shadcn--select"+ wiring (values mirror the root state), plus
+# Renders a +button+ with +role="combobox"+ and the +data-controller="chadcn--select"+ wiring (values mirror the root state), plus
 # a trailing chevron icon. When the root has +name:+ or +form:+ it also renders the hidden native +select+ after the button; the
 # controller keeps that select only when the Trigger is inside a form or +form:+ is set, so +name:+ alone outside a form submits
-# nothing. Renders nothing during the root's collect pass. Hosts the +shadcn--select+ controller. +as_child:+ is not offered (the
+# nothing. Renders nothing during the root's collect pass. Hosts the +chadcn--select+ controller. +as_child:+ is not offered (the
 # React original throws for it).
 #
 # @example
@@ -54,17 +54,17 @@ class Chadcn::Select::Trigger < Chadcn::Base
       aria: { controls: (content_id(state) if open), expanded: open.to_s, required: state[:required], autocomplete: "none" },
       data: {
         slot: "select-trigger", size: @size, state: open ? "open" : "closed", disabled: (disabled ? "" : nil),
-        placeholder: (blank_value? ? "" : nil), controller: "shadcn--select", **values(state)
+        placeholder: (blank_value? ? "" : nil), controller: "chadcn--select", **values(state)
       }
     }
   end
 
   def values(state)
     {
-      shadcn__select_open_value: state[:open].to_s, shadcn__select_controlled_open_value: state[:controlled_open].to_s,
-      shadcn__select_value_value: state[:value].to_s, shadcn__select_controlled_value_value: state[:controlled_value].to_s,
-      shadcn__select_disabled_value: state[:disabled].to_s, shadcn__select_dir_value: state[:dir], shadcn__select_content_id_value: content_id(state),
-      shadcn__select_name_value: state[:name], shadcn__select_form_value: state[:form], shadcn__select_auto_complete_value: state[:auto_complete]
+      chadcn__select_open_value: state[:open].to_s, chadcn__select_controlled_open_value: state[:controlled_open].to_s,
+      chadcn__select_value_value: state[:value].to_s, chadcn__select_controlled_value_value: state[:controlled_value].to_s,
+      chadcn__select_disabled_value: state[:disabled].to_s, chadcn__select_dir_value: state[:dir], chadcn__select_content_id_value: content_id(state),
+      chadcn__select_name_value: state[:name], chadcn__select_form_value: state[:form], chadcn__select_auto_complete_value: state[:auto_complete]
     }
   end
 

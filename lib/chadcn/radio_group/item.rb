@@ -23,7 +23,7 @@ class Chadcn::RadioGroup::Item < Chadcn::Base
   # Stimulus actions wired on the item button.
   #
   # @api private
-  ACTIONS = "click->shadcn--radio-group#select keydown->shadcn--radio-group#keydown focus->shadcn--radio-group#focus"
+  ACTIONS = "click->chadcn--radio-group#select keydown->chadcn--radio-group#keydown focus->chadcn--radio-group#focus"
 
   # Radix Indicator: rendered only while checked. Rendered by {Item}; also used for the controller's indicator template.
   #

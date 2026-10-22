@@ -13,7 +13,7 @@ class Chadcn::SonnerTest < Chadcn::TestCase
   end
 
   def value_of(html, name)
-    CGI.unescapeHTML(html[/data-shadcn--sonner-#{name}-value="([^"]*)"/, 1].to_s)
+    CGI.unescapeHTML(html[/data-chadcn--sonner-#{name}-value="([^"]*)"/, 1].to_s)
   end
 
   test "Toaster is the Sonner::Toaster class" do
@@ -43,7 +43,7 @@ class Chadcn::SonnerTest < Chadcn::TestCase
     assert_includes html, 'aria-atomic="false"'
     assert_includes html, 'tabindex="-1"'
     assert_includes html, 'aria-label="Notifications alt+T"'
-    assert_includes html, 'data-controller="shadcn--sonner"'
+    assert_includes html, 'data-controller="chadcn--sonner"'
     assert_includes html, 'id="toaster"'
   end
 
@@ -119,26 +119,26 @@ class Chadcn::SonnerTest < Chadcn::TestCase
 
     { "success" => "lucide-circle-check", "info" => "lucide-info", "warning" => "lucide-triangle-alert", "error" => "lucide-octagon-x",
       "loading" => "lucide-loader-circle size-4 animate-spin" }.each do |type, icon|
-      assert_match(/<template data-shadcn--sonner-icon="#{type}"><svg[^>]*class="lucide #{icon}[^"]*"/, html)
+      assert_match(/<template data-chadcn--sonner-icon="#{type}"><svg[^>]*class="lucide #{icon}[^"]*"/, html)
     end
-    assert_includes html, 'data-shadcn--sonner-icon="close"'
+    assert_includes html, 'data-chadcn--sonner-icon="close"'
     assert_includes html, '<line x1="18" y1="6" x2="6" y2="18"></line>'
   end
 
   test "icons can be replaced or switched off per type" do
     html = render_toaster(icons: { success: false, error: Chadcn::Icon.new("x", class: "size-3") })
 
-    assert_match(%r{<template data-shadcn--sonner-icon="success" data-none(="")?></template>}, html)
-    assert_match(/<template data-shadcn--sonner-icon="error"><svg[^>]*class="lucide lucide-x size-3"/, html)
+    assert_match(%r{<template data-chadcn--sonner-icon="success" data-none(="")?></template>}, html)
+    assert_match(/<template data-chadcn--sonner-icon="error"><svg[^>]*class="lucide lucide-x size-3"/, html)
   end
 
   test "flash becomes typed toast templates and skips blanks" do
     html = render_toaster(flash: { "notice" => "Saved", alert: "Nope", "custom" => "Hello", "empty" => "" })
 
-    assert_includes html, '<template data-shadcn--sonner-toast="" data-type="success"><div data-title="">Saved</div></template>'
+    assert_includes html, '<template data-chadcn--sonner-toast="" data-type="success"><div data-title="">Saved</div></template>'
     assert_includes html, 'data-type="error"><div data-title="">Nope</div>'
-    assert_includes html, '<template data-shadcn--sonner-toast=""><div data-title="">Hello</div></template>'
-    assert_equal 3, html.scan("data-shadcn--sonner-toast=").size
+    assert_includes html, '<template data-chadcn--sonner-toast=""><div data-title="">Hello</div></template>'
+    assert_equal 3, html.scan("data-chadcn--sonner-toast=").size
   end
 
   test "toasts: and the block render Toast templates" do
@@ -150,7 +150,7 @@ class Chadcn::SonnerTest < Chadcn::TestCase
     html = page.new.call
 
     assert_includes html, 'data-type="info"><div data-title="">A</div>'
-    assert_includes html, '<template data-shadcn--sonner-toast=""><div data-title="">B</div></template>'
+    assert_includes html, '<template data-chadcn--sonner-toast=""><div data-title="">B</div></template>'
   end
 
   test "Toast escapes title and description" do
@@ -174,7 +174,7 @@ class Chadcn::SonnerTest < Chadcn::TestCase
   test "Toast without options carries only the marker, the title is the block when no title: is given" do
     html = render_toast { "From block" }
 
-    assert_equal '<template data-shadcn--sonner-toast=""><div data-title="">From block</div></template>', html
+    assert_equal '<template data-chadcn--sonner-toast=""><div data-title="">From block</div></template>', html
   end
 
   test "rich_colors false is sent as false, not dropped" do
@@ -190,7 +190,7 @@ class Chadcn::SonnerTest < Chadcn::TestCase
   test "flash values that are not strings are skipped" do
     html = render_toaster(flash: { "timedout" => true, "notice" => "Saved" })
 
-    assert_equal 1, html.scan("data-shadcn--sonner-toast=").size
+    assert_equal 1, html.scan("data-chadcn--sonner-toast=").size
   end
 
   test "numeric duration" do
@@ -199,12 +199,12 @@ class Chadcn::SonnerTest < Chadcn::TestCase
 
   test "ships no JavaScript dependency" do
     root = Chadcn.root
-    controller = File.read(root.join("app/javascript/controllers/shadcn/sonner_controller.js"))
-    primitive = File.read(root.join("app/javascript/shadcn/primitives/toast_stack.js"))
+    controller = File.read(root.join("app/javascript/controllers/chadcn/sonner_controller.js"))
+    primitive = File.read(root.join("app/javascript/chadcn/primitives/toast_stack.js"))
 
     imports = (controller + primitive).scan(/^import .* from "([^"]+)"/).flatten.uniq.sort
 
-    assert_equal [ "@hotwired/stimulus", "shadcn/primitives/toast_stack" ], imports
+    assert_equal [ "@hotwired/stimulus", "chadcn/primitives/toast_stack" ], imports
     assert_empty Dir[root.join("vendor/javascript/*sonner*").to_s]
     assert_not_includes File.read(root.join("config/importmap.rb")), "sonner"
   end

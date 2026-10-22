@@ -47,6 +47,6 @@ class Chadcn::Command::Input < Chadcn::Base
         type: "text", value: @value.to_s },
       aria: { autocomplete: "list", expanded: "true", controls: "#{root[:base]}-list", labelledby: "#{root[:base]}-label" }
     )
-    @value.nil? ? attrs : with_forced(attrs, {}, data: { shadcn__command_search: @value.to_s })
+    @value.nil? ? attrs : with_forced(attrs, {}, data: { chadcn__command_search: @value.to_s })
   end
 end

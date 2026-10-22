@@ -30,14 +30,14 @@ class Chadcn::DialogTest < Chadcn::TestCase
 
   test "host carries the controller and the closed parts live in a template" do
     doc = fragment(dialog)
-    host = doc.at_css("[data-controller=shadcn--dialog]")
+    host = doc.at_css("[data-controller=chadcn--dialog]")
 
     assert_equal "display: contents", host["style"]
     assert_nil host["data-slot"]
-    assert_equal "false", host["data-shadcn--dialog-open-value"]
-    assert_equal "true", host["data-shadcn--dialog-modal-value"]
+    assert_equal "false", host["data-chadcn--dialog-open-value"]
+    assert_equal "true", host["data-chadcn--dialog-modal-value"]
 
-    trigger = host.at_css("[data-shadcn--dialog-part=trigger]")
+    trigger = host.at_css("[data-chadcn--dialog-part=trigger]")
 
     assert_equal "dialog-trigger", trigger["data-slot"]
     assert_equal "outline", trigger["data-variant"]
@@ -45,7 +45,7 @@ class Chadcn::DialogTest < Chadcn::TestCase
     assert_equal "dialog", trigger["aria-haspopup"]
     assert_nil trigger["aria-controls"]
 
-    template = host.at_css("template[data-shadcn--dialog-template]")
+    template = host.at_css("template[data-chadcn--dialog-template]")
 
     assert template.at_css("[data-slot=dialog-overlay][data-state=open]")
     content = template.at_css("[data-slot=dialog-content]")
@@ -68,7 +68,7 @@ class Chadcn::DialogTest < Chadcn::TestCase
   end
 
   test "open dialog is reflected on the trigger" do
-    trigger = fragment(dialog(root: { default_open: true })).at_css("[data-shadcn--dialog-part=trigger]")
+    trigger = fragment(dialog(root: { default_open: true })).at_css("[data-chadcn--dialog-part=trigger]")
 
     assert_equal "true", trigger["aria-expanded"]
     assert_equal "open", trigger["data-state"]
@@ -76,10 +76,10 @@ class Chadcn::DialogTest < Chadcn::TestCase
   end
 
   test "controlled open is flagged on the host" do
-    host = fragment(dialog(root: { open: true })).at_css("[data-controller=shadcn--dialog]")
+    host = fragment(dialog(root: { open: true })).at_css("[data-controller=chadcn--dialog]")
 
-    assert_equal "true", host["data-shadcn--dialog-controlled-value"]
-    assert_equal "true", host["data-shadcn--dialog-open-value"]
+    assert_equal "true", host["data-chadcn--dialog-controlled-value"]
+    assert_equal "true", host["data-chadcn--dialog-open-value"]
   end
 
   test "non modal dialog renders no overlay" do
@@ -152,20 +152,20 @@ class Chadcn::DialogTest < Chadcn::TestCase
   end
 
   test "root attributes and options land on the host" do
-    host = fragment(dialog(root: { default_open: true, modal: false, class: "x-root", data: { foo: "bar" } })).at_css("[data-controller=shadcn--dialog]")
+    host = fragment(dialog(root: { default_open: true, modal: false, class: "x-root", data: { foo: "bar" } })).at_css("[data-controller=chadcn--dialog]")
 
     assert_includes host["class"], "x-root"
     assert_equal "bar", host["data-foo"]
-    assert_equal "true", host["data-shadcn--dialog-open-value"]
-    assert_equal "false", host["data-shadcn--dialog-controlled-value"]
-    assert_equal "false", host["data-shadcn--dialog-modal-value"]
+    assert_equal "true", host["data-chadcn--dialog-open-value"]
+    assert_equal "false", host["data-chadcn--dialog-controlled-value"]
+    assert_equal "false", host["data-chadcn--dialog-modal-value"]
   end
 
   test "portal forwards force_mount and container to the controller" do
     html = render_view do
       render(Dialog.new) { render(Dialog::Portal.new(force_mount: true, container: "#c")) { "" } }
     end
-    options = JSON.parse(fragment(html).at_css("template[data-shadcn--dialog-options]")["data-shadcn--dialog-options"])
+    options = JSON.parse(fragment(html).at_css("template[data-chadcn--dialog-options]")["data-chadcn--dialog-options"])
 
     assert_equal({ "forceMount" => true, "container" => "#c" }, options)
   end

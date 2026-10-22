@@ -29,6 +29,6 @@ class Chadcn::Command::Empty < Chadcn::Base
     root_context
     attrs = merge_attrs({ data: { slot: "command-empty" } }, { class: CLASSES }.merge(@attrs))
     attrs = with_forced(attrs, { "cmdk-empty": "", role: "presentation" })
-    template(data: { shadcn__command_target: "empty" }) { div(**attrs, &) }
+    template(data: { chadcn__command_target: "empty" }) { div(**attrs, &) }
   end
 end

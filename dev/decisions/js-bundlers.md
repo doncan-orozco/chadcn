@@ -6,9 +6,9 @@ and closes in a browser).
 
 ## Problem
 
-The gem ships its Stimulus controllers and primitives inside the gem (`app/javascript/controllers/shadcn/*`,
-`app/javascript/shadcn/primitives/*`). importmap-rails apps get them from the engine's pins. An esbuild app resolves bare
-specifiers (`shadcn/primitives/presence`, `controllers/shadcn/dialog_controller`, `@floating-ui/dom`) from `node_modules` and
+The gem ships its Stimulus controllers and primitives inside the gem (`app/javascript/controllers/chadcn/*`,
+`app/javascript/chadcn/primitives/*`). importmap-rails apps get them from the engine's pins. An esbuild app resolves bare
+specifiers (`chadcn/primitives/presence`, `controllers/chadcn/dialog_controller`, `@floating-ui/dom`) from `node_modules` and
 relative paths only, and there is no npm package: publishing one is a human step (epic-flow R13) and is not needed.
 
 ## Options
@@ -27,11 +27,11 @@ relative paths only, and there is no npm package: publishing one is a human step
 
 - **importmap** (`config/importmap.rb`, importmap-rails): unchanged, the engine pins everything.
 - **esbuild** (a `package.json` with an `esbuild` build script, or jsbundling-rails in the bundle, and no importmap): the generator
-  1. copies the controllers to `app/javascript/controllers/shadcn/` and the primitives to `app/javascript/shadcn/primitives/`,
-     rewriting only the two internal specifier forms (`shadcn/primitives/x`, `controllers/shadcn/x`) to relative paths, and
+  1. copies the controllers to `app/javascript/controllers/chadcn/` and the primitives to `app/javascript/chadcn/primitives/`,
+     rewriting only the two internal specifier forms (`chadcn/primitives/x`, `controllers/chadcn/x`) to relative paths, and
      prepends a `managed by` header line (edits are overwritten by the next run, like the Tailwind block);
-  2. writes `app/javascript/controllers/shadcn/index.js`, which registers every controller as `shadcn--<name>` with the app's
-     `application` (`./application` of stimulus-rails), and adds `import "./controllers/shadcn"` to `app/javascript/application.js`;
+  2. writes `app/javascript/controllers/chadcn/index.js`, which registers every controller as `chadcn--<name>` with the app's
+     `application` (`./application` of stimulus-rails), and adds `import "./controllers/chadcn"` to `app/javascript/application.js`;
   3. adds `@floating-ui/dom` (the version the gem vendors) to `package.json` with the app's package manager (yarn, pnpm, bun or npm,
      chosen by the lock file), because floating-ui is a normal npm package and must not be copied.
 
@@ -53,8 +53,8 @@ computes the files; the generator writes them and the doctor compares against th
   stay in `lib/generators/chadcn/install/js_layout.rb` (`Generators::JsLayout`), because gem_check (GEM_ESCAPES_ROOT) allows
   such literals only in generator files; `JsBundle` reads them from there.
 
-- The `shadcn--*` identifiers are the same in both pipelines, so the Phlex components and the DOM do not change.
-- `stimulus:manifest:update` also registers `controllers/shadcn/*_controller.js` under the same identifiers; the double registration
+- The `chadcn--*` identifiers are the same in both pipelines, so the Phlex components and the DOM do not change.
+- `stimulus:manifest:update` also registers `controllers/chadcn/*_controller.js` under the same identifiers; the double registration
   is harmless (Stimulus reloads the identifier with the same class).
 - Sprockets and the eject generator (#179) can reuse `JsBundle` (eject copies a single component's controller the same way).
 - If a maintainer later publishes an npm package, the generator step 1 becomes `yarn add chadcn` and `JsBundle` is retired;

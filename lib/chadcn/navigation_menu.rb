@@ -3,7 +3,7 @@
 using Chadcn::Values::Refinements
 
 # shadcn NavigationMenu over Radix NavigationMenu. Spec: docs/shadcn-port/specs/navigation-menu.md.
-# Behavior lives in controllers/shadcn/navigation_menu_controller.js (hosted by the root `nav`).
+# Behavior lives in controllers/chadcn/navigation_menu_controller.js (hosted by the root `nav`).
 #
 # The block receives the menu, which has one helper per part (`menu.list`, `menu.item`, `menu.trigger`, `menu.content`,
 # `menu.link`, `menu.indicator`, `menu.viewport`) equal to `render NavigationMenu::List.new(...)`. The
@@ -95,12 +95,12 @@ class Chadcn::NavigationMenu < Chadcn::Base
                         aria: { label: "Main" }, dir: dir,
                         class: CLASSES,
                         data: {
-                          orientation: @orientation, slot: "navigation-menu", viewport: @viewport.to_s, controller: "shadcn--navigation-menu",
-                          shadcn__navigation_menu_value_value: @value, shadcn__navigation_menu_controlled_value: @controlled.to_s,
-                          shadcn__navigation_menu_delay_duration_value: @delay_duration,
-                          shadcn__navigation_menu_skip_delay_duration_value: @skip_delay_duration,
-                          shadcn__navigation_menu_orientation_value: @orientation, shadcn__navigation_menu_dir_value: dir,
-                          shadcn__navigation_menu_activation_mode_value: @activation_mode
+                          orientation: @orientation, slot: "navigation-menu", viewport: @viewport.to_s, controller: "chadcn--navigation-menu",
+                          chadcn__navigation_menu_value_value: @value, chadcn__navigation_menu_controlled_value: @controlled.to_s,
+                          chadcn__navigation_menu_delay_duration_value: @delay_duration,
+                          chadcn__navigation_menu_skip_delay_duration_value: @skip_delay_duration,
+                          chadcn__navigation_menu_orientation_value: @orientation, chadcn__navigation_menu_dir_value: dir,
+                          chadcn__navigation_menu_activation_mode_value: @activation_mode
                         }
                       }, @attrs)) do
       yield self if block_given?
@@ -240,7 +240,7 @@ class Chadcn::NavigationMenu < Chadcn::Base
                              aria: { expanded: open.to_s, controls: (item[:content_id] if open) },
                              data: {
                                state: open ? "open" : "closed", disabled: (@disabled ? "" : nil), slot: "navigation-menu-trigger", radix_collection_item: "",
-                               shadcn__navigation_menu_value_param: item[:value], shadcn__navigation_menu_controls_param: item[:content_id]
+                               chadcn__navigation_menu_value_param: item[:value], chadcn__navigation_menu_controls_param: item[:content_id]
                              }
                            }, @attrs)) do
         yield if block_given?
@@ -289,7 +289,7 @@ class Chadcn::NavigationMenu < Chadcn::Base
                             id: item[:content_id], aria: { labelledby: item[:trigger_id] }, dir: root[:dir], class: cn(*CLASSES),
                             data: { orientation: root[:orientation], slot: "navigation-menu-content" }
                           }, @attrs)
-      template(data: { shadcn__navigation_menu_target: "contentTemplate", value: item[:value], force_mount: (@force_mount ? "true" : nil) }) do
+      template(data: { chadcn__navigation_menu_target: "contentTemplate", value: item[:value], force_mount: (@force_mount ? "true" : nil) }) do
         @as_child ? render_as_child(@as_child, **attrs, &) : div(**attrs, &)
       end
     end
@@ -322,7 +322,7 @@ class Chadcn::NavigationMenu < Chadcn::Base
     def view_template
       root = root_context
       div(class: "absolute top-full left-0 isolate z-50 flex justify-center") do
-        template(data: { shadcn__navigation_menu_target: "viewportTemplate", force_mount: (@force_mount ? "true" : nil) }) do
+        template(data: { chadcn__navigation_menu_target: "viewportTemplate", force_mount: (@force_mount ? "true" : nil) }) do
           div(**merge_attrs({ class: CLASSES, data: { orientation: root[:orientation], slot: "navigation-menu-viewport" } }, @attrs))
         end
       end
@@ -390,7 +390,7 @@ class Chadcn::NavigationMenu < Chadcn::Base
     # @raise [ArgumentError] when rendered outside a {NavigationMenu}
     def view_template
       root = root_context
-      template(data: { shadcn__navigation_menu_target: "indicatorTemplate", force_mount: (@force_mount ? "true" : nil) }) do
+      template(data: { chadcn__navigation_menu_target: "indicatorTemplate", force_mount: (@force_mount ? "true" : nil) }) do
         div(**merge_attrs(
           { aria: { hidden: "true" }, class: CLASSES, data: { orientation: root[:orientation], slot: "navigation-menu-indicator" } }, @attrs
         )) do

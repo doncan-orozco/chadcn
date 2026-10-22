@@ -27,8 +27,8 @@ class Chadcn::AlertDialog::Trigger < Chadcn::Base
     attrs = merge_attrs({
                           type: "button",
                           aria: { haspopup: "dialog", expanded: root[:open].to_s, controls: (root[:content_id] if root[:open]) },
-                          data: { slot: "alert-dialog-trigger", state: state_of(root), shadcn__dialog_part: "trigger",
-                                  action: "click->shadcn--alert-dialog#toggle" }
+                          data: { slot: "alert-dialog-trigger", state: state_of(root), chadcn__dialog_part: "trigger",
+                                  action: "click->chadcn--alert-dialog#toggle" }
                         }, @attrs)
     render_part(:button, @as_child, attrs, &)
   end

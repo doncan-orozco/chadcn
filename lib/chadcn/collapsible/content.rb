@@ -36,12 +36,12 @@ class Chadcn::Collapsible::Content < Chadcn::Base
     if @as_child
       return render_as_child(@as_child, **content_attrs(root, mounted), &block) if mounted
 
-      template(data: { shadcn__collapsible_target: "body", shadcn__collapsible_slot: "child" }) do
+      template(data: { chadcn__collapsible_target: "body", chadcn__collapsible_slot: "child" }) do
         render_as_child(@as_child, **content_attrs(root, true, open: true, prevent: false), &block)
       end
     else
       div(**content_attrs(root, mounted)) do
-        mounted ? block&.call : template(data: { shadcn__collapsible_target: "body" }) { block&.call }
+        mounted ? block&.call : template(data: { chadcn__collapsible_target: "body" }) { block&.call }
       end
     end
   end
@@ -54,8 +54,8 @@ class Chadcn::Collapsible::Content < Chadcn::Base
                   hidden: !mounted,
                   style: style_for(prevent),
                   data: { state: open ? "open" : "closed", disabled: disabled_data(root),
-                          slot: "collapsible-content", shadcn__collapsible_target: "content",
-                          shadcn__collapsible_force_mount: @force_mount.to_s, shadcn__collapsible_as_child: @as_child.filled?.to_s }
+                          slot: "collapsible-content", chadcn__collapsible_target: "content",
+                          chadcn__collapsible_force_mount: @force_mount.to_s, chadcn__collapsible_as_child: @as_child.filled?.to_s }
                 }, @attrs)
   end
 

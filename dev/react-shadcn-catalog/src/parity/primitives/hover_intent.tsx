@@ -1,6 +1,6 @@
 // Oracle for app/javascript/v2/primitives/hover_intent.js: RAW Radix Tooltip (Provider + skip delay) and HoverCard (open/close delays)
-// over the scenario tree. Rendered by Harness.tsx for `_div[data-controller="shadcn---probe-hover-intent"]`; the Phlex side drives the
-// same tree with gems/chadcn/dev/dummy/app/javascript/controllers/shadcn/_probe_hover_intent_controller.js.
+// over the scenario tree. Rendered by Harness.tsx for `_div[data-controller="chadcn---probe-hover-intent"]`; the Phlex side drives the
+// same tree with gems/chadcn/dev/dummy/app/javascript/controllers/chadcn/_probe_hover_intent_controller.js.
 //   data-parity-options: { kind: "tooltip"|"hover-card", side, sideOffset, delayDuration, skipDelayDuration, openDelay, closeDelay }
 //   children: `[data-slot=trigger]` immediately followed by its `[data-slot=content]` (any other child is rendered untouched).
 // Trigger/content data-state, ids and aria wiring are owned by Radix here and by the probe controller there, so the tree omits them.
@@ -44,4 +44,4 @@ function HoverIntentProbe({ children, ...props }: Record<string, unknown> & { ch
   )
 }
 
-export const probe = { controller: "shadcn---probe-hover-intent", Component: HoverIntentProbe }
+export const probe = { controller: "chadcn---probe-hover-intent", Component: HoverIntentProbe }

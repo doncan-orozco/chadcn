@@ -6,7 +6,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-submenu-grace",
+          "data-controller": "chadcn---probe-submenu-grace",
           "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":4}"
         },
         "children": [
@@ -164,7 +164,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-submenu-grace",
+          "data-controller": "chadcn---probe-submenu-grace",
           "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":4}"
         },
         "children": [
@@ -335,7 +335,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-submenu-grace",
+          "data-controller": "chadcn---probe-submenu-grace",
           "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":4}"
         },
         "children": [
@@ -502,7 +502,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-submenu-grace",
+          "data-controller": "chadcn---probe-submenu-grace",
           "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":4}"
         },
         "children": [
@@ -665,7 +665,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-submenu-grace",
+          "data-controller": "chadcn---probe-submenu-grace",
           "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":4}"
         },
         "children": [
@@ -836,7 +836,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-submenu-grace",
+          "data-controller": "chadcn---probe-submenu-grace",
           "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":4}"
         },
         "children": [
@@ -1019,7 +1019,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-submenu-grace",
+          "data-controller": "chadcn---probe-submenu-grace",
           "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":4}"
         },
         "children": [
@@ -1194,7 +1194,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-submenu-grace",
+          "data-controller": "chadcn---probe-submenu-grace",
           "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":4}"
         },
         "children": [
@@ -1377,7 +1377,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-submenu-grace",
+          "data-controller": "chadcn---probe-submenu-grace",
           "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":4}"
         },
         "children": [
@@ -1552,7 +1552,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-submenu-grace",
+          "data-controller": "chadcn---probe-submenu-grace",
           "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":4}"
         },
         "children": [
@@ -1727,7 +1727,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-submenu-grace",
+          "data-controller": "chadcn---probe-submenu-grace",
           "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":4}"
         },
         "children": [
@@ -1910,7 +1910,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-submenu-grace",
+          "data-controller": "chadcn---probe-submenu-grace",
           "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":4}"
         },
         "children": [
@@ -2085,7 +2085,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-submenu-grace",
+          "data-controller": "chadcn---probe-submenu-grace",
           "data-parity-options": "{\"side\":\"bottom\",\"align\":\"start\",\"sideOffset\":4}"
         },
         "children": [
@@ -2268,7 +2268,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-submenu-grace",
+          "data-controller": "chadcn---probe-submenu-grace",
           "data-parity-options": "{\"side\":\"top\",\"align\":\"center\",\"sideOffset\":2}"
         },
         "children": [

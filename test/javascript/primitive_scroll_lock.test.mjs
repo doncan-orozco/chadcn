@@ -13,7 +13,7 @@ const state = () => ({
 
 primitiveTest("scroll_lock: locking sets data-scroll-locked, hides overflow and compensates the scrollbar; release restores", async (page) => {
   const result = await page.evaluate(async (stateSource) => {
-    const { scrollLock } = await import("shadcn/primitives/scroll_lock");
+    const { scrollLock } = await import("chadcn/primitives/scroll_lock");
     const read = new Function(`return (${stateSource})()`);
     const before = read();
     const gap = window.innerWidth - document.documentElement.clientWidth;
@@ -33,7 +33,7 @@ primitiveTest("scroll_lock: locking sets data-scroll-locked, hides overflow and 
 
 primitiveTest("scroll_lock: nested locks are counted and only the last release restores the page", async (page) => {
   const result = await page.evaluate(async (stateSource) => {
-    const { scrollLock } = await import("shadcn/primitives/scroll_lock");
+    const { scrollLock } = await import("chadcn/primitives/scroll_lock");
     const read = new Function(`return (${stateSource})()`);
     const first = scrollLock();
     const second = scrollLock();
@@ -54,7 +54,7 @@ primitiveTest("scroll_lock: nested locks are counted and only the last release r
 
 primitiveTest("scroll_lock: a release function is idempotent and cannot unlock someone else's lock", async (page) => {
   const result = await page.evaluate(async () => {
-    const { scrollLock } = await import("shadcn/primitives/scroll_lock");
+    const { scrollLock } = await import("chadcn/primitives/scroll_lock");
     const first = scrollLock();
     const second = scrollLock();
     first();

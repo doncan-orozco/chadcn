@@ -4,9 +4,9 @@ import { Presence } from "@radix-ui/react-presence"
 import { actionOf, flag, items, isTemplate, only, type El } from "./_overlay"
 
 function PresenceProbe({ children, ...props }: Record<string, any>) {
-  const [open, setOpen] = React.useState(flag(props, "shadcn---probe-presence", "open"))
+  const [open, setOpen] = React.useState(flag(props, "chadcn---probe-presence", "open"))
   return (
-    <div {...props} onClick={(e) => actionOf(e.target, "shadcn---probe-presence")?.method === "toggle" && setOpen((v) => !v)}>
+    <div {...props} onClick={(e) => actionOf(e.target, "chadcn---probe-presence")?.method === "toggle" && setOpen((v) => !v)}>
       {items(children).map((node) =>
         isTemplate(node) ? (
           <Presence key={node.key} present={open}>
@@ -21,4 +21,4 @@ function PresenceProbe({ children, ...props }: Record<string, any>) {
 }
 
 // Harness.tsx renders the raw root whose data-controller is `controller` with this component.
-export const probe = { controller: "shadcn---probe-presence", Component: PresenceProbe }
+export const probe = { controller: "chadcn---probe-presence", Component: PresenceProbe }

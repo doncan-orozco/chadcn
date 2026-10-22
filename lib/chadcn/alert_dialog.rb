@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # shadcn AlertDialog (Radix AlertDialog, always modal). Spec: docs/shadcn-port/specs/alert-dialog.md. Behavior:
-# controllers/shadcn/alert_dialog_controller.js, which reuses the dialog controller.
+# controllers/chadcn/alert_dialog_controller.js, which reuses the dialog controller.
 #
 # Radix Root renders no element; the port renders one display: contents host that carries the Stimulus controller (a
 # trigger cannot host it: zero, one or several triggers, or a controlled open). Portal children are shipped in an inert
@@ -88,10 +88,10 @@ class Chadcn::AlertDialog < Chadcn::Base
 
   def host_data(root)
     {
-      controller: "shadcn--alert-dialog",
-      shadcn__alert_dialog_open_value: root[:open].to_s,
-      shadcn__alert_dialog_controlled_value: root[:controlled].to_s,
-      shadcn__alert_dialog_id_value: root[:content_id]
+      controller: "chadcn--alert-dialog",
+      chadcn__alert_dialog_open_value: root[:open].to_s,
+      chadcn__alert_dialog_controlled_value: root[:controlled].to_s,
+      chadcn__alert_dialog_id_value: root[:content_id]
     }
   end
 end

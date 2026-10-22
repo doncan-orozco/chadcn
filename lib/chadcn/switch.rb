@@ -5,7 +5,7 @@ using Chadcn::Values::Refinements
 
 # A toggle button with `role=switch`, plus a hidden checkbox so it submits with a form.
 #
-# User input, or a form reset that changes the state, dispatches the `shadcn--switch:checked-change` event
+# User input, or a form reset that changes the state, dispatches the `chadcn--switch:checked-change` event
 # (`detail: { checked }`). The hidden checkbox is removed by the controller when the switch is not inside a `<form>`
 # and has no `form:`.
 #
@@ -62,7 +62,7 @@ class Chadcn::Switch < Chadcn::Base
 
   # Radix composes the consumer onClick first, then the toggle: our action goes last.
   def root_with_action(attrs)
-    action = [ attrs.dig(:data, :action), "click->shadcn--switch#toggle" ].reject_blank.join(" ")
+    action = [ attrs.dig(:data, :action), "click->chadcn--switch#toggle" ].reject_blank.join(" ")
     attrs.merge(data: attrs[:data].merge(action:))
   end
 
@@ -71,7 +71,7 @@ class Chadcn::Switch < Chadcn::Base
       type: "button",
       role: "switch",
       aria: { checked: @checked, **(@required.nil? ? {} : { required: @required }) },
-      data: { state:, slot: "switch", size: @size, controller: "shadcn--switch", shadcn__switch_controlled_value: @controlled,
+      data: { state:, slot: "switch", size: @size, controller: "chadcn--switch", chadcn__switch_controlled_value: @controlled,
               **(@disabled ? { disabled: "" } : {}) },
       disabled: @disabled,
       value: @value,

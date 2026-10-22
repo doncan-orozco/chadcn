@@ -31,7 +31,7 @@ class Chadcn::Combobox::List < Chadcn::Base
       else
         block&.call
       end
-      template(data: { shadcn__combobox_part: "indicator-template" }) { render_indicator }
+      template(data: { chadcn__combobox_part: "indicator-template" }) { render_indicator }
     end
   end
 
@@ -39,7 +39,7 @@ class Chadcn::Combobox::List < Chadcn::Base
 
   def list_attrs(model)
     defaults = { role: "listbox", tabindex: "-1", id: model.list_id, class: CLASSES,
-                 data: { slot: "combobox-list", shadcn__combobox_part: "list" },
+                 data: { slot: "combobox-list", chadcn__combobox_part: "list" },
                  aria: { multiselectable: (model.multiple? ? "true" : nil), readonly: (model.read_only? ? "true" : nil) } }
     defaults[:data] = defaults[:data].merge(empty: "") if list_empty?(model)
     merge_attrs(defaults, @attrs)

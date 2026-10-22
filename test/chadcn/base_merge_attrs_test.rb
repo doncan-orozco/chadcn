@@ -12,26 +12,26 @@ class Chadcn::BaseMergeAttrsTest < Chadcn::TestCase
   def controllers(attrs) = attrs.dig(:data, :controller)
 
   test "a component controller and a caller controller yield both, component first" do
-    merged = Probe.new.merge_attrs({ data: { controller: "shadcn--x" } }, { data: { controller: "mine other" } })
+    merged = Probe.new.merge_attrs({ data: { controller: "chadcn--x" } }, { data: { controller: "mine other" } })
 
-    assert_equal "shadcn--x mine other", controllers(merged)
+    assert_equal "chadcn--x mine other", controllers(merged)
   end
 
   test "flat data-controller keys merge the same way" do
-    merged = Probe.new.merge_attrs({ "data-controller": "shadcn--x" }, { "data-controller" => "mine" })
+    merged = Probe.new.merge_attrs({ "data-controller": "chadcn--x" }, { "data-controller" => "mine" })
 
-    assert_equal "shadcn--x mine", controllers(merged)
+    assert_equal "chadcn--x mine", controllers(merged)
   end
 
   test "a caller controller on a component without one is kept" do
     assert_equal "mine", controllers(Probe.new.merge_attrs({ data: { slot: "x" } }, { data: { controller: "mine" } }))
-    assert_equal "shadcn--x", controllers(Probe.new.merge_attrs({ data: { controller: "shadcn--x" } }, {}))
+    assert_equal "chadcn--x", controllers(Probe.new.merge_attrs({ data: { controller: "chadcn--x" } }, {}))
   end
 
   test "duplicates collapse, whatever the spacing" do
-    merged = Probe.new.merge_attrs({ data: { controller: "shadcn--x" } }, { data: { controller: " shadcn--x  mine\nmine " } })
+    merged = Probe.new.merge_attrs({ data: { controller: "chadcn--x" } }, { data: { controller: " chadcn--x  mine\nmine " } })
 
-    assert_equal "shadcn--x mine", controllers(merged)
+    assert_equal "chadcn--x mine", controllers(merged)
   end
 
   test "other data keys still deep-merge with the caller winning" do
@@ -59,36 +59,36 @@ class Chadcn::BaseMergeAttrsTest < Chadcn::TestCase
   end
 
   test "an explicit nil or blank caller controller keeps the component's" do
-    assert_equal "shadcn--x", controllers(Probe.new.merge_attrs({ data: { controller: "shadcn--x" } }, { data: { controller: nil } }))
-    assert_equal "shadcn--x", controllers(Probe.new.merge_attrs({ data: { controller: "shadcn--x" } }, { "data-controller" => "  " }))
+    assert_equal "chadcn--x", controllers(Probe.new.merge_attrs({ data: { controller: "chadcn--x" } }, { data: { controller: nil } }))
+    assert_equal "chadcn--x", controllers(Probe.new.merge_attrs({ data: { controller: "chadcn--x" } }, { "data-controller" => "  " }))
   end
 
   test "array, set and symbol controllers are token lists" do
-    defaults = { data: { controller: "shadcn--x" } }
+    defaults = { data: { controller: "chadcn--x" } }
 
-    assert_equal "shadcn--x a b", controllers(Probe.new.merge_attrs(defaults, { data: { controller: %w[a b] } }))
-    assert_equal "shadcn--x a", controllers(Probe.new.merge_attrs(defaults, { data: { controller: Set["a", "shadcn--x"] } }))
-    assert_equal "shadcn--x a", controllers(Probe.new.merge_attrs(defaults, { data: { controller: :a } }))
+    assert_equal "chadcn--x a b", controllers(Probe.new.merge_attrs(defaults, { data: { controller: %w[a b] } }))
+    assert_equal "chadcn--x a", controllers(Probe.new.merge_attrs(defaults, { data: { controller: Set["a", "chadcn--x"] } }))
+    assert_equal "chadcn--x a", controllers(Probe.new.merge_attrs(defaults, { data: { controller: :a } }))
   end
 
-  test "Calendar keeps shadcn--calendar when the caller passes controller: nil" do
+  test "Calendar keeps chadcn--calendar when the caller passes controller: nil" do
     out = Chadcn::Calendar.new(today: "2026-03-15", data: { controller: nil }).call
 
-    assert_equal "shadcn--calendar", Nokogiri::HTML5.fragment(out).at_css("[data-slot=calendar]")["data-controller"]
+    assert_equal "chadcn--calendar", Nokogiri::HTML5.fragment(out).at_css("[data-slot=calendar]")["data-controller"]
   end
 
-  test "Calendar keeps shadcn--calendar when the caller passes a controller" do
+  test "Calendar keeps chadcn--calendar when the caller passes a controller" do
     out = Chadcn::Calendar.new(today: "2026-03-15", data: { controller: "x" }).call
     root = Nokogiri::HTML5.fragment(out).at_css("[data-slot=calendar]")
 
-    assert_equal "shadcn--calendar x", root["data-controller"]
-    assert_includes out, "data-shadcn--calendar-config-value"
+    assert_equal "chadcn--calendar x", root["data-controller"]
+    assert_includes out, "data-chadcn--calendar-config-value"
   end
 
-  test "Sonner toaster keeps shadcn--sonner when the caller passes a controller" do
+  test "Sonner toaster keeps chadcn--sonner when the caller passes a controller" do
     out = Chadcn::Sonner::Toaster.new(data: { controller: "x" }).call
 
-    assert_equal "shadcn--sonner x", Nokogiri::HTML5.fragment(out).at_css("section")["data-controller"]
+    assert_equal "chadcn--sonner x", Nokogiri::HTML5.fragment(out).at_css("section")["data-controller"]
   end
 
   test "as_child merges controllers through the slot and the child's own defaults" do
@@ -96,7 +96,7 @@ class Chadcn::BaseMergeAttrsTest < Chadcn::TestCase
                              data: { controller: "x y" }).call
     root = Nokogiri::HTML5.fragment(out).at_css("[data-slot=button]")
 
-    assert_equal "shadcn--calendar x y", root["data-controller"]
+    assert_equal "chadcn--calendar x y", root["data-controller"]
   end
 
   test "a caller controller on a component without one is normalized like the merged path" do
@@ -151,7 +151,7 @@ class Chadcn::BaseMergeAttrsTest < Chadcn::TestCase
   end
 
   test "false is blank on every path, top level or inside a list" do
-    assert_equal "shadcn--x", controllers(Probe.new.merge_attrs({ data: { controller: "shadcn--x" } }, { data: { controller: false } }))
+    assert_equal "chadcn--x", controllers(Probe.new.merge_attrs({ data: { controller: "chadcn--x" } }, { data: { controller: false } }))
     assert_equal "a", controllers(Probe.new.merge_attrs({}, { data: { controller: [ false, "a" ] } }))
     assert_nil controllers(Probe.new.merge_attrs({}, { "data-controller" => false }))
   end

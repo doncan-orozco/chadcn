@@ -6,7 +6,7 @@ import { actionOf } from "./_overlay"
 function FocusGuardsProbe({ children, ...props }: Record<string, any>) {
   const [held, setHeld] = React.useState<string[]>([])
   const onClick = (e: React.MouseEvent) => {
-    const action = actionOf(e.target, "shadcn---probe-focus-guards")
+    const action = actionOf(e.target, "chadcn---probe-focus-guards")
     if (action?.method !== "toggle") return
     const name = action.params.name
     setHeld((names) => (names.includes(name) ? names.filter((n) => n !== name) : [...names, name]))
@@ -22,4 +22,4 @@ function FocusGuardsProbe({ children, ...props }: Record<string, any>) {
 }
 
 // Harness.tsx renders the raw root whose data-controller is `controller` with this component.
-export const probe = { controller: "shadcn---probe-focus-guards", Component: FocusGuardsProbe }
+export const probe = { controller: "chadcn---probe-focus-guards", Component: FocusGuardsProbe }

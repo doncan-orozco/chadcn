@@ -6,15 +6,15 @@ Status: decided and implemented by item #202 (phlex-shadcn-adoption-followups); 
 
 `Base#merge_attrs` deep-merged `data:` with the caller winning every key. For `data-controller` that meant a caller passing
 `data: { controller: "x" }` to a component that wires its own Stimulus controller replaced it: `Calendar.new(data: { controller: "x" })`
-rendered `data-controller="x"`, the `shadcn--calendar` controller never connected and the calendar stayed empty. The same held for
+rendered `data-controller="x"`, the `chadcn--calendar` controller never connected and the calendar stayed empty. The same held for
 every component that merges its root attrs this way (Sonner toaster, Dialog and the other roots), and for `as_child`: the Slot merge
 already unioned the controllers of slot and child, but the child's own `merge_attrs` then overwrote its default with that union.
 
 ## Semantic
 
 `data-controller` is a space separated token list. The result is the component's controller names followed by the caller's, split on
-whitespace and de-duplicated, joined by one space: `shadcn--calendar` + `x` => `shadcn--calendar x`; `shadcn--x` + `shadcn--x mine`
-=> `shadcn--x mine`. A component controller with no caller one is untouched. Every other `data:`/`aria:` key keeps the deep-merge rule
+whitespace and de-duplicated, joined by one space: `chadcn--calendar` + `x` => `chadcn--calendar x`; `chadcn--x` + `chadcn--x mine`
+=> `chadcn--x mine`. A component controller with no caller one is untouched. Every other `data:`/`aria:` key keeps the deep-merge rule
 (caller wins), `data-action` keeps its concatenation (defaults first), and `class` keeps going through `cn`.
 
 The caller's value is normalized the same way on every path, whether or not the component has a controller of its own, and on
@@ -37,11 +37,11 @@ Badge.new(data: { controller: nil })                 => <span data-slot="badge" 
 Badge.new(data: { controller: false })               => same, no attribute
 Badge.new(data: { controller: "" })                  => same, no attribute
 Badge.new(data: { controller: [nil, false, ""] })    => same, no attribute
-Calendar.new(data: { controller: "x" })              => <div lang="en-US" data-slot="calendar" data-controller="shadcn--calendar x" ...>
-Calendar.new(data: { controller: ["x", "shadcn--calendar"] }) => data-controller="shadcn--calendar x"
-Calendar.new(data: { controller: nil })              => data-controller="shadcn--calendar"
-Calendar.new(data: { controller: false })            => data-controller="shadcn--calendar"
-Calendar.new(data: { controller: "" })               => data-controller="shadcn--calendar"
+Calendar.new(data: { controller: "x" })              => <div lang="en-US" data-slot="calendar" data-controller="chadcn--calendar x" ...>
+Calendar.new(data: { controller: ["x", "chadcn--calendar"] }) => data-controller="chadcn--calendar x"
+Calendar.new(data: { controller: nil })              => data-controller="chadcn--calendar"
+Calendar.new(data: { controller: false })            => data-controller="chadcn--calendar"
+Calendar.new(data: { controller: "" })               => data-controller="chadcn--calendar"
 Badge.new(as_child: :a, data: { controller: ["a", "b a"] }) => <a data-slot="badge" ... data-controller="a b" ...>
 Badge.new(as_child: :a, data: { controller: false })        => <a data-slot="badge" ...>   (no attribute)
 ```

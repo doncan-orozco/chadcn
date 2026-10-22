@@ -445,7 +445,7 @@
           {
             "c": "_div",
             "props": {
-              "data-controller": "shadcn---probe-typeahead",
+              "data-controller": "chadcn---probe-typeahead",
               "role": "menu",
               "aria-orientation": "vertical",
               "tabIndex": -1,

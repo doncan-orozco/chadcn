@@ -27,8 +27,8 @@ class Chadcn::Dialog::Trigger < Chadcn::Base
     attrs = merge_attrs({
                           type: "button",
                           aria: { haspopup: "dialog", expanded: root[:open].to_s, controls: (root[:content_id] if root[:open]) },
-                          data: { slot: "dialog-trigger", state: state_of(root), shadcn__dialog_part: "trigger",
-                                  action: "click->shadcn--dialog#toggle" }
+                          data: { slot: "dialog-trigger", state: state_of(root), chadcn__dialog_part: "trigger",
+                                  action: "click->chadcn--dialog#toggle" }
                         }, @attrs)
     render_part(:button, @as_child, attrs, &)
   end

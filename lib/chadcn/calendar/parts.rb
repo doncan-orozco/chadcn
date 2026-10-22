@@ -21,7 +21,7 @@ module Chadcn::Calendar::Parts
   private
 
   def parts_template
-    template(data: { shadcn__calendar_target: "parts" }) do
+    template(data: { chadcn__calendar_target: "parts" }) do
       part(:month, :div, class: @classes[:month])
       part(:caption, :div, class: @classes[:month_caption])
       part(:caption_label, :span, class: @classes[:caption_label], role: "status", aria: { live: "polite" })
@@ -32,7 +32,7 @@ module Chadcn::Calendar::Parts
       part(:month_grid, :table, class: @classes[:month_grid], role: "grid", aria: { multiselectable: %w[multiple range].include?(@options.mode).to_s })
       table_parts
       render Chadcn::Calendar::DayButton.new(day: PLACEHOLDER_DAY, type: "button", class: @classes[:day_button],
-                                             data: { shadcn__calendar_part: "day_button" })
+                                             data: { chadcn__calendar_part: "day_button" })
     end
   end
 
@@ -40,10 +40,10 @@ module Chadcn::Calendar::Parts
   # context, so they cannot sit beside the `div`s of the other prototypes in a `template`.
   def table_parts
     table do
-      thead(aria: { hidden: "true" }, data: { shadcn__calendar_part: "weekdays" }) { tr(class: @classes[:weekdays]) }
-      tbody(class: @classes[:weeks], data: { shadcn__calendar_part: "weeks" })
+      thead(aria: { hidden: "true" }, data: { chadcn__calendar_part: "weekdays" }) { tr(class: @classes[:weekdays]) }
+      tbody(class: @classes[:weeks], data: { chadcn__calendar_part: "weeks" })
       tbody do
-        tr(class: @classes[:week], data: { shadcn__calendar_part: "week" })
+        tr(class: @classes[:week], data: { chadcn__calendar_part: "week" })
         tr do
           part(:week_number_header, :th, class: @classes[:week_number_header], scope: "col", aria: { label: labels["weekNumberHeader"] })
           part(:weekday, :th, class: @classes[:weekday], scope: "col")
@@ -70,7 +70,7 @@ module Chadcn::Calendar::Parts
   # The class strings are final (they already went through `cn`, or are a caller override that React keeps verbatim), so the attributes
   # are not merged again.
   def part(name, element, data: nil, **attrs, &)
-    tag(element, data: { shadcn__calendar_part: name.to_s }.merge(data || {}), **attrs, &)
+    tag(element, data: { chadcn__calendar_part: name.to_s }.merge(data || {}), **attrs, &)
   end
 
   def labels = @options.locale.labels

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # shadcn Avatar over Radix Avatar: a round user picture that shows its {Avatar::Fallback} until the {Avatar::Image} has loaded.
-# The loading logic lives in the +shadcn--avatar+ Stimulus controller.
+# The loading logic lives in the +chadcn--avatar+ Stimulus controller.
 #
 # @example
 #   Chadcn::Avatar.new(size: :lg) { |avatar| avatar.image(src: "/me.png", alt: "Me"); avatar.fallback { "ME" } }
@@ -52,7 +52,7 @@ class Chadcn::Avatar < Chadcn::Base
   # @yieldparam avatar [Chadcn::Avatar] the component itself
   # @return [void]
   def view_template(&block)
-    attrs = merge_attrs({ data: { slot: "avatar", size: @size, controller: "shadcn--avatar" }, class: ROOT_CLASS }, @attrs)
+    attrs = merge_attrs({ data: { slot: "avatar", size: @size, controller: "chadcn--avatar" }, class: ROOT_CLASS }, @attrs)
     if @as_child
       render_as_child(@as_child, **attrs) { yield self if block }
     else
@@ -83,7 +83,7 @@ class Chadcn::Avatar < Chadcn::Base
     # @return [void]
     def view_template(&)
       attrs = merge_attrs({ data: { slot: "avatar-image" }, class: CLASSES }, @attrs)
-      template(data: { shadcn__avatar_target: "image" }) do
+      template(data: { chadcn__avatar_target: "image" }) do
         @as_child ? render_as_child(@as_child, **attrs, &) : img(**attrs)
       end
     end
@@ -112,13 +112,13 @@ class Chadcn::Avatar < Chadcn::Base
     def view_template(&)
       return element(&) unless @delay_ms
 
-      template(data: { shadcn__avatar_target: "fallback", shadcn__avatar_delay_ms: @delay_ms }) { element(&) }
+      template(data: { chadcn__avatar_target: "fallback", chadcn__avatar_delay_ms: @delay_ms }) { element(&) }
     end
 
     private
 
     def element(&)
-      target = @delay_ms ? {} : { shadcn__avatar_target: "fallback" }
+      target = @delay_ms ? {} : { chadcn__avatar_target: "fallback" }
       attrs = merge_attrs({ data: { slot: "avatar-fallback", **target }, class: CLASSES }, @attrs)
       @as_child ? render_as_child(@as_child, **attrs, &) : span(**attrs, &)
     end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # shadcn DropdownMenu (Radix DropdownMenu + Menu). Spec: port spec (dev kit).
-# Behavior lives in controllers/shadcn/dropdown_menu_controller.js (hosted by the Trigger).
+# Behavior lives in controllers/chadcn/dropdown_menu_controller.js (hosted by the Trigger).
 #
 # Root, Sub and Portal render no element: they push their state into the Phlex render context for the parts inside.
 # Radix mounts Content/SubContent only while open, so those parts ship their markup in an inert <template> that the
@@ -10,7 +10,7 @@
 # The parts are nested classes (+DropdownMenu::Item+, +DropdownMenu::SubContent+...); the root yields itself and exposes a
 # helper per part, so +menu.item { "Profile" }+ is the same as +render DropdownMenu::Item.new { "Profile" }+.
 #
-# Events and focus. All events are named +shadcn--dropdown-menu:<name>+. The root's +open-change+ (+detail.open+) is
+# Events and focus. All events are named +chadcn--dropdown-menu:<name>+. The root's +open-change+ (+detail.open+) is
 # dispatched on the Trigger; a Sub's +open-change+ is dispatched with the SubTrigger as target. +select+ (cancelable,
 # on the item), +checked-change+ (+detail.checked+) and +value-change+ (+detail.value+) are dispatched on the item. The
 # content dispatches the cancelable +escape-key-down+, +pointer-down-outside+, +focus-outside+ and +interact-outside+

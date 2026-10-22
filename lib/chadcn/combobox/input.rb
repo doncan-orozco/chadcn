@@ -45,7 +45,7 @@ class Chadcn::Combobox::Input < Chadcn::Base
     return if model.in_popup || !model.open?
 
     span(role: "button", aria: { label: "Dismiss" }, style: Chadcn::Combobox::VISUALLY_HIDDEN_INPUT,
-         data: { shadcn__combobox_part: "dismiss-start" })
+         data: { chadcn__combobox_part: "dismiss-start" })
   end
 
   def render_trigger
@@ -62,7 +62,7 @@ class Chadcn::Combobox::Input < Chadcn::Base
     else
       control_attrs(model).merge(id: model.id)
     end
-    defaults[:data] = defaults[:data].merge(shadcn__combobox_part: "input")
+    defaults[:data] = defaults[:data].merge(chadcn__combobox_part: "input")
     attrs = merge_attrs(defaults, @attrs.except(:class))
     attrs[:disabled] = true if @disabled
     attrs

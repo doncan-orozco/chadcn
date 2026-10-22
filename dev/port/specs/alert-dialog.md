@@ -20,7 +20,7 @@ Every part: `class:` goes through `cn` last (caller wins, tailwind-merge) EXCEPT
 
 | React | Ruby | Notes |
 |---|---|---|
-| `AlertDialog` (`AlertDialogPrimitive.Root`; props `open`, `defaultOpen`, `onOpenChange`, dialog:30-38; `modal` forced true, ad:21) | `Components::V2::AlertDialog.new(open: nil, default_open: false) { ... }` | No `modal:` kwarg (Radix type is `Omit<DialogProps, "modal">` and ad:21 overrides it); passing `modal:` raises `ArgumentError`. `open:` true/false = controlled (controller only dispatches `open-change`, caller sets `data-shadcn--alert-dialog-open-value`), `nil` = uncontrolled from `default_open`. Renders no shadcn element (Structure, deviation 1). |
+| `AlertDialog` (`AlertDialogPrimitive.Root`; props `open`, `defaultOpen`, `onOpenChange`, dialog:30-38; `modal` forced true, ad:21) | `Components::V2::AlertDialog.new(open: nil, default_open: false) { ... }` | No `modal:` kwarg (Radix type is `Omit<DialogProps, "modal">` and ad:21 overrides it); passing `modal:` raises `ArgumentError`. `open:` true/false = controlled (controller only dispatches `open-change`, caller sets `data-chadcn--alert-dialog-open-value`), `nil` = uncontrolled from `default_open`. Renders no shadcn element (Structure, deviation 1). |
 | `AlertDialogTrigger` | `Components::V2::AlertDialog::Trigger.new(as_child: false, class: nil, **attrs) { label }` | No default classes. Toggles (dialog:89). |
 | `AlertDialogPortal` (`forceMount`, `container`, dialog:98-102) | `Components::V2::AlertDialog::Portal.new(force_mount: false, container: nil) { ... }` | Renders nothing; children moved to `container` (CSS selector string, deviation 3), default `document.body`. |
 | `AlertDialogOverlay` (`forceMount`, dialog:107) | `Components::V2::AlertDialog::Overlay.new(force_mount: false, as_child: false, class: nil, **attrs)` | Always rendered (always modal, dialog:109). |
@@ -35,7 +35,7 @@ Every part: `class:` goes through `cn` last (caller wins, tailwind-merge) EXCEPT
 
 **Action/Cancel class merge (load-bearing).** The shadcn source is `<Button variant size asChild><Primitive.Action data-slot="alert-dialog-action" className={cn(className)} {...props}/></Button>`. Button's own `className` is undefined, so the Slot's class is exactly `buttonVariants({ variant, size })`; the caller's class is on the child. Radix Slot `mergeProps` joins them as a plain string, slot first, NO tailwind-merge. So the port computes `[Components::V2::Button.variants(variant:, size:), cn(class)].compact_blank.join(" ")`; `class: "rounded-full"` keeps BOTH `rounded-md` and `rounded-full` (scenario `api__action-classname-no-merge`). Do not run the caller class through `cn` together with the button classes. The simplest correct implementation is literally `render_as_child` with a Button slot and a Close-like child.
 
-Events (dispatched with `this.dispatch` from the `shadcn--alert-dialog` host, `bubbles: true`; prefix `shadcn--alert-dialog:`):
+Events (dispatched with `this.dispatch` from the `chadcn--alert-dialog` host, `bubbles: true`; prefix `chadcn--alert-dialog:`):
 
 | Event | Radix origin | detail | cancelable | default action when not prevented |
 |---|---|---|---|---|
@@ -69,7 +69,7 @@ end
 
 Class strings are verbatim from the oracle (set equality is the gate).
 
-**`AlertDialog` (data-slot `alert-dialog`) and `AlertDialog::Portal` (data-slot `alert-dialog-portal`)** render NO element and no `data-slot` (manifest `non_rendered_slots`; Root is a provider, ad:21 + dialog:50-71; Portal maps children into `Presence > Portal asChild`, dialog:101). As in Dialog, the port renders one controller host (deviation 1): `<div style="display: contents" data-controller="shadcn--alert-dialog" data-shadcn--alert-dialog-open-value data-shadcn--alert-dialog-controlled-value>` with no `data-slot` and no classes, wrapping the block in place. There is no `modal` value (always modal).
+**`AlertDialog` (data-slot `alert-dialog`) and `AlertDialog::Portal` (data-slot `alert-dialog-portal`)** render NO element and no `data-slot` (manifest `non_rendered_slots`; Root is a provider, ad:21 + dialog:50-71; Portal maps children into `Presence > Portal asChild`, dialog:101). As in Dialog, the port renders one controller host (deviation 1): `<div style="display: contents" data-controller="chadcn--alert-dialog" data-chadcn--alert-dialog-open-value data-chadcn--alert-dialog-controlled-value>` with no `data-slot` and no classes, wrapping the block in place. There is no `modal` value (always modal).
 
 **Portal and Presence.** Identical to Dialog: Overlay then Content are appended directly to `document.body` (or `container`) with no wrapper (po:17), only while open (pr:26). Closed server markup ships in one `<template>` in the host (deviation 2); open on first render (`default_open: true` / `open: true`) renders in place and moves in `connect()`. Focus guards `<span data-radix-focus-guard tabindex="0" style="outline: none; opacity: 0; position: fixed; pointer-events: none">` first and last in `body` while Content is mounted (dialog:246).
 
@@ -142,7 +142,7 @@ Tabbable rules identical to Dialog (fs:192-213).
 
 Timers: only `setTimeout(0)` for close autofocus (fs:107) and the one-tick delayed `pointerdown` listener (dl:292-294). No positioning (CSS-centred `fixed`).
 
-Primitives composed: `portal`, `presence`, `dismissable_layer` (escape + layer stack; outside pointer always prevented, so `onPointerDownOutside`/`onInteractOutside` are passed as `(e) => e.preventDefault()`), `focus_scope` (trapped, loop, mount autofocus overridden to the Cancel), `focus_guards`, `hide_others`, `scroll_lock`, `ids`. Controller `shadcn--alert-dialog`, values `open` (Boolean), `controlled` (Boolean); target `cancel` (last one wins). The builder may share code with `shadcn--dialog` only through the primitives (radix-stimulus R2), not by importing the dialog controller. `disconnect()` releases every primitive, removes portaled nodes and restores `body`.
+Primitives composed: `portal`, `presence`, `dismissable_layer` (escape + layer stack; outside pointer always prevented, so `onPointerDownOutside`/`onInteractOutside` are passed as `(e) => e.preventDefault()`), `focus_scope` (trapped, loop, mount autofocus overridden to the Cancel), `focus_guards`, `hide_others`, `scroll_lock`, `ids`. Controller `chadcn--alert-dialog`, values `open` (Boolean), `controlled` (Boolean); target `cancel` (last one wins). The builder may share code with `chadcn--dialog` only through the primitives (radix-stimulus R2), not by importing the dialog controller. `disconnect()` releases every primitive, removes portaled nodes and restores `body`.
 
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)
@@ -179,7 +179,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 Recorded in `gems/chadcn/dev/port/deviations/alert-dialog.json`, the same three as Dialog (same reasons):
 
-1. **Controller host.** `AlertDialog` renders no element, but the Trigger cannot host the controller (zero, one or several triggers, controlled `open`). One `<div style="display: contents" data-controller="shadcn--alert-dialog">` without `data-slot`, classes or other data attributes wraps the block.
+1. **Controller host.** `AlertDialog` renders no element, but the Trigger cannot host the controller (zero, one or several triggers, controlled `open`). One `<div style="display: contents" data-controller="chadcn--alert-dialog">` without `data-slot`, classes or other data attributes wraps the block.
 2. **Closed Presence parts in a `<template>`** inside the host (closed Overlay/Content are not mounted in React; the server must ship their markup).
 3. **`AlertDialog::Portal` `container:`** is a CSS selector string (a DOM node cannot be passed from Ruby).
 

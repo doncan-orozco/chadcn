@@ -50,7 +50,7 @@ Server vs Stimulus: the server renders everything. Nothing is set on the client.
 
 No runtime behavior. `ar.mjs` has no state, no effects, no event handlers, no timers and no `ResizeObserver`: the ratio is pure CSS (padding-bottom percentage resolves against the container width, the inner element is absolutely positioned over it). The tier `radix_stateful` comes from the manifest's classification of the Radix import, not from behavior.
 
-- No Stimulus controller is written (`shadcn--aspect-ratio` does not exist); attaching one would add DOM attributes the oracle lacks (radix-stimulus R11).
+- No Stimulus controller is written (`chadcn--aspect-ratio` does not exist); attaching one would add DOM attributes the oracle lacks (radix-stimulus R11).
 - Keyboard: none. Focus: only native focus of focusable children or an `as_child` focusable element (scenarios `focusable-child__tab`, `as-child-a-focus`).
 - Pointer: none (hover only matters for children classes).
 - Resize: the box follows the container width natively; scenarios `resize__fluid-width` and `resize__fixed-wrapper` replay `viewport` steps to prove it.

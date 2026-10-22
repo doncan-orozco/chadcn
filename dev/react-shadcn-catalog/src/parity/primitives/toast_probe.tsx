@@ -1,7 +1,7 @@
-// Oracle for app/javascript/shadcn/primitives/toast_stack.js: RAW sonner (`toast`) driven by clicks on the scenario tree. sonner's toast() is a
+// Oracle for app/javascript/chadcn/primitives/toast_stack.js: RAW sonner (`toast`) driven by clicks on the scenario tree. sonner's toast() is a
 // module function, so a static tree cannot call it; this twin gives the tree buttons that do. Rendered by Harness.tsx for
-// `_div[data-controller="shadcn---probe-toast"]`; the Phlex side drives the same tree with
-// gems/chadcn/dev/dummy/app/javascript/controllers/shadcn/_probe_toast_controller.js (window.Toaster).
+// `_div[data-controller="chadcn---probe-toast"]`; the Phlex side drives the same tree with
+// gems/chadcn/dev/dummy/app/javascript/controllers/chadcn/_probe_toast_controller.js (window.Toaster).
 //   Any descendant with data-parity-toast = JSON { method, message?, data?, id? }: a click calls toast[method](message, data) (method "message"
 //   = toast(); "dismiss" takes id; "promise" takes { delay, outcome: "resolve"|"reject", messages: { loading, success, error } }).
 import * as React from "react"
@@ -35,4 +35,4 @@ function ToastProbe({ children, ...props }: Record<string, unknown> & { children
 }
 
 // Harness.tsx renders the raw root whose data-controller is `controller` with this component.
-export const probe = { controller: "shadcn---probe-toast", Component: ToastProbe }
+export const probe = { controller: "chadcn---probe-toast", Component: ToastProbe }

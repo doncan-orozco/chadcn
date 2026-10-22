@@ -33,8 +33,8 @@ class EngineTest::SprocketsSupport < Minitest::Test
   def test_the_gems_controllers_primitives_and_vendored_files_are_declared
     paths = sprockets.logical_paths(engine_directories)
 
-    assert_includes paths, "controllers/shadcn/dialog_controller.js"
-    assert_includes paths, "shadcn/primitives/presence.js"
+    assert_includes paths, "controllers/chadcn/dialog_controller.js"
+    assert_includes paths, "chadcn/primitives/presence.js"
     assert_includes paths, "@floating-ui--dom.js"
     assert_equal paths.sort, paths
   end
@@ -57,7 +57,7 @@ class EngineTest::SprocketsSupport < Minitest::Test
     assert_equal :declared, sprockets.install(options, directories: engine_directories)
     size = options.precompile.size
 
-    assert_includes options.precompile, "controllers/shadcn/dialog_controller.js"
+    assert_includes options.precompile, "controllers/chadcn/dialog_controller.js"
     assert_equal :declared, sprockets.install(options, directories: engine_directories)
     assert_equal size, options.precompile.size
   end

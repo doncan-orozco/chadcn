@@ -44,7 +44,7 @@ class Chadcn::DropdownMenu::RadioItem < Chadcn::Base
     defaults = item_attrs(disabled: @disabled, text_value: @text_value).merge_deep(
       role: "menuitemradio", class: CLASSES,
       aria: { checked: checked.to_s },
-      data: { slot: "dropdown-menu-radio-item", state: checked ? "checked" : "unchecked", shadcn__dropdown_menu_value: @value }
+      data: { slot: "dropdown-menu-radio-item", state: checked ? "checked" : "unchecked", chadcn__dropdown_menu_value: @value }
     )
     render_part(:div, @as_child, merge_attrs(defaults, @attrs)) do
       span(class: INDICATOR_CLASSES) do

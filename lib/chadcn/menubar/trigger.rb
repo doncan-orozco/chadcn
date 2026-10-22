@@ -34,7 +34,7 @@ class Chadcn::Menubar::Trigger < Chadcn::Base
                           data: {
                             slot: "menubar-trigger", state: open ? "open" : "closed", disabled: (@disabled ? "" : nil),
                             orientation: "horizontal", radix_collection_item: "",
-                            shadcn__menubar_menu_value: menu[:value], shadcn__menubar_content_id: menu[:content_id]
+                            chadcn__menubar_menu_value: menu[:value], chadcn__menubar_content_id: menu[:content_id]
                           }
                         }, @attrs)
     render_part(:button, @as_child, attrs, &)

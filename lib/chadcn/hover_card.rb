@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# shadcn HoverCard (Radix HoverCard). Spec: docs/shadcn-port/specs/hover-card.md. Behavior in controllers/shadcn/hover_card_controller.js.
+# shadcn HoverCard (Radix HoverCard). Spec: docs/shadcn-port/specs/hover-card.md. Behavior in controllers/chadcn/hover_card_controller.js.
 # The root renders no element: it pushes its options into the Phlex render context for the parts inside.
 #
 # Root of the HoverCard family. Renders no element.
@@ -86,7 +86,7 @@ class Chadcn::HoverCard < Chadcn::Base
     def view_template(&)
       root = context[CONTEXT_KEY] or raise ArgumentError, "`HoverCardTrigger` must be used within `HoverCard`"
       attrs = merge_attrs({
-                            data: { state: root[:open] ? "open" : "closed", slot: "hover-card-trigger", controller: "shadcn--hover-card" }.merge(values(root))
+                            data: { state: root[:open] ? "open" : "closed", slot: "hover-card-trigger", controller: "chadcn--hover-card" }.merge(values(root))
                           }, @attrs)
       return render_as_child(@as_child, **attrs, &) if @as_child
 
@@ -97,11 +97,11 @@ class Chadcn::HoverCard < Chadcn::Base
 
     def values(root)
       {
-        shadcn__hover_card_open_value: root[:open].to_s,
-        shadcn__hover_card_controlled_value: root[:controlled].to_s,
-        shadcn__hover_card_open_delay_value: root[:open_delay],
-        shadcn__hover_card_close_delay_value: root[:close_delay],
-        shadcn__hover_card_template_key_value: root[:key]
+        chadcn__hover_card_open_value: root[:open].to_s,
+        chadcn__hover_card_controlled_value: root[:controlled].to_s,
+        chadcn__hover_card_open_delay_value: root[:open_delay],
+        chadcn__hover_card_close_delay_value: root[:close_delay],
+        chadcn__hover_card_template_key_value: root[:key]
       }
     end
   end
@@ -162,7 +162,7 @@ class Chadcn::HoverCard < Chadcn::Base
       root = context[CONTEXT_KEY] or raise ArgumentError, "`HoverCardContent` must be used within `HoverCard`"
       attrs = canonical_attrs(@attrs)
       options = @options.merge(dir: attrs[:dir]).compact
-      template(data: { shadcn__hover_card_template: root[:key], options: json(options) }) do
+      template(data: { chadcn__hover_card_template: root[:key], options: json(options) }) do
         div(**content_attrs(attrs), &)
       end
     end

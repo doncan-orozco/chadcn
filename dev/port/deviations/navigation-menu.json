@@ -4,6 +4,6 @@
   "allow_tokens": [],
   "allow_missing_tokens": [],
   "api": [
-    "NavigationMenu::Content, NavigationMenu::Viewport and NavigationMenu::Indicator render inert <template data-shadcn--navigation-menu-target> elements (no data-slot) holding their markup while unmounted"
+    "NavigationMenu::Content, NavigationMenu::Viewport and NavigationMenu::Indicator render inert <template data-chadcn--navigation-menu-target> elements (no data-slot) holding their markup while unmounted"
   ]
 }

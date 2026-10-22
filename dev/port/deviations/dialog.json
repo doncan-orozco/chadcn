@@ -3,7 +3,7 @@
   "allow_tokens": [],
   "allow_missing_tokens": [],
   "api": [
-    "Dialog renders one <div style=\"display: contents\" data-controller=\"shadcn--dialog\"> host with no data-slot, classes or other data attributes besides controller wiring",
+    "Dialog renders one <div style=\"display: contents\" data-controller=\"chadcn--dialog\"> host with no data-slot, classes or other data attributes besides controller wiring",
     "closed Portal children (Overlay, Content) are server-rendered inside a <template> in the host and mounted into document.body on open",
     "Dialog::Portal container: is a CSS selector string instead of a DOM element"
   ]

@@ -5,7 +5,7 @@ Sources (cited inline): oracle `gems/chadcn/dev/port/oracle/src/select.tsx` (`sr
 `react-presence@1.1.11` (`pre:`), `react-dismissable-layer@1.1.20` (`dl:`), `react-focus-scope@1.2.0` (`fs:`), `react-focus-guards@1.1.6` (`fg:`),
 `react-collection@1.1.16` (`col:`), `react-direction@1.1.5` (`dir:`), `react-visually-hidden@1.2.12` (`vh:`), `aria-hidden@1.2.6`,
 `react-remove-scroll@2.7.2` / `react-remove-scroll-bar`, `@floating-ui/dom@1.8.0` (catalog), `lucide-react@0.577.0`.
-Registry examples: `select-demo`, `select-scrollable` (new-york-v4). Stimulus identifier `shadcn--select`.
+Registry examples: `select-demo`, `select-scrollable` (new-york-v4). Stimulus identifier `chadcn--select`.
 
 ## API
 
@@ -45,15 +45,15 @@ Components::V2::Select::ScrollUpButton.new(class: nil, **attrs)   # rendered by 
 Components::V2::Select::ScrollDownButton.new(class: nil, **attrs) # rendered by Content automatically (src:L83)
 ```
 
-Events (dispatched with `this.dispatch` from the controller host, bubbling, prefix `shadcn--select`):
+Events (dispatched with `this.dispatch` from the controller host, bubbling, prefix `chadcn--select`):
 
 | Radix prop | Event | detail | cancelable | default action |
 |---|---|---|---|---|
-| `onOpenChange` (Root) | `shadcn--select:open-change` | `{ open }` | no | uncontrolled: state changes; controlled (`open:` given): nothing changes, the caller re-renders |
-| `onValueChange` (Root) | `shadcn--select:value-change` | `{ value }` | no | uncontrolled: value changes; controlled (`value:` given): nothing changes |
-| `onEscapeKeyDown` (Content) | `shadcn--select:escape-key-down` | `{ originalEvent }` | yes (dl:L92-99) | dismiss |
-| `onPointerDownOutside` (Content) | `shadcn--select:pointer-down-outside` | `{ originalEvent }` | yes (dl:L55-58) | dismiss |
-| `onCloseAutoFocus` (Content) | `shadcn--select:close-auto-focus` | `{}` | yes (sel:L474-477) | focus the trigger with `preventScroll` |
+| `onOpenChange` (Root) | `chadcn--select:open-change` | `{ open }` | no | uncontrolled: state changes; controlled (`open:` given): nothing changes, the caller re-renders |
+| `onValueChange` (Root) | `chadcn--select:value-change` | `{ value }` | no | uncontrolled: value changes; controlled (`value:` given): nothing changes |
+| `onEscapeKeyDown` (Content) | `chadcn--select:escape-key-down` | `{ originalEvent }` | yes (dl:L92-99) | dismiss |
+| `onPointerDownOutside` (Content) | `chadcn--select:pointer-down-outside` | `{ originalEvent }` | yes (dl:L55-58) | dismiss |
+| `onCloseAutoFocus` (Content) | `chadcn--select:close-auto-focus` | `{}` | yes (sel:L474-477) | focus the trigger with `preventScroll` |
 
 `onFocusOutside` is always prevented by Select (sel:L485) and `onMountAutoFocus` is always prevented (sel:L471-473): no events. `onKeyDown`, `onClick`, etc. are plain DOM events via `data: { action: ... }`; caller handlers run first and a caller `preventDefault()` skips the Radix handler (`composeEventHandlers`). `ref` has no equivalent.
 
@@ -119,7 +119,7 @@ Content id (`aria-controls`, sel:L99), group id (Group `aria-labelledby` = Label
 ### Server vs Stimulus
 - Server renders the closed DOM exactly (trigger attributes, Value text of the selected item, `data-placeholder`, native select when `name:`/`form:` is given or the controller adds it). Root must know the item texts before emitting the Trigger: it captures its block first (items register `value -> children html` and `text_value`) and then emits trigger + value in order.
 - The Content markup (wrapper excluded) is rendered inside an inert `<template>` sibling that the controller detaches on `connect()` (see Deviations), so the post-connect DOM equals Radix's (nothing in the document while closed).
-- Controller host: the Trigger (`data-controller="shadcn--select"`, values `open`, `default-open`, `value`, `default-value`, `controlled-open`, `controlled-value`, `dir`, `disabled`, `required`, `position`, `side`, `side-offset`, `align`, `align-offset`, `avoid-collisions`, `collision-padding`, `sticky`, `hide-when-detached`, `force-mount`, `content-id`). Portaled nodes are outside the host, so the controller installs listeners on the content node itself; in-content markers use `data-shadcn--select-*` (ignored by the runner).
+- Controller host: the Trigger (`data-controller="chadcn--select"`, values `open`, `default-open`, `value`, `default-value`, `controlled-open`, `controlled-value`, `dir`, `disabled`, `required`, `position`, `side`, `side-offset`, `align`, `align-offset`, `avoid-collisions`, `collision-padding`, `sticky`, `hide-when-detached`, `force-mount`, `content-id`). Portaled nodes are outside the host, so the controller installs listeners on the content node itself; in-content markers use `data-chadcn--select-*` (ignored by the runner).
 - Stimulus owns: mounting/unmounting the content, positioning, `aria-controls`/`aria-expanded`/`data-state`, `data-highlighted`/`aria-selected`, indicator and Value updates, the native select sync, focus guards, scroll lock, hideOthers, body pointer-events.
 
 ## Behavior

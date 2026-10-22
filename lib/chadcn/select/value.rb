@@ -31,7 +31,7 @@ class Chadcn::Select::Value < Chadcn::Base
     children = capture(&block).unless_blank if block
     attrs = merge_attrs({
                           style: "pointer-events: none;",
-                          data: { slot: "select-value", shadcn__select_placeholder: @placeholder, shadcn__select_children: children }
+                          data: { slot: "select-value", chadcn__select_placeholder: @placeholder, chadcn__select_children: children }
                         }, @attrs)
     span(**attrs) { content(children) }
   end

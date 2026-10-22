@@ -13,7 +13,7 @@ const snapshot = () => Object.fromEntries([...document.body.children, ...documen
 
 primitiveTest("hide_others: hides every sibling along the path to body, never the target, its ancestors or live regions", async (page) => {
   const result = await page.evaluate(async (snap) => {
-    const { hideOthers } = await import("shadcn/primitives/hide_others");
+    const { hideOthers } = await import("chadcn/primitives/hide_others");
     const take = new Function(`return (${snap})()`);
     hideOthers(document.getElementById("target"));
     return take();
@@ -31,7 +31,7 @@ primitiveTest("hide_others: hides every sibling along the path to body, never th
 
 primitiveTest("hide_others: release() restores every attribute, leaves pre-hidden nodes alone and is ref-counted when nested", async (page) => {
   const result = await page.evaluate(async (snap) => {
-    const { hideOthers } = await import("shadcn/primitives/hide_others");
+    const { hideOthers } = await import("chadcn/primitives/hide_others");
     const take = new Function(`return (${snap})()`);
     const before = take();
     const outer = hideOthers(document.getElementById("target"));
@@ -57,7 +57,7 @@ primitiveTest("hide_others: release() restores every attribute, leaves pre-hidde
 
 primitiveTest("hide_others: accepts several targets and an explicit parent", async (page) => {
   const result = await page.evaluate(async () => {
-    const { hideOthers } = await import("shadcn/primitives/hide_others");
+    const { hideOthers } = await import("chadcn/primitives/hide_others");
     const release = hideOthers([document.getElementById("target"), null, document.getElementById("nav")], document.getElementById("app"));
     const hidden = [...document.querySelectorAll("[aria-hidden=true][data-aria-hidden]")].map((el) => el.id);
     release();
@@ -69,7 +69,7 @@ primitiveTest("hide_others: accepts several targets and an explicit parent", asy
 
 primitiveTest("hide_others: { marker: false } sets aria-hidden without the data-aria-hidden marker and releases cleanly", async (page) => {
   const result = await page.evaluate(async (snap) => {
-    const { hideOthers } = await import("shadcn/primitives/hide_others");
+    const { hideOthers } = await import("chadcn/primitives/hide_others");
     const take = new Function(`return (${snap})()`);
     const release = hideOthers(document.getElementById("target"), document.body, { marker: false });
     const hidden = take();
@@ -84,7 +84,7 @@ primitiveTest("hide_others: { marker: false } sets aria-hidden without the data-
 
 primitiveTest("hide_others: a { marker: false } call and a default-marker call on the same nodes compose and release in any order", async (page) => {
   const result = await page.evaluate(async (snap) => {
-    const { hideOthers } = await import("shadcn/primitives/hide_others");
+    const { hideOthers } = await import("chadcn/primitives/hide_others");
     const take = new Function(`return (${snap})()`);
     const target = document.getElementById("target");
     const releaseBare = hideOthers(target, document.body, { marker: false });

@@ -8,7 +8,7 @@
         "props": {
           "data-probe": "collapsible_content",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-collapsible-content",
+          "data-controller": "chadcn---probe-collapsible-content",
           "className": "flex w-72 flex-col gap-2",
           "data-state": "closed"
         },
@@ -18,10 +18,10 @@
             "props": {
               "type": "button",
               "data-slot": "trigger",
-              "data-shadcn---probe-collapsible-content-target": "trigger",
+              "data-chadcn---probe-collapsible-content-target": "trigger",
               "data-state": "closed",
               "aria-expanded": "false",
-              "data-action": "click->shadcn---probe-collapsible-content#toggle",
+              "data-action": "click->chadcn---probe-collapsible-content#toggle",
               "className": "rounded-md border px-3 py-1 text-sm"
             },
             "children": [
@@ -33,7 +33,7 @@
             "props": {
               "id": "cc-content",
               "data-slot": "content",
-              "data-shadcn---probe-collapsible-content-target": "content",
+              "data-chadcn---probe-collapsible-content-target": "content",
               "data-state": "closed",
               "className": "overflow-hidden data-[state=closed]:animate-out data-[state=closed]:[animation-duration:500ms]!",
               "hidden": true
@@ -42,7 +42,7 @@
               {
                 "c": "_template",
                 "props": {
-                  "data-shadcn---probe-collapsible-content-target": "template"
+                  "data-chadcn---probe-collapsible-content-target": "template"
                 },
                 "children": [
                   {
@@ -100,9 +100,9 @@
         "props": {
           "data-probe": "collapsible_content",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-collapsible-content",
+          "data-controller": "chadcn---probe-collapsible-content",
           "className": "flex w-72 flex-col gap-2",
-          "data-shadcn---probe-collapsible-content-open-value": "true",
+          "data-chadcn---probe-collapsible-content-open-value": "true",
           "data-state": "open"
         },
         "children": [
@@ -111,10 +111,10 @@
             "props": {
               "type": "button",
               "data-slot": "trigger",
-              "data-shadcn---probe-collapsible-content-target": "trigger",
+              "data-chadcn---probe-collapsible-content-target": "trigger",
               "data-state": "open",
               "aria-expanded": "true",
-              "data-action": "click->shadcn---probe-collapsible-content#toggle",
+              "data-action": "click->chadcn---probe-collapsible-content#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
               "aria-controls": "cc-content"
             },
@@ -127,7 +127,7 @@
             "props": {
               "id": "cc-content",
               "data-slot": "content",
-              "data-shadcn---probe-collapsible-content-target": "content",
+              "data-chadcn---probe-collapsible-content-target": "content",
               "data-state": "open",
               "className": "overflow-hidden data-[state=closed]:animate-out data-[state=closed]:[animation-duration:500ms]!"
             },
@@ -135,7 +135,7 @@
               {
                 "c": "_template",
                 "props": {
-                  "data-shadcn---probe-collapsible-content-target": "template"
+                  "data-chadcn---probe-collapsible-content-target": "template"
                 },
                 "children": [
                   {
@@ -193,7 +193,7 @@
         "props": {
           "data-probe": "collapsible_content",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-collapsible-content",
+          "data-controller": "chadcn---probe-collapsible-content",
           "className": "flex w-72 flex-col gap-2",
           "data-state": "closed"
         },
@@ -203,10 +203,10 @@
             "props": {
               "type": "button",
               "data-slot": "trigger",
-              "data-shadcn---probe-collapsible-content-target": "trigger",
+              "data-chadcn---probe-collapsible-content-target": "trigger",
               "data-state": "closed",
               "aria-expanded": "false",
-              "data-action": "click->shadcn---probe-collapsible-content#toggle",
+              "data-action": "click->chadcn---probe-collapsible-content#toggle",
               "className": "rounded-md border px-3 py-1 text-sm"
             },
             "children": [
@@ -218,7 +218,7 @@
             "props": {
               "id": "cc-content",
               "data-slot": "content",
-              "data-shadcn---probe-collapsible-content-target": "content",
+              "data-chadcn---probe-collapsible-content-target": "content",
               "data-state": "closed",
               "className": "overflow-hidden data-[state=closed]:animate-out data-[state=closed]:[animation-duration:500ms]!",
               "hidden": true
@@ -227,7 +227,7 @@
               {
                 "c": "_template",
                 "props": {
-                  "data-shadcn---probe-collapsible-content-target": "template"
+                  "data-chadcn---probe-collapsible-content-target": "template"
                 },
                 "children": [
                   {
@@ -294,9 +294,9 @@
         "props": {
           "data-probe": "collapsible_content",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-collapsible-content",
+          "data-controller": "chadcn---probe-collapsible-content",
           "className": "flex w-72 flex-col gap-2",
-          "data-shadcn---probe-collapsible-content-open-value": "true",
+          "data-chadcn---probe-collapsible-content-open-value": "true",
           "data-state": "open"
         },
         "children": [
@@ -305,10 +305,10 @@
             "props": {
               "type": "button",
               "data-slot": "trigger",
-              "data-shadcn---probe-collapsible-content-target": "trigger",
+              "data-chadcn---probe-collapsible-content-target": "trigger",
               "data-state": "open",
               "aria-expanded": "true",
-              "data-action": "click->shadcn---probe-collapsible-content#toggle",
+              "data-action": "click->chadcn---probe-collapsible-content#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
               "aria-controls": "cc-content"
             },
@@ -321,7 +321,7 @@
             "props": {
               "id": "cc-content",
               "data-slot": "content",
-              "data-shadcn---probe-collapsible-content-target": "content",
+              "data-chadcn---probe-collapsible-content-target": "content",
               "data-state": "open",
               "className": "overflow-hidden data-[state=closed]:animate-out data-[state=closed]:[animation-duration:500ms]!"
             },
@@ -329,7 +329,7 @@
               {
                 "c": "_template",
                 "props": {
-                  "data-shadcn---probe-collapsible-content-target": "template"
+                  "data-chadcn---probe-collapsible-content-target": "template"
                 },
                 "children": [
                   {
@@ -392,7 +392,7 @@
         "props": {
           "data-probe": "collapsible_content",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-collapsible-content",
+          "data-controller": "chadcn---probe-collapsible-content",
           "className": "flex w-72 flex-col gap-2",
           "data-state": "closed"
         },
@@ -402,10 +402,10 @@
             "props": {
               "type": "button",
               "data-slot": "trigger",
-              "data-shadcn---probe-collapsible-content-target": "trigger",
+              "data-chadcn---probe-collapsible-content-target": "trigger",
               "data-state": "closed",
               "aria-expanded": "false",
-              "data-action": "click->shadcn---probe-collapsible-content#toggle",
+              "data-action": "click->chadcn---probe-collapsible-content#toggle",
               "className": "rounded-md border px-3 py-1 text-sm"
             },
             "children": [
@@ -417,7 +417,7 @@
             "props": {
               "id": "cc-content",
               "data-slot": "content",
-              "data-shadcn---probe-collapsible-content-target": "content",
+              "data-chadcn---probe-collapsible-content-target": "content",
               "data-state": "closed",
               "className": "overflow-hidden data-[state=closed]:animate-out data-[state=closed]:[animation-duration:500ms]!",
               "hidden": true
@@ -426,7 +426,7 @@
               {
                 "c": "_template",
                 "props": {
-                  "data-shadcn---probe-collapsible-content-target": "template"
+                  "data-chadcn---probe-collapsible-content-target": "template"
                 },
                 "children": [
                   {
@@ -497,9 +497,9 @@
         "props": {
           "data-probe": "collapsible_content",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-collapsible-content",
+          "data-controller": "chadcn---probe-collapsible-content",
           "className": "flex w-72 flex-col gap-2",
-          "data-shadcn---probe-collapsible-content-open-value": "true",
+          "data-chadcn---probe-collapsible-content-open-value": "true",
           "data-state": "open"
         },
         "children": [
@@ -508,10 +508,10 @@
             "props": {
               "type": "button",
               "data-slot": "trigger",
-              "data-shadcn---probe-collapsible-content-target": "trigger",
+              "data-chadcn---probe-collapsible-content-target": "trigger",
               "data-state": "open",
               "aria-expanded": "true",
-              "data-action": "click->shadcn---probe-collapsible-content#toggle",
+              "data-action": "click->chadcn---probe-collapsible-content#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
               "aria-controls": "cc-content"
             },
@@ -524,7 +524,7 @@
             "props": {
               "id": "cc-content",
               "data-slot": "content",
-              "data-shadcn---probe-collapsible-content-target": "content",
+              "data-chadcn---probe-collapsible-content-target": "content",
               "data-state": "open",
               "className": "overflow-hidden data-[state=closed]:animate-out data-[state=closed]:[animation-duration:500ms]!"
             },
@@ -532,7 +532,7 @@
               {
                 "c": "_template",
                 "props": {
-                  "data-shadcn---probe-collapsible-content-target": "template"
+                  "data-chadcn---probe-collapsible-content-target": "template"
                 },
                 "children": [
                   {
@@ -599,7 +599,7 @@
         "props": {
           "data-probe": "collapsible_content",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-collapsible-content",
+          "data-controller": "chadcn---probe-collapsible-content",
           "className": "flex w-72 flex-col gap-2",
           "data-state": "closed"
         },
@@ -609,10 +609,10 @@
             "props": {
               "type": "button",
               "data-slot": "trigger",
-              "data-shadcn---probe-collapsible-content-target": "trigger",
+              "data-chadcn---probe-collapsible-content-target": "trigger",
               "data-state": "closed",
               "aria-expanded": "false",
-              "data-action": "click->shadcn---probe-collapsible-content#toggle",
+              "data-action": "click->chadcn---probe-collapsible-content#toggle",
               "className": "rounded-md border px-3 py-1 text-sm"
             },
             "children": [
@@ -624,7 +624,7 @@
             "props": {
               "id": "cc-content",
               "data-slot": "content",
-              "data-shadcn---probe-collapsible-content-target": "content",
+              "data-chadcn---probe-collapsible-content-target": "content",
               "data-state": "closed",
               "className": "overflow-hidden data-[state=closed]:animate-out data-[state=closed]:[animation-duration:500ms]!",
               "hidden": true
@@ -633,7 +633,7 @@
               {
                 "c": "_template",
                 "props": {
-                  "data-shadcn---probe-collapsible-content-target": "template"
+                  "data-chadcn---probe-collapsible-content-target": "template"
                 },
                 "children": [
                   {
@@ -712,9 +712,9 @@
         "props": {
           "data-probe": "collapsible_content",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-collapsible-content",
+          "data-controller": "chadcn---probe-collapsible-content",
           "className": "flex w-72 flex-col gap-2",
-          "data-shadcn---probe-collapsible-content-open-value": "true",
+          "data-chadcn---probe-collapsible-content-open-value": "true",
           "data-state": "open"
         },
         "children": [
@@ -723,10 +723,10 @@
             "props": {
               "type": "button",
               "data-slot": "trigger",
-              "data-shadcn---probe-collapsible-content-target": "trigger",
+              "data-chadcn---probe-collapsible-content-target": "trigger",
               "data-state": "open",
               "aria-expanded": "true",
-              "data-action": "click->shadcn---probe-collapsible-content#toggle",
+              "data-action": "click->chadcn---probe-collapsible-content#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
               "aria-controls": "cc-content"
             },
@@ -739,7 +739,7 @@
             "props": {
               "id": "cc-content",
               "data-slot": "content",
-              "data-shadcn---probe-collapsible-content-target": "content",
+              "data-chadcn---probe-collapsible-content-target": "content",
               "data-state": "open",
               "className": "overflow-hidden data-[state=closed]:animate-out data-[state=closed]:[animation-duration:500ms]!"
             },
@@ -747,7 +747,7 @@
               {
                 "c": "_template",
                 "props": {
-                  "data-shadcn---probe-collapsible-content-target": "template"
+                  "data-chadcn---probe-collapsible-content-target": "template"
                 },
                 "children": [
                   {
@@ -818,9 +818,9 @@
         "props": {
           "data-probe": "collapsible_content",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-collapsible-content",
+          "data-controller": "chadcn---probe-collapsible-content",
           "className": "flex w-72 flex-col gap-2",
-          "data-shadcn---probe-collapsible-content-open-value": "true",
+          "data-chadcn---probe-collapsible-content-open-value": "true",
           "data-state": "open"
         },
         "children": [
@@ -829,10 +829,10 @@
             "props": {
               "type": "button",
               "data-slot": "trigger",
-              "data-shadcn---probe-collapsible-content-target": "trigger",
+              "data-chadcn---probe-collapsible-content-target": "trigger",
               "data-state": "open",
               "aria-expanded": "true",
-              "data-action": "click->shadcn---probe-collapsible-content#toggle",
+              "data-action": "click->chadcn---probe-collapsible-content#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
               "aria-controls": "cc-content"
             },
@@ -845,7 +845,7 @@
             "props": {
               "id": "cc-content",
               "data-slot": "content",
-              "data-shadcn---probe-collapsible-content-target": "content",
+              "data-chadcn---probe-collapsible-content-target": "content",
               "data-state": "open",
               "className": "overflow-hidden data-[state=closed]:animate-out data-[state=closed]:[animation-duration:500ms]!",
               "style": {
@@ -857,7 +857,7 @@
               {
                 "c": "_template",
                 "props": {
-                  "data-shadcn---probe-collapsible-content-target": "template"
+                  "data-chadcn---probe-collapsible-content-target": "template"
                 },
                 "children": [
                   {

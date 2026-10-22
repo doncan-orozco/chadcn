@@ -12,7 +12,7 @@ const options = { motion: true, css };
 primitiveTest("presence: without an exit animation the element exits in the same call", async (page) => {
   await page.evaluate(() => { document.body.innerHTML = '<div id="el" data-state="open"></div>' });
   const calls = await page.evaluate(async () => {
-    const { presence } = await import("shadcn/primitives/presence");
+    const { presence } = await import("chadcn/primitives/presence");
     const el = document.getElementById("el");
     const calls = [];
     const p = presence(el, { onExited: () => calls.push("exited") });
@@ -27,7 +27,7 @@ primitiveTest("presence: without an exit animation the element exits in the same
 primitiveTest("presence: waits for animationend of the exit animation before onExited", async (page) => {
   await page.evaluate(() => { document.body.innerHTML = '<div id="el" class="animated" data-state="open"></div>' });
   const result = await page.evaluate(async () => {
-    const { presence } = await import("shadcn/primitives/presence");
+    const { presence } = await import("chadcn/primitives/presence");
     const el = document.getElementById("el");
     let exited = false;
     const done = new Promise((resolve) => {
@@ -45,7 +45,7 @@ primitiveTest("presence: waits for animationend of the exit animation before onE
 primitiveTest("presence: enter() cancels a pending exit", async (page) => {
   await page.evaluate(() => { document.body.innerHTML = '<div id="el" class="animated" data-state="open"></div>' });
   const exited = await page.evaluate(async () => {
-    const { presence } = await import("shadcn/primitives/presence");
+    const { presence } = await import("chadcn/primitives/presence");
     const el = document.getElementById("el");
     let exited = 0;
     const p = presence(el, { onExited: () => exited++ });
@@ -62,7 +62,7 @@ primitiveTest("presence: enter() cancels a pending exit", async (page) => {
 primitiveTest("presence: release() abandons a pending exit without onExited; calling it twice is safe", async (page) => {
   await page.evaluate(() => { document.body.innerHTML = '<div id="el" class="animated" data-state="open"></div>' });
   const exited = await page.evaluate(async () => {
-    const { presence } = await import("shadcn/primitives/presence");
+    const { presence } = await import("chadcn/primitives/presence");
     const el = document.getElementById("el");
     let exited = 0;
     const p = presence(el, { onExited: () => exited++ });
@@ -79,7 +79,7 @@ primitiveTest("presence: release() abandons a pending exit without onExited; cal
 primitiveTest("presence: display none exits immediately even with an exit animation", async (page) => {
   await page.evaluate(() => { document.body.innerHTML = '<div id="el" class="animated" data-state="open"></div>' });
   const exited = await page.evaluate(async () => {
-    const { presence } = await import("shadcn/primitives/presence");
+    const { presence } = await import("chadcn/primitives/presence");
     const el = document.getElementById("el");
     let exited = 0;
     const p = presence(el, { onExited: () => exited++ });
@@ -94,7 +94,7 @@ primitiveTest("presence: display none exits immediately even with an exit animat
 primitiveTest("presence: release() removes the animationstart, animationend and animationcancel listeners", async (page) => {
   await page.evaluate(() => { document.body.innerHTML = '<div id="el" class="animated" data-state="open"></div>' });
   const removed = await page.evaluate(async () => {
-    const { presence } = await import("shadcn/primitives/presence");
+    const { presence } = await import("chadcn/primitives/presence");
     const el = document.getElementById("el");
     const p = presence(el, { onExited: () => {} });
     el.dataset.state = "closed";
@@ -111,7 +111,7 @@ primitiveTest("presence: release() removes the animationstart, animationend and 
 primitiveTest("presence: animationcancel of the exit animation also finishes the exit", async (page) => {
   await page.evaluate(() => { document.body.innerHTML = '<div id="el" class="animated" data-state="open"></div>' });
   const result = await page.evaluate(async () => {
-    const { presence } = await import("shadcn/primitives/presence");
+    const { presence } = await import("chadcn/primitives/presence");
     const el = document.getElementById("el");
     let exited = 0;
     const p = presence(el, { onExited: () => exited++ });
@@ -127,7 +127,7 @@ primitiveTest("presence: animationcancel of the exit animation also finishes the
 primitiveTest("presence: an exit with the same animation as the open state finishes immediately", async (page) => {
   await page.evaluate(() => { document.body.innerHTML = '<div id="el" class="same" data-state="open"></div>' });
   const exited = await page.evaluate(async () => {
-    const { presence } = await import("shadcn/primitives/presence");
+    const { presence } = await import("chadcn/primitives/presence");
     const el = document.getElementById("el");
     let exited = 0;
     const p = presence(el, { onExited: () => exited++ });
@@ -141,7 +141,7 @@ primitiveTest("presence: an exit with the same animation as the open state finis
 primitiveTest("presence: animationend from a child element or for a stale animation name is ignored", async (page) => {
   await page.evaluate(() => { document.body.innerHTML = '<div id="el" class="animated" data-state="open"><i id="child"></i></div>' });
   const result = await page.evaluate(async () => {
-    const { presence } = await import("shadcn/primitives/presence");
+    const { presence } = await import("chadcn/primitives/presence");
     const el = document.getElementById("el");
     let exited = 0;
     const done = new Promise((resolve) => {
@@ -162,7 +162,7 @@ primitiveTest("presence: animationend from a child element or for a stale animat
 primitiveTest("presence: enter() after a completed exit lets the element exit again", async (page) => {
   await page.evaluate(() => { document.body.innerHTML = '<div id="el" data-state="open"></div>' });
   const exited = await page.evaluate(async () => {
-    const { presence } = await import("shadcn/primitives/presence");
+    const { presence } = await import("chadcn/primitives/presence");
     const el = document.getElementById("el");
     let exited = 0;
     const p = presence(el, { onExited: () => exited++ });

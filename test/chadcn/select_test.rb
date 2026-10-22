@@ -156,7 +156,7 @@ class Chadcn::SelectTest < Chadcn::TestCase
     trigger = fragment(select(root: { dir: "up" })).at_css("[data-slot=select-trigger]")
 
     assert_equal "ltr", trigger["dir"]
-    assert_equal "ltr", trigger["data-shadcn--select-dir-value"]
+    assert_equal "ltr", trigger["data-chadcn--select-dir-value"]
   end
 
   test "an unknown content position raises at construction" do
@@ -191,21 +191,21 @@ class Chadcn::SelectTest < Chadcn::TestCase
   test "controlled value and open are mirrored into the trigger values" do
     trigger = fragment(select(root: { value: :banana, open: true })).at_css("[data-slot=select-trigger]")
 
-    assert_equal "true", trigger["data-shadcn--select-controlled-open-value"]
-    assert_equal "true", trigger["data-shadcn--select-controlled-value-value"]
-    assert_equal "banana", trigger["data-shadcn--select-value-value"]
+    assert_equal "true", trigger["data-chadcn--select-controlled-open-value"]
+    assert_equal "true", trigger["data-chadcn--select-controlled-value-value"]
+    assert_equal "banana", trigger["data-chadcn--select-value-value"]
     assert_equal "true", trigger["aria-expanded"]
     assert_equal "open", trigger["data-state"]
     assert_match(/\Aselect-\d+-content\z/, trigger["aria-controls"])
-    assert_equal trigger["aria-controls"], trigger["data-shadcn--select-content-id-value"]
+    assert_equal trigger["aria-controls"], trigger["data-chadcn--select-content-id-value"]
   end
 
   test "uncontrolled defaults are not marked controlled and default_open opens" do
     trigger = fragment(select(root: { default_value: "apple", default_open: true })).at_css("[data-slot=select-trigger]")
 
-    assert_equal "false", trigger["data-shadcn--select-controlled-open-value"]
-    assert_equal "false", trigger["data-shadcn--select-controlled-value-value"]
-    assert_equal "apple", trigger["data-shadcn--select-value-value"]
+    assert_equal "false", trigger["data-chadcn--select-controlled-open-value"]
+    assert_equal "false", trigger["data-chadcn--select-controlled-value-value"]
+    assert_equal "apple", trigger["data-chadcn--select-value-value"]
     assert_equal "open", trigger["data-state"]
   end
 
@@ -214,8 +214,8 @@ class Chadcn::SelectTest < Chadcn::TestCase
 
     assert_equal "fruit-content", doc.at_css("[data-slot=select-trigger]")["aria-controls"]
     assert_equal "fruit-content", doc.at_css("template [data-slot=select-content]")["id"]
-    assert_equal "fruit-content", doc.at_css("template")["data-shadcn--select-template"]
-    assert_equal "fruit-content", doc.at_css("[data-slot=select-trigger]")["data-shadcn--select-content-id-value"]
+    assert_equal "fruit-content", doc.at_css("template")["data-chadcn--select-template"]
+    assert_equal "fruit-content", doc.at_css("[data-slot=select-trigger]")["data-chadcn--select-content-id-value"]
   end
 
   test "disabled on the root or on the trigger disables the button" do
@@ -260,7 +260,7 @@ class Chadcn::SelectTest < Chadcn::TestCase
     trigger = fragment(html).at_css("button")
 
     assert_equal "t", trigger["data-test"]
-    assert_equal "shadcn--select", trigger["data-controller"]
+    assert_equal "chadcn--select", trigger["data-controller"]
     assert_equal %w[span svg], trigger.element_children.map(&:name)
   end
 
@@ -285,8 +285,8 @@ class Chadcn::SelectTest < Chadcn::TestCase
     end
     item = fragment(html).at_css("template [data-slot=select-item]")
 
-    assert_equal "one", item["data-shadcn--select-value"]
-    assert_equal "Uno", item["data-shadcn--select-text-value"]
+    assert_equal "one", item["data-chadcn--select-value"]
+    assert_equal "Uno", item["data-chadcn--select-text-value"]
     assert_includes item["class"], "extra"
     assert_equal "option", item["role"]
     assert_equal "unchecked", item["data-state"]
@@ -307,7 +307,7 @@ class Chadcn::SelectTest < Chadcn::TestCase
     doc = fragment(html)
 
     assert_equal %w[One Two], doc.css("select[aria-hidden=true] option").reject { |option| option["value"].empty? }.map(&:text)
-    typeahead = doc.css("template [data-slot=select-item]").filter_map { |item| item["data-shadcn--select-text-value"] }
+    typeahead = doc.css("template [data-slot=select-item]").filter_map { |item| item["data-chadcn--select-text-value"] }
 
     assert_equal %w[Uno], typeahead
   end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # shadcn Slider over Radix Slider (Root, Track, Range, Thumb rendered internally). Spec: docs/shadcn-port/specs/slider.md.
-# Behavior: controllers/shadcn/slider_controller.js (one controller on the root span).
+# Behavior: controllers/chadcn/slider_controller.js (one controller on the root span).
 using Chadcn::Values::Refinements
 
 # Single component with no nested parts: the track, range, thumbs and hidden inputs (one per thumb) are rendered internally.
@@ -10,8 +10,8 @@ using Chadcn::Values::Refinements
 #
 # Controlled mode: `value:` is controlled only when it is an Array (`value.is_a?(Array)`); any other value is ignored
 # and the slider is uncontrolled. A controlled slider only dispatches events on user input and the caller re-renders.
-# Events: `shadcn--slider:value-change` (user input, and a form reset that changes the values) and
-# `shadcn--slider:value-commit` (a finished drag and keyboard steps), both with `detail: { value }`.
+# Events: `chadcn--slider:value-change` (user input, and a form reset that changes the values) and
+# `chadcn--slider:value-commit` (a finished drag and keyboard steps), both with `detail: { value }`.
 # The hidden inputs are removed by the controller when the slider is neither inside a `<form>` nor given `form:`.
 #
 # @example
@@ -143,12 +143,12 @@ class Chadcn::Slider < Chadcn::Base
                "--radix-slider-thumb-transform: #{THUMB_TRANSFORM[@orientation]};" ].compact.join("; "),
       class: ROOT_CLASS,
       data: {
-        slot: "slider", orientation: @orientation, disabled: disabled_data, controller: "shadcn--slider",
-        shadcn__slider_min_value: js(@min), shadcn__slider_max_value: js(@max), shadcn__slider_step_value: js(@step),
-        shadcn__slider_orientation_value: @orientation, shadcn__slider_inverted_value: @inverted.to_s,
-        shadcn__slider_disabled_value: @disabled.to_s, shadcn__slider_controlled_value: @controlled.to_s,
-        shadcn__slider_min_steps_between_thumbs_value: js(@min_steps), shadcn__slider_preserve_thumb_order_value: @preserve_order.to_s,
-        shadcn__slider_form_value: @form
+        slot: "slider", orientation: @orientation, disabled: disabled_data, controller: "chadcn--slider",
+        chadcn__slider_min_value: js(@min), chadcn__slider_max_value: js(@max), chadcn__slider_step_value: js(@step),
+        chadcn__slider_orientation_value: @orientation, chadcn__slider_inverted_value: @inverted.to_s,
+        chadcn__slider_disabled_value: @disabled.to_s, chadcn__slider_controlled_value: @controlled.to_s,
+        chadcn__slider_min_steps_between_thumbs_value: js(@min_steps), chadcn__slider_preserve_thumb_order_value: @preserve_order.to_s,
+        chadcn__slider_form_value: @form
       }
     }
   end

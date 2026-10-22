@@ -7,6 +7,6 @@ class ThemePanelsControllerTest < ActionDispatch::IntegrationTest
     get "/design-system/theme-panel"
 
     assert_response :success
-    assert_select "select[data-shadcn--theme-panel-target=preset] option[value=zinc]"
+    assert_select "select[data-chadcn--theme-panel-target=preset] option[value=zinc]"
   end
 end

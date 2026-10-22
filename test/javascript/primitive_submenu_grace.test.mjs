@@ -10,7 +10,7 @@ const html = `
 
 primitiveTest("submenu_grace: geometry helpers (polygon test, exit side, padded points, rect points)", async (page) => {
   const result = await page.evaluate(async () => {
-    const m = await import("shadcn/primitives/submenu_grace");
+    const m = await import("chadcn/primitives/submenu_grace");
     const square = [{ x: 0, y: 0 }, { x: 10, y: 0 }, { x: 10, y: 10 }, { x: 0, y: 10 }];
     const rect = { top: 0, right: 100, bottom: 50, left: 0 };
     return {
@@ -32,7 +32,7 @@ primitiveTest("submenu_grace: geometry helpers (polygon test, exit side, padded 
 
 primitiveTest("submenu_grace: getHull returns the convex hull and tolerates degenerate input", async (page) => {
   const result = await page.evaluate(async () => {
-    const { getHull } = await import("shadcn/primitives/submenu_grace");
+    const { getHull } = await import("chadcn/primitives/submenu_grace");
     const p = (x, y) => ({ x, y });
     return {
       hull: getHull([p(0, 0), p(10, 0), p(10, 10), p(0, 10), p(5, 5)]).map(({ x, y }) => `${x},${y}`).sort(),
@@ -48,7 +48,7 @@ primitiveTest("submenu_grace: getHull returns the convex hull and tolerates dege
 primitiveTest("submenu_grace: a pointer heading into the sub content is within the grace area until the timeout; leaving without sub content clears it", async (page) => {
   await useFakeTimers(page);
   const result = await page.evaluate(async () => {
-    const { submenuGrace } = await import("shadcn/primitives/submenu_grace");
+    const { submenuGrace } = await import("chadcn/primitives/submenu_grace");
     const grace = submenuGrace(document.getElementById("menu"), { timeout: 300 });
     const sub = document.getElementById("sub");
     const at = (x, y) => ({ clientX: x, clientY: y });
@@ -67,7 +67,7 @@ primitiveTest("submenu_grace: a pointer heading into the sub content is within t
 primitiveTest("submenu_grace: pointer direction is tracked for mouse moves over the content only; release() stops tracking and clears the intent", async (page) => {
   await useFakeTimers(page);
   const result = await page.evaluate(async () => {
-    const { submenuGrace } = await import("shadcn/primitives/submenu_grace");
+    const { submenuGrace } = await import("chadcn/primitives/submenu_grace");
     const menu = document.getElementById("menu");
     const grace = submenuGrace(menu);
     const sub = document.getElementById("sub");
@@ -92,7 +92,7 @@ primitiveTest("submenu_grace: pointer direction is tracked for mouse moves over 
 primitiveTest("submenu_grace: hoverGrace keeps the pointer in transit inside the hull and closes when it leaves it", async (page) => {
   await useFakeTimers(page);
   const result = await page.evaluate(async () => {
-    const { hoverGrace } = await import("shadcn/primitives/submenu_grace");
+    const { hoverGrace } = await import("chadcn/primitives/submenu_grace");
     const log = [];
     const grace = hoverGrace(document.getElementById("trigger"), document.getElementById("content"), {
       onInTransitChange: (value) => log.push(`transit:${value}`), onClose: () => log.push("close"),
@@ -115,7 +115,7 @@ primitiveTest("submenu_grace: hoverGrace keeps the pointer in transit inside the
 primitiveTest("submenu_grace: hoverGrace ends the transit without closing when the pointer reaches the content; release() detaches everything", async (page) => {
   await useFakeTimers(page);
   const result = await page.evaluate(async () => {
-    const { hoverGrace } = await import("shadcn/primitives/submenu_grace");
+    const { hoverGrace } = await import("chadcn/primitives/submenu_grace");
     const log = [];
     const trigger = document.getElementById("trigger");
     const content = document.getElementById("content");

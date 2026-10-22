@@ -46,10 +46,10 @@ class Chadcn::CommandTest < Chadcn::TestCase
     assert_equal "", root["cmdk-root"]
     assert_includes root["class"], "bg-popover"
     assert_includes root["class"], "x-root"
-    assert_equal "shadcn--command", root["data-controller"]
-    assert_equal "true", root["data-shadcn--command-loop-value"]
-    assert_equal "profile", root["data-shadcn--command-value-value"]
-    assert_equal "false", root["data-shadcn--command-controlled-value"]
+    assert_equal "chadcn--command", root["data-controller"]
+    assert_equal "true", root["data-chadcn--command-loop-value"]
+    assert_equal "profile", root["data-chadcn--command-value-value"]
+    assert_equal "false", root["data-chadcn--command-controlled-value"]
     label = root.element_children.first
 
     assert_equal "label", label.name
@@ -61,9 +61,9 @@ class Chadcn::CommandTest < Chadcn::TestCase
     controlled = palette(root: { value: " billing " }).at_css("[data-slot=command]")
     uncontrolled = palette(root: { default_value: " billing " }).at_css("[data-slot=command]")
 
-    assert_equal "billing", controlled["data-shadcn--command-value-value"]
-    assert_equal "true", controlled["data-shadcn--command-controlled-value"]
-    assert_equal " billing ", uncontrolled["data-shadcn--command-value-value"]
+    assert_equal "billing", controlled["data-chadcn--command-value-value"]
+    assert_equal "true", controlled["data-chadcn--command-controlled-value"]
+    assert_equal " billing ", uncontrolled["data-chadcn--command-value-value"]
   end
 
   test "caller attributes reach the root and tabindex can be overridden" do
@@ -72,7 +72,7 @@ class Chadcn::CommandTest < Chadcn::TestCase
     assert_equal "0", root["tabindex"]
     assert_equal "palette", root["id"]
     assert_equal "x", root["data-test"]
-    assert_equal "shadcn--command", root["data-controller"]
+    assert_equal "chadcn--command", root["data-controller"]
   end
 
   test "input wires the combobox to the list and label and ignores overriding attributes" do
@@ -93,14 +93,14 @@ class Chadcn::CommandTest < Chadcn::TestCase
     assert_equal input["id"], doc.at_css("label")["for"]
     assert_equal %w[off off false list true], values(input, "autocomplete", "autocorrect", "spellcheck", "aria-autocomplete", "aria-expanded")
     assert_nil input["aria-activedescendant"]
-    assert_nil input["data-shadcn--command-search"]
+    assert_nil input["data-chadcn--command-search"]
   end
 
   test "controlled input value is the search" do
     input = palette(input: { value: "cal" }).at_css("[data-slot=command-input]")
 
     assert_equal "cal", input["value"]
-    assert_equal "cal", input["data-shadcn--command-search"]
+    assert_equal "cal", input["data-chadcn--command-search"]
   end
 
   test "list wraps its content in the sizer and labels the listbox" do
@@ -115,7 +115,7 @@ class Chadcn::CommandTest < Chadcn::TestCase
   end
 
   test "empty ships its markup in an inert template and a caller class replaces the default" do
-    template = palette.at_css("[cmdk-list-sizer] > template[data-shadcn--command-target=empty]")
+    template = palette.at_css("[cmdk-list-sizer] > template[data-chadcn--command-target=empty]")
     empty = template.at_css("[data-slot=command-empty]")
 
     assert_equal "No results found.", empty.text
@@ -149,7 +149,7 @@ class Chadcn::CommandTest < Chadcn::TestCase
     assert_equal "undefined", bare["data-value"]
     assert_nil bare.at_css("[cmdk-group-heading]")
     assert_nil bare.at_css("[cmdk-group-items]")["aria-labelledby"]
-    assert_equal "true", palette(group: { force_mount: true }).at_css("[data-slot=command-group]")["data-shadcn--command-force-mount"]
+    assert_equal "true", palette(group: { force_mount: true }).at_css("[data-slot=command-group]")["data-chadcn--command-force-mount"]
   end
 
   test "item renders the option state and ignores overriding attributes" do
@@ -160,18 +160,18 @@ class Chadcn::CommandTest < Chadcn::TestCase
     assert_match(/\Acommand-\d+-item-1\z/, first["id"])
     assert_equal %w[false false false false], values(first, "aria-disabled", "aria-selected", "data-disabled", "data-selected")
     assert_equal "one", first["data-test"]
-    assert_equal %w[agenda events], JSON.parse(first["data-shadcn--command-keywords"])
+    assert_equal %w[agenda events], JSON.parse(first["data-chadcn--command-keywords"])
     assert_nil first["data-value"]
     assert_equal %w[true true], values(items[1], "aria-disabled", "data-disabled")
     assert_equal "profile", items[2]["data-value"]
-    assert_nil items[1]["data-shadcn--command-keywords"]
+    assert_nil items[1]["data-chadcn--command-keywords"]
     assert_equal [ "Profile⌘P" ], [ items[2].text ]
   end
 
   test "item force_mount and as_child" do
     forced = palette(item: { force_mount: true }).at_css("[data-slot=command-item]")
 
-    assert_equal "true", forced["data-shadcn--command-force-mount"]
+    assert_equal "true", forced["data-chadcn--command-force-mount"]
     link = fragment(render_view do
       render(Command.new) { render(Command::Item.new(as_child: :a, href: "#billing", class: "x-item")) { "Billing" } }
     end).at_css("[data-slot=command-item]")
@@ -193,11 +193,11 @@ class Chadcn::CommandTest < Chadcn::TestCase
 
     assert_equal "separator", separator["role"]
     assert_equal "", separator["cmdk-separator"]
-    assert_nil separator["data-shadcn--command-always-render"]
+    assert_nil separator["data-chadcn--command-always-render"]
     assert_equal "ml-auto text-xs tracking-widest text-muted-foreground", doc.at_css("[data-slot=command-shortcut]")["class"]
     always = fragment(render_view { render(Command.new) { render(Command::Separator.new(always_render: true, class: "my-2")) } })
 
-    assert_equal "true", always.at_css("[data-slot=command-separator]")["data-shadcn--command-always-render"]
+    assert_equal "true", always.at_css("[data-slot=command-separator]")["data-chadcn--command-always-render"]
     assert_includes always.at_css("[data-slot=command-separator]")["class"], "my-2"
   end
 
@@ -229,10 +229,10 @@ class Chadcn::CommandTest < Chadcn::TestCase
       end
     end
     doc = fragment(html)
-    host = doc.at_css("[data-controller=shadcn--dialog]")
+    host = doc.at_css("[data-controller=chadcn--dialog]")
 
     assert_equal "d", host["data-test"]
-    assert_equal "true", host["data-shadcn--dialog-open-value"]
+    assert_equal "true", host["data-chadcn--dialog-open-value"]
     header = host.at_css("> [data-slot=dialog-header]")
 
     assert_includes header["class"], "sr-only"
@@ -256,8 +256,8 @@ class Chadcn::CommandTest < Chadcn::TestCase
     doc = fragment(html)
 
     assert_nil doc.at_css("[data-slot=dialog-close]")
-    assert_equal "true", doc.at_css("[data-controller=shadcn--dialog]")["data-shadcn--dialog-controlled-value"]
-    assert_equal "false", doc.at_css("[data-controller=shadcn--dialog]")["data-shadcn--dialog-modal-value"]
+    assert_equal "true", doc.at_css("[data-controller=chadcn--dialog]")["data-chadcn--dialog-controlled-value"]
+    assert_equal "false", doc.at_css("[data-controller=chadcn--dialog]")["data-chadcn--dialog-modal-value"]
   end
 
   test "every helper exists on the root and renders the same HTML as the explicit call" do

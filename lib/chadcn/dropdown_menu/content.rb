@@ -54,7 +54,7 @@ class Chadcn::DropdownMenu::Content < Chadcn::Base
     root = root_context
     attrs = menu_content_attrs(classes: CLASSES, slot: "dropdown-menu-content", id: root[:content_id], labelledby: root[:trigger_id],
                                dir: root[:dir])
-    template(data: { shadcn__dropdown_menu_template: root[:content_id], options: json(@options) }) do
+    template(data: { chadcn__dropdown_menu_template: root[:content_id], options: json(@options) }) do
       render_part(:div, @as_child, attrs) { yield if block_given? }
     end
   end

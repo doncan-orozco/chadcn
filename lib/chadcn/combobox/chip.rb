@@ -25,7 +25,7 @@ class Chadcn::Combobox::Chip < Chadcn::Base
   # @raise [ArgumentError] when rendered outside Combobox
   def view_template(&block)
     model = root_model
-    defaults = { tabindex: "-1", class: CLASSES, data: { slot: "combobox-chip", shadcn__combobox_part: "chip" } }
+    defaults = { tabindex: "-1", class: CLASSES, data: { slot: "combobox-chip", chadcn__combobox_part: "chip" } }
     defaults[:aria] = { disabled: (model.disabled? ? "true" : nil), readonly: (model.read_only? ? "true" : nil) }
     defaults[:data][:disabled] = "" if model.disabled?
     div(**merge_attrs(defaults, @attrs)) do
@@ -40,7 +40,7 @@ class Chadcn::Combobox::Chip < Chadcn::Base
     render Chadcn::Button.new(
       variant: "ghost", size: "icon-xs", type: "button", tabindex: "-1", class: "-ml-1 opacity-50 hover:opacity-100",
       "data-slot": "combobox-chip-remove", "aria-disabled": model.disabled?.to_s,
-      data: { disabled: (model.disabled? ? "" : nil), shadcn__combobox_part: "chip-remove" }
+      data: { disabled: (model.disabled? ? "" : nil), chadcn__combobox_part: "chip-remove" }
     ) { render Chadcn::Icon.new("x", class: "pointer-events-none") }
   end
 end

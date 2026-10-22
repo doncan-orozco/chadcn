@@ -107,12 +107,12 @@ class Chadcn::CollapsibleTest < Chadcn::TestCase
   test "controlled open reaches the controller and force_mount renders a closed body" do
     doc = fragment(collapsible(root: { open: true }))
 
-    assert_equal "true", doc.at_css("[data-slot=collapsible]")["data-shadcn--collapsible-controlled-value"]
+    assert_equal "true", doc.at_css("[data-slot=collapsible]")["data-chadcn--collapsible-controlled-value"]
     assert_equal "open", doc.at_css("[data-slot=collapsible]")["data-state"]
 
     forced = fragment(collapsible(content: { force_mount: true })).at_css("[data-slot=collapsible-content]")
 
-    assert_equal "true", forced["data-shadcn--collapsible-force-mount"]
+    assert_equal "true", forced["data-chadcn--collapsible-force-mount"]
     assert_nil forced.at_css("template")
     assert_includes forced.text, "Body"
   end

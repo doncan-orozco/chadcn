@@ -9,7 +9,7 @@ module Chadcn::Sidebar::Support
   # Stimulus action descriptor that toggles the sidebar.
   #
   # @api private
-  TOGGLE = "click->shadcn--sidebar#toggle"
+  TOGGLE = "click->chadcn--sidebar#toggle"
 
   private
 

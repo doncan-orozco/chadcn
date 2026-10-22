@@ -4,6 +4,6 @@
   "allow_tokens": [],
   "allow_missing_tokens": [],
   "api": [
-    "Tooltip::Content renders an inert <template data-shadcn--tooltip-template> (no data-slot) holding the content markup while closed"
+    "Tooltip::Content renders an inert <template data-chadcn--tooltip-template> (no data-slot) holding the content markup while closed"
   ]
 }

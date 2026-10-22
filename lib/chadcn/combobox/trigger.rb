@@ -43,7 +43,7 @@ class Chadcn::Combobox::Trigger < Chadcn::Base
 
   def defaults(model)
     popup_mode = !model.input_outside
-    data = state_data(model, disabled: disabled?(model)).merge(slot: "combobox-trigger", shadcn__combobox_part: "trigger")
+    data = state_data(model, disabled: disabled?(model)).merge(slot: "combobox-trigger", chadcn__combobox_part: "trigger")
     data[:placeholder] = "" if model.selection.empty?
     {
       type: "button", tabindex: popup_mode ? "0" : "-1", class: CLASSES, data: data,

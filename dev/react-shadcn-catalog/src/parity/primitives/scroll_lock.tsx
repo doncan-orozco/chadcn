@@ -7,7 +7,7 @@ import { actionOf } from "./_overlay"
 function ScrollLockProbe({ children, ...props }: Record<string, any>) {
   const [held, setHeld] = React.useState<string[]>([])
   const onClick = (e: React.MouseEvent) => {
-    const action = actionOf(e.target, "shadcn---probe-scroll-lock")
+    const action = actionOf(e.target, "chadcn---probe-scroll-lock")
     if (action?.method !== "toggle") return
     const name = action.params.name
     setHeld((names) => (names.includes(name) ? names.filter((n) => n !== name) : [...names, name]))
@@ -25,4 +25,4 @@ function ScrollLockProbe({ children, ...props }: Record<string, any>) {
 }
 
 // Harness.tsx renders the raw root whose data-controller is `controller` with this component.
-export const probe = { controller: "shadcn---probe-scroll-lock", Component: ScrollLockProbe }
+export const probe = { controller: "chadcn---probe-scroll-lock", Component: ScrollLockProbe }

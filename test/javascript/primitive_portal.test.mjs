@@ -4,7 +4,7 @@ const html = '<div id="origin"><i id="before"></i><p id="el">x</p><i id="after">
 
 primitiveTest("portal: moves the element into body by default", async (page) => {
   const parent = await page.evaluate(async () => {
-    const { portal } = await import("shadcn/primitives/portal");
+    const { portal } = await import("chadcn/primitives/portal");
     portal(document.getElementById("el"));
     return document.getElementById("el").parentElement.tagName;
   });
@@ -13,7 +13,7 @@ primitiveTest("portal: moves the element into body by default", async (page) => 
 
 primitiveTest("portal: release() puts the element back at its original position and leaves no placeholder", async (page) => {
   const result = await page.evaluate(async () => {
-    const { portal } = await import("shadcn/primitives/portal");
+    const { portal } = await import("chadcn/primitives/portal");
     const el = document.getElementById("el");
     const release = portal(el, document.getElementById("other"));
     const moved = el.parentElement.id;
@@ -30,7 +30,7 @@ primitiveTest("portal: release() puts the element back at its original position 
 
 primitiveTest("portal: releasing twice does not throw or duplicate nodes", async (page) => {
   const result = await page.evaluate(async () => {
-    const { portal } = await import("shadcn/primitives/portal");
+    const { portal } = await import("chadcn/primitives/portal");
     const el = document.getElementById("el");
     const release = portal(el, document.getElementById("other"));
     release();
@@ -43,7 +43,7 @@ primitiveTest("portal: releasing twice does not throw or duplicate nodes", async
 
 primitiveTest("portal: release() is a no-op when the placeholder was removed (no parent)", async (page) => {
   const result = await page.evaluate(async () => {
-    const { portal } = await import("shadcn/primitives/portal");
+    const { portal } = await import("chadcn/primitives/portal");
     const el = document.getElementById("el");
     const release = portal(el, document.getElementById("other"));
     const origin = document.getElementById("origin");

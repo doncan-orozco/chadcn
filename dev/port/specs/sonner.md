@@ -2,7 +2,7 @@
 
 Sources read: `gems/chadcn/dev/port/oracle/src/sonner.tsx` (manifest `source_sha` 13ccc9b0fe4248e6; shadcn's wrapper: `Toaster` = sonner's `Toaster` with `className="toaster group"`, the Lucide icons `CircleCheckIcon/InfoIcon/TriangleAlertIcon/OctagonXIcon/Loader2Icon className="size-4"` (loading also `animate-spin`) and the colors `--normal-bg: var(--popover)`, `--normal-text: var(--popover-foreground)`, `--normal-border: var(--border)`, `--border-radius: var(--radius)`), and the library it wraps, `gems/chadcn/dev/react-shadcn-catalog/node_modules/sonner/dist/index.mjs` (cited as `sonner:<line>`) with the CSS it injects at runtime (`__insertCSS`, sonner:404). `next-themes` only supplies `theme` (default `system`).
 
-**No third-party JavaScript** (maintainer constraint of the adoption epic): the library's behavior is re-implemented in `app/javascript/shadcn/primitives/toast_stack.js` (state, stacking, timers, swipe, hotkey) and its stylesheet is shipped as `app/assets/tailwind/chadcn/sonner.css` (MIT, `THIRD_PARTY_NOTICES.md`). No new importmap pin, no vendor file, no npm dependency (a unit test asserts it).
+**No third-party JavaScript** (maintainer constraint of the adoption epic): the library's behavior is re-implemented in `app/javascript/chadcn/primitives/toast_stack.js` (state, stacking, timers, swipe, hotkey) and its stylesheet is shipped as `app/assets/tailwind/chadcn/sonner.css` (MIT, `THIRD_PARTY_NOTICES.md`). No new importmap pin, no vendor file, no npm dependency (a unit test asserts it).
 
 ## API
 
@@ -23,9 +23,9 @@ Chadcn::Sonner::Toast.new(title: nil, description: nil, type: nil, id: nil, dura
 - `style:` is the inline style of the `<ol>` lists (like sonner's `style`), merged over the four shadcn theme variables.
 - Deliberate differences (see `deviations/sonner.json`): `id:` is the HTML id of the `<section>` (default `"toaster"`, the Turbo Stream target); sonner's `id` is `toaster_id:`; `class:` is added to `toaster group`; `ref`, `useSonner` and every React-element prop are not ported.
 - Server entry points (no React equivalent): `flash:` (a Hash such as `flash.to_h`: `notice`/`success` -> success, `alert`/`error` -> error, `warning`, `info`, anything else a plain toast; blank values skipped), `toasts:` (array of `Sonner::Toast` keyword hashes) and the block (render `Sonner::Toast`s), all of which become toasts when the controller connects.
-- `Sonner::Toast` renders an inert `<template data-shadcn--sonner-toast data-type=... data-id=... data-duration=... data-position=... data-dismissible=... data-close-button=... data-rich-colors=... data-invert=... data-icon="none" data-action-label/-href/-event data-cancel-label/-href/-event data-toaster-id data-test-id>` with `<div data-title>` and `<div data-description>` children (plain text). `duration: :infinity` -> `"Infinity"`. A Turbo Stream `append` onto the Toaster id inserts it; the controller turns every such template into a toast and removes it. `href` navigates (Turbo.visit) only for http(s) URLs.
-- JS API: `window.Toaster` is sonner's `toast` (`Toaster(msg, data)`, `.success/.info/.warning/.error/.loading/.message/.promise/.dismiss/.custom/.getToasts/.getHistory`; `custom` takes a DOM node or a function returning one). The `shadcn--sonner:show` event (`detail: { message, type, ...options }`, bubbling to `document`) and the Stimulus actions `show`/`dismiss` (buttons inside the Toaster, `data-shadcn--sonner-message-param`...) call the same functions.
-- Events (dispatched on the section, bubbling, `detail.id`): `shadcn--sonner:dismiss`, `shadcn--sonner:auto-close`, `shadcn--sonner:action`, `shadcn--sonner:cancel` (the last two also `detail.name` = the toast's `event`). The JS API still takes sonner's callbacks (`onDismiss`, `onAutoClose`, `action.onClick`).
+- `Sonner::Toast` renders an inert `<template data-chadcn--sonner-toast data-type=... data-id=... data-duration=... data-position=... data-dismissible=... data-close-button=... data-rich-colors=... data-invert=... data-icon="none" data-action-label/-href/-event data-cancel-label/-href/-event data-toaster-id data-test-id>` with `<div data-title>` and `<div data-description>` children (plain text). `duration: :infinity` -> `"Infinity"`. A Turbo Stream `append` onto the Toaster id inserts it; the controller turns every such template into a toast and removes it. `href` navigates (Turbo.visit) only for http(s) URLs.
+- JS API: `window.Toaster` is sonner's `toast` (`Toaster(msg, data)`, `.success/.info/.warning/.error/.loading/.message/.promise/.dismiss/.custom/.getToasts/.getHistory`; `custom` takes a DOM node or a function returning one). The `chadcn--sonner:show` event (`detail: { message, type, ...options }`, bubbling to `document`) and the Stimulus actions `show`/`dismiss` (buttons inside the Toaster, `data-chadcn--sonner-message-param`...) call the same functions.
+- Events (dispatched on the section, bubbling, `detail.id`): `chadcn--sonner:dismiss`, `chadcn--sonner:auto-close`, `chadcn--sonner:action`, `chadcn--sonner:cancel` (the last two also `detail.name` = the toast's `event`). The JS API still takes sonner's callbacks (`onDismiss`, `onAutoClose`, `action.onClick`).
 
 Example (layout, a controller and a stream):
 
@@ -36,7 +36,7 @@ turbo_stream.append "toaster", Chadcn::Sonner::Toast.new(type: :success, title: 
 
 ## Structure
 
-Server render: `<section id="toaster" tabindex="-1" aria-label="Notifications alt+T" aria-live="polite" aria-relevant="additions text" aria-atomic="false" data-controller="shadcn--sonner" ...values>` containing only inert `<template data-shadcn--sonner-icon="success|info|warning|error|loading|close">` (the Lucide icons and sonner's close icon) and the server toasts. The `aria-label` is `"<container_aria_label> <hotkey>"`, the hotkey written as sonner does (`altKey+KeyT` -> `alt+T`). The section has no `data-slot`, no class and no style (sonner:`section`), so the compared nodes are the `observe` selectors of the scenarios.
+Server render: `<section id="toaster" tabindex="-1" aria-label="Notifications alt+T" aria-live="polite" aria-relevant="additions text" aria-atomic="false" data-controller="chadcn--sonner" ...values>` containing only inert `<template data-chadcn--sonner-icon="success|info|warning|error|loading|close">` (the Lucide icons and sonner's close icon) and the server toasts. The `aria-label` is `"<container_aria_label> <hotkey>"`, the hotkey written as sonner does (`altKey+KeyT` -> `alt+T`). The section has no `data-slot`, no class and no style (sonner:`section`), so the compared nodes are the `observe` selectors of the scenarios.
 
 Client render (created by `ToastStack`, sonner:`Toaster`/`Toast`), one `<ol>` per position that has toasts (none while empty), each toast an `<li>`:
 
@@ -70,13 +70,13 @@ Primitives composed: none of the overlay primitives (a Toaster is a non-modal li
 - **Theme**: `light`/`dark` set `data-sonner-theme`; `system` follows `prefers-color-scheme` and its changes. The shadcn colors come from the theme variables, so a theme paste restyles the toasts.
 - **Accessibility**: the section is the polite live region (`aria-live="polite"`, `aria-relevant="additions text"`, `aria-atomic="false"`, exactly like sonner); toasts need no extra roles. Deliberate addition (deviation): an `error` toast is also written, after 50 ms, to a visually hidden `role="alert"` element appended to `<body>`, so errors interrupt (assertive) while every other type stays polite. Escape/focus behavior is the sonner one above; there is no focus trap.
 - **Cleanup** (radix-stimulus R10): `disconnect()` and `turbo:before-cache` unsubscribe, clear every timer, remove the lists and the announcer and restore focus, so a Turbo cache restore never shows stale toasts or fires timers on a detached tree.
-- **Ingestion**: on connect the controller turns the `<template data-shadcn--sonner-toast>` children into toasts, and a `MutationObserver` (child list of the section) does the same for later appends (Turbo Stream). Templates are removed once read.
+- **Ingestion**: on connect the controller turns the `<template data-chadcn--sonner-toast>` children into toasts, and a `MutationObserver` (child list of the section) does the same for later appends (Turbo Stream). Templates are removed once read.
 
 Not expressible in the parity runner (covered in `test/javascript/sonner.test.mjs`): the flash/Turbo Stream/`window.Toaster`/show-event entry points, the assertive announcer, event dispatch and unsafe `href`, text-only titles (no HTML injection), the Turbo cache and removal cleanup, promise and loading timers.
 
 ## Oracle driving
 
-sonner's `toast()` is a module function, so a static scenario tree cannot call it. The scenarios use a root `_div[data-controller="shadcn---probe-toast"]` whose descendants carry `data-parity-toast='{"method": "success", "message": "...", "data": {...}}'`; a click calls `toast[method]` on the React side (`react-shadcn-catalog/src/parity/primitives/toast_probe.tsx`) and `window.Toaster[method]` on the Phlex side (`dev/dummy/app/javascript/controllers/shadcn/_probe_toast_controller.js`). Compared nodes are chosen per scenario with `observe` (`section[aria-live]`, `[data-sonner-toaster]`, `[data-sonner-toast]`, `[data-icon]`, `[data-content]`, `[data-title]`, `[data-description]`, `[data-button]`, `[data-close-button]`).
+sonner's `toast()` is a module function, so a static scenario tree cannot call it. The scenarios use a root `_div[data-controller="chadcn---probe-toast"]` whose descendants carry `data-parity-toast='{"method": "success", "message": "...", "data": {...}}'`; a click calls `toast[method]` on the React side (`react-shadcn-catalog/src/parity/primitives/toast_probe.tsx`) and `window.Toaster[method]` on the Phlex side (`dev/dummy/app/javascript/controllers/chadcn/_probe_toast_controller.js`). Compared nodes are chosen per scenario with `observe` (`section[aria-live]`, `[data-sonner-toaster]`, `[data-sonner-toast]`, `[data-icon]`, `[data-content]`, `[data-title]`, `[data-description]`, `[data-button]`, `[data-close-button]`).
 
 ## DX helpers
 
@@ -85,7 +85,7 @@ The oracle exports only `Toaster`, so `spec_helpers.rb` derives none. The root `
 ## Dependencies
 
 - Renders `Chadcn::Icon` (`circle-check`, `info`, `triangle-alert`, `octagon-x`, `loader-circle`; all already in the icon catalog) and `Chadcn::Base` (`merge_attrs`, `cn`, `normalize_option`, `json`).
-- JavaScript: Stimulus and `shadcn/primitives/toast_stack` only.
+- JavaScript: Stimulus and `chadcn/primitives/toast_stack` only.
 
 ## Deviations
 

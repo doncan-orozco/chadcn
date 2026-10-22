@@ -3,9 +3,9 @@
 using Chadcn::Values::Refinements
 
 # shadcn ContextMenuCheckboxItem: a +div+ with +role="menuitemcheckbox"+ and a check indicator. +checked:+ is controlled only,
-# like Radix: the port never flips it; selecting the item dispatches +shadcn--context-menu:checked-change+ on the item
+# like Radix: the port never flips it; selecting the item dispatches +chadcn--context-menu:checked-change+ on the item
 # (with +detail.checked+, the requested value) and the server re-renders. Selecting also dispatches the cancelable
-# +shadcn--context-menu:select+ and closes the menu unless that was prevented; +checked-change+ (not cancelable) fires even when
+# +chadcn--context-menu:select+ and closes the menu unless that was prevented; +checked-change+ (not cancelable) fires even when
 # +select+ was prevented.
 #
 # @example

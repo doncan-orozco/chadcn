@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # shadcn ToggleGroup over Radix ToggleGroup. Spec: docs/shadcn-port/specs/toggle-group.md.
-# Behavior: controllers/shadcn/toggle_group_controller.js (one controller per group, items are not controllers).
+# Behavior: controllers/chadcn/toggle_group_controller.js (one controller per group, items are not controllers).
 #
 # A group of {ToggleGroup::Item}s sharing `type`, `variant`, `size` and `spacing`. Yields itself, so items are
 # available as `group.item(value: "bold")`.
@@ -141,15 +141,15 @@ class Chadcn::ToggleGroup < Chadcn::Base
       dir: @dir,
       class: CLASSES,
       data: {
-        slot: "toggle-group", variant: @variant, size: @size, spacing: @spacing, controller: "shadcn--toggle-group",
+        slot: "toggle-group", variant: @variant, size: @size, spacing: @spacing, controller: "chadcn--toggle-group",
         orientation: (@roving_focus ? @orientation : nil),
-        shadcn__toggle_group_type_value: @type,
-        shadcn__toggle_group_controlled_value: @controlled.to_s,
-        shadcn__toggle_group_initial_value: (@type == "multiple" ? json(@value) : nil),
-        shadcn__toggle_group_loop_value: @loop.to_s,
-        shadcn__toggle_group_roving_focus_value: @roving_focus.to_s,
-        shadcn__toggle_group_orientation_value: @orientation,
-        shadcn__toggle_group_dir_value: @dir
+        chadcn__toggle_group_type_value: @type,
+        chadcn__toggle_group_controlled_value: @controlled.to_s,
+        chadcn__toggle_group_initial_value: (@type == "multiple" ? json(@value) : nil),
+        chadcn__toggle_group_loop_value: @loop.to_s,
+        chadcn__toggle_group_roving_focus_value: @roving_focus.to_s,
+        chadcn__toggle_group_orientation_value: @orientation,
+        chadcn__toggle_group_dir_value: @dir
       }
     }.merge(if @roving_focus
               { tabindex: (@disabled ? -1 : 0) }

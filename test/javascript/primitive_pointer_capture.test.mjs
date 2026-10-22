@@ -4,7 +4,7 @@ const html = `<div id="root" style="position:fixed;left:100px;top:100px;width:20
   <div id="far" style="position:fixed;left:500px;top:400px;width:50px;height:50px"></div>`;
 
 const start = (page, extra = "") => page.evaluate(async (extra) => {
-  const { pointerCapture } = await import("shadcn/primitives/pointer_capture");
+  const { pointerCapture } = await import("chadcn/primitives/pointer_capture");
   window.__log = [];
   const log = (name) => (event) => window.__log.push([name, event.type, event.target.id, event.target.hasPointerCapture(event.pointerId)]);
   const options = new Function("log", `return { onStart: log("start"), onMove: log("move"), onEnd: log("end"), ${extra} }`)(log);

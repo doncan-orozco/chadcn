@@ -20,7 +20,7 @@ class Chadcn::Combobox::Clear < Chadcn::Base
   # @raise [ArgumentError] when rendered outside Combobox
   def view_template
     model = root_model
-    template(data: { shadcn__combobox_part: "clear-template" }) { clear_button(model, mounted: false) }
+    template(data: { chadcn__combobox_part: "clear-template" }) { clear_button(model, mounted: false) }
     clear_button(model, mounted: true) if model.selection.any?
   end
 
@@ -33,7 +33,7 @@ class Chadcn::Combobox::Clear < Chadcn::Base
     state[:disabled] = "" if disabled
     render Chadcn::InputGroup::Button.new(
       variant: "ghost", size: "icon-xs", "data-slot": "combobox-clear", tabindex: "-1", disabled: disabled,
-      data: state.merge(shadcn__combobox_part: "clear"), **@attrs
+      data: state.merge(chadcn__combobox_part: "clear"), **@attrs
     ) { render Chadcn::Icon.new("x", class: "pointer-events-none") }
   end
 end

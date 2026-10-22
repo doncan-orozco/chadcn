@@ -32,7 +32,7 @@ class Chadcn::Tabs::List < Chadcn::Base
                           class: Chadcn::Tabs.list_variants(variant: @variant),
                           aria: { orientation: root[:orientation] },
                           data: { orientation: root[:orientation], slot: "tabs-list", variant: @variant,
-                                  shadcn__tabs_target: "list", shadcn__tabs_loop_value: @loop.to_s }
+                                  chadcn__tabs_target: "list", chadcn__tabs_loop_value: @loop.to_s }
                         }, @attrs)
     render_part(:div, @as_child, attrs, &)
   end

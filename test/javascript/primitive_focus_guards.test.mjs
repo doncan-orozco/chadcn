@@ -4,7 +4,7 @@ const html = "<main id=\"app\"><button>x</button></main>";
 
 primitiveTest("focus_guards: inserts a focusable invisible guard at both edges of body and release() removes them", async (page) => {
   const result = await page.evaluate(async () => {
-    const { focusGuards } = await import("shadcn/primitives/focus_guards");
+    const { focusGuards } = await import("chadcn/primitives/focus_guards");
     const release = focusGuards();
     const nodes = [...document.querySelectorAll("[data-radix-focus-guard]")];
     const edges = { first: document.body.firstElementChild === nodes[0], last: document.body.lastElementChild === nodes[1], count: nodes.length };
@@ -20,7 +20,7 @@ primitiveTest("focus_guards: inserts a focusable invisible guard at both edges o
 
 primitiveTest("focus_guards: ref-counted, nested locks share the guards and the last release removes them", async (page) => {
   const result = await page.evaluate(async () => {
-    const { focusGuards } = await import("shadcn/primitives/focus_guards");
+    const { focusGuards } = await import("chadcn/primitives/focus_guards");
     const count = () => document.querySelectorAll("[data-radix-focus-guard]").length;
     const first = focusGuards();
     const second = focusGuards();
@@ -35,7 +35,7 @@ primitiveTest("focus_guards: ref-counted, nested locks share the guards and the 
 
 primitiveTest("focus_guards: guards are re-pinned to the body edges when content was added in between", async (page) => {
   const result = await page.evaluate(async () => {
-    const { focusGuards } = await import("shadcn/primitives/focus_guards");
+    const { focusGuards } = await import("chadcn/primitives/focus_guards");
     const first = focusGuards();
     document.body.append(Object.assign(document.createElement("div"), { id: "late" }));
     const second = focusGuards();

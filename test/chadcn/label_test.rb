@@ -13,8 +13,8 @@ class Chadcn::LabelTest < Chadcn::TestCase
     assert_includes out, "<label"
     assert_includes out, 'data-slot="label"'
     assert_includes out, "peer-disabled:opacity-50"
-    assert_includes out, 'data-controller="shadcn--label"'
-    assert_includes out, 'data-action="mousedown->shadcn--label#mousedown"'
+    assert_includes out, 'data-controller="chadcn--label"'
+    assert_includes out, 'data-action="mousedown->chadcn--label#mousedown"'
   end
 
   test "html_for renders for and wins over for:" do
@@ -31,8 +31,8 @@ class Chadcn::LabelTest < Chadcn::TestCase
     assert_includes out, "text-lg"
     assert_not_includes out, "text-sm"
     assert_includes out, 'id="x"'
-    assert_includes out, 'data-action="mousedown->foo#bar mousedown->shadcn--label#mousedown"'
-    assert_includes out, 'data-controller="foo shadcn--label"'
+    assert_includes out, 'data-action="mousedown->foo#bar mousedown->chadcn--label#mousedown"'
+    assert_includes out, 'data-controller="foo chadcn--label"'
   end
 
   test "as_child renders the child element" do

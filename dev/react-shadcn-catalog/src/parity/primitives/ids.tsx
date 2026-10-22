@@ -1,5 +1,5 @@
 // React twin of app/javascript/v2/primitives/ids.js: the RAW @radix-ui/react-id useId (deterministic id first).
-// Tree contract: _div[data-controller="shadcn---probe-ids"] containing a trigger [data-slot=trigger] and a panel [data-slot=panel]
+// Tree contract: _div[data-controller="chadcn---probe-ids"] containing a trigger [data-slot=trigger] and a panel [data-slot=panel]
 // (optionally with a server `id`). The trigger gets aria-controls = the panel id, and data-id-source = server | generated.
 import * as React from "react"
 import { useId } from "@radix-ui/react-id"
@@ -21,4 +21,4 @@ function IdsProbe({ children, ...props }: AnyProps) {
   return <div {...props}>{React.Children.map(children, wire)}</div>
 }
 
-export const probe = { controller: "shadcn---probe-ids", Component: IdsProbe }
+export const probe = { controller: "chadcn---probe-ids", Component: IdsProbe }

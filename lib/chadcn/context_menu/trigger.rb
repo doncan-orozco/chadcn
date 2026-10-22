@@ -2,7 +2,7 @@
 
 using Chadcn::Values::Refinements
 
-# Radix ContextMenuTrigger: a +span+ without classes, ids or aria that hosts the +shadcn--context-menu+ controller. The menu opens
+# Radix ContextMenuTrigger: a +span+ without classes, ids or aria that hosts the +chadcn--context-menu+ controller. The menu opens
 # at the pointer on +contextmenu+ and, for touch or pen pointers, on a long press. It sets +data-state+ (+open+ or +closed+) and
 # the controller values from the root; with +disabled: true+ it renders +data-disabled+ and the controller ignores the gesture.
 # A caller +class+ is emitted verbatim (no tailwind-merge) and a caller +style+ is appended after
@@ -33,7 +33,7 @@ class Chadcn::ContextMenu::Trigger < Chadcn::Base
     attrs = merge_attrs({
                           data: {
                             slot: "context-menu-trigger", state: root[:open] ? "open" : "closed", disabled: (@disabled ? "" : nil),
-                            controller: "shadcn--context-menu", **values(root)
+                            controller: "chadcn--context-menu", **values(root)
                           }
                         }, @attrs.except(:style))
     attrs = verbatim_class(attrs, @attrs)
@@ -45,11 +45,11 @@ class Chadcn::ContextMenu::Trigger < Chadcn::Base
 
   def values(root)
     {
-      shadcn__context_menu_open_value: root[:open].to_s,
-      shadcn__context_menu_controlled_value: root[:controlled].to_s,
-      shadcn__context_menu_modal_value: root[:modal].to_s,
-      shadcn__context_menu_dir_value: root[:dir],
-      shadcn__context_menu_template_value: root[:content_id]
+      chadcn__context_menu_open_value: root[:open].to_s,
+      chadcn__context_menu_controlled_value: root[:controlled].to_s,
+      chadcn__context_menu_modal_value: root[:modal].to_s,
+      chadcn__context_menu_dir_value: root[:dir],
+      chadcn__context_menu_template_value: root[:content_id]
     }
   end
 end

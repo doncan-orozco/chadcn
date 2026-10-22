@@ -4,7 +4,7 @@ const html = `<form id="form"><button type="button" id="control" role="checkbox"
   <button type="button" id="loose">loose</button>`;
 
 const make = (options, control = "control") => `
-  const { FormBubbleInput } = await import("shadcn/primitives/form_bubble_input");
+  const { FormBubbleInput } = await import("chadcn/primitives/form_bubble_input");
   const control = document.getElementById("${control}");
   const bubble = new FormBubbleInput(control, ${options});
   window.__bubble = bubble;

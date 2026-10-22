@@ -29,9 +29,9 @@ class Chadcn::SidebarTest < Chadcn::TestCase
   test "provider is the controller host with the wrapper variables" do
     wrapper = fragment(provider(class: "extra", style: { "--sidebar-width" => "20rem" }, id: "x")).at_css("[data-slot=sidebar-wrapper]")
 
-    assert_equal "shadcn--sidebar", wrapper["data-controller"]
-    assert_equal "true", wrapper["data-shadcn--sidebar-open-value"]
-    assert_equal "false", wrapper["data-shadcn--sidebar-controlled-value"]
+    assert_equal "chadcn--sidebar", wrapper["data-controller"]
+    assert_equal "true", wrapper["data-chadcn--sidebar-open-value"]
+    assert_equal "false", wrapper["data-chadcn--sidebar-controlled-value"]
     assert_includes wrapper["class"].split, "extra"
     assert_equal "x", wrapper["id"]
     assert_equal "--sidebar-width: 20rem; --sidebar-width-icon: 3rem;", wrapper["style"]
@@ -56,7 +56,7 @@ class Chadcn::SidebarTest < Chadcn::TestCase
     assert_nil outer["id"]
     assert_includes outer.at_css("[data-slot=sidebar-container]")["class"].split, "w-9"
     assert_equal "block", outer.at_css("[data-slot=sidebar-inner]").text
-    template = doc.at_css("template[data-shadcn--sidebar-target=mobile]")
+    template = doc.at_css("template[data-chadcn--sidebar-target=mobile]")
 
     assert template
     assert_nil template["data-slot"]
@@ -91,7 +91,7 @@ class Chadcn::SidebarTest < Chadcn::TestCase
     assert_equal "ghost", button["data-variant"]
     assert_equal "icon-sm", button["data-size"]
     assert_equal "trigger", button["data-sidebar"]
-    assert_equal "click->x#y click->shadcn--sidebar#toggle", button["data-action"]
+    assert_equal "click->x#y click->chadcn--sidebar#toggle", button["data-action"]
     assert_includes button["class"].split, "size-7"
     assert_includes button["class"].split, "ml-1"
     assert_equal "Toggle Sidebar", button.at_css(".sr-only").text
@@ -151,17 +151,17 @@ class Chadcn::SidebarTest < Chadcn::TestCase
     button = doc.at_css("button[data-slot=sidebar-menu-button]")
 
     assert_equal "closed", button["data-state"]
-    assert_includes button["data-controller"], "shadcn--tooltip"
+    assert_includes button["data-controller"], "chadcn--tooltip"
     content = doc.at_css("template div[data-slot=tooltip-content]")
 
     assert content.key?("hidden")
-    assert_not_empty content["data-shadcn--sidebar-tooltip"].to_s
+    assert_not_empty content["data-chadcn--sidebar-tooltip"].to_s
     assert_equal "right", JSON.parse(doc.at_css("template[data-options]")["data-options"])["side"]
     assert_equal "Home", content.text
     collapsed = fragment(provider(default_open: false) { render(Sidebar::MenuButton.new(tooltip: { children: "H", hidden: false })) })
 
     assert_not collapsed.at_css("template div[data-slot=tooltip-content]").key?("hidden")
-    assert_not collapsed.at_css("template div[data-slot=tooltip-content]").key?("data-shadcn--sidebar-tooltip")
+    assert_not collapsed.at_css("template div[data-slot=tooltip-content]").key?("data-chadcn--sidebar-tooltip")
   end
 
   test "menu skeleton draws its width between 50 and 89 percent" do
@@ -203,9 +203,9 @@ class Chadcn::SidebarTest < Chadcn::TestCase
   test "provider open is controlled, default_open is not" do
     controlled = fragment(provider(open: false)).at_css("[data-slot=sidebar-wrapper]")
 
-    assert_equal "false", controlled["data-shadcn--sidebar-open-value"]
-    assert_equal "true", controlled["data-shadcn--sidebar-controlled-value"]
-    assert_equal "false", fragment(provider(default_open: false)).at_css("[data-slot=sidebar-wrapper]")["data-shadcn--sidebar-controlled-value"]
+    assert_equal "false", controlled["data-chadcn--sidebar-open-value"]
+    assert_equal "true", controlled["data-chadcn--sidebar-controlled-value"]
+    assert_equal "false", fragment(provider(default_open: false)).at_css("[data-slot=sidebar-wrapper]")["data-chadcn--sidebar-controlled-value"]
     assert_equal "collapsed", fragment(provider(open: false) { render(Sidebar.new) }).at_css("[data-slot=sidebar]")["data-state"]
   end
 

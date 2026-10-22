@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 # shadcn CommandItem: one selectable option (`div`, `role="option"`). Selecting it (click or Enter) dispatches
-# `shadcn--command:select` with `{ value }` on the item.
+# `chadcn--command:select` with `{ value }` on the item.
 #
 # The value is `value:` when given, else the item's text (the controller derives it). `value`, `keywords`, `disabled` and
-# `force_mount` never reach the DOM as such; the controller reads `data-shadcn--command-*` attributes.
+# `force_mount` never reach the DOM as such; the controller reads `data-chadcn--command-*` attributes.
 #
 # @example
 #   render(Chadcn::Command::Item.new(keywords: ["agenda"]) { "Calendar" })
@@ -58,8 +58,8 @@ class Chadcn::Command::Item < Chadcn::Base
   def state_data
     data = { disabled: @disabled.to_s, selected: "false" }
     data[:value] = @value.to_s.strip unless @value.nil?
-    data[:shadcn__command_keywords] = json(@keywords.map { |keyword| keyword.to_s.strip }) unless @keywords.empty?
-    data[:shadcn__command_force_mount] = "true" if @force_mount
+    data[:chadcn__command_keywords] = json(@keywords.map { |keyword| keyword.to_s.strip }) unless @keywords.empty?
+    data[:chadcn__command_force_mount] = "true" if @force_mount
     data
   end
 end

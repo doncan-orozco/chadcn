@@ -8,7 +8,7 @@
         "props": {
           "data-probe": "focus_guards",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-focus-guards",
+          "data-controller": "chadcn---probe-focus-guards",
           "className": "flex flex-col items-start gap-2"
         },
         "children": [
@@ -17,9 +17,9 @@
             "props": {
               "type": "button",
               "data-slot": "toggle-a",
-              "data-action": "click->shadcn---probe-focus-guards#toggle",
+              "data-action": "click->chadcn---probe-focus-guards#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-focus-guards-name-param": "a"
+              "data-chadcn---probe-focus-guards-name-param": "a"
             },
             "children": [
               "Guards A"
@@ -30,9 +30,9 @@
             "props": {
               "type": "button",
               "data-slot": "toggle-b",
-              "data-action": "click->shadcn---probe-focus-guards#toggle",
+              "data-action": "click->chadcn---probe-focus-guards#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-focus-guards-name-param": "b"
+              "data-chadcn---probe-focus-guards-name-param": "b"
             },
             "children": [
               "Guards B"
@@ -70,7 +70,7 @@
         "props": {
           "data-probe": "focus_guards",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-focus-guards",
+          "data-controller": "chadcn---probe-focus-guards",
           "className": "flex flex-col items-start gap-2"
         },
         "children": [
@@ -79,9 +79,9 @@
             "props": {
               "type": "button",
               "data-slot": "toggle-a",
-              "data-action": "click->shadcn---probe-focus-guards#toggle",
+              "data-action": "click->chadcn---probe-focus-guards#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-focus-guards-name-param": "a"
+              "data-chadcn---probe-focus-guards-name-param": "a"
             },
             "children": [
               "Guards A"
@@ -92,9 +92,9 @@
             "props": {
               "type": "button",
               "data-slot": "toggle-b",
-              "data-action": "click->shadcn---probe-focus-guards#toggle",
+              "data-action": "click->chadcn---probe-focus-guards#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-focus-guards-name-param": "b"
+              "data-chadcn---probe-focus-guards-name-param": "b"
             },
             "children": [
               "Guards B"
@@ -141,7 +141,7 @@
         "props": {
           "data-probe": "focus_guards",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-focus-guards",
+          "data-controller": "chadcn---probe-focus-guards",
           "className": "flex flex-col items-start gap-2"
         },
         "children": [
@@ -150,9 +150,9 @@
             "props": {
               "type": "button",
               "data-slot": "toggle-a",
-              "data-action": "click->shadcn---probe-focus-guards#toggle",
+              "data-action": "click->chadcn---probe-focus-guards#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-focus-guards-name-param": "a"
+              "data-chadcn---probe-focus-guards-name-param": "a"
             },
             "children": [
               "Guards A"
@@ -163,9 +163,9 @@
             "props": {
               "type": "button",
               "data-slot": "toggle-b",
-              "data-action": "click->shadcn---probe-focus-guards#toggle",
+              "data-action": "click->chadcn---probe-focus-guards#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-focus-guards-name-param": "b"
+              "data-chadcn---probe-focus-guards-name-param": "b"
             },
             "children": [
               "Guards B"
@@ -214,7 +214,7 @@
         "props": {
           "data-probe": "focus_guards",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-focus-guards",
+          "data-controller": "chadcn---probe-focus-guards",
           "className": "flex flex-col items-start gap-2"
         },
         "children": [
@@ -223,9 +223,9 @@
             "props": {
               "type": "button",
               "data-slot": "toggle-a",
-              "data-action": "click->shadcn---probe-focus-guards#toggle",
+              "data-action": "click->chadcn---probe-focus-guards#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-focus-guards-name-param": "a"
+              "data-chadcn---probe-focus-guards-name-param": "a"
             },
             "children": [
               "Guards A"
@@ -236,9 +236,9 @@
             "props": {
               "type": "button",
               "data-slot": "toggle-b",
-              "data-action": "click->shadcn---probe-focus-guards#toggle",
+              "data-action": "click->chadcn---probe-focus-guards#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-focus-guards-name-param": "b"
+              "data-chadcn---probe-focus-guards-name-param": "b"
             },
             "children": [
               "Guards B"
@@ -285,7 +285,7 @@
         "props": {
           "data-probe": "focus_guards",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-focus-guards",
+          "data-controller": "chadcn---probe-focus-guards",
           "className": "flex flex-col items-start gap-2"
         },
         "children": [
@@ -294,9 +294,9 @@
             "props": {
               "type": "button",
               "data-slot": "toggle-a",
-              "data-action": "click->shadcn---probe-focus-guards#toggle",
+              "data-action": "click->chadcn---probe-focus-guards#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-focus-guards-name-param": "a"
+              "data-chadcn---probe-focus-guards-name-param": "a"
             },
             "children": [
               "Guards A"
@@ -307,9 +307,9 @@
             "props": {
               "type": "button",
               "data-slot": "toggle-b",
-              "data-action": "click->shadcn---probe-focus-guards#toggle",
+              "data-action": "click->chadcn---probe-focus-guards#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-focus-guards-name-param": "b"
+              "data-chadcn---probe-focus-guards-name-param": "b"
             },
             "children": [
               "Guards B"
@@ -360,7 +360,7 @@
         "props": {
           "data-probe": "focus_guards",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-focus-guards",
+          "data-controller": "chadcn---probe-focus-guards",
           "className": "flex flex-col items-start gap-2"
         },
         "children": [
@@ -369,9 +369,9 @@
             "props": {
               "type": "button",
               "data-slot": "toggle-a",
-              "data-action": "click->shadcn---probe-focus-guards#toggle",
+              "data-action": "click->chadcn---probe-focus-guards#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-focus-guards-name-param": "a"
+              "data-chadcn---probe-focus-guards-name-param": "a"
             },
             "children": [
               "Guards A"
@@ -382,9 +382,9 @@
             "props": {
               "type": "button",
               "data-slot": "toggle-b",
-              "data-action": "click->shadcn---probe-focus-guards#toggle",
+              "data-action": "click->chadcn---probe-focus-guards#toggle",
               "className": "rounded-md border px-3 py-1 text-sm",
-              "data-shadcn---probe-focus-guards-name-param": "b"
+              "data-chadcn---probe-focus-guards-name-param": "b"
             },
             "children": [
               "Guards B"

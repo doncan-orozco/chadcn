@@ -5,9 +5,9 @@ import { actionOf, items, isTemplate } from "./_overlay"
 
 function TemplateMountProbe({ children, ...props }: Record<string, any>) {
   const [open, setOpen] = React.useState(false)
-  const into = props["data-shadcn---probe-template-mount-into-value"] === "body" ? "body" : "after"
+  const into = props["data-chadcn---probe-template-mount-into-value"] === "body" ? "body" : "after"
   return (
-    <div {...props} onClick={(e) => actionOf(e.target, "shadcn---probe-template-mount")?.method === "toggle" && setOpen((v) => !v)}>
+    <div {...props} onClick={(e) => actionOf(e.target, "chadcn---probe-template-mount")?.method === "toggle" && setOpen((v) => !v)}>
       {items(children).map((node) => {
         if (!isTemplate(node)) return node
         if (!open) return null
@@ -18,4 +18,4 @@ function TemplateMountProbe({ children, ...props }: Record<string, any>) {
 }
 
 // Harness.tsx renders the raw root whose data-controller is `controller` with this component.
-export const probe = { controller: "shadcn---probe-template-mount", Component: TemplateMountProbe }
+export const probe = { controller: "chadcn---probe-template-mount", Component: TemplateMountProbe }

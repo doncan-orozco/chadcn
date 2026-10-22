@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # shadcn Menubar over Radix Menubar + Menu: a horizontal bar of menus, each opened from a {Trigger}.
-# Spec: port spec (dev kit). Behavior lives in controllers/shadcn/menubar_controller.js (hosted by the
+# Spec: port spec (dev kit). Behavior lives in controllers/chadcn/menubar_controller.js (hosted by the
 # root, one controller for every menu and sub).
 #
 # Menu, Sub and Portal render no element: they push their state into the Phlex render context for the parts inside.
@@ -12,7 +12,7 @@
 # when they are constructed): Menu, Sub and Content need a Menubar, Trigger and Content need a Menu, SubTrigger and
 # SubContent need a Sub.
 #
-# The root renders +role="menubar"+ and the controller dispatches Stimulus events (prefixed +shadcn--menubar:+). Each event
+# The root renders +role="menubar"+ and the controller dispatches Stimulus events (prefixed +chadcn--menubar:+). Each event
 # is dispatched on the element that names it, not always on the root: the root content is mounted in +<body>+ (a portaled
 # SubContent goes to its Portal container, else +<body>+), so an event fired on an item never bubbles to the root and a
 # +data-action+ on the root does not see it. Listen on the item itself, on +document+ or on +window+.
@@ -154,9 +154,9 @@ class Chadcn::Menubar < Chadcn::Base
     attrs = merge_attrs({
                           role: "menubar", class: CLASSES, tabindex: "0", style: "outline: none",
                           data: {
-                            slot: "menubar", orientation: "horizontal", controller: "shadcn--menubar",
-                            shadcn__menubar_value_value: @value, shadcn__menubar_controlled_value: @controlled.to_s,
-                            shadcn__menubar_loop_value: @loop.to_s, shadcn__menubar_dir_value: root[:dir]
+                            slot: "menubar", orientation: "horizontal", controller: "chadcn--menubar",
+                            chadcn__menubar_value_value: @value, chadcn__menubar_controlled_value: @controlled.to_s,
+                            chadcn__menubar_loop_value: @loop.to_s, chadcn__menubar_dir_value: root[:dir]
                           }
                         }, @attrs)
     if @as_child

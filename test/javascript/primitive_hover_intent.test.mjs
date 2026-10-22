@@ -5,7 +5,7 @@ const setup = async (page) => { await useFakeTimers(page) };
 primitiveTest("hover_intent: enter() opens after openDelay as a delayed open; leave() before that cancels it", async (page) => {
   await setup(page);
   const result = await page.evaluate(async () => {
-    const { hoverIntent } = await import("shadcn/primitives/hover_intent");
+    const { hoverIntent } = await import("chadcn/primitives/hover_intent");
     const log = [];
     const intent = hoverIntent({ openDelay: 700, onOpen: (info) => log.push(["open", info.delayed]), onClose: () => log.push("close") });
     intent.enter();
@@ -25,7 +25,7 @@ primitiveTest("hover_intent: enter() opens after openDelay as a delayed open; le
 primitiveTest("hover_intent: leave() honors closeDelay, and re-entering cancels the pending close", async (page) => {
   await setup(page);
   const result = await page.evaluate(async () => {
-    const { hoverIntent } = await import("shadcn/primitives/hover_intent");
+    const { hoverIntent } = await import("chadcn/primitives/hover_intent");
     let closes = 0;
     const intent = hoverIntent({ open: true, closeDelay: 300, onClose: () => closes++ });
     intent.leave();
@@ -44,7 +44,7 @@ primitiveTest("hover_intent: leave() honors closeDelay, and re-entering cancels 
 primitiveTest("hover_intent: open() and close() are immediate, fire only on transitions, and cancelOpen drops a pending open", async (page) => {
   await setup(page);
   const result = await page.evaluate(async () => {
-    const { hoverIntent } = await import("shadcn/primitives/hover_intent");
+    const { hoverIntent } = await import("chadcn/primitives/hover_intent");
     const log = [];
     const intent = hoverIntent({ onOpen: ({ delayed }) => log.push(`open:${delayed}`), onClose: () => log.push("close") });
     intent.open(); intent.open();
@@ -60,7 +60,7 @@ primitiveTest("hover_intent: open() and close() are immediate, fire only on tran
 primitiveTest("hover_intent: sync() adopts a controlled state and clears the timers; release() clears them too", async (page) => {
   await setup(page);
   const result = await page.evaluate(async () => {
-    const { hoverIntent } = await import("shadcn/primitives/hover_intent");
+    const { hoverIntent } = await import("chadcn/primitives/hover_intent");
     let opens = 0;
     const intent = hoverIntent({ onOpen: () => opens++ });
     intent.enter();
@@ -78,7 +78,7 @@ primitiveTest("hover_intent: sync() adopts a controlled state and clears the tim
 primitiveTest("hover_intent: the provider skips the open delay right after a close and restores it after skipDelayDuration", async (page) => {
   await setup(page);
   const result = await page.evaluate(async () => {
-    const { hoverIntent, hoverProvider } = await import("shadcn/primitives/hover_intent");
+    const { hoverIntent, hoverProvider } = await import("chadcn/primitives/hover_intent");
     const provider = hoverProvider({ skipDelayDuration: 300 });
     const log = [];
     const make = (name) => hoverIntent({ provider, openDelay: 700, onOpen: ({ delayed }) => log.push(`${name}:${delayed}`) });
@@ -103,7 +103,7 @@ primitiveTest("hover_intent: the provider skips the open delay right after a clo
 primitiveTest("hover_intent: skipDelayDuration <= 0 never changes the provider; release() clears the skip timer; isPointerInTransit is settable", async (page) => {
   await setup(page);
   const result = await page.evaluate(async () => {
-    const { hoverProvider } = await import("shadcn/primitives/hover_intent");
+    const { hoverProvider } = await import("chadcn/primitives/hover_intent");
     const never = hoverProvider({ skipDelayDuration: 0 });
     never.onOpen(); never.onClose();
     const provider = hoverProvider();

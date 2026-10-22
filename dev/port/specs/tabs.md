@@ -24,7 +24,7 @@ Components::V2::Tabs.new(
 ```
 
 - Controlled (`value:` given): no user action changes the DOM state; every request dispatches the event and the server (or the caller's controller) renders the next state. Uncontrolled: the controller owns the value after connect.
-- Event `shadcn--tabs:value-change`, `detail: { value: "<trigger value>" }`, dispatched from the root element, not cancelable (`onValueChange` is not preventable).
+- Event `chadcn--tabs:value-change`, `detail: { value: "<trigger value>" }`, dispatched from the root element, not cancelable (`onValueChange` is not preventable).
   - Uncontrolled: once per actual change, after the DOM update (ucs:63-68 effect, `prevValueRef !== value`); never when the requested value equals the current one.
   - Controlled: once per request whose value differs from the controlled value (ucs:38-41), with NO dedupe across requests. A mouse press on an inactive trigger in automatic mode therefore dispatches TWICE (the explicit `focus()` in the mousedown handler fires the focus-activation request, then the mousedown handler's own request, tabs:127-130 + tabs:143-147); a press on an already-focused inactive trigger dispatches once (no focus event).
 - `value:` / `default_value:` are compared with `===` after `to_s` to each Trigger/Content `value:` (tabs:106, tabs:162). `value: ""` is valid and matches no trigger (scenario `controlled-value-empty`).
@@ -78,7 +78,7 @@ Consumer handlers (`data: { action: "mousedown->x#y" }`) run before the Radix lo
 Final DOM (after React mount / after Stimulus connect), uncontrolled, `default_value: "account"`, two triggers:
 
 ```html
-<div dir="ltr" data-orientation="horizontal" data-slot="tabs" class="group/tabs flex gap-2 data-[orientation=horizontal]:flex-col" data-controller="shadcn--tabs">
+<div dir="ltr" data-orientation="horizontal" data-slot="tabs" class="group/tabs flex gap-2 data-[orientation=horizontal]:flex-col" data-controller="chadcn--tabs">
   <div role="tablist" aria-orientation="horizontal" tabindex="0" data-orientation="horizontal" style="outline: none;"
        data-slot="tabs-list" data-variant="default" class="<list classes>">
     <button type="button" role="tab" aria-selected="true" aria-controls="radix-1-content-account" data-state="active"
@@ -151,9 +151,9 @@ Final DOM (after React mount / after Stimulus connect), uncontrolled, `default_v
 
 Server renders every attribute above for the initial state: `dir`, orientations, list `tabindex`, all trigger `tabindex="-1"`, `aria-selected`/`data-state`, ids, `hidden`, the initial `animation-duration`.
 
-Inactive panel children (React does not mount them): the server renders the children of every inactive, non-force-mounted Content inside a `<template data-shadcn--tabs-target="deferred">` as the panel's only child (no `data-slot`, inert, so ids and inputs inside are not in the document, as in React). For an inactive `as_child` Content the server renders only that `<template>` (containing the merged element) in its place. In `connect()` the controller takes each template's content into memory and removes the template (for `as_child`, it leaves a comment node as the position anchor), so the post-connect DOM equals React's. It also stores a pristine clone of the active panel's children taken before any interaction.
+Inactive panel children (React does not mount them): the server renders the children of every inactive, non-force-mounted Content inside a `<template data-chadcn--tabs-target="deferred">` as the panel's only child (no `data-slot`, inert, so ids and inputs inside are not in the document, as in React). For an inactive `as_child` Content the server renders only that `<template>` (containing the merged element) in its place. In `connect()` the controller takes each template's content into memory and removes the template (for `as_child`, it leaves a comment node as the position anchor), so the post-connect DOM equals React's. It also stores a pristine clone of the active panel's children taken before any interaction.
 
-Stimulus (`shadcn--tabs`, ONE controller on the root element; list, triggers and contents are targets, no per-part controller) updates: `aria-selected` / `data-state` on triggers, `data-state` / `hidden` / children on contents (mounting a FRESH clone of the pristine children on activation and dropping them on deactivation, so form fields inside reset exactly like a React remount, scenario `example__tabs-demo__interact`), roving `tabindex`, list `tabindex`, the `animation-duration` removal. `disconnect()` restores the server shape (re-inserts the `<template>`s for inactive panels) so a Turbo cache restore reconnects to equivalent markup.
+Stimulus (`chadcn--tabs`, ONE controller on the root element; list, triggers and contents are targets, no per-part controller) updates: `aria-selected` / `data-state` on triggers, `data-state` / `hidden` / children on contents (mounting a FRESH clone of the pristine children on activation and dropping them on deactivation, so form fields inside reset exactly like a React remount, scenario `example__tabs-demo__interact`), roving `tabindex`, list `tabindex`, the `animation-duration` removal. `disconnect()` restores the server shape (re-inserts the `<template>`s for inactive panels) so a Turbo cache restore reconnects to equivalent markup.
 
 ## Behavior
 

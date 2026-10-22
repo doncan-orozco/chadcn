@@ -70,8 +70,8 @@ class SmokeRunnerTest < Minitest::Test
   end
 
   def test_the_esbuild_smoke_expects_the_bundled_controllers
-    assert_includes Smoke::CleanApp::ESBUILD_BUNDLE_MARKERS, "shadcn--dialog"
-    refute_includes Smoke::CleanApp::ESBUILD_MARKUP.join, "controllers/shadcn/dialog_controller", "an esbuild page has no importmap"
+    assert_includes Smoke::CleanApp::ESBUILD_BUNDLE_MARKERS, "chadcn--dialog"
+    refute_includes Smoke::CleanApp::ESBUILD_MARKUP.join, "controllers/chadcn/dialog_controller", "an esbuild page has no importmap"
   end
 
   def test_the_plain_smoke_passes_offline_without_rails

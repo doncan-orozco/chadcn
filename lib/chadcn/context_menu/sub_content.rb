@@ -57,7 +57,7 @@ class Chadcn::ContextMenu::SubContent < Chadcn::Base
                                dir: root[:dir])
     # A Portal reaches only its own SubContent: sub menus nested inside need a Portal of their own.
     context[Chadcn::ContextMenu::PORTAL_KEY] = nil
-    template(data: { shadcn__dropdown_menu_template: sub[:content_id], options: json(options) }) do
+    template(data: { chadcn__dropdown_menu_template: sub[:content_id], options: json(options) }) do
       render_part(:div, @as_child, attrs) { yield if block_given? }
     end
   ensure

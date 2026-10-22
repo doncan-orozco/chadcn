@@ -1,14 +1,14 @@
 import { browserTest } from "./harness.mjs";
 import { assert, settle } from "./support.mjs";
 
-// Combobox (Base UI re-implemented in the shadcn--combobox controller). What the parity runner cannot express: the events and
+// Combobox (Base UI re-implemented in the chadcn--combobox controller). What the parity runner cannot express: the events and
 // their cancelable defaults, controlled values, the scorer behind the default filter, the hidden inputs a native form submits, the
 // Turbo snapshot and the cleanup on disconnect. Keyboard, pointer, chips, popup and placement parity against Base UI itself is
 // covered by the scenarios (G2/G3).
 browserTest.component = "combobox";
 const input = "[data-slot=input-group-control]";
 const chipInput = "[data-slot=combobox-chip-input]";
-const host = "[data-controller~='shadcn--combobox']";
+const host = "[data-controller~='chadcn--combobox']";
 const popup = "[data-slot=combobox-content]";
 const portal = "[data-base-ui-portal]";
 const item = "[data-slot=combobox-item]";
@@ -17,14 +17,14 @@ const press = async (page, key) => { await page.keyboard.press(key); await settl
 const type = async (page, text) => { await page.keyboard.type(text); await settle(page); };
 const items = (page) => page.locator(item).evaluateAll((els) => els.map((el) => el.textContent.trim()));
 const highlighted = (page) => page.evaluate(() => document.querySelector("[data-slot=combobox-item][data-highlighted]")?.textContent.trim());
-const hidden = (page) => page.evaluate(() => [...document.querySelectorAll("[data-shadcn--combobox-part=hidden-input], [data-shadcn--combobox-part=form-value]")].map((el) => el.value));
-const controller = (page) => page.evaluate(() => window.Stimulus.getControllerForElementAndIdentifier(document.querySelector("[data-controller~='shadcn--combobox']"), "shadcn--combobox").selected);
+const hidden = (page) => page.evaluate(() => [...document.querySelectorAll("[data-chadcn--combobox-part=hidden-input], [data-chadcn--combobox-part=form-value]")].map((el) => el.value));
+const controller = (page) => page.evaluate(() => window.Stimulus.getControllerForElementAndIdentifier(document.querySelector("[data-controller~='chadcn--combobox']"), "chadcn--combobox").selected);
 
 // Records the public events of the controller (name, detail, whether cancelable) in window.__events; `prevent` names are cancelled.
 const record = (page, { prevent = [] } = {}) => page.evaluate((prevent) => {
   window.__events = [];
   for (const name of ["value-change", "open-change", "input-value-change", "item-highlighted", "open-change-complete"]) {
-    document.addEventListener(`shadcn--combobox:${name}`, (event) => {
+    document.addEventListener(`chadcn--combobox:${name}`, (event) => {
       window.__events.push({ name, detail: event.detail, cancelable: event.cancelable, slot: event.target.dataset.controller });
       if (prevent.includes(name)) event.preventDefault();
     });
@@ -36,11 +36,11 @@ const events = (page, name) => page.evaluate((name) => window.__events.filter((e
 const snapshot = (page) => page.evaluate(async () => {
   document.dispatchEvent(new Event("turbo:before-cache"));
   await new Promise((resolve) => setTimeout(resolve));
-  return document.querySelector("[data-controller~='shadcn--combobox']").outerHTML;
+  return document.querySelector("[data-controller~='chadcn--combobox']").outerHTML;
 });
 const restore = async (page, html) => {
   await page.evaluate((html) => {
-    const live = document.querySelector("[data-controller~='shadcn--combobox']");
+    const live = document.querySelector("[data-controller~='chadcn--combobox']");
     live.insertAdjacentHTML("afterend", html);
     live.remove();
   }, html);
@@ -96,7 +96,7 @@ browserTest("combobox: with the fuzzy filter limit applies after ranking, so the
 browserTest("combobox: the contains filter is Base UI's collator substring match, in source order", async ({ open }) => {
   const page = await open("default__open-click");
   await page.evaluate(() => {
-    const instance = window.Stimulus.getControllerForElementAndIdentifier(document.querySelector("[data-controller~='shadcn--combobox']"), "shadcn--combobox");
+    const instance = window.Stimulus.getControllerForElementAndIdentifier(document.querySelector("[data-controller~='chadcn--combobox']"), "chadcn--combobox");
     instance.cfg = { ...instance.cfg, filter: "contains" };
   });
   await page.click(input);
@@ -177,7 +177,7 @@ browserTest("combobox: a controlled value fires the event but keeps the selectio
   assert.deepEqual(await controller(page), ["Astro"]);
   assert.deepEqual(await hidden(page), ["Astro"]);
   assert.equal(await page.locator(input).inputValue(), "Astro", "the controlled label comes back once the popup unmounted");
-  await page.locator(host).evaluate((el) => el.setAttribute("data-shadcn--combobox-selected-value", '["Nuxt.js"]'));
+  await page.locator(host).evaluate((el) => el.setAttribute("data-chadcn--combobox-selected-value", '["Nuxt.js"]'));
   await settle(page);
   assert.deepEqual(await hidden(page), ["Nuxt.js"]);
 });
@@ -190,7 +190,7 @@ browserTest("combobox: a controlled open keeps its state and follows the attribu
   await press(page, "Escape");
   assert.equal(await page.locator(popup).count(), 1, "the caller owns the state");
   assert.deepEqual((await events(page, "open-change")).map((e) => e.detail), [{ open: false, reason: "escape-key" }]);
-  await page.locator(host).evaluate((el) => el.setAttribute("data-shadcn--combobox-open-value", "false"));
+  await page.locator(host).evaluate((el) => el.setAttribute("data-chadcn--combobox-open-value", "false"));
   await settle(page);
   assert.equal(await page.locator(popup).count(), 0);
 });
@@ -394,7 +394,7 @@ browserTest("combobox: static children are never filtered and the list reports i
 browserTest("combobox: native autofill of the hidden input selects the matching item", async ({ open }) => {
   const page = await open("form__select-updates-hidden-input");
   await record(page);
-  await page.locator("[data-shadcn--combobox-part=hidden-input]").evaluate((el) => {
+  await page.locator("[data-chadcn--combobox-part=hidden-input]").evaluate((el) => {
     Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value").set.call(el, "remix");
     el.dispatchEvent(new Event("change", { bubbles: true }));
   });

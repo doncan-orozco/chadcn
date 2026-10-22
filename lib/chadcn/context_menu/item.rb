@@ -3,7 +3,7 @@
 using Chadcn::Values::Refinements
 
 # shadcn ContextMenuItem: a +div+ with +role="menuitem"+. Selecting it (click, Enter, Space) dispatches the cancelable,
-# bubbling +shadcn--context-menu:select+ event on the item and then closes the menu unless that event was prevented.
+# bubbling +chadcn--context-menu:select+ event on the item and then closes the menu unless that event was prevented.
 #
 # @example
 #   menu.item(variant: :destructive) { "Delete" }

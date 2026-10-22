@@ -83,7 +83,7 @@ receives `table:`.
 ## Toasts: the Toaster
 
 `Toaster` is the shadcn export of sonner. Render it once, in the layout; toasts reach it three ways, with no JavaScript dependency (the
-`shadcn--sonner` controller and `app/assets/tailwind/chadcn/sonner.css` do what the sonner library does):
+`chadcn--sonner` controller and `app/assets/tailwind/chadcn/sonner.css` do what the sonner library does):
 
 ```ruby
 # layout: the flash is shown as toasts (notice and success -> success, alert and error -> error, warning, info, anything else plain)
@@ -97,11 +97,11 @@ Chadcn::Sonner::Toast.new(type: :success, title: "Saved", description: "All chan
 // any script: the same function as sonner's toast
 window.Toaster.success("Saved", { description: "All changes stored", action: { label: "Undo", onClick: () => {} } })
 window.Toaster.promise(fetch("/save"), { loading: "Saving", success: "Saved", error: "Failed" })
-document.dispatchEvent(new CustomEvent("shadcn--sonner:show", { detail: { message: "Hello", type: "info" } }))
+document.dispatchEvent(new CustomEvent("chadcn--sonner:show", { detail: { message: "Hello", type: "info" } }))
 ```
 
 In a Rails controller, `turbo_stream.append "toaster", Chadcn::Sonner::Toast.new(type: :success, title: "Saved")` renders the
-`<template data-shadcn--sonner-toast>` the Toaster turns into a toast. Titles and descriptions are text, never markup. Types:
+`<template data-chadcn--sonner-toast>` the Toaster turns into a toast. Titles and descriptions are text, never markup. Types:
 `default` (no icon), `success`, `info`, `warning`, `error`, `loading` (no timer until it is updated). A toast with the same `id`
 updates instead of stacking.
 
@@ -109,7 +109,7 @@ updates instead of stacking.
   it; Escape collapses it). An `error` toast is also written to a hidden `role="alert"` element so it interrupts.
 - Toasts pause while the stack is hovered, focused or expanded and when the tab is hidden; a swipe towards the edge of `position:`
   dismisses; `dismissible: false` stops swipe, close button and cancel.
-- Events on the section: `shadcn--sonner:dismiss`, `:auto-close`, `:action` and `:cancel` (`detail.id`, and `detail.name` for the toast's `event:`).
+- Events on the section: `chadcn--sonner:dismiss`, `:auto-close`, `:action` and `:cancel` (`detail.id`, and `detail.name` for the toast's `event:`).
   An action with `href:` visits that http(s) URL.
 - With `data: { turbo_permanent: true }` the Toaster survives Turbo visits (and its toasts stay), but then a page that renders `flash:`
   is not re-read: send the flash as a Turbo Stream instead. Without it, toasts disappear with the page, and a Turbo cache snapshot never
@@ -119,8 +119,8 @@ updates instead of stacking.
 
 ## Notes
 
-- `Avatar::Image` ships its `<img>` in an inert `<template>` and the `shadcn--avatar` controller mounts it once it has loaded (Radix
-  `Avatar.Image` semantics, event `shadcn--avatar:loading-status-change`); `Avatar::Fallback` shows meanwhile, after `delay_ms:` when given.
+- `Avatar::Image` ships its `<img>` in an inert `<template>` and the `chadcn--avatar` controller mounts it once it has loaded (Radix
+  `Avatar.Image` semantics, event `chadcn--avatar:loading-status-change`); `Avatar::Fallback` shows meanwhile, after `delay_ms:` when given.
 - `Badge`, `Item`, `Marker` and `Empty::Media` expose `.variants(...)` returning the class string, like React's cva helpers, to
   style another element the same way.
 - `Progress` renders the Radix progressbar DOM (`role="progressbar"`, `aria-valuemin` / `aria-valuemax`, `data-state`, `data-max`; no

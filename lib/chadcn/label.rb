@@ -4,7 +4,7 @@ using Chadcn::Values::Refinements
 
 # shadcn/ui Label over Radix Label. Spec: docs/shadcn-port/specs/label.md
 #
-# A form label, the shadcn `Label` over Radix Label (its `shadcn--label` controller blocks text selection on double click).
+# A form label, the shadcn `Label` over Radix Label (its `chadcn--label` controller blocks text selection on double click).
 #
 # @example
 #   render Chadcn::Label.new(html_for: "email") { "Email" }
@@ -17,11 +17,11 @@ class Chadcn::Label < Chadcn::Base
   # Stimulus identifier.
   #
   # @api private
-  CONTROLLER = "shadcn--label"
+  CONTROLLER = "chadcn--label"
   # Stimulus action descriptor.
   #
   # @api private
-  ACTION = "mousedown->shadcn--label#mousedown"
+  ACTION = "mousedown->chadcn--label#mousedown"
 
   # @param html_for [String, nil] id of the labelled control, rendered as `for`; wins over an explicit `for:`
   # @param as_child [false, Symbol, String, Chadcn::Base]

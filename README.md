@@ -8,7 +8,7 @@ the same behavior as the React originals (Radix, and the libraries shadcn wraps)
 
 - One Ruby class per React export: `Dialog` is `Chadcn::Dialog`, `DialogContent` is `Chadcn::Dialog::Content`.
 - Props are keyword arguments (`variant: "outline"`, `default_open: true`), `className` is `class:`, children are the block.
-- Behavior lives in Stimulus controllers named `shadcn--<component>`; they ship in the gem with the shared primitives they use.
+- Behavior lives in Stimulus controllers named `chadcn--<component>`; they ship in the gem with the shared primitives they use.
 - Colors come from one shadcn-format theme file you own; anything pasted from ui.shadcn.com/themes works unchanged.
 
 ## Why chadcn
@@ -80,14 +80,14 @@ The generator is idempotent: a second run rewrites the same block and skips the 
 are lost on the next run; everything outside them is left alone.
 
 Stimulus needs nothing from you when the app uses the default `app/javascript/controllers/index.js`
-(`eagerLoadControllersFrom("controllers", application)`): the engine pins the gem's controllers under `controllers/shadcn/`, so they
-register as `shadcn--dialog`, `shadcn--select`, and so on. An app that registers controllers by hand imports and registers them
+(`eagerLoadControllersFrom("controllers", application)`): the engine pins the gem's controllers under `controllers/chadcn/`, so they
+register as `chadcn--dialog`, `chadcn--select`, and so on. An app that registers controllers by hand imports and registers them
 itself:
 
 ```js
 // app/javascript/controllers/index.js
-import DialogController from "controllers/shadcn/dialog_controller"
-application.register("shadcn--dialog", DialogController)
+import DialogController from "controllers/chadcn/dialog_controller"
+application.register("chadcn--dialog", DialogController)
 ```
 
 Now render a Button and a Dialog from a Phlex view (`phlex-rails`; `bin/rails g phlex:install` sets up `app/views` and
@@ -134,9 +134,9 @@ when neither is found the generator says so and writes no JavaScript.
 - **importmap** (Rails' default and the setup above): nothing is written, the engine pins the controllers, the primitives and the
   vendored `@floating-ui/dom`.
 - **esbuild** (no importmap, so nothing pins the gem's files): the generator copies the gem's controllers into
-  `app/javascript/controllers/shadcn/` and its primitives into `app/javascript/shadcn/primitives/` (managed copies with relative
-  imports and a "managed by" header; edits are overwritten), writes `app/javascript/controllers/shadcn/index.js` (it registers every
-  controller as `shadcn--<name>` with your `application`), adds `import "./controllers/shadcn"` to `app/javascript/application.js`
+  `app/javascript/controllers/chadcn/` and its primitives into `app/javascript/chadcn/primitives/` (managed copies with relative
+  imports and a "managed by" header; edits are overwritten), writes `app/javascript/controllers/chadcn/index.js` (it registers every
+  controller as `chadcn--<name>` with your `application`), adds `import "./controllers/chadcn"` to `app/javascript/application.js`
   and adds `@floating-ui/dom` to `package.json` with your package manager (yarn, pnpm or bun when their lock file is present,
   npm otherwise). Run `bin/rails javascript:build` afterwards. The copies are the only part of the gem that can go stale: run the
   generator again after every gem update (it is idempotent and prints `identical` for current files), and `bin/rails chadcn:doctor`
@@ -179,7 +179,7 @@ The task exits 1 when any check fails (warnings do not fail it), so it can gate 
 | `phlex versions` | Phlex inside `~> 2.3`, and phlex-rails on the same major |
 | `propshaft stub filter` | the hook that hides the Tailwind stubs works (not applicable without Propshaft) |
 | `source block` | the managed block exists and its `@source` points at the gem's `lib` |
-| `stimulus controllers` | the gem's `shadcn--*` controllers get registered |
+| `stimulus controllers` | the gem's `chadcn--*` controllers get registered |
 | `tailwind` | `tailwindcss-rails` 4.3.0 or newer (a 4.x below it fails with `tailwindcss-rails X found, it cannot bundle an engine's CSS before 4.3.0`, a 3.x with `tailwindcss-rails X found, the engine bundle needs tailwindcss-rails 4`) and Tailwind 4, and `@import "tailwindcss"` in the entry file |
 | `theme files` | `theme.css` and `presets/` in the theme directory |
 | `theme import` | the managed block imports `theme.css` |
@@ -194,7 +194,7 @@ A run on a healthy app (paths shortened):
 [PASS] phlex versions: phlex 2.4.1 (~> 2.3), phlex-rails 2.4.0
 [PASS] propshaft stub filter: the Tailwind stubs are hidden from the served assets
 [PASS] source block: @source points at the gem's lib
-[PASS] stimulus controllers: app/javascript/controllers/index.js registers the controllers namespace, where the gem's shadcn--* controllers are
+[PASS] stimulus controllers: app/javascript/controllers/index.js registers the controllers namespace, where the gem's chadcn--* controllers are
 [PASS] tailwind: tailwindcss-rails 4.6.0, Tailwind 4.3.3
 [PASS] theme files: theme.css and presets/ in app/assets/tailwind/theme
 [PASS] theme import: the block imports app/assets/tailwind/theme/theme.css
@@ -243,15 +243,15 @@ gem's Ruby files (relative to itself, so it follows the gem), the token mapping 
 Copy `app/assets/tailwind/chadcn/theme.css` (and `presets/`) out of the gem into your project; that copy is the file you edit.
 `ruby -e 'require "chadcn"; puts Chadcn.root'` prints the gem root.
 
-Stimulus: the controllers are ES modules under `<gem root>/app/javascript/controllers/shadcn/<name>_controller.js` and the shared
-primitives live under `<gem root>/app/javascript/shadcn/primitives/<name>.js`. They import each other by bare, extensionless
-specifiers: `controllers/shadcn/<name>_controller` (`alert_dialog_controller` and `sheet_controller` import the dialog controller,
-`context_menu_controller` imports the dropdown menu controller), `shadcn/primitives/<name>` (`typeahead` imports `collection`; `roving_focus` imports
+Stimulus: the controllers are ES modules under `<gem root>/app/javascript/controllers/chadcn/<name>_controller.js` and the shared
+primitives live under `<gem root>/app/javascript/chadcn/primitives/<name>.js`. They import each other by bare, extensionless
+specifiers: `controllers/chadcn/<name>_controller` (`alert_dialog_controller` and `sheet_controller` import the dialog controller,
+`context_menu_controller` imports the dropdown menu controller), `chadcn/primitives/<name>` (`typeahead` imports `collection`; `roving_focus` imports
 `direction`, `ids` and `collection`; `collapsible_content` imports `presence`), `@hotwired/stimulus` and, for the positioned overlays and menus, `@floating-ui/dom` (imported by `positioner`). The vendored copy in
 `<gem root>/vendor/javascript/@floating-ui--*.js` imports `@floating-ui/core`, `@floating-ui/utils` and `@floating-ui/utils/dom`
 in turn (or take `@floating-ui/dom` from npm). You have to resolve all of those specifiers yourself, in one of two ways.
 
-1. A browser import map with one entry per file. A prefix entry such as `"shadcn/"` does not work: the specifiers carry no `.js`, so
+1. A browser import map with one entry per file. A prefix entry such as `"chadcn/"` does not work: the specifiers carry no `.js`, so
    the browser would request a URL without an extension. For the Dialog the controller and the primitives it imports (it needs
    no Floating UI) are:
 
@@ -260,14 +260,14 @@ in turn (or take `@floating-ui/dom` from npm). You have to resolve all of those 
    {
      "imports": {
        "@hotwired/stimulus": "/vendor/stimulus.js",
-       "controllers/shadcn/dialog_controller": "/shadcn/controllers/shadcn/dialog_controller.js",
-       "shadcn/primitives/dismissable_layer": "/shadcn/primitives/dismissable_layer.js",
-       "shadcn/primitives/focus_guards": "/shadcn/primitives/focus_guards.js",
-       "shadcn/primitives/focus_scope": "/shadcn/primitives/focus_scope.js",
-       "shadcn/primitives/hide_others": "/shadcn/primitives/hide_others.js",
-       "shadcn/primitives/presence": "/shadcn/primitives/presence.js",
-       "shadcn/primitives/scroll_lock": "/shadcn/primitives/scroll_lock.js",
-       "shadcn/primitives/template_mount": "/shadcn/primitives/template_mount.js"
+       "controllers/chadcn/dialog_controller": "/chadcn/controllers/chadcn/dialog_controller.js",
+       "chadcn/primitives/dismissable_layer": "/chadcn/primitives/dismissable_layer.js",
+       "chadcn/primitives/focus_guards": "/chadcn/primitives/focus_guards.js",
+       "chadcn/primitives/focus_scope": "/chadcn/primitives/focus_scope.js",
+       "chadcn/primitives/hide_others": "/chadcn/primitives/hide_others.js",
+       "chadcn/primitives/presence": "/chadcn/primitives/presence.js",
+       "chadcn/primitives/scroll_lock": "/chadcn/primitives/scroll_lock.js",
+       "chadcn/primitives/template_mount": "/chadcn/primitives/template_mount.js"
      }
    }
    </script>
@@ -276,18 +276,18 @@ in turn (or take `@floating-ui/dom` from npm). You have to resolve all of those 
    Serve the two gem directories at those URLs. For other controllers add one line per file in both directories (and the four
    `@floating-ui--*.js` files for the positioned ones).
 
-2. A bundler alias: map `controllers/shadcn` to `<gem root>/app/javascript/controllers/shadcn` and `shadcn` to
-   `<gem root>/app/javascript/shadcn`, and install `@floating-ui/dom` from npm.
+2. A bundler alias: map `controllers/chadcn` to `<gem root>/app/javascript/controllers/chadcn` and `chadcn` to
+   `<gem root>/app/javascript/chadcn`, and install `@floating-ui/dom` from npm.
 
 Rails apps on importmap-rails need none of this (the engine pins everything in `config/importmap.rb`); esbuild apps use the generator, see [JavaScript pipelines](#javascript-pipelines). Then register each
-controller under its `shadcn--<name>` identifier:
+controller under its `chadcn--<name>` identifier:
 
 ```js
 import { Application } from "@hotwired/stimulus"
-import DialogController from "controllers/shadcn/dialog_controller"
+import DialogController from "controllers/chadcn/dialog_controller"
 
 const application = Application.start()
-application.register("shadcn--dialog", DialogController)
+application.register("chadcn--dialog", DialogController)
 ```
 
 The theme tooling works too once the directory is configured: `Chadcn.configure { |config| config.theme_dir = "/path/to/theme" }`,
@@ -324,13 +324,13 @@ end
 - `buttonVariants(...)` and the other cva helpers are class methods returning the class string: `Chadcn::Button.variants(variant: "link")`.
 - Controlled state follows React: `open:` / `value:` / `checked:` render that state and the controller only dispatches the change
   event; `default_open:` / `default_value:` / `default_checked:` start uncontrolled. Change callbacks are DOM events named
-  `shadcn--<component>:<event>` (`shadcn--dialog:open-change`, `shadcn--select:value-change`, `shadcn--slider:value-commit`...) with
+  `chadcn--<component>:<event>` (`chadcn--dialog:open-change`, `chadcn--select:value-change`, `chadcn--slider:value-commit`...) with
   the new value in `event.detail`.
 - Icons: `render Chadcn::Icon.new("check")` renders the Lucide SVG (lucide-react 0.577.0 markup), sized by the parent
   component's selectors like in shadcn.
-- Dark mode is the `.dark` class on an ancestor (`<html>`); `data-controller="shadcn--theme"` with the actions `setLight`,
+- Dark mode is the `.dark` class on an ancestor (`<html>`); `data-controller="chadcn--theme"` with the actions `setLight`,
   `setDark`, `setSystem` and `toggle` manages it and remembers the choice in `localStorage` under `shadcn-theme`
-  (`data-shadcn--theme-storage-key-value="my-key"` changes it; blocked storage falls back to the system preference). A script that
+  (`data-chadcn--theme-storage-key-value="my-key"` changes it; blocked storage falls back to the system preference). A script that
   sets the class before first paint has to read the same key.
 - Turbo: the overlay, disclosure, avatar and scroll-area controllers handle `turbo:before-cache`, so a cached page has no open
   modal, scroll lock or `aria-hidden` siblings.
@@ -498,12 +498,12 @@ Pre-1.0 releases may still change the API between minor versions; every change i
 and removals are deprecated for one minor version first.
 
 - From the in-app port (`Components::V2::*`): the constants are `Chadcn::*` with the same nesting (`Components::V2::Dialog::Content`
-  is `Chadcn::Dialog::Content`); Stimulus identifiers `v2--<name>` are `shadcn--<name>` (`data-v2--dialog-part` is
-  `data-shadcn--dialog-part`, events `v2--dialog:open-change` are `shadcn--dialog:open-change`); the controllers moved from
-  `controllers/v2/` to `controllers/shadcn/` and the primitives from `v2/primitives/` to `shadcn/primitives/`.
-- The default key of the `shadcn--theme` controller is `shadcn-theme` (it was `papyro-theme`); set
-  `data-shadcn--theme-storage-key-value="papyro-theme"` to keep stored choices. The probe controllers and `theme_panel_controller.js`
-  are no longer shipped: remove any pin or registration of `shadcn--_probe-*` or `shadcn--theme-panel`.
+  is `Chadcn::Dialog::Content`); Stimulus identifiers `v2--<name>` are `chadcn--<name>` (`data-v2--dialog-part` is
+  `data-chadcn--dialog-part`, events `v2--dialog:open-change` are `chadcn--dialog:open-change`); the controllers moved from
+  `controllers/v2/` to `controllers/chadcn/` and the primitives from `v2/primitives/` to `chadcn/primitives/`.
+- The default key of the `chadcn--theme` controller is `shadcn-theme` (it was `papyro-theme`); set
+  `data-chadcn--theme-storage-key-value="papyro-theme"` to keep stored choices. The probe controllers and `theme_panel_controller.js`
+  are no longer shipped: remove any pin or registration of `chadcn--_probe-*` or `chadcn--theme-panel`.
 - `Direction::Provider` without `dir:` or `direction:` keeps the outer direction instead of resetting to `ltr`.
 - The gem no longer depends on `activesupport`; code that relied on it being loaded by the gem has to require it itself.
 - The gem's Zeitwerk loader is no longer set up when the gem is required. In a Rails app the engine sets it up in an initializer that

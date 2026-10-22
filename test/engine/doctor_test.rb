@@ -184,11 +184,11 @@ class EngineTest::DoctorTask < Minitest::Test
 
       assert_equal :pass, js_pipeline(dir).status, js_pipeline(dir).message
 
-      File.write(File.join(dir, "app/javascript/shadcn/primitives/presence.js"), "// edited\n")
+      File.write(File.join(dir, "app/javascript/chadcn/primitives/presence.js"), "// edited\n")
       stale = js_pipeline(dir)
 
       assert_equal :fail, stale.status
-      assert_includes stale.message, "differ from the gem's (app/javascript/shadcn/primitives/presence.js)"
+      assert_includes stale.message, "differ from the gem's (app/javascript/chadcn/primitives/presence.js)"
 
       File.write(File.join(dir, "app/javascript/application.js"), "")
       File.write(File.join(dir, "package.json"), %({"scripts": {"build": "esbuild"}}))
@@ -205,11 +205,11 @@ class EngineTest::DoctorTask < Minitest::Test
       capture_io { Chadcn::Generators::InstallGenerator.start([], destination_root: dir) }
       entry = File.join(dir, "app/javascript/application.js")
 
-      File.write(entry, "import \"./controllers\"\nimport './controllers/shadcn'\n")
+      File.write(entry, "import \"./controllers\"\nimport './controllers/chadcn'\n")
 
       assert_equal :pass, js_pipeline(dir).status, js_pipeline(dir).message
 
-      File.write(entry, "import \"./controllers\"\n// import \"./controllers/shadcn\"\n")
+      File.write(entry, "import \"./controllers\"\n// import \"./controllers/chadcn\"\n")
 
       assert_includes js_pipeline(dir).message, "lacks"
     end
@@ -229,10 +229,10 @@ class EngineTest::DoctorTask < Minitest::Test
 
   def test_the_stimulus_check_does_not_trust_the_esbuild_index_in_an_importmap_app
     Dir.mktmpdir("chadcn-doctor-js") do |dir|
-      FileUtils.mkdir_p(File.join(dir, "app/javascript/controllers/shadcn"))
+      FileUtils.mkdir_p(File.join(dir, "app/javascript/controllers/chadcn"))
       FileUtils.mkdir_p(File.join(dir, "config"))
       File.write(File.join(dir, "config/importmap.rb"), "")
-      File.write(File.join(dir, "app/javascript/controllers/shadcn/index.js"), "")
+      File.write(File.join(dir, "app/javascript/controllers/chadcn/index.js"), "")
       context = Chadcn::Doctor::Context.new(root: dir, gems: { "stimulus-rails" => Gem::Version.new("1.3.0") })
 
       assert_equal :fail, Chadcn::Doctor::Checks::Stimulus.call(context).status

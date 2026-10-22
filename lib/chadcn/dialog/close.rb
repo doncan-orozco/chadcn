@@ -18,7 +18,7 @@ class Chadcn::Dialog::Close < Chadcn::Base
   # @return [void]
   def view_template(&)
     attrs = merge_attrs({
-                          type: "button", data: { slot: "dialog-close", shadcn__dialog_part: "close", action: "click->shadcn--dialog#close" }
+                          type: "button", data: { slot: "dialog-close", chadcn__dialog_part: "close", action: "click->chadcn--dialog#close" }
                         }, @attrs)
     render_part(:button, @as_child, attrs, &)
   end

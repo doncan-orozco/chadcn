@@ -21,10 +21,10 @@ Components::V2::Toggle.new(
 
 - `variant:` / `size:` are destructured in shadcn with no default (`function Toggle({ className, variant, size, ...props })`); cva `defaultVariants: { variant: "default", size: "default" }` applies when `undefined`. Ruby: `nil` -> defaults; `:outline`, `"outline"`, `:sm`, `"sm"`, `:lg`, `"lg"`, `:default`, `"default"` accepted.
 - `toggleVariants` -> `Components::V2::Toggle.variants(variant: nil, size: nil, class: nil)` returns the merged class string (cva base + variant + size + class through `cn`), same semantics as calling `toggleVariants({ variant, size, className })`. Used by `ToggleGroup` items later.
-- `pressed:` (controlled): the server renders that state; click/Space/Enter does NOT change `data-state`/`aria-pressed`, it only dispatches `shadcn--toggle:pressed-change` with `detail: { pressed: !pressed }` (ucs.mjs:37-43: in controlled mode `onChange(value2)` only when `value2 !== prop`, nothing stored). Callers re-render.
+- `pressed:` (controlled): the server renders that state; click/Space/Enter does NOT change `data-state`/`aria-pressed`, it only dispatches `chadcn--toggle:pressed-change` with `detail: { pressed: !pressed }` (ucs.mjs:37-43: in controlled mode `onChange(value2)` only when `value2 !== prop`, nothing stored). Callers re-render.
 - `default_pressed:` (uncontrolled): the controller owns state after connect.
-- Event: `shadcn--toggle:pressed-change`, `detail: { pressed: <Boolean> }`, dispatched from the button after every user toggle (uncontrolled: after the DOM is updated, like useUncontrolledState's effect ucs.mjs:62-67; controlled: instead of updating). Not cancelable (`onPressedChange` is not preventable). Consumer `onClick` -> plain `data: { action: "click->x#y" }`; Radix runs the consumer onClick first and skips the toggle when it called `preventDefault()` (primitive.mjs:6-12 `composeEventHandlers`), so the controller checks `event.defaultPrevented` and must run after caller actions (its `click->shadcn--toggle#toggle` descriptor is appended after the caller's `data-action` tokens).
-- `as_child:`: Radix Root is `Primitive.button` (toggle.mjs:22), so `asChild` renders the single child through Slot with `type="button"`, `aria-pressed`, `data-state`, `data-disabled`, `data-slot="toggle"`, the toggle classes and the click handler merged onto it (child props win, class plain-joined slot first; see api-mapping "as_child"). Stimulus `data-controller="shadcn--toggle"` and its action are merged the same way so the child toggles on click.
+- Event: `chadcn--toggle:pressed-change`, `detail: { pressed: <Boolean> }`, dispatched from the button after every user toggle (uncontrolled: after the DOM is updated, like useUncontrolledState's effect ucs.mjs:62-67; controlled: instead of updating). Not cancelable (`onPressedChange` is not preventable). Consumer `onClick` -> plain `data: { action: "click->x#y" }`; Radix runs the consumer onClick first and skips the toggle when it called `preventDefault()` (primitive.mjs:6-12 `composeEventHandlers`), so the controller checks `event.defaultPrevented` and must run after caller actions (its `click->chadcn--toggle#toggle` descriptor is appended after the caller's `data-action` tokens).
+- `as_child:`: Radix Root is `Primitive.button` (toggle.mjs:22), so `asChild` renders the single child through Slot with `type="button"`, `aria-pressed`, `data-state`, `data-disabled`, `data-slot="toggle"`, the toggle classes and the click handler merged onto it (child props win, class plain-joined slot first; see api-mapping "as_child"). Stimulus `data-controller="chadcn--toggle"` and its action are merged the same way so the child toggles on click.
 - `ref` has no equivalent.
 
 ## Structure
@@ -34,7 +34,7 @@ Single part `Toggle` (`data-slot="toggle"`). Server-rendered DOM, attribute orde
 ```html
 <button type="button" aria-pressed="false" data-state="off"
         data-slot="toggle" class="<toggleVariants classes>"
-        data-controller="shadcn--toggle" data-action="click->shadcn--toggle#toggle" ...caller attrs>
+        data-controller="chadcn--toggle" data-action="click->chadcn--toggle#toggle" ...caller attrs>
   ...children
 </button>
 ```
@@ -56,7 +56,7 @@ Classes, verbatim from toggle.tsx `toggleVariants`:
 - size `lg`: `h-10 min-w-10 px-2.5`
 - No `compoundVariants`. The manifest's `class_tokens` lists `default`: that is the cva key picked up by the extractor, not a class; the port must not emit a `default` class.
 
-Server vs Stimulus: the server renders every attribute for the initial state (R4). Stimulus (`shadcn--toggle`, host = the button itself) only flips `aria-pressed` and `data-state` in uncontrolled mode and dispatches the event.
+Server vs Stimulus: the server renders every attribute for the initial state (R4). Stimulus (`chadcn--toggle`, host = the button itself) only flips `aria-pressed` and `data-state` in uncontrolled mode and dispatches the event.
 
 ## Behavior
 

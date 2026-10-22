@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # shadcn/ui Sonner (the Toaster wrapper of shadcn, over the sonner library). Spec: dev/port/specs/sonner.md.
-# Behavior in controllers/shadcn/sonner_controller.js (`shadcn--sonner`) on the toast_stack primitive; styles in
+# Behavior in controllers/chadcn/sonner_controller.js (`chadcn--sonner`) on the toast_stack primitive; styles in
 # app/assets/tailwind/chadcn/sonner.css. No JavaScript library is involved.
 #
 # The family root. `Sonner.new(**options)` renders a {Toaster} with those options, so the block can use the generated helpers
@@ -11,7 +11,7 @@
 #
 # * JavaScript: `window.Toaster.success("Saved", { description: "..." })`, the same call as sonner's `toast.success`.
 # * Server: `Toaster.new(flash: flash)` renders the flash as toasts, and a Turbo Stream appends a {Toast} to the Toaster's id.
-# * Any element: dispatch `shadcn--sonner:show` with `detail: { message:, type:, ... }`.
+# * Any element: dispatch `chadcn--sonner:show` with `detail: { message:, type:, ... }`.
 #
 # @example Layout
 #   render Chadcn::Toaster.new(flash: { notice: "Saved" }, close_button: true)

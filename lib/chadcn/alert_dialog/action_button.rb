@@ -27,8 +27,8 @@ module Chadcn::AlertDialog::ActionButton
   def view_template(&)
     attrs = merge_attrs({
                           type: "button",
-                          data: slot_data.merge(variant: @variant, size: @size, shadcn__dialog_part: "close",
-                                                action: "click->shadcn--alert-dialog#close")
+                          data: slot_data.merge(variant: @variant, size: @size, chadcn__dialog_part: "close",
+                                                action: "click->chadcn--alert-dialog#close")
                         }, @attrs.except(:class))
     attrs[:class] = [ @button_classes, *Array(@attrs[:class]) ].reject_blank.join(" ")
     render_part(:button, @as_child, attrs, &)

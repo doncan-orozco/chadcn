@@ -6,7 +6,7 @@
       "tree": {
         "c": "_form",
         "props": {
-          "data-controller": "shadcn---probe-form-bubble-input",
+          "data-controller": "chadcn---probe-form-bubble-input",
           "data-probe-kind": "checkbox",
           "data-slot": "form",
           "data-probe-name": "terms",
@@ -24,8 +24,8 @@
                 "props": {
                   "type": "button",
                   "data-slot": "control",
-                  "data-shadcn---probe-form-bubble-input-target": "control",
-                  "data-action": "click->shadcn---probe-form-bubble-input#toggle keydown->shadcn---probe-form-bubble-input#keydown",
+                  "data-chadcn---probe-form-bubble-input-target": "control",
+                  "data-action": "click->chadcn---probe-form-bubble-input#toggle keydown->chadcn---probe-form-bubble-input#keydown",
                   "role": "checkbox",
                   "aria-checked": "false",
                   "data-state": "unchecked",
@@ -39,7 +39,7 @@
                 "props": {
                   "data-slot": "log",
                   "className": "text-xs",
-                  "data-shadcn---probe-form-bubble-input-target": "log"
+                  "data-chadcn---probe-form-bubble-input-target": "log"
                 }
               }
             ]
@@ -68,7 +68,7 @@
       "tree": {
         "c": "_form",
         "props": {
-          "data-controller": "shadcn---probe-form-bubble-input",
+          "data-controller": "chadcn---probe-form-bubble-input",
           "data-probe-kind": "checkbox",
           "data-slot": "form",
           "data-probe-name": "terms",
@@ -87,8 +87,8 @@
                 "props": {
                   "type": "button",
                   "data-slot": "control",
-                  "data-shadcn---probe-form-bubble-input-target": "control",
-                  "data-action": "click->shadcn---probe-form-bubble-input#toggle keydown->shadcn---probe-form-bubble-input#keydown",
+                  "data-chadcn---probe-form-bubble-input-target": "control",
+                  "data-action": "click->chadcn---probe-form-bubble-input#toggle keydown->chadcn---probe-form-bubble-input#keydown",
                   "role": "checkbox",
                   "aria-checked": "true",
                   "data-state": "checked",
@@ -114,7 +114,7 @@
                 "props": {
                   "data-slot": "log",
                   "className": "text-xs",
-                  "data-shadcn---probe-form-bubble-input-target": "log"
+                  "data-chadcn---probe-form-bubble-input-target": "log"
                 }
               }
             ]
@@ -139,7 +139,7 @@
       "tree": {
         "c": "_form",
         "props": {
-          "data-controller": "shadcn---probe-form-bubble-input",
+          "data-controller": "chadcn---probe-form-bubble-input",
           "data-probe-kind": "checkbox",
           "data-slot": "form",
           "data-probe-name": "terms",
@@ -159,8 +159,8 @@
                 "props": {
                   "type": "button",
                   "data-slot": "control",
-                  "data-shadcn---probe-form-bubble-input-target": "control",
-                  "data-action": "click->shadcn---probe-form-bubble-input#toggle keydown->shadcn---probe-form-bubble-input#keydown",
+                  "data-chadcn---probe-form-bubble-input-target": "control",
+                  "data-action": "click->chadcn---probe-form-bubble-input#toggle keydown->chadcn---probe-form-bubble-input#keydown",
                   "role": "checkbox",
                   "aria-checked": "false",
                   "data-state": "unchecked",
@@ -176,7 +176,7 @@
                 "props": {
                   "data-slot": "log",
                   "className": "text-xs",
-                  "data-shadcn---probe-form-bubble-input-target": "log"
+                  "data-chadcn---probe-form-bubble-input-target": "log"
                 }
               }
             ]
@@ -196,7 +196,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "data-controller": "shadcn---probe-form-bubble-input",
+          "data-controller": "chadcn---probe-form-bubble-input",
           "data-probe-kind": "checkbox",
           "data-probe-name": "terms",
           "data-probe-value": "on"
@@ -213,8 +213,8 @@
                 "props": {
                   "type": "button",
                   "data-slot": "control",
-                  "data-shadcn---probe-form-bubble-input-target": "control",
-                  "data-action": "click->shadcn---probe-form-bubble-input#toggle keydown->shadcn---probe-form-bubble-input#keydown",
+                  "data-chadcn---probe-form-bubble-input-target": "control",
+                  "data-action": "click->chadcn---probe-form-bubble-input#toggle keydown->chadcn---probe-form-bubble-input#keydown",
                   "role": "checkbox",
                   "aria-checked": "false",
                   "data-state": "unchecked",
@@ -228,7 +228,7 @@
                 "props": {
                   "data-slot": "log",
                   "className": "text-xs",
-                  "data-shadcn---probe-form-bubble-input-target": "log"
+                  "data-chadcn---probe-form-bubble-input-target": "log"
                 }
               }
             ]
@@ -253,7 +253,7 @@
       "tree": {
         "c": "_form",
         "props": {
-          "data-controller": "shadcn---probe-form-bubble-input",
+          "data-controller": "chadcn---probe-form-bubble-input",
           "data-probe-kind": "checkbox",
           "data-slot": "form",
           "data-probe-name": "terms",
@@ -272,8 +272,8 @@
                 "props": {
                   "type": "button",
                   "data-slot": "control",
-                  "data-shadcn---probe-form-bubble-input-target": "control",
-                  "data-action": "click->shadcn---probe-form-bubble-input#toggle keydown->shadcn---probe-form-bubble-input#keydown",
+                  "data-chadcn---probe-form-bubble-input-target": "control",
+                  "data-action": "click->chadcn---probe-form-bubble-input#toggle keydown->chadcn---probe-form-bubble-input#keydown",
                   "role": "checkbox",
                   "aria-checked": "mixed",
                   "data-state": "indeterminate",
@@ -299,7 +299,7 @@
                 "props": {
                   "data-slot": "log",
                   "className": "text-xs",
-                  "data-shadcn---probe-form-bubble-input-target": "log"
+                  "data-chadcn---probe-form-bubble-input-target": "log"
                 }
               }
             ]
@@ -324,7 +324,7 @@
       "tree": {
         "c": "_form",
         "props": {
-          "data-controller": "shadcn---probe-form-bubble-input",
+          "data-controller": "chadcn---probe-form-bubble-input",
           "data-probe-kind": "switch",
           "data-slot": "form",
           "data-probe-name": "notify",
@@ -342,8 +342,8 @@
                 "props": {
                   "type": "button",
                   "data-slot": "control",
-                  "data-shadcn---probe-form-bubble-input-target": "control",
-                  "data-action": "click->shadcn---probe-form-bubble-input#toggle keydown->shadcn---probe-form-bubble-input#keydown",
+                  "data-chadcn---probe-form-bubble-input-target": "control",
+                  "data-action": "click->chadcn---probe-form-bubble-input#toggle keydown->chadcn---probe-form-bubble-input#keydown",
                   "role": "switch",
                   "aria-checked": "false",
                   "data-state": "unchecked",
@@ -366,7 +366,7 @@
                 "props": {
                   "data-slot": "log",
                   "className": "text-xs",
-                  "data-shadcn---probe-form-bubble-input-target": "log"
+                  "data-chadcn---probe-form-bubble-input-target": "log"
                 }
               }
             ]
@@ -399,7 +399,7 @@
       "tree": {
         "c": "_form",
         "props": {
-          "data-controller": "shadcn---probe-form-bubble-input",
+          "data-controller": "chadcn---probe-form-bubble-input",
           "data-probe-kind": "radio",
           "data-slot": "form",
           "data-probe-name": "plan",
@@ -426,8 +426,8 @@
                     "props": {
                       "type": "button",
                       "data-slot": "control",
-                      "data-shadcn---probe-form-bubble-input-target": "control",
-                      "data-action": "click->shadcn---probe-form-bubble-input#toggle keydown->shadcn---probe-form-bubble-input#keydown",
+                      "data-chadcn---probe-form-bubble-input-target": "control",
+                      "data-action": "click->chadcn---probe-form-bubble-input#toggle keydown->chadcn---probe-form-bubble-input#keydown",
                       "role": "radio",
                       "aria-checked": "true",
                       "data-state": "checked",
@@ -441,8 +441,8 @@
                     "props": {
                       "type": "button",
                       "data-slot": "control",
-                      "data-shadcn---probe-form-bubble-input-target": "control",
-                      "data-action": "click->shadcn---probe-form-bubble-input#toggle keydown->shadcn---probe-form-bubble-input#keydown",
+                      "data-chadcn---probe-form-bubble-input-target": "control",
+                      "data-action": "click->chadcn---probe-form-bubble-input#toggle keydown->chadcn---probe-form-bubble-input#keydown",
                       "role": "radio",
                       "aria-checked": "false",
                       "data-state": "unchecked",
@@ -458,7 +458,7 @@
                 "props": {
                   "data-slot": "log",
                   "className": "text-xs",
-                  "data-shadcn---probe-form-bubble-input-target": "log"
+                  "data-chadcn---probe-form-bubble-input-target": "log"
                 }
               }
             ]
@@ -487,7 +487,7 @@
       "tree": {
         "c": "_form",
         "props": {
-          "data-controller": "shadcn---probe-form-bubble-input",
+          "data-controller": "chadcn---probe-form-bubble-input",
           "data-probe-kind": "select",
           "data-slot": "form",
           "data-probe-name": "color",
@@ -526,7 +526,7 @@
                   "type": "button",
                   "data-slot": "set",
                   "className": "rounded border px-2 py-1 text-sm",
-                  "data-action": "click->shadcn---probe-form-bubble-input#choose"
+                  "data-action": "click->chadcn---probe-form-bubble-input#choose"
                 },
                 "children": [
                   "set b"
@@ -537,7 +537,7 @@
                 "props": {
                   "data-slot": "log",
                   "className": "text-xs",
-                  "data-shadcn---probe-form-bubble-input-target": "log"
+                  "data-chadcn---probe-form-bubble-input-target": "log"
                 }
               }
             ]

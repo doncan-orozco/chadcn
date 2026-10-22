@@ -8,7 +8,7 @@
         "props": {
           "data-probe": "portal",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-portal",
+          "data-controller": "chadcn---probe-portal",
           "className": "flex flex-col items-start gap-2"
         },
         "children": [
@@ -17,7 +17,7 @@
             "props": {
               "type": "button",
               "data-slot": "toggle",
-              "data-action": "click->shadcn---probe-portal#toggle",
+              "data-action": "click->chadcn---probe-portal#toggle",
               "className": "rounded-md border px-3 py-1 text-sm"
             },
             "children": [
@@ -28,7 +28,7 @@
             "c": "_div",
             "props": {
               "data-slot": "item",
-              "data-shadcn---probe-portal-target": "item",
+              "data-chadcn---probe-portal-target": "item",
               "className": "rounded-md border p-4"
             },
             "children": [
@@ -52,7 +52,7 @@
         "props": {
           "data-probe": "portal",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-portal",
+          "data-controller": "chadcn---probe-portal",
           "className": "flex flex-col items-start gap-2"
         },
         "children": [
@@ -61,7 +61,7 @@
             "props": {
               "type": "button",
               "data-slot": "toggle",
-              "data-action": "click->shadcn---probe-portal#toggle",
+              "data-action": "click->chadcn---probe-portal#toggle",
               "className": "rounded-md border px-3 py-1 text-sm"
             },
             "children": [
@@ -72,7 +72,7 @@
             "c": "_div",
             "props": {
               "data-slot": "item",
-              "data-shadcn---probe-portal-target": "item",
+              "data-chadcn---probe-portal-target": "item",
               "className": "rounded-md border p-4"
             },
             "children": [
@@ -105,9 +105,9 @@
         "props": {
           "data-probe": "portal",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-portal",
+          "data-controller": "chadcn---probe-portal",
           "className": "flex flex-col items-start gap-2",
-          "data-shadcn---probe-portal-container-value": "#portal-target"
+          "data-chadcn---probe-portal-container-value": "#portal-target"
         },
         "children": [
           {
@@ -115,7 +115,7 @@
             "props": {
               "type": "button",
               "data-slot": "toggle",
-              "data-action": "click->shadcn---probe-portal#toggle",
+              "data-action": "click->chadcn---probe-portal#toggle",
               "className": "rounded-md border px-3 py-1 text-sm"
             },
             "children": [
@@ -126,7 +126,7 @@
             "c": "_div",
             "props": {
               "data-slot": "item",
-              "data-shadcn---probe-portal-target": "item",
+              "data-chadcn---probe-portal-target": "item",
               "className": "rounded-md border p-4"
             },
             "children": [
@@ -161,9 +161,9 @@
         "props": {
           "data-probe": "portal",
           "data-slot": "probe",
-          "data-controller": "shadcn---probe-portal",
+          "data-controller": "chadcn---probe-portal",
           "className": "flex flex-col items-start gap-2",
-          "data-shadcn---probe-portal-container-value": "#portal-target"
+          "data-chadcn---probe-portal-container-value": "#portal-target"
         },
         "children": [
           {
@@ -171,7 +171,7 @@
             "props": {
               "type": "button",
               "data-slot": "toggle",
-              "data-action": "click->shadcn---probe-portal#toggle",
+              "data-action": "click->chadcn---probe-portal#toggle",
               "className": "rounded-md border px-3 py-1 text-sm"
             },
             "children": [
@@ -182,7 +182,7 @@
             "c": "_div",
             "props": {
               "data-slot": "item",
-              "data-shadcn---probe-portal-target": "item",
+              "data-chadcn---probe-portal-target": "item",
               "className": "rounded-md border p-4"
             },
             "children": [

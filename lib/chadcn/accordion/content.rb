@@ -47,7 +47,7 @@ class Chadcn::Accordion::Content < Chadcn::Base
       if mounted
         inner(&block)
       else
-        template(data: { shadcn__accordion_target: "body" }) { inner(&block) }
+        template(data: { chadcn__accordion_target: "body" }) { inner(&block) }
       end
     end
   end
@@ -67,7 +67,7 @@ class Chadcn::Accordion::Content < Chadcn::Base
                   style: style_for(mounted),
                   aria: { labelledby: item[:trigger_id] },
                   data: { state: state_of(item), disabled: disabled_data(item), orientation: item[:root][:orientation],
-                          slot: "accordion-content", shadcn__accordion_target: "content", shadcn__accordion_force_mount: @force_mount.to_s }
+                          slot: "accordion-content", chadcn__accordion_target: "content", chadcn__accordion_force_mount: @force_mount.to_s }
                 }, @attrs)
   end
 

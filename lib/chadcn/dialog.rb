@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# shadcn Dialog (Radix Dialog). Spec: docs/shadcn-port/specs/dialog.md. Behavior: controllers/shadcn/dialog_controller.js.
+# shadcn Dialog (Radix Dialog). Spec: docs/shadcn-port/specs/dialog.md. Behavior: controllers/chadcn/dialog_controller.js.
 #
 # Radix Root renders no element; the port renders one display: contents host that carries the Stimulus controller (a
 # trigger cannot host it: zero, one or several triggers, or a controlled open). Portal children are shipped in an inert
@@ -81,11 +81,11 @@ class Chadcn::Dialog < Chadcn::Base
 
   def host_data(root)
     {
-      controller: "shadcn--dialog",
-      shadcn__dialog_open_value: root[:open].to_s,
-      shadcn__dialog_controlled_value: root[:controlled].to_s,
-      shadcn__dialog_modal_value: root[:modal].to_s,
-      shadcn__dialog_id_value: root[:content_id]
+      controller: "chadcn--dialog",
+      chadcn__dialog_open_value: root[:open].to_s,
+      chadcn__dialog_controlled_value: root[:controlled].to_s,
+      chadcn__dialog_modal_value: root[:modal].to_s,
+      chadcn__dialog_id_value: root[:content_id]
     }
   end
 end

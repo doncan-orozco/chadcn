@@ -1,7 +1,7 @@
 import { browserTest } from "./harness.mjs";
 import { assert, settle } from "./support.mjs";
 
-// Command (cmdk re-implemented in the shadcn--command controller). What the parity runner cannot express: the three events and
+// Command (cmdk re-implemented in the chadcn--command controller). What the parity runner cannot express: the three events and
 // their detail, a JS filter function, IME composition, items appended later (Turbo Stream) and cleanup before the Turbo cache.
 // Filtering, sorting, keyboard and dialog parity against cmdk itself is covered by the scenarios (G2/G3).
 browserTest.component = "command";
@@ -17,7 +17,7 @@ const press = async (page, key) => { await page.keyboard.press(key); await settl
 const record = (page) => page.evaluate(() => {
   window.__events = [];
   for (const name of ["value-change", "search-change", "select"]) {
-    document.addEventListener(`shadcn--command:${name}`, (event) => window.__events.push({ name, detail: event.detail, slot: event.target.dataset.slot, cancelable: event.cancelable }));
+    document.addEventListener(`chadcn--command:${name}`, (event) => window.__events.push({ name, detail: event.detail, slot: event.target.dataset.slot, cancelable: event.cancelable }));
   }
 });
 const events = (page) => page.evaluate(() => window.__events);
@@ -103,7 +103,7 @@ browserTest("command: search-change fires on every input with the typed value; a
 
 browserTest("command: a controlled search follows its attribute", async ({ open }) => {
   const page = await open("filter__input-controlled-value");
-  await page.locator(input).evaluate((el) => el.setAttribute("data-shadcn--command-search", "set"));
+  await page.locator(input).evaluate((el) => el.setAttribute("data-chadcn--command-search", "set"));
   await settle(page);
   assert.equal(await page.locator(input).inputValue(), "set");
   assert.deepEqual(await texts(page), ["Settings⌘S"]);
@@ -127,7 +127,7 @@ browserTest("command: value-change is dispatched only for a controlled root, wit
 
 browserTest("command: a controlled value fed back through the attribute moves the selection", async ({ open }) => {
   const page = await open("value__controlled-trimmed");
-  await page.locator(root).evaluate((el) => el.setAttribute("data-shadcn--command-value-value", " profile "));
+  await page.locator(root).evaluate((el) => el.setAttribute("data-chadcn--command-value-value", " profile "));
   await settle(page);
   assert.equal(await selected(page), "Profile");
 });
@@ -135,7 +135,7 @@ browserTest("command: a controlled value fed back through the attribute moves th
 browserTest("command: a custom filter function assigned on the controller replaces the scorer", async ({ open }) => {
   const page = await open("default__rest");
   await page.evaluate(() => {
-    const controller = window.Stimulus.getControllerForElementAndIdentifier(document.querySelector("[data-slot=command]"), "shadcn--command");
+    const controller = window.Stimulus.getControllerForElementAndIdentifier(document.querySelector("[data-slot=command]"), "chadcn--command");
     controller.filter = (value, search) => (value.toLowerCase().startsWith(search.toLowerCase()) ? 1 : 0);
   });
   await search(page, "al");

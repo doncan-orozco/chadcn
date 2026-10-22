@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# shadcn Popover (Radix Popover). Spec: docs/shadcn-port/specs/popover.md. Behavior in controllers/shadcn/popover_controller.js.
+# shadcn Popover (Radix Popover). Spec: docs/shadcn-port/specs/popover.md. Behavior in controllers/chadcn/popover_controller.js.
 # The root renders no element: it pushes its options into the Phlex render context for the parts inside.
 # Deviations (inert template, controller host): docs/shadcn-port/deviations/popover.json.
 #
@@ -84,12 +84,12 @@ class Chadcn::Popover < Chadcn::Base
 
     def host_data(root)
       {
-        controller: "shadcn--popover",
-        shadcn__popover_open_value: root[:open].to_s,
-        shadcn__popover_controlled_value: root[:controlled].to_s,
-        shadcn__popover_modal_value: root[:modal].to_s,
-        shadcn__popover_content_id_value: root[:content_id],
-        shadcn__popover_template_key_value: root[:key]
+        controller: "chadcn--popover",
+        chadcn__popover_open_value: root[:open].to_s,
+        chadcn__popover_controlled_value: root[:controlled].to_s,
+        chadcn__popover_modal_value: root[:modal].to_s,
+        chadcn__popover_content_id_value: root[:content_id],
+        chadcn__popover_template_key_value: root[:key]
       }
     end
 
@@ -133,9 +133,9 @@ class Chadcn::Popover < Chadcn::Base
     private
 
     def host_data_for(root)
-      return { shadcn__popover_trigger: root[:key] } unless claim_host(root)
+      return { chadcn__popover_trigger: root[:key] } unless claim_host(root)
 
-      host_data(root).merge(action: "click->shadcn--popover#toggle")
+      host_data(root).merge(action: "click->chadcn--popover#toggle")
     end
   end
 
@@ -158,7 +158,7 @@ class Chadcn::Popover < Chadcn::Base
     # @return [void]
     # @raise [ArgumentError] when rendered outside Popover
     def view_template(&)
-      attrs = merge_attrs({ data: { slot: "popover-anchor", shadcn__popover_anchor: root_context[:key] } }, @attrs)
+      attrs = merge_attrs({ data: { slot: "popover-anchor", chadcn__popover_anchor: root_context[:key] } }, @attrs)
       render_part(:div, @as_child, attrs, &)
     end
   end
@@ -220,7 +220,7 @@ class Chadcn::Popover < Chadcn::Base
       root = root_context
       attrs = canonical_attrs(@attrs)
       host = claim_host(root) ? host_data(root) : {}
-      template(data: { shadcn__popover_template: root[:key], options: json(@options.merge(dir: attrs[:dir]).compact) }.merge(host)) do
+      template(data: { chadcn__popover_template: root[:key], options: json(@options.merge(dir: attrs[:dir]).compact) }.merge(host)) do
         div(**content_attrs(root, attrs), &)
       end
     end

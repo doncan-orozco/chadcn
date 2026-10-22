@@ -23,7 +23,7 @@ Every part: `class:` goes through `cn` last (caller wins), `**attrs` pass throug
 
 Not ported: `ref`; `onPlaced` (no DOM effect); `PopoverClose`, `PopoverArrow`, `PopoverPortal` (not exported by shadcn; the `Portal` `container` is not exposed); `asChild` on Header/Title/Description (plain elements in React).
 
-Events (dispatched with `this.dispatch` by the `shadcn--popover` controller on its host element, `bubbles: true`, prefix `shadcn--popover:`; Content lives in `body`, so callers listen on the host or with `@document`):
+Events (dispatched with `this.dispatch` by the `chadcn--popover` controller on its host element, `bubbles: true`, prefix `chadcn--popover:`; Content lives in `body`, so callers listen on the host or with `@document`):
 
 | Event | Radix origin | detail | cancelable | default action when not prevented |
 |---|---|---|---|---|
@@ -53,15 +53,15 @@ end
 Server render (closed, default):
 
 ```html
-<button type="button" aria-haspopup="dialog" aria-expanded="false" data-state="closed" data-slot="popover-trigger" data-controller="shadcn--popover" data-action="click->shadcn--popover#toggle" data-shadcn--popover-*-value="...">Open popover</button>
-<template data-shadcn--popover-template="<key>"> ...Content markup below... </template>
+<button type="button" aria-haspopup="dialog" aria-expanded="false" data-state="closed" data-slot="popover-trigger" data-controller="chadcn--popover" data-action="click->chadcn--popover#toggle" data-chadcn--popover-*-value="...">Open popover</button>
+<template data-chadcn--popover-template="<key>"> ...Content markup below... </template>
 ```
 
 - `popover` (Root) and the Portal: **no element, no data-slot** (manifest `non_rendered_slots`; radix-dom-contract "Parts that render no element").
 - `popover-trigger` (Trigger, pop:100-112): `Primitive.button` with, in this order, `type="button"`, `aria-haspopup="dialog"`, `aria-expanded="true|false"`, `aria-controls="<content id>"` ONLY while open (pop:106), `data-state="open|closed"` (pop:107, `getState` pop:351-353), then caller attrs (can override any of them), `data-slot="popover-trigger"`. No `role`, no `id`, no `tabindex`. Without a custom Anchor the trigger is wrapped in `PopperPrimitive.Anchor asChild` (pop:113) and gets `data-radix-popper-side` / `data-radix-popper-align` while the content is placed (popper:83-95, removed on unmount popper:183-189); with an Anchor rendered it gets neither. With `as_child:` the same attributes land on the child (`<a href type="button" aria-haspopup=...>` for an `_a` child; a V2 child keeps its own `data-slot`).
-- `popover-anchor` (Anchor): `<div data-slot="popover-anchor">` + caller attrs and children; `data-radix-popper-side` / `data-radix-popper-align` while the content is placed (popper:89-90). It carries `data-shadcn--popover-anchor="<key>"` so the controller finds it (deviation, invisible to the gate).
-- Controller host (deviation): the FIRST rendered of Trigger or Content inside one `Popover` block hosts `data-controller="shadcn--popover"` and its values (`open`, `controlled`, `modal`, `content-id`, `template-key` and the Content positioning values `side`, `side-offset`, `align`, `align-offset`, `avoid-collisions`, `collision-boundary`, `collision-padding`, `arrow-padding`, `sticky`, `hide-when-detached`, `update-position-strategy`, `dir`). In the normal order (Trigger before Content) that is the Trigger, consistent with Tooltip/HoverCard/menus. If no Trigger precedes the Content (Anchor-only controlled popover, or Content written first) the Content's `<template>` is the host and a later Trigger carries `data-shadcn--popover-trigger="<key>"` and is bound by the controller directly (Stimulus `data-action` cannot cross siblings).
-- Content while closed: nothing in the live DOM (Portal Presence pop:123, Content Presence pop:132). The markup ships in an inert `<template data-shadcn--popover-template="<key>">` at the `Popover::Content` call site (no data-slot, no box; deviation, same pattern as Tooltip/HoverCard). Also used when the first render is open (`default_open: true` / `open: true`): the trigger renders `data-state="open" aria-expanded="true" aria-controls`, and the controller mounts the template in `connect()` (the React catalog also mounts portal content on the client).
+- `popover-anchor` (Anchor): `<div data-slot="popover-anchor">` + caller attrs and children; `data-radix-popper-side` / `data-radix-popper-align` while the content is placed (popper:89-90). It carries `data-chadcn--popover-anchor="<key>"` so the controller finds it (deviation, invisible to the gate).
+- Controller host (deviation): the FIRST rendered of Trigger or Content inside one `Popover` block hosts `data-controller="chadcn--popover"` and its values (`open`, `controlled`, `modal`, `content-id`, `template-key` and the Content positioning values `side`, `side-offset`, `align`, `align-offset`, `avoid-collisions`, `collision-boundary`, `collision-padding`, `arrow-padding`, `sticky`, `hide-when-detached`, `update-position-strategy`, `dir`). In the normal order (Trigger before Content) that is the Trigger, consistent with Tooltip/HoverCard/menus. If no Trigger precedes the Content (Anchor-only controlled popover, or Content written first) the Content's `<template>` is the host and a later Trigger carries `data-chadcn--popover-trigger="<key>"` and is bound by the controller directly (Stimulus `data-action` cannot cross siblings).
+- Content while closed: nothing in the live DOM (Portal Presence pop:123, Content Presence pop:132). The markup ships in an inert `<template data-chadcn--popover-template="<key>">` at the `Popover::Content` call site (no data-slot, no box; deviation, same pattern as Tooltip/HoverCard). Also used when the first render is open (`default_open: true` / `open: true`): the trigger renders `data-state="open" aria-expanded="true" aria-controls`, and the controller mounts the template in `connect()` (the React catalog also mounts portal content on the client).
 - Content while open, appended directly to `document.body` (Portal; no wrapper besides Popper's):
 
 ```html
@@ -149,10 +149,10 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 Structural and invisible to the gates (`gems/chadcn/dev/port/deviations/popover.json`), same shape as Tooltip/HoverCard:
 
-- `Popover::Content` emits an inert `<template data-shadcn--popover-template="<key>">` at its call site holding the content markup until the controller mounts it in `body`. Reason: Radix renders nothing while closed and creates the node on the client in a body portal; the trigger (a `<button>`) cannot contain it. No `data-slot`, no box, not part of the document.
-- `Popover::Anchor` carries `data-shadcn--popover-anchor="<key>"`, and a Trigger that is not the controller host carries `data-shadcn--popover-trigger="<key>"`, so the controller can find parts that are not inside its element (React wires them through context). `data-shadcn--*` is ignored by G2.
+- `Popover::Content` emits an inert `<template data-chadcn--popover-template="<key>">` at its call site holding the content markup until the controller mounts it in `body`. Reason: Radix renders nothing while closed and creates the node on the client in a body portal; the trigger (a `<button>`) cannot contain it. No `data-slot`, no box, not part of the document.
+- `Popover::Anchor` carries `data-chadcn--popover-anchor="<key>"`, and a Trigger that is not the controller host carries `data-chadcn--popover-trigger="<key>"`, so the controller can find parts that are not inside its element (React wires them through context). `data-chadcn--*` is ignored by G2.
 - When no Trigger precedes the Content in the block, the `<template>` hosts the controller.
 
 ```json
-{ "component": "popover", "reason": "...", "allow_tokens": [], "allow_missing_tokens": [], "api": ["Popover::Content renders an inert <template data-shadcn--popover-template> (no data-slot) holding the content markup while closed", "..."] }
+{ "component": "popover", "reason": "...", "allow_tokens": [], "allow_missing_tokens": [], "api": ["Popover::Content renders an inert <template data-chadcn--popover-template> (no data-slot) holding the content markup while closed", "..."] }
 ```

@@ -22,9 +22,9 @@ Components::V2::Checkbox.new(
 ```
 
 - `checked:` / `default_checked:` accept `true`, `false`, `"indeterminate"` and `:indeterminate` (R4); any other value is an `ArgumentError`.
-- Controlled (`checked:` given): the server renders that state; click/Space does NOT change `data-state`/`aria-checked`/Indicator, it only dispatches `shadcn--checkbox:checked-change` with the value Radix would compute (`isIndeterminate(prev) ? true : !prev`, cb.mjs:122). useControllableState in controlled mode calls `onChange(next)` only when `next !== prop`, and never stores it. Callers re-render the next state from the server.
+- Controlled (`checked:` given): the server renders that state; click/Space does NOT change `data-state`/`aria-checked`/Indicator, it only dispatches `chadcn--checkbox:checked-change` with the value Radix would compute (`isIndeterminate(prev) ? true : !prev`, cb.mjs:122). useControllableState in controlled mode calls `onChange(next)` only when `next !== prop`, and never stores it. Callers re-render the next state from the server.
 - Uncontrolled (`default_checked:`): the controller owns state after connect.
-- Events: `shadcn--checkbox:checked-change`, `detail: { checked: true | false | "indeterminate" }`, dispatched from the Root button after each change (uncontrolled: after the DOM update; controlled: instead of it). Also dispatched on form reset when the value changes (reset calls `setChecked`, cb.mjs:99). Not cancelable (`onCheckedChange` is not preventable). Consumer `onClick` / `onKeyDown` are plain `data: { action: ... }`; Radix composes consumer first and skips its own handler when the consumer called `preventDefault()` (`composeEventHandlers`, cb.mjs:117-127), so the controller checks `event.defaultPrevented` before acting.
+- Events: `chadcn--checkbox:checked-change`, `detail: { checked: true | false | "indeterminate" }`, dispatched from the Root button after each change (uncontrolled: after the DOM update; controlled: instead of it). Also dispatched on form reset when the value changes (reset calls `setChecked`, cb.mjs:99). Not cancelable (`onCheckedChange` is not preventable). Consumer `onClick` / `onKeyDown` are plain `data: { action: ... }`; Radix composes consumer first and skips its own handler when the consumer called `preventDefault()` (`composeEventHandlers`, cb.mjs:117-127), so the controller checks `event.defaultPrevented` before acting.
 - `as_child:` is NOT offered (see Deviations).
 - `ref` has no equivalent.
 
@@ -35,7 +35,7 @@ Server-rendered DOM. Radix renders a Fragment: button, then (when it is a form c
 ```html
 <!-- unchecked -->
 <button type="button" role="checkbox" aria-checked="false" data-state="unchecked" value="on"
-        data-slot="checkbox" class="<Root classes>" data-controller="shadcn--checkbox" ...></button>
+        data-slot="checkbox" class="<Root classes>" data-controller="chadcn--checkbox" ...></button>
 <!-- checked / indeterminate -->
 <button type="button" role="checkbox" aria-checked="true|mixed" data-state="checked|indeterminate" value="on" data-slot="checkbox" class="...">
   <span data-state="checked|indeterminate" data-slot="checkbox-indicator" class="grid place-content-center text-current transition-none" style="pointer-events: none;">
@@ -65,7 +65,7 @@ Bubble input (no data-slot; Radix `CheckboxBubbleInput`, cb.mjs:204-284):
 - Rendered iff it is a form control: `!!form || !!control.closest("form")`; before mount Radix assumes `true` (cb.mjs:46-49, "so that events bubble to forms without JS (SSR)"). Port: the server ALWAYS renders it (identical to Radix SSR); the controller removes it in `connect()` when there is no `form:` and no `closest("form")`. Post-connect DOM equals React in both cases.
 - The initial indeterminate value does not set `input.indeterminate` (the effect at cb.mjs:226-248 only writes on change); after a change to indeterminate it does (`input.indeterminate = true`, checked false).
 
-Server vs Stimulus: the server renders every attribute above for the initial state, including the Indicator when checked/indeterminate. Stimulus (`shadcn--checkbox`, host = the button itself) updates `aria-checked`, `data-state` on button and Indicator, mounts/unmounts the Indicator, syncs the bubble input and its size. No ids are generated (only a caller `id:`, typically for `<label for>`).
+Server vs Stimulus: the server renders every attribute above for the initial state, including the Indicator when checked/indeterminate. Stimulus (`chadcn--checkbox`, host = the button itself) updates `aria-checked`, `data-state` on button and Indicator, mounts/unmounts the Indicator, syncs the bubble input and its size. No ids are generated (only a caller `id:`, typically for `<label for>`).
 
 ## Behavior
 
@@ -75,7 +75,7 @@ Transitions (cb.mjs:117-127, `onClick` composed after the consumer onClick):
 1. Native `click` on the button (unless `event.defaultPrevented`): count a user interaction, `next = prev === "indeterminate" ? true : !prev` (cb.mjs:122). So indeterminate -> checked -> unchecked -> checked; indeterminate is never reached by user input, only via props/reset.
 2. If the bubble input exists and it is a form control: record whether the consumer already stopped propagation; if not, `event.stopPropagation()` on the button click (cb.mjs:123-126).
 3. On every value change (cb.mjs:226-248): `input.indeterminate = (next === "indeterminate")`, set `checked` via the native `HTMLInputElement.prototype` setter to `next === true`, dispatch `new Event("click", { bubbles })` on the input with `bubbles = !(isUserInteraction && consumerStoppedPropagation)`; for non-user changes (reset, controlled prop change) the input's own click listener stops propagation (`shouldStopClickPropagationRef`, cb.mjs:241, 264-268). An `Event` (not `MouseEvent`) has no activation behavior, so it does not re-toggle the input.
-4. Update DOM (`aria-checked`, `data-state` x2, Indicator presence) and dispatch `shadcn--checkbox:checked-change`.
+4. Update DOM (`aria-checked`, `data-state` x2, Indicator presence) and dispatch `chadcn--checkbox:checked-change`.
 - Controlled: step 1 computes `next` and dispatches only; DOM stays server-rendered.
 
 Keyboard (cb.mjs:117-119):
