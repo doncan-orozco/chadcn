@@ -1,10 +1,19 @@
-# chadcn
+<h1 align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/doncan-orozco/papyro/main/gems/chadcn/dev/brand/wordmark-dark.svg">
+    <img src="https://raw.githubusercontent.com/doncan-orozco/papyro/main/gems/chadcn/dev/brand/wordmark-light.svg" alt="chadcn" width="352" height="96">
+  </picture>
+</h1>
+
+<p align="center"><strong><a href="https://ui.shadcn.com">shadcn/ui</a> for Phlex. Built different.</strong></p>
 
 [shadcn/ui](https://ui.shadcn.com) for [Phlex](https://www.phlex.fun): the same component API, the same Tailwind class strings and
 the same behavior as the React originals (Radix, and the libraries shadcn wraps), as Phlex views with Stimulus controllers. 54 components (`Button`, `Dialog`, `Select`, `Sidebar`,
 `Toaster`, `Command`, `Combobox`, `Calendar`...), each one checked against the React original in a browser.
 
 > Status: pre-release (0.x). The public API follows semantic versioning from the first release; see [CHANGELOG.md](CHANGELOG.md).
+>
+> chadcn is the Ruby gem (`gem "chadcn"`, on RubyGems). The `chadcn` package on npm is an unrelated project.
 
 - One Ruby class per React export: `Dialog` is `Chadcn::Dialog`, `DialogContent` is `Chadcn::Dialog::Content`.
 - Props are keyword arguments (`variant: "outline"`, `default_open: true`), `className` is `class:`, children are the block.
@@ -12,6 +21,8 @@ the same behavior as the React originals (Radix, and the libraries shadcn wraps)
 - Colors come from one shadcn-format theme file you own; anything pasted from ui.shadcn.com/themes works unchanged.
 
 ## Why chadcn
+
+Same components, unbothered.
 
 - **The shadcn markup, verbatim.** Class strings, structure, `data-slot` attributes and variants are copied from the shadcn/ui
   registry, so the HTML follows the React original (each deliberate difference is recorded in `dev/port/DEVIATIONS.md` and
@@ -538,5 +549,9 @@ dev kit and are not packaged with the gem.
 
 ## License
 
-MIT. See [LICENSE](LICENSE) and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md): the class strings, structure and behavior derive from
-shadcn/ui (MIT) and Radix UI (MIT); the icons are Lucide (ISC).
+chadcn is an independent, community-maintained port of [shadcn/ui](https://ui.shadcn.com) to Phlex. It is not affiliated
+with, endorsed by or sponsored by shadcn or the shadcn/ui project. Component structure, class strings and behavior derive
+from shadcn/ui (MIT License, Copyright (c) 2023 shadcn); accessibility behavior follows Radix UI (MIT) and icons are
+Lucide (ISC). Every third-party notice is in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). chadcn itself is MIT licensed.
+
+See [LICENSE](LICENSE).

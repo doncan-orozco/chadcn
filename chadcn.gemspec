@@ -2,8 +2,9 @@
 
 require_relative "lib/chadcn/version"
 
-# The one place the repository location is written: a split into its own repository changes these lines.
-# The metadata URIs and the links of the generated llms files derive from them.
+# The repository location: a split into its own repository changes these lines. The metadata URIs and the links of the
+# generated llms files derive from them; the README hero image URLs and the CHANGELOG compare link repeat them by hand
+# (test/packaging/packaging_test.rb checks those copies).
 repository = "https://github.com/doncan-orozco/papyro"
 gem_path = "gems/chadcn" # "" once the gem has its own repository
 ref = "main"
@@ -15,9 +16,10 @@ Gem::Specification.new do |spec|
   spec.authors = [ "Doncan Orozco" ]
   spec.email = [ "doncan.orozco@gmail.com" ]
 
-  spec.summary = "shadcn/ui components for Phlex."
+  spec.summary = "shadcn/ui for Phlex. Built different."
   spec.description = "A 1:1 port of the shadcn/ui component library to Phlex views with Stimulus behavior, " \
-                     "Tailwind classes taken verbatim from shadcn/ui and shadcn-format theme variables."
+                     "Tailwind classes taken verbatim from shadcn/ui and shadcn-format theme variables. " \
+                     "Not affiliated with shadcn. Built on shadcn/ui (MIT)."
   spec.homepage = at.call("tree")
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.2"
