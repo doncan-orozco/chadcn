@@ -37,5 +37,5 @@ finished in 2m29s. Runner minutes grow by about two importmap smokes (~4 minutes
 - Other jsbundling bundlers (rollup, webpack, bun): the README documents esbuild as the bundler path and `dev/decisions/js-bundlers.md`
   explains why one bundler is the proof; the copied-controllers mechanism is the same for the others.
 - Sprockets with a JavaScript bundler: the Sprockets smoke supports importmap only.
-- Ruby versions other than 4.0 for the app smokes: the gem job already runs the gem on 3.2 to 4.0; the app smokes need a current Rails 8.1.
+- Ruby versions other than 4.0 for the app smokes: the gem job already runs the gem on 3.3 to 4.0; the app smokes need a current Rails 8.1.
 - Making the new job a required status check is a repository setting (a human step).

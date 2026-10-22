@@ -1,17 +1,29 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-labelledby="chadcn-mascot-title chadcn-mascot-desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="128" height="128" role="img" aria-labelledby="chadcn-mascot-title chadcn-mascot-desc">
   <title id="chadcn-mascot-title">chadcn mascot</title>
-  <desc id="chadcn-mascot-desc">A geometric figure with a flat-top haircut, square jaw, dark sunglasses and a calm half smile.</desc>
-  <!-- Original artwork for chadcn, drawn from basic shapes. Light variant: dark ink on light backgrounds. -->
-  <g fill="none" stroke="#09090b" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
-    <path d="M24 124 L40 110 H88 L104 124" />
-    <path d="M54 100 V110 M74 100 V110" />
-    <path d="M36 42 V76 L48 100 H80 L92 76 V42" fill="#fafafa" />
-    <path d="M36 58 H31 V70 H36 M92 58 H97 V70 H92" fill="#fafafa" />
-    <path d="M33 42 V26 L40 20 H90 L95 26 V42 Z" fill="#09090b" />
-    <path d="M36 50 H92 V58 Q92 64 86 64 H72 Q66 64 64 58 Q62 64 56 64 H42 Q36 64 36 58 Z" fill="#09090b" />
-    <path d="M54 84 Q64 89 76 81" />
-    <path d="M64 92 V97" stroke-width="3" />
-  </g>
-  <path d="M42 54 L50 54" stroke="#fafafa" stroke-width="2" stroke-linecap="round" />
-  <path d="M70 54 L78 54" stroke="#fafafa" stroke-width="2" stroke-linecap="round" />
+  <desc id="chadcn-mascot-desc">A cartoon bodybuilder seen from the side: a yellow cone of hair, a huge jaw, a red tank top, green trousers and yellow shoes, one arm reaching forward and the other flexed behind him.</desc>
+  <!-- Original artwork for chadcn in the style of the Chad meme, hand-drawn as flat shapes with a thick outline. Light variant: for light backgrounds. -->
+    <g stroke="#1c1917" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M160 114 C180 106 198 118 208 138 C214 128 219 117 222 106 L234 110 C231 128 223 148 212 160 C203 168 191 164 184 152 C177 142 169 138 162 138 Z" fill="#f2c9a8" />
+      <path d="M222 106 L213 90 L221 95 L220 81 L227 94 L231 79 L233 96 L242 86 L238 103 L247 101 L234 110 Z" fill="#f2c9a8" />
+      <path d="M132 176 L164 174 C186 176 204 190 199 207 C196 215 188 219 183 223 C188 229 194 234 198 239 L181 244 C172 236 166 228 162 220 C157 215 150 215 146 220 C140 227 137 233 135 241 L116 239 C118 226 122 214 129 206 C124 195 126 185 132 176 Z" fill="#4ade80" />
+      <path d="M116 237 L136 239 L137 251 L101 251 C99 245 106 240 116 237 Z" fill="#facc15" />
+      <path d="M181 242 L198 237 C210 239 221 245 219 251 L183 251 Z" fill="#facc15" />
+      <path d="M108 115 C118 110 126 114 130 121 C139 128 150 123 155 113 L172 111 C171 130 170 152 164 178 L131 181 C127 160 118 138 110 115 Z" fill="#f43f5e" />
+      <path d="M120 104 L122 118 C132 124 144 122 154 112 L148 92 Z" fill="#f2c9a8" />
+      <path d="M112 44 C106 50 104 55 102 60 C106 62 107 65 104 68 L95 77 L104 80 L100 86 L104 89 L97 95 C96 103 98 110 106 113 C118 116 132 110 142 100 C152 90 157 74 154 58 C152 47 141 41 128 40 Z" fill="#f2c9a8" />
+      <path d="M124 118 C102 112 72 118 50 122 L34 121 L34 138 C60 141 88 148 120 154 C136 146 138 126 124 118 Z" fill="#f2c9a8" />
+      <path d="M35 122 L23 113 L27 120 L12 117 L25 126 L8 128 L25 132 L14 141 L30 138 L35 137 Z" fill="#f2c9a8" />
+      <path d="M114 6 C124 18 140 32 156 46 C146 42 134 41 124 43 C118 44 113 46 110 48 C108 34 109 18 114 6 Z" fill="#fde047" />
+      <path d="M109 65 L118 64" fill="none" stroke-width="3" />
+      <path d="M104 59 L121 57" fill="none" stroke-width="3" />
+      <path d="M141 66 C136 69 136 76 142 78" fill="none" stroke-width="3" />
+      <path d="M124 106 C132 101 138 95 142 86" fill="none" stroke-width="3" />
+      <path d="M100 89 L108 89" fill="none" stroke-width="3" />
+      <path d="M70 138 C80 132 92 132 100 138" fill="none" stroke-width="3" />
+      <path d="M60 122 C66 127 72 127 78 122" fill="none" stroke-width="3" />
+      <path d="M168 144 C176 140 184 142 190 148" fill="none" stroke-width="3" />
+      <path d="M138 140 C144 146 152 146 158 140" fill="none" stroke-width="3" />
+      <path d="M171 190 C177 198 184 204 192 206" fill="none" stroke-width="3" />
+      <path d="M140 200 C142 208 142 214 140 220" fill="none" stroke-width="3" />
+    </g>
 </svg>

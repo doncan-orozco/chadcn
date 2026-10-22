@@ -1,6 +1,6 @@
 # Decision: tracking upstream shadcn/ui
 
-Status: accepted. Applies to every release of the gem.
+Status: accepted; the window (six months), the deprecation notice (one release ahead), the re-sync cadence (quarterly and before each minor or major), the Ruby rule (dropped only after upstream end of life) and pre-1.0 breaking changes as minor releases were confirmed by the maintainer on 2026-10-22 (#226). Applies to every release of the gem.
 
 ## What is tracked
 

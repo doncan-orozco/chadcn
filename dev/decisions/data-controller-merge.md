@@ -1,6 +1,6 @@
 # Decision: a caller's `data-controller` is appended to the component's, never a replacement
 
-Status: decided and implemented by item #202 (phlex-shadcn-adoption-followups); normalization of the caller value on every path added by item #239 (phlex-shadcn-hardening, PR #245). Proof: `test/chadcn/base_merge_attrs_test.rb`.
+Status: decided and implemented by item #202 (phlex-shadcn-adoption-followups); normalization of the caller value on every path added by item #239 (phlex-shadcn-hardening, PR #245). Proof: `test/chadcn/base_merge_attrs_test.rb`. Confirmed by the maintainer on 2026-10-22 (#224): no caller opt-out.
 
 ## The bug
 
@@ -67,7 +67,7 @@ Radix also lets a caller cancel an internal handler with `event.preventDefault()
 caller action that calls `preventDefault` before the component's. That, not removal of the controller, is the supported way to intervene.
 
 Not chosen: letting the caller opt out of the component controller. Nothing needs it today, it would add public API, and a caller who
-really wants an inert element can use the plain tag.
+really wants an inert element can use the plain tag. The maintainer confirmed this on 2026-10-22 (#224); an opt-out (for example `replace_controller:`) would be a new item with its own API, docs and tests.
 
 ## Implementation notes
 

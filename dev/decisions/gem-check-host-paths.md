@@ -1,6 +1,6 @@
 # Intentional host paths and `gem_check` (GEM_ESCAPES_ROOT)
 
-Status: decided (epic phlex-shadcn-adoption-followups, item #206); aligned with the hardened script in epic phlex-shadcn-hardening (items #240, #257). Whether the allowlist itself stays is an open maintainer decision (#223); this note does not change its semantics. Applies to `.claude/scripts/gem/gem_check.rb` and the `ruby-gem-conventions` skill.
+Status: decided (epic phlex-shadcn-adoption-followups, item #206); aligned with the hardened script in epic phlex-shadcn-hardening (items #240, #257). The maintainer kept the allowlist (option B) on 2026-10-22 (#223). Applies to `.claude/scripts/gem/gem_check.rb` and the `ruby-gem-conventions` skill.
 
 ## Problem
 
@@ -72,7 +72,7 @@ Costs: one constant and a few lines in the script, and the doctor files had to b
 
 B. The point of the rule is that deliberate host knowledge is visible and bounded. A marker is greppable, carries a reason, is limited to the one directory whose job is to read the host, and is tested both ways (allowed in the doctor; the same literal elsewhere, unmarked, marked without a reason, marked for another rule, marker on another line, marker text inside a string, the root `doctor.rb` or another namespace's `doctor/`, or a `require_relative` escape still fail). Option A would keep the rule passing while removing what it protects.
 
-With the hardened script option A is moot: `File.join` and `%w[]` are findings like any literal, so there is no spelling left to sanction, and the allowlist marker is the only sanctioned way for the doctor to name a host path (the Rails integration files need none). Splitting a path into pieces, `%w[]`, interpolation or any other trick to get past the check is not sanctioned anywhere; where the script cannot see it (the gaps above or any other) reviewers cite `ruby-gem-conventions R15`. The marker is honoured only for host-path literals in `doctor/**/*.rb`; real scratch results: a marked literal in `doctor/` passes; a bare marker (no reason), a reason containing quotes and `require_relative` leaving the gem (`require_relative leaves the gem directory (5 levels up from depth 4)`) are findings even there; the same marked lines in a non-doctor file are all findings. Whether the allowlist should exist at all is open in #223.
+With the hardened script option A is moot: `File.join` and `%w[]` are findings like any literal, so there is no spelling left to sanction, and the allowlist marker is the only sanctioned way for the doctor to name a host path (the Rails integration files need none). Splitting a path into pieces, `%w[]`, interpolation or any other trick to get past the check is not sanctioned anywhere; where the script cannot see it (the gaps above or any other) reviewers cite `ruby-gem-conventions R15`. The marker is honoured only for host-path literals in `doctor/**/*.rb`; real scratch results: a marked literal in `doctor/` passes; a bare marker (no reason), a reason containing quotes and `require_relative` leaving the gem (`require_relative leaves the gem directory (5 levels up from depth 4)`) are findings even there; the same marked lines in a non-doctor file are all findings. The maintainer confirmed on 2026-10-22 that the allowlist stays (#223).
 
 ## Rollout
 

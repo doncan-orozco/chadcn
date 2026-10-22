@@ -6,11 +6,11 @@ What [chadcn](../README.md) supports today, what CI proves, and what happens whe
 
 | Dependency | Supported | Where it is declared |
 |---|---|---|
-| Ruby | 3.2, 3.3, 3.4 and 4.0 (`>= 3.2`) | `required_ruby_version` in the gemspec; the CI matrix |
+| Ruby | 3.3, 3.4 and 4.0 (`>= 3.3`) | `required_ruby_version` in the gemspec; the CI matrix |
 | Phlex | `phlex ~> 2.3` (2.3 up to, not including, 3.0) | `add_dependency "phlex", "~> 2.3"` |
 | tailwind_merge | `~> 1.4` | gemspec |
 | zeitwerk | `~> 2.7` | gemspec |
-| Rails (optional) | `~> 8.1` | the engine loads only when `Rails::Engine` is defined; CI runs the engine tests on the locked Rails 8.1 and, on the freshly resolved runs (Ruby 3.2, the Phlex 2.3 floor) and the clean `rails new` app, on the newest Rails 8.x allowed by `~> 8.1` |
+| Rails (optional) | `~> 8.1` | the engine loads only when `Rails::Engine` is defined; CI runs the engine tests on the locked Rails 8.1 and, on the freshly resolved runs (the Phlex 2.3 floor) and the clean `rails new` app, on the newest Rails 8.x allowed by `~> 8.1` |
 | Tailwind CSS | 4 (with Rails, `tailwindcss-rails` 4.3.0 or newer) | the components use Tailwind 4 syntax and theme variables; 4.3.0 is the first `tailwindcss-rails` that bundles an engine's CSS (`tailwindcss:engines`), and `chadcn:doctor` fails with `tailwindcss-rails X found, it cannot bundle an engine's CSS before 4.3.0` below it |
 | Stimulus | 3 (`@hotwired/stimulus`) | needed only by the interactive components |
 
@@ -52,6 +52,6 @@ Until step 2 ships, the answer to "does it work with Phlex 3?" is no.
 
 ## Ruby, Rails and Tailwind
 
-- A Ruby version is dropped only in a minor release at the earliest after upstream end of life, and the CHANGELOG announces it one release ahead. Ruby 3.2 is the floor today.
+- A Ruby version is dropped only in a minor release at the earliest after upstream end of life, and the CHANGELOG announces it one release ahead. Ruby 3.3 is the floor today: Ruby 3.2 (upstream end of life 2026-03-31) is not supported from the first release, so no release ever claimed it.
 - A new Rails or Ruby release is added to the CI matrix when it is available on CI; support is claimed from the first green run.
 - The Tailwind classes are copied verbatim from shadcn/ui, which targets Tailwind 4. A Tailwind major is handled like a Phlex major: evaluated first, claimed only after CI covers it. How upstream changes reach the gem is described in the shadcn tracking policy (`dev/decisions/shadcn-tracking.md` in the repository).

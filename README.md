@@ -5,7 +5,7 @@
   </picture>
 </h1>
 
-<p align="center"><strong><a href="https://ui.shadcn.com">shadcn/ui</a> for Phlex. Built different.</strong></p>
+<p align="center"><strong>chadcn go brrrrrr</strong></p>
 
 [shadcn/ui](https://ui.shadcn.com) for [Phlex](https://www.phlex.fun): the same component API, the same Tailwind class strings and
 the same behavior as the React originals (Radix, and the libraries shadcn wraps), as Phlex views with Stimulus controllers. 54 components (`Button`, `Dialog`, `Select`, `Sidebar`,
@@ -22,7 +22,18 @@ the same behavior as the React originals (Radix, and the libraries shadcn wraps)
 
 ## Why chadcn
 
-Same components, unbothered.
+| The virgin hand-rolled UI | The chad chadcn |
+|---|---|
+| Copies component files into the app, one by one | `bundle add chadcn` and one generator: `bin/rails g chadcn:install` |
+| Re-applies upstream fixes to every copied file by hand | Upgrades are a `bundle update` |
+| Ships a React runtime for one dropdown | Radix behavior as Stimulus controllers, zero React |
+| Eyeballs the dialog and hopes it matches | 54 components checked against the React original in a browser |
+| Pulls in a framework's worth of gems to render a button | Three runtime dependencies: `phlex`, `tailwind_merge`, `zeitwerk` |
+| Re-types the theme colors by hand | Pastes a theme from ui.shadcn.com/themes, unchanged |
+| Greps the app to find out why the styles are missing | `bin/rails chadcn:doctor` says why |
+| Renders every page through a stack of partials | Phlex: 5x faster (benchmark: trust me bro) |
+
+The facts behind the right column (all but the last row, which is a joke):
 
 - **The shadcn markup, verbatim.** Class strings, structure, `data-slot` attributes and variants are copied from the shadcn/ui
   registry, so the HTML follows the React original (each deliberate difference is recorded in `dev/port/DEVIATIONS.md` and
@@ -40,8 +51,8 @@ Same components, unbothered.
 
 ## Requirements
 
-- Ruby 3.2 or newer and [Phlex](https://www.phlex.fun) 2.x from 2.3 (`~> 2.3`; Phlex 3 is not supported). CI runs the gem suite
-  on Ruby 3.2, 3.3, 3.4 and 4.0, each against the current Phlex 2.x and against Phlex 2.3.
+- Ruby 3.3 or newer and [Phlex](https://www.phlex.fun) 2.x from 2.3 (`~> 2.3`; Phlex 3 is not supported). CI runs the gem suite
+  on Ruby 3.3, 3.4 and 4.0, each against the current Phlex 2.x and against Phlex 2.3.
 - Tailwind CSS 4 (the components use Tailwind utility classes). With Rails, `tailwindcss-rails` 4.3.0 or newer: 4.3.0 is the first release that
   bundles an engine's CSS (`tailwindcss:engines`), which is how the gem's styles reach your app. `chadcn:doctor` reports an older one as a failure.
 - For the interactive components: Stimulus 3 (`@hotwired/stimulus`). With Rails, `importmap-rails` (the gem's engine adds its pins) or
@@ -398,7 +409,7 @@ render Chadcn::Calendar.new(mode: :single, selected: Date.new(2026, 3, 15), name
 - **Command.** The built-in `scorer` primitive replaces cmdk's `command-score`, and it is not the same algorithm: the scores are
   different numbers. The parity scenarios use queries where both rank identically, but that is not guaranteed in general: items cmdk
   scores equally (a tie) can come out in another order, `command-score` matches `"app"` against `"Apricot"` and the scorer does not,
-  and whitespace in the query is ignored instead of matched. See [menus and select](docs/menus-and-select.md#command-and-combobox).
+  and whitespace in the query is ignored instead of matched. This difference is accepted on purpose (#225): porting `command-score` is reconsidered if users report rankings that matter to them. See [menus and select](docs/menus-and-select.md#command-and-combobox).
 - **Combobox.** The default `filter:` is `"fuzzy"` (the same scorer, so `"nxt"` finds `next.js`). Pass `filter: :contains` for Base
   UI's own substring matching and `filter: nil` for no filtering. Single and multiple (chips) selection, grouped items and a clear
   button are supported, and `name:` submits through hidden inputs.

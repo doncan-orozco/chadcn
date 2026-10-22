@@ -8,7 +8,7 @@ en:
     theme_panel: "Theme panel"
     scenario: "scenario %{id} (%{count} in total)"
     unavailable: "This preview could not be rendered (%{error})."
-    tagline: "%{upstream} for Phlex. Built different."
+    tagline: "chadcn go brrrrrr"
     disclaimer: "Not affiliated with shadcn. Built on %{upstream} (MIT)."
     wordmark_alt: "chadcn"
     upstream_name: "shadcn/ui"
