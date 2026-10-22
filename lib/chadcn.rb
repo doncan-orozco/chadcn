@@ -6,7 +6,8 @@ require "phlex"
 require "tailwind_merge"
 require "zeitwerk"
 
-# shadcn/ui components for Phlex.
+# chadcn: shadcn/ui components for Phlex, as one Ruby class per React export with Stimulus behavior. Installation and setup are in
+# the README; the per-family guides are in docs/.
 module Chadcn
   # Absolute path of the installed gem (where `lib`, `app` and `vendor` live); see {.root}.
   #

@@ -1,8 +1,9 @@
 # Menus, select, command and combobox
 
-Dropdown menu, context menu, menubar and select. Their controllers (`chadcn--dropdown-menu`, `chadcn--context-menu`,
-`chadcn--menubar`, `chadcn--select`) implement the Radix menu behavior: roving focus, typeahead, submenus with the pointer grace
-area, checkbox and radio items, keyboard selection, and Floating UI positioning. Conventions: [api-conventions.md](api-conventions.md).
+[chadcn](../README.md) docs, menu family: dropdown menu, context menu, menubar and select. Their controllers
+(`chadcn--dropdown-menu`, `chadcn--context-menu`, `chadcn--menubar`, `chadcn--select`) implement the Radix menu behavior: roving
+focus, typeahead, submenus with the pointer grace area, checkbox and radio items, keyboard selection, and Floating UI positioning.
+Conventions: [api-conventions.md](api-conventions.md).
 
 The three menus share the same part set; the root and the trigger differ.
 

@@ -5,6 +5,8 @@ description: "Use when writing Phlex views with the chadcn gem (shadcn/ui compon
 
 # chadcn
 
+chadcn is a Ruby gem (RubyGems only). Not affiliated with shadcn. Built on shadcn/ui (MIT). Setup: [README](../../README.md).
+
 54 shadcn/ui components as Phlex classes under `Chadcn`. The exact keywords, variants, parts, controllers and events of every component are in [llms-full.txt](../../llms-full.txt) (generated, always current): read the section of the component before using it.
 
 ## Rules

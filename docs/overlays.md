@@ -1,9 +1,10 @@
 # Overlays
 
-Dialog, alert dialog, sheet, popover, tooltip and hover card. Each root carries a Stimulus controller (`chadcn--dialog`,
-`chadcn--alert-dialog`, `chadcn--sheet`, `chadcn--popover`, `chadcn--tooltip`, `chadcn--hover-card`) that reproduces the Radix
-behavior: focus trap and return, Escape and outside-pointer dismissal, scroll lock for modals, `aria-*` wiring, positioning with
-Floating UI for the anchored ones. Conventions: [api-conventions.md](api-conventions.md).
+Radix behavior, zero React. [chadcn](../README.md) docs, overlay family: dialog, alert dialog, sheet, popover, tooltip and hover
+card. Each root carries a Stimulus controller (`chadcn--dialog`, `chadcn--alert-dialog`, `chadcn--sheet`, `chadcn--popover`,
+`chadcn--tooltip`, `chadcn--hover-card`) that reproduces the Radix behavior: focus trap and return, Escape and outside-pointer
+dismissal, scroll lock for modals, `aria-*` wiring, positioning with Floating UI for the anchored ones. Conventions:
+[api-conventions.md](api-conventions.md).
 
 | Component | Root kwargs | Parts (class and generated helper) | Events |
 |---|---|---|---|

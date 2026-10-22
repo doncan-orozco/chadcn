@@ -1,8 +1,9 @@
 # Form controls
 
-Inputs, buttons and the `Field` layout primitives. Interactive ones carry a Stimulus controller (`chadcn--checkbox`,
-`chadcn--switch`, `chadcn--radio-group`, `chadcn--toggle`, `chadcn--toggle-group`, `chadcn--slider`, `chadcn--input-group`,
-`chadcn--label`) and dispatch `chadcn--<name>:<event>` events. Conventions: [api-conventions.md](api-conventions.md).
+[chadcn](../README.md) docs, form family: inputs, buttons and the `Field` layout primitives. Interactive ones carry a Stimulus
+controller (`chadcn--checkbox`, `chadcn--switch`, `chadcn--radio-group`, `chadcn--toggle`, `chadcn--toggle-group`,
+`chadcn--slider`, `chadcn--input-group`, `chadcn--label`) and dispatch `chadcn--<name>:<event>` events. Conventions:
+[api-conventions.md](api-conventions.md).
 
 | Component | Root kwargs (besides `**attrs`) | Parts (class and generated helper) | Events |
 |---|---|---|---|
