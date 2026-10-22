@@ -16,7 +16,7 @@ const scenarioSources = {
 
 export default defineConfig(({ command }) => ({
   plugins: [scenarioSources, react(), tailwindcss()],
-  resolve: { alias: { '@': path.resolve(__dirname, './src'), '@scenarios': path.resolve(__dirname, '../port/scenarios'), '@host-theme': path.resolve(__dirname, '../../app/assets/tailwind/phlex-shadcn') } },
+  resolve: { alias: { '@': path.resolve(__dirname, './src'), '@scenarios': path.resolve(__dirname, '../port/scenarios'), '@host-theme': path.resolve(__dirname, '../../app/assets/tailwind/chadcn') } },
   server: { fs: { allow: ['..', '../..'] } },
   base: command === 'build' ? '/react-catalog/' : '/',
   // The host serves this build at /react-catalog/ from its committed public/: the output stays there (chunk 2 moves the host assets).

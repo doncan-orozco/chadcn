@@ -1,6 +1,6 @@
 // Toast store + stack: the behavior of sonner 2.0.7 (the library shadcn's Toaster wraps) without the library or React.
 // Stands in for: `sonner` (toast() store, Toaster state, Toast stacking/timers/swipe). Source read: sonner/dist/index.mjs.
-// The stylesheet that turns the data-* attributes below into the stacked look is app/assets/tailwind/phlex-shadcn/sonner.css.
+// The stylesheet that turns the data-* attributes below into the stacked look is app/assets/tailwind/chadcn/sonner.css.
 // Known divergences (recorded in dev/port/deviations/sonner.json): no React elements (`toast.custom` takes a DOM node or a function
 // returning one), no `useSonner` hook, an `error` toast is also announced through an assertive live region.
 //

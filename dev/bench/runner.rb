@@ -5,7 +5,7 @@ $LOAD_PATH.unshift File.expand_path("../../lib", __dir__)
 require "date" # phlex 2.4.1 references Date without requiring it; plain Ruby 4 does not preload it
 require "json"
 require "open3"
-require "phlex/shadcn"
+require "chadcn"
 require_relative "scenarios"
 
 module Bench

@@ -1,19 +1,19 @@
 # API conventions
 
-Every component in `Phlex::Shadcn` follows the same rules, derived mechanically from the React shadcn/ui source. Knowing them once
+Every component in `Chadcn` follows the same rules, derived mechanically from the React shadcn/ui source. Knowing them once
 is enough to read any family page.
 
 ## One class per React export
 
-`<Root><Part>` becomes `Phlex::Shadcn::<Root>::<Part>`, with the root prefix stripped once:
+`<Root><Part>` becomes `Chadcn::<Root>::<Part>`, with the root prefix stripped once:
 
 | React | Phlex |
 |---|---|
-| `Dialog` | `Phlex::Shadcn::Dialog` |
-| `DialogContent` | `Phlex::Shadcn::Dialog::Content` |
-| `DropdownMenuCheckboxItem` | `Phlex::Shadcn::DropdownMenu::CheckboxItem` |
-| `SelectScrollUpButton` | `Phlex::Shadcn::Select::ScrollUpButton` |
-| `buttonVariants(...)` | `Phlex::Shadcn::Button.variants(variant:, size:, class:)` (class method, returns the class string) |
+| `Dialog` | `Chadcn::Dialog` |
+| `DialogContent` | `Chadcn::Dialog::Content` |
+| `DropdownMenuCheckboxItem` | `Chadcn::DropdownMenu::CheckboxItem` |
+| `SelectScrollUpButton` | `Chadcn::Select::ScrollUpButton` |
+| `buttonVariants(...)` | `Chadcn::Button.variants(variant:, size:, class:)` (class method, returns the class string) |
 
 Parts live under their root and are rendered where the JSX would place them; DOM order is the order you render them. Parts that render
 no element in Radix (`Root`, `Portal`, `Sub`, `Provider`, `Menubar::Menu`) exist as classes with the same API and nesting, yield their
@@ -21,24 +21,24 @@ block and emit nothing (a `display: contents` host carries the Stimulus controll
 
 ## Two equivalent ways to compose a compound component
 
-The nested classes are the canonical API. A compound root also yields itself, and `Phlex::Shadcn::Base` generates one public helper
+The nested classes are the canonical API. A compound root also yields itself, and `Chadcn::Base` generates one public helper
 per nested part: the helper is the part's class name in snake_case (`Header` is `header`, `CheckboxItem` is `checkbox_item`,
 `ScrollUpButton` is `scroll_up_button`), and `root.header(**attrs, &block)` is exactly `render Root::Header.new(**attrs), &block`.
 Nothing else is added; the helpers are never hand-written and never carry behavior.
 
 ```ruby
 # explicit
-render Phlex::Shadcn::Tabs.new(default_value: "account") do
-  render Phlex::Shadcn::Tabs::List.new do
-    render Phlex::Shadcn::Tabs::Trigger.new(value: "account") { "Account" }
-    render Phlex::Shadcn::Tabs::Trigger.new(value: "password") { "Password" }
+render Chadcn::Tabs.new(default_value: "account") do
+  render Chadcn::Tabs::List.new do
+    render Chadcn::Tabs::Trigger.new(value: "account") { "Account" }
+    render Chadcn::Tabs::Trigger.new(value: "password") { "Password" }
   end
-  render Phlex::Shadcn::Tabs::Content.new(value: "account") { "..." }
-  render Phlex::Shadcn::Tabs::Content.new(value: "password") { "..." }
+  render Chadcn::Tabs::Content.new(value: "account") { "..." }
+  render Chadcn::Tabs::Content.new(value: "password") { "..." }
 end
 
 # helpers on the yielded root
-render Phlex::Shadcn::Tabs.new(default_value: "account") do |tabs|
+render Chadcn::Tabs.new(default_value: "account") do |tabs|
   tabs.list do
     tabs.trigger(value: "account") { "Account" }
     tabs.trigger(value: "password") { "Password" }
@@ -68,7 +68,7 @@ live on the instance. A few helpers share a name with an HTML element (`header`,
   `dev/decisions/data-controller-merge.md`, which lives in the repository and is not packaged with the gem).
 
   ```ruby
-  render Phlex::Shadcn::Dialog.new(data: { controller: "x", action: "click->x#go" })
+  render Chadcn::Dialog.new(data: { controller: "x", action: "click->x#go" })
   # <div style="display: contents" data-controller="shadcn--dialog x" ... data-action="click->x#go"></div>
   # Dialog has no data-action of its own, so only the caller's renders.
   # data: { controller: nil } and data: { controller: "shadcn--dialog x" } render data-controller="shadcn--dialog" and
@@ -81,17 +81,17 @@ live on the instance. A few helpers share a name with an HTML element (`header`,
 ## `as_child`
 
 `asChild` is `as_child:`. It takes `false` (the default element), a tag symbol or string (`as_child: :a` renders that tag with the
-part's classes, `data-slot` and attributes) or a `Phlex::Shadcn` component instance. With an instance the part's computed attributes
+part's classes, `data-slot` and attributes) or a `Chadcn` component instance. With an instance the part's computed attributes
 (`aria-*`, `data-state`, ids, `data-action`) are merged into the child with Radix Slot semantics: the child's props win, classes are
 joined plainly (slot first, child second, no conflict resolution, as Radix does), `data-action` descriptors and `data-controller`
 tokens are combined, `aria-describedby` ids are concatenated. `as_child: true` is not an API (there is no implicit child in Ruby).
 
 ```ruby
-render Phlex::Shadcn::Dialog.new do |dialog|
-  dialog.trigger(as_child: Phlex::Shadcn::Button.new(variant: "outline")) { "Edit profile" }
+render Chadcn::Dialog.new do |dialog|
+  dialog.trigger(as_child: Chadcn::Button.new(variant: "outline")) { "Edit profile" }
   dialog.content { dialog.title { "Edit profile" } }
 end
-render Phlex::Shadcn::Button.new(as_child: :a, href: "/docs") { "Docs" }
+render Chadcn::Button.new(as_child: :a, href: "/docs") { "Docs" }
 ```
 
 A trigger part renders its own `<button>`; never nest a `Button` inside it as content, pass the Button to `as_child:`.
@@ -135,6 +135,6 @@ working.
 
 ## Icons
 
-`Phlex::Shadcn::Icon.new(name, **attrs)` renders the Lucide icon (`"check"`, `:chevron_down`, or the lucide-react export name
+`Chadcn::Icon.new(name, **attrs)` renders the Lucide icon (`"check"`, `:chevron_down`, or the lucide-react export name
 `"ChevronDownIcon"`) with the lucide-react 0.577.0 markup, `aria-hidden` and no size class of its own: shadcn components size icons
 through parent selectors (`[&_svg:not([class*='size-'])]:size-4`), exactly as in React.

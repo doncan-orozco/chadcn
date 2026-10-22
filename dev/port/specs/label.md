@@ -1,6 +1,6 @@
 # Label
 
-Oracle: `gems/phlex-shadcn/dev/port/oracle/src/label.tsx` (manifest `source_sha` 344bde38b8531615, tier `radix_stateful`), wrapping `LabelPrimitive.Root` from `radix-ui` 1.7.0 -> `@radix-ui/react-label` 2.1.16 (`gems/phlex-shadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-label/dist/index.mjs`, cited as `label.mjs:<line>`), whose element is `Primitive.label` from `@radix-ui/react-primitive` 2.1.11 (`react-primitive/dist/index.mjs`, cited as `primitive.mjs:<line>`). Registry example: `label-demo` (fetched from `https://ui.shadcn.com/r/styles/new-york-v4/label-demo.json`).
+Oracle: `gems/chadcn/dev/port/oracle/src/label.tsx` (manifest `source_sha` 344bde38b8531615, tier `radix_stateful`), wrapping `LabelPrimitive.Root` from `radix-ui` 1.7.0 -> `@radix-ui/react-label` 2.1.16 (`gems/chadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-label/dist/index.mjs`, cited as `label.mjs:<line>`), whose element is `Primitive.label` from `@radix-ui/react-primitive` 2.1.11 (`react-primitive/dist/index.mjs`, cited as `primitive.mjs:<line>`). Registry example: `label-demo` (fetched from `https://ui.shadcn.com/r/styles/new-york-v4/label-demo.json`).
 
 ## API
 
@@ -70,7 +70,7 @@ None (`registry_dependencies: []`, manifest `icons: []`). Scenarios with icons u
 
 One API-only deviation, not observable in the DOM or in any scenario:
 
-- React suppresses the caller's `onMouseDown` when the target is inside `button, input, select, textarea` (label.mjs:18-19 returns before calling `props.onMouseDown`). Ruby has no JS callbacks; a caller attaches `data-action="mousedown->..."`, which Stimulus fires as an independent listener regardless of the target. The component's own prevention logic is identical. Entry written to `gems/phlex-shadcn/dev/port/deviations/label.json`:
+- React suppresses the caller's `onMouseDown` when the target is inside `button, input, select, textarea` (label.mjs:18-19 returns before calling `props.onMouseDown`). Ruby has no JS callbacks; a caller attaches `data-action="mousedown->..."`, which Stimulus fires as an independent listener regardless of the target. The component's own prevention logic is identical. Entry written to `gems/chadcn/dev/port/deviations/label.json`:
 
 ```json
 {

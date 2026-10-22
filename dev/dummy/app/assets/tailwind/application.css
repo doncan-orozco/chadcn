@@ -1,9 +1,9 @@
 @import "tailwindcss";
-/* phlex-shadcn:start (managed by rails g phlex:shadcn:install) */
+/* chadcn:start (managed by rails g chadcn:install) */
 @source "../../../../../lib";
-@import "../builds/tailwind/phlex-shadcn";
-@import "../../../../../app/assets/tailwind/phlex-shadcn/theme.css";
-/* phlex-shadcn:end */
+@import "../builds/tailwind/chadcn";
+@import "../../../../../app/assets/tailwind/chadcn/theme.css";
+/* chadcn:end */
 
 /* Classes that only appear in scenario trees and in the parity renderer (the React catalog scans the same scenarios). */
 @source "../../../../port/scenarios";

@@ -1,7 +1,7 @@
 // Where the gem's dev kit lives (ruby-gem-conventions R1/R10). Playwright may come from the main checkout when this is a git
 // worktree (worktrees carry no node_modules); the running Phlex server must come from THIS checkout, because it serves this
-// checkout's gem. Environment: PHLEX_SHADCN_DEV_ROOT (relative paths are resolved from the working directory),
-// PHLEX_SHADCN_PLAYWRIGHT (a directory with node_modules/playwright, CI), SHADCN_SERVERS_FILE (another servers.json).
+// checkout's gem. Environment: CHADCN_DEV_ROOT (relative paths are resolved from the working directory),
+// CHADCN_PLAYWRIGHT (a directory with node_modules/playwright, CI), SHADCN_SERVERS_FILE (another servers.json).
 import fs from "node:fs";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
@@ -9,7 +9,7 @@ import { createRequire } from "node:module";
 
 export const GEM_ROOT = path.resolve(import.meta.dirname, "../..");
 const envPath = (name) => process.env[name] && path.resolve(process.env[name]);
-const ownDevRoots = () => [envPath("PHLEX_SHADCN_DEV_ROOT"), path.join(GEM_ROOT, "dev")].filter(Boolean);
+const ownDevRoots = () => [envPath("CHADCN_DEV_ROOT"), path.join(GEM_ROOT, "dev")].filter(Boolean);
 
 function mainCheckoutDevRoot() {
   try {
@@ -23,10 +23,10 @@ function mainCheckoutDevRoot() {
 
 export function loadPlaywright() {
   const roots = [...ownDevRoots(), mainCheckoutDevRoot()].filter(Boolean);
-  const catalogs = [...new Set([envPath("PHLEX_SHADCN_PLAYWRIGHT"), ...roots.map((root) => path.join(root, "react-shadcn-catalog"))].filter(Boolean))];
+  const catalogs = [...new Set([envPath("CHADCN_PLAYWRIGHT"), ...roots.map((root) => path.join(root, "react-shadcn-catalog"))].filter(Boolean))];
   const dir = catalogs.find((candidate) => fs.existsSync(path.join(candidate, "node_modules/playwright")));
   if (dir) return createRequire(path.join(dir, "package.json"))("playwright");
-  throw new Error(`playwright not found in ${catalogs.join(", ")}: npm ci in gems/phlex-shadcn/dev/react-shadcn-catalog, or set PHLEX_SHADCN_PLAYWRIGHT / PHLEX_SHADCN_DEV_ROOT`);
+  throw new Error(`playwright not found in ${catalogs.join(", ")}: npm ci in gems/chadcn/dev/react-shadcn-catalog, or set CHADCN_PLAYWRIGHT / CHADCN_DEV_ROOT`);
 }
 
 export function serversFile() {

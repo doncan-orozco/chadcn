@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 # Spike for the eject generator: proves that a host directory of component files takes precedence over the gem's
-# lib/phlex/shadcn/** for the same constant. Decision and production consequences: dev/decisions/eject-override.md.
+# lib/chadcn/** for the same constant. Decision and production consequences: dev/decisions/eject-override.md.
 #
-#   cd gems/phlex-shadcn && env -u BUNDLE_GEMFILE bundle exec ruby -Ilib -Itest dev/spikes/eject/override_test.rb
+#   cd gems/chadcn && env -u BUNDLE_GEMFILE bundle exec ruby -Ilib -Itest dev/spikes/eject/override_test.rb
 #
 # Each scenario runs in a child process (harness.rb): Zeitwerk loaders and the constants they define are global state.
 require "json"
@@ -43,7 +43,7 @@ class EjectOverrideTest < Minitest::Test
       result = run_scenario("leaf", mode)
 
       assert result["footer_uses_ejected_button"], "Dialog::Footer must render the ejected Button"
-      assert_equal "./lib/phlex/shadcn/card.rb", result["card_source"]
+      assert_equal "./lib/chadcn/card.rb", result["card_source"]
     end
 
     define_method(:"test_compound_root_override_takes_precedence_as_a_unit_#{mode}") do
@@ -55,7 +55,7 @@ class EjectOverrideTest < Minitest::Test
       assert_equal "root_content", result["dialog_content_ejected"]
       assert_includes result["dialog_title_source"], "fixtures/root/dialog/title.rb"
       assert_includes result["button"], "bg-primary", "components that are not ejected still load from the gem"
-      assert_equal "./lib/phlex/shadcn/card.rb", result["card_source"]
+      assert_equal "./lib/chadcn/card.rb", result["card_source"]
     end
 
     define_method(:"test_nested_part_override_keeps_the_rest_of_the_component_in_the_gem_#{mode}") do
@@ -65,7 +65,7 @@ class EjectOverrideTest < Minitest::Test
       assert_nil result["error"]
       assert_nil result["dialog_ejected"], "Dialog itself still comes from the gem"
       assert_equal "nested", result["dialog_content_ejected"]
-      assert_equal "./lib/phlex/shadcn/dialog/title.rb", result["dialog_title_source"]
+      assert_equal "./lib/chadcn/dialog/title.rb", result["dialog_title_source"]
     end
   end
 
@@ -109,6 +109,6 @@ class EjectOverrideTest < Minitest::Test
 
     assert_nil result["error"]
     assert_equal "nested", result["after_reload_content"]
-    assert_equal "./lib/phlex/shadcn/dialog.rb", result["after_reload_dialog_source"]
+    assert_equal "./lib/chadcn/dialog.rb", result["after_reload_dialog_source"]
   end
 end

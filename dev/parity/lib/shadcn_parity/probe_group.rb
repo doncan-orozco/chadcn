@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Compound-root stub: exercises the DX helper mode (`group.item { ... }`) of the parity harness.
-class ShadcnParity::ProbeGroup < Phlex::Shadcn::Base
+class ShadcnParity::ProbeGroup < Chadcn::Base
   def initialize(**attrs)
     @attrs = attrs
     super()
@@ -13,7 +13,7 @@ class ShadcnParity::ProbeGroup < Phlex::Shadcn::Base
     end
   end
 
-  class Item < Phlex::Shadcn::Base
+  class Item < Chadcn::Base
     def initialize(**attrs)
       @attrs = attrs
       super()

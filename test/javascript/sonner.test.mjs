@@ -9,7 +9,7 @@ const toasts = "[data-sonner-toast]";
 const count = (page, selector = toasts) => page.locator(selector).count();
 const titles = (page) => page.locator(`${toasts} [data-title]`).allTextContents();
 
-// What Phlex::Shadcn::Sonner::Toast renders (test/phlex/shadcn/sonner_test.rb asserts the same markup).
+// What Chadcn::Sonner::Toast renders (test/chadcn/sonner_test.rb asserts the same markup).
 const toastTemplate = (attrs, title, description) =>
   `<template data-shadcn--sonner-toast="" ${attrs}><div data-title="">${title}</div>${description ? `<div data-description="">${description}</div>` : ""}</template>`;
 

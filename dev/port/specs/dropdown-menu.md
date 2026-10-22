@@ -1,7 +1,7 @@
 # dropdown-menu
 
-Oracle: `gems/phlex-shadcn/dev/port/oracle/src/dropdown-menu.tsx` (new-york-v4, `radix-ui` 1.7.0) + `oracle/manifest/dropdown-menu.json` (tier `overlay`, no cva, no registry dependencies).
-Radix sources read (catalog `gems/phlex-shadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/`): `react-dropdown-menu` 2.1.25 (cited `DM:<line>`), `react-menu` 2.1.25 (`M:`), `react-popper` 1.3.8 (`P:`), `react-roving-focus` 1.1.20 (`RF:`), `react-dismissable-layer` 1.1.20 (`DL:`), `react-focus-guards` 1.1.6 (`FG:`), `react-focus-scope` 1.2.0 (`FS:`), `react-presence` 1.1.11, `react-portal` 1.1.18; `react-remove-scroll` 2.7.2 / `react-remove-scroll-bar` 2.3.8, `aria-hidden` 1.2.6, `@floating-ui/dom` 1.8.0 (via `@floating-ui/react-dom`), `lucide-react` 0.577.0. Line numbers are of each package's `dist/index.mjs`.
+Oracle: `gems/chadcn/dev/port/oracle/src/dropdown-menu.tsx` (new-york-v4, `radix-ui` 1.7.0) + `oracle/manifest/dropdown-menu.json` (tier `overlay`, no cva, no registry dependencies).
+Radix sources read (catalog `gems/chadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/`): `react-dropdown-menu` 2.1.25 (cited `DM:<line>`), `react-menu` 2.1.25 (`M:`), `react-popper` 1.3.8 (`P:`), `react-roving-focus` 1.1.20 (`RF:`), `react-dismissable-layer` 1.1.20 (`DL:`), `react-focus-guards` 1.1.6 (`FG:`), `react-focus-scope` 1.2.0 (`FS:`), `react-presence` 1.1.11, `react-portal` 1.1.18; `react-remove-scroll` 2.7.2 / `react-remove-scroll-bar` 2.3.8, `aria-hidden` 1.2.6, `@floating-ui/dom` 1.8.0 (via `@floating-ui/react-dom`), `lucide-react` 0.577.0. Line numbers are of each package's `dist/index.mjs`.
 
 ## API
 
@@ -163,7 +163,7 @@ The registry examples use `Button` as the `asChild` trigger, but the manifest li
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)
 
-`Phlex::Shadcn::DropdownMenu` MUST `yield self` from `view_template`; `Phlex::Shadcn::Base` generates one helper per nested part (`const_added`), each exactly `render DropdownMenu::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Phlex::Shadcn::DropdownMenu::Content.new`) stay valid.
+`Chadcn::DropdownMenu` MUST `yield self` from `view_template`; `Chadcn::Base` generates one helper per nested part (`const_added`), each exactly `render DropdownMenu::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Chadcn::DropdownMenu::Content.new`) stay valid.
 
 | helper | part class | React export |
 |---|---|---|

@@ -1,6 +1,6 @@
 # Card (`Components::V2::Card`)
 
-Oracle: `gems/phlex-shadcn/dev/port/oracle/src/card.tsx` (style `new-york-v4`, manifest `source_sha` `ef8305b12c3112da`), manifest `gems/phlex-shadcn/dev/port/oracle/manifest/card.json`. Tier `static`: no `"use client"`, no Radix primitive, no Stimulus controller, no hooks, no icons, no cva. Exports `Card`, `CardHeader`, `CardFooter`, `CardTitle`, `CardAction`, `CardDescription`, `CardContent`. Seven parts, data-slots `card`, `card-header`, `card-title`, `card-description`, `card-action`, `card-content`, `card-footer`. Registry examples: `card-demo`, `card-with-form` (`https://ui.shadcn.com/r/styles/new-york-v4/<name>.json`).
+Oracle: `gems/chadcn/dev/port/oracle/src/card.tsx` (style `new-york-v4`, manifest `source_sha` `ef8305b12c3112da`), manifest `gems/chadcn/dev/port/oracle/manifest/card.json`. Tier `static`: no `"use client"`, no Radix primitive, no Stimulus controller, no hooks, no icons, no cva. Exports `Card`, `CardHeader`, `CardFooter`, `CardTitle`, `CardAction`, `CardDescription`, `CardContent`. Seven parts, data-slots `card`, `card-header`, `card-title`, `card-description`, `card-action`, `card-content`, `card-footer`. Registry examples: `card-demo`, `card-with-form` (`https://ui.shadcn.com/r/styles/new-york-v4/<name>.json`).
 
 ## API
 
@@ -67,7 +67,7 @@ Classes, verbatim from the tsx base strings (each part is `cn("<base>", classNam
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)
 
-`Phlex::Shadcn::Card` MUST `yield self` from `view_template`; `Phlex::Shadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Card::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Phlex::Shadcn::Card::Content.new`) stay valid.
+`Chadcn::Card` MUST `yield self` from `view_template`; `Chadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Card::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Chadcn::Card::Content.new`) stay valid.
 
 | helper | part class | React export |
 |---|---|---|

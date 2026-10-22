@@ -6,7 +6,7 @@ require "rbconfig"
 
 class SmokeTest < Minitest::Test
   def test_has_a_version
-    assert_match(/\A\d+\.\d+\.\d+/, Phlex::Shadcn::VERSION)
+    assert_match(/\A\d+\.\d+\.\d+/, Chadcn::VERSION)
   end
 
   def test_loads_without_rails
@@ -17,16 +17,16 @@ class SmokeTest < Minitest::Test
   # simple part, a compound with generated helpers and a part that serializes JSON options, then checks that no ActiveSupport
   # file was loaded and no core class was extended.
   CLEAN_PROCESS_SCRIPT = <<~RUBY
-    require "phlex/shadcn"
-    Phlex::Shadcn::Loader.eager_load
+    require "chadcn"
+    Chadcn::Loader.eager_load
 
     page = Class.new(Phlex::HTML) do
       def view_template
-        render(Phlex::Shadcn::Button.new(variant: "outline")) { plain "Go" }
-        render(Phlex::Shadcn::Card.new) { |card| card.header { card.title { plain "T" } } }
-        render(Phlex::Shadcn::Popover.new) do
-          render(Phlex::Shadcn::Popover::Trigger.new) { plain "open" }
-          render(Phlex::Shadcn::Popover::Content.new) { plain "body" }
+        render(Chadcn::Button.new(variant: "outline")) { plain "Go" }
+        render(Chadcn::Card.new) { |card| card.header { card.title { plain "T" } } }
+        render(Chadcn::Popover.new) do
+          render(Chadcn::Popover::Trigger.new) { plain "open" }
+          render(Chadcn::Popover::Content.new) { plain "body" }
         end
       end
     end
@@ -35,7 +35,7 @@ class SmokeTest < Minitest::Test
     loaded = $LOADED_FEATURES.grep(/active_support/)
     abort("ActiveSupport was loaded: \#{loaded.first(3).inspect}") unless loaded.empty?
     abort("Rails was touched: \#{defined?(Rails).inspect}") if defined?(Rails)
-    abort("the Rails engine was loaded in a plain Phlex process") if defined?(Phlex::Shadcn::Engine)
+    abort("the Rails engine was loaded in a plain Phlex process") if defined?(Chadcn::Engine)
     abort("a core class was extended") if "".respond_to?(:blank?) || {}.respond_to?(:deep_merge) || [].respond_to?(:compact_blank)
     helpers = %i[blank_value? filled? unless_blank reject_blank merge_deep snake_case unqualified]
     leaked = [ Object, String, Hash, Array, Enumerable ].flat_map { |mod| helpers.select { |name| mod.method_defined?(name) }.map { |name| "\#{mod}#\#{name}" } }
@@ -54,8 +54,8 @@ class SmokeTest < Minitest::Test
   end
 
   def test_eager_loads_every_file
-    Phlex::Shadcn::Loader.eager_load
+    Chadcn::Loader.eager_load
 
-    assert_kind_of Module, Phlex::Shadcn
+    assert_kind_of Module, Chadcn
   end
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Pins of the phlex-shadcn engine (added to the host's importmap by Phlex::Shadcn::Engine).
+# Pins of the chadcn engine (added to the host's importmap by Chadcn::Engine).
 #
 # The controllers live in app/javascript/controllers/shadcn, so the host's eagerLoadControllersFrom("controllers") registers them as
 # shadcn--<name>; the shared primitives are imported as shadcn/primitives/<name>; floating-ui is vendored (vendor/javascript).

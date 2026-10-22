@@ -1,6 +1,6 @@
 # Progress
 
-Oracle: `gems/phlex-shadcn/dev/port/oracle/src/progress.tsx` (manifest `source_sha` e012e1f7e6e66d11, tier `radix_stateful`), wrapping `ProgressPrimitive.Root` / `ProgressPrimitive.Indicator` from `radix-ui` 1.7.0 -> `@radix-ui/react-progress` 1.1.17 (`gems/phlex-shadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-progress/dist/index.mjs`, cited below as `progress.mjs:<line>`). React DOM 19.3.0.
+Oracle: `gems/chadcn/dev/port/oracle/src/progress.tsx` (manifest `source_sha` e012e1f7e6e66d11, tier `radix_stateful`), wrapping `ProgressPrimitive.Root` / `ProgressPrimitive.Indicator` from `radix-ui` 1.7.0 -> `@radix-ui/react-progress` 1.1.17 (`gems/chadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-progress/dist/index.mjs`, cited below as `progress.mjs:<line>`). React DOM 19.3.0.
 
 Key oracle fact (progress.tsx): shadcn destructures `value` out of the props and does NOT pass it to `ProgressPrimitive.Root` (`{...props}` no longer contains it). Radix therefore always sees `value: valueProp = null` (progress.mjs:19), so the Root and the Indicator are ALWAYS in the Radix indeterminate state: `data-state="indeterminate"`, no `aria-valuenow`, no `aria-valuetext`, no `data-value`, whatever `value` the caller passes. `value` only drives the Indicator's inline `transform`. The port reproduces this exactly (it is the oracle DOM, not a bug to fix).
 
@@ -72,7 +72,7 @@ None. Progress renders no other `Components::V2` component and no icon (manifest
 
 ## Deviations
 
-API only (no DOM or class difference). Entry written to `gems/phlex-shadcn/dev/port/deviations/progress.json`:
+API only (no DOM or class difference). Entry written to `gems/chadcn/dev/port/deviations/progress.json`:
 
 - `as_child:` not supported. Radix Root is a `Primitive.div` that accepts `asChild`, but shadcn always renders `ProgressPrimitive.Indicator` as the Root's only child, so Radix `Slot` would merge the progressbar attributes onto the Indicator div and drop the track element; no registry example uses it.
 - `getValueLabel` not supported. It is a JS callback (not expressible as a kwarg), and in shadcn it has no observable effect because `value` is never forwarded to Radix (`valueLabel` is always `undefined`, progress.mjs:32).

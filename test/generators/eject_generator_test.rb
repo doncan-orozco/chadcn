@@ -2,14 +2,14 @@
 
 require_relative "../engine/engine_helper"
 require "rails/generators/test_case"
-require "generators/phlex/shadcn/eject/eject_generator"
+require "generators/chadcn/eject/eject_generator"
 
 class EjectGeneratorTest < Rails::Generators::TestCase
-  tests Phlex::Shadcn::Generators::EjectGenerator
-  destination File.join(Dir.tmpdir, "phlex-shadcn-eject-destination-#{Process.pid}")
+  tests Chadcn::Generators::EjectGenerator
+  destination File.join(Dir.tmpdir, "chadcn-eject-destination-#{Process.pid}")
 
-  Overrides = Phlex::Shadcn::Overrides
-  DIR = "app/components/phlex_shadcn"
+  Overrides = Chadcn::Overrides
+  DIR = "app/components/chadcn"
 
   setup { prepare_destination }
 
@@ -34,8 +34,8 @@ class EjectGeneratorTest < Rails::Generators::TestCase
 
     header = Overrides.parse_header(ejected("button.rb"))
 
-    assert_equal Phlex::Shadcn::VERSION, header[:version]
-    assert_equal "lib/phlex/shadcn/button.rb", header[:source]
+    assert_equal Chadcn::VERSION, header[:version]
+    assert_equal "lib/chadcn/button.rb", header[:source]
     assert_equal Overrides.digest(gem_file("button.rb")), header[:digest]
     assert_equal gem_file("button.rb"), Overrides.strip_header(ejected("button.rb"))
   end
@@ -96,10 +96,10 @@ class EjectGeneratorTest < Rails::Generators::TestCase
   end
 
   test "an unknown component and the gem's own infrastructure fail with the reason" do
-    assert_includes run_failing_generator([ "nope", "--dir", DIR ]), "nope is not a phlex-shadcn component"
-    assert_includes run_failing_generator([ "base", "--dir", DIR ]), "base is not a phlex-shadcn component"
-    assert_includes run_failing_generator([ "dialog/nope", "--dir", DIR ]), "dialog/nope is not a phlex-shadcn component"
-    assert_includes run_failing_generator([ "../base", "--dir", DIR ]), "not a phlex-shadcn component"
+    assert_includes run_failing_generator([ "nope", "--dir", DIR ]), "nope is not a chadcn component"
+    assert_includes run_failing_generator([ "base", "--dir", DIR ]), "base is not a chadcn component"
+    assert_includes run_failing_generator([ "dialog/nope", "--dir", DIR ]), "dialog/nope is not a chadcn component"
+    assert_includes run_failing_generator([ "../base", "--dir", DIR ]), "not a chadcn component"
     assert_includes run_failing_generator([ "--dir", DIR ]), "name the components"
     refute_path_exists File.join(destination_root, DIR)
   end
@@ -168,7 +168,7 @@ class EjectGeneratorTest < Rails::Generators::TestCase
 
   test "the generator writes to the configured override directory when --dir is not given" do
     dir = File.join(destination_root, "custom/ui")
-    config = Phlex::Shadcn.config
+    config = Chadcn.config
     config.define_singleton_method(:override_dir) { dir }
     run_generator [ "badge" ]
 

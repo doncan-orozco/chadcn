@@ -8,13 +8,13 @@ require_relative "engine_helper"
 # options, and the doctor names the pipeline. The in-process application uses Propshaft; a Sprockets app is proven by
 # `bin/smoke --app --assets sprockets`, so here Sprockets' options object is imitated.
 class EngineTest::SprocketsSupport < Minitest::Test
-  Context = Phlex::Shadcn::Doctor::Context
-  Check = Phlex::Shadcn::Doctor::Checks::AssetPipeline
+  Context = Chadcn::Doctor::Context
+  Check = Chadcn::Doctor::Checks::AssetPipeline
   MANIFEST = "app/assets/config/manifest.js"
   Options = Struct.new(:precompile)
-  ENGINE = Phlex::Shadcn::Engine
+  ENGINE = Chadcn::Engine
 
-  def setup = @root = Pathname.new(Dir.mktmpdir("phlex-shadcn-sprockets"))
+  def setup = @root = Pathname.new(Dir.mktmpdir("chadcn-sprockets"))
 
   def teardown = FileUtils.remove_entry(@root)
 
@@ -71,7 +71,7 @@ class EngineTest::SprocketsSupport < Minitest::Test
   # Sprockets' `config.assets` is an options object without excluded_paths: reading it answers nil, and the initializer used to crash on it.
   def test_the_tailwind_input_exclusion_is_skipped_without_excluded_paths
     app = Struct.new(:config).new(Struct.new(:assets).new(ActiveSupport::OrderedOptions.new))
-    initializer = ENGINE.initializers.find { |candidate| candidate.name == "phlex_shadcn.exclude_tailwind_inputs" }
+    initializer = ENGINE.initializers.find { |candidate| candidate.name == "chadcn.exclude_tailwind_inputs" }
 
     initializer.bind(ENGINE.instance).run(app)
 

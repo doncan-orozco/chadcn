@@ -1,6 +1,6 @@
 # Breadcrumb (`Components::V2::Breadcrumb`)
 
-Oracle: `gems/phlex-shadcn/dev/port/oracle/src/breadcrumb.tsx` (style `new-york-v4`, source_sha `c75fcd3d9e847018`), manifest `gems/phlex-shadcn/dev/port/oracle/manifest/breadcrumb.json`. Tier `static`: no Stimulus controller, no primitive. Seven exports, each one element with its own data-slot; no cva, no `data-[state=*]` tokens, no `non_rendered_slots`. The only Radix primitive is `Slot` (BreadcrumbLink `asChild`).
+Oracle: `gems/chadcn/dev/port/oracle/src/breadcrumb.tsx` (style `new-york-v4`, source_sha `c75fcd3d9e847018`), manifest `gems/chadcn/dev/port/oracle/manifest/breadcrumb.json`. Tier `static`: no Stimulus controller, no primitive. Seven exports, each one element with its own data-slot; no cva, no `data-[state=*]` tokens, no `non_rendered_slots`. The only Radix primitive is `Slot` (BreadcrumbLink `asChild`).
 
 ## API
 
@@ -77,7 +77,7 @@ All server-rendered; nothing set by Stimulus; no ids generated. Attribute order 
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)
 
-`Phlex::Shadcn::Breadcrumb` MUST `yield self` from `view_template`; `Phlex::Shadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Breadcrumb::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Phlex::Shadcn::Breadcrumb::Content.new`) stay valid.
+`Chadcn::Breadcrumb` MUST `yield self` from `view_template`; `Chadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Breadcrumb::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Chadcn::Breadcrumb::Content.new`) stay valid.
 
 | helper | part class | React export |
 |---|---|---|

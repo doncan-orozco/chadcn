@@ -1,6 +1,6 @@
 # Tabs
 
-Oracle: `gems/phlex-shadcn/dev/port/oracle/src/tabs.tsx` (manifest `source_sha` e1df6e2f95ece373, tier `radix_stateful`), wrapping `TabsPrimitive.Root` / `.List` / `.Trigger` / `.Content` from `radix-ui` 1.7.0 -> `@radix-ui/react-tabs` 1.1.22 (`gems/phlex-shadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-tabs/dist/index.mjs`, cited `tabs:<line>`), built on `@radix-ui/react-roving-focus` 1.1.20 (`rf:<line>`), `@radix-ui/react-collection` 1.1.16 (`col:<line>`), `@radix-ui/react-presence` 1.1.11 (`pr:<line>`), `@radix-ui/react-direction` 1.1.5, `@radix-ui/react-id` 1.1.4 (`id:<line>`), `@radix-ui/react-use-controllable-state` 1.2.6 (`ucs:<line>`), `@radix-ui/react-slot` 1.4.0 (`slot:<line>`). React 19.3. Examples read live (network): registry `tabs-demo` (the only `tabs-*` item in `r/styles/new-york-v4/registry.json`) and the docs page `ui.shadcn.com/docs/components/radix/tabs.md` (docs demo, Line, Vertical, Disabled, Icons, RTL). Radix docs link: `https://www.radix-ui.com/docs/primitives/components/tabs`.
+Oracle: `gems/chadcn/dev/port/oracle/src/tabs.tsx` (manifest `source_sha` e1df6e2f95ece373, tier `radix_stateful`), wrapping `TabsPrimitive.Root` / `.List` / `.Trigger` / `.Content` from `radix-ui` 1.7.0 -> `@radix-ui/react-tabs` 1.1.22 (`gems/chadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-tabs/dist/index.mjs`, cited `tabs:<line>`), built on `@radix-ui/react-roving-focus` 1.1.20 (`rf:<line>`), `@radix-ui/react-collection` 1.1.16 (`col:<line>`), `@radix-ui/react-presence` 1.1.11 (`pr:<line>`), `@radix-ui/react-direction` 1.1.5, `@radix-ui/react-id` 1.1.4 (`id:<line>`), `@radix-ui/react-use-controllable-state` 1.2.6 (`ucs:<line>`), `@radix-ui/react-slot` 1.4.0 (`slot:<line>`). React 19.3. Examples read live (network): registry `tabs-demo` (the only `tabs-*` item in `r/styles/new-york-v4/registry.json`) and the docs page `ui.shadcn.com/docs/components/radix/tabs.md` (docs demo, Line, Vertical, Disabled, Icons, RTL). Radix docs link: `https://www.radix-ui.com/docs/primitives/components/tabs`.
 
 Exports: `Tabs`, `TabsList`, `TabsTrigger`, `TabsContent` (parts) and `tabsListVariants` (cva, class method).
 
@@ -207,7 +207,7 @@ Turbo: `disconnect()` cancels pending focus timeouts, removes listeners and rest
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)
 
-`Phlex::Shadcn::Tabs` MUST `yield self` from `view_template`; `Phlex::Shadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Tabs::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Phlex::Shadcn::Tabs::Content.new`) stay valid.
+`Chadcn::Tabs` MUST `yield self` from `view_template`; `Chadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Tabs::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Chadcn::Tabs::Content.new`) stay valid.
 
 | helper | part class | React export |
 |---|---|---|

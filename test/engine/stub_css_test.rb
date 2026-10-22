@@ -13,7 +13,7 @@ class EngineTest::StubCss < Minitest::Test
     FileUtils.rm_rf(BUILDS)
     FileUtils.mkdir_p(BUILDS.join("tailwind"))
     File.write(BUILDS.join("tailwind.css"), "/* compiled */")
-    File.write(BUILDS.join("tailwind/phlex-shadcn.css"), %(@import "/abs/engine.css";))
+    File.write(BUILDS.join("tailwind/chadcn.css"), %(@import "/abs/engine.css";))
     File.write(BUILDS.join("tailwind/other-engine.css"), %(@import "/abs/other.css";))
     File.write(BUILDS.join("application.css"), "/* app */")
   end
@@ -28,7 +28,7 @@ class EngineTest::StubCss < Minitest::Test
     assert Propshaft::LoadPath.private_method_defined?(:without_dotfiles),
            "Propshaft renamed LoadPath#without_dotfiles: move TailwindStubFilter to the new hook"
     assert_equal 1, Propshaft::LoadPath.instance_method(:without_dotfiles).arity, "Propshaft changed the hook's signature"
-    assert(Propshaft::LoadPath.ancestors.any? { |mod| mod.name == "Phlex::Shadcn::Engine::TailwindStubFilter" })
+    assert(Propshaft::LoadPath.ancestors.any? { |mod| mod.name == "Chadcn::Engine::TailwindStubFilter" })
   end
 
   def test_propshafts_own_dotfile_filter_still_runs
@@ -43,9 +43,9 @@ class EngineTest::StubCss < Minitest::Test
   end
 
   def test_the_engine_stub_is_not_among_the_served_assets
-    assert_nil load_path.find("tailwind/phlex-shadcn.css")
+    assert_nil load_path.find("tailwind/chadcn.css")
     assert_nil load_path.find("tailwind/other-engine.css")
-    refute_includes load_path.assets.map { |asset| asset.logical_path.to_s }, "tailwind/phlex-shadcn.css"
+    refute_includes load_path.assets.map { |asset| asset.logical_path.to_s }, "tailwind/chadcn.css"
   end
 
   def test_stylesheet_link_tag_app_does_not_list_the_stub
@@ -70,7 +70,7 @@ class EngineTest::StubCss < Minitest::Test
   end
 
   # TailwindStubFilter.install is the seam of the recorded ruby-gem-conventions R4 exception: the initializer calls it with
-  # `config.phlex_shadcn.hide_tailwind_stubs`, and it prepends nothing unless the private one-argument hook is really there.
+  # `config.chadcn.hide_tailwind_stubs`, and it prepends nothing unless the private one-argument hook is really there.
   # Installing on a fake target touches no shared state: the real Propshaft::LoadPath keeps the filter the engine installed.
   def test_install_is_a_no_op_when_disabled
     target = fake_target
@@ -121,7 +121,7 @@ class EngineTest::StubCss < Minitest::Test
   def test_an_installed_target_hides_only_the_files_under_the_stubs_directory
     target = fake_target
     install_on(target)
-    stub = BUILDS.join("tailwind/phlex-shadcn.css").to_s
+    stub = BUILDS.join("tailwind/chadcn.css").to_s
     compiled = BUILDS.join("tailwind.css").to_s
     sibling = BUILDS.join("tailwindx/a.css").to_s
 
@@ -138,7 +138,7 @@ class EngineTest::StubCss < Minitest::Test
 
   private
 
-  def tailwind_stub_filter = Phlex::Shadcn::Engine.const_get(:TailwindStubFilter)
+  def tailwind_stub_filter = Chadcn::Engine.const_get(:TailwindStubFilter)
 
   def install_on(target, enabled: true, logger: Logger.new(IO::NULL))
     tailwind_stub_filter.install(target, stubs_dir: BUILDS.join("tailwind"), enabled: enabled, logger: logger)

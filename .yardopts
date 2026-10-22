@@ -1,10 +1,10 @@
---title "phlex-shadcn"
+--title "chadcn"
 --markup markdown
 --readme README.md
 --no-private
 --hide-api private
 --fail-on-warning
---exclude lib/phlex/shadcn/icons/catalog.rb
+--exclude lib/chadcn/icons/catalog.rb
 lib/**/*.rb
 -
 CHANGELOG.md

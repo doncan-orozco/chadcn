@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Phlex::Shadcn::Dialog::Title < Phlex::Shadcn::Base
+class Chadcn::Dialog::Title < Chadcn::Base
   EJECTED = :root_title
 
   def view_template(&block)

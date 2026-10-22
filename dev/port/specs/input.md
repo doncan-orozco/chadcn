@@ -1,6 +1,6 @@
 # Input (`Components::V2::Input`)
 
-Oracle: `gems/phlex-shadcn/dev/port/oracle/src/input.tsx` (style `new-york-v4`, source_sha `0c9457181f6ddc80`), manifest `gems/phlex-shadcn/dev/port/oracle/manifest/input.json`. Tier `static`: no Stimulus controller, no primitive, no Radix, no `"use client"`. One export `Input`, one part, data-slot `input`. No cva (`uses_cva: false`), no icons, no text literals.
+Oracle: `gems/chadcn/dev/port/oracle/src/input.tsx` (style `new-york-v4`, source_sha `0c9457181f6ddc80`), manifest `gems/chadcn/dev/port/oracle/manifest/input.json`. Tier `static`: no Stimulus controller, no primitive, no Radix, no `"use client"`. One export `Input`, one part, data-slot `input`. No cva (`uses_cva: false`), no icons, no text literals.
 
 ## API
 

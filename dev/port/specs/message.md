@@ -1,6 +1,6 @@
 # Message (`Components::V2::Message`)
 
-Oracle: `gems/phlex-shadcn/dev/port/oracle/src/message.tsx` (style `new-york-v4`, source_sha `64e9ae0f9d1e268b`), manifest `gems/phlex-shadcn/dev/port/oracle/manifest/message.json`. Tier `static`: no Stimulus controller, no primitive, no Radix primitive (the tsx imports only `React` and `cn`; no `asChild`, no `Slot`). Exports `MessageGroup`, `Message`, `MessageAvatar`, `MessageContent`, `MessageFooter`, `MessageHeader`. No cva table, no `use client`.
+Oracle: `gems/chadcn/dev/port/oracle/src/message.tsx` (style `new-york-v4`, source_sha `64e9ae0f9d1e268b`), manifest `gems/chadcn/dev/port/oracle/manifest/message.json`. Tier `static`: no Stimulus controller, no primitive, no Radix primitive (the tsx imports only `React` and `cn`; no `asChild`, no `Slot`). Exports `MessageGroup`, `Message`, `MessageAvatar`, `MessageContent`, `MessageFooter`, `MessageHeader`. No cva table, no `use client`.
 
 ## API
 
@@ -64,7 +64,7 @@ Classes, verbatim from the tsx (no cva; manifest `uses_cva: false` for every par
 Merge order per part: base, then caller `class` through `cn` (clsx + tailwind-merge). Caller-conflict cells pinned by scenarios: `Message::Group class: "gap-4"` drops `gap-2` (`api__group-classname`); `Message class: "gap-4 text-base"` drops `gap-2` and `text-sm` (`api__message-classname`); `Message align: "end", class: "flex-row"` keeps both `flex-row` and `data-[align=end]:flex-row-reverse` (different modifier, no tailwind-merge conflict; `api__message-classname-flex-row__align-end`); `Message::Avatar class: "min-w-10 rounded-md bg-primary text-primary-foreground self-start"` drops `min-w-8`, `rounded-full`, `bg-muted`, `self-end` and keeps the `group-has-...:-translate-y-8` token (`api__avatar-classname`); `Message::Content class: "gap-4 w-auto"` drops `gap-2.5`, `w-full` (`api__content-classname`); `Message::Header class: "px-0 text-sm text-foreground"` drops `px-3`, `text-xs`, `text-muted-foreground`, keeps `group-has-data-[variant=ghost]/message:px-0` (`api__header-classname`); `Message::Footer class: "px-1 justify-start text-destructive"` drops `px-3` and `text-muted-foreground`, keeps `group-data-[align=end]/message:justify-end` (`api__footer-classname`). The registry `message-actions` example passes `MessageFooter className="gap-2"` (no conflict, appended).
 
 Styling semantics the port must not alter (pure CSS, pinned by scenarios):
-- `group/message` on `Message` is the anchor for every `group-*/message:` variant in the children (and for `Bubble`'s `group-data-[align=end]/message:self-end`, see `gems/phlex-shadcn/dev/port/specs/bubble.md`).
+- `group/message` on `Message` is the anchor for every `group-*/message:` variant in the children (and for `Bubble`'s `group-data-[align=end]/message:self-end`, see `gems/chadcn/dev/port/specs/bubble.md`).
 - `MessageContent`'s `group-data-[align=end]/message:*:data-slot:self-end` (Tailwind v4 `data-slot` bare variant = `&[data-slot]`, `*:` = direct children): in an end-aligned message only direct children that carry ANY `data-slot` attribute are pushed to the end; plain children without `data-slot` keep the stretch default (`content__data-slot-children__align-start` vs `__align-end`).
 - `MessageAvatar`'s `group-has-data-[slot=message-footer]/message:-translate-y-8`: when the `Message` contains a `message-footer` anywhere among its descendants the avatar is lifted by `2rem` so it lines up with the last bubble instead of the footer (`avatar__without-footer`, `avatar__with-footer`, `avatar__with-footer__align-end`); outside a `Message` there is no `group/message` ancestor and nothing happens (`avatar__footer-outside-message`).
 - `MessageHeader`/`MessageFooter` `group-has-data-[variant=ghost]/message:px-0`: any descendant of the `Message` with `data-variant="ghost"` (a ghost `Bubble`, or a ghost `Button` as in `message-actions`) removes their horizontal padding (`ghost-descendant__align-start`, `ghost-descendant__align-end`, `non-ghost-descendant` with `data-variant="outline"` keeps `px-3`, `example__message-actions`).
@@ -76,7 +76,7 @@ Styling semantics the port must not alter (pure CSS, pinned by scenarios):
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)
 
-`Phlex::Shadcn::Message` MUST `yield self` from `view_template`; `Phlex::Shadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Message::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Phlex::Shadcn::Message::Content.new`) stay valid.
+`Chadcn::Message` MUST `yield self` from `view_template`; `Chadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Message::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Chadcn::Message::Content.new`) stay valid.
 
 | helper | part class | React export |
 |---|---|---|

@@ -20,22 +20,22 @@ Conventions: [api-conventions.md](api-conventions.md).
 
 ```ruby
 # explicit classes
-render Phlex::Shadcn::Accordion.new(type: "single", collapsible: true, default_value: "item-1", class: "w-full") do
-  render Phlex::Shadcn::Accordion::Item.new(value: "item-1") do
-    render Phlex::Shadcn::Accordion::Trigger.new { "Product Information" }
-    render Phlex::Shadcn::Accordion::Content.new(class: "flex flex-col gap-4 text-balance") { p { "..." } }
+render Chadcn::Accordion.new(type: "single", collapsible: true, default_value: "item-1", class: "w-full") do
+  render Chadcn::Accordion::Item.new(value: "item-1") do
+    render Chadcn::Accordion::Trigger.new { "Product Information" }
+    render Chadcn::Accordion::Content.new(class: "flex flex-col gap-4 text-balance") { p { "..." } }
   end
 end
 
 # generated helpers
-render Phlex::Shadcn::Accordion.new(type: "single", collapsible: true, default_value: "item-1", class: "w-full") do |accordion|
+render Chadcn::Accordion.new(type: "single", collapsible: true, default_value: "item-1", class: "w-full") do |accordion|
   accordion.item(value: "item-1") do
     accordion.trigger { "Product Information" }
     accordion.content(class: "flex flex-col gap-4 text-balance") { p { "..." } }
   end
 end
 
-render Phlex::Shadcn::Tabs.new(default_value: "account", class: "w-[400px]") do |tabs|
+render Chadcn::Tabs.new(default_value: "account", class: "w-[400px]") do |tabs|
   tabs.list do
     tabs.trigger(value: "account") { "Account" }
     tabs.trigger(value: "password") { "Password" }
@@ -48,7 +48,7 @@ end
 ## Example: breadcrumb and pagination
 
 ```ruby
-render Phlex::Shadcn::Breadcrumb.new do |breadcrumb|
+render Chadcn::Breadcrumb.new do |breadcrumb|
   breadcrumb.list do
     breadcrumb.item { breadcrumb.link(href: "/") { "Home" } }
     breadcrumb.separator
@@ -58,7 +58,7 @@ render Phlex::Shadcn::Breadcrumb.new do |breadcrumb|
   end
 end
 
-render Phlex::Shadcn::Pagination.new do |pagination|
+render Chadcn::Pagination.new do |pagination|
   pagination.content do
     pagination.item { pagination.previous(href: "?page=1") }
     pagination.item { pagination.link(href: "?page=2", is_active: true) { "2" } }
@@ -71,8 +71,8 @@ end
 ## Example: sidebar layout
 
 ```ruby
-render Phlex::Shadcn::Sidebar::Provider.new do
-  render Phlex::Shadcn::Sidebar.new(collapsible: "icon") do |sidebar|
+render Chadcn::Sidebar::Provider.new do
+  render Chadcn::Sidebar.new(collapsible: "icon") do |sidebar|
     sidebar.header { sidebar.menu { sidebar.menu_item { sidebar.menu_button(size: "lg") { "Acme Inc" } } } }
     sidebar.content do
       sidebar.group do
@@ -81,7 +81,7 @@ render Phlex::Shadcn::Sidebar::Provider.new do
           sidebar.menu do
             sidebar.menu_item do
               sidebar.menu_button(as_child: :a, href: "/inbox", is_active: true, tooltip: "Inbox") do
-                render Phlex::Shadcn::Icon.new("inbox")
+                render Chadcn::Icon.new("inbox")
                 span { "Inbox" }
               end
               sidebar.menu_badge { "24" }
@@ -92,8 +92,8 @@ render Phlex::Shadcn::Sidebar::Provider.new do
     end
     sidebar.rail
   end
-  render Phlex::Shadcn::Sidebar::Inset.new do
-    header(class: "flex h-16 items-center gap-2 px-4") { render Phlex::Shadcn::Sidebar::Trigger.new }
+  render Chadcn::Sidebar::Inset.new do
+    header(class: "flex h-16 items-center gap-2 px-4") { render Chadcn::Sidebar::Trigger.new }
     main { "..." }
   end
 end
@@ -108,7 +108,7 @@ CSS variables; `Sidebar::Trigger` and `Sidebar::Rail` toggle it from anywhere in
   `orientation:` falls back to horizontal, like the React component.
 - `Direction::Provider` sets the direction (`rtl`) its descendants read; without `dir:` or `direction:` it keeps the direction of the
   enclosing provider (React resets to `ltr`); components never read the document `dir`, exactly as Radix.
-  Your own parts get it by including `Phlex::Shadcn::Direction::Consumer` (private `use_direction`) or calling
-  `Phlex::Shadcn::Direction.use_direction(context)`.
+  Your own parts get it by including `Chadcn::Direction::Consumer` (private `use_direction`) or calling
+  `Chadcn::Direction.use_direction(context)`.
 - `ScrollArea` renders the viewport and the scrollbars Radix renders (`type: "hover"` shows them while hovering and hides them after
   `scroll_hide_delay:` ms).

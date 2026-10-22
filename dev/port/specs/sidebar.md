@@ -1,6 +1,6 @@
 # Sidebar (shadcn new-york-v4)
 
-Oracle: `gems/phlex-shadcn/dev/port/oracle/src/sidebar.tsx` (source_sha `2ba1a9b9422f4172`, cited as `tsx:<line>`), manifest `oracle/manifest/sidebar.json`, hook `gems/phlex-shadcn/dev/react-shadcn-catalog/src/hooks/use-mobile.ts` (`mobile:<line>`). Tier `client`: the only Radix import is `Slot` (`radix-ui` 1.7.0, `@radix-ui/react-slot` 1.4.0, `slot:<line>`); all overlay behavior comes from the composed `Sheet` (Radix Dialog, see `specs/sheet.md`) and `Tooltip` (Radix Tooltip 1.3.0, `tooltip:<line>`, see `specs/tooltip.md`). Lines re-checked here: `react-dialog/dist/index.mjs` (`dialog:`), `react-focus-scope/dist/index.mjs` (`fs:`). Icons: `lucide-react` 0.577.0.
+Oracle: `gems/chadcn/dev/port/oracle/src/sidebar.tsx` (source_sha `2ba1a9b9422f4172`, cited as `tsx:<line>`), manifest `oracle/manifest/sidebar.json`, hook `gems/chadcn/dev/react-shadcn-catalog/src/hooks/use-mobile.ts` (`mobile:<line>`). Tier `client`: the only Radix import is `Slot` (`radix-ui` 1.7.0, `@radix-ui/react-slot` 1.4.0, `slot:<line>`); all overlay behavior comes from the composed `Sheet` (Radix Dialog, see `specs/sheet.md`) and `Tooltip` (Radix Tooltip 1.3.0, `tooltip:<line>`, see `specs/tooltip.md`). Lines re-checked here: `react-dialog/dist/index.mjs` (`dialog:`), `react-focus-scope/dist/index.mjs` (`fs:`). Icons: `lucide-react` 0.577.0.
 
 Examples (all fetched from `https://ui.shadcn.com/r/styles/new-york-v4/<name>.json`, type `registry:internal`): `sidebar-demo`, `sidebar-header`, `sidebar-footer`, `sidebar-group`, `sidebar-group-collapsible`, `sidebar-group-action`, `sidebar-menu`, `sidebar-menu-action`, `sidebar-menu-sub`, `sidebar-menu-collapsible`, `sidebar-menu-badge`, `sidebar-rsc`, `sidebar-controlled`. The `sidebar-01`..`sidebar-16` items are `registry:block` page layouts composed with components the sidebar manifest does not depend on (breadcrumb, dropdown-menu, collapsible, avatar, calendar...), so they are covered through the parts they use, not as scenarios. Substitutions in example scenarios (scenario_coverage only allows sidebar + dependency exports): `DropdownMenu*` is dropped and its trigger state is not simulated except where the class under test needs it (`data-state="open"` passed as a prop); `Collapsible` / `CollapsibleContent` become `_div` with the `group/collapsible` class and `data-state`; `CollapsibleTrigger` becomes `_button`; `Toaster`/`toast` is dropped; `React.Suspense` in `sidebar-rsc` renders its fallback.
 
@@ -207,7 +207,7 @@ Not observable by the runner (controller unit tests instead): the cookie string,
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)
 
-`Phlex::Shadcn::Sidebar` MUST `yield self` from `view_template`; `Phlex::Shadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Sidebar::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Phlex::Shadcn::Sidebar::Content.new`) stay valid.
+`Chadcn::Sidebar` MUST `yield self` from `view_template`; `Chadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Sidebar::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Chadcn::Sidebar::Content.new`) stay valid.
 
 | helper | part class | React export |
 |---|---|---|
@@ -241,14 +241,14 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Dependencies
 
-- `Components::V2::Button` (Trigger), `Components::V2::Input` (Sidebar::Input), `Components::V2::Separator` (Sidebar::Separator), `Components::V2::Skeleton` (MenuSkeleton), `Components::V2::Sheet` + `Sheet::Content`, `Sheet::Header`, `Sheet::Title`, `Sheet::Description` (mobile), `Components::V2::Tooltip`, `Tooltip::Provider`, `Tooltip::Trigger`, `Tooltip::Content` (Provider and MenuButton `tooltip:`), `Components::V2::Icon` (`panel-left` in Trigger). All planned in `gems/phlex-shadcn/dev/port/specs/`.
+- `Components::V2::Button` (Trigger), `Components::V2::Input` (Sidebar::Input), `Components::V2::Separator` (Sidebar::Separator), `Components::V2::Skeleton` (MenuSkeleton), `Components::V2::Sheet` + `Sheet::Content`, `Sheet::Header`, `Sheet::Title`, `Sheet::Description` (mobile), `Components::V2::Tooltip`, `Tooltip::Provider`, `Tooltip::Trigger`, `Tooltip::Content` (Provider and MenuButton `tooltip:`), `Components::V2::Icon` (`panel-left` in Trigger). All planned in `gems/chadcn/dev/port/specs/`.
 - `Components::V2::Base`: `cn`, `merge_attrs`, `render_as_child`, Phlex render context for the Provider state.
 - Controllers: `shadcn--sidebar` (new), driving `shadcn--sheet` (controlled `open` value + `open-change` event) and adjusting `shadcn--tooltip` content `hidden`.
 - Scenario trees also use `Button` (sidebar-controlled example) and `Separator` (inset header), both registry dependencies.
 
 ## Deviations
 
-Recorded in `gems/phlex-shadcn/dev/port/deviations/sidebar.json`:
+Recorded in `gems/chadcn/dev/port/deviations/sidebar.json`:
 
 1. **Mobile Sheet markup in a `<template>` and node moving.** React decides desktop vs mobile on the client and renders entirely different trees (tsx:183-206). The server cannot know the viewport, so `Sidebar` (non-`none`) emits the desktop tree (= React's first render) plus an inert `<template>` sibling holding the controlled `Components::V2::Sheet` (whose own host is the `display: contents` element of `deviations/sheet.json`); on mobile the controller detaches the desktop node, mounts the Sheet host in its place and moves the block nodes. Neither the template nor the Sheet host carries a `data-slot`, classes or layout, so G2 node lists, boxes and a11y equal the oracle.
 2. **`SidebarMenuSkeleton` width is random in the oracle** (`Math.random()`, tsx:610-612), so even two React runs differ in the BOX of the text `skeleton` node; the port draws from the same distribution (`rand(40) + 50` percent). Scenarios that need determinism set `style: { width: "60px" }` with `showIcon`, which makes `flex-1` (20px) narrower than any `max-w` (>= 22px); `menu-skeleton__text-only` and `example__sidebar-rsc` keep the random width and their `menu-skeleton-text` BOX width differences are ORACLE_NOISE.

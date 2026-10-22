@@ -132,7 +132,7 @@ sonner, switch, table, tabs, textarea, toggle, toggle-group, tooltip
 
 **Step 4: Install all 67 shadcn components**
 
-Run these commands in `gems/phlex-shadcn/dev/react-shadcn-catalog/` directory:
+Run these commands in `gems/chadcn/dev/react-shadcn-catalog/` directory:
 
 ```bash
 # Foundation (Priority 1) - 6 components
@@ -164,7 +164,7 @@ npx shadcn@latest add sonner table tabs toggle toggle-group
 
 The theme is already in `src/index.css`. Document the HSL → OKLCH conversion:
 
-Create `gems/phlex-shadcn/dev/react-shadcn-catalog/THEME_EXTRACTION.md`:
+Create `gems/chadcn/dev/react-shadcn-catalog/THEME_EXTRACTION.md`:
 ```markdown
 # shadcn Zinc Theme → Phlex OKLCH Conversion
 
@@ -195,7 +195,7 @@ Compare and update `app/assets/tailwind/application.css`:
 
 **Step 7: Create split-screen comparison catalog**
 
-Create `gems/phlex-shadcn/dev/react-shadcn-catalog/src/ComparisonView.tsx`:
+Create `gems/chadcn/dev/react-shadcn-catalog/src/ComparisonView.tsx`:
 ```tsx
 // Layout: 
 // - Left column: React shadcn components
@@ -223,7 +223,7 @@ npm run build
 
 **Step 8: Create audit tracker**
 
-Create `gems/phlex-shadcn/dev/react-shadcn-catalog/AUDIT_TRACKER.md`:
+Create `gems/chadcn/dev/react-shadcn-catalog/AUDIT_TRACKER.md`:
 ```markdown
 # Component Audit Tracker
 
@@ -300,7 +300,7 @@ Update `.ai/skills/design-system/SKILL.md`:
 
 1. **Install dependencies:**
    ```bash
-   cd gems/phlex-shadcn/dev/react-shadcn-catalog
+   cd gems/chadcn/dev/react-shadcn-catalog
    npm install
    ```
 
@@ -337,4 +337,4 @@ Update `.ai/skills/design-system/SKILL.md`:
 - `test/playwright/design_system.spec.js` (bug fixes)
 
 **Created:**
-- `gems/phlex-shadcn/dev/react-shadcn-catalog/` (entire React project)
+- `gems/chadcn/dev/react-shadcn-catalog/` (entire React project)

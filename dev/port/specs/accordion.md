@@ -1,6 +1,6 @@
 # Accordion
 
-Oracle: `gems/phlex-shadcn/dev/port/oracle/src/accordion.tsx` (manifest `source_sha` 99de242681eb4312, tier `radix_stateful`), wrapping `AccordionPrimitive.Root/Item/Header/Trigger/Content` from `radix-ui` 1.7.0 -> `@radix-ui/react-accordion` 1.2.21, built on `@radix-ui/react-collapsible` 1.1.21, `react-presence` 1.1.11, `react-collection` 1.1.16, `react-direction` 1.1.5, `react-id` 1.1.4, `react-use-controllable-state`. Sources read from `gems/phlex-shadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/<pkg>/dist/index.mjs`, cited as `accordion.mjs:<line>`, `collapsible.mjs:<line>`, `presence.mjs:<line>`, `collection.mjs:<line>`, `controllable.mjs:<line>`. Icons: lucide-react 0.577.0. Registry examples: `accordion-demo` only (the new-york-v4 registry has no other `accordion-*` item).
+Oracle: `gems/chadcn/dev/port/oracle/src/accordion.tsx` (manifest `source_sha` 99de242681eb4312, tier `radix_stateful`), wrapping `AccordionPrimitive.Root/Item/Header/Trigger/Content` from `radix-ui` 1.7.0 -> `@radix-ui/react-accordion` 1.2.21, built on `@radix-ui/react-collapsible` 1.1.21, `react-presence` 1.1.11, `react-collection` 1.1.16, `react-direction` 1.1.5, `react-id` 1.1.4, `react-use-controllable-state`. Sources read from `gems/chadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/<pkg>/dist/index.mjs`, cited as `accordion.mjs:<line>`, `collapsible.mjs:<line>`, `presence.mjs:<line>`, `collection.mjs:<line>`, `controllable.mjs:<line>`. Icons: lucide-react 0.577.0. Registry examples: `accordion-demo` only (the new-york-v4 registry has no other `accordion-*` item).
 
 ## API
 
@@ -140,7 +140,7 @@ Primitives composed: `presence` (exit-animation wait, Radix rules above), `colle
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)
 
-`Phlex::Shadcn::Accordion` MUST `yield self` from `view_template`; `Phlex::Shadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Accordion::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Phlex::Shadcn::Accordion::Content.new`) stay valid.
+`Chadcn::Accordion` MUST `yield self` from `view_template`; `Chadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Accordion::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Chadcn::Accordion::Content.new`) stay valid.
 
 | helper | part class | React export |
 |---|---|---|
@@ -160,7 +160,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Deviations
 
-One, API only (no DOM or class difference). Entry written to `gems/phlex-shadcn/dev/port/deviations/accordion.json`:
+One, API only (no DOM or class difference). Entry written to `gems/chadcn/dev/port/deviations/accordion.json`:
 
 - `as_child:` is not offered on `Accordion::Trigger` and `Accordion::Content`. Trigger: shadcn always passes `{children}` plus `<ChevronDownIcon/>` to `AccordionPrimitive.Trigger`, so with `asChild` Radix Slot receives two children and throws (react-slot 1.4.0 `createSlotError`); there is no working React output to match. Content: shadcn always wraps the caller's children in its own `<div className="pt-0 pb-4">`, so `asChild` would merge the region onto that internal div (and render nothing while closed), never onto a caller element; no registry example uses it.
 

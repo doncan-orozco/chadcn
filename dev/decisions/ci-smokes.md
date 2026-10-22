@@ -1,7 +1,7 @@
 # Decision: the esbuild and Sprockets clean-app smokes run in CI as a matrix of a sibling job
 
 Status: decided and implemented by item #204 (phlex-shadcn-adoption-followups). Proof: the `clean-app-variants` job of
-`.github/workflows/phlex-shadcn.yml`, one run per matrix row, on every pull request, and on push to `main`, that touches the gem or the workflow.
+`.github/workflows/chadcn.yml`, one run per matrix row, on every pull request, and on push to `main`, that touches the gem or the workflow.
 
 ## What runs
 

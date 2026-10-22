@@ -11,7 +11,7 @@ gem "stimulus-rails"
 gem "tailwindcss-rails"
 gem "phlex-rails"
 gem "puma", ">= 5.0"
-gem "phlex-shadcn", path: "../.."
+gem "chadcn", path: "../.."
 
 group :test do
   gem "minitest", "~> 6.0"

@@ -1,6 +1,6 @@
 # Empty (`Components::V2::Empty`)
 
-Oracle: `gems/phlex-shadcn/dev/port/oracle/src/empty.tsx` (style `new-york-v4`, manifest `source_sha` `54f529ccf72c18c4`), manifest `gems/phlex-shadcn/dev/port/oracle/manifest/empty.json`. Tier `static`: no `"use client"`, no Radix primitive, no hooks, no icons, no Stimulus controller. Exports `Empty`, `EmptyHeader`, `EmptyTitle`, `EmptyDescription`, `EmptyContent`, `EmptyMedia`. Six parts, data-slots `empty`, `empty-header`, `empty-icon` (on `EmptyMedia`), `empty-title`, `empty-description`, `empty-content`. One cva table, `emptyMediaVariants`. Registry examples (`https://ui.shadcn.com/r/styles/new-york-v4/<name>.json`): `empty-demo`, `empty-icon`, `empty-avatar`, `empty-avatar-group`, `empty-input-group`, `empty-outline`, `empty-background`.
+Oracle: `gems/chadcn/dev/port/oracle/src/empty.tsx` (style `new-york-v4`, manifest `source_sha` `54f529ccf72c18c4`), manifest `gems/chadcn/dev/port/oracle/manifest/empty.json`. Tier `static`: no `"use client"`, no Radix primitive, no hooks, no icons, no Stimulus controller. Exports `Empty`, `EmptyHeader`, `EmptyTitle`, `EmptyDescription`, `EmptyContent`, `EmptyMedia`. Six parts, data-slots `empty`, `empty-header`, `empty-icon` (on `EmptyMedia`), `empty-title`, `empty-description`, `empty-content`. One cva table, `emptyMediaVariants`. Registry examples (`https://ui.shadcn.com/r/styles/new-york-v4/<name>.json`): `empty-demo`, `empty-icon`, `empty-avatar`, `empty-avatar-group`, `empty-input-group`, `empty-outline`, `empty-background`.
 
 ## API
 
@@ -76,7 +76,7 @@ The `icon` variant repeats `flex shrink-0 items-center justify-center` from the 
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)
 
-`Phlex::Shadcn::Empty` MUST `yield self` from `view_template`; `Phlex::Shadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Empty::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Phlex::Shadcn::Empty::Content.new`) stay valid.
+`Chadcn::Empty` MUST `yield self` from `view_template`; `Chadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Empty::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Chadcn::Empty::Content.new`) stay valid.
 
 | helper | part class | React export |
 |---|---|---|

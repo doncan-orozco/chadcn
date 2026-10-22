@@ -7,15 +7,15 @@ require "fileutils"
 command = ARGV.shift
 root = File.expand_path(ARGV.include?("--root") ? ARGV[ARGV.index("--root") + 1] : File.join(__dir__, "../.."))
 $LOAD_PATH.unshift(File.join(root, "lib"))
-require "phlex/shadcn"
+require "chadcn"
 require_relative "generator"
 
 case command
 when "generate"
-  Phlex::Shadcn::Llms.write(root)
-  puts "llms: wrote #{Phlex::Shadcn::Llms::OUTPUTS.join(', ')}"
+  Chadcn::Llms.write(root)
+  puts "llms: wrote #{Chadcn::Llms::OUTPUTS.join(', ')}"
 when "check"
-  drifted = Phlex::Shadcn::Llms.drift(root)
+  drifted = Chadcn::Llms.drift(root)
   if drifted.empty?
     puts "llms: up to date"
   else

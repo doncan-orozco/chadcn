@@ -1986,7 +1986,7 @@
         "height": 700
       },
       "animations": false,
-      "note": "inner provider without value inside an ltr outer one: inner consumer ltr in React (undefined || ltr) and in the port (keeps the outer ltr). The rtl-outer case differs on purpose (deviation direction, RB-13) and is pinned by test/phlex/shadcn/direction_test.rb"
+      "note": "inner provider without value inside an ltr outer one: inner consumer ltr in React (undefined || ltr) and in the port (keeps the outer ltr). The rtl-outer case differs on purpose (deviation direction, RB-13) and is pinned by test/chadcn/direction_test.rb"
     },
     {
       "id": "sibling-after-provider-unaffected",

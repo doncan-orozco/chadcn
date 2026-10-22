@@ -1,7 +1,7 @@
 # Dialog (shadcn new-york-v4, Radix `Dialog`)
 
-Oracle: `gems/phlex-shadcn/dev/port/oracle/src/dialog.tsx` (source_sha `2ade6074e5fad0a4`), manifest `oracle/manifest/dialog.json`.
-Behavior source: `gems/phlex-shadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-dialog/dist/index.mjs` v1.2.0 (cited as `dialog:<line>`), built on
+Oracle: `gems/chadcn/dev/port/oracle/src/dialog.tsx` (source_sha `2ade6074e5fad0a4`), manifest `oracle/manifest/dialog.json`.
+Behavior source: `gems/chadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-dialog/dist/index.mjs` v1.2.0 (cited as `dialog:<line>`), built on
 `react-dismissable-layer` 1.1.20 (`dl:`), `react-focus-scope` 1.2.0 (`fs:`), `react-focus-guards` 1.1.6 (`fg:`), `react-presence` 1.1.11 (`pr:`),
 `react-portal` 1.1.18 (`po:`), `react-remove-scroll` 2.7.2 + `react-remove-scroll-bar` 2.3.8 (`rsb:` = `dist/es2015/component.js`), `aria-hidden` 1.2.6 (`ah:` = `dist/es2015/index.js`), all from `radix-ui` 1.7.0.
 Tier: `overlay`. Family: Overlay (modal).
@@ -146,7 +146,7 @@ Primitives composed: `portal`, `presence`, `dismissable_layer` (layer stack, Esc
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)
 
-`Phlex::Shadcn::Dialog` MUST `yield self` from `view_template`; `Phlex::Shadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Dialog::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Phlex::Shadcn::Dialog::Content.new`) stay valid.
+`Chadcn::Dialog` MUST `yield self` from `view_template`; `Chadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Dialog::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Chadcn::Dialog::Content.new`) stay valid.
 
 | helper | part class | React export |
 |---|---|---|
@@ -174,7 +174,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Deviations
 
-Recorded in `gems/phlex-shadcn/dev/port/deviations/dialog.json`:
+Recorded in `gems/chadcn/dev/port/deviations/dialog.json`:
 
 1. **Controller host.** `Dialog` must render no element, but Trigger cannot host the controller (zero, one or several triggers; controlled `open` without trigger). One `<div style="display: contents" data-controller="shadcn--dialog">` without `data-slot`, classes or other data attributes wraps the block. Not visible to G2 (no `data-slot`) and layout-neutral.
 2. **Closed Presence parts in a `<template>`.** React does not mount closed Overlay/Content; the server must ship their markup somewhere, so it goes in a `<template>` inside the host (inert, not in `querySelectorAll("[data-slot]")`, not rendered).

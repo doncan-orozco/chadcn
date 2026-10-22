@@ -31,34 +31,34 @@ passing a symbol (`variant: :destructive`) is the same as the string.
 
 ```ruby
 # explicit classes
-render Phlex::Shadcn::Card.new(class: "w-full max-w-sm") do
-  render Phlex::Shadcn::Card::Header.new do
-    render Phlex::Shadcn::Card::Title.new { "Login to your account" }
-    render Phlex::Shadcn::Card::Description.new { "Enter your email below to login to your account" }
-    render Phlex::Shadcn::Card::Action.new { render Phlex::Shadcn::Button.new(variant: "link") { "Sign Up" } }
+render Chadcn::Card.new(class: "w-full max-w-sm") do
+  render Chadcn::Card::Header.new do
+    render Chadcn::Card::Title.new { "Login to your account" }
+    render Chadcn::Card::Description.new { "Enter your email below to login to your account" }
+    render Chadcn::Card::Action.new { render Chadcn::Button.new(variant: "link") { "Sign Up" } }
   end
-  render Phlex::Shadcn::Card::Content.new { render Phlex::Shadcn::Input.new(type: "email", placeholder: "m@example.com") }
-  render Phlex::Shadcn::Card::Footer.new(class: "flex-col gap-2") do
-    render Phlex::Shadcn::Button.new(type: "submit", class: "w-full") { "Login" }
+  render Chadcn::Card::Content.new { render Chadcn::Input.new(type: "email", placeholder: "m@example.com") }
+  render Chadcn::Card::Footer.new(class: "flex-col gap-2") do
+    render Chadcn::Button.new(type: "submit", class: "w-full") { "Login" }
   end
 end
 
 # generated helpers
-render Phlex::Shadcn::Card.new(class: "w-full max-w-sm") do |card|
+render Chadcn::Card.new(class: "w-full max-w-sm") do |card|
   card.header do
     card.title { "Login to your account" }
     card.description { "Enter your email below to login to your account" }
-    card.action { render Phlex::Shadcn::Button.new(variant: "link") { "Sign Up" } }
+    card.action { render Chadcn::Button.new(variant: "link") { "Sign Up" } }
   end
-  card.content { render Phlex::Shadcn::Input.new(type: "email", placeholder: "m@example.com") }
-  card.footer(class: "flex-col gap-2") { render Phlex::Shadcn::Button.new(type: "submit", class: "w-full") { "Login" } }
+  card.content { render Chadcn::Input.new(type: "email", placeholder: "m@example.com") }
+  card.footer(class: "flex-col gap-2") { render Chadcn::Button.new(type: "submit", class: "w-full") { "Login" } }
 end
 ```
 
 ## Example: a table
 
 ```ruby
-render Phlex::Shadcn::Table.new do |table|
+render Chadcn::Table.new do |table|
   table.caption { "A list of your recent invoices." }
   table.header do
     table.row do
@@ -83,14 +83,14 @@ receives `table:`.
 ## Toasts: the Toaster
 
 `Toaster` is the shadcn export of sonner. Render it once, in the layout; toasts reach it three ways, with no JavaScript dependency (the
-`shadcn--sonner` controller and `app/assets/tailwind/phlex-shadcn/sonner.css` do what the sonner library does):
+`shadcn--sonner` controller and `app/assets/tailwind/chadcn/sonner.css` do what the sonner library does):
 
 ```ruby
 # layout: the flash is shown as toasts (notice and success -> success, alert and error -> error, warning, info, anything else plain)
-render Phlex::Shadcn::Toaster.new(flash: { notice: "Saved", alert: "Could not send" }, close_button: true, position: "top-center")
+render Chadcn::Toaster.new(flash: { notice: "Saved", alert: "Could not send" }, close_button: true, position: "top-center")
 
 # any server response: a Turbo Stream appends a toast to the Toaster's id ("toaster" unless you pass id:)
-Phlex::Shadcn::Sonner::Toast.new(type: :success, title: "Saved", description: "All changes stored", action: { label: "Undo", event: "undo" })
+Chadcn::Sonner::Toast.new(type: :success, title: "Saved", description: "All changes stored", action: { label: "Undo", event: "undo" })
 ```
 
 ```javascript
@@ -100,7 +100,7 @@ window.Toaster.promise(fetch("/save"), { loading: "Saving", success: "Saved", er
 document.dispatchEvent(new CustomEvent("shadcn--sonner:show", { detail: { message: "Hello", type: "info" } }))
 ```
 
-In a Rails controller, `turbo_stream.append "toaster", Phlex::Shadcn::Sonner::Toast.new(type: :success, title: "Saved")` renders the
+In a Rails controller, `turbo_stream.append "toaster", Chadcn::Sonner::Toast.new(type: :success, title: "Saved")` renders the
 `<template data-shadcn--sonner-toast>` the Toaster turns into a toast. Titles and descriptions are text, never markup. Types:
 `default` (no icon), `success`, `info`, `warning`, `error`, `loading` (no timer until it is updated). A toast with the same `id`
 updates instead of stacking.

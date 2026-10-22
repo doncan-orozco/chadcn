@@ -1,8 +1,8 @@
 # Collapsible
 
-Oracle: `gems/phlex-shadcn/dev/port/oracle/src/collapsible.tsx` (manifest `source_sha` c6598e5584f4258b, tier `radix_stateful`), wrapping `CollapsiblePrimitive.Root/CollapsibleTrigger/CollapsibleContent` from `radix-ui` 1.7.0 -> `@radix-ui/react-collapsible` 1.1.21, built on `react-presence` 1.1.11, `react-primitive` / `react-slot` 1.4.0, `react-id`, `react-use-controllable-state`. Sources read from `gems/phlex-shadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/<pkg>/dist/index.mjs`, cited as `collapsible.mjs:<line>` and `presence.mjs:<line>`. No classes, no cva, no icons, no text literals in the oracle (manifest `class_tokens: []`, `cva: {}`): shadcn only adds `data-slot` to each part and spreads `...props`. Examples: registry `new-york-v4/collapsible-demo.json` (the only registry item), plus the docs examples `collapsible-basic`, `collapsible-file-tree`, `collapsible-rtl`, `collapsible-settings` (`apps/v4/examples/radix/*.tsx` on shadcn-ui/ui main; published only for radix-nova, the collapsible markup is style-independent).
+Oracle: `gems/chadcn/dev/port/oracle/src/collapsible.tsx` (manifest `source_sha` c6598e5584f4258b, tier `radix_stateful`), wrapping `CollapsiblePrimitive.Root/CollapsibleTrigger/CollapsibleContent` from `radix-ui` 1.7.0 -> `@radix-ui/react-collapsible` 1.1.21, built on `react-presence` 1.1.11, `react-primitive` / `react-slot` 1.4.0, `react-id`, `react-use-controllable-state`. Sources read from `gems/chadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/<pkg>/dist/index.mjs`, cited as `collapsible.mjs:<line>` and `presence.mjs:<line>`. No classes, no cva, no icons, no text literals in the oracle (manifest `class_tokens: []`, `cva: {}`): shadcn only adds `data-slot` to each part and spreads `...props`. Examples: registry `new-york-v4/collapsible-demo.json` (the only registry item), plus the docs examples `collapsible-basic`, `collapsible-file-tree`, `collapsible-rtl`, `collapsible-settings` (`apps/v4/examples/radix/*.tsx` on shadcn-ui/ui main; published only for radix-nova, the collapsible markup is style-independent).
 
-This spec is kept consistent with `gems/phlex-shadcn/dev/port/specs/accordion.md`: Accordion's Item/Trigger/Content ARE Radix Collapsible parts, so the content measurement, mount-animation prevention and Presence rules below are the same code (shared `collapsible_content` module, see Behavior).
+This spec is kept consistent with `gems/chadcn/dev/port/specs/accordion.md`: Accordion's Item/Trigger/Content ARE Radix Collapsible parts, so the content measurement, mount-animation prevention and Presence rules below are the same code (shared `collapsible_content` module, see Behavior).
 
 ## API
 
@@ -108,7 +108,7 @@ Content measurement and mount prevention (collapsible.mjs:87-122), implemented o
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)
 
-`Phlex::Shadcn::Collapsible` MUST `yield self` from `view_template`; `Phlex::Shadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Collapsible::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Phlex::Shadcn::Collapsible::Content.new`) stay valid.
+`Chadcn::Collapsible` MUST `yield self` from `view_template`; `Chadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Collapsible::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Chadcn::Collapsible::Content.new`) stay valid.
 
 | helper | part class | React export |
 |---|---|---|

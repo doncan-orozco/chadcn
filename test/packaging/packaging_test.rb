@@ -16,12 +16,12 @@ class PackagingTest < Minitest::Test
 
   def self.built
     @built ||= begin
-      dir = Dir.mktmpdir("phlex-shadcn-package")
+      dir = Dir.mktmpdir("chadcn-package")
       Minitest.after_run { FileUtils.remove_entry(dir) }
-      out, status = Open3.capture2e(RbConfig.ruby, "-S", "gem", "build", "phlex-shadcn.gemspec", "--output", File.join(dir, "phlex-shadcn.gem"), chdir: GEM_DIR)
+      out, status = Open3.capture2e(RbConfig.ruby, "-S", "gem", "build", "chadcn.gemspec", "--output", File.join(dir, "chadcn.gem"), chdir: GEM_DIR)
       raise "gem build failed:\n#{out}" unless status.success?
 
-      package = Gem::Package.new(File.join(dir, "phlex-shadcn.gem"))
+      package = Gem::Package.new(File.join(dir, "chadcn.gem"))
       { warnings: out, spec: package.spec, files: package.spec.files }
     end
   end
@@ -52,13 +52,13 @@ class PackagingTest < Minitest::Test
   def test_the_generated_llms_files_and_the_agent_skill_are_packaged
     assert_includes built[:files], "llms.txt"
     assert_includes built[:files], "llms-full.txt"
-    assert_includes built[:files], "skills/phlex-shadcn/SKILL.md"
+    assert_includes built[:files], "skills/chadcn/SKILL.md"
   end
 
   def test_the_agent_skill_has_frontmatter_and_stays_short
-    skill = File.read(File.join(GEM_DIR, "skills/phlex-shadcn/SKILL.md"))
+    skill = File.read(File.join(GEM_DIR, "skills/chadcn/SKILL.md"))
 
-    assert_match(/\A---\nname: phlex-shadcn\ndescription: ".+"\n---\n/, skill)
+    assert_match(/\A---\nname: chadcn\ndescription: ".+"\n---\n/, skill)
     assert_operator skill.lines.size, :<=, 60, "SKILL.md must stay short: long reference material lives in llms-full.txt"
   end
 

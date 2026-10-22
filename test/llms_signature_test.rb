@@ -4,10 +4,10 @@ require "test_helper"
 require "yard"
 require_relative "../dev/llms/signature"
 
-# `Phlex::Shadcn::Llms::Signature` renders the parameter lists of llms.txt, llms-full.txt, SKILL.md and test/fixtures/public_api.txt from
+# `Chadcn::Llms::Signature` renders the parameter lists of llms.txt, llms-full.txt, SKILL.md and test/fixtures/public_api.txt from
 # YARD's raw default slices. These tests pin that the text is the same on every Ruby the gem supports.
 class LlmsSignatureTest < Minitest::Test
-  Signature = Phlex::Shadcn::Llms::Signature
+  Signature = Chadcn::Llms::Signature
 
   # Every keyword-default literal the gem may write, as the source of a method: YARD slices it from the text and keeps a different
   # trailing delimiter per Ruby, so the renderer must give one exact string wherever this runs.
@@ -97,9 +97,9 @@ class LlmsSignatureTest < Minitest::Test
   end
 
   def test_the_error_names_the_method_and_the_parameter
-    error = assert_raises(ArgumentError) { Signature.render([ [ "a", nil ], [ "width:", "foo(" ] ], owner: "Phlex::Shadcn::Button#initialize") }
+    error = assert_raises(ArgumentError) { Signature.render([ [ "a", nil ], [ "width:", "foo(" ] ], owner: "Chadcn::Button#initialize") }
 
-    assert_includes error.message, "Phlex::Shadcn::Button#initialize"
+    assert_includes error.message, "Chadcn::Button#initialize"
     assert_includes error.message, '"width:"'
     assert_includes error.message, '"foo("'
   end

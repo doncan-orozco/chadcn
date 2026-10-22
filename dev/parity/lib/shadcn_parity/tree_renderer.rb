@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 # Renders a scenario `tree` with the V2 components, applying .ai/skills/shadcn-port/references/api-mapping.md.
-# Mirror of gems/phlex-shadcn/dev/react-shadcn-catalog/src/parity/Harness.tsx; both sides must read the tree with the same rules:
+# Mirror of gems/chadcn/dev/react-shadcn-catalog/src/parity/Harness.tsx; both sides must read the tree with the same rules:
 #   - c "_a", "_div"... (underscore + lowercase): raw HTML element; props become attributes
 #   - c "_Probe"...     (underscore + capital): harness stub in ShadcnParity
-#   - c "DialogTrigger": Phlex::Shadcn::Dialog::Trigger (root prefix stripped); "Button" -> Phlex::Shadcn::Button
+#   - c "DialogTrigger": Chadcn::Dialog::Trigger (root prefix stripped); "Button" -> Chadcn::Button
 #   - children: strings are text; a string starting with "<icon:name>" renders that icon (rest is text)
 #   - asChild: true: the single child node becomes the `as_child:` instance and its children the content
 #   - a child { "c": "_Each", "children": [template...] } turns the parent's block into one that takes the yielded argument
@@ -137,7 +137,7 @@ class ShadcnParity::TreeRenderer < Phlex::HTML
       raise Error, "a child must be a String or a Hash, got #{child.class}" unless child.is_a?(String)
 
       icon = child.match(ICON)
-      render Phlex::Shadcn::Icon.new(icon[1]) if icon
+      render Chadcn::Icon.new(icon[1]) if icon
       plain(icon ? icon.post_match : child)
     end
   end
@@ -192,7 +192,7 @@ class ShadcnParity::TreeRenderer < Phlex::HTML
   # readOnly -> readonly, httpEquiv -> http-equiv); any other camelCase prop is lowercased.
   def raw_attrs(props)
     (props || {}).each_with_object({}) do |(key, value), out|
-      key = Phlex::Shadcn::Base::DOM_ATTRIBUTES.fetch(key) { key.match?(/[a-z][A-Z]/) ? key.downcase : key }.to_s
+      key = Chadcn::Base::DOM_ATTRIBUTES.fetch(key) { key.match?(/[a-z][A-Z]/) ? key.downcase : key }.to_s
       out[key.to_sym] = key == "style" && value.is_a?(Hash) ? css_properties(value) : value
     end
   end
@@ -200,7 +200,7 @@ class ShadcnParity::TreeRenderer < Phlex::HTML
   def resolve(name)
     raise Error, "malformed component name #{name.inspect}" unless name.to_s.match?(/\A_?[A-Z][A-Za-z0-9]*\z|\A_[a-z]/)
 
-    namespace, bare, roots = name.start_with?("_") ? [ ShadcnParity, name.delete_prefix("_"), PARITY_ROOTS ] : [ Phlex::Shadcn, name, v2_roots ]
+    namespace, bare, roots = name.start_with?("_") ? [ ShadcnParity, name.delete_prefix("_"), PARITY_ROOTS ] : [ Chadcn, name, v2_roots ]
     # An exact root match wins over a same-named nested part of a longer root (Button vs InputGroup::Button).
     return Target.new(namespace.const_get(bare), nil, nil) if roots.include?(bare)
 
@@ -219,9 +219,9 @@ class ShadcnParity::TreeRenderer < Phlex::HTML
 
   # Root components: the top-level classes of the gem (registered by its loader, so no file access needed).
   def v2_roots
-    @v2_roots ||= Phlex::Shadcn.constants(false).select do |name|
-      part = Phlex::Shadcn.const_get(name)
-      part.is_a?(Class) && part < Phlex::Shadcn::Base
+    @v2_roots ||= Chadcn.constants(false).select do |name|
+      part = Chadcn.const_get(name)
+      part.is_a?(Class) && part < Chadcn::Base
     end.map(&:to_s)
   end
 end

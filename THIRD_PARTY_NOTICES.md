@@ -1,6 +1,6 @@
 # Third-party notices
 
-phlex-shadcn derives from the following projects. Class strings, component structure and behavior are taken from shadcn/ui; the
+chadcn derives from the following projects. Class strings, component structure and behavior are taken from shadcn/ui; the
 accessibility behavior reproduced with Stimulus follows Radix UI; icons are Lucide.
 
 ## shadcn/ui (MIT)
@@ -68,7 +68,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ## tw-animate-css (MIT)
 
-Shipped (minified) as `app/assets/tailwind/phlex-shadcn/vendor/tw-animate.css`, the animation utilities shadcn/ui's Tailwind setup uses.
+Shipped (minified) as `app/assets/tailwind/chadcn/vendor/tw-animate.css`, the animation utilities shadcn/ui's Tailwind setup uses.
 
 Copyright (c) 2025 Wombosvideo
 
@@ -88,7 +88,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 Copyright (c) 2023 Emil Kowalski
 
-The stylesheet `app/assets/tailwind/phlex-shadcn/sonner.css` is derived from the styles of sonner 2.0.7, and the toast stacking, timing and
+The stylesheet `app/assets/tailwind/chadcn/sonner.css` is derived from the styles of sonner 2.0.7, and the toast stacking, timing and
 swipe behavior of `toast_stack.js` follows its source. The library itself is not a dependency.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files

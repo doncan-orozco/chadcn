@@ -15,15 +15,15 @@ relative paths only, and there is no npm package: publishing one is a human step
 
 | Option | Verdict |
 |---|---|
-| npm package `phlex-shadcn` | Works, but needs a maintainer to publish and then keep the gem and the npm version in lockstep. Not needed to ship, kept as a later option. |
+| npm package `chadcn` | Works, but needs a maintainer to publish and then keep the gem and the npm version in lockstep. Not needed to ship, kept as a later option. |
 | `NODE_PATH` or an esbuild `--alias` to the gem's `app/javascript` | The path of an installed gem is machine specific and changes with every version; it would be written into `package.json`/the shell environment of the host and break on the next `bundle update` or on another machine/CI/Docker build. Rejected. |
-| `"phlex-shadcn": "file:..."` dependency in `package.json` | Same machine-specific path, plus `yarn`/`npm` copy or link semantics that differ per package manager; the install does not rerun when the gem moves. Rejected. |
+| `"chadcn": "file:..."` dependency in `package.json` | Same machine-specific path, plus `yarn`/`npm` copy or link semantics that differ per package manager; the install does not rerun when the gem moves. Rejected. |
 | Symlink into `app/javascript` | Absolute and per machine, breaks on deploy images. Rejected. |
 | **Generator copies the files into the app** | Chosen. No network, no publishing, committed with the app, esbuild resolves everything with relative paths. |
 
 ## Decision
 
-`rails g phlex:shadcn:install` detects the pipeline (`--js auto|importmap|esbuild`, default `auto`):
+`rails g chadcn:install` detects the pipeline (`--js auto|importmap|esbuild`, default `auto`):
 
 - **importmap** (`config/importmap.rb`, importmap-rails): unchanged, the engine pins everything.
 - **esbuild** (a `package.json` with an `esbuild` build script, or jsbundling-rails in the bundle, and no importmap): the generator
@@ -35,11 +35,11 @@ relative paths only, and there is no npm package: publishing one is a human step
   3. adds `@floating-ui/dom` (the version the gem vendors) to `package.json` with the app's package manager (yarn, pnpm, bun or npm,
      chosen by the lock file), because floating-ui is a normal npm package and must not be copied.
 
-The copies are the only state outside the gem, so they can go stale. `rails g phlex:shadcn:install` is idempotent and refreshes them
+The copies are the only state outside the gem, so they can go stale. `rails g chadcn:install` is idempotent and refreshes them
 ("identical" when current), and the doctor's `javascript pipeline` check compares every copy with what the generator would write and
 fails with the exact command when one differs or is missing (after a `bundle update`, run the generator again).
 
-Single source of truth: `Phlex::Shadcn::JsBundle` (plain Ruby, `lib/phlex/shadcn/js_bundle.rb`, loaded by Zeitwerk)
+Single source of truth: `Chadcn::JsBundle` (plain Ruby, `lib/chadcn/js_bundle.rb`, loaded by Zeitwerk)
 computes the files; the generator writes them and the doctor compares against them.
 
 ## Consequences and later items
@@ -49,13 +49,13 @@ computes the files; the generator writes them and the doctor compares against th
 - The doctor's `stimulus controllers` check (`doctor/checks/stimulus.rb`, added to this item's scope as a deliberate, recorded deviation) accepts the managed `index.js`
   in an esbuild app: an esbuild app has no `controllers` importmap namespace, so the check would fail on a correct install.
   Recorded here and as a blocker note on #175 (epic-flow R5).
-- `JsBundle` was moved (#205) to `lib/phlex/shadcn/js_bundle.rb`, where its file name and constant agree. The `app/...` layout paths
-  stay in `lib/generators/phlex/shadcn/install/js_layout.rb` (`Generators::JsLayout`), because gem_check (GEM_ESCAPES_ROOT) allows
+- `JsBundle` was moved (#205) to `lib/chadcn/js_bundle.rb`, where its file name and constant agree. The `app/...` layout paths
+  stay in `lib/generators/chadcn/install/js_layout.rb` (`Generators::JsLayout`), because gem_check (GEM_ESCAPES_ROOT) allows
   such literals only in generator files; `JsBundle` reads them from there.
 
 - The `shadcn--*` identifiers are the same in both pipelines, so the Phlex components and the DOM do not change.
 - `stimulus:manifest:update` also registers `controllers/shadcn/*_controller.js` under the same identifiers; the double registration
   is harmless (Stimulus reloads the identifier with the same class).
 - Sprockets and the eject generator (#179) can reuse `JsBundle` (eject copies a single component's controller the same way).
-- If a maintainer later publishes an npm package, the generator step 1 becomes `yarn add phlex-shadcn` and `JsBundle` is retired;
+- If a maintainer later publishes an npm package, the generator step 1 becomes `yarn add chadcn` and `JsBundle` is retired;
   nothing in the DOM or the identifiers changes.

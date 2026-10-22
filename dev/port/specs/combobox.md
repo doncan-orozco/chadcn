@@ -1,7 +1,7 @@
 # Combobox (shadcn `combobox`, tier third_party, Base UI)
 
-Sources (cited inline): oracle `gems/phlex-shadcn/dev/port/oracle/src/combobox.tsx` (`src:L<n>`), manifest `oracle/manifest/combobox.json` (source_sha 4f88734887ed6928),
-and the REAL Base UI source the oracle wraps, `gems/phlex-shadcn/dev/react-shadcn-catalog/node_modules/@base-ui/react@1.9.0/` (NOT Radix, NOT cmdk/Popover):
+Sources (cited inline): oracle `gems/chadcn/dev/port/oracle/src/combobox.tsx` (`src:L<n>`), manifest `oracle/manifest/combobox.json` (source_sha 4f88734887ed6928),
+and the REAL Base UI source the oracle wraps, `gems/chadcn/dev/react-shadcn-catalog/node_modules/@base-ui/react@1.9.0/` (NOT Radix, NOT cmdk/Popover):
 `combobox/root/AriaCombobox.mjs` (`root:L`), `combobox/root/ComboboxRoot.mjs` (`rootw:L`), `combobox/input/ComboboxInput.mjs` (`input:L`), `combobox/trigger/ComboboxTrigger.mjs` (`trigger:L`),
 `combobox/clear/ComboboxClear.mjs` (`clear:L`), `combobox/popup/ComboboxPopup.mjs` (`popup:L`), `combobox/positioner/ComboboxPositioner.mjs` (`pos:L`), `combobox/portal/ComboboxPortal.mjs` (`portal:L`),
 `combobox/list/ComboboxList.mjs` (`list:L`), `combobox/item/ComboboxItem.mjs` (`item:L`), `combobox/item-indicator/ComboboxItemIndicator.mjs` (`ind:L`), `combobox/group/ComboboxGroup.mjs` (`group:L`),
@@ -17,7 +17,7 @@ Registry examples: the new-york-v4 `combobox-demo`, `combobox-popover`, `combobo
 Every part takes `class:` (merged last through `cn`) and `**attrs` (deep-merged `data:`/`aria:`, R6), accepts string and symbol options (`side: :inline_end` == `"inline-end"`, `align: :end`, `auto_highlight: "always"`/`:always`, `filter: :contains`), and keeps the React export nesting (`ComboboxInput` -> `Combobox::Input`). Non-scalar defaults are frozen constants (Ruby 3.2 renders array/hash literals differently in the public API snapshot): there are none in this API (every collection default is `nil`).
 
 ```ruby
-Phlex::Shadcn::Combobox.new(                 # Base UI Combobox.Root (rootw:L12-28, root:L49-89); renders NO Base UI element (see Structure: host + hidden inputs)
+Chadcn::Combobox.new(                 # Base UI Combobox.Root (rootw:L12-28, root:L49-89); renders NO Base UI element (see Structure: host + hidden inputs)
   items: nil,                # Array of String | Hash (value:/label:, extra keys allowed) | groups [{ value:, items: [...] }] (root:L258, label:L6-16).
                              # nil = items are rendered as static children: Base UI then does NO filtering and reports the list as empty (root:L265-270, list:L43, empty:L33)
   multiple: false,           # selectionMode "multiple" (rootw:L23)
@@ -38,23 +38,23 @@ Phlex::Shadcn::Combobox.new(                 # Base UI Combobox.Root (rootw:L12-
   locale: nil,               # Intl.Collator locale for "contains"
   item_to_string_label: nil, item_to_string_value: nil, item_equal_to_value: nil  # Ruby callables evaluated on the server (Base UI itemToStringLabel/itemToStringValue/isItemEqualToValue)
 ) { |combobox| ... }         # yields self (DX helpers)
-Phlex::Shadcn::Combobox::Input.new(disabled: false, show_trigger: true, show_clear: false, class: nil, **attrs) { optional extra InputGroup children }   # src:L55-90
-Phlex::Shadcn::Combobox::Trigger.new(as_child: false, disabled: false, class: nil, **attrs) { children }   # src:L22-40; as_child = Base UI `render` (Radix Slot merge, Base#render_as_child)
-Phlex::Shadcn::Combobox::Clear.new(disabled: false, class: nil, **attrs)                                       # src:L42-53 (also rendered by Input when show_clear:)
-Phlex::Shadcn::Combobox::Value.new(placeholder: nil) { |value_or_values| ... }                                 # src:L18-20, value:L14-41; renders NO element
-Phlex::Shadcn::Combobox::Content.new(side: "bottom", side_offset: 6, align: "start", align_offset: 0, anchor: nil, class: nil, **attrs) { ... }   # src:L92-127
+Chadcn::Combobox::Input.new(disabled: false, show_trigger: true, show_clear: false, class: nil, **attrs) { optional extra InputGroup children }   # src:L55-90
+Chadcn::Combobox::Trigger.new(as_child: false, disabled: false, class: nil, **attrs) { children }   # src:L22-40; as_child = Base UI `render` (Radix Slot merge, Base#render_as_child)
+Chadcn::Combobox::Clear.new(disabled: false, class: nil, **attrs)                                       # src:L42-53 (also rendered by Input when show_clear:)
+Chadcn::Combobox::Value.new(placeholder: nil) { |value_or_values| ... }                                 # src:L18-20, value:L14-41; renders NO element
+Chadcn::Combobox::Content.new(side: "bottom", side_offset: 6, align: "start", align_offset: 0, anchor: nil, class: nil, **attrs) { ... }   # src:L92-127
   # side: "top" | "bottom" | "left" | "right" | "inline-start" | "inline-end" (anchor:L100-107); align: "start" | "center" | "end";
   # anchor: CSS selector string of the positioning anchor (React: element/ref from useComboboxAnchor); also sets data-chips="true" (src:L117)
-Phlex::Shadcn::Combobox::List.new(class: nil, **attrs) { |item| ... }      # src:L129-140; block called once per (filtered) root item when items: is set, plain block otherwise (list:L55-62)
-Phlex::Shadcn::Combobox::Item.new(value:, disabled: false, class: nil, **attrs) { children }   # src:L142-167; value: any item (String/Hash)
-Phlex::Shadcn::Combobox::Group.new(items: nil, class: nil, **attrs) { ... }       # src:L169-177; items: the group's items for a nested Collection (group:L45-50)
-Phlex::Shadcn::Combobox::Label.new(class: nil, **attrs) { "text" }               # src:L179-193 (Base UI GroupLabel)
-Phlex::Shadcn::Combobox::Collection.new { |item| ... }                           # src:L195-199; renders NO element (coll:L16-27)
-Phlex::Shadcn::Combobox::Empty.new(class: nil, **attrs) { "No items found." }    # src:L201-212
-Phlex::Shadcn::Combobox::Separator.new(class: nil, **attrs)                      # src:L214-225
-Phlex::Shadcn::Combobox::Chips.new(class: nil, **attrs) { Combobox::Value block } # src:L227-242
-Phlex::Shadcn::Combobox::Chip.new(show_remove: true, class: nil, **attrs) { text } # src:L244-273
-Phlex::Shadcn::Combobox::ChipsInput.new(class: nil, **attrs)                     # src:L275-287
+Chadcn::Combobox::List.new(class: nil, **attrs) { |item| ... }      # src:L129-140; block called once per (filtered) root item when items: is set, plain block otherwise (list:L55-62)
+Chadcn::Combobox::Item.new(value:, disabled: false, class: nil, **attrs) { children }   # src:L142-167; value: any item (String/Hash)
+Chadcn::Combobox::Group.new(items: nil, class: nil, **attrs) { ... }       # src:L169-177; items: the group's items for a nested Collection (group:L45-50)
+Chadcn::Combobox::Label.new(class: nil, **attrs) { "text" }               # src:L179-193 (Base UI GroupLabel)
+Chadcn::Combobox::Collection.new { |item| ... }                           # src:L195-199; renders NO element (coll:L16-27)
+Chadcn::Combobox::Empty.new(class: nil, **attrs) { "No items found." }    # src:L201-212
+Chadcn::Combobox::Separator.new(class: nil, **attrs)                      # src:L214-225
+Chadcn::Combobox::Chips.new(class: nil, **attrs) { Combobox::Value block } # src:L227-242
+Chadcn::Combobox::Chip.new(show_remove: true, class: nil, **attrs) { text } # src:L244-273
+Chadcn::Combobox::ChipsInput.new(class: nil, **attrs)                     # src:L275-287
 ```
 
 - `useComboboxAnchor` (src:L289-291) is a React ref hook: no Ruby class; its role is played by `Content.new(anchor: "<selector>")` (deviation, API).
@@ -106,7 +106,7 @@ Trigger inside the Input = `InputGroup::Button(as_child: Combobox::Trigger)` (sr
 ### Chips (multiple mode, `Combobox::Chips` > `Combobox::Value { |values| chips + ChipsInput }`)
 - `div[data-slot=combobox-chips]` + `role="toolbar"` only while at least one value is selected (chips:L32-34); class src:L236. mousedown on the container (not on an interactive child) focuses the input and opens (press:L5-21).
 - `div[data-slot=combobox-chip][tabindex=-1]` per selected value, in selection order; `aria-disabled="true" data-disabled=""` when Root disabled; `aria-readonly="true"` when read_only (chip:L90-99); class src:L256. Children: the block text, then (show_remove) the remove button.
-- `button[data-slot=combobox-chip-remove][data-variant=ghost][data-size=icon-xs][type=button][tabindex=-1][aria-disabled=false]` (`aria-disabled="true" data-disabled=""` when disabled) = `Phlex::Shadcn::Button(variant: "ghost", size: "icon-xs")` with class `-ml-1 opacity-50 hover:opacity-100` and child `Icon("x", class: "pointer-events-none")` (src:L262-269, chiprm:L74-97).
+- `button[data-slot=combobox-chip-remove][data-variant=ghost][data-size=icon-xs][type=button][tabindex=-1][aria-disabled=false]` (`aria-disabled="true" data-disabled=""` when disabled) = `Chadcn::Button(variant: "ghost", size: "icon-xs")` with class `-ml-1 opacity-50 hover:opacity-100` and child `Icon("x", class: "pointer-events-none")` (src:L262-269, chiprm:L74-97).
 - `input[data-slot=combobox-chip-input]` with the input ARIA/state attributes above, class `min-w-16 flex-1 outline-none` (+ class:) (src:L280-284); `disabled` when passed.
 - New chips after a client-side selection are built from the Value block output: the server renders the Value block once for the current selection (real DOM) and once per item with `[item]` inside inert `<template>` prototypes that stay in the document (deviation, structure).
 
@@ -215,7 +215,7 @@ Oracle driving (harness prerequisites, infra): Base UI renders lists through ren
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)
 
-`Phlex::Shadcn::Combobox` MUST `yield self` from `view_template`; `Phlex::Shadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Combobox::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Phlex::Shadcn::Combobox::Content.new`) stay valid.
+`Chadcn::Combobox` MUST `yield self` from `view_template`; `Chadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Combobox::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Chadcn::Combobox::Content.new`) stay valid.
 
 | helper | part class | React export |
 |---|---|---|
@@ -241,14 +241,14 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Dependencies
 
-- `Phlex::Shadcn::InputGroup`, `InputGroup::Input`, `InputGroup::Addon(align: "inline-end")`, `InputGroup::Button(size: "icon-xs", variant: "ghost", as_child:)` (Input, Trigger, Clear; src:L9-14, L46, L67-89).
-- `Phlex::Shadcn::Button(variant: "ghost", size: "icon-xs")` (ChipRemove, src:L264).
-- `Phlex::Shadcn::Icon`: `chevron-down` (Trigger), `x` (Clear, ChipRemove), `check` (ItemIndicator); `search` only in scenarios (input addon example; the base-nova example uses `globe`, replaced to avoid a catalog change).
-- `Phlex::Shadcn::Base` (`cn`, `merge_attrs`, `render_as_child`, ids, `normalize_option`).
+- `Chadcn::InputGroup`, `InputGroup::Input`, `InputGroup::Addon(align: "inline-end")`, `InputGroup::Button(size: "icon-xs", variant: "ghost", as_child:)` (Input, Trigger, Clear; src:L9-14, L46, L67-89).
+- `Chadcn::Button(variant: "ghost", size: "icon-xs")` (ChipRemove, src:L264).
+- `Chadcn::Icon`: `chevron-down` (Trigger), `x` (Clear, ChipRemove), `check` (ItemIndicator); `search` only in scenarios (input addon example; the base-nova example uses `globe`, replaced to avoid a catalog change).
+- `Chadcn::Base` (`cn`, `merge_attrs`, `render_as_child`, ids, `normalize_option`).
 - JavaScript: Stimulus + primitives listed under Behavior, including `scorer.js`; Base UI anchor positioning is implemented by the additive primitive `anchor_positioner.js` (recorded exception); `positioner.js` is unchanged.
 
 ## Deviations
 
-Written to `gems/phlex-shadcn/dev/port/deviations/combobox.json` (structure and API only, no class-token allowance):
+Written to `gems/chadcn/dev/port/deviations/combobox.json` (structure and API only, no class-token allowance):
 - Structure: one `display: contents` controller host around the Root children and hidden inputs (Base UI Root renders no element); the closed Content shipped in an inert `<template>` mounted on open (Base UI Portal renders nothing while unmounted); Value-block chip prototypes and the single-mode Value text marker shipped as inert `<template>` markers that stay in the document (read on every selection change, so a Turbo snapshot can rebuild chips and the label). None carries a `data-slot`, class or box.
 - API: `Content anchor:` is a CSS selector string (React: element/ref, `useComboboxAnchor` has no Ruby equivalent); Trigger `as_child:` stands for Base UI `render`; `item_to_string_label`/`item_to_string_value`/`item_equal_to_value` are Ruby callables evaluated on the server and item equality defaults to `==` instead of `Object.is`; function-valued `filter` is replaced by the named filters `"fuzzy"`/`"contains"`/`nil` and callbacks by the events listed in API; `inline`, `grid`, `virtualized`, `filteredItems`, `filterQuery`, `actionsRef`, `inputRef` are not ported.

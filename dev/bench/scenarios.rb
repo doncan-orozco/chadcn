@@ -26,27 +26,27 @@ module Bench
           button(data: { slot: "button", variant: "outline", size: "default" }, class: REFERENCE_BUTTON_CLASS) { "Save" }
         end
       },
-      "button" => -> { view { render(Phlex::Shadcn::Button.new(variant: "outline")) { "Save" } } },
+      "button" => -> { view { render(Chadcn::Button.new(variant: "outline")) { "Save" } } },
       "card" => lambda {
         view do
-          render(Phlex::Shadcn::Card.new) do
-            render(Phlex::Shadcn::Card::Header.new) do
-              render(Phlex::Shadcn::Card::Title.new) { "Title" }
-              render(Phlex::Shadcn::Card::Description.new) { "Description" }
+          render(Chadcn::Card.new) do
+            render(Chadcn::Card::Header.new) do
+              render(Chadcn::Card::Title.new) { "Title" }
+              render(Chadcn::Card::Description.new) { "Description" }
             end
-            render(Phlex::Shadcn::Card::Content.new) { "Body" }
-            render(Phlex::Shadcn::Card::Footer.new) { "Footer" }
+            render(Chadcn::Card::Content.new) { "Body" }
+            render(Chadcn::Card::Footer.new) { "Footer" }
           end
         end
       },
       "select" => lambda {
         view do
-          render(Phlex::Shadcn::Select.new) do
-            render(Phlex::Shadcn::Select::Trigger.new) { render(Phlex::Shadcn::Select::Value.new(placeholder: "Pick")) }
-            render(Phlex::Shadcn::Select::Content.new) do
-              render(Phlex::Shadcn::Select::Group.new) do
-                render(Phlex::Shadcn::Select::Label.new) { "Fruits" }
-                %w[apple banana cherry].each { |fruit| render(Phlex::Shadcn::Select::Item.new(value: fruit)) { fruit.capitalize } }
+          render(Chadcn::Select.new) do
+            render(Chadcn::Select::Trigger.new) { render(Chadcn::Select::Value.new(placeholder: "Pick")) }
+            render(Chadcn::Select::Content.new) do
+              render(Chadcn::Select::Group.new) do
+                render(Chadcn::Select::Label.new) { "Fruits" }
+                %w[apple banana cherry].each { |fruit| render(Chadcn::Select::Item.new(value: fruit)) { fruit.capitalize } }
               end
             end
           end
@@ -54,26 +54,26 @@ module Bench
       },
       "dialog" => lambda {
         view do
-          render(Phlex::Shadcn::Dialog.new) do
-            render(Phlex::Shadcn::Dialog::Trigger.new(as_child: Phlex::Shadcn::Button.new(variant: "outline"))) { "Open" }
-            render(Phlex::Shadcn::Dialog::Content.new) do
-              render(Phlex::Shadcn::Dialog::Header.new) do
-                render(Phlex::Shadcn::Dialog::Title.new) { "Title" }
-                render(Phlex::Shadcn::Dialog::Description.new) { "Description" }
+          render(Chadcn::Dialog.new) do
+            render(Chadcn::Dialog::Trigger.new(as_child: Chadcn::Button.new(variant: "outline"))) { "Open" }
+            render(Chadcn::Dialog::Content.new) do
+              render(Chadcn::Dialog::Header.new) do
+                render(Chadcn::Dialog::Title.new) { "Title" }
+                render(Chadcn::Dialog::Description.new) { "Description" }
               end
-              render(Phlex::Shadcn::Dialog::Footer.new) { "Actions" }
+              render(Chadcn::Dialog::Footer.new) { "Actions" }
             end
           end
         end
       },
       "table" => lambda {
         view do
-          render(Phlex::Shadcn::Table.new) do
-            render(Phlex::Shadcn::Table::Body.new) do
+          render(Chadcn::Table.new) do
+            render(Chadcn::Table::Body.new) do
               50.times do |row_number|
-                render(Phlex::Shadcn::Table::Row.new) do
-                  render(Phlex::Shadcn::Table::Cell.new) { "Row #{row_number}" }
-                  render(Phlex::Shadcn::Table::Cell.new) { render(Phlex::Shadcn::Button.new(size: "sm")) { "Edit" } }
+                render(Chadcn::Table::Row.new) do
+                  render(Chadcn::Table::Cell.new) { "Row #{row_number}" }
+                  render(Chadcn::Table::Cell.new) { render(Chadcn::Button.new(size: "sm")) { "Edit" } }
                 end
               end
             end

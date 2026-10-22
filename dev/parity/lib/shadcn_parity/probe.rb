@@ -3,7 +3,7 @@
 # Stub component that proves the parity harness before any real component uses it. React twin: src/parity/probes.tsx.
 # Broken-probe self-test: while the file named by ENV["SHADCN_PARITY_BREAK_FLAG"] (set by servers.rb to <repo>/tmp/shadcn-port/_harness/break-probe)
 # exists, an extra class is rendered (the runner must fail).
-class ShadcnParity::Probe < Phlex::Shadcn::Base
+class ShadcnParity::Probe < Chadcn::Base
   VARIANTS = {
     "default" => "bg-primary text-primary-foreground",
     "outline" => "border bg-background text-foreground"

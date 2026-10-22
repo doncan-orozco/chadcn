@@ -1,6 +1,6 @@
 # InputGroup (`Components::V2::InputGroup`)
 
-Oracle: `gems/phlex-shadcn/dev/port/oracle/src/input-group.tsx` (style `new-york-v4`, source_sha `e379899ac50d6cab`, `"use client"`), manifest `gems/phlex-shadcn/dev/port/oracle/manifest/input-group.json`, registry item `gems/phlex-shadcn/dev/port/oracle/registry/input-group.json` (`registryDependencies: button, input, textarea`). Tier `static`: no Radix primitive, no shared primitive. Exports `InputGroup`, `InputGroupAddon`, `InputGroupButton`, `InputGroupText`, `InputGroupInput`, `InputGroupTextarea`; data-slots `input-group`, `input-group-addon`, `input-group-control` (InputGroupButton keeps Button's `button` slot, InputGroupText has none). Two cva tables, neither exported: `inputGroupAddonVariants` (axis `align`) and `inputGroupButtonVariants` (axis `size`). The one client behaviour is InputGroupAddon's `onClick` (tsx lines 71-76), ported as the tiny Stimulus controller `shadcn--input-group` described under Behavior. Line numbers below are tsx lines. Class merges were checked with the catalog's `tailwind-merge` 2.6.1 + `class-variance-authority` 0.7.1 (`gems/phlex-shadcn/dev/react-shadcn-catalog/node_modules`).
+Oracle: `gems/chadcn/dev/port/oracle/src/input-group.tsx` (style `new-york-v4`, source_sha `e379899ac50d6cab`, `"use client"`), manifest `gems/chadcn/dev/port/oracle/manifest/input-group.json`, registry item `gems/chadcn/dev/port/oracle/registry/input-group.json` (`registryDependencies: button, input, textarea`). Tier `static`: no Radix primitive, no shared primitive. Exports `InputGroup`, `InputGroupAddon`, `InputGroupButton`, `InputGroupText`, `InputGroupInput`, `InputGroupTextarea`; data-slots `input-group`, `input-group-addon`, `input-group-control` (InputGroupButton keeps Button's `button` slot, InputGroupText has none). Two cva tables, neither exported: `inputGroupAddonVariants` (axis `align`) and `inputGroupButtonVariants` (axis `size`). The one client behaviour is InputGroupAddon's `onClick` (tsx lines 71-76), ported as the tiny Stimulus controller `shadcn--input-group` described under Behavior. Line numbers below are tsx lines. Class merges were checked with the catalog's `tailwind-merge` 2.6.1 + `class-variance-authority` 0.7.1 (`gems/chadcn/dev/react-shadcn-catalog/node_modules`).
 
 ## API
 
@@ -107,7 +107,7 @@ onClick={(e) => {
 }}
 ```
 
-Port: Stimulus controller `shadcn--input-group` (`gems/phlex-shadcn/app/javascript/controllers/shadcn/input_group_controller.js`), host = each Addon element, action `click->shadcn--input-group#focusControl`. No values, no targets, no timers, no primitives composed.
+Port: Stimulus controller `shadcn--input-group` (`gems/chadcn/app/javascript/controllers/shadcn/input_group_controller.js`), host = each Addon element, action `click->shadcn--input-group#focusControl`. No values, no targets, no timers, no primitives composed.
 
 - `focusControl(event)`: return if `event.target.closest("button")` (any button ancestor of the click target, including an `InputGroup::Button` and its svg, scenarios `behavior__addon-click-on-button-skips`, `behavior__addon-click-on-button-icon-skips`); otherwise `this.element.parentElement?.querySelector("input")?.focus()`.
 - It queries `input` only: in a textarea group clicking the addon does nothing (scenario `behavior__addon-click-textarea-no-focus`); it focuses the FIRST `input` descendant of the parent, at any depth, even when another input was clicked (scenario `behavior__addon-click-first-input`); `focus()` on a disabled input is a no-op (scenario `behavior__addon-click-disabled-input`). No `preventDefault`, no `stopPropagation`.
@@ -118,7 +118,7 @@ Port: Stimulus controller `shadcn--input-group` (`gems/phlex-shadcn/app/javascri
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)
 
-`Phlex::Shadcn::InputGroup` MUST `yield self` from `view_template`; `Phlex::Shadcn::Base` generates one helper per nested part (`const_added`), each exactly `render InputGroup::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Phlex::Shadcn::InputGroup::Content.new`) stay valid.
+`Chadcn::InputGroup` MUST `yield self` from `view_template`; `Chadcn::Base` generates one helper per nested part (`const_added`), each exactly `render InputGroup::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Chadcn::InputGroup::Content.new`) stay valid.
 
 | helper | part class | React export |
 |---|---|---|
@@ -135,7 +135,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Dependencies
 
-- `Components::V2::Button` (InputGroup::Button), `Components::V2::Input` (InputGroup::Input), `Components::V2::Textarea` (InputGroup::Textarea): all planned (`gems/phlex-shadcn/dev/port/specs/{button,input,textarea}.md`). Relies on their documented rules: caller `data-slot` / `data-size` override, `cn` merge of caller `class`, `as_child:` on Button.
+- `Components::V2::Button` (InputGroup::Button), `Components::V2::Input` (InputGroup::Input), `Components::V2::Textarea` (InputGroup::Textarea): all planned (`gems/chadcn/dev/port/specs/{button,input,textarea}.md`). Relies on their documented rules: caller `data-slot` / `data-size` override, `cn` merge of caller `class`, `as_child:` on Button.
 - `Components::V2::Base` for `cn`, attribute merge and `render_as_child`.
 - Scenarios use lucide icons through `<icon:...>`: `search`, `info`, `copy`, `arrow-up`, `plus`, `check`, `star`, `mail`, `credit-card`, `corner-down-left`, `file-code`, `refresh-cw`, `loader-circle`, `loader`, `circle-help`, `ellipsis`, `chevron-down`, `link-2` (all present in the catalog's lucide-react).
 - Registry examples (fetched from `https://ui.shadcn.com/r/styles/new-york-v4/input-group-*.json` on 2026-10-09: `demo`, `button`, `icon`, `text`, `textarea`, `spinner`, `tooltip`, `dropdown`, `label`, `button-group`, `custom`), each as `example__input-group-<slug>` plus a `__dark` twin. Scenario-level substitutions, identical on both harnesses, not component deviations (the coverage check only admits exports of input-group, button, input, textarea):

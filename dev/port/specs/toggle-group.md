@@ -1,6 +1,6 @@
 # ToggleGroup
 
-Oracle: `gems/phlex-shadcn/dev/port/oracle/src/toggle-group.tsx` (manifest `source_sha` 45186473eaa30a96, tier `radix_stateful`), wrapping `ToggleGroupPrimitive.Root` / `.Item` from `radix-ui` 1.7.0 -> `@radix-ui/react-toggle-group` 1.1.20 (`gems/phlex-shadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-toggle-group/dist/index.mjs`, cited `tg:<line>`), built on `@radix-ui/react-toggle` 1.1.19 (`toggle:<line>`), `@radix-ui/react-roving-focus` 1.1.20 (`rf:<line>`), `@radix-ui/react-collection` 1.1.16 (`col:<line>`), `@radix-ui/react-direction` 1.1.5 (`dir:<line>`), `@radix-ui/react-use-controllable-state` 1.2.6 (`ucs:<line>`), `@radix-ui/primitive` (`primitive:<line>`). Item classes come from `toggleVariants` in `gems/phlex-shadcn/dev/port/oracle/src/toggle.tsx` (spec `toggle.md`). React 19. Registry examples read live (network): `toggle-group-demo`, `toggle-group-outline`, `toggle-group-single`, `toggle-group-sm`, `toggle-group-lg`, `toggle-group-disabled`, `toggle-group-spacing`. Same roving-focus contract as `radio-group.md` and `tabs.md`, without RadioGroup's arrow-select and without Tabs' activation-on-focus.
+Oracle: `gems/chadcn/dev/port/oracle/src/toggle-group.tsx` (manifest `source_sha` 45186473eaa30a96, tier `radix_stateful`), wrapping `ToggleGroupPrimitive.Root` / `.Item` from `radix-ui` 1.7.0 -> `@radix-ui/react-toggle-group` 1.1.20 (`gems/chadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-toggle-group/dist/index.mjs`, cited `tg:<line>`), built on `@radix-ui/react-toggle` 1.1.19 (`toggle:<line>`), `@radix-ui/react-roving-focus` 1.1.20 (`rf:<line>`), `@radix-ui/react-collection` 1.1.16 (`col:<line>`), `@radix-ui/react-direction` 1.1.5 (`dir:<line>`), `@radix-ui/react-use-controllable-state` 1.2.6 (`ucs:<line>`), `@radix-ui/primitive` (`primitive:<line>`). Item classes come from `toggleVariants` in `gems/chadcn/dev/port/oracle/src/toggle.tsx` (spec `toggle.md`). React 19. Registry examples read live (network): `toggle-group-demo`, `toggle-group-outline`, `toggle-group-single`, `toggle-group-sm`, `toggle-group-lg`, `toggle-group-disabled`, `toggle-group-spacing`. Same roving-focus contract as `radio-group.md` and `tabs.md`, without RadioGroup's arrow-select and without Tabs' activation-on-focus.
 
 ## API
 
@@ -171,7 +171,7 @@ Turbo: `disconnect()` releases the roving-focus listeners and pending focus time
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)
 
-`Phlex::Shadcn::ToggleGroup` MUST `yield self` from `view_template`; `Phlex::Shadcn::Base` generates one helper per nested part (`const_added`), each exactly `render ToggleGroup::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Phlex::Shadcn::ToggleGroup::Content.new`) stay valid.
+`Chadcn::ToggleGroup` MUST `yield self` from `view_template`; `Chadcn::Base` generates one helper per nested part (`const_added`), each exactly `render ToggleGroup::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Chadcn::ToggleGroup::Content.new`) stay valid.
 
 | helper | part class | React export |
 |---|---|---|

@@ -3,9 +3,9 @@
 require_relative "engine_helper"
 
 class EngineTest::Wiring < Minitest::Test
-  GEM_ROOT = Phlex::Shadcn.root
-  ASSETS = GEM_ROOT.join("app/assets/tailwind/phlex-shadcn")
-  Theme = Phlex::Shadcn::Theme
+  GEM_ROOT = Chadcn.root
+  ASSETS = GEM_ROOT.join("app/assets/tailwind/chadcn")
+  Theme = Chadcn::Theme
 
   # importmap-rails asks a resolver for the digested URL of every pinned asset; the logical path is all these tests need.
   Resolver = Struct.new(:unused) do
@@ -34,9 +34,9 @@ class EngineTest::Wiring < Minitest::Test
   end
 
   def test_the_engine_is_registered_under_the_name_tailwindcss_rails_expects
-    assert_includes Rails::Engine.subclasses, Phlex::Shadcn::Engine
-    assert_equal "phlex-shadcn", Phlex::Shadcn::Engine.engine_name
-    assert_equal GEM_ROOT.to_s, Phlex::Shadcn::Engine.root.to_s
+    assert_includes Rails::Engine.subclasses, Chadcn::Engine
+    assert_equal "chadcn", Chadcn::Engine.engine_name
+    assert_equal GEM_ROOT.to_s, Chadcn::Engine.root.to_s
   end
 
   def test_the_gem_javascript_directories_are_on_the_asset_load_path
@@ -57,24 +57,24 @@ class EngineTest::Wiring < Minitest::Test
     roots = app.assets.load_path.paths.map(&:to_s)
 
     refute_includes roots, GEM_ROOT.join("app/assets/tailwind").to_s
-    assert_nil app.assets.load_path.find("phlex-shadcn/engine.css")
+    assert_nil app.assets.load_path.find("chadcn/engine.css")
     assert_nil app.assets.load_path.find("engine.css")
   end
 
   def run_theme_initializer
-    Phlex::Shadcn::Engine.instance.initializers.find { |initializer| initializer.name == "phlex_shadcn.theme" }.run(app)
+    Chadcn::Engine.instance.initializers.find { |initializer| initializer.name == "chadcn.theme" }.run(app)
   end
 
   # Runs the initializer with the given app setting and gem setting, restoring both afterwards.
   def with_theme_settings(app_value, gem_value)
-    previous = [ app.config.phlex_shadcn.theme_dir, Phlex::Shadcn.config.theme_dir ]
-    app.config.phlex_shadcn.theme_dir = app_value
-    Phlex::Shadcn.configure { |config| config.theme_dir = gem_value }
+    previous = [ app.config.chadcn.theme_dir, Chadcn.config.theme_dir ]
+    app.config.chadcn.theme_dir = app_value
+    Chadcn.configure { |config| config.theme_dir = gem_value }
     run_theme_initializer
     yield
   ensure
-    app.config.phlex_shadcn.theme_dir = previous.first
-    Phlex::Shadcn.configure { |config| config.theme_dir = previous.last }
+    app.config.chadcn.theme_dir = previous.first
+    Chadcn.configure { |config| config.theme_dir = previous.last }
   end
 
   def test_an_explicit_configure_value_survives_when_the_app_sets_no_theme_dir
@@ -126,20 +126,20 @@ class EngineTest::Wiring < Minitest::Test
   def test_the_namespaced_theme_tasks_exist_and_the_short_aliases_too_when_the_host_has_no_theme_rake
     with_tasks do
       %w[list use import check].each do |name|
-        assert Rake::Task.task_defined?("phlex_shadcn:theme:#{name}"), "phlex_shadcn:theme:#{name}"
+        assert Rake::Task.task_defined?("chadcn:theme:#{name}"), "chadcn:theme:#{name}"
         assert Rake::Task.task_defined?("theme:#{name}"), "theme:#{name}"
       end
     end
   end
 
   def test_no_short_aliases_when_the_app_turns_them_off
-    app.config.phlex_shadcn.theme_task_aliases = false
+    app.config.chadcn.theme_task_aliases = false
     with_tasks do
-      assert Rake::Task.task_defined?("phlex_shadcn:theme:use")
+      assert Rake::Task.task_defined?("chadcn:theme:use")
       %w[list use import check].each { |name| refute Rake::Task.task_defined?("theme:#{name}"), "theme:#{name} would run twice" }
     end
   ensure
-    app.config.phlex_shadcn.theme_task_aliases = true
+    app.config.chadcn.theme_task_aliases = true
   end
 
   def test_the_alias_forwards_its_argument_and_switches_the_preset
@@ -158,7 +158,7 @@ class EngineTest::Wiring < Minitest::Test
     error = stderr = nil
     with_tasks do
       _out, stderr = capture_io do
-        error = assert_raises(SystemExit) { Rake::Task["phlex_shadcn:theme:use"].invoke("nope") }
+        error = assert_raises(SystemExit) { Rake::Task["chadcn:theme:use"].invoke("nope") }
       end
     end
 
@@ -173,7 +173,7 @@ class EngineTest::Wiring < Minitest::Test
     stderr = nil
     with_tasks do
       _out, stderr = capture_io do
-        assert_raises(SystemExit) { Rake::Task["phlex_shadcn:theme:check"].invoke }
+        assert_raises(SystemExit) { Rake::Task["chadcn:theme:check"].invoke }
       end
     end
 
@@ -182,7 +182,7 @@ class EngineTest::Wiring < Minitest::Test
 
   def test_the_tailwind_entry_point_is_bundled_for_the_host
     Tailwindcss::Engines.bundle
-    bundle = EngineTest::ROOT.join("app/assets/builds/tailwind/phlex-shadcn.css")
+    bundle = EngineTest::ROOT.join("app/assets/builds/tailwind/chadcn.css")
     entry = ASSETS.join("engine.css")
 
     assert_predicate bundle, :file?

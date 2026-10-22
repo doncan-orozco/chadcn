@@ -1,7 +1,7 @@
 # HoverCard (shadcn new-york-v4, Radix `HoverCard`)
 
-Oracle: `gems/phlex-shadcn/dev/port/oracle/src/hover-card.tsx` (manifest `source_sha` 73f59aa759656501), manifest `oracle/manifest/hover-card.json`.
-Behavior source: `gems/phlex-shadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-hover-card/dist/index.mjs` v1.1.24 (cited `hc:<line>`), built on `react-popper` 1.3.8 (`popper:`), `react-dismissable-layer` 1.1.20 (`dl:`), `react-presence` 1.1.11 (`pr:`), `react-portal` 1.1.18, `react-focus-scope` 1.2.0 (`fs:`, branch registry only), `react-use-controllable-state` (`ucs:`), all from `radix-ui` 1.7.0; `@floating-ui/react-dom` 2.1.9 / `@floating-ui/dom` 1.8.0; React 19.3.0.
+Oracle: `gems/chadcn/dev/port/oracle/src/hover-card.tsx` (manifest `source_sha` 73f59aa759656501), manifest `oracle/manifest/hover-card.json`.
+Behavior source: `gems/chadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-hover-card/dist/index.mjs` v1.1.24 (cited `hc:<line>`), built on `react-popper` 1.3.8 (`popper:`), `react-dismissable-layer` 1.1.20 (`dl:`), `react-presence` 1.1.11 (`pr:`), `react-portal` 1.1.18, `react-focus-scope` 1.2.0 (`fs:`, branch registry only), `react-use-controllable-state` (`ucs:`), all from `radix-ui` 1.7.0; `@floating-ui/react-dom` 2.1.9 / `@floating-ui/dom` 1.8.0; React 19.3.0.
 Examples: registry `new-york-v4/hover-card-demo.json`; docs examples `hover-card-demo`, `hover-card-sides`, `hover-card-rtl` (`apps/v4/examples/radix/*.tsx` on shadcn-ui/ui main, radix-nova style; the hover-card markup is style independent).
 Tier: `overlay`. Family: Overlay (floating), same as Tooltip (keep `hover_intent` / `positioner` / template usage identical to `specs/tooltip.md`).
 
@@ -119,7 +119,7 @@ Not expressible in the runner, covered by the browser tests in `test/javascript/
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)
 
-`Phlex::Shadcn::HoverCard` MUST `yield self` from `view_template`; `Phlex::Shadcn::Base` generates one helper per nested part (`const_added`), each exactly `render HoverCard::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Phlex::Shadcn::HoverCard::Content.new`) stay valid.
+`Chadcn::HoverCard` MUST `yield self` from `view_template`; `Chadcn::Base` generates one helper per nested part (`const_added`), each exactly `render HoverCard::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Chadcn::HoverCard::Content.new`) stay valid.
 
 | helper | part class | React export |
 |---|---|---|
@@ -138,7 +138,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Deviations
 
-One structural, invisible deviation (`gems/phlex-shadcn/dev/port/deviations/hover-card.json`), identical in shape to Tooltip's:
+One structural, invisible deviation (`gems/chadcn/dev/port/deviations/hover-card.json`), identical in shape to Tooltip's:
 
 - `HoverCard::Content` emits an inert `<template data-shadcn--hover-card-template="<key>">` at its call site that carries the content markup until the controller mounts it in `body`. Reason: Radix renders nothing while closed and creates the node on the client in a body portal; the server must ship the markup somewhere and the trigger (the controller host, an `<a>`) cannot contain it. The template has no `data-slot`, generates no box, and its content is not in the document, so G2 node lists, boxes and a11y are unaffected.
 

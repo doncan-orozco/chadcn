@@ -1,19 +1,19 @@
 # Sonner / Toaster (shadcn new-york-v4, sonner 2.0.7)
 
-Sources read: `gems/phlex-shadcn/dev/port/oracle/src/sonner.tsx` (manifest `source_sha` 13ccc9b0fe4248e6; shadcn's wrapper: `Toaster` = sonner's `Toaster` with `className="toaster group"`, the Lucide icons `CircleCheckIcon/InfoIcon/TriangleAlertIcon/OctagonXIcon/Loader2Icon className="size-4"` (loading also `animate-spin`) and the colors `--normal-bg: var(--popover)`, `--normal-text: var(--popover-foreground)`, `--normal-border: var(--border)`, `--border-radius: var(--radius)`), and the library it wraps, `gems/phlex-shadcn/dev/react-shadcn-catalog/node_modules/sonner/dist/index.mjs` (cited as `sonner:<line>`) with the CSS it injects at runtime (`__insertCSS`, sonner:404). `next-themes` only supplies `theme` (default `system`).
+Sources read: `gems/chadcn/dev/port/oracle/src/sonner.tsx` (manifest `source_sha` 13ccc9b0fe4248e6; shadcn's wrapper: `Toaster` = sonner's `Toaster` with `className="toaster group"`, the Lucide icons `CircleCheckIcon/InfoIcon/TriangleAlertIcon/OctagonXIcon/Loader2Icon className="size-4"` (loading also `animate-spin`) and the colors `--normal-bg: var(--popover)`, `--normal-text: var(--popover-foreground)`, `--normal-border: var(--border)`, `--border-radius: var(--radius)`), and the library it wraps, `gems/chadcn/dev/react-shadcn-catalog/node_modules/sonner/dist/index.mjs` (cited as `sonner:<line>`) with the CSS it injects at runtime (`__insertCSS`, sonner:404). `next-themes` only supplies `theme` (default `system`).
 
-**No third-party JavaScript** (maintainer constraint of the adoption epic): the library's behavior is re-implemented in `app/javascript/shadcn/primitives/toast_stack.js` (state, stacking, timers, swipe, hotkey) and its stylesheet is shipped as `app/assets/tailwind/phlex-shadcn/sonner.css` (MIT, `THIRD_PARTY_NOTICES.md`). No new importmap pin, no vendor file, no npm dependency (a unit test asserts it).
+**No third-party JavaScript** (maintainer constraint of the adoption epic): the library's behavior is re-implemented in `app/javascript/shadcn/primitives/toast_stack.js` (state, stacking, timers, swipe, hotkey) and its stylesheet is shipped as `app/assets/tailwind/chadcn/sonner.css` (MIT, `THIRD_PARTY_NOTICES.md`). No new importmap pin, no vendor file, no npm dependency (a unit test asserts it).
 
 ## API
 
-`Toaster` is the only export (`Sonner` is the namespace, `Phlex::Shadcn::Toaster` the 1:1 name):
+`Toaster` is the only export (`Sonner` is the namespace, `Chadcn::Toaster` the 1:1 name):
 
 ```ruby
-Phlex::Shadcn::Toaster.new(position: "bottom-right", theme: "system", rich_colors: nil, expand: false, close_button: false, invert: false,
+Chadcn::Toaster.new(position: "bottom-right", theme: "system", rich_colors: nil, expand: false, close_button: false, invert: false,
   duration: nil, visible_toasts: 3, gap: 14, offset: nil, mobile_offset: nil, dir: nil, hotkey: %w[altKey KeyT],
   container_aria_label: "Notifications", swipe_directions: nil, toast_options: nil, icons: nil, style: nil, toaster_id: nil,
   flash: nil, toasts: nil, class: nil, **attrs) { |toaster| ... }
-Phlex::Shadcn::Sonner::Toast.new(title: nil, description: nil, type: nil, id: nil, duration: nil, position: nil, dismissible: nil, close_button: nil,
+Chadcn::Sonner::Toast.new(title: nil, description: nil, type: nil, id: nil, duration: nil, position: nil, dismissible: nil, close_button: nil,
   rich_colors: nil, invert: nil, icon: nil, action: nil, cancel: nil, toaster_id: nil, test_id: nil, **attrs) { "title when title: is nil" }
 ```
 
@@ -30,8 +30,8 @@ Phlex::Shadcn::Sonner::Toast.new(title: nil, description: nil, type: nil, id: ni
 Example (layout, a controller and a stream):
 
 ```ruby
-render Phlex::Shadcn::Toaster.new(flash: flash.to_h, close_button: true, position: "top-center")
-turbo_stream.append "toaster", Phlex::Shadcn::Sonner::Toast.new(type: :success, title: "Saved", description: "Stored")
+render Chadcn::Toaster.new(flash: flash.to_h, close_button: true, position: "top-center")
+turbo_stream.append "toaster", Chadcn::Sonner::Toast.new(type: :success, title: "Saved", description: "Stored")
 ```
 
 ## Structure
@@ -80,13 +80,13 @@ sonner's `toast()` is a module function, so a static scenario tree cannot call i
 
 ## DX helpers
 
-The oracle exports only `Toaster`, so `spec_helpers.rb` derives none. The root `Phlex::Shadcn::Sonner` (renders a `Sonner::Toaster` with the options it is given and `yield self`s) gets the generated helpers `sonner.toaster` and `sonner.toast` from `Base`; `test/phlex/shadcn/sonner_test.rb` asserts `sonner.toast(...)` renders the same HTML as `Sonner::Toast.new(...)`.
+The oracle exports only `Toaster`, so `spec_helpers.rb` derives none. The root `Chadcn::Sonner` (renders a `Sonner::Toaster` with the options it is given and `yield self`s) gets the generated helpers `sonner.toaster` and `sonner.toast` from `Base`; `test/chadcn/sonner_test.rb` asserts `sonner.toast(...)` renders the same HTML as `Sonner::Toast.new(...)`.
 
 ## Dependencies
 
-- Renders `Phlex::Shadcn::Icon` (`circle-check`, `info`, `triangle-alert`, `octagon-x`, `loader-circle`; all already in the icon catalog) and `Phlex::Shadcn::Base` (`merge_attrs`, `cn`, `normalize_option`, `json`).
+- Renders `Chadcn::Icon` (`circle-check`, `info`, `triangle-alert`, `octagon-x`, `loader-circle`; all already in the icon catalog) and `Chadcn::Base` (`merge_attrs`, `cn`, `normalize_option`, `json`).
 - JavaScript: Stimulus and `shadcn/primitives/toast_stack` only.
 
 ## Deviations
 
-One register entry (`gems/phlex-shadcn/dev/port/deviations/sonner.json`), no class-token allowance (G1 passes unchanged, the stylesheet carries the toast look): the Rails entry points, `id:`/`class:` handling, the missing React-element surface, callbacks as events, the assertive announcer for errors and the inert icon templates. Everything else (DOM, `data-*` state, stacking variables, computed styles, hover/hotkey/swipe/timer behavior) is compared with sonner in the 81 scenarios of `scenarios/sonner.json`.
+One register entry (`gems/chadcn/dev/port/deviations/sonner.json`), no class-token allowance (G1 passes unchanged, the stylesheet carries the toast look): the Rails entry points, `id:`/`class:` handling, the missing React-element surface, callbacks as events, the assertive announcer for errors and the inert icon templates. Everything else (DOM, `data-*` state, stacking variables, computed styles, hover/hotkey/swipe/timer behavior) is compared with sonner in the 81 scenarios of `scenarios/sonner.json`.

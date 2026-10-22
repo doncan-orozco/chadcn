@@ -1,7 +1,7 @@
 # NavigationMenu (shadcn new-york-v4, Radix `NavigationMenu`)
 
-Oracle: `gems/phlex-shadcn/dev/port/oracle/src/navigation-menu.tsx` (manifest `source_sha` fbe81d7c358df0d2, cited `tsx:<line>`), manifest `oracle/manifest/navigation-menu.json`.
-Behavior source: `gems/phlex-shadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-navigation-menu/dist/index.mjs` v1.3.0 (cited `nm:<line>`), built on `react-dismissable-layer` 1.1.20 (`dl:`), `react-presence` 1.1.11, `react-visually-hidden` 1.2.12 (`vh:`), `react-collection` 1.1.16, `react-id` 1.1.4, `react-slot` 1.4.0 (`slot:`), `react-direction`, `react-use-previous`; all from `radix-ui` 1.7.0, React 19.3.0, tailwind-merge 2.6.1.
+Oracle: `gems/chadcn/dev/port/oracle/src/navigation-menu.tsx` (manifest `source_sha` fbe81d7c358df0d2, cited `tsx:<line>`), manifest `oracle/manifest/navigation-menu.json`.
+Behavior source: `gems/chadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-navigation-menu/dist/index.mjs` v1.3.0 (cited `nm:<line>`), built on `react-dismissable-layer` 1.1.20 (`dl:`), `react-presence` 1.1.11, `react-visually-hidden` 1.2.12 (`vh:`), `react-collection` 1.1.16, `react-id` 1.1.4, `react-slot` 1.4.0 (`slot:`), `react-direction`, `react-use-previous`; all from `radix-ui` 1.7.0, React 19.3.0, tailwind-merge 2.6.1.
 Examples: registry `new-york-v4/navigation-menu-demo.json` (fetched); docs example `apps/v4/examples/radix/navigation-menu-rtl.tsx` (shadcn-ui/ui main, radix-nova style; markup re-expressed with the new-york-v4 parts). The registry item has no `meta.links`.
 Tier: `overlay`. Family: Menu (no floating-ui: content and viewport are positioned by CSS, `absolute top-full`).
 
@@ -145,7 +145,7 @@ Not exercised by the runner (G3 controller unit tests instead): `pointerType` to
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)
 
-`Phlex::Shadcn::NavigationMenu` MUST `yield self` from `view_template`; `Phlex::Shadcn::Base` generates one helper per nested part (`const_added`), each exactly `render NavigationMenu::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Phlex::Shadcn::NavigationMenu::Content.new`) stay valid.
+`Chadcn::NavigationMenu` MUST `yield self` from `view_template`; `Chadcn::Base` generates one helper per nested part (`const_added`), each exactly `render NavigationMenu::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Chadcn::NavigationMenu::Content.new`) stay valid.
 
 | helper | part class | React export |
 |---|---|---|
@@ -170,7 +170,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Deviations
 
-One structural, invisible deviation (`gems/phlex-shadcn/dev/port/deviations/navigation-menu.json`), same pattern as Tooltip/HoverCard:
+One structural, invisible deviation (`gems/chadcn/dev/port/deviations/navigation-menu.json`), same pattern as Tooltip/HoverCard:
 
 - `NavigationMenu::Content` (call site, inside the `li`), `NavigationMenu::Viewport` (inside the shadcn wrapper div) and `NavigationMenu::Indicator` (call site) emit inert `<template data-shadcn--navigation-menu-target="...">` elements holding their markup while unmounted. Reason: Radix renders nothing for them while closed and creates the nodes on the client (contents inside the viewport via a registry, the indicator via a portal into the List track). The templates have no `data-slot`, no box and their content is not part of the document, so G2 node lists, boxes and a11y are unaffected.
 

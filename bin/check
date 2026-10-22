@@ -8,7 +8,7 @@ root="$(git rev-parse --show-toplevel 2>/dev/null || true)"
 
 # It is part of the contract (ruby-gem-conventions R10): a checkout without it fails instead of skipping the parity tests silently.
 if [ ! -f dev/dummy/Gemfile ]; then
-  echo "bin/check: dev/dummy/Gemfile is missing, so the parity harness tests cannot run. Restore gems/phlex-shadcn/dev (it is not packaged in the gem) or run the plain suites with 'bundle exec rake test test:engine'." >&2
+  echo "bin/check: dev/dummy/Gemfile is missing, so the parity harness tests cannot run. Restore gems/chadcn/dev (it is not packaged in the gem) or run the plain suites with 'bundle exec rake test test:engine'." >&2
   exit 1
 fi
 

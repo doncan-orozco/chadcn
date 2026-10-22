@@ -1,6 +1,6 @@
 # Table (`Components::V2::Table`)
 
-Oracle: `gems/phlex-shadcn/dev/port/oracle/src/table.tsx` (style `new-york-v4`, manifest `source_sha` `bd1a9fc83a5a2149`), manifest `gems/phlex-shadcn/dev/port/oracle/manifest/table.json`. Tier `static`: the file starts with `"use client"` but uses no hook, no Radix primitive, no cva, no icon, no text literal (manifest `radix_primitives: []`, `hooks: []`, `icons: []`, `cva: {}`). No Stimulus controller. Exports `Table`, `TableHeader`, `TableBody`, `TableFooter`, `TableHead`, `TableRow`, `TableCell`, `TableCaption`. Data-slots `table-container`, `table`, `table-header`, `table-body`, `table-footer`, `table-row`, `table-head`, `table-cell`, `table-caption`. Registry example: `table-demo` (`https://ui.shadcn.com/r/styles/new-york-v4/table-demo.json`).
+Oracle: `gems/chadcn/dev/port/oracle/src/table.tsx` (style `new-york-v4`, manifest `source_sha` `bd1a9fc83a5a2149`), manifest `gems/chadcn/dev/port/oracle/manifest/table.json`. Tier `static`: the file starts with `"use client"` but uses no hook, no Radix primitive, no cva, no icon, no text literal (manifest `radix_primitives: []`, `hooks: []`, `icons: []`, `cva: {}`). No Stimulus controller. Exports `Table`, `TableHeader`, `TableBody`, `TableFooter`, `TableHead`, `TableRow`, `TableCell`, `TableCaption`. Data-slots `table-container`, `table`, `table-header`, `table-body`, `table-footer`, `table-row`, `table-head`, `table-cell`, `table-caption`. Registry example: `table-demo` (`https://ui.shadcn.com/r/styles/new-york-v4/table-demo.json`).
 
 ## API
 
@@ -85,7 +85,7 @@ Classes, verbatim from the tsx base strings (each part is `cn("<base>", classNam
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)
 
-`Phlex::Shadcn::Table` MUST `yield self` from `view_template`; `Phlex::Shadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Table::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Phlex::Shadcn::Table::Content.new`) stay valid.
+`Chadcn::Table` MUST `yield self` from `view_template`; `Chadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Table::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Chadcn::Table::Content.new`) stay valid.
 
 | helper | part class | React export |
 |---|---|---|

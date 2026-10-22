@@ -34,7 +34,7 @@ end
 namespace :llms do
   llms_cli = ->(command) { sh FileUtils::RUBY, File.expand_path("dev/llms/cli.rb", __dir__), command }
 
-  desc "Regenerate llms.txt, llms-full.txt and skills/phlex-shadcn/SKILL.md from the YARD docs and the Stimulus controllers"
+  desc "Regenerate llms.txt, llms-full.txt and skills/chadcn/SKILL.md from the YARD docs and the Stimulus controllers"
   task(:generate) { llms_cli.call("generate") }
 
   desc "Fail when the committed llms files differ from what `llms:generate` produces"

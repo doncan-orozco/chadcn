@@ -22,31 +22,31 @@ JavaScript runs. `open:` makes the component controlled: user actions dispatch `
 
 ```ruby
 # explicit classes
-render Phlex::Shadcn::Dialog.new do
-  render Phlex::Shadcn::Dialog::Trigger.new(as_child: Phlex::Shadcn::Button.new(variant: "outline")) { "Edit profile" }
-  render Phlex::Shadcn::Dialog::Content.new(class: "sm:max-w-[425px]") do
-    render Phlex::Shadcn::Dialog::Header.new do
-      render Phlex::Shadcn::Dialog::Title.new { "Edit profile" }
-      render Phlex::Shadcn::Dialog::Description.new { "Make changes to your profile here. Click save when you're done." }
+render Chadcn::Dialog.new do
+  render Chadcn::Dialog::Trigger.new(as_child: Chadcn::Button.new(variant: "outline")) { "Edit profile" }
+  render Chadcn::Dialog::Content.new(class: "sm:max-w-[425px]") do
+    render Chadcn::Dialog::Header.new do
+      render Chadcn::Dialog::Title.new { "Edit profile" }
+      render Chadcn::Dialog::Description.new { "Make changes to your profile here. Click save when you're done." }
     end
-    render Phlex::Shadcn::Dialog::Footer.new do
-      render Phlex::Shadcn::Dialog::Close.new(as_child: Phlex::Shadcn::Button.new(variant: "outline")) { "Cancel" }
-      render Phlex::Shadcn::Button.new(type: "submit") { "Save changes" }
+    render Chadcn::Dialog::Footer.new do
+      render Chadcn::Dialog::Close.new(as_child: Chadcn::Button.new(variant: "outline")) { "Cancel" }
+      render Chadcn::Button.new(type: "submit") { "Save changes" }
     end
   end
 end
 
 # generated helpers
-render Phlex::Shadcn::Dialog.new do |dialog|
-  dialog.trigger(as_child: Phlex::Shadcn::Button.new(variant: "outline")) { "Edit profile" }
+render Chadcn::Dialog.new do |dialog|
+  dialog.trigger(as_child: Chadcn::Button.new(variant: "outline")) { "Edit profile" }
   dialog.content(class: "sm:max-w-[425px]") do
     dialog.header do
       dialog.title { "Edit profile" }
       dialog.description { "Make changes to your profile here. Click save when you're done." }
     end
     dialog.footer do
-      dialog.close(as_child: Phlex::Shadcn::Button.new(variant: "outline")) { "Cancel" }
-      render Phlex::Shadcn::Button.new(type: "submit") { "Save changes" }
+      dialog.close(as_child: Chadcn::Button.new(variant: "outline")) { "Cancel" }
+      render Chadcn::Button.new(type: "submit") { "Save changes" }
     end
   end
 end
@@ -55,8 +55,8 @@ end
 ## Example: alert dialog and sheet
 
 ```ruby
-render Phlex::Shadcn::AlertDialog.new do |alert|
-  alert.trigger(as_child: Phlex::Shadcn::Button.new(variant: "outline")) { "Delete account" }
+render Chadcn::AlertDialog.new do |alert|
+  alert.trigger(as_child: Chadcn::Button.new(variant: "outline")) { "Delete account" }
   alert.content do
     alert.header do
       alert.title { "Are you absolutely sure?" }
@@ -69,11 +69,11 @@ render Phlex::Shadcn::AlertDialog.new do |alert|
   end
 end
 
-render Phlex::Shadcn::Sheet.new do |sheet|
-  sheet.trigger(as_child: Phlex::Shadcn::Button.new(variant: "outline")) { "Open" }
+render Chadcn::Sheet.new do |sheet|
+  sheet.trigger(as_child: Chadcn::Button.new(variant: "outline")) { "Open" }
   sheet.content(side: "left") do
     sheet.header { sheet.title { "Edit profile" } }
-    sheet.footer { sheet.close(as_child: Phlex::Shadcn::Button.new) { "Save changes" } }
+    sheet.footer { sheet.close(as_child: Chadcn::Button.new) { "Save changes" } }
   end
 end
 ```
@@ -81,8 +81,8 @@ end
 ## Example: popover, tooltip and hover card
 
 ```ruby
-render Phlex::Shadcn::Popover.new do |popover|
-  popover.trigger(as_child: Phlex::Shadcn::Button.new(variant: "outline")) { "Open popover" }
+render Chadcn::Popover.new do |popover|
+  popover.trigger(as_child: Chadcn::Button.new(variant: "outline")) { "Open popover" }
   popover.content(class: "w-80", align: "start") do
     popover.header do
       popover.title { "Dimensions" }
@@ -91,15 +91,15 @@ render Phlex::Shadcn::Popover.new do |popover|
   end
 end
 
-render Phlex::Shadcn::Tooltip::Provider.new do
-  render Phlex::Shadcn::Tooltip.new do |tooltip|
-    tooltip.trigger(as_child: Phlex::Shadcn::Button.new(variant: "outline")) { "Hover" }
+render Chadcn::Tooltip::Provider.new do
+  render Chadcn::Tooltip.new do |tooltip|
+    tooltip.trigger(as_child: Chadcn::Button.new(variant: "outline")) { "Hover" }
     tooltip.content { p { "Add to library" } }
   end
 end
 
-render Phlex::Shadcn::HoverCard.new do |card|
-  card.trigger(as_child: Phlex::Shadcn::Button.new(variant: "link")) { "@nextjs" }
+render Chadcn::HoverCard.new do |card|
+  card.trigger(as_child: Chadcn::Button.new(variant: "link")) { "@nextjs" }
   card.content(class: "w-80") { "The React Framework" }
 end
 ```

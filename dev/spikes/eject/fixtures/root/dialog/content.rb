@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Phlex::Shadcn::Dialog::Content < Phlex::Shadcn::Base
+class Chadcn::Dialog::Content < Chadcn::Base
   EJECTED = :root_content
 
   def view_template(&block)

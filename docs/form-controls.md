@@ -30,22 +30,22 @@ given, so they submit with a normal form.
 
 ```ruby
 # explicit classes
-render Phlex::Shadcn::Field::Group.new do
-  render Phlex::Shadcn::Field.new do
-    render Phlex::Shadcn::Field::Label.new(html_for: "email") { "Email" }
-    render Phlex::Shadcn::Input.new(id: "email", type: "email", placeholder: "m@example.com", required: true)
-    render Phlex::Shadcn::Field::Description.new { "We never share it." }
+render Chadcn::Field::Group.new do
+  render Chadcn::Field.new do
+    render Chadcn::Field::Label.new(html_for: "email") { "Email" }
+    render Chadcn::Input.new(id: "email", type: "email", placeholder: "m@example.com", required: true)
+    render Chadcn::Field::Description.new { "We never share it." }
   end
-  render Phlex::Shadcn::Field.new(orientation: "horizontal") do
-    render Phlex::Shadcn::Checkbox.new(id: "terms", name: "terms")
-    render Phlex::Shadcn::Field::Label.new(html_for: "terms", class: "font-normal") { "Accept the terms" }
+  render Chadcn::Field.new(orientation: "horizontal") do
+    render Chadcn::Checkbox.new(id: "terms", name: "terms")
+    render Chadcn::Field::Label.new(html_for: "terms", class: "font-normal") { "Accept the terms" }
   end
 end
 
 # generated helpers (Field::Group is a part of Field, so the group is rendered from a Field root or by its class)
-render Phlex::Shadcn::Field.new do |field|
+render Chadcn::Field.new do |field|
   field.label(html_for: "email") { "Email" }
-  render Phlex::Shadcn::Input.new(id: "email", type: "email", placeholder: "m@example.com", required: true)
+  render Chadcn::Input.new(id: "email", type: "email", placeholder: "m@example.com", required: true)
   field.description { "We never share it." }
   field.error(errors: [ "is invalid" ])
 end
@@ -62,16 +62,16 @@ string) or a `#message` method, blank messages are dropped, and a block replaces
 modifiers }`) and `shadcn--calendar:month-change` (`detail: { month }`), both bubbling.
 
 ```ruby
-render Phlex::Shadcn::Calendar.new(mode: :single, selected: Date.new(2026, 3, 15), class: "rounded-md border shadow-sm")
+render Chadcn::Calendar.new(mode: :single, selected: Date.new(2026, 3, 15), class: "rounded-md border shadow-sm")
 
 # a range over two months, weeks starting on Monday, weekends and the days before March 2026 disabled
-render Phlex::Shadcn::Calendar.new(
+render Chadcn::Calendar.new(
   mode: :range, number_of_months: 2, week_starts_on: 1, selected: { from: Date.new(2026, 3, 10), to: Date.new(2026, 3, 14) },
   disabled: [ { day_of_week: [ 0, 6 ] }, { before: Date.new(2026, 3, 1) } ]
 )
 
 # month and year dropdowns between two months, Spanish text, custom modifier
-render Phlex::Shadcn::Calendar.new(
+render Chadcn::Calendar.new(
   mode: :single, caption_layout: :dropdown, locale: :es, start_month: Date.new(2020, 1, 1), end_month: Date.new(2030, 12, 1),
   modifiers: { booked: [ Date.new(2026, 3, 16), Date.new(2026, 3, 17) ] }, modifiers_class_names: { booked: "line-through" }
 )
@@ -91,13 +91,13 @@ ordinal = date && ((11..13).cover?(date.day % 100) ? "th" : { 1 => "st", 2 => "n
 
 form(action: "/events", method: "post") do
   input(type: "hidden", id: "event_date", name: "event[date]", value: date&.iso8601)
-  render Phlex::Shadcn::Popover.new do
-    render Phlex::Shadcn::Popover::Trigger.new(as_child: Phlex::Shadcn::Button.new(variant: "outline", class: "w-[240px] justify-start text-left font-normal has-[[data-empty=true]]:text-muted-foreground")) do
-      render Phlex::Shadcn::Icon.new("calendar")
+  render Chadcn::Popover.new do
+    render Chadcn::Popover::Trigger.new(as_child: Chadcn::Button.new(variant: "outline", class: "w-[240px] justify-start text-left font-normal has-[[data-empty=true]]:text-muted-foreground")) do
+      render Chadcn::Icon.new("calendar")
       span(id: "event_date_label", data: { shadcn__calendar_placeholder: "Pick a date", empty: date.nil?.to_s }) { date ? date.strftime("%B #{date.day}#{ordinal}, %Y") : "Pick a date" }
     end
-    render Phlex::Shadcn::Popover::Content.new(class: "w-auto p-0", align: "start") do
-      render Phlex::Shadcn::Calendar.new(mode: :single, selected: date, input: "#event_date", label: "#event_date_label", close_on_select: true)
+    render Chadcn::Popover::Content.new(class: "w-auto p-0", align: "start") do
+      render Chadcn::Calendar.new(mode: :single, selected: date, input: "#event_date", label: "#event_date_label", close_on_select: true)
     end
   end
 end
@@ -118,40 +118,40 @@ call `compact_blank` on the array.
 
 ```ruby
 form(action: "/stays", method: "post") do
-  render Phlex::Shadcn::Calendar.new(mode: :range, name: "stay", selected: { from: Date.new(2026, 3, 10) }, number_of_months: 2)
-  render Phlex::Shadcn::Button.new(type: "submit") { "Book" }
+  render Chadcn::Calendar.new(mode: :range, name: "stay", selected: { from: Date.new(2026, 3, 10) }, number_of_months: 2)
+  render Chadcn::Button.new(type: "submit") { "Book" }
 end
 ```
 
 ## Example: radio group and toggle group
 
 ```ruby
-render Phlex::Shadcn::RadioGroup.new(default_value: "comfortable", name: "density") do |group|
+render Chadcn::RadioGroup.new(default_value: "comfortable", name: "density") do |group|
   %w[default comfortable compact].each do |value|
     div(class: "flex items-center gap-3") do
       group.item(value: value, id: "r-#{value}") { |item| item.indicator }
-      render Phlex::Shadcn::Label.new(html_for: "r-#{value}") { value.capitalize }
+      render Chadcn::Label.new(html_for: "r-#{value}") { value.capitalize }
     end
   end
 end
 
-render Phlex::Shadcn::ToggleGroup.new(type: "multiple", variant: "outline", default_value: %w[bold]) do |group|
-  group.item(value: "bold", aria: { label: "Toggle bold" }) { render Phlex::Shadcn::Icon.new("bold") }
-  group.item(value: "italic", aria: { label: "Toggle italic" }) { render Phlex::Shadcn::Icon.new("italic") }
+render Chadcn::ToggleGroup.new(type: "multiple", variant: "outline", default_value: %w[bold]) do |group|
+  group.item(value: "bold", aria: { label: "Toggle bold" }) { render Chadcn::Icon.new("bold") }
+  group.item(value: "italic", aria: { label: "Toggle italic" }) { render Chadcn::Icon.new("italic") }
 end
 ```
 
 ## Example: buttons
 
 ```ruby
-render Phlex::Shadcn::Button.new { "Default" }
-render Phlex::Shadcn::Button.new(variant: :outline, size: :sm) { "Small outline" }
-render Phlex::Shadcn::Button.new(variant: "destructive", disabled: true) { "Delete" }
-render Phlex::Shadcn::Button.new(size: "icon", aria: { label: "Settings" }) { render Phlex::Shadcn::Icon.new("settings") }
-render Phlex::Shadcn::Button.new(as_child: :a, href: "/docs", variant: "link") { "Documentation" }
+render Chadcn::Button.new { "Default" }
+render Chadcn::Button.new(variant: :outline, size: :sm) { "Small outline" }
+render Chadcn::Button.new(variant: "destructive", disabled: true) { "Delete" }
+render Chadcn::Button.new(size: "icon", aria: { label: "Settings" }) { render Chadcn::Icon.new("settings") }
+render Chadcn::Button.new(as_child: :a, href: "/docs", variant: "link") { "Documentation" }
 
 # the class string alone (React buttonVariants)
-a(href: "/more", class: Phlex::Shadcn::Button.variants(variant: "outline", size: "sm")) { "Read more" }
+a(href: "/more", class: Chadcn::Button.variants(variant: "outline", size: "sm")) { "Read more" }
 ```
 
 ## Notes

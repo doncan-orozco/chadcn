@@ -27,36 +27,36 @@ Shared parts (helpers on the yielded root, `menu.<helper>`): `Portal` (`force_mo
 
 ```ruby
 # explicit classes
-render Phlex::Shadcn::DropdownMenu.new do
-  render Phlex::Shadcn::DropdownMenu::Trigger.new(as_child: Phlex::Shadcn::Button.new(variant: "outline")) { "Open" }
-  render Phlex::Shadcn::DropdownMenu::Content.new(class: "w-56", align: "start") do
-    render Phlex::Shadcn::DropdownMenu::Label.new { "My Account" }
-    render Phlex::Shadcn::DropdownMenu::Group.new do
-      render Phlex::Shadcn::DropdownMenu::Item.new do
+render Chadcn::DropdownMenu.new do
+  render Chadcn::DropdownMenu::Trigger.new(as_child: Chadcn::Button.new(variant: "outline")) { "Open" }
+  render Chadcn::DropdownMenu::Content.new(class: "w-56", align: "start") do
+    render Chadcn::DropdownMenu::Label.new { "My Account" }
+    render Chadcn::DropdownMenu::Group.new do
+      render Chadcn::DropdownMenu::Item.new do
         plain "Profile"
-        render Phlex::Shadcn::DropdownMenu::Shortcut.new { "⇧⌘P" }
+        render Chadcn::DropdownMenu::Shortcut.new { "⇧⌘P" }
       end
-      render Phlex::Shadcn::DropdownMenu::Item.new(disabled: true) { "Billing" }
+      render Chadcn::DropdownMenu::Item.new(disabled: true) { "Billing" }
     end
-    render Phlex::Shadcn::DropdownMenu::Separator.new
-    render Phlex::Shadcn::DropdownMenu::CheckboxItem.new(checked: true) { "Status Bar" }
-    render Phlex::Shadcn::DropdownMenu::RadioGroup.new(value: "bottom") do
-      render Phlex::Shadcn::DropdownMenu::RadioItem.new(value: "top") { "Top" }
-      render Phlex::Shadcn::DropdownMenu::RadioItem.new(value: "bottom") { "Bottom" }
+    render Chadcn::DropdownMenu::Separator.new
+    render Chadcn::DropdownMenu::CheckboxItem.new(checked: true) { "Status Bar" }
+    render Chadcn::DropdownMenu::RadioGroup.new(value: "bottom") do
+      render Chadcn::DropdownMenu::RadioItem.new(value: "top") { "Top" }
+      render Chadcn::DropdownMenu::RadioItem.new(value: "bottom") { "Bottom" }
     end
-    render Phlex::Shadcn::DropdownMenu::Sub.new do
-      render Phlex::Shadcn::DropdownMenu::SubTrigger.new { "Invite users" }
-      render Phlex::Shadcn::DropdownMenu::SubContent.new do
-        render Phlex::Shadcn::DropdownMenu::Item.new { "Email" }
+    render Chadcn::DropdownMenu::Sub.new do
+      render Chadcn::DropdownMenu::SubTrigger.new { "Invite users" }
+      render Chadcn::DropdownMenu::SubContent.new do
+        render Chadcn::DropdownMenu::Item.new { "Email" }
       end
     end
-    render Phlex::Shadcn::DropdownMenu::Item.new(variant: "destructive") { "Log out" }
+    render Chadcn::DropdownMenu::Item.new(variant: "destructive") { "Log out" }
   end
 end
 
 # generated helpers
-render Phlex::Shadcn::DropdownMenu.new do |menu|
-  menu.trigger(as_child: Phlex::Shadcn::Button.new(variant: "outline")) { "Open" }
+render Chadcn::DropdownMenu.new do |menu|
+  menu.trigger(as_child: Chadcn::Button.new(variant: "outline")) { "Open" }
   menu.content(class: "w-56", align: "start") do
     menu.label { "My Account" }
     menu.group do
@@ -81,7 +81,7 @@ end
 ## Example: context menu and menubar
 
 ```ruby
-render Phlex::Shadcn::ContextMenu.new do |menu|
+render Chadcn::ContextMenu.new do |menu|
   menu.trigger(class: "flex h-[150px] w-[300px] items-center justify-center rounded-md border border-dashed text-sm") { "Right click here" }
   menu.content(class: "w-52") do
     menu.item(inset: true) { plain "Back"; menu.shortcut { "⌘[" } }
@@ -91,7 +91,7 @@ render Phlex::Shadcn::ContextMenu.new do |menu|
   end
 end
 
-render Phlex::Shadcn::Menubar.new do |bar|
+render Chadcn::Menubar.new do |bar|
   bar.menu do
     bar.trigger { "File" }
     bar.content do
@@ -114,19 +114,19 @@ end
 
 ```ruby
 # explicit classes
-render Phlex::Shadcn::Select.new(name: "fruit", default_value: "apple") do
-  render Phlex::Shadcn::Select::Trigger.new(class: "w-[180px]") { render Phlex::Shadcn::Select::Value.new(placeholder: "Select a fruit") }
-  render Phlex::Shadcn::Select::Content.new do
-    render Phlex::Shadcn::Select::Group.new do
-      render Phlex::Shadcn::Select::Label.new { "Fruits" }
-      render Phlex::Shadcn::Select::Item.new(value: "apple") { "Apple" }
-      render Phlex::Shadcn::Select::Item.new(value: "banana") { "Banana" }
+render Chadcn::Select.new(name: "fruit", default_value: "apple") do
+  render Chadcn::Select::Trigger.new(class: "w-[180px]") { render Chadcn::Select::Value.new(placeholder: "Select a fruit") }
+  render Chadcn::Select::Content.new do
+    render Chadcn::Select::Group.new do
+      render Chadcn::Select::Label.new { "Fruits" }
+      render Chadcn::Select::Item.new(value: "apple") { "Apple" }
+      render Chadcn::Select::Item.new(value: "banana") { "Banana" }
     end
   end
 end
 
 # generated helpers
-render Phlex::Shadcn::Select.new(name: "fruit", default_value: "apple") do |select|
+render Chadcn::Select.new(name: "fruit", default_value: "apple") do |select|
   select.trigger(class: "w-[180px]") { select.value(placeholder: "Select a fruit") }
   select.content do
     select.group do
@@ -155,7 +155,7 @@ Searchable lists. `Command` is shadcn's cmdk palette and `Combobox` its Base UI 
 
 ```ruby
 # command palette
-render Phlex::Shadcn::Command.new do |command|
+render Chadcn::Command.new do |command|
   command.input(placeholder: "Type a command or search...")
   command.list do
     command.empty { "No results found." }
@@ -170,10 +170,10 @@ end
 
 # the same list in a dialog. It has no trigger slot and is controlled by open: (Cmd+K is yours to bind): re-render it with
 # open: true to show it (or use default_open: true for a dialog that starts open)
-render Phlex::Shadcn::Command::Dialog.new(open: true) { |command| command.input(placeholder: "Search...") }
+render Chadcn::Command::Dialog.new(open: true) { |command| command.input(placeholder: "Search...") }
 
 # combobox, submitted in a form as framework=next.js
-render Phlex::Shadcn::Combobox.new(items: %w[next.js sveltekit astro], name: "framework") do |combobox|
+render Chadcn::Combobox.new(items: %w[next.js sveltekit astro], name: "framework") do |combobox|
   combobox.input(placeholder: "Select a framework")
   combobox.content do
     combobox.empty { "No items found." }

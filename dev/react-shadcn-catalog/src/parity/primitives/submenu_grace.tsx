@@ -1,6 +1,6 @@
 // Oracle for app/javascript/v2/primitives/submenu_grace.js: the RAW Radix DropdownMenu (react-menu pointer-grace area, pointer
 // direction, sub open delay) over the scenario tree. Rendered by Harness.tsx for `_div[data-controller="shadcn---probe-submenu-grace"]`;
-// the Phlex side drives the same tree with gems/phlex-shadcn/dev/dummy/app/javascript/controllers/shadcn/_probe_submenu_grace_controller.js.
+// the Phlex side drives the same tree with gems/chadcn/dev/dummy/app/javascript/controllers/shadcn/_probe_submenu_grace_controller.js.
 // Tree contract (data-slot decides the part, anything else is rendered untouched):
 //   root > trigger (anchor button) , menu > [ item* , sub-trigger , sub-content > item* , item* ]
 // Roving tabindex, data-highlighted, data-state, aria-* and role are owned by Radix here and by the probe controller there.

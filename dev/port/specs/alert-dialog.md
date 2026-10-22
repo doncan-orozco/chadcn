@@ -1,10 +1,10 @@
 # AlertDialog (shadcn new-york-v4, Radix `AlertDialog`)
 
-Oracle: `gems/phlex-shadcn/dev/port/oracle/src/alert-dialog.tsx` (source_sha `b3dfb83e54ed8c82`), manifest `oracle/manifest/alert-dialog.json`.
-Behavior source: `gems/phlex-shadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-alert-dialog/dist/index.mjs` v1.1.24 (cited as `ad:<line>`), a thin wrapper over
+Oracle: `gems/chadcn/dev/port/oracle/src/alert-dialog.tsx` (source_sha `b3dfb83e54ed8c82`), manifest `oracle/manifest/alert-dialog.json`.
+Behavior source: `gems/chadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-alert-dialog/dist/index.mjs` v1.1.24 (cited as `ad:<line>`), a thin wrapper over
 `@radix-ui/react-dialog` v1.2.0 (`dialog:<line>`, same file the Dialog spec cites), which builds on `react-dismissable-layer` 1.1.20 (`dl:`), `react-focus-scope` 1.2.0 (`fs:`),
 `react-focus-guards` 1.1.6, `react-presence` 1.1.11 (`pr:`), `react-portal` 1.1.18 (`po:`), `react-remove-scroll`, `aria-hidden` (all from `radix-ui` 1.7.0).
-Tier: `overlay`. Family: Overlay (modal). Sibling spec: `gems/phlex-shadcn/dev/port/specs/dialog.md`; everything not listed as different below is identical to Dialog with `modal: true`.
+Tier: `overlay`. Family: Overlay (modal). Sibling spec: `gems/chadcn/dev/port/specs/dialog.md`; everything not listed as different below is identical to Dialog with `modal: true`.
 
 Differences from Dialog, all from `ad:`:
 1. Always modal: Root renders `DialogPrimitive.Root { ...props, modal: true }` (ad:21), `modal` is spread last so it cannot be overridden.
@@ -147,7 +147,7 @@ Primitives composed: `portal`, `presence`, `dismissable_layer` (escape + layer s
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)
 
-`Phlex::Shadcn::AlertDialog` MUST `yield self` from `view_template`; `Phlex::Shadcn::Base` generates one helper per nested part (`const_added`), each exactly `render AlertDialog::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Phlex::Shadcn::AlertDialog::Content.new`) stay valid.
+`Chadcn::AlertDialog` MUST `yield self` from `view_template`; `Chadcn::Base` generates one helper per nested part (`const_added`), each exactly `render AlertDialog::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Chadcn::AlertDialog::Content.new`) stay valid.
 
 | helper | part class | React export |
 |---|---|---|
@@ -177,7 +177,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Deviations
 
-Recorded in `gems/phlex-shadcn/dev/port/deviations/alert-dialog.json`, the same three as Dialog (same reasons):
+Recorded in `gems/chadcn/dev/port/deviations/alert-dialog.json`, the same three as Dialog (same reasons):
 
 1. **Controller host.** `AlertDialog` renders no element, but the Trigger cannot host the controller (zero, one or several triggers, controlled `open`). One `<div style="display: contents" data-controller="shadcn--alert-dialog">` without `data-slot`, classes or other data attributes wraps the block.
 2. **Closed Presence parts in a `<template>`** inside the host (closed Overlay/Content are not mounted in React; the server must ship their markup).

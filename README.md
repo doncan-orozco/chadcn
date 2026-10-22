@@ -1,4 +1,4 @@
-# phlex-shadcn
+# chadcn
 
 [shadcn/ui](https://ui.shadcn.com) for [Phlex](https://www.phlex.fun): the same component API, the same Tailwind class strings and
 the same behavior as the React originals (Radix, and the libraries shadcn wraps), as Phlex views with Stimulus controllers. 54 components (`Button`, `Dialog`, `Select`, `Sidebar`,
@@ -6,12 +6,12 @@ the same behavior as the React originals (Radix, and the libraries shadcn wraps)
 
 > Status: pre-release (0.x). The public API follows semantic versioning from the first release; see [CHANGELOG.md](CHANGELOG.md).
 
-- One Ruby class per React export: `Dialog` is `Phlex::Shadcn::Dialog`, `DialogContent` is `Phlex::Shadcn::Dialog::Content`.
+- One Ruby class per React export: `Dialog` is `Chadcn::Dialog`, `DialogContent` is `Chadcn::Dialog::Content`.
 - Props are keyword arguments (`variant: "outline"`, `default_open: true`), `className` is `class:`, children are the block.
 - Behavior lives in Stimulus controllers named `shadcn--<component>`; they ship in the gem with the shared primitives they use.
 - Colors come from one shadcn-format theme file you own; anything pasted from ui.shadcn.com/themes works unchanged.
 
-## Why phlex-shadcn
+## Why chadcn
 
 - **The shadcn markup, verbatim.** Class strings, structure, `data-slot` attributes and variants are copied from the shadcn/ui
   registry, so the HTML follows the React original (each deliberate difference is recorded in `dev/port/DEVIATIONS.md` and
@@ -32,7 +32,7 @@ the same behavior as the React originals (Radix, and the libraries shadcn wraps)
 - Ruby 3.2 or newer and [Phlex](https://www.phlex.fun) 2.x from 2.3 (`~> 2.3`; Phlex 3 is not supported). CI runs the gem suite
   on Ruby 3.2, 3.3, 3.4 and 4.0, each against the current Phlex 2.x and against Phlex 2.3.
 - Tailwind CSS 4 (the components use Tailwind utility classes). With Rails, `tailwindcss-rails` 4.3.0 or newer: 4.3.0 is the first release that
-  bundles an engine's CSS (`tailwindcss:engines`), which is how the gem's styles reach your app. `phlex_shadcn:doctor` reports an older one as a failure.
+  bundles an engine's CSS (`tailwindcss:engines`), which is how the gem's styles reach your app. `chadcn:doctor` reports an older one as a failure.
 - For the interactive components: Stimulus 3 (`@hotwired/stimulus`). With Rails, `importmap-rails` (the gem's engine adds its pins) or
   `jsbundling-rails` with esbuild (see [JavaScript pipelines](#javascript-pipelines)).
 - With Rails, `phlex-rails` renders Phlex views from controllers; the gem itself depends only on `phlex`, `tailwind_merge` and
@@ -47,12 +47,12 @@ Add the gem and run the install generator (it needs `tailwindcss-rails` to be in
 ```ruby
 # Gemfile
 gem "phlex-rails"
-gem "phlex-shadcn"
+gem "chadcn"
 ```
 
 ```bash
 bundle install
-bin/rails g phlex:shadcn:install
+bin/rails g chadcn:install
 bin/rails tailwindcss:build
 ```
 
@@ -61,17 +61,17 @@ point at another entry file):
 
 ```css
 @import "tailwindcss";
-/* phlex-shadcn:start (managed by rails g phlex:shadcn:install) */
-@source "../../../../path/to/phlex-shadcn/lib";
-@import "../builds/tailwind/phlex-shadcn";
+/* chadcn:start (managed by rails g chadcn:install) */
+@source "../../../../path/to/chadcn/lib";
+@import "../builds/tailwind/chadcn";
 @import "./theme/theme.css";
-/* phlex-shadcn:end */
+/* chadcn:end */
 ```
 
 - `@source` points Tailwind at the gem's Ruby files: Tailwind 4 only generates the classes it finds in scanned files, so without this
   line the components render unstyled. The path is relative to your entry file; the engine bundle carries its own self-relative
   `@source`, so a moved gem keeps working. Re-run the generator to refresh this line.
-- `../builds/tailwind/phlex-shadcn` is the engine bundle `tailwindcss-rails` builds from the gem's `engine.css` (Tailwind variant
+- `../builds/tailwind/chadcn` is the engine bundle `tailwindcss-rails` builds from the gem's `engine.css` (Tailwind variant
   plugins, the token mapping from theme variables to utilities, the vendored animations).
 - `theme/theme.css` and `theme/presets/` are copied into `app/assets/tailwind/theme/` (or `--theme-dir`) once and never
   overwritten: the theme is yours to edit.
@@ -97,16 +97,16 @@ Now render a Button and a Dialog from a Phlex view (`phlex-rails`; `bin/rails g 
 # app/views/demo/index.rb
 class Views::Demo::Index < Views::Base
   def view_template
-    render Phlex::Shadcn::Button.new(variant: "outline") { "Save" }
+    render Chadcn::Button.new(variant: "outline") { "Save" }
 
-    render Phlex::Shadcn::Dialog.new do |dialog|
-      dialog.trigger(as_child: Phlex::Shadcn::Button.new) { "Edit profile" }
+    render Chadcn::Dialog.new do |dialog|
+      dialog.trigger(as_child: Chadcn::Button.new) { "Edit profile" }
       dialog.content do
         dialog.header do
           dialog.title { "Edit profile" }
           dialog.description { "Make changes to your profile here." }
         end
-        dialog.footer { render Phlex::Shadcn::Button.new(type: "submit") { "Save changes" } }
+        dialog.footer { render Chadcn::Button.new(type: "submit") { "Save changes" } }
       end
     end
   end
@@ -126,7 +126,7 @@ of Radix Dialog.
 
 ### JavaScript pipelines
 
-`rails g phlex:shadcn:install --js auto|importmap|esbuild` chooses how the gem's Stimulus controllers reach the browser. The default,
+`rails g chadcn:install --js auto|importmap|esbuild` chooses how the gem's Stimulus controllers reach the browser. The default,
 `auto`, detects the pipeline: a `config/importmap.rb` means importmap; otherwise a `package.json` together with `jsbundling-rails` in the
 bundle (or an `esbuild` build script in `package.json`) means esbuild. `--js importmap` or `--js esbuild` overrides the detection (any jsbundling-rails app is treated as esbuild; only esbuild is smoke-tested);
 when neither is found the generator says so and writes no JavaScript.
@@ -139,7 +139,7 @@ when neither is found the generator says so and writes no JavaScript.
   controller as `shadcn--<name>` with your `application`), adds `import "./controllers/shadcn"` to `app/javascript/application.js`
   and adds `@floating-ui/dom` to `package.json` with your package manager (yarn, pnpm or bun when their lock file is present,
   npm otherwise). Run `bin/rails javascript:build` afterwards. The copies are the only part of the gem that can go stale: run the
-  generator again after every gem update (it is idempotent and prints `identical` for current files), and `bin/rails phlex_shadcn:doctor`
+  generator again after every gem update (it is idempotent and prints `identical` for current files), and `bin/rails chadcn:doctor`
   fails when a copy is missing or differs. The reasoning is in `dev/decisions/js-bundlers.md` of the repository (not packaged).
 
 ### Asset pipelines
@@ -162,13 +162,13 @@ your `manifest.js` cannot link files inside a gem). Your `app/assets/config/mani
 ### Check the setup: the doctor
 
 ```bash
-bin/rails phlex_shadcn:doctor                # one PASS / WARN / FAIL line per check, a "fix:" line under each problem
-JSON=1 bin/rails phlex_shadcn:doctor         # the same as JSON, for CI and agents (bin/rails "phlex_shadcn:doctor[json]" does the same)
-CSS=app/assets/tailwind/admin.css bin/rails phlex_shadcn:doctor   # a Tailwind entry file other than app/assets/tailwind/application.css
+bin/rails chadcn:doctor                # one PASS / WARN / FAIL line per check, a "fix:" line under each problem
+JSON=1 bin/rails chadcn:doctor         # the same as JSON, for CI and agents (bin/rails "chadcn:doctor[json]" does the same)
+CSS=app/assets/tailwind/admin.css bin/rails chadcn:doctor   # a Tailwind entry file other than app/assets/tailwind/application.css
 ```
 
 The task exits 1 when any check fails (warnings do not fail it), so it can gate a CI job. The checks, one file each under
-`lib/phlex/shadcn/doctor/checks/`:
+`lib/chadcn/doctor/checks/`:
 
 | Check | Looks at |
 |---|---|
@@ -189,7 +189,7 @@ A run on a healthy app (paths shortened):
 ```
 [PASS] asset pipeline: Propshaft 1.3.2
 [PASS] ejected components: nothing ejected (every component loads from the gem)
-[PASS] engine bundle: app/assets/builds/tailwind/phlex-shadcn is imported and built
+[PASS] engine bundle: app/assets/builds/tailwind/chadcn is imported and built
 [PASS] javascript pipeline: importmap-rails 2.2.3: the gem's controllers and primitives are pinned by its engine
 [PASS] phlex versions: phlex 2.4.1 (~> 2.3), phlex-rails 2.4.0
 [PASS] propshaft stub filter: the Tailwind stubs are hidden from the served assets
@@ -205,10 +205,10 @@ A run on a healthy app (paths shortened):
 ### Configuration (`config/application.rb`)
 
 ```ruby
-config.phlex_shadcn.theme_dir = "app/assets/tailwind/theme"  # where theme.css and presets/ live; relative to the app root
-config.phlex_shadcn.theme_task_aliases = true                 # false when the app defines its own theme:* rake tasks
-config.phlex_shadcn.hide_tailwind_stubs = true                # false to leave the tailwindcss-rails stubs to Propshaft
-config.phlex_shadcn.override_dir = "app/components/phlex_shadcn"  # ejected components; see Eject a component
+config.chadcn.theme_dir = "app/assets/tailwind/theme"  # where theme.css and presets/ live; relative to the app root
+config.chadcn.theme_task_aliases = true                 # false when the app defines its own theme:* rake tasks
+config.chadcn.hide_tailwind_stubs = true                # false to leave the tailwindcss-rails stubs to Propshaft
+config.chadcn.override_dir = "app/components/chadcn"  # ejected components; see Eject a component
 ```
 
 `hide_tailwind_stubs` keeps the stubs tailwindcss-rails writes to `app/assets/builds/tailwind/` (Tailwind input, not browser
@@ -216,32 +216,32 @@ stylesheets) out of `stylesheet_link_tag :app` through a guarded hook into Props
 drops that hook the engine logs a warning at boot and serves the stubs again: link `"tailwind"` explicitly instead of `:app`, or set
 the option to `false` to silence the warning. Like `theme_task_aliases`, set it in `config/application.rb`.
 
-`theme_dir` precedence at boot: `config.phlex_shadcn.theme_dir`, then a value set with `Phlex::Shadcn.configure` before the app
+`theme_dir` precedence at boot: `config.chadcn.theme_dir`, then a value set with `Chadcn.configure` before the app
 initializes, then the default. In a Rails app set it in `config/application.rb`, not in an initializer: a `configure` call in
 `config/initializers` runs after the engine and overrides the app setting with a path that is not rooted at the app.
 
 ## Without Rails
 
 ```ruby
-require "phlex/shadcn"
+require "chadcn"
 
-Phlex::Shadcn::Button.new(variant: "outline") { "Save" }.call
+Chadcn::Button.new(variant: "outline") { "Save" }.call
 # => "<button data-slot=\"button\" data-variant=\"outline\" data-size=\"default\" class=\"...\">Save</button>"
 ```
 
-Any Phlex component can `render` the gem's components; `Phlex::Shadcn.root` is the installed gem directory.
+Any Phlex component can `render` the gem's components; `Chadcn.root` is the installed gem directory.
 
 Tailwind: import the gem's entry point and your theme from your Tailwind entry file. `engine.css` carries its own `@source` for the
 gem's Ruby files (relative to itself, so it follows the gem), the token mapping and the vendored animations:
 
 ```css
 @import "tailwindcss";
-@import "<gem root>/app/assets/tailwind/phlex-shadcn/engine.css";
+@import "<gem root>/app/assets/tailwind/chadcn/engine.css";
 @import "./theme/theme.css";
 ```
 
-Copy `app/assets/tailwind/phlex-shadcn/theme.css` (and `presets/`) out of the gem into your project; that copy is the file you edit.
-`ruby -e 'require "phlex/shadcn"; puts Phlex::Shadcn.root'` prints the gem root.
+Copy `app/assets/tailwind/chadcn/theme.css` (and `presets/`) out of the gem into your project; that copy is the file you edit.
+`ruby -e 'require "chadcn"; puts Chadcn.root'` prints the gem root.
 
 Stimulus: the controllers are ES modules under `<gem root>/app/javascript/controllers/shadcn/<name>_controller.js` and the shared
 primitives live under `<gem root>/app/javascript/shadcn/primitives/<name>.js`. They import each other by bare, extensionless
@@ -290,8 +290,8 @@ const application = Application.start()
 application.register("shadcn--dialog", DialogController)
 ```
 
-The theme tooling works too once the directory is configured: `Phlex::Shadcn.configure { |config| config.theme_dir = "/path/to/theme" }`,
-then `Phlex::Shadcn::Theme.use("slate")`, `Theme.import(path_or_url)` and `Theme.check(strict: true)`.
+The theme tooling works too once the directory is configured: `Chadcn.configure { |config| config.theme_dir = "/path/to/theme" }`,
+then `Chadcn::Theme.use("slate")`, `Theme.import(path_or_url)` and `Theme.check(strict: true)`.
 
 ## Using the components
 
@@ -300,13 +300,13 @@ same HTML and can be mixed:
 
 ```ruby
 # explicit classes, one per React export
-render Phlex::Shadcn::Card.new do
-  render Phlex::Shadcn::Card::Header.new { render Phlex::Shadcn::Card::Title.new { "Settings" } }
-  render Phlex::Shadcn::Card::Content.new { "..." }
+render Chadcn::Card.new do
+  render Chadcn::Card::Header.new { render Chadcn::Card::Title.new { "Settings" } }
+  render Chadcn::Card::Content.new { "..." }
 end
 
 # generated helpers on the yielded root (card.header is exactly render Card::Header.new(**attrs), &block)
-render Phlex::Shadcn::Card.new do |card|
+render Chadcn::Card.new do |card|
   card.header { card.title { "Settings" } }
   card.content { "..." }
 end
@@ -319,14 +319,14 @@ end
 - Variant-like options take strings or symbols: `variant: "outline"` and `variant: :outline`, `size: "icon-sm"` and `size: :icon_sm`.
   An unknown value raises `ArgumentError`.
 - `as_child:` is React's `asChild`: `false` (the default element), a tag symbol (`as_child: :a`) or a component instance
-  (`as_child: Phlex::Shadcn::Button.new(variant: "outline")`), merged with Radix Slot semantics. Never put a `Button` inside a trigger
+  (`as_child: Chadcn::Button.new(variant: "outline")`), merged with Radix Slot semantics. Never put a `Button` inside a trigger
   as content; pass it to `as_child:`.
-- `buttonVariants(...)` and the other cva helpers are class methods returning the class string: `Phlex::Shadcn::Button.variants(variant: "link")`.
+- `buttonVariants(...)` and the other cva helpers are class methods returning the class string: `Chadcn::Button.variants(variant: "link")`.
 - Controlled state follows React: `open:` / `value:` / `checked:` render that state and the controller only dispatches the change
   event; `default_open:` / `default_value:` / `default_checked:` start uncontrolled. Change callbacks are DOM events named
   `shadcn--<component>:<event>` (`shadcn--dialog:open-change`, `shadcn--select:value-change`, `shadcn--slider:value-commit`...) with
   the new value in `event.detail`.
-- Icons: `render Phlex::Shadcn::Icon.new("check")` renders the Lucide SVG (lucide-react 0.577.0 markup), sized by the parent
+- Icons: `render Chadcn::Icon.new("check")` renders the Lucide SVG (lucide-react 0.577.0 markup), sized by the parent
   component's selectors like in shadcn.
 - Dark mode is the `.dark` class on an ancestor (`<html>`); `data-controller="shadcn--theme"` with the actions `setLight`,
   `setDark`, `setSystem` and `toggle` manages it and remembers the choice in `localStorage` under `shadcn-theme`
@@ -335,7 +335,7 @@ end
 - Turbo: the overlay, disclosure, avatar and scroll-area controllers handle `turbo:before-cache`, so a cached page has no open
   modal, scroll lock or `aria-hidden` siblings.
 - Default texts (`Previous`, `Next`, `More pages`, `More`, `Close`, the sidebar trigger and mobile sheet, the slider thumb labels...)
-  are keyword arguments: pass translated strings, for example `Phlex::Shadcn::Pagination::Previous.new(label: t(".previous"))`.
+  are keyword arguments: pass translated strings, for example `Chadcn::Pagination::Previous.new(label: t(".previous"))`.
   Fixed landmark labels (`Spinner`, `NavigationMenu`, `Sidebar::Rail`...) take `aria: { label: ... }`; see
   [docs/api-conventions.md](docs/api-conventions.md).
 
@@ -351,10 +351,10 @@ as dependencies: the behavior is rewritten as Stimulus controllers on shared pri
 
 ```ruby
 # Toaster (sonner): render it once in the layout; the flash becomes toasts
-render Phlex::Shadcn::Toaster.new(flash: { notice: "Saved", alert: "Could not send" }, position: "top-center")
+render Chadcn::Toaster.new(flash: { notice: "Saved", alert: "Could not send" }, position: "top-center")
 
 # Command (cmdk): a searchable palette; Command::Dialog puts the same list in a dialog
-render Phlex::Shadcn::Command.new do |command|
+render Chadcn::Command.new do |command|
   command.input(placeholder: "Type a command or search...")
   command.list do
     command.empty { "No results found." }
@@ -366,7 +366,7 @@ render Phlex::Shadcn::Command.new do |command|
 end
 
 # Combobox (Base UI): an input with a filtered list, submits the selected item, e.g. framework=next.js
-render Phlex::Shadcn::Combobox.new(items: %w[next.js sveltekit astro], name: "framework") do |combobox|
+render Chadcn::Combobox.new(items: %w[next.js sveltekit astro], name: "framework") do |combobox|
   combobox.input(placeholder: "Select a framework")
   combobox.content do
     combobox.empty { "No items found." }
@@ -375,11 +375,11 @@ render Phlex::Shadcn::Combobox.new(items: %w[next.js sveltekit astro], name: "fr
 end
 
 # Calendar (react-day-picker): native Date and Intl, hidden ISO inputs with name:
-render Phlex::Shadcn::Calendar.new(mode: :single, selected: Date.new(2026, 3, 15), name: "starts_on")
+render Chadcn::Calendar.new(mode: :single, selected: Date.new(2026, 3, 15), name: "starts_on")
 ```
 
 - **Toaster.** Toasts come from the flash (`Toaster.new(flash:)`), from a Turbo Stream that appends a `Sonner::Toast` to the Toaster
-  (`turbo_stream.append "toaster", Phlex::Shadcn::Sonner::Toast.new(type: :success, title: "Saved")`) and from JavaScript
+  (`turbo_stream.append "toaster", Chadcn::Sonner::Toast.new(type: :success, title: "Saved")`) and from JavaScript
   (`window.Toaster.success("Saved")`). Compared with sonner, there are no React elements: `window.Toaster.custom` takes a DOM node (or a function returning one),
   `window.Toaster.promise` works as in sonner, and the flash and Turbo Stream toasts are server-rendered `<template>`s with text only.
   `error` toasts are also announced through an assertive live region.
@@ -405,36 +405,36 @@ When a component's markup has to change, copy it into your app. The copy replace
 loading from the gem:
 
 ```bash
-bin/rails g phlex:shadcn:eject button                # app/components/phlex_shadcn/button.rb
-bin/rails g phlex:shadcn:eject alert-dialog          # a compound component is ejected as a unit: alert_dialog.rb and every part under alert_dialog/
-bin/rails g phlex:shadcn:eject dialog/content        # one part only; Dialog and its other parts keep loading from the gem
-bin/rails g phlex:shadcn:eject --list                # what can be ejected, and what already is
-bin/rails g phlex:shadcn:eject button --diff         # the gem's current file against your copy
+bin/rails g chadcn:eject button                # app/components/chadcn/button.rb
+bin/rails g chadcn:eject alert-dialog          # a compound component is ejected as a unit: alert_dialog.rb and every part under alert_dialog/
+bin/rails g chadcn:eject dialog/content        # one part only; Dialog and its other parts keep loading from the gem
+bin/rails g chadcn:eject --list                # what can be ejected, and what already is
+bin/rails g chadcn:eject button --diff         # the gem's current file against your copy
 ```
 
 Names can be written `button`, `Button`, `alert-dialog` or `dialog/content`. Options: `--list`, `--diff`, `--force` (overwrite; without it
 nothing is written when any target exists), `--skip` (leave existing files alone), `--pretend` (print what would happen) and
 `--dir` (the override directory, relative to the app root). Each copy starts with two comment lines recording the gem version and the
-SHA-256 of the file it came from. Edit the copy: it defines the same constant (`Phlex::Shadcn::Button`) and the gem's own file is not
+SHA-256 of the file it came from. Edit the copy: it defines the same constant (`Chadcn::Button`) and the gem's own file is not
 loaded for it. Tailwind scans it like any file of your app.
 
-The override directory is `app/components/phlex_shadcn` by default (used when it exists). To move it, set it **before the app boots**,
+The override directory is `app/components/chadcn` by default (used when it exists). To move it, set it **before the app boots**,
 in `config/application.rb` or `config/environments/*.rb`:
 
 ```ruby
 # config/application.rb
-config.phlex_shadcn.override_dir = "app/components/shadcn"
+config.chadcn.override_dir = "app/components/shadcn"
 ```
 
 The directory is read once, when the gem's components are set up. Setting `override_dir` later (from `config/initializers`, or with
-`Phlex::Shadcn.configure` after the components loaded) raises `Phlex::Shadcn::Configuration::LateSettingError` instead of being ignored.
-Without Rails, set the environment variable `PHLEX_SHADCN_OVERRIDE_DIR` before `require "phlex/shadcn"`.
+`Chadcn.configure` after the components loaded) raises `Chadcn::Configuration::LateSettingError` instead of being ignored.
+Without Rails, set the environment variable `CHADCN_OVERRIDE_DIR` before `require "chadcn"`.
 
 - Restart the server after ejecting. Editing an ejected file reloads like the rest of your app code, but adding or removing an ejected
   file needs a restart.
 - Some gem classes include code from `direction`, `direction/consumer`, `dropdown_menu` and any `<component>/support` part when they
   load, so an edit to those copies reaches the gem's classes only after a restart. The generator prints a warning when you eject them.
-- `bin/rails phlex_shadcn:doctor` warns about stale copies (check `ejected components`): the gem's file changed since you ejected
+- `bin/rails chadcn:doctor` warns about stale copies (check `ejected components`): the gem's file changed since you ejected
   (compare with `--diff`), a part of an ejected unit is missing, or a copy lost its header. Updating the gem does not update your copy.
 - Ejecting `sonner` (or `sonner/toaster`) also ejects `toaster.rb`, the `Toaster` alias.
 - Infrastructure files (`base`, `configuration`, `doctor`, `engine`, `icons`, `js_bundle`, `overrides`, `theme`, `values`, `version`) cannot be ejected. The design notes are in
@@ -462,7 +462,7 @@ makes no comparison with other libraries.
 
 ## For AI assistants
 
-`llms.txt`, `llms-full.txt` and `skills/phlex-shadcn/SKILL.md` ship with the gem. They are generated from the YARD documentation and
+`llms.txt`, `llms-full.txt` and `skills/chadcn/SKILL.md` ship with the gem. They are generated from the YARD documentation and
 the Stimulus controllers, so they list every component with its constructor keywords, variants, parts, controller values and events,
 plus short usage rules, and a drift fails `rake llms:check` and `rake test` (through `test/llms_drift_test.rb`): `rake llms:generate` regenerates them. Change a component's
 keywords, parts or Stimulus API, then run `rake llms:generate` and commit the result.
@@ -481,15 +481,15 @@ Components read the variables through `tokens.css` (`bg-primary`, `text-muted-fo
 engine bundle and is never edited.
 
 ```bash
-bin/rails phlex_shadcn:theme:list                       # neutral, gray, zinc, zinc-radius0, slate, stone
-bin/rails phlex_shadcn:theme:use[slate]                 # switch the colors block to a preset
-bin/rails phlex_shadcn:theme:import[path-or-url]        # paste a theme (file, https URL, or - for stdin); missing variables are kept
-STRICT=1 bin/rails phlex_shadcn:theme:check             # variables complete in light and dark, valid format, text contrast
+bin/rails chadcn:theme:list                       # neutral, gray, zinc, zinc-radius0, slate, stone
+bin/rails chadcn:theme:use[slate]                 # switch the colors block to a preset
+bin/rails chadcn:theme:import[path-or-url]        # paste a theme (file, https URL, or - for stdin); missing variables are kept
+STRICT=1 bin/rails chadcn:theme:check             # variables complete in light and dark, valid format, text contrast
 ```
 
 A URL source of `import` must be `https` (timeouts, three redirects at most, 256 KiB at most), and values that could break out of
 the CSS block are rejected; a failure prints its message (the list of errors for an invalid theme), without a backtrace.
-`theme:list|use|import|check` are short aliases (`config.phlex_shadcn.theme_task_aliases = false` turns them off). Older themes
+`theme:list|use|import|check` are short aliases (`config.chadcn.theme_task_aliases = false` turns them off). Older themes
 with bare HSL triplets (`240 10% 3.9%`) are wrapped on import. Run `bin/rails tailwindcss:build` after a change.
 
 ## Upgrade notes
@@ -497,8 +497,8 @@ with bare HSL triplets (`240 10% 3.9%`) are wrapped on import. Run `bin/rails ta
 Pre-1.0 releases may still change the API between minor versions; every change is in [CHANGELOG.md](CHANGELOG.md) (Keep a Changelog)
 and removals are deprecated for one minor version first.
 
-- From the in-app port (`Components::V2::*`): the constants are `Phlex::Shadcn::*` with the same nesting (`Components::V2::Dialog::Content`
-  is `Phlex::Shadcn::Dialog::Content`); Stimulus identifiers `v2--<name>` are `shadcn--<name>` (`data-v2--dialog-part` is
+- From the in-app port (`Components::V2::*`): the constants are `Chadcn::*` with the same nesting (`Components::V2::Dialog::Content`
+  is `Chadcn::Dialog::Content`); Stimulus identifiers `v2--<name>` are `shadcn--<name>` (`data-v2--dialog-part` is
   `data-shadcn--dialog-part`, events `v2--dialog:open-change` are `shadcn--dialog:open-change`); the controllers moved from
   `controllers/v2/` to `controllers/shadcn/` and the primitives from `v2/primitives/` to `shadcn/primitives/`.
 - The default key of the `shadcn--theme` controller is `shadcn-theme` (it was `papyro-theme`); set
@@ -512,12 +512,12 @@ and removals are deprecated for one minor version first.
   before the app initializes (in `config/application.rb`, say) sets the loader up on first lookup, and the app then refuses to boot
   with `LateSettingError` if that dropped an existing override directory.
 - Replace a host-side bridge (asset paths and importmap pins for the gem's JavaScript) by the engine: remove the bridge and run
-  `bin/rails g phlex:shadcn:install`.
+  `bin/rails g chadcn:install`.
 
 ## Development
 
 ```bash
-cd gems/phlex-shadcn
+cd gems/chadcn
 bundle install
 bin/check                      # rake test, rake test:engine, rubocop, bundler-audit and the gem gate
 bundle exec yard stats --list-undoc   # the public API has to be 100% documented

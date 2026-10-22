@@ -9,11 +9,11 @@ require_relative "readme"
 
 module Smoke
   # Clean-app smoke (ruby-gem-conventions R10, R14): `rails new`, then the README's Rails quick start replayed verbatim (Gemfile
-  # lines, `bundle install`, `bin/rails g phlex:shadcn:install`, `bin/rails tailwindcss:build`, the Views::Demo::Index view and its
+  # lines, `bundle install`, `bin/rails g chadcn:install`, `bin/rails tailwindcss:build`, the Views::Demo::Index view and its
   # controller), a running server answering with the Button and the Dialog, the built CSS carrying the gem's classes, and one browser
   # scenario (dev/port/scenarios/dialog.json `open__via-trigger-click`, then Escape) driven by Playwright.
   #
-  # Needs network (rails new, bundle install), a `rails` executable (SMOKE_RAILS) and node with Playwright (PHLEX_SHADCN_PLAYWRIGHT,
+  # Needs network (rails new, bundle install), a `rails` executable (SMOKE_RAILS) and node with Playwright (CHADCN_PLAYWRIGHT,
   # or the dev kit's dev/react-shadcn-catalog/node_modules). Never run by `rake test`.
   class CleanApp
     RAILS_NEW_OPTIONS = %w[
@@ -27,7 +27,7 @@ module Smoke
     # esbuild apps have no importmap: the controller registration is bundled into app/assets/builds/application.js instead.
     ESBUILD_MARKUP = MARKUP.first(5).freeze
     ESBUILD_BUNDLE_MARKERS = [ "shadcn--dialog", "shadcn--dropdown-menu", "computePosition" ].freeze
-    GEM_LINE = 'gem "phlex-shadcn"'
+    GEM_LINE = 'gem "chadcn"'
     DEMO_PATH = "/demo"
     # Arbitrary-value utilities that only the gem's Ruby files use: generated only if an @source line reaches the gem.
     SOURCE_UTILITIES = [ 'ring-\\[3px\\]', 'translate-x-\\[-50\\%\\]' ].freeze
@@ -51,7 +51,7 @@ module Smoke
       @assets = assets
       @gem_root = Pathname.new(gem_root)
       @readme = Readme.new(@gem_root.join("README.md"))
-      @app_dir = Pathname.new(app_dir || Dir.mktmpdir("phlex-shadcn-smoke-app-")).expand_path
+      @app_dir = Pathname.new(app_dir || Dir.mktmpdir("chadcn-smoke-app-")).expand_path
       @keep = keep || !app_dir.nil?
     end
 
@@ -130,12 +130,12 @@ module Smoke
 
     # The doctor exits 1 on any failed check: it must accept what the README's steps produced, in either pipeline.
     def run_doctor
-      say "bin/rails phlex_shadcn:doctor"
-      run("bin/rails", "phlex_shadcn:doctor", chdir: @app_dir)
+      say "bin/rails chadcn:doctor"
+      run("bin/rails", "chadcn:doctor", chdir: @app_dir)
       return unless sprockets?
 
       # Warnings do not fail the doctor: the Sprockets app has to pass its pipeline check.
-      output = unbundled { IO.popen([ "bin/rails", "phlex_shadcn:doctor" ], chdir: @app_dir.to_s, err: %i[child out], &:read) }
+      output = unbundled { IO.popen([ "bin/rails", "chadcn:doctor" ], chdir: @app_dir.to_s, err: %i[child out], &:read) }
       raise "the doctor does not pass the asset pipeline check:\n#{output}" unless output.include?("[PASS] asset pipeline: Sprockets")
     end
 

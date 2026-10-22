@@ -7,7 +7,7 @@ class ParityScenariosController < ApplicationController
     scenario = ShadcnParity::Scenario.find(params[:component], params[:scenario])
     tree = ShadcnParity::TreeRenderer.new(tree: scenario.fetch("tree"), component: params[:component], dx: params[:dx])
     # The React harness stubs Math.random = 0.5, so the oracle menu skeleton width is floor(0.5 * 40) + 50 = 70.
-    html = Phlex::Shadcn::Sidebar::MenuSkeleton.with_pinned_width(70) { view_context.render(tree) }
+    html = Chadcn::Sidebar::MenuSkeleton.with_pinned_width(70) { view_context.render(tree) }
     render ShadcnParity::Page.new(html: html), layout: false
   rescue ShadcnParity::Scenario::NotFound => e
     render_error(e, :not_found)

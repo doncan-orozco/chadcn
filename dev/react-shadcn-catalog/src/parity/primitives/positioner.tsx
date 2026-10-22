@@ -1,5 +1,5 @@
 // Oracle for app/javascript/v2/primitives/positioner.js: the RAW @radix-ui/react-popper with the markup of the scenario tree.
-// Tree contract (gems/phlex-shadcn/dev/port/scenarios/_primitives-positioner.json): a root `_div[data-controller="shadcn---probe-positioner"]` with
+// Tree contract (gems/chadcn/dev/port/scenarios/_primitives-positioner.json): a root `_div[data-controller="shadcn---probe-positioner"]` with
 // `data-parity-options` (JSON: side sideOffset align alignOffset arrow arrowPadding avoidCollisions collisionPadding sticky hideWhenDetached)
 // holding two children: the anchor, then the content. The probe controller on the Phlex side reads the same attributes.
 import * as React from "react"

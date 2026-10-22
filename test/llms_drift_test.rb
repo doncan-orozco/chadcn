@@ -6,7 +6,7 @@ require "open3"
 require "rbconfig"
 require "tmpdir"
 
-# llms.txt, llms-full.txt and skills/phlex-shadcn/SKILL.md are generated (`bundle exec rake llms:generate`) from the YARD docs and the
+# llms.txt, llms-full.txt and skills/chadcn/SKILL.md are generated (`bundle exec rake llms:generate`) from the YARD docs and the
 # Stimulus controllers. This test is the same check as `rake llms:check`, inside `rake test`, and proves the check notices a changed component.
 class LlmsDriftTest < Minitest::Test
   GEM_DIR = File.expand_path("..", __dir__)
@@ -21,7 +21,7 @@ class LlmsDriftTest < Minitest::Test
   def test_llms_full_lists_every_component_the_registry_knows
     components = with_clean_yard_registry do
       YARD.parse(Dir[File.join(GEM_DIR, "lib/**/*.rb")].reject { |path| path.end_with?("icons/catalog.rb") })
-      all = YARD::Registry.all(:class).select { |c| c.namespace.path == "Phlex::Shadcn" && c.superclass&.path == "Phlex::Shadcn::Base" }
+      all = YARD::Registry.all(:class).select { |c| c.namespace.path == "Chadcn" && c.superclass&.path == "Chadcn::Base" }
       all.reject { |c| c.tag(:api)&.text == "private" || c.visibility != :public || c.name == :Icon }.map(&:name)
     end
     full = File.read(File.join(GEM_DIR, "llms-full.txt"))
@@ -29,12 +29,12 @@ class LlmsDriftTest < Minitest::Test
     assert_equal 54, components.size
     components.each do |name|
       assert_includes full, "## #{name}\n", "#{name} is missing from llms-full.txt"
-      assert_includes full, "Phlex::Shadcn::#{name}.new(", "#{name} has no constructor line"
+      assert_includes full, "Chadcn::#{name}.new(", "#{name} has no constructor line"
     end
   end
 
   def test_no_generated_file_has_a_doubled_comma
-    %w[test/fixtures/public_api.txt llms.txt llms-full.txt skills/phlex-shadcn/SKILL.md].each do |file|
+    %w[test/fixtures/public_api.txt llms.txt llms-full.txt skills/chadcn/SKILL.md].each do |file|
       refute_includes File.read(File.join(GEM_DIR, file), encoding: "UTF-8"), ",,", "#{file} has a doubled comma in a signature"
     end
   end
@@ -51,7 +51,7 @@ class LlmsDriftTest < Minitest::Test
   def test_changing_a_component_keyword_without_regenerating_fails_the_check
     Dir.mktmpdir("llms-drift") do |dir|
       %w[lib app llms.txt llms-full.txt skills].each { |entry| FileUtils.cp_r(File.join(GEM_DIR, entry), dir) }
-      button = File.join(dir, "lib/phlex/shadcn/button.rb")
+      button = File.join(dir, "lib/chadcn/button.rb")
       source = File.read(button)
       mutated = source.sub("as_child: false, **attrs)\n    @variant", "as_child: false, loading: false, **attrs)\n    @variant")
 

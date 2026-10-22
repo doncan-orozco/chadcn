@@ -103,7 +103,7 @@ class GemCheckRulesTest < Minitest::Test
 
   HOST_PATH = 'DEFAULT_CSS = "app/assets/tailwind/application.css"'
   MARKER = "# gem_check:allow GEM_ESCAPES_ROOT -- the doctor reads the host stylesheet"
-  DOCTOR = "lib/phlex/shadcn/doctor/context.rb"
+  DOCTOR = "lib/chadcn/doctor/context.rb"
 
   def test_a_hard_coded_host_path_in_core_code_is_reported
     write("lib/phlex/x/helper.rb", "#{HOST_PATH}\n")
@@ -160,9 +160,9 @@ class GemCheckRulesTest < Minitest::Test
   end
 
   def test_the_doctor_root_file_is_outside_the_allowlist
-    write("lib/phlex/shadcn/doctor.rb", "#{HOST_PATH} #{MARKER}\n")
+    write("lib/chadcn/doctor.rb", "#{HOST_PATH} #{MARKER}\n")
 
-    assert_equal [ [ "lib/phlex/shadcn/doctor.rb", 1 ] ], escapes
+    assert_equal [ [ "lib/chadcn/doctor.rb", 1 ] ], escapes
   end
 
   def test_another_namespace_doctor_is_outside_the_allowlist

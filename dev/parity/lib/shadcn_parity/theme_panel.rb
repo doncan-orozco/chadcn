@@ -4,7 +4,7 @@
 # and "Copy CSS" (a block `bin/rails theme:import` accepts). Nothing is persisted. Behavior: Stimulus `shadcn--theme-panel`;
 # light/dark is the existing `shadcn--theme` controller. See .ai/skills/shadcn-port/references/theme-contract.md.
 class ShadcnParity::ThemePanel < Phlex::HTML
-  PAIRS = Phlex::Shadcn::Theme::CONTRAST_PAIRS
+  PAIRS = Chadcn::Theme::CONTRAST_PAIRS
 
   def view_template
     div(
@@ -64,8 +64,8 @@ class ShadcnParity::ThemePanel < Phlex::HTML
 
   # { "slate" => { "root" => {var => value}, "dark" => {...} } } from the presets directory (same files `theme:use` reads).
   def presets
-    @presets ||= Phlex::Shadcn::Theme.presets.to_h do |name|
-      palette = Phlex::Shadcn::Theme.parse(File.read(File.join(Phlex::Shadcn::Theme.presets_dir, "#{name}.css")))
+    @presets ||= Chadcn::Theme.presets.to_h do |name|
+      palette = Chadcn::Theme.parse(File.read(File.join(Chadcn::Theme.presets_dir, "#{name}.css")))
       [ name, { root: palette.root, dark: palette.dark } ]
     end
   end

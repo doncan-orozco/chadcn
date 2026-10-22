@@ -1,7 +1,7 @@
 # Calendar (shadcn new-york-v4, react-day-picker)
 
-Oracle: `gems/phlex-shadcn/dev/port/oracle/src/calendar.tsx` (manifest `source_sha` 78ed2cc49dafc5bb), manifest `oracle/manifest/calendar.json`. Parts: `Calendar` (data-slot `calendar`), `CalendarDayButton` (renders shadcn `Button`, no own data-slot).
-Behavior source: `gems/phlex-shadcn/dev/react-shadcn-catalog/node_modules/react-day-picker` **10.0.2** `dist/esm` (date library `date-fns` 4.1.0). Citations use these prefixes (file:line, original line numbers):
+Oracle: `gems/chadcn/dev/port/oracle/src/calendar.tsx` (manifest `source_sha` 78ed2cc49dafc5bb), manifest `oracle/manifest/calendar.json`. Parts: `Calendar` (data-slot `calendar`), `CalendarDayButton` (renders shadcn `Button`, no own data-slot).
+Behavior source: `gems/chadcn/dev/react-shadcn-catalog/node_modules/react-day-picker` **10.0.2** `dist/esm` (date library `date-fns` 4.1.0). Citations use these prefixes (file:line, original line numbers):
 `DP` DayPicker.js, `UC` useCalendar.js, `UF` useFocus.js, `USI` selection/useSingle.js, `UMU` selection/useMulti.js, `URA` selection/useRange.js, `CFT` helpers/calculateFocusTarget.js, `GNF` helpers/getNextFocus.js, `GFD` helpers/getFocusableDate.js, `CGM` helpers/createGetModifiers.js, `GCN` helpers/getClassNamesForModifiers.js, `GDA` helpers/getDataAttributes.js, `GDC` helpers/getDefaultClassNames.js, `GD` helpers/getDates.js, `GM` helpers/getMonths.js, `GIM` helpers/getInitialMonth.js, `GNV` helpers/getNavMonth.js, `GNX` helpers/getNextMonth.js, `GPV` helpers/getPreviousMonth.js, `GDM` helpers/getDisplayMonths.js, `GMO` helpers/getMonthOptions.js, `GYO` helpers/getYearOptions.js, `GWD` helpers/getWeekdays.js, `GL` helpers/getLabels.js, `DMM` utils/dateMatchModifiers.js, `ATR` utils/addToRange.js, `RID` utils/rangeIncludesDate.js, `RCM` utils/rangeContainsModifiers.js, `TG` utils/typeguards.js, `CD` classes/CalendarDay.js, `DL` classes/DateLib.js, `NAV` components/Nav.js, `DD` components/Dropdown.js, `WDS` components/Weekdays.js, `LEN` locale/en-US.js, `LES` locale/es.js, `FWN` formatters/formatWeekNumber.js. The rendered oracle DOM quoted below was produced with `react-dom/server` from the catalog's own `src/components/ui/calendar.tsx` (identical to the oracle except the import path).
 Examples: registry `calendar-demo`, `date-picker-demo`, `date-picker-with-range`, `date-picker-with-presets`, `calendar-hijri` (`/r/styles/new-york-v4/*.json`) and the docs examples `apps/v4/examples/radix/calendar-*.tsx`, `date-picker-*.tsx` (shadcn-ui/ui main; markup is style independent).
 Tier: `third_party`. HARD CONSTRAINT: no react-day-picker, no date-fns, no other date library at runtime; native `Date` + `Intl` only.
@@ -10,10 +10,10 @@ Tier: `third_party`. HARD CONSTRAINT: no react-day-picker, no date-fns, no other
 
 Every part: `class:` goes through `cn` last (caller wins), `**attrs` pass through (`data:` / `aria:` deep-merged), string and symbol option values are accepted (`mode: :range` == `mode: "range"`, `caption_layout: :dropdown_months` == `"dropdown-months"`, `button_variant: :outline`).
 
-### `Phlex::Shadcn::Calendar` (React `Calendar` -> `DayPicker`)
+### `Chadcn::Calendar` (React `Calendar` -> `DayPicker`)
 
 ```ruby
-Phlex::Shadcn::Calendar.new(
+Chadcn::Calendar.new(
   mode: nil,                    # nil | "single" | "multiple" | "range"   (rdp `mode`; nil = non-interactive grid)
   selected: nil,                # single: Date|ISO; multiple: Array; range: { from:, to: } (to optional)
   default_month: nil,           # Date|ISO; first displayed month (uncontrolled)
@@ -22,7 +22,7 @@ Phlex::Shadcn::Calendar.new(
   number_of_months: 1,
   show_outside_days: true,      # shadcn default (tsx `showOutsideDays = true`)
   caption_layout: "label",      # shadcn default; "label" | "dropdown" | "dropdown-months" | "dropdown-years"
-  button_variant: "ghost",      # shadcn default; any Phlex::Shadcn::Button variant (default destructive outline secondary ghost link)
+  button_variant: "ghost",      # shadcn default; any Chadcn::Button variant (default destructive outline secondary ghost link)
   locale: nil,                  # nil (rdp default enUS) | BCP 47 tag "es", "en", "en-US"...
   week_starts_on: nil,          # 0..6 (0 = Sunday); nil = from the locale
   fixed_weeks: false,
@@ -59,7 +59,7 @@ Value formats (Ruby and the scenario harness, where `"$date:YYYY-MM-DD"` arrives
 - Matchers (`disabled`, `hidden`, each `modifiers` value), same precedence as DMM:13-59 / TG:8-64: `true`/`false`; a date; an Array of dates; a range `{ from:, to: }` (either side optional, inverted ranges are swapped, RID:13-32); `{ day_of_week: Integer | Array }` (also `"dayOfWeek"`); an interval `{ before:, after: }` (closed when `before` > `after`: strictly between; otherwise open: strictly before `before` OR strictly after `after`); `{ after: }` (strictly after); `{ before: }` (strictly before); or an Array mixing any of these. Keys accepted as snake_case or camelCase, String or Symbol. Ruby normalizes to JSON (ISO strings, camelCase keys) for the controller. Procs/lambdas raise `ArgumentError` (functions are not portable).
 - `class_names` keys are rdp UI keys (GDC, UI.js): `root months month nav button_previous button_next month_caption dropdowns dropdown dropdown_root caption_label months_dropdown years_dropdown chevron month_grid weekdays weekday weeks week week_number week_number_header day day_button footer` and modifier keys `today outside disabled hidden focused selected range_start range_middle range_end`. A given key REPLACES the shadcn+rdp string for that key (`classNames={{ ..., ...classNames }}` spread last in the tsx; rdp merges `{ ...getDefaultClassNames(), ...props.classNames }`, DP:113), so the `rdp-*` class is gone unless the caller includes it.
 - `formatters`: each value is an `Intl.DateTimeFormat` options Hash (plus optional `locale:`), applied as `date.toLocaleString(locale || <calendar locale>, options)`; it replaces the corresponding default formatter. Deviation (functions are not portable); unit-tested only.
-- `button_variant` is validated against `Phlex::Shadcn::Button::VARIANTS`; `caption_layout`, `mode`, `dir` against their lists (`ArgumentError` on unknown values).
+- `button_variant` is validated against `Chadcn::Button::VARIANTS`; `caption_layout`, `mode`, `dir` against their lists (`ArgumentError` on unknown values).
 - `week_starts_on`: Integer 0..6 or its String.
 
 Events (dispatched by `shadcn--calendar` on the root, `bubbles: true`, not cancelable):
@@ -71,15 +71,15 @@ Events (dispatched by `shadcn--calendar` on the root, `bubbles: true`, not cance
 
 Not ported (no DOM effect, React-only, or not data): `ref`, every other `on*` callback (`onDayClick`, `onDayFocus`, `onDayBlur`, `onDayKeyDown`, `onDayMouseEnter/Leave`, `onNextClick`, `onPrevClick`), `components` (render overrides), function matchers, function formatters/labels, `labels`, `styles`, `modifiersStyles`, `timeZone`, `noonSafe`, `dateLib`, `numerals`, `ISOWeek`, `broadcastCalendar`, `firstWeekContainsDate`, `useAdditionalWeekYearTokens`, `useAdditionalDayOfYearTokens`, `navLayout`, `reverseMonths`, `reverseYears`, `animate`, `nonce`, `initialFocus` (removed in rdp 9+, a no-op in 10). Listed in `deviations/calendar.json`.
 
-### `Phlex::Shadcn::Calendar::DayButton` (React `CalendarDayButton`)
+### `Chadcn::Calendar::DayButton` (React `CalendarDayButton`)
 
 ```ruby
-Phlex::Shadcn::Calendar::DayButton.new(day:, modifiers: {}, class: nil, **attrs) { "15" }
+Chadcn::Calendar::DayButton.new(day:, modifiers: {}, class: nil, **attrs) { "15" }
 ```
 
 - `day:` a date (Date / ISO) or a Hash `{ date: }` (String or Symbol key), mirroring rdp's `CalendarDay` (`day.date` is the only field read, calendar.tsx `day.date.toLocaleDateString()`).
 - `modifiers:` Hash (String/Symbol keys; snake_case as in rdp: `selected`, `range_start`, `range_end`, `range_middle`, `focused`, `today`, `outside`, `disabled`, `hidden`).
-- Renders `Phlex::Shadcn::Button.new(variant: "ghost", size: "icon", ...)` (`data-slot="button" data-variant="ghost" data-size="icon"`) with `class: cn(<calendar.tsx CalendarDayButton string>, "rdp-day", class)`, so the final class list is Button's `cn(buttonVariants({ variant: "ghost", size: "icon", className }))`: oracle output (verified) = `shrink-0 items-center justify-center rounded-md text-sm whitespace-nowrap transition-all outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 leading-none font-normal group-data-[focused=true]/day:relative ... [&>span]:text-xs [&>span]:opacity-70 rdp-day` (+ `rdp-day_button` inside the calendar).
+- Renders `Chadcn::Button.new(variant: "ghost", size: "icon", ...)` (`data-slot="button" data-variant="ghost" data-size="icon"`) with `class: cn(<calendar.tsx CalendarDayButton string>, "rdp-day", class)`, so the final class list is Button's `cn(buttonVariants({ variant: "ghost", size: "icon", className }))`: oracle output (verified) = `shrink-0 items-center justify-center rounded-md text-sm whitespace-nowrap transition-all outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 leading-none font-normal group-data-[focused=true]/day:relative ... [&>span]:text-xs [&>span]:opacity-70 rdp-day` (+ `rdp-day_button` inside the calendar).
 - Data attributes, exactly the tsx expressions:
   - `data-day` = `day.date.toLocaleDateString()` (browser default locale; `3/15/2026` in en-US). Server-rendered standalone: the Ruby side cannot know the browser locale, so it renders the en-US form `M/D/YYYY` (deviation; inside the Calendar the controller uses the real `toLocaleDateString()`).
   - `data-selected-single` = JS `modifiers.selected && !range_start && !range_end && !range_middle`: absent when `selected` is absent/nil, `"false"` when `selected` is `false`, otherwise `"true"`/`"false"` from the range flags.
@@ -94,13 +94,13 @@ The oracle has no date picker component (registry: only `calendar.json`; shadcn'
 
 ```ruby
 input(type: "hidden", id: "event_date", name: "event[date]", value: @event.date&.iso8601)   # OUTSIDE the popover
-render Phlex::Shadcn::Popover.new do
-  render Phlex::Shadcn::Popover::Trigger.new(as_child: Phlex::Shadcn::Button.new(variant: "outline", class: "w-[240px] justify-start text-left font-normal")) do
-    render Phlex::Shadcn::Icon.new("calendar")
+render Chadcn::Popover.new do
+  render Chadcn::Popover::Trigger.new(as_child: Chadcn::Button.new(variant: "outline", class: "w-[240px] justify-start text-left font-normal")) do
+    render Chadcn::Icon.new("calendar")
     span(id: "event_date_label") { @event.date ? l(@event.date, format: :long) : "Pick a date" }
   end
-  render Phlex::Shadcn::Popover::Content.new(class: "w-auto p-0", align: "start") do
-    render Phlex::Shadcn::Calendar.new(mode: :single, input: "#event_date", label: "#event_date_label", close_on_select: true)
+  render Chadcn::Popover::Content.new(class: "w-auto p-0", align: "start") do
+    render Chadcn::Calendar.new(mode: :single, input: "#event_date", label: "#event_date_label", close_on_select: true)
   end
 end
 ```
@@ -116,7 +116,7 @@ Rules:
 ## Structure
 
 Server vs Stimulus:
-- The SERVER renders: the root `div` with all its attributes; inside it the months container `div` (empty until connect) whose FIRST child is the server-rendered `nav` (prev/next buttons with chevrons, aria-labels, disabled state computed in Ruby from the initial month and `start_month`/`end_month`/`caption_layout`/`today`), the `footer` div when given, the hidden inputs for `name:`, and one inert `<template data-shadcn--calendar-target="parts">` holding prototype elements for every other part with their FINAL class strings computed in Ruby (`cn` + `class_names` overrides + `Phlex::Shadcn::Icon` chevrons + a `Calendar::DayButton` prototype + the modifier class strings incl. `modifiers_class_names`). Every Tailwind token therefore lives in Ruby (G1); the controller never contains class strings. Labels (en/es tables, below) also live in Ruby and reach the controller as a JSON value.
+- The SERVER renders: the root `div` with all its attributes; inside it the months container `div` (empty until connect) whose FIRST child is the server-rendered `nav` (prev/next buttons with chevrons, aria-labels, disabled state computed in Ruby from the initial month and `start_month`/`end_month`/`caption_layout`/`today`), the `footer` div when given, the hidden inputs for `name:`, and one inert `<template data-shadcn--calendar-target="parts">` holding prototype elements for every other part with their FINAL class strings computed in Ruby (`cn` + `class_names` overrides + `Chadcn::Icon` chevrons + a `Calendar::DayButton` prototype + the modifier class strings incl. `modifiers_class_names`). Every Tailwind token therefore lives in Ruby (G1); the controller never contains class strings. Labels (en/es tables, below) also live in Ruby and reach the controller as a JSON value.
 - The CONTROLLER `shadcn--calendar` (connect) computes everything date-dependent with `Date` + `Intl` and builds the month(s) after the `nav` by cloning the prototypes: captions/dropdowns, grid, weekday names, week numbers, day cells and buttons, all aria/data attributes, tabindex; it re-syncs the nav (its attributes may differ from the server guess when `today:` is nil). Output is fully deterministic given `today` and the month.
 - Why the nav is server-rendered: inside a `Popover::Content` the popover's focus scope focuses the first tabbable synchronously right after mounting the template, before Stimulus connects the calendar; React's FocusScope finds the rendered prev button ("Go to the Previous Month"). With the nav already in the markup both pick the same element.
 - Patch, do not rebuild: like React's reconciliation (keys: month `displayIndex` DP:266, week `weekNumber` DP:307, day `${isoDate}_${displayMonthId}` DP:332), the controller keeps the `nav`, its buttons, each month's caption span, dropdown `select`s and status span as the SAME nodes for the life of the calendar (text/attributes updated in place: focus stays on a nav button or select after a click/change; the `aria-live` caption announces), and keeps day `td`/`button` nodes while the displayed months are unchanged (selection/focus changes only update attributes; focus stays on the clicked button). Only when the displayed months change are the weeks rebuilt. On connect the months container is cleared first (a Turbo snapshot may contain an old grid; the server nav is kept).
@@ -259,18 +259,31 @@ Turbo/cleanup: `disconnect()` removes listeners; on connect the months container
 
 React side: `react-day-picker` 10.0.2 (`DayPicker` with shadcn `classNames`, `formatters.formatMonthDropdown`, `components` Root/Chevron/DayButton/WeekNumber) on `date-fns` 4.1.0 and `@date-fns/tz` (unused without `timeZone`).
 Port: NO third-party JavaScript (maintainer constraint): the `shadcn--calendar` Stimulus controller re-implements the rdp model above with `Date` and `Intl` (`DateTimeFormat`, `PluralRules`, `Locale#getWeekInfo`). It renders rdp's DOM exactly, including rdp's default class names (`rdp-root`, `rdp-months`, `rdp-month`, `rdp-nav`, `rdp-button_previous`, `rdp-button_next`, `rdp-chevron`, `rdp-month_caption`, `rdp-caption_label`, `rdp-dropdowns`, `rdp-dropdown_root`, `rdp-dropdown`, `rdp-months_dropdown`, `rdp-years_dropdown`, `rdp-month_grid`, `rdp-weekdays`, `rdp-weekday`, `rdp-week_number_header`, `rdp-weeks`, `rdp-week`, `rdp-week_number`, `rdp-day`, `rdp-day_button`, `rdp-focused`, `rdp-disabled`, `rdp-hidden`, `rdp-outside`, `rdp-today`, `rdp-selected`, `rdp-range_start`, `rdp-range_middle`, `rdp-range_end`, `rdp-footer`; GDC:11-30), because shadcn appends them to its own strings and the RTL classes target `.rdp-button_next` / `.rdp-button_previous`. No rdp stylesheet is loaded on either side (shadcn does not import `react-day-picker/style.css`), so the `rdp-*` classes carry no CSS.
-Mapping rdp component -> port element: Root -> root `div` (server); Months -> `div.rdp-months` (server, empty); Nav/PreviousMonthButton/NextMonthButton/Chevron -> server `nav` + buttons + `Phlex::Shadcn::Icon` (`chevron-left`/`chevron-right`, `chevron-down` in dropdowns with width/height 18); Month, MonthCaption, CaptionLabel, DropdownNav, Dropdown/MonthsDropdown/YearsDropdown/Select/Option, MonthGrid, Weekdays/Weekday, WeekNumberHeader, Weeks/Week, WeekNumber (shadcn `td` override), Day, DayButton (shadcn `CalendarDayButton` = `Calendar::DayButton` prototype), Footer -> cloned prototypes. rdp's own `Chevron` svg (polygons) never appears (shadcn overrides it with lucide).
+Mapping rdp component -> port element: Root -> root `div` (server); Months -> `div.rdp-months` (server, empty); Nav/PreviousMonthButton/NextMonthButton/Chevron -> server `nav` + buttons + `Chadcn::Icon` (`chevron-left`/`chevron-right`, `chevron-down` in dropdowns with width/height 18); Month, MonthCaption, CaptionLabel, DropdownNav, Dropdown/MonthsDropdown/YearsDropdown/Select/Option, MonthGrid, Weekdays/Weekday, WeekNumberHeader, Weeks/Week, WeekNumber (shadcn `td` override), Day, DayButton (shadcn `CalendarDayButton` = `Calendar::DayButton` prototype), Footer -> cloned prototypes. rdp's own `Chevron` svg (polygons) never appears (shadcn overrides it with lucide).
+
+<!-- spec_helpers:begin -->
+## DX helpers (derived from the oracle, do not edit)
+
+`Chadcn::Calendar` MUST `yield self` from `view_template`; `Chadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Calendar::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Chadcn::Calendar::Content.new`) stay valid.
+
+| helper | part class | React export |
+|---|---|---|
+| `calendar.day_button` | `Calendar::DayButton` | `CalendarDayButton` |
+
+
+Acceptance (unit test): every row exists as a public method on the root instance and renders the same HTML as the explicit class call; no helper is defined by hand.
+<!-- spec_helpers:end -->
 
 ## Dependencies
 
-- `Phlex::Shadcn::Button` (`Calendar::DayButton` renders it with `variant: "ghost", size: "icon"`) and `Phlex::Shadcn::Button.variants(variant:)` for the nav button class (`buttonVariants({ variant: buttonVariant })`).
-- `Phlex::Shadcn::Icon` (`chevron-left`, `chevron-right`, `chevron-down`; lucide 0.577.0 like the catalog).
-- `Phlex::Shadcn::Popover` (+ `Trigger`, `Content`) only in the DatePicker composition and its scenarios; `close_on_select` talks to the existing `shadcn--popover` controller (no change to it).
+- `Chadcn::Button` (`Calendar::DayButton` renders it with `variant: "ghost", size: "icon"`) and `Chadcn::Button.variants(variant:)` for the nav button class (`buttonVariants({ variant: buttonVariant })`).
+- `Chadcn::Icon` (`chevron-left`, `chevron-right`, `chevron-down`; lucide 0.577.0 like the catalog).
+- `Chadcn::Popover` (+ `Trigger`, `Content`) only in the DatePicker composition and its scenarios; `close_on_select` talks to the existing `shadcn--popover` controller (no change to it).
 - Scenarios also compose `Card`/`CardContent`/`CardFooter`, `Select*`, `Field*`, `InputGroup*` (docs examples; file-level `composes`).
 
 ## Deviations
 
-Recorded in `gems/phlex-shadcn/dev/port/deviations/calendar.json`. Summary:
+Recorded in `gems/chadcn/dev/port/deviations/calendar.json`. Summary:
 1. Structure: the root holds, besides `div.rdp-months`, an inert `<template data-shadcn--calendar-target="parts">` (prototypes) and, with `name:`, hidden inputs; Stimulus attributes on the root. None has a data-slot, classes on a box, or text, so the compared DOM is unchanged.
 2. Rendering split: the server renders the root, months container and nav; the controller renders the rest in `connect()`. Before connect (no JS) only the shell and nav exist.
 3. Locales: exact text/labels only for nil/`en`/`en-US` and `es`. Other tags use Intl approximations (dateStyle `full` for the day label, unsliced short weekday names, English labels for nav/dropdowns/week numbers/today/selected, `firstWeekContainsDate` from `weekInfo.minimalDays` or 1) where rdp 10 uses date-fns patterns and its own per-locale label translations.

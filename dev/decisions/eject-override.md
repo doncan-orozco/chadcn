@@ -6,13 +6,13 @@ Proof: `dev/spikes/eject/override_test.rb` (see the test count in the Gate outpu
 ## Decision
 
 A host overrides a gem component by putting a file with the same Zeitwerk path in an **override directory**. The file reopens
-the same constant (`class Phlex::Shadcn::Button < Phlex::Shadcn::Base`); the gem does not load its own file for that constant.
+the same constant (`class Chadcn::Button < Chadcn::Base`); the gem does not load its own file for that constant.
 
-- Directory: `app/components/phlex_shadcn/` in a Rails app, mounted as a root with `namespace: Phlex::Shadcn`
-  (so `app/components/phlex_shadcn/button.rb` is `Phlex::Shadcn::Button`, not `PhlexShadcn::Button`).
-- Config key: `Phlex::Shadcn.configure { |c| c.override_dir = "..." }`, forwarded from `config.phlex_shadcn.override_dir`
-  by the engine. Default `Rails.root.join("app/components/phlex_shadcn")` in Rails, `nil` (off) in a plain Phlex app.
-- Where it may be set: in Rails only `config.phlex_shadcn.override_dir` in `config/application.rb` or `config/environments/*.rb`.
+- Directory: `app/components/chadcn/` in a Rails app, mounted as a root with `namespace: Chadcn`
+  (so `app/components/chadcn/button.rb` is `Chadcn::Button`, not `Chadcn::Button`).
+- Config key: `Chadcn.configure { |c| c.override_dir = "..." }`, forwarded from `config.chadcn.override_dir`
+  by the engine. Default `Rails.root.join("app/components/chadcn")` in Rails, `nil` (off) in a plain Phlex app.
+- Where it may be set: in Rails only `config.chadcn.override_dir` in `config/application.rb` or `config/environments/*.rb`.
   `config/initializers/*.rb` load after `set_autoload_paths`, too late. #179 makes `Configuration#override_dir=` raise once the
   gem `Loader` is set up, so a late setting fails loudly instead of being ignored.
 - Unit of ejection: a leaf (`button.rb`) is one file. A compound component is ejected **as a unit**: `dialog.rb` plus the
@@ -34,7 +34,7 @@ Mechanism that works, in this order:
 1. Know the override directory **before** the gem loader's `setup`.
 2. Give the gem loader `ignore(<every gem path the override directory shadows>)`. For a root override (`dialog.rb` present
    in the override directory) the ignored paths are the gem's `dialog.rb` **and** `dialog/`; for a nested part, only that file.
-3. A second Zeitwerk loader owns the override directory: `push_dir(override_dir, namespace: Phlex::Shadcn)`.
+3. A second Zeitwerk loader owns the override directory: `push_dir(override_dir, namespace: Chadcn)`.
    Zeitwerk lets it add children to a namespace the gem loader defines (nested case) because the constants do not collide.
 
 Without step 2 the first loader to register the autoload wins and the second is skipped silently (no error): the gem
@@ -43,24 +43,24 @@ a module `Dialog` from `dialog/`, which is why the directory is ignored together
 
 ## When the gem's loader learns about the directory
 
-`lib/phlex/shadcn.rb` runs `Loader.setup` at `require` time, which in a Rails app is `Bundler.require`, before
-`config/application.rb` bodies, initializers or `config.phlex_shadcn` exist. Step 1 is therefore impossible with the current
+`lib/chadcn.rb` runs `Loader.setup` at `require` time, which in a Rails app is `Bundler.require`, before
+`config/application.rb` bodies, initializers or `config.chadcn` exist. Step 1 is therefore impossible with the current
 file. Production change (made by #179, not here):
 
 - Rails: the engine calls `Loader.setup` from an initializer that runs before Rails' `set_autoload_paths` and after the
-  host config is loaded (`initializer "phlex_shadcn.loader", before: :set_autoload_paths`), computes the ignore list from
-  `override_dir`, and hands the directory to `Rails.autoloaders.main.push_dir(dir, namespace: Phlex::Shadcn)`. `lib/phlex/shadcn.rb`
+  host config is loaded (`initializer "chadcn.loader", before: :set_autoload_paths`), computes the ignore list from
+  `override_dir`, and hands the directory to `Rails.autoloaders.main.push_dir(dir, namespace: Chadcn)`. `lib/chadcn.rb`
   then skips `Loader.setup` when `Rails::Engine` is defined. The directory is read at boot, so ejecting a new component needs a restart.
-- Plain Phlex: `Loader.setup` stays at require time with the directory taken from `ENV["PHLEX_SHADCN_OVERRIDE_DIR"]`
-  (documented), or an explicit `Phlex::Shadcn.setup(override_dir:)` for apps that want to control the order (then
-  `require "phlex/shadcn/lazy"` skips the automatic setup). The spike's harness is the reference model.
-- Keep `Zeitwerk::Loader.for_gem_extension(Phlex)` and only move `setup` later. The spike's plain `Loader.new` rooted at
-  `lib/phlex/shadcn` is a harness simplification; the `Version` eager-load error it hit came from that alone.
+- Plain Phlex: `Loader.setup` stays at require time with the directory taken from `ENV["CHADCN_OVERRIDE_DIR"]`
+  (documented), or an explicit `Chadcn.setup(override_dir:)` for apps that want to control the order (then
+  `require "chadcn/lazy"` skips the automatic setup). The spike's harness is the reference model.
+- Keep `Zeitwerk::Loader.for_gem` and only move `setup` later. The spike's plain `Loader.new` rooted at
+  `lib/chadcn` is a harness simplification; the `Version` eager-load error it hit came from that alone.
 
 ## Dev reload
 
 In Rails the override directory belongs to the main (reloadable) autoloader, so editing an ejected file reloads it like any
-app code; the gem loader is not reloadable and `Phlex::Shadcn` itself never reloads. The spike's reload tests prove that
+app code; the gem loader is not reloadable and `Chadcn` itself never reloads. The spike's reload tests prove that
 reloading both loaders, and reloading only the override loader (production layout, gem loader not reloadable), keeps the
 override in force for a leaf and for a nested part under a gem-owned `Dialog`. Adding or removing an ejected file needs a restart:
 otherwise a new file is skipped silently and a removed one raises `NameError` (Zeitwerk reasoning, not exercised by the spike; #179's engine test verifies it); the `Ejected` doctor check also reports override files that shadow no gem file. The Rails integration (main autoloader + `bin/dev` edit/reload) is
@@ -71,15 +71,15 @@ Constraint to document: a gem class that holds a reference to an ejected class i
 ## Gem upgrade and stale copies
 
 An ejected file is a snapshot of the gem file at eject time. The generator writes a header comment with the gem version
-and a checksum of the source it copied (`# phlex-shadcn 0.1.0 sha256:...`). `phlex_shadcn:doctor` gets an `Ejected` check
+and a checksum of the source it copied (`# chadcn 0.1.0 sha256:...`). `chadcn:doctor` gets an `Ejected` check
 (#179 owns `doctor/checks/ejected.rb`) that compares it with the installed gem's file and reports `changed upstream` per component,
-and `rails g phlex:shadcn:eject --diff` shows the change. A new compound part added upstream to an ejected unit
+and `rails g chadcn:eject --diff` shows the change. A new compound part added upstream to an ejected unit
 (`dialog/new_part.rb`) is missing from the override: the check reports "gem has parts the ejected unit lacks" because the
 whole `dialog/` directory is ignored in the gem loader. This is the cost of unit ejection and the reason a nested single-part eject exists.
 
 ## Alternatives considered
 
-- **Subclass in a separate namespace** (`class MyButton < Phlex::Shadcn::Button`): gem components that render `Button`
+- **Subclass in a separate namespace** (`class MyButton < Chadcn::Button`): gem components that render `Button`
   internally (Dialog::Footer, Pagination, ButtonGroup, AlertDialog) would not use it, so the host would have to override every consumer. Rejected.
 - **Ignore the gem file and let the host define the constant anywhere** (`Loader.ignore` alone, host file required by hand):
   no autoload, no reload, no eager-load coverage, and a name-mangled path per host. It is the mechanism of step 2, not a design, on its own. Rejected as the only mechanism.
@@ -96,33 +96,33 @@ The override directory works cleanly; no human decision is needed beyond approvi
 Proven by `test/engine/eject_test.rb` (a Rails application booted per scenario in a child process) and
 `test/generators/eject_generator_test.rb`. Deviations from the proposal above:
 
-- **Plain Phlex has one switch only**: the environment variable `PHLEX_SHADCN_OVERRIDE_DIR`, read at require time. There is no
-  `Phlex::Shadcn.setup(override_dir:)` for users and no `phlex/shadcn/lazy`: a script that wants another order sets the variable
-  before the `require`. `Phlex::Shadcn.setup(override_loader: nil)` exists as `@api private`; it is what the engine calls.
+- **Plain Phlex has one switch only**: the environment variable `CHADCN_OVERRIDE_DIR`, read at require time. There is no
+  `Chadcn.setup(override_dir:)` for users and no `chadcn/lazy`: a script that wants another order sets the variable
+  before the `require`. `Chadcn.setup(override_loader: nil)` exists as `@api private`; it is what the engine calls.
 - **What is required by hand before the loader is set up**: `configuration.rb` (the override directory is a setting that the
-  setup reads, and `Phlex::Shadcn.configure` runs before it) and `overrides.rb` (`Phlex::Shadcn::Overrides`, plain Ruby: which gem
+  setup reads, and `Chadcn.configure` runs before it) and `overrides.rb` (`Chadcn::Overrides`, plain Ruby: which gem
   files a directory shadows, the component list, the file header). Both are ignored by the gem loader.
-- **Rails**: `initializer "phlex_shadcn.loader", before: :set_autoload_paths` calls `Phlex::Shadcn.setup(override_loader: Rails.autoloaders.main)`.
-  The setup only does `push_dir(dir, namespace: Phlex::Shadcn)` on a loader it is given (the owner, Rails, sets it up later: setting
-  up Rails' main autoloader early breaks `enable_reloading`). The default directory is `app/components/phlex_shadcn`; it is used only
+- **Rails**: `initializer "chadcn.loader", before: :set_autoload_paths` calls `Chadcn.setup(override_loader: Rails.autoloaders.main)`.
+  The setup only does `push_dir(dir, namespace: Chadcn)` on a loader it is given (the owner, Rails, sets it up later: setting
+  up Rails' main autoloader early breaks `enable_reloading`). The default directory is `app/components/chadcn`; it is used only
   when it exists, a missing one is ignored. A second initializer, `after: :load_config_initializers`, raises
-  `Configuration::LateSettingError` when `config.phlex_shadcn.override_dir` changed after the loader was set up (the
-  `Phlex::Shadcn.configure` route raises from `Configuration#override_dir=`).
-- **Nested root directory**: `app/components/phlex_shadcn` is a root of the main autoloader inside the root `app/components`; Zeitwerk
-  skips a nested root in its parent, so nothing becomes `PhlexShadcn::Button`. Proven in lazy and eager mode.
+  `Configuration::LateSettingError` when `config.chadcn.override_dir` changed after the loader was set up (the
+  `Chadcn.configure` route raises from `Configuration#override_dir=`).
+- **Nested root directory**: `app/components/chadcn` is a root of the main autoloader inside the root `app/components`; Zeitwerk
+  skips a nested root in its parent, so nothing becomes `Chadcn::Button`. Proven in lazy and eager mode.
 - **Dev reload, proven**: editing an ejected file is picked up by `Rails.application.reloader.reload!`; adding a file while the server runs
   is skipped silently and the gem's component keeps winning; removing an ejected file leaves `NameError: uninitialized constant`.
   Both are fixed by a restart; the generator says so.
-- **Header**: two comment lines, `# Ejected from phlex-shadcn <version> (lib/phlex/shadcn/<path>) sha256:<digest of the gem file>`.
+- **Header**: two comment lines, `# Ejected from chadcn <version> (lib/chadcn/<path>) sha256:<digest of the gem file>`.
   Ruby still reads a `# frozen_string_literal: true` below them.
 - **Doctor `ejected`** (`doctor/checks/ejected.rb`) warns on: gem file changed since the copy (digest differs; a new gem version whose file is
   identical is fine), parts the ejected unit lacks, a file without header, and a headed file whose gem file is gone. A file without a header
   that shadows no gem file is the app's own component and is left alone.
-- **Generator**: `rails g phlex:shadcn:eject NAME...` (`button`, `Button`, `alert-dialog`, `dialog/content`), `--list`, `--diff` (a
+- **Generator**: `rails g chadcn:eject NAME...` (`button`, `Button`, `alert-dialog`, `dialog/content`), `--list`, `--diff` (a
   `diff -u` of the gem's file and the copy), `--force`, `--dir` (a path relative to the app root, default the configured override
   directory). Without `--force` nothing at all is written when one target exists. Infrastructure (`base`, `configuration`, `doctor`, `engine`,
   `icons`, `js_bundle`, `overrides`, `theme`, `values`, `version`) cannot be ejected.
 - **Review additions (#179)**: a component used before the app initializes (railties loaded, `initialize!` not run) sets the loader up
-  on the spot through `Phlex::Shadcn.const_missing`; the engine then raises `LateSettingError` only if that dropped an existing override directory.
+  on the spot through `Chadcn.const_missing`; the engine then raises `LateSettingError` only if that dropped an existing override directory.
   Files in the override directory named like gem infrastructure (`base.rb`...) shadow nothing. `Overrides` first lived in `engine/overrides.rb`; #205 moved it to `overrides.rb` so path and constant agree. It is
   still required by hand and ignored by the loader (needed before the setup), and `overrides` / `js_bundle` joined `Overrides::INFRASTRUCTURE`.

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# One entry per `dev/port/scenarios/<component>.json` whose Phlex::Shadcn class exists, previewing its first plain (light)
+# One entry per `dev/port/scenarios/<component>.json` whose Chadcn class exists, previewing its first plain (light)
 # default scenario, so the demo can never drift from the ported components: a new component appears automatically.
 # Harness-only nodes of a scenario (`data-testid` outside/next/neutral probes) are pruned.
 module Catalog
@@ -24,7 +24,7 @@ module Catalog
 
     # Scenario files that start with "_" are primitives/harness fixtures, not components.
     def ported?(component)
-      !component.start_with?("_") && Phlex::Shadcn.const_defined?(component.tr("-", "_").camelize, false)
+      !component.start_with?("_") && Chadcn.const_defined?(component.tr("-", "_").camelize, false)
     end
 
     def build(component, scenarios)

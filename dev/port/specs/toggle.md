@@ -1,6 +1,6 @@
 # Toggle
 
-Oracle: `gems/phlex-shadcn/dev/port/oracle/src/toggle.tsx` (manifest `source_sha` 28ae7d72730890a3, tier `radix_stateful`), wrapping `TogglePrimitive.Root` from `radix-ui` 1.7.0 -> `@radix-ui/react-toggle` 1.1.19 (`gems/phlex-shadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-toggle/dist/index.mjs`, cited as `toggle.mjs:<line>`), state via `@radix-ui/react-use-controllable-state` 1.2.6 (`ucs.mjs:<line>`), handler composition via `@radix-ui/primitive` (`primitive.mjs:<line>`). React 19.
+Oracle: `gems/chadcn/dev/port/oracle/src/toggle.tsx` (manifest `source_sha` 28ae7d72730890a3, tier `radix_stateful`), wrapping `TogglePrimitive.Root` from `radix-ui` 1.7.0 -> `@radix-ui/react-toggle` 1.1.19 (`gems/chadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-toggle/dist/index.mjs`, cited as `toggle.mjs:<line>`), state via `@radix-ui/react-use-controllable-state` 1.2.6 (`ucs.mjs:<line>`), handler composition via `@radix-ui/primitive` (`primitive.mjs:<line>`). React 19.
 
 ## API
 

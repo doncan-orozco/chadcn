@@ -2,7 +2,7 @@
 
 require_relative "boot"
 
-# rails/engine has to be loaded before the gem (Bundler.require), see Phlex::Shadcn::Engine. Only the railties the harness needs:
+# rails/engine has to be loaded before the gem (Bundler.require), see Chadcn::Engine. Only the railties the harness needs:
 # no Active Record, no database.
 require "rails"
 require "rails/engine"
@@ -25,6 +25,6 @@ module Dummy
     config.generators.system_tests = nil
 
     # One theme for both sides of the parity: the gem's shipped default theme (the React catalog reads the same directory).
-    config.phlex_shadcn.theme_dir = Phlex::Shadcn.root.join("app/assets/tailwind/phlex-shadcn").to_s
+    config.chadcn.theme_dir = Chadcn.root.join("app/assets/tailwind/chadcn").to_s
   end
 end

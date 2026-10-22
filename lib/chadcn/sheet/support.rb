@@ -1,0 +1,20 @@
+# frozen_string_literal: true
+
+# What the sheet parts share: the render context pushed by Sheet and the as_child switch.
+#
+# @api private
+module Chadcn::Sheet::Support
+  private
+
+  def root_context
+    context[Chadcn::Sheet::ROOT_KEY] or raise ArgumentError, "#{self.class.name} must be used within Sheet"
+  end
+
+  def state_of(root) = root[:open] ? "open" : "closed"
+
+  def render_part(tag_name, as_child, attrs, &)
+    return render_as_child(as_child, **attrs, &) if as_child
+
+    tag(tag_name, **attrs, &)
+  end
+end

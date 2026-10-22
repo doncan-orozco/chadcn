@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Developer theme preview (Views::DesignSystem::ThemePanel). Writes the chosen preset's variables for the ACTIVE mode
 // onto <html> as inline custom properties (so they beat `:root`/`.dark`), recomputes WCAG contrast per foreground/background
-// pair with the same math as Shadcn::Theme, and copies a `theme:import`-compatible block. Nothing is persisted.
+// pair with the same math as Chadcn::Theme, and copies a `theme:import`-compatible block. Nothing is persisted.
 // Light/dark itself is the `shadcn--theme` controller; this one re-applies on its `changed` event (see data-action in the view).
 export default class extends Controller {
   static targets = ["preset", "radius", "contrast", "status"]
@@ -79,7 +79,7 @@ export default class extends Controller {
   #radius = "0.625rem"
 }
 
-// ---- color math (port of Shadcn::Theme.contrast) ----
+// ---- color math (port of Chadcn::Theme.contrast) ----
 const srgbToLinear = (v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4)
 
 function toLinearRgb(color) {

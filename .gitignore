@@ -1,2 +1,5 @@
 # Lockfiles of the CI matrix gemfiles (resolved on every run, never committed).
 test/smoke/gemfiles/*.lock
+
+# YARD cache (rebuilt by yard and the llms generator, never committed).
+.yardoc/

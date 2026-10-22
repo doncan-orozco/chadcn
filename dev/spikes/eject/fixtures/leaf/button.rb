@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Ejected copy of the gem's Button (leaf component): same constant, host-owned file.
-class Phlex::Shadcn::Button < Phlex::Shadcn::Base
+class Chadcn::Button < Chadcn::Base
   EJECTED = :leaf
 
   def initialize(**attrs)

@@ -2,11 +2,11 @@
 
 require_relative "../engine/engine_helper"
 require "rails/generators/test_case"
-require "generators/phlex/shadcn/install/install_generator"
+require "generators/chadcn/install/install_generator"
 
 class InstallGeneratorTest < Rails::Generators::TestCase
-  tests Phlex::Shadcn::Generators::InstallGenerator
-  destination File.join(Dir.tmpdir, "phlex-shadcn-generator-destination-#{Process.pid}")
+  tests Chadcn::Generators::InstallGenerator
+  destination File.join(Dir.tmpdir, "chadcn-generator-destination-#{Process.pid}")
 
   TAILWIND_ENTRY = <<~CSS
     @import url("https://fonts.googleapis.com/css2?family=Manrope&display=swap");
@@ -17,13 +17,13 @@ class InstallGeneratorTest < Rails::Generators::TestCase
 
   # The booted test app configures a custom theme_dir; the generator reads it, so each test starts from "not configured".
   setup do
-    @configured_theme_dir = Rails.application.config.phlex_shadcn.theme_dir
-    Rails.application.config.phlex_shadcn.theme_dir = nil
+    @configured_theme_dir = Rails.application.config.chadcn.theme_dir
+    Rails.application.config.chadcn.theme_dir = nil
     prepare_destination
     write("app/assets/tailwind/application.css", TAILWIND_ENTRY)
   end
 
-  teardown { Rails.application.config.phlex_shadcn.theme_dir = @configured_theme_dir }
+  teardown { Rails.application.config.chadcn.theme_dir = @configured_theme_dir }
 
   Minitest.after_run { FileUtils.rm_rf(destination_root) }
 
@@ -53,17 +53,17 @@ class InstallGeneratorTest < Rails::Generators::TestCase
   test "writes one block after the tailwind import with the source line, the engine bundle and the theme" do
     run_generator
 
-    source = Pathname.new(Phlex::Shadcn.root.join("lib")).relative_path_from(Pathname.new(destination_root).join("app/assets/tailwind"))
+    source = Pathname.new(Chadcn.root.join("lib")).relative_path_from(Pathname.new(destination_root).join("app/assets/tailwind"))
     lines = css.lines.map(&:chomp)
-    start = lines.index { |line| line.start_with?("/* phlex-shadcn:start") }
+    start = lines.index { |line| line.start_with?("/* chadcn:start") }
 
     refute_nil start
 
     assert_equal %(@import "tailwindcss";), lines[start - 1]
-    assert_equal [ %(@source "#{source}";), %(@import "../builds/tailwind/phlex-shadcn";), %(@import "./theme/theme.css";), "/* phlex-shadcn:end */" ],
+    assert_equal [ %(@source "#{source}";), %(@import "../builds/tailwind/chadcn";), %(@import "./theme/theme.css";), "/* chadcn:end */" ],
                  lines[(start + 1)..(start + 4)]
     assert_includes css, %(@import "./components/other.css";), "the rest of the file is untouched"
-    assert_equal 1, css.scan("phlex-shadcn:start").size
+    assert_equal 1, css.scan("chadcn:start").size
   end
 
   test "the source line points at the directory that holds the gem's Ruby files" do
@@ -71,8 +71,8 @@ class InstallGeneratorTest < Rails::Generators::TestCase
     path = css[/@source "([^"]+)"/, 1]
     resolved = Pathname.new(destination_root).join("app/assets/tailwind").join(path).cleanpath
 
-    assert_equal Phlex::Shadcn.root.join("lib").cleanpath.to_s, resolved.to_s
-    assert_predicate resolved.join("phlex/shadcn/button.rb"), :file?
+    assert_equal Chadcn.root.join("lib").cleanpath.to_s, resolved.to_s
+    assert_predicate resolved.join("chadcn/button.rb"), :file?
   end
 
   test "copies the default theme and presets into the host" do
@@ -80,7 +80,7 @@ class InstallGeneratorTest < Rails::Generators::TestCase
 
     assert_file "app/assets/tailwind/theme/theme.css", /theme:colors:start/
     assert_file "app/assets/tailwind/theme/presets/slate.css"
-    shipped = Phlex::Shadcn.root.join("app/assets/tailwind/phlex-shadcn/presets").children.map { |file| file.basename.to_s }.sort
+    shipped = Chadcn.root.join("app/assets/tailwind/chadcn/presets").children.map { |file| file.basename.to_s }.sort
 
     assert_equal shipped, Dir.children(File.join(destination_root, "app/assets/tailwind/theme/presets")).sort
     assert_no_file "app/assets/tailwind/theme/tokens.css"
@@ -110,7 +110,7 @@ class InstallGeneratorTest < Rails::Generators::TestCase
     run_generator
 
     refute_includes css, "old/gem"
-    assert_equal 1, css.scan("phlex-shadcn:start").size
+    assert_equal 1, css.scan("chadcn:start").size
     assert_includes css, %(@import "./components/other.css";)
   end
 
@@ -119,7 +119,7 @@ class InstallGeneratorTest < Rails::Generators::TestCase
     run_generator %w[--css app/assets/stylesheets/tw.css --theme-dir config/theme]
     entry = File.read(File.join(destination_root, "app/assets/stylesheets/tw.css"))
 
-    assert_includes entry, %(@import "../builds/tailwind/phlex-shadcn";)
+    assert_includes entry, %(@import "../builds/tailwind/chadcn";)
     assert_includes entry, %(@import "../../../config/theme/theme.css";)
     assert_file "config/theme/theme.css"
   end
@@ -130,7 +130,7 @@ class InstallGeneratorTest < Rails::Generators::TestCase
     lines = css.lines.map(&:chomp)
 
     assert_equal %(@import "tailwindcss" source("../../app");), lines[0]
-    assert_match(/phlex-shadcn:start/, lines[1])
+    assert_match(/chadcn:start/, lines[1])
     assert_equal %(@import "./other.css";), lines.last
   end
 
@@ -141,13 +141,13 @@ class InstallGeneratorTest < Rails::Generators::TestCase
     run_generator
 
     refute_match(/(?<!\r)\n/, first, "a bare LF was mixed into a CRLF file")
-    assert_includes first, "phlex-shadcn:start"
+    assert_includes first, "chadcn:start"
     assert_equal first, File.binread(File.join(destination_root, "app/assets/tailwind/application.css"))
   end
 
   test "refuses a start marker without its end marker instead of reporting identical" do
     run_generator
-    broken = css.sub("/* phlex-shadcn:end */", "")
+    broken = css.sub("/* chadcn:end */", "")
     write("app/assets/tailwind/application.css", broken)
     output = run_failing_generator
 
@@ -156,8 +156,8 @@ class InstallGeneratorTest < Rails::Generators::TestCase
   end
 
   test "markers in the wrong order fail instead of reporting identical" do
-    start = "/* phlex-shadcn:start (managed by rails g phlex:shadcn:install) */"
-    write("app/assets/tailwind/application.css", %(@import "tailwindcss";\n/* phlex-shadcn:end */\n#{start}\n))
+    start = "/* chadcn:start (managed by rails g chadcn:install) */"
+    write("app/assets/tailwind/application.css", %(@import "tailwindcss";\n/* chadcn:end */\n#{start}\n))
     before = css
     output = run_failing_generator
 
@@ -191,7 +191,7 @@ class InstallGeneratorTest < Rails::Generators::TestCase
   end
 
   test "absolute --css and --theme-dir paths are used as given" do
-    elsewhere = Dir.mktmpdir("phlex-shadcn-elsewhere")
+    elsewhere = Dir.mktmpdir("chadcn-elsewhere")
     File.write(File.join(elsewhere, "tw.css"), %(@import "tailwindcss";\n))
     run_generator [ "--css", File.join(elsewhere, "tw.css"), "--theme-dir", File.join(elsewhere, "theme") ]
 
@@ -202,14 +202,14 @@ class InstallGeneratorTest < Rails::Generators::TestCase
     FileUtils.remove_entry(elsewhere) if elsewhere
   end
 
-  test "points at config.phlex_shadcn.theme_dir when the theme lives elsewhere" do
+  test "points at config.chadcn.theme_dir when the theme lives elsewhere" do
     output = run_generator %w[--theme-dir config/theme]
 
-    assert_match(%r{config\.phlex_shadcn\.theme_dir = "config/theme"}, output)
+    assert_match(%r{config\.chadcn\.theme_dir = "config/theme"}, output)
   end
 
-  test "uses config.phlex_shadcn.theme_dir when --theme-dir is not given and gives no hint" do
-    Rails.application.config.phlex_shadcn.theme_dir = "config/theme"
+  test "uses config.chadcn.theme_dir when --theme-dir is not given and gives no hint" do
+    Rails.application.config.chadcn.theme_dir = "config/theme"
     output = run_generator
 
     assert_file "config/theme/theme.css"
@@ -235,7 +235,7 @@ class InstallGeneratorTest < Rails::Generators::TestCase
     output = run_failing_generator
 
     assert_match(/does not contain @import "tailwindcss"/, output)
-    assert_match(/phlex-shadcn:start/, output, "the message shows the lines to add by hand")
+    assert_match(/chadcn:start/, output, "the message shows the lines to add by hand")
     assert_equal "body { color: red; }\n", css, "the file is left untouched"
   end
 
@@ -271,20 +271,20 @@ class InstallGeneratorTest < Rails::Generators::TestCase
     esbuild_app
     run_generator
     index = File.read(File.join(destination_root, "app/javascript/controllers/shadcn/index.js"))
-    controllers = Phlex::Shadcn.root.join("app/javascript/controllers/shadcn").children.map { |file| file.basename.to_s.delete_suffix("_controller.js") }
+    controllers = Chadcn.root.join("app/javascript/controllers/shadcn").children.map { |file| file.basename.to_s.delete_suffix("_controller.js") }
 
     controllers.each { |name| assert_includes index, "application.register(\"shadcn--#{name.tr('_', '-')}\"," }
   end
 
   test "no copy keeps an importmap-only specifier" do
-    Phlex::Shadcn::JsBundle.files(Phlex::Shadcn.root).each do |path, content|
+    Chadcn::JsBundle.files(Chadcn.root).each do |path, content|
       refute_match(%r{["'](shadcn/primitives|controllers/shadcn)/}, content, path)
     end
   end
 
   test "specifiers are rewritten in every quote and import form" do
     source = %(import a from 'shadcn/primitives/x'\nimport "shadcn/primitives/y"\nconst m = await import("controllers/shadcn/z")\n)
-    rewritten = Phlex::Shadcn::JsBundle.send(:relative_specifiers, source, "app/javascript/controllers/shadcn")
+    rewritten = Chadcn::JsBundle.send(:relative_specifiers, source, "app/javascript/controllers/shadcn")
 
     assert_equal %(import a from '../../shadcn/primitives/x'\nimport "../../shadcn/primitives/y"\nconst m = await import("./z")\n), rewritten
   end

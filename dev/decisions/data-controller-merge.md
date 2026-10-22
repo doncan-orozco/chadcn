@@ -1,6 +1,6 @@
 # Decision: a caller's `data-controller` is appended to the component's, never a replacement
 
-Status: decided and implemented by item #202 (phlex-shadcn-adoption-followups); normalization of the caller value on every path added by item #239 (phlex-shadcn-hardening, PR #245). Proof: `test/phlex/shadcn/base_merge_attrs_test.rb`.
+Status: decided and implemented by item #202 (phlex-shadcn-adoption-followups); normalization of the caller value on every path added by item #239 (phlex-shadcn-hardening, PR #245). Proof: `test/chadcn/base_merge_attrs_test.rb`.
 
 ## The bug
 
@@ -27,7 +27,7 @@ The caller's value is normalized the same way on every path, whether or not the 
   emitting `data-controller=""`.
 - A caller `nil`, `false` or blank value is not an opt-out: the component's own controller stays, like `data-action`.
 
-Real renders (plain Phlex process, `Phlex::Shadcn` loaded, class attribute elided):
+Real renders (plain Phlex process, `Chadcn` loaded, class attribute elided):
 
 ```
 Badge.new(data: { controller: ["a", "b a"] })        => <span data-slot="badge" data-variant="default" data-controller="a b" ...>

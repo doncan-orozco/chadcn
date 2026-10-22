@@ -1,7 +1,7 @@
 # Select (shadcn `select`, tier overlay)
 
-Sources (cited inline): oracle `gems/phlex-shadcn/dev/port/oracle/src/select.tsx` (`src:L<n>`), manifest `oracle/manifest/select.json`,
-`gems/phlex-shadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-select@2.3.8/dist/index.mjs` (`sel:L<n>`), `react-popper@1.3.8` (`pop:`),
+Sources (cited inline): oracle `gems/chadcn/dev/port/oracle/src/select.tsx` (`src:L<n>`), manifest `oracle/manifest/select.json`,
+`gems/chadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-select@2.3.8/dist/index.mjs` (`sel:L<n>`), `react-popper@1.3.8` (`pop:`),
 `react-presence@1.1.11` (`pre:`), `react-dismissable-layer@1.1.20` (`dl:`), `react-focus-scope@1.2.0` (`fs:`), `react-focus-guards@1.1.6` (`fg:`),
 `react-collection@1.1.16` (`col:`), `react-direction@1.1.5` (`dir:`), `react-visually-hidden@1.2.12` (`vh:`), `aria-hidden@1.2.6`,
 `react-remove-scroll@2.7.2` / `react-remove-scroll-bar`, `@floating-ui/dom@1.8.0` (catalog), `lucide-react@0.577.0`.
@@ -183,7 +183,7 @@ Typeahead reset 1000 ms; scroll-button autoscroll interval 50 ms; focus moves af
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)
 
-`Phlex::Shadcn::Select` MUST `yield self` from `view_template`; `Phlex::Shadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Select::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Phlex::Shadcn::Select::Content.new`) stay valid.
+`Chadcn::Select` MUST `yield self` from `view_template`; `Chadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Select::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Chadcn::Select::Content.new`) stay valid.
 
 | helper | part class | React export |
 |---|---|---|
@@ -208,6 +208,6 @@ Acceptance (unit test): every row exists as a public method on the root instance
 - No other V2 components; scenario trees use only Select exports and raw `_div`/`_form`/`_button` wrappers.
 
 ## Deviations
-One, structural and first-paint only, written to `gems/phlex-shadcn/dev/port/deviations/select.json`:
+One, structural and first-paint only, written to `gems/chadcn/dev/port/deviations/select.json`:
 - The closed Content is server-rendered inside an inert `<template>` next to the Trigger (React keeps it in a detached DocumentFragment, sel:L285-299). `<template>` content is not part of the document tree (no `[data-slot]` node, no box, no a11y node) and the controller removes the `<template>` element on `connect()`, so the post-connect DOM is identical to Radix. Entry: `{ "reason": "...", "allow_tokens": [], "allow_missing_tokens": [], "api": [], "structure": ["template"] }`.
 API: `as_child:` is not offered on Trigger and Item because the React original throws for it (not a deviation, documented above).

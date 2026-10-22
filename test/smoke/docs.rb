@@ -11,7 +11,7 @@ module Smoke
   # view is rendered through it, the plain-Ruby fence runs as is, every other fence runs inside a Phlex::HTML page. Fences that are
   # not runnable Ruby (Gemfile lines, Rails configuration, a controller) are skipped by content.
   class Docs
-    SKIP = [ /\A# Gemfile/, /ApplicationController/, /config\.phlex_shadcn/, /Phlex::Shadcn\.configure/ ].freeze
+    SKIP = [ /\A# Gemfile/, /ApplicationController/, /config\.chadcn/, /Chadcn\.configure/ ].freeze
     # Fences that fail today for a known gem defect. Each must keep failing with its expected error (XFAIL); one that renders fails
     # the run (XPASS), so the PR that fixes the defect also removes its entry here.
     KNOWN_RED = [].freeze
@@ -34,7 +34,7 @@ module Smoke
     end
 
     def call
-      Tempfile.create([ "phlex-shadcn-doc-fences", ".json" ]) do |file|
+      Tempfile.create([ "chadcn-doc-fences", ".json" ]) do |file|
         file.write(JSON.generate(fences))
         file.flush
         output, status = Open3.capture2e(RbConfig.ruby, "-I", @gem_root.join("lib").to_s, "-e", RUNNER, file.path)
@@ -45,8 +45,8 @@ module Smoke
     # The fences are this gem's own documentation, evaluated on purpose: ruby-gem-conventions R12 forbids eval of caller input.
     RUNNER = <<~'RUBY'
       require "json"
-      require "phlex/shadcn"
-      Phlex::Shadcn::Loader.eager_load
+      require "chadcn"
+      Chadcn::Loader.eager_load
 
       module Views; class Base < Phlex::HTML; end; module Demo; end; end
       Invoice = Struct.new(:number, :amount)
@@ -66,7 +66,7 @@ module Smoke
             if fence[:code].match?(/^class Views::/)
               TOPLEVEL_BINDING.eval(fence[:code], label)
               Views::Demo::Index.new.call
-            elsif fence[:code].start_with?('require "phlex/shadcn"')
+            elsif fence[:code].start_with?('require "chadcn"')
               TOPLEVEL_BINDING.eval(fence[:code], label)
             else
               page = Class.new(page_class)

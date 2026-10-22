@@ -2,8 +2,8 @@
 // (Playwright); there is no jsdom, no Rails server, no vite and no servers.json. A page at http://primitives.test/ is served
 // from memory through page.route: its importmap maps the `shadcn/primitives/<name>` specifiers (and the vendored
 // @floating-ui packages) to the gem files, so a test does `await import("shadcn/primitives/presence")` inside page.evaluate.
-// Playwright is resolved from the gem's dev kit (dev/react-shadcn-catalog/node_modules): PHLEX_SHADCN_PLAYWRIGHT (a directory with
-// node_modules/playwright), PHLEX_SHADCN_DEV_ROOT (relative paths are resolved from the working directory), the dev kit of this
+// Playwright is resolved from the gem's dev kit (dev/react-shadcn-catalog/node_modules): CHADCN_PLAYWRIGHT (a directory with
+// node_modules/playwright), CHADCN_DEV_ROOT (relative paths are resolved from the working directory), the dev kit of this
 // checkout, else the one of the main checkout when this is a git worktree (worktrees do not carry node_modules).
 import fs from "node:fs";
 import path from "node:path";

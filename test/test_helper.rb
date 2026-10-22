@@ -2,7 +2,7 @@
 
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 
-require "phlex/shadcn"
+require "chadcn"
 require "minitest/autorun"
 require "nokogiri"
 require "net/http"

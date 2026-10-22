@@ -18,7 +18,7 @@ module Smoke
 
     # The shell steps of the Rails quick start, in order (`bundle install`, the install generator, the Tailwind build).
     def install_commands
-      fence(:bash) { |code| code.include?("phlex:shadcn:install") }.lines.map(&:strip).reject(&:empty?)
+      fence(:bash) { |code| code.include?("chadcn:install") }.lines.map(&:strip).reject(&:empty?)
     end
 
     # The Gemfile lines of the Rails quick start (comments dropped).
@@ -33,7 +33,7 @@ module Smoke
     def controller_source = fence(:ruby) { |code| code.include?("class DemoController") }
 
     # The plain-Ruby usage (no Rails).
-    def without_rails_source = fence(:ruby) { |code| code.start_with?('require "phlex/shadcn"') }
+    def without_rails_source = fence(:ruby) { |code| code.start_with?('require "chadcn"') }
 
     # The phlex-rails setup step the quick start names inline ("`bin/rails g phlex:install` sets up app/views ...").
     def phlex_rails_install_command

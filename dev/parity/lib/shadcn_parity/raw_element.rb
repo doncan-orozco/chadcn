@@ -2,7 +2,7 @@
 
 # A raw HTML element of a scenario tree (`_div`, `_a`...). Also usable as the `as_child:` instance of a part, so
 # `{ "asChild": true }` over a raw `_a` child goes through the same Radix Slot merge as a component child.
-class ShadcnParity::RawElement < Phlex::Shadcn::Base
+class ShadcnParity::RawElement < Chadcn::Base
   VOID = %w[area base br col embed hr img input link meta source track wbr].freeze
 
   def initialize(name, **attrs)

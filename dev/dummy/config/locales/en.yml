@@ -1,6 +1,6 @@
 en:
   catalog:
-    title: "phlex-shadcn catalog"
+    title: "chadcn catalog"
     subtitle:
       one: "%{count} ported component, rendered from its scenario file"
       other: "%{count} ported components, rendered from their scenario files"

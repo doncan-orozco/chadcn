@@ -1,4 +1,4 @@
-// Stub components that prove the harness before any real component uses it (see gems/phlex-shadcn/dev/port/scenarios/_harness.json).
+// Stub components that prove the harness before any real component uses it (see gems/chadcn/dev/port/scenarios/_harness.json).
 // `_Probe` / `_ProbeGroup` / `_ProbeGroupItem` are the React twins of ShadcnParity::Probe / ProbeGroup / ProbeGroup::Item.
 import * as React from "react"
 import { Slot } from "radix-ui"

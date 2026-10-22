@@ -1,6 +1,6 @@
 # Marker (`Components::V2::Marker`)
 
-Oracle: `gems/phlex-shadcn/dev/port/oracle/src/marker.tsx` (style `new-york-v4`, source_sha `036277635df058b8`), manifest `gems/phlex-shadcn/dev/port/oracle/manifest/marker.json`, registry item `gems/phlex-shadcn/dev/port/oracle/registry/marker.json` (`registry:ui`, dependencies `cn`, `radix-ui`, no registry dependencies). Tier `static`: no Stimulus controller, no primitive. Exports `Marker`, `MarkerIcon`, `MarkerContent`, `markerVariants`; data-slots `marker`, `marker-icon`, `marker-content`. Radix primitive used: `Slot` only (`import { Slot } from "radix-ui"`, `const Comp = asChild ? Slot.Root : "div"` in `function Marker`).
+Oracle: `gems/chadcn/dev/port/oracle/src/marker.tsx` (style `new-york-v4`, source_sha `036277635df058b8`), manifest `gems/chadcn/dev/port/oracle/manifest/marker.json`, registry item `gems/chadcn/dev/port/oracle/registry/marker.json` (`registry:ui`, dependencies `cn`, `radix-ui`, no registry dependencies). Tier `static`: no Stimulus controller, no primitive. Exports `Marker`, `MarkerIcon`, `MarkerContent`, `markerVariants`; data-slots `marker`, `marker-icon`, `marker-content`. Radix primitive used: `Slot` only (`import { Slot } from "radix-ui"`, `const Comp = asChild ? Slot.Root : "div"` in `function Marker`).
 
 ## API
 
@@ -71,7 +71,7 @@ Pure CSS, no `data-state`, `disabled:`, `aria-invalid:`, `focus-visible:`, `peer
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)
 
-`Phlex::Shadcn::Marker` MUST `yield self` from `view_template`; `Phlex::Shadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Marker::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Phlex::Shadcn::Marker::Content.new`) stay valid.
+`Chadcn::Marker` MUST `yield self` from `view_template`; `Chadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Marker::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Chadcn::Marker::Content.new`) stay valid.
 
 | helper | part class | React export |
 |---|---|---|

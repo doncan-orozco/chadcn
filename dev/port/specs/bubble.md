@@ -1,6 +1,6 @@
 # Bubble (`Components::V2::Bubble`)
 
-Oracle: `gems/phlex-shadcn/dev/port/oracle/src/bubble.tsx` (style `new-york-v4`, source_sha `df1e461e33e835b7`; byte-identical to upstream `apps/v4/registry/new-york-v4/ui/bubble.tsx` on 2026-10-09), manifest `gems/phlex-shadcn/dev/port/oracle/manifest/bubble.json`. Tier `static`: no Stimulus controller, no primitive. Exports `BubbleGroup`, `Bubble`, `BubbleContent`, `BubbleReactions` (the two cva tables `bubbleVariants` / `bubbleReactionsVariants` are NOT exported). Radix primitive used: `Slot` only (`BubbleContent`: `const Comp = asChild ? Slot.Root : "div"`).
+Oracle: `gems/chadcn/dev/port/oracle/src/bubble.tsx` (style `new-york-v4`, source_sha `df1e461e33e835b7`; byte-identical to upstream `apps/v4/registry/new-york-v4/ui/bubble.tsx` on 2026-10-09), manifest `gems/chadcn/dev/port/oracle/manifest/bubble.json`. Tier `static`: no Stimulus controller, no primitive. Exports `BubbleGroup`, `Bubble`, `BubbleContent`, `BubbleReactions` (the two cva tables `bubbleVariants` / `bubbleReactionsVariants` are NOT exported). Radix primitive used: `Slot` only (`BubbleContent`: `const Comp = asChild ? Slot.Root : "div"`).
 
 ## API
 
@@ -91,7 +91,7 @@ Styling semantics the port must not alter (pure CSS, pinned by scenarios):
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)
 
-`Phlex::Shadcn::Bubble` MUST `yield self` from `view_template`; `Phlex::Shadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Bubble::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Phlex::Shadcn::Bubble::Content.new`) stay valid.
+`Chadcn::Bubble` MUST `yield self` from `view_template`; `Chadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Bubble::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Chadcn::Bubble::Content.new`) stay valid.
 
 | helper | part class | React export |
 |---|---|---|

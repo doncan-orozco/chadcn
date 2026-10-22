@@ -8,8 +8,8 @@ require "rbconfig"
 
 # The doctor against fixture apps built in a temp directory: a healthy one and broken variants. No Rails is loaded.
 class DoctorTest < Minitest::Test
-  Doctor = Phlex::Shadcn::Doctor
-  GEM_ROOT = Phlex::Shadcn.root
+  Doctor = Chadcn::Doctor
+  GEM_ROOT = Chadcn.root
 
   GEMS = {
     "tailwindcss-rails" => "4.6.0", "tailwindcss-ruby" => "4.3.3", "importmap-rails" => "2.2.3", "stimulus-rails" => "1.3.4",
@@ -18,14 +18,14 @@ class DoctorTest < Minitest::Test
 
   CSS = <<~CSS
     @import "tailwindcss";
-    /* phlex-shadcn:start (managed by rails g phlex:shadcn:install) */
+    /* chadcn:start (managed by rails g chadcn:install) */
     @source "%<source>s";
-    @import "../builds/tailwind/phlex-shadcn";
+    @import "../builds/tailwind/chadcn";
     @import "./theme/theme.css";
-    /* phlex-shadcn:end */
+    /* chadcn:end */
   CSS
 
-  def setup = @root = Pathname.new(Dir.mktmpdir("phlex-shadcn-doctor"))
+  def setup = @root = Pathname.new(Dir.mktmpdir("chadcn-doctor"))
 
   def teardown = FileUtils.remove_entry(@root)
 
@@ -37,7 +37,7 @@ class DoctorTest < Minitest::Test
 
   def build_healthy_app
     write("app/assets/tailwind/application.css", format(CSS, source: GEM_ROOT.join("lib")))
-    write("app/assets/builds/tailwind/phlex-shadcn.css", "/* built */")
+    write("app/assets/builds/tailwind/chadcn.css", "/* built */")
     write("app/assets/tailwind/theme/theme.css", "/* theme */")
     FileUtils.mkdir_p(@root.join("app/assets/tailwind/theme/presets"))
     write("config/importmap.rb", %(pin "application"))
@@ -74,16 +74,16 @@ class DoctorTest < Minitest::Test
     run = report
 
     refute_predicate run, :ok?
-    assert_check run, "source block", :fail, "phlex:shadcn:install"
-    assert_check run, "engine bundle", :fail, "phlex:shadcn:install"
-    assert_check run, "theme import", :fail, "phlex:shadcn:install"
+    assert_check run, "source block", :fail, "chadcn:install"
+    assert_check run, "engine bundle", :fail, "chadcn:install"
+    assert_check run, "theme import", :fail, "chadcn:install"
   end
 
   def test_a_source_line_that_does_not_reach_the_gem_warns
     build_healthy_app
     write("app/assets/tailwind/application.css", format(CSS, source: "../../../nowhere"))
 
-    assert_check report, "source block", :warn, "phlex:shadcn:install"
+    assert_check report, "source block", :warn, "chadcn:install"
   end
 
   def test_tailwind_3_fails
@@ -99,7 +99,7 @@ class DoctorTest < Minitest::Test
     run = report(gems: GEMS.merge("tailwindcss-rails" => Gem::Version.new("4.2.3")))
 
     assert_check run, "tailwind", :fail, "bundle update tailwindcss-rails (4.3.0 or newer), then bin/rails tailwindcss:build"
-    assert_equal "4.3.0", Phlex::Shadcn::Doctor::Checks::Tailwind::MINIMUM_ENGINE_SUPPORT.to_s
+    assert_equal "4.3.0", Chadcn::Doctor::Checks::Tailwind::MINIMUM_ENGINE_SUPPORT.to_s
   end
 
   def test_the_first_tailwind_rails_with_engine_bundling_passes
@@ -116,7 +116,7 @@ class DoctorTest < Minitest::Test
   end
 
   def test_the_usage_lists_every_format
-    assert_includes Phlex::Shadcn::Doctor::Report::USAGE, "phlex_shadcn:doctor[text|json]"
+    assert_includes Chadcn::Doctor::Report::USAGE, "chadcn:doctor[text|json]"
   end
 
   def test_a_tailwind_3_entry_file_fails
@@ -136,7 +136,7 @@ class DoctorTest < Minitest::Test
     build_healthy_app
     FileUtils.rm_rf(@root.join("app/assets/tailwind/theme"))
 
-    assert_check report, "theme files", :fail, "phlex:shadcn:install"
+    assert_check report, "theme files", :fail, "chadcn:install"
   end
 
   def test_no_configured_theme_directory_fails
@@ -216,9 +216,9 @@ class DoctorTest < Minitest::Test
   def test_a_block_without_a_source_line_fails
     build_healthy_app
     write("app/assets/tailwind/application.css",
-          %(@import "tailwindcss";\n/* phlex-shadcn:start (managed by rails g phlex:shadcn:install) */\n@import "../builds/tailwind/phlex-shadcn";\n/* phlex-shadcn:end */\n))
+          %(@import "tailwindcss";\n/* chadcn:start (managed by rails g chadcn:install) */\n@import "../builds/tailwind/chadcn";\n/* chadcn:end */\n))
 
-    assert_check report, "source block", :fail, "phlex:shadcn:install"
+    assert_check report, "source block", :fail, "chadcn:install"
     assert_includes result(report, "source block").message, "no @source line"
   end
 
@@ -227,15 +227,15 @@ class DoctorTest < Minitest::Test
     write("app/assets/tailwind/application.css", format(CSS, source: GEM_ROOT.join("lib")).gsub(/^@import "\.[^\n]*\n/, ""))
     run = report
 
-    assert_check run, "engine bundle", :fail, "phlex:shadcn:install"
-    assert_check run, "theme import", :fail, "phlex:shadcn:install"
+    assert_check run, "engine bundle", :fail, "chadcn:install"
+    assert_check run, "theme import", :fail, "chadcn:install"
   end
 
   def test_theme_css_missing_from_an_existing_directory_fails
     build_healthy_app
     FileUtils.rm_f(@root.join("app/assets/tailwind/theme/theme.css"))
 
-    assert_check report, "theme files", :fail, "phlex:shadcn:install"
+    assert_check report, "theme files", :fail, "chadcn:install"
   end
 
   def test_missing_phlex_fails_and_phlex_without_phlex_rails_passes
@@ -247,7 +247,7 @@ class DoctorTest < Minitest::Test
 
   def test_a_check_that_raises_is_a_failed_result_and_the_others_still_run
     build_healthy_app
-    write("app/assets/tailwind/application.css", "@import \"tailwindcss\";\n/* phlex-shadcn:start (managed by rails g phlex:shadcn:install) */\n\xFF\xFE\n/* phlex-shadcn:end */\n".b)
+    write("app/assets/tailwind/application.css", "@import \"tailwindcss\";\n/* chadcn:start (managed by rails g chadcn:install) */\n\xFF\xFE\n/* chadcn:end */\n".b)
     run = report
     crashed = result(run, "tailwind")
 
@@ -291,7 +291,7 @@ class DoctorTest < Minitest::Test
   end
 
   def test_the_default_phlex_requirement_is_the_gemspecs
-    spec = Gem::Specification.load(GEM_ROOT.join("phlex-shadcn.gemspec").to_s)
+    spec = Gem::Specification.load(GEM_ROOT.join("chadcn.gemspec").to_s)
     declared = spec.dependencies.find { |dep| dep.name == "phlex" }.requirement
 
     assert_equal declared, Gem::Requirement.new(Doctor::Context::DEFAULT_PHLEX_REQUIREMENT)
@@ -303,7 +303,7 @@ class DoctorTest < Minitest::Test
     text = report.to_text
 
     assert_includes text, "[FAIL] source block"
-    assert_includes text, "       fix: bin/rails g phlex:shadcn:install"
+    assert_includes text, "       fix: bin/rails g chadcn:install"
     assert_match(/\d+ passed, \d+ warnings, \d+ failed\z/, text)
   end
 
@@ -354,7 +354,7 @@ class DoctorTest < Minitest::Test
 
   def test_imports_with_a_css_suffix_count
     build_healthy_app
-    css = format(CSS, source: GEM_ROOT.join("lib")).sub("phlex-shadcn\";", "phlex-shadcn.css\";").sub("theme.css", "theme")
+    css = format(CSS, source: GEM_ROOT.join("lib")).sub("chadcn\";", "chadcn.css\";").sub("theme.css", "theme")
     write("app/assets/tailwind/application.css", css)
 
     assert_equal [ :pass ], report.results.map(&:status).uniq
@@ -435,7 +435,7 @@ class DoctorTest < Minitest::Test
 
   def test_the_doctor_loads_without_rails
     refute defined?(Rails), "Rails is loaded in the plain suite: this test would prove nothing"
-    script = 'require "phlex/shadcn"; Phlex::Shadcn::Doctor.check_classes; abort "Rails loaded" if defined?(Rails)'
+    script = 'require "chadcn"; Chadcn::Doctor.check_classes; abort "Rails loaded" if defined?(Rails)'
     _out, err, status = Open3.capture3(RbConfig.ruby, "-I", GEM_ROOT.join("lib").to_s, "-e", script)
 
     assert_predicate status, :success?, err

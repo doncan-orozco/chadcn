@@ -11,30 +11,30 @@ require_relative "runner"
 class SmokeRunnerTest < Minitest::Test
   GEM_ROOT = Pathname.new(File.expand_path("../..", __dir__))
   # Monorepo: the workflow sits at the repository root; once the gem has its own repository, at the gem root.
-  WORKFLOW_CANDIDATES = [ GEM_ROOT.join(".github/workflows/phlex-shadcn.yml"),
-                          GEM_ROOT.join("../../.github/workflows/phlex-shadcn.yml") ].freeze
+  WORKFLOW_CANDIDATES = [ GEM_ROOT.join(".github/workflows/chadcn.yml"),
+                          GEM_ROOT.join("../../.github/workflows/chadcn.yml") ].freeze
 
   def readme = Smoke::Readme.new(GEM_ROOT.join("README.md"))
 
   def workflow
     path = WORKFLOW_CANDIDATES.find(&:file?)
-    flunk "no phlex-shadcn.yml at #{WORKFLOW_CANDIDATES.join(' or ')}: the CI config moved, update this test" unless path
+    flunk "no chadcn.yml at #{WORKFLOW_CANDIDATES.join(' or ')}: the CI config moved, update this test" unless path
     YAML.load_file(path)
   end
 
   def test_the_readme_install_steps_are_the_ones_the_smoke_replays
-    assert_equal [ "bundle install", "bin/rails g phlex:shadcn:install", "bin/rails tailwindcss:build" ], readme.install_commands
+    assert_equal [ "bundle install", "bin/rails g chadcn:install", "bin/rails tailwindcss:build" ], readme.install_commands
     assert_equal "bin/rails g phlex:install", readme.phlex_rails_install_command
-    assert_includes readme.gemfile_lines, 'gem "phlex-shadcn"'
+    assert_includes readme.gemfile_lines, 'gem "chadcn"'
     assert_includes readme.gemfile_lines, 'gem "phlex-rails"'
     assert_match(/class Views::Demo::Index < Views::Base/, readme.view_source)
     assert_match(/class DemoController < ApplicationController/, readme.controller_source)
-    assert_match(%r{\Arequire "phlex/shadcn"}, readme.without_rails_source)
+    assert_match(/\Arequire "chadcn"/, readme.without_rails_source)
   end
 
   def test_the_readme_reader_fails_loudly_when_the_quick_start_is_gone
     Tempfile.create([ "README", ".md" ]) do |file|
-      file.write("# phlex-shadcn\n\n```ruby\nputs 1\n```\n")
+      file.write("# chadcn\n\n```ruby\nputs 1\n```\n")
       file.flush
 
       error = assert_raises(RuntimeError) { Smoke::Readme.new(file.path).install_commands }
@@ -85,12 +85,12 @@ class SmokeRunnerTest < Minitest::Test
     triggers = workflow["on"] || workflow[true]
 
     %w[push pull_request].each do |event|
-      assert_equal [ "gems/phlex-shadcn/**", ".github/workflows/phlex-shadcn.yml" ], triggers.fetch(event).fetch("paths"), event
+      assert_equal [ "gems/chadcn/**", ".github/workflows/chadcn.yml" ], triggers.fetch(event).fetch("paths"), event
     end
   end
 
   def test_the_matrix_rubies_are_the_ones_the_gemspec_claims
-    spec = Gem::Specification.load(GEM_ROOT.join("phlex-shadcn.gemspec").to_s)
+    spec = Gem::Specification.load(GEM_ROOT.join("chadcn.gemspec").to_s)
     rubies = workflow.dig("jobs", "gem", "strategy", "matrix").fetch("ruby").map(&:to_s)
     floor = spec.required_ruby_version.requirements.find { |operator, _| operator == ">=" }.last.segments.first(2).join(".")
 
@@ -99,7 +99,7 @@ class SmokeRunnerTest < Minitest::Test
   end
 
   def test_the_matrix_phlex_rows_span_the_gemspec_range
-    spec = Gem::Specification.load(GEM_ROOT.join("phlex-shadcn.gemspec").to_s)
+    spec = Gem::Specification.load(GEM_ROOT.join("chadcn.gemspec").to_s)
     requirement = spec.dependencies.find { |dependency| dependency.name == "phlex" }.requirement
     floor = requirement.requirements.first.last
     versions = workflow.dig("jobs", "gem", "strategy", "matrix").fetch("gemfile").map { |gemfile| phlex_version_of(GEM_ROOT.join(gemfile)) }

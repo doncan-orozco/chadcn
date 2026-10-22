@@ -6,24 +6,24 @@ require "open3"
 require "rbconfig"
 require "tmpdir"
 require_relative "engine_helper"
-require "generators/phlex/shadcn/eject/eject_generator"
+require "generators/chadcn/eject/eject_generator"
 
 # Ejected components (dev/decisions/eject-override.md): a file in the override directory replaces the gem's file of the same path.
 # Zeitwerk loaders and the constants they define are process-global, so every Rails scenario boots its own application in a child
 # process (CHILD below) and reports JSON; the in-process tests cover the settings, the file rules and the doctor check.
 class EngineTest::Eject < Minitest::Test
-  Overrides = Phlex::Shadcn::Overrides
-  Check = Phlex::Shadcn::Doctor::Checks::Ejected
-  Context = Phlex::Shadcn::Doctor::Context
+  Overrides = Chadcn::Overrides
+  Check = Chadcn::Doctor::Checks::Ejected
+  Context = Chadcn::Doctor::Context
   LIB = File.expand_path("../../lib", __dir__)
-  DIR = "app/components/phlex_shadcn"
+  DIR = "app/components/chadcn"
 
   # A Rails application whose root is ARGV[0]; ARGV[1] names the scenario, ARGV[2] is "eager" or "lazy".
   CHILD = <<~'RUBY'
     require "json"
     require "logger"
     require "rails"
-    require "phlex/shadcn"
+    require "chadcn"
 
     root, scenario, mode = ARGV
     ENV["RAILS_ENV"] = "test"
@@ -40,42 +40,42 @@ class EngineTest::Eject < Minitest::Test
     begin
       ChildApp.initialize!
       result["boot"] = "ok"
-      button = Phlex::Shadcn::Button
+      button = Chadcn::Button
       result["button"] = button.new { "x" }.call
       result["button_source"] = source(button)
-      result["card_source"] = source(Phlex::Shadcn::Card)
-      result["card"] = Phlex::Shadcn::Card.new { "c" }.call
-      result["dialog_title_source"] = source(Phlex::Shadcn::Dialog::Title)
-      result["dialog_content_source"] = source(Phlex::Shadcn::Dialog::Content)
-      result["footer_uses_ejected_button"] = Phlex::Shadcn::Dialog::Footer.new(show_close_button: true).call.include?("data-ejected")
-      result["toaster_same_class"] = defined?(Phlex::Shadcn::Toaster) ? Phlex::Shadcn::Toaster.equal?(Phlex::Shadcn::Sonner::Toaster) : nil
-      result["override_dir"] = Phlex::Shadcn.config.override_dir
-      result["main_loader_roots"] = Rails.autoloaders.main.dirs.grep(/phlex_shadcn/)
+      result["card_source"] = source(Chadcn::Card)
+      result["card"] = Chadcn::Card.new { "c" }.call
+      result["dialog_title_source"] = source(Chadcn::Dialog::Title)
+      result["dialog_content_source"] = source(Chadcn::Dialog::Content)
+      result["footer_uses_ejected_button"] = Chadcn::Dialog::Footer.new(show_close_button: true).call.include?("data-ejected")
+      result["toaster_same_class"] = defined?(Chadcn::Toaster) ? Chadcn::Toaster.equal?(Chadcn::Sonner::Toaster) : nil
+      result["override_dir"] = Chadcn.config.override_dir
+      result["main_loader_roots"] = Rails.autoloaders.main.dirs.grep(%r{/components/chadcn\z})
       if scenario == "reload_sonner"
-        path = File.join(root, "app/components/phlex_shadcn/sonner/toaster.rb")
-        File.write(path, File.read(path) + "\nPhlex::Shadcn::Sonner::Toaster::EDITED = 'yes'\n")
+        path = File.join(root, "app/components/chadcn/sonner/toaster.rb")
+        File.write(path, File.read(path) + "\nChadcn::Sonner::Toaster::EDITED = 'yes'\n")
         Rails.application.reloader.reload!
-        result["toaster_edited"] = Phlex::Shadcn::Toaster.const_defined?(:EDITED, false)
-        result["toaster_same_after"] = Phlex::Shadcn::Toaster.equal?(Phlex::Shadcn::Sonner::Toaster)
+        result["toaster_edited"] = Chadcn::Toaster.const_defined?(:EDITED, false)
+        result["toaster_same_after"] = Chadcn::Toaster.equal?(Chadcn::Sonner::Toaster)
       end
       if scenario == "reload"
-        path = File.join(root, "app/components/phlex_shadcn/button.rb")
+        path = File.join(root, "app/components/chadcn/button.rb")
         File.write(path, File.read(path).sub('ejected: "yes"', 'ejected: "edited"'))
         Rails.application.reloader.reload!
-        result["after_edit"] = Phlex::Shadcn::Button.new { "x" }.call
-        result["after_edit_card_source"] = source(Phlex::Shadcn::Card)
+        result["after_edit"] = Chadcn::Button.new { "x" }.call
+        result["after_edit_card_source"] = source(Chadcn::Card)
 
         # A file added while the server runs shadows nothing: the gem's loader registered its constant at boot (documented limit).
-        File.write(File.join(root, "app/components/phlex_shadcn/badge.rb"), "class Phlex::Shadcn::Badge < Phlex::Shadcn::Base\n" \
+        File.write(File.join(root, "app/components/chadcn/badge.rb"), "class Chadcn::Badge < Chadcn::Base\n" \
                    "  def view_template(&) = span(data_ejected: 'late', &)\nend\n")
         Rails.application.reloader.reload!
-        result["after_add_badge_source"] = source(Phlex::Shadcn::Badge)
+        result["after_add_badge_source"] = source(Chadcn::Badge)
 
         # A file removed while the server runs leaves nothing to load (documented limit).
         File.delete(path)
         Rails.application.reloader.reload!
         result["after_remove"] = begin
-          Phlex::Shadcn::Button
+          Chadcn::Button
         rescue NameError => e
           "NameError: #{e.message}"
         end
@@ -90,27 +90,27 @@ class EngineTest::Eject < Minitest::Test
   EARLY = <<~RUBY
     require "json"
     require "rails"
-    require "phlex/shadcn"
+    require "chadcn"
 
-    puts JSON.generate("button" => Phlex::Shadcn::Button.new { "x" }.call)
+    puts JSON.generate("button" => Chadcn::Button.new { "x" }.call)
   RUBY
 
   PLAIN = <<~RUBY
     require "json"
-    require "phlex/shadcn"
+    require "chadcn"
 
     result = {}
-    Phlex::Shadcn.eager_load if ARGV[1] == "eager"
-    result["button"] = Phlex::Shadcn::Button.new { "x" }.call
-    result["button_source"] = Phlex::Shadcn::Button.instance_method(:view_template).source_location.first
-    result["card_source"] = Phlex::Shadcn::Card.instance_method(:view_template).source_location.first
+    Chadcn.eager_load if ARGV[1] == "eager"
+    result["button"] = Chadcn::Button.new { "x" }.call
+    result["button_source"] = Chadcn::Button.instance_method(:view_template).source_location.first
+    result["card_source"] = Chadcn::Card.instance_method(:view_template).source_location.first
     result["rails"] = defined?(Rails).inspect
     puts JSON.generate(result)
   RUBY
 
   def setup
-    @root = Pathname.new(Dir.mktmpdir("phlex-shadcn-eject-app"))
-    @files = Dir.mktmpdir("phlex-shadcn-eject-scripts")
+    @root = Pathname.new(Dir.mktmpdir("chadcn-eject-app"))
+    @files = Dir.mktmpdir("chadcn-eject-scripts")
   end
 
   def teardown
@@ -121,7 +121,7 @@ class EngineTest::Eject < Minitest::Test
   def eject(*names, root: @root, force: false)
     args = [ *names, "--dir", DIR, "--quiet" ]
     args << "--force" if force
-    Phlex::Shadcn::Generators::EjectGenerator.start(args, destination_root: root.to_s)
+    Chadcn::Generators::EjectGenerator.start(args, destination_root: root.to_s)
   end
 
   def override(rel) = @root.join(DIR, rel)
@@ -208,7 +208,7 @@ class EngineTest::Eject < Minitest::Test
     assert_includes result["after_edit"], 'data-ejected="edited"', "an edit is picked up without a restart"
     assert_equal File.join(Overrides::GEM_DIR, "card.rb"), result["after_edit_card_source"]
     assert_equal File.join(Overrides::GEM_DIR, "badge.rb"), result["after_add_badge_source"], "a file added at runtime is not active: restart"
-    assert_match(/NameError: uninitialized constant Phlex::Shadcn::Button/, result["after_remove"], "a file removed at runtime leaves no Button: restart")
+    assert_match(/NameError: uninitialized constant Chadcn::Button/, result["after_remove"], "a file removed at runtime leaves no Button: restart")
   end
 
   def test_a_component_used_before_the_application_initializes_still_loads
@@ -218,15 +218,15 @@ class EngineTest::Eject < Minitest::Test
   def test_referencing_a_component_in_an_environment_file_raises_when_an_override_directory_exists
     eject "button"
     @root.join("config/environments").mkpath
-    @root.join("config/environments/test.rb").write("Phlex::Shadcn::Card\n")
+    @root.join("config/environments/test.rb").write("Chadcn::Card\n")
     result = rails_app("boot")
 
-    assert_match(/LateSettingError: phlex-shadcn components were loaded before the application initialized/, result["error"])
+    assert_match(/LateSettingError: chadcn components were loaded before the application initialized/, result["error"])
   end
 
   def test_referencing_a_component_in_an_environment_file_is_fine_without_an_override_directory
     @root.join("config/environments").mkpath
-    @root.join("config/environments/test.rb").write("Phlex::Shadcn::Card\n")
+    @root.join("config/environments/test.rb").write("Chadcn::Card\n")
 
     assert_equal "ok", rails_app("boot")["boot"]
   end
@@ -251,7 +251,7 @@ class EngineTest::Eject < Minitest::Test
     eject "button"
     FileUtils.mv(override(""), @root.join("components"))
     @root.join("config/environments").mkpath
-    @root.join("config/environments/test.rb").write("Rails.application.configure { config.phlex_shadcn.override_dir = 'components' }\n")
+    @root.join("config/environments/test.rb").write("Rails.application.configure { config.chadcn.override_dir = 'components' }\n")
     result = rails_app("boot")
 
     assert_equal "ok", result["boot"], result["error"]
@@ -259,11 +259,11 @@ class EngineTest::Eject < Minitest::Test
     assert_includes result["button_source"], "components/button.rb"
   end
 
-  def test_a_phlex_shadcn_configure_block_before_boot_sets_the_directory
+  def test_a_chadcn_configure_block_before_boot_sets_the_directory
     eject "button"
     FileUtils.mv(override(""), @root.join("components"))
     @root.join("config/environments").mkpath
-    @root.join("config/environments/test.rb").write("Phlex::Shadcn.configure { |c| c.override_dir = #{@root.join('components').to_s.inspect} }\n")
+    @root.join("config/environments/test.rb").write("Chadcn.configure { |c| c.override_dir = #{@root.join('components').to_s.inspect} }\n")
     result = rails_app("boot")
 
     assert_equal "ok", result["boot"], result["error"]
@@ -272,26 +272,26 @@ class EngineTest::Eject < Minitest::Test
 
   def test_setting_the_directory_from_an_initializer_raises_instead_of_being_ignored
     @root.join("config/initializers").mkpath
-    @root.join("config/initializers/phlex.rb").write("Rails.application.config.phlex_shadcn.override_dir = 'late'\n")
+    @root.join("config/initializers/phlex.rb").write("Rails.application.config.chadcn.override_dir = 'late'\n")
     result = rails_app("boot")
 
-    assert_match(/LateSettingError: config.phlex_shadcn.override_dir was changed after/, result["error"])
+    assert_match(/LateSettingError: config.chadcn.override_dir was changed after/, result["error"])
   end
 
   def test_configuring_the_directory_from_an_initializer_raises_instead_of_being_ignored
     @root.join("config/initializers").mkpath
-    @root.join("config/initializers/phlex.rb").write("Phlex::Shadcn.configure { |c| c.override_dir = '/late' }\n")
+    @root.join("config/initializers/phlex.rb").write("Chadcn.configure { |c| c.override_dir = '/late' }\n")
     result = rails_app("boot")
 
-    assert_match(/LateSettingError: override_dir was set after phlex-shadcn loaded/, result["error"])
+    assert_match(/LateSettingError: override_dir was set after chadcn loaded/, result["error"])
   end
 
   def test_the_setter_raises_once_the_loader_is_set_up_unless_the_value_is_unchanged
-    config = Phlex::Shadcn.config
+    config = Chadcn.config
     current = config.override_dir
 
-    assert_predicate Phlex::Shadcn, :setup?
-    error = assert_raises(Phlex::Shadcn::Configuration::LateSettingError) { config.override_dir = "/elsewhere" }
+    assert_predicate Chadcn, :setup?
+    error = assert_raises(Chadcn::Configuration::LateSettingError) { config.override_dir = "/elsewhere" }
     assert_includes error.message, "config/application.rb"
     config.override_dir = current
 
@@ -302,7 +302,7 @@ class EngineTest::Eject < Minitest::Test
     define_method(:"test_a_plain_phlex_process_reads_the_directory_from_the_environment_#{mode}") do
       eject "button"
       edit("button.rb", 'data: { slot: "button",', 'data: { slot: "button", ejected: "yes",')
-      result = child(PLAIN, "-", mode, env: { "PHLEX_SHADCN_OVERRIDE_DIR" => override("").to_s })
+      result = child(PLAIN, "-", mode, env: { "CHADCN_OVERRIDE_DIR" => override("").to_s })
 
       assert_includes result["button"], 'data-ejected="yes"'
       assert_equal "nil", result["rails"], "no Rails involved"
@@ -311,13 +311,13 @@ class EngineTest::Eject < Minitest::Test
   end
 
   def test_a_plain_phlex_process_without_the_variable_loads_the_gem
-    result = child(PLAIN, "-", "lazy", env: { "PHLEX_SHADCN_OVERRIDE_DIR" => "" })
+    result = child(PLAIN, "-", "lazy", env: { "CHADCN_OVERRIDE_DIR" => "" })
 
     assert_equal File.join(Overrides::GEM_DIR, "button.rb"), result["button_source"]
   end
 
   def test_a_missing_override_directory_is_ignored
-    result = child(PLAIN, "-", "lazy", env: { "PHLEX_SHADCN_OVERRIDE_DIR" => @root.join("nope").to_s })
+    result = child(PLAIN, "-", "lazy", env: { "CHADCN_OVERRIDE_DIR" => @root.join("nope").to_s })
 
     assert_equal File.join(Overrides::GEM_DIR, "button.rb"), result["button_source"]
   end
@@ -369,7 +369,7 @@ class EngineTest::Eject < Minitest::Test
   # The doctor check
 
   def check(gem_dir: Overrides::GEM_DIR, version: "0.1.0")
-    Check.call(Context.new(root: @root, gems: { "phlex-shadcn" => Gem::Version.new(version) }), override_dir: @root.join(DIR).to_s, gem_dir: gem_dir)
+    Check.call(Context.new(root: @root, gems: { "chadcn" => Gem::Version.new(version) }), override_dir: @root.join(DIR).to_s, gem_dir: gem_dir)
   end
 
   def test_doctor_passes_when_nothing_is_ejected
@@ -385,20 +385,20 @@ class EngineTest::Eject < Minitest::Test
   end
 
   def test_doctor_is_registered_in_the_report
-    names = Phlex::Shadcn::Doctor.check_classes.map { |klass| klass::NAME }
+    names = Chadcn::Doctor.check_classes.map { |klass| klass::NAME }
 
     assert_includes names, Check::NAME
   end
 
   def test_doctor_warns_about_a_copy_whose_gem_file_changed
     eject "button"
-    gem_dir = Pathname.new(Dir.mktmpdir("phlex-shadcn-newer-gem"))
+    gem_dir = Pathname.new(Dir.mktmpdir("chadcn-newer-gem"))
     FileUtils.cp_r("#{Overrides::GEM_DIR}/.", gem_dir)
     gem_dir.join("button.rb").write("#{gem_dir.join('button.rb').read}# new in 0.2.0\n")
     result = check(gem_dir: gem_dir.to_s, version: "0.2.0")
 
     assert_equal :warn, result.status
-    assert_includes result.message, "button (button.rb) changed upstream: copied from phlex-shadcn 0.1.0, installed 0.2.0"
+    assert_includes result.message, "button (button.rb) changed upstream: copied from chadcn 0.1.0, installed 0.2.0"
     assert_includes result.fix, "--diff"
   ensure
     FileUtils.remove_entry(gem_dir) if gem_dir
@@ -436,20 +436,20 @@ class EngineTest::Eject < Minitest::Test
 
   def test_doctor_warns_about_a_copy_whose_gem_file_is_gone
     eject "badge"
-    gem_dir = Pathname.new(Dir.mktmpdir("phlex-shadcn-gem-without-badge"))
+    gem_dir = Pathname.new(Dir.mktmpdir("chadcn-gem-without-badge"))
     FileUtils.cp_r("#{Overrides::GEM_DIR}/.", gem_dir)
     gem_dir.join("badge.rb").delete
     result = check(gem_dir: gem_dir.to_s)
 
     assert_equal :warn, result.status
-    assert_includes result.message, "badge.rb was ejected from phlex-shadcn but the gem no longer has that file"
+    assert_includes result.message, "badge.rb was ejected from chadcn but the gem no longer has that file"
   ensure
     FileUtils.remove_entry(gem_dir) if gem_dir
   end
 
   def test_doctor_leaves_the_apps_own_file_next_to_an_ejected_unit_alone
     eject "dialog"
-    override("dialog/my_extra.rb").write("class Phlex::Shadcn::Dialog::MyExtra < Phlex::Shadcn::Base; end\n")
+    override("dialog/my_extra.rb").write("class Chadcn::Dialog::MyExtra < Chadcn::Base; end\n")
 
     assert_equal :pass, check.status
   end
@@ -471,7 +471,7 @@ class EngineTest::Eject < Minitest::Test
 
   def test_doctor_leaves_the_apps_own_components_alone
     override("my_card.rb").dirname.mkpath
-    override("my_card.rb").write("class Phlex::Shadcn::MyCard < Phlex::Shadcn::Base; end\n")
+    override("my_card.rb").write("class Chadcn::MyCard < Chadcn::Base; end\n")
 
     assert_equal :pass, check.status
   end
@@ -483,7 +483,7 @@ class EngineTest::Eject < Minitest::Test
   end
 
   def test_the_doctor_task_covers_the_check_in_the_booted_application
-    report = Phlex::Shadcn::Doctor.run(Context.new(root: EngineTest::ROOT, theme_dir: EngineTest::THEME_DIR))
+    report = Chadcn::Doctor.run(Context.new(root: EngineTest::ROOT, theme_dir: EngineTest::THEME_DIR))
 
     assert(report.results.any? { |result| result.name == Check::NAME })
   end

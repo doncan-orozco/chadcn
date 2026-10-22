@@ -2,7 +2,7 @@
 // the same step (click the trigger by role) on the README's Dialog (trigger "Edit profile"), asserted by behavior (Radix DOM, focus
 // moves in), then Escape closes it and focus returns to the trigger. The oracle compare stays in the dev kit's parity gates.
 // Usage: node test/smoke/app/dialog_scenario.mjs http://127.0.0.1:PORT/demo
-// Playwright comes from PHLEX_SHADCN_PLAYWRIGHT (a directory with node_modules/playwright), else the gem's dev kit
+// Playwright comes from CHADCN_PLAYWRIGHT (a directory with node_modules/playwright), else the gem's dev kit
 // (dev/react-shadcn-catalog/node_modules of this checkout, or of the main checkout: worktrees carry no node_modules).
 import fs from "node:fs";
 import path from "node:path";
@@ -29,7 +29,7 @@ function mainCheckoutGemRoot() {
 }
 
 function loadPlaywright() {
-  const dirs = [process.env.PHLEX_SHADCN_PLAYWRIGHT];
+  const dirs = [process.env.CHADCN_PLAYWRIGHT];
   for (const gemRoot of [GEM_ROOT, mainCheckoutGemRoot()]) {
     if (gemRoot) dirs.push(path.join(gemRoot, CATALOG));
   }
@@ -39,7 +39,7 @@ function loadPlaywright() {
   try {
     return createRequire(import.meta.url)("playwright");
   } catch {
-    throw new Error(`playwright not found; set PHLEX_SHADCN_PLAYWRIGHT or run npm install in ${path.join(GEM_ROOT, CATALOG)}`);
+    throw new Error(`playwright not found; set CHADCN_PLAYWRIGHT or run npm install in ${path.join(GEM_ROOT, CATALOG)}`);
   }
 }
 

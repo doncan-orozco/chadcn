@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Ejected compound root: a whole component is ejected as one unit (dialog.rb + dialog/), see the decision note.
-class Phlex::Shadcn::Dialog < Phlex::Shadcn::Base
+class Chadcn::Dialog < Chadcn::Base
   EJECTED = :root
 
   def view_template(&block)

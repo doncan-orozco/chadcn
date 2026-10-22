@@ -1,6 +1,6 @@
 # Kbd (`Components::V2::Kbd`, `Components::V2::Kbd::Group`)
 
-Oracle: `gems/phlex-shadcn/dev/port/oracle/src/kbd.tsx` (style `new-york-v4`, source_sha `c0c0ae6a7d1adb77`), manifest `gems/phlex-shadcn/dev/port/oracle/manifest/kbd.json`. Tier `static`: no Stimulus controller, no primitive, no Radix import (`radix_primitives: []`, `use_client: false`). Exports `Kbd` and `KbdGroup`; data-slots `kbd` and `kbd-group`.
+Oracle: `gems/chadcn/dev/port/oracle/src/kbd.tsx` (style `new-york-v4`, source_sha `c0c0ae6a7d1adb77`), manifest `gems/chadcn/dev/port/oracle/manifest/kbd.json`. Tier `static`: no Stimulus controller, no primitive, no Radix import (`radix_primitives: []`, `use_client: false`). Exports `Kbd` and `KbdGroup`; data-slots `kbd` and `kbd-group`.
 
 ## API
 
@@ -49,7 +49,7 @@ Both parts are server-rendered in full; nothing is set by JS.
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)
 
-`Phlex::Shadcn::Kbd` MUST `yield self` from `view_template`; `Phlex::Shadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Kbd::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Phlex::Shadcn::Kbd::Content.new`) stay valid.
+`Chadcn::Kbd` MUST `yield self` from `view_template`; `Chadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Kbd::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Chadcn::Kbd::Content.new`) stay valid.
 
 | helper | part class | React export |
 |---|---|---|

@@ -28,6 +28,6 @@ env = { "BUNDLE_GEMFILE" => File.join(dummy, "Gemfile") }
 
 Dir.chdir(dummy) do
   system(env, "bin/rails", "tailwindcss:build") || abort("tailwindcss:build failed")
-  puts "phlex-shadcn demo: http://127.0.0.1:#{port}/"
+  puts "chadcn demo: http://127.0.0.1:#{port}/"
   exec(env, "bin/rails", "server", "-p", port.to_s, "-b", "127.0.0.1")
 end

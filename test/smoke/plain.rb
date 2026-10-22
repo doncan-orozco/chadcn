@@ -24,9 +24,9 @@ module Smoke
     def script
       <<~RUBY
         #{@readme.without_rails_source}
-        Phlex::Shadcn::Loader.eager_load
+        Chadcn::Loader.eager_load
 
-        button = Phlex::Shadcn::Button.new(variant: "outline") { "Save" }.call
+        button = Chadcn::Button.new(variant: "outline") { "Save" }.call
         abort("Button markup changed: \#{button}") unless button.start_with?('<button data-slot="button" data-variant="outline" data-size="default" class="')
 
         module Views; class Base < Phlex::HTML; end; module Demo; end; end
@@ -37,7 +37,7 @@ module Smoke
         end
 
         abort("Rails was loaded in a plain Phlex process") if defined?(Rails)
-        abort("the Rails engine was loaded") if defined?(Phlex::Shadcn::Engine)
+        abort("the Rails engine was loaded") if defined?(Chadcn::Engine)
         loaded = $LOADED_FEATURES.grep(/active_support/)
         abort("ActiveSupport was loaded: \#{loaded.first(3).inspect}") unless loaded.empty?
         puts "plain smoke ok: Button + Dialog rendered without Rails (\#{html.bytesize} bytes)"
