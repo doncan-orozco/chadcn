@@ -1,6 +1,6 @@
 # Alert (`Components::V2::Alert`)
 
-Oracle: `gems/chadcn/dev/port/oracle/src/alert.tsx` (style `new-york-v4`, source_sha `d03dcae5cdb63c38`), manifest `gems/chadcn/dev/port/oracle/manifest/alert.json`. Tier `static`: no Stimulus controller, no primitive, no `"use client"`. Exports `Alert`, `AlertTitle`, `AlertDescription` (no `alertVariants` export: the cva table is module-private). Three parts, data-slots `alert`, `alert-title`, `alert-description`.
+Oracle: `dev/port/oracle/src/alert.tsx` (style `new-york-v4`, source_sha `d03dcae5cdb63c38`), manifest `dev/port/oracle/manifest/alert.json`. Tier `static`: no Stimulus controller, no primitive, no `"use client"`. Exports `Alert`, `AlertTitle`, `AlertDescription` (no `alertVariants` export: the cva table is module-private). Three parts, data-slots `alert`, `alert-title`, `alert-description`.
 
 ## API
 

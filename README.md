@@ -1,7 +1,7 @@
 <h1 align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/doncan-orozco/papyro/main/gems/chadcn/dev/brand/wordmark-dark.svg">
-    <img src="https://raw.githubusercontent.com/doncan-orozco/papyro/main/gems/chadcn/dev/brand/wordmark-light.svg" alt="chadcn" width="352" height="96">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/doncan-orozco/chadcn/main/dev/brand/wordmark-dark.svg">
+    <img src="https://raw.githubusercontent.com/doncan-orozco/chadcn/main/dev/brand/wordmark-light.svg" alt="chadcn" width="352" height="96">
   </picture>
 </h1>
 
@@ -539,7 +539,6 @@ and removals are deprecated for one minor version first.
 ## Development
 
 ```bash
-cd gems/chadcn
 bundle install
 bin/check                      # rake test, rake test:engine, rubocop, bundler-audit and the gem gate
 bundle exec yard stats --list-undoc   # the public API has to be 100% documented
@@ -551,8 +550,8 @@ bin/demo                       # the component catalog of dev/dummy on a free lo
 
 Run these with `env -u BUNDLE_GEMFILE` if your shell exports a `BUNDLE_GEMFILE` for another project.
 
-The browser tests of the Stimulus controllers run from the repository root with `bin/rails test:javascript` (Playwright; it starts
-the dev servers; the CI job `js-tests` runs the same suite).
+The browser tests of the Stimulus controllers run with `bin/test-js` (Playwright; it starts the dev servers; the CI job `js-tests`
+runs the same suite).
 
 The plain suite (`rake test`) never loads Rails; `rake test:engine` boots a minimal Rails application in-process to test the engine
 and the install generator. The parity gates that compare every component to the React original in a browser live in the port's

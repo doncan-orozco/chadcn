@@ -3,7 +3,7 @@
 # Spike for the eject generator: proves that a host directory of component files takes precedence over the gem's
 # lib/chadcn/** for the same constant. Decision and production consequences: dev/decisions/eject-override.md.
 #
-#   cd gems/chadcn && env -u BUNDLE_GEMFILE bundle exec ruby -Ilib -Itest dev/spikes/eject/override_test.rb
+#   env -u BUNDLE_GEMFILE bundle exec ruby -Ilib -Itest dev/spikes/eject/override_test.rb
 #
 # Each scenario runs in a child process (harness.rb): Zeitwerk loaders and the constants they define are global state.
 require "json"

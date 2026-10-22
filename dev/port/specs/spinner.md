@@ -1,6 +1,6 @@
 # Spinner (`Components::V2::Spinner`)
 
-Oracle: `gems/chadcn/dev/port/oracle/src/spinner.tsx` (style `new-york-v4`, source_sha `5d040fc49cb54c02`), manifest `gems/chadcn/dev/port/oracle/manifest/spinner.json`. Tier `static`: no Stimulus controller, no primitive, no Radix import (`radix_primitives: []`, `use_client: false`). Single export `Spinner`. The source sets **no `data-slot`** (manifest `data_slot: null`, `data_slots: []`): R5 has nothing to apply and the port must not add one.
+Oracle: `dev/port/oracle/src/spinner.tsx` (style `new-york-v4`, source_sha `5d040fc49cb54c02`), manifest `dev/port/oracle/manifest/spinner.json`. Tier `static`: no Stimulus controller, no primitive, no Radix import (`radix_primitives: []`, `use_client: false`). Single export `Spinner`. The source sets **no `data-slot`** (manifest `data_slot: null`, `data_slots: []`): R5 has nothing to apply and the port must not add one.
 
 ## API
 

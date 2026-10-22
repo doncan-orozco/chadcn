@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Renders a scenario `tree` with the V2 components, applying .ai/skills/shadcn-port/references/api-mapping.md.
-# Mirror of gems/chadcn/dev/react-shadcn-catalog/src/parity/Harness.tsx; both sides must read the tree with the same rules:
+# Mirror of dev/react-shadcn-catalog/src/parity/Harness.tsx; both sides must read the tree with the same rules:
 #   - c "_a", "_div"... (underscore + lowercase): raw HTML element; props become attributes
 #   - c "_Probe"...     (underscore + capital): harness stub in ShadcnParity
 #   - c "DialogTrigger": Chadcn::Dialog::Trigger (root prefix stripped); "Button" -> Chadcn::Button

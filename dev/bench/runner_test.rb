@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Run with: cd gems/chadcn && ruby dev/bench/runner_test.rb
+# Run with: ruby dev/bench/runner_test.rb
 require "minitest/autorun"
 require "fileutils"
 require "tempfile"

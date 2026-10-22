@@ -1,6 +1,6 @@
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/doncan-orozco/papyro/main/gems/chadcn/dev/brand/wordmark-dark.svg">
-  <img src="https://raw.githubusercontent.com/doncan-orozco/papyro/main/gems/chadcn/dev/brand/wordmark-light.svg" alt="" width="352" height="96">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/doncan-orozco/chadcn/main/dev/brand/wordmark-dark.svg">
+  <img src="https://raw.githubusercontent.com/doncan-orozco/chadcn/main/dev/brand/wordmark-light.svg" alt="" width="352" height="96">
 </picture>
 
 # chadcn docs

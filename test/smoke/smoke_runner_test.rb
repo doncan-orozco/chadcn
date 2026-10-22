@@ -10,16 +10,13 @@ require_relative "runner"
 
 class SmokeRunnerTest < Minitest::Test
   GEM_ROOT = Pathname.new(File.expand_path("../..", __dir__))
-  # Monorepo: the workflow sits at the repository root; once the gem has its own repository, at the gem root.
-  WORKFLOW_CANDIDATES = [ GEM_ROOT.join(".github/workflows/chadcn.yml"),
-                          GEM_ROOT.join("../../.github/workflows/chadcn.yml") ].freeze
+  WORKFLOW = GEM_ROOT.join(".github/workflows/chadcn.yml")
 
   def readme = Smoke::Readme.new(GEM_ROOT.join("README.md"))
 
   def workflow
-    path = WORKFLOW_CANDIDATES.find(&:file?)
-    flunk "no chadcn.yml at #{WORKFLOW_CANDIDATES.join(' or ')}: the CI config moved, update this test" unless path
-    YAML.load_file(path)
+    flunk "no #{WORKFLOW}: the CI config moved, update this test" unless WORKFLOW.file?
+    YAML.load_file(WORKFLOW)
   end
 
   def test_the_readme_install_steps_are_the_ones_the_smoke_replays
@@ -81,12 +78,11 @@ class SmokeRunnerTest < Minitest::Test
     assert_includes result.output, 'data-slot="dialog-trigger"'
   end
 
-  def test_the_workflow_runs_only_for_the_gem
+  def test_the_workflow_runs_on_every_pull_request_and_on_push_to_main
     triggers = workflow["on"] || workflow[true]
 
-    %w[push pull_request].each do |event|
-      assert_equal [ "gems/chadcn/**", ".github/workflows/chadcn.yml" ], triggers.fetch(event).fetch("paths"), event
-    end
+    assert_equal({ "branches" => [ "main" ] }, triggers.fetch("push"))
+    assert_nil triggers.fetch("pull_request"), "no paths filter: the whole repository is the gem"
   end
 
   def test_the_matrix_rubies_are_the_ones_the_gemspec_claims

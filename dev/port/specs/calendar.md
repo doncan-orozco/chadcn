@@ -1,7 +1,7 @@
 # Calendar (shadcn new-york-v4, react-day-picker)
 
-Oracle: `gems/chadcn/dev/port/oracle/src/calendar.tsx` (manifest `source_sha` 78ed2cc49dafc5bb), manifest `oracle/manifest/calendar.json`. Parts: `Calendar` (data-slot `calendar`), `CalendarDayButton` (renders shadcn `Button`, no own data-slot).
-Behavior source: `gems/chadcn/dev/react-shadcn-catalog/node_modules/react-day-picker` **10.0.2** `dist/esm` (date library `date-fns` 4.1.0). Citations use these prefixes (file:line, original line numbers):
+Oracle: `dev/port/oracle/src/calendar.tsx` (manifest `source_sha` 78ed2cc49dafc5bb), manifest `oracle/manifest/calendar.json`. Parts: `Calendar` (data-slot `calendar`), `CalendarDayButton` (renders shadcn `Button`, no own data-slot).
+Behavior source: `dev/react-shadcn-catalog/node_modules/react-day-picker` **10.0.2** `dist/esm` (date library `date-fns` 4.1.0). Citations use these prefixes (file:line, original line numbers):
 `DP` DayPicker.js, `UC` useCalendar.js, `UF` useFocus.js, `USI` selection/useSingle.js, `UMU` selection/useMulti.js, `URA` selection/useRange.js, `CFT` helpers/calculateFocusTarget.js, `GNF` helpers/getNextFocus.js, `GFD` helpers/getFocusableDate.js, `CGM` helpers/createGetModifiers.js, `GCN` helpers/getClassNamesForModifiers.js, `GDA` helpers/getDataAttributes.js, `GDC` helpers/getDefaultClassNames.js, `GD` helpers/getDates.js, `GM` helpers/getMonths.js, `GIM` helpers/getInitialMonth.js, `GNV` helpers/getNavMonth.js, `GNX` helpers/getNextMonth.js, `GPV` helpers/getPreviousMonth.js, `GDM` helpers/getDisplayMonths.js, `GMO` helpers/getMonthOptions.js, `GYO` helpers/getYearOptions.js, `GWD` helpers/getWeekdays.js, `GL` helpers/getLabels.js, `DMM` utils/dateMatchModifiers.js, `ATR` utils/addToRange.js, `RID` utils/rangeIncludesDate.js, `RCM` utils/rangeContainsModifiers.js, `TG` utils/typeguards.js, `CD` classes/CalendarDay.js, `DL` classes/DateLib.js, `NAV` components/Nav.js, `DD` components/Dropdown.js, `WDS` components/Weekdays.js, `LEN` locale/en-US.js, `LES` locale/es.js, `FWN` formatters/formatWeekNumber.js. The rendered oracle DOM quoted below was produced with `react-dom/server` from the catalog's own `src/components/ui/calendar.tsx` (identical to the oracle except the import path).
 Examples: registry `calendar-demo`, `date-picker-demo`, `date-picker-with-range`, `date-picker-with-presets`, `calendar-hijri` (`/r/styles/new-york-v4/*.json`) and the docs examples `apps/v4/examples/radix/calendar-*.tsx`, `date-picker-*.tsx` (shadcn-ui/ui main; markup is style independent).
 Tier: `third_party`. HARD CONSTRAINT: no react-day-picker, no date-fns, no other date library at runtime; native `Date` + `Intl` only.
@@ -283,7 +283,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Deviations
 
-Recorded in `gems/chadcn/dev/port/deviations/calendar.json`. Summary:
+Recorded in `dev/port/deviations/calendar.json`. Summary:
 1. Structure: the root holds, besides `div.rdp-months`, an inert `<template data-chadcn--calendar-target="parts">` (prototypes) and, with `name:`, hidden inputs; Stimulus attributes on the root. None has a data-slot, classes on a box, or text, so the compared DOM is unchanged.
 2. Rendering split: the server renders the root, months container and nav; the controller renders the rest in `connect()`. Before connect (no JS) only the shell and nav exist.
 3. Locales: exact text/labels only for nil/`en`/`en-US` and `es`. Other tags use Intl approximations (dateStyle `full` for the day label, unsliced short weekday names, English labels for nav/dropdowns/week numbers/today/selected, `firstWeekContainsDate` from `weekInfo.minimalDays` or 1) where rdp 10 uses date-fns patterns and its own per-locale label translations.

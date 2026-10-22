@@ -3,3 +3,15 @@ test/smoke/gemfiles/*.lock
 
 # YARD cache (rebuilt by yard and the llms generator, never committed).
 .yardoc/
+
+# Bundler config, dependencies and local state (the dev kit, the dummy app and the dev servers write here).
+/.bundle
+/vendor/bundle
+node_modules/
+/tmp/*
+!/tmp/generator-destination/
+/public/
+/dev/tmp/
+playwright-report/
+.playwright-mcp/
+.playwright-cli/

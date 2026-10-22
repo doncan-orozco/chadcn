@@ -1,6 +1,6 @@
 # Switch
 
-Oracle: `gems/chadcn/dev/port/oracle/src/switch.tsx` (manifest `source_sha` 743676f33f823ffa, tier `radix_stateful`), wrapping `SwitchPrimitive.Root` / `SwitchPrimitive.Thumb` from `radix-ui` 1.7.0 -> `@radix-ui/react-switch` 1.3.8 (`gems/chadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-switch/dist/index.mjs`, cited below as `switch.mjs:<line>`). React 19.
+Oracle: `dev/port/oracle/src/switch.tsx` (manifest `source_sha` 743676f33f823ffa, tier `radix_stateful`), wrapping `SwitchPrimitive.Root` / `SwitchPrimitive.Thumb` from `radix-ui` 1.7.0 -> `@radix-ui/react-switch` 1.3.8 (`dev/react-shadcn-catalog/node_modules/@radix-ui/react-switch/dist/index.mjs`, cited below as `switch.mjs:<line>`). React 19.
 
 ## API
 
@@ -88,7 +88,7 @@ None. Switch renders no other `Components::V2` component and no icon (manifest `
 
 One, API only (no DOM or class difference):
 
-- `as_child:` is not supported on `Components::V2::Switch`. Reason: Radix Root is a `Primitive.button` that accepts `asChild`, but shadcn's `Switch` always renders `SwitchPrimitive.Thumb` as the Root's only child, so with `asChild` Radix `Slot` would merge every switch attribute onto the Thumb `span` and render no button, which is not a usable control; no registry example uses it. Entry written to `gems/chadcn/dev/port/deviations/switch.json`:
+- `as_child:` is not supported on `Components::V2::Switch`. Reason: Radix Root is a `Primitive.button` that accepts `asChild`, but shadcn's `Switch` always renders `SwitchPrimitive.Thumb` as the Root's only child, so with `asChild` Radix `Slot` would merge every switch attribute onto the Thumb `span` and render no button, which is not a usable control; no registry example uses it. Entry written to `dev/port/deviations/switch.json`:
 
 ```json
 { "reason": "shadcn Switch always passes SwitchPrimitive.Thumb as the Root's only child, so Radix asChild would merge the switch onto the thumb span; as_child is therefore not offered", "allow_tokens": [], "allow_missing_tokens": [], "api": ["Switch: as_child not supported"] }

@@ -1,6 +1,6 @@
 # Slider
 
-Oracle: `gems/chadcn/dev/port/oracle/src/slider.tsx` (manifest `source_sha` 6a531f6182de6efe, tier `radix_stateful`), wrapping `SliderPrimitive.Root` / `Track` / `Range` / `Thumb` from `radix-ui` 1.7.0 -> `@radix-ui/react-slider` 1.5.0 (`gems/chadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-slider/dist/index.mjs`, cited below as `slider.mjs:<line>`). Helpers read from source: `@radix-ui/number` (`clamp`), `react-use-controllable-state` 1.2.6 (`ucs.mjs`), `react-use-size` (`size.mjs`), `react-direction` (`dir.mjs`), `react-collection` (`collection.mjs`), `react-slot` (`slot.mjs`). React 19. Registry examples: `slider-demo` and `field-slider` (fetched from `https://ui.shadcn.com/r/styles/new-york-v4/<name>.json`); the registry item has no `meta.links`.
+Oracle: `dev/port/oracle/src/slider.tsx` (manifest `source_sha` 6a531f6182de6efe, tier `radix_stateful`), wrapping `SliderPrimitive.Root` / `Track` / `Range` / `Thumb` from `radix-ui` 1.7.0 -> `@radix-ui/react-slider` 1.5.0 (`dev/react-shadcn-catalog/node_modules/@radix-ui/react-slider/dist/index.mjs`, cited below as `slider.mjs:<line>`). Helpers read from source: `@radix-ui/number` (`clamp`), `react-use-controllable-state` 1.2.6 (`ucs.mjs`), `react-use-size` (`size.mjs`), `react-direction` (`dir.mjs`), `react-collection` (`collection.mjs`), `react-slot` (`slot.mjs`). React 19. Registry examples: `slider-demo` and `field-slider` (fetched from `https://ui.shadcn.com/r/styles/new-york-v4/<name>.json`); the registry item has no `meta.links`.
 
 ## API
 
@@ -161,7 +161,7 @@ None. Slider renders no other `Components::V2` component and no icon (manifest `
 
 One, API only (no DOM or class difference):
 
-- `as_child:` is not supported on `Components::V2::Slider`. Reason: Radix Root is a `Primitive.span` that accepts `asChild`, but shadcn's `Slider` always passes the Track plus one or more Thumbs as children, and Radix `Slot` throws when it does not receive exactly one element child (slot.mjs `React.Children.count(children) === 1` else `createSlotError`), so `asChild` cannot render in React either; no registry example uses it. Entry written to `gems/chadcn/dev/port/deviations/slider.json`:
+- `as_child:` is not supported on `Components::V2::Slider`. Reason: Radix Root is a `Primitive.span` that accepts `asChild`, but shadcn's `Slider` always passes the Track plus one or more Thumbs as children, and Radix `Slot` throws when it does not receive exactly one element child (slot.mjs `React.Children.count(children) === 1` else `createSlotError`), so `asChild` cannot render in React either; no registry example uses it. Entry written to `dev/port/deviations/slider.json`:
 
 ```json
 { "reason": "shadcn Slider always passes Track plus Thumb children to SliderPrimitive.Root, and Radix Slot throws unless it receives exactly one element child, so asChild cannot render in React; as_child is therefore not offered", "allow_tokens": [], "allow_missing_tokens": [], "api": ["Slider: as_child not supported"] }

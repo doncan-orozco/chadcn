@@ -1,6 +1,6 @@
 # Textarea (`Components::V2::Textarea`)
 
-Oracle: `gems/chadcn/dev/port/oracle/src/textarea.tsx` (style `new-york-v4`, source_sha `5cafcfeeee29534f`), manifest `gems/chadcn/dev/port/oracle/manifest/textarea.json`. Tier `static`: no Stimulus controller, no primitive, no Radix, no `"use client"`. One export `Textarea`, one part, data-slot `textarea`. No cva (`uses_cva: false`), no icons, no text literals. Registry examples (ui.shadcn.com `r/styles/new-york-v4`): `textarea-demo`, `textarea-disabled`, `textarea-with-label`, `textarea-with-text`, `textarea-with-button` (`textarea-form` returns 404). React DOM behaviour for `value`/`defaultValue`/children cited from `gems/chadcn/dev/react-shadcn-catalog/node_modules/react-dom/cjs/react-dom-client.development.js` (react-dom 19.3.0), cited as `rdc:<line>`.
+Oracle: `dev/port/oracle/src/textarea.tsx` (style `new-york-v4`, source_sha `5cafcfeeee29534f`), manifest `dev/port/oracle/manifest/textarea.json`. Tier `static`: no Stimulus controller, no primitive, no Radix, no `"use client"`. One export `Textarea`, one part, data-slot `textarea`. No cva (`uses_cva: false`), no icons, no text literals. Registry examples (ui.shadcn.com `r/styles/new-york-v4`): `textarea-demo`, `textarea-disabled`, `textarea-with-label`, `textarea-with-text`, `textarea-with-button` (`textarea-form` returns 404). React DOM behaviour for `value`/`defaultValue`/children cited from `dev/react-shadcn-catalog/node_modules/react-dom/cjs/react-dom-client.development.js` (react-dom 19.3.0), cited as `rdc:<line>`.
 
 ## API
 

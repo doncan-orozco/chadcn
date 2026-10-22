@@ -26,7 +26,7 @@ export function loadPlaywright() {
   const catalogs = [...new Set([envPath("CHADCN_PLAYWRIGHT"), ...roots.map((root) => path.join(root, "react-shadcn-catalog"))].filter(Boolean))];
   const dir = catalogs.find((candidate) => fs.existsSync(path.join(candidate, "node_modules/playwright")));
   if (dir) return createRequire(path.join(dir, "package.json"))("playwright");
-  throw new Error(`playwright not found in ${catalogs.join(", ")}: npm ci in gems/chadcn/dev/react-shadcn-catalog, or set CHADCN_PLAYWRIGHT / CHADCN_DEV_ROOT`);
+  throw new Error(`playwright not found in ${catalogs.join(", ")}: npm ci in dev/react-shadcn-catalog, or set CHADCN_PLAYWRIGHT / CHADCN_DEV_ROOT`);
 }
 
 export function serversFile() {

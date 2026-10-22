@@ -5,7 +5,7 @@
 # A change to the surface is a reviewed decision, never a side effect.
 #
 # When this test fails because you changed the surface on purpose:
-#   1. regenerate the fixture: `bundle exec rake public_api:update` (from gems/chadcn);
+#   1. regenerate the fixture: `bundle exec rake public_api:update` (from the repository root);
 #   2. review the fixture diff in the PR: every added line is a commitment, every removed line breaks consumers;
 #   3. add a CHANGELOG entry: required for added or removed public names, and for a changed signature (a removed or renamed
 #      keyword breaks callers, a new optional keyword is an "Added" line).

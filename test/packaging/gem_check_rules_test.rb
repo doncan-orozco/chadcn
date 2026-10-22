@@ -7,10 +7,9 @@ require "open3"
 require "rbconfig"
 require "tmpdir"
 
-# Failing fixtures for the packaging rules of .claude/scripts/gem/gem_check.rb, so they cannot silently stop firing. The script lives at
-# the root of the monorepo, so these tests skip when the gem is checked out on its own.
+# Failing fixtures for the packaging rules of .claude/scripts/gem/gem_check.rb, so they cannot silently stop firing.
 class GemCheckRulesTest < Minitest::Test
-  SCRIPT = File.expand_path("../../../../.claude/scripts/gem/gem_check.rb", __dir__)
+  SCRIPT = File.expand_path("../../.claude/scripts/gem/gem_check.rb", __dir__)
 
   GEMSPEC = <<~RUBY
     Gem::Specification.new do |s|
@@ -29,7 +28,8 @@ class GemCheckRulesTest < Minitest::Test
   RUBY
 
   def setup
-    skip "gem_check.rb is not available outside the monorepo" unless File.exist?(SCRIPT)
+    raise "#{SCRIPT} is missing: the gem gate moved, update this test" unless File.exist?(SCRIPT)
+
     @dir = Dir.mktmpdir("gem-check-rules")
     @gem = File.join(@dir, "gems/phlex-x")
     write("phlex-x.gemspec", GEMSPEC)

@@ -31,10 +31,10 @@
       "owns": [
         "app/assets/tailwind/application.css",
         "app/assets/tailwind/foundation/**",
-        "gems/chadcn/app/assets/tailwind/chadcn/** (bug fixes only)",
+        "app/assets/tailwind/chadcn/** (bug fixes only)",
         "app/assets/tailwind/vendor/**",
-        "gems/chadcn/app/javascript/controllers/chadcn/theme_controller.js",
-        "gems/chadcn/dev/react-shadcn-catalog/src/index.css",
+        "app/javascript/controllers/chadcn/theme_controller.js",
+        "dev/react-shadcn-catalog/src/index.css",
         "lib/shadcn/**",
         "lib/tasks/theme.rake",
         "test/lib/shadcn/**"
@@ -52,11 +52,11 @@
       "last_green_sha": "46e82c5",
       "updated_at": "2026-10-10T07:43:57Z",
       "owns": [
-        "gems/chadcn/dev/parity/**",
-        "gems/chadcn/dev/dummy/**",
-        "gems/chadcn/dev/react-shadcn-catalog/src/parity/**",
-        "gems/chadcn/dev/react-shadcn-catalog/vite.config.ts",
-        "gems/chadcn/dev/react-shadcn-catalog/package.json"
+        "dev/parity/**",
+        "dev/dummy/**",
+        "dev/react-shadcn-catalog/src/parity/**",
+        "dev/react-shadcn-catalog/vite.config.ts",
+        "dev/react-shadcn-catalog/package.json"
       ],
       "kind": "infra",
       "deps": [
@@ -77,8 +77,8 @@
       "owns": [
         "app/javascript/v2/primitives/**",
         "config/importmap.rb (primitives and controllers pins)",
-        "gems/chadcn/dev/react-shadcn-catalog/src/parity/primitives/**",
-        "gems/chadcn/dev/port/scenarios/_primitives-*.json"
+        "dev/react-shadcn-catalog/src/parity/primitives/**",
+        "dev/port/scenarios/_primitives-*.json"
       ],
       "kind": "infra",
       "deps": [

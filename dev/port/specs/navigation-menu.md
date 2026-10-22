@@ -1,7 +1,7 @@
 # NavigationMenu (shadcn new-york-v4, Radix `NavigationMenu`)
 
-Oracle: `gems/chadcn/dev/port/oracle/src/navigation-menu.tsx` (manifest `source_sha` fbe81d7c358df0d2, cited `tsx:<line>`), manifest `oracle/manifest/navigation-menu.json`.
-Behavior source: `gems/chadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-navigation-menu/dist/index.mjs` v1.3.0 (cited `nm:<line>`), built on `react-dismissable-layer` 1.1.20 (`dl:`), `react-presence` 1.1.11, `react-visually-hidden` 1.2.12 (`vh:`), `react-collection` 1.1.16, `react-id` 1.1.4, `react-slot` 1.4.0 (`slot:`), `react-direction`, `react-use-previous`; all from `radix-ui` 1.7.0, React 19.3.0, tailwind-merge 2.6.1.
+Oracle: `dev/port/oracle/src/navigation-menu.tsx` (manifest `source_sha` fbe81d7c358df0d2, cited `tsx:<line>`), manifest `oracle/manifest/navigation-menu.json`.
+Behavior source: `dev/react-shadcn-catalog/node_modules/@radix-ui/react-navigation-menu/dist/index.mjs` v1.3.0 (cited `nm:<line>`), built on `react-dismissable-layer` 1.1.20 (`dl:`), `react-presence` 1.1.11, `react-visually-hidden` 1.2.12 (`vh:`), `react-collection` 1.1.16, `react-id` 1.1.4, `react-slot` 1.4.0 (`slot:`), `react-direction`, `react-use-previous`; all from `radix-ui` 1.7.0, React 19.3.0, tailwind-merge 2.6.1.
 Examples: registry `new-york-v4/navigation-menu-demo.json` (fetched); docs example `apps/v4/examples/radix/navigation-menu-rtl.tsx` (shadcn-ui/ui main, radix-nova style; markup re-expressed with the new-york-v4 parts). The registry item has no `meta.links`.
 Tier: `overlay`. Family: Menu (no floating-ui: content and viewport are positioned by CSS, `absolute top-full`).
 
@@ -170,7 +170,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Deviations
 
-One structural, invisible deviation (`gems/chadcn/dev/port/deviations/navigation-menu.json`), same pattern as Tooltip/HoverCard:
+One structural, invisible deviation (`dev/port/deviations/navigation-menu.json`), same pattern as Tooltip/HoverCard:
 
 - `NavigationMenu::Content` (call site, inside the `li`), `NavigationMenu::Viewport` (inside the shadcn wrapper div) and `NavigationMenu::Indicator` (call site) emit inert `<template data-chadcn--navigation-menu-target="...">` elements holding their markup while unmounted. Reason: Radix renders nothing for them while closed and creates the nodes on the client (contents inside the viewport via a registry, the indicator via a portal into the List track). The templates have no `data-slot`, no box and their content is not part of the document, so G2 node lists, boxes and a11y are unaffected.
 

@@ -20,5 +20,5 @@ export default defineConfig(({ command }) => ({
   server: { fs: { allow: ['..', '../..'] } },
   base: command === 'build' ? '/react-catalog/' : '/',
   // The host serves this build at /react-catalog/ from its committed public/: the output stays there (chunk 2 moves the host assets).
-  build: { outDir: '../../../../public/react-catalog', emptyOutDir: true },
+  build: { outDir: '../../public/react-catalog', emptyOutDir: true },
 }))

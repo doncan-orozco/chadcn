@@ -1,6 +1,6 @@
 # Direction
 
-Oracle: `gems/chadcn/dev/port/oracle/src/direction.tsx` (manifest `source_sha` 84ae2ad658207f0e, tier `radix_stateful`), wrapping `Direction.DirectionProvider` / `Direction.useDirection` from `radix-ui` 1.7.0 -> `@radix-ui/react-direction` 1.1.5 (`gems/chadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-direction/dist/index.mjs`, cited below as `dir.mjs:<line>`). Registry item `gems/chadcn/dev/port/oracle/registry/direction.json` has no `meta.links` and there is no `direction-demo` registry example (`https://ui.shadcn.com/r/styles/new-york-v4/direction-demo.json` returns the site's HTML 404 page), so scenarios are derived from the TSX and the Radix source only.
+Oracle: `dev/port/oracle/src/direction.tsx` (manifest `source_sha` 84ae2ad658207f0e, tier `radix_stateful`), wrapping `Direction.DirectionProvider` / `Direction.useDirection` from `radix-ui` 1.7.0 -> `@radix-ui/react-direction` 1.1.5 (`dev/react-shadcn-catalog/node_modules/@radix-ui/react-direction/dist/index.mjs`, cited below as `dir.mjs:<line>`). Registry item `dev/port/oracle/registry/direction.json` has no `meta.links` and there is no `direction-demo` registry example (`https://ui.shadcn.com/r/styles/new-york-v4/direction-demo.json` returns the site's HTML 404 page), so scenarios are derived from the TSX and the Radix source only.
 
 Exports: `DirectionProvider` (a part) and `useDirection` (a hook, lower-case export, mapped to a Ruby helper per api-mapping "Exceptions (`buttonVariants`, `useSidebar`) map to class methods").
 

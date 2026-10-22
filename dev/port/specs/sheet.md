@@ -1,7 +1,7 @@
 # Sheet (shadcn new-york-v4, Radix `Dialog` as `SheetPrimitive`)
 
-Oracle: `gems/chadcn/dev/port/oracle/src/sheet.tsx` (source_sha `ea473d38a26a9b0b`), manifest `oracle/manifest/sheet.json`.
-Behavior source: `gems/chadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-dialog/dist/index.mjs` v1.2.0 (cited as `dialog:<line>`), built on
+Oracle: `dev/port/oracle/src/sheet.tsx` (source_sha `ea473d38a26a9b0b`), manifest `oracle/manifest/sheet.json`.
+Behavior source: `dev/react-shadcn-catalog/node_modules/@radix-ui/react-dialog/dist/index.mjs` v1.2.0 (cited as `dialog:<line>`), built on
 `react-dismissable-layer` 1.1.20 (`dl:`), `react-focus-scope` 1.2.0 (`fs:`), `react-focus-guards` 1.1.6 (`fg:`), `react-presence` 1.1.11 (`pr:`),
 `react-portal` 1.1.18 (`po:`), `react-remove-scroll` 2.7.2 + `react-remove-scroll-bar` 2.3.8 (`rsb:`), `aria-hidden` 1.2.6 (`ah:`), all from `radix-ui` 1.7.0.
 Same Radix primitive and versions as `specs/dialog.md`; every line reference below was re-checked against the same files. Icons: `lucide-react` 0.577.0.
@@ -185,7 +185,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Deviations
 
-Recorded in `gems/chadcn/dev/port/deviations/sheet.json` (same two structural deviations as Dialog; the Dialog `container:` deviation does not apply because `SheetPortal` is not exported):
+Recorded in `dev/port/deviations/sheet.json` (same two structural deviations as Dialog; the Dialog `container:` deviation does not apply because `SheetPortal` is not exported):
 
 1. **Controller host.** `Sheet` must render no element, but Trigger cannot host the controller (zero, one or several triggers; controlled `open` without trigger). One `<div style="display: contents" data-controller="chadcn--sheet">` without `data-slot`, classes or other data attributes wraps the block. Not visible to G2 (no `data-slot`) and layout-neutral.
 2. **Closed Presence parts in a `<template>`.** React does not mount closed Overlay/Content; the server ships their markup in a `<template>` inside the host (inert, not matched by `[data-slot]`, not rendered).

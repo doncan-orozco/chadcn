@@ -1,6 +1,6 @@
 # Item (`Components::V2::Item`)
 
-Oracle: `gems/chadcn/dev/port/oracle/src/item.tsx` (style `new-york-v4`, manifest `source_sha` `9ade8136f010284b`), manifest `gems/chadcn/dev/port/oracle/manifest/item.json`. Tier `static`: no `"use client"`, no hooks, no icons, no Stimulus controller. The only Radix import is `Slot` (used by `Item` for `asChild`, `@radix-ui/react-slot` 1.4.0, `mergeProps` at `gems/chadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-slot/dist/index.mjs:81-103`). Exports `Item`, `ItemMedia`, `ItemContent`, `ItemActions`, `ItemGroup`, `ItemSeparator`, `ItemTitle`, `ItemDescription`, `ItemHeader`, `ItemFooter`. Ten parts, data-slots `item`, `item-media`, `item-content`, `item-actions`, `item-group`, `item-separator`, `item-title`, `item-description`, `item-header`, `item-footer`. Two cva tables, `itemVariants` and `itemMediaVariants`. Registry dependency: `separator` (`ItemSeparator` renders `Components::V2::Separator`). Registry examples fetched from `https://ui.shadcn.com/r/styles/new-york-v4/<name>.json`: `item-demo`, `item-size`, `item-variant`, `item-icon`, `item-avatar`, `item-image`, `item-group`, `item-header`, `item-link`, `item-dropdown`.
+Oracle: `dev/port/oracle/src/item.tsx` (style `new-york-v4`, manifest `source_sha` `9ade8136f010284b`), manifest `dev/port/oracle/manifest/item.json`. Tier `static`: no `"use client"`, no hooks, no icons, no Stimulus controller. The only Radix import is `Slot` (used by `Item` for `asChild`, `@radix-ui/react-slot` 1.4.0, `mergeProps` at `dev/react-shadcn-catalog/node_modules/@radix-ui/react-slot/dist/index.mjs:81-103`). Exports `Item`, `ItemMedia`, `ItemContent`, `ItemActions`, `ItemGroup`, `ItemSeparator`, `ItemTitle`, `ItemDescription`, `ItemHeader`, `ItemFooter`. Ten parts, data-slots `item`, `item-media`, `item-content`, `item-actions`, `item-group`, `item-separator`, `item-title`, `item-description`, `item-header`, `item-footer`. Two cva tables, `itemVariants` and `itemMediaVariants`. Registry dependency: `separator` (`ItemSeparator` renders `Components::V2::Separator`). Registry examples fetched from `https://ui.shadcn.com/r/styles/new-york-v4/<name>.json`: `item-demo`, `item-size`, `item-variant`, `item-icon`, `item-avatar`, `item-image`, `item-group`, `item-header`, `item-link`, `item-dropdown`.
 
 ## API
 
@@ -126,7 +126,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Dependencies
 
-- `Components::V2::Separator` (`ItemSeparator`; spec `gems/chadcn/dev/port/specs/separator.md`).
+- `Components::V2::Separator` (`ItemSeparator`; spec `dev/port/specs/separator.md`).
 - No icons rendered by the component itself (manifest `icons: []`); icons in scenarios are caller content (`<icon:...>` markers).
 
 Example substitutions (scenario-level, identical on both harnesses, not component deviations), because the scenario coverage check only admits Item's exports and its registry dependency `Separator`:

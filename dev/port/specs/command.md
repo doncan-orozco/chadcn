@@ -1,6 +1,6 @@
 # Command (shadcn new-york-v4, cmdk 1.1.1)
 
-Sources read: oracle `gems/chadcn/dev/port/oracle/src/command.tsx` (manifest `source_sha` 319e9264567dd46f, cited `src:<part>`), the library it wraps, `gems/chadcn/dev/react-shadcn-catalog/node_modules/cmdk/dist/index.mjs` 1.1.1 (minified to one line; cited as `cmdk:<n>` = line n of `npx esbuild node_modules/cmdk/dist/index.mjs --format=esm`, run in the catalog), its scorer `cmdk/dist/chunk-NZJY6EH4.mjs` (`command-score`), the Phlex Dialog port (`lib/chadcn/dialog.rb`, `dialog/*.rb`, `specs/dialog.md`), the scorer primitive `app/javascript/chadcn/primitives/scorer.js`, React DOM 19.3.0, lucide-react 0.577.0. Registry examples: `command-demo`, `command-dialog` (new-york-v4, fetched from ui.shadcn.com).
+Sources read: oracle `dev/port/oracle/src/command.tsx` (manifest `source_sha` 319e9264567dd46f, cited `src:<part>`), the library it wraps, `dev/react-shadcn-catalog/node_modules/cmdk/dist/index.mjs` 1.1.1 (minified to one line; cited as `cmdk:<n>` = line n of `npx esbuild node_modules/cmdk/dist/index.mjs --format=esm`, run in the catalog), its scorer `cmdk/dist/chunk-NZJY6EH4.mjs` (`command-score`), the Phlex Dialog port (`lib/chadcn/dialog.rb`, `dialog/*.rb`, `specs/dialog.md`), the scorer primitive `app/javascript/chadcn/primitives/scorer.js`, React DOM 19.3.0, lucide-react 0.577.0. Registry examples: `command-demo`, `command-dialog` (new-york-v4, fetched from ui.shadcn.com).
 
 Tier `third_party`. Stimulus identifier `chadcn--command` (one controller on the `Command` root). **No third-party JavaScript** (maintainer constraint of the adoption epic, item #178): cmdk is re-implemented in the `chadcn--command` controller, filtering/ranking uses the `scorer` primitive; no importmap pin, vendor file or npm dependency is added (a unit test asserts it).
 
@@ -174,7 +174,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Deviations
 
-Recorded in `gems/chadcn/dev/port/deviations/command.json` (API only; no class-token allowance, G1 unchanged):
+Recorded in `dev/port/deviations/command.json` (API only; no class-token allowance, G1 unchanged):
 
 1. `Command::Empty` is server-rendered inside an inert `<template>` (no `data-slot`) at its JSX position and mounted by the controller while the filtered count is 0: React renders it only then, and the server cannot know the count before the items render. Template content is not in the document, so the compared DOM is unchanged.
 2. `filter` is a JS function: it is assigned from JavaScript on the controller (`controller.filter = (value, search, keywords) => number`), not passed from Ruby.

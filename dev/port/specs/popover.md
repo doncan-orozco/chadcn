@@ -1,7 +1,7 @@
 # Popover (shadcn new-york-v4, Radix `Popover`)
 
-Oracle: `gems/chadcn/dev/port/oracle/src/popover.tsx` (manifest `source_sha` 3f99d3add6c9fa4f), manifest `oracle/manifest/popover.json`.
-Behavior source: `gems/chadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-popover/dist/index.mjs` v1.2.0 (cited `pop:<line>`), built on `react-popper` 1.3.8 (`popper:`), `react-dismissable-layer` 1.1.20 (`dl:`), `react-focus-scope` 1.2.0 (`fs:`), `react-focus-guards` 1.1.6 (`fg:`), `react-presence` 1.1.11 (`pr:`), `react-portal` 1.1.18, `react-use-controllable-state` (`ucs:`), `react-remove-scroll` 2.7.2 (+ `react-remove-scroll-bar`, `rsb:`), `aria-hidden` 1.2.6 (`ah:`), all from `radix-ui` 1.7.0; `@floating-ui/react-dom` 2.1.9 / `@floating-ui/dom` 1.8.0; React 19.
+Oracle: `dev/port/oracle/src/popover.tsx` (manifest `source_sha` 3f99d3add6c9fa4f), manifest `oracle/manifest/popover.json`.
+Behavior source: `dev/react-shadcn-catalog/node_modules/@radix-ui/react-popover/dist/index.mjs` v1.2.0 (cited `pop:<line>`), built on `react-popper` 1.3.8 (`popper:`), `react-dismissable-layer` 1.1.20 (`dl:`), `react-focus-scope` 1.2.0 (`fs:`), `react-focus-guards` 1.1.6 (`fg:`), `react-presence` 1.1.11 (`pr:`), `react-portal` 1.1.18, `react-use-controllable-state` (`ucs:`), `react-remove-scroll` 2.7.2 (+ `react-remove-scroll-bar`, `rsb:`), `aria-hidden` 1.2.6 (`ah:`), all from `radix-ui` 1.7.0; `@floating-ui/react-dom` 2.1.9 / `@floating-ui/dom` 1.8.0; React 19.
 Examples: registry `new-york-v4/popover-demo.json`; docs examples `popover-demo`, `popover-basic`, `popover-alignments`, `popover-form`, `popover-rtl` (`apps/v4/examples/radix/*.tsx` on shadcn-ui/ui main; the popover markup is style independent).
 Tier: `overlay`. Family: Overlay (floating), same positioning/template pattern as `specs/hover-card.md` and `specs/tooltip.md`, focus/modal rules shared with `specs/dialog.md`.
 
@@ -147,7 +147,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Deviations
 
-Structural and invisible to the gates (`gems/chadcn/dev/port/deviations/popover.json`), same shape as Tooltip/HoverCard:
+Structural and invisible to the gates (`dev/port/deviations/popover.json`), same shape as Tooltip/HoverCard:
 
 - `Popover::Content` emits an inert `<template data-chadcn--popover-template="<key>">` at its call site holding the content markup until the controller mounts it in `body`. Reason: Radix renders nothing while closed and creates the node on the client in a body portal; the trigger (a `<button>`) cannot contain it. No `data-slot`, no box, not part of the document.
 - `Popover::Anchor` carries `data-chadcn--popover-anchor="<key>"`, and a Trigger that is not the controller host carries `data-chadcn--popover-trigger="<key>"`, so the controller can find parts that are not inside its element (React wires them through context). `data-chadcn--*` is ignored by G2.

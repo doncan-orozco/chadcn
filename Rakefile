@@ -18,6 +18,12 @@ namespace :test do
     t.test_files = FileList[RAILS_TESTS]
     t.warning = false
   end
+
+  # The repository tooling (.claude/scripts), not the gem: the audit receipt, the epic board and the gem gate.
+  Rake::TestTask.new(:tooling) do |t|
+    t.test_files = FileList[".claude/scripts/test/**/*_test.rb"]
+    t.warning = false
+  end
 end
 
 task default: [ :test, "test:engine" ]

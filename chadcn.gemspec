@@ -2,11 +2,11 @@
 
 require_relative "lib/chadcn/version"
 
-# The repository location: a split into its own repository changes these lines. The metadata URIs and the links of the
+# The repository location. The metadata URIs and the links of the
 # generated llms files derive from them; the README hero image URLs and the CHANGELOG compare link repeat them by hand
 # (test/packaging/packaging_test.rb checks those copies).
-repository = "https://github.com/doncan-orozco/papyro"
-gem_path = "gems/chadcn" # "" once the gem has its own repository
+repository = "https://github.com/doncan-orozco/chadcn"
+gem_path = ""
 ref = "main"
 at = ->(kind, *rest) { [ repository, kind, ref, gem_path, *rest ].reject(&:empty?).join("/") }
 
@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.3"
 
-  spec.metadata["source_code_uri"] = spec.homepage
+  spec.metadata["source_code_uri"] = repository
   spec.metadata["changelog_uri"] = at.call("blob", "CHANGELOG.md")
   spec.metadata["rubygems_mfa_required"] = "true"
 

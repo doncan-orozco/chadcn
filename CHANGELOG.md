@@ -228,4 +228,4 @@ Relative to the in-app port (`Components::V2`):
 
 - The `activesupport` runtime dependency: the core needs only `phlex`, `tailwind_merge` and `zeitwerk`.
 
-[Unreleased]: https://github.com/doncan-orozco/papyro/commits/main/gems/chadcn
+[Unreleased]: https://github.com/doncan-orozco/chadcn/commits/main

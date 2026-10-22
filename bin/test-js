@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Runs the browser tests of the Stimulus controllers and primitives (test/javascript/*.test.mjs) against the dev servers: the
+# dummy app (Phlex side) and the React catalog (oracle). Starts the servers unless they already run, and stops only what it started.
+# Needs the Playwright of dev/react-shadcn-catalog (ruby .claude/scripts/shadcn/playwright_ensure.rb installs it).
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+if ! ruby .claude/scripts/shadcn/playwright_ensure.rb --check > /dev/null; then
+  echo "bin/test-js: Playwright is not usable here: run ruby .claude/scripts/shadcn/playwright_ensure.rb" >&2
+  exit 1
+fi
+
+started="$(ruby .claude/scripts/shadcn/servers.rb start)"
+if ! ruby -rjson -e 'exit(JSON.parse(ARGF.read[/\{.*\}/m] || "{}")["rails_ok"] ? 0 : 1)' <<< "$started"; then
+  echo "bin/test-js: could not start the dev servers (see tmp/shadcn-port/rails.log and vite.log)" >&2
+  exit 1
+fi
+reused="$(ruby -rjson -e 'print JSON.parse(ARGF.read[/\{.*\}/m] || "{}")["reused"] ? 1 : 0' <<< "$started")"
+
+status=0
+node --test --test-timeout=60000 --test-reporter=spec test/javascript/*.test.mjs || status=$?
+[ "$reused" = 1 ] || ruby .claude/scripts/shadcn/servers.rb stop > /dev/null
+exit $status

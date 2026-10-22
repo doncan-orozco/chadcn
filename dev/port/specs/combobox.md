@@ -1,7 +1,7 @@
 # Combobox (shadcn `combobox`, tier third_party, Base UI)
 
-Sources (cited inline): oracle `gems/chadcn/dev/port/oracle/src/combobox.tsx` (`src:L<n>`), manifest `oracle/manifest/combobox.json` (source_sha 4f88734887ed6928),
-and the REAL Base UI source the oracle wraps, `gems/chadcn/dev/react-shadcn-catalog/node_modules/@base-ui/react@1.9.0/` (NOT Radix, NOT cmdk/Popover):
+Sources (cited inline): oracle `dev/port/oracle/src/combobox.tsx` (`src:L<n>`), manifest `oracle/manifest/combobox.json` (source_sha 4f88734887ed6928),
+and the REAL Base UI source the oracle wraps, `dev/react-shadcn-catalog/node_modules/@base-ui/react@1.9.0/` (NOT Radix, NOT cmdk/Popover):
 `combobox/root/AriaCombobox.mjs` (`root:L`), `combobox/root/ComboboxRoot.mjs` (`rootw:L`), `combobox/input/ComboboxInput.mjs` (`input:L`), `combobox/trigger/ComboboxTrigger.mjs` (`trigger:L`),
 `combobox/clear/ComboboxClear.mjs` (`clear:L`), `combobox/popup/ComboboxPopup.mjs` (`popup:L`), `combobox/positioner/ComboboxPositioner.mjs` (`pos:L`), `combobox/portal/ComboboxPortal.mjs` (`portal:L`),
 `combobox/list/ComboboxList.mjs` (`list:L`), `combobox/item/ComboboxItem.mjs` (`item:L`), `combobox/item-indicator/ComboboxItemIndicator.mjs` (`ind:L`), `combobox/group/ComboboxGroup.mjs` (`group:L`),
@@ -249,6 +249,6 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Deviations
 
-Written to `gems/chadcn/dev/port/deviations/combobox.json` (structure and API only, no class-token allowance):
+Written to `dev/port/deviations/combobox.json` (structure and API only, no class-token allowance):
 - Structure: one `display: contents` controller host around the Root children and hidden inputs (Base UI Root renders no element); the closed Content shipped in an inert `<template>` mounted on open (Base UI Portal renders nothing while unmounted); Value-block chip prototypes and the single-mode Value text marker shipped as inert `<template>` markers that stay in the document (read on every selection change, so a Turbo snapshot can rebuild chips and the label). None carries a `data-slot`, class or box.
 - API: `Content anchor:` is a CSS selector string (React: element/ref, `useComboboxAnchor` has no Ruby equivalent); Trigger `as_child:` stands for Base UI `render`; `item_to_string_label`/`item_to_string_value`/`item_equal_to_value` are Ruby callables evaluated on the server and item equality defaults to `==` instead of `Object.is`; function-valued `filter` is replaced by the named filters `"fuzzy"`/`"contains"`/`nil` and callbacks by the events listed in API; `inline`, `grid`, `virtualized`, `filteredItems`, `filterQuery`, `actionsRef`, `inputRef` are not ported.

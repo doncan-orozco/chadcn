@@ -1,6 +1,6 @@
 # NativeSelect (`Components::V2::NativeSelect`)
 
-Oracle: `gems/chadcn/dev/port/oracle/src/native-select.tsx` (style `new-york-v4`, source_sha `4bdbce5575dce610`), manifest `gems/chadcn/dev/port/oracle/manifest/native-select.json`. Tier `static`: no Stimulus controller, no primitive, no Radix, no `"use client"`, no cva (`uses_cva: false`). Three exports: `NativeSelect`, `NativeSelectOption`, `NativeSelectOptGroup`. Five data-slots: `native-select-wrapper`, `native-select`, `native-select-icon` (all emitted by `NativeSelect`), `native-select-option`, `native-select-optgroup`. One icon: lucide `ChevronDownIcon` (lucide-react 0.577.0). Registry examples (ui.shadcn.com `r/styles/new-york-v4`): `native-select-demo`, `native-select-groups`, `native-select-disabled`, `native-select-invalid`. React DOM behaviour for `value`/`defaultValue` cited from `gems/chadcn/dev/react-shadcn-catalog/node_modules/react-dom/cjs/react-dom-client.development.js` (react-dom 19.3, `updateOptions` lines 1964-1987, select init lines 22313-22314), cited as `rdc:<line>`.
+Oracle: `dev/port/oracle/src/native-select.tsx` (style `new-york-v4`, source_sha `4bdbce5575dce610`), manifest `dev/port/oracle/manifest/native-select.json`. Tier `static`: no Stimulus controller, no primitive, no Radix, no `"use client"`, no cva (`uses_cva: false`). Three exports: `NativeSelect`, `NativeSelectOption`, `NativeSelectOptGroup`. Five data-slots: `native-select-wrapper`, `native-select`, `native-select-icon` (all emitted by `NativeSelect`), `native-select-option`, `native-select-optgroup`. One icon: lucide `ChevronDownIcon` (lucide-react 0.577.0). Registry examples (ui.shadcn.com `r/styles/new-york-v4`): `native-select-demo`, `native-select-groups`, `native-select-disabled`, `native-select-invalid`. React DOM behaviour for `value`/`defaultValue` cited from `dev/react-shadcn-catalog/node_modules/react-dom/cjs/react-dom-client.development.js` (react-dom 19.3, `updateOptions` lines 1964-1987, select init lines 22313-22314), cited as `rdc:<line>`.
 
 ## API
 
@@ -105,7 +105,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Deviations
 
-One, API/attribute only, written to `gems/chadcn/dev/port/deviations/native-select.json`:
+One, API/attribute only, written to `dev/port/deviations/native-select.json`:
 - Controlled `value:`: React sets only the `selected` property of the matching option (rdc:22313, `updateOptions(..., false)`), the Phlex server render can only express it as the `selected=""` attribute. The selected option, the closed select's text and `select.value` are identical; the DOM differs by that one attribute, only in scenario `controlled__value`. Uncontrolled `default_value:` has no deviation (React writes `defaultSelected`, i.e. the same attribute, rdc:1980).
 
 ```json

@@ -1,6 +1,6 @@
 # Avatar
 
-Oracle: `gems/chadcn/dev/port/oracle/src/avatar.tsx` (manifest `source_sha` 0c5c48b8a1dff4fd, tier `radix_stateful`), wrapping `AvatarPrimitive.Root` / `Image` / `Fallback` from `radix-ui` -> `@radix-ui/react-avatar` 1.2.7 (`gems/chadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-avatar/dist/index.mjs`, cited below as `avatar.mjs:<line>`). `AvatarBadge`, `AvatarGroup`, `AvatarGroupCount` are plain elements (no Radix). Registry examples: only `avatar-demo` (`https://ui.shadcn.com/r/styles/new-york-v4/avatar-demo.json`); `empty-avatar*` and `item-avatar` belong to other components.
+Oracle: `dev/port/oracle/src/avatar.tsx` (manifest `source_sha` 0c5c48b8a1dff4fd, tier `radix_stateful`), wrapping `AvatarPrimitive.Root` / `Image` / `Fallback` from `radix-ui` -> `@radix-ui/react-avatar` 1.2.7 (`dev/react-shadcn-catalog/node_modules/@radix-ui/react-avatar/dist/index.mjs`, cited below as `avatar.mjs:<line>`). `AvatarBadge`, `AvatarGroup`, `AvatarGroupCount` are plain elements (no Radix). Registry examples: only `avatar-demo` (`https://ui.shadcn.com/r/styles/new-york-v4/avatar-demo.json`); `empty-avatar*` and `item-avatar` belong to other components.
 
 ## API
 
@@ -120,6 +120,6 @@ Scenario fixtures: image `src` values are inline data URIs (a 64x64 SVG for "loa
 
 ## Deviations
 
-One structural deviation, recorded in `gems/chadcn/dev/port/deviations/avatar.json`:
+One structural deviation, recorded in `dev/port/deviations/avatar.json`:
 
 - `Avatar::Image` (always) and `Avatar::Fallback` with `delay_ms` (until shown) are server-rendered inside an inert `<template>` placeholder at their JSX position, because a server-rendered page cannot "not render" an element and still know its attributes when the client later mounts it (React re-renders from props; Stimulus has no props). The template has no `data-slot`, no classes, renders nothing, is invisible to the accessibility tree and to the parity snapshot (`[data-slot]` nodes only; template content is not in the document). Once mounted, the DOM is identical to React's. Machine-readable entry: `{ "reason": "...", "allow_tokens": [], "allow_missing_tokens": [], "api": ["Avatar::Image / Avatar::Fallback(delay_ms:): unmounted parts are kept in an inert <template> placeholder (no data-slot) until the controller mounts them"] }`.

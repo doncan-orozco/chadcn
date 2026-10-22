@@ -1,6 +1,6 @@
 # Checkbox
 
-Oracle: `gems/chadcn/dev/port/oracle/src/checkbox.tsx` (manifest `source_sha` ba0ac64064e2d8fa, tier `radix_stateful`), wrapping `CheckboxPrimitive.Root` / `CheckboxPrimitive.Indicator` from `radix-ui` 1.7.0 -> `@radix-ui/react-checkbox` 1.3.12 (`gems/chadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-checkbox/dist/index.mjs`, cited below as `cb.mjs:<line>`), Presence from `@radix-ui/react-presence` (`presence.mjs:<line>`), size from `@radix-ui/react-use-size` (`use-size.mjs:<line>`). Icon from `lucide-react` 0.577.0. React 19.
+Oracle: `dev/port/oracle/src/checkbox.tsx` (manifest `source_sha` ba0ac64064e2d8fa, tier `radix_stateful`), wrapping `CheckboxPrimitive.Root` / `CheckboxPrimitive.Indicator` from `radix-ui` 1.7.0 -> `@radix-ui/react-checkbox` 1.3.12 (`dev/react-shadcn-catalog/node_modules/@radix-ui/react-checkbox/dist/index.mjs`, cited below as `cb.mjs:<line>`), Presence from `@radix-ui/react-presence` (`presence.mjs:<line>`), size from `@radix-ui/react-use-size` (`use-size.mjs:<line>`). Icon from `lucide-react` 0.577.0. React 19.
 
 ## API
 
@@ -111,7 +111,7 @@ Turbo: `disconnect()` removes the reset listener, ResizeObserver and rAF; `conne
 
 One, API only (no DOM or class difference):
 
-- `as_child:` is not supported on `Components::V2::Checkbox`. Reason: Radix Root (`Primitive.button`) accepts `asChild`, but shadcn's `Checkbox` always renders `CheckboxPrimitive.Indicator` as the Root's only child, so Radix `Slot` would merge every checkbox attribute and handler onto the Indicator, which renders nothing at all while unchecked (Presence) and a `span` otherwise: no usable control. No registry example uses it. Entry in `gems/chadcn/dev/port/deviations/checkbox.json`:
+- `as_child:` is not supported on `Components::V2::Checkbox`. Reason: Radix Root (`Primitive.button`) accepts `asChild`, but shadcn's `Checkbox` always renders `CheckboxPrimitive.Indicator` as the Root's only child, so Radix `Slot` would merge every checkbox attribute and handler onto the Indicator, which renders nothing at all while unchecked (Presence) and a `span` otherwise: no usable control. No registry example uses it. Entry in `dev/port/deviations/checkbox.json`:
 
 ```json
 { "reason": "shadcn Checkbox always passes CheckboxPrimitive.Indicator as the Root's only child, so Radix asChild would merge the checkbox onto the indicator (absent while unchecked); as_child is therefore not offered", "allow_tokens": [], "allow_missing_tokens": [], "api": ["Checkbox: as_child not supported"] }

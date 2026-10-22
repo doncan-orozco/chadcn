@@ -17,7 +17,7 @@ require "phlex"
 require "tailwind_merge"
 require "zeitwerk"
 
-GEM_ROOT = File.expand_path("../../..", __dir__) # gems/chadcn; keeps asserted paths independent of the cwd
+GEM_ROOT = File.expand_path("../../..", __dir__) # the repository root; keeps asserted paths independent of the cwd
 fixture, load_mode, ignore_timing, reload = ARGV
 overrides = fixture == "none" ? nil : File.expand_path("fixtures/#{fixture}", __dir__)
 gem_lib = File.expand_path("../../../lib/chadcn", __dir__)

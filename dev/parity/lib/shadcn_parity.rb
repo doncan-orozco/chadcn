@@ -8,7 +8,7 @@ require "active_support/core_ext/string/inflections"
 require "zeitwerk"
 require "chadcn"
 
-# The Phlex side of the shadcn parity harness, shared by the dummy app (gems/chadcn/dev/dummy) and the host shims.
+# The Phlex side of the shadcn parity harness, shared by the dummy app (dev/dummy) and the host shims.
 # It knows nothing about the host: scenarios are read from <dev>/port/scenarios (see ShadcnParity::Scenario::DIRECTORY).
 module ShadcnParity
   unless const_defined?(:Loader, false)

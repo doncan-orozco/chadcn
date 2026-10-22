@@ -1,6 +1,6 @@
 # AspectRatio
 
-Oracle: `gems/chadcn/dev/port/oracle/src/aspect-ratio.tsx` (manifest `source_sha` b1c157886236782c, tier `radix_stateful`), wrapping `AspectRatioPrimitive.Root` from `radix-ui` 1.7.0 -> `@radix-ui/react-aspect-ratio` 1.1.16 (`gems/chadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-aspect-ratio/dist/index.mjs`, cited below as `ar.mjs:<line>`), whose inner element is `Primitive.div` from `@radix-ui/react-primitive` 2.1.11 (`primitive.mjs`). Registry example: `aspect-ratio-demo` (fetched from `https://ui.shadcn.com/r/styles/new-york-v4/aspect-ratio-demo.json`).
+Oracle: `dev/port/oracle/src/aspect-ratio.tsx` (manifest `source_sha` b1c157886236782c, tier `radix_stateful`), wrapping `AspectRatioPrimitive.Root` from `radix-ui` 1.7.0 -> `@radix-ui/react-aspect-ratio` 1.1.16 (`dev/react-shadcn-catalog/node_modules/@radix-ui/react-aspect-ratio/dist/index.mjs`, cited below as `ar.mjs:<line>`), whose inner element is `Primitive.div` from `@radix-ui/react-primitive` 2.1.11 (`primitive.mjs`). Registry example: `aspect-ratio-demo` (fetched from `https://ui.shadcn.com/r/styles/new-york-v4/aspect-ratio-demo.json`).
 
 ## API
 

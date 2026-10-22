@@ -25,11 +25,4 @@ group :development do
   gem "rubocop-performance", require: false
   gem "rubocop-rake", require: false
   gem "yard", require: false
-
-  # Monorepo only, like the Gemfile: RuboCop loads the host .rubocop.yml, which needs the host's lint plugins.
-  if File.exist?(File.expand_path("../../../../../.rubocop.yml", __dir__))
-    gem "rubocop-capybara", require: false
-    gem "rubocop-rails", require: false
-    gem "rubocop-rails-omakase", require: false
-  end
 end

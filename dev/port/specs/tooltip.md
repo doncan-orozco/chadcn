@@ -1,6 +1,6 @@
 # Tooltip (shadcn new-york-v4, Radix `radix-ui` Tooltip)
 
-Sources read: `gems/chadcn/dev/port/oracle/src/tooltip.tsx` (manifest `source_sha` 611e4305879b2773), `gems/chadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-tooltip/dist/index.mjs` (v1.3.0, cited as `tooltip:<line>`), `react-popper` 1.3.8 (`popper:<line>`), `react-dismissable-layer` 1.1.20 (`layer:<line>`), `react-arrow` 1.1.16, `react-visually-hidden` 1.2.12, `react-presence` 1.1.11. Examples: `new-york-v4/tooltip-demo.json` (registry), plus the docs examples `tooltip-sides`, `tooltip-keyboard`, `tooltip-disabled`, `tooltip-rtl` (`apps/v4/examples/radix/*.tsx` on shadcn-ui/ui main; the registry only publishes them for the radix-nova style, the markup is style-independent).
+Sources read: `dev/port/oracle/src/tooltip.tsx` (manifest `source_sha` 611e4305879b2773), `dev/react-shadcn-catalog/node_modules/@radix-ui/react-tooltip/dist/index.mjs` (v1.3.0, cited as `tooltip:<line>`), `react-popper` 1.3.8 (`popper:<line>`), `react-dismissable-layer` 1.1.20 (`layer:<line>`), `react-arrow` 1.1.16, `react-visually-hidden` 1.2.12, `react-presence` 1.1.11. Examples: `new-york-v4/tooltip-demo.json` (registry), plus the docs examples `tooltip-sides`, `tooltip-keyboard`, `tooltip-disabled`, `tooltip-rtl` (`apps/v4/examples/radix/*.tsx` on shadcn-ui/ui main; the registry only publishes them for the radix-nova style, the markup is style-independent).
 
 ## API
 
@@ -134,7 +134,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Deviations
 
-One structural, invisible deviation (`gems/chadcn/dev/port/deviations/tooltip.json`):
+One structural, invisible deviation (`dev/port/deviations/tooltip.json`):
 
 - `Tooltip::Content` emits an inert `<template data-chadcn--tooltip-template="<id>">` sibling at its call site that carries the content markup until the controller mounts it in `body`. Reason: Radix renders nothing while closed and creates the node on the client; the server must ship the markup somewhere and the trigger (controller host) cannot contain it. The template has no `data-slot`, generates no box, and its content is not in the document, so G2 node lists, boxes and a11y are unaffected.
 

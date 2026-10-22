@@ -1,0 +1,264 @@
+# CI of the chadcn gem.
+#
+# gem:       the gem's own checks on every Ruby and Phlex the gemspec claims (Ruby >= 3.3, phlex ~> 2.3) with Rails ~> 8.1 for the
+#            engine tests: rake test, rake test:engine, rubocop, bundler-audit, 100% YARD coverage, gem build without warnings,
+#            gem_check, and the plain-Phlex smoke (Rails not loaded).
+# clean-app: a new Rails app installs the gem by following the README, renders a Button and a Dialog, and runs one browser
+#            parity scenario (bin/smoke --app).
+# clean-app-variants: the same smoke for the other supported pipelines, one matrix row each: esbuild (jsbundling-rails, needs
+#            node/yarn from `rails new`) and Sprockets (sprockets-rails + importmap). See dev/decisions/ci-smokes.md.
+# js-tests:  the gem's browser tests of the Stimulus controllers and primitives (test/javascript/*.test.mjs) against the dummy app.
+# docs:      every Ruby fence of README.md and docs/*.md renders in a plain process (bin/smoke --docs; known gem defects are
+#            explicit XFAILs).
+# tooling:   the tests of the repository tooling in .claude/scripts (audit receipt, epic board, gem gate): rake test:tooling.
+name: chadcn
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+defaults:
+  run:
+    shell: bash -eo pipefail {0}
+
+jobs:
+  gem:
+    name: gem (ruby ${{ matrix.ruby }}, ${{ matrix.gemfile }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: [ "3.3", "3.4", "4.0" ]
+        gemfile: [ "Gemfile", "test/smoke/gemfiles/phlex_2.3.gemfile" ]
+    env:
+      BUNDLE_GEMFILE: ${{ github.workspace }}/${{ matrix.gemfile }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          # The committed Gemfile.lock is cached; the matrix gemfiles have no lockfile and resolve afresh below.
+          bundler-cache: ${{ matrix.gemfile == 'Gemfile' }}
+
+      - name: Resolve and install the bundle
+        if: matrix.gemfile != 'Gemfile'
+        run: |
+          rm -f "$BUNDLE_GEMFILE.lock"
+          bundle install --jobs 4
+
+      - name: Tests (plain Phlex)
+        run: bundle exec rake test
+
+      - name: Tests (Rails engine and install generator)
+        run: bundle exec rake test:engine
+
+      - name: RuboCop
+        run: bundle exec rubocop
+
+      - name: Dependency audit
+        run: bundle exec bundler-audit check --update
+
+      - name: Public API fully documented
+        run: bundle exec yard stats --list-undoc | tee yard-stats.log && grep -q '100.00% documented' yard-stats.log
+
+      - name: Gem builds without warnings
+        run: gem build chadcn.gemspec 2>&1 | tee gem-build.log && ! grep -i warning gem-build.log
+
+      - name: Gem gate
+        run: ruby .claude/scripts/gem/gem_check.rb --gem-dir .
+
+      - name: Plain-Phlex smoke (Rails not loaded)
+        run: bundle exec bin/smoke --plain
+
+  clean-app:
+    name: clean Rails app from the README
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "4.0"
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+
+      - name: Install Rails
+        run: gem install rails --no-document --version "~> 8.1"
+
+      - name: Install Playwright
+        run: |
+          mkdir -p "$RUNNER_TEMP/playwright" && cd "$RUNNER_TEMP/playwright"
+          npm init -y > /dev/null && npm install --no-audit --no-fund playwright@1.61.0
+          npx playwright install --with-deps chromium
+
+      - name: Clean-app smoke (rails new, README quick start, HTTP checks, browser scenario)
+        env:
+          CHADCN_PLAYWRIGHT: ${{ runner.temp }}/playwright
+          SMOKE_APP_DIR: ${{ runner.temp }}/smoke_app
+        run: bin/smoke --app
+
+      - name: Keep the generated app's logs
+        uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: smoke-app-logs
+          path: ${{ runner.temp }}/smoke_app/log
+          if-no-files-found: ignore
+
+  clean-app-variants:
+    name: clean Rails app from the README (${{ matrix.name }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PLAYWRIGHT_VERSION: "1.61.0"
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: esbuild
+            args: "--js esbuild"
+          - name: sprockets
+            args: "--assets sprockets"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "4.0"
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+
+      - name: Install Rails
+        run: gem install rails --no-document --version "~> 8.1"
+
+      - name: Cache the Playwright browser
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ env.PLAYWRIGHT_VERSION }}-chromium-${{ runner.os }}
+
+      - name: Install Playwright
+        run: |
+          mkdir -p "$RUNNER_TEMP/playwright" && cd "$RUNNER_TEMP/playwright"
+          npm init -y > /dev/null && npm install --no-audit --no-fund "playwright@$PLAYWRIGHT_VERSION"
+          npx playwright install --with-deps chromium
+
+      - name: Clean-app smoke (${{ matrix.name }})
+        env:
+          CHADCN_PLAYWRIGHT: ${{ runner.temp }}/playwright
+          SMOKE_APP_DIR: ${{ runner.temp }}/smoke_app
+        run: bin/smoke --app ${{ matrix.args }}
+
+      - name: Keep the generated app's logs
+        uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: smoke-app-logs-${{ matrix.name }}
+          path: ${{ runner.temp }}/smoke_app/log
+          if-no-files-found: ignore
+
+  js-tests:
+    name: Stimulus controller and primitive browser tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "4.0"
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: dev/react-shadcn-catalog/package-lock.json
+
+      - name: Install the React catalog (the oracle server and the Playwright the tests use)
+        working-directory: dev/react-shadcn-catalog
+        run: |
+          npm ci --no-audit --no-fund
+          npx playwright install --with-deps chromium
+
+      - name: Install the dummy app's bundle (the Phlex side of the parity harness)
+        working-directory: dev/dummy
+        run: bundle install --jobs 4
+
+      - name: Start the dev servers and run the browser tests
+        run: |
+          ruby .claude/scripts/shadcn/servers.rb start > /dev/null
+          status=0
+          node --test --test-timeout=60000 --test-reporter=spec test/javascript/*.test.mjs || status=$?
+          ruby .claude/scripts/shadcn/servers.rb stop > /dev/null
+          exit $status
+
+      - name: Keep the dev server logs
+        uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: js-tests-logs
+          # servers.rb writes rails.log / vite.log to tmp/shadcn-port (layout.rb TMP_DIR).
+          path: |
+            tmp/shadcn-port
+            dev/dummy/log
+          if-no-files-found: ignore
+
+  docs:
+    name: README and guide examples (plain Phlex)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # Known failures are explicit XFAILs in test/smoke/docs.rb (Smoke::Docs::KNOWN_RED); any other failure, or a known one that starts passing, turns this job red.
+    env:
+      BUNDLE_GEMFILE: ${{ github.workspace }}/Gemfile
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Documentation examples render
+        run: bundle exec bin/smoke --docs
+
+  tooling:
+    name: repository tooling (.claude/scripts)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      BUNDLE_GEMFILE: ${{ github.workspace }}/Gemfile
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "4.0"
+          bundler-cache: true
+
+      - name: Tooling tests
+        run: |
+          git config --global user.email "ci@example.com"
+          git config --global user.name "CI"
+          bundle exec rake test:tooling

@@ -1,6 +1,6 @@
 # Separator
 
-Oracle: `gems/chadcn/dev/port/oracle/src/separator.tsx` (manifest `source_sha` ad7d5403fe337160, tier `radix_stateful`), wrapping `SeparatorPrimitive.Root` from `radix-ui` 1.7.0 -> `@radix-ui/react-separator` 1.1.16 (`gems/chadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-separator/dist/index.mjs`, cited as `sep.mjs:<line>`), whose element is `Primitive.div` from `@radix-ui/react-primitive` 2.1.11 (`react-primitive/dist/index.mjs`, cited as `primitive.mjs:<line>`). Registry example: `separator-demo` (fetched from `https://ui.shadcn.com/r/styles/new-york-v4/separator-demo.json`; the registry index lists only `separator` and `separator-demo`).
+Oracle: `dev/port/oracle/src/separator.tsx` (manifest `source_sha` ad7d5403fe337160, tier `radix_stateful`), wrapping `SeparatorPrimitive.Root` from `radix-ui` 1.7.0 -> `@radix-ui/react-separator` 1.1.16 (`dev/react-shadcn-catalog/node_modules/@radix-ui/react-separator/dist/index.mjs`, cited as `sep.mjs:<line>`), whose element is `Primitive.div` from `@radix-ui/react-primitive` 2.1.11 (`react-primitive/dist/index.mjs`, cited as `primitive.mjs:<line>`). Registry example: `separator-demo` (fetched from `https://ui.shadcn.com/r/styles/new-york-v4/separator-demo.json`; the registry index lists only `separator` and `separator-demo`).
 
 ## API
 

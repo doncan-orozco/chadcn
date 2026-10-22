@@ -1,6 +1,6 @@
 # Bubble (`Components::V2::Bubble`)
 
-Oracle: `gems/chadcn/dev/port/oracle/src/bubble.tsx` (style `new-york-v4`, source_sha `df1e461e33e835b7`; byte-identical to upstream `apps/v4/registry/new-york-v4/ui/bubble.tsx` on 2026-10-09), manifest `gems/chadcn/dev/port/oracle/manifest/bubble.json`. Tier `static`: no Stimulus controller, no primitive. Exports `BubbleGroup`, `Bubble`, `BubbleContent`, `BubbleReactions` (the two cva tables `bubbleVariants` / `bubbleReactionsVariants` are NOT exported). Radix primitive used: `Slot` only (`BubbleContent`: `const Comp = asChild ? Slot.Root : "div"`).
+Oracle: `dev/port/oracle/src/bubble.tsx` (style `new-york-v4`, source_sha `df1e461e33e835b7`; byte-identical to upstream `apps/v4/registry/new-york-v4/ui/bubble.tsx` on 2026-10-09), manifest `dev/port/oracle/manifest/bubble.json`. Tier `static`: no Stimulus controller, no primitive. Exports `BubbleGroup`, `Bubble`, `BubbleContent`, `BubbleReactions` (the two cva tables `bubbleVariants` / `bubbleReactionsVariants` are NOT exported). Radix primitive used: `Slot` only (`BubbleContent`: `const Comp = asChild ? Slot.Root : "div"`).
 
 ## API
 

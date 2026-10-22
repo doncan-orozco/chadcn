@@ -1,6 +1,6 @@
 # ScrollArea
 
-Oracle: `gems/chadcn/dev/port/oracle/src/scroll-area.tsx` (manifest `source_sha` 8b73bb9be5130007, tier `radix_stateful`), wrapping `ScrollAreaPrimitive.Root / Viewport / ScrollAreaScrollbar / ScrollAreaThumb / Corner` from `radix-ui` 1.7.0 -> `@radix-ui/react-scroll-area` 1.3.0 (`gems/chadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-scroll-area/dist/index.mjs`, cited below as `sa.mjs:<line>`), built on `@radix-ui/react-presence` 1.1.11 (`presence.mjs`), `@radix-ui/react-direction` 1.1.5 (`dir.mjs`) and `@radix-ui/react-slot` 1.4.0 (`slot.mjs`, only for `createSlottable`). Registry examples: `scroll-area-demo` and `scroll-area-horizontal-demo` (`https://ui.shadcn.com/r/styles/new-york-v4/<name>.json`, fetched online). The registry item has no `meta.links`.
+Oracle: `dev/port/oracle/src/scroll-area.tsx` (manifest `source_sha` 8b73bb9be5130007, tier `radix_stateful`), wrapping `ScrollAreaPrimitive.Root / Viewport / ScrollAreaScrollbar / ScrollAreaThumb / Corner` from `radix-ui` 1.7.0 -> `@radix-ui/react-scroll-area` 1.3.0 (`dev/react-shadcn-catalog/node_modules/@radix-ui/react-scroll-area/dist/index.mjs`, cited below as `sa.mjs:<line>`), built on `@radix-ui/react-presence` 1.1.11 (`presence.mjs`), `@radix-ui/react-direction` 1.1.5 (`dir.mjs`) and `@radix-ui/react-slot` 1.4.0 (`slot.mjs`, only for `createSlottable`). Registry examples: `scroll-area-demo` and `scroll-area-horizontal-demo` (`https://ui.shadcn.com/r/styles/new-york-v4/<name>.json`, fetched online). The registry item has no `meta.links`.
 
 Exports: `ScrollArea`, `ScrollBar`.
 
@@ -168,6 +168,6 @@ Scenario fixtures: the `scroll-area-demo` uses `Separator` between tags; Separat
 
 ## Deviations
 
-One structural deviation, recorded in `gems/chadcn/dev/port/deviations/scroll-area.json`:
+One structural deviation, recorded in `dev/port/deviations/scroll-area.json`:
 
 - ScrollBar (scrollbar element and its thumb) are conditionally mounted by Radix (Presence, sa.mjs:257, 313, 338, 614), but a server render cannot "not render" an element and still know its classes and caller attrs when the client later mounts it. The port renders each scrollbar (and the thumb inside it) inside an inert `<template>` placeholder at its JSX position; the template has no `data-slot`, no class, is not in the accessibility tree and not in the parity snapshot. Once mounted the DOM is identical to React's. Machine-readable entry: `{ "reason": "...", "allow_tokens": [], "allow_missing_tokens": [], "api": ["ScrollArea::ScrollBar: unmounted scrollbar/thumb kept in an inert <template> placeholder (no data-slot) until the controller mounts them"] }`.

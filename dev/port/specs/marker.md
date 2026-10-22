@@ -1,6 +1,6 @@
 # Marker (`Components::V2::Marker`)
 
-Oracle: `gems/chadcn/dev/port/oracle/src/marker.tsx` (style `new-york-v4`, source_sha `036277635df058b8`), manifest `gems/chadcn/dev/port/oracle/manifest/marker.json`, registry item `gems/chadcn/dev/port/oracle/registry/marker.json` (`registry:ui`, dependencies `cn`, `radix-ui`, no registry dependencies). Tier `static`: no Stimulus controller, no primitive. Exports `Marker`, `MarkerIcon`, `MarkerContent`, `markerVariants`; data-slots `marker`, `marker-icon`, `marker-content`. Radix primitive used: `Slot` only (`import { Slot } from "radix-ui"`, `const Comp = asChild ? Slot.Root : "div"` in `function Marker`).
+Oracle: `dev/port/oracle/src/marker.tsx` (style `new-york-v4`, source_sha `036277635df058b8`), manifest `dev/port/oracle/manifest/marker.json`, registry item `dev/port/oracle/registry/marker.json` (`registry:ui`, dependencies `cn`, `radix-ui`, no registry dependencies). Tier `static`: no Stimulus controller, no primitive. Exports `Marker`, `MarkerIcon`, `MarkerContent`, `markerVariants`; data-slots `marker`, `marker-icon`, `marker-content`. Radix primitive used: `Slot` only (`import { Slot } from "radix-ui"`, `const Comp = asChild ? Slot.Root : "div"` in `function Marker`).
 
 ## API
 

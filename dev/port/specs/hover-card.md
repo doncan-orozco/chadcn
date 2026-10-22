@@ -1,7 +1,7 @@
 # HoverCard (shadcn new-york-v4, Radix `HoverCard`)
 
-Oracle: `gems/chadcn/dev/port/oracle/src/hover-card.tsx` (manifest `source_sha` 73f59aa759656501), manifest `oracle/manifest/hover-card.json`.
-Behavior source: `gems/chadcn/dev/react-shadcn-catalog/node_modules/@radix-ui/react-hover-card/dist/index.mjs` v1.1.24 (cited `hc:<line>`), built on `react-popper` 1.3.8 (`popper:`), `react-dismissable-layer` 1.1.20 (`dl:`), `react-presence` 1.1.11 (`pr:`), `react-portal` 1.1.18, `react-focus-scope` 1.2.0 (`fs:`, branch registry only), `react-use-controllable-state` (`ucs:`), all from `radix-ui` 1.7.0; `@floating-ui/react-dom` 2.1.9 / `@floating-ui/dom` 1.8.0; React 19.3.0.
+Oracle: `dev/port/oracle/src/hover-card.tsx` (manifest `source_sha` 73f59aa759656501), manifest `oracle/manifest/hover-card.json`.
+Behavior source: `dev/react-shadcn-catalog/node_modules/@radix-ui/react-hover-card/dist/index.mjs` v1.1.24 (cited `hc:<line>`), built on `react-popper` 1.3.8 (`popper:`), `react-dismissable-layer` 1.1.20 (`dl:`), `react-presence` 1.1.11 (`pr:`), `react-portal` 1.1.18, `react-focus-scope` 1.2.0 (`fs:`, branch registry only), `react-use-controllable-state` (`ucs:`), all from `radix-ui` 1.7.0; `@floating-ui/react-dom` 2.1.9 / `@floating-ui/dom` 1.8.0; React 19.3.0.
 Examples: registry `new-york-v4/hover-card-demo.json`; docs examples `hover-card-demo`, `hover-card-sides`, `hover-card-rtl` (`apps/v4/examples/radix/*.tsx` on shadcn-ui/ui main, radix-nova style; the hover-card markup is style independent).
 Tier: `overlay`. Family: Overlay (floating), same as Tooltip (keep `hover_intent` / `positioner` / template usage identical to `specs/tooltip.md`).
 
@@ -138,7 +138,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Deviations
 
-One structural, invisible deviation (`gems/chadcn/dev/port/deviations/hover-card.json`), identical in shape to Tooltip's:
+One structural, invisible deviation (`dev/port/deviations/hover-card.json`), identical in shape to Tooltip's:
 
 - `HoverCard::Content` emits an inert `<template data-chadcn--hover-card-template="<key>">` at its call site that carries the content markup until the controller mounts it in `body`. Reason: Radix renders nothing while closed and creates the node on the client in a body portal; the server must ship the markup somewhere and the trigger (the controller host, an `<a>`) cannot contain it. The template has no `data-slot`, generates no box, and its content is not in the document, so G2 node lists, boxes and a11y are unaffected.
 
