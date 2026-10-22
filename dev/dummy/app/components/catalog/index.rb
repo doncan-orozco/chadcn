@@ -6,6 +6,17 @@ class Catalog::Index < Phlex::HTML
   include Phlex::Rails::Helpers::StylesheetLinkTag
   include Phlex::Rails::Helpers::JavascriptImportmapTags
   include Phlex::Rails::Helpers::T
+  include Phlex::Rails::Helpers::ImagePath
+  include Phlex::Rails::Helpers::LinkTo
+  include Phlex::Rails::Helpers::Routes
+
+  UPSTREAM_URL = "https://ui.shadcn.com"
+  # Wordmark file variant -> classes that show it only in its own theme (light unless `.dark`, dark only under `.dark`).
+  WORDMARK_VARIANTS = { "light" => "h-12 w-auto dark:hidden", "dark" => "hidden h-12 w-auto dark:block" }.freeze
+  # Stands in for the upstream link inside a translated sentence, so each sentence stays one key per locale.
+  UPSTREAM_SLOT = "\u0000"
+  # Intrinsic size of the BRAND.md wordmark SVGs, so the browser reserves the box.
+  WORDMARK_SIZE = { width: 352, height: 96 }.freeze
 
   def initialize(entries:)
     @entries = entries
@@ -20,6 +31,7 @@ class Catalog::Index < Phlex::HTML
         meta(name: "viewport", content: "width=device-width,initial-scale=1")
         meta(name: "turbo-visit-control", content: "reload")
         title { t("catalog.title") }
+        favicons
         stylesheet_link_tag("tailwind")
         javascript_importmap_tags
       end
@@ -30,6 +42,7 @@ class Catalog::Index < Phlex::HTML
             nav_section
             main(class: "min-w-0 space-y-8") { @entries.each { |entry| entry_card(entry) } }
           end
+          footer_section
         end
       end
     end
@@ -41,12 +54,49 @@ class Catalog::Index < Phlex::HTML
     header(class: "border-b border-border bg-card") do
       div(class: "max-w-7xl mx-auto px-4 py-6 flex items-center justify-between gap-4") do
         div do
-          h1(class: "text-3xl font-bold") { t("catalog.title") }
+          h1 { wordmark }
+          p(class: "text-sm font-medium mt-2") { upstream_sentence("catalog.tagline") }
           p(class: "text-muted-foreground mt-2") { t("catalog.subtitle", count: @entries.size) }
         end
-        a(href: "/design-system/theme-panel", class: "text-sm underline underline-offset-4") { t("catalog.theme_panel") }
+        link_to(t("catalog.theme_panel"), theme_panel_path, class: "text-sm underline underline-offset-4")
       end
     end
+  end
+
+  # The mascot as favicon, light or dark by the OS color scheme (a favicon cannot follow the `.dark` class).
+  def favicons
+    WORDMARK_VARIANTS.each_key do |scheme|
+      link(
+        rel: "icon", type: "image/svg+xml", href: image_path("brand/mascot-#{scheme}.svg"),
+        media: "(prefers-color-scheme: #{scheme})"
+      )
+    end
+  end
+
+  # Light and dark variants of the brand guide's wordmark; the theme's `.dark` class picks one (BRAND.md, Assets).
+  def wordmark
+    alt = t("catalog.wordmark_alt")
+    WORDMARK_VARIANTS.each do |variant, classes|
+      img(src: image_path("brand/wordmark-#{variant}.svg"), alt:, **WORDMARK_SIZE, class: classes)
+    end
+  end
+
+  def footer_section
+    footer(class: "border-t border-border") do
+      p(class: "max-w-7xl mx-auto px-4 py-6 text-xs text-muted-foreground") do
+        upstream_sentence("catalog.disclaimer")
+      end
+    end
+  end
+
+  # A translated sentence whose %{upstream} slot becomes the shadcn/ui link (BRAND.md: link on first mention).
+  def upstream_sentence(key)
+    lead_in, slot, trailing_text = t(key, upstream: UPSTREAM_SLOT).partition(UPSTREAM_SLOT)
+    plain lead_in
+    unless slot.empty?
+      link_to(t("catalog.upstream_name"), UPSTREAM_URL, class: "underline underline-offset-4")
+    end
+    plain trailing_text
   end
 
   def nav_section

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-labelledby="chadcn-mascot-title chadcn-mascot-desc">
+  <title id="chadcn-mascot-title">chadcn mascot</title>
+  <desc id="chadcn-mascot-desc">A geometric figure with a flat-top haircut, square jaw, dark sunglasses and a calm half smile.</desc>
+  <!-- Original artwork for chadcn, drawn from basic shapes. Dark variant: same figure, light outline for dark backgrounds. -->
+  <g fill="none" stroke="#fafafa" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M24 124 L40 110 H88 L104 124" />
+    <path d="M54 100 V110 M74 100 V110" />
+    <path d="M36 42 V76 L48 100 H80 L92 76 V42" fill="#e4e4e7" />
+    <path d="M36 58 H31 V70 H36 M92 58 H97 V70 H92" fill="#e4e4e7" />
+    <path d="M33 42 V26 L40 20 H90 L95 26 V42 Z" fill="#09090b" />
+    <path d="M36 50 H92 V58 Q92 64 86 64 H72 Q66 64 64 58 Q62 64 56 64 H42 Q36 64 36 58 Z" fill="#09090b" />
+  </g>
+  <g fill="none" stroke="#09090b" stroke-width="4" stroke-linecap="round">
+    <path d="M54 84 Q64 89 76 81" />
+    <path d="M64 92 V97" stroke-width="3" />
+  </g>
+  <path d="M42 54 L50 54" stroke="#fafafa" stroke-width="2" stroke-linecap="round" />
+  <path d="M70 54 L78 54" stroke="#fafafa" stroke-width="2" stroke-linecap="round" />
+</svg>
