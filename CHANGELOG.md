@@ -228,6 +228,10 @@ Since the first extraction of the gem:
   one (a scenario named twice exits 2). The default `dev/bench/baseline.json` is validated like an `--against` file: an unreadable or
   malformed one exits 1 with a message (for plain runs, `--json` and `--check` alike; `--record` warns and rewrites it instead), and
   the baseline is validated before anything is measured.
+- `chadcn--theme` instances with the same storage key stay in sync: each follows `chadcn--theme:changed` from the others (the event
+  detail now also carries `storageKey`) and the `storage` event from other tabs, re-applying without dispatching again, so a stale
+  instance no longer re-applies `system` over the stored choice when the OS scheme changes, and one choice is exactly one `changed`
+  event.
 
 ### Removed
 

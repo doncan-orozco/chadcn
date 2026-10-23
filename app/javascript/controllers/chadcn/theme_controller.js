@@ -21,14 +21,33 @@ export default class extends Controller {
   #mediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
   #systemListener = () => this.#apply()
 
+  // Another instance's choice: its own detail when the key matches, a re-read when a host dispatches the event without a key.
+  #changedListener = (event) => {
+    if (event.target === this.element) return
+    const { theme, storageKey } = event.detail ?? {}
+    if (storageKey === undefined) return this.#follow(this.#read())
+    if (storageKey !== this.#key) return
+    this.#follow(["light", "dark", "system"].includes(theme) ? theme : this.#read())
+  }
+
+  // Another tab or page of the origin changed (or cleared) the stored choice.
+  #storageListener = (event) => {
+    if (event.storageArea !== localStorage) return
+    if (event.key === null || event.key === this.#key) this.#follow(this.#read())
+  }
+
   connect() {
     this.currentValue = this.#read()
     this.#apply()
     this.#mediaQuery.addEventListener("change", this.#systemListener)
+    window.addEventListener("chadcn--theme:changed", this.#changedListener)
+    window.addEventListener("storage", this.#storageListener)
   }
 
   disconnect() {
     this.#mediaQuery.removeEventListener("change", this.#systemListener)
+    window.removeEventListener("chadcn--theme:changed", this.#changedListener)
+    window.removeEventListener("storage", this.#storageListener)
   }
 
   // Cycle: system -> light -> dark -> system
@@ -45,7 +64,13 @@ export default class extends Controller {
     this.currentValue = theme
     this.#write(theme)
     this.#apply()
-    this.dispatch("changed", { detail: { theme } })
+    this.dispatch("changed", { detail: { theme, storageKey: this.#key } })
+  }
+
+  // Adopt a choice made elsewhere: apply it, never dispatch (one user action is one `changed` event page-wide).
+  #follow(theme) {
+    this.currentValue = theme
+    this.#apply()
   }
 
   // The stored choice when it is "light" or "dark"; anything else (nothing stored, a stale value, blocked storage) is "system".
