@@ -41,10 +41,12 @@ Run them with `env -u BUNDLE_GEMFILE` and a UTF-8 locale (`LANG=en_US.UTF-8`) if
 
 ## Conventions live in `.ai/skills/` (exposed through the `.claude/skills` symlink)
 
-Read the relevant SKILL.md before working in an area; every skill starts with numbered Quick Rules that audits cite as `<skill> R<n>`.
+Read the relevant SKILL.md before working in an area; every skill starts with numbered Quick Rules that audits cite as `<skill> R<n>`
+(a rule marked `(dropped: ...)` is a tombstone that keeps the numbering stable and is never cited). The ten skills:
 `ruby-gem-conventions` (standalone code, public API, packaging, release), `shadcn-port` (the 1:1 contract and parity gates),
-`radix-stimulus` (behavior primitives), `design-system`, `stimulus`, `accessibility`, `testing`, `naming-conventions`, `linting`,
-`epic-flow`. Some of them were written for the Papyro host and still mention it; in this repository only the gem parts apply.
+`radix-stimulus` (behavior primitives), `design-system` (writing and using the components), `stimulus` (controller lifecycle and
+wiring), `accessibility`, `testing` (the suites and what each covers), `naming-conventions` (with the library exception for the
+shadcn vocabulary), `linting`, `epic-flow` (the issue board). Every one of them describes this repository alone.
 
 ## Commands and agents (`.claude/`)
 
@@ -53,6 +55,8 @@ Read the relevant SKILL.md before working in an area; every skill starts with nu
   `shadcn-port-builder`, `shadcn-parity-auditor`.
 - Epic flow (GitHub issues of this repository as the board, `.claude/scripts/epic/work_board.rb`): `/epic-plan`, `/work --epic <slug>`
   (never merges), `/work-merge --epic <slug>` (human-run, the only command that merges), `/work-status`, `/work-release`.
-- `/audit-feature [range] [--fix]`: Map-Reduce audit; every file here is on its Gem track (`ruby-gem-conventions` +
-  `naming-conventions` instead of the Papyro layer skills). `--fix` runs the Actor-Critic loop (max 3 iterations).
+- `/audit-feature [range] [--fix]`: Map-Reduce audit of one repository; every file is on the Gem track (`ruby-gem-conventions` +
+  `naming-conventions`, plus `design-system`/`shadcn-port` for components, `stimulus`/`radix-stimulus` for JavaScript, `testing` for
+  tests). `--fix` runs the Actor-Critic loop (max 3 iterations). Agents: `brick-method-auditor`, `room-class-auditor`,
+  `stimulus-controller-auditor`, `view-slice-auditor`, `principal-architect`, `senior-rails-dev` (the builder).
 - Merging to `main`, tagging and `gem push` (with MFA) are human steps.

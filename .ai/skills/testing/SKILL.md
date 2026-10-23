@@ -1,167 +1,97 @@
 ---
 name: testing
-description: "Minitest testing for Papyro, including system tests. Use when writing or fixing anything under `test/` — operations, contracts, queries, presenters, components, controllers, jobs, channels, Capybara/Cuprite system tests for Hotwire flows — or running the CI verification pipeline (`bin/ci`)."
+description: "Minitest and browser testing for the chadcn gem. Use when writing or fixing anything under `test/` (component tests in `test/chadcn`, the doctor, packaging, the public API snapshot, the engine and generator suite, the browser tests in `test/javascript`), the repository tooling tests in `.claude/scripts/test`, or when running the verification pipeline (`bin/check`, `bin/test-js`, `bin/smoke`)."
 ---
 
-# Testing (Minitest + dry-rb)
+# Testing (Minitest, no database, no network)
 
 ## Quick Rules
 
 Cite as `testing R<n>`. Detail and examples follow below / in references/.
 
-R1. **Mirror concept tests.** Every new file under `app/concepts/**/{operation,query,presenter,service}/` has a matching `test/concepts/**/<same layer>/*_test.rb`. → detail: Concept Coverage Policy
-R2. **Core abstractions tested.** Changes to `app/concepts/core/` come with lightweight contract tests locking base behavior. → detail: Concept Coverage Policy
-R3. **Success plus failure.** Each concept test file asserts at least one success path and one failure/edge path (where applicable). → detail: Concept Coverage Policy
-R4. **Payload shape asserted.** Operation and query tests check the result payload shape, not just success/failure. → detail: Concept Coverage Policy
-R5. **Fixtures by default.** Test data comes from fixtures; FactoryBot is added only when fixtures become unmanageable. → detail: Suggestions
-R6. **Semantic component assertions.** Component and view tests assert key sections, variants and data attributes, without snapshots or brittle class-level checks. → detail: UI Components (Phlex) / Views
-R7. **SEO coverage on public routes.** Each new indexable public URL has an integration test asserting canonical, locale alternates, `x-default` hreflang and title/description/og tags. → detail: SEO Integration Coverage
-R8. **Engine tests run from host.** PapyroStudio engine tests load the host environment/fixtures and run from the host app root; no duplicate suite ownership across host and engine. → detail: Host-Coupled Engine Harness
-R9. **No sleep in system tests.** System tests never call `sleep`; they wait via `assert_text`, `assert_selector` or `assert_current_path`. → detail: references/hotwire-system-testing.md
-R10. **UI before database.** After a Turbo/Stimulus action, assert a visible UI signal before asserting persisted state. → detail: references/hotwire-system-testing.md
-R11. **Selector order and `:testid`.** Use labels/button text first; `data-testid` only for async or unstable elements, queried via `find(:testid, ...)`, never raw `[data-testid=...]` CSS or nth-child selectors. → detail: references/hotwire-system-testing.md
-R12. **Thin system tests.** System tests set up state in Ruby, cover one visible UI error path, and leave validation matrices to contract/operation tests. → detail: references/hotwire-system-testing.md
-R13. **Wait before asserting in browser.** Playwright/system tests wait for elements before asserting, cover critical flows, and test behavior rather than implementation details. → detail: references/system-testing-playwright.md
-R14. **Cross-domain session flow.** Cross-subdomain auth/session changes include at least one real browser navigation test across host and studio domains. → detail: references/hotwire-system-testing.md
-R15. **Green CI pipeline.** New code has tests, no undocumented skipped tests, and `bin/brakeman`, `bin/bundler-audit`, `bin/importmap audit`, `bin/rubocop` and `rake test` pass before push. → detail: references/ci-verification.md
+R1. **Mirror tests.** Every component file `lib/chadcn/<name>.rb` has `test/chadcn/<name>_test.rb`; a controller whose behavior a scenario step cannot express has `test/javascript/<name>.test.mjs`; `lib/chadcn/doctor/**`, `lib/generators/**` and `lib/chadcn/engine*` are covered under `test/doctor`, `test/generators` and `test/engine`. → detail: Suites
+R2. **Core abstractions tested.** Changes to `Chadcn::Base` (`cn`, `merge_attrs`, `render_as_child`, `normalize_option`, the DX helper generator) come with tests in `test/chadcn/base*_test.rb` locking the merge tables and the helper contract. → detail: Component tests
+R3. **Default plus non-default.** Each component test asserts the default render and at least one non-default path (a variant or size, a state, `disabled`, `as_child`, an invalid option raising). → detail: Component tests
+R4. (dropped: host-only, payload-shape assertions belonged to the consuming application's operations and queries; the gem has no result objects)
+R5. (dropped: host-only, fixtures and FactoryBot need a database; the gem renders components directly and keeps one snapshot fixture, `test/fixtures/public_api.txt`)
+R6. **Semantic component assertions.** Tests assert `data-slot`, `data-variant`/`data-size`, `data-state`, `role`/`aria-*`, the merged `class` and attribute passthrough with `assert_includes`, never whole-HTML snapshots or brittle class-order checks; the G1 gate already proves the token set. → detail: Component tests
+R7. (dropped: host-only, SEO head metadata belongs to the consuming application's public routes)
+R8. (dropped: host-only, the Papyro application's Studio engine suite booted that application; this gem's engine tests boot their own minimal Rails app, see R17)
+R9. **No fixed waits in browser tests.** `test/javascript` never sleeps on a timer; it waits for a DOM state (`locator.waitFor`, `data-state`, `networkidle` on open) or a dispatched event. → detail: Browser tests
+R10. (dropped: host-only, "UI signal before persisted state" guarded database writes after Turbo actions; the gem persists nothing)
+R11. **Select by contract.** Browser and unit tests find elements by `data-slot`, role, accessible name or `data-state`, never by `nth-child`, class strings or tag position. → detail: Browser tests
+R12. **Scenarios first, JS tests for the rest.** Anything a scenario step can express is a scenario in `dev/port/scenarios/<name>.json` (compared with React by the parity runner); `test/javascript` covers only what the runner cannot: touch and pen input, cancelable public events, positioner options, nested layers, Turbo navigation and cache restore. → detail: Browser tests
+R13. **Wait before asserting in browser.** Browser tests wait for elements and states before asserting, cover the critical flow of the component and test behavior rather than implementation details; every state assertion has a control that proves it can fail. → detail: Browser tests
+R14. (dropped: host-only, cross-subdomain session flows belonged to the consuming application's authentication)
+R15. **Green pipeline before push.** `bin/check` (plain suite, engine suite, the dev bench and dummy parity tests, RuboCop, bundler-audit, the gem gate) is green, and the change keeps the CI-only jobs green: `bin/test-js`, `bin/smoke --docs`, `bin/smoke --app`, `bundle exec rake test:tooling`, `rake llms:check`, YARD at 100%, `gem build` without warnings. No undocumented skipped tests. → detail: Pipeline
+R16. **Public API is a snapshot test.** `test/public_api_test.rb` compares the public constants and methods with `test/fixtures/public_api.txt`; a deliberate API change runs `bundle exec rake public_api:update`, reviews the diff and adds a CHANGELOG entry in the same commit (`ruby-gem-conventions` R5). → detail: Suites
+R17. **Engine and generator tests boot Rails in-process.** `rake test:engine` boots one minimal Rails application (`test/engine/engine_helper.rb`), no database, no fixtures; generator tests render into `tmp/generator-destination/` and assert files and messages; the plain suite (`rake test`) never loads Rails. → detail: Suites
+R18. **No network, ever.** `test/test_helper.rb` fails any `Net::HTTP.start`; code that fetches (theme import) is tested through a scripted stand-in, and the smoke that needs the network (`bin/smoke --app`) is a separate CI job. → detail: Suites
 
 ## Dependencies
-- minitest
-- dry-monads
-- dry-validation
+- minitest (`~> 6.0`, `Chadcn::TestCase` adds the `test "…" do` DSL and `assert_not_*` spellings)
+- nokogiri (DOM assertions where a string include is not enough)
+- Playwright of `dev/react-shadcn-catalog` and Node's `node:test` for `test/javascript` (nothing else is installed)
 
-## File Structure
+## Suites
+
+| Command | Runs | Loads Rails | Needs |
+|---|---|---|---|
+| `bundle exec rake test` | `test/**/*_test.rb` except engine and generators: components, `Base`, theme, doctor, packaging, public API snapshot, llms drift, smoke registry | no | nothing |
+| `bundle exec rake test:engine` | `test/engine/**`, `test/generators/**` | yes, one minimal app in-process | the `engine` Gemfile group |
+| `bundle exec rake test:tooling` | `.claude/scripts/test/**` (audit receipt, epic board, gem gate) | no | a fake `gh` (`fake_gh.rb`) |
+| `bin/test-js` | `test/javascript/*.test.mjs` in a real browser against the dummy app and the React catalog | the dummy app, in a server | Playwright, the dev servers (`servers.rb`) |
+| `bin/smoke --plain` / `--docs` | the README's plain-Ruby fence; every ```ruby fence of README and docs/ | no | nothing |
+| `bin/smoke --app` | `rails new`, the README quick start, HTTP checks, one browser scenario | yes, a generated app | network, Playwright |
+| the dummy app's Minitest suite (`bin/check` runs it from `dev/dummy`) | the parity harness and the catalog of the dev kit | yes | the dummy bundle |
+| `/shadcn-audit <names>` | the parity gates G1-G4 against the React oracle | the dummy app, in a server | the dev servers |
+
+One file: `bundle exec ruby -Itest -Ilib test/chadcn/switch_test.rb` (or `-n /pattern/`); engine: `bundle exec rake test:engine TEST=test/engine/doctor_test.rb`; browser: start the servers and `node --test --test-reporter=spec test/javascript/popover.test.mjs` (`radix-stimulus` references/js-controller-tests.md). Run everything with `env -u BUNDLE_GEMFILE` and `LANG=en_US.UTF-8` when your shell exports something else.
+
+## Component tests (`test/chadcn`)
+
+```ruby
+# frozen_string_literal: true
+
+require "chadcn/test_case"
+
+class Chadcn::SwitchTest < Chadcn::TestCase
+  def render_switch(**props) = Chadcn::Switch.new(**props).call
+
+  test "renders the unchecked default with thumb and bubble input" do
+    html = render_switch
+
+    assert_includes html, 'data-slot="switch"'
+    assert_includes html, 'role="switch"'
+    assert_includes html, 'aria-checked="false"'
+  end
+
+  test "accepts size as symbol or string" do
+    assert_includes render_switch(size: :sm), 'data-size="sm"'
+    assert_includes render_switch(size: "sm"), 'data-size="sm"'
+  end
+end
 ```
-test/
-  operations/
-    game/
-      operation/
-        move_player_test.rb
-    player/
-      operation/
-        create_test.rb
-  contracts/
-    game/
-      contract/
-        move_player_test.rb
-  channels/
-    game_channel_test.rb
-  fixtures/
-```
 
-## Coverage Examples
-- Operations in isolation (happy + failure paths)
-- Contracts for validation
-- Channels for WebSocket authorization
-- Broadcast assertions for realtime features
-- Fixtures for test data
-- Small, explicit tests
+- Render with `.call` (plain Phlex, no Rails view context); compound trees render the root with a block.
+- Assert the contract: `data-slot` per part, `data-variant`/`data-size`, `data-state`, ARIA, merged `class` (caller wins), `data`/`aria` deep-merge, `data-action` concatenation order, `as_child` merge.
+- For compound roots, one test proves every generated DX helper renders the same HTML as the explicit class (`design-system` R4).
+- Behavior (open/close, focus, keyboard) is not unit-tested in Ruby: it is a scenario or a browser test.
 
-## Concept Coverage Policy (Required)
+## Browser tests (`test/javascript`)
 
-For concept-layer coverage, enforce a mirrored test structure:
+`harness.mjs` exports `browserTest(name, fn, { touch })` (one browser per process, a fresh context and page per test, page errors fail the test); `support.mjs` exports `openScenario`, `reconnectWithOptions` and `recordEvents`. A test opens a real parity page of the dummy app, drives it with Playwright and asserts `data-state`, ARIA and the focused element. Detail and conventions: `radix-stimulus` references/js-controller-tests.md. Mutate the controller once to confirm a new test goes red, then revert.
 
-1. Every file under `app/concepts/**/operation/*.rb` must have a corresponding test under `test/concepts/**/operation/*_test.rb`.
-2. Every file under `app/concepts/**/query/*.rb` must have a corresponding test under `test/concepts/**/query/*_test.rb`.
-3. Every file under `app/concepts/**/presenter/*.rb` must have a corresponding test under `test/concepts/**/presenter/*_test.rb`.
-4. Every file under `app/concepts/**/service/*.rb` must have a corresponding test under `test/concepts/**/service/*_test.rb`.
-5. Core abstractions under `app/concepts/core/` must have lightweight contract tests to lock base behavior.
+## Pipeline
 
-Minimum expectation per concept test file:
-
-1. At least one success-path assertion.
-2. At least one failure/edge-path assertion (where applicable).
-3. Result payload shape checks for operation/query contracts.
-
-## Suggestions
-- Framework: Minitest (Rails-native, fast, minimal)
-- Test data: fixtures by default; add FactoryBot if fixtures become unmanageable
-- System tests: Playwright (more reliable than Selenium) with Capybara driver
-
-## Host-Coupled Engine Harness (PapyroStudio)
-
-Use this pattern when engine code depends on host models, DB schema, and authentication:
-
-1. Engine test helper boots the host environment (for this workspace, via sibling host app path).
-2. Engine tests run from host app root (not inside engine directory) to ensure one source of truth for boot/runtime.
-3. Keep fixtures sourced from host app fixture paths in the engine test helper.
-
-### Coverage Ownership Split
-
-1. Engine test suite should own studio request/policy/presenter depth tests.
-2. Host test suite should keep a small smoke boundary for mount/subdomain/session integration.
-3. Avoid duplicate suite ownership across host and engine; remove migrated host duplicates after parity is confirmed.
-
-### Commands
-
-From host app root:
-
-1. `bin/rails test`
-2. `bin/rails test ../papyro_studio/test`
-3. `bin/rails test:with_studio`
-
-See [references/tests.md](references/tests.md) for concrete examples.
-
-## UI Components (Phlex)
-- Render components and assert HTML output.
-- Verify variant/size classes and data attributes.
-- Keep assertions semantic (avoid brittle class-level expectations when possible).
-
-## Views
-- Treat views as integration units: render and assert key sections.
-- Avoid snapshot noise; assert only critical content.
-
-> **Flash and Toast Test Examples:** controller, component and system tests → [references/flash-and-toast-tests.md](references/flash-and-toast-tests.md)
-
-## SEO Integration Coverage
-- For every public URL that should be indexable, add an integration test for head metadata.
-- Assert the canonical URL, locale alternates, and `x-default` hreflang tag.
-- Assert the base social tags as well: `title`, `meta[name='description']`, `og:title`, `og:description`, `og:locale`, and `og:locale:alternate`.
-- Cover at least the home page, public index pages, public show pages, and public profile pages when they exist.
-- Treat missing SEO assertions on a new public route as missing required coverage, not optional follow-up work.
-
-> **System Testing with Playwright:** setup, patterns, scenarios, debugging → [references/system-testing-playwright.md](references/system-testing-playwright.md)
-
-## Test Organization
-
-```
-test/
-  application_system_test_case.rb
-  test_helper.rb
-  
-  concepts/
-    articles/
-      operation/
-        create_test.rb
-      contract/
-        create_contract_test.rb
-    
-  controllers/
-    articles_controller_test.rb
-  
-  components/
-    article_card_test.rb
-  
-  system/
-    articles/
-      create_article_test.rb
-      edit_article_test.rb
-      sort_articles_test.rb
-    
-  fixtures/
-    articles.yml
-    users.yml
-```
+`bin/check` is the local gate; CI (`.github/workflows/chadcn.yml`) runs the same steps in the `gem` matrix job (plain and engine suites, RuboCop, bundler-audit, YARD coverage, `gem build`, the gem gate, `bin/smoke --plain`), plus `clean-app` and `clean-app-variants` (`bin/smoke --app`), `js-tests` (`bin/test-js`), `docs` (`bin/smoke --docs`) and `tooling` (`rake test:tooling`). A gate that cannot run locally (no browser) is a reason to say so, never to skip it silently.
 
 ## Coverage Checklist
 
-- [ ] Operations: happy path + all failure cases
-- [ ] Contracts: all validation rules
-- [ ] Components: rendering + variants
-- [ ] System tests: critical user flows
-- [ ] Real-time: broadcasts + WebSocket updates
-- [ ] Error handling: validation errors, network errors
-- [ ] Accessibility: keyboard navigation, ARIA labels
-
-> **CI/CD Verification Pipeline:** what CI checks, local pre-push, troubleshooting → [references/ci-verification.md](references/ci-verification.md)
-
+- [ ] Component: default render + variants/sizes/states + attrs passthrough + DX helpers
+- [ ] `Base` change: merge tables and helper generator tests updated
+- [ ] Controller: scenarios cover the state matrix; `test/javascript` covers what scenarios cannot
+- [ ] Engine, generator, doctor: `rake test:engine` / `test/doctor` cover the new branch (success and failure)
+- [ ] Public API change: `rake public_api:update` + CHANGELOG entry
+- [ ] Docs example: renders under `bin/smoke --docs`
+- [ ] Tooling script: a test in `.claude/scripts/test`

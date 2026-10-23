@@ -1,14 +1,14 @@
 ---
 description: Worker loop for an epic: take the next claimable item, work it in an isolated worktree through its stages, share what you learn, release, repeat. Several sessions (yours, a colleague's) can run this on the same epic at once.
 argument-hint: "--epic <slug> [--stage plan,build,...] [--max-items N] [--once]"
-allowed-tools: Agent, Skill, Read, Write, Edit, Grep, Glob, TodoWrite, Bash(ruby:*), Bash(git:*), Bash(gh pr:*), Bash(bin/rails:*), Bash(bin/rubocop:*), Bash(node:*), Bash(npm:*), Bash(cd:*), Bash(ls:*), Bash(mkdir:*), Bash(grep:*)
+allowed-tools: Agent, Skill, Read, Write, Edit, Grep, Glob, TodoWrite, Bash(ruby:*), Bash(git:*), Bash(gh pr:*), Bash(bundle:*), Bash(bin/check:*), Bash(bin/test-js:*), Bash(bin/smoke:*), Bash(node:*), Bash(npm:*), Bash(cd:*), Bash(ls:*), Bash(mkdir:*), Bash(grep:*)
 ---
 
 # /work: take work, do it, hand it on
 
 Arguments: $ARGUMENTS
 Parse: `--epic` (required), `--stage` (limit to stages; e.g. `audit` for an optional independent second look), `--max-items N` (stop after N items; default 3), `--once` (= `--max-items 1`).
-Read `.ai/skills/epic-flow/SKILL.md` and `references/stages.md` first. Every rule there (R1-R14) binds you. The board is only touched through `ruby .claude/scripts/epic/work_board.rb` (`WB` below). If the epic does not exist, stop and tell the human to run `/epic-plan`.
+Read `.ai/skills/epic-flow/SKILL.md` and `references/stages.md` first. Every rule there (R1-R15) binds you. The board is only touched through `ruby .claude/scripts/epic/work_board.rb` (`WB` below). If the epic does not exist, stop and tell the human to run `/epic-plan`.
 
 ## Phase 0: Identify yourself
 `WB session` -> `SESSION`. Run `WB reap --epic S` once (frees claims whose lease expired). `WB status --epic S` and print the counts.
@@ -27,7 +27,7 @@ A row held by another session (`holder` set) is theirs; skip it.
    - `next` never returns items in stage `review`; only the sweep handles them.
 2. **Claim:** `WB claim N --epic S --session SESSION`. Exit 1 means someone else got it or the files overlap: go back to step 1 (at most 5 times, then stop).
 3. **Read:** `WB show N --epic S` (goal, owns, gates, acceptance, notes) and `WB digest --epic S --item N --format md`. Read all of it. Create or reuse the worktree: `git fetch origin && git worktree add ../<repo>-wt/S-N -b epic/S/N-<kebab-title> origin/main` (existing branch for later stages: `git worktree add ../<repo>-wt/S-N epic/S/N-<kebab-title>`). All edits happen there, only inside the item's Owns globs (R5, R6).
-4. **Work the stages** from the item's current `stage:` label with `references/stages.md` as the contract. Use the agents and skills named there (`feature-blueprint-planner` for plan, `senior-rails-dev` for test-plan/build/fix, `/audit-feature --fix` for audit (same session), specialised builders if the item's context names one). You run the Gates yourself; a green receipt from an agent is not a green gate (R9).
+4. **Work the stages** from the item's current `stage:` label with `references/stages.md` as the contract. Use the agents and skills named there (you write the plan note yourself from the item and its digest; `senior-rails-dev` for test-plan/build/fix, `shadcn-port-builder` for a component port, `/audit-feature --fix` for audit (same session), another specialised builder if the item's context names one). You run the Gates yourself; a green receipt from an agent is not a green gate (R9).
    - After each stage: `WB advance N --epic S --session SESSION --stage <next> --keep --note "<what changed, what to look at>"`.
    - Long stage: `WB heartbeat N --epic S --session SESSION` every ~15 min. If any board call says the item is no longer yours, STOP, do not push, go to step 1.
    - **Audit (R10), same session.** In the item worktree run `/audit-feature --fix` on the branch diff; it iterates (max 3) until every scorecard dimension is >= 8 and `VERDICT: PASS`, and writes `tmp/audit/<slug>/scorecard.json`. Re-run the Gates yourself, commit, then advance from inside the worktree: `WB advance N --epic S --session SESSION --stage review --audit-receipt tmp/audit/<slug>/scorecard.json --note "<what changed>"`. A refusal (`audit_not_passed`, with `reasons`) means: fix what it names and audit again (a stale receipt means code changed after the audit). Do not edit the receipt.

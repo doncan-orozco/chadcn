@@ -1,414 +1,179 @@
 # Lint and Test Examples
 
-**For complete guidelines, see:**
-- [copilot-instructions.md](/.github/copilot-instructions.md#-lint--code-quality-rubocop)
-- [copilot-instructions.md](/.github/copilot-instructions.md#-testing-requirements)
-
-This file provides concrete examples for common lint issues and test patterns.
+Quick reference for common RuboCop offenses in this gem and the shape of its Minitest files. The rules themselves are the
+Quick Rules of `linting` and `testing`.
 
 ## RuboCop: Common Lint Errors and Fixes
 
-### 1. Line Length (Max 120 characters)
+### 1. Line Length (Max 160 characters, verbatim class strings exempt)
 
-Wrong:
 ```ruby
-# app/operations/articles/operation/create.rb
-class Articles::Operation::Create < Core::Operation
-  def self.validate_and_create_with_all_the_business_logic_for_articles_in_this_system
-  end
+# Offense: prose or code wrapped past 160 chars
+def initialize(variant: "default", size: "default", as_child: false, show_close_button: true, class: nil, data: {}, aria: {}, **attrs); end
+
+# Fix: break the signature, one kwarg per line
+def initialize(variant: "default", size: "default", as_child: false, show_close_button: true,
+               class: nil, data: {}, aria: {}, **attrs)
 end
 ```
 
-Correct:
+A shadcn class string copied verbatim from the oracle is allowed to exceed the limit (`AllowedPatterns` in `.rubocop.yml`);
+splitting it changes nothing for Tailwind but makes the G1 static gate harder to read, so leave it on one line.
+
+### 2. String Quotes (Use Double Quotes)
+
 ```ruby
-# app/operations/articles/operation/create.rb
-class Articles::Operation::Create < Core::Operation
-  def self.validate_and_create_article
-  end
-end
+# Offense
+variant = 'outline'
+
+# Fix
+variant = "outline"
 ```
 
-Fix: Use shorter names, break into multiple methods.
+### 3. Frozen String Literal
 
----
+Every Ruby file starts with `# frozen_string_literal: true` (gem files, tests, scripts, rake tasks).
 
-### 2. Spacing: Around Operators
+### 4. Spaces Inside Array Brackets
 
-Wrong:
 ```ruby
-@article=Article.find_by(slug:params[:slug])
-params[:title]=="Featured"
-article.published_at = Time.current
+# Offense
+SIZES = %w[default sm lg icon]   # fine: %w literal
+parts = [Header, Footer]         # offense: Layout/SpaceInsideArrayLiteralBrackets (EnforcedStyle: space)
+
+# Fix
+parts = [ Header, Footer ]
 ```
 
-Correct:
+### 5. Guard Clauses
+
 ```ruby
-@article = Article.find_by(slug: params[:slug])
-params[:title] == "Featured"
-article.published_at = Time.current
-```
-
-Fix: `bin/rubocop --fix-layout` auto-fixes these.
-
----
-
-### 3. String Quotes (Use Double Quotes)
-
-Wrong:
-```ruby
-def welcome_message
-  'Welcome to Papyro'
-end
-
-message = 'User: ' + @user.name
-```
-
-Correct:
-```ruby
-def welcome_message
-  "Welcome to Papyro"
-end
-
-message = "User: #{@user.name}"
-```
-
-Fix: `bin/rubocop --fix-layout` auto-fixes these.
-
----
-
-### 4. Method Names in snake_case
-
-Wrong:
-```ruby
-def CreateArticle
-  # code
-end
-
-def getArticleBySlug(slug)
-  # code
-end
-```
-
-Correct:
-```ruby
-def create_article
-  # code
-end
-
-def article_by_slug(slug)
-  # code
-end
-```
-
----
-
-### 5. No Trailing Whitespace
-
-Wrong:
-```ruby
-def hello
-  puts "Hi"    # <- trailing spaces
-end           # <- trailing spaces
-```
-
-Correct:
-```ruby
-def hello
-  puts "Hi"
-end
-```
-
-Fix: `bin/rubocop --fix-layout` auto-fixes these.
-
----
-
-### 6. Proper Indentation (2 spaces)
-
-Wrong:
-```ruby
-class Articles::Operation::Create < Core::Operation
-    def call
-        article = Article.new
-            article.title = "Test"
+# Offense: nested conditionals
+def render_as_child(child, **slot_attrs, &block)
+  if child
+    if child.is_a?(Chadcn::Base)
+      ...
     end
-end
-```
-
-Correct:
-```ruby
-class Articles::Operation::Create < Core::Operation
-  def call
-    article = Article.new
-    article.title = "Test"
   end
 end
-```
 
-Fix: `bin/rubocop --fix-layout` auto-fixes these.
+# Fix
+def render_as_child(child, **slot_attrs, &block)
+  return unless child
+  return render_tag(child, **slot_attrs, &block) unless child.is_a?(Chadcn::Base)
 
----
-
-### 7. No Commented-Out Code
-
-Wrong:
-```ruby
-def create_article
-  # article = Article.new
-  # article.title = params[:title]
-  # article.save
-
-  Articles::Operation::Create.new.call(params: params)
+  ...
 end
 ```
 
-Correct:
+### 6. Performance Cops
+
 ```ruby
-def create_article
-  Articles::Operation::Create.new.call(params: params)
-end
+# Offense: Performance/MapCompact
+names = parts.map { |part| part.slot }.compact
+
+# Fix
+names = parts.filter_map(&:slot)
 ```
 
-Fix: Delete commented code. Use git history if you need to see old code.
+### 7. No Commented-Out Code, No Trailing Whitespace
 
----
+Delete dead code; explain non-obvious Radix behavior with a comment that points at the spec section instead.
 
-### 8. Block Parameter Formatting
+### 8. Hash Syntax (Modern)
 
-Wrong:
 ```ruby
-articles.map {|article| article.title }
-articles.select { |a|a.published? }
+# Offense
+data: { :state => "open" }
+
+# Fix
+data: { state: "open" }
 ```
-
-Correct:
-```ruby
-articles.map { |article| article.title }
-articles.select { |a| a.published? }
-```
-
-Fix: `bin/rubocop --fix-layout` auto-fixes these.
-
----
-
-### 9. No Unnecessary Parentheses
-
-Wrong:
-```ruby
-render("articles/show")
-redirect_to(featured_articles_path)
-```
-
-Correct:
-```ruby
-render "articles/show"
-redirect_to featured_articles_path
-```
-
----
-
-### 10. Hash Syntax (Use Modern Syntax)
-
-Wrong:
-```ruby
-{ :title => "Article", :published => true }
-```
-
-Correct:
-```ruby
-{ title: "Article", published: true }
-```
-
-Fix: `bin/rubocop --fix-layout` auto-fixes these.
-
----
 
 ## Testing: Common Patterns and Examples
 
-### 1. Unit Test: Contract Validation
+### 1. Component Unit Test (plain suite, `bundle exec rake test`)
 
 ```ruby
-# test/concepts/articles/contract_test.rb
-require "test_helper"
+# test/chadcn/badge_test.rb
+# frozen_string_literal: true
 
-class Articles::ContractTest < ActiveSupport::TestCase
-  def test_validates_title_presence
-    result = Articles::Contract::Create.new.call({})
+require "chadcn/test_case"
 
-    assert !result.success?
-    assert_includes result.errors.to_h[:title], "can't be blank"
+class Chadcn::BadgeTest < Chadcn::TestCase
+  def render_badge(**props, &block)
+    Chadcn::Badge.new(**props).call(&block)
   end
 
-  def test_validates_title_minimum_length
-    result = Articles::Contract::Create.new.call({ title: "Hi" })
+  test "renders the default variant with data-slot" do
+    html = render_badge { "New" }
 
-    assert !result.success?
-    assert_includes result.errors.to_h[:title], "is too short"
+    assert_includes html, 'data-slot="badge"'
+    assert_includes html, 'data-variant="default"'
+    assert_includes html, "New"
   end
 
-  def test_allows_valid_article_data
-    result = Articles::Contract::Create.new.call({ title: "Great Article Title" })
+  test "accepts the variant as string or symbol" do
+    assert_includes render_badge(variant: :outline), 'data-variant="outline"'
+    assert_includes render_badge(variant: "outline"), 'data-variant="outline"'
+  end
 
-    assert result.success?
+  test "merges class and passes attrs through" do
+    html = render_badge(class: "mt-2", id: "b1", data: { testid: "badge" })
+
+    assert_includes html, "mt-2"
+    assert_includes html, 'id="b1"'
+    assert_includes html, 'data-testid="badge"'
   end
 end
 ```
 
-### 2. Unit Test: Operation Logic
+### 2. Minitest Cops: Clear Assertions
 
 ```ruby
-# test/concepts/articles/operation_test.rb
-require "test_helper"
+# Offense: Minitest/AssertTruthy, Minitest/AssertIncludes
+assert html.include?("data-slot")
+assert_equal true, component.disabled?
 
-class Articles::Operation::CreateTest < ActiveSupport::TestCase
-  def test_creates_article_with_valid_data
-    result = Articles::Operation::Create.new.call(
-      params: { title: "New Article", body: "Content" }
-    )
+# Fix
+assert_includes html, "data-slot"
+assert_predicate component, :disabled?
+```
 
-    assert result.success?
-    assert_equal "New Article", result.value![:model].title
-    assert_equal "Content", result.value![:model].body
-    assert Article.exists?(result.value![:model].id)
-  end
+### 3. Engine and Generator Tests (`bundle exec rake test:engine`)
 
-  def test_fails_with_invalid_data
-    result = Articles::Operation::Create.new.call(
-      params: { title: "" }
-    )
+```ruby
+# test/engine/importmap_test.rb
+# frozen_string_literal: true
 
-    assert result.failure?
-    assert_match /can't be blank/, result.failure[:errors][:title].first
+require_relative "engine_helper"
+
+class EngineTest::Importmap < Minitest::Test
+  def app = EngineTest::Application
+
+  test "pins the controllers under controllers/chadcn" do
+    assert_includes app.importmap.packages.keys, "controllers/chadcn/dialog_controller"
   end
 end
 ```
 
-### 3. Integration Test: Controller to Operation
+The engine suite boots one minimal Rails application in-process (`test/engine/engine_helper.rb`); it has no database and no
+fixtures. Generator tests render into `tmp/generator-destination/`.
+
+### 4. Testing Best Practices
 
 ```ruby
-# test/controllers/articles_controller_test.rb
-require "test_helper"
+# Good: test both paths
+test "raises on an unknown variant" do
+  assert_raises(ArgumentError) { Chadcn::Button.new(variant: "huge") }
+end
 
-class ArticlesControllerTest < ActionDispatch::IntegrationTest
-  def test_show_renders_article_with_layout
-    article = articles(:published)
-
-    get article_path(article.slug)
-
-    assert_response :success
-    assert_select "h1", text: article.title
-    assert_select "article .body", text: article.body
-  end
-
-  def test_show_returns_404_for_nonexistent_article
-    get article_path("nonexistent-slug")
-
-    assert_response :not_found
-  end
+test "renders a known variant" do
+  assert_includes Chadcn::Button.new(variant: "ghost").call, 'data-variant="ghost"'
 end
 ```
 
-### 4. System Test: Full User Workflow with JavaScript
-
-```ruby
-# test/system/articles_system_test.rb
-require "application_system_test_case"
-
-class ArticlesSystemTest < ApplicationSystemTestCase
-  def test_user_can_view_featured_articles
-    article1 = articles(:featured_1)
-    article2 = articles(:featured_2)
-
-    visit featured_articles_path
-
-    assert_selector "turbo-frame#featured-articles"
-    assert_text article1.title
-    assert_text article2.title
-  end
-
-  def test_user_can_filter_articles_with_stimulus
-    article = articles(:published)
-
-    visit articles_path
-
-    # Click filter button (triggered by Stimulus controller)
-    click_button "Show Featured Only"
-
-    # Stimulus controller dispatches Turbo request
-    assert_selector "article[data-featured=true]"
-    assert_no_selector "article[data-featured=false]"
-  end
-
-  def test_user_can_edit_article_in_admin
-    sign_in_as users(:admin)
-    article = articles(:unpublished)
-
-    visit edit_admin_article_path(article)
-
-    fill_in "Title", with: "Updated Title"
-    click_button "Save"
-
-    assert_text "Article updated successfully"
-    assert_equal "Updated Title", article.reload.title
-  end
-end
-```
-
-### 5. Testing Best Practices
-
-Use fixtures for test data:
-```ruby
-# test/fixtures/articles.yml
-published:
-  title: "Published Article"
-  body: "Article content"
-  published_at: <%= Time.current %>
-
-unpublished:
-  title: "Draft Article"
-  body: "Draft content"
-  published_at: nil
-
-featured_1:
-  title: "Featured Article 1"
-  featured: true
-```
-
-Use proper assertions:
-```ruby
-# Good assertion structure
-def test_article_creation
-  article = Article.create!(title: "Test")
-
-  assert_equal "Test", article.title
-  assert article.persisted?
-  assert_not_nil article.created_at
-  assert_includes Article.all, article
-end
-
-# Bad: Using generic assert
-def test_article_creation
-  article = Article.create!(title: "Test")
-
-  assert article
-  assert article.title == "Test"
-  assert article.created_at.present?
-end
-```
-
-Test both success and failure:
-```ruby
-# Good: Test both paths
-def test_operation_with_valid_and_invalid_data
-  result = CreateArticle.call(params: { title: "Valid" })
-  assert result.success?
-
-  result = CreateArticle.call(params: { title: "" })
-  assert result.failure?
-end
-
-# Bad: Only testing success
-def test_operation_succeeds
-  result = CreateArticle.call(params: { title: "Valid" })
-  assert result.success?
-end
-```
+- One concern per test, named after the behavior (`test "returns focus to the trigger on close"`).
+- Assert the rendered contract (`data-slot`, `role`, `aria-*`, `data-state`, the merged `class`), not private methods.
+- No snapshots of whole HTML strings: they break on every oracle update and prove nothing the G1 gate does not already prove.
+- No network: `test/test_helper.rb` turns every `Net::HTTP.start` into a failure; stub what you need (see `test/chadcn/theme_import_test.rb`).

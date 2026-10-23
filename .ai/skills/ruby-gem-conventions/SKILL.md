@@ -1,17 +1,17 @@
 ---
 name: ruby-gem-conventions
-description: "Rules for Ruby gems that live in or are extracted from the Papyro monorepo (first: chadcn): standalone code, namespacing, public API, optional Rails integration, assets, packaging, licensing, tests and release hygiene. Use when creating or editing files under `gems/**`, a `*.gemspec`, gem Ruby/JS/CSS files, or auditing a gem."
+description: "Rules for the chadcn gem (standalone code, namespacing, public API, optional Rails integration, assets, packaging, licensing, tests and release hygiene). Use when creating or editing `chadcn.gemspec`, the Gemfile, any Ruby, JavaScript or CSS file the gem ships, the Rails integration (engine, generators, rake tasks), or when auditing the gem. Written when the gem was extracted from the Papyro monorepo; it applies to this repository as a whole."
 ---
 
 # Ruby gem conventions
 
-Applies to code under `gems/**` and to any repository whose root has a `*.gemspec`. Papyro-specific skills (controller, operation-pattern, presenter-pattern, models, pundit-auth, i18n) do NOT apply inside a gem; this skill, `naming-conventions` (generic rules only, see its library exception), `stimulus`/`radix-stimulus` for JS and `testing` (Minitest style) do. Mechanical rules are enforced by `ruby .claude/scripts/gem/gem_check.rb --gem-dir <dir>`; the code in brackets is its finding.
+Applies to the whole repository: its root has `chadcn.gemspec`, so every Ruby, JavaScript and CSS file here is gem code (the dev kit under `dev/` is the one exception: it is not packaged and `/shadcn-audit` judges it). Companion skills: `naming-conventions` (see its library exception), `stimulus`/`radix-stimulus` for JS, `design-system`/`shadcn-port` for the components, `testing` (Minitest style). Mechanical rules are enforced by `ruby .claude/scripts/gem/gem_check.rb --gem-dir .`; the code in brackets is its finding. History: the gem was extracted from the Papyro monorepo (`gems/chadcn`), which still consumes it as a git gem.
 
 ## Quick Rules
 
 Cite as `ruby-gem-conventions R<n>`.
 
-R1. **Standalone.** The gem's own test suite runs without the host app, a database or fixtures, and no gem file references a host-only constant, or a host path outside the exceptions R15 lists. `[GEM_HOST_CONSTANT, GEM_ESCAPES_ROOT]` → detail: Standalone
+R1. **Standalone.** The gem's own test suite runs without a host application, a database or fixtures, and no gem file references a host-only constant, or a host path outside the exceptions R15 lists. `[GEM_HOST_CONSTANT, GEM_ESCAPES_ROOT]` → detail: Standalone
 R2. **Core is plain Ruby/Phlex.** Rails (`Rails`, `ActionView`, `ActionController`, `ActiveRecord`) appears only in the integration files (engine, railtie, generators, rake tasks), loaded conditionally with `if defined?(Rails::Engine)`. `[GEM_RAILS_REFERENCE]` → detail: Layers
 R3. **Declare what you use.** Every library namespace used in the code has its gem as a runtime dependency; ActiveSupport extensions are either avoided in core or `activesupport` is declared (or required explicitly). Runtime dependencies are minimal and have lower bounds. `[GEM_UNDECLARED_DEPENDENCY, GEM_ACTIVESUPPORT_EXT]` → detail: Dependencies
 R4. **One namespace, file = constant.** `chadcn` is `Chadcn` in `lib/chadcn.rb` and `lib/chadcn/**`; loaded with `Zeitwerk::Loader.for_gem`; one constant per file. No `V2`/`Ui`/project names in the gem. No monkey patches of Ruby, Phlex or Rails classes (the recorded exceptions under Namespacing are guarded, switchable and carry a removal condition); no global mutable state (the recorded memo-cache exception under Namespacing is the only kind allowed); configuration only through one `Chadcn.configure { |config| ... }` object with defaults. → detail: Namespacing
@@ -19,7 +19,7 @@ R5. **The public API is a promise.** Public classes and methods are documented (
 R6. **Semver, changelog, deprecations.** `lib/chadcn/version.rb` is the single version source; `CHANGELOG.md` follows Keep a Changelog; removals are deprecated (one warning, one minor) first. → detail: Releases
 R7. **Package only the gem.** Complete gemspec metadata (name, version, summary, description, authors, license, homepage, `required_ruby_version`, `source_code_uri`, `changelog_uri`, `rubygems_mfa_required`), each URI well-formed and, on GitHub, shaped `https://github.com/<owner>/<repo>/(blob|tree)/<ref>/<path>`, derived from one `repository`/`gem_path` pair at the top of the gemspec; `spec.files` lists runtime files (lib, app assets/javascript, config, vendor) plus what the README links to (top-level `docs/*.md`, `.yardopts`, LICENSE, README, CHANGELOG, notices); tests, the dev kit (oracle, parity harness, React catalog, scenarios, dummy app, `_probe_*` and `theme_panel` controllers), nested docs apps, `tmp` and `node_modules` never ship; `gem build` prints no warnings and a packaging test inspects the built gem. `[GEMSPEC_*, GEMSPEC_DEV_MATERIAL, GEMSPEC_METADATA]` → detail: Packaging
 R8. **Credit what you derive from.** `LICENSE` plus `THIRD_PARTY_NOTICES.md` with the licenses of shadcn/ui (MIT), Radix (MIT) and Lucide (ISC) as soon as code derives from them. `[GEMSPEC_LICENSE, GEM_NOTICES]` → detail: Licensing
-R9. **Assets belong to the gem.** JS controllers and primitives, CSS theme files and vendored libraries ship inside the gem and are wired by the engine (importmap pins, asset paths) and the install generator; nothing assumes a host path. Tailwind 4 only generates the utility classes found in the gem's Ruby files if the host CSS has an `@source` entry for the gem, so the generator writes it and a check proves it. Host-only CSS (`legacy-compat`) stays in the host. → detail: Assets
+R9. **Assets belong to the gem.** JS controllers and primitives, CSS theme files and vendored libraries ship inside the gem and are wired by the engine (importmap pins, asset paths) and the install generator; nothing assumes a host path. Tailwind 4 only generates the utility classes found in the gem's Ruby files if the host CSS reaches them, so `engine.css` carries its own `@source` and the generator imports it; the doctor proves the setup. Styles that belong to one application never enter the gem. → detail: Assets
 R10. **Test the promise.** Minitest, no DB. CI matrix over supported Ruby, Rails and Phlex versions; a plain-Phlex smoke test with Rails not loaded; a clean-app smoke test (`rails new`, install, render a Button and a Dialog, run one parity scenario); the port's parity gates keep running against the gem from the dev kit. `[GEM_NO_TESTS]` → detail: Testing
 R11. **Gem style.** Own RuboCop config (rubocop-minitest, -performance, -rake, gemspec cops), `# frozen_string_literal: true`, keyword arguments in public APIs, no output (`puts`/`pp`) outside rake tasks and generators, never `rescue Exception`; `naming-conventions` R2, R6, R7, R11, R12 apply. → detail: Style
 R12. **Supply chain.** `bundler-audit` clean, no network access at load or render time, no `eval`/`send` on caller input, MFA required for the gem owner. Publishing to RubyGems and pushing tags are human steps (`needs-human`). → detail: Security
@@ -29,7 +29,7 @@ R15. **Name host paths on purpose, never around the rule.** Only code whose job 
 
 ## Standalone
 
-The extraction proof is mechanical: run the gem's tests from its own directory with only its Gemfile, plus `gem_check.rb`. Anything the host provided implicitly (`Components::Base`, helpers from `Phlex::Rails::Helpers`, `Rails.root`, fixtures, Zeitwerk roots) is either moved into the gem, replaced by an explicit dependency, or deleted.
+The proof is mechanical: `bundle exec rake test` from this directory with only this Gemfile, `bin/smoke --plain` (Rails not loaded), plus `gem_check.rb`. Anything a host application would provide implicitly (a base component class, `Phlex::Rails::Helpers`, `Rails.root`, fixtures, Zeitwerk roots) is either inside the gem, an explicit dependency, or absent. (History: that is what the extraction from Papyro consisted of.)
 
 ## Layers
 
@@ -47,7 +47,7 @@ The doctor (`lib/chadcn/doctor/**`) is Core but may name host paths under R15, w
 
 ## Namespacing
 
-`Chadcn::Button`, `Chadcn::Dialog::Content`. Stimulus identifiers use the `chadcn--` prefix, matching `app/javascript/controllers/chadcn/<name>_controller.js` inside the gem. A rename (for example from `Components::V2`) is a mechanical, reviewed change and is followed by the full parity gates: the DOM must not change.
+`Chadcn::Button`, `Chadcn::Dialog::Content`. Stimulus identifiers use the `chadcn--` prefix, matching `app/javascript/controllers/chadcn/<name>_controller.js` inside the gem. A rename (the port once lived in the Papyro app as `Components::V2`; the README's upgrade notes record the mapping) is a mechanical, reviewed change and is followed by the full parity gates: the DOM must not change.
 
 Recorded exceptions to "no monkey patches" (each one guarded by a method and arity check, off through one `config.chadcn` option, logged instead of failing when the hook is gone, and named here with the condition for its removal):
 

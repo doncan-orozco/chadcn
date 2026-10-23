@@ -39,17 +39,17 @@ Gates are the commands in the issue body (`WB show N` → `gates`). They run aga
 
 ```bash
 git fetch origin
-git worktree add --detach ../<repo>-wt/<slug>-sweep-<shortsha> origin/main
-cd ../<repo>-wt/<slug>-sweep-<shortsha>
-cp ../<repo>/.bundle/config .bundle/config        # BUNDLE_LOCAL__PAPYRO_STUDIO: the engine sibling
-export LC_ALL=en_US.UTF-8
-bin/rails db:prepare && bin/rails tailwindcss:build
+git worktree add --detach ../chadcn-wt/<slug>-sweep-<shortsha> origin/main
+cd ../chadcn-wt/<slug>-sweep-<shortsha>
+export LANG=en_US.UTF-8
+unset BUNDLE_GEMFILE            # a foreign BUNDLE_GEMFILE fakes red gates
+bundle install --quiet          # the gem has no database to prepare
 ```
 
 Rules:
 
 1. One worktree per sweep, not per item: several items merged in a row are verified together on the resulting `main`. Run each distinct gate command once; an item is green when every one of its gates is.
-2. A gate that is exactly a CI job's command, already run by CI on the same `main` sha with conclusion `success`, counts as green on `main`; cite the job url from `WB mergeable` (`base.checks`). Today: `bin/rails test` ↔ job `test`, `bin/rubocop` ↔ `lint`, `bin/check` ↔ `gem_chadcn`, `bin/rails test:system` ↔ `system-test`, `bin/brakeman` ↔ `scan_ruby`. Anything else (parity batches, house checks, scripts) runs locally.
-3. Long gates (the shadcn parity batch takes about an hour on an idle machine) run detached: `nohup <gate> > <scratchpad>/<slug>-<gate>.log 2>&1; echo exit=$? >> ...` and the session heartbeats every claimed item every 15 minutes (`WB heartbeat N`) while polling the log. Never run them while host test or lint runs share the machine: the harness flakes under load (lesson on #94); re-run a failing component alone before treating a diff as real.
+2. A gate that is exactly a CI job's command, already run by CI on the same `main` sha with conclusion `success`, counts as green on `main`; cite the job url from `WB mergeable` (`base.checks`). Today (`.github/workflows/chadcn.yml`): `bundle exec rake test`, `bundle exec rake test:engine`, `bundle exec rubocop`, `bundle exec bundler-audit check --update`, `ruby .claude/scripts/gem/gem_check.rb --gem-dir .` and `bin/smoke --plain` ↔ the `gem` matrix job; `bin/smoke --app` ↔ `clean-app` (and `clean-app-variants` for `--js esbuild` / `--assets sprockets`); `bin/test-js` ↔ `js-tests`; `bin/smoke --docs` ↔ `docs`; `bundle exec rake test:tooling` ↔ `tooling`. `bin/check` is the union of the `gem` job's steps plus the dev bench and the dummy app's parity tests, so it runs locally. Anything else (parity batches, house checks, scripts, greps) runs locally.
+3. Long gates (`/shadcn-audit all`, `parity_batch.rb`, `bin/test-js`, `bin/smoke --app`) run detached: `nohup <gate> > <scratchpad>/<slug>-<gate>.log 2>&1; echo exit=$? >> ...` and the session heartbeats every claimed item every 15 minutes (`WB heartbeat N`) while polling the log. Never run the browser gates while other test runs share the machine: the parity harness flakes under load; re-run a failing component alone before treating a diff as real.
 4. A previous sweep's log counts when it names the same `main` sha and ends with `exit=0`; a `handoff` note that points to it is enough to finish without re-running.
 5. Remove the worktree when every merged item is `done` or blocked; keep it, and say where it is, when a gate failed (forensics).
