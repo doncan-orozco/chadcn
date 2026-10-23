@@ -73,6 +73,16 @@ class WorkBoardTest < ActiveSupport::TestCase
     wb(*args)[0]["number"]
   end
 
+  # A plain issue filed outside the epic (a bug report), the way a maintainer files it on GitHub.
+  def make_plain_issue(title, body, label: "bug")
+    saved = ENV.fetch("WORK_FAKE_DB", nil)
+    ENV["WORK_FAKE_DB"] = @db
+    FakeGh.call([ "label", "create", label ])
+    FakeGh.call([ "issue", "create", "--title", title, "--body", body, "--label", label ])[/(\d+)\z/, 1].to_i
+  ensure
+    saved ? ENV["WORK_FAKE_DB"] = saved : ENV.delete("WORK_FAKE_DB")
+  end
+
   def claim(number, session, slug: "demo", now: T0, lease: nil)
     args = [ "claim", number.to_s, "--epic", slug, "--session", session ]
     args += [ "--lease", lease.to_s ] if lease
@@ -81,6 +91,51 @@ class WorkBoardTest < ActiveSupport::TestCase
 
   def state_of(number, slug: "demo") = wb("status", "--epic", slug)[0]["items"].find { |i| i["number"] == number }
   def fake_db = File.exist?(@db) ? JSON.parse(File.read(@db)) : { "issues" => [] }
+
+  test "item adopt takes a plain issue into the epic: contract appended, labels added, original text and labels kept" do
+    make_epic
+    n = make_plain_issue("Stable ids", "## Problem\nids collide\n\n## Acceptance\n- two renders differ\n")
+    gates = File.join(@dir, "gates.txt")
+    File.write(gates, "bundle exec rake test\n\nbundle exec rubocop\n")
+    out, code = wb("item", "adopt", n.to_s, "--epic", "demo", "--wave", "1", "--owns", "lib/a/**, test/a/**", "--gates-file", gates, "--priority", "7")
+    assert_equal 0, code, out.inspect
+    assert_equal [ "bundle exec rake test", "bundle exec rubocop" ], out["gates"]
+
+    issue = fake_db["issues"].find { |i| i["number"] == n }
+    labels = issue["labels"].map { |l| l["name"] }
+    assert_equal %w[bug epic:demo stage:plan wave:1], labels.sort
+    assert issue["body"].start_with?("## Problem\nids collide"), "the original report stays first"
+    assert_includes issue["body"], "## Gates (a stage advances only when these are green, run by the worker)\n- `bundle exec rake test`\n- `bundle exec rubocop`"
+    meta = JSON.parse(issue["body"][WorkBoard::META, 1])
+    assert_equal({ "epic" => "demo", "wave" => 1, "owns" => [ "lib/a/**", "test/a/**" ], "blocked_by" => [], "priority" => 7, "adopted" => true }, meta)
+
+    row = wb("status", "--epic", "demo")[0]["items"].find { |i| i["number"] == n }
+    assert_equal "ready", row["state"]
+    assert_equal [ "lib/a/**", "test/a/**" ], row["owns"]
+    assert_equal [ "bundle exec rake test", "bundle exec rubocop" ], wb("show", n.to_s, "--epic", "demo")[0]["gates"]
+    assert wb("validate", "--epic", "demo")[0]["pass"]
+  end
+
+  test "item adopt refuses an issue that is already an item, a closed issue, and an adoption without gates" do
+    make_epic
+    a = make_item("A", wave: 1, owns: "lib/a/**")
+    out, code = wb("item", "adopt", a.to_s, "--epic", "demo", "--wave", "2", "--owns", "lib/b/**", "--gates", "true")
+    assert_equal 1, code
+    assert_match(/already an item of epic demo/, out["error"])
+
+    n = make_plain_issue("Closed bug", "gone", label: "wontfix")
+    ENV["WORK_FAKE_DB"] = @db
+    FakeGh.call([ "issue", "close", n.to_s ])
+    out, code = wb("item", "adopt", n.to_s, "--epic", "demo", "--wave", "2", "--owns", "lib/b/**", "--gates", "true")
+    assert_equal 1, code
+    assert_match(/is closed/, out["error"])
+
+    m = make_plain_issue("No gates", "report", label: "enhancement")
+    out, code = wb("item", "adopt", m.to_s, "--epic", "demo", "--wave", "2", "--owns", "lib/c/**")
+    assert_equal 2, code
+    assert_match(/no gates/, out["error"])
+    assert_equal 1, wb("status", "--epic", "demo")[0]["items"].size, "nothing was adopted"
+  end
 
   # ---- plan creation and validation ----------------------------------------------------------------------------
   test "epic and items are created with labels, stage and a machine-readable meta block" do

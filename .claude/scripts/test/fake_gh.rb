@@ -7,7 +7,7 @@
 #
 # Used two ways: in-process (FakeGh.call(argv), fast, most tests) or as an executable (WORK_GH="ruby fake_gh.rb", the real
 # subprocess path, used by the concurrency test).
-# Supported: issue create|list|view|edit|comment|close|reopen, label create, pr list|view|merge, and the two `api` reads the merge
+# Supported: issue create|list|view|edit (labels and body)|comment|close|reopen, label create, pr list|view|merge, and the two `api` reads the merge
 # policy needs (compare, check-runs on the base branch). Pull requests and base-branch facts are seeded by tests in db["prs"],
 # db["base_checks"], db["base_files"] and db["base_sha"].
 
@@ -152,11 +152,13 @@ class FakeGh
 
   def edit(args)
     locked { |db| require_labels!(db, flag_values(args, "--add-label") + flag_values(args, "--remove-label")) }
+    body = flag(args, "--body-file") || flag(args, "--body") ? body_of(args) : nil
     mutate(args.first) do |i|
       names = i["labels"].map { |l| l["name"] }
       names |= flag_values(args, "--add-label")
       names -= flag_values(args, "--remove-label")
       i["labels"] = names.map { |n| { "name" => n } }
+      i["body"] = body unless body.nil?
     end
   end
 

@@ -50,6 +50,7 @@ ruby .claude/scripts/epic/work_board.rb next --epic S --session ID [--stage buil
 ruby .claude/scripts/epic/work_board.rb reviews --epic S          # items in review and their PR verdict (the merge sweep reads this)
 ruby .claude/scripts/epic/work_board.rb mergeable --epic S [--item N]   # reviews + merge policy per open PR; checks failing on main (/work-merge)
 ruby .claude/scripts/epic/work_board.rb merge N --epic S --session ID [--method squash] [--keep-branch]   # only when mergeable says ready
+ruby .claude/scripts/epic/work_board.rb item adopt N --epic S --wave W --owns GLOBS --gates-file F [--blocked-by N,M]   # take an issue filed outside /epic-plan into the epic (appends the contract and meta block; the report stays)
 ruby .claude/scripts/epic/work_board.rb claim N --epic S --session ID
 ruby .claude/scripts/epic/work_board.rb show N --epic S
 ruby .claude/scripts/epic/work_board.rb digest --epic S --item N --format md
