@@ -305,4 +305,17 @@ class Chadcn::CommandTest < Chadcn::TestCase
     refute_match(/cmdk|command-score/, pins)
     refute(Dir.glob(File.join(root, "{vendor,app}/javascript/**/*")).any? { |file| File.file?(file) && File.basename(file).match?(/cmdk|command-score/) })
   end
+
+  test "id stays on the root and seeds the ids of the input, label, list and items" do
+    doc = palette(root: { id: "palette" })
+    input = doc.at_css("[data-slot=command-input]")
+
+    assert_equal "palette", doc.at_css("[data-slot=command]")["id"]
+    assert_equal "palette-input", input["id"]
+    assert_equal "palette-list", input["aria-controls"]
+    assert_equal "palette-label", input["aria-labelledby"]
+    assert_equal "palette-input", doc.at_css("label[cmdk-label]")["for"]
+    assert_equal "palette-list", doc.at_css("[data-slot=command-list]")["id"]
+    assert_equal "palette-item-1", doc.at_css("[data-slot=command-item]")["id"]
+  end
 end

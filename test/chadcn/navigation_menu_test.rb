@@ -274,4 +274,13 @@ class Chadcn::NavigationMenuTest < Chadcn::TestCase
     assert_raises(ArgumentError) { render_view { render(NavigationMenu.new) { render NavigationMenu::Content.new } } }
     assert_equal "/x", fragment(NavigationMenu::Link.new(href: "/x").call { "x" }).at_css("a")["href"]
   end
+
+  test "id stays on the nav and seeds the ids of its items" do
+    html = render_menu(root: { id: "main-nav", default_value: "docs" })
+
+    assert_equal "main-nav", part(html, "navigation-menu")["id"]
+    assert_equal "main-nav-trigger-docs", part(html, "navigation-menu-trigger")["id"]
+    assert_equal "main-nav-content-docs", part(html, "navigation-menu-trigger")["aria-controls"]
+    assert_equal "main-nav-content-docs", part(html, "navigation-menu-content")["id"]
+  end
 end

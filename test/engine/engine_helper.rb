@@ -26,6 +26,8 @@ module EngineTest
     config.eager_load = false
     config.logger = Logger.new(IO::NULL)
     config.secret_key_base = "test"
+    # No public directory and no ActionController here: the static file server middleware would ask ActionController::Base.
+    config.public_file_server.enabled = false
     config.chadcn.theme_dir = "custom/theme"
   end
 

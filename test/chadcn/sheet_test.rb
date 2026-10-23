@@ -139,4 +139,16 @@ class Chadcn::SheetTest < Chadcn::TestCase
     assert_equal "/x", trigger["href"]
     assert_includes trigger["class"], "t"
   end
+
+  test "id names the content and the trigger controls it while open" do
+    doc = fragment(sheet(root: { id: "article-settings", default_open: true }))
+    content = doc.at_css("[data-slot=sheet-content]")
+
+    assert_equal "article-settings", content["id"]
+    assert_equal "article-settings-title", content["aria-labelledby"]
+    assert_equal "article-settings-description", content["aria-describedby"]
+    assert_equal "article-settings", doc.at_css("[data-slot=sheet-trigger]")["aria-controls"]
+    assert_equal "article-settings", doc.at_css("[data-controller=chadcn--sheet]")["data-chadcn--sheet-id-value"]
+    assert_nil doc.at_css("[data-controller=chadcn--sheet]")["id"]
+  end
 end

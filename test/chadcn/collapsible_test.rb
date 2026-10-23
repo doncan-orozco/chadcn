@@ -116,4 +116,13 @@ class Chadcn::CollapsibleTest < Chadcn::TestCase
     assert_nil forced.at_css("template")
     assert_includes forced.text, "Body"
   end
+
+  test "id stays on the root and names the content" do
+    doc = fragment(collapsible(root: { id: "orders", default_open: true }))
+
+    assert_equal "orders", doc.at_css("[data-slot=collapsible]")["id"]
+    assert_equal "orders-content", doc.at_css("[data-slot=collapsible-trigger]")["aria-controls"]
+    assert_equal "orders-content", doc.at_css("[data-slot=collapsible-content]")["id"]
+    assert_equal "orders-content", doc.at_css("[data-slot=collapsible]")["data-chadcn--collapsible-content-id-value"]
+  end
 end

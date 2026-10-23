@@ -365,4 +365,14 @@ class Chadcn::MenubarTest < Chadcn::TestCase
       assert_equal explicit, generated, "helper #{helper}"
     end
   end
+
+  test "id stays on the bar and seeds the ids of its menus" do
+    doc = fragment(bar(root: { id: "app-menubar", default_value: "file" }))
+    trigger = doc.at_css("[data-slot=menubar-trigger]")
+
+    assert_equal "app-menubar", doc.at_css("[data-slot=menubar]")["id"]
+    assert_equal "app-menubar-menu-1-trigger", trigger["id"]
+    assert_equal "app-menubar-menu-1", trigger["aria-controls"]
+    assert_equal "app-menubar-menu-1", doc.at_css("[data-slot=menubar-content]")["id"]
+  end
 end

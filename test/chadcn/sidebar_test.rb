@@ -190,7 +190,7 @@ class Chadcn::SidebarTest < Chadcn::TestCase
   end
 
   test "every DX helper renders the same HTML as the explicit class" do
-    normalize = ->(html) { html.gsub(/--skeleton-width: \d+%/, "w").gsub(/(sheet|tooltip-content|tooltip-provider|sidebar)-\d+/, '\1') }
+    normalize = ->(html) { html.gsub(/--skeleton-width: \d+%/, "w").gsub(/(sheet|tooltip-provider|tooltip|sidebar)-\d+/, '\1') }
     HELPERS.each do |name, klass|
       explicit = provider { render(Sidebar.new) { render(klass.new) { "x" } } }
       helper = provider { render(Sidebar.new) { |sidebar| sidebar.public_send(name) { "x" } } }
@@ -341,5 +341,15 @@ class Chadcn::SidebarTest < Chadcn::TestCase
     assert_includes right["class"].split, "right-0"
     assert_includes right["class"].split, "p-2"
     assert_includes Sidebar::SIDES, "left"
+  end
+
+  test "id stays on the wrapper and names the sidebar for its controller and tooltips" do
+    doc = fragment(provider(id: "app-sidebar") do
+      render(Sidebar.new) { |sidebar| sidebar.menu_button(tooltip: "Home") { "Home" } }
+    end)
+
+    assert_equal "app-sidebar", doc.at_css("[data-slot=sidebar-wrapper]")["id"]
+    assert_equal "app-sidebar", doc.at_css("[data-slot=sidebar-wrapper]")["data-chadcn--sidebar-id-value"]
+    assert_equal "app-sidebar", doc.at_css("[data-slot=sidebar-menu-button]")["data-chadcn--sidebar-tooltip"]
   end
 end

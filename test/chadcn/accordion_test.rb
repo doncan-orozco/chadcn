@@ -159,4 +159,16 @@ class Chadcn::AccordionTest < Chadcn::TestCase
 
     assert_equal %w[open open], states
   end
+
+  test "id stays on the root and seeds the ids of its items" do
+    doc = fragment(accordion(root: { id: "faq", default_value: "a" }))
+    triggers = doc.css("[data-slot=accordion-trigger]")
+    contents = doc.css("[data-slot=accordion-content]")
+
+    assert_equal "faq", doc.at_css("[data-slot=accordion]")["id"]
+    assert_equal %w[faq-item-1-trigger faq-item-2-trigger], triggers.map { |trigger| trigger["id"] }
+    assert_equal %w[faq-item-1-content faq-item-2-content], contents.map { |content| content["id"] }
+    assert_equal "faq-item-1-content", triggers.first["aria-controls"]
+    assert_equal "faq-item-1-trigger", contents.first["aria-labelledby"]
+  end
 end

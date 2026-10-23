@@ -30,7 +30,7 @@ class Chadcn::HoverCardTest < Chadcn::TestCase
   test "content is shipped in an inert template with the oracle classes" do
     out = render_card(content: { class: "w-80", side: :left, dir: "rtl" })
 
-    assert_match(/<template data-chadcn--hover-card-template="hover-card-content-\d+"/, out)
+    assert_match(/<template data-chadcn--hover-card-template="hover-card-\d+"/, out)
     assert_includes out, 'data-slot="hover-card-content"'
     assert_includes out, "w-80"
     assert_not_includes out, "w-64"
@@ -103,5 +103,12 @@ class Chadcn::HoverCardTest < Chadcn::TestCase
 
     assert_includes trigger["class"], "x-trigger"
     assert_equal "/u/1", trigger["href"]
+  end
+
+  test "id names the content template key" do
+    out = render_card(root: { id: "author-card" })
+
+    assert_includes out, 'data-chadcn--hover-card-template="author-card"'
+    assert_includes out, 'data-chadcn--hover-card-template-key-value="author-card"'
   end
 end

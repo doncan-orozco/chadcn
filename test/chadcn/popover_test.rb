@@ -32,7 +32,7 @@ class Chadcn::PopoverTest < Chadcn::TestCase
     out = render_popover(root: { default_open: true })
 
     assert_includes out, 'aria-expanded="true"'
-    assert_match(/aria-controls="popover-\d+-content"/, out)
+    assert_match(/aria-controls="popover-\d+"/, out)
   end
 
   # Radix spreads contentProps after the generated id (the trigger's aria-controls keeps the generated one).
@@ -40,8 +40,8 @@ class Chadcn::PopoverTest < Chadcn::TestCase
     out = render_popover(root: { default_open: true }, content: { id: "mine" })
 
     assert_includes out, '<div id="mine"'
-    assert_match(/aria-controls="popover-\d+-content"/, out)
-    refute_match(/id="popover-\d+-content"/, out)
+    assert_match(/aria-controls="popover-\d+"/, out)
+    refute_match(/ id="popover-\d+"/, out)
   end
 
   test "merges class and passes attrs through" do
@@ -136,5 +136,14 @@ class Chadcn::PopoverTest < Chadcn::TestCase
 
     assert_match(/<a [^>]*data-slot="popover-trigger"/, out)
     assert_includes out, 'href="/x"'
+  end
+
+  test "id names the content and the template key" do
+    out = render_popover(root: { id: "filters", default_open: true })
+
+    assert_includes out, 'aria-controls="filters"'
+    assert_includes out, 'id="filters"'
+    assert_includes out, 'data-chadcn--popover-template="filters"'
+    assert_includes out, 'data-chadcn--popover-content-id-value="filters"'
   end
 end

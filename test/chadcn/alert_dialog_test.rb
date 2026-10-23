@@ -163,4 +163,15 @@ class Chadcn::AlertDialogTest < Chadcn::TestCase
     assert_equal "/x", trigger["href"]
     assert_includes trigger["class"], "t"
   end
+
+  test "id names the content and the trigger controls it while open" do
+    doc = fragment(dialog(root: { id: "confirm-delete", default_open: true }))
+    content = doc.at_css("[data-slot=alert-dialog-content]")
+
+    assert_equal "confirm-delete", content["id"]
+    assert_equal "confirm-delete-title", content["aria-labelledby"]
+    assert_equal "confirm-delete-description", content["aria-describedby"]
+    assert_equal "confirm-delete", doc.at_css("[data-slot=alert-dialog-trigger]")["aria-controls"]
+    assert_nil doc.at_css("[data-controller=chadcn--alert-dialog]")["id"]
+  end
 end
