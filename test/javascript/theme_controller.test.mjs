@@ -6,15 +6,19 @@ import { assert, settle } from "./support.mjs";
 browserTest.component = "button";
 
 const KEY = "shadcn-theme";
-const mount = async (page, attributes = "") => {
-  await page.evaluate((attrs) => {
-    document.body.insertAdjacentHTML("beforeend", `<div id="theme-host" data-controller="chadcn--theme" ${attrs}></div>`);
-  }, attributes);
-  await page.waitForFunction(() => window.Stimulus?.getControllerForElementAndIdentifier(document.querySelector("#theme-host"), "chadcn--theme"));
+const mount = async (page, attributes = "", id = "theme-host") => {
+  await page.evaluate(({ attrs, id }) => {
+    document.body.insertAdjacentHTML("beforeend", `<div id="${id}" data-controller="chadcn--theme" ${attrs}></div>`);
+  }, { attrs: attributes, id });
+  await page.waitForFunction((id) => window.Stimulus?.getControllerForElementAndIdentifier(document.querySelector(`#${id}`), "chadcn--theme"), id);
   await settle(page);
 };
 const html = (page) => page.evaluate(() => ({ dark: document.documentElement.classList.contains("dark"), theme: document.documentElement.dataset.theme }));
-const act = (page, action) => page.evaluate((name) => window.Stimulus.getControllerForElementAndIdentifier(document.querySelector("#theme-host"), "chadcn--theme")[name](), action);
+const act = (page, action, id = "theme-host") => page.evaluate(({ name, id }) => window.Stimulus.getControllerForElementAndIdentifier(document.querySelector(`#${id}`), "chadcn--theme")[name](), { name: action, id });
+const currentValue = (page, id = "theme-host") => page.evaluate((id) => window.Stimulus.getControllerForElementAndIdentifier(document.querySelector(`#${id}`), "chadcn--theme").currentValue, id);
+const stored = (page, key = KEY) => page.evaluate((key) => localStorage.getItem(key), key);
+const record = (page) => page.evaluate(() => { window.__themes = []; document.addEventListener("chadcn--theme:changed", (event) => window.__themes.push(event.detail.theme)); });
+const recorded = (page) => page.evaluate(() => window.__themes);
 
 browserTest("theme: the default storage key is neutral and a stored choice is applied on connect", async ({ open }) => {
   const page = await open("defaults");
@@ -101,4 +105,63 @@ browserTest("theme: after disconnect the system preference is no longer followed
   await page.emulateMedia({ colorScheme: "dark" });
   await settle(page);
   assert.equal((await html(page)).dark, false, "the media listener was released");
+});
+
+browserTest("theme: instances with the same storage key stay in sync and a stale instance never overrides the stored choice", async ({ open }) => {
+  const page = await open("defaults");
+  await page.emulateMedia({ colorScheme: "light" });
+  await page.evaluate(() => localStorage.clear());
+  await mount(page);
+  await mount(page, "", "theme-host-portaled");
+  await record(page);
+  await act(page, "setLight", "theme-host-portaled");
+  assert.equal(await stored(page), "light");
+  assert.deepEqual(await html(page), { dark: false, theme: "light" });
+  assert.deepEqual(await recorded(page), ["light"], "one dispatch for one choice: adopting it in the other instance does not dispatch again");
+  assert.equal(await currentValue(page), "light", "the instance that did not handle the click adopted the choice");
+  await page.emulateMedia({ colorScheme: "dark" });
+  await settle(page);
+  assert.deepEqual(await html(page), { dark: false, theme: "light" }, "after the OS scheme change a stale instance does not re-apply system over the stored choice");
+  assert.equal(await stored(page), "light");
+  await act(page, "setSystem");
+  assert.equal(await stored(page), null, "system removes the stored choice");
+  assert.deepEqual(await html(page), { dark: true, theme: "system" }, "system follows the dark OS scheme");
+  assert.equal(await currentValue(page, "theme-host-portaled"), "system", "the other instance adopted system");
+  assert.deepEqual(await recorded(page), ["light", "system"]);
+});
+
+browserTest("theme: an instance with another storage key ignores a choice made under a different key", async ({ open }) => {
+  const page = await open("defaults");
+  await page.emulateMedia({ colorScheme: "light" });
+  await page.evaluate(() => localStorage.clear());
+  await mount(page);
+  await mount(page, 'data-chadcn--theme-storage-key-value="my-app-theme"', "theme-host-other");
+  await act(page, "setDark");
+  assert.equal(await stored(page), "dark", "control: the choice was persisted under the default key");
+  assert.equal(await currentValue(page, "theme-host-other"), "system", "the instance with another key kept its own value");
+  assert.equal(await stored(page, "my-app-theme"), null);
+  assert.deepEqual(await html(page), { dark: true, theme: "dark" }, "the page carries the last writer's choice");
+});
+
+browserTest("theme: a storage event from another page of the same origin re-syncs the instance", async ({ open }) => {
+  const page = await open("defaults");
+  await page.emulateMedia({ colorScheme: "light" });
+  await page.evaluate(() => localStorage.clear());
+  await mount(page);
+  await record(page);
+  assert.deepEqual(await html(page), { dark: false, theme: "system" }, "control: the instance starts on system");
+  const other = await page.context().newPage();
+  try {
+    await other.goto(page.url(), { waitUntil: "load" });
+    await other.evaluate((key) => localStorage.setItem(key, "dark"), KEY);
+    await page.waitForFunction(() => document.documentElement.classList.contains("dark") && document.documentElement.dataset.theme === "dark");
+    assert.equal(await currentValue(page), "dark", "the instance re-read the key changed elsewhere");
+    assert.deepEqual(await recorded(page), [], "syncing never dispatches");
+    await other.evaluate((key) => localStorage.removeItem(key), KEY);
+    await page.waitForFunction(() => document.documentElement.dataset.theme === "system");
+    assert.deepEqual(await html(page), { dark: false, theme: "system" }, "a cleared key falls back to system, light under the light scheme");
+    assert.deepEqual(await recorded(page), []);
+  } finally {
+    await other.close();
+  }
 });
