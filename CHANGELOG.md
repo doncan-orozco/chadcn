@@ -44,6 +44,10 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
   next to the Radix `positioner`). Compared with Base UI in 151 parity scenarios; no new JavaScript dependency (no cmdk, fuse.js or
   Base UI).
 - Primitives `scorer` (fuzzy match and ranking, with its own unit tests) and `anchor_positioner`.
+- Primitive `turbo_cache` (`turboCacheRestore({ teardown, restore })`, with its own unit tests): the one Turbo page-cache restore
+  scaffold (teardown on `turbo:before-cache` so the snapshot holds the server markup, set-up again two timer ticks later while the
+  controller is still connected, `pending`, `release()`). esbuild hosts re-run `rails g chadcn:install` to receive the managed copy
+  (`chadcn:doctor` reports the missing file until then).
 - `bin/rails chadcn:doctor` diagnoses a host app's chadcn setup with one PASS/WARN/FAIL line per check and a one-line fix under each warning or failure
   (asset pipeline, ejected components, engine bundle, JavaScript pipeline, Phlex versions, Propshaft stub filter, source block,
   Stimulus controllers, Tailwind, theme files and theme import). `chadcn:doctor[json]` or `JSON=1` prints JSON for CI and
@@ -113,6 +117,9 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 
 ### Changed
 
+- The `chadcn--accordion`, `chadcn--collapsible`, `chadcn--tabs`, `chadcn--avatar`, `chadcn--scroll-area` and `chadcn--dialog`
+  controllers (alert-dialog and sheet through the dialog controller) share the `turbo_cache` primitive instead of each keeping its own
+  `turbo:before-cache` listener and two-tick restore timer; no behavior change (the Turbo browser tests are unchanged).
 - `rails g chadcn:install` no longer writes an `@source` line into the managed block: the block is now the same on every machine
   (the engine bundle import and the theme import), because the engine's `engine.css` carries a self-relative `@source` for the gem's
   Ruby files and the Tailwind output is byte-identical without the generator's line. Re-run the generator after updating: it rewrites

@@ -23,6 +23,7 @@ Built in **wave 0** (before any overlay), pinned in `config/importmap.rb` with `
 | `form_bubble_input.js` | hidden native input kept in sync (checkbox/switch/radio/select) so forms submit | internal BubbleInput |
 | `pointer_capture.js` | slider/resizable drag | native |
 | `collapsible_content.js` | the open/closed content mechanics shared by Collapsible and Accordion: `data-state`, `hidden`, `--radix-collapsible-content-height/width` measured for the height animation, Presence on close | `react-collapsible` |
+| `turbo_cache.js` | `turboCacheRestore({ teardown, restore })`: one `document` listener for `turbo:before-cache`; `teardown({ pending, state })` runs synchronously so the snapshot holds the server markup and returns the state to carry over; `restore(state)` runs `SNAPSHOT_TICKS` (2) timer ticks later (Turbo snapshots one tick after the event, also for visits that keep the page); `pending` getter (owners ignore interaction while the DOM is in snapshot shape); `release()` from `disconnect()` removes the listener and drops the pending restore. Used by accordion, collapsible, tabs, avatar, scroll-area and dialog (alert-dialog and sheet through it); the reset-only controllers (popover, tooltip, menus) do not need it | none (Turbo page cache, `stimulus` R3) |
 
 ## Rules for primitives
 
