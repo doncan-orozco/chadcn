@@ -6,7 +6,8 @@ import { assert, settle } from "./support.mjs";
 browserTest.component = "button";
 
 const KEY = "shadcn-theme";
-const mount = async (page, attributes = "", id = "theme-host") => {
+// page.evaluate serializes its function, so each helper repeats the in-page controller lookup on `#${id}`.
+const mount = async (page, attributes = "", { id = "theme-host" } = {}) => {
   await page.evaluate(({ attrs, id }) => {
     document.body.insertAdjacentHTML("beforeend", `<div id="${id}" data-controller="chadcn--theme" ${attrs}></div>`);
   }, { attrs: attributes, id });
@@ -14,11 +15,12 @@ const mount = async (page, attributes = "", id = "theme-host") => {
   await settle(page);
 };
 const html = (page) => page.evaluate(() => ({ dark: document.documentElement.classList.contains("dark"), theme: document.documentElement.dataset.theme }));
-const act = (page, action, id = "theme-host") => page.evaluate(({ name, id }) => window.Stimulus.getControllerForElementAndIdentifier(document.querySelector(`#${id}`), "chadcn--theme")[name](), { name: action, id });
-const currentValue = (page, id = "theme-host") => page.evaluate((id) => window.Stimulus.getControllerForElementAndIdentifier(document.querySelector(`#${id}`), "chadcn--theme").currentValue, id);
-const stored = (page, key = KEY) => page.evaluate((key) => localStorage.getItem(key), key);
-const record = (page) => page.evaluate(() => { window.__themes = []; document.addEventListener("chadcn--theme:changed", (event) => window.__themes.push(event.detail.theme)); });
-const recorded = (page) => page.evaluate(() => window.__themes);
+const act = (page, action, { id = "theme-host" } = {}) => page.evaluate(({ name, id }) => window.Stimulus.getControllerForElementAndIdentifier(document.querySelector(`#${id}`), "chadcn--theme")[name](), { name: action, id });
+const currentValue = (page, { id = "theme-host" } = {}) => page.evaluate((id) => window.Stimulus.getControllerForElementAndIdentifier(document.querySelector(`#${id}`), "chadcn--theme").currentValue, id);
+const storedChoice = (page, { key = KEY } = {}) => page.evaluate((key) => localStorage.getItem(key), key);
+// Keeps the whole detail of every chadcn--theme:changed reaching the document; each test has a fresh context, so the listener is never removed.
+const recordThemeChanges = (page) => page.evaluate(() => { window.__themeChanges = []; document.addEventListener("chadcn--theme:changed", (event) => window.__themeChanges.push(event.detail)); });
+const themeChanges = (page) => page.evaluate(() => window.__themeChanges);
 
 browserTest("theme: the default storage key is neutral and a stored choice is applied on connect", async ({ open }) => {
   const page = await open("defaults");
@@ -112,22 +114,22 @@ browserTest("theme: instances with the same storage key stay in sync and a stale
   await page.emulateMedia({ colorScheme: "light" });
   await page.evaluate(() => localStorage.clear());
   await mount(page);
-  await mount(page, "", "theme-host-portaled");
-  await record(page);
-  await act(page, "setLight", "theme-host-portaled");
-  assert.equal(await stored(page), "light");
+  await mount(page, "", { id: "theme-host-second" });
+  await recordThemeChanges(page);
+  await act(page, "setLight", { id: "theme-host-second" });
+  assert.equal(await storedChoice(page), "light");
   assert.deepEqual(await html(page), { dark: false, theme: "light" });
-  assert.deepEqual(await recorded(page), ["light"], "one dispatch for one choice: adopting it in the other instance does not dispatch again");
+  assert.deepEqual(await themeChanges(page), [{ theme: "light", storageKey: KEY }], "one dispatch for one choice, carrying the key; adopting it in the other instance does not dispatch again");
   assert.equal(await currentValue(page), "light", "the instance that did not handle the click adopted the choice");
   await page.emulateMedia({ colorScheme: "dark" });
   await settle(page);
   assert.deepEqual(await html(page), { dark: false, theme: "light" }, "after the OS scheme change a stale instance does not re-apply system over the stored choice");
-  assert.equal(await stored(page), "light");
+  assert.equal(await storedChoice(page), "light");
   await act(page, "setSystem");
-  assert.equal(await stored(page), null, "system removes the stored choice");
+  assert.equal(await storedChoice(page), null, "system removes the stored choice");
   assert.deepEqual(await html(page), { dark: true, theme: "system" }, "system follows the dark OS scheme");
-  assert.equal(await currentValue(page, "theme-host-portaled"), "system", "the other instance adopted system");
-  assert.deepEqual(await recorded(page), ["light", "system"]);
+  assert.equal(await currentValue(page, { id: "theme-host-second" }), "system", "the other instance adopted system");
+  assert.deepEqual(await themeChanges(page), [{ theme: "light", storageKey: KEY }, { theme: "system", storageKey: KEY }]);
 });
 
 browserTest("theme: an instance with another storage key ignores a choice made under a different key", async ({ open }) => {
@@ -135,12 +137,15 @@ browserTest("theme: an instance with another storage key ignores a choice made u
   await page.emulateMedia({ colorScheme: "light" });
   await page.evaluate(() => localStorage.clear());
   await mount(page);
-  await mount(page, 'data-chadcn--theme-storage-key-value="my-app-theme"', "theme-host-other");
+  await mount(page, 'data-chadcn--theme-storage-key-value="my-app-theme"', { id: "theme-host-other-key" });
+  await recordThemeChanges(page);
   await act(page, "setDark");
-  assert.equal(await stored(page), "dark", "control: the choice was persisted under the default key");
-  assert.equal(await currentValue(page, "theme-host-other"), "system", "the instance with another key kept its own value");
-  assert.equal(await stored(page, "my-app-theme"), null);
-  assert.deepEqual(await html(page), { dark: true, theme: "dark" }, "the page carries the last writer's choice");
+  assert.equal(await storedChoice(page), "dark", "control: the choice was persisted under the default key");
+  assert.equal(await currentValue(page, { id: "theme-host-other-key" }), "system", "the instance with another key kept its own value");
+  await act(page, "setLight", { id: "theme-host-other-key" });
+  assert.equal(await storedChoice(page, { key: "my-app-theme" }), "light");
+  assert.equal(await currentValue(page), "dark", "the default-key instance ignored the other key's choice");
+  assert.deepEqual(await themeChanges(page), [{ theme: "dark", storageKey: KEY }, { theme: "light", storageKey: "my-app-theme" }], "the detail carries the configured key");
 });
 
 browserTest("theme: a storage event from another page of the same origin re-syncs the instance", async ({ open }) => {
@@ -148,7 +153,7 @@ browserTest("theme: a storage event from another page of the same origin re-sync
   await page.emulateMedia({ colorScheme: "light" });
   await page.evaluate(() => localStorage.clear());
   await mount(page);
-  await record(page);
+  await recordThemeChanges(page);
   assert.deepEqual(await html(page), { dark: false, theme: "system" }, "control: the instance starts on system");
   const other = await page.context().newPage();
   try {
@@ -156,12 +161,34 @@ browserTest("theme: a storage event from another page of the same origin re-sync
     await other.evaluate((key) => localStorage.setItem(key, "dark"), KEY);
     await page.waitForFunction(() => document.documentElement.classList.contains("dark") && document.documentElement.dataset.theme === "dark");
     assert.equal(await currentValue(page), "dark", "the instance re-read the key changed elsewhere");
-    assert.deepEqual(await recorded(page), [], "syncing never dispatches");
+    assert.deepEqual(await themeChanges(page), [], "syncing never dispatches");
     await other.evaluate((key) => localStorage.removeItem(key), KEY);
     await page.waitForFunction(() => document.documentElement.dataset.theme === "system");
     assert.deepEqual(await html(page), { dark: false, theme: "system" }, "a cleared key falls back to system, light under the light scheme");
-    assert.deepEqual(await recorded(page), []);
+    await other.evaluate((key) => localStorage.setItem(key, "dark"), KEY);
+    await page.waitForFunction(() => document.documentElement.dataset.theme === "dark");
+    await other.evaluate(() => localStorage.clear());
+    await page.waitForFunction(() => document.documentElement.dataset.theme === "system");
+    assert.equal(await currentValue(page), "system", "clearing the whole storage (storage event with a null key) re-reads the key");
+    assert.deepEqual(await themeChanges(page), [], "syncing never dispatches");
   } finally {
     await other.close();
   }
+});
+
+browserTest("theme: a changed event without a storage key makes the instance re-read storage", async ({ open }) => {
+  const page = await open("defaults");
+  await page.emulateMedia({ colorScheme: "light" });
+  await page.evaluate(() => localStorage.clear());
+  await mount(page);
+  await recordThemeChanges(page);
+  assert.deepEqual(await html(page), { dark: false, theme: "system" }, "control: the instance starts on system");
+  await page.evaluate(() => {
+    localStorage.setItem("shadcn-theme", "dark");
+    document.body.dispatchEvent(new CustomEvent("chadcn--theme:changed", { bubbles: true, detail: { theme: "light" } }));
+  });
+  await settle(page);
+  assert.equal(await currentValue(page), "dark", "re-read from storage, the keyless detail's theme is not trusted");
+  assert.deepEqual(await html(page), { dark: true, theme: "dark" });
+  assert.deepEqual(await themeChanges(page), [{ theme: "light" }], "only the synthetic event, the instance did not dispatch again");
 });
