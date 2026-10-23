@@ -12,6 +12,8 @@ module Chadcn
     class Context
       # The Tailwind entry file `rails g chadcn:install` edits, relative to the app root.
       DEFAULT_CSS = "app/assets/tailwind/application.css" # gem_check:allow GEM_ESCAPES_ROOT -- the doctor reads the host Tailwind entry file
+      # The engine's Tailwind bundle the managed block imports (what `tailwindcss:build` writes), relative to the app root.
+      ENGINE_BUNDLE = "app/assets/builds/tailwind/chadcn" # gem_check:allow GEM_ESCAPES_ROOT -- the doctor checks the host engine bundle
       # The supported Phlex range when the gem's own specification is not loaded.
       DEFAULT_PHLEX_REQUIREMENT = "~> 2.3"
 
@@ -21,7 +23,7 @@ module Chadcn
       THEME_DIR_FIX = "set config.chadcn.theme_dir in config/application.rb"
       # An `@import "..."` line of the entry file.
       IMPORT = /^@import\s+["']([^"']+)["']/
-      # An `@source "..."` line of the entry file.
+      # An `@source "..."` line of the entry file (older generators wrote one into the block; the engine bundle carries its own).
       SOURCE = /^@source\s+["']([^"']+)["']/
 
       # The block `rails g chadcn:install` writes, from its start marker to its end marker.
@@ -31,7 +33,7 @@ module Chadcn
       attr_reader :root
       # @return [Pathname, nil] the theme directory (theme.css and presets/), nil when none is configured
       attr_reader :theme_dir
-      # @return [Pathname] the gem's root, where the `@source` line has to point
+      # @return [Pathname] the installed gem's root (the files the esbuild copies are compared with)
       attr_reader :gem_root
       # @return [Hash{String => Gem::Version}] the gems of the bundle
       attr_reader :gems
@@ -117,8 +119,12 @@ module Chadcn
       #   without a block)
       def block_imports = managed_block.to_s.scan(IMPORT).flatten.map { |value| resolve_from_css(value) }
 
-      # @return [Array<Pathname>] the directories the managed block's `@source` lines name (empty without a block)
+      # @return [Array<Pathname>] the directories the managed block's `@source` lines name (empty without a block, and for a block the
+      #   current generator wrote)
       def block_sources = managed_block.to_s.scan(SOURCE).flatten.map { |value| resolve_from_css(value) }
+
+      # @return [Boolean] whether the managed block imports the engine bundle (`ENGINE_BUNDLE`)
+      def imports_engine_bundle? = block_imports.include?(Pathname.new(File.expand_path(ENGINE_BUNDLE, root)))
 
       # @param value [String] a path as written in the entry file's `@source` or `@import`
       # @return [Pathname] the file or directory it names, relative to the entry file, without a `.css` suffix

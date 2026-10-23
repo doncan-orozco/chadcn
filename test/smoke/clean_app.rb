@@ -2,6 +2,7 @@
 
 require "fileutils"
 require "net/http"
+require "open3"
 require "pathname"
 require "socket"
 require "tmpdir"
@@ -11,7 +12,10 @@ module Smoke
   # Clean-app smoke (ruby-gem-conventions R10, R14): `rails new`, then the README's Rails quick start replayed verbatim (Gemfile
   # lines, `bundle install`, `bin/rails g chadcn:install`, `bin/rails tailwindcss:build`, the Views::Demo::Index view and its
   # controller), a running server answering with the Button and the Dialog, the built CSS carrying the gem's classes, and one browser
-  # scenario (dev/port/scenarios/dialog.json `open__via-trigger-click`, then Escape) driven by Playwright.
+  # scenario (dev/port/scenarios/dialog.json `open__via-trigger-click`, then Escape) driven by Playwright. The gem is installed from
+  # this checkout as a git source (`git: "file://..."`, offline), so it lands outside the app in bundler/gems/chadcn-<sha>, as a
+  # `github:` install does (a RubyGems install lands in gems/chadcn-<version>, also outside the app): the styled checks prove the
+  # engine bundle alone reaches the gem's Ruby files.
   #
   # Needs network (rails new, bundle install), a `rails` executable (SMOKE_RAILS) and node with Playwright (CHADCN_PLAYWRIGHT,
   # or the dev kit's dev/react-shadcn-catalog/node_modules). Never run by `rake test`.
@@ -29,7 +33,7 @@ module Smoke
     ESBUILD_BUNDLE_MARKERS = [ "chadcn--dialog", "chadcn--dropdown-menu", "computePosition" ].freeze
     GEM_LINE = 'gem "chadcn"'
     DEMO_PATH = "/demo"
-    # Arbitrary-value utilities that only the gem's Ruby files use: generated only if an @source line reaches the gem.
+    # Arbitrary-value utilities that only the gem's Ruby files use: generated only if Tailwind scans the gem (the engine bundle's @source).
     SOURCE_UTILITIES = [ 'ring-\\[3px\\]', 'translate-x-\\[-50\\%\\]' ].freeze
     # Theme variables, token mapping and vendored animations: present only if the generator's theme and engine-bundle imports resolve.
     BUNDLE_MARKERS = [ "--primary", "var(--primary)", "animate-in" ].freeze
@@ -166,13 +170,36 @@ module Smoke
       raise "the esbuild bundle lacks #{missing.join(', ')}: the copied controllers were not bundled" if missing.any?
     end
 
+    # The README's Gemfile lines, with the gem taken from this checkout until it is released.
     def append_gemfile_lines
       lines = @readme.gemfile_lines
       raise "README.md has no #{GEM_LINE} line to point at this checkout; update test/smoke" unless lines.include?(GEM_LINE)
 
-      lines = lines.map { |line| line == GEM_LINE ? %(#{GEM_LINE}, path: #{@gem_root.to_s.inspect}) : line }
+      lines = lines.map { |line| line == GEM_LINE ? gem_line_from_this_checkout : line }
       gemfile = @app_dir.join("Gemfile")
       File.write(gemfile, "#{File.read(gemfile).chomp}\n\n# From README.md\n#{lines.join("\n")}\n")
+    end
+
+    # A git source at this checkout's HEAD: bundler clones it (a file:// URL needs no network) into bundler/gems/chadcn-<sha>, outside
+    # the app, the way a `github:` install lands.
+    def gem_line_from_this_checkout
+      sha = git("rev-parse", "HEAD")
+      warn_about_uncommitted_changes(sha)
+      %(#{GEM_LINE}, git: #{"file://#{@gem_root}".inspect}, ref: #{sha.inspect})
+    end
+
+    # A git source sees commits only: say so on stderr, where a green run cannot bury it, when the working tree is not what was smoked.
+    def warn_about_uncommitted_changes(sha)
+      return if git("status", "--porcelain").empty?
+
+      warn "smoke --app: WARNING the gem is installed from #{sha[0, 12]}; uncommitted changes in #{@gem_root} are NOT part of this smoke"
+    end
+
+    def git(*args)
+      output, error, status = Open3.capture3("git", "-C", @gem_root.to_s, *args)
+      raise "git #{args.join(' ')} failed in #{@gem_root}: #{error.strip}" unless status.success?
+
+      output.strip
     end
 
     def serve
@@ -213,7 +240,7 @@ module Smoke
       check_served_assets(port, body)
       css = File.read(@app_dir.join("app/assets/builds/tailwind.css"))
       unscanned = SOURCE_UTILITIES.reject { |marker| css.include?(marker) }
-      raise "the Tailwind build lacks #{unscanned.join(', ')}: no @source line reached the gem's Ruby files" if unscanned.any?
+      raise "the Tailwind build lacks #{unscanned.join(', ')}: the engine bundle's @source did not reach the gem's Ruby files" if unscanned.any?
 
       unimported = BUNDLE_MARKERS.reject { |marker| css.include?(marker) }
       raise "the Tailwind build lacks #{unimported.join(', ')}: the theme or engine-bundle import did not resolve" if unimported.any?

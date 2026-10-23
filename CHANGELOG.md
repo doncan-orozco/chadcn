@@ -45,7 +45,7 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
   Base UI).
 - Primitives `scorer` (fuzzy match and ranking, with its own unit tests) and `anchor_positioner`.
 - `bin/rails chadcn:doctor` diagnoses a host app's chadcn setup with one PASS/WARN/FAIL line per check and a one-line fix under each warning or failure
-  (asset pipeline, ejected components, engine bundle, JavaScript pipeline, Phlex versions, Propshaft stub filter, `@source` block,
+  (asset pipeline, ejected components, engine bundle, JavaScript pipeline, Phlex versions, Propshaft stub filter, source block,
   Stimulus controllers, Tailwind, theme files and theme import). `chadcn:doctor[json]` or `JSON=1` prints JSON for CI and
   agents, `CSS=path` points it at another Tailwind entry file, and it exits 1 when any check fails (warnings do not fail it).
 - `rails g chadcn:install --js auto|importmap|esbuild`: the generator detects the JavaScript pipeline (`auto`, the default: a
@@ -83,7 +83,8 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
   (default `app/assets/tailwind/theme`).
 - Theme tooling: `Chadcn::Theme` and the rake tasks `chadcn:theme:list|use|import|check` (short `theme:*` aliases;
   turn them off with `config.chadcn.theme_task_aliases = false`).
-- `rails g chadcn:install`: idempotent marker block in the Tailwind entry file (`@source`, engine bundle, theme import) and
+- `rails g chadcn:install`: idempotent marker block in the Tailwind entry file (engine bundle and theme imports; the engine's
+  `engine.css` carries the `@source` for the gem's Ruby files) and
   the default theme files; exits non-zero on malformed input.
 - YARD documentation of the public API of every component family (display, form controls, disclosure and navigation, overlays,
   menus and select), with an example per root and the generated helpers listed on their owner class; implementation details are
@@ -112,6 +113,12 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 
 ### Changed
 
+- `rails g chadcn:install` no longer writes an `@source` line into the managed block: the block is now the same on every machine
+  (the engine bundle import and the theme import), because the engine's `engine.css` carries a self-relative `@source` for the gem's
+  Ruby files and the Tailwind output is byte-identical without the generator's line. Re-run the generator after updating: it rewrites
+  the block, and until then `chadcn:doctor`'s `source block` check warns about the leftover `@source` line (it now checks that the block
+  imports the engine bundle). The clean-app smoke installs the gem from a `git:` source (a `file://` URL to the checkout) instead of
+  `path:`, as a `github:` install lands: outside the app, with no machine-specific path in `application.css`.
 - Ruby 3.3 is the minimum (`required_ruby_version >= 3.3`): Ruby 3.2 reached upstream end of life on 2026-03-31, so the
   first release does not claim it (`docs/compatibility.md`).
 - Renamed from phlex-shadcn (Phlex::Shadcn) to chadcn (Chadcn). The gem is unreleased, so there is no compatibility alias. Every

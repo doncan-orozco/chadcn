@@ -18,6 +18,15 @@ class InstallGeneratorTest < Rails::Generators::TestCase
   SUCCESS_LINE = "Installed. Your app just got a jawline."
   REFRESH_REMINDER = "Run the generator again after updating the gem: it refreshes the copied JavaScript."
 
+  # The block is the same on every machine: the engine bundle (whose engine.css carries the self-relative @source for the gem's
+  # Ruby files) and the theme, both relative to the app.
+  MANAGED_BLOCK = [
+    "/* chadcn:start (managed by rails g chadcn:install) */",
+    %(@import "../builds/tailwind/chadcn";),
+    %(@import "./theme/theme.css";),
+    "/* chadcn:end */"
+  ].freeze
+
   # The booted test app configures a custom theme_dir; the generator reads it, so each test starts from "not configured".
   setup do
     @configured_theme_dir = Rails.application.config.chadcn.theme_dir
@@ -53,29 +62,33 @@ class InstallGeneratorTest < Rails::Generators::TestCase
     end
   end
 
-  test "writes one block after the tailwind import with the source line, the engine bundle and the theme" do
+  test "writes one block after the tailwind import with the engine bundle and the theme" do
     run_generator
 
-    source = Pathname.new(Chadcn.root.join("lib")).relative_path_from(Pathname.new(destination_root).join("app/assets/tailwind"))
     lines = css.lines.map(&:chomp)
     start = lines.index { |line| line.start_with?("/* chadcn:start") }
 
     refute_nil start
 
     assert_equal %(@import "tailwindcss";), lines[start - 1]
-    assert_equal [ %(@source "#{source}";), %(@import "../builds/tailwind/chadcn";), %(@import "./theme/theme.css";), "/* chadcn:end */" ],
-                 lines[(start + 1)..(start + 4)]
+    assert_equal MANAGED_BLOCK, lines[start, MANAGED_BLOCK.size]
     assert_includes css, %(@import "./components/other.css";), "the rest of the file is untouched"
     assert_equal 1, css.scan("chadcn:start").size
   end
 
-  test "the source line points at the directory that holds the gem's Ruby files" do
+  test "a gem installed outside the app leaves no machine-specific path in the entry file" do
+    refute Chadcn.root.to_s.start_with?(destination_root), "the gem has to live outside the app, as a git or RubyGems install does"
     run_generator
-    path = css[/@source "([^"]+)"/, 1]
-    resolved = Pathname.new(destination_root).join("app/assets/tailwind").join(path).cleanpath
+    block = css[%r{/\* chadcn:start.*chadcn:end \*/}m]
 
-    assert_equal Chadcn.root.join("lib").cleanpath.to_s, resolved.to_s
-    assert_predicate resolved.join("chadcn/button.rb"), :file?
+    refute_nil block, "the generator wrote no managed block"
+    refute_includes block, "@source"
+    refute_includes css, Chadcn.root.to_s
+    block.scan(/"([^"]+)"/).flatten.each do |path|
+      resolved = File.expand_path(path, File.join(destination_root, "app/assets/tailwind"))
+
+      assert resolved.start_with?("#{destination_root}/"), "#{path} leaves the app"
+    end
   end
 
   test "copies the default theme and presets into the host" do
@@ -156,13 +169,15 @@ class InstallGeneratorTest < Rails::Generators::TestCase
     assert_file "app/assets/tailwind/theme/theme.css", /my own colors/
   end
 
-  test "updates the block when the gem moves but leaves the rest alone" do
+  test "rewrites an older block that still carries an @source line but leaves the rest alone" do
     run_generator
-    moved = css.sub(/@source "[^"]+";/, '@source "../../../old/gem/lib";')
-    write("app/assets/tailwind/application.css", moved)
-    run_generator
+    older = css.sub("#{MANAGED_BLOCK.first}\n", %(#{MANAGED_BLOCK.first}\n@source "../../../old/gem/lib";\n))
+    write("app/assets/tailwind/application.css", older)
+    output = run_generator
 
-    refute_includes css, "old/gem"
+    assert_match(%r{update\s+app/assets/tailwind/application.css}, output)
+    assert_includes css, MANAGED_BLOCK.join("\n"), "the older block is rewritten to the current one"
+    refute_includes css, "@source"
     assert_equal 1, css.scan("chadcn:start").size
     assert_includes css, %(@import "./components/other.css";)
   end
@@ -231,7 +246,8 @@ class InstallGeneratorTest < Rails::Generators::TestCase
     output = run_failing_generator
 
     assert_match(%r{cannot express .* relative to app/assets/tailwind/application\.css}, output)
-    assert_match(/add an @source for/, output)
+    assert_match(%r{add @imports of app/assets/builds/tailwind/chadcn and app/assets/tailwind/theme/theme\.css}, output)
+    refute_includes output, "@source"
   ensure
     Pathname.define_method(:relative_path_from, original)
   end
