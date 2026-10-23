@@ -4,14 +4,13 @@ import { hoverIntent } from "chadcn/primitives/hover_intent"
 import { positioner } from "chadcn/primitives/positioner"
 import { presence } from "chadcn/primitives/presence"
 import { mountTemplate } from "chadcn/primitives/template_mount"
+import { turboCacheRestore } from "chadcn/primitives/turbo_cache"
 
 // Radix HoverCard (Root + Trigger + Content). Spec: docs/shadcn-port/specs/hover-card.md (Behavior).
 // The controller element is the trigger. The content lives in an inert <template> next to it and is mounted in <body>
 // only while open (Portal + Presence), like Radix.
 export default class extends Controller {
   static values = { open: Boolean, controlled: Boolean, openDelay: Number, closeDelay: Number, templateKey: String }
-
-  restoreTimer = null
 
   connect() {
     this.template = this.findTemplate()
@@ -36,7 +35,10 @@ export default class extends Controller {
     on("pointerleave", (event) => event.pointerType !== "touch" && this.leave())
     on("focus", () => this.intent.enter())
     on("blur", () => this.leave())
-    document.addEventListener("turbo:before-cache", () => this.reset(), { signal: this.abort.signal })
+    this.cache = turboCacheRestore({
+      teardown: (cancelled) => this.#teardownForCache(cancelled),
+      restore: (staysOpen) => this.#restoreAfterCache(staysOpen)
+    })
 
     if (this.isOpen) this.mount()
     this.syncTrigger()
@@ -54,8 +56,8 @@ export default class extends Controller {
 
   disconnect() {
     if (!this.template) return
+    this.cache?.release()
     this.reset()
-    this.#cancelRestore()
     this.abort.abort()
     this.intent.release()
   }
@@ -65,32 +67,39 @@ export default class extends Controller {
     return (this.element.parentElement || document).querySelector(selector) || document.querySelector(selector)
   }
 
-  // A cached page must not hold a hover-opened card (a server-rendered open value is honoured again on connect): the card is torn
-  // down and the hover intent is reset, so no stale open flag or pending timer survives the snapshot. Turbo takes the snapshot one
-  // timer tick after the event, also for visits that keep the page (a link to #hash); once it is taken, a trigger that is still
-  // hovered or focused re-arms the intent, so the card comes back after its delay, like after a fresh pointerenter.
+  // Tears the card down and resets the hover intent, so no stale open flag or pending timer survives (turbo_cache teardown and
+  // disconnect). A cached page never holds an open card: a restored page connects again from its server value, a page that stays
+  // (a link to #hash) is set up again by #restoreAfterCache.
   reset() {
-    this.#cancelRestore()
     this.intent?.sync(false)
     this.teardown()
     this.isOpen = false
     this.syncTrigger()
-    this.restoreTimer = setTimeout(() => {
-      this.restoreTimer = setTimeout(() => this.#restoreAfterCache())
-    })
   }
 
-  // Pointer presence counts only where hovering exists: on touch devices `:hover` sticks to the tapped element, and touch must
-  // never open the card (pointerenter is ignored for it too).
-  #restoreAfterCache() {
-    this.restoreTimer = null
+  // The state carried to the restore: whether an uncontrolled card stays open. Only a card the server rendered open (default_open)
+  // and still open is kept; a hover-opened card is re-armed from the pointer instead, one the user closed stays closed. A second
+  // event inside the window finds the card already reset, so the answer of the restore it replaces carries over.
+  #teardownForCache({ pending, state: cancelledStaysOpen }) {
+    const renderedOpen = this.openValue // request() never writes it for an uncontrolled card: the server's default_open
+    const staysOpen = !this.controlledValue && ((this.isOpen && renderedOpen) || (pending && cancelledStaysOpen))
+    this.reset()
+    return staysOpen
+  }
+
+  // Set up again as connect() would: a controlled card follows the value the app owns now (it may have changed inside the window),
+  // an uncontrolled one the state its teardown kept. Otherwise pointer presence counts only where hovering exists: on touch devices
+  // `:hover` sticks to the tapped element, and touch must never open the card (pointerenter is ignored for it too).
+  #restoreAfterCache(staysOpen) {
+    if (this.controlledValue ? this.openValue : staysOpen) {
+      this.isOpen = true
+      this.mount()
+      this.intent.sync(true)
+      this.syncTrigger()
+      return
+    }
     const hovered = window.matchMedia("(hover: hover)").matches && this.element.matches(":hover")
     if (hovered || this.element.contains(document.activeElement)) this.intent.enter()
-  }
-
-  #cancelRestore() {
-    clearTimeout(this.restoreTimer)
-    this.restoreTimer = null
   }
 
   // Radix onClose: a text selection or a pressed pointer inside the content keeps the card open.

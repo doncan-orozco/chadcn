@@ -245,6 +245,25 @@ browserTest("scroll-area: a hovered root keeps its scrollbar through a snapshot 
   assert.equal(await page.locator(SCROLLBAR).count(), 1)
 })
 
+browserTest("scroll-area: a hovered root keeps its scrollbar through a second before-cache inside the restore window", async ({ open }) => {
+  const page = await open("default__hover", "scroll-area")
+  await page.locator(host("chadcn--scroll-area")).first().hover()
+  await page.waitForSelector(SCROLLBAR)
+  const atSecondSnapshot = await page.evaluate(async (scrollbar) => {
+    const nextTick = () => new Promise((resolve) => setTimeout(resolve))
+    document.dispatchEvent(new Event("turbo:before-cache"))
+    await nextTick() // the first snapshot; the restore is one tick away
+    document.dispatchEvent(new Event("turbo:before-cache")) // the records are gone: only the carried hover state re-arms
+    await nextTick()
+    return document.querySelectorAll(scrollbar).length
+  }, SCROLLBAR)
+  assert.equal(atSecondSnapshot, 0, "the second snapshot holds no scrollbar")
+  await afterSnapshotTicks(page)
+  await page.waitForSelector(SCROLLBAR, { timeout: 2000 }) // no pointer move: red without the carry
+  await settle(page)
+  assert.equal(await page.locator(SCROLLBAR).count(), 1)
+})
+
 // NO_MOTION is `*{animation:none!important}` (specificity 0,0,0): a more specific !important rule on the exit state wins, so the
 // exit animation really runs and the controller is snapshotted mid-exit.
 const holdExit = (page, selector) =>

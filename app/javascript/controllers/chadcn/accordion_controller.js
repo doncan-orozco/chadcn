@@ -2,6 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 import { collapsibleContent } from "chadcn/primitives/collapsible_content"
 import { direction } from "chadcn/primitives/direction"
 import { items as collectionItems } from "chadcn/primitives/collection"
+import { turboCacheRestore } from "chadcn/primitives/turbo_cache"
 
 // Radix Accordion. Spec: docs/shadcn-port/specs/accordion.md (Behavior).
 //
@@ -23,16 +24,13 @@ export default class extends Controller {
   }
   static targets = ["item", "trigger", "content"]
 
-  restoreTimer = null
-
   connect() {
     this.#setup()
-    document.addEventListener("turbo:before-cache", this.onBeforeCache)
+    this.cache = turboCacheRestore({ teardown: () => this.#teardownForCache(), restore: () => this.#setup() })
   }
 
   disconnect() {
-    document.removeEventListener("turbo:before-cache", this.onBeforeCache)
-    clearTimeout(this.restoreTimer)
+    this.cache?.release()
     this.#teardown()
   }
 
@@ -48,16 +46,10 @@ export default class extends Controller {
   }
 
   // A page snapshot must hold the server markup: a closed content with its body template (connect() removed it, so a restored
-  // page could never open the item). Turbo takes the snapshot one timer tick after this event (hence the two ticks below) and
-  // also for visits that keep the page (a link to #hash), so the controller is set up again once the snapshot is taken; a real
-  // navigation disconnects it first, which cancels that.
-  onBeforeCache = () => {
-    clearTimeout(this.restoreTimer)
+  // page could never open the item). The turbo_cache primitive sets the controller up again once the snapshot is taken.
+  #teardownForCache() {
     this.records?.forEach((record) => this.#restoreBody(record))
     this.#teardown()
-    this.restoreTimer = setTimeout(() => {
-      this.restoreTimer = setTimeout(() => this.#setup())
-    })
   }
 
   #restoreBody(record) {

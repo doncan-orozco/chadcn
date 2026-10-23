@@ -90,6 +90,53 @@ for (const c of CASES) {
     assert.equal(await page.locator(trigger(c)).first().getAttribute("aria-expanded"), "true")
   })
 
+  browserTest(`${c.component}: a second before-cache inside the restore window still re-opens the dialog after the snapshot`, async ({ open }) => {
+    const page = await open(c.scenario, c.component)
+    await page.locator(trigger(c)).first().click()
+    await page.waitForSelector(c.content)
+    await settle(page)
+    const atSecondSnapshot = await page.evaluate(async (content) => {
+      const nextTick = () => new Promise((resolve) => setTimeout(resolve))
+      document.dispatchEvent(new Event("turbo:before-cache"))
+      await nextTick() // the first snapshot; the restore is one tick away
+      document.dispatchEvent(new Event("turbo:before-cache")) // the dialog is closed now: only the carried state re-opens it
+      await nextTick()
+      return document.querySelectorAll(content).length
+    }, c.content)
+    assert.equal(atSecondSnapshot, 0, "the second snapshot holds no dialog")
+    await page.waitForSelector(c.content, { timeout: 2000 })
+    await settle(page)
+    assert.equal(await page.locator(c.content).count(), 1)
+    assert.equal(await page.locator(c.overlay).count(), 1)
+    assert.equal(await scrollLocked(page), true)
+    assert.equal(await page.locator(trigger(c)).first().getAttribute("aria-expanded"), "true")
+  })
+
+  // The negative twin of the case above: the carry is the open state, not the second event (a teardown carrying `pending` alone
+  // opens a closed dialog here).
+  browserTest(`${c.component}: a closed dialog stays closed through a second before-cache inside the restore window`, async ({ open }) => {
+    const page = await open(c.scenario, c.component)
+    await settle(page)
+    assert.equal(await page.locator(c.content).count(), 0, "precondition: the dialog is closed")
+    const mounted = await page.evaluate(async (content) => {
+      const nextTick = () => new Promise((resolve) => setTimeout(resolve))
+      const count = () => document.querySelectorAll(content).length
+      document.dispatchEvent(new Event("turbo:before-cache"))
+      await nextTick() // the first snapshot; the restore is one tick away
+      document.dispatchEvent(new Event("turbo:before-cache"))
+      await nextTick() // the second snapshot
+      const atSecondSnapshot = count()
+      const { SNAPSHOT_TICKS } = await import("chadcn/primitives/turbo_cache")
+      for (let tick = 0; tick <= SNAPSHOT_TICKS; tick++) await nextTick() // past the restore of the second event
+      return { atSecondSnapshot, afterWindow: count() }
+    }, c.content)
+    assert.deepEqual(mounted, { atSecondSnapshot: 0, afterWindow: 0 })
+    await settle(page)
+    assert.equal(await page.locator(c.overlay).count(), 0)
+    assert.equal(await scrollLocked(page), false)
+    assert.equal(await page.locator(trigger(c)).first().getAttribute("aria-expanded"), "false")
+  })
+
   browserTest(`${c.component}: a reconnect inside the restore window does not re-open the dialog`, async ({ open }) => {
     const page = await open(c.scenario, c.component)
     await page.locator(trigger(c)).first().click()
@@ -185,3 +232,54 @@ browserTest("alert-dialog: open on first paint focuses the Cancel button, not th
   const active = await page.evaluate(() => document.activeElement?.getAttribute("data-chadcn--alert-dialog-part"));
   assert.equal(active, "cancel");
 });
+
+// Hover card: Turbo keeps the page for a #hash visit, so a card the page renders open (controlled, or default_open and not closed
+// by the user) is open again once the snapshot is taken; the snapshot itself never holds it (stimulus R3, radix-stimulus R10).
+// These staying-page cases sit next to the dialog ones because they exercise the same turbo_cache restore window.
+const HOVER_TRIGGER = "[data-slot=hover-card-trigger]"
+const HOVER_CONTENT = "[data-slot=hover-card-content]"
+
+// Mounted cards on the tick Turbo snapshots in (after the last event) and once the restore window has passed.
+const hoverCardAcrossSnapshot = (page, { events = 1 } = {}) => page.evaluate(async ({ content, events }) => {
+  const nextTick = () => new Promise((resolve) => setTimeout(resolve))
+  const mounted = () => document.querySelectorAll(content).length
+  for (let round = 1; round <= events; round++) {
+    document.dispatchEvent(new Event("turbo:before-cache"))
+    await nextTick() // the snapshot tick; a further event lands inside the restore window
+  }
+  const atSnapshot = mounted()
+  const { SNAPSHOT_TICKS } = await import("chadcn/primitives/turbo_cache")
+  for (let tick = 0; tick <= SNAPSHOT_TICKS; tick++) await nextTick()
+  return { atSnapshot, afterWindow: mounted() }
+}, { content: HOVER_CONTENT, events })
+
+const HOVER_OPEN_CASES = [
+  { scenario: "controlled-open-true__stays-open", events: 1 },
+  { scenario: "default-open__open", events: 1 },
+  { scenario: "default-open__open", events: 2 } // the second teardown finds the card reset: only the carried state keeps it
+]
+
+for (const { scenario, events } of HOVER_OPEN_CASES) {
+  browserTest(`hover-card (${scenario}): a card rendered open is open again after ${events} before-cache on a staying page`, async ({ open }) => {
+    const page = await open(scenario, "hover-card")
+    await page.mouse.move(2, 2) // no pointer re-arm: only the reconcile can bring the card back
+    await page.waitForSelector(HOVER_CONTENT)
+    await settle(page)
+    assert.deepEqual(await hoverCardAcrossSnapshot(page, { events }), { atSnapshot: 0, afterWindow: 1 })
+    assert.equal(await page.locator(HOVER_TRIGGER).first().getAttribute("data-state"), "open")
+  })
+}
+
+// The negative twin of HOVER_OPEN_CASES: with two events the carried state, not the second event itself, decides (a carry of
+// `pending` alone re-opens the card the user closed).
+for (const events of [1, 2]) {
+  browserTest(`hover-card: a default-open card the user closed stays closed after ${events} before-cache on a staying page`, async ({ open }) => {
+    const page = await open("default-open__open", "hover-card")
+    await page.mouse.move(2, 2)
+    await page.waitForSelector(HOVER_CONTENT)
+    await page.keyboard.press("Escape")
+    await page.waitForSelector(HOVER_CONTENT, { state: "detached" })
+    assert.deepEqual(await hoverCardAcrossSnapshot(page, { events }), { atSnapshot: 0, afterWindow: 0 })
+    assert.equal(await page.locator(HOVER_TRIGGER).first().getAttribute("data-state"), "closed")
+  })
+}
