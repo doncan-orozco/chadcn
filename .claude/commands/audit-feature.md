@@ -1,7 +1,7 @@
 ---
 description: Forensic Map-Reduce audit (Bricks -> Rooms -> Slices -> House) of a change to the chadcn gem (Phlex components, Stimulus controllers and primitives, Rails integration, tests, tooling). Every file is on the Gem track. Add --fix for the Actor-Critic remediation loop.
 argument-hint: "[branch|range|files] [--fix] [--wide] [--no-checks] [--no-cache] [--pr-comment] [ticket text or @ticket.md]"
-allowed-tools: Agent, Read, Grep, Glob, TodoWrite, Bash(git:*), Bash(bundle exec rubocop:*), Bash(bundle exec rake:*), Bash(bundle exec ruby:*), Bash(ruby:*), Bash(shasum:*), Bash(mkdir -p tmp/audit:*), Edit(tmp/audit/**)
+allowed-tools: Agent, Read, Grep, Glob, TodoWrite, Bash(git:*), Bash(bundle exec rubocop:*), Bash(bundle exec rake:*), Bash(bundle exec ruby:*), Bash(ruby:*), Bash(shasum:*), Bash(mkdir -p tmp/audit:*), Edit(tmp/audit/**), Bash(bin/smoke:*), Bash(env -u BUNDLE_GEMFILE:*)
 ---
 
 # Map-Reduce Audit: Bricks, Rooms, Slices, House (the chadcn gem)
@@ -59,7 +59,7 @@ Matrix (`Read` only on match):
 - `design-system` + `shadcn-port`: component files under `lib/chadcn/` (`<name>.rb`, `<name>/**`, `base.rb`, `icon.rb`, `icons/**`), `app/assets/tailwind/chadcn/**`; add `accessibility` for parts that render interactive markup (buttons, triggers, inputs, items, menus, dialogs).
 - `stimulus` + `radix-stimulus`: `app/javascript/**` (+ `accessibility`).
 - `testing`: `test/**`, `.claude/scripts/test/**`, `dev/dummy/test/**`.
-- `linting`: `.claude/scripts/**/*.rb` (tooling), `.rubocop.yml`, `dev/llms/**`.
+- `linting`: `.claude/scripts/**/*.rb` (tooling), `dev/llms/**`.
 - `epic-flow`: `.claude/scripts/epic/**`, `.claude/commands/work*.md`, `epic-plan.md`.
 - House macro skills (pasted bodies, once): `ruby-gem-conventions` (always), `shadcn-port` (if components, assets or the importmap were touched), `testing` (if tests or coverage gaps), `stimulus` (if controllers or primitives were touched) — each trimmed to 120 lines. House never receives micro skills (no double jeopardy with Rooms).
 
@@ -102,7 +102,7 @@ Spend agent effort where it pays. Decisions are made per file from the Phase 0.7
 Run the deterministic tools BEFORE any agent fan-out: their results are facts, they cost almost nothing, and they let agents skip what a tool already proves. This phase never edits source files. Run each command in the FOREGROUND with the Bash tool's `timeout` parameter (up to 600000 ms), from `ROOT`, with `env -u BUNDLE_GEMFILE LANG=en_US.UTF-8` when the shell exports something else, on the selected files only:
 1. **Style:** `bundle exec rubocop <selected .rb files>`. Report offenses per file:line. NEVER pass `-a`/`-A`.
 2. **Gem gate:** `ruby .claude/scripts/gem/gem_check.rb --gem-dir .` (the `GEM_GATE` of Phase 0; run once).
-3. **Tests:** plain suite files mapped by `TEST_COVERAGE_MAP` plus the changed test files: `bundle exec ruby -Itest -Ilib <files>`; `bundle exec rake test:engine` when an engine, generator or rake file changed; `bundle exec rake test:tooling` when `.claude/scripts/**` changed; `bundle exec ruby -Itest -Ilib test/public_api_test.rb` when `lib/**` changed; `bundle exec rake llms:check` when a component signature, YARD doc or controller `static values` changed. Browser tests (`bin/test-js`) and the parity gates are NOT run here: report them `SKIPPED(browser)` and name the tests/scenarios the change needs, so `/work` runs them as the item's gates. Report failures with test name, file:line and message, and say plainly if nothing could be mapped.
+3. **Tests:** plain suite files mapped by `TEST_COVERAGE_MAP` plus the changed test files: one `bundle exec rake test TEST=<comma-separated files>` (never several files after `ruby -Itest -Ilib`: only the first would run); `bundle exec rake test:engine` when an engine, generator or rake file changed; `bundle exec rake test:tooling` when `.claude/scripts/**` changed; `bundle exec ruby -Itest -Ilib test/public_api_test.rb` when `lib/**` changed; `bundle exec rake llms:check` when a component signature, YARD doc or controller `static values` changed. Browser tests (`bin/test-js`) and the parity gates are NOT run here: report them `SKIPPED(browser)` and name the tests/scenarios the change needs, so `/work` runs them as the item's gates. Report failures with test name, file:line and message, and say plainly if nothing could be mapped.
 4. **Docs and tooling docs:** `bin/smoke --docs` when README or `docs/**` changed (offline); `ruby .claude/scripts/shadcn/command_lint.rb` when `.claude/commands/**`, `.claude/agents/**` or `.ai/skills/**` changed.
 5. **Wiring and coverage:** already computed in Phase 0 step 6 (`STIMULUS_WIRING`, `TEST_COVERAGE_MAP`, `API_SURFACE`, `DOCS_PARITY`); merge them here.
 Output a `MECHANICAL_CHECKS` block: per tool `PASS|FAIL|SKIPPED(reason)` plus the offenses/failures, truncated to 60 lines each. Rules:

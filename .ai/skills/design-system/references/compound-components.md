@@ -1,6 +1,6 @@
 # Compound components: nested part classes
 
-shadcn exposes compound components as sibling exports (`Dialog`, `DialogTrigger`, `DialogContent`...). The port mirrors them 1:1 as **one class per export, parts nested under the root class** and all defined in the root's file. Views compose them with explicit `render`, like JSX.
+shadcn exposes compound components as sibling exports (`Dialog`, `DialogTrigger`, `DialogContent`...). The port mirrors them 1:1 as **one class per export, parts nested under the root class**: in the root's file for small roots, one part per file under `lib/chadcn/<name>/` for large ones. Views compose them with explicit `render`, like JSX.
 
 > The nested classes below are the canonical API. The "parent yields self" helpers (`card.header`, `dropdown.trigger`) exist too, but as GENERATED sugar over those classes (see "DX helpers"), never hand-written.
 
@@ -21,20 +21,16 @@ shadcn exposes compound components as sibling exports (`Dialog`, `DialogTrigger`
 ## File layout
 
 ```ruby
-# lib/chadcn/dialog.rb  (Zeitwerk: Chadcn::Dialog)
-module Chadcn
-  class Dialog < Chadcn::Base
-    def initialize(open: nil, default_open: false, modal: true, **attrs)
-      ...
-    end
-
-    def view_template(&block) = ...   # root part: data-slot="dialog", controller chadcn--dialog
-
-    class Trigger < Chadcn::Base ... end   # data-slot="dialog-trigger"
-    class Content < Chadcn::Base ... end   # data-slot="dialog-content"
-    class Header  < Chadcn::Base ... end   # data-slot="dialog-header"
-  end
+# lib/chadcn/dialog.rb  (Zeitwerk: Chadcn::Dialog); compact class form on purpose (.rubocop.yml: same constant lookup as the port)
+class Chadcn::Dialog < Chadcn::Base
+  def initialize(open: nil, default_open: false, modal: true, **attrs) = ...
+  def view_template(&block) = ...   # data-slot="dialog", controller chadcn--dialog
 end
+
+# lib/chadcn/dialog/trigger.rb  (a large root keeps one part per file under lib/chadcn/<name>/)
+class Chadcn::Dialog::Trigger < Chadcn::Base ... end   # data-slot="dialog-trigger"
+
+# small roots keep their parts in the root's file (lib/chadcn/table.rb: `class Header < Chadcn::Base` inside `class Chadcn::Table`)
 ```
 
 - Every part is a `Chadcn::Base` subclass with its own `initialize(..., **attrs)` and `view_template`. Parts that would push the file past ~250 lines move to `lib/chadcn/dialog/content.rb` (still `Dialog::Content`; Zeitwerk reopens the namespace).

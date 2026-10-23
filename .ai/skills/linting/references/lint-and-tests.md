@@ -158,7 +158,7 @@ end
 ```
 
 The engine suite boots one minimal Rails application in-process (`test/engine/engine_helper.rb`); it has no database and no
-fixtures. Generator tests render into `tmp/generator-destination/`.
+fixtures. Generator tests render into a per-process temporary destination under `Dir.tmpdir`.
 
 ### 4. Testing Best Practices
 

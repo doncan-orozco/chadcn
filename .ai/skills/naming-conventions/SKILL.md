@@ -97,7 +97,7 @@ salary = Money.new(amount: 4500.75, currency: :usd)
 contract_end = ContractDate.new("2026-06-30")
 ```
 
-In this gem the same rule reads: `merge_attrs(defaults, attrs)` over `merge_hashes(h1, h2)`; `normalize_option(value)` over `fix_val`; `presets_dir` over `dir`; a `Chadcn::Theme::Error` with a message over a bare `false`.
+In this gem the same rule reads: `merge_attrs(defaults, attrs)` over `merge_hashes(h1, h2)`; `normalize_option(value)` over `fix_val`; `theme_file` over `file`; a `Chadcn::Theme::Error` with a message over a bare `false`.
 
 ## Ruby-Specific Guidance
 - Boolean predicate methods end in `?`: `enrolled?`, `published?`, `overdue?`.

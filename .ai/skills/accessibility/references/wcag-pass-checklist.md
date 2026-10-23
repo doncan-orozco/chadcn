@@ -32,7 +32,7 @@ Use this checklist during implementation and code review of a component part, a 
 
 - Loading/success/error states are communicated with readable text.
 - Dynamic content updates preserve context for keyboard and screen reader users (focus returns to the trigger on close unless the caller prevents it).
-- Animations come from `tw-animate-css` as in the oracle; `prefers-reduced-motion` closes in the same frame (`presence.js`).
+- Animations come from `tw-animate-css` as in the oracle; `presence.js` unmounts at once when the closing element has no animation (`animation-name: none`), so an application that adds `motion-reduce:animate-none` closes in the same frame.
 
 ## Localizable defaults
 

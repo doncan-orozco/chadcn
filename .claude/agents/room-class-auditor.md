@@ -26,7 +26,7 @@ Architectural, boundary-obsessed gatekeeper of the public API.
    - Rails integration (`lib/chadcn/engine*.rb`, `lib/generators/**`, `lib/tasks/**`): may know Rails, importmap, Tailwind and host paths; wires assets and pins; never contains component logic; monkey patches only as the recorded, guarded, switchable exceptions (R4, R9).
    - Configuration: one `Chadcn.configure` object with defaults; no other global switches (R4).
    - Tests (`test/**`): `Chadcn::TestCase`, render with `.call`, assert the rendered contract, one concern per test, no network, no assertions on private internals (`testing` R6, R18).
-   - Tooling (`.claude/scripts/**`): plain Ruby scripts with a JSON contract and a test in `.claude/scripts/test`; they read `layout.rb` instead of hard-coding paths.
+   - Tooling (`.claude/scripts/**`): plain Ruby scripts with a JSON contract and a test in `.claude/scripts/test`; the shadcn scripts read `layout.rb` instead of hard-coding paths.
    - The dev kit (`dev/**`) is not judged here (`/shadcn-audit`).
 3. **Encapsulation:** minimal public API (everything a README example or a spec calls is public and YARD-documented; the rest is `private` or `@api private`, `ruby-gem-conventions` R5), `attr_reader` over `attr_accessor`, no leaky instance state between parts (parts share state through the DOM, never through the parent's instance), no mutable class-level state outside the recorded exceptions.
 4. **Dependencies:** every library namespace used is a declared runtime dependency; no `require` of something the gemspec does not declare (R3); no reach into a consuming application.

@@ -1,7 +1,7 @@
 ---
 description: Orchestrate the full shadcn -> Phlex port end to end: infra wave, pilot checkpoint, then fan-out waves of plan -> build -> gate -> triage -> fix, resumable. One call, no human input.
 argument-hint: "[all|a,b,c|wave:N] [--resume] [--retry-blocked] [--concurrency 4] [--max-iter 3] [--pilot-only] [--no-browser]"
-allowed-tools: Agent, Read, Write, Edit, Grep, Glob, TodoWrite, Bash(ruby:*), Bash(node:*), Bash(npm:*), Bash(npx:*), Bash(curl:*), Bash(cd:*), Bash(mkdir:*), Bash(bundle exec rake:*), Bash(bundle exec rubocop:*), Bash(git status:*), Bash(git diff:*), Bash(git rev-parse:*), Bash(grep:*), Bash(ls:*), Bash(lsof:*), Bash(kill:*)
+allowed-tools: Agent, Read, Write, Edit, Grep, Glob, TodoWrite, Bash(ruby:*), Bash(node:*), Bash(npm:*), Bash(npx:*), Bash(curl:*), Bash(cd:*), Bash(mkdir:*), Bash(bundle exec rake:*), Bash(bundle exec rubocop:*), Bash(git status:*), Bash(git diff:*), Bash(git rev-parse:*), Bash(grep:*), Bash(ls:*), Bash(lsof:*), Bash(kill:*), Bash(bin/rails:*), Bash(bin/check:*)
 ---
 
 # /shadcn-run: the orchestrator
@@ -58,12 +58,12 @@ After any stop, finish with Phase 3 (report) so nothing is lost. The user fixes 
 ## Phase 2: House (final)
 1. `ruby .claude/scripts/shadcn/house_check.rb --static-all` (must be clean).
 2. Full G4: for every `done` component run G2 with `--theme slate` and `--theme stone` over its `default*` scenarios, and `--dark`.
-3. `bundle exec rubocop`, `bundle exec rake test test:engine` and the dummy app's Minitest suite (`bin/check` runs all of them). Every previously `done` component must be unaffected: any new failure is a regression from shared files (`app/assets/tailwind/chadcn/*.css`, `config/importmap.rb`, `lib/chadcn/base.rb`, the primitives) and goes back through the fix loop (`_theme`, `_base` or `_harness` owner).
+3. `bundle exec rubocop`, `bundle exec rake test test:engine` and the dummy app's Minitest suite (`bin/check` runs all of them, from `dev/dummy` for the dummy). Every previously `done` component must be unaffected: any new failure is a regression from shared files (`app/assets/tailwind/chadcn/*.css`, `config/importmap.rb`, `lib/chadcn/base.rb`, the primitives) and goes back through the fix loop (`_theme`, `_base` or `_harness` owner).
 4. Dispatch ONE `shadcn-parity-auditor` per `done` interactive component in `MODE: static` only for the `Q_*` review (parallel, 6 at a time) and attach advisories to the report; MANDATORY `Q_*` findings re-open the component through the fix loop once.
 5. Catalog: confirm the dummy app's catalog (`dev/dummy/app/components/catalog`, served by `bin/demo`) lists every `done` component (it is generated from the scenario files; a missing component is a gap to report, never a hand edit).
 
 ## Phase 3: Report
-Write `dev/port/REPORT.md`: totals by status; per component: status, iterations, scenarios, deviations; blocked list with the top cause and the exact file to look at; `waiting` components and the blocker each waits on; visual-regression notes from `_theme` (see theme-contract.md, "Coexistence"); theme gate result per theme; advisories; time and dispatch counts; the command to resume (`/shadcn-run all --resume`). Final chat message: 10 lines max: counts, blocked components, where the report is.
+Write `dev/port/REPORT.md`: totals by status; per component: status, iterations, scenarios, deviations; blocked list with the top cause and the exact file to look at; `waiting` components and the blocker each waits on; the `_theme` acceptance results (theme-contract.md, "Theme gate (G4)"); theme gate result per theme; advisories; time and dispatch counts; the command to resume (`/shadcn-run all --resume`). Final chat message: 10 lines max: counts, blocked components, where the report is.
 
 ## Rules
 - You never edit app/component/scenario/oracle files. Only `dev/port/{state.json,REPORT.md,PILOT_FAILURE.md}` (state only through `port_state.rb`) and `tmp/shadcn-port/**`.

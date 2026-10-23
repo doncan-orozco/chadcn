@@ -1,7 +1,7 @@
 ---
 description: Strict parity audit of ported shadcn components (G1 static, G2 DOM/style, G3 behavior, G4 theme, G5 house). Script-judged, agent-triaged. Add --fix for the Actor-Critic loop.
 argument-hint: "[all|a,b,c|wave:N|changed] [--fix] [--themes] [--house] [--deep] [--no-browser] [--max-iter 3]"
-allowed-tools: Agent, Read, Write, Grep, Glob, TodoWrite, Bash(ruby:*), Bash(node:*), Bash(curl:*), Bash(cd:*), Bash(mkdir:*), Bash(bundle exec rubocop:*), Bash(bundle exec rake:*), Bash(git diff:*), Bash(git status:*), Bash(ls:*), Bash(grep:*)
+allowed-tools: Agent, Read, Write, Grep, Glob, TodoWrite, Bash(ruby:*), Bash(node:*), Bash(curl:*), Bash(cd:*), Bash(mkdir:*), Bash(bundle exec rubocop:*), Bash(bundle exec rake:*), Bash(git diff:*), Bash(git status:*), Bash(ls:*), Bash(grep:*), Bash(bin/check:*)
 ---
 
 # /shadcn-audit: parity audit
@@ -32,7 +32,7 @@ Collect `{ component, g1, coverage, g2, g4 }` pass/fail and diff counts. A scrip
 Dispatch `shadcn-parity-auditor` in ONE message, parallel, for each component that failed any gate, plus all components when `--deep`. Prompt: `COMPONENT`, `MODE: triage` (or `full` for `--deep`), `GATE_REPORTS` paths, `SERVERS_UP`. Validate every returned JSON (`verdict`, `causes[].fix_target`, rule citations); re-ask once if malformed. Drop any finding that does not quote code or a diff entry. **Unverified claims are downgraded by you, mechanically:** any `Q_*` finding with severity MANDATORY whose `detail` contains `did not read`, `did not open`, `not opened`, `unverified` or `UNVERIFIED` (case-insensitive) is set to ADVISORY before you count it; it never blocks a PASS and never counts toward `agent_must_find` unless the case explicitly lists it.
 
 ## Phase 3: House (G5)
-Always with `--house` or `all`: `ruby .claude/scripts/shadcn/house_check.rb --static-all`; `bundle exec rubocop lib/chadcn`; `bundle exec rake test`. Merge into the report.
+Always with `--house` or `all`: `ruby .claude/scripts/shadcn/house_check.rb --static-all`; `bundle exec rubocop`; `bundle exec rake test test:engine`; the dummy app's Minitest suite (`bin/check` runs all three, the dummy's from `dev/dummy`). Merge into the report.
 
 ## Phase 4: Report (`tmp/shadcn-port/audit-<timestamp>.md`)
 One table: `component | G1 | G2 | G3 | G4 | scenarios | top cause | verdict`. Below it, per failing component the grouped causes with `fix_target`. House findings last. Verdict per component is PASS only when every gate that ran is green and no MANDATORY `Q_*` exists. End with `AUDIT: PASS` or `AUDIT: FAIL (<n> components)` and, for failures, the single command to fix them (`/shadcn-audit <list> --fix`).

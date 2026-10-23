@@ -1,7 +1,7 @@
 ---
 description: Prepare the whole shadcn -> Phlex port: upgrade the React catalog to latest shadcn, extract the oracle, generate themes, build the wave plan and run the per-component planners (spec + scenarios). Idempotent.
 argument-hint: "[--only a,b] [--skip-tier third_party[,client]|none] [--refresh] [--no-bootstrap] [--lazy] [--dry-run]"
-allowed-tools: Agent, Read, Write, Edit, Grep, Glob, TodoWrite, Bash(ruby:*), Bash(node:*), Bash(npm:*), Bash(npx:*), Bash(curl:*), Bash(cd:*), Bash(mkdir:*), Bash(git status:*), Bash(git diff:*), Bash(grep:*), Bash(ls:*)
+allowed-tools: Agent, Read, Write, Edit, Grep, Glob, TodoWrite, Bash(ruby:*), Bash(node:*), Bash(npm:*), Bash(npx:*), Bash(curl:*), Bash(cd:*), Bash(mkdir:*), Bash(git status:*), Bash(git diff:*), Bash(grep:*), Bash(ls:*), Bash(bin/rails:*)
 ---
 
 # /shadcn-plan: oracle + plan for the full port

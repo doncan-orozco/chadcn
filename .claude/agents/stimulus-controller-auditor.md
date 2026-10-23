@@ -25,7 +25,7 @@ The `stimulus` and `radix-stimulus` skills (passed via `<SKILL_FILES>`) are law 
 5. **Actions over listeners:** prefer `data-action` rendered by the part to `addEventListener`; when listeners are needed (document, window, mounted nodes), bind and remove them; no inline arrow listeners that cannot be removed.
 6. **Turbo-first:** no `fetch` to render HTML; no `innerHTML` with interpolated data (XSS); no reliance on `DOMContentLoaded`.
 7. **State:** state lives in values, `data-*` attributes or the DOM, not module globals; no cross-controller reach-ins (use outlets or events).
-8. **Accessibility:** focus management on open/close, `aria-expanded/controls` updated in JS where the part relies on it, keyboard handlers (Escape, Enter, arrows) for custom widgets, no click-only interactions on non-buttons; no ARIA the oracle lacks (R11).
+8. **Accessibility:** focus management on open/close, `aria-expanded/controls` updated in JS where the part relies on it, keyboard handlers (Escape, Enter, arrows) for custom widgets, no click-only interactions on non-buttons; no ARIA the oracle lacks (`radix-stimulus` R11).
 9. **Copy:** no hardcoded user-facing strings in JS; copy arrives through values or data attributes the part renders from its kwargs.
 10. **Wiring:** the controller name matches its filename (`foo_bar_controller.js` ↔ `chadcn--foo-bar`), the directory is pinned, and every target/value/action it expects exists in the markup the Phlex part renders (`WIRING` lists the part and the attributes it emits); the reverse holds for every `data-chadcn--<name>-target` and value the part renders.
 11. **Naming:** domain names, no abbreviations; values and targets carry the React prop names.

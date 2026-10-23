@@ -35,7 +35,7 @@ Use this skill to enforce accessible UI behavior while implementing or reviewing
 - Ensure icon-only controls expose an accessible name via `aria-label` or adjacent sr-only text.
 - Use semantic elements first (`button`, `a`, `nav`, `time[datetime]`, lists, headings).
 - Keep text contrast readable for secondary content; the theme's contrast check (`chadcn:theme:check`) covers every fg/bg pair of a preset.
-- Keep overlay triggers explicit with the ARIA the oracle emits; the controller sets the ids (`ids.js`) that `aria-controls` and `aria-labelledby` point at.
+- Keep overlay triggers explicit with the ARIA the oracle emits; the part renders the ids (`Chadcn::Base#ids`, the root's `content_id`) that `aria-controls`/`aria-labelledby` point at, and the controller toggles `aria-expanded` with the open state.
 - Default strings are kwargs whose default equals the React string; components never translate (the consuming app passes its own text).
 
 ## Practical Workflow
