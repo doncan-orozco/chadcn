@@ -78,7 +78,7 @@ class Chadcn::Select::Content < Chadcn::Base
     return capture(&block) if collecting?
 
     state = select_state
-    template(data: { chadcn__select_template: "#{state[:base]}-content", chadcn__select_indicator: capture do
+    template(data: { chadcn__select_template: state[:base], chadcn__select_indicator: capture do
       indicator
     end, options: json(@options) }) do
       div(**content_attrs(state)) do
@@ -99,7 +99,7 @@ class Chadcn::Select::Content < Chadcn::Base
 
   def content_attrs(state)
     attrs = merge_attrs({
-                          role: "listbox", id: "#{state[:base]}-content", dir: state[:dir], tabindex: -1,
+                          role: "listbox", id: state[:base], dir: state[:dir], tabindex: -1,
                           class: cn(CLASSES, (POPPER_CLASSES if popper?)),
                           data: { slot: "select-content", state: "open" }
                         }, @attrs.except(:style))

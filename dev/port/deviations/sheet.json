@@ -4,6 +4,7 @@
   "allow_missing_tokens": [],
   "api": [
     "Sheet renders one <div style=\"display: contents\" data-controller=\"chadcn--sheet\"> host with no data-slot, classes or other data attributes besides controller wiring",
-    "closed Portal children (Overlay, Content) are server-rendered inside a <template> in the host and mounted into document.body on open"
+    "closed Portal children (Overlay, Content) are server-rendered inside a <template> in the host and mounted into document.body on open",
+    "Sheet takes id: (no Radix prop): the id of the content, the other generated ids being <id>-<part>; Radix numbers ids with React's useId (unique per tree, no caller control); the port numbers them per request with the Rails engine and per render otherwise (Chadcn::Sequence), and the root takes an explicit base"
   ]
 }

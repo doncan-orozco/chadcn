@@ -212,4 +212,25 @@ class Chadcn::DialogTest < Chadcn::TestCase
 
     assert_includes out, "data-slot=\"dialog-close\""
   end
+
+  test "id names the content; title, description and trigger wiring derive from it" do
+    doc = fragment(dialog(root: { id: "profile", default_open: true }) do
+      render(Dialog::Title.new) { "T" }
+      render(Dialog::Description.new) { "D" }
+    end)
+    content = doc.at_css("[data-slot=dialog-content]")
+
+    assert_equal "profile", content["id"]
+    assert_equal "profile-title", content["aria-labelledby"]
+    assert_equal "profile-description", content["aria-describedby"]
+    assert_equal "profile", doc.at_css("[data-slot=dialog-trigger]")["aria-controls"]
+    assert_equal "profile", doc.at_css("[data-controller=chadcn--dialog]")["data-chadcn--dialog-id-value"]
+    assert_nil doc.at_css("[data-controller=chadcn--dialog]")["id"]
+  end
+
+  test "roots without id number their content per render, the content taking the base" do
+    html = render_view { 2.times { render(Dialog.new) { render(Dialog::Content.new) { "x" } } } }
+
+    assert_equal(%w[dialog-1 dialog-2], fragment(html).css("[data-slot=dialog-content]").map { |content| content["id"] })
+  end
 end

@@ -26,9 +26,9 @@ class Chadcn::ContextMenu::Sub < Chadcn::Base
   def view_template
     root = root_context
     previous = context[Chadcn::ContextMenu::SUB_KEY]
-    base = "#{root[:base]}-sub-#{Chadcn::ContextMenu.next_sequence(context)}"
+    base = "#{root[:base]}-sub-#{root[:subs] += 1}"
     context[Chadcn::ContextMenu::SUB_KEY] = {
-      trigger_id: "#{base}-trigger", content_id: "#{base}-content", open: @open, controlled: @controlled
+      content_id: base, trigger_id: "#{base}-trigger", open: @open, controlled: @controlled
     }
     yield if block_given?
   ensure

@@ -54,11 +54,15 @@ class Chadcn::Dialog < Chadcn::Base
   # @param open [Boolean, nil] controlled open state when not nil (user actions only dispatch open-change; the caller updates it)
   # @param default_open [Boolean] initial open state when uncontrolled
   # @param modal [Boolean] modal (overlay and focus trap) or not; default true
+  # @param id [String, nil] id of the content (what the trigger controls); the other generated ids derive from it (`"x-title"`,
+  #   `"x-description"`). Default `dialog-N`, numbered per request with the engine, per render without it
   # @param attrs [Hash] HTML attributes merged into the host element
-  def initialize(open: nil, default_open: false, modal: true, **attrs)
+  # @raise [ArgumentError] when id: is empty or contains whitespace, a double quote or a backslash
+  def initialize(open: nil, default_open: false, modal: true, id: nil, **attrs)
     @controlled = !open.nil?
     @open = @controlled ? open : default_open
     @modal = modal
+    @id = validated_id(id)
     @attrs = attrs
     super()
   end
@@ -67,8 +71,8 @@ class Chadcn::Dialog < Chadcn::Base
   # @return [void]
   def view_template
     previous = [ context[ROOT_KEY], context[PORTAL_KEY] ]
-    base = "dialog-#{context[SEQUENCE_KEY] = context.fetch(SEQUENCE_KEY, 0) + 1}"
-    root = { content_id: "#{base}-content", title_id: "#{base}-title", description_id: "#{base}-description",
+    base = @id || "dialog-#{next_sequence(SEQUENCE_KEY)}"
+    root = { content_id: base, title_id: "#{base}-title", description_id: "#{base}-description",
              open: @open, controlled: @controlled, modal: @modal }
     context[ROOT_KEY] = root
     context[PORTAL_KEY] = nil

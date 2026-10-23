@@ -44,11 +44,15 @@ class Chadcn::Tooltip < Chadcn::Base
   # @param default_open [Boolean] initial open state when uncontrolled
   # @param delay_duration [Integer, nil] ms before opening; falls back to the provider's
   # @param disable_hoverable_content [Boolean, nil] close when the pointer leaves the trigger; falls back to the provider's
-  def initialize(open: nil, default_open: false, delay_duration: nil, disable_hoverable_content: nil)
+  # @param id [String, nil] id of the content (what the trigger describes). Default `tooltip-N`, numbered per request with the
+  #   engine, per render without it
+  # @raise [ArgumentError] when id: is empty or contains whitespace, a double quote or a backslash
+  def initialize(open: nil, default_open: false, delay_duration: nil, disable_hoverable_content: nil, id: nil)
     @open = open
     @default_open = default_open
     @delay_duration = delay_duration
     @disable_hoverable_content = disable_hoverable_content
+    @id = validated_id(id)
     super()
   end
 
@@ -59,7 +63,7 @@ class Chadcn::Tooltip < Chadcn::Base
     provider = context[PROVIDER_KEY] or raise ArgumentError, "`Tooltip` must be used within `TooltipProvider`"
     previous = context[CONTEXT_KEY]
     context[CONTEXT_KEY] = {
-      key: "tooltip-content-#{next_sequence}",
+      key: @id || "tooltip-#{next_sequence(SEQUENCE_KEY)}",
       controlled: !@open.nil?,
       open: @open.nil? ? @default_open : @open,
       provider_id: provider[:id],
@@ -72,12 +76,6 @@ class Chadcn::Tooltip < Chadcn::Base
     context[CONTEXT_KEY] = previous
   end
 
-  private
-
-  def next_sequence
-    context[SEQUENCE_KEY] = context.fetch(SEQUENCE_KEY, 0) + 1
-  end
-
   # Shares the delay options with the tooltips inside (renders no element).
   #
   # @example
@@ -86,7 +84,11 @@ class Chadcn::Tooltip < Chadcn::Base
     # @param delay_duration [Integer] ms before a tooltip opens (default 0)
     # @param skip_delay_duration [Integer] ms during which moving to another tooltip skips the delay (default 300)
     # @param disable_hoverable_content [Boolean] close when the pointer leaves the trigger (default false)
-    def initialize(delay_duration: 0, skip_delay_duration: 300, disable_hoverable_content: false)
+    # @param id [String, nil] id of the provider, which groups its tooltips (rendered as a data attribute, not the id of any
+    #   element). Default `tooltip-provider-N`, numbered per request with the engine, per render without it
+    # @raise [ArgumentError] when id: is empty or contains whitespace, a double quote or a backslash
+    def initialize(delay_duration: 0, skip_delay_duration: 300, disable_hoverable_content: false, id: nil)
+      @id = validated_id(id)
       @options = { delay_duration:, skip_delay_duration:, disable_hoverable_content: }
       super()
     end
@@ -95,8 +97,7 @@ class Chadcn::Tooltip < Chadcn::Base
     # @return [void]
     def view_template(&)
       previous = context[PROVIDER_KEY]
-      context[SEQUENCE_KEY] = context.fetch(SEQUENCE_KEY, 0) + 1
-      context[PROVIDER_KEY] = @options.merge(id: "tooltip-provider-#{context[SEQUENCE_KEY]}")
+      context[PROVIDER_KEY] = @options.merge(id: @id || "tooltip-provider-#{next_sequence(SEQUENCE_KEY)}")
       yield(self) if block_given?
     ensure
       context[PROVIDER_KEY] = previous

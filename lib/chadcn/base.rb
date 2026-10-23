@@ -19,6 +19,10 @@ class Chadcn::Base < Phlex::HTML
   DATA_ARIA = %w[data aria].freeze
   private_constant :DATA_ARIA
 
+  # One id token: not empty, no whitespace, no double quote, no backslash (see #validated_id).
+  ID_TOKEN = /\A[^\s"\\]+\z/
+  private_constant :ID_TOKEN
+
   # React DOM props written as snake_case kwargs (`tab_index:`) => the real HTML attribute (`tabindex`).
   # Without this Phlex dasherizes them into invalid names (`tab-index`). aria-*/data-* are handled separately.
   #
@@ -161,6 +165,29 @@ class Chadcn::Base < Phlex::HTML
 
     string = value.is_a?(Symbol) ? value.name : value.to_s
     -(string.include?("_") ? string.tr("_", "-") : string)
+  end
+
+  # Next number of the counter `key` behind the generated ids of a root (`"dialog-#{next_sequence(SEQUENCE_KEY)}"`): per request
+  # with the engine, per render otherwise (Chadcn::Sequence).
+  #
+  # @api private
+  def next_sequence(key) = Chadcn::Sequence.next(context, key)
+
+  # The `id:` a root was given, as a String, or nil when the root generates one. It names an element and seeds the other ids
+  # (`"#{id}-title"`), which go into aria id lists and the controllers' attribute selectors, so it is one token: not empty, no
+  # whitespace, no double quote, no backslash.
+  #
+  # @api private
+  # @param id [String, Symbol, nil, false]
+  # @return [String, nil]
+  # @raise [ArgumentError] when the id cannot be one id token
+  def validated_id(id)
+    return if id.nil? || id == false
+
+    string = id.is_a?(Symbol) ? id.name : id.to_s
+    return string if ID_TOKEN.match?(string)
+
+    raise ArgumentError, "id: must be a non-empty string without whitespace, double quotes or backslashes (got #{id.inspect})"
   end
 
   # Ids for aria wiring: `ids("dialog-1")[:title]` => "dialog-1-title". Without a base a random one is used.

@@ -251,6 +251,31 @@ class Chadcn::CommandTest < Chadcn::TestCase
     assert command.at_css("[data-slot=command-input]")
   end
 
+  test "dialog id names the dialog content and seeds its title id" do
+    html = render_view { render(Command::Dialog.new(id: "palette", default_open: true), &:list) }
+    doc = fragment(html)
+    host = doc.at_css("[data-controller=chadcn--dialog]")
+
+    assert_equal "palette", doc.at_css("template [data-slot=dialog-content]")["id"]
+    assert_equal "palette", doc.at_css("template")["data-chadcn--dialog-template"]
+    assert_equal "palette", host["data-chadcn--dialog-id-value"]
+    assert_equal "palette-title", host.at_css("[data-slot=dialog-title]")["id"]
+    assert_nil host["id"]
+  end
+
+  test "dialog without id numbers its content dialog-1" do
+    doc = fragment(render_view { render(Command::Dialog.new(default_open: true), &:list) })
+
+    assert_equal "dialog-1", doc.at_css("template [data-slot=dialog-content]")["id"]
+  end
+
+  test "dialog rejects an id that is not one token when it renders, not at construction" do
+    dialog = Command::Dialog.new(id: "a b")
+    error = assert_raises(ArgumentError) { render_view { render(dialog, &:list) } }
+
+    assert_match(/id: must be a non-empty string/, error.message)
+  end
+
   test "dialog can hide the close button and stay controlled" do
     html = render_view { render(Command::Dialog.new(show_close_button: false, open: false, modal: false), &:list) }
     doc = fragment(html)
@@ -304,5 +329,28 @@ class Chadcn::CommandTest < Chadcn::TestCase
 
     refute_match(/cmdk|command-score/, pins)
     refute(Dir.glob(File.join(root, "{vendor,app}/javascript/**/*")).any? { |file| File.file?(file) && File.basename(file).match?(/cmdk|command-score/) })
+  end
+
+  test "id stays on the root and seeds the ids of the input, label, list and items" do
+    doc = palette(root: { id: "palette" })
+    input = doc.at_css("[data-slot=command-input]")
+
+    assert_equal "palette", doc.at_css("[data-slot=command]")["id"]
+    assert_equal "palette-input", input["id"]
+    assert_equal "palette-list", input["aria-controls"]
+    assert_equal "palette-label", input["aria-labelledby"]
+    assert_equal "palette-input", doc.at_css("label[cmdk-label]")["for"]
+    assert_equal "palette-list", doc.at_css("[data-slot=command-list]")["id"]
+    assert_equal "palette-item-1", doc.at_css("[data-slot=command-item]")["id"]
+  end
+
+  test "without id the root has no id and the ids hang off command-1" do
+    doc = palette
+    input = doc.at_css("[data-slot=command-input]")
+
+    assert_nil doc.at_css("[data-slot=command]")["id"]
+    assert_equal "command-1-input", input["id"]
+    assert_equal "command-1-list", input["aria-controls"]
+    assert_equal "command-1-list", doc.at_css("[data-slot=command-list]")["id"]
   end
 end

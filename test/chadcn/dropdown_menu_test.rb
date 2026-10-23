@@ -178,7 +178,7 @@ class Chadcn::DropdownMenuTest < Chadcn::TestCase
     end
     doc = fragment(html)
     trigger = doc.at_css("[data-slot=dropdown-menu-sub-trigger]")
-    template = doc.at_css("template[data-chadcn--dropdown-menu-template$='-sub-2-content'], template[data-chadcn--dropdown-menu-template*='-sub-']")
+    template = doc.at_css("template[data-chadcn--dropdown-menu-template='dropdown-menu-1-sub-1']")
     content = template.at_css("[data-slot=dropdown-menu-sub-content]")
 
     assert_equal %w[true open true], [ trigger["aria-expanded"], trigger["data-state"], trigger["data-inset"] ]
@@ -459,5 +459,47 @@ class Chadcn::DropdownMenuTest < Chadcn::TestCase
     assert_equal "t", shortcut["title"]
     assert_equal "K", shortcut.text
     assert_nil shortcut.at_css("a")
+  end
+
+  test "id names the content; the trigger and the subs derive their ids from it" do
+    doc = fragment(menu(root: { id: "row-actions", default_open: true }) do
+      render(DropdownMenu::Sub.new) do
+        render(DropdownMenu::SubTrigger.new) { "More" }
+        render(DropdownMenu::SubContent.new) { render(DropdownMenu::Item.new) { "Export" } }
+      end
+    end)
+    trigger = doc.at_css("[data-slot=dropdown-menu-trigger]")
+    content = doc.at_css("[data-slot=dropdown-menu-content]")
+
+    assert_equal "row-actions-trigger", trigger["id"]
+    assert_equal "row-actions", trigger["aria-controls"]
+    assert_equal "row-actions", content["id"]
+    assert_equal "row-actions-trigger", content["aria-labelledby"]
+    assert_equal "row-actions-sub-1-trigger", doc.at_css("[data-slot=dropdown-menu-sub-trigger]")["id"]
+    assert_equal "row-actions-sub-1", doc.at_css("[data-slot=dropdown-menu-sub-content]")["id"]
+  end
+
+  test "without id the trigger is dropdown-menu-1-trigger and sibling subs count within the menu" do
+    doc = fragment(menu(root: { default_open: true }) do
+      2.times do
+        render(DropdownMenu::Sub.new) do
+          render(DropdownMenu::SubTrigger.new) { "More" }
+          render(DropdownMenu::SubContent.new) { render(DropdownMenu::Item.new) { "Deep" } }
+        end
+      end
+    end)
+
+    assert_equal "dropdown-menu-1-trigger", doc.at_css("[data-slot=dropdown-menu-trigger]")["id"]
+    assert_equal "dropdown-menu-1", doc.at_css("[data-slot=dropdown-menu-content]")["id"]
+    assert_equal(%w[dropdown-menu-1-sub-1 dropdown-menu-1-sub-2], doc.css("[data-slot=dropdown-menu-sub-content]").map { |sub| sub["id"] })
+    assert_equal(%w[dropdown-menu-1-sub-1-trigger dropdown-menu-1-sub-2-trigger],
+                 doc.css("[data-slot=dropdown-menu-sub-trigger]").map { |sub| sub["id"] })
+  end
+
+  test "roots without id are numbered per render" do
+    html = render_view { 2.times { render(DropdownMenu.new) { render(DropdownMenu::Trigger.new) { "x" } } } }
+
+    assert_equal(%w[dropdown-menu-1-trigger dropdown-menu-2-trigger],
+                 fragment(html).css("[data-slot=dropdown-menu-trigger]").map { |trigger| trigger["id"] })
   end
 end

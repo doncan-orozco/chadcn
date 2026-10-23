@@ -1,0 +1,8 @@
+{
+  "reason": "Radix DropdownMenu.Root renders no element and numbers ids with useId; the port generates them on the server and lets the caller name them (item #14 of the standalone epic).",
+  "allow_tokens": [],
+  "allow_missing_tokens": [],
+  "api": [
+    "DropdownMenu takes id: (no Radix prop): the id of the content, the other generated ids being <id>-<part>; Radix numbers ids with React's useId (unique per tree, no caller control); the port numbers them per request with the Rails engine and per render otherwise (Chadcn::Sequence), and the root takes an explicit base"
+  ]
+}

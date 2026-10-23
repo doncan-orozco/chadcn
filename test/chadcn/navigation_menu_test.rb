@@ -274,4 +274,27 @@ class Chadcn::NavigationMenuTest < Chadcn::TestCase
     assert_raises(ArgumentError) { render_view { render(NavigationMenu.new) { render NavigationMenu::Content.new } } }
     assert_equal "/x", fragment(NavigationMenu::Link.new(href: "/x").call { "x" }).at_css("a")["href"]
   end
+
+  test "id stays on the nav and seeds the ids of its items" do
+    html = render_menu(root: { id: "main-nav", default_value: "docs" })
+
+    assert_equal "main-nav", part(html, "navigation-menu")["id"]
+    assert_equal "main-nav-trigger-docs", part(html, "navigation-menu-trigger")["id"]
+    assert_equal "main-nav-content-docs", part(html, "navigation-menu-trigger")["aria-controls"]
+    assert_equal "main-nav-content-docs", part(html, "navigation-menu-content")["id"]
+  end
+
+  test "without id the nav has no id and items without value count within the root" do
+    html = render_view do
+      render(NavigationMenu.new) do
+        render(NavigationMenu::List.new) do
+          2.times { render(NavigationMenu::Item.new) { render(NavigationMenu::Trigger.new) { plain "T" } } }
+        end
+      end
+    end
+
+    assert_nil part(html, "navigation-menu")["id"]
+    assert_equal(%w[navigation-menu-1-item-1 navigation-menu-1-item-2],
+                 fragment(html).css("[data-slot=navigation-menu-trigger]").map { |trigger| trigger["data-chadcn--navigation-menu-value-param"] })
+  end
 end

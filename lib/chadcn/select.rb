@@ -83,7 +83,7 @@ class Chadcn::Select < Chadcn::Base
   # @return [Symbol] render-context key holding the id of the enclosing Group (read by Label)
   GROUP_KEY = :shadcn_select_group
   # @api private
-  # @return [Symbol] render-context key of the per-render counter behind generated ids
+  # @return [Symbol] render-context key of the counter behind generated ids (per request with the engine, per render without it, see Chadcn::Sequence)
   SEQUENCE_KEY = :shadcn_select_sequence
   # @api private
   # @return [Array<String>] accepted +dir:+ values; anything else is ignored and the direction comes from the
@@ -104,7 +104,10 @@ class Chadcn::Select < Chadcn::Base
   # @param disabled [Boolean] disables the Trigger and the hidden native select
   # @param required [Boolean, nil] +aria-required+ on the Trigger (+nil+ omits it, +false+ renders +"false"+) and +required+ on the hidden
   #   native select (only +true+)
-  # @param id [String, nil] base for the generated ids (+"my-select-content"+ for +id: "my-select"+); a per-render +select-N+ is used when +nil+
+  # @param id [String, nil] id of the content (the listbox the trigger controls); groups and item texts are +<id>-group-N+ and
+  #   +<id>-text-N+ (one counter). It is not the trigger's id: give +select.trigger(id:)+ another value for a Label.
+  #   Default +select-N+, numbered per request with the engine, per render without it
+  # @raise [ArgumentError] when id: is empty or contains whitespace, a double quote or a backslash
   # @return [void]
   def initialize(value: nil, default_value: nil, open: nil, default_open: false, dir: nil, name: nil, auto_complete: nil,
                  form: nil, disabled: false, required: nil, id: nil)
@@ -112,7 +115,7 @@ class Chadcn::Select < Chadcn::Base
       controlled_value: !value.nil?, value: (value.nil? ? default_value : value)&.to_s,
       controlled_open: !open.nil?, open: open.nil? ? default_open : open,
       dir: (dir.to_s if DIRECTIONS.include?(dir.to_s)),
-      name:, auto_complete:, form:, disabled:, required:, base: id
+      name:, auto_complete:, form:, disabled:, required:, base: validated_id(id)
     }
     super()
   end
@@ -124,7 +127,7 @@ class Chadcn::Select < Chadcn::Base
   def view_template(&block)
     previous = context[ROOT_KEY]
     state = context[ROOT_KEY] =
-      @options.merge(dir: use_direction(@options[:dir]), base: @options[:base] || "select-#{next_sequence}", known: [], phase: :collect)
+      @options.merge(dir: use_direction(@options[:dir]), base: @options[:base] || "select-#{next_sequence(SEQUENCE_KEY)}", known: [], phase: :collect)
     if block
       capture { yield self }
       state[:phase] = :render
@@ -134,9 +137,4 @@ class Chadcn::Select < Chadcn::Base
   ensure
     context[ROOT_KEY] = previous
   end
-
-  private
-
-  # Per render counter (no SecureRandom): ids are only compared through their relations.
-  def next_sequence = context[SEQUENCE_KEY] = context.fetch(SEQUENCE_KEY, 0) + 1
 end
