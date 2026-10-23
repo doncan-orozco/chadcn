@@ -1,6 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 import { rovingFocus } from "chadcn/primitives/roving_focus"
 import { presence } from "chadcn/primitives/presence"
+import { turboCacheRestore } from "chadcn/primitives/turbo_cache"
 
 // Radix Tabs. Spec: docs/shadcn-port/specs/tabs.md (Behavior).
 //
@@ -17,17 +18,13 @@ export default class extends Controller {
   }
   static targets = ["list", "trigger", "content", "deferred"]
 
-  restoreTimer = null
-
   connect() {
     this.#setup()
-    document.addEventListener("turbo:before-cache", this.onBeforeCache)
+    this.cache = turboCacheRestore({ teardown: () => this.#restorePanels(), restore: () => this.#rebuildPanels() })
   }
 
   disconnect() {
-    document.removeEventListener("turbo:before-cache", this.onBeforeCache)
-    clearTimeout(this.restoreTimer)
-    this.restoring = false
+    this.cache?.release()
     this.#teardown()
   }
 
@@ -59,21 +56,12 @@ export default class extends Controller {
     this.panels = []
   }
 
-  // A page snapshot must hold the server markup (an inactive panel with its body template). Only the panels are put back: the
-  // triggers and their roving tab stop are what the user sees on a visit that keeps the page (a link to #hash), and Turbo takes
-  // the snapshot one timer tick after this event (hence the two ticks below). The panels are built again from the snapshot-shaped
-  // markup once it is taken; a real navigation disconnects the controller first, which cancels that.
-  onBeforeCache = () => {
-    clearTimeout(this.restoreTimer)
-    this.#restorePanels()
-    this.restoring = true
-    this.restoreTimer = setTimeout(() => {
-      this.restoreTimer = setTimeout(() => {
-        this.panels = this.#buildPanels()
-        this.restoring = false
-        this.#apply(this.current)
-      })
-    })
+  // A page snapshot must hold the server markup (an inactive panel with its body template). Only the panels are put back for the
+  // snapshot (turbo_cache teardown): the triggers and their roving tab stop are what the user sees on a visit that keeps the page
+  // (a link to #hash). The panels are built again from the snapshot-shaped markup once it is taken (turbo_cache restore).
+  #rebuildPanels() {
+    this.panels = this.#buildPanels()
+    this.#apply(this.current)
   }
 
   valueValueChanged() {
@@ -122,7 +110,7 @@ export default class extends Controller {
 
   // Controlled: dispatch only. Uncontrolled: update the DOM, then dispatch once per actual change.
   #request(value) {
-    if (this.restoring) return // the panels are put back for the snapshot; they are built again two ticks later
+    if (this.cache?.pending) return // the panels are put back for the snapshot; they are built again once it is taken
     if (this.controlledValue) {
       if (value !== this.current) this.dispatch("value-change", { detail: { value }, cancelable: false })
       return

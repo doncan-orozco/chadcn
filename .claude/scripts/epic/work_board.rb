@@ -98,7 +98,7 @@ module WorkBoard
 
   # ---- issue model --------------------------------------------------------------------------------------------
   class Item
-    attr_reader :number, :title, :labels, :meta
+    attr_reader :number, :title, :labels, :meta, :body
 
     def initialize(raw)
       @number = raw.fetch("number")
@@ -248,6 +248,26 @@ module WorkBoard
       end
       nodes = items.map { |i| { id: i["key"], wave: i["wave"].to_i, owns: Array(i["owns"]), blocked_by: Array(i["blocked_by"]), stage: i["stage"] || "plan" } }
       findings + check(nodes)
+    end
+
+    # The board's contract appended to an issue that `item adopt` takes into an epic: the original report stays above it.
+    def self.adopted_section(meta, gates)
+      deps = Array(meta[:blocked_by]).map { |n| "- ##{n}" }
+      <<~MD
+        ## Work item (adopted into epic `#{meta[:epic]}`)
+        The text above is the original report. The sections below are the board's contract (epic-flow): a worker changes only
+        the files in Owns, starts when every blocker is done and advances a stage only when the Gates are green.
+
+        ## Owns
+        #{Array(meta[:owns]).map { |o| "- `#{o}`" }.join("\n")}
+
+        ## Blocked by
+        #{deps.empty? ? '- nothing' : deps.join("\n")}
+
+        ## Gates (a stage advances only when these are green, run by the worker)
+        #{gates.map { |g| "- `#{g}`" }.join("\n")}
+
+      MD
     end
 
     def self.body(item, numbers)
@@ -453,7 +473,12 @@ module WorkBoard
       case cmd
       when "session" then session
       when "epic" then @argv.shift == "create" ? epic_create : usage
-      when "item" then @argv.shift == "create" ? item_create : usage
+      when "item"
+        case @argv.shift
+        when "create" then item_create
+        when "adopt" then item_adopt
+        else usage
+        end
       when "validate" then validate
       when "plan-check" then plan_check
       when "plan-apply" then plan_apply
@@ -479,7 +504,7 @@ module WorkBoard
       out({ error: e.message }, 2)
     end
 
-    def usage = out({ error: "usage: work_board.rb <session|epic create|item create|validate|status|next|reviews|mergeable|merge|claim|heartbeat|release|advance|block|unblock|comment|digest|reap> ..." }, 2)
+    def usage = out({ error: "usage: work_board.rb <session|epic create|item create|item adopt|validate|status|next|reviews|mergeable|merge|claim|heartbeat|release|advance|block|unblock|comment|digest|reap> ..." }, 2)
 
     def need(opts, *keys)
       missing = keys.reject { |k| opts[k] }
@@ -542,6 +567,38 @@ module WorkBoard
       body = "#{body_of(opts)}\n\n<!-- work-item #{JSON.generate(meta)} -->\n"
       url = create_issue(b, opts[:title], body, labels)
       out({ number: url[%r{(\d+)\s*\z}, 1].to_i, url: url, meta: meta })
+    end
+
+    # Takes an issue filed outside /epic-plan (a bug, an enhancement) into an epic as an item: appends the contract (Owns, Blocked
+    # by, Gates) and the work-item meta block to its body and adds the epic, stage and wave labels. The original text is kept.
+    # Gates come from --gates-file (one command per line) or --gates "a;;b". Refuses an issue that is already an item or closed.
+    def item_adopt
+      opts, rest = parse("--epic" => :v, "--wave" => :v, "--owns" => :v, "--blocked-by" => :v, "--stage" => :v, "--priority" => :v,
+                         "--gates-file" => :v, "--gates" => :v)
+      need(opts, :epic, :wave, :owns)
+      number = rest.first.to_i
+      if number.zero?
+        out({ error: "usage: item adopt N --epic S --wave W --owns GLOBS (--gates-file F | --gates 'a;;b') [--blocked-by N,M] [--stage plan] [--priority P]" }, 2)
+      end
+      stage = opts[:stage] || "plan"
+      out({ error: "unknown stage #{stage}" }, 2) unless STAGES.include?(stage)
+      gates = (opts[:gates_file] ? File.readlines(opts[:gates_file], chomp: true) : opts[:gates].to_s.split(";;")).map(&:strip).reject(&:empty?)
+      out({ error: "no gates: pass --gates-file (one command per line) or --gates 'a;;b'" }, 2) if gates.empty?
+      b = board(opts)
+      issue = Item.new(b.gh_json("issue", "view", number.to_s, "--json", "number,title,state,labels,body"))
+      out({ error: "issue ##{number} is already an item of epic #{issue.meta['epic']}" }, 1) unless issue.meta.empty?
+      out({ error: "issue ##{number} is closed" }, 1) if issue.closed?
+      meta = { epic: opts[:epic], wave: opts[:wave].to_i, owns: opts[:owns].split(",").map(&:strip),
+               blocked_by: opts[:blocked_by].to_s.split(",").map(&:to_i), priority: opts[:priority].to_i, adopted: true }
+      labels = [ "epic:#{opts[:epic]}", "stage:#{stage}", "wave:#{meta[:wave]}" ]
+      b.ensure_labels(labels)
+      body = "#{issue.body.rstrip}\n\n#{Plan.adopted_section(meta, gates)}<!-- work-item #{JSON.generate(meta)} -->\n"
+      Tempfile.create("work-adopt") do |f|
+        f.write(body)
+        f.flush
+        b.gh("issue", "edit", number.to_s, "--body-file", f.path, "--add-label", labels.join(","))
+      end
+      out({ number: number, title: issue.title, labels: labels, meta: meta, gates: gates })
     end
 
     def validate
