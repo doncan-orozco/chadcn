@@ -44,10 +44,13 @@ class Chadcn::Popover < Chadcn::Base
   # @param open [Boolean, nil] controlled open state when not nil
   # @param default_open [Boolean] initial open state when uncontrolled
   # @param modal [Boolean] modal popover (default false)
-  def initialize(open: nil, default_open: false, modal: false)
+  # @param id [String, nil] id of the content (what the trigger controls); the other generated ids derive from it. Default
+  #   `popover-N`, numbered per request with the engine, per render without it
+  def initialize(open: nil, default_open: false, modal: false, id: nil)
     @open = open
     @default_open = default_open
     @modal = modal
+    @id = id
     super()
   end
 
@@ -55,9 +58,9 @@ class Chadcn::Popover < Chadcn::Base
   # @return [void]
   def view_template
     previous = context[CONTEXT_KEY]
-    base = "popover-#{context[SEQUENCE_KEY] = context.fetch(SEQUENCE_KEY, 0) + 1}"
+    base = @id || "popover-#{next_sequence(SEQUENCE_KEY)}"
     context[CONTEXT_KEY] = {
-      key: base, content_id: "#{base}-content", controlled: !@open.nil?, modal: @modal,
+      key: base, content_id: base, controlled: !@open.nil?, modal: @modal,
       open: @open.nil? ? @default_open : @open, host: false
     }
     yield self if block_given?

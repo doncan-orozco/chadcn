@@ -123,7 +123,7 @@ class Chadcn::ContextMenu < Chadcn::Base
   # @return [Symbol] render-context key holding the current RadioGroup value
   RADIO_GROUP_KEY = :shadcn_context_menu_radio_group
   # @api private
-  # @return [Symbol] render-context key holding the per render id counter
+  # @return [Symbol] render-context key holding the id counter (per request with the engine, per render without it, see Chadcn::Sequence)
   SEQUENCE_KEY = :shadcn_context_menu_sequence
   # @api private
   # @return [Array<String>] the values accepted for +dir:+
@@ -136,11 +136,15 @@ class Chadcn::ContextMenu < Chadcn::Base
   # @param dir [String, Symbol, nil] +"ltr"+ or +"rtl"+ sets the direction of the menu; any other value (including +nil+) is
   #   ignored and the direction comes from the surrounding {Chadcn::Direction} provider, or +"ltr"+
   # @param modal [Boolean] default +true+; passed to the controller as its +modal+ value (not validated)
-  def initialize(open: nil, dir: nil, modal: true)
+  # @param id [String, nil] id of the content (what the trigger controls); the other generated ids derive from it (`"x-trigger"`,
+  #   `"x-sub-1-content"`). The content carries it as its +id+ only when given (Radix renders none).
+  #   Default `context-menu-N`, numbered per request with the engine, per render without it
+  def initialize(open: nil, dir: nil, modal: true, id: nil)
     @controlled = !open.nil?
     @open = @controlled ? open : false
     @modal = modal
     @dir = dir.to_s if DIRECTIONS.include?(dir.to_s)
+    @id = id
     super()
   end
 
@@ -149,17 +153,12 @@ class Chadcn::ContextMenu < Chadcn::Base
   # @return [void]
   def view_template
     previous = context[ROOT_KEY]
-    base = "context-menu-#{self.class.next_sequence(context)}"
+    base = @id || "context-menu-#{next_sequence(SEQUENCE_KEY)}"
     context[ROOT_KEY] = {
-      content_id: "#{base}-content", base:, open: @open, controlled: @controlled, modal: @modal, dir: use_direction(@dir)
+      content_id: base, id: @id, base:, subs: 0, open: @open, controlled: @controlled, modal: @modal, dir: use_direction(@dir)
     }
     yield self if block_given?
   ensure
     context[ROOT_KEY] = previous
   end
-
-  # Per render counter (no SecureRandom): ids are only compared through their relations.
-  #
-  # @api private
-  def self.next_sequence(context) = context[SEQUENCE_KEY] = context.fetch(SEQUENCE_KEY, 0) + 1
 end

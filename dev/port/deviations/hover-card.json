@@ -4,6 +4,7 @@
   "allow_tokens": [],
   "allow_missing_tokens": [],
   "api": [
-    "HoverCard::Content renders an inert <template data-chadcn--hover-card-template> (no data-slot) holding the content markup while closed"
+    "HoverCard::Content renders an inert <template data-chadcn--hover-card-template> (no data-slot) holding the content markup while closed",
+    "HoverCard takes id: (no Radix prop): the id of the content, the other generated ids being <id>-<part>; Radix numbers ids with React's useId (unique per tree, no caller control); the port numbers them per request with the Rails engine and per render otherwise (Chadcn::Sequence), and the root takes an explicit base"
   ]
 }

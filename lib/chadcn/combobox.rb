@@ -135,7 +135,7 @@ class Chadcn::Combobox < Chadcn::Base
   # @return [void]
   def view_template
     previous = context[CONTEXT_KEY]
-    sequence = context[SEQUENCE_KEY] = context.fetch(SEQUENCE_KEY, 0) + 1
+    sequence = next_sequence(SEQUENCE_KEY)
     model = context[CONTEXT_KEY] = Model.new(@options, sequence)
     div(style: "display: contents", data: host_data(model)) do
       yield self if block_given?

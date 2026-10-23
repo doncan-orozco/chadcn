@@ -26,9 +26,9 @@ class Chadcn::DropdownMenu::Sub < Chadcn::Base
   def view_template
     root = root_context
     previous = context[Chadcn::DropdownMenu::SUB_KEY]
-    base = "#{root[:base]}-sub-#{Chadcn::DropdownMenu.next_sequence(context)}"
+    base = "#{root[:base]}-sub-#{root[:subs] += 1}"
     context[Chadcn::DropdownMenu::SUB_KEY] = {
-      trigger_id: "#{base}-trigger", content_id: "#{base}-content", open: @open, controlled: @controlled
+      content_id: base, trigger_id: "#{base}-trigger", open: @open, controlled: @controlled
     }
     yield if block_given?
   ensure

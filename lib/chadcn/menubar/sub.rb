@@ -25,9 +25,9 @@ class Chadcn::Menubar::Sub < Chadcn::Base
   def view_template
     root = root_context
     previous = context[Chadcn::Menubar::SUB_KEY]
-    base = "#{root[:base]}-sub-#{Chadcn::Menubar.next_sequence(context)}"
+    base = "#{root[:base]}-sub-#{root[:subs] += 1}"
     context[Chadcn::Menubar::SUB_KEY] = {
-      trigger_id: "#{base}-trigger", content_id: "#{base}-content", open: @open, controlled: @controlled
+      trigger_id: "#{base}-trigger", content_id: base, open: @open, controlled: @controlled
     }
     yield if block_given?
   ensure

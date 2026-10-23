@@ -73,9 +73,11 @@ class Chadcn::Command < Chadcn::Base
   # @param loop [Boolean] wrap the keyboard selection around the ends
   # @param disable_pointer_selection [Boolean] hovering an item does not select it
   # @param vim_bindings [Boolean] Ctrl+n/j/p/k move the selection
+  # @param id [String, nil] id of the root element, as in React, and the base of the generated ids (`"palette-input"`).
+  #   Without it the element has no id and the base is `command-N`, numbered per request with the engine, per render without it
   # @param attrs [Hash] HTML attributes merged into the root (class goes through tailwind-merge)
   def initialize(label: nil, value: nil, default_value: nil, should_filter: true, loop: false, disable_pointer_selection: false,
-                 vim_bindings: true, **attrs)
+                 vim_bindings: true, id: nil, **attrs)
     @label = label
     @controlled = !value.nil?
     @value = @controlled ? value.to_s.strip : default_value.to_s
@@ -83,6 +85,7 @@ class Chadcn::Command < Chadcn::Base
     @loop = loop
     @disable_pointer_selection = disable_pointer_selection
     @vim_bindings = vim_bindings
+    @id = id
     @attrs = attrs
     super()
   end
@@ -91,7 +94,7 @@ class Chadcn::Command < Chadcn::Base
   # @return [void]
   def view_template
     previous = context[CONTEXT_KEY]
-    base = "command-#{context[SEQUENCE_KEY] = context.fetch(SEQUENCE_KEY, 0) + 1}"
+    base = @id || "command-#{next_sequence(SEQUENCE_KEY)}"
     root = { base: base, items: 0, groups: 0 }
     context[CONTEXT_KEY] = root
     div(**merge_attrs(root_defaults, @attrs)) do
@@ -106,7 +109,7 @@ class Chadcn::Command < Chadcn::Base
 
   def root_defaults
     {
-      tabindex: "-1", "cmdk-root": "", class: CLASSES,
+      id: @id, tabindex: "-1", "cmdk-root": "", class: CLASSES,
       data: {
         slot: "command", controller: "chadcn--command",
         chadcn__command_value_value: @value, chadcn__command_controlled_value: @controlled.to_s,

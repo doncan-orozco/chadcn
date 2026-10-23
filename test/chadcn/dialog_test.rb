@@ -231,6 +231,6 @@ class Chadcn::DialogTest < Chadcn::TestCase
   test "roots without id number their content per render, the content taking the base" do
     html = render_view { 2.times { render(Dialog.new) { render(Dialog::Content.new) { "x" } } } }
 
-    assert_equal %w[dialog-1 dialog-2], fragment(html).css("[data-slot=dialog-content]").map { |content| content["id"] }
+    assert_equal(%w[dialog-1 dialog-2], fragment(html).css("[data-slot=dialog-content]").map { |content| content["id"] })
   end
 end

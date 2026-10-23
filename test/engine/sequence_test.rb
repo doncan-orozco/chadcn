@@ -21,6 +21,7 @@ class EngineTest::Sequences < Minitest::Test
 
   def trigger_ids(path)
     status, _headers, body = app.call(Rack::MockRequest.env_for(path))
+
     assert_equal 200, status
     html = +""
     body.each { |chunk| html << chunk }

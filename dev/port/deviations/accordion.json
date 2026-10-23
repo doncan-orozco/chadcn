@@ -2,5 +2,9 @@
   "reason": "shadcn AccordionTrigger always renders children plus ChevronDownIcon (Radix Slot throws with two children) and AccordionContent always wraps children in its own div (asChild would slot onto that internal div), so as_child is not offered on Trigger and Content",
   "allow_tokens": [],
   "allow_missing_tokens": [],
-  "api": ["Accordion::Trigger: as_child not supported", "Accordion::Content: as_child not supported"]
+  "api": [
+    "Accordion::Trigger: as_child not supported",
+    "Accordion::Content: as_child not supported",
+    "Accordion id: keeps React's meaning (the id of the element) and also seeds the generated ids (faq-item-1-trigger); Radix numbers ids with React's useId (unique per tree, no caller control); the port numbers them per request with the Rails engine and per render otherwise (Chadcn::Sequence), and the root takes an explicit base"
+  ]
 }

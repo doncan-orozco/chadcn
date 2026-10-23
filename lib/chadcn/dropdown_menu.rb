@@ -128,7 +128,7 @@ class Chadcn::DropdownMenu < Chadcn::Base
   # @api private
   # @return [Symbol]
   RADIO_GROUP_KEY = :shadcn_dropdown_menu_radio_group
-  # Render context key of the per render id counter.
+  # Render context key of the id counter (per request with the engine, per render without it, see Chadcn::Sequence).
   #
   # @api private
   # @return [Symbol]
@@ -148,12 +148,15 @@ class Chadcn::DropdownMenu < Chadcn::Base
   #   are blocked while open)
   # @param dir [String, Symbol, nil] +"ltr"+ or +"rtl"+. Any other value (and +nil+) is ignored without error and the
   #   direction comes from the nearest Direction::Provider, then +"ltr"+.
+  # @param id [String, nil] id of the content (what the trigger controls); the other generated ids derive from it (`"x-trigger"`,
+  #   `"x-sub-1-content"`). Default `dropdown-menu-N`, numbered per request with the engine, per render without it
   # @return [void]
-  def initialize(open: nil, default_open: false, modal: true, dir: nil)
+  def initialize(open: nil, default_open: false, modal: true, dir: nil, id: nil)
     @controlled = !open.nil?
     @open = @controlled ? open : default_open
     @modal = modal
     @dir = dir.to_s if DIRECTIONS.include?(dir.to_s)
+    @id = id
     super()
   end
 
@@ -163,20 +166,13 @@ class Chadcn::DropdownMenu < Chadcn::Base
   # @return [void]
   def view_template
     previous = context[ROOT_KEY]
-    base = "dropdown-menu-#{self.class.next_sequence(context)}"
+    base = @id || "dropdown-menu-#{next_sequence(SEQUENCE_KEY)}"
     context[ROOT_KEY] = {
-      trigger_id: "#{base}-trigger", content_id: "#{base}-content", base:,
+      content_id: base, trigger_id: "#{base}-trigger", base:, subs: 0,
       open: @open, controlled: @controlled, modal: @modal, dir: use_direction(@dir)
     }
     yield self if block_given?
   ensure
     context[ROOT_KEY] = previous
   end
-
-  # Per render counter (no SecureRandom): ids are only compared through their relations.
-  #
-  # @api private
-  # @param context [Hash] the Phlex render context
-  # @return [Integer] the next sequence number
-  def self.next_sequence(context) = context[SEQUENCE_KEY] = context.fetch(SEQUENCE_KEY, 0) + 1
 end

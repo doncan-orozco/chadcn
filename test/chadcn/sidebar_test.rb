@@ -350,6 +350,6 @@ class Chadcn::SidebarTest < Chadcn::TestCase
 
     assert_equal "app-sidebar", doc.at_css("[data-slot=sidebar-wrapper]")["id"]
     assert_equal "app-sidebar", doc.at_css("[data-slot=sidebar-wrapper]")["data-chadcn--sidebar-id-value"]
-    assert_equal "app-sidebar", doc.at_css("[data-slot=sidebar-menu-button]")["data-chadcn--sidebar-tooltip"]
+    assert_equal "app-sidebar", doc.at_css("template div[data-slot=tooltip-content]")["data-chadcn--sidebar-tooltip"]
   end
 end

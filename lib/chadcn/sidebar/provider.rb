@@ -31,11 +31,14 @@ class Chadcn::Sidebar::Provider < Chadcn::Base
   # @param default_open [Boolean] initial state when uncontrolled (default: true)
   # @param open [Boolean, nil] controlled state (default: nil, uncontrolled)
   # @param style [String, Hash, nil] extra inline style, appended after the `--sidebar-width` variables (default: nil)
+  # @param id [String, nil] id of the wrapper element, as in React, and the base of the generated ids (`"docs-sidebar"`).
+  #   Without it the element has no id and the base is `sidebar-N`, numbered per request with the engine, per render without it
   # @param attrs [Hash] HTML attributes for the wrapper `div`; `class:` is tailwind-merged, `data:` and `aria:` are deep-merged
-  def initialize(default_open: true, open: nil, style: nil, **attrs)
+  def initialize(default_open: true, open: nil, style: nil, id: nil, **attrs)
     @controlled = !open.nil?
     @open = @controlled ? open : default_open
     @style = style
+    @id = id
     @attrs = attrs
     super()
   end
@@ -48,7 +51,7 @@ class Chadcn::Sidebar::Provider < Chadcn::Base
     previous = context[Chadcn::Sidebar::CONTEXT_KEY]
     context[Chadcn::Sidebar::CONTEXT_KEY] = state
     render Chadcn::Tooltip::Provider.new(delay_duration: 0) do
-      div(**merge_attrs({ class: CLASSES, style: style_attribute, data: wrapper_data }, @attrs.except(:style))) { yield self if block }
+      div(**merge_attrs({ id: @id, class: CLASSES, style: style_attribute, data: wrapper_data }, @attrs.except(:style))) { yield self if block }
     end
   ensure
     context[Chadcn::Sidebar::CONTEXT_KEY] = previous
@@ -57,7 +60,7 @@ class Chadcn::Sidebar::Provider < Chadcn::Base
   private
 
   def state
-    id = "sidebar-#{context[Chadcn::Sidebar::SEQUENCE_KEY] = context.fetch(Chadcn::Sidebar::SEQUENCE_KEY, 0) + 1}"
+    id = @id || "sidebar-#{next_sequence(Chadcn::Sidebar::SEQUENCE_KEY)}"
     Chadcn::Sidebar::State.new(id:, state: @open ? "expanded" : "collapsed", open: @open, open_mobile: false, is_mobile: false)
   end
 

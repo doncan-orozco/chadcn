@@ -40,7 +40,7 @@ class Chadcn::Sidebar < Chadcn::Base
   #
   # @api private
   CONTEXT_KEY = :shadcn_sidebar_state
-  # Render-context key of the per-render sidebar id counter.
+  # Render-context key of the sidebar id counter (per request with the engine, per render without it, see Chadcn::Sequence).
   #
   # @api private
   SEQUENCE_KEY = :shadcn_sidebar_sequence

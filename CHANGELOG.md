@@ -16,6 +16,13 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 
 ### Added
 
+- `id:` on every root that generates ids (`Dialog`, `Sheet`, `AlertDialog`, `Popover`, `HoverCard`, `Tooltip` and `Tooltip::Provider`,
+  `DropdownMenu`, `ContextMenu`, `Menubar`, `NavigationMenu`, `Collapsible`, `Accordion`, `Command`, `Sidebar::Provider`; `Select` and
+  `Combobox` already took it): the base of the generated ids. On a root that renders no element it is the content's id
+  (`Chadcn::Sheet.new(id: "x")` renders the content with `id="x"`, the trigger with `aria-controls="x"` while open, `x-title` and
+  `x-description`); on a root that renders an element it stays on the element, as in React, and the generated ids hang off it
+  (`Chadcn::Accordion.new(id: "faq")` numbers its items `faq-item-1-trigger`). `Chadcn.config.sequence_store`: a callable answering the
+  Hash the id counters live in; nil (the default) keeps them in the render context.
 - `Chadcn::Calendar` (`Calendar::DayButton`): shadcn's react-day-picker calendar as a dependency-free port (no react-day-picker, no
   date-fns): native `Date` and `Intl` only. Single, multiple and range modes, min/max, disabled matchers, outside days, fixed weeks, week
   numbers, `label` and dropdown captions, several months, `dir: "rtl"`, month and weekday names and first day of week from `Intl` (English
@@ -113,6 +120,14 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 
 ### Changed
 
+- Generated ids are numbered per request in a Rails app: the engine keeps the counters in a store the Rails executor resets around
+  every request, so a layout, a view and Turbo frames rendered by separate `render` calls no longer repeat `dropdown-menu-1`
+  (every top-level render used to start again at 1). Without Rails the counters stay per render. The default shapes follow the
+  `id:` rule: the content of a root that renders no element takes the base (`dialog-1`, `popover-1`, `select-1`, `hover-card-1`,
+  `tooltip-1`; formerly `dialog-1-content`, `hover-card-content-1`...), nested parts count within their root (`dropdown-menu-1-sub-1`,
+  `menubar-1-menu-1`, `accordion-1-item-1-trigger`), `Select`'s `id:` names the content itself (`fruit`, formerly `fruit-content`),
+  and the `Dialog`, `Sheet` and `AlertDialog` hosts no longer take `id:` from `**attrs` (it names the content). Ids are compared
+  through their relations only, so the parity scenarios are unchanged.
 - `rails g chadcn:install` no longer writes an `@source` line into the managed block: the block is now the same on every machine
   (the engine bundle import and the theme import), because the engine's `engine.css` carries a self-relative `@source` for the gem's
   Ruby files and the Tailwind output is byte-identical without the generator's line. Re-run the generator after updating: it rewrites
@@ -208,6 +223,9 @@ Since the first extraction of the gem:
 
 ### Fixed
 
+- Generated ids collided across render calls: a layout's dropdown menu and a page's first table-row menu were both
+  `dropdown-menu-1`, so clicking the row's trigger opened the navbar's menu. The counters now live for the request with the engine
+  (see Changed), and `id:` on the root names the ids when a known value is needed.
 - The engine no longer raises `NoMethodError` at boot in apps without Propshaft (`config.assets.excluded_paths`).
 - `Select::Item` no longer needs Nokogiri (text is derived with a quote-aware tag strip); a plain-Phlex `Select` renders, and
   `nokogiri` is not a dependency. YARD builds without warnings.

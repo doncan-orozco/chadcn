@@ -163,6 +163,12 @@ class Chadcn::Base < Phlex::HTML
     -(string.include?("_") ? string.tr("_", "-") : string)
   end
 
+  # Next number of the counter `key` behind the generated ids of a root (`"dialog-#{next_sequence(SEQUENCE_KEY)}"`): per request
+  # with the engine, per render otherwise (Chadcn::Sequence).
+  #
+  # @api private
+  def next_sequence(key) = Chadcn::Sequence.next(context, key)
+
   # Ids for aria wiring: `ids("dialog-1")[:title]` => "dialog-1-title". Without a base a random one is used.
   #
   # @api private

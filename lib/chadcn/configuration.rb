@@ -10,6 +10,13 @@ module Chadcn
     # @return [String, nil] absolute directory that holds theme.css and presets/ (used by {Chadcn::Theme})
     attr_accessor :theme_dir
 
+    # @return [#call, nil] answers the Hash the counters behind the generated ids live in (`dialog-1`, `select-2-item-3`), called
+    #   for every generated id; nil (the default) keeps them in the Phlex render context, so every top-level render numbers its
+    #   roots from 1. A host that assembles a page from several renders sets a store that lives for the request: the engine
+    #   installs one, reset by the Rails executor, so a layout and its view never repeat an id. Without Rails, a Rack host can set
+    #   `-> { env[:chadcn_sequences] ||= {} }` from a middleware that holds the request's env.
+    attr_accessor :sequence_store
+
     # @return [String, nil] absolute directory of ejected components (`rails g chadcn:eject`): a file there with the path of a
     #   gem file (`button.rb`, `dialog/content.rb`) replaces it. An app on the gem's engine sets `config.chadcn.override_dir` (default
     #   `app/components/chadcn`, used when it exists); a plain Phlex app sets the environment variable

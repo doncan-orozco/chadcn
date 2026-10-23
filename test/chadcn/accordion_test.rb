@@ -166,8 +166,8 @@ class Chadcn::AccordionTest < Chadcn::TestCase
     contents = doc.css("[data-slot=accordion-content]")
 
     assert_equal "faq", doc.at_css("[data-slot=accordion]")["id"]
-    assert_equal %w[faq-item-1-trigger faq-item-2-trigger], triggers.map { |trigger| trigger["id"] }
-    assert_equal %w[faq-item-1-content faq-item-2-content], contents.map { |content| content["id"] }
+    assert_equal(%w[faq-item-1-trigger faq-item-2-trigger], triggers.map { |trigger| trigger["id"] })
+    assert_equal(%w[faq-item-1-content faq-item-2-content], contents.map { |content| content["id"] })
     assert_equal "faq-item-1-content", triggers.first["aria-controls"]
     assert_equal "faq-item-1-trigger", contents.first["aria-labelledby"]
   end

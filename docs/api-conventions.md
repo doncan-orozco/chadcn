@@ -77,6 +77,17 @@ live on the instance. A few helpers share a name with an HTML element (`header`,
 - Variant-like options accept strings and symbols with the React keys: `variant: "outline"` or `:outline`, `size: "icon-sm"` or
   `:icon_sm`. The defaults equal React's `defaultVariants`; an unknown value raises `ArgumentError` with the accepted values.
 - `disabled: true` renders the attribute exactly as React does.
+- Generated ids. A root that wires its parts with ids (`aria-controls`, `aria-labelledby`, the portal template key) numbers them:
+  `dialog-1`, `dropdown-menu-2-trigger`, `select-1-item-3`. Pass `id:` to the root to choose the base: it is the id of the element
+  the root stands for, and every other generated id is `<id>-<part>`. For a root that renders no element (`Dialog`, `Sheet`,
+  `AlertDialog`, `Popover`, `HoverCard`, `Tooltip`, `DropdownMenu`, `ContextMenu`, `Select`) that element is the content, so
+  `Chadcn::Sheet.new(id: "article-settings")` gives the content `id="article-settings"`, the trigger
+  `aria-controls="article-settings"` while open, and `article-settings-title` / `article-settings-description`. For a root that
+  renders an element (`Accordion`, `Collapsible`, `Menubar`, `NavigationMenu`, `Command`, `Sidebar::Provider`) the element keeps
+  `id` as in React and the generated ids hang off it (`faq-item-1-trigger`, `orders-content`, `palette-input`); `Combobox` keeps
+  Base UI's meaning (`id:` is the input). Without `id:` the numbers are unique per request in a Rails app (the engine keeps the
+  counters for the request, so a layout, a view and Turbo frames never collide) and per render elsewhere (`Chadcn.config.sequence_store`,
+  see the README). React numbers with `useId`, so the values differ from Radix but every relation is the same.
 
 ## `as_child`
 

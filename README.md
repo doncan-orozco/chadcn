@@ -313,6 +313,17 @@ application.register("chadcn--dialog", DialogController)
 The theme tooling works too once the directory is configured: `Chadcn.configure { |config| config.theme_dir = "/path/to/theme" }`,
 then `Chadcn::Theme.use("slate")`, `Theme.import(path_or_url)` and `Theme.check(strict: true)`.
 
+Generated ids are numbered per top-level render (`Chadcn::Dialog.new.call` always starts at `dialog-1`). A page assembled from
+several `call`s repeats them, so either pass `id:` to the roots or give the gem a store that lives for the request: a callable
+answering a Hash, for example from a Rack middleware that keeps it in the request's `env`:
+
+```ruby
+Chadcn.configure { |config| config.sequence_store = -> { Thread.current[:chadcn_sequences] } }
+# in the middleware: Thread.current[:chadcn_sequences] = {} before the request, nil after it
+```
+
+The Rails engine does this itself, with a store the Rails executor resets around every request.
+
 ## Using the components
 
 The 1:1 classes are the canonical API; a compound root also yields itself with one generated helper per part. Both forms render the
@@ -342,6 +353,10 @@ end
   (`as_child: Chadcn::Button.new(variant: "outline")`), merged with Radix Slot semantics. Never put a `Button` inside a trigger
   as content; pass it to `as_child:`.
 - `buttonVariants(...)` and the other cva helpers are class methods returning the class string: `Chadcn::Button.variants(variant: "link")`.
+- Generated ids (`aria-controls`, `aria-labelledby`, the portal templates) are numbered per request in a Rails app and per render
+  elsewhere. Pass `id:` to a root to choose them: `Chadcn::Sheet.new(id: "article-settings")` renders the content with that id
+  (`article-settings-title` for its title), `Chadcn::Accordion.new(id: "faq")` keeps the id on the element and numbers its items
+  `faq-item-1-trigger`; the rule is in [docs/api-conventions.md](docs/api-conventions.md#props).
 - Controlled state follows React: `open:` / `value:` / `checked:` render that state and the controller only dispatches the change
   event; `default_open:` / `default_value:` / `default_checked:` start uncontrolled. Change callbacks are DOM events named
   `chadcn--<component>:<event>` (`chadcn--dialog:open-change`, `chadcn--select:value-change`, `chadcn--slider:value-commit`...) with

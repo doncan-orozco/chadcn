@@ -33,7 +33,7 @@ class Chadcn::SequenceTest < Chadcn::TestCase
   end
 
   test "a store that answers nil falls back to the render context" do
-    ids = with_sequence_store(-> {}) { [ content_ids(render_dialog), content_ids(render_dialog) ] }
+    ids = with_sequence_store(-> { }) { [ content_ids(render_dialog), content_ids(render_dialog) ] }
 
     assert_equal [ %w[dialog-1], %w[dialog-1] ], ids
   end

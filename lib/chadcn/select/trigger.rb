@@ -68,7 +68,7 @@ class Chadcn::Select::Trigger < Chadcn::Base
     }
   end
 
-  def content_id(state) = "#{state[:base]}-content"
+  def content_id(state) = state[:base]
 
   # SelectBubbleInput: the controller adopts it inside a form (or with +form:+) and removes it elsewhere.
   def native_select(state)

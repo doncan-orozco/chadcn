@@ -482,7 +482,7 @@ class Chadcn::DropdownMenuTest < Chadcn::TestCase
   test "roots without id are numbered per render" do
     html = render_view { 2.times { render(DropdownMenu.new) { render(DropdownMenu::Trigger.new) { "x" } } } }
 
-    assert_equal %w[dropdown-menu-1-trigger dropdown-menu-2-trigger],
-                 fragment(html).css("[data-slot=dropdown-menu-trigger]").map { |trigger| trigger["id"] }
+    assert_equal(%w[dropdown-menu-1-trigger dropdown-menu-2-trigger],
+                 fragment(html).css("[data-slot=dropdown-menu-trigger]").map { |trigger| trigger["id"] })
   end
 end
