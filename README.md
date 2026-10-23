@@ -84,17 +84,15 @@ point at another entry file):
 ```css
 @import "tailwindcss";
 /* chadcn:start (managed by rails g chadcn:install) */
-@source "../../../../path/to/chadcn/lib";
 @import "../builds/tailwind/chadcn";
 @import "./theme/theme.css";
 /* chadcn:end */
 ```
 
-- `@source` points Tailwind at the gem's Ruby files: Tailwind 4 only generates the classes it finds in scanned files, so without this
-  line the components render unstyled. The path is relative to your entry file; the engine bundle carries its own self-relative
-  `@source`, so a moved gem keeps working. Re-run the generator to refresh this line.
 - `../builds/tailwind/chadcn` is the engine bundle `tailwindcss-rails` builds from the gem's `engine.css` (Tailwind variant
-  plugins, the token mapping from theme variables to utilities, the vendored animations).
+  plugins, the token mapping from theme variables to utilities, the vendored animations). `engine.css` also carries a self-relative
+  `@source` for the gem's Ruby files: Tailwind 4 only generates the classes it finds in scanned files, and this is how it finds the
+  components' classes. The block is the same on every machine, so a `bundle update` that moves the gem cannot unstyle the app.
 - `theme/theme.css` and `theme/presets/` are copied into `app/assets/tailwind/theme/` (or `--theme-dir`) once and never
   overwritten: the theme is yours to edit.
 
@@ -200,7 +198,7 @@ The task exits 1 when any check fails (warnings do not fail it), so it can gate 
 | `javascript pipeline` | importmap-rails, or the esbuild copies being present, registered and current |
 | `phlex versions` | Phlex inside `~> 2.3`, and phlex-rails on the same major |
 | `propshaft stub filter` | the hook that hides the Tailwind stubs works (not applicable without Propshaft) |
-| `source block` | the managed block exists and its `@source` points at the gem's `lib` |
+| `source block` | the managed block exists and imports the engine bundle, whose `engine.css` carries the `@source` for the gem's Ruby files (a leftover `@source` line from an older generator warns) |
 | `stimulus controllers` | the gem's `chadcn--*` controllers get registered |
 | `tailwind` | `tailwindcss-rails` 4.3.0 or newer (a 4.x below it fails with `tailwindcss-rails X found, it cannot bundle an engine's CSS before 4.3.0`, a 3.x with `tailwindcss-rails X found, the engine bundle needs tailwindcss-rails 4`) and Tailwind 4, and `@import "tailwindcss"` in the entry file |
 | `theme files` | `theme.css` and `presets/` in the theme directory |
@@ -215,7 +213,7 @@ A run on a healthy app (paths shortened):
 [PASS] javascript pipeline: importmap-rails 2.2.3: the gem's controllers and primitives are pinned by its engine
 [PASS] phlex versions: phlex 2.4.1 (~> 2.3), phlex-rails 2.4.0
 [PASS] propshaft stub filter: the Tailwind stubs are hidden from the served assets
-[PASS] source block: @source points at the gem's lib
+[PASS] source block: the engine bundle carries the @source for the gem's Ruby files
 [PASS] stimulus controllers: app/javascript/controllers/index.js registers the controllers namespace, where the gem's chadcn--* controllers are
 [PASS] tailwind: tailwindcss-rails 4.6.0, Tailwind 4.3.3
 [PASS] theme files: theme.css and presets/ in app/assets/tailwind/theme

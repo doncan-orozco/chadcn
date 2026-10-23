@@ -112,6 +112,12 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 
 ### Changed
 
+- `rails g chadcn:install` no longer writes an `@source` line into the managed block: the block is now the same on every machine
+  (the engine bundle import and the theme import), because the engine's `engine.css` carries a self-relative `@source` for the gem's
+  Ruby files and the Tailwind output is byte-identical without the generator's line. Re-run the generator after updating: it rewrites
+  the block, and until then `chadcn:doctor`'s `source block` check warns about the leftover `@source` line (it now checks that the block
+  imports the engine bundle). The clean-app smoke installs the gem from a `git:` source (a `file://` URL to the checkout) instead of
+  `path:`, as a `github:` install lands: outside the app, with no machine-specific path in `application.css`.
 - Ruby 3.3 is the minimum (`required_ruby_version >= 3.3`): Ruby 3.2 reached upstream end of life on 2026-03-31, so the
   first release does not claim it (`docs/compatibility.md`).
 - Renamed from phlex-shadcn (Phlex::Shadcn) to chadcn (Chadcn). The gem is unreleased, so there is no compatibility alias. Every

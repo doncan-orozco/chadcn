@@ -83,7 +83,8 @@ class DoctorTest < Minitest::Test
   # stale path only goes away on the next generator run.
   def test_a_block_that_still_carries_an_at_source_line_warns
     build_healthy_app
-    write("app/assets/tailwind/application.css", CSS.sub("/* chadcn:start (managed by rails g chadcn:install) */\n") { |start| %(#{start}@source "../../../nowhere/lib";\n) })
+    start = "/* chadcn:start (managed by rails g chadcn:install) */\n"
+    write("app/assets/tailwind/application.css", CSS.sub(start, %(#{start}@source "../../../nowhere/lib";\n)))
     run = report
 
     assert_predicate run, :ok?

@@ -10,20 +10,22 @@ module Chadcn
     # `rails g chadcn:install` wires the gem into a host that uses tailwindcss-rails:
     #
     # 1. writes one marker-delimited block into the Tailwind entry file (app/assets/tailwind/application.css) right after
-    #    `@import "tailwindcss";`: the `@source` line for the gem's Ruby files (Tailwind 4 only generates the classes it finds in
-    #    scanned files, so without it the components render unstyled), the import of the engine bundle and of the theme file;
+    #    `@import "tailwindcss";`: the import of the engine bundle and of the theme file. The block is the same on every machine: the
+    #    engine bundle's entry file (engine.css) carries a self-relative `@source` for the gem's Ruby files (Tailwind 4 only generates
+    #    the classes it finds in scanned files, so without it the components render unstyled), so nothing in the block depends on
+    #    where the gem is installed;
     # 2. copies the default theme (theme.css and presets/) into the host's theme directory unless they already exist;
     # 3. in an esbuild (jsbundling-rails) app, which has no importmap to get the gem's pins from, copies the Stimulus controllers and
     #    primitives into app/javascript, registers them and adds @floating-ui/dom (see dev/decisions/js-bundlers.md). An importmap
     #    app needs nothing: the engine pins the gem's JavaScript.
     #
     # It is idempotent: a second run rewrites the same block and skips the existing theme files, so nothing changes. The block is
-    # managed by the generator; edits inside the markers are overwritten. (The engine's own CSS also carries a relative `@source`,
-    # regenerated on every tailwindcss:build, so a gem update that moves the absolute path in this block cannot unstyle the app.)
+    # managed by the generator; edits inside the markers are overwritten, and a block an older generator wrote (with its own `@source`
+    # line pointing at the gem's then location) is rewritten without it.
     #
     # @api private
     class InstallGenerator < ::Rails::Generators::Base
-      desc "Imports the chadcn Tailwind assets (with the @source line for the gem) and copies the default theme."
+      desc "Imports the chadcn Tailwind assets (the engine bundle and the theme file) and copies the default theme."
 
       source_root Chadcn.root.join("app/assets/tailwind/chadcn").to_s
 
@@ -166,16 +168,15 @@ module Chadcn
       def relative_to_css(path)
         Pathname.new(File.expand_path(path)).relative_path_from(Pathname.new(css_path).dirname).to_s
       rescue ::ArgumentError => e # Phlex::ArgumentError would win the constant lookup here
-        raise Thor::Error, "cannot express #{path} relative to #{options[:css]} (#{e.message}): after @import \"tailwindcss\"; add an @source for " \
-                           "#{File.join(Chadcn.root.to_s, 'lib')} and @imports of #{ENGINE_BUNDLE} and #{theme_dir}/theme.css"
+        raise Thor::Error, "cannot express #{path} relative to #{options[:css]} (#{e.message}): after @import \"tailwindcss\"; " \
+                           "add @imports of #{ENGINE_BUNDLE} and #{theme_dir}/theme.css"
       end
 
       # With `eol` the block uses the file's own line endings (CRLF files stay consistent).
       def managed_block(eol)
-        source = relative_to_css(Chadcn.root.join("lib"))
         bundle = relative_to_css(File.expand_path(ENGINE_BUNDLE, destination_root))
         theme = relative_to_css(theme_path)
-        lines = [ BLOCK_START, %(@source "#{source}";), %(@import "#{bundle}";), %(@import "#{theme.start_with?('.') ? theme : "./#{theme}"}";), BLOCK_END ]
+        lines = [ BLOCK_START, %(@import "#{bundle}";), %(@import "#{theme.start_with?('.') ? theme : "./#{theme}"}";), BLOCK_END ]
         lines.join(eol || "\n")
       end
 
