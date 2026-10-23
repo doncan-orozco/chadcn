@@ -16,10 +16,10 @@ class DoctorTest < Minitest::Test
     "propshaft" => "1.3.0", "phlex" => "2.4.1", "phlex-rails" => "2.4.0"
   }.transform_values { |version| Gem::Version.new(version) }.freeze
 
+  # The block `rails g chadcn:install` writes: the same on every machine (the engine bundle carries the @source for the gem's Ruby files).
   CSS = <<~CSS
     @import "tailwindcss";
     /* chadcn:start (managed by rails g chadcn:install) */
-    @source "%<source>s";
     @import "../builds/tailwind/chadcn";
     @import "./theme/theme.css";
     /* chadcn:end */
@@ -36,7 +36,7 @@ class DoctorTest < Minitest::Test
   end
 
   def build_healthy_app
-    write("app/assets/tailwind/application.css", format(CSS, source: GEM_ROOT.join("lib")))
+    write("app/assets/tailwind/application.css", CSS)
     write("app/assets/builds/tailwind/chadcn.css", "/* built */")
     write("app/assets/tailwind/theme/theme.css", "/* theme */")
     FileUtils.mkdir_p(@root.join("app/assets/tailwind/theme/presets"))
@@ -79,11 +79,16 @@ class DoctorTest < Minitest::Test
     assert_check run, "theme import", :fail, "chadcn:install"
   end
 
-  def test_a_source_line_that_does_not_reach_the_gem_warns
+  # A block written by a generator before the @source line was dropped: Tailwind still styles the app through the engine bundle, the
+  # stale path only goes away on the next generator run.
+  def test_a_block_that_still_carries_an_at_source_line_warns
     build_healthy_app
-    write("app/assets/tailwind/application.css", format(CSS, source: "../../../nowhere"))
+    write("app/assets/tailwind/application.css", CSS.sub("/* chadcn:start (managed by rails g chadcn:install) */\n") { |start| %(#{start}@source "../../../nowhere/lib";\n) })
+    run = report
 
-    assert_check report, "source block", :warn, "chadcn:install"
+    assert_predicate run, :ok?
+    assert_check run, "source block", :warn, "chadcn:install"
+    assert_includes result(run, "source block").message, "@source"
   end
 
   def test_tailwind_3_fails
@@ -213,20 +218,33 @@ class DoctorTest < Minitest::Test
     assert_check run, "tailwind", :fail, "tailwindcss:install"
   end
 
-  def test_a_block_without_a_source_line_fails
+  def test_a_block_without_the_engine_bundle_import_fails_the_source_block_check
+    build_healthy_app
+    write("app/assets/tailwind/application.css",
+          %(@import "tailwindcss";\n/* chadcn:start (managed by rails g chadcn:install) */\n@import "./theme/theme.css";\n/* chadcn:end */\n))
+    run = report
+
+    assert_check run, "source block", :fail, "chadcn:install"
+    assert_includes result(run, "source block").message, "engine bundle"
+  end
+
+  def test_a_block_with_only_the_engine_bundle_import_passes_the_source_block_check
     build_healthy_app
     write("app/assets/tailwind/application.css",
           %(@import "tailwindcss";\n/* chadcn:start (managed by rails g chadcn:install) */\n@import "../builds/tailwind/chadcn";\n/* chadcn:end */\n))
+    run = report
 
-    assert_check report, "source block", :fail, "chadcn:install"
-    assert_includes result(report, "source block").message, "no @source line"
+    assert_check run, "source block", :pass
+    assert_includes result(run, "source block").message, "@source"
+    assert_check run, "theme import", :fail, "chadcn:install"
   end
 
   def test_a_block_that_imports_neither_the_bundle_nor_the_theme_fails
     build_healthy_app
-    write("app/assets/tailwind/application.css", format(CSS, source: GEM_ROOT.join("lib")).gsub(/^@import "\.[^\n]*\n/, ""))
+    write("app/assets/tailwind/application.css", CSS.gsub(/^@import "\.[^\n]*\n/, ""))
     run = report
 
+    assert_check run, "source block", :fail, "chadcn:install"
     assert_check run, "engine bundle", :fail, "chadcn:install"
     assert_check run, "theme import", :fail, "chadcn:install"
   end
@@ -380,7 +398,7 @@ class DoctorTest < Minitest::Test
 
   def test_imports_with_a_css_suffix_count
     build_healthy_app
-    css = format(CSS, source: GEM_ROOT.join("lib")).sub("chadcn\";", "chadcn.css\";").sub("theme.css", "theme")
+    css = CSS.sub("chadcn\";", "chadcn.css\";").sub("theme.css", "theme")
     write("app/assets/tailwind/application.css", css)
 
     assert_equal [ :pass ], report.results.map(&:status).uniq
