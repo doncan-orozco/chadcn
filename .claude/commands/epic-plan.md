@@ -13,7 +13,7 @@ Parse: the goal (everything that is not a flag), `--slug` (default: kebab-case o
 
 ## Phase 0: Ground the plan in the repo
 1. `git status` and `git log --oneline -10` (what state is the branch in). The plan describes work from the current `main`; if the working tree has uncommitted changes that the epic depends on, say so and stop: items start from `origin/main`.
-2. Read what the goal touches: `CLAUDE.md`, the relevant `.ai/skills/*/SKILL.md` (architecture, naming-conventions, testing and the domain skill), and the code or docs the human pointed at. Prefer reading to guessing; record every non-obvious fact you will rely on in the epic `body` or item `context`.
+2. Read what the goal touches: `CLAUDE.md`, the relevant `.ai/skills/*/SKILL.md` (`ruby-gem-conventions`, `naming-conventions`, `testing` and the area skill: `shadcn-port`, `radix-stimulus`, `design-system`, `stimulus`), and the code or docs the human pointed at. Prefer reading to guessing; record every non-obvious fact you will rely on in the epic `body` or item `context`.
 3. If the goal is ambiguous in a way that changes the item list (naming, layout, scope), ask the human ONE batch of questions and stop. Decisions the human already made in this conversation are not re-asked.
 
 ## Phase 1: Draft `tmp/epic/<slug>/plan.json`

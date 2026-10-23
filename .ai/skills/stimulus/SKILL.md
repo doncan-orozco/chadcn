@@ -1,55 +1,57 @@
 ---
 name: stimulus
-description: "Stimulus controllers for Papyro (importmap, no bundler). Use when creating or editing files in `app/javascript/controllers/**` in the host or `app/javascript/controllers/studio/**` in the papyro_studio engine, or when adding `data-controller`/`data-action`/targets/values to Phlex views. Covers lifecycle cleanup, declared targets/values/outlets, Turbo compatibility, naming, accessibility, and wiring."
+description: "Stimulus controllers of the chadcn gem (importmap pins, no bundler at development time; esbuild hosts get managed copies from the install generator). Use when creating or editing files in `app/javascript/controllers/chadcn/**` or `app/javascript/chadcn/primitives/**`, or when a Phlex part in `lib/chadcn/*` adds `data-controller`/`data-action`/targets/values. Covers lifecycle cleanup, declared targets/values/outlets, Turbo compatibility, naming, accessibility, and wiring between the Ruby part and the controller."
 ---
 
-# Stimulus Controllers (Papyro)
+# Stimulus Controllers (chadcn)
 
 ## Quick Rules
 Cite as `stimulus R<n>`. Detail and examples follow below / in references/.
 
-R1. **Behavior only.** Stimulus enhances server-rendered HTML; it never renders pages, builds markup from interpolated data, or fetches HTML (use Turbo Frames/Streams). → detail: Turbo-first
-R2. **Clean up in `disconnect()`.** Everything created in `connect()` (listeners, timers, observers, `AbortController`s, Floating UI instances, appended DOM nodes) is released in `disconnect()`. → detail: Lifecycle
-R3. **Survive Turbo.** Controllers must tolerate Turbo cache restore and reconnecting; no one-shot setup that assumes a single `connect()`. → detail: Lifecycle
+R1. **Behavior only.** Stimulus enhances the server-rendered part; it never renders pages, builds markup from interpolated data, or fetches HTML. Content that Radix keeps unmounted ships in an inert `<template>` and is mounted through `template_mount.js`. → detail: Turbo-first
+R2. **Clean up in `disconnect()`.** Everything created in `connect()` (listeners, timers, observers, `AbortController`s, floating-ui `autoUpdate`, portaled or mounted nodes, primitive handles) is released in `disconnect()`. → detail: Lifecycle
+R3. **Survive Turbo.** Controllers must tolerate Turbo cache restore and reconnecting; no one-shot setup that assumes a single `connect()`; a cached page never comes back with an open overlay or a locked body. → detail: Lifecycle
 R4. **Declare the surface.** Every `this.xTarget|xValue|xOutlet|xClass` is declared in `static targets/values/outlets/classes`, and every declaration is used. → detail: Declared surface
-R5. **Actions in markup.** Prefer `data-action` in the view over `addEventListener`; when a listener is unavoidable, keep a named bound handler so it can be removed. → detail: Declared surface
+R5. **Actions in markup.** Prefer `data-action` rendered by the Phlex part over `addEventListener`; when a listener is unavoidable (document, window, a mounted template), keep a named bound handler or an `AbortController` so it can be removed. → detail: Declared surface
 R6. **Targets over selectors.** Use targets, not `document.querySelector`; reach other controllers via outlets or events (`this.dispatch`), never by importing them. → detail: Declared surface
-R7. **No `innerHTML` with data.** Never assign `innerHTML` from interpolated or user-supplied strings (XSS); use `textContent` or DOM APIs. → detail: Security
-R8. **State in the DOM.** State lives in values, classes or data attributes, not module-level variables. → detail: Declared surface
-R9. **No hardcoded copy.** User-facing strings arrive through values/data attributes rendered from `t(...)` in the view (EN + ES), never literals in JS. → detail: i18n
-R10. **Naming and registration.** `foo_bar_controller.js` ↔ `data-controller="foo-bar"`; nested folders use `--` (`studio/articles/autosave_controller.js` ↔ `studio--articles--autosave`). Registration is by eager loading from the importmap; do not hand-register. → detail: Naming
+R7. **No `innerHTML` with data.** Never assign `innerHTML` from interpolated or caller-supplied strings (XSS); use `textContent` or DOM APIs. → detail: Security
+R8. **State in the DOM.** State lives in values, `data-state` and friends or data attributes, not module-level variables (the only module state allowed is the explicit stacks of the primitives, reset by their `release()`). → detail: Declared surface
+R9. **No hardcoded copy.** User-facing strings arrive through values or data attributes rendered by the Phlex part from its kwargs (defaults equal the React strings, `design-system` R13); never literals in JS. → detail: Copy
+R10. **Naming and registration.** `<name>_controller.js` in `app/javascript/controllers/chadcn/` ↔ `data-controller="chadcn--<name>"`; the gem's `config/importmap.rb` pins the directory and the host's `eagerLoadControllersFrom("controllers", application)` registers it; esbuild hosts register the managed copies through the generated `controllers/chadcn/index.js`. Do not hand-register. → detail: Naming
 R11. **Accessible widgets.** Custom widgets manage focus on open/close, toggle `aria-expanded`/`aria-controls`, and handle Escape/Enter/arrows; no click-only interactions on non-buttons. → detail: `../accessibility/SKILL.md`
-R12. **Reuse existing controllers.** Dialog/overlay/locale/theme behavior already exists (`dialog`, `locale_switcher`, `lightbox`, `search`…); extend it, do not duplicate. → detail: Reuse
-R13. **Wiring is bilateral.** Each `data-controller` in a view resolves to a file, and each target/value/action a controller expects exists in the markup that uses it. → detail: Wiring
-R14. **Engine parity.** Engine controllers live in `papyro_studio/app/javascript/controllers/studio/**`, are pinned by the engine's `config/importmap.rb`, and follow the same rules. → detail: Repos
+R12. **Reuse the primitives and sibling controllers.** Focus trapping, outside dismiss, Escape, scroll lock, positioning, presence, roving focus and typeahead already exist in `app/javascript/chadcn/primitives/` (`radix-stimulus` R2); behavior shared by two components (sheet and dialog) is imported, never copied. → detail: Reuse
+R13. **Wiring is bilateral.** Each `data-controller` a part renders resolves to a file, and each target/value/action a controller expects exists in the markup the part renders. → detail: Wiring
+R14. (dropped: host-only, engine parity described the controllers of the Papyro application's Studio engine; this gem has one controller directory, pinned by its own importmap)
 
-## Where controllers live (Repos)
-- Host: `app/javascript/controllers/**` (loaded by `eagerLoadControllersFrom("controllers", application)`).
-- Studio engine (sibling repo `papyro_studio`): `app/javascript/controllers/studio/**`, identifiers `studio--<folder>--<name>`; the engine's importmap initializer adds its paths to the host importmap. Views that use them are in the engine (`app/views`, `app/components/studio`).
+## Where controllers live
+- Controllers: `app/javascript/controllers/chadcn/<name>_controller.js`, identifiers `chadcn--<name>`, one per interactive component (`radix-stimulus` R12), plus `theme_controller.js` (`chadcn--theme`, toggles `.dark`).
+- Shared primitives: `app/javascript/chadcn/primitives/<name>.js`, plain ES modules imported as `chadcn/primitives/<name>`.
+- Pins: the gem's `config/importmap.rb` (`pin_all_from` both directories and the vendored `@floating-ui/dom`); `Chadcn::Engine` adds that file to the host importmap. Hosts without an importmap receive managed copies from `rails g chadcn:install --js esbuild` (README, "JavaScript pipelines"); the copies are regenerated, never edited.
+- The dev kit's dummy app (`dev/dummy`) and the browser tests (`test/javascript`) load the same files through the same pins.
 
 ## Lifecycle
-`connect()` sets up, `disconnect()` tears down; the existing `lightbox_controller.js` removes its dialog, document listener and scroll lock on disconnect, and `autosave_controller.js` clears its debounce timer. Use the same pattern for anything new.
+`connect()` sets up, `disconnect()` tears down. The overlay controllers keep the handles the primitives return and release every one of them in `disconnect()` (dismissable layer, focus scope, scroll lock, hide-others, presence, mounted template nodes); `tooltip_controller.js` releases its hover-intent handle. Use the same pattern for anything new, and reconcile the DOM with the values in `connect()` so a reconnect after a Turbo restore is idempotent (`radix-stimulus` R4, R10).
 
 ## Declared surface
-Declare `static targets`, `values`, `outlets`, `classes` at the top. Guard optional targets with `this.hasXTarget`. Bind handlers once (`this.handleKeydown = (e) => …`) and remove the same reference.
+Declare `static targets`, `values`, `outlets`, `classes` at the top. Values exist for every controllable prop of the React API (`open`, `value`, `default-value`, `disabled`, `modal`, `side`, `align`, `side-offset`...) with the Radix default. Guard optional targets with `this.hasXTarget`. Bind handlers once (`this.handleKeydown = (event) => …`) and remove the same reference.
 
 ## Turbo-first
-Server responses are HTML via Turbo. Do not `fetch` fragments to inject; do not rely on `DOMContentLoaded`; form submissions go through Turbo with `requestSubmit()` where needed.
+The part is rendered on the server with its initial `data-state`; the controller never fetches fragments or relies on `DOMContentLoaded`. A Turbo cache snapshot is taken from the live DOM, so a controller must leave a closed, unlocked, un-portaled DOM behind when it disconnects and must tolerate being connected on a snapshot that still carries runtime attributes.
 
 ## Security
-No `innerHTML` with dynamic data; no `eval`/`new Function`; sanitize anything inserted as HTML on the server.
+No `innerHTML` with dynamic data; no `eval`/`new Function`; everything the caller passes arrives as an attribute Phlex has already escaped.
 
-## i18n
-Pass copy as values (`data-foo-label-value="<%= t(...) %>"` rendered by Phlex) so locale switching works; dates and numbers use `Intl` with the page locale.
+## Copy
+Pass copy as values or data attributes rendered by the Phlex part (`data-chadcn--<name>-<prop>-value`), whose kwarg defaults equal the React strings; the consuming application overrides the kwarg. Dates and numbers use `Intl` with the page locale.
 
 ## Naming
-Folders map to `--` in identifiers. Domain names, no abbreviations (`naming-conventions`).
+Domain names, no abbreviations (`naming-conventions`); value and target names mirror the React props (camelCase in JS, kebab-case in the attribute).
 
 ## Reuse
-Before writing a controller, list `app/javascript/controllers/` (and the engine's `studio/` folder) for existing behavior.
+Before writing behavior, list `app/javascript/chadcn/primitives/` and the sibling controllers of the same behavior family (`radix-stimulus`, "Behavior families"). A second implementation of dismiss, focus trap, positioning, presence or typeahead is wrong even when it is shorter.
 
 ## Wiring
-Check both directions when reviewing: view → controller file, controller declarations → markup. Mismatched identifiers fail silently in the browser.
+Check both directions when reviewing: the Phlex part (`lib/chadcn/<name>.rb`) → controller file, controller declarations → the markup the part renders (`data-chadcn--<name>-target`, `data-action`, values). Mismatched identifiers fail silently in the browser; the parity gates (G3) and the browser tests catch the symptom, the review catches the cause.
 
 ## Related
-`../phlex-view-pattern/SKILL.md` (views that carry the data attributes), `../accessibility/SKILL.md`, `../testing/SKILL.md` (system tests for Hotwire flows).
+`../radix-stimulus/SKILL.md` (what the controller must do to equal Radix), `../design-system/SKILL.md` (the Phlex side that carries the data attributes), `../accessibility/SKILL.md`, `../testing/SKILL.md` (`bin/test-js`, `test/javascript`).

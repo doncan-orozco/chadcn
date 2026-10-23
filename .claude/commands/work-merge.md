@@ -1,7 +1,7 @@
 ---
 description: Release manager for an epic, run by a human: merge the PRs of items in review that pass the merge policy, finish the merged items (Gates on main, advance to done) so their dependents become claimable, free stale claims, and report what still needs a person. The only command that merges.
 argument-hint: "--epic <slug> [--dry-run] [--only N,M] [--no-sweep] [--wait-ci MIN] [--no-issues]"
-allowed-tools: Read, Write, Grep, Glob, TodoWrite, Bash(ruby:*), Bash(git:*), Bash(gh pr view:*), Bash(gh pr checks:*), Bash(gh pr update-branch:*), Bash(gh pr list:*), Bash(gh run:*), Bash(gh issue list:*), Bash(gh issue create:*), Bash(bin/rails:*), Bash(bin/rubocop:*), Bash(bin/brakeman:*), Bash(bundle:*), Bash(bin/check:*), Bash(cd:*), Bash(ls:*), Bash(mkdir:*), Bash(cp:*), Bash(rm:*), Bash(cat:*), Bash(tail:*), Bash(grep:*), Bash(nohup:*), Bash(ps:*)
+allowed-tools: Read, Write, Grep, Glob, TodoWrite, Bash(ruby:*), Bash(git:*), Bash(gh pr view:*), Bash(gh pr checks:*), Bash(gh pr update-branch:*), Bash(gh pr list:*), Bash(gh run:*), Bash(gh issue list:*), Bash(gh issue create:*), Bash(bundle:*), Bash(bin/check:*), Bash(bin/test-js:*), Bash(bin/smoke:*), Bash(cd:*), Bash(ls:*), Bash(mkdir:*), Bash(cp:*), Bash(rm:*), Bash(cat:*), Bash(tail:*), Bash(grep:*), Bash(nohup:*), Bash(ps:*)
 ---
 
 # /work-merge: merge what is ready, finish what is merged, say what is left
@@ -46,7 +46,7 @@ For each `ready` item in order: `WB merge N --epic S --session SESSION` (squash;
 - `needs-human` items: print each with its last `blocker` note (`WB show N`).
 - Items in `review` with `no_pr`, `draft` or `not_audited`: print them with the reason.
 - Other open PRs of the repository that are not epic branches (`gh pr list --state open`, e.g. dependabot): list number, title and check state. Do not merge them; that is outside the board.
-- Gate processes of other sessions still running on this machine (`ps aux | grep -E "parity_batch|bin/rails test"`, older than a day): list them; killing them is the human's call.
+- Gate processes of other sessions still running on this machine (`ps aux | grep -E "parity_batch|parity_run|test-js|rake test"`, older than a day): list them; killing them is the human's call.
 
 ## Phase 5: Report
 Per item touched: number, title, PR, verdict at start, what you did (merged / sent to fix / finished / blocked / left), gates run on `main` and how each was judged (run here, or CI job url). Then: items that became claimable (`WB next --epic S` now returns one? say which), what still waits for a person and why, the exact next command: `/work --epic S` when something is claimable, `/work-merge --epic S` again when CI was still running, or `epic done`.

@@ -1,6 +1,6 @@
 ---
 name: naming-conventions
-description: "Domain-language naming rules for classes, methods and variables. Use when naming or renaming any new class, method, variable, operation, route or translation key in the Papyro codebase."
+description: "Domain-language naming rules for classes, methods, variables, keyword arguments and Stimulus values. Use when naming or renaming anything in the chadcn gem, its tests, its Stimulus controllers and primitives, or the repository tooling under `.claude/scripts`; the library exception keeps the shadcn/Radix vocabulary 1:1."
 ---
 
 # Naming Conventions
@@ -9,8 +9,8 @@ description: "Domain-language naming rules for classes, methods and variables. U
 
 Cite as `naming-conventions R<n>`. Detail and examples follow below / in references/.
 
-R1. **Domain vocabulary.** Class, method and variable names use domain terms, not technical implementation terms (`Roster`, not `UserList`). → detail: Core Principle / Classes and Types
-R2. **No stuttering.** Class and file names never repeat the namespace or type (`Published`, not `PublishedQuery`). → detail: Classes and Types
+R1. **Domain vocabulary.** Class, method and variable names use domain terms, not technical implementation terms (`Roster`, not `UserList`). In this gem the domain is shadcn/Radix: see the library exception. → detail: Core Principle / Classes and Types / Library exception
+R2. **No stuttering.** Class and file names never repeat the namespace or type (`Published`, not `PublishedQuery`; `Chadcn::Dialog::Content`, not `Chadcn::Dialog::DialogContent`). → detail: Classes and Types
 R3. **Domain types over primitives.** Compound domain concepts get their own type (`Money` with currency and amount) instead of raw String/Float/Hash. → detail: Classes and Types
 R4. **Methods name the outcome.** Methods are named for what they accomplish (`within_enrollment_period?`), not how (`check_date_range`). → detail: Methods
 R5. **Domain verbs for commands.** Command methods use domain verbs (`enroll`, `publish`, `archive`), not persistence verbs (`save`, `insert`, `update`). → detail: Methods
@@ -31,7 +31,7 @@ Code should read like domain discussion. A casual observer should not be able to
 ### Classes and Types
 - Name types after the domain concept they represent, not after their technical implementation.
 - **Never repeat the namespace or type in the class or file name (no stuttering):**
-  - Use `Published` (not `PublishedQuery`), `Body` (not `BodyValidator`), `Default`/`Show` (not `ArticlePresenter`/`ShowPresenter`).
+  - Use `Published` (not `PublishedQuery`), `Body` (not `BodyValidator`), `Chadcn::Dialog::Content` (not `Chadcn::Dialog::DialogContent`).
 - Prefer `Surname`, `Money`, `Currency`, `EnrollmentPeriod` over `String`, `Float`, `Hash`.
 - Compound domain concepts get their own type: `Money` has a `Currency` and an `Amount`, not a raw float.
 - Never expose implementation-level details in a class name: `UserList` is worse than `Roster`; `QuestionHashMap` is worse than `QuestionBank`.
@@ -52,8 +52,12 @@ Code should read like domain discussion. A casual observer should not be able to
 - Prefer keyword arguments when two or more arguments share a type and the order is not self-evident.
 - `enroll(user: user, course: course)` beats `enroll(user, course)` when both are objects.
 
-### Library exception (gems that mirror an external API)
-R1 (domain vocabulary) does not apply inside a library whose purpose is to reproduce an external, named API: for `chadcn` the shadcn/Radix vocabulary (`Dialog::Content`, `as_child`, `data-slot` names) IS the domain language and is kept 1:1 even where it would not be our choice. R2 (no stuttering), R4 to R12 (outcome-named methods, predicates, bang methods, variables, keyword arguments, casing) still apply. The gem's own helpers and internals follow the normal rules. See `ruby-gem-conventions`.
+### Library exception (a gem that mirrors an external API)
+R1 (domain vocabulary) does not apply to the surface of a library whose purpose is to reproduce an external, named API: for `chadcn` the shadcn/Radix vocabulary (`Dialog::Content`, `as_child`, `data-slot` names, `side_offset`, the `chadcn--dialog:open-change` event names, the Stimulus value names from `shadcn-port` references/api-mapping.md) IS the domain language and is kept 1:1 even where it would not be our choice. R2 (no stuttering), R4 to R12 (outcome-named methods, predicates, bang methods, variables, keyword arguments, casing) still apply. The gem's own helpers and internals (`Chadcn::Base#merge_attrs`, the primitives, the doctor, the generators, the scripts under `.claude/scripts`) follow the normal rules. See `ruby-gem-conventions`.
+
+### Stimulus and JavaScript
+- Controller files are `<name>_controller.js` and identifiers `chadcn--<name>` (`stimulus` R10); values and targets use the camelCase of the React prop (`sideOffset`, `defaultValue`), rendered as `data-chadcn--popover-side-offset-value`.
+- Primitive modules export small verbs that return a release function (`dismissable(el, options)` returns `release()`), named after the Radix package they replace (`radix-stimulus` references/primitives.md).
 
 ### Avoid
 - Abbreviations that are not universal in the domain (`usr`, `cfg`, `mgr`, `tmp`).
@@ -93,10 +97,12 @@ salary = Money.new(amount: 4500.75, currency: :usd)
 contract_end = ContractDate.new("2026-06-30")
 ```
 
+In this gem the same rule reads: `merge_attrs(defaults, attrs)` over `merge_hashes(h1, h2)`; `normalize_option(value)` over `fix_val`; `theme_file` over `file`; a `Chadcn::Theme::Error` with a message over a bare `false`.
+
 ## Ruby-Specific Guidance
 - Boolean predicate methods end in `?`: `enrolled?`, `published?`, `overdue?`.
 - Destructive/mutating methods end in `!` only when a safe counterpart exists: `publish` vs `publish!`.
-- Constants use `SCREAMING_SNAKE_CASE` and are named after the domain value: `MAX_ENROLLMENT_SIZE`, `DEFAULT_PASSING_SCORE`.
+- Constants use `SCREAMING_SNAKE_CASE` and are named after the domain value: `MAX_ENROLLMENT_SIZE`, `DEFAULT_PASSING_SCORE`, `CN_CACHE_LIMIT`.
 - Module and class names use `PascalCase`; all other names use `snake_case`.
 
 ## Questions to Ask Before Naming

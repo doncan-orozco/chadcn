@@ -4,19 +4,19 @@
 
 ```json
 {
-  "epic": { "slug": "chadcn", "title": "Extract Components::V2 into the chadcn gem", "body": "scope, non-goals, decisions already made, links" },
+  "epic": { "slug": "doctor-checks", "title": "Doctor checks for the esbuild and Sprockets setups", "body": "scope, non-goals, decisions already made, links" },
   "items": [
     {
-      "key": "skeleton",
-      "title": "Gem skeleton with standalone test harness",
+      "key": "context",
+      "title": "Doctor context detects the JavaScript and asset pipeline",
       "wave": 0,
-      "owns": ["*.gemspec", "Gemfile", "test/test_helper.rb"],
+      "owns": ["lib/chadcn/doctor/context.rb", "test/doctor/context_test.rb"],
       "blocked_by": [],
       "stage": "plan",
       "priority": 10,
       "goal": "One paragraph: what exists when this is done and why.",
-      "gates": ["bundle exec rake test", "ruby .claude/scripts/gem/coupling_check.rb --gem-dir ."],
-      "acceptance": ["gem tests run without the host app", "no host constant is visible from the gem"],
+      "gates": ["bundle exec rake test", "ruby .claude/scripts/gem/gem_check.rb --gem-dir ."],
+      "acceptance": ["the context names importmap or esbuild from the app files alone", "no host path outside the gem_check allowlist"],
       "context": "optional: links, prior decisions, pitfalls"
     }
   ]
