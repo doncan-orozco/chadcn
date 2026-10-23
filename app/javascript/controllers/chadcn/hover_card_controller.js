@@ -4,14 +4,13 @@ import { hoverIntent } from "chadcn/primitives/hover_intent"
 import { positioner } from "chadcn/primitives/positioner"
 import { presence } from "chadcn/primitives/presence"
 import { mountTemplate } from "chadcn/primitives/template_mount"
+import { turboCacheRestore } from "chadcn/primitives/turbo_cache"
 
 // Radix HoverCard (Root + Trigger + Content). Spec: docs/shadcn-port/specs/hover-card.md (Behavior).
 // The controller element is the trigger. The content lives in an inert <template> next to it and is mounted in <body>
 // only while open (Portal + Presence), like Radix.
 export default class extends Controller {
   static values = { open: Boolean, controlled: Boolean, openDelay: Number, closeDelay: Number, templateKey: String }
-
-  restoreTimer = null
 
   connect() {
     this.template = this.findTemplate()
@@ -36,7 +35,7 @@ export default class extends Controller {
     on("pointerleave", (event) => event.pointerType !== "touch" && this.leave())
     on("focus", () => this.intent.enter())
     on("blur", () => this.leave())
-    document.addEventListener("turbo:before-cache", () => this.reset(), { signal: this.abort.signal })
+    this.cache = turboCacheRestore({ teardown: () => this.reset(), restore: () => this.#restoreAfterCache() })
 
     if (this.isOpen) this.mount()
     this.syncTrigger()
@@ -54,8 +53,8 @@ export default class extends Controller {
 
   disconnect() {
     if (!this.template) return
+    this.cache.release()
     this.reset()
-    this.#cancelRestore()
     this.abort.abort()
     this.intent.release()
   }
@@ -66,31 +65,21 @@ export default class extends Controller {
   }
 
   // A cached page must not hold a hover-opened card (a server-rendered open value is honoured again on connect): the card is torn
-  // down and the hover intent is reset, so no stale open flag or pending timer survives the snapshot. Turbo takes the snapshot one
-  // timer tick after the event, also for visits that keep the page (a link to #hash); once it is taken, a trigger that is still
-  // hovered or focused re-arms the intent, so the card comes back after its delay, like after a fresh pointerenter.
+  // down and the hover intent is reset, so no stale open flag or pending timer survives the snapshot (turbo_cache teardown, and
+  // the disconnect cleanup). Once the snapshot is taken (turbo_cache restore), a trigger that is still hovered or focused re-arms
+  // the intent, so the card comes back after its delay, like after a fresh pointerenter.
   reset() {
-    this.#cancelRestore()
     this.intent?.sync(false)
     this.teardown()
     this.isOpen = false
     this.syncTrigger()
-    this.restoreTimer = setTimeout(() => {
-      this.restoreTimer = setTimeout(() => this.#restoreAfterCache())
-    })
   }
 
   // Pointer presence counts only where hovering exists: on touch devices `:hover` sticks to the tapped element, and touch must
   // never open the card (pointerenter is ignored for it too).
   #restoreAfterCache() {
-    this.restoreTimer = null
     const hovered = window.matchMedia("(hover: hover)").matches && this.element.matches(":hover")
     if (hovered || this.element.contains(document.activeElement)) this.intent.enter()
-  }
-
-  #cancelRestore() {
-    clearTimeout(this.restoreTimer)
-    this.restoreTimer = null
   }
 
   // Radix onClose: a text selection or a pressed pointer inside the content keeps the card open.

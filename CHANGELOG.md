@@ -117,8 +117,8 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 
 ### Changed
 
-- The `chadcn--accordion`, `chadcn--collapsible`, `chadcn--tabs`, `chadcn--avatar`, `chadcn--scroll-area` and `chadcn--dialog`
-  controllers (alert-dialog and sheet through the dialog controller) share the `turbo_cache` primitive instead of each keeping its own
+- The `chadcn--accordion`, `chadcn--collapsible`, `chadcn--tabs`, `chadcn--avatar`, `chadcn--scroll-area`, `chadcn--dialog` (alert-dialog
+  and sheet through it) and `chadcn--hover-card` controllers share the `turbo_cache` primitive instead of each keeping its own
   `turbo:before-cache` listener and two-tick restore timer; no behavior change (the Turbo browser tests are unchanged).
 - `rails g chadcn:install` no longer writes an `@source` line into the managed block: the block is now the same on every machine
   (the engine bundle import and the theme import), because the engine's `engine.css` carries a self-relative `@source` for the gem's
