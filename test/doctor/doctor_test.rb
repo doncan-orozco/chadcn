@@ -229,6 +229,17 @@ class DoctorTest < Minitest::Test
     assert_includes result(run, "source block").message, "engine bundle"
   end
 
+  # A failure outranks the stale-@source warning: an older block that also lost the bundle import is broken, not just stale.
+  def test_a_stale_at_source_does_not_hide_a_missing_engine_bundle_import
+    build_healthy_app
+    write("app/assets/tailwind/application.css", CSS.sub(%(@import "../builds/tailwind/chadcn";\n), %(@source "../../../old/gem/lib";\n)))
+    run = report
+
+    refute_predicate run, :ok?
+    assert_check run, "source block", :fail, "chadcn:install"
+    assert_includes result(run, "source block").message, "engine bundle"
+  end
+
   def test_a_block_with_only_the_engine_bundle_import_passes_the_source_block_check
     build_healthy_app
     write("app/assets/tailwind/application.css",
@@ -399,8 +410,8 @@ class DoctorTest < Minitest::Test
 
   def test_imports_with_a_css_suffix_count
     build_healthy_app
-    css = CSS.sub("chadcn\";", "chadcn.css\";").sub("theme.css", "theme")
-    write("app/assets/tailwind/application.css", css)
+    entry_css = CSS.sub("chadcn\";", "chadcn.css\";").sub("theme.css", "theme")
+    write("app/assets/tailwind/application.css", entry_css)
 
     assert_equal [ :pass ], report.results.map(&:status).uniq
   end

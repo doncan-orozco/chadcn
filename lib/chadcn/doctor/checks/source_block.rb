@@ -16,8 +16,7 @@ module Chadcn
         def self.call(context)
           return Result.failure(NAME, "#{context.css_name} not found", fix: "bin/rails tailwindcss:install, then #{context.install_command}") unless context.css_text
 
-          block = context.managed_block
-          return Result.failure(NAME, "no chadcn block in #{context.css_name}", fix: context.install_command) unless block
+          return Result.failure(NAME, "no chadcn block in #{context.css_name}", fix: context.install_command) unless context.managed_block
           unless context.imports_engine_bundle?
             return Result.failure(NAME, "the block does not import the engine bundle, which carries the @source for the gem's Ruby files",
                                   fix: context.install_command)

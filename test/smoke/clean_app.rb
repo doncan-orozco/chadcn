@@ -13,8 +13,9 @@ module Smoke
   # lines, `bundle install`, `bin/rails g chadcn:install`, `bin/rails tailwindcss:build`, the Views::Demo::Index view and its
   # controller), a running server answering with the Button and the Dialog, the built CSS carrying the gem's classes, and one browser
   # scenario (dev/port/scenarios/dialog.json `open__via-trigger-click`, then Escape) driven by Playwright. The gem is installed from
-  # this checkout as a git source (`git: "file://..."`, offline), so it lands outside the app in bundler/gems/chadcn-<sha> as a
-  # `github:` or RubyGems install does: the styled checks prove the engine bundle alone reaches the gem's Ruby files.
+  # this checkout as a git source (`git: "file://..."`, offline), so it lands outside the app in bundler/gems/chadcn-<sha>, as a
+  # `github:` install does (a RubyGems install lands in gems/chadcn-<version>, also outside the app): the styled checks prove the
+  # engine bundle alone reaches the gem's Ruby files.
   #
   # Needs network (rails new, bundle install), a `rails` executable (SMOKE_RAILS) and node with Playwright (CHADCN_PLAYWRIGHT,
   # or the dev kit's dev/react-shadcn-catalog/node_modules). Never run by `rake test`.
@@ -180,16 +181,23 @@ module Smoke
     end
 
     # A git source at this checkout's HEAD: bundler clones it (a file:// URL needs no network) into bundler/gems/chadcn-<sha>, outside
-    # the app, the way a `github:` install lands. A git source sees commits only, so uncommitted changes are reported as left out.
+    # the app, the way a `github:` install lands.
     def gem_line_from_this_checkout
       sha = git("rev-parse", "HEAD")
-      say "the gem is installed from this checkout at #{sha[0, 12]}; its uncommitted changes are not part of the smoke" unless git("status", "--porcelain").empty?
+      warn_about_uncommitted_changes(sha)
       %(#{GEM_LINE}, git: #{"file://#{@gem_root}".inspect}, ref: #{sha.inspect})
     end
 
+    # A git source sees commits only: say so on stderr, where a green run cannot bury it, when the working tree is not what was smoked.
+    def warn_about_uncommitted_changes(sha)
+      return if git("status", "--porcelain").empty?
+
+      warn "smoke --app: WARNING the gem is installed from #{sha[0, 12]}; uncommitted changes in #{@gem_root} are NOT part of this smoke"
+    end
+
     def git(*args)
-      output, status = Open3.capture2("git", "-C", @gem_root.to_s, *args)
-      raise "git #{args.join(' ')} failed in #{@gem_root}" unless status.success?
+      output, error, status = Open3.capture3("git", "-C", @gem_root.to_s, *args)
+      raise "git #{args.join(' ')} failed in #{@gem_root}: #{error.strip}" unless status.success?
 
       output.strip
     end

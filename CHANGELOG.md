@@ -45,7 +45,7 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
   Base UI).
 - Primitives `scorer` (fuzzy match and ranking, with its own unit tests) and `anchor_positioner`.
 - `bin/rails chadcn:doctor` diagnoses a host app's chadcn setup with one PASS/WARN/FAIL line per check and a one-line fix under each warning or failure
-  (asset pipeline, ejected components, engine bundle, JavaScript pipeline, Phlex versions, Propshaft stub filter, `@source` block,
+  (asset pipeline, ejected components, engine bundle, JavaScript pipeline, Phlex versions, Propshaft stub filter, source block,
   Stimulus controllers, Tailwind, theme files and theme import). `chadcn:doctor[json]` or `JSON=1` prints JSON for CI and
   agents, `CSS=path` points it at another Tailwind entry file, and it exits 1 when any check fails (warnings do not fail it).
 - `rails g chadcn:install --js auto|importmap|esbuild`: the generator detects the JavaScript pipeline (`auto`, the default: a
@@ -83,7 +83,8 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
   (default `app/assets/tailwind/theme`).
 - Theme tooling: `Chadcn::Theme` and the rake tasks `chadcn:theme:list|use|import|check` (short `theme:*` aliases;
   turn them off with `config.chadcn.theme_task_aliases = false`).
-- `rails g chadcn:install`: idempotent marker block in the Tailwind entry file (`@source`, engine bundle, theme import) and
+- `rails g chadcn:install`: idempotent marker block in the Tailwind entry file (engine bundle and theme imports; the engine's
+  `engine.css` carries the `@source` for the gem's Ruby files) and
   the default theme files; exits non-zero on malformed input.
 - YARD documentation of the public API of every component family (display, form controls, disclosure and navigation, overlays,
   menus and select), with an example per root and the generated helpers listed on their owner class; implementation details are

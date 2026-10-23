@@ -124,7 +124,7 @@ module Chadcn
       def block_sources = managed_block.to_s.scan(SOURCE).flatten.map { |value| resolve_from_css(value) }
 
       # @return [Boolean] whether the managed block imports the engine bundle (`ENGINE_BUNDLE`)
-      def imports_engine_bundle? = block_imports.include?(path(ENGINE_BUNDLE))
+      def imports_engine_bundle? = block_imports.include?(Pathname.new(File.expand_path(ENGINE_BUNDLE, root)))
 
       # @param value [String] a path as written in the entry file's `@source` or `@import`
       # @return [Pathname] the file or directory it names, relative to the entry file, without a `.css` suffix

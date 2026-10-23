@@ -18,6 +18,15 @@ class InstallGeneratorTest < Rails::Generators::TestCase
   SUCCESS_LINE = "Installed. Your app just got a jawline."
   REFRESH_REMINDER = "Run the generator again after updating the gem: it refreshes the copied JavaScript."
 
+  # The block is the same on every machine: the engine bundle (whose engine.css carries the self-relative @source for the gem's
+  # Ruby files) and the theme, both relative to the app.
+  MANAGED_BLOCK = [
+    "/* chadcn:start (managed by rails g chadcn:install) */",
+    %(@import "../builds/tailwind/chadcn";),
+    %(@import "./theme/theme.css";),
+    "/* chadcn:end */"
+  ].freeze
+
   # The booted test app configures a custom theme_dir; the generator reads it, so each test starts from "not configured".
   setup do
     @configured_theme_dir = Rails.application.config.chadcn.theme_dir
@@ -53,15 +62,6 @@ class InstallGeneratorTest < Rails::Generators::TestCase
     end
   end
 
-  # The block is the same on every machine: the engine bundle (whose engine.css carries the self-relative @source for the gem's
-  # Ruby files) and the theme, both relative to the app.
-  MANAGED_BLOCK = [
-    "/* chadcn:start (managed by rails g chadcn:install) */",
-    %(@import "../builds/tailwind/chadcn";),
-    %(@import "./theme/theme.css";),
-    "/* chadcn:end */"
-  ].freeze
-
   test "writes one block after the tailwind import with the engine bundle and the theme" do
     run_generator
 
@@ -71,7 +71,7 @@ class InstallGeneratorTest < Rails::Generators::TestCase
     refute_nil start
 
     assert_equal %(@import "tailwindcss";), lines[start - 1]
-    assert_equal MANAGED_BLOCK, lines[start..(start + 3)]
+    assert_equal MANAGED_BLOCK, lines[start, MANAGED_BLOCK.size]
     assert_includes css, %(@import "./components/other.css";), "the rest of the file is untouched"
     assert_equal 1, css.scan("chadcn:start").size
   end
@@ -81,6 +81,7 @@ class InstallGeneratorTest < Rails::Generators::TestCase
     run_generator
     block = css[%r{/\* chadcn:start.*chadcn:end \*/}m]
 
+    refute_nil block, "the generator wrote no managed block"
     refute_includes block, "@source"
     refute_includes css, Chadcn.root.to_s
     block.scan(/"([^"]+)"/).flatten.each do |path|
@@ -175,6 +176,7 @@ class InstallGeneratorTest < Rails::Generators::TestCase
     output = run_generator
 
     assert_match(%r{update\s+app/assets/tailwind/application.css}, output)
+    assert_includes css, MANAGED_BLOCK.join("\n"), "the older block is rewritten to the current one"
     refute_includes css, "@source"
     assert_equal 1, css.scan("chadcn:start").size
     assert_includes css, %(@import "./components/other.css";)
