@@ -1,20 +1,20 @@
 import { Controller } from "@hotwired/stimulus"
+import { turboCacheRestore } from "chadcn/primitives/turbo_cache"
 
 // Radix Avatar loading status (docs/shadcn-port/specs/avatar.md). Host = the Avatar root.
 // Image and delayed Fallback parts wait in inert <template>s; mounting swaps the template for a fresh clone in place.
 export default class extends Controller {
   static targets = ["image", "fallback"]
 
-  restoreTimer = null
-
   connect() {
     this.#setup()
-    document.addEventListener("turbo:before-cache", this.onBeforeCache)
+    // A page snapshot must hold the server markup (the image as its template, the fallback in place), not the mounted image
+    // next to an emptied fallback template that a restored controller could not clone.
+    this.cache = turboCacheRestore({ teardown: () => this.#teardown(), restore: () => this.#setup() })
   }
 
   disconnect() {
-    document.removeEventListener("turbo:before-cache", this.onBeforeCache)
-    clearTimeout(this.restoreTimer)
+    this.cache.release()
     this.#teardown()
   }
 
@@ -35,18 +35,6 @@ export default class extends Controller {
     })
     this.status = "idle"
     this.#render()
-  }
-
-  // A page snapshot must hold the server markup (the image as its template, the fallback in place), not the mounted image
-  // next to an emptied fallback template that a restored controller could not clone. Turbo takes the snapshot one timer tick
-  // after this event (hence the two ticks below) and also for visits that keep the page (a link to #hash), so the controller
-  // is set up again once the snapshot is taken; a real navigation disconnects it first, which cancels that.
-  onBeforeCache = () => {
-    clearTimeout(this.restoreTimer)
-    this.#teardown()
-    this.restoreTimer = setTimeout(() => {
-      this.restoreTimer = setTimeout(() => this.#setup())
-    })
   }
 
   #fallbackRecord(el) {

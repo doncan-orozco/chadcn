@@ -1,5 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import { collapsibleContent } from "chadcn/primitives/collapsible_content"
+import { turboCacheRestore } from "chadcn/primitives/turbo_cache"
 
 // Radix Collapsible. Spec: docs/shadcn-port/specs/collapsible.md (Behavior).
 //
@@ -15,17 +16,13 @@ export default class extends Controller {
   static values = { controlled: Boolean, disabled: Boolean, contentId: String }
   static targets = ["trigger", "content", "body"]
 
-  restoreTimer = null
-
   connect() {
     this.#setup()
-    document.addEventListener("turbo:before-cache", this.onBeforeCache)
+    this.cache = turboCacheRestore({ teardown: () => this.#teardownForCache(), restore: () => this.#setup() })
   }
 
   disconnect() {
-    document.removeEventListener("turbo:before-cache", this.onBeforeCache)
-    clearTimeout(this.restoreTimer)
-    this.restoring = false
+    this.cache.release()
     this.#teardown()
   }
 
@@ -43,20 +40,11 @@ export default class extends Controller {
   }
 
   // A page snapshot must hold the server markup: a closed content with its body template, a closed as_child content as its
-  // template (connect() took them over, so a restored page could never open the content). Turbo takes the snapshot one timer
-  // tick after this event (hence the two ticks below) and also for visits that keep the page (a link to #hash), so the
-  // controller is set up again once the snapshot is taken; a real navigation disconnects it first, which cancels that.
-  onBeforeCache = () => {
-    clearTimeout(this.restoreTimer)
+  // template (connect() took them over, so a restored page could never open the content). The turbo_cache primitive sets the
+  // controller up again once the snapshot is taken; until then (`cache.pending`) a toggle is ignored.
+  #teardownForCache() {
     this.records?.forEach((record) => this.#restoreMarkup(record))
     this.#teardown()
-    this.restoring = true
-    this.restoreTimer = setTimeout(() => {
-      this.restoreTimer = setTimeout(() => {
-        this.#setup()
-        this.restoring = false
-      })
-    })
   }
 
   #restoreMarkup(record) {
@@ -80,7 +68,7 @@ export default class extends Controller {
   }
 
   toggle(event) {
-    if (event.defaultPrevented || this.restoring) return
+    if (event.defaultPrevented || this.cache.pending) return
     const next = this.element.dataset.state !== "open"
     if (!this.controlledValue) this.#set(next)
     this.dispatch("open-change", { detail: { open: next }, cancelable: false })

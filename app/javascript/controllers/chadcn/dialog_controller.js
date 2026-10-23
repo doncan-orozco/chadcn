@@ -6,6 +6,7 @@ import { hideOthers } from "chadcn/primitives/hide_others"
 import { presence } from "chadcn/primitives/presence"
 import { scrollLock } from "chadcn/primitives/scroll_lock"
 import { mountTemplate } from "chadcn/primitives/template_mount"
+import { turboCacheRestore } from "chadcn/primitives/turbo_cache"
 
 // Radix Dialog. Spec: docs/shadcn-port/specs/dialog.md (Behavior).
 //
@@ -27,11 +28,11 @@ export default class extends Controller {
     this.hasInteractedOutside = false
     this.hasPointerDownOutside = false
     this.caching = false
-    this.restoreTimer = null
-    this.restorePending = false
-    this.restoreOpen = false
-    this.abortCache = new AbortController()
-    document.addEventListener("turbo:before-cache", () => this.#resetForCache(), { signal: this.abortCache.signal })
+    // A second before-cache inside the restore window carries the pending restore's open state forward.
+    this.cache = turboCacheRestore({
+      teardown: ({ pending, state: wasOpen }) => this.#resetForCache(this.openValue || (pending && wasOpen)),
+      restore: (wasOpen) => this.#restoreAfterCache(wasOpen)
+    })
     this.#syncTriggers()
     this.templates().forEach((template) => {
       if (this.openValue || this.#options(template).forceMount) this.#mount(template)
@@ -40,8 +41,7 @@ export default class extends Controller {
 
   disconnect() {
     this.disconnected = true
-    this.abortCache?.abort()
-    this.#cancelRestore()
+    this.cache.release()
     this.#cancelPending()
     ;[...this.parts].forEach((part) => this.#unmount(part))
   }
@@ -51,13 +51,9 @@ export default class extends Controller {
   // Unmounts at once (no exit animation, no focus return) and closes an uncontrolled dialog; a controlled one keeps the
   // value the server rendered and mounts again from it on connect.
   //
-  // Turbo takes the snapshot one timer tick after this event (PageView#cacheSnapshot -> nextEventLoopTick, hence the two
-  // ticks below), and also takes it for visits that keep the page (a link to #hash). So an open dialog is opened again
-  // once the snapshot is taken, if this controller is still connected: a real navigation replaces the page later and
-  // disconnects it, which cancels the pending restore.
-  #resetForCache() {
-    const wasOpen = this.openValue || this.restoreOpen // a second before-cache inside the window carries the pending restore forward
-    this.#cancelRestore()
+  // The turbo_cache primitive opens the dialog again once the snapshot is taken (Turbo also snapshots visits that keep the
+  // page, a link to #hash) while this controller is still connected; `wasOpen` is the state it carries from teardown to restore.
+  #resetForCache(wasOpen) {
     this.caching = true
     this.#cancelPending()
     ;[...this.parts].forEach((part) => this.#unmount(part))
@@ -65,18 +61,10 @@ export default class extends Controller {
     if (!this.controlledValue) this.openValue = false
     this.shown = false
     this.#syncTriggers()
-    this.restorePending = true
-    this.restoreOpen = wasOpen
-    this.restoreTimer = setTimeout(() => {
-      this.restoreTimer = setTimeout(() => this.#restoreAfterCache(wasOpen))
-    })
+    return wasOpen
   }
 
   #restoreAfterCache(wasOpen) {
-    this.restoreTimer = null
-    this.restorePending = false
-    this.restoreOpen = false
-    if (this.disconnected) return
     if (wasOpen) {
       if (!this.controlledValue) this.openValue = true
       this.#sync()
@@ -86,13 +74,6 @@ export default class extends Controller {
     this.templates().forEach((template) => {
       if (this.#options(template).forceMount && !this.parts.some((part) => part.template === template)) this.#mount(template)
     })
-  }
-
-  #cancelRestore() {
-    clearTimeout(this.restoreTimer)
-    this.restoreTimer = null
-    this.restorePending = false
-    this.restoreOpen = false
   }
 
   toggle(event) {

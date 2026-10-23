@@ -1,6 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 import { presence } from "chadcn/primitives/presence"
 import { direction } from "chadcn/primitives/direction"
+import { turboCacheRestore } from "chadcn/primitives/turbo_cache"
 
 // Radix ScrollArea behavior (docs/shadcn-port/specs/scroll-area.md, @radix-ui/react-scroll-area 1.3.0). Host = the Root div.
 // Each ScrollBar waits in an inert <template> (its thumb in a nested one); mounting inserts a clone right after it.
@@ -17,16 +18,13 @@ export default class extends Controller {
   static targets = ["scrollbar"]
   static values = { type: { type: String, default: "hover" }, scrollHideDelay: { type: Number, default: 600 } }
 
-  restoreTimer = null
-
   connect() {
     this.#setup()
-    document.addEventListener("turbo:before-cache", this.onBeforeCache)
+    this.cache = turboCacheRestore({ teardown: () => this.#teardownForCache(), restore: (hovered) => this.#setupAfterCache(hovered) })
   }
 
   disconnect() {
-    document.removeEventListener("turbo:before-cache", this.onBeforeCache)
-    clearTimeout(this.restoreTimer)
+    this.cache.release()
     this.#teardown()
   }
 
@@ -63,20 +61,18 @@ export default class extends Controller {
   }
 
   // A page snapshot must not hold a mounted scrollbar (or the corner): the restored controller mounts its own next to it, so
-  // the scrollbars would be doubled. Turbo takes the snapshot one timer tick after this event (hence the two ticks below) and
-  // also for visits that keep the page (a link to #hash), so the controller is set up again once the snapshot is taken; a real
-  // navigation disconnects it first, which cancels that.
-  onBeforeCache = () => {
-    clearTimeout(this.restoreTimer)
+  // the scrollbars would be doubled. The turbo_cache primitive sets the controller up again once the snapshot is taken; whether
+  // a scrollbar was hovered is the state it carries over.
+  #teardownForCache() {
     const hovered = this.records?.some((record) => record.hover) ?? false
     this.#teardown()
-    this.restoreTimer = setTimeout(() => {
-      this.restoreTimer = setTimeout(() => {
-        this.#setup()
-        // The pointer may still be inside the root: no pointerenter will tell the new records.
-        if (hovered && this.typeValue === "hover" && this.element.matches(":hover")) this.onRootEnter()
-      })
-    })
+    return hovered
+  }
+
+  #setupAfterCache(hovered) {
+    this.#setup()
+    // The pointer may still be inside the root: no pointerenter will tell the new records.
+    if (hovered && this.typeValue === "hover" && this.element.matches(":hover")) this.onRootEnter()
   }
 
   // Radix sets this state from a native listener, which React 19 renders in a scheduler task, not synchronously.
