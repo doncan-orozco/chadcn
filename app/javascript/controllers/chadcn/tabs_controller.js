@@ -24,7 +24,7 @@ export default class extends Controller {
   }
 
   disconnect() {
-    this.cache.release()
+    this.cache?.release()
     this.#teardown()
   }
 
@@ -110,7 +110,7 @@ export default class extends Controller {
 
   // Controlled: dispatch only. Uncontrolled: update the DOM, then dispatch once per actual change.
   #request(value) {
-    if (this.cache.pending) return // the panels are put back for the snapshot; they are built again once it is taken
+    if (this.cache?.pending) return // the panels are put back for the snapshot; they are built again once it is taken
     if (this.controlledValue) {
       if (value !== this.current) this.dispatch("value-change", { detail: { value }, cancelable: false })
       return

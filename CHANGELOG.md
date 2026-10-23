@@ -119,7 +119,7 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 
 - The `chadcn--accordion`, `chadcn--collapsible`, `chadcn--tabs`, `chadcn--avatar`, `chadcn--scroll-area`, `chadcn--dialog` (alert-dialog
   and sheet through it) and `chadcn--hover-card` controllers share the `turbo_cache` primitive instead of each keeping its own
-  `turbo:before-cache` listener and two-tick restore timer; no behavior change (the Turbo browser tests are unchanged).
+  `turbo:before-cache` listener and two-tick restore timer (see Fixed for the two restore gaps it closed).
 - `rails g chadcn:install` no longer writes an `@source` line into the managed block: the block is now the same on every machine
   (the engine bundle import and the theme import), because the engine's `engine.css` carries a self-relative `@source` for the gem's
   Ruby files and the Tailwind output is byte-identical without the generator's line. Re-run the generator after updating: it rewrites
@@ -235,6 +235,9 @@ Since the first extraction of the gem:
   one (a scenario named twice exits 2). The default `dev/bench/baseline.json` is validated like an `--against` file: an unreadable or
   malformed one exits 1 with a message (for plain runs, `--json` and `--check` alike; `--record` warns and rewrites it instead), and
   the baseline is validated before anything is measured.
+- On a Turbo visit that keeps the page (a link to `#hash`), a `HoverCard` rendered open (`open: true`, or `default_open: true` and not
+  closed by the user) is open again once the snapshot is taken instead of staying closed until its value changes; a hovered
+  `ScrollArea` keeps its scrollbar when a second `turbo:before-cache` arrives inside the restore window.
 - `chadcn--theme` instances with the same storage key stay in sync: each follows `chadcn--theme:changed` from the others (the event
   detail now also carries `storageKey`) and the `storage` event from other tabs, re-applying without dispatching again, so a stale
   instance no longer re-applies `system` over the stored choice when the OS scheme changes, and one choice is exactly one `changed`

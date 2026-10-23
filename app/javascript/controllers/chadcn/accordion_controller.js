@@ -30,7 +30,7 @@ export default class extends Controller {
   }
 
   disconnect() {
-    this.cache.release()
+    this.cache?.release()
     this.#teardown()
   }
 

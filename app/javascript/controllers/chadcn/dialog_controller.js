@@ -28,9 +28,8 @@ export default class extends Controller {
     this.hasInteractedOutside = false
     this.hasPointerDownOutside = false
     this.caching = false
-    // A second before-cache inside the restore window carries the pending restore's open state forward.
     this.cache = turboCacheRestore({
-      teardown: ({ pending, state: wasOpen }) => this.#resetForCache(this.openValue || (pending && wasOpen)),
+      teardown: (cancelled) => this.#teardownForCache(cancelled),
       restore: (wasOpen) => this.#restoreAfterCache(wasOpen)
     })
     this.#syncTriggers()
@@ -41,7 +40,7 @@ export default class extends Controller {
 
   disconnect() {
     this.disconnected = true
-    this.cache.release()
+    this.cache?.release()
     this.#cancelPending()
     ;[...this.parts].forEach((part) => this.#unmount(part))
   }
@@ -52,8 +51,8 @@ export default class extends Controller {
   // value the server rendered and mounts again from it on connect.
   //
   // The turbo_cache primitive opens the dialog again once the snapshot is taken (Turbo also snapshots visits that keep the
-  // page, a link to #hash) while this controller is still connected; `wasOpen` is the state it carries from teardown to restore.
-  #resetForCache(wasOpen) {
+  // page, a link to #hash) while this controller is still connected: it carries the open state from teardown to restore.
+  #resetForCache() {
     this.caching = true
     this.#cancelPending()
     ;[...this.parts].forEach((part) => this.#unmount(part))
@@ -61,6 +60,13 @@ export default class extends Controller {
     if (!this.controlledValue) this.openValue = false
     this.shown = false
     this.#syncTriggers()
+  }
+
+  // A second before-cache inside the restore window finds the dialog already closed: the open state of the restore it
+  // replaces carries over.
+  #teardownForCache({ pending, state }) {
+    const wasOpen = Boolean(this.openValue || (pending && state))
+    this.#resetForCache()
     return wasOpen
   }
 

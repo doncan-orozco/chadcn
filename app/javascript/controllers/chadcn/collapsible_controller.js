@@ -22,7 +22,7 @@ export default class extends Controller {
   }
 
   disconnect() {
-    this.cache.release()
+    this.cache?.release()
     this.#teardown()
   }
 
@@ -68,7 +68,7 @@ export default class extends Controller {
   }
 
   toggle(event) {
-    if (event.defaultPrevented || this.cache.pending) return
+    if (event.defaultPrevented || this.cache?.pending) return
     const next = this.element.dataset.state !== "open"
     if (!this.controlledValue) this.#set(next)
     this.dispatch("open-change", { detail: { open: next }, cancelable: false })

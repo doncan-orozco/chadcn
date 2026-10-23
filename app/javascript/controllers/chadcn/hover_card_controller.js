@@ -35,7 +35,10 @@ export default class extends Controller {
     on("pointerleave", (event) => event.pointerType !== "touch" && this.leave())
     on("focus", () => this.intent.enter())
     on("blur", () => this.leave())
-    this.cache = turboCacheRestore({ teardown: () => this.reset(), restore: () => this.#restoreAfterCache() })
+    this.cache = turboCacheRestore({
+      teardown: (cancelled) => this.#teardownForCache(cancelled),
+      restore: (staysOpen) => this.#restoreAfterCache(staysOpen)
+    })
 
     if (this.isOpen) this.mount()
     this.syncTrigger()
@@ -53,7 +56,7 @@ export default class extends Controller {
 
   disconnect() {
     if (!this.template) return
-    this.cache.release()
+    this.cache?.release()
     this.reset()
     this.abort.abort()
     this.intent.release()
@@ -64,10 +67,9 @@ export default class extends Controller {
     return (this.element.parentElement || document).querySelector(selector) || document.querySelector(selector)
   }
 
-  // A cached page must not hold a hover-opened card (a server-rendered open value is honoured again on connect): the card is torn
-  // down and the hover intent is reset, so no stale open flag or pending timer survives the snapshot (turbo_cache teardown, and
-  // the disconnect cleanup). Once the snapshot is taken (turbo_cache restore), a trigger that is still hovered or focused re-arms
-  // the intent, so the card comes back after its delay, like after a fresh pointerenter.
+  // Tears the card down and resets the hover intent, so no stale open flag or pending timer survives (turbo_cache teardown and
+  // disconnect). A cached page never holds an open card: a restored page connects again from its server value, a page that stays
+  // (a link to #hash) is set up again by #restoreAfterCache.
   reset() {
     this.intent?.sync(false)
     this.teardown()
@@ -75,9 +77,27 @@ export default class extends Controller {
     this.syncTrigger()
   }
 
-  // Pointer presence counts only where hovering exists: on touch devices `:hover` sticks to the tapped element, and touch must
-  // never open the card (pointerenter is ignored for it too).
-  #restoreAfterCache() {
+  // The state carried to the restore: whether an uncontrolled card stays open. Only a card the server rendered open (default_open)
+  // and still open is kept; a hover-opened card is re-armed from the pointer instead, one the user closed stays closed. A second
+  // event inside the window finds the card already reset, so the answer of the restore it replaces carries over.
+  #teardownForCache({ pending, state: cancelledStaysOpen }) {
+    const renderedOpen = this.openValue // request() never writes it for an uncontrolled card: the server's default_open
+    const staysOpen = !this.controlledValue && ((this.isOpen && renderedOpen) || (pending && cancelledStaysOpen))
+    this.reset()
+    return staysOpen
+  }
+
+  // Set up again as connect() would: a controlled card follows the value the app owns now (it may have changed inside the window),
+  // an uncontrolled one the state its teardown kept. Otherwise pointer presence counts only where hovering exists: on touch devices
+  // `:hover` sticks to the tapped element, and touch must never open the card (pointerenter is ignored for it too).
+  #restoreAfterCache(staysOpen) {
+    if (this.controlledValue ? this.openValue : staysOpen) {
+      this.isOpen = true
+      this.mount()
+      this.intent.sync(true)
+      this.syncTrigger()
+      return
+    }
     const hovered = window.matchMedia("(hover: hover)").matches && this.element.matches(":hover")
     if (hovered || this.element.contains(document.activeElement)) this.intent.enter()
   }

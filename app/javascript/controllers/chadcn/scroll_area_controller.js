@@ -20,11 +20,11 @@ export default class extends Controller {
 
   connect() {
     this.#setup()
-    this.cache = turboCacheRestore({ teardown: () => this.#teardownForCache(), restore: (hovered) => this.#setupAfterCache(hovered) })
+    this.cache = turboCacheRestore({ teardown: (cancelled) => this.#teardownForCache(cancelled), restore: (hovered) => this.#setupAfterCache(hovered) })
   }
 
   disconnect() {
-    this.cache.release()
+    this.cache?.release()
     this.#teardown()
   }
 
@@ -62,11 +62,11 @@ export default class extends Controller {
 
   // A page snapshot must not hold a mounted scrollbar (or the corner): the restored controller mounts its own next to it, so
   // the scrollbars would be doubled. The turbo_cache primitive sets the controller up again once the snapshot is taken; whether
-  // a scrollbar was hovered is the state it carries over.
-  #teardownForCache() {
+  // a scrollbar was hovered is the state it carries over, also across a second event inside the window (the records are gone then).
+  #teardownForCache({ pending, state: wasHovered }) {
     const hovered = this.records?.some((record) => record.hover) ?? false
     this.#teardown()
-    return hovered
+    return hovered || (pending && wasHovered === true)
   }
 
   #setupAfterCache(hovered) {
