@@ -7,6 +7,6 @@
     "Popover::Content renders an inert <template data-chadcn--popover-template> (no data-slot) holding the content markup while closed",
     "Popover::Anchor carries data-chadcn--popover-anchor=<key>; a Trigger that is not the controller host carries data-chadcn--popover-trigger=<key>",
     "when no Trigger precedes the Content inside a Popover block, the Content <template> hosts data-controller=chadcn--popover",
-    "Popover takes id: (no Radix prop): the id of the content, the other generated ids being <id>-<part>; Radix numbers ids with React's useId (unique per tree, no caller control); the port numbers them per request with the Rails engine and per render otherwise (Chadcn::Sequence), and the root takes an explicit base"
+    "Popover takes id: (no Radix prop): the content's id and the key of its template, anchor and triggers; no other ids are generated. Numbering as in Chadcn::Sequence"
   ]
 }

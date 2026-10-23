@@ -136,15 +136,16 @@ class Chadcn::ContextMenu < Chadcn::Base
   # @param dir [String, Symbol, nil] +"ltr"+ or +"rtl"+ sets the direction of the menu; any other value (including +nil+) is
   #   ignored and the direction comes from the surrounding {Chadcn::Direction} provider, or +"ltr"+
   # @param modal [Boolean] default +true+; passed to the controller as its +modal+ value (not validated)
-  # @param id [String, nil] id of the content (what the trigger controls); the other generated ids derive from it (`"x-trigger"`,
-  #   `"x-sub-1-content"`). The content carries it as its +id+ only when given (Radix renders none).
+  # @param id [String, nil] base of the generated ids: the key of the content's template and, only when given, the content's +id+
+  #   (Radix renders none); the subs are "<id>-sub-N" with triggers "<id>-sub-N-trigger". The trigger carries no id.
   #   Default `context-menu-N`, numbered per request with the engine, per render without it
+  # @raise [ArgumentError] when id: is empty or contains whitespace, a double quote or a backslash
   def initialize(open: nil, dir: nil, modal: true, id: nil)
     @controlled = !open.nil?
     @open = @controlled ? open : false
     @modal = modal
     @dir = dir.to_s if DIRECTIONS.include?(dir.to_s)
-    @id = id
+    @id = validated_id(id)
     super()
   end
 

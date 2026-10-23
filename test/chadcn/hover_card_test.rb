@@ -111,4 +111,13 @@ class Chadcn::HoverCardTest < Chadcn::TestCase
     assert_includes out, 'data-chadcn--hover-card-template="author-card"'
     assert_includes out, 'data-chadcn--hover-card-template-key-value="author-card"'
   end
+
+  test "without id the trigger finds the card by the template key and no element carries it as an id" do
+    doc = Nokogiri::HTML5.fragment(render_card)
+    key = doc.at_css("template")["data-chadcn--hover-card-template"]
+
+    assert_equal "hover-card-1", key
+    assert_equal key, doc.at_css("[data-slot=hover-card-trigger]")["data-chadcn--hover-card-template-key-value"]
+    assert_nil doc.at_css("[data-slot=hover-card-content]")["id"]
+  end
 end

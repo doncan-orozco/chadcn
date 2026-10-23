@@ -31,14 +31,16 @@ class Chadcn::Sidebar::Provider < Chadcn::Base
   # @param default_open [Boolean] initial state when uncontrolled (default: true)
   # @param open [Boolean, nil] controlled state (default: nil, uncontrolled)
   # @param style [String, Hash, nil] extra inline style, appended after the `--sidebar-width` variables (default: nil)
-  # @param id [String, nil] id of the wrapper element, as in React, and the base of the generated ids (`"docs-sidebar"`).
-  #   Without it the element has no id and the base is `sidebar-N`, numbered per request with the engine, per render without it
+  # @param id [String, nil] id of the wrapper element, as in React, and the sidebar's name (data-chadcn--sidebar-id-value, the key
+  #   its menu tooltips use); it seeds no other id. Without it the element has no id and the name is `sidebar-N`,
+  #   numbered per request with the engine, per render without it
   # @param attrs [Hash] HTML attributes for the wrapper `div`; `class:` is tailwind-merged, `data:` and `aria:` are deep-merged
+  # @raise [ArgumentError] when id: is empty or contains whitespace, a double quote or a backslash
   def initialize(default_open: true, open: nil, style: nil, id: nil, **attrs)
     @controlled = !open.nil?
     @open = @controlled ? open : default_open
     @style = style
-    @id = id
+    @id = validated_id(id)
     @attrs = attrs
     super()
   end

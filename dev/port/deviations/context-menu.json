@@ -1,8 +1,8 @@
 {
-  "reason": "Radix ContextMenu.Root renders no element and numbers ids with useId; the port generates them on the server and lets the caller name them (item #14 of the standalone epic).",
+  "reason": "Radix ContextMenu.Root renders no element and wires no id on the content (it carries none); the port generates ids for its template, subs and sub triggers on the server and lets the caller name them (item #14 of the standalone epic).",
   "allow_tokens": [],
   "allow_missing_tokens": [],
   "api": [
-    "ContextMenu takes id: (no Radix prop): the id of the content, the other generated ids being <id>-<part>; Radix numbers ids with React's useId (unique per tree, no caller control); the port numbers them per request with the Rails engine and per render otherwise (Chadcn::Sequence), and the root takes an explicit base"
+    "ContextMenu takes id: (no Radix prop): the content template key and, only when given, the content's id; subs are <id>-sub-N with triggers <id>-sub-N-trigger; the trigger has no id, as in Radix. Numbering as in Chadcn::Sequence"
   ]
 }

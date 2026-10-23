@@ -570,7 +570,7 @@ Constructor: `Chadcn::ContextMenu.new(open: nil, dir: nil, modal: true, id: nil)
 - `open` [Boolean, nil] `nil` (default) leaves the menu uncontrolled and closed on first render. Any non-nil value makes it controlled: it is rendered open or closed and the controller only dispatches `chadcn--context-menu:open-change`; it never flips the state itself. Radix has no default open for the root (there is no `default_open:`; passing it raises `ArgumentError` at construction)
 - `dir` [String, Symbol, nil] `"ltr"` or `"rtl"` sets the direction of the menu; any other value (including `nil`) is ignored and the direction comes from the surrounding `Chadcn::Direction` provider, or `"ltr"`
 - `modal` [Boolean] default `true`; passed to the controller as its `modal` value (not validated)
-- `id` [String, nil] id of the content (what the trigger controls); the other generated ids derive from it (`"x-trigger"`, `"x-sub-1-content"`). The content carries it as its `id` only when given (Radix renders none). Default `context-menu-N`, numbered per request with the engine, per render without it
+- `id` [String, nil] base of the generated ids: the key of the content's template and, only when given, the content's `id` (Radix renders none); the subs are "<id>-sub-N" with triggers "<id>-sub-N-trigger". The trigger carries no id. Default `context-menu-N`, numbered per request with the engine, per render without it
 
 Parts (class, yielded-root helper, constructor):
 
@@ -678,7 +678,7 @@ Constructor: `Chadcn::DropdownMenu.new(open: nil, default_open: false, modal: tr
 - `default_open` [Boolean] initial state when uncontrolled (default `false`); ignored when `open:` is given
 - `modal` [Boolean] default `true`; rendered as the controller's modal value (outside pointer events and scroll are blocked while open)
 - `dir` [String, Symbol, nil] `"ltr"` or `"rtl"`. Any other value (and `nil`) is ignored without error and the direction comes from the nearest Direction::Provider, then `"ltr"`.
-- `id` [String, nil] id of the content (what the trigger controls); the other generated ids derive from it (`"x-trigger"`, `"x-sub-1-content"`). Default `dropdown-menu-N`, numbered per request with the engine, per render without it
+- `id` [String, nil] id of the content (what the trigger controls); the trigger is "<id>-trigger", the subs "<id>-sub-N" with triggers "<id>-sub-N-trigger". Default `dropdown-menu-N`, numbered per request with the engine, per render without it
 
 Parts (class, yielded-root helper, constructor):
 
@@ -785,7 +785,7 @@ Constructor: `Chadcn::HoverCard.new(open: nil, default_open: false, open_delay: 
 - `default_open` [Boolean] initial open state when uncontrolled
 - `open_delay` [Integer] ms before opening on hover (default 700)
 - `close_delay` [Integer] ms before closing after leaving (default 300)
-- `id` [String, nil] id of the content (what the trigger describes). Default `hover-card-N`, numbered per request with the engine, per render without it
+- `id` [String, nil] key of the content's template, by which the trigger finds the card; no element carries it as an id (Radix wires none). Default `hover-card-N`, numbered per request with the engine, per render without it
 
 Parts (class, yielded-root helper, constructor):
 
@@ -1141,7 +1141,7 @@ Constructor: `Chadcn::Popover.new(open: nil, default_open: false, modal: false, 
 - `open` [Boolean, nil] controlled open state when not nil
 - `default_open` [Boolean] initial open state when uncontrolled
 - `modal` [Boolean] modal popover (default false)
-- `id` [String, nil] id of the content (what the trigger controls); the other generated ids derive from it. Default `popover-N`, numbered per request with the engine, per render without it
+- `id` [String, nil] id of the content (what the trigger controls) and the key of its template, anchor and triggers. Default `popover-N`, numbered per request with the engine, per render without it
 
 Parts (class, yielded-root helper, constructor):
 
@@ -1263,7 +1263,7 @@ Constructor: `Chadcn::Select.new(value: nil, default_value: nil, open: nil, defa
 - `form` [String, nil] id of the form the hidden native select belongs to (also renders it, and keeps it outside a form)
 - `disabled` [Boolean] disables the Trigger and the hidden native select
 - `required` [Boolean, nil] `aria-required` on the Trigger (`nil` omits it, `false` renders `"false"`) and `required` on the hidden native select (only `true`)
-- `id` [String, nil] id of the content (what the trigger controls); the items are `<id>-item-N`. Default `select-N`, numbered per request with the engine, per render without it
+- `id` [String, nil] id of the content (the listbox the trigger controls); groups and item texts are `<id>-group-N` and `<id>-text-N` (one counter). It is not the trigger's id: give `select.trigger(id:)` another value for a Label. Default `select-N`, numbered per request with the engine, per render without it
 
 Parts (class, yielded-root helper, constructor):
 

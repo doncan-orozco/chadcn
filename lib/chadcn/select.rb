@@ -104,8 +104,10 @@ class Chadcn::Select < Chadcn::Base
   # @param disabled [Boolean] disables the Trigger and the hidden native select
   # @param required [Boolean, nil] +aria-required+ on the Trigger (+nil+ omits it, +false+ renders +"false"+) and +required+ on the hidden
   #   native select (only +true+)
-  # @param id [String, nil] id of the content (what the trigger controls); the items are +<id>-item-N+. Default +select-N+, numbered per
-  #   request with the engine, per render without it
+  # @param id [String, nil] id of the content (the listbox the trigger controls); groups and item texts are +<id>-group-N+ and
+  #   +<id>-text-N+ (one counter). It is not the trigger's id: give +select.trigger(id:)+ another value for a Label.
+  #   Default +select-N+, numbered per request with the engine, per render without it
+  # @raise [ArgumentError] when id: is empty or contains whitespace, a double quote or a backslash
   # @return [void]
   def initialize(value: nil, default_value: nil, open: nil, default_open: false, dir: nil, name: nil, auto_complete: nil,
                  form: nil, disabled: false, required: nil, id: nil)
@@ -113,7 +115,7 @@ class Chadcn::Select < Chadcn::Base
       controlled_value: !value.nil?, value: (value.nil? ? default_value : value)&.to_s,
       controlled_open: !open.nil?, open: open.nil? ? default_open : open,
       dir: (dir.to_s if DIRECTIONS.include?(dir.to_s)),
-      name:, auto_complete:, form:, disabled:, required:, base: id
+      name:, auto_complete:, form:, disabled:, required:, base: validated_id(id)
     }
     super()
   end

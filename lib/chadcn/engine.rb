@@ -52,7 +52,7 @@ module Chadcn
     private_constant :SprocketsAssets
 
     # The counters behind the generated ids for the current request (Chadcn::Sequence): an ActiveSupport::CurrentAttributes, so one
-    # instance per thread, reset by the Rails executor before and after every request and job. Installed as
+    # instance per thread, reset by the Rails executor when every request and job completes. Installed as
     # `Chadcn.config.sequence_store` below, so a layout, its view and the Turbo frames of one response number the roots in one
     # sequence and the next request starts again from 1. Outside the executor (a rake task, a script) the counters keep growing
     # for the thread, which never repeats an id either.
@@ -107,8 +107,11 @@ module Chadcn
     end
 
     # Generated ids (`dialog-1`, `dropdown-menu-2-trigger`) are numbered per request instead of per render: a page is several
-    # renders (layout, view, Turbo frames), each with its own Phlex context. The store is reset by the executor around each request.
+    # renders (layout, view, Turbo frames of one response), each with its own Phlex context. A store already set with
+    # Chadcn.configure (config/application.rb) wins, like theme_dir; config/initializers/*.rb run later and replace this one.
     initializer "chadcn.sequence_store" do
+      next if Chadcn.config.sequence_store
+
       Chadcn.configure { |config| config.sequence_store = RequestSequences.method(:store) }
     end
 

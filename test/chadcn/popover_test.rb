@@ -142,8 +142,17 @@ class Chadcn::PopoverTest < Chadcn::TestCase
     out = render_popover(root: { id: "filters", default_open: true })
 
     assert_includes out, 'aria-controls="filters"'
-    assert_includes out, 'id="filters"'
+    assert_includes out, '<div id="filters"'
     assert_includes out, 'data-chadcn--popover-template="filters"'
     assert_includes out, 'data-chadcn--popover-content-id-value="filters"'
+  end
+
+  test "without id the content, its template and the trigger share popover-1" do
+    out = render_popover(root: { default_open: true })
+
+    assert_includes out, '<div id="popover-1"'
+    assert_includes out, 'aria-controls="popover-1"'
+    assert_includes out, 'data-chadcn--popover-template="popover-1"'
+    assert_includes out, 'data-chadcn--popover-template-key-value="popover-1"'
   end
 end

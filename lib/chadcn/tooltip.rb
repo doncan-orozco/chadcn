@@ -46,12 +46,13 @@ class Chadcn::Tooltip < Chadcn::Base
   # @param disable_hoverable_content [Boolean, nil] close when the pointer leaves the trigger; falls back to the provider's
   # @param id [String, nil] id of the content (what the trigger describes). Default `tooltip-N`, numbered per request with the
   #   engine, per render without it
+  # @raise [ArgumentError] when id: is empty or contains whitespace, a double quote or a backslash
   def initialize(open: nil, default_open: false, delay_duration: nil, disable_hoverable_content: nil, id: nil)
     @open = open
     @default_open = default_open
     @delay_duration = delay_duration
     @disable_hoverable_content = disable_hoverable_content
-    @id = id
+    @id = validated_id(id)
     super()
   end
 
@@ -83,10 +84,11 @@ class Chadcn::Tooltip < Chadcn::Base
     # @param delay_duration [Integer] ms before a tooltip opens (default 0)
     # @param skip_delay_duration [Integer] ms during which moving to another tooltip skips the delay (default 300)
     # @param disable_hoverable_content [Boolean] close when the pointer leaves the trigger (default false)
-    # @param id [String, nil] id of the provider, which groups its tooltips. Default `tooltip-provider-N`, numbered per request with
-    #   the engine, per render without it
+    # @param id [String, nil] id of the provider, which groups its tooltips (rendered as a data attribute, not the id of any
+    #   element). Default `tooltip-provider-N`, numbered per request with the engine, per render without it
+    # @raise [ArgumentError] when id: is empty or contains whitespace, a double quote or a backslash
     def initialize(delay_duration: 0, skip_delay_duration: 300, disable_hoverable_content: false, id: nil)
-      @id = id
+      @id = validated_id(id)
       @options = { delay_duration:, skip_delay_duration:, disable_hoverable_content: }
       super()
     end

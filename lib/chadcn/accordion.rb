@@ -40,6 +40,7 @@ class Chadcn::Accordion < Chadcn::Base
   # @param id [String, nil] id of the root element, as in React, and the base of the generated ids (`"faq-item-1-trigger"`).
   #   Without it the element has no id and the base is `accordion-N`, numbered per request with the engine, per render without it
   # @param attrs [Hash] HTML attributes merged onto the root element
+  # @raise [ArgumentError] when id: is empty or contains whitespace, a double quote or a backslash
   def initialize(type: "single", value: nil, default_value: nil, collapsible: false, disabled: false, dir: nil,
                  orientation: "vertical", as_child: false, id: nil, **attrs)
     @type = type.to_s == "multiple" ? "multiple" : "single"
@@ -50,7 +51,7 @@ class Chadcn::Accordion < Chadcn::Base
     @dir = dir&.to_s
     @orientation = orientation.to_s
     @as_child = as_child
-    @id = id
+    @id = validated_id(id)
     @attrs = attrs
     super()
   end

@@ -12,6 +12,6 @@
     "Sidebar::Provider: chadcn--sidebar:open-change is always dispatched and an uncontrolled Provider always updates; React's 'onOpenChange without open' (state never updates) has no equivalent",
     "Sidebar::Rail: a caller data-action is added to the built-in toggle; React's caller onClick replaces it",
     "Sidebar::Provider: extra informational event chadcn--sidebar:open-mobile-change (React exposes openMobile only via useSidebar)",
-    "Sidebar::Provider id: keeps React's meaning (the id of the element) and also seeds the generated ids (the sidebar id); Radix numbers ids with React's useId (unique per tree, no caller control); the port numbers them per request with the Rails engine and per render otherwise (Chadcn::Sequence), and the root takes an explicit base"
+    "Sidebar::Provider id: keeps React's meaning (the wrapper's id) and is also the sidebar's name (data-chadcn--sidebar-id-value, the menu tooltip key); no other id is seeded from it. Default sidebar-N per request with the engine, per render otherwise"
   ]
 }

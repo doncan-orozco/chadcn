@@ -148,15 +148,16 @@ class Chadcn::DropdownMenu < Chadcn::Base
   #   are blocked while open)
   # @param dir [String, Symbol, nil] +"ltr"+ or +"rtl"+. Any other value (and +nil+) is ignored without error and the
   #   direction comes from the nearest Direction::Provider, then +"ltr"+.
-  # @param id [String, nil] id of the content (what the trigger controls); the other generated ids derive from it (`"x-trigger"`,
-  #   `"x-sub-1-content"`). Default `dropdown-menu-N`, numbered per request with the engine, per render without it
+  # @param id [String, nil] id of the content (what the trigger controls); the trigger is "<id>-trigger", the subs "<id>-sub-N"
+  #   with triggers "<id>-sub-N-trigger". Default `dropdown-menu-N`, numbered per request with the engine, per render without it
+  # @raise [ArgumentError] when id: is empty or contains whitespace, a double quote or a backslash
   # @return [void]
   def initialize(open: nil, default_open: false, modal: true, dir: nil, id: nil)
     @controlled = !open.nil?
     @open = @controlled ? open : default_open
     @modal = modal
     @dir = dir.to_s if DIRECTIONS.include?(dir.to_s)
-    @id = id
+    @id = validated_id(id)
     super()
   end
 

@@ -16,7 +16,7 @@ class EngineTest::Sequences < Minitest::Test
   def app = EngineTest::Application
 
   def setup
-    app.routes.draw { get "/menus", to: MENUS } if app.routes.routes.none? { |route| route.path.spec.to_s == "/menus" }
+    app.routes.draw { get "/menus", to: MENUS } if app.routes.routes.none? { |route| route.path.spec.to_s == "/menus(.:format)" }
   end
 
   def trigger_ids(path)
@@ -25,11 +25,18 @@ class EngineTest::Sequences < Minitest::Test
     assert_equal 200, status
     html = +""
     body.each { |chunk| html << chunk }
+    body.close if body.respond_to?(:close) # completes the request: the executor resets the counters here
     Nokogiri::HTML5.fragment(html).css("[data-slot=dropdown-menu-trigger]").map { |trigger| trigger["id"] }
   end
 
-  def test_the_engine_installs_a_sequence_store
-    assert_respond_to Chadcn.config.sequence_store, :call
+  def run_sequence_store_initializer
+    Chadcn::Engine.instance.initializers.find { |initializer| initializer.name == "chadcn.sequence_store" }.run(app)
+  end
+
+  def test_the_engine_installs_a_store_answering_a_hash
+    store = app.executor.wrap { Chadcn.config.sequence_store.call }
+
+    assert_kind_of Hash, store
   end
 
   def test_two_renders_in_one_request_produce_different_ids
@@ -37,6 +44,26 @@ class EngineTest::Sequences < Minitest::Test
   end
 
   def test_each_request_numbers_its_roots_from_one
-    assert_equal trigger_ids("/menus"), trigger_ids("/menus")
+    2.times { assert_equal %w[dropdown-menu-1-trigger dropdown-menu-2-trigger], trigger_ids("/menus") }
+  end
+
+  def test_a_store_set_with_configure_is_kept
+    previous = Chadcn.config.sequence_store
+    own = -> { {} }
+    Chadcn.config.sequence_store = own
+    run_sequence_store_initializer
+
+    assert_same own, Chadcn.config.sequence_store
+  ensure
+    Chadcn.config.sequence_store = previous
+  end
+
+  def test_the_engine_store_lives_for_one_execution
+    store = Chadcn.config.sequence_store
+    first = app.executor.wrap { [ store.call, store.call ] }
+    second = app.executor.wrap { store.call }
+
+    assert_same first.first, first.last
+    refute_same first.first, second
   end
 end

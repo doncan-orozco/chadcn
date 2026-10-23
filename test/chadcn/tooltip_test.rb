@@ -126,4 +126,13 @@ class Chadcn::TooltipTest < Chadcn::TestCase
     assert_includes out, 'id="save-tip"'
     assert_includes out, 'data-chadcn--tooltip-provider-id-value="toolbar"'
   end
+
+  test "without id the provider is tooltip-provider-1 and the tooltip takes the next number of the shared counter" do
+    out = render_tooltip(root: { default_open: true })
+
+    assert_includes out, 'data-chadcn--tooltip-provider-id-value="tooltip-provider-1"'
+    assert_includes out, 'data-chadcn--tooltip-template="tooltip-2"'
+    assert_includes out, 'role="tooltip" id="tooltip-2"'
+    assert_includes out, 'aria-describedby="tooltip-2"'
+  end
 end

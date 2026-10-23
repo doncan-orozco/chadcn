@@ -3,7 +3,7 @@
   "allow_tokens": [],
   "allow_missing_tokens": [],
   "api": [
-    "Select takes id: (no Radix prop): the id of the content, the other generated ids being <id>-<part>; Radix numbers ids with React's useId (unique per tree, no caller control); the port numbers them per request with the Rails engine and per render otherwise (Chadcn::Sequence), and the root takes an explicit base"
+    "Select takes id: (no Radix prop): the id of the content (the listbox the trigger controls), the group and item-text ids being <id>-group-N and <id>-text-N (one counter); Radix numbers ids with React's useId (unique per tree, no caller control); the port numbers them per request with the Rails engine and per render otherwise (Chadcn::Sequence), and the root takes an explicit base"
   ],
   "structure": [
     "template sibling of Select::Trigger before connect()"

@@ -44,13 +44,14 @@ class Chadcn::Popover < Chadcn::Base
   # @param open [Boolean, nil] controlled open state when not nil
   # @param default_open [Boolean] initial open state when uncontrolled
   # @param modal [Boolean] modal popover (default false)
-  # @param id [String, nil] id of the content (what the trigger controls); the other generated ids derive from it. Default
-  #   `popover-N`, numbered per request with the engine, per render without it
+  # @param id [String, nil] id of the content (what the trigger controls) and the key of its template, anchor and triggers.
+  #   Default `popover-N`, numbered per request with the engine, per render without it
+  # @raise [ArgumentError] when id: is empty or contains whitespace, a double quote or a backslash
   def initialize(open: nil, default_open: false, modal: false, id: nil)
     @open = open
     @default_open = default_open
     @modal = modal
-    @id = id
+    @id = validated_id(id)
     super()
   end
 

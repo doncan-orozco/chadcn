@@ -5,6 +5,6 @@
   "allow_missing_tokens": [],
   "api": [
     "Tooltip::Content renders an inert <template data-chadcn--tooltip-template> (no data-slot) holding the content markup while closed",
-    "Tooltip takes id: (no Radix prop): the id of the content, the other generated ids being <id>-<part>; Radix numbers ids with React's useId (unique per tree, no caller control); the port numbers them per request with the Rails engine and per render otherwise (Chadcn::Sequence), and the root takes an explicit base"
+    "Tooltip takes id: (no Radix prop): the content's id and template key, referenced by the trigger's aria-describedby while open; Tooltip::Provider takes id: (no Radix prop), the provider id its tooltips share. Radix numbers with useId; the port numbers per request with the Rails engine and per render otherwise (Chadcn::Sequence)"
   ]
 }

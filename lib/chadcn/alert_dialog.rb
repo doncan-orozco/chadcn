@@ -62,13 +62,14 @@ class Chadcn::AlertDialog < Chadcn::Base
   # @param id [String, nil] id of the content (what the trigger controls); the other generated ids derive from it (`"x-title"`,
   #   `"x-description"`). Default `alert-dialog-N`, numbered per request with the engine, per render without it
   # @param attrs [Hash] HTML attributes merged into the host element
+  # @raise [ArgumentError] when id: is empty or contains whitespace, a double quote or a backslash
   # @raise [ArgumentError] when `modal:` is given
   def initialize(open: nil, default_open: false, id: nil, **attrs)
     raise ArgumentError, "unknown keyword: #{:modal.inspect} (always modal)" if attrs.key?(:modal)
 
     @controlled = !open.nil?
     @open = @controlled ? open : default_open
-    @id = id
+    @id = validated_id(id)
     @attrs = attrs
     super()
   end

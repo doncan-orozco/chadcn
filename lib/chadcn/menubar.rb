@@ -103,7 +103,7 @@ class Chadcn::Menubar < Chadcn::Base
   include Chadcn::Direction::Consumer
 
   # @api private
-  # @return [Symbol] render-context key holding the root state (id base, value, direction)
+  # @return [Symbol] render-context key holding the root state (id base, value, direction and the menus/subs counters)
   ROOT_KEY = :shadcn_menubar_root
   # @api private
   # @return [Symbol] render-context key holding the current Menu state
@@ -137,13 +137,14 @@ class Chadcn::Menubar < Chadcn::Base
   # @param id [String, nil] id of the root element, as in React, and the base of the generated ids (`"bar-menu-1-trigger"`).
   #   Without it the element has no id and the base is `menubar-N`, numbered per request with the engine, per render without it
   # @param attrs [Hash] extra HTML attributes; +class+ is merged with {CLASSES}, +data+/+aria+ are deep merged (yours win)
+  # @raise [ArgumentError] when id: is empty or contains whitespace, a double quote or a backslash
   def initialize(value: nil, default_value: nil, loop: true, dir: nil, as_child: false, id: nil, **attrs)
     @controlled = !value.nil?
     @value = (@controlled ? value : default_value).to_s
     @loop = loop
     @dir = dir.to_s if DIRECTIONS.include?(dir.to_s)
     @as_child = as_child
-    @id = id
+    @id = validated_id(id)
     @attrs = attrs
     super()
   end

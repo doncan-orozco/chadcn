@@ -76,6 +76,7 @@ class Chadcn::Command < Chadcn::Base
   # @param id [String, nil] id of the root element, as in React, and the base of the generated ids (`"palette-input"`).
   #   Without it the element has no id and the base is `command-N`, numbered per request with the engine, per render without it
   # @param attrs [Hash] HTML attributes merged into the root (class goes through tailwind-merge)
+  # @raise [ArgumentError] when id: is empty or contains whitespace, a double quote or a backslash
   def initialize(label: nil, value: nil, default_value: nil, should_filter: true, loop: false, disable_pointer_selection: false,
                  vim_bindings: true, id: nil, **attrs)
     @label = label
@@ -85,7 +86,7 @@ class Chadcn::Command < Chadcn::Base
     @loop = loop
     @disable_pointer_selection = disable_pointer_selection
     @vim_bindings = vim_bindings
-    @id = id
+    @id = validated_id(id)
     @attrs = attrs
     super()
   end

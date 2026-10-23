@@ -352,4 +352,11 @@ class Chadcn::SidebarTest < Chadcn::TestCase
     assert_equal "app-sidebar", doc.at_css("[data-slot=sidebar-wrapper]")["data-chadcn--sidebar-id-value"]
     assert_equal "app-sidebar", doc.at_css("template div[data-slot=tooltip-content]")["data-chadcn--sidebar-tooltip"]
   end
+
+  test "without id the wrapper has no id and the sidebar is named sidebar-1" do
+    wrapper = fragment(provider).at_css("[data-slot=sidebar-wrapper]")
+
+    assert_nil wrapper["id"]
+    assert_equal "sidebar-1", wrapper["data-chadcn--sidebar-id-value"]
+  end
 end

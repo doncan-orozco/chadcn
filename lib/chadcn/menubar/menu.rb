@@ -12,7 +12,8 @@ class Chadcn::Menubar::Menu < Chadcn::Base
   include Chadcn::Menubar::Support
 
   # @param value [String, Symbol, nil] the menu's identifier, compared (as a String) with the root +value:+ / +default_value:+
-  #   to decide whether it renders open. Default +nil+ (auto value)
+  #   to decide whether it renders open. +nil+ (or blank) gets "<bar base>-menu-N", the id of its content (stable across renders
+  #   only with an explicit Menubar +id:+)
   # @raise [ArgumentError] at render, when not inside a {Chadcn::Menubar}
   def initialize(value: nil)
     @value = value&.to_s
@@ -27,7 +28,7 @@ class Chadcn::Menubar::Menu < Chadcn::Base
     base = "#{root[:base]}-menu-#{root[:menus] += 1}"
     value = @value.unless_blank || base
     context[Chadcn::Menubar::MENU_KEY] = {
-      value:, open: root[:value] == value, trigger_id: "#{base}-trigger", content_id: base, base:
+      value:, open: root[:value] == value, trigger_id: "#{base}-trigger", content_id: base
     }
     yield if block_given?
   ensure

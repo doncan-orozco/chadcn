@@ -174,4 +174,12 @@ class Chadcn::AlertDialogTest < Chadcn::TestCase
     assert_equal "confirm-delete", doc.at_css("[data-slot=alert-dialog-trigger]")["aria-controls"]
     assert_nil doc.at_css("[data-controller=chadcn--alert-dialog]")["id"]
   end
+
+  test "without id the content is alert-dialog-1 and the trigger controls it" do
+    doc = fragment(dialog(root: { default_open: true }))
+
+    assert_equal "alert-dialog-1", doc.at_css("[data-slot=alert-dialog-content]")["id"]
+    assert_equal "alert-dialog-1", doc.at_css("[data-slot=alert-dialog-trigger]")["aria-controls"]
+    assert_equal "alert-dialog-1", doc.at_css("template")["data-chadcn--dialog-template"]
+  end
 end

@@ -71,6 +71,7 @@ class Chadcn::NavigationMenu < Chadcn::Base
   # @param id [String, nil] id of the root element, as in React, and the base of the generated ids (`"docs-item-1"`).
   #   Without it the element has no id and the base is `navigation-menu-N`, numbered per request with the engine, per render without it
   # @param attrs [Hash] HTML attributes for the root `nav`; `class:` is tailwind-merged, `data:` and `aria:` are deep-merged
+  # @raise [ArgumentError] when id: is empty or contains whitespace, a double quote or a backslash
   def initialize(viewport: true, value: nil, default_value: "", delay_duration: 200, skip_delay_duration: 300,
                  orientation: "horizontal", dir: nil, activation_mode: "automatic", id: nil, **attrs)
     @viewport = viewport
@@ -81,7 +82,7 @@ class Chadcn::NavigationMenu < Chadcn::Base
     @orientation = ORIENTATIONS.include?(orientation.to_s) ? orientation.to_s : "horizontal"
     @dir = dir
     @activation_mode = activation_mode.to_s
-    @id = id
+    @id = validated_id(id)
     @attrs = attrs
     super()
   end

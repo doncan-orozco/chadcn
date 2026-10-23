@@ -35,14 +35,15 @@ class Chadcn::HoverCard < Chadcn::Base
   # @param default_open [Boolean] initial open state when uncontrolled
   # @param open_delay [Integer] ms before opening on hover (default 700)
   # @param close_delay [Integer] ms before closing after leaving (default 300)
-  # @param id [String, nil] id of the content (what the trigger describes). Default `hover-card-N`, numbered per request with the
-  #   engine, per render without it
+  # @param id [String, nil] key of the content's template, by which the trigger finds the card; no element carries it as an id
+  #   (Radix wires none). Default `hover-card-N`, numbered per request with the engine, per render without it
+  # @raise [ArgumentError] when id: is empty or contains whitespace, a double quote or a backslash
   def initialize(open: nil, default_open: false, open_delay: 700, close_delay: 300, id: nil)
     @open = open
     @default_open = default_open
     @open_delay = open_delay
     @close_delay = close_delay
-    @id = id
+    @id = validated_id(id)
     super()
   end
 

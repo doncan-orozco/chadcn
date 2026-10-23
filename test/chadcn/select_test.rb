@@ -209,13 +209,16 @@ class Chadcn::SelectTest < Chadcn::TestCase
     assert_equal "open", trigger["data-state"]
   end
 
-  test "id sets the base of the generated ids" do
+  test "id names the listbox the trigger controls" do
     doc = fragment(select(root: { id: "fruit", default_open: true }))
 
     assert_equal "fruit", doc.at_css("[data-slot=select-trigger]")["aria-controls"]
     assert_equal "fruit", doc.at_css("template [data-slot=select-content]")["id"]
     assert_equal "fruit", doc.at_css("template")["data-chadcn--select-template"]
     assert_equal "fruit", doc.at_css("[data-slot=select-trigger]")["data-chadcn--select-content-id-value"]
+    assert_equal "fruit-group-1", doc.at_css("template [data-slot=select-group]")["aria-labelledby"]
+    assert_equal "fruit-group-1", doc.at_css("template [data-slot=select-label]")["id"]
+    assert_equal(%w[fruit-text-2 fruit-text-3], doc.css("template [data-slot=select-item] > span[id]").map { |text| text["id"] })
   end
 
   test "disabled on the root or on the trigger disables the button" do

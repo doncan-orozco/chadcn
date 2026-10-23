@@ -27,12 +27,13 @@ class Chadcn::Collapsible < Chadcn::Base
   # @param id [String, nil] id of the root element, as in React, and the base of the generated ids (`"orders-content"`).
   #   Without it the element has no id and the base is `collapsible-N`, numbered per request with the engine, per render without it
   # @param attrs [Hash] HTML attributes merged onto the root element
+  # @raise [ArgumentError] when id: is empty or contains whitespace, a double quote or a backslash
   def initialize(open: nil, default_open: false, disabled: false, as_child: false, id: nil, **attrs)
     @controlled = !open.nil?
     @open = @controlled ? open : default_open
     @disabled = disabled
     @as_child = as_child
-    @id = id
+    @id = validated_id(id)
     @attrs = attrs
     super()
   end

@@ -171,4 +171,12 @@ class Chadcn::AccordionTest < Chadcn::TestCase
     assert_equal "faq-item-1-content", triggers.first["aria-controls"]
     assert_equal "faq-item-1-trigger", contents.first["aria-labelledby"]
   end
+
+  test "without id the root has no id and the items count within the accordion" do
+    doc = fragment(accordion(root: { default_value: "a" }))
+
+    assert_nil doc.at_css("[data-slot=accordion]")["id"]
+    assert_equal(%w[accordion-1-item-1-trigger accordion-1-item-2-trigger],
+                 doc.css("[data-slot=accordion-trigger]").map { |trigger| trigger["id"] })
+  end
 end

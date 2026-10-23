@@ -151,4 +151,12 @@ class Chadcn::SheetTest < Chadcn::TestCase
     assert_equal "article-settings", doc.at_css("[data-controller=chadcn--sheet]")["data-chadcn--sheet-id-value"]
     assert_nil doc.at_css("[data-controller=chadcn--sheet]")["id"]
   end
+
+  test "without id the content is sheet-1 and the trigger controls it" do
+    doc = fragment(sheet(root: { default_open: true }))
+
+    assert_equal "sheet-1", doc.at_css("[data-slot=sheet-content]")["id"]
+    assert_equal "sheet-1", doc.at_css("[data-slot=sheet-trigger]")["aria-controls"]
+    assert_equal "sheet-1", doc.at_css("template")["data-chadcn--dialog-template"]
+  end
 end

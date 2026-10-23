@@ -10,7 +10,7 @@ The three menus share the same part set; the root and the trigger differ.
 | Root | Root kwargs | Trigger | Events |
 |---|---|---|---|
 | `DropdownMenu` | `open:`, `default_open:`, `modal:` (true), `dir:`, `id:` (the content's id; the trigger is `<id>-trigger`); renders no element | `Trigger` (`as_child:`), opened by click or keyboard | `open-change`, `select`, `checked-change`, `value-change`, `open-auto-focus`, `close-auto-focus` |
-| `ContextMenu` | `open:`, `dir:`, `modal:`, `id:` (the content's id); renders no element | `Trigger` (`disabled:`, `as_child:`), opened by right click or long press at the pointer | `open-change`, `select`, `checked-change`, `value-change`, `open-auto-focus`, `close-auto-focus` |
+| `ContextMenu` | `open:`, `dir:`, `modal:`, `id:` (the content template key; the content's id only when given); renders no element | `Trigger` (`disabled:`, `as_child:`), opened by right click or long press at the pointer | `open-change`, `select`, `checked-change`, `value-change`, `open-auto-focus`, `close-auto-focus` |
 | `Menubar` | `value:`, `default_value:`, `loop:` (true), `dir:`, `as_child:`, `id:` (on the bar; its menus are `<id>-menu-N`), `**attrs` on the bar | `Menu` (`value:`) wraps one `Trigger` + `Content`; moving between triggers switches menus | `open-change`, `select`, `checked-change`, `value-change`, `open-auto-focus`, `close-auto-focus` |
 
 Shared parts (helpers on the yielded root, `menu.<helper>`): `Portal` (`force_mount:`, `container:`) `portal`, `Content` (`side:`,
@@ -22,7 +22,7 @@ Shared parts (helpers on the yielded root, `menu.<helper>`): `Portal` (`force_mo
 
 | `Select` | Root kwargs | Parts (class and generated helper) | Events |
 |---|---|---|---|
-| `Select` | `value:`, `default_value:`, `open:`, `default_open:`, `dir:`, `name:`, `auto_complete:`, `form:`, `disabled:`, `required:`, `id:` (the content's id; the items are `<id>-item-N`); renders no element (a hidden `<select>` is rendered for forms when `name:` is given) | `Trigger` (`size:` `default`, `sm`; `disabled:`) `select.trigger`, `Value` (`placeholder:`) `select.value`, `Content` (`position:` `item-aligned` (default) or `popper`, `side:`, `align:`, `side_offset:`...) `select.content`, `Group` `select.group`, `Label` `select.label`, `Item` (`value:`, `disabled:`, `text_value:`) `select.item`, `Separator` `select.separator`, `ScrollUpButton` `select.scroll_up_button`, `ScrollDownButton` `select.scroll_down_button` | `open-change`, `value-change`, `close-auto-focus` |
+| `Select` | `value:`, `default_value:`, `open:`, `default_open:`, `dir:`, `name:`, `auto_complete:`, `form:`, `disabled:`, `required:`, `id:` (the content's id; groups and item texts are `<id>-group-N` / `<id>-text-N`); renders no element (a hidden `<select>` is rendered for forms when `name:` is given) | `Trigger` (`size:` `default`, `sm`; `disabled:`) `select.trigger`, `Value` (`placeholder:`) `select.value`, `Content` (`position:` `item-aligned` (default) or `popper`, `side:`, `align:`, `side_offset:`...) `select.content`, `Group` `select.group`, `Label` `select.label`, `Item` (`value:`, `disabled:`, `text_value:`) `select.item`, `Separator` `select.separator`, `ScrollUpButton` `select.scroll_up_button`, `ScrollDownButton` `select.scroll_down_button` | `open-change`, `value-change`, `close-auto-focus` |
 
 ## Example: dropdown menu, both forms
 
