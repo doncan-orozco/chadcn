@@ -18,7 +18,7 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 
 - `id:` on every root that generates ids (`Dialog`, `Sheet`, `AlertDialog`, `Popover`, `HoverCard`, `Tooltip` and `Tooltip::Provider`,
   `DropdownMenu`, `ContextMenu`, `Menubar`, `NavigationMenu`, `Collapsible`, `Accordion`, `Command`, `Sidebar::Provider`; `Select` and
-  `Combobox` already took it): the base of the generated ids. On a root that renders no element it is the content's id
+  `Combobox` already took it): the base of the generated ids. On a root that stands for no element in Radix it is the content's id
   (`Chadcn::Sheet.new(id: "x")` renders the content with `id="x"`, the trigger with `aria-controls="x"` while open, `x-title` and
   `x-description`); `HoverCard` uses it as its template key only, `ContextMenu` sets the content id only when given and `Tooltip::Provider` takes it as the
   key its tooltips share (rendered as `data-chadcn--tooltip-provider-id-value`), not as the id of an element; on a root that
@@ -128,8 +128,9 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 
 - Generated ids are numbered per request in a Rails app: the engine keeps the counters in a store the Rails executor resets when
   every request completes, so a layout, a view and Turbo frames rendered by separate `render` calls no longer repeat `dropdown-menu-1`
-  (every top-level render used to start again at 1). Without Rails the counters stay per render. The default shapes follow the
-  `id:` rule: the content of a root that renders no element takes the base (`dialog-1`, `sheet-1`, `popover-1`, `select-1`; formerly
+  (every top-level render used to start again at 1). (`Tabs` is the exception: without `id:` its base stays a random
+  `radix-tabs-xxxxxx`.) Without Rails the counters stay per render. The default shapes follow the
+  `id:` rule: the content of a root that stands for no element in Radix takes the base (`dialog-1`, `sheet-1`, `popover-1`, `select-1`; formerly
   `dialog-1-content`...); `HoverCard`'s template key is `hover-card-1` (formerly `hover-card-content-1`; no element carries it as an
   id); a tooltip's content is `tooltip-N` (formerly `tooltip-content-N`; `Tooltip::Provider` and its tooltips share one counter, so
   the first tooltip under `tooltip-provider-1` is `tooltip-2`); nested parts count within their root (`dropdown-menu-1-sub-1`,
@@ -141,7 +142,7 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
   rename one, or the open listbox duplicates the trigger's id. `Command::Dialog`'s `id:` now names the dialog content.
 - `id:` on a root raises `ArgumentError` (at construction; on `Command::Dialog` when it renders) when it is empty or contains
   whitespace, a double quote or a backslash (it seeds aria id lists and the controllers' selectors). `Combobox` is the exception: its
-  `id:` is still the input's id and is passed through unchanged. A store set with `Chadcn.configure { |c| c.sequence_store = ... }` in config/application.rb
+  `id:` keeps Base UI's meaning (the input's id, or the trigger's when the input sits inside the popup) and is passed through unchanged; `Tabs` keeps taking `id` through `**attrs`, unvalidated. A store set with `Chadcn.configure { |c| c.sequence_store = ... }` in config/application.rb
   is kept by the engine. Markup a later request inserts (a lazy Turbo Frame, a Turbo Stream) numbers from 1 again: pass `id:` to its
   roots.
 - The `chadcn--accordion`, `chadcn--collapsible`, `chadcn--tabs`, `chadcn--avatar`, `chadcn--scroll-area`, `chadcn--dialog` (alert-dialog

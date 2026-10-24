@@ -2,7 +2,8 @@
 
 # shadcn ContextMenuContent = Portal + Radix Content. +side+, +side_offset+ and +align+ are forced (+"right"+, +2+, +"start"+) and are not
 # options: passing them raises. The markup ships in an inert +<template>+ that the controller clones into +<body>+ while the
-# menu is open; the rendered element is +role="menu"+ with no id.
+# menu is open; the rendered element is +role="menu"+, with the root's +id:+ as its id when one was given (no id by default, as in
+# Radix).
 #
 # @example
 #   menu.content(class: "w-52") { menu.item { "Back" } }

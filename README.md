@@ -356,7 +356,7 @@ end
 - Generated ids (`aria-controls`, `aria-labelledby`, the portal templates) are numbered per request in a Rails app and per render
   elsewhere. Pass `id:` to a root to choose them: `Chadcn::Sheet.new(id: "article-settings")` renders the content with that id
   (`article-settings-title` for its title), `Chadcn::Accordion.new(id: "faq")` keeps the id on the element and numbers its items
-  `faq-item-1-trigger`; the rule is in [docs/api-conventions.md](docs/api-conventions.md#props). Markup a later request adds to the page
+  `faq-item-1-trigger`; the rule is in [docs/api-conventions.md](docs/api-conventions.md#generated-ids). Markup a later request adds to the page
   (a lazy or navigated Turbo Frame, a Turbo Stream) numbers from 1 again, so give its roots an `id:`.
 - Controlled state follows React: `open:` / `value:` / `checked:` render that state and the controller only dispatches the change
   event; `default_open:` / `default_value:` / `default_checked:` start uncontrolled. Change callbacks are DOM events named

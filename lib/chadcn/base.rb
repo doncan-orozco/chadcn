@@ -173,9 +173,11 @@ class Chadcn::Base < Phlex::HTML
   # @api private
   def next_sequence(key) = Chadcn::Sequence.next(context, key)
 
-  # The `id:` a root was given, as a String, or nil when the root generates one. It names an element and seeds the other ids
-  # (`"#{id}-title"`), which go into aria id lists and the controllers' attribute selectors, so it is one token: not empty, no
-  # whitespace, no double quote, no backslash.
+  # The `id:` a root was given, as a String, or nil when the root generates one. It names an element (HoverCard and
+  # Tooltip::Provider use it as a key, not as an element id; ContextMenu uses it as a key and names the content only when given;
+  # Sidebar::Provider also uses it as the sidebar's name) and seeds the other ids where the root has any (`"#{id}-title"`), which
+  # go into aria id lists and the controllers' attribute selectors, so it is one token: not empty, no whitespace, no double quote,
+  # no backslash.
   #
   # @api private
   # @param id [String, Symbol, nil, false]
