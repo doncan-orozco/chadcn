@@ -10,15 +10,13 @@ The catalog is plain Phlex and loads only when used: it needs no Rails, no `dev/
 
 ## A gallery page
 
+In the `view_template` of any Phlex view:
+
 ```ruby
-class Gallery < Phlex::HTML
-  def view_template
-    Chadcn::Catalog.entries.each do |entry|
-      section(id: entry.component) do
-        h2 { entry.title }
-        render Chadcn::Catalog::TreeRenderer.new(tree: entry.tree, component: entry.component)
-      end
-    end
+Chadcn::Catalog.entries.each do |entry|
+  section(id: entry.component) do
+    h2 { entry.title }
+    render Chadcn::Catalog::TreeRenderer.new(tree: entry.tree, component: entry.component)
   end
 end
 ```
