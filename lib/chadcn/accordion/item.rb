@@ -49,10 +49,10 @@ class Chadcn::Accordion::Item < Chadcn::Base
   private
 
   def build_item(root)
-    number = context[Chadcn::Accordion::SEQUENCE_KEY] = context.fetch(Chadcn::Accordion::SEQUENCE_KEY, 0) + 1
+    number = root[:items] += 1
     {
       open: root[:open_values].include?(@value), disabled: root[:disabled] || @disabled, root:,
-      trigger_id: "accordion-#{number}-trigger", content_id: "accordion-#{number}-content"
+      trigger_id: "#{root[:base]}-item-#{number}-trigger", content_id: "#{root[:base]}-item-#{number}-content"
     }
   end
 end

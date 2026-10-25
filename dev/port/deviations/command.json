@@ -16,6 +16,7 @@
     "Command::Item onSelect is the event chadcn--command:select; Command::Input onValueChange is the event chadcn--command:search-change",
     "as_child is supported on Command::Item only; Command, Command::Input, Command::List and Command::Group do not offer it",
     "Controlled value: aria-activedescendant follows the selection immediately (cmdk 1.1.1 lags one step when the caller does not update value)",
-    "Command::Group renders the raw value attribute next to the trimmed data-value, like cmdk's spread props"
+    "Command::Group renders the raw value attribute next to the trimmed data-value, like cmdk's spread props",
+    "Command id: keeps React's meaning (the id of the element) and also seeds the generated ids (palette-input); Radix numbers ids with React's useId (unique per tree, no caller control); the port numbers them per request with the Rails engine and per render otherwise (Chadcn::Sequence), and the root takes an explicit base"
   ]
 }

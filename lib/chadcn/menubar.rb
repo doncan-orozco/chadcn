@@ -103,7 +103,7 @@ class Chadcn::Menubar < Chadcn::Base
   include Chadcn::Direction::Consumer
 
   # @api private
-  # @return [Symbol] render-context key holding the root state (id base, value, direction)
+  # @return [Symbol] render-context key holding the root state (id base, value, direction and the menus/subs counters)
   ROOT_KEY = :shadcn_menubar_root
   # @api private
   # @return [Symbol] render-context key holding the current Menu state
@@ -118,7 +118,7 @@ class Chadcn::Menubar < Chadcn::Base
   # @return [Symbol] render-context key holding the current RadioGroup value
   RADIO_GROUP_KEY = :shadcn_menubar_radio_group
   # @api private
-  # @return [Symbol] render-context key of the per render id counter
+  # @return [Symbol] render-context key of the id counter (per request with the engine, per render without it, see Chadcn::Sequence)
   SEQUENCE_KEY = :shadcn_menubar_sequence
   # @api private
   # @return [Array<String>] the accepted +dir:+ values; anything else is ignored (the Direction provider, else +ltr+, applies)
@@ -134,13 +134,17 @@ class Chadcn::Menubar < Chadcn::Base
   #   +ltr+) applies. It is not rendered as a +dir+ attribute
   # @param as_child [false, Symbol, String, Chadcn::Base] +false+ renders the default +div+; a tag Symbol/String
   #   or a component instance renders that element carrying the bar attributes instead
+  # @param id [String, nil] id of the root element, as in React, and the base of the generated ids (`"bar-menu-1-trigger"`).
+  #   Without it the element has no id and the base is `menubar-N`, numbered per request with the engine, per render without it
   # @param attrs [Hash] extra HTML attributes; +class+ is merged with {CLASSES}, +data+/+aria+ are deep merged (yours win)
-  def initialize(value: nil, default_value: nil, loop: true, dir: nil, as_child: false, **attrs)
+  # @raise [ArgumentError] when id: is empty or contains whitespace, a double quote or a backslash
+  def initialize(value: nil, default_value: nil, loop: true, dir: nil, as_child: false, id: nil, **attrs)
     @controlled = !value.nil?
     @value = (@controlled ? value : default_value).to_s
     @loop = loop
     @dir = dir.to_s if DIRECTIONS.include?(dir.to_s)
     @as_child = as_child
+    @id = validated_id(id)
     @attrs = attrs
     super()
   end
@@ -149,10 +153,10 @@ class Chadcn::Menubar < Chadcn::Base
   # @return [void]
   def view_template(&)
     previous = context[ROOT_KEY]
-    root = { base: "menubar-#{self.class.next_sequence(context)}", value: @value, dir: use_direction(@dir) }
+    root = { base: @id || "menubar-#{next_sequence(SEQUENCE_KEY)}", menus: 0, subs: 0, value: @value, dir: use_direction(@dir) }
     context[ROOT_KEY] = root
     attrs = merge_attrs({
-                          role: "menubar", class: CLASSES, tabindex: "0", style: "outline: none",
+                          id: @id, role: "menubar", class: CLASSES, tabindex: "0", style: "outline: none",
                           data: {
                             slot: "menubar", orientation: "horizontal", controller: "chadcn--menubar",
                             chadcn__menubar_value_value: @value, chadcn__menubar_controlled_value: @controlled.to_s,
@@ -167,9 +171,4 @@ class Chadcn::Menubar < Chadcn::Base
   ensure
     context[ROOT_KEY] = previous
   end
-
-  # Per render counter (no SecureRandom): ids are only compared through their relations.
-  #
-  # @api private
-  def self.next_sequence(context) = context[SEQUENCE_KEY] = context.fetch(SEQUENCE_KEY, 0) + 1
 end

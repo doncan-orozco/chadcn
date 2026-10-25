@@ -16,6 +16,15 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 
 ### Added
 
+- `id:` on every root that generates ids (`Dialog`, `Sheet`, `AlertDialog`, `Popover`, `HoverCard`, `Tooltip` and `Tooltip::Provider`,
+  `DropdownMenu`, `ContextMenu`, `Menubar`, `NavigationMenu`, `Collapsible`, `Accordion`, `Command`, `Sidebar::Provider`; `Select` and
+  `Combobox` already took it): the base of the generated ids. On a root that stands for no element in the React source it is the content's id
+  (`Chadcn::Sheet.new(id: "x")` renders the content with `id="x"`, the trigger with `aria-controls="x"` while open, `x-title` and
+  `x-description`); `HoverCard` uses it as its template key only, `ContextMenu` sets the content id only when given and `Tooltip::Provider` takes it as the
+  key its tooltips share (rendered as `data-chadcn--tooltip-provider-id-value`), not as the id of an element; on a root that
+  is an element in the React source it stays on that element and seeds the generated ids (`Chadcn::Accordion.new(id: "faq")` numbers
+  its items `faq-item-1-trigger`), and `Sidebar::Provider` uses it as the sidebar's name. `Chadcn.config.sequence_store`: a callable answering the
+  Hash the id counters live in; nil (the default) keeps them in the render context.
 - `Chadcn::Calendar` (`Calendar::DayButton`): shadcn's react-day-picker calendar as a dependency-free port (no react-day-picker, no
   date-fns): native `Date` and `Intl` only. Single, multiple and range modes, min/max, disabled matchers, outside days, fixed weeks, week
   numbers, `label` and dropdown captions, several months, `dir: "rtl"`, month and weekday names and first day of week from `Intl` (English
@@ -117,6 +126,25 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 
 ### Changed
 
+- Generated ids are numbered per request in a Rails app: the engine keeps the counters in a store the Rails executor resets when
+  every request completes, so a layout, a view and Turbo frames rendered by separate `render` calls no longer repeat `dropdown-menu-1`
+  (every top-level render used to start again at 1). (`Tabs` is the exception: without `id:` its base stays a random
+  `radix-tabs-xxxxxx`.) Without Rails the counters stay per render. The default shapes follow the
+  `id:` rule: the content of a root that stands for no element in the React source takes the base (`dialog-1`, `sheet-1`, `popover-1`, `select-1`; formerly
+  `dialog-1-content`...); `HoverCard`'s template key is `hover-card-1` (formerly `hover-card-content-1`; no element carries it as an
+  id); a tooltip's content is `tooltip-N` (formerly `tooltip-content-N`; `Tooltip::Provider` and its tooltips share one counter, so
+  the first tooltip under `tooltip-provider-1` is `tooltip-2`); nested parts count within their root (`dropdown-menu-1-sub-1`,
+  `menubar-1-menu-1`, `menubar-1-sub-1`, `accordion-1-item-1-trigger`), `Select`'s `id:` names the content itself (`fruit`, formerly
+  `fruit-content`),
+  and the `Dialog`, `Sheet` and `AlertDialog` hosts no longer take `id:` from `**attrs` (it names the content). Ids are compared
+  through their relations only, so the parity scenarios are unchanged.
+- `Select`'s `id:` is now the listbox's id: if you passed the same value to `Select.new(id:)` and `select.trigger(id:)` (for a `Label`),
+  rename one, or the open listbox duplicates the trigger's id. `Command::Dialog`'s `id:` now names the dialog content.
+- `id:` on a root raises `ArgumentError` (at construction; on `Command::Dialog` when it renders) when it is empty or contains
+  whitespace, a double quote or a backslash (it seeds aria id lists and the controllers' selectors). `Combobox` is the exception: its
+  `id:` keeps Base UI's meaning (the input's id, or the trigger's when the input sits inside the popup) and is passed through unchanged; `Tabs` keeps taking `id` through `**attrs`, unvalidated. A store set with `Chadcn.configure { |c| c.sequence_store = ... }` in config/application.rb
+  is kept by the engine. Markup a later request inserts (a lazy Turbo Frame, a Turbo Stream) numbers from 1 again: pass `id:` to its
+  roots.
 - The `chadcn--accordion`, `chadcn--collapsible`, `chadcn--tabs`, `chadcn--avatar`, `chadcn--scroll-area`, `chadcn--dialog` (alert-dialog
   and sheet through it) and `chadcn--hover-card` controllers share the `turbo_cache` primitive instead of each keeping its own
   `turbo:before-cache` listener and two-tick restore timer (see Fixed for the two restore gaps it closed).
@@ -215,6 +243,9 @@ Since the first extraction of the gem:
 
 ### Fixed
 
+- Generated ids collided across render calls: a layout's dropdown menu and a page's first table-row menu were both
+  `dropdown-menu-1`, so clicking the row's trigger opened the navbar's menu. The counters now live for the request with the engine
+  (see Changed), and `id:` on the root names the ids when a known value is needed.
 - The engine no longer raises `NoMethodError` at boot in apps without Propshaft (`config.assets.excluded_paths`).
 - `Select::Item` no longer needs Nokogiri (text is derived with a quote-aware tag strip); a plain-Phlex `Select` renders, and
   `nokogiri` is not a dependency. YARD builds without warnings.

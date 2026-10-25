@@ -11,7 +11,8 @@
     "filter: takes the named filters \"fuzzy\" (default, primitives/scorer.js), \"contains\" (Base UI Intl.Collator) or nil instead of a function; Base UI callbacks are the chadcn--combobox:* events",
     "inline, grid, virtualized, filteredItems, filterQuery, actionsRef and inputRef are not ported",
     "value-change reports the item's form value ({ value }), not the item object; item identity on the client is the form value and equality callables run on the server",
-    "modal: true locks the page scroll and adds the backdrop but does not trap focus (the input keeps it; Tab leaves and closes, like the non-modal popup)"
+    "modal: true locks the page scroll and adds the backdrop but does not trap focus (the input keeps it; Tab leaves and closes, like the non-modal popup)",
+    "Combobox id: (Base UI: the id of the input, or of the trigger when the input sits inside the popup) also seeds the generated ids, numbered per request with the Rails engine and per render otherwise (Chadcn::Sequence) when absent"
   ],
   "structure": [
     "display: contents host around the Root children and hidden inputs",

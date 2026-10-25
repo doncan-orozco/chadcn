@@ -37,9 +37,12 @@ class Chadcn::Accordion < Chadcn::Base
   # @param orientation [String, Symbol] `"vertical"` or `"horizontal"`
   # @param as_child [false, nil, Symbol, String, Chadcn::Base] a tag name (`:a`) or a component to render instead of the default element (Radix Slot);
   #   the part's attributes are merged onto it. `true` is not supported.
+  # @param id [String, nil] id of the root element, as in React, and the base of the generated ids (`"faq-item-1-trigger"`).
+  #   Without it the element has no id and the base is `accordion-N`, numbered per request with the engine, per render without it
   # @param attrs [Hash] HTML attributes merged onto the root element
+  # @raise [ArgumentError] when id: is empty or contains whitespace, a double quote or a backslash
   def initialize(type: "single", value: nil, default_value: nil, collapsible: false, disabled: false, dir: nil,
-                 orientation: "vertical", as_child: false, **attrs)
+                 orientation: "vertical", as_child: false, id: nil, **attrs)
     @type = type.to_s == "multiple" ? "multiple" : "single"
     @controlled = !value.nil?
     @open_values = Array(@controlled ? value : default_value).map(&:to_s).reject(&:empty?)
@@ -48,6 +51,7 @@ class Chadcn::Accordion < Chadcn::Base
     @dir = dir&.to_s
     @orientation = orientation.to_s
     @as_child = as_child
+    @id = validated_id(id)
     @attrs = attrs
     super()
   end
@@ -56,9 +60,12 @@ class Chadcn::Accordion < Chadcn::Base
   # @return [void]
   def view_template
     previous = context[ROOT_KEY]
-    context[ROOT_KEY] = { open_values: @open_values, collapsible: @collapsible, disabled: @disabled, orientation: @orientation }
+    context[ROOT_KEY] = {
+      open_values: @open_values, collapsible: @collapsible, disabled: @disabled, orientation: @orientation,
+      base: @id || "accordion-#{next_sequence(SEQUENCE_KEY)}", items: 0
+    }
     @dir = use_direction(@dir) if @dir.filled? || context[Chadcn::Direction::KEY]
-    attrs = merge_attrs({ data: root_data }, @attrs)
+    attrs = merge_attrs({ id: @id, data: root_data }, @attrs)
     content = proc { yield self if block_given? }
     @as_child ? render_as_child(@as_child, **attrs, &content) : div(**attrs, &content)
   ensure

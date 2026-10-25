@@ -3,7 +3,7 @@
 using Chadcn::Values::Refinements
 
 # Radix MenubarMenu: renders no element, it groups one {Trigger} with its {Content}. +value:+ identifies the menu for the
-# root value; +nil+ (or blank) gets an auto value from the per-render counter. Modal is forced off by Radix and is not an
+# root value; +nil+ (or blank) gets an auto value from the root's counter. Modal is forced off by Radix and is not an
 # option. Must be rendered inside a {Chadcn::Menubar} (raises +ArgumentError+ at render otherwise).
 #
 # @example
@@ -12,7 +12,8 @@ class Chadcn::Menubar::Menu < Chadcn::Base
   include Chadcn::Menubar::Support
 
   # @param value [String, Symbol, nil] the menu's identifier, compared (as a String) with the root +value:+ / +default_value:+
-  #   to decide whether it renders open. Default +nil+ (auto value)
+  #   to decide whether it renders open. +nil+ (or blank) gets "<bar base>-menu-N", the id of its content (stable across renders
+  #   only with an explicit Menubar +id:+)
   # @raise [ArgumentError] at render, when not inside a {Chadcn::Menubar}
   def initialize(value: nil)
     @value = value&.to_s
@@ -24,10 +25,10 @@ class Chadcn::Menubar::Menu < Chadcn::Base
   def view_template
     root = root_context
     previous = context[Chadcn::Menubar::MENU_KEY]
-    base = "#{root[:base]}-menu-#{Chadcn::Menubar.next_sequence(context)}"
+    base = "#{root[:base]}-menu-#{root[:menus] += 1}"
     value = @value.unless_blank || base
     context[Chadcn::Menubar::MENU_KEY] = {
-      value:, open: root[:value] == value, trigger_id: "#{base}-trigger", content_id: "#{base}-content", base:
+      value:, open: root[:value] == value, trigger_id: "#{base}-trigger", content_id: base
     }
     yield if block_given?
   ensure

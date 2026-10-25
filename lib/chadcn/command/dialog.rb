@@ -2,7 +2,8 @@
 
 # shadcn CommandDialog: a Command inside a Dialog (Chadcn::Dialog does all the dialog behavior).
 #
-# `class:` goes to the dialog content; the other attributes, `open:`, `default_open:` and `modal:` go to the Dialog root.
+# `class:` goes to the dialog content; `id:` names the dialog content (Chadcn::Dialog's `id:`); the other attributes, `open:`,
+# `default_open:` and `modal:` go to the Dialog root.
 # The block receives the Command root (so `command.input`, `command.list`... work).
 #
 # @example
@@ -17,7 +18,8 @@ class Chadcn::Command::Dialog < Chadcn::Base
   # @param open [Boolean, nil] controlled open state when not nil
   # @param default_open [Boolean] initial open state when uncontrolled
   # @param modal [Boolean] modal dialog (default true)
-  # @param attrs [Hash] `class:` for the content; any other attribute for the Dialog root
+  # @param attrs [Hash] `class:` for the content; `id:` names the dialog content (Chadcn::Dialog's `id:`); any other attribute for
+  #   the Dialog root
   def initialize(title: "Command Palette", description: "Search for a command to run...", show_close_button: true, open: nil,
                  default_open: false, modal: true, **attrs)
     @title = title

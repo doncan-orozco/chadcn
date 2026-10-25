@@ -11,6 +11,7 @@
   "api": [
     "Sidebar::Provider: chadcn--sidebar:open-change is always dispatched and an uncontrolled Provider always updates; React's 'onOpenChange without open' (state never updates) has no equivalent",
     "Sidebar::Rail: a caller data-action is added to the built-in toggle; React's caller onClick replaces it",
-    "Sidebar::Provider: extra informational event chadcn--sidebar:open-mobile-change (React exposes openMobile only via useSidebar)"
+    "Sidebar::Provider: extra informational event chadcn--sidebar:open-mobile-change (React exposes openMobile only via useSidebar)",
+    "Sidebar::Provider id: keeps React's meaning (the wrapper's id) and is also the sidebar's name (data-chadcn--sidebar-id-value, the menu tooltip key); no other id is seeded from it. Default sidebar-N per request with the engine, per render otherwise"
   ]
 }

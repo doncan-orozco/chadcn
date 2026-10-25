@@ -35,11 +35,15 @@ class Chadcn::HoverCard < Chadcn::Base
   # @param default_open [Boolean] initial open state when uncontrolled
   # @param open_delay [Integer] ms before opening on hover (default 700)
   # @param close_delay [Integer] ms before closing after leaving (default 300)
-  def initialize(open: nil, default_open: false, open_delay: 700, close_delay: 300)
+  # @param id [String, nil] key of the content's template, by which the trigger finds the card; no element carries it as an id
+  #   (Radix wires none). Default `hover-card-N`, numbered per request with the engine, per render without it
+  # @raise [ArgumentError] when id: is empty or contains whitespace, a double quote or a backslash
+  def initialize(open: nil, default_open: false, open_delay: 700, close_delay: 300, id: nil)
     @open = open
     @default_open = default_open
     @open_delay = open_delay
     @close_delay = close_delay
+    @id = validated_id(id)
     super()
   end
 
@@ -48,7 +52,7 @@ class Chadcn::HoverCard < Chadcn::Base
   def view_template
     previous = context[CONTEXT_KEY]
     context[CONTEXT_KEY] = {
-      key: "hover-card-content-#{next_sequence}",
+      key: @id || "hover-card-#{next_sequence(SEQUENCE_KEY)}",
       controlled: !@open.nil?,
       open: @open.nil? ? @default_open : @open,
       open_delay: @open_delay,
@@ -57,12 +61,6 @@ class Chadcn::HoverCard < Chadcn::Base
     yield self if block_given?
   ensure
     context[CONTEXT_KEY] = previous
-  end
-
-  private
-
-  def next_sequence
-    context[SEQUENCE_KEY] = context.fetch(SEQUENCE_KEY, 0) + 1
   end
 
   # The link that opens the card on hover/focus (renders an `a` and hosts the controller).

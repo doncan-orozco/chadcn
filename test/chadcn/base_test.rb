@@ -5,7 +5,7 @@ require "tempfile"
 
 class Chadcn::BaseTest < Chadcn::TestCase
   class Probe < Chadcn::Base
-    public :merge_attrs, :normalize_option, :ids, :render_as_child
+    public :merge_attrs, :normalize_option, :ids, :render_as_child, :validated_id
   end
 
   class Kid < Chadcn::Base
@@ -103,6 +103,25 @@ class Chadcn::BaseTest < Chadcn::TestCase
   test "ids" do
     assert_equal "d-title", Probe.new.ids("d")[:title]
     assert_equal "d-aria-label", Probe.new.ids("d")[:aria_label]
+  end
+
+  test "validated_id answers nil when the root generates its id, else the id as a String" do
+    probe = Probe.new
+
+    assert_nil probe.validated_id(nil)
+    assert_nil probe.validated_id(false)
+    assert_equal "faq", probe.validated_id(:faq)
+    assert_equal "faq", probe.validated_id("faq")
+    assert_equal "7", probe.validated_id(7)
+  end
+
+  test "validated_id raises for what is not one id token" do
+    probe = Probe.new
+    [ "", "a b", "a\tb", 'a"b', "a\\b" ].each do |id|
+      error = assert_raises(ArgumentError) { probe.validated_id(id) }
+
+      assert_includes error.message, "id:"
+    end
   end
 
   test "merge_attrs deep-merges data/aria, caller wins, class via cn, actions concatenated" do

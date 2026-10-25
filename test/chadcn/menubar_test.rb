@@ -365,4 +365,88 @@ class Chadcn::MenubarTest < Chadcn::TestCase
       assert_equal explicit, generated, "helper #{helper}"
     end
   end
+
+  test "id stays on the bar and seeds the ids of its menus" do
+    doc = fragment(bar(root: { id: "app-menubar", default_value: "file" }))
+    trigger = doc.at_css("[data-slot=menubar-trigger]")
+
+    assert_equal "app-menubar", doc.at_css("[data-slot=menubar]")["id"]
+    assert_equal "app-menubar-menu-1-trigger", trigger["id"]
+    assert_equal "app-menubar-menu-1", trigger["aria-controls"]
+    assert_equal "app-menubar-menu-1", doc.at_css("[data-slot=menubar-content]")["id"]
+  end
+
+  test "subs count within the bar and their trigger, template key and content id agree" do
+    doc = fragment(bar(root: { id: "app" }) do
+      2.times do
+        render(Menubar::Sub.new) do
+          render(Menubar::SubTrigger.new) { "More" }
+          render(Menubar::SubContent.new) { render(Menubar::Item.new) { "Deep" } }
+        end
+      end
+    end)
+    triggers = doc.css("[data-slot=menubar-sub-trigger]")
+    contents = doc.css("[data-slot=menubar-sub-content]")
+    keys = doc.css("template[data-chadcn--menubar-template]").map { |node| node["data-chadcn--menubar-template"] }.grep(/-sub-/)
+
+    assert_equal(%w[app-sub-1-trigger app-sub-2-trigger], triggers.map { |node| node["id"] })
+    assert_equal(%w[app-sub-1 app-sub-2], triggers.map { |node| node["data-chadcn--menubar-sub-content-id"] })
+    assert_equal(%w[app-sub-1 app-sub-2], contents.map { |node| node["id"] })
+    assert_equal(%w[app-sub-1-trigger app-sub-2-trigger], contents.map { |node| node["aria-labelledby"] })
+    assert_equal %w[app-sub-1 app-sub-2], keys
+  end
+
+  test "a second bar restarts its sub numbering" do
+    html = render_view do
+      %w[app other].each do |id|
+        render(Menubar.new(id:)) do
+          render(Menubar::Menu.new(value: "file")) do
+            render(Menubar::Trigger.new) { "File" }
+            render(Menubar::Content.new) do
+              render(Menubar::Sub.new) do
+                render(Menubar::SubTrigger.new) { "More" }
+                render(Menubar::SubContent.new) { render(Menubar::Item.new) { "Deep" } }
+              end
+            end
+          end
+        end
+      end
+    end
+    doc = fragment(html)
+
+    assert_equal(%w[app-sub-1-trigger other-sub-1-trigger], doc.css("[data-slot=menubar-sub-trigger]").map { |node| node["id"] })
+    assert_equal(%w[app-sub-1 other-sub-1], doc.css("[data-slot=menubar-sub-content]").map { |node| node["id"] })
+  end
+
+  test "without id the subs are menubar-1-sub-N" do
+    doc = fragment(bar do
+      2.times do
+        render(Menubar::Sub.new) do
+          render(Menubar::SubTrigger.new) { "More" }
+          render(Menubar::SubContent.new) { render(Menubar::Item.new) { "Deep" } }
+        end
+      end
+    end)
+    contents = doc.css("[data-slot=menubar-sub-content]")
+    keys = doc.css("template[data-chadcn--menubar-template]").map { |node| node["data-chadcn--menubar-template"] }.grep(/-sub-/)
+
+    assert_equal(%w[menubar-1-sub-1-trigger menubar-1-sub-2-trigger], doc.css("[data-slot=menubar-sub-trigger]").map { |node| node["id"] })
+    assert_equal(%w[menubar-1-sub-1 menubar-1-sub-2], contents.map { |node| node["id"] })
+    assert_equal(%w[menubar-1-sub-1-trigger menubar-1-sub-2-trigger], contents.map { |node| node["aria-labelledby"] })
+    assert_equal %w[menubar-1-sub-1 menubar-1-sub-2], keys
+  end
+
+  test "menus without value count within the bar and a bar id seeds their values" do
+    default = fragment(render_view do
+      render(Menubar.new) { 2.times { render(Menubar::Menu.new) { render(Menubar::Trigger.new) { "T" } } } }
+    end)
+    named = fragment(render_view do
+      render(Menubar.new(id: "bar")) { render(Menubar::Menu.new) { render(Menubar::Trigger.new) { "T" } } }
+    end)
+
+    assert_equal(%w[menubar-1-menu-1 menubar-1-menu-2],
+                 default.css("[data-slot=menubar-trigger]").map { |trigger| trigger["data-chadcn--menubar-menu-value"] })
+    assert_nil default.at_css("[data-slot=menubar]")["id"]
+    assert_equal "bar-menu-1", named.at_css("[data-slot=menubar-trigger]")["data-chadcn--menubar-menu-value"]
+  end
 end

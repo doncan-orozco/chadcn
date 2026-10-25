@@ -31,7 +31,7 @@ class Chadcn::TooltipTest < Chadcn::TestCase
   test "content is shipped in an inert template with the oracle classes and arrow" do
     out = render_tooltip(content: { class: "max-w-48" })
 
-    assert_match(/<template data-chadcn--tooltip-template="tooltip-content-\d+"/, out)
+    assert_match(/<template data-chadcn--tooltip-template="tooltip-\d+"/, out)
     assert_includes out, 'data-slot="tooltip-content"'
     assert_includes out, 'role="tooltip"'
     assert_includes out, "max-w-48"
@@ -49,7 +49,7 @@ class Chadcn::TooltipTest < Chadcn::TestCase
     out = render_tooltip(root: { default_open: true }, trigger: { aria: { describedby: "extra" } })
 
     assert_includes out, 'data-state="instant-open"'
-    assert_match(/aria-describedby="extra tooltip-content-\d+"/, out)
+    assert_match(/aria-describedby="extra tooltip-\d+"/, out)
   end
 
   test "delay falls back to the provider and the root wins" do
@@ -116,5 +116,23 @@ class Chadcn::TooltipTest < Chadcn::TestCase
   test "trigger and content raise outside a tooltip" do
     assert_match(/`TooltipTrigger` must be used within `Tooltip`/, assert_raises(ArgumentError) { Tooltip::Trigger.new.call }.message)
     assert_match(/`TooltipContent` must be used within `Tooltip`/, assert_raises(ArgumentError) { Tooltip::Content.new.call }.message)
+  end
+
+  test "id names the content and the provider id groups the tooltips" do
+    out = render_tooltip(root: { id: "save-tip" }, provider: { id: "toolbar" })
+
+    assert_includes out, 'data-chadcn--tooltip-template="save-tip"'
+    assert_includes out, 'data-chadcn--tooltip-content-id-value="save-tip"'
+    assert_includes out, 'id="save-tip"'
+    assert_includes out, 'data-chadcn--tooltip-provider-id-value="toolbar"'
+  end
+
+  test "without id the provider is tooltip-provider-1 and the tooltip takes the next number of the shared counter" do
+    out = render_tooltip(root: { default_open: true })
+
+    assert_includes out, 'data-chadcn--tooltip-provider-id-value="tooltip-provider-1"'
+    assert_includes out, 'data-chadcn--tooltip-template="tooltip-2"'
+    assert_includes out, 'role="tooltip" id="tooltip-2"'
+    assert_includes out, 'aria-describedby="tooltip-2"'
   end
 end

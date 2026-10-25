@@ -264,7 +264,7 @@ class Chadcn::ContextMenuTest < Chadcn::TestCase
     end
     values = fragment(html).css("[data-slot=context-menu-trigger]").map { |el| el["data-chadcn--context-menu-template-value"] }
 
-    assert_equal %w[context-menu-1-content context-menu-2-content], values
+    assert_equal %w[context-menu-1 context-menu-2], values
   end
 
   test "trigger as_child with a tag symbol renders that element with the controller attributes" do
@@ -494,5 +494,31 @@ class Chadcn::ContextMenuTest < Chadcn::TestCase
     assert_includes doc.at_css("[data-slot=context-menu-trigger]")["class"], "t-1"
     assert_includes doc.at_css("[data-slot=context-menu-content]")["class"].split, "c-1"
     assert_equal "destructive", doc.at_css("[data-slot=context-menu-item]")["data-variant"]
+  end
+
+  test "id names the content" do
+    doc = fragment(menu(root: { id: "file-menu" }))
+
+    assert_equal "file-menu", doc.at_css("[data-slot=context-menu-trigger]")["data-chadcn--context-menu-template-value"]
+    assert_equal "file-menu", doc.at_css("[data-slot=context-menu-content]")["id"]
+  end
+
+  test "with id the subs are <id>-sub-N and the trigger, template key and content id of a sub agree" do
+    doc = fragment(menu(root: { id: "cm" }) do
+      render(ContextMenu::Sub.new) do
+        render(ContextMenu::SubTrigger.new) { "More" }
+        render(ContextMenu::SubContent.new) { render(ContextMenu::Item.new) { "Save" } }
+      end
+    end)
+    trigger = doc.at_css("[data-slot=context-menu-sub-trigger]")
+    template = doc.at_css("template[data-chadcn--dropdown-menu-template='cm-sub-1']")
+    content = template.at_css("[data-slot=context-menu-sub-content]")
+
+    assert_equal "cm-sub-1-trigger", trigger["id"]
+    assert_equal "cm-sub-1", content["id"]
+    assert_equal "cm-sub-1-trigger", content["aria-labelledby"]
+    assert_equal "cm-sub-1", trigger["data-chadcn--dropdown-menu-sub-content-id"]
+    assert_equal template["data-chadcn--dropdown-menu-template"], trigger["data-chadcn--dropdown-menu-sub-content-id"]
+    assert_equal content["id"], trigger["data-chadcn--dropdown-menu-sub-content-id"]
   end
 end

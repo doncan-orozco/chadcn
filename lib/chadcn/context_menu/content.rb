@@ -2,7 +2,8 @@
 
 # shadcn ContextMenuContent = Portal + Radix Content. +side+, +side_offset+ and +align+ are forced (+"right"+, +2+, +"start"+) and are not
 # options: passing them raises. The markup ships in an inert +<template>+ that the controller clones into +<body>+ while the
-# menu is open; the rendered element is +role="menu"+ with no id.
+# menu is open; the rendered element is +role="menu"+, with the root's +id:+ as its id when one was given (no id by default, as in
+# Radix).
 #
 # @example
 #   menu.content(class: "w-52") { menu.item { "Back" } }
@@ -52,7 +53,7 @@ class Chadcn::ContextMenu::Content < Chadcn::Base
   # @raise [ArgumentError] when not rendered within a {Chadcn::ContextMenu}
   def view_template
     root = root_context
-    attrs = menu_content_attrs(classes: CLASSES, slot: "context-menu-content", id: nil, labelledby: nil, dir: root[:dir])
+    attrs = menu_content_attrs(classes: CLASSES, slot: "context-menu-content", id: root[:id], labelledby: nil, dir: root[:dir])
     template(data: { chadcn__dropdown_menu_template: root[:content_id], options: json(@options) }) do
       render_part(:div, @as_child, attrs) { yield if block_given? }
     end

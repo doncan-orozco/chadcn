@@ -96,7 +96,9 @@ class Chadcn::Combobox < Chadcn::Base
   # @param name [String, nil] form field name (hidden input(s)); multiple mode submits one hidden input per selected value
   # @param form [String, nil] id of the owning form
   # @param auto_complete [String, nil] autocomplete attribute of the hidden input
-  # @param id [String, nil] id of the input; items are `<id>-<index>` and the hidden input `<id>-hidden-input`
+  # @param id [String, nil] id of the input, or of the trigger when the input sits inside the popup (Base UI); items are
+  #   `<id>-<index>` and the hidden input `<id>-hidden-input` unless `name:` is given in single mode, then it carries the name
+  #   instead. The list is `<id>-list` and the popup `<id>-popup` (the popup only when the input sits inside it).
   # @param disabled [Boolean]
   # @param read_only [Boolean] the popup opens and browses but never selects
   # @param required [Boolean]
@@ -135,7 +137,7 @@ class Chadcn::Combobox < Chadcn::Base
   # @return [void]
   def view_template
     previous = context[CONTEXT_KEY]
-    sequence = context[SEQUENCE_KEY] = context.fetch(SEQUENCE_KEY, 0) + 1
+    sequence = next_sequence(SEQUENCE_KEY)
     model = context[CONTEXT_KEY] = Model.new(@options, sequence)
     div(style: "display: contents", data: host_data(model)) do
       yield self if block_given?

@@ -14,7 +14,9 @@ module Chadcn
   #   - the theme tooling (`Chadcn::Theme`, rake tasks `chadcn:theme:*`) pointed at the host's theme directory
   #     (`Chadcn.config.theme_dir`, set from `config.chadcn.theme_dir`);
   #   - the Tailwind entry point in app/assets/tailwind/chadcn/engine.css, bundled by tailwindcss-rails, which
-  #     `rails g chadcn:install` imports together with the `@source` line for the gem's Ruby files.
+  #     `rails g chadcn:install` imports together with the `@source` line for the gem's Ruby files;
+  #   - generated ids (`dialog-1`, `dropdown-menu-2-trigger`) numbered per request instead of per render (`Chadcn::Sequence`), so a
+  #     layout, its view and the Turbo frames of one response never repeat an id.
   #
   # Configuration (config/application.rb):
   #   config.chadcn.theme_dir = "app/assets/tailwind/theme"   # where theme.css and presets/ live; relative to the app root
@@ -48,6 +50,19 @@ module Chadcn
     # Declares the gem's JavaScript precompiled in Sprockets apps (dev/decisions/sprockets.md).
     require_relative "engine/sprockets"
     private_constant :SprocketsAssets
+
+    # The counters behind the generated ids for the current request (Chadcn::Sequence): an ActiveSupport::CurrentAttributes, so one
+    # instance per thread, reset by the Rails executor when every request and job completes. Installed as
+    # `Chadcn.config.sequence_store` below, so a layout, its view and the Turbo frames of one response number the roots in one
+    # sequence and the next request starts again from 1. Outside the executor (a rake task, a script) the counters keep growing
+    # for the thread, which never repeats an id either.
+    class RequestSequences < ActiveSupport::CurrentAttributes
+      attribute :counters
+
+      # @return [Hash{Symbol => Integer}] the counters of the current request, created on first use
+      def self.store = self.counters ||= {}
+    end
+    private_constant :RequestSequences
 
     config.chadcn = ActiveSupport::OrderedOptions.new
     config.chadcn.theme_dir = nil
@@ -89,6 +104,15 @@ module Chadcn
       raise Chadcn::Configuration::LateSettingError,
             "config.chadcn.override_dir was changed after chadcn loaded its components, so it is ignored: " \
             "set it in config/application.rb or config/environments/*.rb"
+    end
+
+    # Generated ids (`dialog-1`, `dropdown-menu-2-trigger`) are numbered per request instead of per render: a page is several
+    # renders (layout, view, Turbo frames of one response), each with its own Phlex context. A store already set with
+    # Chadcn.configure (config/application.rb) wins, like theme_dir; config/initializers/*.rb run later and replace this one.
+    initializer "chadcn.sequence_store" do
+      next if Chadcn.config.sequence_store
+
+      Chadcn.configure { |config| config.sequence_store = RequestSequences.method(:store) }
     end
 
     initializer "chadcn.assets" do |app|

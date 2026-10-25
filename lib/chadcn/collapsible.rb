@@ -24,12 +24,16 @@ class Chadcn::Collapsible < Chadcn::Base
   # @param disabled [Boolean] disables the trigger
   # @param as_child [false, nil, Symbol, String, Chadcn::Base] a tag name (`:a`) or a component to render instead of the default element (Radix Slot);
   #   the part's attributes are merged onto it. `true` is not supported.
+  # @param id [String, nil] id of the root element, as in React, and the base of the generated ids (`"orders-content"`).
+  #   Without it the element has no id and the base is `collapsible-N`, numbered per request with the engine, per render without it
   # @param attrs [Hash] HTML attributes merged onto the root element
-  def initialize(open: nil, default_open: false, disabled: false, as_child: false, **attrs)
+  # @raise [ArgumentError] when id: is empty or contains whitespace, a double quote or a backslash
+  def initialize(open: nil, default_open: false, disabled: false, as_child: false, id: nil, **attrs)
     @controlled = !open.nil?
     @open = @controlled ? open : default_open
     @disabled = disabled
     @as_child = as_child
+    @id = validated_id(id)
     @attrs = attrs
     super()
   end
@@ -38,10 +42,10 @@ class Chadcn::Collapsible < Chadcn::Base
   # @return [void]
   def view_template
     previous = context[ROOT_KEY]
-    number = context[SEQUENCE_KEY] = context.fetch(SEQUENCE_KEY, 0) + 1
-    content_id = "collapsible-#{number}-content"
+    base = @id || "collapsible-#{next_sequence(SEQUENCE_KEY)}"
+    content_id = "#{base}-content"
     context[ROOT_KEY] = { open: @open, disabled: @disabled, content_id: }
-    attrs = merge_attrs({ data: root_data(content_id) }, @attrs)
+    attrs = merge_attrs({ id: @id, data: root_data(content_id) }, @attrs)
     content = proc { yield self if block_given? }
     @as_child ? render_as_child(@as_child, **attrs, &content) : div(**attrs, &content)
   ensure

@@ -32,7 +32,7 @@ class Chadcn::NavigationMenu < Chadcn::Base
   #
   # @api private
   ITEM_KEY = :shadcn_navigation_menu_item
-  # Render-context key of the per-render id counter.
+  # Render-context key of the id counter (per request with the engine, per render without it, see Chadcn::Sequence).
   #
   # @api private
   SEQUENCE_KEY = :shadcn_navigation_menu_sequence
@@ -68,9 +68,12 @@ class Chadcn::NavigationMenu < Chadcn::Base
   # @param dir [String, Symbol, nil] `ltr` or `rtl`; defaults to the nearest {Chadcn::Direction::Provider} (default: nil)
   # @param activation_mode [String, Symbol] `automatic` (hover or focus opens) or `manual`; passed to the Stimulus controller as given,
   #   without validation (default: "automatic")
+  # @param id [String, nil] id of the root element, as in React, and the base of the generated ids (`"docs-item-1"`).
+  #   Without it the element has no id and the base is `navigation-menu-N`, numbered per request with the engine, per render without it
   # @param attrs [Hash] HTML attributes for the root `nav`; `class:` is tailwind-merged, `data:` and `aria:` are deep-merged
+  # @raise [ArgumentError] when id: is empty or contains whitespace, a double quote or a backslash
   def initialize(viewport: true, value: nil, default_value: "", delay_duration: 200, skip_delay_duration: 300,
-                 orientation: "horizontal", dir: nil, activation_mode: "automatic", **attrs)
+                 orientation: "horizontal", dir: nil, activation_mode: "automatic", id: nil, **attrs)
     @viewport = viewport
     @controlled = !value.nil?
     @value = (@controlled ? value : default_value).to_s
@@ -79,6 +82,7 @@ class Chadcn::NavigationMenu < Chadcn::Base
     @orientation = ORIENTATIONS.include?(orientation.to_s) ? orientation.to_s : "horizontal"
     @dir = dir
     @activation_mode = activation_mode.to_s
+    @id = validated_id(id)
     @attrs = attrs
     super()
   end
@@ -90,9 +94,11 @@ class Chadcn::NavigationMenu < Chadcn::Base
   def view_template(&)
     previous = context[ROOT_KEY]
     dir = use_direction(@dir)
-    context[ROOT_KEY] = { base: "navigation-menu-#{self.class.next_sequence(context)}", value: @value, orientation: @orientation, dir: dir }
+    context[ROOT_KEY] = {
+      base: @id || "navigation-menu-#{next_sequence(SEQUENCE_KEY)}", items: 0, value: @value, orientation: @orientation, dir: dir
+    }
     nav(**merge_attrs({
-                        aria: { label: "Main" }, dir: dir,
+                        id: @id, aria: { label: "Main" }, dir: dir,
                         class: CLASSES,
                         data: {
                           orientation: @orientation, slot: "navigation-menu", viewport: @viewport.to_s, controller: "chadcn--navigation-menu",
@@ -109,11 +115,6 @@ class Chadcn::NavigationMenu < Chadcn::Base
   ensure
     context[ROOT_KEY] = previous
   end
-
-  # Per render counter (no SecureRandom): ids are only compared through their relations.
-  #
-  # @api private
-  def self.next_sequence(context) = context[SEQUENCE_KEY] = context.fetch(SEQUENCE_KEY, 0) + 1
 
   # Shared by the parts: the root and item state of the current render.
   #
@@ -176,7 +177,7 @@ class Chadcn::NavigationMenu < Chadcn::Base
   class Item < Chadcn::Base
     include Support
 
-    # @param value [String, nil] value identifying the item (default: nil, a per-render id is generated)
+    # @param value [String, nil] value identifying the item (default: nil, an id from the root's counter is generated)
     # @param as_child [false, nil, Symbol, String, Chadcn::Base] a tag name (`:a`) or a component to render instead of the default element (Radix Slot);
     #   the part's attributes are merged onto it. `true` is not supported.
     # @param attrs [Hash] HTML attributes for the element; `class:` is tailwind-merged over the defaults, `data:` and `aria:`
@@ -196,7 +197,7 @@ class Chadcn::NavigationMenu < Chadcn::Base
     def view_template(&)
       root = root_context
       previous = context[ITEM_KEY]
-      value = @value || "#{root[:base]}-item-#{self.class.next_sequence(context)}"
+      value = @value || "#{root[:base]}-item-#{root[:items] += 1}"
       context[ITEM_KEY] =
         { value: value, open: value == root[:value], trigger_id: "#{root[:base]}-trigger-#{value}",
           content_id: "#{root[:base]}-content-#{value}" }
@@ -205,9 +206,6 @@ class Chadcn::NavigationMenu < Chadcn::Base
     ensure
       context[ITEM_KEY] = previous
     end
-
-    # @api private
-    def self.next_sequence(context) = Chadcn::NavigationMenu.next_sequence(context)
   end
 
   # shadcn NavigationMenuTrigger: the `button` that opens its item's content. Must be inside an {Item}.

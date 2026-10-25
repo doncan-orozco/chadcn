@@ -4,6 +4,7 @@
   "allow_tokens": [],
   "allow_missing_tokens": [],
   "api": [
-    "NavigationMenu::Content, NavigationMenu::Viewport and NavigationMenu::Indicator render inert <template data-chadcn--navigation-menu-target> elements (no data-slot) holding their markup while unmounted"
+    "NavigationMenu::Content, NavigationMenu::Viewport and NavigationMenu::Indicator render inert <template data-chadcn--navigation-menu-target> elements (no data-slot) holding their markup while unmounted",
+    "NavigationMenu id: keeps React's meaning (the id of the element) and also seeds the generated ids (main-nav-trigger-docs); Radix numbers ids with React's useId (unique per tree, no caller control); the port numbers them per request with the Rails engine and per render otherwise (Chadcn::Sequence), and the root takes an explicit base"
   ]
 }

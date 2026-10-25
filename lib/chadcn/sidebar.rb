@@ -40,7 +40,7 @@ class Chadcn::Sidebar < Chadcn::Base
   #
   # @api private
   CONTEXT_KEY = :shadcn_sidebar_state
-  # Render-context key of the per-render sidebar id counter.
+  # Render-context key of the sidebar id counter (per request with the engine, per render without it, see Chadcn::Sequence).
   #
   # @api private
   SEQUENCE_KEY = :shadcn_sidebar_sequence
@@ -114,7 +114,7 @@ class Chadcn::Sidebar < Chadcn::Base
   # React `useSidebar`, read from the render context of the nearest Provider.
   #
   # @!attribute [r] id
-  #   @return [String] unique id of the sidebar in this render
+  #   @return [String] name of the sidebar (the Provider id: or sidebar-N, per request with the engine, per render without it)
   # @!attribute [r] state
   #   @return [String] `"expanded"` or `"collapsed"`
   # @!attribute [r] open

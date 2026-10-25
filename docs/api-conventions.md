@@ -77,6 +77,44 @@ live on the instance. A few helpers share a name with an HTML element (`header`,
 - Variant-like options accept strings and symbols with the React keys: `variant: "outline"` or `:outline`, `size: "icon-sm"` or
   `:icon_sm`. The defaults equal React's `defaultVariants`; an unknown value raises `ArgumentError` with the accepted values.
 - `disabled: true` renders the attribute exactly as React does.
+- Generated ids. Roots that wire their parts with ids (`aria-controls`, `aria-labelledby`, the portal template key) number them:
+  `dialog-1`, `dropdown-menu-2-trigger`, `select-1-text-3`. Pass `id:` to a root to choose them; the table in
+  [Generated ids](#generated-ids) says what `id:` is for each root. `id:` raises `ArgumentError` at construction when empty or
+  containing whitespace, a double quote or a backslash (`Command::Dialog` raises when it renders; `Combobox` and `Tabs` do not
+  validate).
+
+## Generated ids
+
+`id:` is the base the other generated ids of a root are built from (`<id>-<part>`). Where it lands depends on the root: a root that is
+an element in the React source keeps it on that element; a root that stands for no element in the React source gives it to its
+content (`ContextMenu` only when one is given; the `display: contents` host that `Dialog`, `Sheet` and `AlertDialog` render never
+takes it); `HoverCard` and `Tooltip::Provider` use it only as a key that no element carries; `Combobox` keeps Base UI's meaning.
+Per root:
+
+| Root | `id:` is | Other ids from it |
+|---|---|---|
+| `Dialog`, `Sheet`, `AlertDialog` | the content's id; the `display: contents` host never takes it; the trigger has `aria-controls="<id>"` while open | `<id>-title`, `<id>-description` |
+| `Command::Dialog` | names its dialog content like `Dialog` (the host takes no `id`) | `<id>-title`, `<id>-description` |
+| `Popover` | the content's id and the key of its template, anchor and triggers; the trigger has `aria-controls` while open | none |
+| `DropdownMenu` | the content's id; the trigger is `<id>-trigger` with `aria-controls` while open | subs `<id>-sub-N` (trigger `<id>-sub-N-trigger`) |
+| `ContextMenu` | the key of the content's template; the content's `id` only when given; the trigger never has an id or `aria-controls` | subs `<id>-sub-N` (trigger `<id>-sub-N-trigger`) |
+| `Select` | the listbox's (content's) id; the trigger has `aria-controls` while open | `<id>-group-N`, `<id>-text-N` (one counter) |
+| `Tooltip` | the content's id and template key; the trigger has `aria-describedby` while open | none |
+| `Tooltip::Provider` | the key its tooltips share (`data-chadcn--tooltip-provider-id-value`); no element has it as an id | none |
+| `HoverCard` | the key of the content's template (Radix wires no id); no element has it as an id | none |
+| `Accordion` | the root element's id | items `<id>-item-N-trigger`, `<id>-item-N-content` |
+| `Collapsible` | the root element's id | `<id>-content` |
+| `Menubar` | the bar's id | menus `<id>-menu-N` (trigger `<id>-menu-N-trigger`), subs `<id>-sub-N` (trigger `<id>-sub-N-trigger`) |
+| `NavigationMenu` | the `nav` id | item values `<id>-item-N`, `<id>-trigger-<value>`, `<id>-content-<value>` |
+| `Command` | the root element's id | `<id>-input`, `<id>-label`, `<id>-list`, `<id>-item-N`, `<id>-group-N` (heading `<id>-group-N-heading`) |
+| `Sidebar::Provider` | the wrapper's id, and the sidebar's name (`data-chadcn--sidebar-id-value`) | none |
+| `Combobox` | Base UI's meaning: the input's id, or the trigger's when the input sits inside the popup | `<id>-<index>`, `<id>-list`, `<id>-popup` when the input sits inside the popup (and `<id>-input` then too) |
+| `Tabs` | no `id:` keyword: an `id` in `**attrs` stays on the root element and is the base; without it the base is a random `radix-tabs-xxxxxx` (not numbered) | `<id>-trigger-<value>`, `<id>-content-<value>` |
+
+Without `id:` the numbers are unique per request in a Rails app (the engine keeps the counters for the request, so a layout, a view
+and the Turbo frames of one response never collide; markup a later request adds to the page (a lazy or navigated Turbo Frame, a
+Turbo Stream) numbers from 1 again, so give its roots an `id:`) and per render elsewhere (`Chadcn.config.sequence_store`, see the
+README). React numbers with `useId`, so the values differ from Radix but every relation is the same.
 
 ## `as_child`
 
