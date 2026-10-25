@@ -87,6 +87,20 @@ export const consoleErrors = (page) => {
 // The selector of the element a Stimulus controller is connected to.
 export const host = (controller) => `[data-controller~="${controller}"]`;
 
+// Removes the controller host and puts it back in the same place: Stimulus disconnects on the mutation-observer microtask and
+// connects a new controller on reinsert. Waits on ticks, never on the clock (testing R9). `anchor` picks the reinsert position.
+export const reconnect = (page, controller, { anchor = "next" } = {}) => page.evaluate(async ({ selector, anchor }) => {
+  const tick = () => new Promise((resolve) => setTimeout(resolve))
+  const control = document.querySelector(selector)
+  const parent = control.parentNode
+  const input = control.nextElementSibling
+  const next = anchor === "bubble-input" ? (input?.nextSibling ?? null) : control.nextSibling
+  control.remove()
+  await tick()
+  parent.insertBefore(control, anchor === "bubble-input" && input?.isConnected ? input : next)
+  await tick()
+}, { selector: host(controller), anchor })
+
 export const events = (page) => page.evaluate(() => window.__events.map((e) => e.name));
 export const eventLog = (page) => page.evaluate(() => window.__events);
 export const contentCount = (page, selector) => page.locator(selector).count();

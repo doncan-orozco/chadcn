@@ -1,5 +1,5 @@
 import { browserTest } from "./harness.mjs"
-import { assert, consoleErrors, settle } from "./support.mjs"
+import { assert, consoleErrors, reconnect, settle } from "./support.mjs"
 import { afterSnapshotTicks, countIn, restore, snapshot } from "./turbo_support.mjs"
 
 // Turbo page cache for the avatar: the image mounts from its template once it has loaded (stimulus R2/R3, radix-stimulus R10).
@@ -23,15 +23,9 @@ browserTest("avatar: a fallback survives a reconnect after the image loaded", as
   const page = await open("size-default__image-loaded", "avatar")
   await page.waitForSelector("[data-slot=avatar-image]")
   const errors = consoleErrors(page)
-  await page.evaluate(async () => {
-    const root = document.querySelector('[data-controller~="chadcn--avatar"]')
-    const parent = root.parentNode
-    const next = root.nextSibling
-    root.remove()
-    await new Promise((resolve) => setTimeout(resolve))
-    parent.insertBefore(root, next)
-    await new Promise((resolve) => setTimeout(resolve, 100))
-  })
+  await reconnect(page, "chadcn--avatar")
+  await page.waitForSelector("[data-slot=avatar-image]")
+  await afterSnapshotTicks(page) // a late duplicate mount would land inside these ticks
   await settle(page)
   assert.deepEqual(errors, [])
   assert.equal(await page.locator("[data-slot=avatar-image]").count(), 1)
