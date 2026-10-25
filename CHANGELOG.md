@@ -18,12 +18,12 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 
 - `id:` on every root that generates ids (`Dialog`, `Sheet`, `AlertDialog`, `Popover`, `HoverCard`, `Tooltip` and `Tooltip::Provider`,
   `DropdownMenu`, `ContextMenu`, `Menubar`, `NavigationMenu`, `Collapsible`, `Accordion`, `Command`, `Sidebar::Provider`; `Select` and
-  `Combobox` already took it): the base of the generated ids. On a root that stands for no element in Radix it is the content's id
+  `Combobox` already took it): the base of the generated ids. On a root that stands for no element in the React source it is the content's id
   (`Chadcn::Sheet.new(id: "x")` renders the content with `id="x"`, the trigger with `aria-controls="x"` while open, `x-title` and
   `x-description`); `HoverCard` uses it as its template key only, `ContextMenu` sets the content id only when given and `Tooltip::Provider` takes it as the
   key its tooltips share (rendered as `data-chadcn--tooltip-provider-id-value`), not as the id of an element; on a root that
-  renders an element it stays on the element and seeds the generated ids (`Chadcn::Accordion.new(id: "faq")` numbers its items
-  `faq-item-1-trigger`), and `Sidebar::Provider` uses it as the sidebar's name. `Chadcn.config.sequence_store`: a callable answering the
+  is an element in the React source it stays on that element and seeds the generated ids (`Chadcn::Accordion.new(id: "faq")` numbers
+  its items `faq-item-1-trigger`), and `Sidebar::Provider` uses it as the sidebar's name. `Chadcn.config.sequence_store`: a callable answering the
   Hash the id counters live in; nil (the default) keeps them in the render context.
 - `Chadcn::Calendar` (`Calendar::DayButton`): shadcn's react-day-picker calendar as a dependency-free port (no react-day-picker, no
   date-fns): native `Date` and `Intl` only. Single, multiple and range modes, min/max, disabled matchers, outside days, fixed weeks, week
@@ -130,7 +130,7 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
   every request completes, so a layout, a view and Turbo frames rendered by separate `render` calls no longer repeat `dropdown-menu-1`
   (every top-level render used to start again at 1). (`Tabs` is the exception: without `id:` its base stays a random
   `radix-tabs-xxxxxx`.) Without Rails the counters stay per render. The default shapes follow the
-  `id:` rule: the content of a root that stands for no element in Radix takes the base (`dialog-1`, `sheet-1`, `popover-1`, `select-1`; formerly
+  `id:` rule: the content of a root that stands for no element in the React source takes the base (`dialog-1`, `sheet-1`, `popover-1`, `select-1`; formerly
   `dialog-1-content`...); `HoverCard`'s template key is `hover-card-1` (formerly `hover-card-content-1`; no element carries it as an
   id); a tooltip's content is `tooltip-N` (formerly `tooltip-content-N`; `Tooltip::Provider` and its tooltips share one counter, so
   the first tooltip under `tooltip-provider-1` is `tooltip-2`); nested parts count within their root (`dropdown-menu-1-sub-1`,

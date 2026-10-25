@@ -85,7 +85,11 @@ live on the instance. A few helpers share a name with an HTML element (`header`,
 
 ## Generated ids
 
-`id:` is the id of the element a root stands for in Radix; every other generated id is `<id>-<part>`. What it names, per root:
+`id:` is the base the other generated ids of a root are built from (`<id>-<part>`). Where it lands depends on the root: a root that is
+an element in the React source keeps it on that element; a root that stands for no element in the React source gives it to its
+content (`ContextMenu` only when one is given; the `display: contents` host that `Dialog`, `Sheet` and `AlertDialog` render never
+takes it); `HoverCard` and `Tooltip::Provider` use it only as a key that no element carries; `Combobox` keeps Base UI's meaning.
+Per root:
 
 | Root | `id:` is | Other ids from it |
 |---|---|---|
@@ -102,10 +106,10 @@ live on the instance. A few helpers share a name with an HTML element (`header`,
 | `Collapsible` | the root element's id | `<id>-content` |
 | `Menubar` | the bar's id | menus `<id>-menu-N` (trigger `<id>-menu-N-trigger`), subs `<id>-sub-N` (trigger `<id>-sub-N-trigger`) |
 | `NavigationMenu` | the `nav` id | item values `<id>-item-N`, `<id>-trigger-<value>`, `<id>-content-<value>` |
-| `Command` | the root element's id | `<id>-input`, `<id>-label`, `<id>-list`, `<id>-item-N` |
+| `Command` | the root element's id | `<id>-input`, `<id>-label`, `<id>-list`, `<id>-item-N`, `<id>-group-N` (heading `<id>-group-N-heading`) |
 | `Sidebar::Provider` | the wrapper's id, and the sidebar's name (`data-chadcn--sidebar-id-value`) | none |
 | `Combobox` | Base UI's meaning: the input's id, or the trigger's when the input sits inside the popup | `<id>-<index>`, `<id>-list`, `<id>-popup` when the input sits inside the popup (and `<id>-input` then too) |
-| `Tabs` | no `id:` keyword: `id` passes through `**attrs` as the base; without it the base is a random `radix-tabs-xxxxxx` and it is not numbered | as before |
+| `Tabs` | no `id:` keyword: an `id` in `**attrs` stays on the root element and is the base; without it the base is a random `radix-tabs-xxxxxx` (not numbered) | `<id>-trigger-<value>`, `<id>-content-<value>` |
 
 Without `id:` the numbers are unique per request in a Rails app (the engine keeps the counters for the request, so a layout, a view
 and the Turbo frames of one response never collide; markup a later request adds to the page (a lazy or navigated Turbo Frame, a
