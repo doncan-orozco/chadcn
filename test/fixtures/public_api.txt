@@ -64,6 +64,9 @@ class Chadcn::Card::Description < Chadcn::Base
 class Chadcn::Card::Footer < Chadcn::Base
 class Chadcn::Card::Header < Chadcn::Base
 class Chadcn::Card::Title < Chadcn::Base
+class Chadcn::Catalog::Entry < Struct
+class Chadcn::Catalog::TreeRenderer < Phlex::HTML
+class Chadcn::Catalog::TreeRenderer::Error < StandardError
 class Chadcn::Checkbox < Chadcn::Base
 class Chadcn::Collapsible < Chadcn::Base
 class Chadcn::Collapsible::Content < Chadcn::Base
@@ -311,6 +314,8 @@ class_method Chadcn.root ()
 class_method Chadcn::Badge.variants (variant: "default", class: nil)
 class_method Chadcn::Button.variants (variant: "default", size: "default", class: nil)
 class_method Chadcn::ButtonGroup.variants (orientation: "horizontal", class: nil)
+class_method Chadcn::Catalog.entries ()
+class_method Chadcn::Catalog.find (component)
 class_method Chadcn::Direction.use_direction (context, local_dir = nil)
 class_method Chadcn::Empty::Media.variants (variant: "default", class: nil)
 class_method Chadcn::Field.variants (orientation: "vertical", class: nil)
@@ -544,6 +549,13 @@ method Chadcn::Card::Header#initialize (**attrs)
 method Chadcn::Card::Header#view_template ()
 method Chadcn::Card::Title#initialize (**attrs)
 method Chadcn::Card::Title#view_template ()
+method Chadcn::Catalog::Entry#component ()
+method Chadcn::Catalog::Entry#scenario_count ()
+method Chadcn::Catalog::Entry#scenario_id ()
+method Chadcn::Catalog::Entry#title ()
+method Chadcn::Catalog::Entry#tree ()
+method Chadcn::Catalog::TreeRenderer#initialize (tree:, component: nil, dx: nil)
+method Chadcn::Catalog::TreeRenderer#view_template ()
 method Chadcn::Checkbox#initialize (checked: nil, default_checked: false, disabled: false, required: nil, name: nil, value: "on", form: nil, **attrs)
 method Chadcn::Checkbox#view_template ()
 method Chadcn::Collapsible#initialize (open: nil, default_open: false, disabled: false, as_child: false, id: nil, **attrs)
@@ -1180,6 +1192,7 @@ method Chadcn::Tooltip::Provider#view_template ()
 method Chadcn::Tooltip::Trigger#initialize (as_child: false, **attrs)
 method Chadcn::Tooltip::Trigger#view_template ()
 module Chadcn
+module Chadcn::Catalog
 module Chadcn::Direction::Consumer
 module Chadcn::Generators
 module Chadcn::Theme

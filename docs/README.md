@@ -19,6 +19,7 @@ in the [README](../README.md); these pages are the per-family reference.
 - [Menus, select, command and combobox](menus-and-select.md): dropdown menu, context menu, menubar, select, command, combobox.
 - [Disclosure and navigation](disclosure-and-navigation.md): accordion, collapsible, tabs, breadcrumb, pagination, navigation
   menu, sidebar, scroll area.
+- [Catalog](catalog.md): `Chadcn::Catalog`, an example of every component and the renderer for a component gallery page.
 
 For AI assistants: [llms.txt](../llms.txt), [llms-full.txt](../llms-full.txt) and the agent skill
 [skills/chadcn/SKILL.md](../skills/chadcn/SKILL.md) are generated from the same source as these pages.

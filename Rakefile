@@ -46,3 +46,13 @@ namespace :llms do
   desc "Fail when the committed llms files differ from what `llms:generate` produces"
   task(:check) { llms_cli.call("check") }
 end
+
+namespace :catalog do
+  catalog_cli = ->(command) { sh FileUtils::RUBY, File.expand_path("dev/catalog/cli.rb", __dir__), command }
+
+  desc "Regenerate lib/chadcn/catalog/entries.json (the packaged Chadcn::Catalog examples) from dev/port/scenarios"
+  task(:generate) { catalog_cli.call("generate") }
+
+  desc "Fail when the committed catalog entries differ from what `catalog:generate` produces"
+  task(:check) { catalog_cli.call("check") }
+end
