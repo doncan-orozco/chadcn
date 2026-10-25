@@ -7,6 +7,7 @@
 #
 #   work_board.rb session                                  # stable id of this checkout's session (tmp/epic/session)
 #   work_board.rb epic create --slug S --title T --body-file F
+#   work_board.rb epic done --epic S --session ID [--note TXT]   # close the epic: refuses while an item is not done; posts an announce note, closes the root
 #   work_board.rb item create --epic S --title T --body-file F --wave N --owns a,b [--blocked-by 1,2] [--stage plan] [--priority N]
 #   work_board.rb plan-check --file plan.json              # lint a plan BEFORE creating anything (same rules as validate + contract fields)
 #   work_board.rb plan-apply --file plan.json              # create the epic root + all items in dependency order (refuses an existing epic)
@@ -472,7 +473,12 @@ module WorkBoard
       cmd = @argv.shift
       case cmd
       when "session" then session
-      when "epic" then @argv.shift == "create" ? epic_create : usage
+      when "epic"
+        case @argv.shift
+        when "create" then epic_create
+        when "done" then epic_done
+        else usage
+        end
       when "item"
         case @argv.shift
         when "create" then item_create
@@ -504,7 +510,7 @@ module WorkBoard
       out({ error: e.message }, 2)
     end
 
-    def usage = out({ error: "usage: work_board.rb <session|epic create|item create|item adopt|validate|status|next|reviews|mergeable|merge|claim|heartbeat|release|advance|block|unblock|comment|digest|reap> ..." }, 2)
+    def usage = out({ error: "usage: work_board.rb <session|epic create|epic done|item create|item adopt|validate|status|next|reviews|mergeable|merge|claim|heartbeat|release|advance|block|unblock|comment|digest|reap> ..." }, 2)
 
     def need(opts, *keys)
       missing = keys.reject { |k| opts[k] }
@@ -541,6 +547,24 @@ module WorkBoard
       b.ensure_labels("epic-root", "epic:#{opts[:slug]}")
       url = create_issue(b, opts[:title], body_of(opts).to_s, [ "epic-root", "epic:#{opts[:slug]}" ])
       out({ epic: opts[:slug], number: url[%r{(\d+)\s*\z}, 1].to_i, url: url })
+    end
+
+    # Closes the epic once every item is done: an `announce` note on the root says so, then the root issue is closed. Refuses while
+    # an item is open (the reply lists them) and an epic that is already closed.
+    def epic_done
+      opts, = parse("--epic" => :v, "--session" => :v, "--note" => :v)
+      need(opts, :epic, :session)
+      b = board(opts)
+      out({ error: "epic #{opts[:epic]} is already closed" }, 1) if b.root.closed?
+      open = b.items.reject(&:done?)
+      if open.any?
+        listed = open.map { |i| { number: i.number, title: i.title, stage: i.stage } }
+        out({ error: "epic #{opts[:epic]} has #{open.size} item(s) not done", open: listed }, 1)
+      end
+      text = [ "epic done: all #{b.items.size} items are done", opts[:note] ].compact.join("; ")
+      b.post_note(b.root.number, type: "announce", session: opts[:session], text: text)
+      b.gh("issue", "close", b.root.number.to_s)
+      out({ ok: true, epic: opts[:epic], root: b.root.number, items: b.items.size })
     end
 
     def create_issue(board, title, body, labels)

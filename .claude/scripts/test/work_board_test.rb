@@ -151,6 +151,31 @@ class WorkBoardTest < ActiveSupport::TestCase
     assert_includes fake_db["issues"].first["labels"].map { |l| l["name"] }, "epic-root"
   end
 
+  test "epic done closes the root with an announce note, and refuses while an item is open or when already closed" do
+    root = make_epic
+    make_item("A", wave: 1, owns: "lib/a/**", stage: "done")
+    b = make_item("B", wave: 1, owns: "lib/b/**")
+
+    out, code = wb("epic", "done", "--epic", "demo", "--session", "s1")
+    assert_equal 1, code
+    assert_equal([ b ], out["open"].map { |i| i["number"] })
+    assert_equal "OPEN", fake_db["issues"].find { |i| i["number"] == root }["state"].upcase
+
+    wb("item", "create", "--epic", "demo", "--title", "unused", "--body", "x", "--wave", "1", "--owns", "lib/c/**", "--stage", "done")
+    ENV["WORK_FAKE_DB"] = @db
+    FakeGh.call([ "issue", "close", b.to_s ])
+    out, code = wb("epic", "done", "--epic", "demo", "--session", "s1", "--note", "shipped in v1")
+    assert_equal 0, code, out.inspect
+    assert_equal 3, out["items"]
+    assert_equal "CLOSED", fake_db["issues"].find { |i| i["number"] == root }["state"].upcase
+    announce = wb("digest", "--epic", "demo")[0]["notes"].find { |n| n["type"] == "announce" }
+    assert_match(/epic done: all 3 items are done; shipped in v1/, announce["body"])
+
+    out, code = wb("epic", "done", "--epic", "demo", "--session", "s1")
+    assert_equal 1, code
+    assert_match(/already closed/, out["error"])
+  end
+
   test "validate passes a clean plan and reports every kind of plan defect" do
     make_epic
     a = make_item("A", wave: 1, owns: "lib/a/**")
