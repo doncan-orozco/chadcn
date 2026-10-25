@@ -1,10 +1,19 @@
 #!/usr/bin/env bash
 # Runs the browser tests of the Stimulus controllers and primitives (test/javascript/*.test.mjs) against the dev servers: the
 # dummy app (Phlex side) and the React catalog (oracle). Starts the servers unless they already run, and stops only what it started.
-# Needs the Playwright of dev/react-shadcn-catalog (ruby .claude/scripts/shadcn/playwright_ensure.rb installs it).
+# Needs the node_modules of dev/react-shadcn-catalog (npm ci there: its Vite is the oracle server, its Playwright drives the tests;
+# ruby .claude/scripts/shadcn/playwright_ensure.rb repairs a Playwright without a matching browser). CHADCN_PLAYWRIGHT and the
+# main-checkout fallback of test/javascript/dev_kit.mjs serve a single `node --test` run against servers that already run; this script
+# starts the servers from this checkout's catalog, so it needs that catalog's own install.
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
+
+catalog="$(ruby -r./.claude/scripts/shadcn/layout -e 'print ShadcnLayout::CATALOG_DIR')"
+if [ ! -x "$catalog/node_modules/.bin/vite" ]; then
+  echo "bin/test-js: $catalog has no node_modules (Vite and Playwright live there): run npm ci in it" >&2
+  exit 1
+fi
 
 if ! ruby .claude/scripts/shadcn/playwright_ensure.rb --check > /dev/null; then
   echo "bin/test-js: Playwright is not usable here: run ruby .claude/scripts/shadcn/playwright_ensure.rb" >&2

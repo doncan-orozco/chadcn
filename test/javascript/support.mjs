@@ -1,6 +1,6 @@
 // Browser-driven tests for the chadcn Stimulus controllers: behavior that the parity runner cannot express (touch input,
 // cancelable public events, positioner options). They load the real Phlex parity page (real importmap, real controllers)
-// and use the Playwright of react-shadcn-catalog. Run with `bin/rails test:javascript` (starts the dev servers).
+// and use the Playwright of react-shadcn-catalog. Run with `bin/test-js` (starts the dev servers).
 import fs from "node:fs";
 import assert from "node:assert/strict";
 import { loadPlaywright, serversFile } from "./dev_kit.mjs";
@@ -17,8 +17,8 @@ export async function launch() {
   return chromium.launch();
 }
 
-// A fresh page on a parity scenario of the Phlex port, controllers connected and settled.
-export async function openScenario(browser, component, scenario, { touch = false } = {}) {
+// A fresh page at `path` of the Phlex server, controllers connected and settled.
+export async function openPath(browser, path, { touch = false } = {}) {
   const context = await browser.newContext({ viewport: { width: 1280, height: 720 }, hasTouch: touch });
   await context.addInitScript((css) => {
     document.addEventListener("DOMContentLoaded", () => {
@@ -31,12 +31,15 @@ export async function openScenario(browser, component, scenario, { touch = false
   const errors = [];
   page.on("pageerror", (error) => errors.push(String(error)));
   // networkidle: the importmap modules (Stimulus, controllers) load after the load event, like parity_run.mjs.
-  await page.goto(`${PHLEX}/design-system/parity/${component}/${scenario}`, { waitUntil: "networkidle" });
+  await page.goto(`${PHLEX}${path}`, { waitUntil: "networkidle" });
   await page.evaluate(() => document.fonts?.ready);
   await settle(page);
   page.jsErrors = errors;
   return page;
 }
+
+// A fresh page on a parity scenario of the Phlex port.
+export const openScenario = (browser, component, scenario, options) => openPath(browser, `/design-system/parity/${component}/${scenario}`, options);
 
 export async function settle(page) {
   await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(resolve, 0)))));
@@ -73,6 +76,30 @@ export async function recordEvents(page, prefix, { prevent = [] } = {}) {
     }
   }, { prefix, prevent });
 }
+
+// Stimulus reports an error raised in connect() with console.error, not as a page error. The array fills as the page logs.
+export const consoleErrors = (page) => {
+  const errors = [];
+  page.on("console", (message) => { if (message.type() === "error") errors.push(message.text()); });
+  return errors;
+};
+
+// The selector of the element a Stimulus controller is connected to.
+export const host = (controller) => `[data-controller~="${controller}"]`;
+
+// Removes the controller host and puts it back in the same place: Stimulus disconnects on the mutation-observer microtask and
+// connects a new controller on reinsert. Waits on ticks, never on the clock (testing R9). `anchor` picks the reinsert position.
+export const reconnect = (page, controller, { anchor = "next" } = {}) => page.evaluate(async ({ selector, anchor }) => {
+  const tick = () => new Promise((resolve) => setTimeout(resolve))
+  const control = document.querySelector(selector)
+  const parent = control.parentNode
+  const input = control.nextElementSibling
+  const next = anchor === "bubble-input" ? (input?.nextSibling ?? null) : control.nextSibling
+  control.remove()
+  await tick()
+  parent.insertBefore(control, anchor === "bubble-input" && input?.isConnected ? input : next)
+  await tick()
+}, { selector: host(controller), anchor })
 
 export const events = (page) => page.evaluate(() => window.__events.map((e) => e.name));
 export const eventLog = (page) => page.evaluate(() => window.__events);

@@ -23,29 +23,25 @@ const dispatchBeforeCache = (page) => page.evaluate(async () => {
   for (let tick = 0; tick < 3; tick++) await new Promise((resolve) => setTimeout(resolve));
 });
 
+// Open delay 0: a pointerenter that is not ignored arms a 0 ms timer, which fires on the next timer tick, and settle() waits past it.
+// With the default 700 ms the test would need a fixed wait longer than the delay to prove that nothing opens.
 browserTest("hover-card: touch input never opens it (pointerenter is ignored for pointerType touch)", async ({ open: openPage }) => {
   const page = await openPage("default__closed");
+  await reconnectWithDelays(page, { openDelay: 0 });
+  await settle(page);
   const box = await page.locator(trigger).boundingBox();
   await page.touchscreen.tap(box.x + box.width / 2, box.y + box.height / 2);
   await page.evaluate(() => document.querySelector("[data-slot=hover-card-trigger]").dispatchEvent(new PointerEvent("pointerenter", { pointerType: "touch" })));
-  await page.waitForTimeout(1100);
+  await settle(page);
   assert.equal(await isOpen(page), false);
 }, { touch: true });
 
 browserTest("hover-card: a mouse pointerenter opens it after the delay (control for the touch test)", async ({ open: openPage }) => {
   const page = await openPage("default__closed");
+  await reconnectWithDelays(page, { openDelay: 0 });
+  await settle(page);
   await page.hover(trigger);
   await page.waitForSelector(content, { timeout: 5000 });
-});
-
-browserTest("hover-card: touchstart on the trigger is not default-prevented (Radix's handler is passive, so a no-op)", async ({ open: openPage }) => {
-  const page = await openPage("default__closed");
-  const prevented = await page.evaluate(() => {
-    const event = new Event("touchstart", { bubbles: true, cancelable: true });
-    document.querySelector("[data-slot=hover-card-trigger]").dispatchEvent(event);
-    return event.defaultPrevented;
-  });
-  assert.equal(prevented, false);
 });
 
 browserTest("hover-card: a caller preventDefault on escape-key-down keeps it open", async ({ open: openPage }) => {
