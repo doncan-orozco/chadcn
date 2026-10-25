@@ -84,6 +84,9 @@ export const consoleErrors = (page) => {
   return errors;
 };
 
+// The selector of the element a Stimulus controller is connected to.
+export const host = (controller) => `[data-controller~="${controller}"]`;
+
 export const events = (page) => page.evaluate(() => window.__events.map((e) => e.name));
 export const eventLog = (page) => page.evaluate(() => window.__events);
 export const contentCount = (page, selector) => page.locator(selector).count();

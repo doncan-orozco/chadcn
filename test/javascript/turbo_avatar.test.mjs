@@ -3,6 +3,7 @@ import { assert, consoleErrors, settle } from "./support.mjs"
 import { afterSnapshotTicks, countIn, restore, snapshot } from "./turbo_support.mjs"
 
 // Turbo page cache for the avatar: the image mounts from its template once it has loaded (stimulus R2/R3, radix-stimulus R10).
+// The fallback reconnect test needs no snapshot, but it guards the same template mount, so it stays with the avatar.
 
 browserTest("avatar: a loaded image does not raise after the snapshot, the restore shows one image", async ({ open }) => {
   const page = await open("size-default__image-loaded", "avatar")

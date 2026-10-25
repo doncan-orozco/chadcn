@@ -19,7 +19,7 @@ test("turbo: a real Turbo.visit away and back restores page one from Turbo's cac
   try {
     const errors = consoleErrors(page);
     const requests = [];
-    page.on("request", (request) => { const { pathname } = new URL(request.url()); if (pathname.startsWith("/design-system/")) requests.push(pathname); });
+    page.on("request", (request) => { const { pathname } = new URL(request.url()); if (pathname.startsWith("/design-system/turbo-round-trip/")) requests.push(pathname); });
 
     await page.locator(dialogTrigger).click();
     await page.waitForSelector(dialogContent);

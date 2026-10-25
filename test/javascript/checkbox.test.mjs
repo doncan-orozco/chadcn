@@ -1,8 +1,7 @@
 import { browserTest } from "./harness.mjs"
-import { assert, consoleErrors, settle } from "./support.mjs"
+import { assert, consoleErrors, host, settle } from "./support.mjs"
 
-// A checkbox controller that disconnects and connects again (a moved element, a Turbo render) keeps its bubble input and its state.
-const host = (controller) => `[data-controller~="${controller}"]`
+// A checkbox controller that disconnects and connects again (a moved element) keeps its bubble input and its state. No Turbo here.
 
 browserTest("checkbox: disconnecting and reconnecting keeps the bubble input's name, required and form", async ({ open }) => {
   const page = await open("form__bubble-input__value-required-disabled", "checkbox")

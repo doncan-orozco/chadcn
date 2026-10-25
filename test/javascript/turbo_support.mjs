@@ -2,9 +2,7 @@
 // does not execute it. Turbo takes its snapshot one timer tick after turbo:before-cache, so the markup must be restorable by then;
 // the restore is simulated by re-inserting the host as it is in that snapshot, which connects a new controller (the same approach
 // as turbo_overlays.test.mjs). turbo_visit.test.mjs drives the real thing.
-import { settle } from "./support.mjs"
-
-export const host = (controller) => `[data-controller~="${controller}"]`
+import { host, settle } from "./support.mjs"
 
 // The markup of the controller host one timer tick after the event, i.e. what Turbo would snapshot.
 export const snapshot = (page, controller) => page.evaluate(async (selector) => {

@@ -1,6 +1,6 @@
 import { browserTest } from "./harness.mjs"
-import { assert, settle } from "./support.mjs"
-import { afterSnapshotTicks, countIn, host, restore, snapshot } from "./turbo_support.mjs"
+import { assert, host, settle } from "./support.mjs"
+import { afterSnapshotTicks, countIn, restore, snapshot } from "./turbo_support.mjs"
 
 // Turbo page cache for the scroll area: the scrollbar mounts on hover, so the snapshot must hold none and a hovered pointer must
 // bring it back (stimulus R2/R3, radix-stimulus R10).
