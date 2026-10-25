@@ -1,0 +1,46 @@
+import { browserTest } from "./harness.mjs"
+import { assert, consoleErrors, settle } from "./support.mjs"
+import { afterSnapshotTicks, countIn, restore, snapshot } from "./turbo_support.mjs"
+
+// Turbo page cache for the avatar: the image mounts from its template once it has loaded (stimulus R2/R3, radix-stimulus R10).
+
+browserTest("avatar: a loaded image does not raise after the snapshot, the restore shows one image", async ({ open }) => {
+  const page = await open("size-default__image-loaded", "avatar")
+  await page.waitForSelector("[data-slot=avatar-image]")
+  const errors = consoleErrors(page)
+  const html = await snapshot(page, "chadcn--avatar")
+  assert.equal(await countIn(page, html, "[data-slot=avatar-image]"), 0, "the snapshot holds the image only as its template")
+
+  await restore(page, "chadcn--avatar", html)
+  await page.waitForSelector("[data-slot=avatar-image]")
+  assert.equal(await page.locator("[data-slot=avatar-image]").count(), 1)
+  await afterSnapshotTicks(page)
+  assert.deepEqual(errors, [])
+})
+
+browserTest("avatar: a fallback survives a reconnect after the image loaded", async ({ open }) => {
+  const page = await open("size-default__image-loaded", "avatar")
+  await page.waitForSelector("[data-slot=avatar-image]")
+  const errors = consoleErrors(page)
+  await page.evaluate(async () => {
+    const root = document.querySelector('[data-controller~="chadcn--avatar"]')
+    const parent = root.parentNode
+    const next = root.nextSibling
+    root.remove()
+    await new Promise((resolve) => setTimeout(resolve))
+    parent.insertBefore(root, next)
+    await new Promise((resolve) => setTimeout(resolve, 100))
+  })
+  await settle(page)
+  assert.deepEqual(errors, [])
+  assert.equal(await page.locator("[data-slot=avatar-image]").count(), 1)
+})
+
+browserTest("avatar: the live page keeps its image after a snapshot that is not followed by a navigation", async ({ open }) => {
+  const page = await open("size-default__image-loaded", "avatar")
+  await page.waitForSelector("[data-slot=avatar-image]")
+  await snapshot(page, "chadcn--avatar")
+  await afterSnapshotTicks(page)
+  await page.waitForSelector("[data-slot=avatar-image]")
+  assert.equal(await page.locator("[data-slot=avatar-image]").count(), 1)
+})
