@@ -16,6 +16,9 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 
 ### Added
 
+- `Chadcn::Catalog` (`.entries`, `.find`, `Entry`) and `Chadcn::Catalog::TreeRenderer`: an example of every component as a JSON tree plus the
+  renderer, packaged (about 33 KB), so a host builds a component gallery page without the repository's `dev/` directory. Generated from the
+  parity scenarios by `rake catalog:generate`. See [docs/catalog.md](docs/catalog.md).
 - `id:` on every root that generates ids (`Dialog`, `Sheet`, `AlertDialog`, `Popover`, `HoverCard`, `Tooltip` and `Tooltip::Provider`,
   `DropdownMenu`, `ContextMenu`, `Menubar`, `NavigationMenu`, `Collapsible`, `Accordion`, `Command`, `Sidebar::Provider`; `Select` and
   `Combobox` already took it): the base of the generated ids. On a root that stands for no element in the React source it is the content's id
