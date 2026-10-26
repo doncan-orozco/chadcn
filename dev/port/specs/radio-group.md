@@ -6,10 +6,10 @@ Oracle: `dev/port/oracle/src/radio-group.tsx` (manifest `source_sha` cfc4f99ee68
 
 Two exports, two Ruby classes. `RadioGroupPrimitive.Indicator` is not exported by shadcn; `RadioGroup::Item` renders it internally.
 
-### `RadioGroup` -> `Components::V2::RadioGroup`
+### `RadioGroup` -> `Chadcn::RadioGroup`
 
 ```ruby
-Components::V2::RadioGroup.new(
+Chadcn::RadioGroup.new(
   value: nil,            # controlled value (String; symbols -> to_s). nil = uncontrolled (useControllableState: controlled iff prop !== undefined, rg:247-252)
   default_value: nil,    # uncontrolled initial value; nil -> no item checked (rg:249 `defaultValue ?? null`)
   disabled: false,       # rg:238; disables every item (rg:313 `context.disabled || disabled`)
@@ -19,7 +19,7 @@ Components::V2::RadioGroup.new(
   orientation: nil,      # nil | "horizontal" | "vertical" (symbols accepted); rg:239, aria-orientation + data-orientation, arrow-key filtering (rf:227-236)
   dir: nil,              # nil | "ltr" | "rtl"; use_direction(dir) = dir || nearest Direction::Provider || "ltr" (dir:17-20, rg:246). NEVER html[dir]
   loop: true,            # rg:241 (Radix RovingFocusGroup default is false, rf:46, but RadioGroup passes loop=true)
-  as_child: false,       # false | tag symbol | V2 component instance (Radix Slot on Primitive.div, rg:283; see api-mapping "as_child")
+  as_child: false,       # false | tag symbol | Chadcn component instance (Radix Slot on Primitive.div, rg:283; see api-mapping "as_child")
   class: nil,            # merged last into "grid gap-3" through cn (tailwind_merge), caller wins
   **attrs                # id, aria: {}, data: {}, "aria-label", "aria-invalid", title, style... pass through to the root div (after Radix attrs, rg:290)
 ) { items and any other markup }
@@ -32,10 +32,10 @@ Components::V2::RadioGroup.new(
 - Event: `chadcn--radio-group:value-change`, `detail: { value: "<item value>" }`, dispatched from the root element after the DOM update (uncontrolled) or instead of it (controlled). Also dispatched on form reset when the restored value differs (rg:259). Not cancelable (`onValueChange` is not preventable). Consumer `onClick`/`onKeyDown`/`onFocus` on items are plain `data: { action: }`; Radix composes consumer first and skips its own handler when the consumer called `preventDefault()` (`composeEventHandlers`, rg:100, rg:366-373, rf:179-204), so the controller checks `event.defaultPrevented`.
 - `ref` has no equivalent.
 
-### `RadioGroupItem` -> `Components::V2::RadioGroup::Item`
+### `RadioGroupItem` -> `Chadcn::RadioGroup::Item`
 
 ```ruby
-Components::V2::RadioGroup::Item.new(
+Chadcn::RadioGroup::Item.new(
   value:,                # required String (symbols -> to_s); on the button `value` attribute and the bubble input (rg:97, rg:183)
   disabled: false,       # rg:381; effective disabled = group.disabled || disabled (rg:313)
   class: nil,            # merged last into the Item classes through cn, caller wins
@@ -44,7 +44,7 @@ Components::V2::RadioGroup::Item.new(
 ```
 
 - No block: shadcn spreads `{...props}` and then sets the Indicator as JSX children, which overrides any `children` prop (radio-group.tsx), so caller children never render. Ruby: a block passed to `Item` is ignored (never yielded), matching React.
-- Must be rendered inside a `Components::V2::RadioGroup` (Radix context error otherwise, `useRadioGroupContext`, rg:311). Ruby raises `ArgumentError` when no enclosing group is found in the render context.
+- Must be rendered inside a `Chadcn::RadioGroup` (Radix context error otherwise, `useRadioGroupContext`, rg:311). Ruby raises `ArgumentError` when no enclosing group is found in the render context.
 - `as_child:` is NOT offered (see Deviations).
 
 ## Structure
@@ -106,7 +106,7 @@ Radix: `Collection.ItemSlot` (col:50, adds `data-radix-collection-item=""`) > `R
 Radix `RadioIndicator` (rg:115-129) inside `Presence present={forceMount || checked}` (rg:119; shadcn passes no `forceMount`).
 - tag `span`, `data-state` mirrors the item (rg:122), `data-disabled=""` when effectively disabled (rg:123), `data-slot="radio-group-indicator"`, `class="relative flex items-center justify-center"` (verbatim, no caller merge). No inline style (unlike Checkbox).
 - Rendered only when the item is checked; unchecked items are empty buttons.
-- Child: `Components::V2::Icon.new(name: "circle", class: "absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2 fill-primary")` -> lucide 0.577.0 markup `class="lucide lucide-circle <classes>"`, `aria-hidden="true"`, `<circle cx="12" cy="12" r="10">`.
+- Child: `Chadcn::Icon.new(name: "circle", class: "absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2 fill-primary")` -> lucide 0.577.0 markup `class="lucide lucide-circle <classes>"`, `aria-hidden="true"`, `<circle cx="12" cy="12" r="10">`.
 
 ### Bubble input (no data-slot, internal)
 
@@ -204,15 +204,15 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Dependencies
 
-- `Components::V2::Icon` (`circle`) inside the Indicator (manifest `icons: ["CircleIcon"]`).
-- `Components::V2::Direction` (`Consumer` mixin / `use_direction`) for the `dir` attribute (spec `direction.md`).
-- No other V2 component (`registry_dependencies: []`). Registry examples use `Label` (radio-group-demo) and `Field*` (field-radio, field-choice-card, form-rhf-radiogroup), which are not dependencies of `radio-group`; their scenarios use raw `_label` / `_div` / `_p` / `_fieldset` / `_form` with the corresponding classes instead.
+- `Chadcn::Icon` (`circle`) inside the Indicator (manifest `icons: ["CircleIcon"]`).
+- `Chadcn::Direction` (`Consumer` mixin / `use_direction`) for the `dir` attribute (spec `direction.md`).
+- No other Chadcn component (`registry_dependencies: []`). Registry examples use `Label` (radio-group-demo) and `Field*` (field-radio, field-choice-card, form-rhf-radiogroup), which are not dependencies of `radio-group`; their scenarios use raw `_label` / `_div` / `_p` / `_fieldset` / `_form` with the corresponding classes instead.
 
 ## Deviations
 
 One, API only (no DOM or class difference):
 
-- `as_child:` is not supported on `Components::V2::RadioGroup::Item`. Reason: Radix `RadioTrigger` (`Primitive.button`) accepts `asChild`, but shadcn's `RadioGroupItem` always renders `RadioGroupPrimitive.Indicator` as its only child, so Radix `Slot` would merge the radio's attributes and handlers onto the Indicator, which is absent while unchecked (Presence) and a `span` otherwise: no usable control. No registry example uses it. `as_child:` on the `RadioGroup` root IS supported (scenario `as-child-root`). Entry in `dev/port/deviations/radio-group.json`:
+- `as_child:` is not supported on `Chadcn::RadioGroup::Item`. Reason: Radix `RadioTrigger` (`Primitive.button`) accepts `asChild`, but shadcn's `RadioGroupItem` always renders `RadioGroupPrimitive.Indicator` as its only child, so Radix `Slot` would merge the radio's attributes and handlers onto the Indicator, which is absent while unchecked (Presence) and a `span` otherwise: no usable control. No registry example uses it. `as_child:` on the `RadioGroup` root IS supported (scenario `as-child-root`). Entry in `dev/port/deviations/radio-group.json`:
 
 ```json
 { "reason": "shadcn RadioGroupItem always passes RadioGroupPrimitive.Indicator as the Item's only child, so Radix asChild would merge the radio onto the indicator (absent while unchecked); as_child is therefore not offered on RadioGroup::Item (it is supported on the RadioGroup root)", "allow_tokens": [], "allow_missing_tokens": [], "api": ["RadioGroup::Item: as_child not supported"] }

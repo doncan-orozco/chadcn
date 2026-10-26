@@ -7,10 +7,10 @@ Oracle: `dev/port/oracle/src/separator.tsx` (manifest `source_sha` ad7d5403fe337
 One export, one Ruby class, no nested parts.
 
 ```ruby
-Components::V2::Separator.new(
+Chadcn::Separator.new(
   orientation: "horizontal", # "horizontal" | "vertical", strings or symbols (:horizontal, :vertical). Default from separator.tsx `orientation = "horizontal"` (also sep.mjs:13 DEFAULT_ORIENTATION)
   decorative: true,          # Boolean. Default from separator.tsx `decorative = true` (shadcn overrides Radix's undefined default)
-  as_child: false,           # false | tag symbol | V2 component instance (primitive.mjs:32-33, Primitive.div supports asChild via Radix Slot)
+  as_child: false,           # false | tag symbol | Chadcn component instance (primitive.mjs:32-33, Primitive.div supports asChild via Radix Slot)
   class: nil,                # merged through cn (tailwind_merge) AFTER the base classes, caller wins (separator.tsx `cn(base, className)`)
   **attrs                    # id, title, role, aria: {}, data: {}, aria-*/data-* pass through and WIN over the computed role/aria-orientation/data-orientation
 )
@@ -48,7 +48,7 @@ Part `Separator` (`data-slot="separator"`):
   - `decorative: true` -> `role="none"`, no `aria-orientation`.
   - `decorative: false` -> `role="separator"`; `aria-orientation="vertical"` only when the orientation is vertical; for horizontal the attribute is omitted (`ariaOrientation` is `undefined`, the implicit ARIA value of a separator is horizontal).
 - `data-slot="separator"`, `class`, caller attrs (precedence above). No ids, no `data-state`, no `tabindex` (not focusable).
-- `as_child:` (primitive.mjs:30-37, Radix Slot): the `div` is replaced by the single child; `data-orientation`, `role`, `aria-orientation`, `data-slot`, classes and attrs are merged with `Components::V2::Base#render_as_child` semantics (class plain-joined slot-then-child, child attrs win). Scenarios `as-child-span`, `as-child-li-vertical`.
+- `as_child:` (primitive.mjs:30-37, Radix Slot): the `div` is replaced by the single child; `data-orientation`, `role`, `aria-orientation`, `data-slot`, classes and attrs are merged with `Chadcn::Base#render_as_child` semantics (class plain-joined slot-then-child, child attrs win). Scenarios `as-child-span`, `as-child-li-vertical`.
 - DOM order: one element, no children. Server renders everything; Stimulus sets nothing.
 
 ## Behavior

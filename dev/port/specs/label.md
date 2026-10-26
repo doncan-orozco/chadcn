@@ -7,9 +7,9 @@ Oracle: `dev/port/oracle/src/label.tsx` (manifest `source_sha` 344bde38b8531615,
 One export, one Ruby class, no nested parts.
 
 ```ruby
-Components::V2::Label.new(
+Chadcn::Label.new(
   html_for: nil,     # React `htmlFor` (mechanical camelCase -> snake_case); rendered as the `for` attribute. `for:` through **attrs is accepted too (same output); if both are given, `html_for:` wins.
-  as_child: false,   # false | tag symbol | V2 component instance (primitive.mjs:32-33, Primitive.label supports asChild via Radix Slot)
+  as_child: false,   # false | tag symbol | Chadcn component instance (primitive.mjs:32-33, Primitive.label supports asChild via Radix Slot)
   class: nil,        # merged through cn (tailwind_merge) AFTER the base classes, caller wins (label.tsx `cn(base, className)`)
   **attrs            # id, title, form, role, aria: {}, data: {}, aria-*/data-* pass through to the <label>
 ) { children }
@@ -33,7 +33,7 @@ Components::V2::Label.new(
 Part `Label` (`data-slot="label"`):
 - tag `label` (primitive.mjs:19 `"label"` in NODES, label.mjs:12 `Primitive.label`), or the `as_child` element.
 - attributes: `data-slot="label"`, `class`, `for` (only when `html_for:`/`for:` is given), caller attrs. No role, no aria-*, no `data-state`, no ids generated (Radix Label adds none, label.mjs:13-22).
-- `as_child:` (primitive.mjs:30-33): the `<label>` is replaced by the child; `data-slot`, classes, `for`, attrs and the controller/action are merged with `Components::V2::Base#render_as_child` semantics (class plain-joined slot-then-child, child attrs win, `data-action` child first then slot, `data-controller` unioned). Scenario `as-child-span`.
+- `as_child:` (primitive.mjs:30-33): the `<label>` is replaced by the child; `data-slot`, classes, `for`, attrs and the controller/action are merged with `Chadcn::Base#render_as_child` semantics (class plain-joined slot-then-child, child attrs win, `data-action` child first then slot, `data-controller` unioned). Scenario `as-child-span`.
 - DOM order: label > children. Server renders everything; Stimulus sets nothing on the DOM (`data-controller`/`data-action` are ignored by the parity runner, `IGNORED_ATTR` in parity_run.mjs).
 
 State styling is driven entirely by surrounding markup, never by the component:

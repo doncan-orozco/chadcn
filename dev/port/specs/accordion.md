@@ -7,7 +7,7 @@ Oracle: `dev/port/oracle/src/accordion.tsx` (manifest `source_sha` 99de242681eb4
 Four exports, four Ruby classes (`Accordion`, `AccordionItem` -> `Accordion::Item`, `AccordionTrigger` -> `Accordion::Trigger`, `AccordionContent` -> `Accordion::Content`). The Radix `Header` is not exported by shadcn; it is rendered internally by `Accordion::Trigger` (no Ruby class for callers). No cva tables (manifest `cva: {}`).
 
 ```ruby
-Components::V2::Accordion.new(
+Chadcn::Accordion.new(
   type: "single",          # "single" | "multiple" (strings or symbols). Radix renders the single impl for anything but "multiple" (accordion.mjs:44), so omitting type behaves as "single"
   value: nil,              # controlled. single: String ("" = none open); multiple: Array of Strings. nil = uncontrolled (controllable.mjs:20 `isControlled = prop !== undefined`)
   default_value: nil,      # uncontrolled initial. single: String, default "" (accordion.mjs:65); multiple: Array, default [] (accordion.mjs:91)
@@ -20,7 +20,7 @@ Components::V2::Accordion.new(
   **attrs                  # id, aria: {}, data: {}, aria-label... pass through to the root div
 ) { items }
 
-Components::V2::Accordion::Item.new(
+Chadcn::Accordion::Item.new(
   value:,                  # required String (Radix: `open = value && valueContext.value.includes(value)`, accordion.mjs:220)
   disabled: false,         # item-level disable, OR-ed with the root's (accordion.mjs:221)
   as_child: false,         # Radix Slot on the Collapsible Root div
@@ -28,12 +28,12 @@ Components::V2::Accordion::Item.new(
   **attrs                  # onto the item div
 ) { trigger + content }
 
-Components::V2::Accordion::Trigger.new(
+Chadcn::Accordion::Trigger.new(
   class: nil,              # cn(<trigger classes>, class) onto the BUTTON (not the h3)
   **attrs                  # onto the button (id, aria-*, data-*, data: { action: }); `disabled:` is NOT a Trigger kwarg in Radix (the item/root decide)
 ) { label }                # block = label; the ChevronDown icon is always appended after it
 
-Components::V2::Accordion::Content.new(
+Chadcn::Accordion::Content.new(
   force_mount: false,      # Radix CollapsibleContent `forceMount` (collapsible.mjs:82-84), passed through by shadcn's {...props}
   class: nil,              # IMPORTANT: goes to the INNER div: cn("pt-0 pb-4", class) (accordion.tsx AccordionContent); the region div's classes are fixed
   style: nil,              # caller style appended after the two accordion CSS vars (accordion.mjs:310-314)
@@ -44,7 +44,7 @@ Components::V2::Accordion::Content.new(
 - Strings and symbols are accepted for `type`, `orientation`, `dir` (shadcn-port R4). `value`/`default_value` are item values (Strings) and are compared as strings.
 - Events: `chadcn--accordion:value-change`, dispatched from the root element, `detail: { value }` where `value` is a String for single (`""` after collapsing) and an Array for multiple. Not cancelable (Radix `onValueChange` is not preventable). Uncontrolled: dispatched after the DOM is updated (useUncontrolledState effect, controllable.mjs:62-66). Controlled: dispatched instead of updating, only when the computed value differs from `value:` (controllable.mjs:38-43). Single non-collapsible: clicking the open item calls `onItemClose` which does nothing (`collapsible && setValue("")`, accordion.mjs:75), so no event.
 - Consumer click handlers on the Trigger (`data: { action: "click->x#y" }`) run first; Radix skips the toggle if the consumer called `preventDefault()` (`composeEventHandlers(props.onClick, context.onOpenToggle)`, collapsible.mjs:73). The controller must check `event.defaultPrevented`.
-- `as_child:` on `Accordion` and `Accordion::Item` uses `Components::V2::Base#render_as_child` (tag symbol or instance); the block is the slotted element's content. Not offered on Trigger and Content: see Deviations.
+- `as_child:` on `Accordion` and `Accordion::Item` uses `Chadcn::Base#render_as_child` (tag symbol or instance); the block is the slotted element's content. Not offered on Trigger and Content: see Deviations.
 - `ref`, `onKeyDown` on Root and per-item `onOpenChange` have no Ruby equivalent (Radix Item overrides `onOpenChange`, accordion.mjs:239).
 
 ## Structure
@@ -99,7 +99,7 @@ Part `Accordion::Content` (`AccordionContent`, `data-slot="accordion-content"`; 
 - `style`: always `--radix-accordion-content-height: var(--radix-collapsible-content-height); --radix-accordion-content-width: var(--radix-collapsible-content-width)` then caller style (accordion.mjs:310-314). `--radix-collapsible-content-height/width: <n>px` are added only once a non-zero size has been measured (collapsible.mjs:132-134); React adds new style keys with `setProperty`, so they appear AFTER the accordion vars (and after the mount-prevention declarations, see Behavior). Values are `${rect.height}px` / `${rect.width}px` with no rounding.
 - Children: ONLY while open/present (`children: isOpen && children`, collapsible.mjs:137): `<div class="pt-0 pb-4 <caller class>">block</div>`. A closed item's content div is EMPTY (unless `force_mount: true`).
 
-Ids: each Item owns a trigger id (accordion.mjs:219) and a content id (collapsible.mjs:40), server-generated from a per-render counter in `Components::V2::Base` ids (runner normalizes by first-seen order). A caller `id:` on Trigger replaces the button id (spread after, accordion.mjs:285-287) but the content's `aria-labelledby` keeps the generated trigger id; a caller `id:` on Content replaces its id (collapsible.mjs:128-130) but the trigger's `aria-controls` keeps the generated content id. Both relations dangle, as in React (scenario `caller-ids-override__dangling-relations`).
+Ids: each Item owns a trigger id (accordion.mjs:219) and a content id (collapsible.mjs:40), server-generated from a per-render counter in `Chadcn::Base` ids (runner normalizes by first-seen order). A caller `id:` on Trigger replaces the button id (spread after, accordion.mjs:285-287) but the content's `aria-labelledby` keeps the generated trigger id; a caller `id:` on Content replaces its id (collapsible.mjs:128-130) but the trigger's `aria-controls` keeps the generated content id. Both relations dangle, as in React (scenario `caller-ids-override__dangling-relations`).
 
 Server vs Stimulus: the server renders every attribute above for the initial state, including `hidden`, `aria-controls` for open items and, for initially open items, `transition-duration: 0s; animation-name: none` in the content style. Closed content bodies are rendered by the server inside a `<template data-chadcn--accordion-target="body">` within the content div (so they exist without a round trip); `connect()` moves each template's content into an in-memory fragment and removes the template, so the post-connect DOM equals React's (empty closed content). Stimulus then owns: toggling, `data-state` on item/h3/button/content, `aria-expanded`, `aria-controls`, `aria-disabled`, `hidden`, inserting/removing the inner div, measurement CSS vars, keyboard navigation, events.
 
@@ -154,9 +154,9 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Dependencies
 
-- `Components::V2::Icon` (infra `_icons`): `Icon.new(name: "chevron-down", class: ...)` in every `Accordion::Trigger`.
-- `Components::V2::Base`: `cn`, `merge_attrs`, `render_as_child`, ids.
-- No other V2 component (manifest `registry_dependencies: []`). Scenarios use raw `_p`, `_section`, `_article` for example paragraphs and `asChild` children, and `<icon:package>` for an icon inside a trigger.
+- `Chadcn::Icon` (infra `_icons`): `Icon.new(name: "chevron-down", class: ...)` in every `Accordion::Trigger`.
+- `Chadcn::Base`: `cn`, `merge_attrs`, `render_as_child`, ids.
+- No other Chadcn component (manifest `registry_dependencies: []`). Scenarios use raw `_p`, `_section`, `_article` for example paragraphs and `asChild` children, and `<icon:package>` for an icon inside a trigger.
 
 ## Deviations
 

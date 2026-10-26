@@ -1,28 +1,28 @@
-# Card (`Components::V2::Card`)
+# Card (`Chadcn::Card`)
 
 Oracle: `dev/port/oracle/src/card.tsx` (style `new-york-v4`, manifest `source_sha` `ef8305b12c3112da`), manifest `dev/port/oracle/manifest/card.json`. Tier `static`: no `"use client"`, no Radix primitive, no Stimulus controller, no hooks, no icons, no cva. Exports `Card`, `CardHeader`, `CardFooter`, `CardTitle`, `CardAction`, `CardDescription`, `CardContent`. Seven parts, data-slots `card`, `card-header`, `card-title`, `card-description`, `card-action`, `card-content`, `card-footer`. Registry examples: `card-demo`, `card-with-form` (`https://ui.shadcn.com/r/styles/new-york-v4/<name>.json`).
 
 ## API
 
 ```ruby
-Components::V2::Card.new(class: nil, **attrs) { ... }
-Components::V2::Card::Header.new(class: nil, **attrs) { ... }
-Components::V2::Card::Title.new(class: nil, **attrs) { ... }
-Components::V2::Card::Description.new(class: nil, **attrs) { ... }
-Components::V2::Card::Action.new(class: nil, **attrs) { ... }
-Components::V2::Card::Content.new(class: nil, **attrs) { ... }
-Components::V2::Card::Footer.new(class: nil, **attrs) { ... }
+Chadcn::Card.new(class: nil, **attrs) { ... }
+Chadcn::Card::Header.new(class: nil, **attrs) { ... }
+Chadcn::Card::Title.new(class: nil, **attrs) { ... }
+Chadcn::Card::Description.new(class: nil, **attrs) { ... }
+Chadcn::Card::Action.new(class: nil, **attrs) { ... }
+Chadcn::Card::Content.new(class: nil, **attrs) { ... }
+Chadcn::Card::Footer.new(class: nil, **attrs) { ... }
 ```
 
 | part (tsx function) | Ruby class | kwargs |
 |---|---|---|
-| `Card` | `Components::V2::Card` | `class:`, `**attrs` |
-| `CardHeader` | `Components::V2::Card::Header` | `class:`, `**attrs` |
-| `CardTitle` | `Components::V2::Card::Title` | `class:`, `**attrs` |
-| `CardDescription` | `Components::V2::Card::Description` | `class:`, `**attrs` |
-| `CardAction` | `Components::V2::Card::Action` | `class:`, `**attrs` |
-| `CardContent` | `Components::V2::Card::Content` | `class:`, `**attrs` |
-| `CardFooter` | `Components::V2::Card::Footer` | `class:`, `**attrs` |
+| `Card` | `Chadcn::Card` | `class:`, `**attrs` |
+| `CardHeader` | `Chadcn::Card::Header` | `class:`, `**attrs` |
+| `CardTitle` | `Chadcn::Card::Title` | `class:`, `**attrs` |
+| `CardDescription` | `Chadcn::Card::Description` | `class:`, `**attrs` |
+| `CardAction` | `Chadcn::Card::Action` | `class:`, `**attrs` |
+| `CardContent` | `Chadcn::Card::Content` | `class:`, `**attrs` |
+| `CardFooter` | `Chadcn::Card::Footer` | `class:`, `**attrs` |
 
 - Every part destructures only `{ className, ...props }` typed `React.ComponentProps<"div">` (manifest `props.destructured`). So the only kwarg is `class:` (default `nil`), merged through `cn` (tailwind_merge) after the part's classes, caller wins conflicts (shadcn-port R6).
 - `**attrs`: any `div` attribute (`id`, `role`, `title`, `tabindex`, `style`, `dir`, `hidden`, `data: {}`, `aria: {}` / `"aria-*":`), deep-merged. No option strings/symbols exist (no variants), so R4 has nothing to map.
@@ -85,7 +85,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Dependencies
 
-None (`registry_dependencies: []`, `icons: []`). The component renders no other `Components::V2` component.
+None (`registry_dependencies: []`, `icons: []`). The component renders no other `Chadcn` component.
 
 Example substitutions (scenario-level, identical on both harnesses, not component deviations): `card-demo` composes `Button`, `Input`, `Label`; `card-with-form` composes `Button`, `Input`, `Label`, `Select`. Card has no registry dependency on them, so the scenario coverage check rejects their exports here. They are rendered as neutral raw elements (`_button`, `_input`, `_label`, a native `_select` with the same options) carrying the example's own `className`/`id`/`type`/`placeholder`/`required`/`htmlFor`. The full compositions belong to cross-component scenarios once `button`, `input`, `label` and `select` are DONE.
 

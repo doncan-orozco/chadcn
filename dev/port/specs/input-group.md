@@ -1,16 +1,16 @@
-# InputGroup (`Components::V2::InputGroup`)
+# InputGroup (`Chadcn::InputGroup`)
 
 Oracle: `dev/port/oracle/src/input-group.tsx` (style `new-york-v4`, source_sha `e379899ac50d6cab`, `"use client"`), manifest `dev/port/oracle/manifest/input-group.json`, registry item `dev/port/oracle/registry/input-group.json` (`registryDependencies: button, input, textarea`). Tier `static`: no Radix primitive, no shared primitive. Exports `InputGroup`, `InputGroupAddon`, `InputGroupButton`, `InputGroupText`, `InputGroupInput`, `InputGroupTextarea`; data-slots `input-group`, `input-group-addon`, `input-group-control` (InputGroupButton keeps Button's `button` slot, InputGroupText has none). Two cva tables, neither exported: `inputGroupAddonVariants` (axis `align`) and `inputGroupButtonVariants` (axis `size`). The one client behaviour is InputGroupAddon's `onClick` (tsx lines 71-76), ported as the tiny Stimulus controller `chadcn--input-group` described under Behavior. Line numbers below are tsx lines. Class merges were checked with the catalog's `tailwind-merge` 2.6.1 + `class-variance-authority` 0.7.1 (`dev/react-shadcn-catalog/node_modules`).
 
 ## API
 
 ```ruby
-Components::V2::InputGroup.new(class: nil, **attrs) { parts }
-Components::V2::InputGroup::Addon.new(align: "inline-start", class: nil, **attrs) { content }
-Components::V2::InputGroup::Button.new(type: "button", variant: "ghost", size: "xs", as_child: false, class: nil, **attrs) { content }
-Components::V2::InputGroup::Text.new(class: nil, **attrs) { content }
-Components::V2::InputGroup::Input.new(class: nil, **attrs)            # void, block ignored
-Components::V2::InputGroup::Textarea.new(class: nil, **attrs) { optional initial text }
+Chadcn::InputGroup.new(class: nil, **attrs) { parts }
+Chadcn::InputGroup::Addon.new(align: "inline-start", class: nil, **attrs) { content }
+Chadcn::InputGroup::Button.new(type: "button", variant: "ghost", size: "xs", as_child: false, class: nil, **attrs) { content }
+Chadcn::InputGroup::Text.new(class: nil, **attrs) { content }
+Chadcn::InputGroup::Input.new(class: nil, **attrs)            # void, block ignored
+Chadcn::InputGroup::Textarea.new(class: nil, **attrs) { optional initial text }
 ```
 
 | part | kwarg | default (tsx) | accepted values |
@@ -20,14 +20,14 @@ Components::V2::InputGroup::Textarea.new(class: nil, **attrs) { optional initial
 | `InputGroup::Addon` | `align:` | `"inline-start"` (line 62 `align = "inline-start"`, cva `defaultVariants` line 54) | `inline-start`, `inline-end`, `block-start`, `block-end`; strings or symbols, underscores normalized to the oracle hyphen key (`:inline_end` == `"inline-end"`); `nil` = default; unknown value raises `ArgumentError` |
 | `InputGroup::Addon` | `class:` / `**attrs` | `nil` / (`...props`, `div`) | `class` merged last through `cn` after the cva output (line 70); attrs spread after `role`, `data-slot`, `data-align` and `onClick` (line 77) so caller `role`, `data-slot`, `data-align` override the attribute (classes still follow `align:`) |
 | `InputGroup::Button` | `type:` | `"button"` (line 102) | any button type (`"submit"`, `"reset"`); always rendered |
-| `InputGroup::Button` | `variant:` | `"ghost"` (line 103) | every `Components::V2::Button` variant: `default`, `destructive`, `outline`, `secondary`, `ghost`, `link` (passed through to Button, line 112) |
+| `InputGroup::Button` | `variant:` | `"ghost"` (line 103) | every `Chadcn::Button` variant: `default`, `destructive`, `outline`, `secondary`, `ghost`, `link` (passed through to Button, line 112) |
 | `InputGroup::Button` | `size:` | `"xs"` (line 104, cva `defaultVariants` line 94) | `xs`, `sm`, `icon-xs`, `icon-sm` (`:icon_xs` == `"icon-xs"`); Button's own sizes are NOT accepted (`Omit<..., "size">`, line 106); unknown raises `ArgumentError` |
-| `InputGroup::Button` | `as_child:` / `class:` / `**attrs` | `false` / `nil` / (`...props` = remaining Button props) | `as_child:` forwarded to `Components::V2::Button` (Button supports `asChild`); `class` merged through `cn` after the input-group size classes; attrs (`disabled`, `aria-label`, `title`, `aria-invalid`, `data`, `id`...) forwarded to Button, spread last (line 114) so a caller `"data-size":` overrides the size attribute |
+| `InputGroup::Button` | `as_child:` / `class:` / `**attrs` | `false` / `nil` / (`...props` = remaining Button props) | `as_child:` forwarded to `Chadcn::Button` (Button supports `asChild`); `class` merged through `cn` after the input-group size classes; attrs (`disabled`, `aria-label`, `title`, `aria-invalid`, `data`, `id`...) forwarded to Button, spread last (line 114) so a caller `"data-size":` overrides the size attribute |
 | `InputGroup::Text` | `class:` / `**attrs` | `nil` / (`...props`, `span`) | `class` merged last through `cn`; any span attribute |
-| `InputGroup::Input` | `class:` / `**attrs` | `nil` / (`...props`, `input`) | everything `Components::V2::Input` accepts (`type:`, `placeholder`, `value`, `disabled`, `readonly`, `required`, `maxlength`, `autocomplete`, `aria: { invalid: true }`, `id`, `name`...); a caller `"data-slot":` overrides `input-group-control` (spread after, line 142) |
-| `InputGroup::Textarea` | `class:` / `**attrs` | `nil` / (`...props`, `textarea`) | everything `Components::V2::Textarea` accepts (`default_value:`, `value:`, block, `rows`, `placeholder`, `readonly`...) |
+| `InputGroup::Input` | `class:` / `**attrs` | `nil` / (`...props`, `input`) | everything `Chadcn::Input` accepts (`type:`, `placeholder`, `value`, `disabled`, `readonly`, `required`, `maxlength`, `autocomplete`, `aria: { invalid: true }`, `id`, `name`...); a caller `"data-slot":` overrides `input-group-control` (spread after, line 142) |
+| `InputGroup::Textarea` | `class:` / `**attrs` | `nil` / (`...props`, `textarea`) | everything `Chadcn::Textarea` accepts (`default_value:`, `value:`, block, `rows`, `placeholder`, `readonly`...) |
 
-- Ruby class names: `InputGroup::Button`, `InputGroup::Input`, `InputGroup::Textarea` shadow the top-level V2 components inside the namespace; the implementation must reference `Components::V2::Button` / `Input` / `Textarea` fully qualified.
+- Ruby class names: `InputGroup::Button`, `InputGroup::Input`, `InputGroup::Textarea` shadow the top-level Chadcn components inside the namespace; the implementation must reference `Chadcn::Button` / `Input` / `Textarea` fully qualified.
 - React prop mapping (api-mapping.md): `readOnly` -> `readonly:`, `maxLength` -> `maxlength:`, `autoComplete` -> `autocomplete:`, `htmlFor` (on caller labels) -> `for:`, `defaultValue` on InputGroupInput -> `value:` (Input spec), on InputGroupTextarea -> `default_value:` (Textarea spec).
 - No `as:`. `as_child:` exists only on `InputGroup::Button` (inherited from Button); the other parts never use `Slot`.
 - Events dispatched: none (no `on*Change` prop). Caller DOM handlers use `data: { action: ... }`; for the Addon see the click-replacement rule under Behavior.
@@ -76,7 +76,7 @@ DOM order is exactly the caller's block order. The addon is visually placed by `
   - `compoundVariants`: none. tailwind-merge resolves `justify-center` vs `justify-start` (block aligns keep `justify-start`); the port must produce the same final string by running the same `cn`.
 
 ### `InputGroup::Button` (lines 83-117)
-- Renders `Components::V2::Button.new(type:, variant:, "data-size": size, class: cn(input_group_button_variants(size), class), as_child:, **attrs)`. Button's own `size:` is NOT passed (React passes no `size` to `<Button>`), so Button computes its `default` size classes and `data-size="default"`, and the forwarded `data-size` (spread after Button's own, Button spec "caller data-size overrides") yields the DOM `data-size="xs|sm|icon-xs|icon-sm"`. DOM: `<button data-slot="button" data-variant="{variant}" data-size="{size}" type="{type}" class="...">`.
+- Renders `Chadcn::Button.new(type:, variant:, "data-size": size, class: cn(input_group_button_variants(size), class), as_child:, **attrs)`. Button's own `size:` is NOT passed (React passes no `size` to `<Button>`), so Button computes its `default` size classes and `data-size="default"`, and the forwarded `data-size` (spread after Button's own, Button spec "caller data-size overrides") yields the DOM `data-size="xs|sm|icon-xs|icon-sm"`. DOM: `<button data-slot="button" data-variant="{variant}" data-size="{size}" type="{type}" class="...">`.
 - Input-group classes (`cn` inside line 113):
   - base: `flex items-center gap-2 text-sm shadow-none`
   - `xs`: `h-6 gap-1 rounded-[calc(var(--radius)-5px)] px-2 has-[>svg]:px-2 [&>svg:not([class*='size-'])]:size-3.5`
@@ -89,11 +89,11 @@ DOM order is exactly the caller's block order. The addon is visually placed by `
 - `span`, NO `data-slot`, no role. Classes: `flex items-center gap-2 text-sm text-muted-foreground [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4`, then caller `class:`.
 
 ### `InputGroup::Input` (lines 131-145)
-- Renders `Components::V2::Input.new("data-slot": "input-group-control", class: cn("flex-1 rounded-none border-0 bg-transparent shadow-none focus-visible:ring-0 dark:bg-transparent", class), **attrs)`. Input's own `data-slot="input"` is overridden by the forwarded attribute (Input spec: spread after), so the DOM carries `data-slot="input-group-control"`. Input's `type` is only rendered when given.
+- Renders `Chadcn::Input.new("data-slot": "input-group-control", class: cn("flex-1 rounded-none border-0 bg-transparent shadow-none focus-visible:ring-0 dark:bg-transparent", class), **attrs)`. Input's own `data-slot="input"` is overridden by the forwarded attribute (Input spec: spread after), so the DOM carries `data-slot="input-group-control"`. Input's `type` is only rendered when given.
 - Reference final class (no caller class): `h-9 w-full min-w-0 border-input px-3 py-1 text-base transition-[color,box-shadow] outline-none selection:bg-primary selection:text-primary-foreground file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 flex-1 rounded-none border-0 bg-transparent shadow-none focus-visible:ring-0 dark:bg-transparent`.
 
 ### `InputGroup::Textarea` (lines 147-161)
-- Renders `Components::V2::Textarea.new("data-slot": "input-group-control", class: cn("flex-1 resize-none rounded-none border-0 bg-transparent py-3 shadow-none focus-visible:ring-0 dark:bg-transparent", class), **attrs, &block)`; DOM `data-slot="input-group-control"`.
+- Renders `Chadcn::Textarea.new("data-slot": "input-group-control", class: cn("flex-1 resize-none rounded-none border-0 bg-transparent py-3 shadow-none focus-visible:ring-0 dark:bg-transparent", class), **attrs, &block)`; DOM `data-slot="input-group-control"`.
 - Reference final class: `flex field-sizing-content min-h-16 w-full border-input px-3 text-base transition-[color,box-shadow] outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 md:text-sm dark:aria-invalid:ring-destructive/40 flex-1 resize-none rounded-none border-0 bg-transparent py-3 shadow-none focus-visible:ring-0 dark:bg-transparent`.
 
 ## Behavior
@@ -135,8 +135,8 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Dependencies
 
-- `Components::V2::Button` (InputGroup::Button), `Components::V2::Input` (InputGroup::Input), `Components::V2::Textarea` (InputGroup::Textarea): all planned (`dev/port/specs/{button,input,textarea}.md`). Relies on their documented rules: caller `data-slot` / `data-size` override, `cn` merge of caller `class`, `as_child:` on Button.
-- `Components::V2::Base` for `cn`, attribute merge and `render_as_child`.
+- `Chadcn::Button` (InputGroup::Button), `Chadcn::Input` (InputGroup::Input), `Chadcn::Textarea` (InputGroup::Textarea): all planned (`dev/port/specs/{button,input,textarea}.md`). Relies on their documented rules: caller `data-slot` / `data-size` override, `cn` merge of caller `class`, `as_child:` on Button.
+- `Chadcn::Base` for `cn`, attribute merge and `render_as_child`.
 - Scenarios use lucide icons through `<icon:...>`: `search`, `info`, `copy`, `arrow-up`, `plus`, `check`, `star`, `mail`, `credit-card`, `corner-down-left`, `file-code`, `refresh-cw`, `loader-circle`, `loader`, `circle-help`, `ellipsis`, `chevron-down`, `link-2` (all present in the catalog's lucide-react).
 - Registry examples (fetched from `https://ui.shadcn.com/r/styles/new-york-v4/input-group-*.json` on 2026-10-09: `demo`, `button`, `icon`, `text`, `textarea`, `spinner`, `tooltip`, `dropdown`, `label`, `button-group`, `custom`), each as `example__input-group-<slug>` plus a `__dark` twin. Scenario-level substitutions, identical on both harnesses, not component deviations (the coverage check only admits exports of input-group, button, input, textarea):
   - `Tooltip`/`TooltipTrigger`/`TooltipContent`, `DropdownMenu*`, `Popover*` wrappers dropped; the `InputGroupButton` / `InputGroupAddon` they wrapped is rendered directly. Their interactive behaviour belongs to those components' own scenarios.

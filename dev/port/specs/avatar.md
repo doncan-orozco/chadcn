@@ -7,18 +7,18 @@ Oracle: `dev/port/oracle/src/avatar.tsx` (manifest `source_sha` 0c5c48b8a1dff4fd
 Six exports, six Ruby classes (name rule: strip the `Avatar` prefix).
 
 ```ruby
-Components::V2::Avatar.new(size: "default", as_child: false, class: nil, **attrs) { ... }
-Components::V2::Avatar::Image.new(src: nil, referrer_policy: nil, cross_origin: nil, as_child: false, class: nil, **attrs)
-Components::V2::Avatar::Fallback.new(delay_ms: nil, as_child: false, class: nil, **attrs) { ... }
-Components::V2::Avatar::Badge.new(class: nil, **attrs) { ... }
-Components::V2::Avatar::Group.new(class: nil, **attrs) { ... }
-Components::V2::Avatar::GroupCount.new(class: nil, **attrs) { ... }
+Chadcn::Avatar.new(size: "default", as_child: false, class: nil, **attrs) { ... }
+Chadcn::Avatar::Image.new(src: nil, referrer_policy: nil, cross_origin: nil, as_child: false, class: nil, **attrs)
+Chadcn::Avatar::Fallback.new(delay_ms: nil, as_child: false, class: nil, **attrs) { ... }
+Chadcn::Avatar::Badge.new(class: nil, **attrs) { ... }
+Chadcn::Avatar::Group.new(class: nil, **attrs) { ... }
+Chadcn::Avatar::GroupCount.new(class: nil, **attrs) { ... }
 ```
 
 | Part | kwarg | Default (source) | Options / notes |
 |---|---|---|---|
 | `Avatar` | `size:` | `"default"` (avatar.tsx `size = "default"`) | `"default"`, `"sm"`, `"lg"` (TS type `"default" \| "sm" \| "lg"`); strings and symbols (shadcn-port R4); `nil` = default; unknown option raises `ArgumentError` (forbidden by the TS type). Rendered as `data-size`. No cva table: sizing is `data-[size=...]` on the Root and `group-data-[size=...]/avatar` on children. |
-| `Avatar` | `as_child:` | `false` | Radix `Primitive.span` supports `asChild` (Slot). `false` \| tag symbol (`as_child: :a`) \| V2 component instance, via `Components::V2::Base#render_as_child` (Radix `mergeProps`; see api-mapping.md). The resulting element is the controller host. |
+| `Avatar` | `as_child:` | `false` | Radix `Primitive.span` supports `asChild` (Slot). `false` \| tag symbol (`as_child: :a`) \| Chadcn component instance, via `Chadcn::Base#render_as_child` (Radix `mergeProps`; see api-mapping.md). The resulting element is the controller host. |
 | `Avatar::Image` | `src:` | `nil` | Image URL. `nil`/`""` -> status `error` immediately (avatar.mjs:95-97 `if (!src)`), so the image never mounts. |
 | `Avatar::Image` | `referrer_policy:` | `nil` | React `referrerPolicy`. Applied to the preloader (avatar.mjs:107-109) AND rendered on the mounted `<img>` as `referrerpolicy` (it stays in `imageProps`, avatar.mjs:50,70). |
 | `Avatar::Image` | `cross_origin:` | `nil` | React `crossOrigin`. Preloader `crossOrigin = crossOrigin ?? null` (avatar.mjs:110) and rendered on the `<img>` as `crossorigin`. |
@@ -114,7 +114,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Dependencies
 
-None. The component renders no other `Components::V2` component and no icon itself. Scenarios place lucide icons (`<icon:check>`, `<icon:plus>`) inside `AvatarBadge` / `AvatarGroupCount` as caller content, rendered by the harness through `Components::V2::Icon` like any child.
+None. The component renders no other `Chadcn` component and no icon itself. Scenarios place lucide icons (`<icon:check>`, `<icon:plus>`) inside `AvatarBadge` / `AvatarGroupCount` as caller content, rendered by the harness through `Chadcn::Icon` like any child.
 
 Scenario fixtures: image `src` values are inline data URIs (a 64x64 SVG for "loads", `data:image/png;base64,AAAA` for "fails") instead of the demo's `https://github.com/*.png`, so both harnesses load identically without network; the `example__avatar-demo` scenario keeps the demo's tree with those substitutions.
 

@@ -1,26 +1,26 @@
-# Button (`Components::V2::Button`)
+# Button (`Chadcn::Button`)
 
 Oracle: `dev/port/oracle/src/button.tsx` (style `new-york-v4`, source_sha `79dd6f75f8136394`), manifest `dev/port/oracle/manifest/button.json`. Tier `static`: no Stimulus controller, no primitive. Exports `Button` and `buttonVariants`; one part, data-slot `button`.
 
 ## API
 
 ```ruby
-Components::V2::Button.new(variant: "default", size: "default", as_child: false, class: nil, **attrs) { ... }
-Components::V2::Button.variants(variant: "default", size: "default", class: nil) # => String  (React `buttonVariants`)
+Chadcn::Button.new(variant: "default", size: "default", as_child: false, class: nil, **attrs) { ... }
+Chadcn::Button.variants(variant: "default", size: "default", class: nil) # => String  (React `buttonVariants`)
 ```
 
 | kwarg | default (tsx) | accepted values |
 |---|---|---|
 | `variant:` | `"default"` (`variant = "default"`, line `function Button({ ... variant = "default"`; cva `defaultVariants.variant`) | `default`, `destructive`, `outline`, `secondary`, `ghost`, `link` |
 | `size:` | `"default"` (`size = "default"`; cva `defaultVariants.size`) | `default`, `xs`, `sm`, `lg`, `icon`, `icon-xs`, `icon-sm`, `icon-lg` |
-| `as_child:` | `false` (`asChild = false`) | `false` \| tag symbol (`:a`) \| a V2 component instance |
+| `as_child:` | `false` (`asChild = false`) | `false` \| tag symbol (`:a`) \| a Chadcn component instance |
 | `class:` | `nil` (`className`) | any string; merged through `cn` (tailwind_merge) after the cva output |
 | `**attrs` | (`...props`, `React.ComponentProps<"button">`) | every HTML attribute: `id`, `type`, `name`, `value`, `form`, `formnovalidate`, `title`, `tabindex`, `disabled`, `style`, `data: {}`, `aria: {}` / `"aria-*":`, `role` |
 
 - Options accept strings and symbols (shadcn-port R4): `variant: :outline` == `"outline"`; `size: :icon_sm` == `:"icon-sm"` == `"icon-sm"` (underscore normalized to the oracle's hyphen key). `nil` means the default (cva treats `undefined` as `defaultVariants`). An unknown option raises `ArgumentError` (the React TS type forbids it; cva would silently emit no classes).
-- `variants(...)` is the Ruby mapping of the exported `buttonVariants` (api-mapping.md "Exceptions ... map to class methods"): returns `cn(base, variant[variant], size[size], class)` exactly like `cva(...)({ variant, size, className })`. Used by other V2 components that style non-buttons as buttons (e.g. pagination, calendar, alert-dialog actions).
-- Block = `children`: text, icons (`render Components::V2::Icon.new(name: "plus")`), other components.
-- `as_child:`: Radix `Slot.Root` (`const Comp = asChild ? Slot.Root : "button"`). With `as_child: :a` the part renders `<a>` with its own classes, `data-slot`, `data-variant`, `data-size` and attrs. With a component instance it calls `Components::V2::Base#render_as_child` (Radix `mergeProps`, verified in `dev/react-shadcn-catalog/node_modules/@radix-ui/react-slot/dist/index.mjs` lines 81-106): child props win (a child `data-slot` replaces `"button"`), `class` is a plain join slot-first-then-child with no tailwind_merge, `style` merged slot-then-child (child keys win), `aria-describedby` is the de-duplicated union of child ids then slot ids (`concatAriaDescribedby(childPropValue, slotPropValue)`, lines 101-102 and 135-144; note this differs from the generic "everything else child-over-slot" rule in api-mapping.md and `render_as_child` must implement it), `on*` handlers / `data-action` run child first then slot (lines 86-96). Scenarios `api__as-child-aria-describedby-merge` and `api__as-child-style-merge` pin these. The scenario harness expresses this as `"asChild": true` with one `_a` child.
+- `variants(...)` is the Ruby mapping of the exported `buttonVariants` (api-mapping.md "Exceptions ... map to class methods"): returns `cn(base, variant[variant], size[size], class)` exactly like `cva(...)({ variant, size, className })`. Used by other Chadcn components that style non-buttons as buttons (e.g. pagination, calendar, alert-dialog actions).
+- Block = `children`: text, icons (`render Chadcn::Icon.new(name: "plus")`), other components.
+- `as_child:`: Radix `Slot.Root` (`const Comp = asChild ? Slot.Root : "button"`). With `as_child: :a` the part renders `<a>` with its own classes, `data-slot`, `data-variant`, `data-size` and attrs. With a component instance it calls `Chadcn::Base#render_as_child` (Radix `mergeProps`, verified in `dev/react-shadcn-catalog/node_modules/@radix-ui/react-slot/dist/index.mjs` lines 81-106): child props win (a child `data-slot` replaces `"button"`), `class` is a plain join slot-first-then-child with no tailwind_merge, `style` merged slot-then-child (child keys win), `aria-describedby` is the de-duplicated union of child ids then slot ids (`concatAriaDescribedby(childPropValue, slotPropValue)`, lines 101-102 and 135-144; note this differs from the generic "everything else child-over-slot" rule in api-mapping.md and `render_as_child` must implement it), `on*` handlers / `data-action` run child first then slot (lines 86-96). Scenarios `api__as-child-aria-describedby-merge` and `api__as-child-style-merge` pin these. The scenario harness expresses this as `"asChild": true` with one `_a` child.
 - Events: none dispatched (no `on*Change` in the source). `onClick` etc. map to plain DOM events via `data: { action: "click->x#y" }`.
 - `ref`: no equivalent, not part of the API.
 
@@ -60,8 +60,8 @@ Single element, server-rendered in full (no Stimulus sets anything):
 ## Dependencies
 
 - None rendered by the component (`registry_dependencies: []`, no lucide import in the source).
-- Needs `Components::V2::Base` for `cn`, attribute merge and `render_as_child` (Slot).
-- Scenarios use lucide icons via the `<icon:...>` child convention (`Components::V2::Icon` on the Phlex side): `arrow-up`, `arrow-up-right`, `arrow-down`, `plus`, `chevron-right`, `git-branch`, `book-open`, `loader-circle`, `circle-fading-arrow-up`.
+- Needs `Chadcn::Base` for `cn`, attribute merge and `render_as_child` (Slot).
+- Scenarios use lucide icons via the `<icon:...>` child convention (`Chadcn::Icon` on the Phlex side): `arrow-up`, `arrow-up-right`, `arrow-down`, `plus`, `chevron-right`, `git-branch`, `book-open`, `loader-circle`, `circle-fading-arrow-up`.
 - Example substitutions (scenario-level only, identical on both harnesses, not component deviations): `button-with-icon` uses tabler `IconGitBranch` -> lucide `git-branch`; `button-loading` uses `Spinner` (not a registry dependency of button) -> lucide `loader-circle` icon; `button-as-child` uses Next `Link` -> `_a`.
 
 ## Deviations

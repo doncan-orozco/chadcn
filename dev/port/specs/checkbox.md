@@ -7,7 +7,7 @@ Oracle: `dev/port/oracle/src/checkbox.tsx` (manifest `source_sha` ba0ac64064e2d8
 One export (`Checkbox`), one Ruby class. The Indicator is not exported by shadcn; it is rendered internally (no Ruby class for callers).
 
 ```ruby
-Components::V2::Checkbox.new(
+Chadcn::Checkbox.new(
   checked: nil,             # controlled: true | false | "indeterminate" (also :indeterminate); nil = uncontrolled
                             # (Radix useControllableState: controlled iff prop !== undefined, cb.mjs:33-38)
   default_checked: false,   # uncontrolled initial value: true | false | "indeterminate" (cb.mjs:35 `defaultProp: defaultChecked ?? false`)
@@ -58,7 +58,7 @@ Part `Checkbox` (Radix Root -> `CheckboxTrigger`, `data-slot="checkbox"`), cb.mj
 Indicator (`data-slot="checkbox-indicator"`, Radix `CheckboxIndicator`, cb.mjs:180-201):
 - tag `span`, `data-state` mirrors the Root, `data-disabled=""` when disabled, `data-slot="checkbox-indicator"`, `class="grid place-content-center text-current transition-none"` (verbatim, no caller merge), inline `style="pointer-events: none;"` (cb.mjs:196).
 - Rendered only when `checked === true` or `"indeterminate"` (`present`, cb.mjs:188; no `forceMount` from shadcn). Unchecked = not in the DOM.
-- Child: `Components::V2::Icon` `check` with `class: "size-3.5"`: lucide 0.577.0 markup `class="lucide lucide-check size-3.5"`, `aria-hidden="true"` (lucide `Icon.js:33` adds it because there are no children and no a11y prop), path `M20 6 9 17l-5-5`.
+- Child: `Chadcn::Icon` `check` with `class: "size-3.5"`: lucide 0.577.0 markup `class="lucide lucide-check size-3.5"`, `aria-hidden="true"` (lucide `Icon.js:33` adds it because there are no children and no a11y prop), path `M20 6 9 17l-5-5`.
 
 Bubble input (no data-slot; Radix `CheckboxBubbleInput`, cb.mjs:204-284):
 - `input type="checkbox" aria-hidden="true" tabindex="-1"`, `checked=""` attribute when the initial value is `true` (React `defaultChecked: defaultChecked ?? defaultCheckedRef.current`, cb.mjs:249, 255; with a controlled `checked: true` and no `default_checked` it is also `checked=""`; indeterminate initial -> not checked), `required=""`, `disabled=""`, `name`, `value`, `form` when given. Style in Radix order: `width`/`height` px once measured (`...controlSize`, cb.mjs:271), then `position: absolute; pointer-events: none; opacity: 0; margin: 0px; transform: translateX(-100%)` (cb.mjs:272-279).
@@ -104,14 +104,14 @@ Turbo: `disconnect()` removes the reset listener, ResizeObserver and rAF; `conne
 
 ## Dependencies
 
-- `Components::V2::Icon` (`check`, `class: "size-3.5"`) inside the Indicator (manifest `icons: ["CheckIcon"]`).
-- No other V2 component (`registry_dependencies: []`). Registry examples use `Label` (checkbox-demo) and `Field*` (field-checkbox, form-rhf-checkbox), which are not dependencies of `checkbox`; their scenarios use raw `_label` / `_div` / `_fieldset` / `_form` instead.
+- `Chadcn::Icon` (`check`, `class: "size-3.5"`) inside the Indicator (manifest `icons: ["CheckIcon"]`).
+- No other Chadcn component (`registry_dependencies: []`). Registry examples use `Label` (checkbox-demo) and `Field*` (field-checkbox, form-rhf-checkbox), which are not dependencies of `checkbox`; their scenarios use raw `_label` / `_div` / `_fieldset` / `_form` instead.
 
 ## Deviations
 
 One, API only (no DOM or class difference):
 
-- `as_child:` is not supported on `Components::V2::Checkbox`. Reason: Radix Root (`Primitive.button`) accepts `asChild`, but shadcn's `Checkbox` always renders `CheckboxPrimitive.Indicator` as the Root's only child, so Radix `Slot` would merge every checkbox attribute and handler onto the Indicator, which renders nothing at all while unchecked (Presence) and a `span` otherwise: no usable control. No registry example uses it. Entry in `dev/port/deviations/checkbox.json`:
+- `as_child:` is not supported on `Chadcn::Checkbox`. Reason: Radix Root (`Primitive.button`) accepts `asChild`, but shadcn's `Checkbox` always renders `CheckboxPrimitive.Indicator` as the Root's only child, so Radix `Slot` would merge every checkbox attribute and handler onto the Indicator, which renders nothing at all while unchecked (Presence) and a `span` otherwise: no usable control. No registry example uses it. Entry in `dev/port/deviations/checkbox.json`:
 
 ```json
 { "reason": "shadcn Checkbox always passes CheckboxPrimitive.Indicator as the Root's only child, so Radix asChild would merge the checkbox onto the indicator (absent while unchecked); as_child is therefore not offered", "allow_tokens": [], "allow_missing_tokens": [], "api": ["Checkbox: as_child not supported"] }

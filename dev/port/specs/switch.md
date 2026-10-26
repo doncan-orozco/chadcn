@@ -7,7 +7,7 @@ Oracle: `dev/port/oracle/src/switch.tsx` (manifest `source_sha` 743676f33f823ffa
 One export, one Ruby class. The Thumb is not exported by shadcn; it is rendered internally (no Ruby class for callers).
 
 ```ruby
-Components::V2::Switch.new(
+Chadcn::Switch.new(
   size: "default",          # "default" | "sm" (strings or symbols, R4); default from switch.tsx `size = "default"`
   checked: nil,             # controlled: true | false; nil = uncontrolled (Radix useControllableState: controlled iff prop !== undefined)
   default_checked: false,   # uncontrolled initial value (switch.mjs:34 `defaultProp: defaultChecked ?? false`)
@@ -82,13 +82,13 @@ Turbo: `disconnect()` removes the reset listener and the ResizeObserver; a cache
 
 ## Dependencies
 
-None. Switch renders no other `Components::V2` component and no icon (manifest `icons: []`, `registry_dependencies: []`). Registry examples use `Label` (switch-demo) and `Field*` (field-switch, form-rhf-switch), which are not dependencies of `switch`; their scenarios use a raw `_label` / neutral `_div` / `_form` instead (harness requirement: the raw `_label` node passes `htmlFor` as the `for` attribute on both sides; the runner ignores `for` values but the click-through must work).
+None. Switch renders no other `Chadcn` component and no icon (manifest `icons: []`, `registry_dependencies: []`). Registry examples use `Label` (switch-demo) and `Field*` (field-switch, form-rhf-switch), which are not dependencies of `switch`; their scenarios use a raw `_label` / neutral `_div` / `_form` instead (harness requirement: the raw `_label` node passes `htmlFor` as the `for` attribute on both sides; the runner ignores `for` values but the click-through must work).
 
 ## Deviations
 
 One, API only (no DOM or class difference):
 
-- `as_child:` is not supported on `Components::V2::Switch`. Reason: Radix Root is a `Primitive.button` that accepts `asChild`, but shadcn's `Switch` always renders `SwitchPrimitive.Thumb` as the Root's only child, so with `asChild` Radix `Slot` would merge every switch attribute onto the Thumb `span` and render no button, which is not a usable control; no registry example uses it. Entry written to `dev/port/deviations/switch.json`:
+- `as_child:` is not supported on `Chadcn::Switch`. Reason: Radix Root is a `Primitive.button` that accepts `asChild`, but shadcn's `Switch` always renders `SwitchPrimitive.Thumb` as the Root's only child, so with `asChild` Radix `Slot` would merge every switch attribute onto the Thumb `span` and render no button, which is not a usable control; no registry example uses it. Entry written to `dev/port/deviations/switch.json`:
 
 ```json
 { "reason": "shadcn Switch always passes SwitchPrimitive.Thumb as the Root's only child, so Radix asChild would merge the switch onto the thumb span; as_child is therefore not offered", "allow_tokens": [], "allow_missing_tokens": [], "api": ["Switch: as_child not supported"] }

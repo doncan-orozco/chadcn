@@ -7,10 +7,10 @@ Sources read: `dev/port/oracle/src/tooltip.tsx` (manifest `source_sha` 611e43058
 Exports `Tooltip`, `TooltipTrigger`, `TooltipContent`, `TooltipProvider` map to:
 
 ```ruby
-Components::V2::Tooltip::Provider.new(delay_duration: 0, skip_delay_duration: 300, disable_hoverable_content: false) { ... }
-Components::V2::Tooltip.new(open: nil, default_open: false, delay_duration: nil, disable_hoverable_content: nil) { ... }
-Components::V2::Tooltip::Trigger.new(as_child: false, class: nil, **attrs) { ... }
-Components::V2::Tooltip::Content.new(side: "top", side_offset: 0, align: "center", align_offset: 0,
+Chadcn::Tooltip::Provider.new(delay_duration: 0, skip_delay_duration: 300, disable_hoverable_content: false) { ... }
+Chadcn::Tooltip.new(open: nil, default_open: false, delay_duration: nil, disable_hoverable_content: nil) { ... }
+Chadcn::Tooltip::Trigger.new(as_child: false, class: nil, **attrs) { ... }
+Chadcn::Tooltip::Content.new(side: "top", side_offset: 0, align: "center", align_offset: 0,
   avoid_collisions: true, collision_padding: 0, collision_boundary: nil, arrow_padding: 0,
   sticky: "partial", hide_when_detached: false, update_position_strategy: "optimized",
   force_mount: false, class: nil, **attrs) { ... }
@@ -18,7 +18,7 @@ Components::V2::Tooltip::Content.new(side: "top", side_offset: 0, align: "center
 
 - `TooltipProvider` (`Tooltip::Provider`): `delay_duration:` defaults to **0** (shadcn overrides Radix's `DEFAULT_DELAY_DURATION = 700`, tooltip:27, tsx `delayDuration = 0`). `skip_delay_duration: 300` and `disable_hoverable_content: false` are Radix defaults (tooltip:33-35). Renders no element; it pushes its options into the Phlex render context for the Tooltips inside its block.
 - `Tooltip` (root): `open:` (controlled when not `nil`), `default_open: false` (tooltip:96), `delay_duration:` and `disable_hoverable_content:` fall back to the provider's when `nil` (tooltip:91-92). Renders no element. Rendering a `Tooltip` outside a `Tooltip::Provider` raises `ArgumentError, "`Tooltip` must be used within `TooltipProvider`"` (Radix `createContext` throws the same message; the shadcn oracle does NOT self-wrap in a provider).
-- `TooltipTrigger` (`Tooltip::Trigger`): `<button>`; `as_child:` false | tag symbol | V2 component instance (Radix Slot merge from `Components::V2::Base#render_as_child`; the trigger's `data-state`, `aria-describedby`, `data-slot` and controller wiring merge onto the child, child attributes win, `class` plain join). `aria: { describedby: }` / `"aria-describedby":` is concatenated with the content id while open (tooltip:186, `concatAriaDescribedby` tooltip:501-510: split on whitespace, dedupe, caller ids first). `disabled:` and every other attr pass through.
+- `TooltipTrigger` (`Tooltip::Trigger`): `<button>`; `as_child:` false | tag symbol | Chadcn component instance (Radix Slot merge from `Chadcn::Base#render_as_child`; the trigger's `data-state`, `aria-describedby`, `data-slot` and controller wiring merge onto the child, child attributes win, `class` plain join). `aria: { describedby: }` / `"aria-describedby":` is concatenated with the content id while open (tooltip:186, `concatAriaDescribedby` tooltip:501-510: split on whitespace, dedupe, caller ids first). `disabled:` and every other attr pass through.
 - `TooltipContent` (`Tooltip::Content`): `side:` default `"top"` (tooltip:230 overrides Popper's `"bottom"`), `side_offset:` default `0` (tsx), `align: "center"`, `align_offset: 0`, `arrow_padding: 0`, `avoid_collisions: true`, `collision_boundary: nil` (Radix `[]`), `collision_padding: 0` (Integer or Hash `{top:, right:, bottom:, left:}`, missing keys 0, popper:110), `sticky: "partial"` (`"partial" | "always"`), `hide_when_detached: false`, `update_position_strategy: "optimized"` (`"optimized" | "always"`) (popper:96-108), `force_mount: false` (tooltip:230). String and symbol values accepted for every option (`side: :left` == `side: "left"`). `aria: { label: }` / `"aria-label":` switches the accessible-label mode (see Structure). `id:` overrides the generated content id (tooltip:328-333). `class:` merged last through `cn` onto the oracle class string.
 - Events (all dispatched by the `chadcn--tooltip` controller on the trigger element, bubbling):
   - `chadcn--tooltip:open-change` `detail: { open }` on every open/close request (Radix `onOpenChange`, tooltip:97-105). In controlled mode (`open:` given) the DOM does not change; only the event fires.
@@ -29,10 +29,10 @@ Components::V2::Tooltip::Content.new(side: "top", side_offset: 0, align: "center
 Example (tooltip-demo):
 
 ```ruby
-render Components::V2::Tooltip::Provider.new do
-  render Components::V2::Tooltip.new do
-    render Components::V2::Tooltip::Trigger.new(as_child: Components::V2::Button.new(variant: "outline")) { "Hover" }
-    render Components::V2::Tooltip::Content.new { p { "Add to library" } }
+render Chadcn::Tooltip::Provider.new do
+  render Chadcn::Tooltip.new do
+    render Chadcn::Tooltip::Trigger.new(as_child: Chadcn::Button.new(variant: "outline")) { "Hover" }
+    render Chadcn::Tooltip::Content.new { p { "Add to library" } }
   end
 end
 ```
@@ -128,9 +128,9 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Dependencies
 
-- No `Components::V2` component is rendered by Tooltip itself (no icons, no sr-only literals; manifest `registry_dependencies: []`, `icons: []`).
-- Callers commonly compose `Components::V2::Button` (and `Kbd`) via `as_child:`; scenarios use raw `_button` / `_kbd` elements for that because the tooltip manifest declares no registry dependency (scenario_coverage only allows dependency exports).
-- `Components::V2::Base#render_as_child` (Slot merge), `cn`.
+- No `Chadcn` component is rendered by Tooltip itself (no icons, no sr-only literals; manifest `registry_dependencies: []`, `icons: []`).
+- Callers commonly compose `Chadcn::Button` (and `Kbd`) via `as_child:`; scenarios use raw `_button` / `_kbd` elements for that because the tooltip manifest declares no registry dependency (scenario_coverage only allows dependency exports).
+- `Chadcn::Base#render_as_child` (Slot merge), `cn`.
 
 ## Deviations
 

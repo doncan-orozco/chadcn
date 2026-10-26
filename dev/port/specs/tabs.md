@@ -8,16 +8,16 @@ Exports: `Tabs`, `TabsList`, `TabsTrigger`, `TabsContent` (parts) and `tabsListV
 
 Name rule: root `Tabs`, strip the prefix. Every part accepts `class:` (merged LAST through `cn`/tailwind_merge, caller wins) and `**attrs` (spread after the Radix attributes, so caller `id`, `role`, `aria-*`, `data-*`, `title`, `dir`, `style` win over Radix's, exactly like `{...props}` after the Radix props, tabs:62, tabs:90, tabs:125, tabs:178). `data:`/`aria:` hashes deep-merge. Strings and symbols are accepted for every option (shadcn-port R4); an unknown option raises `ArgumentError`. `ref` has no equivalent.
 
-### `Tabs` -> `Components::V2::Tabs`
+### `Tabs` -> `Chadcn::Tabs`
 
 ```ruby
-Components::V2::Tabs.new(
+Chadcn::Tabs.new(
   value: nil,                    # controlled value (String; symbols/other -> to_s). nil = uncontrolled (ucs:20 isControlled = prop !== undefined)
   default_value: nil,            # uncontrolled initial value; nil -> "" (tabs:44 `defaultValue ?? ""`): no trigger active, every panel hidden
   orientation: "horizontal",     # "horizontal" | "vertical"; shadcn default (tabs.tsx) == Radix default (tabs:35)
   dir: nil,                      # "ltr" | "rtl" | nil; use_direction(dir): dir || nearest Direction::Provider || "ltr" (tabs:40). Never html[dir]
   activation_mode: "automatic",  # "automatic" | "manual" (tabs:17-20, tabs:37)
-  as_child: false,               # false | tag symbol | V2 component instance (Primitive.div, tabs:58; Slot merge per api-mapping)
+  as_child: false,               # false | tag symbol | Chadcn component instance (Primitive.div, tabs:58; Slot merge per api-mapping)
   class: nil,                    # cn("group/tabs flex gap-2 data-[orientation=horizontal]:flex-col", class)
   **attrs
 ) { list + contents + any other markup }
@@ -29,10 +29,10 @@ Components::V2::Tabs.new(
   - Controlled: once per request whose value differs from the controlled value (ucs:38-41), with NO dedupe across requests. A mouse press on an inactive trigger in automatic mode therefore dispatches TWICE (the explicit `focus()` in the mousedown handler fires the focus-activation request, then the mousedown handler's own request, tabs:127-130 + tabs:143-147); a press on an already-focused inactive trigger dispatches once (no focus event).
 - `value:` / `default_value:` are compared with `===` after `to_s` to each Trigger/Content `value:` (tabs:106, tabs:162). `value: ""` is valid and matches no trigger (scenario `controlled-value-empty`).
 
-### `TabsList` -> `Components::V2::Tabs::List`
+### `TabsList` -> `Chadcn::Tabs::List`
 
 ```ruby
-Components::V2::Tabs::List.new(
+Chadcn::Tabs::List.new(
   variant: "default",   # "default" | "line" (tabsListVariants), default = defaultVariants
   loop: true,           # Radix TabsList prop (tabs:74, default true; RovingFocusGroup's own default is false, rf:46)
   as_child: false,
@@ -41,14 +41,14 @@ Components::V2::Tabs::List.new(
 ) { triggers }
 ```
 
-`Components::V2::Tabs.list_variants(variant: "default")` returns the cva class string (`tabsListVariants`):
+`Chadcn::Tabs.list_variants(variant: "default")` returns the cva class string (`tabsListVariants`):
 - base: `group/tabs-list inline-flex w-fit items-center justify-center rounded-lg p-[3px] text-muted-foreground group-data-[orientation=horizontal]/tabs:h-9 group-data-[orientation=vertical]/tabs:h-fit group-data-[orientation=vertical]/tabs:flex-col data-[variant=line]:rounded-none`
 - `default`: `bg-muted`; `line`: `gap-1 bg-transparent`. No compoundVariants.
 
-### `TabsTrigger` -> `Components::V2::Tabs::Trigger`
+### `TabsTrigger` -> `Chadcn::Tabs::Trigger`
 
 ```ruby
-Components::V2::Tabs::Trigger.new(
+Chadcn::Tabs::Trigger.new(
   value:,               # required (to_s); used for ids and selection, NOT rendered as an attribute (destructured, tabs:101)
   disabled: false,      # tabs:101
   as_child: false,      # Primitive.button (tabs:115)
@@ -57,10 +57,10 @@ Components::V2::Tabs::Trigger.new(
 ) { label, icons }
 ```
 
-### `TabsContent` -> `Components::V2::Tabs::Content`
+### `TabsContent` -> `Chadcn::Tabs::Content`
 
 ```ruby
-Components::V2::Tabs::Content.new(
+Chadcn::Tabs::Content.new(
   value:,               # required (to_s), tabs:158
   force_mount: false,   # Radix `forceMount` (tabs:158, tabs:168): always present (not hidden, children rendered) while inactive
   as_child: false,      # Primitive.div (tabs:169)
@@ -69,7 +69,7 @@ Components::V2::Tabs::Content.new(
 ) { panel content }
 ```
 
-List, Trigger and Content must be rendered inside a `Components::V2::Tabs` (Radix context error otherwise, tabs:75/102/159): Ruby raises `ArgumentError` when no enclosing Tabs is found in the Phlex render context.
+List, Trigger and Content must be rendered inside a `Chadcn::Tabs` (Radix context error otherwise, tabs:75/102/159): Ruby raises `ArgumentError` when no enclosing Tabs is found in the Phlex render context.
 
 Consumer handlers (`data: { action: "mousedown->x#y" }`) run before the Radix logic and, if they call `preventDefault()`, suppress it (`composeEventHandlers`, tabs:127/135/143); the controller checks `event.defaultPrevented` before acting.
 
@@ -134,7 +134,7 @@ Final DOM (after React mount / after Stimulus connect), uncontrolled, `default_v
   3. `data-[state=active]:bg-background data-[state=active]:text-foreground dark:data-[state=active]:border-input dark:data-[state=active]:bg-input/30 dark:data-[state=active]:text-foreground`
   4. `after:absolute after:bg-foreground after:opacity-0 after:transition-opacity group-data-[orientation=horizontal]/tabs:after:inset-x-0 group-data-[orientation=horizontal]/tabs:after:bottom-[-5px] group-data-[orientation=horizontal]/tabs:after:h-0.5 group-data-[orientation=vertical]/tabs:after:inset-y-0 group-data-[orientation=vertical]/tabs:after:-right-1 group-data-[orientation=vertical]/tabs:after:w-0.5 group-data-[variant=line]/tabs-list:data-[state=active]:after:opacity-100`
 - No `value` attribute, no `aria-disabled`.
-- Children: the block (text, `Components::V2::Icon`, ...).
+- Children: the block (text, `Chadcn::Icon`, ...).
 
 ### Part `TabsContent` (`data-slot="tabs-content"`)
 
@@ -221,9 +221,9 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Dependencies
 
-- No other V2 component is rendered by Tabs (`registry_dependencies: []`, manifest `icons: []`).
-- `Components::V2::Direction` (`Consumer` mixin / `use_direction`) for the root `dir` attribute and keyboard direction (spec `direction.md`).
-- Examples use Card, Input, Label, Button and lucide `app-window` / `code` icons (`Components::V2::Icon` in real use); in the scenario trees they are raw `_div`/`_label`/`_input`/`_button` elements carrying the verbatim oracle classes and `data-slot`s of those components, because the coverage check only admits Tabs exports.
+- No other Chadcn component is rendered by Tabs (`registry_dependencies: []`, manifest `icons: []`).
+- `Chadcn::Direction` (`Consumer` mixin / `use_direction`) for the root `dir` attribute and keyboard direction (spec `direction.md`).
+- Examples use Card, Input, Label, Button and lucide `app-window` / `code` icons (`Chadcn::Icon` in real use); in the scenario trees they are raw `_div`/`_label`/`_input`/`_button` elements carrying the verbatim oracle classes and `data-slot`s of those components, because the coverage check only admits Tabs exports.
 
 ## Deviations
 

@@ -1,11 +1,11 @@
-# Skeleton (`Components::V2::Skeleton`)
+# Skeleton (`Chadcn::Skeleton`)
 
 Oracle: `dev/port/oracle/src/skeleton.tsx` (style `new-york-v4`, source_sha `f51ce0fcd31e5c31`), manifest `dev/port/oracle/manifest/skeleton.json`. Tier `static`: no Stimulus controller, no primitive, no Radix import (`radix_primitives: []`, `use_client: false`). Single export `Skeleton`; single data-slot `skeleton`.
 
 ## API
 
 ```ruby
-Components::V2::Skeleton.new(class: nil, **attrs) { ... }   # React `Skeleton`
+Chadcn::Skeleton.new(class: nil, **attrs) { ... }   # React `Skeleton`
 ```
 
 | kwarg | default (tsx) | accepted values |
@@ -37,7 +37,7 @@ Fully server-rendered; nothing is set by JS.
 ## Dependencies
 
 - None rendered by the component (`registry_dependencies: []`, no lucide import, `npm_dependencies: ["cn"]`).
-- Needs `Components::V2::Base` for `cn` and attribute merge.
+- Needs `Chadcn::Base` for `cn` and attribute merge.
 - Scenario layout wrappers use `_div` only (as in `skeleton-demo`/`skeleton-card`).
 
 ## Deviations

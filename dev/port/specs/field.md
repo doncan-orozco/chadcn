@@ -1,4 +1,4 @@
-# Field (`Components::V2::Field`)
+# Field (`Chadcn::Field`)
 
 Oracle: `dev/port/oracle/src/field.tsx` (style `new-york-v4`, manifest `source_sha` `4a4d17fcb933513f`, cited as `field.tsx:<line>`), manifest `dev/port/oracle/manifest/field.json`. Tier `static`: `"use client"` only because of `useMemo` in `FieldError` (field.tsx:3, 194); no Radix primitive of its own (manifest `radix_primitives: []`), no icons, no hooks beyond `useMemo`, no Stimulus controller of its own. Ten exports, ten parts: `Field`, `FieldLabel`, `FieldDescription`, `FieldError`, `FieldGroup`, `FieldLegend`, `FieldSeparator`, `FieldSet`, `FieldContent`, `FieldTitle`. Data-slots: `field`, `field-label` (on BOTH `FieldLabel` and `FieldTitle`), `field-description`, `field-error`, `field-group`, `field-legend`, `field-separator`, `field-separator-content`, `field-set`, `field-content`. One cva table, `fieldVariants` (field.tsx:57-79). Registry dependencies: `label`, `separator` (both specced). Registry examples (fetched from `https://ui.shadcn.com/r/styles/new-york-v4/<name>.json`): `field-demo`, `field-input`, `field-textarea`, `field-fieldset`, `field-radio`, `field-checkbox`, `field-switch`, `field-slider`, `field-select`, `field-choice-card`, `field-group`, `field-responsive`.
 
@@ -7,28 +7,28 @@ Oracle: `dev/port/oracle/src/field.tsx` (style `new-york-v4`, manifest `source_s
 Name rule (strip the `Field` prefix): `FieldSet` -> `Field::Set`, `FieldLegend` -> `Field::Legend`, `FieldGroup` -> `Field::Group`, `FieldContent` -> `Field::Content`, `FieldLabel` -> `Field::Label`, `FieldTitle` -> `Field::Title`, `FieldDescription` -> `Field::Description`, `FieldSeparator` -> `Field::Separator`, `FieldError` -> `Field::Error`.
 
 ```ruby
-Components::V2::Field.new(orientation: "vertical", class: nil, **attrs) { ... }
-Components::V2::Field::Set.new(class: nil, **attrs) { ... }
-Components::V2::Field::Legend.new(variant: "legend", class: nil, **attrs) { ... }
-Components::V2::Field::Group.new(class: nil, **attrs) { ... }
-Components::V2::Field::Content.new(class: nil, **attrs) { ... }
-Components::V2::Field::Label.new(html_for: nil, as_child: false, class: nil, **attrs) { ... }
-Components::V2::Field::Title.new(class: nil, **attrs) { ... }
-Components::V2::Field::Description.new(class: nil, **attrs) { ... }
-Components::V2::Field::Separator.new(class: nil, **attrs) { optional children }
-Components::V2::Field::Error.new(errors: nil, class: nil, **attrs) { optional children }
+Chadcn::Field.new(orientation: "vertical", class: nil, **attrs) { ... }
+Chadcn::Field::Set.new(class: nil, **attrs) { ... }
+Chadcn::Field::Legend.new(variant: "legend", class: nil, **attrs) { ... }
+Chadcn::Field::Group.new(class: nil, **attrs) { ... }
+Chadcn::Field::Content.new(class: nil, **attrs) { ... }
+Chadcn::Field::Label.new(html_for: nil, as_child: false, class: nil, **attrs) { ... }
+Chadcn::Field::Title.new(class: nil, **attrs) { ... }
+Chadcn::Field::Description.new(class: nil, **attrs) { ... }
+Chadcn::Field::Separator.new(class: nil, **attrs) { optional children }
+Chadcn::Field::Error.new(errors: nil, class: nil, **attrs) { optional children }
 
-Components::V2::Field.variants(orientation: "vertical", class: nil) # => class string of fieldVariants
+Chadcn::Field.variants(orientation: "vertical", class: nil) # => class string of fieldVariants
 ```
 
 | part (tsx function) | Ruby class | kwargs (default) | source |
 |---|---|---|---|
-| `Field` | `Components::V2::Field` | `orientation:` (`"vertical"`), `class:`, `**attrs` | field.tsx:81-95, default `orientation = "vertical"` (83) and cva `defaultVariants` (76-78) |
+| `Field` | `Chadcn::Field` | `orientation:` (`"vertical"`), `class:`, `**attrs` | field.tsx:81-95, default `orientation = "vertical"` (83) and cva `defaultVariants` (76-78) |
 | `FieldSet` | `Field::Set` | `class:`, `**attrs` (any `fieldset` attr: `disabled`, `name`, `form`) | field.tsx:10-22 |
 | `FieldLegend` | `Field::Legend` | `variant:` (`"legend"`; `"legend"` \| `"label"`), `class:`, `**attrs` | field.tsx:24-42, default `variant = "legend"` (26) |
 | `FieldGroup` | `Field::Group` | `class:`, `**attrs` | field.tsx:44-55 |
 | `FieldContent` | `Field::Content` | `class:`, `**attrs` | field.tsx:97-108 |
-| `FieldLabel` | `Field::Label` | everything `Components::V2::Label` accepts: `html_for:` (nil), `as_child:` (false), `class:`, `**attrs` | field.tsx:110-126, `React.ComponentProps<typeof Label>` |
+| `FieldLabel` | `Field::Label` | everything `Chadcn::Label` accepts: `html_for:` (nil), `as_child:` (false), `class:`, `**attrs` | field.tsx:110-126, `React.ComponentProps<typeof Label>` |
 | `FieldTitle` | `Field::Title` | `class:`, `**attrs` | field.tsx:128-139 |
 | `FieldDescription` | `Field::Description` | `class:`, `**attrs` | field.tsx:141-154 |
 | `FieldSeparator` | `Field::Separator` | `class:`, `**attrs`, block = children | field.tsx:156-184 |
@@ -38,7 +38,7 @@ Components::V2::Field.variants(orientation: "vertical", class: nil) # => class s
 - `variant:` on `Field::Legend` accepts `"legend"`/`:legend`/`"label"`/`:label`; the string lands in `data-variant`. The size classes key off `data-variant` (`data-[variant=legend]:text-base`, `data-[variant=label]:text-sm`), not off Ruby, so there is no variant table for Legend.
 - `class:` is merged through `cn` (tailwind_merge) after the part's classes; caller wins conflicts (R6). For `Field` the tsx does `cn(fieldVariants({ orientation }), className)` (field.tsx:91): one merge of `BASE + ORIENTATION[orientation] + class`. `Field.variants` mirrors `fieldVariants` (not exported by the tsx; provided per the `Component.variants` rule in api-mapping.md).
 - `**attrs`: any attribute of the element (`id`, `title`, `role`, `style`, `aria: {}` / `"aria-*":`, `data: {}`), deep-merged. Data-attributes callers are expected to set and that the classes key off: `Field` `data-invalid="true"` (`data-[invalid=true]:text-destructive`) and `data-disabled="true"` (`group-data-[disabled=true]/field:opacity-50` on `FieldLabel`/`FieldTitle`); `FieldGroup` `data-slot="checkbox-group"` (`data-[slot=checkbox-group]:gap-3`, and the parent `FieldSet`'s `has-[>[data-slot=checkbox-group]]:gap-3`) and `data-variant="outline"` (`group-data-[variant=outline]/field-group:-mb-2` on `FieldSeparator`).
-- `Field::Label` is a thin wrapper that renders `Components::V2::Label` (field.tsx:115-125): it passes `data-slot="field-label"`, `class: cn(FIELD_LABEL_CLASSES, class)` and every other kwarg/attr through unchanged, so `html_for:`, `for:`, `as_child:` (false | tag symbol | V2 instance, Radix Slot via Label) behave exactly as in `dev/port/specs/label.md`. Inside the `Field` namespace the constants `Label` and `Separator` resolve to `Field::Label`/`Field::Separator`; the implementation must reference `Components::V2::Label` and `Components::V2::Separator` fully qualified.
+- `Field::Label` is a thin wrapper that renders `Chadcn::Label` (field.tsx:115-125): it passes `data-slot="field-label"`, `class: cn(FIELD_LABEL_CLASSES, class)` and every other kwarg/attr through unchanged, so `html_for:`, `for:`, `as_child:` (false | tag symbol | Chadcn component instance, Radix Slot via Label) behave exactly as in `dev/port/specs/label.md`. Inside the `Field` namespace the constants `Label` and `Separator` resolve to `Field::Label`/`Field::Separator`; the implementation must reference `Chadcn::Label` and `Chadcn::Separator` fully qualified.
 - `Field::Error` `errors:` = React `errors?: Array<{ message?: string } | undefined>` (field.tsx:189-192). Each entry may be `nil`, a Hash with `:message` or `"message"` (the harness passes JSON string keys), or any object responding to `#message` (JS `error?.message` duck typing; e.g. `ActiveModel::Error`). Content algorithm, field.tsx:194-219, reproduced exactly:
   1. If children are given (the block's captured output is non-empty; React `if (children)` treats `""` as absent), the content is the children; `errors` is ignored.
   2. Else if `errors` is nil or empty: no content.
@@ -51,7 +51,7 @@ Components::V2::Field.variants(orientation: "vertical", class: nil) # => class s
 
 ## Structure
 
-Every part is server-rendered; nothing is set client-side except what `Components::V2::Label` itself wires (its `chadcn--label` controller/action, ignored by the parity runner). No ids generated, no `aria-*` added, no `data-state`. In every part the tsx writes its own attributes BEFORE `{...props}`, so a caller attr with the same name wins: `role`, `data-slot`, `data-orientation` (Field), `data-variant` (Legend), `data-content` (Separator). `className` is always destructured, so `class:` never replaces the base, it is merged. Scenarios `field__role-override`, `field__data-orientation-attr-override`, `field-legend__data-variant-override`, `field-separator__data-content-override`, `field-label__data-slot-override`.
+Every part is server-rendered; nothing is set client-side except what `Chadcn::Label` itself wires (its `chadcn--label` controller/action, ignored by the parity runner). No ids generated, no `aria-*` added, no `data-state`. In every part the tsx writes its own attributes BEFORE `{...props}`, so a caller attr with the same name wins: `role`, `data-slot`, `data-orientation` (Field), `data-variant` (Legend), `data-content` (Separator). `className` is always destructured, so `class:` never replaces the base, it is merged. Scenarios `field__role-override`, `field__data-orientation-attr-override`, `field-legend__data-variant-override`, `field-separator__data-content-override`, `field-label__data-slot-override`.
 
 ```html
 <fieldset data-slot="field-set" class="flex flex-col gap-6 has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3">
@@ -81,11 +81,11 @@ Per part (classes verbatim from the tsx, in source order):
 | `FieldGroup` | `div` | `field-group` | none | `group/field-group @container/field-group flex w-full flex-col gap-7 data-[slot=checkbox-group]:gap-3 [&>[data-slot=field-group]]:gap-4` (field.tsx:49) |
 | `Field` | `div` | `field` | `role="group"`, `data-orientation` = orientation (field.tsx:88-90) | `fieldVariants` (below) |
 | `FieldContent` | `div` | `field-content` | none | `group/field-content flex flex-1 flex-col gap-1.5 leading-snug` (field.tsx:102) |
-| `FieldLabel` | `label` (via `Components::V2::Label`; the `as_child` element when given) | `field-label` (overrides Label's `label`) | `for` from `html_for:`/`for:`; Label's own attrs | FieldLabel classes (field.tsx:118-120) merged into Label's base (below) |
+| `FieldLabel` | `label` (via `Chadcn::Label`; the `as_child` element when given) | `field-label` (overrides Label's `label`) | `for` from `html_for:`/`for:`; Label's own attrs | FieldLabel classes (field.tsx:118-120) merged into Label's base (below) |
 | `FieldTitle` | `div` | `field-label` (sic, same slot as FieldLabel, field.tsx:131) | none | `flex w-fit items-center gap-2 text-sm leading-snug font-medium group-data-[disabled=true]/field:opacity-50` (field.tsx:133) |
 | `FieldDescription` | `p` | `field-description` | none | `text-sm leading-normal font-normal text-muted-foreground group-has-[[data-orientation=horizontal]]/field:text-balance` + `last:mt-0 nth-last-2:-mt-1 [[data-variant=legend]+&]:-mt-1.5` + `[&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary` (field.tsx:146-148) |
 | `FieldSeparator` | `div` | `field-separator` | `data-content` = `"true"`/`"false"` (field.tsx:166) | `relative -my-2 h-5 text-sm group-data-[variant=outline]/field-group:-mb-2` (field.tsx:168) |
-| (separator line) | `Components::V2::Separator.new(class: "absolute inset-0 top-1/2")`, first child of FieldSeparator, always rendered (field.tsx:173) | `separator` | Separator defaults: `data-orientation="horizontal"`, `role="none"` | Separator base + `absolute inset-0 top-1/2` |
+| (separator line) | `Chadcn::Separator.new(class: "absolute inset-0 top-1/2")`, first child of FieldSeparator, always rendered (field.tsx:173) | `separator` | Separator defaults: `data-orientation="horizontal"`, `role="none"` | Separator base + `absolute inset-0 top-1/2` |
 | (separator content) | `span`, second child, only with children (field.tsx:174-181) | `field-separator-content` | attribute order in tsx: `class` then `data-slot` | `relative mx-auto block w-fit bg-background px-2 text-muted-foreground` |
 | `FieldError` | `div`, or nothing (field.tsx:221-233) | `field-error` | `role="alert"` (field.tsx:227) | `text-sm font-normal text-destructive` (field.tsx:229) |
 | (error list) | `ul` > `li`, only with 2+ unique errors (field.tsx:212-217) | none | none | `ml-4 flex list-disc flex-col gap-1` on the `ul`; `li` unstyled |
@@ -100,7 +100,7 @@ Per part (classes verbatim from the tsx, in source order):
 
 Rendered class strings (tailwind-merge 2.6.1 from `dev/react-shadcn-catalog/node_modules`, computed for this spec; the port must reach them by merging through `cn`, never by hand-deduplicating):
 - `Field` vertical: `group/field flex w-full gap-3 data-[invalid=true]:text-destructive flex-col [&>*]:w-full [&>.sr-only]:w-auto`; horizontal and responsive: base + the variant tokens unchanged (no conflicts).
-- `FieldLabel` = `cn(LABEL_BASE, cn(FIELD_LABEL, class))` (FieldLabel merges its own `className` first, field.tsx:117-121, then Label merges the result after its base, label.tsx). With no `class:` the result is `items-center text-sm font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 group/field-label peer/field-label flex w-fit gap-2 leading-snug group-data-[disabled=true]/field:opacity-50 has-[>[data-slot=field]]:w-full has-[>[data-slot=field]]:flex-col has-[>[data-slot=field]]:rounded-md has-[>[data-slot=field]]:border [&>*]:data-[slot=field]:p-4 has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary/5 dark:has-data-[state=checked]:bg-primary/10` (Label's `flex`, `gap-2`, `leading-none` are replaced by FieldLabel's; `class: "font-normal"` additionally drops Label's `font-medium`, scenario `field-label__class-merge-font-normal`). Implementation: `render Components::V2::Label.new(**attrs, data: { slot: "field-label" }.merge(caller data), class: cn(FIELD_LABEL, class))`.
+- `FieldLabel` = `cn(LABEL_BASE, cn(FIELD_LABEL, class))` (FieldLabel merges its own `className` first, field.tsx:117-121, then Label merges the result after its base, label.tsx). With no `class:` the result is `items-center text-sm font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 group/field-label peer/field-label flex w-fit gap-2 leading-snug group-data-[disabled=true]/field:opacity-50 has-[>[data-slot=field]]:w-full has-[>[data-slot=field]]:flex-col has-[>[data-slot=field]]:rounded-md has-[>[data-slot=field]]:border [&>*]:data-[slot=field]:p-4 has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary/5 dark:has-data-[state=checked]:bg-primary/10` (Label's `flex`, `gap-2`, `leading-none` are replaced by FieldLabel's; `class: "font-normal"` additionally drops Label's `font-medium`, scenario `field-label__class-merge-font-normal`). Implementation: `render Chadcn::Label.new(**attrs, data: { slot: "field-label" }.merge(caller data), class: cn(FIELD_LABEL, class))`.
 - `FieldSeparator` line: `shrink-0 bg-border data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px absolute inset-0 top-1/2`.
 
 DOM order: caller order for every part's children; parts never reorder, wrap or inject children, except `FieldSeparator` (Separator line first, then the optional span with the children) and `FieldError` (children, the bare message text, or the `ul`).
@@ -140,8 +140,8 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Dependencies
 
-- `Components::V2::Label` (`Field::Label` renders it; spec `dev/port/specs/label.md`).
-- `Components::V2::Separator` (`Field::Separator` renders `Separator.new(class: "absolute inset-0 top-1/2")` with its defaults `orientation: "horizontal"`, `decorative: true`; spec `dev/port/specs/separator.md`).
+- `Chadcn::Label` (`Field::Label` renders it; spec `dev/port/specs/label.md`).
+- `Chadcn::Separator` (`Field::Separator` renders `Separator.new(class: "absolute inset-0 top-1/2")` with its defaults `orientation: "horizontal"`, `decorative: true`; spec `dev/port/specs/separator.md`).
 - No icons (`icons: []`). No primitives, no Stimulus controller of its own.
 
 Example substitutions (scenario-level, identical on both harnesses, not component deviations): the coverage check only admits Field, Label and Separator exports, so the examples' other components are raw fixtures that keep the attributes Field's selectors read:

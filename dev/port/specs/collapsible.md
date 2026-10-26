@@ -6,25 +6,25 @@ This spec is kept consistent with `dev/port/specs/accordion.md`: Accordion's Ite
 
 ## API
 
-Three exports, three Ruby classes (`Collapsible` -> `Components::V2::Collapsible`, `CollapsibleTrigger` -> `Collapsible::Trigger`, `CollapsibleContent` -> `Collapsible::Content`). All three render an element (manifest `non_rendered_slots: []`).
+Three exports, three Ruby classes (`Collapsible` -> `Chadcn::Collapsible`, `CollapsibleTrigger` -> `Collapsible::Trigger`, `CollapsibleContent` -> `Collapsible::Content`). All three render an element (manifest `non_rendered_slots: []`).
 
 ```ruby
-Components::V2::Collapsible.new(
+Chadcn::Collapsible.new(
   open: nil,            # controlled when not nil (true/false). useControllableState: isControlled = prop !== undefined (collapsible.mjs:29-34)
   default_open: false,  # uncontrolled initial state (`defaultProp: defaultOpen ?? false`, collapsible.mjs:31)
   disabled: false,      # collapsible.mjs:25, 39: trigger gets disabled + data-disabled, root and content get data-disabled
-  as_child: false,      # Radix Slot on Root (Primitive.div, collapsible.mjs:44): false | tag symbol | V2 component instance
+  as_child: false,      # Radix Slot on Root (Primitive.div, collapsible.mjs:44): false | tag symbol | Chadcn component instance
   class: nil,           # cn(class) onto the root div (shadcn adds no base classes)
   **attrs               # id, dir, aria: {}, data: {}... spread onto the root div (collapsibleProps, collapsible.mjs:48); `dir:` is a plain DOM attribute here (collapsible-rtl example)
 ) { trigger(s), content(s), any other markup }
 
-Components::V2::Collapsible::Trigger.new(
-  as_child: false,      # Radix Slot on Primitive.button (collapsible.mjs:63); typical use: as_child: Components::V2::Button.new(variant: "ghost", size: "icon")
+Chadcn::Collapsible::Trigger.new(
+  as_child: false,      # Radix Slot on Primitive.button (collapsible.mjs:63); typical use: as_child: Chadcn::Button.new(variant: "ghost", size: "icon")
   class: nil,           # cn(class) onto the button (no base classes)
   **attrs               # spread AFTER Radix's attrs (collapsible.mjs:71): caller `type:`, `disabled:`, `aria-*`, `id:` win; data: { action: } handlers run before the toggle
 ) { label }
 
-Components::V2::Collapsible::Content.new(
+Chadcn::Collapsible::Content.new(
   force_mount: false,   # Radix `forceMount` (collapsible.mjs:82-84): always present, never hidden, children always rendered
   as_child: false,      # Radix Slot on Primitive.div (collapsible.mjs:124): the slotted child receives the content attrs; while closed NOTHING is rendered (see Structure)
   class: nil,           # cn(class) onto the content div (no base classes)
@@ -67,7 +67,7 @@ Part `Collapsible` (Root, `data-slot="collapsible"`; collapsible.mjs:19-55):
 
 Part `Collapsible::Trigger` (`CollapsibleTrigger`, `data-slot="collapsible-trigger"`; collapsible.mjs:57-77):
 - tag `button`, `type="button"` (overridable by a caller `type:`), `aria-controls="<content id>"` ONLY while open (`context.open ? context.contentId : undefined`, collapsible.mjs:66), `aria-expanded="true|false"` (always, collapsible.mjs:67), `data-state="open|closed"`, `data-disabled=""` + `disabled=""` when the root is disabled (collapsible.mjs:69-70), caller attrs (win), `data-slot="collapsible-trigger"`. No `id` is generated for the trigger, and the content does not reference it.
-- `as_child:` with a component instance: Radix Slot merge (child props win, `class` plain join slot-then-child), so `Collapsible::Trigger.new(as_child: Components::V2::Button.new(variant: "ghost", size: "icon", class: "size-8"))` renders the Button's `<button>` with the Button's own `data-slot="button"` (child wins over `collapsible-trigger`), its classes, plus `type`, `aria-expanded`, `aria-controls`, `data-state`, `data-disabled`, `disabled`. Child-side `group-data-[state=open]:` classes then react to the merged `data-state` (collapsible-basic / file-tree examples).
+- `as_child:` with a component instance: Radix Slot merge (child props win, `class` plain join slot-then-child), so `Collapsible::Trigger.new(as_child: Chadcn::Button.new(variant: "ghost", size: "icon", class: "size-8"))` renders the Button's `<button>` with the Button's own `data-slot="button"` (child wins over `collapsible-trigger`), its classes, plus `type`, `aria-expanded`, `aria-controls`, `data-state`, `data-disabled`, `disabled`. Child-side `group-data-[state=open]:` classes then react to the merged `data-state` (collapsible-basic / file-tree examples).
 - Wiring: `data-action="click->chadcn--collapsible#toggle"` and a `trigger` target, merged on the element (child's actions first per Slot rules).
 
 Part `Collapsible::Content` (`CollapsibleContent`, `data-slot="collapsible-content"`; collapsible.mjs:79-140):
@@ -80,7 +80,7 @@ Part `Collapsible::Content` (`CollapsibleContent`, `data-slot="collapsible-conte
   Resulting serialisations: closed at mount -> `style=""` (the CSSOM wrote and then removed both properties, leaving an empty attribute); open at mount -> `style="transition-duration: 0s; animation-name: none; --radix-collapsible-content-height: <h>px; --radix-collapsible-content-width: <w>px;"` (prevention kept; vars appended by the Presence `setNode` re-render, presence.mjs:119-127); after any toggle -> the two prevention properties are gone and the vars stay (updated in place) even when closed again.
 - `as_child:` (Slot onto the single child): while open the child element carries every content attribute above; while closed `children` is `false`, so Slot renders nothing and the content element is ABSENT from the DOM (no `hidden` element). The server renders the closed body inside a `<template data-chadcn--collapsible-target="body">` at the content's position; `connect()` replaces it with an empty Text node anchor (invisible in serialisation) and keeps the fragment in memory, re-inserting the slotted element there on open and removing it after close.
 
-Ids: one content id per root (collapsible.mjs:40), server-generated from the per-render counter in `Components::V2::Base` (runner normalises by first-seen order); every trigger's `aria-controls` and every content's `id` use it.
+Ids: one content id per root (collapsible.mjs:40), server-generated from the per-render counter in `Chadcn::Base` (runner normalises by first-seen order); every trigger's `aria-controls` and every content's `id` use it.
 
 Server vs Stimulus: the server renders every attribute above for the initial state (`data-state` on all parts, `aria-expanded`, `aria-controls` when open, `hidden` when closed, `data-disabled`/`disabled`, ids) and, for content that is open (or force-mounted) at render time, `transition-duration: 0s; animation-name: none` in the content style so the open animation does not run on first paint. Closed content bodies are rendered inside `<template data-chadcn--collapsible-target="body">` within the content div; `connect()` moves the template content into an in-memory fragment and removes the template, so the post-connect DOM equals React's (empty closed content). `connect()` then runs the mount layout step (measure, vars, `style=""` for closed content). Stimulus owns toggling, `data-state` on root/trigger/content, `aria-expanded`, `aria-controls`, `hidden`, inserting/removing children, measurement CSS vars, Presence and events.
 
@@ -121,8 +121,8 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Dependencies
 
-- `Components::V2::Base`: `cn`, `merge_attrs`, `render_as_child`, ids.
-- No V2 component is rendered by the parts themselves (manifest `registry_dependencies: []`, no icons). Callers commonly compose `Components::V2::Button` (and `Icon`) through `as_child:` on the Trigger, as every example does. Because the manifest declares no registry dependency, scenario_coverage only accepts Collapsible exports and raw elements, so the scenarios use raw `_button` elements (with `<icon:...>` children) as the `asChild` child, following the tooltip precedent; the Slot merge is the same.
+- `Chadcn::Base`: `cn`, `merge_attrs`, `render_as_child`, ids.
+- No Chadcn component is rendered by the parts themselves (manifest `registry_dependencies: []`, no icons). Callers commonly compose `Chadcn::Button` (and `Icon`) through `as_child:` on the Trigger, as every example does. Because the manifest declares no registry dependency, scenario_coverage only accepts Collapsible exports and raw elements, so the scenarios use raw `_button` elements (with `<icon:...>` children) as the `asChild` child, following the tooltip precedent; the Slot merge is the same.
 - JS: `presence` primitive, shared `collapsible_content` module (also used by Accordion), `ids`.
 
 ## Deviations

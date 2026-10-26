@@ -1,41 +1,41 @@
-# Item (`Components::V2::Item`)
+# Item (`Chadcn::Item`)
 
-Oracle: `dev/port/oracle/src/item.tsx` (style `new-york-v4`, manifest `source_sha` `9ade8136f010284b`), manifest `dev/port/oracle/manifest/item.json`. Tier `static`: no `"use client"`, no hooks, no icons, no Stimulus controller. The only Radix import is `Slot` (used by `Item` for `asChild`, `@radix-ui/react-slot` 1.4.0, `mergeProps` at `dev/react-shadcn-catalog/node_modules/@radix-ui/react-slot/dist/index.mjs:81-103`). Exports `Item`, `ItemMedia`, `ItemContent`, `ItemActions`, `ItemGroup`, `ItemSeparator`, `ItemTitle`, `ItemDescription`, `ItemHeader`, `ItemFooter`. Ten parts, data-slots `item`, `item-media`, `item-content`, `item-actions`, `item-group`, `item-separator`, `item-title`, `item-description`, `item-header`, `item-footer`. Two cva tables, `itemVariants` and `itemMediaVariants`. Registry dependency: `separator` (`ItemSeparator` renders `Components::V2::Separator`). Registry examples fetched from `https://ui.shadcn.com/r/styles/new-york-v4/<name>.json`: `item-demo`, `item-size`, `item-variant`, `item-icon`, `item-avatar`, `item-image`, `item-group`, `item-header`, `item-link`, `item-dropdown`.
+Oracle: `dev/port/oracle/src/item.tsx` (style `new-york-v4`, manifest `source_sha` `9ade8136f010284b`), manifest `dev/port/oracle/manifest/item.json`. Tier `static`: no `"use client"`, no hooks, no icons, no Stimulus controller. The only Radix import is `Slot` (used by `Item` for `asChild`, `@radix-ui/react-slot` 1.4.0, `mergeProps` at `dev/react-shadcn-catalog/node_modules/@radix-ui/react-slot/dist/index.mjs:81-103`). Exports `Item`, `ItemMedia`, `ItemContent`, `ItemActions`, `ItemGroup`, `ItemSeparator`, `ItemTitle`, `ItemDescription`, `ItemHeader`, `ItemFooter`. Ten parts, data-slots `item`, `item-media`, `item-content`, `item-actions`, `item-group`, `item-separator`, `item-title`, `item-description`, `item-header`, `item-footer`. Two cva tables, `itemVariants` and `itemMediaVariants`. Registry dependency: `separator` (`ItemSeparator` renders `Chadcn::Separator`). Registry examples fetched from `https://ui.shadcn.com/r/styles/new-york-v4/<name>.json`: `item-demo`, `item-size`, `item-variant`, `item-icon`, `item-avatar`, `item-image`, `item-group`, `item-header`, `item-link`, `item-dropdown`.
 
 ## API
 
 ```ruby
-Components::V2::Item.new(variant: "default", size: "default", as_child: false, class: nil, **attrs) { ... }
-Components::V2::Item::Media.new(variant: "default", class: nil, **attrs) { ... }
-Components::V2::Item::Content.new(class: nil, **attrs) { ... }
-Components::V2::Item::Actions.new(class: nil, **attrs) { ... }
-Components::V2::Item::Group.new(class: nil, **attrs) { ... }
-Components::V2::Item::Separator.new(class: nil, **attrs)          # forwards to Components::V2::Separator
-Components::V2::Item::Title.new(class: nil, **attrs) { ... }
-Components::V2::Item::Description.new(class: nil, **attrs) { ... }
-Components::V2::Item::Header.new(class: nil, **attrs) { ... }
-Components::V2::Item::Footer.new(class: nil, **attrs) { ... }
+Chadcn::Item.new(variant: "default", size: "default", as_child: false, class: nil, **attrs) { ... }
+Chadcn::Item::Media.new(variant: "default", class: nil, **attrs) { ... }
+Chadcn::Item::Content.new(class: nil, **attrs) { ... }
+Chadcn::Item::Actions.new(class: nil, **attrs) { ... }
+Chadcn::Item::Group.new(class: nil, **attrs) { ... }
+Chadcn::Item::Separator.new(class: nil, **attrs)          # forwards to Chadcn::Separator
+Chadcn::Item::Title.new(class: nil, **attrs) { ... }
+Chadcn::Item::Description.new(class: nil, **attrs) { ... }
+Chadcn::Item::Header.new(class: nil, **attrs) { ... }
+Chadcn::Item::Footer.new(class: nil, **attrs) { ... }
 
-Components::V2::Item.variants(variant: "default", size: "default", class: nil)  # => class string (itemVariants)
-Components::V2::Item::Media.variants(variant: "default", class: nil)            # => class string (itemMediaVariants)
+Chadcn::Item.variants(variant: "default", size: "default", class: nil)  # => class string (itemVariants)
+Chadcn::Item::Media.variants(variant: "default", class: nil)            # => class string (itemMediaVariants)
 ```
 
 | part (tsx function) | Ruby class | kwargs (default, source) |
 |---|---|---|
-| `Item` | `Components::V2::Item` | `variant:` (`"default"`, tsx `variant = "default"`, cva default), `size:` (`"default"`, tsx `size = "default"`), `as_child:` (`false`, tsx `asChild = false`), `class:`, `**attrs` |
-| `ItemMedia` | `Components::V2::Item::Media` | `variant:` (`"default"`, tsx `variant = "default"`), `class:`, `**attrs` |
-| `ItemContent` | `Components::V2::Item::Content` | `class:`, `**attrs` |
-| `ItemActions` | `Components::V2::Item::Actions` | `class:`, `**attrs` |
-| `ItemGroup` | `Components::V2::Item::Group` | `class:`, `**attrs` |
-| `ItemSeparator` | `Components::V2::Item::Separator` | `class:`, `**attrs` (everything `Components::V2::Separator` accepts: `orientation:`, `decorative:`, `as_child:`...) |
-| `ItemTitle` | `Components::V2::Item::Title` | `class:`, `**attrs` |
-| `ItemDescription` | `Components::V2::Item::Description` | `class:`, `**attrs` |
-| `ItemHeader` | `Components::V2::Item::Header` | `class:`, `**attrs` |
-| `ItemFooter` | `Components::V2::Item::Footer` | `class:`, `**attrs` |
+| `Item` | `Chadcn::Item` | `variant:` (`"default"`, tsx `variant = "default"`, cva default), `size:` (`"default"`, tsx `size = "default"`), `as_child:` (`false`, tsx `asChild = false`), `class:`, `**attrs` |
+| `ItemMedia` | `Chadcn::Item::Media` | `variant:` (`"default"`, tsx `variant = "default"`), `class:`, `**attrs` |
+| `ItemContent` | `Chadcn::Item::Content` | `class:`, `**attrs` |
+| `ItemActions` | `Chadcn::Item::Actions` | `class:`, `**attrs` |
+| `ItemGroup` | `Chadcn::Item::Group` | `class:`, `**attrs` |
+| `ItemSeparator` | `Chadcn::Item::Separator` | `class:`, `**attrs` (everything `Chadcn::Separator` accepts: `orientation:`, `decorative:`, `as_child:`...) |
+| `ItemTitle` | `Chadcn::Item::Title` | `class:`, `**attrs` |
+| `ItemDescription` | `Chadcn::Item::Description` | `class:`, `**attrs` |
+| `ItemHeader` | `Chadcn::Item::Header` | `class:`, `**attrs` |
+| `ItemFooter` | `Chadcn::Item::Footer` | `class:`, `**attrs` |
 
 - Options accept strings and symbols (shadcn-port R4): Item `variant:` `"default" | "outline" | "muted"`, `size:` `"default" | "sm"`; Media `variant:` `"default" | "icon" | "image"`. The string form is what lands in `data-variant` / `data-size`. `nil` behaves like the default (the tsx default parameter yields `"default"` for `undefined`, cva falls back to `defaultVariants`).
 - `class:` goes through `cn` (tailwind_merge) after the part classes; caller wins (R6). For `Item` and `ItemMedia` the tsx passes `className` into the cva call and then `cn` (`cn(itemVariants({ variant, size, className }))`), so the Ruby equivalent is one `cn(BASE, VARIANT, SIZE, class)` merge (scenarios `class__merge-conflict`, `class__size-sm-merge-conflict`, `media__class-merge`).
-- `as_child:` (Item only): `false` (renders `div`) | tag symbol (`as_child: :a`, renders that tag) | V2 component instance. Radix `Slot.Root` semantics via `Components::V2::Base#render_as_child` (api-mapping.md): the Item's computed attributes (`data-slot`, `data-variant`, `data-size`, merged class, `**attrs`) are the slot props, the child's own props win, and `class` is a PLAIN join `item classes + " " + child class` with no tailwind-merge (slot.mjs:99-100). Scenario `as-child__class-plain-join` pins this (`rounded-xl` merged into the item class by `cn`, then child `p-2` appended after `p-4`, both kept). No other part supports `as_child:` (no Slot in their source); no `as:`.
+- `as_child:` (Item only): `false` (renders `div`) | tag symbol (`as_child: :a`, renders that tag) | Chadcn component instance. Radix `Slot.Root` semantics via `Chadcn::Base#render_as_child` (api-mapping.md): the Item's computed attributes (`data-slot`, `data-variant`, `data-size`, merged class, `**attrs`) are the slot props, the child's own props win, and `class` is a PLAIN join `item classes + " " + child class` with no tailwind-merge (slot.mjs:99-100). Scenario `as-child__class-plain-join` pins this (`rounded-xl` merged into the item class by `cn`, then child `p-2` appended after `p-4`, both kept). No other part supports `as_child:` (no Slot in their source); no `as:`.
 - `**attrs`: any attribute of the rendered tag (`id`, `role`, `title`, `tabindex`, `aria: {}` / `"aria-*":`, `data: {}`, `style`, `href` when `as_child: :a`...), deep-merged. `ItemDescription` is typed `React.ComponentProps<"p">` and renders a `p`.
 - Block = `children`. `ItemSeparator` takes no block (shadcn never passes children).
 - No events are dispatched (no `on*` props), no `ref` equivalent. `Item.variants` / `Item::Media.variants` mirror the module-level `itemVariants` / `itemMediaVariants` (not exported by the tsx; provided per the `Component.variants` rule in api-mapping.md).
@@ -63,7 +63,7 @@ Every part is server-rendered; Stimulus sets nothing; no ids are generated, no s
 | part | tag | fixed attrs (tsx order) | classes (verbatim from item.tsx) |
 |---|---|---|---|
 | `ItemGroup` | `div` | `role="list"`, `data-slot="item-group"` | `group/item-group flex flex-col` |
-| `ItemSeparator` | `Components::V2::Separator` (`div`) | `data-slot="item-separator"`, `orientation="horizontal"` | `my-0` (passed as Separator `className`) |
+| `ItemSeparator` | `Chadcn::Separator` (`div`) | `data-slot="item-separator"`, `orientation="horizontal"` | `my-0` (passed as Separator `className`) |
 | `Item` | `div` or `as_child` element | `data-slot="item"`, `data-variant`, `data-size` | `itemVariants` |
 | `ItemMedia` | `div` | `data-slot="item-media"`, `data-variant` | `itemMediaVariants` |
 | `ItemContent` | `div` | `data-slot="item-content"` | `flex flex-1 flex-col gap-1 [&+[data-slot=item-content]]:flex-none` |
@@ -88,7 +88,7 @@ Note: `role="list"` on `ItemGroup` is in the tsx but missing from the manifest `
 
 The port must produce the exact class strings by merging through `cn` (React `cn` = clsx + tailwind-merge), never by hand-deduplicating.
 
-`ItemSeparator` composition (tsx `ItemSeparator` + `separator.tsx`, see `specs/separator.md`): it renders `Components::V2::Separator.new(data: { slot: "item-separator" }, orientation: "horizontal", class: cn("my-0", class), **attrs)`. Consequences pinned by scenarios:
+`ItemSeparator` composition (tsx `ItemSeparator` + `separator.tsx`, see `specs/separator.md`): it renders `Chadcn::Separator.new(data: { slot: "item-separator" }, orientation: "horizontal", class: cn("my-0", class), **attrs)`. Consequences pinned by scenarios:
 - `data-slot` is `item-separator` (Separator puts its own `data-slot="separator"` before `{...props}`, so ItemSeparator's wins); a caller `data-slot` in turn wins over `item-separator` (`separator__data-slot-override`).
 - `decorative` defaults to `true` (shadcn Separator) -> `role="none"`, `data-orientation="horizontal"`; `decorative: false` -> `role="separator"` (`separator__decorative-false`).
 - The caller's `orientation:` is spread after `orientation="horizontal"` and wins (`separator__orientation-override-vertical`).
@@ -126,7 +126,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Dependencies
 
-- `Components::V2::Separator` (`ItemSeparator`; spec `dev/port/specs/separator.md`).
+- `Chadcn::Separator` (`ItemSeparator`; spec `dev/port/specs/separator.md`).
 - No icons rendered by the component itself (manifest `icons: []`); icons in scenarios are caller content (`<icon:...>` markers).
 
 Example substitutions (scenario-level, identical on both harnesses, not component deviations), because the scenario coverage check only admits Item's exports and its registry dependency `Separator`:

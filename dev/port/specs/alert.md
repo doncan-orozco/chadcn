@@ -1,13 +1,13 @@
-# Alert (`Components::V2::Alert`)
+# Alert (`Chadcn::Alert`)
 
 Oracle: `dev/port/oracle/src/alert.tsx` (style `new-york-v4`, source_sha `d03dcae5cdb63c38`), manifest `dev/port/oracle/manifest/alert.json`. Tier `static`: no Stimulus controller, no primitive, no `"use client"`. Exports `Alert`, `AlertTitle`, `AlertDescription` (no `alertVariants` export: the cva table is module-private). Three parts, data-slots `alert`, `alert-title`, `alert-description`.
 
 ## API
 
 ```ruby
-Components::V2::Alert.new(variant: "default", class: nil, **attrs) { ... }
-Components::V2::Alert::Title.new(class: nil, **attrs) { ... }
-Components::V2::Alert::Description.new(class: nil, **attrs) { ... }
+Chadcn::Alert.new(variant: "default", class: nil, **attrs) { ... }
+Chadcn::Alert::Title.new(class: nil, **attrs) { ... }
+Chadcn::Alert::Description.new(class: nil, **attrs) { ... }
 ```
 
 | part | kwarg | default (tsx) | accepted values |
@@ -17,9 +17,9 @@ Components::V2::Alert::Description.new(class: nil, **attrs) { ... }
 | all parts | `**attrs` | (`...props`, `React.ComponentProps<"div">`) | every HTML attribute of a `div`: `id`, `title`, `tabindex`, `style`, `role`, `dir`, `hidden`, `data: {}`, `aria: {}` / `"aria-*":` (deep-merged) |
 
 - An unknown `variant` raises `ArgumentError` (the TS type `VariantProps<typeof alertVariants>` forbids it; cva would silently emit only the base).
-- Block = `children`. A lucide icon is passed by the caller as the first child (`render Components::V2::Icon.new(name: "circle-alert")`); the Alert owns no icon. The `has-[>svg]:` / `[&>svg]:` classes only react to a **direct** `svg` child.
+- Block = `children`. A lucide icon is passed by the caller as the first child (`render Chadcn::Icon.new(name: "circle-alert")`); the Alert owns no icon. The `has-[>svg]:` / `[&>svg]:` classes only react to a **direct** `svg` child.
 - No `as_child:` (the source never uses `Slot`), no `as:`, no events dispatched (no `on*Change` props), no `ref` equivalent.
-- No class method: React does not export `alertVariants`, so there is no `Components::V2::Alert.variants`. (A private class-level table holding the verbatim cva is an implementation detail.)
+- No class method: React does not export `alertVariants`, so there is no `Chadcn::Alert.variants`. (A private class-level table holding the verbatim cva is an implementation detail.)
 
 ## Structure
 
@@ -63,7 +63,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Dependencies
 
-None rendered by the component itself (`registry_dependencies: []`, manifest `icons: []`). Callers and scenarios use `Components::V2::Icon` for the leading lucide icon (`circle-check`, `popcorn`, `circle-alert` in the registry `alert-demo` example: `CheckCircle2Icon`, `PopcornIcon`, `AlertCircleIcon`).
+None rendered by the component itself (`registry_dependencies: []`, manifest `icons: []`). Callers and scenarios use `Chadcn::Icon` for the leading lucide icon (`circle-check`, `popcorn`, `circle-alert` in the registry `alert-demo` example: `CheckCircle2Icon`, `PopcornIcon`, `AlertCircleIcon`).
 
 ## Deviations
 

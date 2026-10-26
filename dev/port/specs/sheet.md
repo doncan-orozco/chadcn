@@ -11,20 +11,20 @@ Examples: registry `new-york-v4/sheet-demo.json`, `new-york-v4/sheet-side.json`;
 
 ## API
 
-Every part: `class:` goes through `cn` last (caller wins, tailwind-merge), `**attrs` pass through (`data:`/`aria:` deep-merged), string and symbol keys accepted. Parts that wrap a Radix `Primitive.*` element (Trigger, Close, Overlay, Content, Title, Description) accept `as_child:` (`false` | tag symbol | `Components::V2::*` instance), implemented once by `Components::V2::Base#render_as_child` (Radix Slot merge: child wins, so `as_child: Button.new` keeps `data-slot="button"`; class plain join slot-first; `data-controller` unioned; `data-action` child first).
+Every part: `class:` goes through `cn` last (caller wins, tailwind-merge), `**attrs` pass through (`data:`/`aria:` deep-merged), string and symbol keys accepted. Parts that wrap a Radix `Primitive.*` element (Trigger, Close, Overlay, Content, Title, Description) accept `as_child:` (`false` | tag symbol | `Chadcn::*` instance), implemented once by `Chadcn::Base#render_as_child` (Radix Slot merge: child wins, so `as_child: Button.new` keeps `data-slot="button"`; class plain join slot-first; `data-controller` unioned; `data-action` child first).
 
 | React (sheet.tsx) | Ruby | Notes |
 |---|---|---|
-| `Sheet` (`SheetPrimitive.Root`; Radix props `open`, `defaultOpen`, `onOpenChange`, `modal = true`, dialog:30-38) | `Components::V2::Sheet.new(open: nil, default_open: false, modal: true, **attrs) { ... }` | `open:` true/false = controlled: the controller never changes its own state, it only dispatches `open-change` (callers set `data-chadcn--sheet-open-value`). `open: nil` = uncontrolled, starts at `default_open`. Renders no shadcn element (see Structure, deviation 1). |
-| `SheetTrigger` | `Components::V2::Sheet::Trigger.new(as_child: false, class: nil, **attrs) { label }` | Toggles (dialog:89 `onOpenToggle`). No default classes. |
-| `SheetClose` | `Components::V2::Sheet::Close.new(as_child: false, class: nil, **attrs) { ... }` | Closes (dialog:311). No default classes. |
-| `SheetPortal` (NOT exported by sheet.tsx; used only inside `SheetContent`) | `Components::V2::Sheet::Portal.new { ... }` | Exists because `Sheet::Content` composes it (same structure as the oracle). Renders nothing itself; its children go to `document.body`. Because the React file does not export it, no caller can pass `forceMount` / `container` to it, so the Ruby class takes no options (no `container:` deviation needed). Not usable in scenarios (not an export). |
-| `SheetOverlay` (NOT exported; rendered by `SheetContent` with no props) | `Components::V2::Sheet::Overlay.new(force_mount: false, as_child: false, class: nil, **attrs)` | Rendered only when `modal` (dialog:109). Same reachability as Portal: only `Sheet::Content` renders it, with no arguments. |
-| `SheetContent` (`side = "right"`, `showCloseButton = true`, plus Radix `forceMount`, `onOpenAutoFocus`, `onCloseAutoFocus`, `onEscapeKeyDown`, `onPointerDownOutside`, `onInteractOutside`, `onFocusOutside`) | `Components::V2::Sheet::Content.new(side: "right", show_close_button: true, force_mount: false, as_child: false, class: nil, **attrs) { ... }` | Always renders `Sheet::Portal` > (`Sheet::Overlay`, content div) like the oracle. `side:` one of `"top" \| "right" \| "bottom" \| "left"` (TS union), strings or symbols (`side: :left` == `"left"`), `nil` = `"right"`; any other value raises `ArgumentError` (the TS type forbids it; React at runtime would silently emit no side classes). `side` is NOT rendered as an attribute (no `data-side` in new-york-v4). Radix callbacks become cancelable events (below). |
-| `SheetHeader` | `Components::V2::Sheet::Header.new(class: nil, **attrs) { ... }` | plain `div`. |
-| `SheetFooter` | `Components::V2::Sheet::Footer.new(class: nil, **attrs) { ... }` | plain `div`; NO `show_close_button` (unlike Dialog::Footer, the oracle has none). |
-| `SheetTitle` | `Components::V2::Sheet::Title.new(as_child: false, class: nil, **attrs) { text }` | `h2`. |
-| `SheetDescription` | `Components::V2::Sheet::Description.new(as_child: false, class: nil, **attrs) { text }` | `p`. |
+| `Sheet` (`SheetPrimitive.Root`; Radix props `open`, `defaultOpen`, `onOpenChange`, `modal = true`, dialog:30-38) | `Chadcn::Sheet.new(open: nil, default_open: false, modal: true, **attrs) { ... }` | `open:` true/false = controlled: the controller never changes its own state, it only dispatches `open-change` (callers set `data-chadcn--sheet-open-value`). `open: nil` = uncontrolled, starts at `default_open`. Renders no shadcn element (see Structure, deviation 1). |
+| `SheetTrigger` | `Chadcn::Sheet::Trigger.new(as_child: false, class: nil, **attrs) { label }` | Toggles (dialog:89 `onOpenToggle`). No default classes. |
+| `SheetClose` | `Chadcn::Sheet::Close.new(as_child: false, class: nil, **attrs) { ... }` | Closes (dialog:311). No default classes. |
+| `SheetPortal` (NOT exported by sheet.tsx; used only inside `SheetContent`) | `Chadcn::Sheet::Portal.new { ... }` | Exists because `Sheet::Content` composes it (same structure as the oracle). Renders nothing itself; its children go to `document.body`. Because the React file does not export it, no caller can pass `forceMount` / `container` to it, so the Ruby class takes no options (no `container:` deviation needed). Not usable in scenarios (not an export). |
+| `SheetOverlay` (NOT exported; rendered by `SheetContent` with no props) | `Chadcn::Sheet::Overlay.new(force_mount: false, as_child: false, class: nil, **attrs)` | Rendered only when `modal` (dialog:109). Same reachability as Portal: only `Sheet::Content` renders it, with no arguments. |
+| `SheetContent` (`side = "right"`, `showCloseButton = true`, plus Radix `forceMount`, `onOpenAutoFocus`, `onCloseAutoFocus`, `onEscapeKeyDown`, `onPointerDownOutside`, `onInteractOutside`, `onFocusOutside`) | `Chadcn::Sheet::Content.new(side: "right", show_close_button: true, force_mount: false, as_child: false, class: nil, **attrs) { ... }` | Always renders `Sheet::Portal` > (`Sheet::Overlay`, content div) like the oracle. `side:` one of `"top" \| "right" \| "bottom" \| "left"` (TS union), strings or symbols (`side: :left` == `"left"`), `nil` = `"right"`; any other value raises `ArgumentError` (the TS type forbids it; React at runtime would silently emit no side classes). `side` is NOT rendered as an attribute (no `data-side` in new-york-v4). Radix callbacks become cancelable events (below). |
+| `SheetHeader` | `Chadcn::Sheet::Header.new(class: nil, **attrs) { ... }` | plain `div`. |
+| `SheetFooter` | `Chadcn::Sheet::Footer.new(class: nil, **attrs) { ... }` | plain `div`; NO `show_close_button` (unlike Dialog::Footer, the oracle has none). |
+| `SheetTitle` | `Chadcn::Sheet::Title.new(as_child: false, class: nil, **attrs) { text }` | `h2`. |
+| `SheetDescription` | `Chadcn::Sheet::Description.new(as_child: false, class: nil, **attrs) { text }` | `p`. |
 
 Options: `modal:`, `open:`, `default_open:`, `show_close_button:`, `force_mount:` are booleans (React types are boolean; strings `"true"`/`"false"` are not accepted).
 
@@ -45,17 +45,17 @@ Events (dispatched with `this.dispatch` from the `chadcn--sheet` host, `bubbles:
 Example (registry sheet-demo):
 
 ```ruby
-render Components::V2::Sheet.new do
-  render Components::V2::Sheet::Trigger.new(as_child: Components::V2::Button.new(variant: "outline")) { "Open" }
-  render Components::V2::Sheet::Content.new do
-    render Components::V2::Sheet::Header.new do
-      render Components::V2::Sheet::Title.new { "Edit profile" }
-      render Components::V2::Sheet::Description.new { "Make changes to your profile here. Click save when you're done." }
+render Chadcn::Sheet.new do
+  render Chadcn::Sheet::Trigger.new(as_child: Chadcn::Button.new(variant: "outline")) { "Open" }
+  render Chadcn::Sheet::Content.new do
+    render Chadcn::Sheet::Header.new do
+      render Chadcn::Sheet::Title.new { "Edit profile" }
+      render Chadcn::Sheet::Description.new { "Make changes to your profile here. Click save when you're done." }
     end
     div(class: "grid flex-1 auto-rows-min gap-6 px-4") { ... }
-    render Components::V2::Sheet::Footer.new do
-      render Components::V2::Button.new(type: "submit") { "Save changes" }
-      render Components::V2::Sheet::Close.new(as_child: Components::V2::Button.new(variant: "outline")) { "Close" }
+    render Chadcn::Sheet::Footer.new do
+      render Chadcn::Button.new(type: "submit") { "Save changes" }
+      render Chadcn::Sheet::Close.new(as_child: Chadcn::Button.new(variant: "outline")) { "Close" }
     end
   end
 end
@@ -73,7 +73,7 @@ Focus guards (fg:15-47, while any Content is mounted): `<span data-radix-focus-g
 
 | Part | Tag | data-slot | Server-rendered attributes | Set by Stimulus | Classes |
 |---|---|---|---|---|---|
-| `Sheet::Trigger` | `button` (`type="button"`) | `sheet-trigger` (with `as_child:` a V2 component the child wins, e.g. `data-slot="button"`) | `type="button" aria-haspopup="dialog" aria-expanded="false\|true" data-state="closed\|open"`, `aria-controls` = content id ONLY while open (dialog:80-87); caller attrs after them (can override) | `aria-expanded`, `data-state`, `aria-controls` on every transition | none |
+| `Sheet::Trigger` | `button` (`type="button"`) | `sheet-trigger` (with `as_child:` a Chadcn component the child wins, e.g. `data-slot="button"`) | `type="button" aria-haspopup="dialog" aria-expanded="false\|true" data-state="closed\|open"`, `aria-controls` = content id ONLY while open (dialog:80-87); caller attrs after them (can override) | `aria-expanded`, `data-state`, `aria-controls` on every transition | none |
 | `Sheet::Overlay` | `div` | `sheet-overlay` | `data-state`, `style="pointer-events: auto"` (dialog:137-140, caller style merged after) | `data-state`; `aria-hidden="true" data-aria-hidden="true"` while the modal Content is mounted (hideOthers marks every body child except Content, ah:38-90, 124-135) | `fixed inset-0 z-50 bg-black/50 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0` |
 | `Sheet::Content` | `div` | `sheet-content` | `role="dialog" id=<content id> tabindex="-1" data-state` (dialog:259-263, fs:145); `aria-labelledby=<title id>` only if a `Sheet::Title` is rendered in this sheet; `aria-describedby` only if a `Sheet::Description` is rendered (concat with caller value) or the caller passed one (dialog:261-262). NO `data-side`. | `data-state`; `style="pointer-events: auto"` while a layer disables outside pointer events (modal open), otherwise no pointer-events style (dl:147) | base: `fixed z-50 flex flex-col gap-4 bg-background shadow-lg transition ease-in-out data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:animate-in data-[state=open]:duration-500`, then the side string, then `class:` (all through one `cn`) |
 | side `right` (default) | | | | | `inset-y-0 right-0 h-full w-3/4 border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm` |
@@ -178,10 +178,10 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Dependencies
 
-- `Components::V2::Icon` (infra `_icons`): `Icon.new(name: "x", class: "size-4")` inside the Content X close.
-- `Components::V2::Base`: `cn`, `merge_attrs`, `render_as_child`, ids.
+- `Chadcn::Icon` (infra `_icons`): `Icon.new(name: "x", class: "size-4")` inside the Content X close.
+- `Chadcn::Base`: `cn`, `merge_attrs`, `render_as_child`, ids.
 - Primitives `app/javascript/v2/primitives/`: `portal.js`, `presence.js`, `dismissable_layer.js`, `focus_scope.js`, `focus_guards.js`, `hide_others.js`, `scroll_lock.js`, `ids.js`; behavior shared with `chadcn--dialog`.
-- No registry dependency (manifest `registry_dependencies: []`): the oracle renders no Button. Callers commonly compose `Components::V2::Button` (trigger / close via `as_child:`), `Components::V2::Input` and `Components::V2::Label`, as in the examples. Scenarios use raw `_button` / `_input` / `_label` elements for them because scenario_coverage only allows dependency exports (same choice as the Popover/HoverCard/Tooltip plans).
+- No registry dependency (manifest `registry_dependencies: []`): the oracle renders no Button. Callers commonly compose `Chadcn::Button` (trigger / close via `as_child:`), `Chadcn::Input` and `Chadcn::Label`, as in the examples. Scenarios use raw `_button` / `_input` / `_label` elements for them because scenario_coverage only allows dependency exports (same choice as the Popover/HoverCard/Tooltip plans).
 
 ## Deviations
 

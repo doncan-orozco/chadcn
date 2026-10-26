@@ -1,26 +1,26 @@
-# Badge (`Components::V2::Badge`)
+# Badge (`Chadcn::Badge`)
 
 Oracle: `dev/port/oracle/src/badge.tsx` (style `new-york-v4`, source_sha `13a9380dfff853ee`), manifest `dev/port/oracle/manifest/badge.json`. Tier `static`: no Stimulus controller, no primitive. Exports `Badge` and `badgeVariants`; one part, data-slot `badge`. Radix primitive used: `Slot` only (`import { Slot } from "radix-ui"`, `const Comp = asChild ? Slot.Root : "span"`).
 
 ## API
 
 ```ruby
-Components::V2::Badge.new(variant: "default", as_child: false, class: nil, **attrs) { ... }
-Components::V2::Badge.variants(variant: "default", class: nil) # => String  (React `badgeVariants`)
+Chadcn::Badge.new(variant: "default", as_child: false, class: nil, **attrs) { ... }
+Chadcn::Badge.variants(variant: "default", class: nil) # => String  (React `badgeVariants`)
 ```
 
 | kwarg | default (tsx) | accepted values |
 |---|---|---|
 | `variant:` | `"default"` (`variant = "default"` in `function Badge({ ... })`; cva `defaultVariants.variant`) | `default`, `secondary`, `destructive`, `outline`, `ghost`, `link` |
-| `as_child:` | `false` (`asChild = false`) | `false` \| tag symbol (`:a`) \| a V2 component instance |
+| `as_child:` | `false` (`asChild = false`) | `false` \| tag symbol (`:a`) \| a Chadcn component instance |
 | `class:` | `nil` (`className`) | any string; merged through `cn` (tailwind_merge) after the cva output |
 | `**attrs` | (`...props`, `React.ComponentProps<"span">`) | every HTML attribute: `id`, `title`, `role`, `tabindex`, `style`, `data: {}`, `aria: {}` / `"aria-*":` |
 
 - Options accept strings and symbols (shadcn-port R4): `variant: :outline` == `"outline"`. `nil` means the default. An unknown option raises `ArgumentError` (the TS type `VariantProps<typeof badgeVariants>` forbids it; cva would silently emit no variant classes).
 - No `size:` axis exists in the oracle (cva has only `variant`); the port must not add one.
 - `variants(...)` is the Ruby mapping of the exported `badgeVariants` (api-mapping.md, "Exceptions ... map to class methods"): returns `cn(base, variant[variant], class)` exactly like `badgeVariants({ variant, className })`.
-- Block = `children`: text, icons (`render Components::V2::Icon.new(name: "badge-check")`), other components, or nothing (empty badge renders an empty `<span>`).
-- `as_child:`: Radix `Slot.Root`. With `as_child: :a` the part renders `<a>` with its own classes, `data-slot="badge"`, `data-variant` and attrs. With a component instance it calls `Components::V2::Base#render_as_child` (Radix `mergeProps`, `dev/react-shadcn-catalog/node_modules/@radix-ui/react-slot/dist/index.mjs` lines 81-106): child props win (a child `data-slot` replaces `"badge"`, scenario `api__as-child-child-data-slot-wins`), `class` is a plain join slot-first-then-child without tailwind_merge (`[slotPropValue, childPropValue].filter(Boolean).join(" ")`, scenario `api__as-child-anchor-classname`), `style` merged slot-then-child, child keys win (`api__as-child-style-merge`), `aria-describedby` = `concatAriaDescribedby(childPropValue, slotPropValue)` (`api__as-child-aria-describedby-merge`), `on*` / `data-action` run child first then slot. The scenario harness expresses this as `"asChild": true` with one `_a` (or `_button`) child.
+- Block = `children`: text, icons (`render Chadcn::Icon.new(name: "badge-check")`), other components, or nothing (empty badge renders an empty `<span>`).
+- `as_child:`: Radix `Slot.Root`. With `as_child: :a` the part renders `<a>` with its own classes, `data-slot="badge"`, `data-variant` and attrs. With a component instance it calls `Chadcn::Base#render_as_child` (Radix `mergeProps`, `dev/react-shadcn-catalog/node_modules/@radix-ui/react-slot/dist/index.mjs` lines 81-106): child props win (a child `data-slot` replaces `"badge"`, scenario `api__as-child-child-data-slot-wins`), `class` is a plain join slot-first-then-child without tailwind_merge (`[slotPropValue, childPropValue].filter(Boolean).join(" ")`, scenario `api__as-child-anchor-classname`), `style` merged slot-then-child, child keys win (`api__as-child-style-merge`), `aria-describedby` = `concatAriaDescribedby(childPropValue, slotPropValue)` (`api__as-child-aria-describedby-merge`), `on*` / `data-action` run child first then slot. The scenario harness expresses this as `"asChild": true` with one `_a` (or `_button`) child.
 - `as_child` matters for styling: every hover token in the variant table is scoped `[a&]:hover:` (only matches when the badge element itself is an `<a>`). A `<span>` badge or an `as_child` `<button>` gets no hover style (scenarios `span__hover-no-effect`, `api__as-child-button__hover`).
 - Events: none dispatched (no `on*Change` in the source).
 - `ref`: no equivalent, not part of the API.
@@ -56,8 +56,8 @@ Single element, server-rendered in full (no Stimulus sets anything):
 ## Dependencies
 
 - None rendered by the component (`registry_dependencies: []`, no lucide import in the source).
-- Needs `Components::V2::Base` for `cn`, attribute merge and `render_as_child` (Slot).
-- Scenarios use lucide icons via the `<icon:...>` child convention (`Components::V2::Icon` on the Phlex side): `badge-check`, `circle-alert`, `arrow-right`, `check`, `x`, `loader-circle`.
+- Needs `Chadcn::Base` for `cn`, attribute merge and `render_as_child` (Slot).
+- Scenarios use lucide icons via the `<icon:...>` child convention (`Chadcn::Icon` on the Phlex side): `badge-check`, `circle-alert`, `arrow-right`, `check`, `x`, `loader-circle`.
 - Example substitutions (scenario-level only, identical on both harnesses, not component deviations): `spinner-badge` renders `Spinner` (registry dependency of the example, not of badge; Spinner is not yet ported) -> lucide `loader-circle` icon child. `badge-demo`'s unused `AlertCircleIcon`/`CheckIcon` imports are dropped (they are never rendered).
 
 ## Deviations

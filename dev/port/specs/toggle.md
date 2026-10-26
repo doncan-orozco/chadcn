@@ -7,20 +7,20 @@ Oracle: `dev/port/oracle/src/toggle.tsx` (manifest `source_sha` 28ae7d72730890a3
 Two exports: `Toggle` (component) and `toggleVariants` (cva function, consumed by toggle-group).
 
 ```ruby
-Components::V2::Toggle.new(
+Chadcn::Toggle.new(
   variant: nil,            # nil -> cva default "default"; options "default" | "outline" (strings or symbols, shadcn-port R4)
   size: nil,               # nil -> cva default "default"; options "default" | "sm" | "lg"
   pressed: nil,            # controlled: true | false; nil = uncontrolled (ucs.mjs:20 `isControlled = prop !== void 0`)
   default_pressed: false,  # uncontrolled initial value (toggle.mjs:18 `defaultProp: defaultPressed ?? false`)
   disabled: false,         # toggle.mjs:27 + native `disabled` via buttonProps spread
-  as_child: false,         # false | tag symbol | V2 component instance (Radix Slot merge, Components::V2::Base#render_as_child)
+  as_child: false,         # false | tag symbol | Chadcn component instance (Radix Slot merge, Chadcn::Base#render_as_child)
   class: nil,              # passed into toggleVariants as `className`, i.e. merged last through cn (tailwind_merge), caller wins
   **attrs                  # id, type, aria: {}, data: {}, "aria-label", "aria-invalid", title, ... onto the button (Root)
 )
 ```
 
 - `variant:` / `size:` are destructured in shadcn with no default (`function Toggle({ className, variant, size, ...props })`); cva `defaultVariants: { variant: "default", size: "default" }` applies when `undefined`. Ruby: `nil` -> defaults; `:outline`, `"outline"`, `:sm`, `"sm"`, `:lg`, `"lg"`, `:default`, `"default"` accepted.
-- `toggleVariants` -> `Components::V2::Toggle.variants(variant: nil, size: nil, class: nil)` returns the merged class string (cva base + variant + size + class through `cn`), same semantics as calling `toggleVariants({ variant, size, className })`. Used by `ToggleGroup` items later.
+- `toggleVariants` -> `Chadcn::Toggle.variants(variant: nil, size: nil, class: nil)` returns the merged class string (cva base + variant + size + class through `cn`), same semantics as calling `toggleVariants({ variant, size, className })`. Used by `ToggleGroup` items later.
 - `pressed:` (controlled): the server renders that state; click/Space/Enter does NOT change `data-state`/`aria-pressed`, it only dispatches `chadcn--toggle:pressed-change` with `detail: { pressed: !pressed }` (ucs.mjs:37-43: in controlled mode `onChange(value2)` only when `value2 !== prop`, nothing stored). Callers re-render.
 - `default_pressed:` (uncontrolled): the controller owns state after connect.
 - Event: `chadcn--toggle:pressed-change`, `detail: { pressed: <Boolean> }`, dispatched from the button after every user toggle (uncontrolled: after the DOM is updated, like useUncontrolledState's effect ucs.mjs:62-67; controlled: instead of updating). Not cancelable (`onPressedChange` is not preventable). Consumer `onClick` -> plain `data: { action: "click->x#y" }`; Radix runs the consumer onClick first and skips the toggle when it called `preventDefault()` (primitive.mjs:6-12 `composeEventHandlers`), so the controller checks `event.defaultPrevented` and must run after caller actions (its `click->chadcn--toggle#toggle` descriptor is appended after the caller's `data-action` tokens).
@@ -79,7 +79,7 @@ Turbo: no listeners outside the element; `disconnect()` has nothing to clean bey
 
 ## Dependencies
 
-None. Toggle renders no other `Components::V2` component (manifest `registry_dependencies: []`, `icons: []`). Scenarios put lucide icons as children (`<icon:italic>`, `<icon:bold>`, `<icon:bookmark>`, `<icon:underline>`), which the harness renders through `Components::V2::Icon`.
+None. Toggle renders no other `Chadcn` component (manifest `registry_dependencies: []`, `icons: []`). Scenarios put lucide icons as children (`<icon:italic>`, `<icon:bold>`, `<icon:bookmark>`, `<icon:underline>`), which the harness renders through `Chadcn::Icon`.
 
 Harness notes (not component deviations):
 - `example__toggle-disabled`: the registry example passes `className="h-4 w-4"` to the `Underline` icon; the `<icon:x>` child syntax cannot carry a className, so the scenario uses the bare icon. Both sides render the same tree; the computed size is identical because neither `h-4 w-4` nor the bare lucide class contains `size-` and `[&_svg:not([class*='size-'])]:size-4` applies.
