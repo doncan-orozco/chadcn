@@ -6,10 +6,10 @@ Oracle: `dev/port/oracle/src/toggle-group.tsx` (manifest `source_sha` 45186473ea
 
 Two exports, two Ruby classes (name rule: strip the `ToggleGroup` prefix).
 
-### `ToggleGroup` -> `Components::V2::ToggleGroup`
+### `ToggleGroup` -> `Chadcn::ToggleGroup`
 
 ```ruby
-Components::V2::ToggleGroup.new(
+Chadcn::ToggleGroup.new(
   type:,                 # REQUIRED "single" | "multiple" (strings or symbols). Radix throws without it (tg:34); Ruby raises ArgumentError
   value: nil,            # controlled. single: String ("" = none); multiple: Array of Strings. nil = uncontrolled (ucs:20)
   default_value: nil,    # uncontrolled initial. single: nil -> "" (tg:47 `defaultValue ?? ""`); multiple: nil -> [] (tg:73)
@@ -21,7 +21,7 @@ Components::V2::ToggleGroup.new(
   orientation: nil,      # nil | "horizontal" | "vertical" (symbols accepted); only feeds RovingFocusGroup (tg:118)
   dir: nil,              # nil | "ltr" | "rtl"; use_direction(dir) = dir || nearest Direction::Provider || "ltr" (dir:17-20, tg:111). NEVER html[dir]
   loop: true,            # tg:107 (RovingFocusGroup's own default is false, rf:46; ToggleGroup passes true)
-  as_child: false,       # false | tag symbol | V2 component instance (Primitive.div asChild, tg:121; Slot merge per api-mapping)
+  as_child: false,       # false | tag symbol | Chadcn component instance (Primitive.div asChild, tg:121; Slot merge per api-mapping)
   class: nil,            # merged last into the root classes through cn (tailwind_merge), caller wins
   **attrs                # id, role, aria: {}, data: {}, "aria-label", title, style... onto the root div (spread after shadcn's attrs)
 ) { items and any other markup }
@@ -40,22 +40,22 @@ Components::V2::ToggleGroup.new(
 - Consumer handlers (`onClick`, `onKeyDown`, `onMouseDown`, `onFocus`) are plain `data: { action: }` on items/root. Radix runs the consumer first and skips its own logic when the consumer called `preventDefault()` (primitive:6-12 `composeEventHandlers`; toggle:30, rf:105-126, rf:179-204), so the controller checks `event.defaultPrevented` and its action descriptors come after the caller's.
 - `ref` has no equivalent.
 
-### `ToggleGroupItem` -> `Components::V2::ToggleGroup::Item`
+### `ToggleGroupItem` -> `Chadcn::ToggleGroup::Item`
 
 ```ruby
-Components::V2::ToggleGroup::Item.new(
+Chadcn::ToggleGroup::Item.new(
   value:,                # REQUIRED String (symbols -> to_s). Consumed by Radix (tg:153): NOT rendered as an attribute
   variant: nil,          # used only when the group has no variant: `context.variant || variant` (tg.tsx)
   size: nil,             # used only when the group has no size: `context.size || size`
   disabled: false,       # effective disabled = group.disabled || disabled (tg:134)
-  as_child: false,       # false | tag symbol | V2 component instance (Toggle is Primitive.button with asChild, toggle:22)
+  as_child: false,       # false | tag symbol | Chadcn component instance (Toggle is Primitive.button with asChild, toggle:22)
   class: nil,            # merged last through cn, caller wins
   **attrs                # id, aria-label, aria-invalid, title, data: {}, type... onto the button (spread after Radix attrs)
 ) { children }
 ```
 
 - Precedence is group-first: with `ToggleGroup.new(variant: "outline")` an item's `variant: "default"` is ignored (scenario `item-variant__group-wins`); the item value applies only when the group's is `nil` (`item-variant__no-group-variant`). Same for `size`. An explicit group `"default"` also wins (`item-variant__explicit-default-group`).
-- Must be rendered inside a `Components::V2::ToggleGroup` (Radix context error otherwise, `useToggleGroupValueContext`, tg:130). Ruby raises `ArgumentError` when no enclosing group is found in the render context.
+- Must be rendered inside a `Chadcn::ToggleGroup` (Radix context error otherwise, `useToggleGroupValueContext`, tg:130). Ruby raises `ArgumentError` when no enclosing group is found in the render context.
 - `as_child:` merges every item attribute (role/aria, `data-state`, `tabindex`, `data-radix-collection-item`, `data-slot`, data-variant/size/spacing, classes, Stimulus target/actions) onto the single child (Radix Slot: child props win, class plain-joined slot first; see api-mapping "as_child"); `type="button"` is merged too (toggle:24), exactly like React.
 
 ## Structure
@@ -102,7 +102,7 @@ Radix: `Collection.ItemSlot` (col, adds `data-radix-collection-item=""`, col:38)
 - `data-disabled=""` and native `disabled=""` only when effectively disabled (toggle:27, tg:134-135).
 - roving only: `tabindex="0" | "-1"` (`0` only for the current tab stop, rf:147, 175). ToggleGroup passes no `defaultCurrentTabStopId`, so initially EVERY item renders `tabindex="-1"` and the root (`tabindex="0"`) is the Tab entry point. The stop becomes the item that last received focus or a focusable mousedown (rf:179-183) and stays after focus leaves. `data-orientation` only when the group has `orientation:` (rf:176). `data-radix-collection-item=""` always (col:38).
 - `data-slot="toggle-group-item"`; `data-variant` = group variant || item variant, OMITTED when both `nil`; `data-size` likewise; `data-spacing` = the group's formatted spacing (always present inside a group).
-- `class` = `cn(Components::V2::Toggle.variants(variant: group_variant || variant, size: group_size || size), "w-auto min-w-0 shrink-0 px-3 focus:z-10 focus-visible:z-10", "data-[spacing=0]:rounded-none data-[spacing=0]:shadow-none data-[spacing=0]:first:rounded-l-md data-[spacing=0]:last:rounded-r-md data-[spacing=0]:data-[variant=outline]:border-l-0 data-[spacing=0]:data-[variant=outline]:first:border-l", class)` (verbatim, tg.tsx). tailwind-merge resolves `px-3` over the size's `px-*`, `min-w-0` over `min-w-*`, `w-auto`; the `data-[spacing=0]:` variants do not conflict with the unprefixed base tokens. `toggleVariants` is called WITHOUT `className`, then the four arguments go through one `cn`.
+- `class` = `cn(Chadcn::Toggle.variants(variant: group_variant || variant, size: group_size || size), "w-auto min-w-0 shrink-0 px-3 focus:z-10 focus-visible:z-10", "data-[spacing=0]:rounded-none data-[spacing=0]:shadow-none data-[spacing=0]:first:rounded-l-md data-[spacing=0]:last:rounded-r-md data-[spacing=0]:data-[variant=outline]:border-l-0 data-[spacing=0]:data-[variant=outline]:first:border-l", class)` (verbatim, tg.tsx). tailwind-merge resolves `px-3` over the size's `px-*`, `min-w-0` over `min-w-*`, `w-auto`; the `data-[spacing=0]:` variants do not conflict with the unprefixed base tokens. `toggleVariants` is called WITHOUT `className`, then the four arguments go through one `cn`.
 - No `value` attribute, no `name`, no hidden input (Radix renders none).
 - Caller attrs (`id`, `aria-label`, `aria-invalid`, `title`, `data-*`) win over Radix's.
 - Children: the block.
@@ -183,9 +183,9 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Dependencies
 
-- `Components::V2::Toggle.variants(variant:, size:)` for item classes (registry dependency `toggle`, spec `toggle.md`). Items do NOT render `Components::V2::Toggle` itself (different data-slot, no `chadcn--toggle` controller).
-- `Components::V2::Direction` (`Consumer` / `use_direction`) for the root `dir` (spec `direction.md`).
-- No icons rendered by the component (manifest `icons: []`). Scenarios use lucide children via `<icon:x>` (`bold`, `italic`, `underline`, `align-left`, `align-center`, `align-right`, `star`, `heart`, `bookmark`), rendered by `Components::V2::Icon` in the harness.
+- `Chadcn::Toggle.variants(variant:, size:)` for item classes (registry dependency `toggle`, spec `toggle.md`). Items do NOT render `Chadcn::Toggle` itself (different data-slot, no `chadcn--toggle` controller).
+- `Chadcn::Direction` (`Consumer` / `use_direction`) for the root `dir` (spec `direction.md`).
+- No icons rendered by the component (manifest `icons: []`). Scenarios use lucide children via `<icon:x>` (`bold`, `italic`, `underline`, `align-left`, `align-center`, `align-right`, `star`, `heart`, `bookmark`), rendered by `Chadcn::Icon` in the harness.
 
 Harness notes (not component deviations):
 - Registry examples pass `className="h-4 w-4"` to the icons; the `<icon:x>` syntax cannot carry a className, so scenarios use bare icons on both sides. Computed size is identical: neither class list contains `size-`, so `[&_svg:not([class*='size-'])]:size-4` applies either way.

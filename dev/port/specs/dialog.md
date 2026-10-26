@@ -8,20 +8,20 @@ Tier: `overlay`. Family: Overlay (modal).
 
 ## API
 
-Every part: `class:` goes through `cn` last (caller wins, tailwind-merge), `**attrs` pass through (`data:`/`aria:` deep-merged), string and symbol keys accepted. Parts that wrap a Radix primitive that is `Primitive.*` (Trigger, Close, Overlay, Content, Title, Description) accept `as_child:` (`false` | tag symbol | `Components::V2::*` instance), implemented once by `Components::V2::Base#render_as_child` (Radix Slot merge: props the child element was given win, but the wrapper's own `data-slot` reaches the child as a prop; shadcn `Button` renders `data-slot="button"` and then spreads `{...props}` last (button.tsx), so `Dialog::Trigger.new(as_child: Button.new)` renders `data-slot="dialog-trigger"` and `Dialog::Close.new(as_child: Button.new)` renders `data-slot="dialog-close"`, keeping Button's `data-variant`/`data-size`/classes. Only the Footer's built-in Close (`DialogPrimitive.Close asChild` with no `data-slot`, dialog.tsx:113-115) keeps `data-slot="button"`).
+Every part: `class:` goes through `cn` last (caller wins, tailwind-merge), `**attrs` pass through (`data:`/`aria:` deep-merged), string and symbol keys accepted. Parts that wrap a Radix primitive that is `Primitive.*` (Trigger, Close, Overlay, Content, Title, Description) accept `as_child:` (`false` | tag symbol | `Chadcn::*` instance), implemented once by `Chadcn::Base#render_as_child` (Radix Slot merge: props the child element was given win, but the wrapper's own `data-slot` reaches the child as a prop; shadcn `Button` renders `data-slot="button"` and then spreads `{...props}` last (button.tsx), so `Dialog::Trigger.new(as_child: Button.new)` renders `data-slot="dialog-trigger"` and `Dialog::Close.new(as_child: Button.new)` renders `data-slot="dialog-close"`, keeping Button's `data-variant`/`data-size`/classes. Only the Footer's built-in Close (`DialogPrimitive.Close asChild` with no `data-slot`, dialog.tsx:113-115) keeps `data-slot="button"`).
 
 | React | Ruby | Notes |
 |---|---|---|
-| `Dialog` (`DialogPrimitive.Root`, props `open`, `defaultOpen`, `onOpenChange`, `modal = true`, dialog:30-38) | `Components::V2::Dialog.new(open: nil, default_open: false, modal: true, **attrs) { ... }` | `open:` given (true/false) = controlled: the controller never changes its own state, it only dispatches `open-change` (callers set `data-chadcn--dialog-open-value`). `open: nil` = uncontrolled, starts at `default_open`. Renders no shadcn element (see Structure, deviation). |
-| `DialogTrigger` | `Components::V2::Dialog::Trigger.new(as_child: false, class: nil, **attrs) { label }` | Toggles (dialog:89 `onOpenToggle`). |
-| `DialogPortal` (`forceMount`, `container`, dialog:98-102) | `Components::V2::Dialog::Portal.new(force_mount: false, container: nil) { ... }` | Renders nothing itself; its children are moved to `container` (default `document.body`). `container:` is a CSS selector string (deviation `api`, a DOM node cannot be passed from Ruby). |
-| `DialogOverlay` (`forceMount`, dialog:107) | `Components::V2::Dialog::Overlay.new(force_mount: false, as_child: false, class: nil, **attrs)` | Rendered only when `modal` (dialog:109). |
-| `DialogContent` (`showCloseButton = true`, plus Radix `forceMount`, `onOpenAutoFocus`, `onCloseAutoFocus`, `onEscapeKeyDown`, `onPointerDownOutside`, `onInteractOutside`, `onFocusOutside`) | `Components::V2::Dialog::Content.new(show_close_button: true, force_mount: false, as_child: false, class: nil, **attrs) { ... }` | Always renders inside its own `Dialog::Portal` with a `Dialog::Overlay` first (shadcn source). Radix callbacks become cancelable events (below). |
-| `DialogHeader` | `Components::V2::Dialog::Header.new(class: nil, **attrs) { ... }` | plain `div`. |
-| `DialogFooter` (`showCloseButton = false`) | `Components::V2::Dialog::Footer.new(show_close_button: false, class: nil, **attrs) { ... }` | When true appends `Dialog::Close.new(as_child: Components::V2::Button.new(variant: "outline")) { "Close" }` after the block. |
-| `DialogTitle` | `Components::V2::Dialog::Title.new(as_child: false, class: nil, **attrs) { text }` | `h2`. |
-| `DialogDescription` | `Components::V2::Dialog::Description.new(as_child: false, class: nil, **attrs) { text }` | `p`. |
-| `DialogClose` | `Components::V2::Dialog::Close.new(as_child: false, class: nil, **attrs) { ... }` | Closes (dialog:311). No default classes (the classes in the oracle belong to the X button inside Content only). |
+| `Dialog` (`DialogPrimitive.Root`, props `open`, `defaultOpen`, `onOpenChange`, `modal = true`, dialog:30-38) | `Chadcn::Dialog.new(open: nil, default_open: false, modal: true, **attrs) { ... }` | `open:` given (true/false) = controlled: the controller never changes its own state, it only dispatches `open-change` (callers set `data-chadcn--dialog-open-value`). `open: nil` = uncontrolled, starts at `default_open`. Renders no shadcn element (see Structure, deviation). |
+| `DialogTrigger` | `Chadcn::Dialog::Trigger.new(as_child: false, class: nil, **attrs) { label }` | Toggles (dialog:89 `onOpenToggle`). |
+| `DialogPortal` (`forceMount`, `container`, dialog:98-102) | `Chadcn::Dialog::Portal.new(force_mount: false, container: nil) { ... }` | Renders nothing itself; its children are moved to `container` (default `document.body`). `container:` is a CSS selector string (deviation `api`, a DOM node cannot be passed from Ruby). |
+| `DialogOverlay` (`forceMount`, dialog:107) | `Chadcn::Dialog::Overlay.new(force_mount: false, as_child: false, class: nil, **attrs)` | Rendered only when `modal` (dialog:109). |
+| `DialogContent` (`showCloseButton = true`, plus Radix `forceMount`, `onOpenAutoFocus`, `onCloseAutoFocus`, `onEscapeKeyDown`, `onPointerDownOutside`, `onInteractOutside`, `onFocusOutside`) | `Chadcn::Dialog::Content.new(show_close_button: true, force_mount: false, as_child: false, class: nil, **attrs) { ... }` | Always renders inside its own `Dialog::Portal` with a `Dialog::Overlay` first (shadcn source). Radix callbacks become cancelable events (below). |
+| `DialogHeader` | `Chadcn::Dialog::Header.new(class: nil, **attrs) { ... }` | plain `div`. |
+| `DialogFooter` (`showCloseButton = false`) | `Chadcn::Dialog::Footer.new(show_close_button: false, class: nil, **attrs) { ... }` | When true appends `Dialog::Close.new(as_child: Chadcn::Button.new(variant: "outline")) { "Close" }` after the block. |
+| `DialogTitle` | `Chadcn::Dialog::Title.new(as_child: false, class: nil, **attrs) { text }` | `h2`. |
+| `DialogDescription` | `Chadcn::Dialog::Description.new(as_child: false, class: nil, **attrs) { text }` | `p`. |
+| `DialogClose` | `Chadcn::Dialog::Close.new(as_child: false, class: nil, **attrs) { ... }` | Closes (dialog:311). No default classes (the classes in the oracle belong to the X button inside Content only). |
 
 Options: `modal:`, `open:`, `default_open:`, `show_close_button:`, `force_mount:` are booleans; `"true"`/`"false"` strings are not accepted (React types are boolean).
 
@@ -42,16 +42,16 @@ Events (dispatched with `this.dispatch` from the `chadcn--dialog` host, `bubbles
 Example:
 
 ```ruby
-render Components::V2::Dialog.new do
-  render Components::V2::Dialog::Trigger.new(as_child: Components::V2::Button.new(variant: "outline")) { "Open Dialog" }
-  render Components::V2::Dialog::Content.new(class: "sm:max-w-[425px]") do
-    render Components::V2::Dialog::Header.new do
-      render Components::V2::Dialog::Title.new { "Edit profile" }
-      render Components::V2::Dialog::Description.new { "Make changes to your profile here." }
+render Chadcn::Dialog.new do
+  render Chadcn::Dialog::Trigger.new(as_child: Chadcn::Button.new(variant: "outline")) { "Open Dialog" }
+  render Chadcn::Dialog::Content.new(class: "sm:max-w-[425px]") do
+    render Chadcn::Dialog::Header.new do
+      render Chadcn::Dialog::Title.new { "Edit profile" }
+      render Chadcn::Dialog::Description.new { "Make changes to your profile here." }
     end
-    render Components::V2::Dialog::Footer.new do
-      render Components::V2::Dialog::Close.new(as_child: Components::V2::Button.new(variant: "outline")) { "Cancel" }
-      render Components::V2::Button.new { "Save changes" }
+    render Chadcn::Dialog::Footer.new do
+      render Chadcn::Dialog::Close.new(as_child: Chadcn::Button.new(variant: "outline")) { "Cancel" }
+      render Chadcn::Button.new { "Save changes" }
     end
   end
 end
@@ -167,9 +167,9 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Dependencies
 
-- `Components::V2::Button`: `Dialog::Footer` with `show_close_button: true` renders `Button.new(variant: "outline")`; examples use it as `as_child` of Trigger/Close.
-- `Components::V2::Icon` (infra `_icons`): `Icon.new(name: "x")` inside the Content X close.
-- `Components::V2::Base`: `cn`, `merge_attrs`, `render_as_child`, `ids`.
+- `Chadcn::Button`: `Dialog::Footer` with `show_close_button: true` renders `Button.new(variant: "outline")`; examples use it as `as_child` of Trigger/Close.
+- `Chadcn::Icon` (infra `_icons`): `Icon.new(name: "x")` inside the Content X close.
+- `Chadcn::Base`: `cn`, `merge_attrs`, `render_as_child`, `ids`.
 - Primitives `app/javascript/v2/primitives/`: `portal.js`, `presence.js`, `dismissable_layer.js`, `focus_scope.js`, `focus_guards.js`, `hide_others.js`, `scroll_lock.js`, `ids.js`.
 
 ## Deviations

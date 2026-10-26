@@ -7,7 +7,7 @@ Oracle: `dev/port/oracle/src/slider.tsx` (manifest `source_sha` 6a531f6182de6efe
 One export (`Slider`), one Ruby class. Track, Range and Thumb are not exported by shadcn; they are rendered internally (no Ruby classes for callers).
 
 ```ruby
-Components::V2::Slider.new(
+Chadcn::Slider.new(
   default_value: nil,               # Array<Numeric> | nil  uncontrolled initial values (Radix default [min], slider.mjs:52)
   value: nil,                       # Array<Numeric> | nil  controlled values (controlled iff not nil, ucs.mjs:20)
   min: 0,                           # slider.tsx `min = 0` (also Radix default, slider.mjs:45)
@@ -20,7 +20,7 @@ Components::V2::Slider.new(
   preserve_thumb_order: false,      # slider.mjs:51
   name: nil,                        # bubble inputs only (slider.mjs:460), never on the root
   form: nil,                        # bubble input `form` attribute + form-control detection (slider.mjs:85, 458, 585)
-  dir: nil,                         # "ltr" | "rtl" | nil; horizontal only reads it (slider.mjs:207, 218): use_direction(dir) via Components::V2::Direction::Consumer
+  dir: nil,                         # "ltr" | "rtl" | nil; horizontal only reads it (slider.mjs:207, 218): use_direction(dir) via Chadcn::Direction::Consumer
   class: nil,                       # merged last into the Root classes through cn (tailwind_merge), caller wins
   **attrs                           # id, aria: {}, data: {}, aria-label, style, ... pass through to the Root span
 )
@@ -155,13 +155,13 @@ Turbo: `disconnect()` removes the reset listener and ResizeObservers and release
 
 ## Dependencies
 
-None. Slider renders no other `Components::V2` component and no icon (manifest `icons: []`, `registry_dependencies: []`). Server-side it includes `Components::V2::Direction::Consumer` for `use_direction` (Direction spec). The `field-slider` registry example uses `Field`/`FieldTitle`/`FieldDescription`, which are not dependencies of `slider`; its scenario keeps the example's outer `_div` wrapper and the Slider with the example's exact props, and omits the Field parts (no V2 Field exists yet and `_` nodes must not stand in for shadcn parts).
+None. Slider renders no other `Chadcn` component and no icon (manifest `icons: []`, `registry_dependencies: []`). Server-side it includes `Chadcn::Direction::Consumer` for `use_direction` (Direction spec). The `field-slider` registry example uses `Field`/`FieldTitle`/`FieldDescription`, which are not dependencies of `slider`; its scenario keeps the example's outer `_div` wrapper and the Slider with the example's exact props, and omits the Field parts (no Chadcn::Field exists yet and `_` nodes must not stand in for shadcn parts).
 
 ## Deviations
 
 One, API only (no DOM or class difference):
 
-- `as_child:` is not supported on `Components::V2::Slider`. Reason: Radix Root is a `Primitive.span` that accepts `asChild`, but shadcn's `Slider` always passes the Track plus one or more Thumbs as children, and Radix `Slot` throws when it does not receive exactly one element child (slot.mjs `React.Children.count(children) === 1` else `createSlotError`), so `asChild` cannot render in React either; no registry example uses it. Entry written to `dev/port/deviations/slider.json`:
+- `as_child:` is not supported on `Chadcn::Slider`. Reason: Radix Root is a `Primitive.span` that accepts `asChild`, but shadcn's `Slider` always passes the Track plus one or more Thumbs as children, and Radix `Slot` throws when it does not receive exactly one element child (slot.mjs `React.Children.count(children) === 1` else `createSlotError`), so `asChild` cannot render in React either; no registry example uses it. Entry written to `dev/port/deviations/slider.json`:
 
 ```json
 { "reason": "shadcn Slider always passes Track plus Thumb children to SliderPrimitive.Root, and Radix Slot throws unless it receives exactly one element child, so asChild cannot render in React; as_child is therefore not offered", "allow_tokens": [], "allow_missing_tokens": [], "api": ["Slider: as_child not supported"] }

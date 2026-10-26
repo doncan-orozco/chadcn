@@ -1,14 +1,14 @@
-# ButtonGroup (`Components::V2::ButtonGroup`, `ButtonGroup::Separator`, `ButtonGroup::Text`)
+# ButtonGroup (`Chadcn::ButtonGroup`, `ButtonGroup::Separator`, `ButtonGroup::Text`)
 
 Oracle: `dev/port/oracle/src/button-group.tsx` (style `new-york-v4`, manifest `source_sha` a9ac862707ff8d78, tier `static`, `use_client: false`). Exports `ButtonGroup`, `ButtonGroupSeparator`, `ButtonGroupText`, `buttonGroupVariants`. Data-slots `button-group` and `button-group-separator` (ButtonGroupText has NO data-slot). Radix: `Slot` only (`import { Slot } from "radix-ui"`, radix-ui 1.7.0 -> `@radix-ui/react-slot` 1.4.0, `dev/react-shadcn-catalog/node_modules/@radix-ui/react-slot/dist/index.mjs`, cited `slot.mjs:<line>`). The separator part renders shadcn `Separator` (`oracle/src/separator.tsx`) over `@radix-ui/react-separator` 1.1.16 (`react-separator/dist/index.mjs`, cited `sep.mjs:<line>`). cva semantics from `dev/react-shadcn-catalog/node_modules/class-variance-authority/dist/index.mjs` (cited `cva.mjs:<line>`). Registry examples fetched from `https://ui.shadcn.com/r/styles/new-york-v4/button-group-{demo,nested,size,separator,split,input,dropdown,select,popover,input-group,orientation}.json` (the full `button-group-*` list in the registry index).
 
 ## API
 
 ```ruby
-Components::V2::ButtonGroup.new(orientation: nil, class: nil, **attrs) { ... }             # React ButtonGroup
-Components::V2::ButtonGroup::Separator.new(orientation: "vertical", class: nil, **attrs)   # React ButtonGroupSeparator
-Components::V2::ButtonGroup::Text.new(as_child: false, class: nil, **attrs) { ... }        # React ButtonGroupText
-Components::V2::ButtonGroup.variants(orientation: nil)  # React buttonGroupVariants({ orientation }) -> class string
+Chadcn::ButtonGroup.new(orientation: nil, class: nil, **attrs) { ... }             # React ButtonGroup
+Chadcn::ButtonGroup::Separator.new(orientation: "vertical", class: nil, **attrs)   # React ButtonGroupSeparator
+Chadcn::ButtonGroup::Text.new(as_child: false, class: nil, **attrs) { ... }        # React ButtonGroupText
+Chadcn::ButtonGroup.variants(orientation: nil)  # React buttonGroupVariants({ orientation }) -> class string
 ```
 
 | part | kwarg | default (tsx) | accepted values |
@@ -18,8 +18,8 @@ Components::V2::ButtonGroup.variants(orientation: nil)  # React buttonGroupVaria
 | `ButtonGroup` | `**attrs` | `...props` (`React.ComponentProps<"div">`) | `id`, `title`, `role`, `aria: {}`, `data: {}`, `aria-*`, `data-*`, `style` |
 | `ButtonGroup::Separator` | `orientation:` | `"vertical"` (tsx `orientation = "vertical"`, overriding Separator's `"horizontal"`) | `"vertical"`, `"horizontal"`, symbols |
 | `ButtonGroup::Separator` | `class:` | `nil` | merged (see Structure) |
-| `ButtonGroup::Separator` | `**attrs` | `...props` (`React.ComponentProps<typeof Separator>`) | everything `Components::V2::Separator` accepts: `decorative:` (default `true`, from separator.tsx), `as_child:`, `id`, `data: {}`, `aria: {}`... forwarded unchanged to `Components::V2::Separator` |
-| `ButtonGroup::Text` | `as_child:` | `false` (`asChild = false`) | `false` \| tag symbol (`:label`, `:span`) \| a V2 component instance (e.g. a `Components::V2::Label` instance) |
+| `ButtonGroup::Separator` | `**attrs` | `...props` (`React.ComponentProps<typeof Separator>`) | everything `Chadcn::Separator` accepts: `decorative:` (default `true`, from separator.tsx), `as_child:`, `id`, `data: {}`, `aria: {}`... forwarded unchanged to `Chadcn::Separator` |
+| `ButtonGroup::Text` | `as_child:` | `false` (`asChild = false`) | `false` \| tag symbol (`:label`, `:span`) \| a Chadcn component instance (e.g. a `Chadcn::Label` instance) |
 | `ButtonGroup::Text` | `class:` | `nil` | merged through `cn` after the base string |
 | `ButtonGroup::Text` | `**attrs` | `...props` (`React.ComponentProps<"div">`) | every HTML attribute |
 
@@ -64,16 +64,16 @@ Part `ButtonGroup` (`data-slot="button-group"`):
 - Not focusable itself; no `tabindex`, no ids, no `aria-orientation` (shadcn does not set it).
 
 Part `ButtonGroupSeparator` (`data-slot="button-group-separator"`):
-- Renders `Components::V2::Separator` (spec `dev/port/specs/separator.md`) with `data: { slot: "button-group-separator" }`, `orientation:` (default `"vertical"`), the merged class, then `**attrs`. tsx JSX order: `data-slot`, `orientation`, `className`, `{...props}`, so a caller `data-slot` wins (`separator-data-slot-override`), and `decorative:`/`as_child:`/`id` reach Separator unchanged (`separator-decorative-false`, `separator-as-child-span`, `separator-forwarded-attrs`).
+- Renders `Chadcn::Separator` (spec `dev/port/specs/separator.md`) with `data: { slot: "button-group-separator" }`, `orientation:` (default `"vertical"`), the merged class, then `**attrs`. tsx JSX order: `data-slot`, `orientation`, `className`, `{...props}`, so a caller `data-slot` wins (`separator-data-slot-override`), and `decorative:`/`as_child:`/`id` reach Separator unchanged (`separator-decorative-false`, `separator-as-child-span`, `separator-forwarded-attrs`).
 - Separator then renders (sep.mjs:17-27; separator.tsx): tag `div`, `data-orientation` (normalized: `"vertical"` or `"horizontal"`), `role="none"` when decorative (default `true`), or `role="separator"` + `aria-orientation="vertical"` (vertical only) when `decorative: false`; `data-slot` = `"button-group-separator"` (separator.tsx writes `data-slot="separator"` before `{...props}`, so the button-group value wins).
-- Class: ButtonGroupSeparator computes `cn("relative m-0! self-stretch bg-input data-[orientation=vertical]:h-auto", className)` and Separator computes `cn("shrink-0 bg-border data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px", that)`. tailwind-merge resolves `bg-input` over `bg-border` and `data-[orientation=vertical]:h-auto` over `data-[orientation=vertical]:h-full`, giving the string in the Structure block. The port passes its own `cn(...)` result as `class:` to `Components::V2::Separator`, which merges it after its base: same resolved set. `class: "bg-primary w-0.5"` replaces `bg-input` and keeps `data-[orientation=vertical]:w-px` (different variant group) (`separator-class-merge`).
+- Class: ButtonGroupSeparator computes `cn("relative m-0! self-stretch bg-input data-[orientation=vertical]:h-auto", className)` and Separator computes `cn("shrink-0 bg-border data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px", that)`. tailwind-merge resolves `bg-input` over `bg-border` and `data-[orientation=vertical]:h-auto` over `data-[orientation=vertical]:h-full`, giving the string in the Structure block. The port passes its own `cn(...)` result as `class:` to `Chadcn::Separator`, which merges it after its base: same resolved set. `class: "bg-primary w-0.5"` replaces `bg-input` and keeps `data-[orientation=vertical]:w-px` (different variant group) (`separator-class-merge`).
 - Sizing: `self-stretch` + `h-auto` make it as tall as the row in a horizontal group; `w-px`. In a vertical group pass `orientation: "horizontal"` (`h-px w-full`) (`separator-horizontal-in-vertical-group`). Outside a group (`separator-standalone`) it stretches in its flex parent. The group's `[&>*:not(...)]` rules apply to it as a child (no visible effect: it has no border/radius).
 
 Part `ButtonGroupText` (no data-slot):
 - Tag `div` (`const Comp = asChild ? Slot.Root : "div"`), no `data-slot`, no role, no aria. The port must NOT invent a `data-slot` (the manifest lists none for this part).
 - Class verbatim: `flex items-center gap-2 rounded-md border bg-muted px-4 text-sm font-medium shadow-xs [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4`, then caller `class` through `cn` (`text-class-merge`: `px-2` replaces `px-4`, `bg-primary` replaces `bg-muted`).
 - `[&_svg:not([class*='size-'])]:size-4` sizes any descendant lucide SVG without a `size-*` class (`text-with-icon`, `text-icon-sized-not-overridden`).
-- `as_child:` = Radix Slot (slot.mjs:81-104 `mergeProps`), implemented by `Components::V2::Base#render_as_child`: the child element replaces the `div`; `class` is a plain join, Text classes first then the child's (no tailwind-merge; `text-as-child-classname-join`), `style` slot-then-child, `aria-describedby` concatenated, all other child props win. `as_child: :label` renders `<label class="..." for=...>` (`text-as-child-label`, the docs pattern `ButtonGroupText asChild > Label htmlFor`).
+- `as_child:` = Radix Slot (slot.mjs:81-104 `mergeProps`), implemented by `Chadcn::Base#render_as_child`: the child element replaces the `div`; `class` is a plain join, Text classes first then the child's (no tailwind-merge; `text-as-child-classname-join`), `style` slot-then-child, `aria-describedby` concatenated, all other child props win. `as_child: :label` renders `<label class="..." for=...>` (`text-as-child-label`, the docs pattern `ButtonGroupText asChild > Label htmlFor`).
 - Inside a group it is a child like any other, so it loses inner radii/borders (`text-default`, `text-vertical-group`).
 
 <!-- spec_helpers:begin -->
@@ -92,8 +92,8 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Dependencies
 
-- `Components::V2::Separator` (registry dependency, rendered by `ButtonGroup::Separator`).
-- `Components::V2::Base` for `cn`, attribute merge and `render_as_child`.
+- `Chadcn::Separator` (registry dependency, rendered by `ButtonGroup::Separator`).
+- `Chadcn::Base` for `cn`, attribute merge and `render_as_child`.
 - No icons, no sr-only text, no Stimulus, no primitives (`icons: []`, `text_literals: []`).
 - Scenario substitutions (identical raw markup on both harnesses, not component deviations). The manifest's `registry_dependencies` is `["separator"]` (derived from imports), although the registry item lists `["button", "separator"]`; `scenario_coverage.rb` therefore rejects `Button`, `Input`, `Select*`, `DropdownMenu*`, `Popover*`, `InputGroup*` and `Tooltip*` nodes here. Group children are written as raw elements that carry the oracle class strings and attributes of those parts:
   - `Button variant=... size=...` -> `_button data-slot="button"` with `buttonVariants` base + variant + size tokens from `manifest/button.json` (gap/radius duplicates resolved as tailwind-merge does).
@@ -102,7 +102,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
   - `DropdownMenuTrigger asChild > Button` / `PopoverTrigger asChild > Button` (closed) -> the `_button` above plus `type=button aria-haspopup=menu|dialog aria-expanded=false data-state=closed` (ids omitted). Closed content renders nothing.
   - `InputGroup` / `InputGroupInput` / `InputGroupAddon align=inline-end` / `TooltipTrigger asChild > InputGroupButton size=icon-xs` -> raw `_div`/`_input`/`_button` with their input-group.tsx classes resolved.
   - `button-group-split` uses `IconPlus` from `@tabler/icons-react`; the scenario uses lucide `<icon:plus>`.
-  - Real compositions (V2 `Button`, `Input`, `Select`, `DropdownMenu`, `Popover`, `InputGroup` inside `ButtonGroup`) belong to cross-component scenarios once those are DONE.
+  - Real compositions (`Chadcn::Button`, `Input`, `Select`, `DropdownMenu`, `Popover`, `InputGroup` inside `ButtonGroup`) belong to cross-component scenarios once those are DONE.
 
 ## Deviations
 

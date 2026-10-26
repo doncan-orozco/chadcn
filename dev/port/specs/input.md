@@ -1,11 +1,11 @@
-# Input (`Components::V2::Input`)
+# Input (`Chadcn::Input`)
 
 Oracle: `dev/port/oracle/src/input.tsx` (style `new-york-v4`, source_sha `0c9457181f6ddc80`), manifest `dev/port/oracle/manifest/input.json`. Tier `static`: no Stimulus controller, no primitive, no Radix, no `"use client"`. One export `Input`, one part, data-slot `input`. No cva (`uses_cva: false`), no icons, no text literals.
 
 ## API
 
 ```ruby
-Components::V2::Input.new(type: nil, class: nil, **attrs)
+Chadcn::Input.new(type: nil, class: nil, **attrs)
 ```
 
 | kwarg | default (tsx) | accepted values |

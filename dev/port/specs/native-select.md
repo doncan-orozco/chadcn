@@ -1,18 +1,18 @@
-# NativeSelect (`Components::V2::NativeSelect`)
+# NativeSelect (`Chadcn::NativeSelect`)
 
 Oracle: `dev/port/oracle/src/native-select.tsx` (style `new-york-v4`, source_sha `4bdbce5575dce610`), manifest `dev/port/oracle/manifest/native-select.json`. Tier `static`: no Stimulus controller, no primitive, no Radix, no `"use client"`, no cva (`uses_cva: false`). Three exports: `NativeSelect`, `NativeSelectOption`, `NativeSelectOptGroup`. Five data-slots: `native-select-wrapper`, `native-select`, `native-select-icon` (all emitted by `NativeSelect`), `native-select-option`, `native-select-optgroup`. One icon: lucide `ChevronDownIcon` (lucide-react 0.577.0). Registry examples (ui.shadcn.com `r/styles/new-york-v4`): `native-select-demo`, `native-select-groups`, `native-select-disabled`, `native-select-invalid`. React DOM behaviour for `value`/`defaultValue` cited from `dev/react-shadcn-catalog/node_modules/react-dom/cjs/react-dom-client.development.js` (react-dom 19.3, `updateOptions` lines 1964-1987, select init lines 22313-22314), cited as `rdc:<line>`.
 
 ## API
 
 ```ruby
-Components::V2::NativeSelect.new(size: "default", default_value: nil, value: nil, class: nil, **attrs) { options }
-Components::V2::NativeSelect::Option.new(class: nil, **attrs) { label }
-Components::V2::NativeSelect::OptGroup.new(class: nil, **attrs) { options }
+Chadcn::NativeSelect.new(size: "default", default_value: nil, value: nil, class: nil, **attrs) { options }
+Chadcn::NativeSelect::Option.new(class: nil, **attrs) { label }
+Chadcn::NativeSelect::OptGroup.new(class: nil, **attrs) { options }
 ```
 
 Name rule: strip the root prefix (`NativeSelectOption` -> `NativeSelect::Option`, `NativeSelectOptGroup` -> `NativeSelect::OptGroup`).
 
-### `Components::V2::NativeSelect` (tsx `NativeSelect`)
+### `Chadcn::NativeSelect` (tsx `NativeSelect`)
 
 | kwarg | default (tsx) | accepted values |
 |---|---|---|
@@ -27,7 +27,7 @@ Name rule: strip the root prefix (`NativeSelectOption` -> `NativeSelect::Option`
 - The wrapper `div` and the icon take no caller input at all (tsx hard-codes their className and attributes; there is no `wrapperClassName`).
 - No `as_child:` (no `Slot` in the source), no `as:`, no events dispatched (callers listen to native `change`/`input` via `data: { action: "change->foo#bar" }`), no `ref` equivalent, no class method (no `nativeSelectVariants` export).
 
-### `Components::V2::NativeSelect::Option` (tsx `NativeSelectOption`)
+### `Chadcn::NativeSelect::Option` (tsx `NativeSelectOption`)
 
 | kwarg | default | accepted values |
 |---|---|---|
@@ -36,7 +36,7 @@ Name rule: strip the root prefix (`NativeSelectOption` -> `NativeSelect::Option`
 
 Block = option text. `selected` is computed from the parent's `default_value:`/`value:` (see above) unless the caller passes `selected:` explicitly (caller attr wins, React spread semantics; note React itself warns against `selected` on `<option>` and prefers `defaultValue`). The parent-to-option link must be render-scoped (e.g. a value the parent exposes while yielding its block, such as Phlex `context` or a fiber-local stack), never a client-side DOM rewrite.
 
-### `Components::V2::NativeSelect::OptGroup` (tsx `NativeSelectOptGroup`)
+### `Chadcn::NativeSelect::OptGroup` (tsx `NativeSelectOptGroup`)
 
 | kwarg | default | accepted values |
 |---|---|---|
@@ -67,7 +67,7 @@ Per part, in DOM order:
    3. `aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40`
    4. caller `class:`
    Note `px-3` and `pr-9` coexist in the React output (tailwind-merge keeps `pr-9` after `px-3` because a later `pr` refines, it does not conflict backwards); the port must keep both, which `cn` does identically.
-3. `native-select-icon` (`svg`, tsx lines 26-30): `render Components::V2::Icon.new(name: "chevron-down", class: "pointer-events-none absolute top-1/2 right-3.5 size-4 -translate-y-1/2 text-muted-foreground opacity-50 select-none", aria: { hidden: "true" }, data: { slot: "native-select-icon" })`. lucide 0.577.0 builds the class as `mergeClasses("lucide", "lucide-chevron-down", "lucide-chevron-down", className)` (createLucideIcon.js, Icon.js:32, duplicates removed), so the class starts `lucide lucide-chevron-down`. `aria-hidden="true"` is passed explicitly by the tsx (lucide would add it anyway, Icon.js:33). It is a sibling AFTER the `<select>`, positioned over its right padding (`pr-9`).
+3. `native-select-icon` (`svg`, tsx lines 26-30): `render Chadcn::Icon.new(name: "chevron-down", class: "pointer-events-none absolute top-1/2 right-3.5 size-4 -translate-y-1/2 text-muted-foreground opacity-50 select-none", aria: { hidden: "true" }, data: { slot: "native-select-icon" })`. lucide 0.577.0 builds the class as `mergeClasses("lucide", "lucide-chevron-down", "lucide-chevron-down", className)` (createLucideIcon.js, Icon.js:32, duplicates removed), so the class starts `lucide lucide-chevron-down`. `aria-hidden="true"` is passed explicitly by the tsx (lucide would add it anyway, Icon.js:33). It is a sibling AFTER the `<select>`, positioned over its right padding (`pr-9`).
 4. `native-select-option` (`option`, tsx lines 35-46): `data-slot="native-select-option"`, `class="{cn('bg-[Canvas] text-[CanvasText]', className)}"`, then `...props` (caller `data-slot` overrides). `selected=""` when it matches the parent `default_value:`/`value:`.
 5. `native-select-optgroup` (`optgroup`, tsx lines 48-59): `data-slot="native-select-optgroup"`, `class="{cn('bg-[Canvas] text-[CanvasText]', className)}"`, then `...props`.
 
@@ -99,9 +99,9 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Dependencies
 
-- `Components::V2::Icon` (infra `_icons`): `Icon.new(name: "chevron-down", ...)` for `native-select-icon`, lucide 0.577.0 markup; must pass `data:`/`aria:` through.
-- `Components::V2::Base` (`cn`, `merge_attrs`).
-- No other V2 component (manifest `registry_dependencies: []`). Scenarios use raw `_label`, `_form`, `_button`, `_div` for layout and focus siblings.
+- `Chadcn::Icon` (infra `_icons`): `Icon.new(name: "chevron-down", ...)` for `native-select-icon`, lucide 0.577.0 markup; must pass `data:`/`aria:` through.
+- `Chadcn::Base` (`cn`, `merge_attrs`).
+- No other Chadcn component (manifest `registry_dependencies: []`). Scenarios use raw `_label`, `_form`, `_button`, `_div` for layout and focus siblings.
 
 ## Deviations
 

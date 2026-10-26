@@ -7,9 +7,9 @@ Oracle: `dev/port/oracle/src/aspect-ratio.tsx` (manifest `source_sha` b1c1578862
 One export, one Ruby class, no nested parts.
 
 ```ruby
-Components::V2::AspectRatio.new(
+Chadcn::AspectRatio.new(
   ratio: 1,            # Numeric (Integer, Float, Rational: 16/9r, 16.0/9). Default from ar.mjs:11 `ratio = 1 / 1`
-  as_child: false,     # false | tag symbol | V2 component instance (primitive.mjs:32-33, Primitive.div supports asChild)
+  as_child: false,     # false | tag symbol | Chadcn component instance (primitive.mjs:32-33, Primitive.div supports asChild)
   style: nil,          # String ("opacity: 0.5") or Hash ({ opacity: 0.5 } / { "backgroundColor" => "red" }; camelCase or snake_case keys -> kebab-case CSS)
   class: nil,          # passed through VERBATIM (see below)
   **attrs              # id, role, title, aria: {}, data: {}, aria-*/data-* pass through to the inner element
@@ -41,7 +41,7 @@ Wrapper (no data-slot, not a shadcn part), ar.mjs:15-24:
 Part `AspectRatio` (inner element, `data-slot="aspect-ratio"`), ar.mjs:25-37:
 - tag `div` (or the `as_child` element), `data-slot="aspect-ratio"`, caller `class`, caller attrs.
 - style: caller style first, then the forced keys `position: absolute; top: 0; right: 0; bottom: 0; left: 0` (ar.mjs:30-36 spreads `...style` first, so the forced keys always win; a caller `position: static` or `top: 20px` is overridden). As a CSS string, emitting the caller declarations then the forced ones gives the same computed style. React serializes the numeric `0` as `0`/`0px`; the gate ignores the `style` attribute text (parity_run.mjs IGNORED_ATTR) and compares computed style and boxes, so either spelling is fine.
-- `as_child:` (primitive.mjs:30-33, Radix Slot): the inner element is replaced by the child; `data-slot`, `class`, attrs and the forced style are merged onto it with `Components::V2::Base#render_as_child` semantics (class plain-joined slot-then-child; style slot-then-child, so a child's own style keys win over the forced ones, matching Radix Slot `mergeProps` `{...slotStyle, ...childStyle}`). The wrapper div is still rendered around it.
+- `as_child:` (primitive.mjs:30-33, Radix Slot): the inner element is replaced by the child; `data-slot`, `class`, attrs and the forced style are merged onto it with `Chadcn::Base#render_as_child` semantics (class plain-joined slot-then-child; style slot-then-child, so a child's own style keys win over the forced ones, matching Radix Slot `mergeProps` `{...slotStyle, ...childStyle}`). The wrapper div is still rendered around it.
 - DOM order: wrapper > part > children. No ids, no ARIA, no `data-state`.
 
 Server vs Stimulus: the server renders everything. Nothing is set on the client.

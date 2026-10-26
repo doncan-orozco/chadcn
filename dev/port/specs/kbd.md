@@ -1,12 +1,12 @@
-# Kbd (`Components::V2::Kbd`, `Components::V2::Kbd::Group`)
+# Kbd (`Chadcn::Kbd`, `Chadcn::Kbd::Group`)
 
 Oracle: `dev/port/oracle/src/kbd.tsx` (style `new-york-v4`, source_sha `c0c0ae6a7d1adb77`), manifest `dev/port/oracle/manifest/kbd.json`. Tier `static`: no Stimulus controller, no primitive, no Radix import (`radix_primitives: []`, `use_client: false`). Exports `Kbd` and `KbdGroup`; data-slots `kbd` and `kbd-group`.
 
 ## API
 
 ```ruby
-Components::V2::Kbd.new(class: nil, **attrs) { ... }          # React `Kbd`
-Components::V2::Kbd::Group.new(class: nil, **attrs) { ... }   # React `KbdGroup` (name rule: strip root prefix)
+Chadcn::Kbd.new(class: nil, **attrs) { ... }          # React `Kbd`
+Chadcn::Kbd::Group.new(class: nil, **attrs) { ... }   # React `KbdGroup` (name rule: strip root prefix)
 ```
 
 | part | kwarg | default (tsx) | accepted values |
@@ -17,7 +17,7 @@ Components::V2::Kbd::Group.new(class: nil, **attrs) { ... }   # React `KbdGroup`
 | `Kbd::Group` | `**attrs` | (`...props`, typed `React.ComponentProps<"div">` but rendered on a `<kbd>`) | every HTML attribute, same as above |
 
 - No `variant:`, `size:`, `as_child:` or any other kwarg: the source destructures only `className` and `...props` for both parts (manifest `props.destructured`). The port must not add any; there is no `asChild` in the source, so `as_child:` is not part of the API.
-- Block = `children`: text (`"K"`, `"⌘"`, `"Ctrl"`), lucide icons (`render Components::V2::Icon.new(name: "command")`), nested elements, or nothing (renders an empty `<kbd>`).
+- Block = `children`: text (`"K"`, `"⌘"`, `"Ctrl"`), lucide icons (`render Chadcn::Icon.new(name: "command")`), nested elements, or nothing (renders an empty `<kbd>`).
 - Events: none dispatched. `ref`: no equivalent.
 
 ## Structure
@@ -40,7 +40,7 @@ Both parts are server-rendered in full; nothing is set by JS.
 - `Kbd::Group` class string (tsx `KbdGroup`): `inline-flex items-center gap-1`, then caller `class`.
 - Merge: `cn` (clsx + tailwind-merge). `class: "rounded-md"` drops `rounded-sm`; `class: "px-2"` drops `px-1`; `class: "bg-primary"` drops `bg-muted` but keeps the `[[data-slot=tooltip-content]_&]:bg-background/20` variant token (different modifier group). Same resolved set as the React DOM.
 - State styling is pure CSS, no Stimulus:
-  - `[&_svg:not([class*='size-'])]:size-3`: any descendant SVG (not only direct children) without a `size-*` class is 12px (`content-nested-svg-sized`). Lucide icons rendered by `Components::V2::Icon` carry `lucide lucide-<name>` classes and no `size-*`, so they are sized.
+  - `[&_svg:not([class*='size-'])]:size-3`: any descendant SVG (not only direct children) without a `size-*` class is 12px (`content-nested-svg-sized`). Lucide icons rendered by `Chadcn::Icon` carry `lucide lucide-<name>` classes and no `size-*`, so they are sized.
   - `[[data-slot=tooltip-content]_&]:*`: when any ancestor has `data-slot="tooltip-content"` (i.e. inside `Tooltip::Content`), background becomes `background/20` (dark: `background/10`) and text `text-background`.
   - `dark:` only on the tooltip-context background token; outside a tooltip, dark mode changes only the resolved `--muted` / `--muted-foreground` values.
   - `pointer-events-none` + `select-none`: no hover/active states exist; no `hover:`, `focus-visible:`, `aria-invalid:`, `disabled:`, `group-*`, `peer-*`, `has-*` or `data-[state=*]` tokens.
@@ -62,7 +62,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 ## Dependencies
 
 - None rendered by the component (`registry_dependencies: []`, no lucide import, `npm_dependencies: ["cn"]`).
-- Needs `Components::V2::Base` for `cn` and attribute merge.
+- Needs `Chadcn::Base` for `cn` and attribute merge.
 - Scenarios use lucide icons via `<icon:...>` (`command`, `arrow-big-up`, `search`).
 - Example substitutions (scenario-level only, identical on both harnesses, not component deviations). Kbd has no registry dependency on `Button`, `ButtonGroup`, `Tooltip`, `InputGroup`, `Input`, so the coverage check rejects their exports here:
   - `kbd-button`: `Button variant="outline" size="sm" className="pr-2"` -> `_button` with `className="pr-2"` and the same children (`Accept <Kbd>⏎</Kbd>`, `Cancel <Kbd>Esc</Kbd>`).

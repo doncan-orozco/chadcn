@@ -6,29 +6,29 @@ Examples (all fetched from `https://ui.shadcn.com/r/styles/new-york-v4/<name>.js
 
 ## API
 
-Every part: `class:` goes through `cn` last (tailwind_merge, caller wins), `**attrs` pass through (`data:` / `aria:` deep-merged; because every source spreads `{...props}` AFTER its own attributes, a caller `data: { slot: }`, `data: { sidebar: }`, `title:`, `tabindex:`... overrides the component value), string and symbol option values accepted (`variant: :floating` == `"floating"`), `nil` = default. Unknown option values raise `ArgumentError` (TS unions forbid them). Parts built on `Slot.Root` accept `as_child:` (`false` | tag symbol | `Components::V2::*` instance), implemented by `Components::V2::Base#render_as_child` (Radix `mergeProps`: child wins, class plain join slot-first, `style` merged, `data-controller` unioned, `data-action` child first).
+Every part: `class:` goes through `cn` last (tailwind_merge, caller wins), `**attrs` pass through (`data:` / `aria:` deep-merged; because every source spreads `{...props}` AFTER its own attributes, a caller `data: { slot: }`, `data: { sidebar: }`, `title:`, `tabindex:`... overrides the component value), string and symbol option values accepted (`variant: :floating` == `"floating"`), `nil` = default. Unknown option values raise `ArgumentError` (TS unions forbid them). Parts built on `Slot.Root` accept `as_child:` (`false` | tag symbol | `Chadcn::*` instance), implemented by `Chadcn::Base#render_as_child` (Radix `mergeProps`: child wins, class plain join slot-first, `style` merged, `data-controller` unioned, `data-action` child first).
 
 | React (sidebar.tsx) | Ruby | Notes |
 |---|---|---|
-| `SidebarProvider` (tsx:56-152; `defaultOpen = true`, `open`, `onOpenChange`, `className`, `style`, `...props` on the wrapper div) | `Components::V2::Sidebar::Provider.new(default_open: true, open: nil, class: nil, style: nil, **attrs) { ... }` | `open:` true/false = controlled (tsx:75 `openProp ?? _open`): the controller never changes its own desktop state, it dispatches `open-change` (and still writes the cookie, tsx:86); callers update `data-chadcn--sidebar-open-value`. `open: nil` = uncontrolled from `default_open`. `style:` Hash (`{ "--sidebar-width" => "20rem" }`) or String, merged AFTER the component vars (tsx:136-138, caller wins). The Provider does NOT read the cookie (the oracle never reads it); callers do, as in the shadcn docs: `default_open: cookies[:sidebar_state] == "true"`. Booleans only (no `"true"` strings). |
-| `Sidebar` (tsx:154-254; `side = "left"`, `variant = "sidebar"`, `collapsible = "offcanvas"`) | `Components::V2::Sidebar.new(side: "left", variant: "sidebar", collapsible: "offcanvas", class: nil, **attrs) { ... }` | `side:` `"left" \| "right"`, `variant:` `"sidebar" \| "floating" \| "inset"`, `collapsible:` `"offcanvas" \| "icon" \| "none"`. Where `class:`/`**attrs` land depends on the mode (see Structure): `none` -> the single div; desktop -> `sidebar-container` (NOT the outer `sidebar` div); mobile -> Sheet Root, i.e. dropped from the DOM (tsx:185 `<Sheet ... {...props}>`). |
-| `SidebarTrigger` (tsx:256-280; `ComponentProps<typeof Button>`) | `Components::V2::Sidebar::Trigger.new(variant: "ghost", size: "icon", class: nil, **attrs)` | Renders `Components::V2::Button.new(variant:, size:, class: cn("size-7", class), data: { sidebar: "trigger", slot: "sidebar-trigger" }, **attrs)`. Because `{...props}` is spread after `variant="ghost" size="icon"` (tsx:267-274), caller `variant:`/`size:` win (Button options, e.g. `size: "icon-sm"`). No block: the oracle's JSX children (icon + sr-only) replace any `children` prop, so a given block is ignored. No `as_child:`: Button's Slot would receive two children and throw (slot:38-47), so `as_child:` raises `ArgumentError`. Click: caller handlers first (`data: { action: }` descriptors kept before), then `toggleSidebar` (tsx:270-273, no `defaultPrevented` check). |
-| `SidebarRail` (tsx:282-305) | `Components::V2::Sidebar::Rail.new(class: nil, **attrs) { optional children }` | `<button>` self-closing in JSX, so a `children` prop (block) does render. `aria-label`, `tabIndex`, `title` precede `{...props}` and can be overridden. |
-| `SidebarInset` (tsx:307-319) | `Components::V2::Sidebar::Inset.new(class: nil, **attrs) { ... }` | `main`. |
-| `SidebarInput` (tsx:321-333; `ComponentProps<typeof Input>`) | `Components::V2::Sidebar::Input.new(type: nil, class: nil, **attrs)` | Renders `Components::V2::Input.new(type:, class: cn("h-8 w-full bg-background shadow-none", class), data: { slot: "sidebar-input", sidebar: "input" }, **attrs)`; Input spreads props after its own `data-slot`, so `data-slot="sidebar-input"` wins. |
-| `SidebarHeader` / `SidebarFooter` / `SidebarContent` / `SidebarGroup` / `SidebarGroupContent` (tsx:335-355, 371-394, 440-452) | `Components::V2::Sidebar::Header` / `::Footer` / `::Content` / `::Group` / `::GroupContent` `.new(class: nil, **attrs) { ... }` | plain `div`s. |
-| `SidebarSeparator` (tsx:357-369; `ComponentProps<typeof Separator>`) | `Components::V2::Sidebar::Separator.new(orientation: "horizontal", decorative: true, as_child: false, class: nil, **attrs)` | Renders `Components::V2::Separator.new(orientation:, decorative:, as_child:, class: cn("mx-2 w-auto bg-sidebar-border", class), data: { slot: "sidebar-separator", sidebar: "separator" }, **attrs)` (Separator options per `specs/separator.md`). |
-| `SidebarGroupLabel` (tsx:396-415; `asChild = false`) | `Components::V2::Sidebar::GroupLabel.new(as_child: false, class: nil, **attrs) { ... }` | `div`, or the child with `as_child:`. |
-| `SidebarGroupAction` (tsx:417-438) | `Components::V2::Sidebar::GroupAction.new(as_child: false, class: nil, **attrs) { ... }` | `button` with no `type` attribute (React adds none). |
-| `SidebarMenu` / `SidebarMenuItem` (tsx:454-474) | `Components::V2::Sidebar::Menu` (`ul`) / `::MenuItem` (`li`) `.new(class: nil, **attrs) { ... }` | |
-| `SidebarMenuButton` (tsx:498-546; `asChild = false`, `isActive = false`, `variant = "default"`, `size = "default"`, `tooltip`) | `Components::V2::Sidebar::MenuButton.new(as_child: false, is_active: false, variant: "default", size: "default", tooltip: nil, class: nil, **attrs) { ... }` | `variant:` `"default" \| "outline"`, `size:` `"default" \| "sm" \| "lg"` (cva keys, tsx:480-489). `tooltip:` `nil` \| String \| Hash. A String becomes `{ children: string }` (tsx:529-533). A Hash holds `Components::V2::Tooltip::Content` kwargs/attrs plus `children:` (String rendered as the content text) and `class:`; it is splatted AFTER the defaults `side: "right", align: "center", hidden: <computed>` (tsx:538-543), so a caller `hidden: false` or `side: "bottom"` wins. `is_active:` Boolean. |
-| `sidebarMenuButtonVariants` (not exported, tsx:476-496) | `Components::V2::Sidebar::MenuButton.variants(variant: "default", size: "default")` | Class method returning the cva string (api-mapping "class-level table"); used internally, same keys. |
-| `SidebarMenuAction` (tsx:548-578; `asChild = false`, `showOnHover = false`) | `Components::V2::Sidebar::MenuAction.new(as_child: false, show_on_hover: false, class: nil, **attrs) { ... }` | `button`, no `type`. |
-| `SidebarMenuBadge` (tsx:580-600) | `Components::V2::Sidebar::MenuBadge.new(class: nil, **attrs) { ... }` | `div`. |
-| `SidebarMenuSkeleton` (tsx:602-638; `showIcon = false`) | `Components::V2::Sidebar::MenuSkeleton.new(show_icon: false, class: nil, **attrs)` | Width is random per render (see Structure and Deviations). |
-| `SidebarMenuSub` / `SidebarMenuSubItem` (tsx:640-667) | `Components::V2::Sidebar::MenuSub` (`ul`) / `::MenuSubItem` (`li`) `.new(class: nil, **attrs) { ... }` | |
-| `SidebarMenuSubButton` (tsx:669-699; `asChild = false`, `size = "md"`, `isActive = false`) | `Components::V2::Sidebar::MenuSubButton.new(as_child: false, size: "md", is_active: false, class: nil, **attrs) { ... }` | `a` (with no `href` unless given). `size:` `"sm" \| "md"`. |
-| `useSidebar` (tsx:47-54) | server: `Components::V2::Sidebar.use_sidebar(component)` ; client: the `chadcn--sidebar` controller | Server: returns a frozen value object `state` (`"expanded"`/`"collapsed"`), `open`, `open_mobile` (`false`), `is_mobile` (`false`: the server cannot know, and React's first render is also `false`, mobile:6 + 18 `!!undefined`), read from the Phlex render context set by the nearest `Sidebar::Provider`. Raises `ArgumentError, "useSidebar must be used within a SidebarProvider."` outside one (tsx:49-51). `Sidebar`, `Sidebar::Trigger`, `Sidebar::Rail` and `Sidebar::MenuButton` call it and therefore raise outside a Provider (tsx:166, 261, 283, 512); every other part works standalone. Client: `toggleSidebar` = action `chadcn--sidebar#toggle`; `setOpen` = `chadcn--sidebar#setOpen` with `data-chadcn--sidebar-open-param`; `setOpenMobile` = `chadcn--sidebar#setOpenMobile` (same param); state is observable as `data-state`/`data-collapsible` on `[data-slot=sidebar]` and through the events. |
+| `SidebarProvider` (tsx:56-152; `defaultOpen = true`, `open`, `onOpenChange`, `className`, `style`, `...props` on the wrapper div) | `Chadcn::Sidebar::Provider.new(default_open: true, open: nil, class: nil, style: nil, **attrs) { ... }` | `open:` true/false = controlled (tsx:75 `openProp ?? _open`): the controller never changes its own desktop state, it dispatches `open-change` (and still writes the cookie, tsx:86); callers update `data-chadcn--sidebar-open-value`. `open: nil` = uncontrolled from `default_open`. `style:` Hash (`{ "--sidebar-width" => "20rem" }`) or String, merged AFTER the component vars (tsx:136-138, caller wins). The Provider does NOT read the cookie (the oracle never reads it); callers do, as in the shadcn docs: `default_open: cookies[:sidebar_state] == "true"`. Booleans only (no `"true"` strings). |
+| `Sidebar` (tsx:154-254; `side = "left"`, `variant = "sidebar"`, `collapsible = "offcanvas"`) | `Chadcn::Sidebar.new(side: "left", variant: "sidebar", collapsible: "offcanvas", class: nil, **attrs) { ... }` | `side:` `"left" \| "right"`, `variant:` `"sidebar" \| "floating" \| "inset"`, `collapsible:` `"offcanvas" \| "icon" \| "none"`. Where `class:`/`**attrs` land depends on the mode (see Structure): `none` -> the single div; desktop -> `sidebar-container` (NOT the outer `sidebar` div); mobile -> Sheet Root, i.e. dropped from the DOM (tsx:185 `<Sheet ... {...props}>`). |
+| `SidebarTrigger` (tsx:256-280; `ComponentProps<typeof Button>`) | `Chadcn::Sidebar::Trigger.new(variant: "ghost", size: "icon", class: nil, **attrs)` | Renders `Chadcn::Button.new(variant:, size:, class: cn("size-7", class), data: { sidebar: "trigger", slot: "sidebar-trigger" }, **attrs)`. Because `{...props}` is spread after `variant="ghost" size="icon"` (tsx:267-274), caller `variant:`/`size:` win (Button options, e.g. `size: "icon-sm"`). No block: the oracle's JSX children (icon + sr-only) replace any `children` prop, so a given block is ignored. No `as_child:`: Button's Slot would receive two children and throw (slot:38-47), so `as_child:` raises `ArgumentError`. Click: caller handlers first (`data: { action: }` descriptors kept before), then `toggleSidebar` (tsx:270-273, no `defaultPrevented` check). |
+| `SidebarRail` (tsx:282-305) | `Chadcn::Sidebar::Rail.new(class: nil, **attrs) { optional children }` | `<button>` self-closing in JSX, so a `children` prop (block) does render. `aria-label`, `tabIndex`, `title` precede `{...props}` and can be overridden. |
+| `SidebarInset` (tsx:307-319) | `Chadcn::Sidebar::Inset.new(class: nil, **attrs) { ... }` | `main`. |
+| `SidebarInput` (tsx:321-333; `ComponentProps<typeof Input>`) | `Chadcn::Sidebar::Input.new(type: nil, class: nil, **attrs)` | Renders `Chadcn::Input.new(type:, class: cn("h-8 w-full bg-background shadow-none", class), data: { slot: "sidebar-input", sidebar: "input" }, **attrs)`; Input spreads props after its own `data-slot`, so `data-slot="sidebar-input"` wins. |
+| `SidebarHeader` / `SidebarFooter` / `SidebarContent` / `SidebarGroup` / `SidebarGroupContent` (tsx:335-355, 371-394, 440-452) | `Chadcn::Sidebar::Header` / `::Footer` / `::Content` / `::Group` / `::GroupContent` `.new(class: nil, **attrs) { ... }` | plain `div`s. |
+| `SidebarSeparator` (tsx:357-369; `ComponentProps<typeof Separator>`) | `Chadcn::Sidebar::Separator.new(orientation: "horizontal", decorative: true, as_child: false, class: nil, **attrs)` | Renders `Chadcn::Separator.new(orientation:, decorative:, as_child:, class: cn("mx-2 w-auto bg-sidebar-border", class), data: { slot: "sidebar-separator", sidebar: "separator" }, **attrs)` (Separator options per `specs/separator.md`). |
+| `SidebarGroupLabel` (tsx:396-415; `asChild = false`) | `Chadcn::Sidebar::GroupLabel.new(as_child: false, class: nil, **attrs) { ... }` | `div`, or the child with `as_child:`. |
+| `SidebarGroupAction` (tsx:417-438) | `Chadcn::Sidebar::GroupAction.new(as_child: false, class: nil, **attrs) { ... }` | `button` with no `type` attribute (React adds none). |
+| `SidebarMenu` / `SidebarMenuItem` (tsx:454-474) | `Chadcn::Sidebar::Menu` (`ul`) / `::MenuItem` (`li`) `.new(class: nil, **attrs) { ... }` | |
+| `SidebarMenuButton` (tsx:498-546; `asChild = false`, `isActive = false`, `variant = "default"`, `size = "default"`, `tooltip`) | `Chadcn::Sidebar::MenuButton.new(as_child: false, is_active: false, variant: "default", size: "default", tooltip: nil, class: nil, **attrs) { ... }` | `variant:` `"default" \| "outline"`, `size:` `"default" \| "sm" \| "lg"` (cva keys, tsx:480-489). `tooltip:` `nil` \| String \| Hash. A String becomes `{ children: string }` (tsx:529-533). A Hash holds `Chadcn::Tooltip::Content` kwargs/attrs plus `children:` (String rendered as the content text) and `class:`; it is splatted AFTER the defaults `side: "right", align: "center", hidden: <computed>` (tsx:538-543), so a caller `hidden: false` or `side: "bottom"` wins. `is_active:` Boolean. |
+| `sidebarMenuButtonVariants` (not exported, tsx:476-496) | `Chadcn::Sidebar::MenuButton.variants(variant: "default", size: "default")` | Class method returning the cva string (api-mapping "class-level table"); used internally, same keys. |
+| `SidebarMenuAction` (tsx:548-578; `asChild = false`, `showOnHover = false`) | `Chadcn::Sidebar::MenuAction.new(as_child: false, show_on_hover: false, class: nil, **attrs) { ... }` | `button`, no `type`. |
+| `SidebarMenuBadge` (tsx:580-600) | `Chadcn::Sidebar::MenuBadge.new(class: nil, **attrs) { ... }` | `div`. |
+| `SidebarMenuSkeleton` (tsx:602-638; `showIcon = false`) | `Chadcn::Sidebar::MenuSkeleton.new(show_icon: false, class: nil, **attrs)` | Width is random per render (see Structure and Deviations). |
+| `SidebarMenuSub` / `SidebarMenuSubItem` (tsx:640-667) | `Chadcn::Sidebar::MenuSub` (`ul`) / `::MenuSubItem` (`li`) `.new(class: nil, **attrs) { ... }` | |
+| `SidebarMenuSubButton` (tsx:669-699; `asChild = false`, `size = "md"`, `isActive = false`) | `Chadcn::Sidebar::MenuSubButton.new(as_child: false, size: "md", is_active: false, class: nil, **attrs) { ... }` | `a` (with no `href` unless given). `size:` `"sm" \| "md"`. |
+| `useSidebar` (tsx:47-54) | server: `Chadcn::Sidebar.use_sidebar(component)` ; client: the `chadcn--sidebar` controller | Server: returns a frozen value object `state` (`"expanded"`/`"collapsed"`), `open`, `open_mobile` (`false`), `is_mobile` (`false`: the server cannot know, and React's first render is also `false`, mobile:6 + 18 `!!undefined`), read from the Phlex render context set by the nearest `Sidebar::Provider`. Raises `ArgumentError, "useSidebar must be used within a SidebarProvider."` outside one (tsx:49-51). `Sidebar`, `Sidebar::Trigger`, `Sidebar::Rail` and `Sidebar::MenuButton` call it and therefore raise outside a Provider (tsx:166, 261, 283, 512); every other part works standalone. Client: `toggleSidebar` = action `chadcn--sidebar#toggle`; `setOpen` = `chadcn--sidebar#setOpen` with `data-chadcn--sidebar-open-param`; `setOpenMobile` = `chadcn--sidebar#setOpenMobile` (same param); state is observable as `data-state`/`data-collapsible` on `[data-slot=sidebar]` and through the events. |
 
 Events (dispatched with `this.dispatch` on the Provider wrapper, bubbling, prefix `chadcn--sidebar:`):
 
@@ -40,16 +40,16 @@ Events (dispatched with `this.dispatch` on the Provider wrapper, bubbling, prefi
 `ref` has no equivalent. Example (sidebar-demo):
 
 ```ruby
-render Components::V2::Sidebar::Provider.new do
-  render Components::V2::Sidebar.new do
-    render Components::V2::Sidebar::Content.new do
-      render Components::V2::Sidebar::Group.new do
-        render Components::V2::Sidebar::GroupLabel.new { "Application" }
-        render Components::V2::Sidebar::GroupContent.new do
-          render Components::V2::Sidebar::Menu.new do
-            render Components::V2::Sidebar::MenuItem.new do
-              render Components::V2::Sidebar::MenuButton.new(as_child: :a, href: "#") do
-                render Components::V2::Icon.new(name: "house")
+render Chadcn::Sidebar::Provider.new do
+  render Chadcn::Sidebar.new do
+    render Chadcn::Sidebar::Content.new do
+      render Chadcn::Sidebar::Group.new do
+        render Chadcn::Sidebar::GroupLabel.new { "Application" }
+        render Chadcn::Sidebar::GroupContent.new do
+          render Chadcn::Sidebar::Menu.new do
+            render Chadcn::Sidebar::MenuItem.new do
+              render Chadcn::Sidebar::MenuButton.new(as_child: :a, href: "#") do
+                render Chadcn::Icon.new(name: "house")
                 span { "Home" }
               end
             end
@@ -58,8 +58,8 @@ render Components::V2::Sidebar::Provider.new do
       end
     end
   end
-  render Components::V2::Sidebar::Inset.new do
-    header(class: "flex h-12 items-center justify-between px-4") { render Components::V2::Sidebar::Trigger.new }
+  render Chadcn::Sidebar::Inset.new do
+    header(class: "flex h-12 items-center justify-between px-4") { render Chadcn::Sidebar::Trigger.new }
   end
 end
 ```
@@ -80,7 +80,7 @@ Class strings are verbatim from the oracle (order irrelevant; set equality after
 
 - Constants verbatim (tsx:28-33): `SIDEBAR_WIDTH = "16rem"`, `SIDEBAR_WIDTH_ICON = "3rem"`, `SIDEBAR_WIDTH_MOBILE = "18rem"`, `SIDEBAR_COOKIE_NAME = "sidebar_state"`, `SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7` (604800), `SIDEBAR_KEYBOARD_SHORTCUT = "b"`; `MOBILE_BREAKPOINT = 768` (mobile:3). They are Ruby/JS constants, not kwargs or Stimulus values (the oracle exposes none of them as props).
 - The wrapper has NO `data-state` (the manifest's `data-state: expanded` under `SidebarProvider` is the extractor reading `const state = open ? ...` at tsx:114; the attribute is rendered by `Sidebar`, not here).
-- `TooltipProvider delayDuration={0}` (tsx:131) renders no element: the Provider renders `Components::V2::Tooltip::Provider.new(delay_duration: 0)` around the wrapper div, so every `Sidebar::MenuButton` tooltip gets a provider (Tooltip raises without one).
+- `TooltipProvider delayDuration={0}` (tsx:131) renders no element: the Provider renders `Chadcn::Tooltip::Provider.new(delay_duration: 0)` around the wrapper div, so every `Sidebar::MenuButton` tooltip gets a provider (Tooltip raises without one).
 - The wrapper is the `chadcn--sidebar` Stimulus host (it is a real element in the oracle, so no deviation is needed for the host).
 
 ### Sidebar, `collapsible: "none"` (tsx:168-181)
@@ -115,12 +115,12 @@ No `data-state`, `data-side`, `data-variant`, `data-collapsible`; `side`/`varian
 When the viewport is mobile React renders `Sheet open={openMobile}` INSTEAD of the desktop tree: no `sidebar` / `sidebar-gap` / `sidebar-container` / `sidebar-inner` node exists, and while `openMobile` is false nothing at all is in the DOM for the Sidebar. The template holds:
 
 ```ruby
-render Components::V2::Sheet.new(open: false) do   # controlled; the chadcn--sidebar controller drives its open value
-  render Components::V2::Sheet::Content.new(side: side, class: "w-(--sidebar-width) bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden",
+render Chadcn::Sheet.new(open: false) do   # controlled; the chadcn--sidebar controller drives its open value
+  render Chadcn::Sheet::Content.new(side: side, class: "w-(--sidebar-width) bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden",
     style: "--sidebar-width: 18rem;", data: { sidebar: "sidebar", slot: "sidebar", mobile: "true" }) do
-    render Components::V2::Sheet::Header.new(class: "sr-only") do
-      render Components::V2::Sheet::Title.new { "Sidebar" }
-      render Components::V2::Sheet::Description.new { "Displays the mobile sidebar." }
+    render Chadcn::Sheet::Header.new(class: "sr-only") do
+      render Chadcn::Sheet::Title.new { "Sidebar" }
+      render Chadcn::Sheet::Description.new { "Displays the mobile sidebar." }
     end
     div(class: "flex h-full w-full flex-col", data: { chadcn__sidebar_target: "mobileBody" }) # children are moved here
   end
@@ -152,7 +152,7 @@ The block is rendered ONCE by the server (inside `sidebar-inner`). The controlle
 | `Sidebar::MenuButton` | `button` / child | `sidebar-menu-button` / `menu-button` | `data-size="{size}"`, `data-active="true\|false"` (always rendered, string of the boolean, tsx:518-519); no `type` | `cn(MenuButton.variants(variant:, size:), class)`; base + variant + size tables verbatim from tsx:476-496 (manifest `cva.sidebarMenuButtonVariants`) |
 | `Sidebar::MenuAction` | `button` / child | `sidebar-menu-action` / `menu-action` | | `absolute top-1.5 right-1 flex aspect-square w-5 items-center justify-center rounded-md p-0 text-sidebar-foreground ring-sidebar-ring outline-hidden transition-transform peer-hover/menu-button:text-sidebar-accent-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0 after:absolute after:-inset-2 md:after:hidden peer-data-[size=sm]/menu-button:top-1 peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 group-data-[collapsible=icon]:hidden`, plus when `show_on_hover`: `group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 peer-data-[active=true]/menu-button:text-sidebar-accent-foreground data-[state=open]:opacity-100 md:opacity-0` |
 | `Sidebar::MenuBadge` | `div` | `sidebar-menu-badge` / `menu-badge` | | `pointer-events-none absolute right-1 flex h-5 min-w-5 items-center justify-center rounded-md px-1 text-xs font-medium text-sidebar-foreground tabular-nums select-none peer-hover/menu-button:text-sidebar-accent-foreground peer-data-[active=true]/menu-button:text-sidebar-accent-foreground peer-data-[size=sm]/menu-button:top-1 peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 group-data-[collapsible=icon]:hidden` |
-| `Sidebar::MenuSkeleton` | `div` | `sidebar-menu-skeleton` / `menu-skeleton` | | `flex h-8 items-center gap-2 rounded-md px-2`. Children: when `show_icon`, `Components::V2::Skeleton.new(class: "size-4 rounded-md", data: { sidebar: "menu-skeleton-icon" })`; always `Components::V2::Skeleton.new(class: "h-4 max-w-(--skeleton-width) flex-1", data: { sidebar: "menu-skeleton-text" }, style: "--skeleton-width: <w>%;")` with `w = rand(40) + 50` per instance (tsx:610-612 `Math.floor(Math.random() * 40) + 50`, i.e. 50..89). Both Skeletons keep `data-slot="skeleton"`. |
+| `Sidebar::MenuSkeleton` | `div` | `sidebar-menu-skeleton` / `menu-skeleton` | | `flex h-8 items-center gap-2 rounded-md px-2`. Children: when `show_icon`, `Chadcn::Skeleton.new(class: "size-4 rounded-md", data: { sidebar: "menu-skeleton-icon" })`; always `Chadcn::Skeleton.new(class: "h-4 max-w-(--skeleton-width) flex-1", data: { sidebar: "menu-skeleton-text" }, style: "--skeleton-width: <w>%;")` with `w = rand(40) + 50` per instance (tsx:610-612 `Math.floor(Math.random() * 40) + 50`, i.e. 50..89). Both Skeletons keep `data-slot="skeleton"`. |
 | `Sidebar::MenuSub` | `ul` | `sidebar-menu-sub` / `menu-sub` | | `mx-3.5 flex min-w-0 translate-x-px flex-col gap-1 border-l border-sidebar-border px-2.5 py-0.5 group-data-[collapsible=icon]:hidden` |
 | `Sidebar::MenuSubItem` | `li` | `sidebar-menu-sub-item` / `menu-sub-item` | | `group/menu-sub-item relative` |
 | `Sidebar::MenuSubButton` | `a` / child | `sidebar-menu-sub-button` / `menu-sub-button` | `data-size="sm\|md"`, `data-active="true\|false"` | `flex h-7 min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-md px-2 text-sidebar-foreground ring-sidebar-ring outline-hidden hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:text-sidebar-accent-foreground data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground`, then `text-xs` (sm) or `text-sm` (md), then `group-data-[collapsible=icon]:hidden` |
@@ -160,9 +160,9 @@ The block is rendered ONCE by the server (inside `sidebar-inner`). The controlle
 ### MenuButton with `tooltip:` (tsx:525-545)
 
 ```ruby
-render Components::V2::Tooltip.new do
-  render Components::V2::Tooltip::Trigger.new(as_child: <the MenuButton element above>)
-  render Components::V2::Tooltip::Content.new(side: "right", align: "center", hidden: <state != "collapsed" || is_mobile>, **tooltip_hash) { tooltip_hash[:children] }
+render Chadcn::Tooltip.new do
+  render Chadcn::Tooltip::Trigger.new(as_child: <the MenuButton element above>)
+  render Chadcn::Tooltip::Content.new(side: "right", align: "center", hidden: <state != "collapsed" || is_mobile>, **tooltip_hash) { tooltip_hash[:children] }
 end
 ```
 
@@ -171,11 +171,11 @@ end
 
 ### Server vs Stimulus
 
-Server renders everything above for the initial desktop state (`state` from `open`/`default_open`, `is_mobile` false), which equals React's first render (mobile:6, 18). Stimulus: `connect()` evaluates the media query and, if mobile, switches to the mobile mode immediately; it updates `data-state`/`data-collapsible` on every `[data-slot=sidebar]` desktop target, tooltip `hidden`, and the Sheet open value. Ids: only the mobile Sheet's title/description ids (generated by `Components::V2::Sheet`).
+Server renders everything above for the initial desktop state (`state` from `open`/`default_open`, `is_mobile` false), which equals React's first render (mobile:6, 18). Stimulus: `connect()` evaluates the media query and, if mobile, switches to the mobile mode immediately; it updates `data-state`/`data-collapsible` on every `[data-slot=sidebar]` desktop target, tooltip `hidden`, and the Sheet open value. Ids: only the mobile Sheet's title/description ids (generated by `Chadcn::Sheet`).
 
 ## Behavior
 
-Composes `Components::V2::Sheet` (mobile; primitives `portal`, `presence`, `dismissable_layer`, `focus_scope`, `focus_guards`, `hide_others`, `scroll_lock`, `ids` through `chadcn--sheet`) and `Components::V2::Tooltip` (menu-button tooltips; `positioner`, `presence`, `portal`, `dismissable_layer`, `hover_intent`, `ids` through `chadcn--tooltip`). The `chadcn--sidebar` controller itself uses no Radix primitive: it owns the Provider state, the media query, the cookie and the shortcut.
+Composes `Chadcn::Sheet` (mobile; primitives `portal`, `presence`, `dismissable_layer`, `focus_scope`, `focus_guards`, `hide_others`, `scroll_lock`, `ids` through `chadcn--sheet`) and `Chadcn::Tooltip` (menu-button tooltips; `positioner`, `presence`, `portal`, `dismissable_layer`, `hover_intent`, `ids` through `chadcn--tooltip`). The `chadcn--sidebar` controller itself uses no Radix primitive: it owns the Provider state, the media query, the cookie and the shortcut.
 
 **State (tsx:69-127).** Desktop `open` (uncontrolled `_open` from `default_open`, or controlled `open`), derived `state = open ? "expanded" : "collapsed"`; mobile `openMobile` (always starts `false`, tsx:70, not controllable); `isMobile`.
 
@@ -241,8 +241,8 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Dependencies
 
-- `Components::V2::Button` (Trigger), `Components::V2::Input` (Sidebar::Input), `Components::V2::Separator` (Sidebar::Separator), `Components::V2::Skeleton` (MenuSkeleton), `Components::V2::Sheet` + `Sheet::Content`, `Sheet::Header`, `Sheet::Title`, `Sheet::Description` (mobile), `Components::V2::Tooltip`, `Tooltip::Provider`, `Tooltip::Trigger`, `Tooltip::Content` (Provider and MenuButton `tooltip:`), `Components::V2::Icon` (`panel-left` in Trigger). All planned in `dev/port/specs/`.
-- `Components::V2::Base`: `cn`, `merge_attrs`, `render_as_child`, Phlex render context for the Provider state.
+- `Chadcn::Button` (Trigger), `Chadcn::Input` (Sidebar::Input), `Chadcn::Separator` (Sidebar::Separator), `Chadcn::Skeleton` (MenuSkeleton), `Chadcn::Sheet` + `Sheet::Content`, `Sheet::Header`, `Sheet::Title`, `Sheet::Description` (mobile), `Chadcn::Tooltip`, `Tooltip::Provider`, `Tooltip::Trigger`, `Tooltip::Content` (Provider and MenuButton `tooltip:`), `Chadcn::Icon` (`panel-left` in Trigger). All planned in `dev/port/specs/`.
+- `Chadcn::Base`: `cn`, `merge_attrs`, `render_as_child`, Phlex render context for the Provider state.
 - Controllers: `chadcn--sidebar` (new), driving `chadcn--sheet` (controlled `open` value + `open-change` event) and adjusting `chadcn--tooltip` content `hidden`.
 - Scenario trees also use `Button` (sidebar-controlled example) and `Separator` (inset header), both registry dependencies.
 
@@ -250,7 +250,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 Recorded in `dev/port/deviations/sidebar.json`:
 
-1. **Mobile Sheet markup in a `<template>` and node moving.** React decides desktop vs mobile on the client and renders entirely different trees (tsx:183-206). The server cannot know the viewport, so `Sidebar` (non-`none`) emits the desktop tree (= React's first render) plus an inert `<template>` sibling holding the controlled `Components::V2::Sheet` (whose own host is the `display: contents` element of `deviations/sheet.json`); on mobile the controller detaches the desktop node, mounts the Sheet host in its place and moves the block nodes. Neither the template nor the Sheet host carries a `data-slot`, classes or layout, so G2 node lists, boxes and a11y equal the oracle.
+1. **Mobile Sheet markup in a `<template>` and node moving.** React decides desktop vs mobile on the client and renders entirely different trees (tsx:183-206). The server cannot know the viewport, so `Sidebar` (non-`none`) emits the desktop tree (= React's first render) plus an inert `<template>` sibling holding the controlled `Chadcn::Sheet` (whose own host is the `display: contents` element of `deviations/sheet.json`); on mobile the controller detaches the desktop node, mounts the Sheet host in its place and moves the block nodes. Neither the template nor the Sheet host carries a `data-slot`, classes or layout, so G2 node lists, boxes and a11y equal the oracle.
 2. **`SidebarMenuSkeleton` width is random in the oracle** (`Math.random()`, tsx:610-612), so even two React runs differ in the BOX of the text `skeleton` node; the port draws from the same distribution (`rand(40) + 50` percent). Scenarios that need determinism set `style: { width: "60px" }` with `showIcon`, which makes `flex-1` (20px) narrower than any `max-w` (>= 22px); `menu-skeleton__text-only` and `example__sidebar-rsc` keep the random width and their `menu-skeleton-text` BOX width differences are ORACLE_NOISE.
 3. **Event API.** `onOpenChange` maps to the always-dispatched `chadcn--sidebar:open-change`; React's corner case "`onOpenChange` given without `open`" (tsx:79-83: internal state never updates, the sidebar is stuck) has no Ruby equivalent because the server cannot know whether a listener exists, so an uncontrolled Provider always updates. `SidebarRail`'s `onClick={toggleSidebar}` is replaced by a caller `onClick` in React (props spread after, tsx:291-302); in the port caller `data-action` descriptors are added, never replacing the toggle. `open-mobile-change` is an extra informational event (React exposes `openMobile` only through `useSidebar`).
 

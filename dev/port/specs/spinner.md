@@ -1,11 +1,11 @@
-# Spinner (`Components::V2::Spinner`)
+# Spinner (`Chadcn::Spinner`)
 
 Oracle: `dev/port/oracle/src/spinner.tsx` (style `new-york-v4`, source_sha `5d040fc49cb54c02`), manifest `dev/port/oracle/manifest/spinner.json`. Tier `static`: no Stimulus controller, no primitive, no Radix import (`radix_primitives: []`, `use_client: false`). Single export `Spinner`. The source sets **no `data-slot`** (manifest `data_slot: null`, `data_slots: []`): R5 has nothing to apply and the port must not add one.
 
 ## API
 
 ```ruby
-Components::V2::Spinner.new(class: nil, **attrs) { ... }   # React `Spinner`
+Chadcn::Spinner.new(class: nil, **attrs) { ... }   # React `Spinner`
 ```
 
 | kwarg | default (tsx) | accepted values |
@@ -42,8 +42,8 @@ Fully server-rendered; nothing is set by JS. Exact React output (lucide-react 0.
 
 ## Dependencies
 
-- `Components::V2::Icon` (infra `_icons`) with `name: "loader-circle"`, if it reproduces lucide's `Icon` exactly: the `lucide lucide-loader-circle` class prefix, `color` -> `stroke`, `stroke_width`, and the `hasA11yProp` rule that suppresses `aria-hidden` when `role`/`aria-*`/`title` is present. If `Icon` always emits `aria-hidden`, Spinner must not use it as is (G2 would fail on the extra attribute); the builder then renders the same `svg` through the shared icon data, not a hand-drawn path.
-- `Components::V2::Base` for `cn` and attribute merge. `registry_dependencies: []`.
+- `Chadcn::Icon` (infra `_icons`) with `name: "loader-circle"`, if it reproduces lucide's `Icon` exactly: the `lucide lucide-loader-circle` class prefix, `color` -> `stroke`, `stroke_width`, and the `hasA11yProp` rule that suppresses `aria-hidden` when `role`/`aria-*`/`title` is present. If `Icon` always emits `aria-hidden`, Spinner must not use it as is (G2 would fail on the extra attribute); the builder then renders the same `svg` through the shared icon data, not a hand-drawn path.
+- `Chadcn::Base` for `cn` and attribute merge. `registry_dependencies: []`.
 - Registry examples: `spinner-basic`, `spinner-size`, `spinner-color` become `example__*` scenarios (layout wrappers `_div` only). `spinner-demo`/`spinner-item` (Item, Progress, Button), `spinner-button` (Button), `spinner-badge` (Badge), `spinner-empty` (Empty, Button) and `spinner-input-group` (InputGroup) compose components that are not dependencies of spinner, so the coverage check rejects their exports; they belong in those components' scenario files (button/badge/marker currently substitute `<icon:loader-circle>` for Spinner). `spinner-custom` defines its own local `Spinner` around `LoaderIcon` and never renders the oracle export, so it has no scenario here.
 
 ## Deviations

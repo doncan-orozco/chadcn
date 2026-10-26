@@ -12,7 +12,7 @@ Registry examples: `select-demo`, `select-scrollable` (new-york-v4). Stimulus id
 Every part takes `class:` (merged last through `cn`) and `**attrs` (deep-merged `data:`/`aria:`), and accepts string and symbol options (`size: :sm` == `"sm"`, `position: :popper` == `"popper"`, `side: :top`, `align: :start`, `sticky: :always`, `dir: :rtl`).
 
 ```ruby
-Components::V2::Select.new(
+Chadcn::Select.new(
   value: nil,            # controlled value (String); "" or nil shows the placeholder (sel:L1156-1158)
   default_value: nil,    # uncontrolled initial value
   open: nil,             # controlled open (true/false); nil = uncontrolled
@@ -22,13 +22,13 @@ Components::V2::Select.new(
   disabled: false,       # disables the trigger (sel:L170) and the native select
   required: nil          # nil -> no aria-required; true/false -> aria-required="true"/"false" (sel:L201) + native required
 ) { ... }                # renders NO element (Radix Root, sel:L145-163); no class:/attrs (Root takes none)
-Components::V2::Select::Trigger.new(size: "default", disabled: false, class: nil, **attrs) { Select::Value ... }
+Chadcn::Select::Trigger.new(size: "default", disabled: false, class: nil, **attrs) { Select::Value ... }
   # size: "default" | "sm" (src:L28, rendered as data-size). as_child: NOT supported (shadcn passes children + Icon to Radix
   # Slot, React.Children.only throws, src:L44-48); raising ArgumentError is acceptable.
-Components::V2::Select::Value.new(placeholder: "", class: nil, **attrs) { optional children override the selected text }
+Chadcn::Select::Value.new(placeholder: "", class: nil, **attrs) { optional children override the selected text }
   # Radix destructures and DROPS className and style (sel:L244); style is always "pointer-events: none" (sel:L259).
   # The port must accept class: and drop it too (scenario value__classname-dropped).
-Components::V2::Select::Content.new(
+Chadcn::Select::Content.new(
   position: "item-aligned",   # "item-aligned" | "popper" (src:L55, sel:L308)
   align: "center",            # shadcn default (src:L56) overrides Radix's popper default "start" (sel:L701); ignored in item-aligned (sel:L438-449)
   side: "bottom", side_offset: 0, align_offset: 0, avoid_collisions: true, collision_padding: 10,   # popper only (pop:L103-117; padding 10 = CONTENT_MARGIN, sel:L702)
@@ -36,13 +36,13 @@ Components::V2::Select::Content.new(
   sticky: "partial", hide_when_detached: false, arrow_padding: 0,                                    # popper only
   force_mount: false,         # keeps the content mounted while closed (sel:L283-289)
   class: nil, **attrs) { items }
-Components::V2::Select::Group.new(class: nil, **attrs) { Select::Label + Select::Item }     # as_child: supported (Primitive.div)
-Components::V2::Select::Label.new(class: nil, **attrs) { "text" }                            # must be inside a Group (React throws otherwise, sel:L811); as_child: supported
-Components::V2::Select::Item.new(value:, disabled: false, text_value: nil, class: nil, **attrs) { children }
+Chadcn::Select::Group.new(class: nil, **attrs) { Select::Label + Select::Item }     # as_child: supported (Primitive.div)
+Chadcn::Select::Label.new(class: nil, **attrs) { "text" }                            # must be inside a Group (React throws otherwise, sel:L811); as_child: supported
+Chadcn::Select::Item.new(value:, disabled: false, text_value: nil, class: nil, **attrs) { children }
   # value: required String. text_value: overrides typeahead text (default: trimmed textContent of ItemText, sel:L829, L849-851). as_child: NOT supported (two children)
-Components::V2::Select::Separator.new(class: nil, **attrs)                                    # as_child: supported
-Components::V2::Select::ScrollUpButton.new(class: nil, **attrs)   # rendered by Content automatically (src:L73); exported for explicit use inside Content
-Components::V2::Select::ScrollDownButton.new(class: nil, **attrs) # rendered by Content automatically (src:L83)
+Chadcn::Select::Separator.new(class: nil, **attrs)                                    # as_child: supported
+Chadcn::Select::ScrollUpButton.new(class: nil, **attrs)   # rendered by Content automatically (src:L73); exported for explicit use inside Content
+Chadcn::Select::ScrollDownButton.new(class: nil, **attrs) # rendered by Content automatically (src:L83)
 ```
 
 Events (dispatched with `this.dispatch` from the controller host, bubbling, prefix `chadcn--select`):
@@ -203,9 +203,9 @@ Acceptance (unit test): every row exists as a public method on the root instance
 <!-- spec_helpers:end -->
 
 ## Dependencies
-- `Components::V2::Icon` (`chevron-down` in Trigger and ScrollDownButton, `chevron-up` in ScrollUpButton, `check` in the Item indicator), lucide 0.577.0 markup with `aria-hidden="true"`.
-- `Components::V2::Base` (`cn`, `merge_attrs`, `render_as_child` for Group/Label/Separator, ids helper).
-- No other V2 components; scenario trees use only Select exports and raw `_div`/`_form`/`_button` wrappers.
+- `Chadcn::Icon` (`chevron-down` in Trigger and ScrollDownButton, `chevron-up` in ScrollUpButton, `check` in the Item indicator), lucide 0.577.0 markup with `aria-hidden="true"`.
+- `Chadcn::Base` (`cn`, `merge_attrs`, `render_as_child` for Group/Label/Separator, ids helper).
+- No other Chadcn components; scenario trees use only Select exports and raw `_div`/`_form`/`_button` wrappers.
 
 ## Deviations
 One, structural and first-paint only, written to `dev/port/deviations/select.json`:

@@ -1,14 +1,14 @@
-# Bubble (`Components::V2::Bubble`)
+# Bubble (`Chadcn::Bubble`)
 
 Oracle: `dev/port/oracle/src/bubble.tsx` (style `new-york-v4`, source_sha `df1e461e33e835b7`; byte-identical to upstream `apps/v4/registry/new-york-v4/ui/bubble.tsx` on 2026-10-09), manifest `dev/port/oracle/manifest/bubble.json`. Tier `static`: no Stimulus controller, no primitive. Exports `BubbleGroup`, `Bubble`, `BubbleContent`, `BubbleReactions` (the two cva tables `bubbleVariants` / `bubbleReactionsVariants` are NOT exported). Radix primitive used: `Slot` only (`BubbleContent`: `const Comp = asChild ? Slot.Root : "div"`).
 
 ## API
 
 ```ruby
-Components::V2::Bubble::Group.new(class: nil, **attrs) { ... }                                   # BubbleGroup
-Components::V2::Bubble.new(variant: "default", align: "start", class: nil, **attrs) { ... }      # Bubble
-Components::V2::Bubble::Content.new(as_child: false, class: nil, **attrs) { ... }                # BubbleContent
-Components::V2::Bubble::Reactions.new(side: "bottom", align: "end", class: nil, **attrs) { ... } # BubbleReactions
+Chadcn::Bubble::Group.new(class: nil, **attrs) { ... }                                   # BubbleGroup
+Chadcn::Bubble.new(variant: "default", align: "start", class: nil, **attrs) { ... }      # Bubble
+Chadcn::Bubble::Content.new(as_child: false, class: nil, **attrs) { ... }                # BubbleContent
+Chadcn::Bubble::Reactions.new(side: "bottom", align: "end", class: nil, **attrs) { ... } # BubbleReactions
 ```
 
 Name mapping (api-mapping.md, strip root prefix): `BubbleGroup` -> `Bubble::Group`, `BubbleContent` -> `Bubble::Content`, `BubbleReactions` -> `Bubble::Reactions`; `Bubble` is the root class itself.
@@ -18,16 +18,16 @@ Name mapping (api-mapping.md, strip root prefix): `BubbleGroup` -> `Bubble::Grou
 | `Bubble::Group` | `class:` | `nil` (`className`) | merged via `cn` after the base |
 | `Bubble` | `variant:` | `"default"` (`variant = "default"` in `function Bubble`; cva `defaultVariants.variant`) | `default`, `secondary`, `muted`, `tinted`, `outline`, `ghost`, `destructive` |
 | `Bubble` | `align:` | `"start"` (`align = "start"`) | `start`, `end` (TS `align?: "start" \| "end"`; NOT a cva axis, it only feeds `data-align`) |
-| `Bubble::Content` | `as_child:` | `false` (`asChild = false`) | `false` \| tag symbol (`:button`, `:a`) \| a V2 component instance |
+| `Bubble::Content` | `as_child:` | `false` (`asChild = false`) | `false` \| tag symbol (`:button`, `:a`) \| a Chadcn component instance |
 | `Bubble::Reactions` | `side:` | `"bottom"` (`side = "bottom"`; cva `defaultVariants.side`) | `top`, `bottom` |
 | `Bubble::Reactions` | `align:` | `"end"` (`align = "end"`; cva `defaultVariants.align`) | `start`, `end` |
 | all | `**attrs` | `...props` (`React.ComponentProps<"div">`) | any HTML attribute: `id`, `role`, `title`, `tabindex`, `style`, `data: {}`, `aria: {}` / `"aria-*":` |
 
-- Options accept strings and symbols (shadcn-port R4): `variant: :tinted` == `"tinted"`, `side: :top` == `"top"`. `nil` means the default. An option outside the TS union raises `ArgumentError` (consistent with the other V2 ports; cva would silently emit no variant classes).
+- Options accept strings and symbols (shadcn-port R4): `variant: :tinted` == `"tinted"`, `side: :top` == `"top"`. `nil` means the default. An option outside the TS union raises `ArgumentError` (consistent with the other ports; cva would silently emit no variant classes).
 - Note the two different `align` defaults: `Bubble` defaults to `"start"`, `Bubble::Reactions` defaults to `"end"` (tsx lines `align = "start"` and `align = "end"`).
 - No `size:` axis, no `as:`, no class method (cva tables are module-private in the tsx, so no `Bubble.variants`).
 - Block = `children`. `Bubble::Content` accepts text, raw elements, icons, other components; empty renders an empty `div`.
-- `as_child:` on `Bubble::Content` only (the other parts have no `asChild`). Radix `Slot.Root` merge via `Components::V2::Base#render_as_child` (`@radix-ui/react-slot` `mergeProps`): child props win (a child `data-slot` replaces `"bubble-content"`, which also detaches the parent `Bubble`'s `*:data-[slot=bubble-content]:` styling, scenario `api__content-as-child-child-data-slot-wins`), `class` is a PLAIN join slot-first-then-child with no tailwind_merge (`api__content-as-child-anchor-classname`, `api__content-as-child-child-classname-conflict`: both `rounded-xl` and the child's `rounded-none`, both `px-3` and `px-6` stay in the DOM), `style` slot-then-child, `data-action` child first then slot. Harness: `"asChild": true` with one `_button` / `_a` child.
+- `as_child:` on `Bubble::Content` only (the other parts have no `asChild`). Radix `Slot.Root` merge via `Chadcn::Base#render_as_child` (`@radix-ui/react-slot` `mergeProps`): child props win (a child `data-slot` replaces `"bubble-content"`, which also detaches the parent `Bubble`'s `*:data-[slot=bubble-content]:` styling, scenario `api__content-as-child-child-data-slot-wins`), `class` is a PLAIN join slot-first-then-child with no tailwind_merge (`api__content-as-child-anchor-classname`, `api__content-as-child-child-classname-conflict`: both `rounded-xl` and the child's `rounded-none`, both `px-3` and `px-6` stay in the DOM), `style` slot-then-child, `data-action` child first then slot. Harness: `"asChild": true` with one `_button` / `_a` child.
 - `as_child` matters for styling: every hover token is `[&>[data-slot=bubble-content]:is(button,a):hover]:` on `Bubble`, and every focus token is `[button,a]:` on `Bubble::Content` (Tailwind v4 arbitrary variant without `&` = `&:is(button,a)`), so only a content element that IS a `<button>`/`<a>` gets hover/focus/transition/text-left styling.
 - Events: none dispatched (no `on*` props in the source). `ref`: no equivalent.
 
@@ -106,7 +106,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 ## Dependencies
 
 - None rendered by the component (`registry_dependencies: []`, no lucide import).
-- Needs `Components::V2::Base` for `cn`, attribute merge and `render_as_child` (Slot).
+- Needs `Chadcn::Base` for `cn`, attribute merge and `render_as_child` (Slot).
 - Scenarios use lucide icons via `<icon:...>` (`check`, `chevron-down`, `info`).
 - Example substitutions (scenario-level only, identical on both harnesses, not component deviations). Upstream examples are `apps/v4/examples/radix/bubble-{alignment,collapsible,demo,group-demo,link-button,markdown,popover,reactions,tooltip,variants}.tsx` (the `/r/styles/new-york-v4/bubble-*.json` endpoints return 404; examples import from `@/styles/radix-rhea/ui/bubble`, rendered here with the new-york-v4 oracle). Bubble has no registry dependency on `Button`, `Tooltip`, `Popover` or `Collapsible`, so the coverage check rejects their exports:
   - `bubble-popover`, `bubble-reactions`, `bubble-tooltip`: `Button` (and the `PopoverTrigger`/`TooltipTrigger` wrapping it) -> `_button` with the example's `aria-label`/`className`; popover/tooltip content omitted (closed state). `bubble-collapsible`: `Collapsible` -> `_div`, `CollapsibleTrigger asChild > Button` -> `_button` with the example's className and `<icon:chevron-down>`, rendered closed (`text.slice(0, 180) + "..."`, label "Show more").

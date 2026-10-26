@@ -1,28 +1,28 @@
-# Empty (`Components::V2::Empty`)
+# Empty (`Chadcn::Empty`)
 
 Oracle: `dev/port/oracle/src/empty.tsx` (style `new-york-v4`, manifest `source_sha` `54f529ccf72c18c4`), manifest `dev/port/oracle/manifest/empty.json`. Tier `static`: no `"use client"`, no Radix primitive, no hooks, no icons, no Stimulus controller. Exports `Empty`, `EmptyHeader`, `EmptyTitle`, `EmptyDescription`, `EmptyContent`, `EmptyMedia`. Six parts, data-slots `empty`, `empty-header`, `empty-icon` (on `EmptyMedia`), `empty-title`, `empty-description`, `empty-content`. One cva table, `emptyMediaVariants`. Registry examples (`https://ui.shadcn.com/r/styles/new-york-v4/<name>.json`): `empty-demo`, `empty-icon`, `empty-avatar`, `empty-avatar-group`, `empty-input-group`, `empty-outline`, `empty-background`.
 
 ## API
 
 ```ruby
-Components::V2::Empty.new(class: nil, **attrs) { ... }
-Components::V2::Empty::Header.new(class: nil, **attrs) { ... }
-Components::V2::Empty::Media.new(variant: "default", class: nil, **attrs) { ... }
-Components::V2::Empty::Title.new(class: nil, **attrs) { ... }
-Components::V2::Empty::Description.new(class: nil, **attrs) { ... }
-Components::V2::Empty::Content.new(class: nil, **attrs) { ... }
+Chadcn::Empty.new(class: nil, **attrs) { ... }
+Chadcn::Empty::Header.new(class: nil, **attrs) { ... }
+Chadcn::Empty::Media.new(variant: "default", class: nil, **attrs) { ... }
+Chadcn::Empty::Title.new(class: nil, **attrs) { ... }
+Chadcn::Empty::Description.new(class: nil, **attrs) { ... }
+Chadcn::Empty::Content.new(class: nil, **attrs) { ... }
 
-Components::V2::Empty::Media.variants(variant: "default", class: nil) # => class string (emptyMediaVariants)
+Chadcn::Empty::Media.variants(variant: "default", class: nil) # => class string (emptyMediaVariants)
 ```
 
 | part (tsx function) | Ruby class | kwargs (default) |
 |---|---|---|
-| `Empty` | `Components::V2::Empty` | `class:` (nil), `**attrs` |
-| `EmptyHeader` | `Components::V2::Empty::Header` | `class:` (nil), `**attrs` |
-| `EmptyMedia` | `Components::V2::Empty::Media` | `variant:` (`"default"`, tsx `variant = "default"` and cva `defaultVariants.variant: "default"`), `class:` (nil), `**attrs` |
-| `EmptyTitle` | `Components::V2::Empty::Title` | `class:` (nil), `**attrs` |
-| `EmptyDescription` | `Components::V2::Empty::Description` | `class:` (nil), `**attrs` |
-| `EmptyContent` | `Components::V2::Empty::Content` | `class:` (nil), `**attrs` |
+| `Empty` | `Chadcn::Empty` | `class:` (nil), `**attrs` |
+| `EmptyHeader` | `Chadcn::Empty::Header` | `class:` (nil), `**attrs` |
+| `EmptyMedia` | `Chadcn::Empty::Media` | `variant:` (`"default"`, tsx `variant = "default"` and cva `defaultVariants.variant: "default"`), `class:` (nil), `**attrs` |
+| `EmptyTitle` | `Chadcn::Empty::Title` | `class:` (nil), `**attrs` |
+| `EmptyDescription` | `Chadcn::Empty::Description` | `class:` (nil), `**attrs` |
+| `EmptyContent` | `Chadcn::Empty::Content` | `class:` (nil), `**attrs` |
 
 - `variant:` accepts `"default"`, `:default`, `"icon"`, `:icon` (shadcn-port R4); the string form is what lands in `data-variant`. `variant: nil` behaves like the default (cva falls back to `defaultVariants`; the tsx default parameter also yields `"default"` for `undefined`).
 - `class:` is merged through `cn` (tailwind_merge) after the part's classes; caller wins conflicts (R6). For `EmptyMedia` the tsx passes `className` into the cva call and then `cn` (`cn(emptyMediaVariants({ variant, className }))`), so the Ruby equivalent is `cn(BASE, VARIANTS[variant], class)` as one merge.
@@ -93,7 +93,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Dependencies
 
-None (`registry_dependencies: []`, `icons: []`). The component renders no other `Components::V2` component; icons inside Media are caller content.
+None (`registry_dependencies: []`, `icons: []`). The component renders no other `Chadcn` component; icons inside Media are caller content.
 
 Example substitutions (scenario-level, identical on both harnesses, not component deviations), because the scenario coverage check only admits Empty's own exports when `registry_dependencies` is empty:
 - `Button` (`empty-demo`, `empty-avatar`, `empty-avatar-group`, `empty-outline`, `empty-background`) is rendered as a raw `_button type="button"`; the `Button variant="link" asChild` around `<a>` in `empty-demo` becomes the bare `_a href="#" className="text-muted-foreground"`.

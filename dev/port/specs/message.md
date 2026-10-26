@@ -1,16 +1,16 @@
-# Message (`Components::V2::Message`)
+# Message (`Chadcn::Message`)
 
 Oracle: `dev/port/oracle/src/message.tsx` (style `new-york-v4`, source_sha `64e9ae0f9d1e268b`), manifest `dev/port/oracle/manifest/message.json`. Tier `static`: no Stimulus controller, no primitive, no Radix primitive (the tsx imports only `React` and `cn`; no `asChild`, no `Slot`). Exports `MessageGroup`, `Message`, `MessageAvatar`, `MessageContent`, `MessageFooter`, `MessageHeader`. No cva table, no `use client`.
 
 ## API
 
 ```ruby
-Components::V2::Message::Group.new(class: nil, **attrs) { ... }                 # MessageGroup
-Components::V2::Message.new(align: "start", class: nil, **attrs) { ... }        # Message
-Components::V2::Message::Avatar.new(class: nil, **attrs) { ... }                # MessageAvatar
-Components::V2::Message::Content.new(class: nil, **attrs) { ... }               # MessageContent
-Components::V2::Message::Header.new(class: nil, **attrs) { ... }                # MessageHeader
-Components::V2::Message::Footer.new(class: nil, **attrs) { ... }                # MessageFooter
+Chadcn::Message::Group.new(class: nil, **attrs) { ... }                 # MessageGroup
+Chadcn::Message.new(align: "start", class: nil, **attrs) { ... }        # Message
+Chadcn::Message::Avatar.new(class: nil, **attrs) { ... }                # MessageAvatar
+Chadcn::Message::Content.new(class: nil, **attrs) { ... }               # MessageContent
+Chadcn::Message::Header.new(class: nil, **attrs) { ... }                # MessageHeader
+Chadcn::Message::Footer.new(class: nil, **attrs) { ... }                # MessageFooter
 ```
 
 Name mapping (api-mapping.md, strip the root prefix): `MessageGroup` -> `Message::Group`, `MessageAvatar` -> `Message::Avatar`, `MessageContent` -> `Message::Content`, `MessageHeader` -> `Message::Header`, `MessageFooter` -> `Message::Footer`; `Message` is the root class itself.
@@ -21,7 +21,7 @@ Name mapping (api-mapping.md, strip the root prefix): `MessageGroup` -> `Message
 | all | `class:` | `nil` (`className`) | merged via `cn` after the base classes |
 | all | `**attrs` | `...props` (`React.ComponentProps<"div">`) | any HTML attribute: `id`, `role`, `title`, `dir`, `style`, `tabindex`, `data: {}`, `aria: {}` / `"aria-*":` |
 
-- `align:` accepts strings and symbols (shadcn-port R4): `align: :end` == `"end"`; `nil` means the default `"start"`. A value outside the TS union raises `ArgumentError` (same policy as the other V2 ports).
+- `align:` accepts strings and symbols (shadcn-port R4): `align: :end` == `"end"`; `nil` means the default `"start"`. A value outside the TS union raises `ArgumentError` (same policy as the other ports).
 - Block = `children`. Every part accepts text, raw elements, icons and other components (e.g. `Bubble`, `Avatar`, `Button`, `Attachment` from the registry examples); an empty block renders an empty `div` (`empty__all-parts`, `empty__message`, `avatar__empty`: the `message-group` example renders `<MessageAvatar />` with no children as a spacer).
 - No `as:`, no `as_child:` (no `asChild` prop in the tsx), no `variant:`/`size:`, no class method (nothing like `messageVariants` is exported).
 - Events: none dispatched (no `on*` props in the source). `ref`: no equivalent.
@@ -93,7 +93,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Dependencies
 
-- None rendered by the component (`registry_dependencies: []`, no lucide import). Needs `Components::V2::Base` for `cn` and attribute merge only.
+- None rendered by the component (`registry_dependencies: []`, no lucide import). Needs `Chadcn::Base` for `cn` and attribute merge only.
 - Scenarios use lucide icons via `<icon:...>` (`bot`, `copy`, `thumbs-up`, `thumbs-down`, `refresh-ccw`, `image`, `file-text`, `download`) in raw-element stand-ins only.
 - Example substitutions (scenario-level only, identical on both harnesses, not component deviations). Upstream examples are `apps/v4/examples/radix/message-{actions,attachment,avatar,demo,group,header-footer,markdown}.tsx` (the `/r/styles/new-york-v4/message-*.json` endpoints return 404; the `message-scroller-*` examples belong to the separate `message-scroller` component). They compose `Bubble`, `Avatar`, `Button`, `Attachment` and `Marker`, none of which is a registry dependency of `message`, so the coverage check rejects their exports. Each such part is replaced by a raw `_div`/`_span`/`_button` that carries exactly the `data-*` attributes the real part emits by default (`data-slot`, plus `data-variant`/`data-align` for `Bubble`, `data-variant`/`data-size` for `Button`, `data-state`/`data-size`/`data-orientation` for `Attachment`, `data-variant` for `AttachmentMedia`, `data-size` for `Avatar`; values from the dependency tsx defaults), because these are the attributes `Message`'s selectors read (`*:data-slot`, `has-data-[slot=message-footer]`, `has-data-[variant=ghost]`). Their classes are omitted. Further changes: `AvatarImage` (`/avatars/*.png`, not shipped) dropped, fallback text kept; the unsplash `<img>` in `message-attachment` replaced by `<icon:image>` (no network in the harness); the `Marker` "is typing..." row of `message-demo` dropped; the docs-site `Markdown` in `message-markdown` replaced by `_p`/`_ol`/`_li`/`_strong`/`_code` with the same text. Full compositions become cross-component scenarios once `bubble`, `avatar`, `button`, `attachment` and `marker` are DONE.
 

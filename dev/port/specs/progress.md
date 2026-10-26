@@ -9,7 +9,7 @@ Key oracle fact (progress.tsx): shadcn destructures `value` out of the props and
 One export, one Ruby class. The Indicator is not exported by shadcn; it is rendered internally (no Ruby class for callers).
 
 ```ruby
-Components::V2::Progress.new(
+Chadcn::Progress.new(
   value: nil,      # Numeric or nil; only used for the Indicator transform (progress.tsx `value || 0`)
   max: nil,        # forwarded to Radix Root via ...props; valid iff Numeric, not NaN, > 0 (progress.mjs:80-82), else 100 (DEFAULT_MAX, progress.mjs:11, 27)
   class: nil,      # merged last into the Root classes through cn (tailwind_merge), caller wins
@@ -68,7 +68,7 @@ Primitives composed: none (the radix-stimulus family table lists progress under 
 
 ## Dependencies
 
-None. Progress renders no other `Components::V2` component and no icon (manifest `icons: []`, `registry_dependencies: []`). Scenarios use raw `_div` / `_span` / `_button` nodes only as neutral wrappers, labels and focus neighbours.
+None. Progress renders no other `Chadcn` component and no icon (manifest `icons: []`, `registry_dependencies: []`). Scenarios use raw `_div` / `_span` / `_button` nodes only as neutral wrappers, labels and focus neighbours.
 
 ## Deviations
 

@@ -7,11 +7,11 @@ Menu internals (items, checkbox/radio, sub menus, typeahead, roving focus, point
 
 ## API
 
-Namespace `Components::V2::ContextMenu`. Every option accepts strings and symbols (`variant: :destructive` == `"destructive"`, `dir: :rtl` == `"rtl"`). `class:` is merged last through `cn` (caller wins) on parts that have oracle classes; on parts with NO oracle classes (Trigger, Group, RadioGroup) shadcn does not call `cn` (tsx:18, 26, 49 spread `className` raw), so the caller's `class` is emitted VERBATIM (no tailwind-merge; scenario `trigger__class-passthrough` keeps both `rounded-md` and `rounded-full`). `data:`/`aria:` hashes deep-merge; every other key in `**attrs` passes through (`id`, `role`, `aria-*`, `data-*`, `style`, `title`...). `as_child:` is `false | tag symbol | V2 component instance` through `Components::V2::Base#render_as_child` (Radix Slot merge) on every Radix `Primitive` part (all except `ContextMenu`, `Portal`, `Sub`, `Shortcut`).
+Namespace `Chadcn::ContextMenu`. Every option accepts strings and symbols (`variant: :destructive` == `"destructive"`, `dir: :rtl` == `"rtl"`). `class:` is merged last through `cn` (caller wins) on parts that have oracle classes; on parts with NO oracle classes (Trigger, Group, RadioGroup) shadcn does not call `cn` (tsx:18, 26, 49 spread `className` raw), so the caller's `class` is emitted VERBATIM (no tailwind-merge; scenario `trigger__class-passthrough` keeps both `rounded-md` and `rounded-full`). `data:`/`aria:` hashes deep-merge; every other key in `**attrs` passes through (`id`, `role`, `aria-*`, `data-*`, `style`, `title`...). `as_child:` is `false | tag symbol | Chadcn component instance` through `Chadcn::Base#render_as_child` (Radix Slot merge) on every Radix `Primitive` part (all except `ContextMenu`, `Portal`, `Sub`, `Shortcut`).
 
 | React export | Ruby call (kwargs with defaults) | Notes / source |
 |---|---|---|
-| `ContextMenu` | `Components::V2::ContextMenu.new(open: nil, dir: nil, modal: true) { ... }` | Renders NO element (`non_rendered_slots`; CM:21-53). There is NO `default_open:`: Radix Root props are only `open`, `onOpenChange`, `dir`, `modal` (CM.d:12-18; `defaultProp: false`, CM:37). `open:` non-nil = controlled: user actions only dispatch `open-change`. `open: true` before any interaction anchors the content at the viewport point (0, 0) (initial `point` state, CM:61; Radix logs a dev warning, CM:27-31). `modal:` default `true` (CM:22). `dir:` `"ltr" \| "rtl"`, nil -> `"ltr"` (`useDirection`, never `html[dir]`). Unknown kwargs raise `ArgumentError`. |
+| `ContextMenu` | `Chadcn::ContextMenu.new(open: nil, dir: nil, modal: true) { ... }` | Renders NO element (`non_rendered_slots`; CM:21-53). There is NO `default_open:`: Radix Root props are only `open`, `onOpenChange`, `dir`, `modal` (CM.d:12-18; `defaultProp: false`, CM:37). `open:` non-nil = controlled: user actions only dispatch `open-change`. `open: true` before any interaction anchors the content at the viewport point (0, 0) (initial `point` state, CM:61; Radix logs a dev warning, CM:27-31). `modal:` default `true` (CM:22). `dir:` `"ltr" \| "rtl"`, nil -> `"ltr"` (`useDirection`, never `html[dir]`). Unknown kwargs raise `ArgumentError`. |
 | `ContextMenuTrigger` | `ContextMenu::Trigger.new(disabled: false, as_child: false, class: nil, **attrs) { ... }` | `<span>` (CM:84-111). Hosts the `chadcn--context-menu` controller. `style:` is merged AFTER `-webkit-touch-callout: none` (caller wins, CM:91). |
 | `ContextMenuPortal` | `ContextMenu::Portal.new(force_mount: false, container: nil) { ... }` | Renders NO element (CM:115-119, M:122-126). `container:` CSS selector (DOM-reference translation, as in dropdown-menu). Only meaningful around `SubContent` (shadcn `Content` portals itself, tsx:100). |
 | `ContextMenuContent` | `ContextMenu::Content.new(align_offset: 0, avoid_collisions: true, collision_padding: 0, collision_boundary: nil, sticky: "partial", hide_when_detached: false, update_position_strategy: "optimized", arrow_padding: 0, loop: false, force_mount: false, as_child: false, class: nil, **attrs) { ... }` | `side`, `side_offset`, `align` are NOT options: the type omits them (CM.d:30 `Omit<MenuContentProps, 'onEntryFocus' \| 'side' \| 'sideOffset' \| 'align'>`) and the code forces `side: "right", sideOffset: 2, align: "start"` after the caller props (CM:131-136). Passing them raises `ArgumentError`. Other defaults are Radix popper/menu defaults (same as dropdown-menu spec). Always portaled (tsx:100). |
@@ -145,9 +145,9 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Dependencies
 
-- `Components::V2::Icon` (`check` in CheckboxItem, `circle` in RadioItem, `chevron-right` in SubTrigger; lucide 0.577.0, classes tsx:74, 154, 178).
-- `Components::V2::Base` (`render_as_child`, `merge_attrs`, `cn`).
-- Shared menu module with `chadcn--dropdown-menu` (content, items, subs, typeahead), via the primitives above. No other V2 component is rendered.
+- `Chadcn::Icon` (`check` in CheckboxItem, `circle` in RadioItem, `chevron-right` in SubTrigger; lucide 0.577.0, classes tsx:74, 154, 178).
+- `Chadcn::Base` (`render_as_child`, `merge_attrs`, `cn`).
+- Shared menu module with `chadcn--dropdown-menu` (content, items, subs, typeahead), via the primitives above. No other Chadcn component is rendered.
 
 ## Deviations
 

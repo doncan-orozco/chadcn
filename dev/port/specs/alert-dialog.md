@@ -16,24 +16,24 @@ Differences from Dialog, all from `ad:`:
 
 ## API
 
-Every part: `class:` goes through `cn` last (caller wins, tailwind-merge) EXCEPT on `Action`/`Cancel` (see below), `**attrs` pass through (`data:`/`aria:` deep-merged), string and symbol option values accepted. Parts wrapping a `Primitive.*` (Trigger, Overlay, Content, Title, Description, Action, Cancel) accept `as_child:` (`false` | tag symbol | `Components::V2::*` instance) via `Components::V2::Base#render_as_child` (Radix Slot merge, child wins).
+Every part: `class:` goes through `cn` last (caller wins, tailwind-merge) EXCEPT on `Action`/`Cancel` (see below), `**attrs` pass through (`data:`/`aria:` deep-merged), string and symbol option values accepted. Parts wrapping a `Primitive.*` (Trigger, Overlay, Content, Title, Description, Action, Cancel) accept `as_child:` (`false` | tag symbol | `Chadcn::*` instance) via `Chadcn::Base#render_as_child` (Radix Slot merge, child wins).
 
 | React | Ruby | Notes |
 |---|---|---|
-| `AlertDialog` (`AlertDialogPrimitive.Root`; props `open`, `defaultOpen`, `onOpenChange`, dialog:30-38; `modal` forced true, ad:21) | `Components::V2::AlertDialog.new(open: nil, default_open: false) { ... }` | No `modal:` kwarg (Radix type is `Omit<DialogProps, "modal">` and ad:21 overrides it); passing `modal:` raises `ArgumentError`. `open:` true/false = controlled (controller only dispatches `open-change`, caller sets `data-chadcn--alert-dialog-open-value`), `nil` = uncontrolled from `default_open`. Renders no shadcn element (Structure, deviation 1). |
-| `AlertDialogTrigger` | `Components::V2::AlertDialog::Trigger.new(as_child: false, class: nil, **attrs) { label }` | No default classes. Toggles (dialog:89). |
-| `AlertDialogPortal` (`forceMount`, `container`, dialog:98-102) | `Components::V2::AlertDialog::Portal.new(force_mount: false, container: nil) { ... }` | Renders nothing; children moved to `container` (CSS selector string, deviation 3), default `document.body`. |
-| `AlertDialogOverlay` (`forceMount`, dialog:107) | `Components::V2::AlertDialog::Overlay.new(force_mount: false, as_child: false, class: nil, **attrs)` | Always rendered (always modal, dialog:109). |
-| `AlertDialogContent` (`size = "default"`; Radix `forceMount`, `onOpenAutoFocus`, `onCloseAutoFocus`, `onEscapeKeyDown`, `onFocusOutside`) | `Components::V2::AlertDialog::Content.new(size: "default", force_mount: false, as_child: false, class: nil, **attrs) { ... }` | `size:` accepts `"default"`/`:default`, `"sm"`/`:sm`; `nil` = `"default"`; anything else raises `ArgumentError` (TS union). Always renders its own `AlertDialog::Portal` containing `AlertDialog::Overlay` then the content element (shadcn source). No close button. |
-| `AlertDialogHeader` | `Components::V2::AlertDialog::Header.new(class: nil, **attrs) { ... }` | plain `div`. |
-| `AlertDialogFooter` | `Components::V2::AlertDialog::Footer.new(class: nil, **attrs) { ... }` | plain `div`, no `show_close_button` (unlike Dialog). |
-| `AlertDialogTitle` | `Components::V2::AlertDialog::Title.new(as_child: false, class: nil, **attrs) { text }` | `h2`. |
-| `AlertDialogDescription` | `Components::V2::AlertDialog::Description.new(as_child: false, class: nil, **attrs) { text }` | `p`. |
-| `AlertDialogMedia` | `Components::V2::AlertDialog::Media.new(class: nil, **attrs) { icon }` | plain `div`, no `as_child`. |
-| `AlertDialogAction` (`variant = "default"`, `size = "default"`) | `Components::V2::AlertDialog::Action.new(variant: "default", size: "default", as_child: false, class: nil, **attrs) { label }` | `variant:`/`size:` are the Button options (all keys of `Components::V2::Button`, strings or symbols, `:icon_sm` == `"icon-sm"`). Closes (dialog:311 via ad:85). |
-| `AlertDialogCancel` (`variant = "outline"`, `size = "default"`) | `Components::V2::AlertDialog::Cancel.new(variant: "outline", size: "default", as_child: false, class: nil, **attrs) { label }` | Same as Action but default variant `outline`; registers as the open-autofocus target (ad:92-94). |
+| `AlertDialog` (`AlertDialogPrimitive.Root`; props `open`, `defaultOpen`, `onOpenChange`, dialog:30-38; `modal` forced true, ad:21) | `Chadcn::AlertDialog.new(open: nil, default_open: false) { ... }` | No `modal:` kwarg (Radix type is `Omit<DialogProps, "modal">` and ad:21 overrides it); passing `modal:` raises `ArgumentError`. `open:` true/false = controlled (controller only dispatches `open-change`, caller sets `data-chadcn--alert-dialog-open-value`), `nil` = uncontrolled from `default_open`. Renders no shadcn element (Structure, deviation 1). |
+| `AlertDialogTrigger` | `Chadcn::AlertDialog::Trigger.new(as_child: false, class: nil, **attrs) { label }` | No default classes. Toggles (dialog:89). |
+| `AlertDialogPortal` (`forceMount`, `container`, dialog:98-102) | `Chadcn::AlertDialog::Portal.new(force_mount: false, container: nil) { ... }` | Renders nothing; children moved to `container` (CSS selector string, deviation 3), default `document.body`. |
+| `AlertDialogOverlay` (`forceMount`, dialog:107) | `Chadcn::AlertDialog::Overlay.new(force_mount: false, as_child: false, class: nil, **attrs)` | Always rendered (always modal, dialog:109). |
+| `AlertDialogContent` (`size = "default"`; Radix `forceMount`, `onOpenAutoFocus`, `onCloseAutoFocus`, `onEscapeKeyDown`, `onFocusOutside`) | `Chadcn::AlertDialog::Content.new(size: "default", force_mount: false, as_child: false, class: nil, **attrs) { ... }` | `size:` accepts `"default"`/`:default`, `"sm"`/`:sm`; `nil` = `"default"`; anything else raises `ArgumentError` (TS union). Always renders its own `AlertDialog::Portal` containing `AlertDialog::Overlay` then the content element (shadcn source). No close button. |
+| `AlertDialogHeader` | `Chadcn::AlertDialog::Header.new(class: nil, **attrs) { ... }` | plain `div`. |
+| `AlertDialogFooter` | `Chadcn::AlertDialog::Footer.new(class: nil, **attrs) { ... }` | plain `div`, no `show_close_button` (unlike Dialog). |
+| `AlertDialogTitle` | `Chadcn::AlertDialog::Title.new(as_child: false, class: nil, **attrs) { text }` | `h2`. |
+| `AlertDialogDescription` | `Chadcn::AlertDialog::Description.new(as_child: false, class: nil, **attrs) { text }` | `p`. |
+| `AlertDialogMedia` | `Chadcn::AlertDialog::Media.new(class: nil, **attrs) { icon }` | plain `div`, no `as_child`. |
+| `AlertDialogAction` (`variant = "default"`, `size = "default"`) | `Chadcn::AlertDialog::Action.new(variant: "default", size: "default", as_child: false, class: nil, **attrs) { label }` | `variant:`/`size:` are the Button options (all keys of `Chadcn::Button`, strings or symbols, `:icon_sm` == `"icon-sm"`). Closes (dialog:311 via ad:85). |
+| `AlertDialogCancel` (`variant = "outline"`, `size = "default"`) | `Chadcn::AlertDialog::Cancel.new(variant: "outline", size: "default", as_child: false, class: nil, **attrs) { label }` | Same as Action but default variant `outline`; registers as the open-autofocus target (ad:92-94). |
 
-**Action/Cancel class merge (load-bearing).** The shadcn source is `<Button variant size asChild><Primitive.Action data-slot="alert-dialog-action" className={cn(className)} {...props}/></Button>`. Button's own `className` is undefined, so the Slot's class is exactly `buttonVariants({ variant, size })`; the caller's class is on the child. Radix Slot `mergeProps` joins them as a plain string, slot first, NO tailwind-merge. So the port computes `[Components::V2::Button.variants(variant:, size:), cn(class)].compact_blank.join(" ")`; `class: "rounded-full"` keeps BOTH `rounded-md` and `rounded-full` (scenario `api__action-classname-no-merge`). Do not run the caller class through `cn` together with the button classes. The simplest correct implementation is literally `render_as_child` with a Button slot and a Close-like child.
+**Action/Cancel class merge (load-bearing).** The shadcn source is `<Button variant size asChild><Primitive.Action data-slot="alert-dialog-action" className={cn(className)} {...props}/></Button>`. Button's own `className` is undefined, so the Slot's class is exactly `buttonVariants({ variant, size })`; the caller's class is on the child. Radix Slot `mergeProps` joins them as a plain string, slot first, NO tailwind-merge. So the port computes `[Chadcn::Button.variants(variant:, size:), cn(class)].compact_blank.join(" ")`; `class: "rounded-full"` keeps BOTH `rounded-md` and `rounded-full` (scenario `api__action-classname-no-merge`). Do not run the caller class through `cn` together with the button classes. The simplest correct implementation is literally `render_as_child` with a Button slot and a Close-like child.
 
 Events (dispatched with `this.dispatch` from the `chadcn--alert-dialog` host, `bubbles: true`; prefix `chadcn--alert-dialog:`):
 
@@ -50,16 +50,16 @@ NOT dispatched: `pointer-down-outside`, `interact-outside` (AlertDialog replaces
 Example (registry `alert-dialog-demo`):
 
 ```ruby
-render Components::V2::AlertDialog.new do
-  render Components::V2::AlertDialog::Trigger.new(as_child: Components::V2::Button.new(variant: "outline")) { "Show Dialog" }
-  render Components::V2::AlertDialog::Content.new do
-    render Components::V2::AlertDialog::Header.new do
-      render Components::V2::AlertDialog::Title.new { "Are you absolutely sure?" }
-      render Components::V2::AlertDialog::Description.new { "This action cannot be undone. ..." }
+render Chadcn::AlertDialog.new do
+  render Chadcn::AlertDialog::Trigger.new(as_child: Chadcn::Button.new(variant: "outline")) { "Show Dialog" }
+  render Chadcn::AlertDialog::Content.new do
+    render Chadcn::AlertDialog::Header.new do
+      render Chadcn::AlertDialog::Title.new { "Are you absolutely sure?" }
+      render Chadcn::AlertDialog::Description.new { "This action cannot be undone. ..." }
     end
-    render Components::V2::AlertDialog::Footer.new do
-      render Components::V2::AlertDialog::Cancel.new { "Cancel" }
-      render Components::V2::AlertDialog::Action.new { "Continue" }
+    render Chadcn::AlertDialog::Footer.new do
+      render Chadcn::AlertDialog::Cancel.new { "Cancel" }
+      render Chadcn::AlertDialog::Action.new { "Continue" }
     end
   end
 end
@@ -170,9 +170,9 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Dependencies
 
-- `Components::V2::Button`: `Action` and `Cancel` render through `Button` as slot (`Button.variants(variant:, size:)` for the class, `data-variant`/`data-size`); examples use it as `as_child` of Trigger.
-- `Components::V2::Icon` (scenarios only: `circle-fading-plus`, `bluetooth`, `trash-2` inside `AlertDialog::Media`); the component itself renders no icon.
-- `Components::V2::Base`: `cn`, `merge_attrs`, `render_as_child`, ids.
+- `Chadcn::Button`: `Action` and `Cancel` render through `Button` as slot (`Button.variants(variant:, size:)` for the class, `data-variant`/`data-size`); examples use it as `as_child` of Trigger.
+- `Chadcn::Icon` (scenarios only: `circle-fading-plus`, `bluetooth`, `trash-2` inside `AlertDialog::Media`); the component itself renders no icon.
+- `Chadcn::Base`: `cn`, `merge_attrs`, `render_as_child`, ids.
 - Primitives `app/javascript/v2/primitives/`: `portal.js`, `presence.js`, `dismissable_layer.js`, `focus_scope.js`, `focus_guards.js`, `hide_others.js`, `scroll_lock.js`, `ids.js`.
 
 ## Deviations

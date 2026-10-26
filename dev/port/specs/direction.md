@@ -6,12 +6,12 @@ Exports: `DirectionProvider` (a part) and `useDirection` (a hook, lower-case exp
 
 ## API
 
-### `DirectionProvider` -> `Components::V2::Direction::Provider`
+### `DirectionProvider` -> `Chadcn::Direction::Provider`
 
 Name rule: root `Direction`, strip the prefix -> `Direction::Provider` (Radix also exports it as `Provider`, dir.mjs:24).
 
 ```ruby
-Components::V2::Direction::Provider.new(
+Chadcn::Direction::Provider.new(
   dir: nil,        # "ltr" | "rtl" | :ltr | :rtl | nil   (Radix prop, dir.mjs:14)
   direction: nil   # "ltr" | "rtl" | :ltr | :rtl | nil   (shadcn alias, direction.tsx `direction ?? dir`)
 ) { children }
@@ -23,13 +23,13 @@ Components::V2::Direction::Provider.new(
 - No events: Radix dispatches none (dir.mjs has no state, no handlers).
 - Block = children; rendered unchanged.
 
-### `useDirection` -> `Components::V2::Direction.use_direction`
+### `useDirection` -> `Chadcn::Direction.use_direction`
 
 ```ruby
-Components::V2::Direction.use_direction(context, local_dir = nil) # => "ltr" | "rtl"
+Chadcn::Direction.use_direction(context, local_dir = nil) # => "ltr" | "rtl"
 
 # mixin for consumers (Accordion, Tabs, menus, Select, RadioGroup, ToggleGroup, Slider, ScrollArea,
-# NavigationMenu, Menubar, Toolbar...): include Components::V2::Direction::Consumer
+# NavigationMenu, Menubar, Toolbar...): include Chadcn::Direction::Consumer
 use_direction(local_dir = nil) # instance helper, delegates with the component's Phlex `context`
 ```
 
@@ -58,11 +58,11 @@ Tier `radix_stateful` comes from the Radix import classification; dir.mjs has no
 - No Stimulus controller (`chadcn--direction` does not exist); attaching one would add a `data-controller` the oracle lacks (radix-stimulus R11).
 - Client-side consumers: a consumer controller reads the direction from the `dir` attribute that its own server-rendered root carries (which is how the Radix consumer DOM looks), never from `document.dir`/`<html dir>`. Note for the infra wave: `radix-stimulus/references/primitives.md` describes `direction.js` as "reads `dir` from nearest ancestor/`html`"; per dir.mjs:17-20 that would diverge from Radix for a consumer inside `<html dir="rtl">` without a Provider (Radix: `ltr`). `direction.js` must read the consumer element's own `dir` attribute and default to `"ltr"`.
 - Primitives composed: none.
-- Parity scenarios (`scenarios/direction.json`): the provider renders no DOM, so every scenario observes it through already-ported CONSUMERS that call `useDirection`: `SelectTrigger`/`SelectContent` emit `dir` (react-select/dist/index.mjs:74,124,203,493), `DropdownMenuContent` emits `dir` and flips the sub-menu open key (react-menu/dist/index.mjs:313/329), and a horizontal `Accordion` flips ArrowLeft/ArrowRight (react-accordion/dist/index.mjs:127-128). Covered: provider rtl/ltr via `direction` and `dir`, `direction` beating `dir`, no value -> ltr, nesting (inner overrides outer, outer restored after it, inner without value shadows to ltr), a consumer's local `dir` beating the provider, and the html[dir] negative proofs (`rtl-ancestor-without-provider`, `rtl-ancestor-without-provider-prop`, `focusable-children__tab-rtl-ancestor`: a `dir="rtl"` ancestor without a provider value leaves consumers ltr). This requires every consumer port to resolve its direction with `Components::V2::Direction::Consumer#use_direction(dir)` instead of defaulting its own `dir:` kwarg to `"ltr"`.
+- Parity scenarios (`scenarios/direction.json`): the provider renders no DOM, so every scenario observes it through already-ported CONSUMERS that call `useDirection`: `SelectTrigger`/`SelectContent` emit `dir` (react-select/dist/index.mjs:74,124,203,493), `DropdownMenuContent` emits `dir` and flips the sub-menu open key (react-menu/dist/index.mjs:313/329), and a horizontal `Accordion` flips ArrowLeft/ArrowRight (react-accordion/dist/index.mjs:127-128). Covered: provider rtl/ltr via `direction` and `dir`, `direction` beating `dir`, no value -> ltr, nesting (inner overrides outer, outer restored after it, inner without value shadows to ltr), a consumer's local `dir` beating the provider, and the html[dir] negative proofs (`rtl-ancestor-without-provider`, `rtl-ancestor-without-provider-prop`, `focusable-children__tab-rtl-ancestor`: a `dir="rtl"` ancestor without a provider value leaves consumers ltr). This requires every consumer port to resolve its direction with `Chadcn::Direction::Consumer#use_direction(dir)` instead of defaulting its own `dir:` kwarg to `"ltr"`.
 
 ## Dependencies
 
-None. `registry_dependencies: []`; renders no other `Components::V2` component and no icon. Consumers (listed in Structure) depend on `Components::V2::Direction::Consumer`.
+None. `registry_dependencies: []`; renders no other `Chadcn` component and no icon. Consumers (listed in Structure) depend on `Chadcn::Direction::Consumer`.
 
 ## Deviations
 

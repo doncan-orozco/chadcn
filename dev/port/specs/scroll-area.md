@@ -6,10 +6,10 @@ Exports: `ScrollArea`, `ScrollBar`.
 
 ## API
 
-### `ScrollArea` -> `Components::V2::ScrollArea`
+### `ScrollArea` -> `Chadcn::ScrollArea`
 
 ```ruby
-Components::V2::ScrollArea.new(
+Chadcn::ScrollArea.new(
   type: "hover",            # "auto" | "always" | "scroll" | "hover"  (sa.mjs:31-36, default sa.mjs:52)
   dir: nil,                 # "ltr" | "rtl" | nil -> use_direction(dir) (sa.mjs:67, dir.mjs:17-20)
   scroll_hide_delay: 600,   # Integer ms (sa.mjs:54)
@@ -20,7 +20,7 @@ Components::V2::ScrollArea.new(
 
 - Props reach Radix `ScrollArea` (Root) through shadcn's `...props` (scroll-area.tsx `{...props}` on `ScrollAreaPrimitive.Root`). `type`, `dir`, `scrollHideDelay` are the Root's destructured props (sa.mjs:50-56); everything else is rendered on the Root `div` (sa.mjs:91-94).
 - `type:` accepts strings and symbols (shadcn-port R4); unknown value raises `ArgumentError` (TS union). `scroll_hide_delay:` maps React `scrollHideDelay`.
-- `dir:`: effective direction = `dir || <nearest Direction::Provider> || "ltr"` via `Components::V2::Direction::Consumer#use_direction` (direction spec). Always rendered as the `dir` attribute on the Root (sa.mjs:93).
+- `dir:`: effective direction = `dir || <nearest Direction::Provider> || "ltr"` via `Chadcn::Direction::Consumer#use_direction` (direction spec). Always rendered as the `dir` attribute on the Root (sa.mjs:93).
 - `class:` -> `cn("relative", class)` (caller wins through tailwind_merge, e.g. `static` drops `relative`).
 - `style:` (in `**attrs`): merged AFTER Radix's own style keys (sa.mjs:96-102, `...props.style` last), so a caller can override `position` or the corner vars.
 - Block = children; always rendered inside the Radix content wrapper inside the Viewport (see Structure).
@@ -28,12 +28,12 @@ Components::V2::ScrollArea.new(
 - The Viewport is not configurable through shadcn (no props reach it; `nonce` / `disableImplicitContentElement` / `asChild` of `ScrollAreaPrimitive.Viewport`, sa.mjs:114, are unreachable).
 - Events: none. Radix ScrollArea has no callbacks (no `onXChange` in sa.mjs). `ref` has no equivalent.
 
-### `ScrollBar` -> `Components::V2::ScrollArea::ScrollBar`
+### `ScrollBar` -> `Chadcn::ScrollArea::ScrollBar`
 
 Name rule: `ScrollBar` does not start with the root name `ScrollArea`, so nothing is stripped; it nests under the file's root as `ScrollArea::ScrollBar` (the TreeRenderer maps the export `ScrollBar` to this class).
 
 ```ruby
-Components::V2::ScrollArea::ScrollBar.new(
+Chadcn::ScrollArea::ScrollBar.new(
   orientation: "vertical",  # "vertical" | "horizontal" (scroll-area.tsx `orientation = "vertical"`)
   force_mount: false,       # React `forceMount` (sa.mjs:220, 230)
   class: nil,
@@ -162,7 +162,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Dependencies
 
-None. `registry_dependencies: []`; renders no other `Components::V2` component and no icon. Uses `Components::V2::Direction::Consumer` (`use_direction`) for the Root `dir`.
+None. `registry_dependencies: []`; renders no other `Chadcn` component and no icon. Uses `Chadcn::Direction::Consumer` (`use_direction`) for the Root `dir`.
 
 Scenario fixtures: the `scroll-area-demo` uses `Separator` between tags; Separator is not a registry dependency of scroll-area, so the scenario renders a neutral `_div` with the same box (`my-2 h-px w-full shrink-0 bg-border`) in its place (no `data-slot`, not compared). The horizontal demo's `next/image` Unsplash photos become `_img` elements with inline 300x400 SVG data URIs so both harnesses load identically without network.
 

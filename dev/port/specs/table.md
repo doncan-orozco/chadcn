@@ -1,30 +1,30 @@
-# Table (`Components::V2::Table`)
+# Table (`Chadcn::Table`)
 
 Oracle: `dev/port/oracle/src/table.tsx` (style `new-york-v4`, manifest `source_sha` `bd1a9fc83a5a2149`), manifest `dev/port/oracle/manifest/table.json`. Tier `static`: the file starts with `"use client"` but uses no hook, no Radix primitive, no cva, no icon, no text literal (manifest `radix_primitives: []`, `hooks: []`, `icons: []`, `cva: {}`). No Stimulus controller. Exports `Table`, `TableHeader`, `TableBody`, `TableFooter`, `TableHead`, `TableRow`, `TableCell`, `TableCaption`. Data-slots `table-container`, `table`, `table-header`, `table-body`, `table-footer`, `table-row`, `table-head`, `table-cell`, `table-caption`. Registry example: `table-demo` (`https://ui.shadcn.com/r/styles/new-york-v4/table-demo.json`).
 
 ## API
 
 ```ruby
-Components::V2::Table.new(class: nil, **attrs) { ... }
-Components::V2::Table::Header.new(class: nil, **attrs) { ... }
-Components::V2::Table::Body.new(class: nil, **attrs) { ... }
-Components::V2::Table::Footer.new(class: nil, **attrs) { ... }
-Components::V2::Table::Row.new(class: nil, **attrs) { ... }
-Components::V2::Table::Head.new(class: nil, **attrs) { ... }
-Components::V2::Table::Cell.new(class: nil, **attrs) { ... }
-Components::V2::Table::Caption.new(class: nil, **attrs) { ... }
+Chadcn::Table.new(class: nil, **attrs) { ... }
+Chadcn::Table::Header.new(class: nil, **attrs) { ... }
+Chadcn::Table::Body.new(class: nil, **attrs) { ... }
+Chadcn::Table::Footer.new(class: nil, **attrs) { ... }
+Chadcn::Table::Row.new(class: nil, **attrs) { ... }
+Chadcn::Table::Head.new(class: nil, **attrs) { ... }
+Chadcn::Table::Cell.new(class: nil, **attrs) { ... }
+Chadcn::Table::Caption.new(class: nil, **attrs) { ... }
 ```
 
 | part (tsx function) | Ruby class | element props type | kwargs |
 |---|---|---|---|
-| `Table` | `Components::V2::Table` | `React.ComponentProps<"table">` | `class:`, `**attrs` |
-| `TableHeader` | `Components::V2::Table::Header` | `React.ComponentProps<"thead">` | `class:`, `**attrs` |
-| `TableBody` | `Components::V2::Table::Body` | `React.ComponentProps<"tbody">` | `class:`, `**attrs` |
-| `TableFooter` | `Components::V2::Table::Footer` | `React.ComponentProps<"tfoot">` | `class:`, `**attrs` |
-| `TableRow` | `Components::V2::Table::Row` | `React.ComponentProps<"tr">` | `class:`, `**attrs` |
-| `TableHead` | `Components::V2::Table::Head` | `React.ComponentProps<"th">` | `class:`, `**attrs` |
-| `TableCell` | `Components::V2::Table::Cell` | `React.ComponentProps<"td">` | `class:`, `**attrs` |
-| `TableCaption` | `Components::V2::Table::Caption` | `React.ComponentProps<"caption">` | `class:`, `**attrs` |
+| `Table` | `Chadcn::Table` | `React.ComponentProps<"table">` | `class:`, `**attrs` |
+| `TableHeader` | `Chadcn::Table::Header` | `React.ComponentProps<"thead">` | `class:`, `**attrs` |
+| `TableBody` | `Chadcn::Table::Body` | `React.ComponentProps<"tbody">` | `class:`, `**attrs` |
+| `TableFooter` | `Chadcn::Table::Footer` | `React.ComponentProps<"tfoot">` | `class:`, `**attrs` |
+| `TableRow` | `Chadcn::Table::Row` | `React.ComponentProps<"tr">` | `class:`, `**attrs` |
+| `TableHead` | `Chadcn::Table::Head` | `React.ComponentProps<"th">` | `class:`, `**attrs` |
+| `TableCell` | `Chadcn::Table::Cell` | `React.ComponentProps<"td">` | `class:`, `**attrs` |
+| `TableCaption` | `Chadcn::Table::Caption` | `React.ComponentProps<"caption">` | `class:`, `**attrs` |
 
 - Every part destructures only `{ className, ...props }` (manifest `props.destructured`). The only kwarg is `class:` (default `nil`), merged through `cn` (tailwind_merge) after the part's base classes; caller wins conflicts (shadcn-port R6).
 - **`Table` is special**: `className` and `...props` go to the inner `<table>`, NOT to the `table-container` div (tsx `Table`: the div has a fixed `className="relative w-full overflow-x-auto"` and no spread). So `class:` and every `**attrs` key (`id`, `aria-label`, `data-*`, `style`...) land on `<table data-slot="table">`; the container accepts nothing from the caller. Scenarios `class-merge__table`, `attrs__table-forwarded-to-table`.
@@ -104,7 +104,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 ## Dependencies
 
-None (`registry_dependencies: []`, `icons: []`). The component renders no other `Components::V2` component.
+None (`registry_dependencies: []`, `icons: []`). The component renders no other `Chadcn` component.
 
 Examples: `table-demo` is reproduced 1:1 (`example__table-demo`, `__dark`, `overflow__narrow-viewport-demo`). `data-table-demo` (TanStack Table + Checkbox, DropdownMenu, Button, Input) is a separate registry item, not a `table-*` example, and depends on components that are not registry dependencies of `table`; it belongs to a later data-table composition, not this component. Its table-specific behaviors (checkbox column padding, `data-state="selected"` rows, `has-aria-expanded` rows) are covered here with raw `_button` stand-ins.
 
