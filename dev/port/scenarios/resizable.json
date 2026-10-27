@@ -1113,6 +1113,76 @@
       "animations": false
     },
     {
+      "id": "default-size__em",
+      "tree": {
+        "c": "ResizablePanelGroup",
+        "props": {
+          "className": "h-[200px] w-[401px]"
+        },
+        "children": [
+          {
+            "c": "ResizablePanel",
+            "props": {
+              "defaultSize": "10em"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex h-full items-center justify-center p-6"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "className": "font-semibold"
+                    },
+                    "children": [
+                      "One"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "ResizableHandle",
+            "props": {}
+          },
+          {
+            "c": "ResizablePanel",
+            "props": {},
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex h-full items-center justify-center p-6"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "className": "font-semibold"
+                    },
+                    "children": [
+                      "Two"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
       "id": "default-size__vw",
       "tree": {
         "c": "ResizablePanelGroup",
@@ -1124,6 +1194,76 @@
             "c": "ResizablePanel",
             "props": {
               "defaultSize": "10vw"
+            },
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex h-full items-center justify-center p-6"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "className": "font-semibold"
+                    },
+                    "children": [
+                      "One"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "ResizableHandle",
+            "props": {}
+          },
+          {
+            "c": "ResizablePanel",
+            "props": {},
+            "children": [
+              {
+                "c": "_div",
+                "props": {
+                  "className": "flex h-full items-center justify-center p-6"
+                },
+                "children": [
+                  {
+                    "c": "_span",
+                    "props": {
+                      "className": "font-semibold"
+                    },
+                    "children": [
+                      "Two"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default-size__vh",
+      "tree": {
+        "c": "ResizablePanelGroup",
+        "props": {
+          "className": "h-[200px] w-[401px]"
+        },
+        "children": [
+          {
+            "c": "ResizablePanel",
+            "props": {
+              "defaultSize": "10vh"
             },
             "children": [
               {

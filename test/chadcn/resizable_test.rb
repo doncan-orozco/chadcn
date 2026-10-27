@@ -92,6 +92,8 @@ class Chadcn::ResizableTest < Chadcn::TestCase
     refute percent.key?("flex-shrink")
 
     assert_equal "300px", declarations(group(first: { default_size: 300 }).at_css("[data-panel]"))["flex-basis"]
+    assert_equal "0", declarations(group(first: { default_size: 0 }).at_css("[data-panel]"))["flex-basis"]
+    assert_equal "12.5px", declarations(group(first: { default_size: 12.5 }).at_css("[data-panel]"))["flex-basis"]
   end
 
   test "default layout seeds flex-grow by panel id" do

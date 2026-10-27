@@ -224,3 +224,60 @@ browserTest("resizable: separator-mode preview overlays exist mid-drag, vanish o
   await settle(page)
   assert.equal(await overlays(), 0)
 })
+
+browserTest("resizable: a reinserted group whose connect throws does not release the document twice", async ({ open }) => {
+  const page = await open("default", "resizable")
+  const errors = consoleErrors(page)
+  await page.evaluate(async () => {
+    const tick = () => new Promise((resolve) => setTimeout(resolve))
+    const group = document.querySelector("[data-slot=resizable-panel-group]")
+    group.after(group.cloneNode(true))
+    await tick()
+    const parent = group.parentNode
+    const next = group.nextSibling
+    group.remove()
+    await tick()
+    group.querySelector("[data-slot=resizable-panel]").setAttribute("data-chadcn--resizable-constraints", '{"defaultSize":true}')
+    parent.insertBefore(group, next)
+    await tick()
+    group.remove()
+    await tick()
+  })
+
+  assert.ok(errors.length > 0, "the reinserted connect threw")
+  assert.equal(await page.locator(GROUP).count(), 1)
+  const box = await page.locator(HANDLE).boundingBox()
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2)
+  await page.waitForSelector(`${HANDLE}[data-separator=hover]`)
+  assert.equal(await page.evaluate(() => document.adoptedStyleSheets.length), 1)
+})
+
+browserTest("resizable: a group connected while hidden defers its layout until it has a size", async ({ open }) => {
+  const page = await open("default", "resizable")
+  await page.evaluate(async () => {
+    window.__resizable = []
+    for (const name of ["layout-change", "layout-changed"]) {
+      document.addEventListener(`chadcn--resizable:${name}`, (event) => window.__resizable.push({ name, detail: event.detail }))
+    }
+    const group = document.querySelector("[data-slot=resizable-panel-group]")
+    const hidden = document.createElement("div")
+    hidden.id = "hidden-host"
+    hidden.style.display = "none"
+    group.before(hidden)
+    hidden.append(group)
+    await new Promise((resolve) => setTimeout(resolve))
+  })
+
+  assert.deepEqual(await controller(page, "c.getLayout()"), {})
+  const ids = await page.$$eval(PANELS, (panels) => panels.map((panel) => panel.id))
+  await controller(page, "c.setLayout({ " + JSON.stringify(ids[0]) + ": 30, " + JSON.stringify(ids[1]) + ": 70 })")
+  assert.deepEqual(await controller(page, "c.getLayout()"), {})
+  assert.deepEqual(await recorded(page), [])
+
+  await page.evaluate(() => { document.querySelector("#hidden-host").style.display = "" })
+  await page.waitForFunction(() => window.__resizable.some((event) => event.name === "layout-changed"))
+  const layout = (await recorded(page)).find((event) => event.name === "layout-changed").detail.layout
+  assert.deepEqual(Object.values(layout), [50, 50])
+  assert.deepEqual(await grows(page), ["50", "50"])
+  assert.equal(await page.locator(HANDLE).getAttribute("aria-valuenow"), "50")
+})

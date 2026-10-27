@@ -1284,7 +1284,9 @@ function mountAxis(axis) {
   let live = true
   assert(axis.element.ownerDocument.defaultView, "Cannot register an unmounted Group")
   // Validate and compute everything that can throw on caller input (ids, constraints JSON, default layout) before acquiring
-  // the ResizeObserver or the document refcount: a failed connect never reaches disconnect, so nothing may be held yet.
+  // the ResizeObserver or the document refcount. Stimulus still calls disconnect() after a connect() that threw and reuses
+  // the controller instance when the same element is reinserted, so nothing may be held when connect throws and the
+  // release below runs at most once.
   const panelIds = new Set()
   axis.items.forEach((item) => {
     assert(!panelIds.has(item.id), `Panel ids must be unique; id "${item.id}" was used more than once`)
@@ -1356,6 +1358,7 @@ function mountAxis(axis) {
     if (item.onResize) observer.observe(item.element)
   })
   return () => {
+    if (!live) return
     live = false
     mountedAxes = new Map(mountedAxes)
     mountedAxes.delete(axis)
@@ -1450,6 +1453,7 @@ export default class extends Controller {
     this.lastLayoutChanged = {}
     this.previewNodes = new Map()
     this.focused = new Set()
+    this.unmount = undefined
     this.unmount = mountAxis(this.axis)
     const { defaultLayoutDeferred, derivedItemConstraints, layout, requestedLayout } = requireState(this.axis)
     if (!defaultLayoutDeferred && derivedItemConstraints.length > 0) {
@@ -1464,14 +1468,15 @@ export default class extends Controller {
   }
 
   disconnect() {
-    this.stopAxisChanges?.()
-    this.stopInteractionChanges?.()
-    this.unmount?.()
-    this.previewNodes?.forEach(({ node, mount }) => {
+    const { stopAxisChanges, stopInteractionChanges, unmount, previewNodes } = this
+    this.stopAxisChanges = this.stopInteractionChanges = this.unmount = this.previewNodes = undefined
+    stopAxisChanges?.()
+    stopInteractionChanges?.()
+    unmount?.()
+    previewNodes?.forEach(({ node, mount }) => {
       mount?.unmount()
       node.remove()
     })
-    this.previewNodes = undefined
     this.axis = undefined
   }
 

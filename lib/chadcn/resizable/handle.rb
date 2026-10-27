@@ -36,9 +36,9 @@ class Chadcn::Resizable::Handle < Chadcn::Base
   # @param style [String, Hash, nil] merged where the library merges it
   # @param attrs [Hash] HTML attributes for the separator div (`class:` merged last)
   def initialize(with_handle: false, disabled: false, disable_double_click: false, preview: nil, id: nil, style: nil, **attrs)
-    @with_handle = with_handle
-    @disabled = disabled
-    @disable_double_click = disable_double_click
+    @with_handle = with_handle ? true : false
+    @disabled = disabled ? true : false
+    @disable_double_click = disable_double_click ? true : false
     @preview = preview
     @id = given_id(id)
     @style = style

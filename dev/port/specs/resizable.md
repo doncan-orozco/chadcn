@@ -18,7 +18,7 @@ Chadcn::Resizable::PanelGroup.new(
   disable_cursor: false,              # React `disableCursor`, rrp.js:3106, 3242
   resize_preview_mode: "panel",       # "panel" | "separator", rrp.js:3114
   resize_target_minimum_size: { coarse: 20, fine: 10 },  # React `resizeTargetMinimumSize`, rrp.js:3115-3118
-  id: nil,                            # String | Integer; default = generated React-style id (see Structure)
+  id: nil,                            # String | Integer; default = generated React-style id (see Structure). An explicit id must be one token (non-empty, no whitespace, double quote or backslash, else ArgumentError); `false` is treated as nil.
   class: nil,                         # cn("flex h-full w-full aria-[orientation=vertical]:flex-col", class)
   style: nil,                         # String or Hash; merged where the library merges it (Structure)
   **attrs                             # data:, aria:, role, title, ... rendered on the Group div (rrp.js:3301 `...m`)
@@ -46,7 +46,7 @@ Chadcn::Resizable::Panel.new(
   collapsed_threshold: nil,           # rrp.js:3489 (default: half the distance collapsedSize..minSize)
   disabled: false,                    # rrp.js:3492
   group_resize_behavior: "preserve-relative-size",  # | "preserve-pixel-size", rrp.js:3494
-  id: nil,                            # String | Integer; layout key, also `id` and `data-testid`
+  id: nil,                            # String | Integer; layout key, also `id` and `data-testid`. An explicit id must be one token (non-empty, no whitespace, double quote or backslash, else ArgumentError); `false` is treated as nil. The constraints JSON carries exactly: defaultSize, minSize, maxSize, collapsible, collapsedSize, collapsedThreshold, disabled, groupResizeBehavior, id (the controller reads `id` for the resize event)
   class: nil,                         # goes to the INNER div (rrp.js:3592), verbatim, no cn base (shadcn adds no classes)
   style: nil,                         # goes to the INNER div (rrp.js:3598)
   **attrs                             # rendered on the OUTER div (rrp.js:3575 `...f`)
@@ -132,7 +132,7 @@ Server-rendered DOM of `PanelGroup.new(class: "h-[200px] w-[401px]") { Panel.new
 
 ### Ids
 
-The library calls `useId` once per Group, Panel and Separator (`Te`, rrp.js:4-7; rrp.js:3131, 3503, 3642) and uses `` `${idProp ?? useId()}` `` as `id`, `data-testid` and layout key. The runner normalizes `id`/`aria-controls` but compares `data-testid` literally, so the port reproduces React's client format: an auto id is `"_r_#{n.to_s(32)}_"` with `n` a counter starting at 0, incremented in render (DFS pre-order) order for every Group, Panel and Handle without `id:` AND with `id:` (React calls `useId` even when the prop is given, so explicit ids still consume a number). The counter is `Chadcn::Sequence.next(context, :shadcn_resizable_sequence) - 1` (per render, or per request with the engine's store). An explicit `id:` is stringified (`String(42)` -> `"42"`).
+The library calls `useId` once per Group, Panel and Separator (`Te`, rrp.js:4-7; rrp.js:3131, 3503, 3642) and uses `` `${idProp ?? useId()}` `` as `id`, `data-testid` and layout key. The runner normalizes `id`/`aria-controls` but compares `data-testid` literally, so the port reproduces React's client format: an auto id is `"_r_#{n.to_s(32)}_"` with `n` a counter starting at 0, incremented in render (DFS pre-order) order for every Group, Panel and Handle without `id:` AND with `id:` (React calls `useId` even when the prop is given, so explicit ids still consume a number). The counter is `next_sequence(SEQUENCE_KEY) - 1` (`Chadcn::Sequence`, key `:shadcn_resizable_sequence`) (per render, or per request with the engine's store). An explicit `id:` is stringified (`String(42)` -> `"42"`).
 
 ### Server vs Stimulus
 
