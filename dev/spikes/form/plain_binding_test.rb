@@ -75,6 +75,15 @@ class PlainBindingTest < Minitest::Test
     assert_equal [ "is blank" ], row.errors_for(:city)
   end
 
+  def test_namespace_prefixes_the_id_and_nested_bindings_carry_it
+    scoped = FormSpike::Plain.new(scope: "user", object: @user, namespace: "signup")
+    row = scoped.nested(:addresses, object: Address.new("Main St", "Lima"), index: 0)
+
+    assert_equal "signup_user_email", scoped.id_for(:email)
+    assert_equal "user[email]", scoped.name_for(:email)
+    assert_equal "signup_user_addresses_attributes_0_city", row.id_for(:city)
+  end
+
   def test_the_protocol_is_answered_in_full
     FormSpike::METHODS.each { |name| assert_respond_to @binding, name }
   end

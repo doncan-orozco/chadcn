@@ -11,7 +11,8 @@ module FormSpike
   class Plain
     attr_reader :action, :http_method, :csrf_token
 
-    def initialize(scope:, object: nil, errors: {}, action: nil, http_method: "post", csrf_token: nil)
+    def initialize(scope:, object: nil, errors: {}, action: nil, http_method: "post", csrf_token: nil, namespace: nil)
+      @namespace = namespace
       @path = Array(scope).map(&:to_s)
       @object = object
       @errors = errors
@@ -26,7 +27,7 @@ module FormSpike
     end
 
     def id_for(attribute)
-      (@path + [ attribute.to_s ]).join("_")
+      [ @namespace, *@path, attribute.to_s ].compact.join("_")
     end
 
     def value_for(attribute)
@@ -47,7 +48,7 @@ module FormSpike
 
     # A nested binding: `user[addresses_attributes][0][street]`.
     def nested(attribute, object:, index: nil, errors: {})
-      self.class.new(scope: @path + [ "#{attribute}_attributes", *index&.to_s ], object:, errors:)
+      self.class.new(scope: @path + [ "#{attribute}_attributes", *index&.to_s ], object:, errors:, namespace: @namespace)
     end
   end
 end
