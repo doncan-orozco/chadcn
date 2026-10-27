@@ -68,12 +68,12 @@ class Chadcn::Resizable::Panel < Chadcn::Base
 
   def outer_attrs(id, group)
     merge_attrs({
-      data: { slot: "resizable-panel", disabled: ("true" if @disabled), panel: "true", testid: id,
-              chadcn__resizable_target: "panel", chadcn__resizable_constraints: json(@constraints) },
-      id:,
-      style: style_attr(BASE_STYLE, { "display" => "flex", "flex-basis" => "0", "flex-shrink" => "1", "overflow" => "visible" },
-                        flex_entries(id, group))
-    }, without_forced(@attrs, data: %i[disabled panel testid], keys: %i[id style]))
+                  data: { slot: "resizable-panel", disabled: ("true" if @disabled), panel: "true", testid: id,
+                          chadcn__resizable_target: "panel", chadcn__resizable_constraints: json(@constraints) },
+                  id:,
+                  style: style_attr(BASE_STYLE, { "display" => "flex", "flex-basis" => "0", "flex-shrink" => "1", "overflow" => "visible" },
+                                    flex_entries(id, group))
+                }, without_forced(@attrs, data: %i[disabled panel testid], keys: %i[id style]))
   end
 
   # The size entry before the layout is known (`yo` in the library): the layout of the group when it names this panel, else the

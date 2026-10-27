@@ -46,7 +46,7 @@ module Chadcn::Resizable::Support
     name = name.to_s
     return name if name.start_with?("--")
 
-    name.gsub("_", "-").gsub(/([A-Z])/) { "-#{Regexp.last_match(1).downcase}" }.sub(/\Ams-/, "-ms-")
+    name.tr("_", "-").gsub(/([A-Z])/) { "-#{Regexp.last_match(1).downcase}" }.sub(/\Ams-/, "-ms-")
   end
 
   # `a: b; c: url(x;y)` => { "a" => "b", "c" => "url(x;y)" } (semicolons inside parentheses or quotes do not split).

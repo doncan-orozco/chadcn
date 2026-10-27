@@ -50,18 +50,18 @@ class Chadcn::Resizable::Handle < Chadcn::Base
 
   def handle_attrs(id, group)
     merge_attrs({
-      class: CLASSES,
-      aria: { disabled: ("true" if @disabled), orientation: (group[:orientation] == "horizontal" ? "vertical" : "horizontal") },
-      data: { slot: "resizable-handle", separator: (@disabled ? "disabled" : "inactive"), testid: id,
-              chadcn__resizable_target: "handle",
-              chadcn__resizable_disable_double_click: ("true" if @disable_double_click) },
-      id:,
-      role: "separator",
-      style: style_attr({ "flex-basis" => "auto", "cursor" => (@disabled && !group[:disable_cursor] ? "not-allowed" : nil) }, @style,
-                        { "flex-grow" => "0", "flex-shrink" => "0", "touch-action" => "none" }),
-      tabindex: (@disabled ? nil : 0)
-    }, without_forced(@attrs, data: %i[separator testid], aria: %i[controls disabled orientation valuemax valuemin valuenow],
-                              keys: %i[id role style tabindex]))
+                  class: CLASSES,
+                  aria: { disabled: ("true" if @disabled), orientation: (group[:orientation] == "horizontal" ? "vertical" : "horizontal") },
+                  data: { slot: "resizable-handle", separator: (@disabled ? "disabled" : "inactive"), testid: id,
+                          chadcn__resizable_target: "handle",
+                          chadcn__resizable_disable_double_click: ("true" if @disable_double_click) },
+                  id:,
+                  role: "separator",
+                  style: style_attr({ "flex-basis" => "auto", "cursor" => (@disabled && !group[:disable_cursor] ? "not-allowed" : nil) }, @style,
+                                    { "flex-grow" => "0", "flex-shrink" => "0", "touch-action" => "none" }),
+                  tabindex: (@disabled ? nil : 0)
+                }, without_forced(@attrs, data: %i[separator testid], aria: %i[controls disabled orientation valuemax valuemin valuenow],
+                                          keys: %i[id role style tabindex]))
   end
 
   def grip

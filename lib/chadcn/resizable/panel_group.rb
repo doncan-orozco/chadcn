@@ -64,11 +64,11 @@ class Chadcn::Resizable::PanelGroup < Chadcn::Base
 
   def group_attrs(id)
     merge_attrs({
-      class: CLASSES,
-      data: { slot: "resizable-panel-group", group: "true", testid: id, controller: "chadcn--resizable" }.merge(wiring),
-      id:,
-      style: group_style
-    }, without_forced(@attrs, data: %i[group testid], keys: %i[id style]))
+                  class: CLASSES,
+                  data: { slot: "resizable-panel-group", group: "true", testid: id, controller: "chadcn--resizable" }.merge(wiring),
+                  id:,
+                  style: group_style
+                }, without_forced(@attrs, data: %i[group testid], keys: %i[id style]))
   end
 
   def group_style
