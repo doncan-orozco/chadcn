@@ -857,7 +857,7 @@
     }
   },
   "skip_reasons": {
-    "chart": "wraps recharts, a React-only charting library with no Phlex/Stimulus equivalent in scope",
+    "chart": "product decision (item #27): wrapping recharts with a pinned JS chart library behind a Stimulus controller (shadcn-port R14) is deferred; no consumer needs it yet",
     "form": "wraps react-hook-form and zod, whose state model has no Phlex counterpart; Rails form builders cover it"
   }
 }

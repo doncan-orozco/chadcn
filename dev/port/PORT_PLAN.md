@@ -2,9 +2,9 @@
 
 - Oracle: style `new-york-v4`, 61 components, digest `7de7073d0e253001`, fetched 2026-10-10T04:52:14Z
 - React catalog upgraded to the registry stack (React 19, Tailwind 4, `radix-ui`); `--verify-catalog`, `--check-tokens`, `npm run build` and dev `GET /` all pass.
-- Skipped (by name, listed in `skipped` in `state.json` with `skip_reasons`): chart (recharts, React-only) and form (react-hook-form and zod, no Phlex counterpart; Rails form builders cover it). The oracle still covers them; no spec or scenarios exist for them. calendar, combobox, command and sonner are ported or planned, not skipped; carousel, drawer, input-otp, message-scroller and resizable are planned again (pending).
+- Skipped (by name, listed in `skipped` in `state.json` with `skip_reasons`): chart (recharts; product decision to defer, see `skip_reasons`) and form (react-hook-form and zod, no Phlex counterpart; Rails form builders cover it). The oracle still covers them; no spec or scenarios exist for them. calendar, combobox, command and sonner are ported or planned, not skipped; carousel, drawer, input-otp, message-scroller and resizable are planned again (pending). Caution: `port_state.rb init` (and so `/shadcn-run`) derives `skipped` from `skip_tiers` only and does not keep `skip_reasons`, so a re-init puts chart and form back as pending until a follow-up teaches it per-name skips; until then, re-apply the skip after any `init`.
 - Planned: 59 components (52 done, 7 pending incl. sonner and calendar; chart and form skipped), plus the 5 wave-0 infra items, all done. Tier tally at the original plan: radix_stateful=16, overlay=11, static=22, client=1.
-- Wave 0 infra (pending, built by `/shadcn-run`): `_theme`, `_base`, `_icons`, `_harness`, `_primitives`.
+- Wave 0 infra (done): `_theme`, `_base`, `_icons`, `_harness`, `_primitives`.
 
 ## Waves
 
@@ -18,43 +18,53 @@
 
 ## Components
 
+Status here is the plan-time status; the live status is `ruby .claude/scripts/shadcn/port_state.rb summary`.
+
 | Component | Tier | Scenarios | Deviations | Status |
 |---|---|---|---|---|
 | accordion | radix_stateful | 61 | yes (see deviations/) | planned |
-| alert-dialog | overlay | 124 | yes (see deviations/) | planned |
 | alert | static | 39 | - | planned |
+| alert-dialog | overlay | 124 | yes (see deviations/) | planned |
 | aspect-ratio | radix_stateful | 30 | - | planned |
 | attachment | static | 131 | - | planned |
 | avatar | radix_stateful | 57 | yes (see deviations/) | planned |
 | badge | static | 87 | - | planned |
 | breadcrumb | static | 58 | - | planned |
 | bubble | static | 109 | - | planned |
-| button-group | static | 92 | - | planned |
 | button | static | 148 | - | planned |
+| button-group | static | 92 | - | planned |
+| calendar | third_party | 174 | yes (see deviations/) | planned |
 | card | static | 48 | - | planned |
+| carousel | third_party | - | - | planned |
 | checkbox | radix_stateful | 73 | yes (see deviations/) | planned |
 | collapsible | radix_stateful | 50 | - | planned |
+| combobox | third_party | 158 | yes (see deviations/) | done |
+| command | third_party | 130 | yes (see deviations/) | done |
 | context-menu | overlay | 181 | - | planned |
 | dialog | overlay | 78 | yes (see deviations/) | planned |
 | direction | radix_stateful | 27 | - | planned |
+| drawer | third_party | - | - | planned |
 | dropdown-menu | overlay | 177 | - | planned |
 | empty | static | 60 | - | planned |
 | field | static | 110 | - | planned |
 | hover-card | overlay | 67 | yes (see deviations/) | planned |
-| input-group | static | 144 | - | planned |
 | input | static | 55 | - | planned |
+| input-group | static | 144 | - | planned |
+| input-otp | third_party | - | - | planned |
 | item | static | 96 | - | planned |
 | kbd | static | 45 | - | planned |
 | label | radix_stateful | 41 | yes (see deviations/) | planned |
 | marker | static | 91 | - | planned |
 | menubar | overlay | 236 | - | planned |
 | message | static | 64 | - | planned |
+| message-scroller | third_party | - | - | planned |
 | native-select | static | 67 | yes (see deviations/) | planned |
 | navigation-menu | overlay | 109 | yes (see deviations/) | planned |
 | pagination | static | 97 | - | planned |
 | popover | overlay | 91 | yes (see deviations/) | planned |
 | progress | radix_stateful | 31 | yes (see deviations/) | planned |
 | radio-group | radix_stateful | 70 | yes (see deviations/) | planned |
+| resizable | third_party | - | - | planned |
 | scroll-area | radix_stateful | 66 | yes (see deviations/) | planned |
 | select | overlay | 152 | yes (see deviations/) | planned |
 | separator | radix_stateful | 29 | - | planned |
@@ -62,13 +72,14 @@
 | sidebar | client | 210 | yes (see deviations/) | planned |
 | skeleton | static | 20 | - | planned |
 | slider | radix_stateful | 104 | yes (see deviations/) | planned |
+| sonner | third_party | 80 | yes (see deviations/) | planned |
 | spinner | static | 25 | - | planned |
 | switch | radix_stateful | 52 | yes (see deviations/) | planned |
 | table | static | 41 | - | planned |
 | tabs | radix_stateful | 117 | - | planned |
 | textarea | static | 45 | - | planned |
-| toggle-group | radix_stateful | 111 | - | planned |
 | toggle | radix_stateful | 77 | - | planned |
+| toggle-group | radix_stateful | 111 | - | planned |
 | tooltip | overlay | 76 | yes (see deviations/) | planned |
 
 Deviations are registered in `DEVIATIONS.md`. Blockers: none open.
