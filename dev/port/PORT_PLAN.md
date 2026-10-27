@@ -8,17 +8,20 @@
 
 ## Waves
 
+Waves follow `wave` in `state.json`; chart and form are skipped and have no wave.
+
 | Wave | Components |
 |---|---|
 | 0 | _base, _harness, _icons, _primitives, _theme |
 | 1 | button, dropdown-menu, select, switch, tooltip |
 | 2 | dialog |
-| 3 | accordion, alert, aspect-ratio, avatar, badge, breadcrumb, bubble, card, checkbox, collapsible, context-menu, direction, empty, hover-card, input, kbd, label, marker, menubar, message, native-select, navigation-menu, popover, progress, radio-group, scroll-area, separator, sheet, skeleton, slider, spinner, table, tabs, textarea, toggle |
-| 4 | alert-dialog, attachment, button-group, field, input-group, item, pagination, sidebar, toggle-group |
+| 3 | accordion, alert, aspect-ratio, avatar, badge, breadcrumb, bubble, card, checkbox, collapsible, context-menu, direction, drawer, empty, hover-card, input, input-otp, kbd, label, marker, menubar, message, native-select, navigation-menu, popover, progress, radio-group, resizable, scroll-area, separator, sheet, skeleton, slider, sonner, spinner, table, tabs, textarea, toggle |
+| 4 | alert-dialog, attachment, button-group, calendar, carousel, field, input-group, item, message-scroller, pagination, sidebar, toggle-group |
+| 5 | combobox, command |
 
 ## Components
 
-Status here is the plan-time status; the live status is `ruby .claude/scripts/shadcn/port_state.rb summary`.
+Status and counts here are plan-time (rows added in #27 use the counts at #27); the live status is `ruby .claude/scripts/shadcn/port_state.rb summary`.
 
 | Component | Tier | Scenarios | Deviations | Status |
 |---|---|---|---|---|
@@ -82,7 +85,7 @@ Status here is the plan-time status; the live status is `ruby .claude/scripts/sh
 | toggle-group | radix_stateful | 111 | - | planned |
 | tooltip | overlay | 76 | yes (see deviations/) | planned |
 
-Deviations are registered in `DEVIATIONS.md`. Blockers: none open.
+Deviations are registered in `DEVIATIONS.md`. Blockers: none open for components; see #27 for the port_state.rb per-name skip follow-up.
 
 ## Tooling fixes made during planning (planner findings, verified)
 
