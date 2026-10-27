@@ -1,0 +1,13 @@
+{
+  "component": "form",
+  "reason": "shadcn's form.tsx (manifest tier third_party) is a thin layer over react-hook-form (FormProvider, Controller, useFormContext, useFormState) and React context: Form is FormProvider, FormField a Controller, FormItem/FormLabel/FormControl/FormDescription/FormMessage read ids and the field error from context. react-hook-form is a React-only library with no server rendering, so there is no oracle DOM for a Form to compare: the rendered markup depends on a client form state. The port reproduces the part the DOM exposes (the id/aria/data-slot contract of useFormField, form.tsx:61-63, 113-119, 99) over a server-side Binding protocol (Plain, Rails) instead, and gates it with Minitest and the browser tests of the chadcn--form controller rather than with G2. The form-item, form-label and form-control slots are not separate parts: a bound Form::Field composes the existing Field, Label and Input/control parts (data-slot field, field-label, ...) and applies the id/aria/data-error contract to them, so FormItem, FormLabel and FormControl have no Ruby class of their own.",
+  "allow_tokens": [],
+  "allow_missing_tokens": [],
+  "api": [
+    "Form: not FormProvider; renders <form> with the binding's action, method, _method and CSRF inputs and yields itself",
+    "FormField (Controller): form.field(:attribute) yields a bound Form::Field; there is no render prop or control object",
+    "FormItem / FormLabel / FormControl: no form-item, form-label or form-control data-slot is rendered; the bound field uses Field, Field::Label and the control's own slot and adds id, for, aria-describedby, aria-invalid and data-error per form.tsx",
+    "FormDescription / FormMessage: rendered by Field::Description and Field::Error with the ids form.tsx gives them; Field::Error keeps the list rendering of the Field port",
+    "useFormField: no hook; the bound Form::Field answers id, name, form_item_id, form_description_id, form_message_id and error"
+  ]
+}
