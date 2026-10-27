@@ -467,13 +467,15 @@ function storeAxisState(axis, state, options) {
   axisChanges.emit({ axis, isUserInteraction: options?.isUserInteraction === true, prev, next: state })
 }
 
-function stateOfAxis(id, required) {
-  for (const [axis, state] of mountedAxes) if (axis.id === id) return state
-  if (required) throw new Error(`Could not find data for Group with id ${id}`)
+// State is keyed by the axis object, never by its id: ids repeat across groups (Turbo streams restart them at _r_0_).
+function requireState(axis) {
+  const state = mountedAxes.get(axis)
+  if (!state) throw new Error(`chadcn--resizable: group ${axis.id} is not mounted`)
+  return state
 }
 
-function onAxisChange(id, listener) {
-  return axisChanges.add((change) => { if (change.axis.id === id) listener(change) })
+function onAxisChange(axis, listener) {
+  return axisChanges.add((change) => { if (change.axis === axis) listener(change) })
 }
 
 // --- cursor ----------------------------------------------------------------------------------------------------------------
@@ -891,7 +893,7 @@ function finishDrag(document, event) {
       handled = true
       current.hitRegions.forEach((region) => {
         if (!mountedAxes.has(region.axis)) return
-        storeAxisState(region.axis, stateOfAxis(region.axis.id, true), { isUserInteraction: true })
+        storeAxisState(region.axis, requireState(region.axis), { isUserInteraction: true })
       })
     }
   }
@@ -910,7 +912,7 @@ function cancelDrag(document) {
   setInteraction({ cursorFlags: 0, state: "inactive" })
   current.hitRegions.forEach((region) => {
     if (!mountedAxes.has(region.axis)) return
-    storeAxisState(region.axis, stateOfAxis(region.axis.id, true), { isUserInteraction: true })
+    storeAxisState(region.axis, requireState(region.axis), { isUserInteraction: true })
   })
   updateCursor(document)
   return true
@@ -1061,7 +1063,7 @@ function onDoubleClick(event) {
     const item = region.items.find((candidate) => candidate.constraintProps.defaultSize !== undefined)
     if (!item) return
     const size = item.constraintProps.defaultSize
-    panelApi({ axisId: region.axis.id, itemId: item.id }).resize(size)
+    panelApi({ axis: region.axis, itemId: item.id }).resize(size)
     event.preventDefault()
   })
 }
@@ -1091,11 +1093,8 @@ function releaseDocument(document) {
 
 // --- imperative api --------------------------------------------------------------------------------------------------------
 
-function panelApi({ axisId, itemId }) {
-  const stateOf = () => {
-    for (const [axis, state] of mountedAxes) if (axis.id === axisId) return { ...state, axis }
-    throw new Error(`Group ${axisId} not found`)
-  }
+function panelApi({ axis, itemId }) {
+  const stateOf = () => ({ ...requireState(axis), axis })
   const constraintsOf = () => {
     const found = stateOf().derivedItemConstraints.find((candidate) => candidate.itemId === itemId)
     if (found !== undefined) return found
@@ -1178,11 +1177,8 @@ function panelApi({ axisId, itemId }) {
   }
 }
 
-function groupApi(axisId) {
-  const stateOf = () => {
-    for (const [axis, state] of mountedAxes) if (axis.id === axisId) return { axis, ...state }
-    throw new Error(`Could not find Group with id "${axisId}"`)
-  }
+function groupApi(axis) {
+  const stateOf = () => ({ axis, ...requireState(axis) })
   return {
     getLayout() {
       const { defaultLayoutDeferred, layout } = stateOf()
@@ -1202,20 +1198,14 @@ function groupApi(axisId) {
 
 // --- keyboard --------------------------------------------------------------------------------------------------------------
 
-function axisOfSeparator(element) {
-  for (const [axis] of mountedAxes) if (axis.separators.some((separator) => separator.element === element)) return axis
-  throw new Error("Could not find parent Group for separator element")
-}
-
-function resizeFromKeyboard(element, delta) {
-  const axis = axisOfSeparator(element)
-  const state = stateOfAxis(axis.id, true)
+function resizeFromKeyboard(axis, element, delta) {
+  const state = requireState(axis)
   const separator = axis.separators.find((candidate) => candidate.element === element)
   assert(separator, "Matching separator not found")
   const pair = state.separatorToItems.get(separator)
   assert(pair, "Matching panels not found")
   const pivots = pair.map((item) => axis.items.indexOf(item))
-  const layout = groupApi(axis.id).getLayout()
+  const layout = groupApi(axis).getLayout()
   const resized = resizeByDelta({ delta, initialLayout: layout, itemConstraints: state.derivedItemConstraints, pivotIndices: pivots, prevLayout: layout, trigger: "keyboard" })
   const valid = validateLayout({ layout: resized, itemConstraints: state.derivedItemConstraints })
   if (!layoutsEqual(layout, valid)) {
@@ -1231,35 +1221,34 @@ function resizeFromKeyboard(element, delta) {
   }
 }
 
-function onSeparatorKeydown(event) {
+function onSeparatorKeydown(event, axis) {
   if (event.defaultPrevented) return
   const element = event.currentTarget
-  const axis = axisOfSeparator(element)
   if (axis.disabled || axis.separators.find((separator) => separator.element === element)?.disabled) return
   switch (event.key) {
     case "ArrowDown":
       event.preventDefault()
-      if (axis.orientation === "vertical") resizeFromKeyboard(element, 5)
+      if (axis.orientation === "vertical") resizeFromKeyboard(axis, element, 5)
       break
     case "ArrowLeft":
       event.preventDefault()
-      if (axis.orientation === "horizontal") resizeFromKeyboard(element, -5)
+      if (axis.orientation === "horizontal") resizeFromKeyboard(axis, element, -5)
       break
     case "ArrowRight":
       event.preventDefault()
-      if (axis.orientation === "horizontal") resizeFromKeyboard(element, 5)
+      if (axis.orientation === "horizontal") resizeFromKeyboard(axis, element, 5)
       break
     case "ArrowUp":
       event.preventDefault()
-      if (axis.orientation === "vertical") resizeFromKeyboard(element, -5)
+      if (axis.orientation === "vertical") resizeFromKeyboard(axis, element, -5)
       break
     case "End":
       event.preventDefault()
-      resizeFromKeyboard(element, 100)
+      resizeFromKeyboard(axis, element, 100)
       break
     case "Enter": {
       event.preventDefault()
-      const { derivedItemConstraints, layout, separatorToItems } = stateOfAxis(axis.id, true)
+      const { derivedItemConstraints, layout, separatorToItems } = requireState(axis)
       const separator = axis.separators.find((candidate) => candidate.element === element)
       assert(separator, "Matching separator not found")
       const pair = separatorToItems.get(separator)
@@ -1270,7 +1259,7 @@ function onSeparatorKeydown(event) {
       if (constraints.collapsible) {
         const size = layout[item.id]
         const target = constraints.collapsedSize === size ? axis.mutableState.expandedItemSizes[item.id] ?? constraints.minSize : constraints.collapsedSize
-        resizeFromKeyboard(element, target - size)
+        resizeFromKeyboard(axis, element, target - size)
       }
       break
     }
@@ -1284,7 +1273,7 @@ function onSeparatorKeydown(event) {
     }
     case "Home":
       event.preventDefault()
-      resizeFromKeyboard(element, -100)
+      resizeFromKeyboard(axis, element, -100)
       break
   }
 }
@@ -1294,9 +1283,18 @@ function onSeparatorKeydown(event) {
 function mountAxis(axis) {
   let live = true
   assert(axis.element.ownerDocument.defaultView, "Cannot register an unmounted Group")
-  const ResizeObserverClass = axis.element.ownerDocument.defaultView.ResizeObserver
+  // Validate before acquiring anything, so a throwing connect leaves no module state behind.
   const panelIds = new Set()
+  axis.items.forEach((item) => {
+    assert(!panelIds.has(item.id), `Panel ids must be unique; id "${item.id}" was used more than once`)
+    panelIds.add(item.id)
+  })
   const separatorIds = new Set()
+  axis.separators.forEach((separator) => {
+    assert(!separatorIds.has(separator.id), `Separator ids must be unique; id "${separator.id}" was used more than once`)
+    separatorIds.add(separator.id)
+  })
+  const ResizeObserverClass = axis.element.ownerDocument.defaultView.ResizeObserver
   const observer = new ResizeObserverClass((entries) => {
     for (const entry of entries) {
       const { borderBoxSize, target } = entry
@@ -1304,7 +1302,7 @@ function mountAxis(axis) {
         if (!live) continue
         const axisSize = axisSizeOf(axis)
         if (axisSize === 0) return
-        const state = stateOfAxis(axis.id)
+        const state = mountedAxes.get(axis)
         if (!state) return
         const constraints = deriveConstraints(axis)
         let requestedAxisSize = state.requestedAxisSize
@@ -1334,8 +1332,6 @@ function mountAxis(axis) {
   })
   observer.observe(axis.element)
   axis.items.forEach((item) => {
-    assert(!panelIds.has(item.id), `Panel ids must be unique; id "${item.id}" was used more than once`)
-    panelIds.add(item.id)
     if (item.onResize) observer.observe(item.element)
   })
   const axisSize = axisSizeOf(axis)
@@ -1357,17 +1353,11 @@ function mountAxis(axis) {
     requestedLayout: looseLayout({ itemIds: axis.items.map(({ id }) => id), layout: initial }),
     separatorToItems
   })
-  axis.separators.forEach((separator) => {
-    assert(!separatorIds.has(separator.id), `Separator ids must be unique; id "${separator.id}" was used more than once`)
-    separatorIds.add(separator.id)
-    separator.element.addEventListener("keydown", onSeparatorKeydown)
-  })
   return () => {
     live = false
     mountedAxes = new Map(mountedAxes)
     mountedAxes.delete(axis)
     if (dropAxisFromInteraction(axis)) updateCursor(document)
-    axis.separators.forEach((separator) => separator.element.removeEventListener("keydown", onSeparatorKeydown))
     releaseDocument(document)
     observer.disconnect()
   }
@@ -1416,6 +1406,7 @@ function cloneSeparator(separator) {
 // --- the controller --------------------------------------------------------------------------------------------------------
 
 export default class extends Controller {
+  static targets = ["panel", "handle", "preview"]
   static values = {
     orientation: { type: String, default: "horizontal" },
     disabled: Boolean,
@@ -1428,8 +1419,12 @@ export default class extends Controller {
   connect() {
     const element = this.element
     const orientation = this.orientationValue
-    const items = sortByPosition(orientation, [...element.querySelectorAll(":scope > [data-panel]")].map((panel) => this.#panelItem(panel)))
-    const separators = sortByPosition(orientation, [...element.querySelectorAll(":scope > [data-separator]")].map((handle) => this.#separatorRecord(handle)))
+    // A Turbo snapshot taken mid-drag can carry preview overlays; they belong to no live drag.
+    element.querySelectorAll(":scope > [data-resize-preview]").forEach((stale) => stale.remove())
+    // Direct children only: Stimulus targets also match the parts of a nested group that sits inside a panel.
+    const direct = (target) => target.parentElement === element
+    const items = sortByPosition(orientation, this.panelTargets.filter(direct).map((panel) => this.#panelItem(panel)))
+    const separators = sortByPosition(orientation, this.handleTargets.filter(direct).map((handle) => this.#separatorRecord(handle)))
     let defaultLayout
     if (this.hasDefaultLayoutValue && Object.keys(this.defaultLayoutValue).length === items.length) {
       defaultLayout = {}
@@ -1454,14 +1449,14 @@ export default class extends Controller {
     this.previewNodes = new Map()
     this.focused = new Set()
     this.unmount = mountAxis(this.axis)
-    const { defaultLayoutDeferred, derivedItemConstraints, layout, requestedLayout } = stateOfAxis(this.axis.id, true)
+    const { defaultLayoutDeferred, derivedItemConstraints, layout, requestedLayout } = requireState(this.axis)
     if (!defaultLayoutDeferred && derivedItemConstraints.length > 0) {
       this.#emitLayoutChange(layout)
       this.#emitLayoutChanged(layout, false, requestedLayout)
     }
-    this.stopAxisChanges = onAxisChange(this.axis.id, (change) => this.#axisChanged(change))
+    this.stopAxisChanges = onAxisChange(this.axis, (change) => this.#axisChanged(change))
     this.stopInteractionChanges = interactionChanges.add(() => this.#interactionChanged())
-    this.#bindSeparators()
+    this.axis.separators.forEach((separator) => { if (separator.element.matches(":focus")) this.focused.add(separator) })
     this.#paint()
     this.#paintSeparators()
   }
@@ -1470,10 +1465,6 @@ export default class extends Controller {
     this.stopAxisChanges?.()
     this.stopInteractionChanges?.()
     this.unmount?.()
-    this.axis?.separators.forEach(({ element, onFocus, onBlur }) => {
-      element.removeEventListener("focus", onFocus)
-      element.removeEventListener("blur", onBlur)
-    })
     this.previewNodes?.forEach(({ node, mount }) => {
       mount?.unmount()
       node.remove()
@@ -1482,12 +1473,25 @@ export default class extends Controller {
     this.axis = undefined
   }
 
+  // Stimulus actions rendered on every handle by Chadcn::Resizable::Handle.
+  keydown(event) {
+    onSeparatorKeydown(event, this.#mountedAxis())
+  }
+
+  focus(event) {
+    this.#setFocused(event.currentTarget, true)
+  }
+
+  blur(event) {
+    this.#setFocused(event.currentTarget, false)
+  }
+
   getLayout() {
-    return groupApi(this.axis.id).getLayout()
+    return groupApi(this.#mountedAxis()).getLayout()
   }
 
   setLayout(layout) {
-    return groupApi(this.axis.id).setLayout(layout)
+    return groupApi(this.#mountedAxis()).setLayout(layout)
   }
 
   collapse(panelId) {
@@ -1511,7 +1515,20 @@ export default class extends Controller {
   }
 
   #panel(itemId) {
-    return panelApi({ axisId: this.axis.id, itemId })
+    return panelApi({ axis: this.#mountedAxis(), itemId })
+  }
+
+  #mountedAxis() {
+    if (!this.axis) throw new Error("chadcn--resizable: the group is not connected")
+    return this.axis
+  }
+
+  #setFocused(element, focused) {
+    const separator = this.axis?.separators.find((candidate) => candidate.element === element)
+    if (!separator) return
+    if (focused) this.focused.add(separator)
+    else this.focused.delete(separator)
+    this.#paintSeparators()
   }
 
   #panelItem(element) {
@@ -1522,7 +1539,7 @@ export default class extends Controller {
       id: element.id,
       mutableValues: { expandToSize: undefined, prevSize: undefined },
       onResize: (size, _id, prevSize) => {
-        element.dispatchEvent(new CustomEvent("chadcn--resizable:resize", { bubbles: true, detail: { size, id: givenId, prevSize } }))
+        this.dispatch("resize", { target: element, detail: { size, id: givenId, prevSize } })
       },
       constraintProps: { groupResizeBehavior: "preserve-relative-size", collapsedSize: "0%", collapsible: false, maxSize: "100%", minSize: "0%", ...props, disabled: props.disabled === true }
     }
@@ -1534,24 +1551,8 @@ export default class extends Controller {
       disableDoubleClick: element.hasAttribute("data-chadcn--resizable-disable-double-click"),
       element,
       id: element.id,
-      preview: element.querySelector(":scope > template[data-chadcn--resizable-target=preview]")
+      preview: this.previewTargets.find((target) => target.parentElement === element)
     }
-  }
-
-  #bindSeparators() {
-    this.axis.separators.forEach((separator) => {
-      separator.onFocus = () => {
-        this.focused.add(separator)
-        this.#paintSeparators()
-      }
-      separator.onBlur = () => {
-        this.focused.delete(separator)
-        this.#paintSeparators()
-      }
-      separator.element.addEventListener("focus", separator.onFocus)
-      separator.element.addEventListener("blur", separator.onBlur)
-      if (separator.element.matches(":focus")) this.focused.add(separator)
-    })
   }
 
   #axisChanged(change) {
@@ -1579,7 +1580,7 @@ export default class extends Controller {
 
   // Panel flex-grow and handle ARIA values from the layout (the library renders them from state).
   #paint() {
-    const state = stateOfAxis(this.axis.id)
+    const state = mountedAxes.get(this.axis)
     if (!state) return
     const { derivedItemConstraints, layout, separatorToItems } = state
     this.axis.items.forEach(({ element, id }) => {

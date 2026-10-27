@@ -42,12 +42,12 @@ class Chadcn::Resizable::Panel < Chadcn::Base
                  collapsed_threshold: nil, disabled: false, group_resize_behavior: "preserve-relative-size", id: nil,
                  class: nil, style: nil, **attrs)
     @default_size = default_size
-    @constraints = { defaultSize: default_size, minSize: min_size, maxSize: max_size, collapsible:, collapsedSize: collapsed_size,
-                     collapsedThreshold: collapsed_threshold, disabled:,
+    @disabled = disabled ? true : false
+    @constraints = { defaultSize: default_size, minSize: min_size, maxSize: max_size, collapsible: collapsible ? true : false,
+                     collapsedSize: collapsed_size, collapsedThreshold: collapsed_threshold, disabled: @disabled,
                      groupResizeBehavior: choice(group_resize_behavior, RESIZE_BEHAVIORS, "group_resize_behavior"),
-                     id: id&.then { |given| js_string(given) } }.compact
-    @disabled = disabled
-    @id = id
+                     id: given_id(id) }.compact
+    @id = given_id(id)
     @class = binding.local_variable_get(:class)
     @style = style
     @attrs = attrs
@@ -60,7 +60,7 @@ class Chadcn::Resizable::Panel < Chadcn::Base
     group = group_context
     id = resizable_id(@id)
     div(**outer_attrs(id, group)) do
-      div(class: @class, style: style_attr(INNER_STYLE, @style, { "touch-action" => touch_action(group) }), &)
+      div(class: @class, style: style_attr(INNER_STYLE, @style, { "touch-action" => touch_action(group[:orientation]) }), &)
     end
   end
 
@@ -73,7 +73,7 @@ class Chadcn::Resizable::Panel < Chadcn::Base
                   id:,
                   style: style_attr(BASE_STYLE, { "display" => "flex", "flex-basis" => "0", "flex-shrink" => "1", "overflow" => "visible" },
                                     flex_entries(id, group))
-                }, without_forced(@attrs, data: %i[disabled panel testid], keys: %i[id style]))
+                }, without_forced(@attrs, data: %i[disabled panel testid chadcn__resizable_target chadcn__resizable_constraints], keys: %i[id style]))
   end
 
   # The size entry before the layout is known (`yo` in the library): the layout of the group when it names this panel, else the
@@ -86,6 +86,4 @@ class Chadcn::Resizable::Panel < Chadcn::Base
     { "flex-basis" => (@default_size.is_a?(Numeric) && @default_size != 0 ? "#{js_string(@default_size)}px" : js_string(@default_size)),
       "flex-shrink" => nil }
   end
-
-  def touch_action(group) = group[:orientation] == "horizontal" ? "pan-y" : "pan-x"
 end

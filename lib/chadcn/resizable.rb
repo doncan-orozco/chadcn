@@ -20,7 +20,7 @@ class Chadcn::Resizable < Chadcn::Base
   # Render-context counter behind the React-style ids (`_r_0_`).
   #
   # @api private
-  SEQUENCE_KEY = :resizable
+  SEQUENCE_KEY = :shadcn_resizable_sequence
 
   # @yieldparam resizable [Chadcn::Resizable] the root
   # @return [void]

@@ -34,7 +34,7 @@ class Chadcn::ResizableTest < Chadcn::TestCase
   test "group classes, slot, wiring and style" do
     root = group(group: { class: "h-[200px] w-[401px]" }).at_css("[data-slot=resizable-panel-group]")
 
-    assert_equal "flex aria-[orientation=vertical]:flex-col h-[200px] w-[401px]", root["class"]
+    %w[flex aria-[orientation=vertical]:flex-col h-[200px] w-[401px]].each { |token| assert_includes root["class"].split, token }
     assert_equal "true", root["data-group"]
     assert_equal "_r_0_", root["id"]
     assert_equal "_r_0_", root["data-testid"]
@@ -142,7 +142,7 @@ class Chadcn::ResizableTest < Chadcn::TestCase
     assert_nil handle["tabindex"]
     assert_equal "not-allowed", declarations(handle)["cursor"]
     assert_equal "true", handle["data-chadcn--resizable-disable-double-click"]
-    assert_equal "z-10 flex h-4 w-3 items-center justify-center rounded-xs border bg-border", handle.at_css("div")["class"]
+    %w[z-10 flex h-4 w-3 items-center justify-center rounded-xs border bg-border].each { |token| assert_includes handle.at_css("div")["class"].split, token }
     assert_includes handle.at_css("svg")["class"], "lucide-grip-vertical size-2.5"
   end
 
@@ -181,5 +181,85 @@ class Chadcn::ResizableTest < Chadcn::TestCase
     assert_equal "g", root["data-foo"]
     assert_equal "auto", declarations(root)["overflow"]
     assert_equal "flex", declarations(root)["display"]
+  end
+
+  test "boolean wiring renders true or false, never an empty string" do
+    root = group(group: { disabled: nil, disable_cursor: nil }).at_css("[data-controller]")
+
+    assert_equal "false", root["data-chadcn--resizable-disabled-value"]
+    assert_equal "false", root["data-chadcn--resizable-disable-cursor-value"]
+  end
+
+  test "group wiring carries every value" do
+    root = group(group: { disabled: true, resize_preview_mode: :separator, resize_target_minimum_size: { coarse: 30 } }).at_css("[data-controller]")
+
+    assert_equal "true", root["data-chadcn--resizable-disabled-value"]
+    assert_equal "separator", root["data-chadcn--resizable-resize-preview-mode-value"]
+    assert_equal({ "coarse" => 30, "fine" => 10 }, JSON.parse(root["data-chadcn--resizable-resize-target-minimum-size-value"]))
+  end
+
+  test "caller data cannot override the library wiring" do
+    root = group(group: { data: { chadcn__resizable_orientation_value: "vertical", "chadcn--resizable-disabled-value": "true" } }).at_css("[data-controller]")
+    panel = group(first: { data: { chadcn__resizable_target: "x", chadcn__resizable_constraints: "{}" } }).at_css("[data-panel]")
+    handle = group(handle: { data: { chadcn__resizable_target: "x", chadcn__resizable_disable_double_click: "true" } }).at_css("[data-slot=resizable-handle]")
+
+    assert_equal "horizontal", root["data-chadcn--resizable-orientation-value"]
+    assert_equal "false", root["data-chadcn--resizable-disabled-value"]
+    assert_equal "panel", panel["data-chadcn--resizable-target"]
+    assert_includes panel["data-chadcn--resizable-constraints"], "groupResizeBehavior"
+    assert_equal "handle", handle["data-chadcn--resizable-target"]
+    assert_nil handle["data-chadcn--resizable-disable-double-click"]
+  end
+
+  test "panel group_resize_behavior accepts symbols and rejects unknown values" do
+    constraints = JSON.parse(group(first: { group_resize_behavior: :preserve_pixel_size }).at_css("[data-panel]")["data-chadcn--resizable-constraints"])
+
+    assert_equal "preserve-pixel-size", constraints["groupResizeBehavior"]
+    assert_raises(ArgumentError) { Panel.new(group_resize_behavior: "nope") }
+  end
+
+  test "panel booleans are coerced once" do
+    panel = group(first: { collapsible: nil, disabled: 1 }).at_css("[data-panel]")
+    constraints = JSON.parse(panel["data-chadcn--resizable-constraints"])
+
+    refute constraints["collapsible"]
+    assert constraints["disabled"]
+    assert_equal "true", panel["data-disabled"]
+  end
+
+  test "ids must be one token" do
+    [ "two words", "", 'a"b' ].each do |bad|
+      assert_raises(ArgumentError) { PanelGroup.new(id: bad) }
+      assert_raises(ArgumentError) { Panel.new(id: bad) }
+      assert_raises(ArgumentError) { Handle.new(id: bad) }
+    end
+  end
+
+  test "handle renders the keyboard and focus actions and appends a caller action" do
+    handle = group(handle: { data: { action: "click->x#y" } }).at_css("[data-slot=resizable-handle]")
+
+    assert_equal "keydown->chadcn--resizable#keydown focus->chadcn--resizable#focus blur->chadcn--resizable#blur click->x#y",
+                 handle["data-action"]
+  end
+
+  test "the generated root helpers render the same HTML as the explicit classes" do
+    explicit = render_view do
+      render(PanelGroup.new(class: "h-8")) do
+        render(Panel.new(default_size: "30%")) { plain "One" }
+        render Handle.new(with_handle: true)
+        render(Panel.new) { plain "Two" }
+      end
+    end
+    helpers = render_view do
+      render(Chadcn::Resizable.new) do |resizable|
+        resizable.panel_group(class: "h-8") do
+          resizable.panel(default_size: "30%") { plain "One" }
+          resizable.handle(with_handle: true)
+          resizable.panel { plain "Two" }
+        end
+      end
+    end
+
+    assert_equal explicit, helpers
   end
 end

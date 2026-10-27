@@ -24,6 +24,12 @@ class Chadcn::Resizable::PanelGroup < Chadcn::Base
   # Default `resize_target_minimum_size:` in pixels.
   # @return [Hash{Symbol => Integer}]
   TARGET_SIZE = { coarse: 20, fine: 10 }.freeze
+  # Data keys of the Stimulus values the library owns; a caller `data:` cannot override them.
+  #
+  # @api private
+  WIRING_KEYS = %i[chadcn__resizable_orientation_value chadcn__resizable_disabled_value chadcn__resizable_disable_cursor_value
+                   chadcn__resizable_default_layout_value chadcn__resizable_resize_preview_mode_value
+                   chadcn__resizable_resize_target_minimum_size_value].freeze
 
   # @param orientation [String, Symbol] one of {Chadcn::Resizable::Support::ORIENTATIONS} (default "horizontal")
   # @param default_layout [Hash{String, Symbol => Numeric}, nil] percent per panel id, applied when it names exactly the panels
@@ -39,17 +45,17 @@ class Chadcn::Resizable::PanelGroup < Chadcn::Base
                  resize_preview_mode: "panel", resize_target_minimum_size: TARGET_SIZE, id: nil, style: nil, **attrs)
     @orientation = choice(orientation, ORIENTATIONS, "orientation")
     @default_layout = default_layout&.transform_keys(&:to_s)
-    @disabled = disabled
-    @disable_cursor = disable_cursor
+    @disabled = disabled ? true : false
+    @disable_cursor = disable_cursor ? true : false
     @preview_mode = choice(resize_preview_mode, PREVIEW_MODES, "resize_preview_mode")
     @target_size = TARGET_SIZE.merge(resize_target_minimum_size.transform_keys(&:to_sym))
-    @id = id
+    @id = given_id(id)
     @style = style
     @attrs = attrs
     super()
   end
 
-  # @yieldparam group [Chadcn::Resizable::PanelGroup] the group, exposing the part helpers
+  # @yieldparam group [Chadcn::Resizable::PanelGroup] the group itself
   # @return [void]
   def view_template
     previous = context[Chadcn::Resizable::GROUP_KEY]
@@ -68,7 +74,7 @@ class Chadcn::Resizable::PanelGroup < Chadcn::Base
                   data: { slot: "resizable-panel-group", group: "true", testid: id, controller: "chadcn--resizable" }.merge(wiring),
                   id:,
                   style: group_style
-                }, without_forced(@attrs, data: %i[group testid], keys: %i[id style]))
+                }, without_forced(@attrs, data: %i[group testid] + WIRING_KEYS, keys: %i[id style]))
   end
 
   def group_style
@@ -76,7 +82,7 @@ class Chadcn::Resizable::PanelGroup < Chadcn::Base
     style_attr({ "height" => "100%", "width" => "100%", "overflow" => "hidden",
                  "position" => (@preview_mode == "separator" ? "relative" : nil) }, @style,
                { "display" => "flex", "flex-direction" => (horizontal ? "row" : "column"), "flex-wrap" => "nowrap",
-                 "touch-action" => (horizontal ? "pan-y" : "pan-x") })
+                 "touch-action" => touch_action(@orientation) })
   end
 
   def wiring

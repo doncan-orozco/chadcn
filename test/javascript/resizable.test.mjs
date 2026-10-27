@@ -134,3 +134,67 @@ browserTest("resizable: a panel dispatches resize with its size in percent and p
   assert.ok(last.size.inPixels > 100)
   assert.ok(Math.abs(last.prevSize.asPercentage - 50) < 0.1, `prevSize ${last.prevSize.asPercentage}`)
 })
+
+browserTest("resizable: two groups with identical ids keep separate layouts", async ({ open }) => {
+  const page = await open("default", "resizable")
+  const errors = consoleErrors(page)
+  await page.evaluate(() => {
+    const group = document.querySelector("[data-slot=resizable-panel-group]")
+    group.insertAdjacentHTML("afterend", group.outerHTML)
+  })
+  await settle(page)
+  const groups = page.locator(GROUP)
+  assert.equal(await groups.count(), 2)
+  assert.equal(await groups.nth(0).getAttribute("id"), await groups.nth(1).getAttribute("id"))
+  const layouts = () => page.$$eval(GROUP, (all) => all.map((group) => [...group.querySelectorAll(":scope > [data-slot=resizable-panel]")].map((panel) => panel.style.flexGrow)))
+  assert.deepEqual(await layouts(), [["50", "50"], ["50", "50"]])
+
+  await groups.nth(1).locator(HANDLE).focus()
+  await page.keyboard.press("ArrowRight")
+  await settle(page)
+
+  assert.deepEqual(await layouts(), [["50", "50"], ["55", "45"]])
+  assert.deepEqual(errors, [])
+})
+
+browserTest("resizable: the imperative methods throw once the group is disconnected", async ({ open }) => {
+  const page = await open("default", "resizable")
+  const message = await page.evaluate(() => {
+    const element = document.querySelector("[data-controller~='chadcn--resizable']")
+    const instance = window.Stimulus.getControllerForElementAndIdentifier(element, "chadcn--resizable")
+    const live = typeof instance.getLayout()
+    element.remove()
+    return new Promise((resolve) => setTimeout(() => {
+      try { instance.getLayout() } catch (error) { resolve(`${live}|${error.message}`) }
+    }, 50))
+  })
+
+  assert.equal(message, "object|chadcn--resizable: the group is not connected")
+})
+
+browserTest("resizable: separator-mode preview overlays exist mid-drag, vanish on release and stale ones are dropped on reconnect", async ({ open }) => {
+  const page = await open("preview-mode__separator", "resizable")
+  const overlays = () => page.locator("[data-resize-preview]").count()
+  const box = await page.locator(HANDLE).boundingBox()
+  const x = box.x + box.width / 2
+  const y = box.y + box.height / 2
+
+  assert.equal(await overlays(), 0)
+  await page.mouse.move(x, y)
+  await page.mouse.down()
+  await page.mouse.move(x + 20, y, { steps: 4 })
+  assert.ok(await overlays() > 0, "overlay mid-drag")
+  await page.mouse.up()
+  await settle(page)
+  assert.equal(await overlays(), 0)
+
+  await page.evaluate(() => {
+    const stale = document.createElement("div")
+    stale.setAttribute("data-resize-preview", "true")
+    document.querySelector("[data-slot=resizable-panel-group]").append(stale)
+  })
+  assert.equal(await overlays(), 1)
+  await reconnect(page, "chadcn--resizable")
+  await settle(page)
+  assert.equal(await overlays(), 0)
+})

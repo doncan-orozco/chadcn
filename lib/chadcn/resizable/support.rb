@@ -15,8 +15,13 @@ module Chadcn::Resizable::Support
   # React `useId` (client format) is called once per Group, Panel and Handle even when `id` is given, then `id ?? useId()`.
   def resizable_id(given)
     generated = "_r_#{(next_sequence(Chadcn::Resizable::SEQUENCE_KEY) - 1).to_s(32)}_"
-    given.nil? ? generated : js_string(given)
+    given || generated
   end
+
+  # The caller id as one id token (a Stimulus-safe, selector-safe string), or nil.
+  def given_id(id) = id.nil? ? nil : validated_id(js_string(id))
+
+  def touch_action(orientation) = orientation == "horizontal" ? "pan-y" : "pan-x"
 
   def choice(value, allowed, name)
     string = normalize_option(value)

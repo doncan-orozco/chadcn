@@ -17,6 +17,16 @@ class Chadcn::Resizable::Handle < Chadcn::Base
   # @api private
   GRIP_CLASSES = "z-10 flex h-4 w-3 items-center justify-center rounded-xs border bg-border"
 
+  # Stimulus actions of the separator (keyboard resizing and focus tracking), merged before a caller `data-action`.
+  #
+  # @api private
+  ACTIONS = "keydown->chadcn--resizable#keydown focus->chadcn--resizable#focus blur->chadcn--resizable#blur"
+
+  # Data keys the library owns on the separator (the caller cannot override them; `action` stays mergeable).
+  #
+  # @api private
+  WIRING_KEYS = %i[chadcn__resizable_target chadcn__resizable_disable_double_click].freeze
+
   # @param with_handle [Boolean] renders the grip
   # @param disabled [Boolean] not focusable, not draggable, not resizable by keyboard
   # @param disable_double_click [Boolean] a double click does not reset a panel to its default size
@@ -30,7 +40,7 @@ class Chadcn::Resizable::Handle < Chadcn::Base
     @disabled = disabled
     @disable_double_click = disable_double_click
     @preview = preview
-    @id = id
+    @id = given_id(id)
     @style = style
     @attrs = attrs
     super()
@@ -53,14 +63,15 @@ class Chadcn::Resizable::Handle < Chadcn::Base
                   class: CLASSES,
                   aria: { disabled: ("true" if @disabled), orientation: (group[:orientation] == "horizontal" ? "vertical" : "horizontal") },
                   data: { slot: "resizable-handle", separator: (@disabled ? "disabled" : "inactive"), testid: id,
-                          chadcn__resizable_target: "handle",
+                          chadcn__resizable_target: "handle", action: ACTIONS,
                           chadcn__resizable_disable_double_click: ("true" if @disable_double_click) },
                   id:,
                   role: "separator",
                   style: style_attr({ "flex-basis" => "auto", "cursor" => (@disabled && !group[:disable_cursor] ? "not-allowed" : nil) }, @style,
                                     { "flex-grow" => "0", "flex-shrink" => "0", "touch-action" => "none" }),
                   tabindex: (@disabled ? nil : 0)
-                }, without_forced(@attrs, data: %i[separator testid], aria: %i[controls disabled orientation valuemax valuemin valuenow],
+                }, without_forced(@attrs, data: %i[separator testid] + WIRING_KEYS,
+                                          aria: %i[controls disabled orientation valuemax valuemin valuenow],
                                           keys: %i[id role style tabindex]))
   end
 
