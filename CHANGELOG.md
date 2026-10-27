@@ -16,6 +16,8 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 
 ### Added
 
+- `Chadcn::Theme.parse`, `.validate`, `.contrast` and `.render_colors` (and `Theme::Palette`) are public API: build, validate and export a
+  palette without touching the theme file. `write_colors`, `replace_theme_file` and the import helpers stay private.
 - `Chadcn::Catalog` (`.entries`, `.find`, `Entry`) and `Chadcn::Catalog::TreeRenderer`: an example of every component as a JSON tree plus the
   renderer, packaged (about 33 KB), so a host builds a component gallery page without the repository's `dev/` directory. Generated from the
   parity scenarios by `rake catalog:generate`. See [docs/catalog.md](docs/catalog.md).

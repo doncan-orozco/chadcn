@@ -15,7 +15,8 @@ module Chadcn
   # so anything copied from ui.shadcn.com/themes pastes in unchanged.
   #
   # The public surface is {.use}, {.import}, {.check}, {.presets}, {.dir}, {.configured?}, {.theme_file} and {.presets_dir}
-  # (the `chadcn:theme:*` rake tasks call them); parsing, validation and color math are `@api private`.
+  # (the `chadcn:theme:*` rake tasks call them), plus the palette helpers a host app can use without touching the theme file:
+  # {.parse}, {.validate}, {.contrast} and {.render_colors}. The helpers behind {.use} and {.import} (writing the file, fetching a URL) stay `@api private`.
   #
   # @example Switch to a preset, then check the result
   #   Chadcn::Theme.use("slate")
@@ -93,7 +94,6 @@ module Chadcn
 
     # Parsed palette: variables for :root and for .dark.
     #
-    # @api private
     # @!attribute [rw] root
     #   @return [Hash{String => String}] the `:root` variables, without the leading dashes
     # @!attribute [rw] dark
@@ -140,9 +140,12 @@ module Chadcn
 
     # Reads the `:root` and `.dark` variables of a shadcn theme.
     #
-    # @api private
     # @param css [String] CSS text holding a `:root { }` block and optionally a `.dark { }` block
     # @return [Palette]
+    # @raise [Chadcn::Theme::Error] when a block has unbalanced braces (a missing block just yields no variables)
+    # @example
+    #   palette = Chadcn::Theme.parse(":root { --background: #fff; } .dark { --background: #000; }")
+    #   palette.root["background"] # => "#fff"
     def parse(css)
       Palette.new(root: variables(block(css, ":root")), dark: variables(block(css, ".dark")))
     end
@@ -178,12 +181,14 @@ module Chadcn
 
     # ---- validation ----------------------------------------------------------------------------
 
-    # Checks a palette: complete variables, plain values, text contrast.
+    # Checks a palette: complete variables, plain values, text contrast. Nothing is written.
     #
-    # @api private
     # @param palette [Palette]
     # @param strict [Boolean] when true a contrast below {MIN_CONTRAST} is an error instead of a warning
     # @return [Hash{Symbol => Array<String>}] `{ errors: [...], warnings: [...] }`
+    # @example A palette missing every other variable reports them
+    #   palette = Chadcn::Theme.parse(":root { --background: #fff; }")
+    #   Chadcn::Theme.validate(palette)[:errors].first # => "light (:root): missing foreground, card, ..."
     def validate(palette, strict: false)
       errors = []
       warnings = []
@@ -217,12 +222,14 @@ module Chadcn
     # The parameters are the standard color-science symbols (l, c, h, s, v, fg, bg).
     # rubocop:disable Naming/MethodParameterName
 
-    # WCAG contrast ratio between two CSS colors (oklch, hsl or hex).
+    # WCAG contrast ratio between two CSS colors: `oklch()`, space-separated `hsl()` or 6-digit `#rrggbb` hex.
     #
-    # @api private
     # @param fg [String] foreground color
     # @param bg [String] background color
-    # @return [Float, nil] the ratio (1.0 to 21.0), nil when either color has alpha or an unsupported syntax
+    # @return [Float, nil] the ratio (1.0 to 21.0), nil when either color has alpha or another syntax (named colors, `rgb()`, `#rgb`, 8-digit hex);
+    #   {.validate} then skips that pair
+    # @example
+    #   Chadcn::Theme.contrast("#000000", "#ffffff") # => 21.0
     def contrast(fg, bg)
       l1 = luminance(fg)
       l2 = luminance(bg)
@@ -297,11 +304,12 @@ module Chadcn
     # ---- rendering and file operations ---------------------------------------------------------
 
     # Renders a palette as the `:root { }` / `.dark { }` text that theme.css and the preset files hold: the required variables first
-    # (in {REQUIRED} order), any extras after them, and `--radius` last in `:root`.
+    # (in {REQUIRED} order), any extras after them, and `--radius` last in `:root`. Usable as an export.
     #
-    # @api private
     # @param palette [Palette] the parsed variables for `:root` and `.dark`
     # @return [String] the CSS text, ending with a newline
+    # @example For a palette returned by {.parse}, rendering and parsing again gives the same palette
+    #   Chadcn::Theme.parse(Chadcn::Theme.render_colors(palette)) == palette # => true
     def render_colors(palette)
       root = palette.root.dup
       radius = root.delete("radius")
