@@ -17,7 +17,7 @@ The port is three layers, each replaceable without touching the one above it:
    binding) and yields itself. It owns one binding and hands a child binding to nested forms.
 3. **Bound field** (`Chadcn::Form::Field`): `form.field(attribute: :email) { |f| ... }`. It asks the binding for name, id, value and errors, composes
    the existing `Chadcn::Field`, `Label`, `Input`... parts, and applies the `form.tsx` id/aria contract once, so every control gets it
-   for free (`f.label`, `f.control`, `f.description`, `f.error`, plus one generated helper per bound control).
+   for free (`f.label`, `f.control`, `f.description`, `f.error`, plus one generated helper per nested part of `Form::Field`: `Form::Field::Label`, `Control`, `Description`, `Error` and one class per bound control such as `Form::Field::Input`).
 
 Two bindings ship: `Binding::Plain` (core) and `Chadcn::Engine::FormBinding` (`lib/chadcn/engine/form_binding.rb`, loaded only with Rails). The engine binding builds its own `FormBuilder` from the view context (`view_context:`, `model:`, `scope:`, `url:`, `method:`, `namespace:`), so `Chadcn::Form` renders the only `<form>`; using it inside `form_with` is unsupported (nested forms). Core Phlex never names `Rails`.
 
@@ -47,6 +47,7 @@ Rails (`rails_binding_test.rb`, `rails`, `action_view` and `active_model` requir
 | label | `Model.human_attribute_name(:email)` is overridable through `activemodel.attributes.user.email` |
 | errors / value | `object.errors[:email]` and the reader on the model |
 | `fields_for` | `user[addresses_attributes][0][street]`, id `user_addresses_attributes_0_street`; a hidden `..._attributes][0][id]` input for a persisted child only |
+| namespace | `FormBuilder.new("user", object, view, { namespace: "signup" }).field_id(:email)` is `signup_user_email`: the `"#{namespace}_#{id}"` rule Plain copies |
 | GET form | `form_with(method: :get)` renders no `authenticity_token` input |
 | `fields_for` hidden id | the hidden `..._attributes][0][id]` input comes after the child's own inputs |
 | direct builder | `FormBuilder.new("user", object, view, {})` answers `field_name` and `field_id` like the one `form_with` yields, so the binding can build it itself |
