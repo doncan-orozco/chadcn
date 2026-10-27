@@ -32,13 +32,13 @@ module FormSpike
     def value_for(attribute)
       case @object
       when nil then nil
-      when Hash then @object[attribute.to_sym] || @object[attribute.to_s]
+      when Hash then @object.fetch(attribute.to_sym) { @object[attribute.to_s] }
       else @object.public_send(attribute)
       end
     end
 
     def errors_for(attribute)
-      Array(@errors[attribute.to_sym] || @errors[attribute.to_s])
+      Array(@errors.fetch(attribute.to_sym) { @errors[attribute.to_s] })
     end
 
     def label_for(attribute)

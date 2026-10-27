@@ -34,6 +34,10 @@ class PlainBindingTest < Minitest::Test
     assert_equal "h@example.com", FormSpike::Plain.new(scope: "user", object: { "email" => "h@example.com" }).value_for(:email)
   end
 
+  def test_a_false_value_is_kept
+    assert_same false, FormSpike::Plain.new(scope: "user", object: { admin: false }).value_for(:admin)
+  end
+
   def test_value_is_nil_without_an_object
     assert_nil FormSpike::Plain.new(scope: "user").value_for(:email)
   end

@@ -132,6 +132,27 @@ class RailsBindingTest < Minitest::Test
     refute_includes html, 'name="user[addresses_attributes][1][id]"'
   end
 
+  def test_a_get_form_has_no_authenticity_token
+    html = view.form_with(url: "/search", method: :get) { "" }
+
+    refute_includes html, 'name="authenticity_token"'
+  end
+
+  def test_fields_for_emits_the_hidden_id_after_the_child_inputs
+    user = User.new(id: 1, addresses: [ Address.new(id: 5, street: "Main St") ])
+    builder, = with_builder(user)
+    html = builder.fields_for(:addresses, user.addresses) { |address| address.text_field(:street) }
+
+    assert_operator html.index("[street]"), :<, html.index("[id]")
+  end
+
+  def test_a_builder_built_directly_answers_the_same_names
+    builder = ActionView::Helpers::FormBuilder.new("user", User.new, view, {})
+
+    assert_equal "user[email]", builder.field_name(:email)
+    assert_equal "user_email", builder.field_id(:email)
+  end
+
   def test_the_builder_exposes_the_calls_the_rails_binding_forwards
     builder, = with_builder(User.new)
 

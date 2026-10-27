@@ -1,13 +1,21 @@
 {
   "component": "form",
-  "reason": "shadcn's form.tsx (manifest tier third_party) is a thin layer over react-hook-form (FormProvider, Controller, useFormContext, useFormState) and React context: Form is FormProvider, FormField a Controller, FormItem/FormLabel/FormControl/FormDescription/FormMessage read ids and the field error from context. react-hook-form is a React-only library with no server rendering, so there is no oracle DOM for a Form to compare: the rendered markup depends on a client form state. The port reproduces the part the DOM exposes (the id/aria/data-slot contract of useFormField, form.tsx:61-63, 113-119, 99) over a server-side Binding protocol (Plain, Rails) instead, and gates it with Minitest and the browser tests of the chadcn--form controller rather than with G2. The form-item, form-label and form-control slots are not separate parts: a bound Form::Field composes the existing Field, Label and Input/control parts (data-slot field, field-label, ...) and applies the id/aria/data-error contract to them, so FormItem, FormLabel and FormControl have no Ruby class of their own.",
+  "reason": "shadcn's form.tsx (manifest tier third_party) is glue over react-hook-form: Form is FormProvider, FormField a Controller, and every other part reads its ids (React.useId, form.tsx:77) and the field error from client form state (useFormContext/useFormState). Errors only exist after client validation and the ids never match a server render, so there is no comparable oracle DOM and no catalog harness: the component is gated by Minitest and the chadcn--form browser tests instead of G2. The port reproduces what the DOM exposes, the id/aria/data-error contract of useFormField (form.tsx:61-63, 99, 113-119), over a server-side Binding (Plain, Chadcn::Engine::FormBinding). FormItem, FormLabel, FormControl, FormDescription and FormMessage have no Ruby class: a bound Form::Field composes the existing Field, Field::Label, the control, Field::Description and Field::Error and applies the contract to them; their tokens come from those parts.",
   "allow_tokens": [],
-  "allow_missing_tokens": [],
+  "allow_missing_tokens": ["grid", "gap-2", "text-sm", "text-muted-foreground", "text-destructive"],
   "api": [
-    "Form: not FormProvider; renders <form> with the binding's action, method, _method and CSRF inputs and yields itself",
-    "FormField (Controller): form.field(:attribute) yields a bound Form::Field; there is no render prop or control object",
-    "FormItem / FormLabel / FormControl: no form-item, form-label or form-control data-slot is rendered; the bound field uses Field, Field::Label and the control's own slot and adds id, for, aria-describedby, aria-invalid and data-error per form.tsx",
-    "FormDescription / FormMessage: rendered by Field::Description and Field::Error with the ids form.tsx gives them; Field::Error keeps the list rendering of the Field port",
-    "useFormField: no hook; the bound Form::Field answers id, name, form_item_id, form_description_id, form_message_id and error"
+    "Form: not FormProvider; renders <form> with the binding's action and method, a _method hidden input for put/patch/delete and a CSRF input except on get, and yields itself",
+    "FormField (Controller): form.field(attribute: :name) yields a bound Form::Field; there is no render prop or control object",
+    "FormItem / FormLabel / FormControl / FormDescription / FormMessage: no Ruby class; rendered by Field, Field::Label, the control, Field::Description and Field::Error with the ids, for, aria-describedby, aria-invalid and data-error form.tsx gives them",
+    "FormMessage: the field's errors win over the block (form.tsx:140); several messages render as Field::Error's list",
+    "useFormField: no hook; the bound Form::Field answers id, name, form_item_id, form_description_id, form_message_id and error",
+    "chadcn--form (house behavior, no tsx counterpart): mirrors HTML5 validity into the same aria/data-error/message markup"
+  ],
+  "structure": [
+    "no form-item slot: the field root is <div role=\"group\" data-slot=\"field\" data-orientation> (Chadcn::Field) instead of <div data-slot=\"form-item\" class=\"grid gap-2\">",
+    "no form-label slot: the label is data-slot=\"field-label\"",
+    "no form-control slot: the control keeps its own data-slot (input, textarea, ...)",
+    "no form-description slot: the description is data-slot=\"field-description\"",
+    "no form-message slot: the message is <div role=\"alert\" data-slot=\"field-error\"> instead of <p data-slot=\"form-message\">"
   ]
 }
