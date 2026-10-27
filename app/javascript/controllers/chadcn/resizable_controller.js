@@ -691,9 +691,13 @@ function hitRegionsOf({ expandHitTargets = true, axis, includeDisabled = false }
   return regions
 }
 
+// React mounts a nested group before its parent (child effects run first), so the library lists inner groups first; Stimulus
+// connects a parent first, hence the post-order sort. The first hit separator receives focus on pointerdown.
+const postOrder = (a, b) => (a.element.contains(b.element) ? 1 : b.element.contains(a.element) ? -1 : documentOrder(a.element, b.element))
+
 function pointerHits(event, axes) {
   const hits = []
-  axes.forEach((_state, axis) => {
+  Array.from(axes.keys()).sort(postOrder).forEach((axis) => {
     if (axis.disabled) return
     const regions = hitRegionsOf({ axis })
     let found
