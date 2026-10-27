@@ -34,6 +34,7 @@ Plain (`plain_binding_test.rb`, no Rails loaded):
 | label | humanized attribute (`first_name` -> `First name`); the Rails binding overrides it with I18n |
 | action / method / token | carried as given |
 | nested object | `user[address_attributes][street]`, id `user_address_attributes_street` |
+| namespace | an optional `namespace:` prefixes the id (`signup_user_email`) and nested bindings carry it; the name is unchanged |
 | nested collection | `user[addresses_attributes][1][city]`, id `user_addresses_attributes_1_city`, errors scoped to the row |
 
 Rails (`rails_binding_test.rb`, `rails`, `action_view` and `active_model` required, an in-process `RouteSet`, no database, no controller):
