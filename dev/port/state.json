@@ -1,16 +1,9 @@
 {
-  "created_at": "2026-10-11T08:02:07Z",
-  "skip_tiers": [
-    "third_party"
-  ],
+  "created_at": "2026-10-27T21:10:25Z",
+  "skip_tiers": [],
   "skipped": [
-    "carousel",
     "chart",
-    "drawer",
-    "form",
-    "input-otp",
-    "message-scroller",
-    "resizable"
+    "form"
   ],
   "oracle": {
     "style": "new-york-v4",
@@ -29,15 +22,12 @@
       "last_green_sha": "46e82c5",
       "updated_at": "2026-10-10T07:30:35Z",
       "owns": [
-        "app/assets/tailwind/application.css",
-        "app/assets/tailwind/foundation/**",
         "app/assets/tailwind/chadcn/** (bug fixes only)",
-        "app/assets/tailwind/vendor/**",
         "app/javascript/controllers/chadcn/theme_controller.js",
         "dev/react-shadcn-catalog/src/index.css",
-        "lib/shadcn/**",
-        "lib/tasks/theme.rake",
-        "test/lib/shadcn/**"
+        "lib/chadcn/theme.rb",
+        "./lib/tasks/chadcn*.rake",
+        "test/chadcn/theme_test.rb"
       ],
       "kind": "infra",
       "deps": [],
@@ -75,7 +65,7 @@
       "last_green_sha": "46e82c5",
       "updated_at": "2026-10-10T17:29:16Z",
       "owns": [
-        "app/javascript/v2/primitives/**",
+        "app/javascript/chadcn/primitives/**",
         "config/importmap.rb (primitives and controllers pins)",
         "dev/react-shadcn-catalog/src/parity/primitives/**",
         "dev/port/scenarios/_primitives-*.json"
@@ -95,8 +85,8 @@
       "last_green_sha": "46e82c5",
       "updated_at": "2026-10-10T07:27:12Z",
       "owns": [
-        "app/components/v2/base.rb",
-        "test/components/v2/base_test.rb"
+        "lib/chadcn/base.rb",
+        "test/chadcn/base_test.rb"
       ],
       "kind": "infra",
       "deps": [],
@@ -111,8 +101,8 @@
       "last_green_sha": "46e82c5",
       "updated_at": "2026-10-10T07:28:03Z",
       "owns": [
-        "app/components/v2/icon.rb",
-        "app/components/v2/icons/**"
+        "lib/chadcn/icon.rb",
+        "lib/chadcn/icons/**"
       ],
       "kind": "infra",
       "deps": [],
@@ -336,6 +326,18 @@
       "deps": [],
       "source_sha": "84ae2ad658207f0e"
     },
+    "drawer": {
+      "status": "pending",
+      "tier": "third_party",
+      "wave": 3,
+      "iteration": 0,
+      "note": null,
+      "last_green_sha": null,
+      "updated_at": "2026-10-27T21:10:25Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "63f04fe50a4bf29b"
+    },
     "empty": {
       "status": "done",
       "tier": "static",
@@ -371,6 +373,18 @@
       "kind": "fanout",
       "deps": [],
       "source_sha": "0c9457181f6ddc80"
+    },
+    "input-otp": {
+      "status": "pending",
+      "tier": "third_party",
+      "wave": 3,
+      "iteration": 0,
+      "note": null,
+      "last_green_sha": null,
+      "updated_at": "2026-10-27T21:10:25Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "9f81898aeaabbb10"
     },
     "kbd": {
       "status": "done",
@@ -492,6 +506,18 @@
       "deps": [],
       "source_sha": "cfc4f99ee68be2fb"
     },
+    "resizable": {
+      "status": "pending",
+      "tier": "third_party",
+      "wave": 3,
+      "iteration": 0,
+      "note": null,
+      "last_green_sha": null,
+      "updated_at": "2026-10-27T21:10:25Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "aaf3ea20e8060c75"
+    },
     "scroll-area": {
       "status": "done",
       "tier": "radix_stateful",
@@ -551,6 +577,18 @@
       "kind": "fanout",
       "deps": [],
       "source_sha": "6a531f6182de6efe"
+    },
+    "sonner": {
+      "status": "pending",
+      "tier": "third_party",
+      "wave": 3,
+      "iteration": 0,
+      "note": null,
+      "last_green_sha": null,
+      "updated_at": "2026-10-20T02:44:33Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "13ccc9b0fe4248e6"
     },
     "spinner": {
       "status": "done",
@@ -654,6 +692,34 @@
       ],
       "source_sha": "a9ac862707ff8d78"
     },
+    "calendar": {
+      "status": "pending",
+      "tier": "third_party",
+      "wave": 4,
+      "iteration": 0,
+      "note": null,
+      "last_green_sha": null,
+      "updated_at": "2026-10-20T07:30:15Z",
+      "kind": "fanout",
+      "deps": [
+        "button"
+      ],
+      "source_sha": "78ed2cc49dafc5bb"
+    },
+    "carousel": {
+      "status": "pending",
+      "tier": "third_party",
+      "wave": 4,
+      "iteration": 0,
+      "note": null,
+      "last_green_sha": null,
+      "updated_at": "2026-10-27T21:10:25Z",
+      "kind": "fanout",
+      "deps": [
+        "button"
+      ],
+      "source_sha": "70ba30941a3adb44"
+    },
     "field": {
       "status": "done",
       "tier": "static",
@@ -698,6 +764,20 @@
         "separator"
       ],
       "source_sha": "9ade8136f010284b"
+    },
+    "message-scroller": {
+      "status": "pending",
+      "tier": "third_party",
+      "wave": 4,
+      "iteration": 0,
+      "note": null,
+      "last_green_sha": null,
+      "updated_at": "2026-10-27T21:10:25Z",
+      "kind": "fanout",
+      "deps": [
+        "button"
+      ],
+      "source_sha": "9f7580a8c9a59d28"
     },
     "pagination": {
       "status": "done",
@@ -746,32 +826,6 @@
       ],
       "source_sha": "45186473eaa30a96"
     },
-    "sonner": {
-      "status": "pending",
-      "tier": "third_party",
-      "wave": 3,
-      "iteration": 0,
-      "note": null,
-      "last_green_sha": null,
-      "updated_at": "2026-10-20T02:44:33Z",
-      "kind": "fanout",
-      "deps": [],
-      "source_sha": "13ccc9b0fe4248e6"
-    },
-    "command": {
-      "status": "done",
-      "tier": "third_party",
-      "wave": 5,
-      "iteration": 0,
-      "note": "ported in #178",
-      "last_green_sha": null,
-      "updated_at": "2026-10-20T05:34:24Z",
-      "kind": "fanout",
-      "deps": [
-        "dialog"
-      ],
-      "source_sha": "319e9264567dd46f"
-    },
     "combobox": {
       "status": "done",
       "tier": "third_party",
@@ -787,19 +841,23 @@
       ],
       "source_sha": "4f88734887ed6928"
     },
-    "calendar": {
-      "status": "pending",
+    "command": {
+      "status": "done",
       "tier": "third_party",
-      "wave": 4,
+      "wave": 5,
       "iteration": 0,
-      "note": null,
+      "note": "ported in #178",
       "last_green_sha": null,
-      "updated_at": "2026-10-20T07:30:15Z",
+      "updated_at": "2026-10-20T05:34:24Z",
       "kind": "fanout",
       "deps": [
-        "button"
+        "dialog"
       ],
-      "source_sha": "78ed2cc49dafc5bb"
+      "source_sha": "319e9264567dd46f"
     }
+  },
+  "skip_reasons": {
+    "chart": "wraps recharts, a React-only charting library with no Phlex/Stimulus equivalent in scope",
+    "form": "wraps react-hook-form and zod, whose state model has no Phlex counterpart; Rails form builders cover it"
   }
 }

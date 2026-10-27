@@ -2,8 +2,8 @@
 
 - Oracle: style `new-york-v4`, 61 components, digest `7de7073d0e253001`, fetched 2026-10-10T04:52:14Z
 - React catalog upgraded to the registry stack (React 19, Tailwind 4, `radix-ui`); `--verify-catalog`, `--check-tokens`, `npm run build` and dev `GET /` all pass.
-- Skipped tier (`--skip-tier third_party`, stored in `state.json`): calendar, carousel, chart, combobox, command, drawer, form, input-otp, message-scroller, resizable, sonner. The oracle still covers them; no spec or scenarios exist for them and no third-party JS library is needed for the planned set.
-- Planned: 50 components, 4270 scenarios (avg 85). Tier tally of planned: radix_stateful=16, overlay=11, static=22, client=1.
+- Skipped (by name, listed in `skipped` in `state.json` with `skip_reasons`): chart (recharts, React-only) and form (react-hook-form and zod, no Phlex counterpart; Rails form builders cover it). The oracle still covers them; no spec or scenarios exist for them. calendar, combobox, command and sonner are ported or planned, not skipped; carousel, drawer, input-otp, message-scroller and resizable are planned again (pending).
+- Planned: 59 components (52 done, 7 pending incl. sonner and calendar; chart and form skipped), plus the 5 wave-0 infra items, all done. Tier tally at the original plan: radix_stateful=16, overlay=11, static=22, client=1.
 - Wave 0 infra (pending, built by `/shadcn-run`): `_theme`, `_base`, `_icons`, `_harness`, `_primitives`.
 
 ## Waves
