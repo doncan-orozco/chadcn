@@ -147,6 +147,40 @@ class Chadcn::ThemeTest < Chadcn::TestCase
     assert_includes errors, "light (:root): missing --radius"
   end
 
+  test "validate reports an invalid value" do
+    palette = Theme.parse(File.read(File.join(@theme_dir, "presets", "zinc.css")))
+    palette.root["primary"] = "240 10% 3.9%"
+    palette.dark["ring"] = "url(x)"
+
+    errors = Theme.validate(palette)[:errors]
+
+    assert(errors.any? { |e| e.include?("--primary is a bare HSL triplet") })
+    assert(errors.any? { |e| e.include?("--ring contains text that could break theme.css") })
+  end
+
+  test "a failing contrast pair is a warning, and an error with strict: true" do
+    palette = Theme.parse(File.read(File.join(@theme_dir, "presets", "zinc.css")))
+    palette.root["muted-foreground"] = "oklch(0.9 0 0)"
+
+    result = Theme.validate(palette)
+    strict = Theme.validate(palette, strict: true)
+
+    assert(result[:warnings].any? { |w| w.start_with?("light: --muted-foreground on --muted contrast") })
+    assert_empty result[:errors]
+    assert(strict[:errors].any? { |e| e.start_with?("light: --muted-foreground on --muted contrast") })
+    assert_empty strict[:warnings].grep(/light: --muted-foreground/)
+  end
+
+  test "every preset round-trips through render_colors and parse" do
+    Theme.presets.each do |name|
+      palette = Theme.parse(File.read(File.join(@theme_dir, "presets", "#{name}.css")))
+      again = Theme.parse(Theme.render_colors(palette))
+
+      assert_equal palette.root, again.root, name
+      assert_equal palette.dark, again.dark, name
+    end
+  end
+
   test "strict mode turns low contrast into an error" do
     palette = Theme.parse(File.read(File.join(@theme_dir, "presets", "zinc.css")))
     palette.root["muted-foreground"] = "oklch(0.9 0 0)"

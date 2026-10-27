@@ -301,6 +301,7 @@ class Chadcn::Tabs::List < Chadcn::Base
 class Chadcn::Tabs::Trigger < Chadcn::Base
 class Chadcn::Textarea < Chadcn::Base
 class Chadcn::Theme::Error < StandardError
+class Chadcn::Theme::Palette < Struct
 class Chadcn::Toggle < Chadcn::Base
 class Chadcn::ToggleGroup < Chadcn::Base
 class Chadcn::ToggleGroup::Item < Chadcn::Base
@@ -328,12 +329,16 @@ class_method Chadcn::Sidebar::MenuButton.variants (variant: "default", size: "de
 class_method Chadcn::Tabs.list_variants (variant: "default")
 class_method Chadcn::Theme.check (strict: false)
 class_method Chadcn::Theme.configured? ()
+class_method Chadcn::Theme.contrast (fg, bg)
 class_method Chadcn::Theme.dir ()
 class_method Chadcn::Theme.import (source, input: $stdin)
+class_method Chadcn::Theme.parse (css)
 class_method Chadcn::Theme.presets ()
 class_method Chadcn::Theme.presets_dir ()
+class_method Chadcn::Theme.render_colors (palette)
 class_method Chadcn::Theme.theme_file ()
 class_method Chadcn::Theme.use (name)
+class_method Chadcn::Theme.validate (palette, strict: false)
 class_method Chadcn::Toggle.variants (variant: "default", size: "default", class: nil)
 const Chadcn::Alert::VARIANTS [default, destructive]
 const Chadcn::AlertDialog::Content::SIZES [default, sm]
@@ -1173,6 +1178,10 @@ method Chadcn::Tabs::Trigger#initialize (value:, disabled: false, as_child: fals
 method Chadcn::Tabs::Trigger#view_template ()
 method Chadcn::Textarea#initialize (default_value: nil, value: nil, **attrs)
 method Chadcn::Textarea#view_template (&block)
+method Chadcn::Theme::Palette#dark ()
+method Chadcn::Theme::Palette#dark= (value)
+method Chadcn::Theme::Palette#root ()
+method Chadcn::Theme::Palette#root= (value)
 method Chadcn::Toggle#initialize (variant: "default", size: "default", pressed: nil, default_pressed: false, disabled: false, as_child: false, **attrs)
 method Chadcn::Toggle#view_template ()
 method Chadcn::ToggleGroup#initialize (type:, value: nil, default_value: nil, variant: nil, size: nil, spacing: 0, disabled: false, roving_focus: true, orientation: nil, dir: nil, loop: true, as_child: false, **attrs)
