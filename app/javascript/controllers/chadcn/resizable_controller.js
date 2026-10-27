@@ -1283,7 +1283,8 @@ function onSeparatorKeydown(event, axis) {
 function mountAxis(axis) {
   let live = true
   assert(axis.element.ownerDocument.defaultView, "Cannot register an unmounted Group")
-  // Validate before acquiring anything, so a throwing connect leaves no module state behind.
+  // Validate and compute everything that can throw on caller input (ids, constraints JSON, default layout) before acquiring
+  // the ResizeObserver or the document refcount: a failed connect never reaches disconnect, so nothing may be held yet.
   const panelIds = new Set()
   axis.items.forEach((item) => {
     assert(!panelIds.has(item.id), `Panel ids must be unique; id "${item.id}" was used more than once`)
@@ -1294,7 +1295,17 @@ function mountAxis(axis) {
     assert(!separatorIds.has(separator.id), `Separator ids must be unique; id "${separator.id}" was used more than once`)
     separatorIds.add(separator.id)
   })
-  const ResizeObserverClass = axis.element.ownerDocument.defaultView.ResizeObserver
+  const axisSize = axisSizeOf(axis)
+  const constraints = deriveConstraints(axis)
+  const initial = initialLayoutOf({ axis, itemConstraints: constraints })
+  const layout = validateLayout({ layout: initial, itemConstraints: constraints })
+  const requestedLayout = looseLayout({ itemIds: axis.items.map(({ id }) => id), layout: initial })
+  const separatorToItems = new Map()
+  hitRegionsOf({ axis, includeDisabled: true }).forEach((region) => {
+    if (region.separator) separatorToItems.set(region.separator, region.items)
+  })
+  const document = axis.element.ownerDocument
+  const ResizeObserverClass = document.defaultView.ResizeObserver
   const observer = new ResizeObserverClass((entries) => {
     for (const entry of entries) {
       const { borderBoxSize, target } = entry
@@ -1330,28 +1341,19 @@ function mountAxis(axis) {
       }
     }
   })
-  observer.observe(axis.element)
-  axis.items.forEach((item) => {
-    if (item.onResize) observer.observe(item.element)
-  })
-  const axisSize = axisSizeOf(axis)
-  const constraints = deriveConstraints(axis)
-  const initial = initialLayoutOf({ axis, itemConstraints: constraints })
-  const layout = validateLayout({ layout: initial, itemConstraints: constraints })
-  const document = axis.element.ownerDocument
-  const separatorToItems = new Map()
   retainDocument(document)
-  hitRegionsOf({ axis, includeDisabled: true }).forEach((region) => {
-    if (region.separator) separatorToItems.set(region.separator, region.items)
-  })
   storeAxisState(axis, {
     defaultLayoutDeferred: axisSize === 0,
     derivedItemConstraints: constraints,
     axisSize,
     layout,
     requestedAxisSize: axisSize,
-    requestedLayout: looseLayout({ itemIds: axis.items.map(({ id }) => id), layout: initial }),
+    requestedLayout,
     separatorToItems
+  })
+  observer.observe(axis.element)
+  axis.items.forEach((item) => {
+    if (item.onResize) observer.observe(item.element)
   })
   return () => {
     live = false

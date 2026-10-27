@@ -4,7 +4,8 @@
 # `style:` and the content), as the library renders it.
 #
 # Sizes follow the library: a Numeric is pixels; a String is parsed with its suffix (`%`, `px`, `rem`, `em`, `vh`, `vw`; none
-# means percent). Event `chadcn--resizable:resize` (bubbles, detail `{ size: { asPercentage, inPixels }, id, prevSize }`) is
+# means percent; before connect an unsuffixed String renders verbatim as `flex-basis`, as the library does, and the controller
+# then parses it as percent). Event `chadcn--resizable:resize` (bubbles, detail `{ size: { asPercentage, inPixels }, id, prevSize }`) is
 # dispatched from the outer div.
 #
 # @example
@@ -42,12 +43,12 @@ class Chadcn::Resizable::Panel < Chadcn::Base
                  collapsed_threshold: nil, disabled: false, group_resize_behavior: "preserve-relative-size", id: nil,
                  class: nil, style: nil, **attrs)
     @default_size = default_size
+    @id = given_id(id)
     @disabled = disabled ? true : false
     @constraints = { defaultSize: default_size, minSize: min_size, maxSize: max_size, collapsible: collapsible ? true : false,
                      collapsedSize: collapsed_size, collapsedThreshold: collapsed_threshold, disabled: @disabled,
                      groupResizeBehavior: choice(group_resize_behavior, RESIZE_BEHAVIORS, "group_resize_behavior"),
-                     id: given_id(id) }.compact
-    @id = given_id(id)
+                     id: @id }.compact
     @class = binding.local_variable_get(:class)
     @style = style
     @attrs = attrs

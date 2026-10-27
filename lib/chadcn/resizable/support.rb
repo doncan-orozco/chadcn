@@ -19,7 +19,7 @@ module Chadcn::Resizable::Support
   end
 
   # The caller id as one id token (a Stimulus-safe, selector-safe string), or nil.
-  def given_id(id) = id.nil? ? nil : validated_id(js_string(id))
+  def given_id(id) = id.nil? || id == false ? nil : validated_id(js_string(id))
 
   def touch_action(orientation) = orientation == "horizontal" ? "pan-y" : "pan-x"
 

@@ -159,17 +159,43 @@ browserTest("resizable: two groups with identical ids keep separate layouts", as
 
 browserTest("resizable: the imperative methods throw once the group is disconnected", async ({ open }) => {
   const page = await open("default", "resizable")
-  const message = await page.evaluate(() => {
+  const message = await page.evaluate(async () => {
     const element = document.querySelector("[data-controller~='chadcn--resizable']")
     const instance = window.Stimulus.getControllerForElementAndIdentifier(element, "chadcn--resizable")
     const live = typeof instance.getLayout()
     element.remove()
-    return new Promise((resolve) => setTimeout(() => {
-      try { instance.getLayout() } catch (error) { resolve(`${live}|${error.message}`) }
-    }, 50))
+    for (let tick = 0; tick < 3; tick++) await new Promise((resolve) => setTimeout(resolve))
+    try {
+      instance.getLayout()
+      return `${live}|did not throw`
+    } catch (error) {
+      return `${live}|${error.message}`
+    }
   })
 
   assert.equal(message, "object|chadcn--resizable: the group is not connected")
+})
+
+browserTest("resizable: a connect that throws on bad constraints holds no observer or document state", async ({ open }) => {
+  const page = await open("default", "resizable")
+  const errors = consoleErrors(page)
+  const box = await page.locator(HANDLE).boundingBox()
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2)
+  assert.equal(await page.evaluate(() => document.adoptedStyleSheets.length), 1, "control: the pointer sheet exists while a group is live")
+  await page.evaluate(async () => {
+    const group = document.querySelector("[data-slot=resizable-panel-group]")
+    const clone = group.cloneNode(true)
+    clone.querySelector("[data-slot=resizable-panel]").setAttribute("data-chadcn--resizable-constraints", '{"defaultSize":true}')
+    group.after(clone)
+    for (let tick = 0; tick < 3; tick++) await new Promise((resolve) => setTimeout(resolve))
+    clone.remove()
+    group.remove()
+    for (let tick = 0; tick < 3; tick++) await new Promise((resolve) => setTimeout(resolve))
+  })
+  await settle(page)
+
+  assert.ok(errors.length > 0, "the failed connect is reported")
+  assert.equal(await page.evaluate(() => document.adoptedStyleSheets.length), 0)
 })
 
 browserTest("resizable: separator-mode preview overlays exist mid-drag, vanish on release and stale ones are dropped on reconnect", async ({ open }) => {

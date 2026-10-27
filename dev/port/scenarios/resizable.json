@@ -8882,6 +8882,128 @@
         "height": 700
       },
       "animations": false
+    },
+    {
+      "id": "pointer__resize-target-minimum-size",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "h-[200px] w-[61px]"
+        },
+        "children": [
+          {
+            "c": "ResizablePanelGroup",
+            "props": {
+              "className": "h-full w-full",
+              "resizeTargetMinimumSize": {
+                "coarse": 40,
+                "fine": 40
+              }
+            },
+            "children": [
+              {
+                "c": "ResizablePanel",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "className": "h-full"
+                    }
+                  }
+                ]
+              },
+              {
+                "c": "ResizableHandle",
+                "props": {}
+              },
+              {
+                "c": "ResizablePanel",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "className": "h-full"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=resizable-panel] >> nth=0"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "pointer__resize-target-minimum-size__default-control",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "h-[200px] w-[61px]"
+        },
+        "children": [
+          {
+            "c": "ResizablePanelGroup",
+            "props": {
+              "className": "h-full w-full"
+            },
+            "children": [
+              {
+                "c": "ResizablePanel",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "className": "h-full"
+                    }
+                  }
+                ]
+              },
+              {
+                "c": "ResizableHandle",
+                "props": {}
+              },
+              {
+                "c": "ResizablePanel",
+                "props": {},
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "className": "h-full"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": "[data-slot=resizable-panel] >> nth=0"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
     }
   ]
 }

@@ -227,6 +227,13 @@ class Chadcn::ResizableTest < Chadcn::TestCase
     assert_equal "true", panel["data-disabled"]
   end
 
+  test "a false id is treated as no id" do
+    panel = group(first: { id: false }).at_css("[data-panel]")
+
+    refute_equal "false", panel["id"]
+    refute JSON.parse(panel["data-chadcn--resizable-constraints"]).key?("id")
+  end
+
   test "ids must be one token" do
     [ "two words", "", 'a"b' ].each do |bad|
       assert_raises(ArgumentError) { PanelGroup.new(id: bad) }
