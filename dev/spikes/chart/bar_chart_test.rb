@@ -50,16 +50,29 @@ class BarChartSpikeTest < Minitest::Test
     refute_empty ChartSpike::Compare.new(ORACLE, html.sub("<title></title>", "<desc></desc>")).errors
   end
 
-  def test_stimulus_wiring_and_tooltip_templates_are_not_compared
+  def test_stimulus_wiring_and_chart_templates_are_not_compared
     html = chart.call
-    wired = html.sub('<div data-slot="chart"', '<div data-controller="chadcn--chart" data-chadcn--chart-active-index-value="1" data-turbo-permanent data-parity-id="c1" data-slot="chart"')
-    wired = wired.sub('</style>', '</style><template data-chadcn--chart-target="tooltipTemplate" data-index="1"><div>February</div></template>')
+    wired = html.sub('<div data-slot="chart"', '<div data-controller="chadcn--chart" data-chadcn--chart-pointer-index-value="1" data-turbo-permanent data-parity-id="c1" data-slot="chart"')
+    tooltip = '<template data-chadcn--chart-target="tooltipTemplate" data-index="1"><div>February</div></template>'
+    tick = '<template data-chadcn--chart-target="tickTemplate" data-axis="x" data-index="3"><svg><g class="recharts-layer recharts-cartesian-axis-tick-label"></g></svg></template>'
+    wired = wired.sub("</style>", "</style>#{tooltip}#{tick}")
 
     refute_equal html, wired
     assert_empty ChartSpike::Compare.new(ORACLE, wired).errors
-    # only the wiring is exempt: the same attribute on another element, or an extra non-template child, is a difference
-    refute_empty ChartSpike::Compare.new(ORACLE, html.sub('</style>', '</style><div data-chadcn--chart-target="x"></div>')).errors
+    # only the wiring and the two chart templates are exempt: the same attribute on another element, or any other extra child, is a difference
+    refute_empty ChartSpike::Compare.new(ORACLE, html.sub("</style>", '</style><div data-chadcn--chart-target="x"></div>')).errors
     refute_empty ChartSpike::Compare.new(ORACLE, html.sub('class="recharts-surface"', 'class="recharts-surface" data-index="1"')).errors
+  end
+
+  def test_only_the_two_chart_template_targets_are_exempt
+    html = chart.call
+
+    assert_empty ChartSpike::Compare.new(ORACLE, html.sub("</style>", '</style><template data-chadcn--chart-target="tickTemplate" data-axis="x" data-index="0"></template>')).errors
+    # a template with another (or no) target, or a template that is not a direct child of div[data-slot=chart], is a difference
+    refute_empty ChartSpike::Compare.new(ORACLE, html.sub("</style>", '</style><template data-chadcn--chart-target="other"></template>')).errors
+    refute_empty ChartSpike::Compare.new(ORACLE, html.sub("</style>", "</style><template></template>")).errors
+    nested = html.sub("<title></title>", '<template data-chadcn--chart-target="tickTemplate"></template><title></title>')
+    refute_empty ChartSpike::Compare.new(ORACLE, nested).errors
   end
 
   def test_url_references_go_through_the_id_table
