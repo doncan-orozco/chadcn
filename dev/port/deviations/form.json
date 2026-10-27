@@ -12,7 +12,8 @@
     "chadcn--form (house behavior, no tsx counterpart): mirrors HTML5 validity into the same aria/data-error/message markup"
   ],
   "structure": [
-    "no form-item slot: the field root is <div role=\"group\" data-slot=\"field\" data-orientation> (Chadcn::Field) instead of <div data-slot=\"form-item\" class=\"grid gap-2\">",
+    "no form-item slot: the field root is <div role=\"group\" data-slot=\"field\" data-orientation> (Chadcn::Field) instead of <div data-slot=\"form-item\" class=\"grid gap-2\">; with errors it also carries data-invalid=\"true\", so Field's data-[invalid=true]:text-destructive colors the whole field, where form.tsx colors only the label and the message",
+    "no FormProvider counterpart: Form renders <form data-slot=\"form\"> (house slot; the shadcn examples write <form> by hand inside <Form>)",
     "no form-label slot: the label is data-slot=\"field-label\"",
     "no form-control slot: the control keeps its own data-slot (input, textarea, ...)",
     "no form-description slot: the description is data-slot=\"field-description\"",

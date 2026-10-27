@@ -19,7 +19,7 @@ The port is three layers, each replaceable without touching the one above it:
    the existing `Chadcn::Field`, `Label`, `Input`... parts, and applies the `form.tsx` id/aria contract once, so every control gets it
    for free (`f.label`, `f.control`, `f.description`, `f.error`, plus one generated helper per bound control).
 
-Two bindings ship: `Binding::Plain` (core) and `Chadcn::Engine::FormBinding` (`lib/chadcn/engine/form_binding.rb`, loaded only with Rails). The engine binding builds its own `FormBuilder` from the view context (`view_context:`, `model:`, `url:`, `method:`), so `Chadcn::Form` renders the only `<form>`; using it inside `form_with` is unsupported (nested forms). Core Phlex never names `Rails`.
+Two bindings ship: `Binding::Plain` (core) and `Chadcn::Engine::FormBinding` (`lib/chadcn/engine/form_binding.rb`, loaded only with Rails). The engine binding builds its own `FormBuilder` from the view context (`view_context:`, `model:`, `scope:`, `url:`, `method:`, `namespace:`), so `Chadcn::Form` renders the only `<form>`; using it inside `form_with` is unsupported (nested forms). Core Phlex never names `Rails`.
 
 ## What the spike proved
 
@@ -54,8 +54,7 @@ Rails (`rails_binding_test.rb`, `rails`, `action_view` and `active_model` requir
 Findings that shape the build:
 
 - The builder needs a real view context: url helpers, `protect_against_forgery?`, `form_authenticity_token`,
-  `request_forgery_protection_token`. A Phlex component gets them from `helpers` in the engine (`phlex-rails` is not a dependency;
-  the engine passes the view context in).
+  `request_forgery_protection_token`. A Phlex component receives it as `view_context:` from the caller (`helpers` under phlex-rails, `self` in ERB); `phlex-rails` is not a dependency.
 - `fields_for` emits the hidden `id` input after the child's inputs, not before; the order is irrelevant to Rails but #41's tests must not assert it.
 - Attribute order differs between helpers (`hidden_field` emits `value` before `name`; the `_method` and token tags emit `name` first); tests must match tags with lookaheads, not exact strings.
 - The two nested-model constants had to be pinned with `model_name` because the spike nests them in a test class; a host's models do not need it.

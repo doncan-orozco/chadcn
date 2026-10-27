@@ -123,7 +123,7 @@ class RailsBindingTest < Minitest::Test
   def test_fields_for_names_nested_attributes_with_the_index_and_the_hidden_id
     user = User.new(id: 1, addresses: [ Address.new(id: 5, street: "Main St"), Address.new(street: "Side St") ])
     builder, = with_builder(user)
-    html = builder.fields_for(:addresses, user.addresses) { |address| address.text_field(:street) + address.field_name(:street) }
+    html = builder.fields_for(:addresses, user.addresses) { |address| address.text_field(:street) }
 
     assert_includes html, 'name="user[addresses_attributes][0][street]"'
     assert_includes html, 'name="user[addresses_attributes][1][street]"'
@@ -136,6 +136,13 @@ class RailsBindingTest < Minitest::Test
     html = view.form_with(url: "/search", method: :get) { "" }
 
     refute_includes html, 'name="authenticity_token"'
+    refute_includes html, 'name="_method"'
+  end
+
+  def test_a_namespaced_builder_prefixes_the_id
+    builder = ActionView::Helpers::FormBuilder.new("user", User.new, view, { namespace: "signup" })
+
+    assert_equal "signup_user_email", builder.field_id(:email)
   end
 
   def test_fields_for_emits_the_hidden_id_after_the_child_inputs
