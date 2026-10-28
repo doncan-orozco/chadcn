@@ -36,7 +36,8 @@ module Chadcn
       def initialize(view_context:, model: nil, scope: nil, url: nil, method: nil, namespace: nil)
         @view_context = view_context
         @model = model
-        @scope = (scope || model&.model_name&.param_key || raise(ArgumentError, "FormBinding needs model: or scope:")).to_s
+        @scope = (scope || (model.model_name.param_key if model.respond_to?(:model_name)) || raise(ArgumentError, "FormBinding needs model: or scope:")).to_s
+        @translation_scope = @scope.gsub(NESTED_SCOPE, '.\1')
         @url = url
         @method = method
         @namespace = namespace
@@ -69,7 +70,7 @@ module Chadcn
       # @param attribute [Symbol, String]
       # @return [String]
       def label_for(attribute)
-        translated = ::I18n.t("#{@scope.gsub(NESTED_SCOPE, '.\1')}.#{attribute}", scope: "helpers.label", default: "")
+        translated = ::I18n.t("#{@translation_scope}.#{attribute}", scope: "helpers.label", default: "")
         return translated unless translated.empty?
 
         @model.class.respond_to?(:human_attribute_name) ? @model.class.human_attribute_name(attribute) : attribute.to_s.tr("_", " ").capitalize
@@ -104,19 +105,22 @@ module Chadcn
       # @return [String, nil] +url:+, else +polymorphic_path(model)+
       # @raise [NoMethodError] when the model has no route, as +form_with+ raises
       def action
-        @url || (@model && @view_context.polymorphic_path(@model))
+        return @action if defined?(@action)
+
+        @action = @url || (@model && @view_context.polymorphic_path(@model))
       end
 
       # @return [String]
       def http_method
-        (@method || (persisted? ? "patch" : "post")).to_s.downcase
+        @http_method ||= (@method || (persisted? ? "patch" : "post")).to_s.downcase
       end
 
       # @return [String, nil] nil when forgery protection is off or the form is a GET
       def csrf_token
-        return unless @view_context.protect_against_forgery? && http_method != "get"
+        verb = http_method
+        return unless @view_context.protect_against_forgery? && verb != "get"
 
-        @view_context.form_authenticity_token(form_options: { action:, method: http_method })
+        @view_context.form_authenticity_token(form_options: { action:, method: verb })
       end
 
       private
