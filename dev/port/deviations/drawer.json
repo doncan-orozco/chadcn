@@ -9,6 +9,7 @@
     "Drawer container: and Drawer::Portal container: are CSS selector strings instead of DOM elements",
     "Drawer takes id: (no vaul/Radix prop): the id of the content, the other generated ids being <id>-<part>; Radix numbers ids with React's useId; the port numbers them per request with the Rails engine and per render otherwise (Chadcn::Sequence)",
     "vaul callbacks onDrag, onRelease, onClose, onAnimationEnd and setActiveSnapPoint are the events chadcn--drawer:drag, :release, :close, :animation-end and :active-snap-point-change",
+    "the host renders data-chadcn--drawer-modal-value=\"true\" always (Radix Dialog is always modal inside vaul, the dialog controller reads it) and vaul's own modal as data-chadcn--drawer-vaul-modal-value",
     "vaul is not a dependency: its behavior lives in chadcn--drawer and its injected stylesheet in app/assets/tailwind/chadcn/vaul.css"
   ]
 }

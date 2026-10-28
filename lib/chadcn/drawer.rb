@@ -93,7 +93,7 @@ class Chadcn::Drawer < Chadcn::Base
 
     @snap_points = snap_points&.to_a
     @active_snap_point = active_snap_point
-    @fade_from_index = fade_from_index || (@snap_points && @snap_points.length - 1)
+    @fade_from_index = fade_from_index || @snap_points&.length&.pred
     @container = container
     @id = validated_id(id)
     @options = { dismissible:, modal:, handle_only:, auto_focus:, snap_to_sequential_point:, close_threshold:, scroll_lock_timeout:,
