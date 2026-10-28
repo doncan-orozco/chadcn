@@ -42,7 +42,7 @@ module Chadcn
         @url = url
         @method = method
         @namespace = namespace
-        @builder = ActionView::Helpers::FormBuilder.new(@scope, model, view_context, { namespace: }.compact)
+        @builder = ::ActionView::Helpers::FormBuilder.new(@scope, model, view_context, { namespace: }.compact)
       end
 
       # @param attribute [Symbol, String]
@@ -71,10 +71,10 @@ module Chadcn
       # @param attribute [Symbol, String]
       # @return [String]
       def label_for(attribute)
-        translated = I18n.t("#{@scope.gsub(NESTED_SCOPE, '.\1')}.#{attribute}", scope: "helpers.label", default: "").presence
-        return translated if translated
+        translated = ::I18n.t("#{@scope.gsub(NESTED_SCOPE, '.\1')}.#{attribute}", scope: "helpers.label", default: "")
+        return translated unless translated.empty?
 
-        @model.class.respond_to?(:human_attribute_name) ? @model.class.human_attribute_name(attribute) : attribute.to_s.humanize
+        @model.class.respond_to?(:human_attribute_name) ? @model.class.human_attribute_name(attribute) : attribute.to_s.tr("_", " ").capitalize
       end
 
       # Whether a presence validator (without +if:+/+unless:+) applies to the attribute, for +required+ on a control.
@@ -85,7 +85,7 @@ module Chadcn
         return false unless @model.class.respond_to?(:validators_on)
 
         @model.class.validators_on(attribute.to_sym).any? do |validator|
-          validator.is_a?(ActiveModel::Validations::PresenceValidator) && !validator.options.key?(:if) && !validator.options.key?(:unless)
+          validator.is_a?(::ActiveModel::Validations::PresenceValidator) && !validator.options.key?(:if) && !validator.options.key?(:unless)
         end
       end
 

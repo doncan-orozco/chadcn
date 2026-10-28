@@ -65,10 +65,10 @@ class EngineTest::FormBinding < Minitest::Test
 
   def view = @view ||= View.with_empty_template_cache.with_view_paths([])
 
-  def binding_for(model = User.new, **options) = Chadcn::Engine::FormBinding.new(view_context: view, model:, **options)
+  def binding_for(model = User.new, **) = Chadcn::Engine::FormBinding.new(view_context: view, model:, **)
 
-  def render_form(model = User.new, **options)
-    form_binding = binding_for(model, **options)
+  def render_form(model = User.new, **)
+    form_binding = binding_for(model, **)
     html = Chadcn::Form.new(binding: form_binding).call do |form|
       form.field(attribute: :email) do |field|
         field.label
