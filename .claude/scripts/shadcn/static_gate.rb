@@ -32,7 +32,7 @@ module ShadcnStaticGate
   PALETTE = /\b(?:bg|text|border|ring|fill|stroke|outline|from|to|via|divide|shadow)-(?:slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-\d{2,3}\b/
   COLOR_LITERAL = /#(?:[0-9a-fA-F]{3,4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})\b|\b(?:rgb|rgba|hsl|hsla|oklch)\(/
   UTILITY = %r{\A[!\-\w\[\]():/.&>*%=,'#@+]+\z}
-  IGNORED_PROPS = %w[className children ...props].freeze
+  IGNORED_PROPS = %w[className children props ...props].freeze
 
   Finding = Struct.new(:code, :severity, :part, :detail, :expected, :found, keyword_init: true)
 
