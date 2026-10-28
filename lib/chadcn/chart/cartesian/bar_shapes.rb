@@ -6,12 +6,8 @@
 #
 # @api private
 module Chadcn::Chart::Cartesian::BarShapes
-  Value = Chadcn::Chart::Cartesian::Value
-
   # One bar: the pixel box, the value the label shows, the data row and its index.
   Rect = Data.define(:x, :y, :width, :height, :value, :row, :index)
-
-  private_constant :Value
 
   class << self
     # @api private
@@ -42,7 +38,7 @@ module Chadcn::Chart::Cartesian::BarShapes
         pair = pairs[index] or return
         truncate(pair, numeric.domain)
       else
-        value = Value.read(row, bar.options[:data_key])
+        value = Chadcn::Chart::Cartesian::Value.read(row, bar.options[:data_key])
         value.is_a?(Array) ? value : [ base, value ]
       end
     end
@@ -60,11 +56,11 @@ module Chadcn::Chart::Cartesian::BarShapes
 
     # `truncateByDomain`: a stacked value kept inside the domain.
     def truncate(pair, domain)
-      return pair unless domain && domain.size == 2 && domain.all? { |bound| Value.numeric?(bound) }
+      return pair unless domain && domain.size == 2 && domain.all? { |bound| Chadcn::Chart::Cartesian::Value.numeric?(bound) }
 
       low, high = domain.minmax
-      lower = Value.numeric?(pair[0]) && pair[0] >= low ? pair[0] : low
-      upper = Value.numeric?(pair[1]) && pair[1] <= high ? pair[1] : high
+      lower = Chadcn::Chart::Cartesian::Value.numeric?(pair[0]) && pair[0] >= low ? pair[0] : low
+      upper = Chadcn::Chart::Cartesian::Value.numeric?(pair[1]) && pair[1] <= high ? pair[1] : high
       lower = high if lower > high
       upper = low if upper < low
       [ lower, upper ]
@@ -111,7 +107,7 @@ module Chadcn::Chart::Cartesian::BarShapes
         return tick && (tick.coordinate + offset)
       end
 
-      scaled = axis.map(Value.read(row, axis.settings.data_key))
+      scaled = axis.map(Chadcn::Chart::Cartesian::Value.read(row, axis.settings.data_key))
       scaled && (scaled - (axis.band_size(bar: true).to_f / 2) + offset)
     end
   end

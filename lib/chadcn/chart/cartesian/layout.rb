@@ -7,16 +7,12 @@
 #
 # @api private
 class Chadcn::Chart::Cartesian::Layout
-  Value = Chadcn::Chart::Cartesian::Value
-  BarPositions = Chadcn::Chart::Cartesian::BarPositions
-  AxisSettings = Chadcn::Chart::Cartesian::AxisSettings
-
   # What was placed for one series: its rectangles (a bar) or its points (a line, an area).
   Placed = Data.define(:series, :index, :rects, :points, :area)
   # The axes whose line is on the near side of their box (top and left) take their room before the first axis is placed.
   LEADING_ORIENTATIONS = %i[top left].freeze
 
-  private_constant :Value, :BarPositions, :AxisSettings, :LEADING_ORIENTATIONS
+  private_constant :LEADING_ORIENTATIONS
 
   # @api private
   # @return [Integer, Float] the chart size in px
@@ -52,7 +48,7 @@ class Chadcn::Chart::Cartesian::Layout
     @height = chart.fetch(:height)
     @rows = chart.fetch(:rows)
     @text = chart.fetch(:text)
-    @margin = %i[top right bottom left].to_h { |side| [ side, Value.number(chart[:margin]&.[](side)) || 0.0 ] }
+    @margin = %i[top right bottom left].to_h { |side| [ side, Chadcn::Chart::Cartesian::Value.number(chart[:margin]&.[](side)) || 0.0 ] }
     @offset = legend_offset(axes_offset)
     @plot = plot_rectangle
     @axes = {}
@@ -181,7 +177,7 @@ class Chadcn::Chart::Cartesian::Layout
   end
 
   def build_axis(kind, id)
-    settings = @declared.axes.find { |candidate| candidate.kind == kind && candidate.id == id } || AxisSettings.implicit(kind, id)
+    settings = @declared.axes.find { |candidate| candidate.kind == kind && candidate.id == id } || Chadcn::Chart::Cartesian::AxisSettings.implicit(kind, id)
     items = @declared.series.select { |series| series.options[axis_key(kind)] == id && (settings.include_hidden || !series.options[:hide]) }
     stackable = items.select { |series| series.options[:stack_id] && series.kind != :line }
     stacks = Chadcn::Chart::Cartesian::Stacks.new(@rows, stackable, offset: @chart[:stack_offset], reverse: @chart[:reverse_stack_order])
@@ -252,7 +248,7 @@ class Chadcn::Chart::Cartesian::Layout
   end
 
   def place_bar(series, index, axes)
-    position = BarPositions.find(bar_positions(series, axes), series)
+    position = Chadcn::Chart::Cartesian::BarPositions.find(bar_positions(series, axes), series)
     return unless position
 
     pairs = @stacks.fetch(value_axis_key(series)).pairs(series)
@@ -266,11 +262,11 @@ class Chadcn::Chart::Cartesian::Layout
     key = @direction == :horizontal ? :x_axis_id : :y_axis_id
     bars = @declared.series.select { |other| other.kind == :bar && !other.options[:hide] && other.options[key] == series.options[key] }
     total = @direction == :horizontal ? @plot[:width] : @plot[:height]
-    slots = BarPositions.slots(bars, @chart[:bar_size], total)
+    slots = Chadcn::Chart::Cartesian::BarPositions.slots(bars, @chart[:bar_size], total)
     max_bar = series.options[:max_bar_size].nil? ? @chart[:max_bar_size] : series.options[:max_bar_size]
     bar_band = category.band_size(bar: true) || max_bar || 0
-    BarPositions.positions(slots, @chart[:max_bar_size], @chart[:bar_gap], @chart[:bar_category_gap], bar_band, category.band_size,
-                           series.options[:max_bar_size])
+    Chadcn::Chart::Cartesian::BarPositions.positions(slots, @chart[:max_bar_size], @chart[:bar_gap], @chart[:bar_category_gap], bar_band,
+                                                     category.band_size, series.options[:max_bar_size])
   end
 
   def place_line(series, index, axes)

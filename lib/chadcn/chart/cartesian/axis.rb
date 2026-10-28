@@ -8,14 +8,11 @@
 #
 # @api private
 class Chadcn::Chart::Cartesian::Axis
-  Value = Chadcn::Chart::Cartesian::Value
-  Tick = Chadcn::Chart::Cartesian::TickLayout::Tick
-  NiceTicks = Chadcn::Chart::Scale::NiceTicks
   # `dataMin - 5` / `dataMax + 5` (util/ChartUtils.js MIN_VALUE_REG / MAX_VALUE_REG)
   MIN_OFFSET = /\AdataMin\s*-\s*(\d+(?:\.\d+)?)\z/
   MAX_OFFSET = /\AdataMax\s*\+\s*(\d+(?:\.\d+)?)\z/
 
-  private_constant :Value, :Tick, :NiceTicks, :MIN_OFFSET, :MAX_OFFSET
+  private_constant :MIN_OFFSET, :MAX_OFFSET
 
   # @api private
   # @return [Chadcn::Chart::Cartesian::AxisSettings] the settings, with the `type` resolved
@@ -85,7 +82,7 @@ class Chadcn::Chart::Cartesian::Axis
       index = @categories.index(value)
       index && @scale.call(index)
     else
-      (number = Value.number(value)) && @scale.call(number)
+      (number = Chadcn::Chart::Cartesian::Value.number(value)) && @scale.call(number)
     end
   end
 
@@ -158,8 +155,8 @@ class Chadcn::Chart::Cartesian::Axis
   end
 
   def applied_values
-    if settings.data_key then @rows.map { |row| Value.read(row, settings.data_key) }
-    elsif @items.any? then @items.flat_map { |item| @rows.map { |row| Value.read(row, item.options[:data_key]) } }
+    if settings.data_key then @rows.map { |row| Chadcn::Chart::Cartesian::Value.read(row, settings.data_key) }
+    elsif @items.any? then @items.flat_map { |item| @rows.map { |row| Chadcn::Chart::Cartesian::Value.read(row, item.options[:data_key]) } }
     else @rows
     end
   end
@@ -218,25 +215,26 @@ class Chadcn::Chart::Cartesian::Axis
       high = high.nil? ? range[1] : [ high, range[1] ].max
     end
     unstacked = @items.reject { |item| item.options[:stack_id] }
-    @rows.each { |row| unstacked.each { |item| extend_with.call(Value.read(row, settings.data_key || item.options[:data_key])) } } if unstacked.any?
-    @rows.each { |row| extend_with.call(Value.read(row, settings.data_key)) } if settings.data_key
+    value_class = Chadcn::Chart::Cartesian::Value
+    @rows.each { |row| unstacked.each { |item| extend_with.call(value_class.read(row, settings.data_key || item.options[:data_key])) } } if unstacked.any?
+    @rows.each { |row| extend_with.call(value_class.read(row, settings.data_key)) } if settings.data_key
     [ low, high ] if low && high
   end
 
   # `makeDomain`: a number is a domain of one value, a pair is a range.
   def value_domain(value)
     if value.is_a?(Array)
-      pair = [ Value.number(value[0]), Value.number(value[1]) ]
+      pair = [ Chadcn::Chart::Cartesian::Value.number(value[0]), Chadcn::Chart::Cartesian::Value.number(value[1]) ]
       return pair if pair.none?(&:nil?)
 
       return
     end
-    number = Value.number(value)
+    number = Chadcn::Chart::Cartesian::Value.number(value)
     [ number, number ] if number
   end
 
   def reference_domain
-    coordinates = @references.filter_map { |reference| Value.number(reference[settings.kind]) }
+    coordinates = @references.filter_map { |reference| Chadcn::Chart::Cartesian::Value.number(reference[settings.kind]) }
     coordinates.empty? ? nil : coordinates.minmax
   end
 
@@ -292,9 +290,9 @@ class Chadcn::Chart::Cartesian::Axis
     return unless forced || (mode == :auto && @scale_type == :linear)
 
     if settings.auto_domain?
-      NiceTicks.values(*domain, count, allow_decimals: settings.allow_decimals, mode: step_mode)
+      Chadcn::Chart::Scale::NiceTicks.values(*domain, count, allow_decimals: settings.allow_decimals, mode: step_mode)
     elsif settings.type == :number
-      NiceTicks.fixed_domain(*domain, count, allow_decimals: settings.allow_decimals, mode: step_mode)
+      Chadcn::Chart::Scale::NiceTicks.fixed_domain(*domain, count, allow_decimals: settings.allow_decimals, mode: step_mode)
     end
   end
 
@@ -332,7 +330,7 @@ class Chadcn::Chart::Cartesian::Axis
       (category? ? @categories : []).each_with_index.map { |entry, index| [ index, @duplicates ? @duplicates[entry] : entry, map(entry) ] }
     end
     entries.filter_map do |index, value, scaled|
-      Tick.new(index: index, value: value, coordinate: scaled + shift, offset: shift) if scaled&.finite?
+      Chadcn::Chart::Cartesian::TickLayout::Tick.new(index: index, value: value, coordinate: scaled + shift, offset: shift) if scaled&.finite?
     end
   end
 end

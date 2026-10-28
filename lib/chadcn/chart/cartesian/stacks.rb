@@ -6,10 +6,6 @@
 #
 # @api private
 class Chadcn::Chart::Cartesian::Stacks
-  Value = Chadcn::Chart::Cartesian::Value
-
-  private_constant :Value
-
   # @api private
   # @param rows [Array<Hash>] the chart data
   # @param items [Array<#options>] the series on the axis that have a `stack_id` (bars and areas)
@@ -20,8 +16,8 @@ class Chadcn::Chart::Cartesian::Stacks
     Chadcn::Chart::Shape::Stack::Groups.by_id(items) { |item| item.options[:stack_id] }.each do |group|
       ordered = reverse ? group.reverse : group
       stacked = Chadcn::Chart::Shape::Stack.series(rows, ordered, offset: offset) do |row, item|
-        value = Value.read(row, item.options[:data_key])
-        value.is_a?(Array) ? value : (Value.number(value) || 0.0)
+        value = Chadcn::Chart::Cartesian::Value.read(row, item.options[:data_key])
+        value.is_a?(Array) ? value : (Chadcn::Chart::Cartesian::Value.number(value) || 0.0)
       end
       ordered.each_with_index { |item, index| @pairs[item] = stacked[index] }
     end

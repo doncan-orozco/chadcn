@@ -5,14 +5,10 @@
 #
 # @api private
 module Chadcn::Chart::Cartesian::BarPositions
-  Value = Chadcn::Chart::Cartesian::Value
-
   # A slot: the stack id (nil for a bar alone), the data keys it holds and the `bar_size` its first bar asked for.
   Slot = Struct.new(:stack_id, :data_keys, :bar_size)
   # Where a slot sits: `offset` from the start of the band, `size` of the bar.
   Position = Data.define(:stack_id, :data_keys, :offset, :size)
-
-  private_constant :Value
 
   JS_INDEX = /\A(?:0|[1-9]\d*)\z/
 
@@ -74,17 +70,17 @@ module Chadcn::Chart::Cartesian::BarPositions
     # `getBarSize`
     def bar_size(global_size, total_size, own)
       size = own.nil? ? global_size : own
-      size.nil? ? nil : Value.percent(size, total_size, 0.0)
+      size.nil? ? nil : Chadcn::Chart::Cartesian::Value.percent(size, total_size, 0.0)
     end
 
     def layout(bar_gap, category_gap, band, slots, max)
       return if slots.empty?
 
-      gap = Value.percent(bar_gap, band, 0.0, validate: true)
+      gap = Chadcn::Chart::Cartesian::Value.percent(bar_gap, band, 0.0, validate: true)
       if slots.first.bar_size.is_a?(Numeric) && slots.first.bar_size.to_f.finite?
         sized(slots, band, gap)
       else
-        equal(slots, band, gap, Value.percent(category_gap, band, 0.0, validate: true), max)
+        equal(slots, band, gap, Chadcn::Chart::Cartesian::Value.percent(category_gap, band, 0.0, validate: true), max)
       end
     end
 

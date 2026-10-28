@@ -9,11 +9,10 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
   # recharts' `DefaultZIndexes` (zIndex/DefaultZIndexes.js), in drawing order.
   Z_LAYERS = [ -100, -50, 100, 200, 300, 400, 500, 600, 1000, 1100, 1200, 2000 ].freeze
   Number = Chadcn::Chart::Shape::Number
-  Value = Chadcn::Chart::Cartesian::Value
   # The data row keys recharts lets through to a bar (`svgPropertiesAndEvents` of the entry).
   ROW_ATTRIBUTES = %i[fill stroke name opacity].freeze
 
-  private_constant :Z_LAYERS, :Number, :Value, :ROW_ATTRIBUTES
+  private_constant :Z_LAYERS, :Number, :ROW_ATTRIBUTES
 
   # @api private
   # @param layout [Chadcn::Chart::Cartesian::Layout]
@@ -268,7 +267,7 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
 
   def bar_rectangle(series, rect, cell)
     options = series.options
-    row = rect.row.is_a?(Hash) ? ROW_ATTRIBUTES.to_h { |key| [ key, Value.read(rect.row, key) ] } : {}
+    row = rect.row.is_a?(Hash) ? ROW_ATTRIBUTES.to_h { |key| [ key, Chadcn::Chart::Cartesian::Value.read(rect.row, key) ] } : {}
     row[:name] = row[:name].to_s unless row[:name].nil?
     base = attrs({ fill: options[:fill], stroke: options[:stroke], name: (options[:name] || "undefined").to_s }, series_attrs(series),
                  { class: "recharts-rectangle" }, row, cell&.shape_attributes)
@@ -487,7 +486,7 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
       ticks.each_with_index do |tick, index|
         g(class: "recharts-layer recharts-cartesian-axis-tick-label") do
           content = settings.tick_formatter ? settings.tick_formatter.call(tick.value, index) : tick.value
-          text_node("#{Value.text(content)}#{settings.unit}", tick_coordinates(settings, drawn, tick)[:label],
+          text_node("#{Chadcn::Chart::Cartesian::Value.text(content)}#{settings.unit}", tick_coordinates(settings, drawn, tick)[:label],
                     anchor: tick_anchor(settings), vertical: tick_vertical_anchor(settings), width: drawn[:width], angle: settings.angle,
                     base: attrs(geometry, { stroke: "none", fill: settings.stroke }, custom.except(:class, :class_name)),
                     class_name: attrs({ class: "recharts-text recharts-cartesian-axis-tick-value" }, { class: custom[:class] || custom[:class_name] })[:class])
@@ -531,7 +530,7 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
   def reference_line(reference)
     options = reference.options
     ends = reference_ends(options) or return
-    own = { x: options[:x], y: options[:y] }.compact.transform_values { |value| Value.text(value) }
+    own = { x: options[:x], y: options[:y] }.compact.transform_values { |value| Chadcn::Chart::Cartesian::Value.text(value) }
     look = { stroke: options[:stroke], stroke_dasharray: options[:stroke_dasharray], fill: options[:fill], fill_opacity: n(options[:fill_opacity]),
              stroke_width: n(options[:stroke_width]) }
     g(class: group_class(reference, "reference-line")) do
@@ -598,7 +597,7 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
   end
 
   def label_value(key, row, value)
-    return Value.read(row, key) unless key.nil?
+    return Chadcn::Chart::Cartesian::Value.read(row, key) unless key.nil?
 
     last = value.is_a?(Array) ? value.last : value
     last if last.nil? || last.is_a?(String) || last.is_a?(Numeric) || last == true || last == false
@@ -620,7 +619,7 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
     box = { width: (n(size[:width]) if size[:width]), height: (n(size[:height]) if size[:height]) }
     base = attrs(box, { offset: n(options[:offset]), fill: options[:fill] || "#808080" }, custom.except(:class, :class_name, :text_anchor, :fill))
     class_name = "recharts-text #{custom[:class] || custom[:class_name] || 'recharts-label'}"
-    text = Value.text(formatter ? formatter.call(value) : value)
+    text = Chadcn::Chart::Cartesian::Value.text(formatter ? formatter.call(value) : value)
     style = { anchor: anchor, vertical: position.vertical_anchor, width: size[:width], angle: options[:angle], base: base, class_name: class_name }
     text_node(text, { x: position.x, y: position.y }, **style)
   end
