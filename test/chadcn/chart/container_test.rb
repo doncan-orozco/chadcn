@@ -134,4 +134,10 @@ class Chadcn::Chart::ContainerTest < Chadcn::TestCase
     assert_equal "chart-sym", root(html)["data-chart"]
     assert_equal "chart", root(html)["data-slot"]
   end
+
+  test "an id the style cannot carry raises at construction and names id:" do
+    error = assert_raises(ArgumentError) { Chadcn::Chart::Container.new(config: CONFIG, id: "a.b") }
+
+    assert_match(/\Aid: /, error.message)
+  end
 end

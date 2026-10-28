@@ -267,4 +267,11 @@ class Chadcn::Chart::TooltipTest < Chadcn::TestCase
     assert_equal [ { zIndex: 1 }, { x: 1 } ], options.values_at(:wrapper_style, :position)
     assert_raises(ArgumentError) { Chadcn::Chart::Tooltip.new(trigger: nil) }
   end
+
+  test "an item without any color writes no style attribute and a false label is not printed" do
+    node = box(render_content(config: { desktop: { label: false } }, payload: [ { name: "desktop", value: 1 } ]))
+
+    assert_nil node.at_css("div.shrink-0")["style"]
+    assert_equal "", node.at_css("span.text-muted-foreground").text
+  end
 end

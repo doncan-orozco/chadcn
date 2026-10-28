@@ -228,12 +228,12 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
       if item_config&.icon
         render_icon(item_config.icon)
       elsif !@hide_indicator
-        div(class: indicator_classes(nest_label), style: "--color-bg: #{color}; --color-border: #{color};")
+        div(class: indicator_classes(nest_label), style: ("--color-bg: #{color}; --color-border: #{color};" if color))
       end
       div(class: cn("flex flex-1 justify-between leading-none", nest_label ? "items-end" : "items-center")) do
         div(class: "grid gap-1.5") do
           render_label(nested_label) if nest_label
-          span(class: "text-muted-foreground") { render_node(item_config&.label || item_value(item, :name)) }
+          span(class: "text-muted-foreground") { render_node(item_config&.label.nil? ? item_value(item, :name) : item_config.label) }
         end
         value = item_value(item, :value)
         span(class: "font-mono font-medium text-foreground tabular-nums") { plain(locale_string(value)) } unless value.nil?

@@ -53,7 +53,7 @@ class Chadcn::ChartTest < Chadcn::TestCase
     assert_raises(ArgumentError) { Chadcn::Chart::Config.new(desktop: { color: "red;}</style><script>" }) }
     assert_raises(ArgumentError) { Chadcn::Chart::Config.new("a b" => { color: "red" }) }
     assert_raises(ArgumentError) { Chadcn::Chart::Style.new(id: "x]{", config: CONFIG) }
-    assert_raises(ArgumentError) { Chadcn::Chart::Container.new(config: CONFIG, id: "x]{").call }
+    assert_raises(ArgumentError) { Chadcn::Chart::Container.new(config: CONFIG, id: "x]{") }
   end
 
   test "the parts load in a fresh process without eager loading" do
@@ -87,5 +87,18 @@ class Chadcn::ChartTest < Chadcn::TestCase
     end
 
     assert_equal explicit, helpers
+  end
+
+  test "Base.const_added skips a namespace autoloaded from a directory: no helper, no load" do
+    require "tmpdir"
+    root = Class.new(Chadcn::Base)
+    Dir.mktmpdir do |dir|
+      namespace = File.join(dir, "scale")
+      Dir.mkdir(namespace)
+      root.autoload(:Scale, namespace)
+
+      assert_not root.public_method_defined?(:scale, false)
+      assert_equal namespace, root.autoload?(:Scale, false)
+    end
   end
 end

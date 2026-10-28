@@ -9,17 +9,14 @@
 # @example
 #   render Chadcn::Chart::Style.new(id: "chart-1", config: { desktop: { color: "var(--chart-1)" } })
 class Chadcn::Chart::Style < Chadcn::Base
-  ID = /\A[A-Za-z0-9_-]+\z/
-  private_constant :ID
-
   # @param id [String] the chart id, the value of `data-chart` (`chart-<id>` for a {Chadcn::Chart::Container})
   # @param config [Hash, Chadcn::Chart::Config]
   # @raise [ArgumentError] when the id or the config cannot be written into a style
   def initialize(id:, config:)
     @id = id.to_s
-    raise ArgumentError, "chart style id #{id.inspect} must be letters, digits, _ and -" unless ID.match?(@id)
+    raise ArgumentError, "chart style id #{id.inspect} must be letters, digits, _ and -" unless Chadcn::Chart::Config.style_token?(@id)
 
-    @config = Chadcn::Chart::Config.new(config)
+    @config = config.is_a?(Chadcn::Chart::Config) ? config : Chadcn::Chart::Config.new(config)
     super()
   end
 

@@ -88,7 +88,11 @@ class Chadcn::Chart::Container < Chadcn::Base
   end
 
   def validated_chart_id(id)
-    validated_id(id) || SecureRandom.alphanumeric(8).downcase
+    name = validated_id(id)
+    return SecureRandom.alphanumeric(8).downcase unless name
+    return name if Chadcn::Chart::Config.style_token?(name)
+
+    raise ArgumentError, "id: must be letters, digits, _ and - (it becomes data-chart and a style selector), got #{id.inspect}"
   end
 
   def validated_dimension(dimension)

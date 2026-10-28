@@ -24,6 +24,12 @@ class Chadcn::Chart::Config
 
   KEY = /\A[A-Za-z0-9_-]+\z/
   private_constant :KEY
+  # Whether `value` can be a key or an id that goes into the chart's stylesheet.
+  #
+  # @api private
+  # @param value [String, Symbol]
+  def self.style_token?(value) = KEY.match?(value.to_s)
+
   COLOR = %r{\A(?![\s\S]*/\*)[^<>{};\\]+\z}
   private_constant :COLOR
   ENTRY_KEYS = %w[label icon color theme].freeze

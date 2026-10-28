@@ -127,10 +127,10 @@ class Chadcn::Chart::Legend < Chadcn::Base
         if icon && !@hide_icon
           render(icon.is_a?(Phlex::SGML) ? icon : Chadcn::Icon.new(icon))
         else
-          div(class: INDICATOR_CLASSES, style: "background-color: #{item_value(item, :color)};")
+          div(class: INDICATOR_CLASSES, style: ("background-color: #{item_value(item, :color)};" if item_value(item, :color)))
         end
         label = item_config&.label
-        unless label.nil?
+        unless label.nil? || label == false
           label.is_a?(Phlex::SGML) ? render(label) : plain(label.to_s)
         end
       end

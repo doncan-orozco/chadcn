@@ -116,4 +116,11 @@ class Chadcn::Chart::LegendTest < Chadcn::TestCase
     assert_equal "", node.text
     assert node.at_css("> div > div")
   end
+
+  test "an item without a color writes no style and a false label prints nothing" do
+    node = box(render_content(config: { desktop: { label: false } }, payload: [ { data_key: "desktop" } ]))
+
+    assert_nil node.at_css("> div > div")["style"]
+    assert_equal "", node.text
+  end
 end

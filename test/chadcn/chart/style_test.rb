@@ -40,4 +40,10 @@ class Chadcn::Chart::StyleTest < Chadcn::TestCase
 
     assert_includes Chadcn::Chart::Style.new(id: "x", config: config).call, "--color-a: red;"
   end
+
+  test "a Config instance is reused, not rebuilt" do
+    config = Chadcn::Chart::Config.new(desktop: { color: "red" })
+
+    assert_same config, Chadcn::Chart::Style.new(id: "a", config: config).instance_variable_get(:@config)
+  end
 end
