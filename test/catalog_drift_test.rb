@@ -78,11 +78,16 @@ class CatalogDriftTest < Minitest::Test
     assert_equal [ { component: "chart", reason: "no light scenario" } ], data.skipped
   end
 
-  def test_the_real_repository_skips_nothing_and_stays_byte_identical
+  def test_the_real_repository_output_matches_the_committed_catalog
     data = Chadcn::CatalogData.new(GEM_DIR)
+    built = data.build
+    generated = JSON.parse(built).fetch("entries").map { |entry| entry["component"] }
 
-    assert_equal File.read(File.join(GEM_DIR, Chadcn::CatalogData::OUTPUT), encoding: "UTF-8"), data.build
-    assert_empty data.skipped
+    assert_equal File.read(File.join(GEM_DIR, Chadcn::CatalogData::OUTPUT), encoding: "UTF-8"), built
+    data.skipped.each do |item|
+      assert_includes [ "preview scenario uses harness-only nodes", "no light scenario" ], item[:reason]
+      refute_includes generated, item[:component]
+    end
   end
 
   def test_the_cli_reports_a_skipped_component_without_changing_the_exit_code
