@@ -9,7 +9,7 @@ class Chadcn::Chart::Shape::AreaTest < Chadcn::TestCase
   Area = Chadcn::Chart::Shape::Area
 
   test "path equals the recharts area for a baseline of points, a number and the vertical layout" do
-    ChartOracle.shape.fetch("areas").each do |kase|
+    ChartOracle.cases(:shape, "areas", minimum: 8).each do |kase|
       baseline = kase.fetch("base") { kase.fetch("base_value") }
       path = Area.path(kase["points"], baseline: baseline, type: ChartOracle.snake(kase["type"]), layout: kase["layout"] || "horizontal")
 

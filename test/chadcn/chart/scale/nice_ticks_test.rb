@@ -10,7 +10,7 @@ class Chadcn::Chart::Scale::NiceTicksTest < Chadcn::TestCase
   INFINITY = Float::INFINITY
 
   test "values equal recharts getNiceTickValues in both modes" do
-    ChartOracle.scale.fetch("nice_ticks").each do |kase|
+    ChartOracle.cases(:scale, "nice_ticks", minimum: 30).each do |kase|
       ticks = NiceTicks.values(kase["min"], kase["max"], kase["count"], allow_decimals: kase["allow_decimals"], mode: kase["mode"])
 
       assert_all_close(kase["ticks"], ticks, "values #{kase.slice('min', 'max', 'count', 'allow_decimals', 'mode')}")
@@ -18,7 +18,7 @@ class Chadcn::Chart::Scale::NiceTicksTest < Chadcn::TestCase
   end
 
   test "fixed_domain equals recharts getTickValuesFixedDomain in both modes" do
-    ChartOracle.scale.fetch("fixed_domain").each do |kase|
+    ChartOracle.cases(:scale, "fixed_domain", minimum: 14).each do |kase|
       ticks = NiceTicks.fixed_domain(kase["min"], kase["max"], kase["count"], allow_decimals: kase["allow_decimals"], mode: kase["mode"])
 
       assert_all_close(kase["ticks"], ticks, "fixed #{kase.slice('min', 'max', 'count', 'allow_decimals', 'mode')}")
@@ -47,6 +47,18 @@ class Chadcn::Chart::Scale::NiceTicksTest < Chadcn::TestCase
     assert_equal [ -INFINITY, -INFINITY, 5.0 ], NiceTicks.values(-INFINITY, 5, 3)
     assert_equal [ 5.0, -INFINITY, -INFINITY ], NiceTicks.values(5, -INFINITY, 3)
     assert_equal [ 0.0, INFINITY ], NiceTicks.fixed_domain(0, INFINITY, 4)
+  end
+
+  test "an infinite bound gives count - 1 infinities, none below two ticks" do
+    assert_equal [ 0.0 ], NiceTicks.values(0, INFINITY, 1)
+    assert_equal [ 0.0 ], NiceTicks.values(0, INFINITY, 0)
+    assert_equal [ 5.0 ], NiceTicks.values(-INFINITY, 5, 0)
+    assert_equal [ 0.0, INFINITY ], NiceTicks.values(0, INFINITY, 2)
+  end
+
+  test "a NaN bound has no ticks and raises" do
+    assert_raises(ArgumentError) { NiceTicks.values(Float::NAN, 5) }
+    assert_raises(ArgumentError) { NiceTicks.fixed_domain(0, Float::NAN, 4) }
   end
 
   test "allow_decimals false keeps the ticks whole" do

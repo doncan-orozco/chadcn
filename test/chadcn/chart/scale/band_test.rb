@@ -9,7 +9,7 @@ class Chadcn::Chart::Scale::BandTest < Chadcn::TestCase
   Band = Chadcn::Chart::Scale::Band
 
   test "positions, step and bandwidth equal d3 scaleBand" do
-    ChartOracle.scale.fetch("band").each do |kase|
+    ChartOracle.cases(:scale, "band", minimum: 6).each do |kase|
       band = Band.new(count: kase["count"], range: kase["range"], **ChartOracle.keywords(kase["opts"]))
       positions = Array.new(kase["count"]) { |index| band.call(index) }
 
@@ -23,25 +23,25 @@ class Chadcn::Chart::Scale::BandTest < Chadcn::TestCase
     band = Band.new(count: 3, range: [ 90, 0 ])
 
     assert_equal [ 60.0, 30.0, 0.0 ], Array.new(3) { |index| band.call(index) }
-    assert_in_delta 30.0, band.bandwidth
+    assert_in_delta 30.0, band.bandwidth, 1e-9
   end
 
   test "padding sets both paddings, the explicit keywords win" do
     both = Band.new(count: 4, range: [ 0, 100 ], padding: 0.3)
     explicit = Band.new(count: 4, range: [ 0, 100 ], padding: 0.3, padding_inner: 0.1, padding_outer: 0)
 
-    assert_in_delta 0.3, both.padding_inner
-    assert_in_delta 0.3, both.padding_outer
-    assert_in_delta 0.1, explicit.padding_inner
-    assert_in_delta 0.0, explicit.padding_outer
+    assert_in_delta 0.3, both.padding_inner, 1e-9
+    assert_in_delta 0.3, both.padding_outer, 1e-9
+    assert_in_delta 0.1, explicit.padding_inner, 1e-9
+    assert_in_delta 0.0, explicit.padding_outer, 1e-9
   end
 
   test "inner padding is capped at 1 and align is clamped to 0..1" do
     band = Band.new(count: 2, range: [ 0, 10 ], padding_inner: 5, align: 7)
 
-    assert_in_delta 1.0, band.padding_inner
-    assert_in_delta 1.0, band.align
-    assert_in_delta 0.0, band.bandwidth
+    assert_in_delta 1.0, band.padding_inner, 1e-9
+    assert_in_delta 1.0, band.align, 1e-9
+    assert_in_delta 0.0, band.bandwidth, 1e-9
   end
 
   test "align moves the bands inside the range" do

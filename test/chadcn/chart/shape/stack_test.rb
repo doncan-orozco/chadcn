@@ -9,7 +9,7 @@ class Chadcn::Chart::Shape::StackTest < Chadcn::TestCase
   Stack = Chadcn::Chart::Shape::Stack
 
   test "series equals recharts getStackedData for the none and expand offsets" do
-    ChartOracle.shape.fetch("stacks").each do |kase|
+    ChartOracle.cases(:shape, "stacks", minimum: 2).each do |kase|
       series = Stack.series(kase["data"], kase["keys"], offset: kase["offset"])
 
       assert_equal kase["series"].size, series.size

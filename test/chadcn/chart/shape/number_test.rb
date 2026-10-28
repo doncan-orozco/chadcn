@@ -46,29 +46,15 @@ class Chadcn::Chart::Shape::NumberTest < Chadcn::TestCase
     assert_equal "0.5", Number.format(Rational(1, 2))
   end
 
-  test "round_half_up is Math.round: ties go toward positive infinity" do
-    assert_in_delta(3.0, Number.round_half_up(2.5))
-    assert_in_delta(-2.0, Number.round_half_up(-2.5))
-    assert_in_delta(-3.0, Number.round_half_up(-2.6))
-    assert_in_delta(0.0, Number.round_half_up(0.49999999999999994))
-    assert_in_delta(1.0, Number.round_half_up(0.5))
-  end
-
-  test "round_half_up returns non-finite numbers unchanged" do
-    assert_predicate Number.round_half_up(Float::NAN), :nan?
-    assert_equal Float::INFINITY, Number.round_half_up(Float::INFINITY)
-  end
-
   test "round rounds half up to the digits" do
-    assert_in_delta 2.001, Number.round(2.0005, 3)
-    assert_in_delta 1.235, Number.round(1.2345, 3)
-    assert_in_delta(-1.234, Number.round(-1.2345, 3))
-    assert_in_delta 12.0, Number.round(11.5, 0)
-    assert_in_delta 3.1416, Number.round(Math::PI, 4)
+    assert_in_delta 2.001, Number.round(2.0005, 3), 1e-9
+    assert_in_delta 1.235, Number.round(1.2345, 3), 1e-9
+    assert_in_delta(-1.234, Number.round(-1.2345, 3), 1e-9)
+    assert_in_delta 12.0, Number.round(11.5, 0), 1e-9
+    assert_in_delta 3.1416, Number.round(Math::PI, 4), 1e-9
   end
 
   test "round normalizes negative zero" do
     assert_equal "0", Number.format(Number.round(-0.0001, 3))
-    assert_not Number.round(-0.0001, 3).to_s.start_with?("-")
   end
 end

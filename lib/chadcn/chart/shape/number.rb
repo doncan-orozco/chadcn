@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 # Number formatting and rounding with JavaScript semantics, so the path strings the chart math emits equal the ones React DOM prints.
-# Every shape formats its numbers through here.
+# Every shape formats its numbers through here. The names are the JavaScript ones (`Number#toString`, `Math.round`) so a reader
+# can set a method next to the d3 or recharts line it reproduces.
 #
 # @api private
 module Chadcn::Chart::Shape::Number
@@ -12,6 +13,8 @@ module Chadcn::Chart::Shape::Number
 
   # Parses Ruby's shortest round-trip representation, e.g. "1.0e-07", "123.456", "-0.001".
   FLOAT_PARTS = /\A(?<sign>-?)(?<int>\d+)(?:\.(?<frac>\d+))?(?:e(?<exp>[+-]?\d+))?\z/
+
+  private_constant :EXPONENT_LIMIT, :EXPONENT_FLOOR, :FLOAT_PARTS
 
   class << self
     # JavaScript `Number#toString` of a Numeric (radix 10): shortest round-trip digits, `-0` printed as "0", exponent form
@@ -31,20 +34,6 @@ module Chadcn::Chart::Shape::Number
       format_finite(float)
     end
 
-    # `Math.round(value)`: the nearest integer with ties rounded toward +Infinity (so -2.5 becomes -2). Non-finite values are
-    # returned unchanged, as JavaScript does.
-    #
-    # @api private
-    # @param value [Numeric]
-    # @return [Float]
-    def round_half_up(value)
-      float = value.to_f
-      return float unless float.finite?
-
-      floor = float.floor
-      (float - floor >= 0.5 ? floor + 1 : floor).to_f
-    end
-
     # `Math.round(value * 10**digits) / 10**digits` (d3-path `digits`, recharts util/round.js), with `-0` normalized to `0`.
     #
     # @api private
@@ -53,7 +42,7 @@ module Chadcn::Chart::Shape::Number
     # @return [Float]
     def round(value, digits)
       factor = 10.0**digits
-      rounded = round_half_up(value * factor) / factor
+      rounded = Chadcn::Chart::JsMath.round(value * factor) / factor
       rounded.zero? ? 0.0 : rounded
     end
 

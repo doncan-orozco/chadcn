@@ -9,7 +9,7 @@ class Chadcn::Chart::Scale::LinearTest < Chadcn::TestCase
   Linear = Chadcn::Chart::Scale::Linear
 
   test "ticks equal d3-array ticks" do
-    ChartOracle.scale.fetch("ticks").each do |kase|
+    ChartOracle.cases(:scale, "ticks", minimum: 13).each do |kase|
       scale = Linear.new(domain: [ kase["start"], kase["stop"] ])
 
       assert_all_close(kase["ticks"], scale.ticks(kase["count"]), "ticks #{kase.slice('start', 'stop', 'count')}")
@@ -17,7 +17,7 @@ class Chadcn::Chart::Scale::LinearTest < Chadcn::TestCase
   end
 
   test "increment equals d3-array tickIncrement, infinite where d3 reports an unusable step" do
-    ChartOracle.scale.fetch("ticks").each do |kase|
+    ChartOracle.cases(:scale, "ticks", minimum: 13).each do |kase|
       increment = Linear.new(domain: [ kase["start"], kase["stop"] ]).increment(kase["count"])
 
       assert_close(kase["increment"], increment, "increment #{kase.slice('start', 'stop', 'count')}")
@@ -25,7 +25,7 @@ class Chadcn::Chart::Scale::LinearTest < Chadcn::TestCase
   end
 
   test "ticks of a descending domain come in descending order" do
-    ChartOracle.scale.fetch("descending_ticks").each do |kase|
+    ChartOracle.cases(:scale, "descending_ticks", minimum: 2).each do |kase|
       scale = Linear.new(domain: [ kase["start"], kase["stop"] ])
 
       assert_all_close(kase["ticks"], scale.ticks(kase["count"]), "descending #{kase.slice('start', 'stop', 'count')}")
@@ -42,7 +42,7 @@ class Chadcn::Chart::Scale::LinearTest < Chadcn::TestCase
   end
 
   test "nice equals d3 linear.nice" do
-    ChartOracle.scale.fetch("nice").each do |kase|
+    ChartOracle.cases(:scale, "nice", minimum: 8).each do |kase|
       niced = Linear.new(domain: [ kase["start"], kase["stop"] ]).nice(kase["count"])
 
       assert_all_close(kase["domain"], niced.domain, "nice #{kase.slice('start', 'stop', 'count')}")
@@ -63,7 +63,7 @@ class Chadcn::Chart::Scale::LinearTest < Chadcn::TestCase
   end
 
   test "call maps like d3 scaleLinear, extrapolating outside the domain" do
-    ChartOracle.scale.fetch("linear").each do |kase|
+    ChartOracle.cases(:scale, "linear", minimum: 3).each do |kase|
       scale = Linear.new(domain: kase["domain"], range: kase["range"])
       mapped = kase["values"].map { |value| scale.call(value) }
 
@@ -74,9 +74,9 @@ class Chadcn::Chart::Scale::LinearTest < Chadcn::TestCase
   test "call maps a descending domain" do
     scale = Linear.new(domain: [ 10, 0 ], range: [ 0, 100 ])
 
-    assert_in_delta 100.0, scale.call(0)
-    assert_in_delta 0.0, scale.call(10)
-    assert_in_delta 75.0, scale.call(2.5)
+    assert_in_delta 100.0, scale.call(0), 1e-9
+    assert_in_delta 0.0, scale.call(10), 1e-9
+    assert_in_delta 75.0, scale.call(2.5), 1e-9
   end
 
   test "call returns nil for nil and NaN" do
@@ -91,7 +91,7 @@ class Chadcn::Chart::Scale::LinearTest < Chadcn::TestCase
 
     assert_equal [ 0.0, 1.0 ], scale.domain
     assert_equal [ 0.0, 1.0 ], scale.range
-    assert_in_delta 0.25, scale.call(0.25)
+    assert_in_delta 0.25, scale.call(0.25), 1e-9
   end
 
   test "scales are immutable and the with_ methods return new scales" do
@@ -105,7 +105,7 @@ class Chadcn::Chart::Scale::LinearTest < Chadcn::TestCase
     assert_equal [ 0.0, 20.0 ], wider.domain
     assert_equal [ 0.0, 100.0 ], wider.range
     assert_equal [ 100.0, 200.0 ], shifted.range
-    assert_in_delta 150.0, shifted.call(5)
+    assert_in_delta 150.0, shifted.call(5), 1e-9
   end
 
   test "a domain or range that is not two values raises" do

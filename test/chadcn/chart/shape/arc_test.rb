@@ -9,7 +9,7 @@ class Chadcn::Chart::Shape::ArcTest < Chadcn::TestCase
   Arc = Chadcn::Chart::Shape::Arc
 
   test "sector_path equals the recharts Sector path character for character, whitespace included" do
-    ChartOracle.shape.fetch("sectors").each do |kase|
+    ChartOracle.cases(:shape, "sectors", minimum: 17).each do |kase|
       path = Arc.sector_path(**ChartOracle.keywords(kase["props"]))
       message = kase["props"].inspect
       kase["d"].nil? ? assert_nil(path, message) : assert_equal(kase["d"], path, message)
@@ -17,7 +17,7 @@ class Chadcn::Chart::Shape::ArcTest < Chadcn::TestCase
   end
 
   test "pie equals the recharts computePieSectors angle layout" do
-    ChartOracle.shape.fetch("pies").each do |kase|
+    ChartOracle.cases(:shape, "pies", minimum: 5).each do |kase|
       options = kase.slice("start_angle", "end_angle", "pad_angle", "min_angle").transform_keys(&:to_sym)
       sectors = Arc.pie(kase["values"], **options)
 

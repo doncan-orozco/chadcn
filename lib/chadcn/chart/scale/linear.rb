@@ -5,12 +5,15 @@
 #
 # @api private
 class Chadcn::Chart::Scale::Linear
+  JsMath = Chadcn::Chart::JsMath
   # sqrt(50), sqrt(10), sqrt(2): the thresholds d3-array ticks.js uses to pick 1, 2, 5 or 10 as the step factor.
   E10 = Math.sqrt(50)
   E5 = Math.sqrt(10)
   E2 = Math.sqrt(2)
   # d3-scale linear.js `nice` gives up after this many refinements.
   NICE_ITERATIONS = 10
+
+  private_constant :JsMath, :E10, :E5, :E2, :NICE_ITERATIONS
 
   # @api private
   # @return [Array<Float>] the two domain values (may be descending)
@@ -105,11 +108,11 @@ class Chadcn::Chart::Scale::Linear
       return with_domain(reversed ? [ stop, start ] : [ start, stop ]) if step == previous
 
       if step.positive?
-        start = js_floor(start / step) * step
-        stop = js_ceil(stop / step) * step
+        start = JsMath.floor(start / step) * step
+        stop = JsMath.ceil(stop / step) * step
       elsif step.negative?
-        start = js_ceil(start * step) / step
-        stop = js_floor(stop * step) / step
+        start = JsMath.ceil(start * step) / step
+        stop = JsMath.floor(stop * step) / step
       else
         break
       end
@@ -124,20 +127,20 @@ class Chadcn::Chart::Scale::Linear
   # `index / -inc` when inc is negative. Floats throughout, as in JavaScript (NaN and Infinity flow through instead of raising).
   def tick_spec(start, stop, count)
     step = (stop - start) / [ 0, count ].max
-    power = js_floor(js_log10(step))
+    power = JsMath.floor(JsMath.log10(step))
     error = step / (10.0**power)
     factor = tick_factor(error)
     if power.negative?
       inc = (10.0**-power) / factor
-      i1 = round(start * inc)
-      i2 = round(stop * inc)
+      i1 = JsMath.round(start * inc)
+      i2 = JsMath.round(stop * inc)
       i1 += 1 if i1 / inc < start
       i2 -= 1 if i2 / inc > stop
       inc = -inc
     else
       inc = (10.0**power) * factor
-      i1 = round(start / inc)
-      i2 = round(stop / inc)
+      i1 = JsMath.round(start / inc)
+      i2 = JsMath.round(stop / inc)
       i1 += 1 if i1 * inc < start
       i2 -= 1 if i2 * inc > stop
     end
@@ -153,13 +156,4 @@ class Chadcn::Chart::Scale::Linear
 
     error >= E2 ? 2 : 1
   end
-
-  def round(value) = Chadcn::Chart::Shape::Number.round_half_up(value)
-
-  def js_floor(value) = value.finite? ? value.floor.to_f : value
-
-  def js_ceil(value) = value.finite? ? value.ceil.to_f : value
-
-  # Math.log10: NaN below zero (Ruby raises), -Infinity at zero.
-  def js_log10(value) = value.negative? ? Float::NAN : Math.log10(value)
 end

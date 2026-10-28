@@ -11,9 +11,27 @@ module ChartOracle
   SHAPE_FILE = File.expand_path("oracle.json", __dir__)
   TOLERANCE = 1e-9
 
-  def self.scale = (@scale ||= JSON.parse(File.read(SCALE_FILE)))
+  def self.scale = (@scale ||= deep_freeze(JSON.parse(File.read(SCALE_FILE))))
 
-  def self.shape = (@shape ||= JSON.parse(File.read(SHAPE_FILE)))
+  def self.shape = (@shape ||= deep_freeze(JSON.parse(File.read(SHAPE_FILE))))
+
+  # The cases of one section of an oracle file (`:scale` or `:shape`). A test that loops over them passes vacuously when the file is
+  # regenerated with fewer cases (or an empty section), so every caller names the number of cases committed today.
+  def self.cases(source, section, minimum:)
+    found = public_send(source).fetch(section)
+    raise "oracle #{source}/#{section} has #{found.size} cases, expected at least #{minimum}" if found.size < minimum
+
+    found
+  end
+
+  def self.deep_freeze(value)
+    case value
+    when Hash then value.each_value { |item| deep_freeze(item) }
+    when Array then value.each { |item| deep_freeze(item) }
+    end
+    value.freeze
+  end
+  private_class_method :deep_freeze
 
   # "bumpX" -> :bump_x, "linearClosed" -> :linear_closed
   def self.snake(name) = name.to_s.gsub(/([A-Z])/) { "_#{Regexp.last_match(1).downcase}" }.to_sym

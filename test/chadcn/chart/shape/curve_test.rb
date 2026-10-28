@@ -9,7 +9,7 @@ class Chadcn::Chart::Shape::CurveTest < Chadcn::TestCase
   Curve = Chadcn::Chart::Shape::Curve
 
   test "line equals the recharts path for every curve type and point set" do
-    ChartOracle.shape.fetch("curves").each do |kase|
+    ChartOracle.cases(:shape, "curves", minimum: 74).each do |kase|
       layout = kase["layout"] || "horizontal"
       path = Curve.line(kase["points"], type: ChartOracle.snake(kase["type"]), layout: layout)
 
@@ -19,7 +19,7 @@ class Chadcn::Chart::Shape::CurveTest < Chadcn::TestCase
   end
 
   test "undefined points split the line into segments, connect_nulls draws through them" do
-    ChartOracle.shape.fetch("gaps").each do |kase|
+    ChartOracle.cases(:shape, "gaps", minimum: 2).each do |kase|
       path = Curve.line(kase["points"], type: :monotone, connect_nulls: kase["connect_nulls"])
 
       assert_equal kase["d"], path, "connect_nulls #{kase['connect_nulls']}"
