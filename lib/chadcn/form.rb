@@ -409,6 +409,20 @@ class Chadcn::Form < Chadcn::Base
         raise_value_error(field, "must be a String, Symbol, Integer or nil", value)
       end
 
+      # @return [Date, nil] the bound value as a date
+      # @raise [ArgumentError] when it is not a Date, a Time, a "YYYY-MM-DD" String or nil
+      def date_default(field)
+        value = field.value
+        case value
+        when nil then nil
+        when Date, Time then value.to_date
+        when String then value.empty? ? nil : Date.iso8601(value)
+        else raise_value_error(field, "must be a Date, a Time or a \"YYYY-MM-DD\" String", value)
+        end
+      rescue Date::Error
+        raise_value_error(field, "must be a Date, a Time or a \"YYYY-MM-DD\" String", value)
+      end
+
       def raise_value_error(field, expected, value)
         raise ArgumentError, "#{self.class.name}: value for #{field.attribute.to_sym.inspect} #{expected} (got #{value.class})"
       end
@@ -612,7 +626,9 @@ class Chadcn::Form < Chadcn::Base
     module Toggleable
       include Support
 
+      # @api private
       CHECKED = [ true, 1, "1", "true", "t", "on", "yes" ].freeze
+      # @api private
       UNCHECKED = [ nil, false, 0, "0", "false", "f", "off", "no", "" ].freeze
       private_constant :CHECKED, :UNCHECKED
 
@@ -788,19 +804,29 @@ class Chadcn::Form < Chadcn::Base
       # @raise [ArgumentError] when the value is not a Numeric, an Array of Numerics or nil
       def view_template
         field = form_field
-        value = field.value
-        values = value.is_a?(Array) ? value : [ value ] unless value.nil?
-        raise_value_error(field, "must be a Numeric, an Array of Numerics or nil", value) unless values.nil? || values.all?(Numeric)
-
+        values = slider_values(field)
         bound = field.control_attrs.except(:value)
         bound[:default_value] = values if values
         render Chadcn::Slider.new(**merge_attrs(bound, @attrs))
+      end
+
+      private
+
+      # @return [Array<Numeric>, nil] the thumb values, nil to keep the component default
+      def slider_values(field)
+        value = field.value
+        return if value.nil?
+
+        values = value.is_a?(Array) ? value : [ value ]
+        raise_value_error(field, "must be a Numeric, an Array of Numerics or nil", value) unless values.all?(Numeric)
+        values
       end
     end
 
     # A date picker bound to the field (helper: `field.date_picker`): the Popover + outline Button + {Chadcn::Calendar} recipe of
     # docs/form-controls.md, with a hidden input named after the field. The trigger button carries the field `id` and `aria`; the
-    # label shows the date in English ("March 10th, 2026") or the placeholder. The attributes you pass merge onto the button. The hidden
+    # label shows the date in English ("March 10th, 2026") or the placeholder. The attributes you pass merge onto the button (an +id:+ you
+    # pass moves the button only: the hidden input and label ids, and the calendar selectors, stay on the field id). The hidden
     # input is disabled together with the button.
     #
     # @example
@@ -826,7 +852,7 @@ class Chadcn::Form < Chadcn::Base
       # @raise [ArgumentError] when the value is not a Date, Time, "YYYY-MM-DD" String or nil
       def view_template
         field = form_field
-        date = cast_date(field)
+        date = date_default(field)
         value_id = "#{field.form_item_id}-value"
         label_id = "#{field.form_item_id}-label"
         button = merge_attrs({ variant: "outline", class: BUTTON_CLASS, **field.control_attrs.except(:name, :value) }, @attrs)
@@ -843,18 +869,6 @@ class Chadcn::Form < Chadcn::Base
       end
 
       private
-
-      def cast_date(field)
-        value = field.value
-        case value
-        when nil then nil
-        when Date, Time then value.to_date
-        when String then value.empty? ? nil : Date.iso8601(value)
-        else raise_value_error(field, "must be a Date, a Time or a \"YYYY-MM-DD\" String", value)
-        end
-      rescue Date::Error
-        raise_value_error(field, "must be a Date, a Time or a \"YYYY-MM-DD\" String", value)
-      end
 
       # date-fns "PPP" in English: "March 10th, 2026".
       def label_text(date)
