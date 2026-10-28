@@ -7,17 +7,11 @@
 # `size` is the height of an x axis and the width of a y axis. `tick` is true, false or a Hash of attributes for every label.
 #
 # @api private
-class Chadcn::Chart::Cartesian::AxisSettings < Data.define(
+Chadcn::Chart::Cartesian::AxisSettings = Data.define(
   :kind, :id, :data_key, :type, :hide, :size, :orientation, :tick, :tick_line, :axis_line, :tick_size, :tick_margin, :tick_count,
   :tick_formatter, :interval, :min_tick_gap, :mirror, :reversed, :padding, :domain, :allow_decimals, :allow_duplicated_category,
   :allow_data_overflow, :include_hidden, :nice_ticks, :angle, :unit, :ticks, :scale, :stroke, :name, :attrs
-)
-  ORIENTATIONS = { x: %i[top bottom], y: %i[left right] }.freeze
-  TYPES = %i[category number auto].freeze
-  NICE_TICKS = %i[auto adaptive snap125 none].freeze
-  INTERVALS = %i[preserve_end preserve_start preserve_start_end equidistant_preserve_start equidistant_preserve_end].freeze
-  SCALES = %i[auto linear].freeze
-
+) do
   class << self
     # The settings of a declared axis.
     #
@@ -27,9 +21,9 @@ class Chadcn::Chart::Cartesian::AxisSettings < Data.define(
     # @raise [ArgumentError] on a value outside the supported ones
     def build(kind, **options)
       formatter = Chadcn::Chart::Cartesian::Formatter.resolve(options.delete(:tick_formatter))
-      options[:orientation] = choice(:orientation, options[:orientation], ORIENTATIONS.fetch(kind))
-      options[:type] = choice(:type, options[:type], TYPES)
-      options[:nice_ticks] = choice(:nice_ticks, options[:nice_ticks], NICE_TICKS)
+      options[:orientation] = choice(:orientation, options[:orientation], (kind == :x ? %i[top bottom] : %i[left right]))
+      options[:type] = choice(:type, options[:type], %i[category number auto])
+      options[:nice_ticks] = choice(:nice_ticks, options[:nice_ticks], %i[auto adaptive snap125 none])
       options[:scale] = scale(options[:scale])
       options[:interval] = interval(options[:interval])
       options[:domain] = domain(options[:domain])
@@ -61,7 +55,7 @@ class Chadcn::Chart::Cartesian::AxisSettings < Data.define(
     end
 
     def scale(value)
-      return value.to_sym if value.respond_to?(:to_sym) && SCALES.include?(value.to_sym)
+      return value.to_sym if value.respond_to?(:to_sym) && %i[auto linear].include?(value.to_sym)
 
       raise ArgumentError, "scale: #{value.inspect} is not ported (use :auto or :linear)"
     end
@@ -69,7 +63,7 @@ class Chadcn::Chart::Cartesian::AxisSettings < Data.define(
     def interval(value)
       return value if value.is_a?(Integer) && !value.negative?
 
-      choice(:interval, value, INTERVALS)
+      choice(:interval, value, %i[preserve_end preserve_start preserve_start_end equidistant_preserve_start equidistant_preserve_end])
     end
 
     # `[min, max]` where each is a number, `:auto`, `:data_min`, `:data_max`, a "dataMin - 5" / "dataMax + 5" string or a callable.

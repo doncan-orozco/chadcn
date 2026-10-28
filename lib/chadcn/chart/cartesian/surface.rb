@@ -320,7 +320,7 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
     return unless dot || placed.points.size == 1
 
     custom = dot.is_a?(Hash) ? dot.except(:clip_dot) : {}
-    base = attrs({ r: 3 }, dot_base(series), custom, { class: "recharts-dot recharts-#{name}-dot" })
+    base = attrs({ r: 3 }, dot_base(series), { class: "recharts-dot recharts-#{name}-dot" }, custom)
     g(**attrs({ class: "recharts-layer recharts-#{name}-dots" }, dots_clip_attribute(series, series_id(series, name, placed.index)))) do
       placed.points.each do |point|
         next unless point.x && point.y
