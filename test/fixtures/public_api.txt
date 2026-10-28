@@ -164,11 +164,19 @@ class Chadcn::Field::Title < Chadcn::Base
 class Chadcn::Form < Chadcn::Base
 class Chadcn::Form::Binding::Plain
 class Chadcn::Form::Field < Chadcn::Field
+class Chadcn::Form::Field::Checkbox < Chadcn::Base
 class Chadcn::Form::Field::Control < Chadcn::Base
+class Chadcn::Form::Field::DatePicker < Chadcn::Base
 class Chadcn::Form::Field::Description < Chadcn::Base
 class Chadcn::Form::Field::Error < Chadcn::Base
 class Chadcn::Form::Field::Input < Chadcn::Base
+class Chadcn::Form::Field::InputGroup < Chadcn::Base
 class Chadcn::Form::Field::Label < Chadcn::Base
+class Chadcn::Form::Field::NativeSelect < Chadcn::Base
+class Chadcn::Form::Field::RadioGroup < Chadcn::Base
+class Chadcn::Form::Field::Select < Chadcn::Base
+class Chadcn::Form::Field::Slider < Chadcn::Base
+class Chadcn::Form::Field::Switch < Chadcn::Base
 class Chadcn::Form::Field::Textarea < Chadcn::Base
 class Chadcn::HoverCard < Chadcn::Base
 class Chadcn::HoverCard::Content < Chadcn::Base
@@ -875,8 +883,10 @@ method Chadcn::Form::Binding::Plain#name_for (attribute, multiple: false)
 method Chadcn::Form::Binding::Plain#nested (attribute, object:, index: nil, errors: {})
 method Chadcn::Form::Binding::Plain#value_for (attribute)
 method Chadcn::Form::Field#attribute ()
+method Chadcn::Form::Field#checkbox (**attrs, &block)
 method Chadcn::Form::Field#control (**attrs, &block)
 method Chadcn::Form::Field#control_attrs ()
+method Chadcn::Form::Field#date_picker (**attrs, &block)
 method Chadcn::Form::Field#description (**attrs, &block)
 method Chadcn::Form::Field#error (**attrs, &block)
 method Chadcn::Form::Field#errors ()
@@ -886,21 +896,43 @@ method Chadcn::Form::Field#form_item_id ()
 method Chadcn::Form::Field#form_message_id ()
 method Chadcn::Form::Field#initialize (attribute:, binding: nil, orientation: "vertical", **attrs)
 method Chadcn::Form::Field#input (**attrs, &block)
+method Chadcn::Form::Field#input_group (**attrs, &block)
 method Chadcn::Form::Field#label (**attrs, &block)
 method Chadcn::Form::Field#name ()
+method Chadcn::Form::Field#native_select (**attrs, &block)
+method Chadcn::Form::Field#radio_group (**attrs, &block)
+method Chadcn::Form::Field#select (**attrs, &block)
+method Chadcn::Form::Field#slider (**attrs, &block)
+method Chadcn::Form::Field#switch (**attrs, &block)
 method Chadcn::Form::Field#textarea (**attrs, &block)
 method Chadcn::Form::Field#value ()
 method Chadcn::Form::Field#view_template ()
+method Chadcn::Form::Field::Checkbox#initialize (unchecked_value: "0", **attrs)
+method Chadcn::Form::Field::Checkbox#view_template ()
 method Chadcn::Form::Field::Control#initialize (**attrs)
 method Chadcn::Form::Field::Control#view_template ()
+method Chadcn::Form::Field::DatePicker#initialize (placeholder: "Pick a date", calendar: {}, **attrs)
+method Chadcn::Form::Field::DatePicker#view_template ()
 method Chadcn::Form::Field::Description#initialize (**attrs)
 method Chadcn::Form::Field::Description#view_template ()
 method Chadcn::Form::Field::Error#initialize (**attrs)
 method Chadcn::Form::Field::Error#view_template ()
 method Chadcn::Form::Field::Input#initialize (**attrs)
 method Chadcn::Form::Field::Input#view_template ()
+method Chadcn::Form::Field::InputGroup#initialize (**attrs)
+method Chadcn::Form::Field::InputGroup#view_template ()
 method Chadcn::Form::Field::Label#initialize (**attrs)
 method Chadcn::Form::Field::Label#view_template (&block)
+method Chadcn::Form::Field::NativeSelect#initialize (**attrs)
+method Chadcn::Form::Field::NativeSelect#view_template ()
+method Chadcn::Form::Field::RadioGroup#initialize (**attrs)
+method Chadcn::Form::Field::RadioGroup#view_template ()
+method Chadcn::Form::Field::Select#initialize (**attrs)
+method Chadcn::Form::Field::Select#view_template ()
+method Chadcn::Form::Field::Slider#initialize (**attrs)
+method Chadcn::Form::Field::Slider#view_template ()
+method Chadcn::Form::Field::Switch#initialize (unchecked_value: "0", **attrs)
+method Chadcn::Form::Field::Switch#view_template ()
 method Chadcn::Form::Field::Textarea#initialize (**attrs)
 method Chadcn::Form::Field::Textarea#view_template ()
 method Chadcn::HoverCard#content (**attrs, &block)
@@ -1445,11 +1477,19 @@ Chadcn::Field#separator
 Chadcn::Field#set
 Chadcn::Field#title
 Chadcn::Form#field
+Chadcn::Form::Field#checkbox
 Chadcn::Form::Field#control
+Chadcn::Form::Field#date_picker
 Chadcn::Form::Field#description
 Chadcn::Form::Field#error
 Chadcn::Form::Field#input
+Chadcn::Form::Field#input_group
 Chadcn::Form::Field#label
+Chadcn::Form::Field#native_select
+Chadcn::Form::Field#radio_group
+Chadcn::Form::Field#select
+Chadcn::Form::Field#slider
+Chadcn::Form::Field#switch
 Chadcn::Form::Field#textarea
 Chadcn::HoverCard#content
 Chadcn::HoverCard#trigger
