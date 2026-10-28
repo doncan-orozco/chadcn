@@ -191,3 +191,31 @@ test("form: a novalidate form does not mirror on input or change", () => withPag
   assert.equal(await page.locator(input("email")).getAttribute("aria-invalid"), "false", "still the server-rendered value");
   assert.equal(await page.locator(message("email")).isHidden(), true);
 }));
+
+test("form: a native sibling keeps its own aria-invalid, the label's target is not a proxy for it", () => withPage(async (page) => {
+  const phone = "#user_phone-form-item";
+  const pair = `[data-slot=field]:has(${phone})`;
+  await page.locator(submit).click();
+  await settle(page);
+  assert.equal(await page.locator(phone).getAttribute("aria-invalid"), "true");
+
+  await page.locator("#phone_ext").fill("12");
+  await settle(page);
+  assert.equal(await page.locator("#phone_ext").getAttribute("aria-invalid"), "false");
+  assert.equal(await page.locator(phone).getAttribute("aria-invalid"), "true", "the label's target is native: left as it was");
+  assert.ok((await describedby(page, "phone")).includes("user_phone-form-item-message"), "its message link stays");
+  assert.equal(await page.locator(pair).getAttribute("data-invalid"), "true");
+}));
+
+test("form: two invalid controls in one field show the first control's message", () => withPage(async (page) => {
+  await page.locator(submit).click();
+  await settle(page);
+  await page.locator("#contact_b").evaluate((el) => el.setCustomValidity("custom second"));
+  await page.locator("#contact_b").fill("z");
+  await settle(page);
+
+  const first = await page.locator("#contact_a").evaluate((el) => el.validationMessage);
+  const second = await page.locator("#contact_b").evaluate((el) => el.validationMessage);
+  assert.notEqual(first, second);
+  assert.equal(await page.locator("#user_contact-form-item-message").textContent(), first);
+}));

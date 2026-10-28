@@ -62,6 +62,12 @@ class FormDemo::Page < Phlex::HTML
         field.input(id: "contact_b", name: "user[contact_b]", required: true)
         field.error
       end
+      form.field(attribute: :phone) do |field|
+        field.label { "Phone" }
+        field.input(required: true)
+        field.input(id: "phone_ext", name: "user[phone_ext]", required: true)
+        field.error
+      end
       render Chadcn::Button.new(type: "submit") { "Sign up" }
     end
   end

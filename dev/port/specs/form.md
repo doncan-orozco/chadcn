@@ -92,7 +92,7 @@ Registry: `label`. Port: `Chadcn::Field` (+ `Field::Label`, `Field::Description`
 - `form.reset()` clears the mirrored state, the server-rendered errors and the attempted flag.
 - A `novalidate` form is skipped on `input`/`change`.
 - Controls outside the form element (`form=""` attribute) are not reached.
-- Multi-control fields (radios, an input group with two inputs) aggregate: `data-invalid`, the label `data-error` and the message element follow every validatable control of the field; each control's own `aria-invalid` and message link in `aria-describedby` follow its own validity.
+- Multi-control fields (radios, an input group with two inputs) aggregate: `data-invalid`, the label `data-error` and the message element follow every validatable control of the field; each control's own `aria-invalid` and message link in `aria-describedby` follow its own validity, and the message shown is the first invalid control's in document order. The label's `for` target mirrors the triggering control only as a proxy for non-native roots (Checkbox, Switch, RadioGroup, Select, Slider with a hidden native input); a native sibling keeps its own `aria-invalid`.
 - Only the message element marked `data-chadcn-form-message` is managed; a caller's `field.error { ... }` block is left alone.
 
 ## Out of scope

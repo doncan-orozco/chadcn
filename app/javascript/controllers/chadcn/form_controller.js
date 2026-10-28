@@ -31,27 +31,33 @@ export default class extends Controller {
     const valid = control.validity.valid
     const invalid = [...field.querySelectorAll("input, select, textarea")].filter((el) => el.willValidate && !el.validity.valid)
     const fieldInvalid = !valid || invalid.length > 0
-    const source = valid ? invalid[0] : control
+    // The message shown is the first invalid control's in document order, so it matches the control that takes focus.
+    const source = invalid[0] || (valid ? null : control)
     const label = field.querySelector("[data-slot=field-label]")
     // Only the element Form::Field::Error marked is ours; a caller's `field.error { ... }` block is left untouched.
     const error = field.querySelector("[data-slot=field-error][data-chadcn-form-message]")
     const labelled = label?.htmlFor ? field.ownerDocument.getElementById(label.htmlFor) : null
-    const targets = labelled && labelled !== control ? [control, labelled] : [control]
+    // The label's `for` target is a proxy only when it is not a native control: Checkbox/Switch/RadioGroup/Select/Slider roots
+    // carry the id while a hidden native input holds the validity. A native sibling keeps its own aria-invalid.
+    const proxy = labelled && labelled !== control && !labelled.matches("input, select, textarea") ? labelled : null
+    const targets = proxy ? [control, proxy] : [control]
+    const validOf = (target) => (target.willValidate ? target.validity.valid : valid)
 
     if (fieldInvalid) field.dataset.invalid = "true"
     else delete field.dataset.invalid
-    for (const target of targets) target.setAttribute("aria-invalid", valid ? "false" : "true")
+    for (const target of targets) target.setAttribute("aria-invalid", validOf(target) ? "false" : "true")
     label?.setAttribute("data-error", fieldInvalid ? "true" : "false")
     if (error) {
+      error.hidden = !fieldInvalid
       const text = source ? source.validationMessage : ""
       if (error.textContent !== text) error.textContent = text
-      error.hidden = !fieldInvalid
-      if (error.id) for (const target of targets) this.describe(target, error.id, !valid)
+      if (error.id) for (const target of targets) this.describe(target, error.id, !validOf(target))
     }
   }
 
   // form.reset(): back to the pristine state. Server-rendered errors are cleared too (as react-hook-form's reset does).
-  reset() {
+  reset(event) {
+    if (event?.defaultPrevented) return
     delete this.element.dataset.chadcnFormAttempted
     for (const field of this.element.querySelectorAll("[data-slot=field][data-invalid]")) {
       delete field.dataset.invalid
