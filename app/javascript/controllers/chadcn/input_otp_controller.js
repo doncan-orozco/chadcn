@@ -65,7 +65,9 @@ export default class extends Controller {
 
     // otp:78: a value the browser restored differs from the rendered one and is reported like a change.
     this.prev = [input.selectionStart, input.selectionEnd, input.selectionDirection]
-    if (input.value !== this.value) this.commit(input.value)
+    if (input.value !== this.value) this.change(() => this.commit(input.value))
+    // React assigns the value as a property, which leaves the caret at its end; the server-rendered attribute leaves it at 0.
+    if (document.activeElement !== input && input.selectionStart === 0 && input.selectionEnd === 0) input.setSelectionRange(this.value.length, this.value.length)
     this.normalizeSelection()
     if (document.activeElement === input) this.focused = true
     this.injectStyleSheet()
@@ -125,18 +127,31 @@ export default class extends Controller {
 
   // --- state ---------------------------------------------------------------------------------------------------------
 
-  // Runs `mutate` and re-renders when the state changed (React re-renders on a state change only).
+  // Runs `mutate` and re-renders once when the state changed (React batches the updates of an event and bails out of equal ones).
+  // A nested call only mutates: the outermost one renders.
   change(mutate) {
+    if (this.batching) return mutate()
+
     const before = [this.value, this.focused, this.selectionStart, this.selectionEnd]
-    mutate()
+    this.batching = true
+    try {
+      mutate()
+    } finally {
+      this.batching = false
+    }
     if ([this.value, this.focused, this.selectionStart, this.selectionEnd].some((state, i) => state !== before[i])) this.render()
+  }
+
+  // A controlled or rejected input goes back to the rendered value (React re-renders `value={l}`, otp:162).
+  restoreInput() {
+    if (this.input.value !== this.value) this.input.value = this.value
   }
 
   render() {
     this.prior = this.committed
     this.committed = this.value
     const { input } = this
-    if (input.value !== this.value) input.value = this.value // a controlled input goes back to the rendered value (otp:162)
+    this.restoreInput()
     input.setAttribute("value", this.value)
     this.toggleData("data-input-otp-placeholder-shown", this.value.length === 0 ? "true" : null)
     this.toggleData("data-input-otp-mss", this.selectionStart)
@@ -192,18 +207,20 @@ export default class extends Controller {
     const next = raw.slice(0, this.max)
     if (next.length > 0 && this.regex && !this.regex.test(next)) {
       event?.preventDefault()
-      this.input.value = this.value // React re-renders the controlled input: it goes back to the rendered value
+      this.restoreInput()
       return
     }
-    if (this.prior !== undefined && next.length < this.prior.length) document.dispatchEvent(new Event("selectionchange"))
-    this.commit(next)
+    this.change(() => {
+      if (this.prior !== undefined && next.length < this.prior.length) document.dispatchEvent(new Event("selectionchange"))
+      this.commit(next)
+    })
+    this.restoreInput()
   }
 
   // otp:71 `O`: report the change; the internal state is ignored while the value is controlled.
   commit(next) {
     this.dispatch("change", { detail: { value: next }, cancelable: false })
-    if (this.controlledValue) this.render()
-    else this.change(() => { this.value = next })
+    if (!this.controlledValue) this.value = next
   }
 
   // otp:142-148
@@ -231,10 +248,14 @@ export default class extends Controller {
     if (next.length > 0 && this.regex && !this.regex.test(next)) return
 
     this.input.value = next
-    this.commit(next)
     const from = Math.min(next.length, this.max - 1)
-    this.input.setSelectionRange(from, next.length)
-    this.change(() => { this.selectionStart = from; this.selectionEnd = next.length })
+    this.change(() => {
+      this.commit(next)
+      this.input.setSelectionRange(from, next.length)
+      this.selectionStart = from
+      this.selectionEnd = next.length
+    })
+    this.restoreInput()
   }
 
   // --- selection (otp:78-105, verbatim) ------------------------------------------------------------------------------

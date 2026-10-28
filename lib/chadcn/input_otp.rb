@@ -124,7 +124,7 @@ class Chadcn::InputOtp < Chadcn::Base
 
   def container_attrs
     {
-      "data-input-otp-container": "true", translate: "no", style: format(CONTAINER_STYLE, cursor: disabled? ? "default" : "text"),
+      "data-input-otp-container": "true", translate: "no", style: Kernel.format(CONTAINER_STYLE, cursor: disabled? ? "default" : "text"),
       class: cn(CONTAINER_CLASSES, @container_class_name),
       data: {
         controller: "chadcn--input-otp",
@@ -139,7 +139,7 @@ class Chadcn::InputOtp < Chadcn::Base
   def input_attrs
     attrs = merge_attrs({ class: CLASSES, autocomplete: "one-time-code", spellcheck: "false", data: { slot: "input-otp" } }, @attrs)
     forced = { data: { input_otp: "true", chadcn__input_otp_target: "input" }, inputmode: @input_mode, pattern: @pattern,
-               style: format(INPUT_STYLE, text_align: @text_align), maxlength: @max_length, value: @value }
+               style: Kernel.format(INPUT_STYLE, text_align: @text_align), maxlength: @max_length, value: @value }
     forced[:data][:input_otp_placeholder_shown] = "true" if @value.empty?
     forced[:aria] = { placeholder: @placeholder } if @placeholder
     attrs.merge(forced) { |_key, caller_value, forced_value| caller_value.is_a?(Hash) ? caller_value.merge(forced_value) : forced_value }
@@ -181,8 +181,7 @@ class Chadcn::InputOtp < Chadcn::Base
     def view_template
       root = context[Chadcn::InputOtp::CONTEXT_KEY] or raise ArgumentError, "#{self.class.name} must be used within InputOtp"
       inside = @index < root[:max_length]
-      defaults = { class: CLASSES, data: { slot: "input-otp-slot", chadcn__input_otp_target: "slot", chadcn__input_otp_index_value: @index } }
-      defaults[:data][:active] = "false" if inside
+      defaults = { class: CLASSES, data: { slot: "input-otp-slot", active: ("false" if inside), chadcn__input_otp_target: "slot", chadcn__input_otp_index_value: @index } }
       div(**merge_attrs(defaults, @attrs)) do
         plain root[:value][@index] if inside && root[:value][@index]
         template(data: { chadcn__input_otp_target: "caret" }) { div(class: CARET) { div(class: CARET_BAR) } } if inside
