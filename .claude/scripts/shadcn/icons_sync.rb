@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 # Regenerates the component library's icons/catalog.rb (see layout.rb) from the REAL lucide-react exports of the React catalog (layout.rb CATALOG_DIR).
-# Names = union of: manifest `icons`, every `<icon:name>` in scenarios, and the lucide imports of the oracle sources.
+# Names = union of: EXTRA_NAMES, manifest `icons`, every `<icon:name>` in scenarios, and the lucide imports of the oracle sources.
 # Resolution is the one of <catalog>/src/parity/Harness.tsx (`<Pascal>Icon` first, then `<Pascal>`);
 # PascalCase export names (manifests/sources) resolve directly.
 #   ruby .claude/scripts/shadcn/icons_sync.rb           # rewrite catalog.rb
@@ -16,8 +16,12 @@ ROOT = Pathname.new(__dir__).join("../../..").expand_path
 CATALOG = ROOT.join(ShadcnLayout::RUBY_DIR, "icons/catalog.rb")
 REACT = ROOT.join(ShadcnLayout::CATALOG_DIR)
 
+# Icons the port needs that no manifest, scenario or oracle import names (e.g. drawn by a Phlex part with no React counterpart).
+EXTRA_NAMES = %w[chevrons-down].freeze
+
 def required_names
-  names = Dir[ROOT.join(ShadcnLayout::ORACLE_DIR, "manifest/*.json")].flat_map { |f| JSON.parse(File.read(f))["icons"] || [] }
+  names = EXTRA_NAMES.dup
+  names += Dir[ROOT.join(ShadcnLayout::ORACLE_DIR, "manifest/*.json")].flat_map { |f| JSON.parse(File.read(f))["icons"] || [] }
   names += Dir[ROOT.join(ShadcnLayout::SCENARIOS_DIR, "*.json")].flat_map { |f| File.read(f).scan(/<icon:([a-z0-9-]+)>/).flatten }
   Dir[REACT.join("src/components/ui/*.tsx")].each do |f|
     File.read(f).scan(/import\s*\{([^}]*)\}\s*from\s*"lucide-react"/m).flatten.each do |list|

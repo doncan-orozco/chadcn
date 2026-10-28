@@ -35,7 +35,7 @@ module ShadcnOracle
   OVERLAY_PRIMITIVES = %w[Dialog AlertDialog Popover Tooltip HoverCard DropdownMenu ContextMenu Menubar Select NavigationMenu].freeze
   # Radix parts that render NO element of their own (context providers / portals). shadcn still writes data-slot on them, but the
   # attribute is dropped by Radix, so it never reaches the DOM: a port must not render it (G2) and G1 must not require it.
-  NO_DOM = /\A(?:(?:Dialog|Sheet|AlertDialog|DropdownMenu|ContextMenu|Popover|Tooltip|HoverCard|Select)Primitive\.(?:Root|Sub|Provider)|MenubarPrimitive\.(?:Menu|Sub)|\w+Primitive\.Portal)\z/
+  NO_DOM = /\A(?:(?:Dialog|Sheet|AlertDialog|DropdownMenu|ContextMenu|Popover|Tooltip|HoverCard|Select|Drawer)Primitive\.(?:Root|Sub|Provider)|MenubarPrimitive\.(?:Menu|Sub)|\w+Primitive\.Portal)\z/
   THIRD_PARTY = {
     "cmdk" => "cmdk", "sonner" => "sonner", "embla-carousel-react" => "embla", "react-day-picker" => "react-day-picker",
     "recharts" => "recharts", "input-otp" => "input-otp", "react-resizable-panels" => "resizable-panels",
