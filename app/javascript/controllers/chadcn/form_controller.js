@@ -55,9 +55,17 @@ export default class extends Controller {
     }
   }
 
-  // form.reset(): back to the pristine state. Server-rendered errors are cleared too (as react-hook-form's reset does).
+  // form.reset(): back to the pristine state. Server-rendered errors are cleared too (as react-hook-form's reset does). The
+  // decision is taken after dispatch, so a later listener's preventDefault() (a "discard changes?" guard) keeps the errors.
   reset(event) {
-    if (event?.defaultPrevented) return
+    clearTimeout(this.resetTimer)
+    this.resetTimer = setTimeout(() => {
+      if (event.defaultPrevented) return
+      this.clear()
+    }, 0)
+  }
+
+  clear() {
     delete this.element.dataset.chadcnFormAttempted
     for (const field of this.element.querySelectorAll("[data-slot=field][data-invalid]")) {
       delete field.dataset.invalid
@@ -72,6 +80,10 @@ export default class extends Controller {
         if (error?.id) this.describe(target, error.id, false)
       }
     }
+  }
+
+  disconnect() {
+    clearTimeout(this.resetTimer)
   }
 
   describe(target, id, on) {

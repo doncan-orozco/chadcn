@@ -165,6 +165,7 @@ test("form: reset clears the mirrored state and forgets the attempt", () => with
   assert.equal(await page.locator(field("email")).getAttribute("data-invalid"), "true");
 
   await page.locator("form#signup").evaluate((form) => form.reset());
+  await page.waitForFunction(() => document.querySelector("form#signup").dataset.chadcnFormAttempted === undefined);
   await settle(page);
 
   for (const name of ["email", "username"]) {
@@ -218,4 +219,41 @@ test("form: two invalid controls in one field show the first control's message",
   const second = await page.locator("#contact_b").evaluate((el) => el.validationMessage);
   assert.notEqual(first, second);
   assert.equal(await page.locator("#user_contact-form-item-message").textContent(), first);
+}));
+
+test("form: a later preventDefault reset listener keeps the errors", () => withPage(async (page) => {
+  await page.locator(submit).click();
+  await settle(page);
+  await page.locator("form#signup").evaluate((form) => {
+    form.addEventListener("reset", (event) => event.preventDefault());
+    form.reset();
+  });
+  await page.waitForTimeout(100);
+  await settle(page);
+
+  assert.equal(await page.locator(field("email")).getAttribute("data-invalid"), "true");
+  assert.equal(await page.locator(input("email")).getAttribute("aria-invalid"), "true");
+  assert.equal(await page.locator("form#signup").getAttribute("data-chadcn-form-attempted"), "true");
+  assert.equal(await page.locator(message("email")).isVisible(), true);
+}));
+
+test("form: a readonly native label target is not a proxy, its required sibling is invalid", () => withPage(async (page) => {
+  const code = "#user_code-form-item";
+  await page.locator(submit).click();
+  await settle(page);
+
+  assert.equal(await page.locator(`[data-slot=field]:has(${code})`).getAttribute("data-invalid"), "true");
+  assert.equal(await page.locator("#code_ext").getAttribute("aria-invalid"), "true");
+  assert.equal(await page.locator(code).getAttribute("aria-invalid"), "false", "the readonly input is valid and not proxied");
+}));
+
+test("form: a required checkbox root gets aria-invalid and the message link without a focus error", () => withPage(async (page) => {
+  const root = "[role=checkbox]#user_terms-form-item";
+  await page.locator(submit).click();
+  await settle(page);
+
+  assert.equal(await page.locator(`[data-slot=field]:has(${root})`).getAttribute("data-invalid"), "true");
+  assert.equal(await page.locator(root).getAttribute("aria-invalid"), "true");
+  assert.ok((await describedby(page, "terms")).includes("user_terms-form-item-message"));
+  assert.notEqual(await page.locator(message("terms")).textContent(), "");
 }));
