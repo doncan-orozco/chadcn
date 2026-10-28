@@ -21,6 +21,7 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
   react-hook-form. `form.field(attribute: :email)` renders a bound `Chadcn::Field` whose label, control, description and error share
   the generated ids; errors set `aria-invalid`, `data-invalid` and `data-error`. A `get` form renders no CSRF input; `put`, `patch`
   and `delete` render a hidden `_method`.
+- `Chadcn::InputOtp` (`Group`, `Slot`, `Separator`): shadcn's InputOTP with the input-otp library re-implemented in the `chadcn--input-otp` Stimulus controller (no new JavaScript dependency); `chadcn--input-otp:change` and `:complete` events (`detail: { value }`); `pasteTransformer` is assigned on the controller from JavaScript.
 - `Chadcn::Carousel` with `Content`, `Item`, `Previous` and `Next` (shadcn Carousel over a Stimulus engine derived from embla-carousel 8.6.0;
   `plugins:` and `setApi` are replaced by the controller's `api` and the `chadcn--carousel:api`, `:select`, `:reinit` and `:settle` events).
 - `Chadcn::Theme.parse`, `.validate`, `.contrast` and `.render_colors` (and `Theme::Palette`) are public API: build, validate and export a

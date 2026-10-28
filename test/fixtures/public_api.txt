@@ -181,6 +181,10 @@ class Chadcn::InputGroup::Button < Chadcn::Base
 class Chadcn::InputGroup::Input < Chadcn::Base
 class Chadcn::InputGroup::Text < Chadcn::Base
 class Chadcn::InputGroup::Textarea < Chadcn::Base
+class Chadcn::InputOtp < Chadcn::Base
+class Chadcn::InputOtp::Group < Chadcn::Base
+class Chadcn::InputOtp::Separator < Chadcn::Base
+class Chadcn::InputOtp::Slot < Chadcn::Base
 class Chadcn::Item < Chadcn::Base
 class Chadcn::Item::Actions < Chadcn::Base
 class Chadcn::Item::Content < Chadcn::Base
@@ -379,6 +383,12 @@ const Chadcn::Empty::Media::VARIANTS [default, icon]
 const Chadcn::Field::ORIENTATIONS [vertical, horizontal, responsive]
 const Chadcn::InputGroup::Addon::ALIGNS [inline-start, inline-end, block-start, block-end]
 const Chadcn::InputGroup::Button::SIZES [xs, sm, icon-xs, icon-sm]
+const Chadcn::InputOtp::NO_SCRIPT_CSS_FALLBACK
+const Chadcn::InputOtp::REGEXP_ONLY_CHARS
+const Chadcn::InputOtp::REGEXP_ONLY_DIGITS
+const Chadcn::InputOtp::REGEXP_ONLY_DIGITS_AND_CHARS
+const Chadcn::InputOtp::Slot::CARET
+const Chadcn::InputOtp::Slot::CARET_BAR
 const Chadcn::Item::Media::VARIANTS [default, icon, image]
 const Chadcn::Item::SIZES [default, sm]
 const Chadcn::Item::VARIANTS [default, outline, muted]
@@ -922,6 +932,17 @@ method Chadcn::InputGroup::Text#initialize (**attrs)
 method Chadcn::InputGroup::Text#view_template ()
 method Chadcn::InputGroup::Textarea#initialize (**attrs)
 method Chadcn::InputGroup::Textarea#view_template ()
+method Chadcn::InputOtp#group (**attrs, &block)
+method Chadcn::InputOtp#initialize (max_length:, value: nil, default_value: nil, pattern: nil, placeholder: nil, input_mode: "numeric", text_align: "left", push_password_manager_strategy: "increase-width", no_script_css_fallback: NO_SCRIPT_CSS_FALLBACK, nonce: nil, container_class_name: nil, **attrs)
+method Chadcn::InputOtp#separator (**attrs)
+method Chadcn::InputOtp#slot (**attrs)
+method Chadcn::InputOtp#view_template ()
+method Chadcn::InputOtp::Group#initialize (**attrs)
+method Chadcn::InputOtp::Group#view_template ()
+method Chadcn::InputOtp::Separator#initialize (**attrs)
+method Chadcn::InputOtp::Separator#view_template ()
+method Chadcn::InputOtp::Slot#initialize (index:, **attrs)
+method Chadcn::InputOtp::Slot#view_template ()
 method Chadcn::Item#actions (**attrs, &block)
 method Chadcn::Item#content (**attrs, &block)
 method Chadcn::Item#description (**attrs, &block)
@@ -1437,6 +1458,9 @@ Chadcn::InputGroup#button
 Chadcn::InputGroup#input
 Chadcn::InputGroup#text
 Chadcn::InputGroup#textarea
+Chadcn::InputOtp#group
+Chadcn::InputOtp#separator
+Chadcn::InputOtp#slot
 Chadcn::Item#actions
 Chadcn::Item#content
 Chadcn::Item#description
