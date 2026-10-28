@@ -43,7 +43,8 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
   def initialize(content: nil, cursor: true, default_index: nil, active: nil, shared: nil, trigger: :hover, offset: 10,
                  allow_escape_view_box: { x: false, y: false }, reverse_direction: { x: false, y: false }, position: nil,
                  is_animation_active: :auto, animation_duration: 400, animation_easing: :ease, wrapper_style: nil, filter_null: true,
-                 include_hidden: false, axis_id: 0, payload_uniq_by: false, formatter: nil, label_formatter: nil, separator: " : ", content_style: nil, item_sorter: :name,
+                 include_hidden: false, axis_id: 0, payload_uniq_by: false, formatter: nil, label_formatter: nil,
+                 separator: " : ", content_style: nil, item_sorter: :name,
                  **attrs)
     unless TRIGGERS.include?(trigger&.to_sym)
       raise ArgumentError, "trigger: must be one of #{TRIGGERS.map(&:inspect).join(', ')} (got #{trigger.inspect})"
@@ -60,7 +61,8 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
       allow_escape_view_box: allow_escape_view_box, reverse_direction: reverse_direction, position: position,
       is_animation_active: is_animation_active, animation_duration: animation_duration, animation_easing: animation_easing,
       wrapper_style: wrapper_style, filter_null: filter_null, include_hidden: include_hidden, axis_id: axis_id,
-      payload_uniq_by: payload_uniq_by, formatter: formatter, label_formatter: label_formatter, separator: separator, content_style: content_style, item_sorter: item_sorter, attrs: attrs
+      payload_uniq_by: payload_uniq_by, formatter: formatter, label_formatter: label_formatter,
+      separator: separator, content_style: content_style, item_sorter: item_sorter, attrs: attrs
     }.freeze
     super()
   end
