@@ -73,6 +73,13 @@ class Chadcn::Form::FieldTest < Chadcn::TestCase
     end
   end
 
+  test "the error helper renders the same HTML as the explicit part without errors" do
+    helper = field_for.call { |field| field.error(class: "k") { "Fallback" } }
+    explicit = field_for.call { |field| field.render(Part::Error.new(class: "k")) { "Fallback" } }
+
+    assert_equal explicit, helper
+  end
+
   test "the bound label helper shadows the inherited one" do
     out = field_for.call(&:label)
 

@@ -26,6 +26,18 @@ class Chadcn::Form < Chadcn::Base
   # @api private
   CONTEXT_KEY = :chadcn_form_binding
 
+  # The verbs a form accepts.
+  #
+  # @return [Array<String>]
+  # @api private
+  HTTP_METHODS = %w[get post put patch delete].freeze
+
+  # The verbs a browser form submits natively; the others go through a hidden +_method+.
+  #
+  # @return [Array<String>]
+  # @api private
+  NATIVE_METHODS = %w[get post].freeze
+
   # Builds the form. +nil+ means "not given"; the Plain binding defaults the method to +"post"+ and the errors to +{}+. +class:+
   # travels in +**attrs+.
   #
@@ -47,7 +59,7 @@ class Chadcn::Form < Chadcn::Base
     elsif model && scope.nil?
       raise ArgumentError, "model: needs scope: (the name prefix of the fields)"
     end
-    if method && !%w[get post put patch delete].include?(method.to_s.downcase)
+    if method && !HTTP_METHODS.include?(method.to_s.downcase)
       raise ArgumentError, "method: must be get, post, put, patch or delete (got #{method.inspect})"
     end
 
@@ -64,10 +76,14 @@ class Chadcn::Form < Chadcn::Base
     previous = context[CONTEXT_KEY]
     context[CONTEXT_KEY] = @binding
     verb = @binding.http_method.to_s.downcase
+    unless HTTP_METHODS.include?(verb)
+      raise ArgumentError, "#{@binding.class}#http_method must be one of #{HTTP_METHODS.join(', ')} (got #{@binding.http_method.inspect})"
+    end
+
     html_method = verb == "get" ? "get" : "post"
     attrs = merge_attrs({ data: { slot: "form" }, action: @binding.action, method: html_method }, @attrs)
     form(**attrs) do
-      input(type: "hidden", name: "_method", value: verb) unless %w[get post].include?(verb)
+      input(type: "hidden", name: "_method", value: verb) unless NATIVE_METHODS.include?(verb)
       token = @binding.csrf_token
       input(type: "hidden", name: "authenticity_token", value: token, autocomplete: "off") if token && verb != "get"
       yield self if block
@@ -371,7 +387,11 @@ class Chadcn::Form < Chadcn::Base
       def view_template(&block)
         field = form_field
         attrs = merge_attrs({ html_for: field.form_item_id, data: { error: field.errors.any?.to_s }, class: CLASS_NAME }, @attrs)
-        render(Chadcn::Field::Label.new(**attrs), &block || proc { plain field.form_binding.label_for(field.attribute) })
+        if block
+          render(Chadcn::Field::Label.new(**attrs), &block)
+        else
+          render(Chadcn::Field::Label.new(**attrs)) { plain field.form_binding.label_for(field.attribute) }
+        end
       end
     end
 

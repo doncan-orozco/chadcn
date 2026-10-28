@@ -47,6 +47,13 @@ class Chadcn::FormTest < Chadcn::TestCase
     assert_equal "hidden", form.at_css("input[name=authenticity_token]")["type"]
   end
 
+  test "a binding with an unknown verb raises" do
+    binding = Chadcn::Form::Binding::Plain.new(scope: :user, http_method: "trace")
+    error = assert_raises(ArgumentError) { Chadcn::Form.new(binding:).call { |_| } }
+
+    assert_includes error.message, "http_method must be one of"
+  end
+
   test "yields itself" do
     yielded = nil
     render_form(scope: :user) { |f| yielded = f }
