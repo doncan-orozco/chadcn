@@ -379,7 +379,8 @@ class Chadcn::Form < Chadcn::Base
       context[FIELD_KEY] = previous
     end
 
-    # Reads the enclosing {Chadcn::Form::Field} from the render context for the parts of a bound field.
+    # Reads the enclosing {Chadcn::Form::Field} from the render context for the parts of a bound field, and holds the value casts
+    # of the bound controls (+option_default+, +date_default+, +raise_value_error+).
     #
     # @api private
     module Support
@@ -410,17 +411,17 @@ class Chadcn::Form < Chadcn::Base
       end
 
       # @return [Date, nil] the bound value as a date
-      # @raise [ArgumentError] when it is not a Date, a Time, a "YYYY-MM-DD" String or nil
+      # @raise [ArgumentError] when it is not a Date, a Time, an ISO 8601 date String or nil
       def date_default(field)
         value = field.value
         case value
         when nil then nil
         when Date, Time then value.to_date
         when String then value.empty? ? nil : Date.iso8601(value)
-        else raise_value_error(field, "must be a Date, a Time or a \"YYYY-MM-DD\" String", value)
+        else raise_value_error(field, "must be a Date, a Time or an ISO 8601 date String", value)
         end
       rescue Date::Error
-        raise_value_error(field, "must be a Date, a Time or a \"YYYY-MM-DD\" String", value)
+        raise_value_error(field, "must be a Date, a Time or an ISO 8601 date String", value)
       end
 
       def raise_value_error(field, expected, value)
@@ -620,7 +621,8 @@ class Chadcn::Form < Chadcn::Base
       end
     end
 
-    # Shared by {Checkbox} and {Switch}: the hidden unchecked input, the checked cast and the bound render.
+    # Shared by {Checkbox} and {Switch}: the hidden unchecked input, the checked cast and the bound render. The including class sets
+    # +@attrs+ and +@unchecked_value+ in its +initialize+.
     #
     # @api private
     module Toggleable
@@ -849,7 +851,7 @@ class Chadcn::Form < Chadcn::Base
       end
 
       # @return [void]
-      # @raise [ArgumentError] when the value is not a Date, Time, "YYYY-MM-DD" String or nil
+      # @raise [ArgumentError] when the value is not a Date, Time, ISO 8601 date String or nil
       def view_template
         field = form_field
         date = date_default(field)
