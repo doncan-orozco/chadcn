@@ -41,6 +41,14 @@ class Chadcn::Chart::Container < Chadcn::Base
   # @return [Numeric] server assumption for the width of a character in em
   attr_reader :text_char_width
 
+  # Adds markup after the responsive shell, as the last children of the `div[data-slot="chart"]` (what a chart inside writes there: the inert
+  # tooltip templates `chadcn--chart` swaps in, dev/port/specs/chart.md "Tooltip"). Call it while the container's block runs.
+  #
+  # @api private
+  # @param markup [String] HTML the caller already escaped
+  # @return [void]
+  def append_after_shell(markup) = (@after_shell ||= +"") << markup
+
   # The container the current render is inside, or nil. Used by the contents and the chart roots (React's `useChart`).
   #
   # @api private
@@ -74,6 +82,7 @@ class Chadcn::Chart::Container < Chadcn::Base
       div(class: "recharts-responsive-container", style: "width: 100%; height: 100%; min-width: 0px;") do
         div(style: "width: 0px; height: 0px; overflow: visible;") { publish { |container| yield container if block_given? } }
       end
+      raw(safe(@after_shell)) if @after_shell
     end
   end
 

@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-# shadcn `ChartLegend` (recharts' `Legend`): the legend a chart root declares. It renders nothing where it is written; the chart
-# reads {#options} and {#content_element} and writes the legend wrapper with the content.
+# shadcn `ChartLegend` (recharts' `Legend`): the legend a chart root declares. It renders nothing where it is written (a
+# {Chadcn::Chart::Declaration}); the chart reads {#options} and {#content_element} and writes the legend wrapper with the content.
 #
 # @example
 #   Chadcn::Chart::Legend.new(content: Chadcn::Chart::Legend::Content.new, vertical_align: :top)
-class Chadcn::Chart::Legend < Chadcn::Base
+class Chadcn::Chart::Legend < Chadcn::Chart::Declaration
   # Values of `vertical_align:`.
   VERTICAL_ALIGNMENTS = %i[top middle bottom].freeze
   # Values of `align:`.
@@ -53,11 +53,6 @@ class Chadcn::Chart::Legend < Chadcn::Base
     }.freeze
     super()
   end
-
-  # A declaration renders nothing where it is written; the chart that contains it draws the legend.
-  #
-  # @return [void]
-  def view_template; end
 
   # Nested in this file, not in `legend/content.rb`: `Base.const_added` loads the parts of `Chart` while Zeitwerk is still
   # registering them, before it can hook the namespace of a file that also has a directory, so a `legend/` directory

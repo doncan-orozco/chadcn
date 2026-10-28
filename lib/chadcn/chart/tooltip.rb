@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
-# shadcn `ChartTooltip` (recharts' `Tooltip`): the tooltip a chart root declares. It renders nothing where it is written; the
-# chart reads {#options} and {#content_element} and writes the per-index tooltip templates (dev/port/specs/chart.md, "Tooltip").
+# shadcn `ChartTooltip` (recharts' `Tooltip`): the tooltip a chart root declares. It renders nothing where it is written (a
+# {Chadcn::Chart::Declaration}); the chart reads {#options} and {#content_element} and writes the per-index tooltip templates
+# (dev/port/specs/chart.md, "Tooltip").
 #
 # @example
 #   Chadcn::Chart::Tooltip.new(default_index: 1, content: Chadcn::Chart::Tooltip::Content.new(hide_label: true))
-class Chadcn::Chart::Tooltip < Chadcn::Base
+class Chadcn::Chart::Tooltip < Chadcn::Chart::Declaration
   # Values of `trigger:`.
   TRIGGERS = %i[hover click].freeze
   TRISTATE = [ nil, true, false ].freeze
@@ -34,8 +35,9 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
   # @param include_hidden [Boolean] keep payload entries of hidden series
   # @param axis_id [Integer] the axis the tooltip follows
   # @param payload_uniq_by [Boolean] unique payload by `data_key`
-  # @param formatter [#call, nil] overrides the `formatter:` of the content (recharts clones the content with the Tooltip's props)
-  # @param label_formatter [#call, nil] overrides the `label_formatter:` of the content
+  # @param formatter [#call, Hash, Symbol, nil] a callable or a named formatter (`{ slice: [0, 3] }`, `:locale`, `:percent`); overrides the
+  #   `formatter:` of the content (recharts clones the content with the Tooltip's props)
+  # @param label_formatter [#call, Hash, Symbol, nil] same; overrides the `label_formatter:` of the content
   # @param separator [String] accepted for parity with recharts, ignored by the shadcn content
   # @param content_style [Hash, nil] accepted and ignored (only recharts' default content reads it)
   # @param item_sorter [Symbol, nil] accepted and ignored by the shadcn content
@@ -62,16 +64,12 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
       allow_escape_view_box: allow_escape_view_box, reverse_direction: reverse_direction, position: position,
       is_animation_active: is_animation_active, animation_duration: animation_duration, animation_easing: animation_easing,
       wrapper_style: wrapper_style, filter_null: filter_null, include_hidden: include_hidden, axis_id: axis_id,
-      payload_uniq_by: payload_uniq_by, formatter: formatter, label_formatter: label_formatter,
+      payload_uniq_by: payload_uniq_by, formatter: Chadcn::Chart::Cartesian::Formatter.resolve(formatter),
+      label_formatter: Chadcn::Chart::Cartesian::Formatter.resolve(label_formatter),
       separator: separator, content_style: content_style, item_sorter: item_sorter, attrs: attrs
     }.freeze
     super()
   end
-
-  # A declaration renders nothing where it is written; the chart that contains it draws the tooltip.
-  #
-  # @return [void]
-  def view_template; end
 
   # Nested in this file, not in `tooltip/content.rb`: `Base.const_added` loads the parts of `Chart` while Zeitwerk is still
   # registering them, before it can hook the namespace of a file that also has a directory, so a `tooltip/` directory
@@ -107,9 +105,10 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
     # @param hide_label [Boolean]
     # @param hide_indicator [Boolean]
     # @param label [String, nil] the category label; a config key is replaced by its label
-    # @param label_formatter [#call, nil] `(label, payload)`, returns a String or a component; its result replaces the label
+    # @param label_formatter [#call, Hash, Symbol, nil] `(label, payload)`, returns a String or a component; its result replaces the label
     # @param label_class_name [String, nil] classes of the label div (React `labelClassName`)
-    # @param formatter [#call, nil] `(value, name, item, index, row)` renders an item instead of the default markup
+    # @param formatter [#call, Hash, Symbol, nil] `(value, name, item, index, row)` renders an item instead of the default markup; or a named
+    #   formatter (`{ slice: [0, 3] }`, `:locale`, `:percent`) that returns the text of the value
     # @param color [String, nil] color of every indicator
     # @param name_key [String, Symbol, nil] the payload key whose value names the config entry of an item
     # @param label_key [String, Symbol, nil] same for the label
@@ -121,7 +120,8 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
       raise ArgumentError, "indicator: must be one of #{INDICATORS.join(', ')} (got #{indicator.inspect})" unless INDICATORS.include?(indicator.to_s)
 
       @options = { indicator: indicator.to_s, hide_label: hide_label, hide_indicator: hide_indicator, label: label,
-                   label_formatter: label_formatter, label_class_name: label_class_name, formatter: formatter, color: color,
+                   label_formatter: Chadcn::Chart::Cartesian::Formatter.resolve(label_formatter), label_class_name: label_class_name,
+                   formatter: Chadcn::Chart::Cartesian::Formatter.resolve(formatter), color: color,
                    name_key: name_key, label_key: label_key, attrs: attrs }.freeze
       @payload = validated_payload(payload)
       super()

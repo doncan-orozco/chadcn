@@ -230,7 +230,7 @@ class Chadcn::Chart::TooltipTest < Chadcn::TestCase
     content = Chadcn::Chart::Tooltip::Content.new
     tooltip = Chadcn::Chart::Tooltip.new(content: content, default_index: 1)
 
-    assert_equal "", tooltip.call
+    assert_raises(ArgumentError) { tooltip.call } # a declaration renders only inside a chart
     assert_same content, tooltip.content_element
     assert_equal({ cursor: true, default_index: 1, active: nil, shared: nil, trigger: :hover, offset: 10 },
                  tooltip.options.slice(:cursor, :default_index, :active, :shared, :trigger, :offset))

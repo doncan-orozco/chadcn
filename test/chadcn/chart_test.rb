@@ -74,7 +74,7 @@ class Chadcn::ChartTest < Chadcn::TestCase
     Chadcn::Chart::BarChart.new # building a chart loads the declarations
     helpers = Chadcn::Chart::Declaration.subclasses.map { |part| Chadcn::Chart::Declarations.helper_name(part.name) }
 
-    assert_equal 10, helpers.size
+    assert_equal 12, helpers.size
     [ Chadcn::Chart::BarChart, Chadcn::Chart::LineChart, Chadcn::Chart::AreaChart ].each do |chart_class|
       assert_empty(helpers.reject { |helper| chart_class.public_method_defined?(helper) }, chart_class.name)
     end
@@ -120,14 +120,24 @@ class Chadcn::ChartTest < Chadcn::TestCase
   end
 
   test "the tooltip and legend helpers render the same HTML as the explicit classes" do
+    rows = [ { a: 1 }, { a: 2 } ]
+    contents = { tooltip: Chadcn::Chart::Tooltip::Content.new, legend: Chadcn::Chart::Legend::Content.new }
     explicit = render_view do
-      render(Chadcn::Chart::Tooltip.new(default_index: 1)) { nil }
-      render(Chadcn::Chart::Legend.new(vertical_align: :top)) { nil }
+      render(Chadcn::Chart::Container.new(config: { a: { label: "A", color: "red" } }, id: "k")) do
+        render(Chadcn::Chart::BarChart.new(data: rows)) do |chart|
+          chart.render Chadcn::Chart::Tooltip.new(default_index: 1, content: contents[:tooltip])
+          chart.render Chadcn::Chart::Legend.new(vertical_align: :top, content: contents[:legend])
+          chart.bar(data_key: :a)
+        end
+      end
     end
     helpers = render_view do
-      render(Chadcn::Chart.new) do |chart|
-        chart.tooltip(default_index: 1)
-        chart.legend(vertical_align: :top)
+      render(Chadcn::Chart::Container.new(config: { a: { label: "A", color: "red" } }, id: "k")) do
+        render(Chadcn::Chart::BarChart.new(data: rows)) do |chart|
+          chart.tooltip(default_index: 1, content: contents[:tooltip])
+          chart.legend(vertical_align: :top, content: contents[:legend])
+          chart.bar(data_key: :a)
+        end
       end
     end
 

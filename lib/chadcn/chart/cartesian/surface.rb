@@ -18,6 +18,7 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
   # @param layout [Chadcn::Chart::Cartesian::Layout]
   # @param declared [Chadcn::Chart::Cartesian::Declared]
   # @param markup [String] what the chart's block wrote itself; placed after the clip path
+  # @param tooltip_entry [Chadcn::Chart::Cartesian::TooltipPlan::Entry, nil] the category a `default_index:` shows: its cursor and active dots
   # @param uid [String] prefix of the ids this chart writes
   # @param title [String, nil]
   # @param desc [String, nil]
@@ -25,10 +26,11 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
   # @param role [String, nil]
   # @param tab_index [Integer, nil]
   # @param attrs [Hash] attributes of the svg
-  def initialize(layout:, declared:, markup:, uid:, title:, desc:, accessibility_layer:, role:, tab_index:, attrs:)
+  def initialize(layout:, declared:, markup:, tooltip_entry:, uid:, title:, desc:, accessibility_layer:, role:, tab_index:, attrs:)
     @layout = layout
     @declared = declared
     @markup = markup
+    @tooltip_entry = tooltip_entry
     @uid = uid
     @title = title
     @desc = desc
@@ -91,6 +93,7 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
     when Chadcn::Chart::XAxis, Chadcn::Chart::YAxis then draw_axis(item, layer)
     when Chadcn::Chart::ReferenceLine then reference_line(item) if layer == 400
     when Chadcn::Chart::Label then standalone_label(item) if layer == 2000
+    when Chadcn::Chart::Tooltip then tooltip_cursor(layer)
     end
   end
 
@@ -287,6 +290,7 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
     case layer
     when 400 then line_curve(placed)
     when 600 then dots(placed, "line")
+    when 1200 then active_dot(placed)
     end
   end
 
@@ -337,12 +341,29 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
     attrs(look, plot_size, series_attrs(series))
   end
 
+  # --- tooltip ------------------------------------------------------------------------------------------------------------
+
+  # The cursor of the category `default_index:` shows, in the layer recharts draws it in (200 behind the bars, 1100 for a line).
+  def tooltip_cursor(layer)
+    cursor = @tooltip_entry&.cursor
+    path(**cursor[:attrs]) if cursor && cursor[:layer] == layer
+  end
+
+  # The dot on the point of the category `default_index:` shows (component/ActivePoints.js:19-56).
+  def active_dot(placed)
+    dot = @tooltip_entry&.dots&.find { |candidate| candidate[:series].equal?(placed.series) }
+    return unless dot
+
+    g(class: "recharts-layer recharts-active-dot") { circle(**dot[:attrs], class: "recharts-dot") }
+  end
+
   # --- areas --------------------------------------------------------------------------------------------------------------
 
   def area_series(placed, layer)
     case layer
     when 100 then area_shapes(placed)
     when 600 then dots(placed, "area")
+    when 1200 then active_dot(placed)
     end
   end
 

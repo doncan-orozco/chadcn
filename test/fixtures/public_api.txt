@@ -85,13 +85,13 @@ class Chadcn::Chart::Container < Chadcn::Base
 class Chadcn::Chart::Declaration < Chadcn::Base
 class Chadcn::Chart::Label < Chadcn::Chart::Declaration
 class Chadcn::Chart::LabelList < Chadcn::Chart::Declaration
-class Chadcn::Chart::Legend < Chadcn::Base
+class Chadcn::Chart::Legend < Chadcn::Chart::Declaration
 class Chadcn::Chart::Legend::Content < Chadcn::Base
 class Chadcn::Chart::Line < Chadcn::Chart::Declaration
 class Chadcn::Chart::LineChart < Chadcn::Chart::Cartesian::Root
 class Chadcn::Chart::ReferenceLine < Chadcn::Chart::Declaration
 class Chadcn::Chart::Style < Chadcn::Base
-class Chadcn::Chart::Tooltip < Chadcn::Base
+class Chadcn::Chart::Tooltip < Chadcn::Chart::Declaration
 class Chadcn::Chart::Tooltip::Content < Chadcn::Base
 class Chadcn::Chart::XAxis < Chadcn::Chart::Declaration
 class Chadcn::Chart::YAxis < Chadcn::Chart::Declaration
@@ -693,7 +693,6 @@ method Chadcn::Chart::LabelList#initialize (data_key: nil, position: :middle, of
 method Chadcn::Chart::Legend#content_element ()
 method Chadcn::Chart::Legend#initialize (content: nil, vertical_align: :bottom, align: :center, layout: :horizontal, icon_size: 14, icon_type: nil, inactive_color: nil, item_sorter: :value, width: nil, height: nil, payload_uniq_by: false, wrapper_style: nil, legend_height: 28, **attrs)
 method Chadcn::Chart::Legend#options ()
-method Chadcn::Chart::Legend#view_template ()
 method Chadcn::Chart::Legend::Content#initialize (hide_icon: false, vertical_align: :bottom, name_key: nil, payload: [], **attrs)
 method Chadcn::Chart::Legend::Content#view_template ()
 method Chadcn::Chart::Line#initialize (data_key:, type: :linear, stroke: "#3182bd", stroke_width: 1, stroke_dasharray: nil, fill: "#fff", dot: true, active_dot: true, connect_nulls: false, label: false, legend_type: :line, tooltip_type: nil, hide: false, name: nil, unit: nil, x_axis_id: 0, y_axis_id: 0, is_animation_active: nil, **attrs)
@@ -704,7 +703,6 @@ method Chadcn::Chart::Style#view_template ()
 method Chadcn::Chart::Tooltip#content_element ()
 method Chadcn::Chart::Tooltip#initialize (content: nil, cursor: true, default_index: nil, active: nil, shared: nil, trigger: :hover, offset: 10, allow_escape_view_box: { x: false, y: false }, reverse_direction: { x: false, y: false }, position: nil, is_animation_active: :auto, animation_duration: 400, animation_easing: :ease, wrapper_style: nil, filter_null: true, include_hidden: false, axis_id: 0, payload_uniq_by: false, formatter: nil, label_formatter: nil, separator: " : ", content_style: nil, item_sorter: :name, **attrs)
 method Chadcn::Chart::Tooltip#options ()
-method Chadcn::Chart::Tooltip#view_template ()
 method Chadcn::Chart::Tooltip::Content#initialize (indicator: :dot, hide_label: false, hide_indicator: false, label: nil, label_formatter: nil, label_class_name: nil, formatter: nil, color: nil, name_key: nil, label_key: nil, payload: [], **attrs)
 method Chadcn::Chart::Tooltip::Content#view_template ()
 method Chadcn::Chart::XAxis#initialize (data_key: nil, type: :category, hide: false, height: 30, orientation: :bottom, tick: true, tick_line: true, axis_line: true, tick_size: 6, tick_margin: 2, tick_count: 5, tick_formatter: nil, interval: :preserve_end, min_tick_gap: 5, mirror: false, reversed: false, padding: { left: 0, right: 0 }, domain: nil, allow_decimals: true, allow_duplicated_category: true, allow_data_overflow: false, include_hidden: false, nice_ticks: :auto, angle: 0, unit: nil, ticks: nil, scale: :auto, stroke: "#666", x_axis_id: 0, name: nil, **attrs)

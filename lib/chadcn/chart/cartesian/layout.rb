@@ -69,6 +69,17 @@ class Chadcn::Chart::Cartesian::Layout
   # @return [Chadcn::Chart::Cartesian::Axis]
   def axis(kind, id = 0) = @axes.fetch([ kind, id ])
 
+  # The axis a tooltip follows (`selectTooltipAxis`, state/selectors/selectTooltipAxis.js): the category axis of the layout.
+  #
+  # @api private
+  # @param id [Object] the `axis_id:` of the tooltip
+  # @return [Chadcn::Chart::Cartesian::Axis, nil] nil when the chart has no such axis
+  def tooltip_axis(id = 0) = @axes[[ @direction == :horizontal ? :x : :y, id ]]
+
+  # @api private
+  # @return [Symbol] :bar, :line or :area
+  def chart_type = @chart.fetch(:type)
+
   # The axes the declarations asked for, in declaration order, with the position and size they are drawn at.
   #
   # @api private

@@ -157,8 +157,20 @@ end
 ```
 
 A `<defs>` of gradients (or any SVG the block writes itself, e.g. by rendering a `Phlex::SVG` component) is placed in the `svg` after the clip
-path, where recharts renders its non-chart children. A tooltip or a legend written in the block (`chart.tooltip`, `chart.legend`) is
-accepted and a legend reserves its room, but neither draws its markup yet.
+path, where recharts renders its non-chart children.
+
+`chart.tooltip` and `chart.legend` draw recharts' wrappers inside `.recharts-wrapper`, in front of the svg:
+
+- `chart.legend(content: Chart::Legend::Content.new, vertical_align: :top)` writes `.recharts-legend-wrapper` with the series as the payload (declaration
+  order, sorted by name unless `item_sorter: nil`, `legend_type: :none` dropped by the content) and reserves its room in the plot. Where it sits and how
+  big it is follow `Legend.js` (`width:`, `height:`, `align:`, `layout:`, `wrapper_style:`); the height it takes is `legend_height:` (28, a `pt-3`
+  plus a 16px line), because the server cannot measure it.
+- `chart.tooltip(content: Chart::Tooltip::Content.new, default_index: 1)` writes the empty `.recharts-tooltip-wrapper`, one inert
+  `<template data-chadcn--chart-target="tooltipTemplate" data-index data-label data-coordinate data-cursor data-active-dots>` per category (children of
+  the chart's `div[data-slot="chart"]`, after its shell) holding the content for that category's payload, and, with `default_index:`, the wrapper
+  visible with that category's content and the cursor (a rectangle behind the bars of a bar chart, a line on a line or area chart) and the active dots
+  in the svg. A series is left out of the payload with `tooltip_type: :none` (the content drops it), a nil value or a hidden series by `filter_null`.
+  Where the wrapper sits and the hover itself belong to the `chadcn--chart` controller; `shared: false` (item tooltips) is not drawn.
 
 ## Notes
 

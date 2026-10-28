@@ -64,10 +64,12 @@ class Chadcn::Chart::Cartesian::Root < Chadcn::Base
     markup = collect(&)
     container = Chadcn::Chart::Container.current(context)
     layout = Chadcn::Chart::Cartesian::Layout.new(@declared, layout_settings(container))
+    plan = Chadcn::Chart::Cartesian::TooltipPlan.new(layout: layout, declared: @declared, rows: @options[:data]) if @declared.tooltip
+    append_tooltip_templates(container, plan) if plan
     within_responsive_shell(container) do
       div(**wrapper_attributes(layout)) do
-        overlays(layout)
-        render surface(layout, container, markup)
+        render Chadcn::Chart::Cartesian::Overlays.new(layout: layout, declared: @declared, plan: plan)
+        render surface(layout, container, markup, plan)
       end
     end
   end
@@ -89,8 +91,13 @@ class Chadcn::Chart::Cartesian::Root < Chadcn::Base
     Chadcn::Chart::Cartesian::Scope.with(context, self) { capture { yield self } }
   end
 
-  # The tooltip and legend wrappers go here, in front of the svg (recharts renders them first inside `.recharts-wrapper`).
-  def overlays(layout); end
+  # The inert tooltip templates are children of the container, after its shell (dev/port/specs/chart.md, "Tooltip"). A chart outside a
+  # container has no config for the tooltip content to read, so it has no templates either.
+  def append_tooltip_templates(container, plan)
+    return unless container && plan.tooltip.content_element
+
+    container.append_after_shell(capture { render Chadcn::Chart::Cartesian::TooltipTemplates.new(plan: plan) })
+  end
 
   def layout_settings(container)
     dimension = container ? container.initial_dimension : DEFAULT_DIMENSION
@@ -119,10 +126,10 @@ class Chadcn::Chart::Cartesian::Root < Chadcn::Base
     { width: width, height: height, class: cn("recharts-wrapper", attrs[:class]), style: style }
   end
 
-  def surface(layout, container, markup)
+  def surface(layout, container, markup, plan)
     attrs = @options[:attrs].except(:class, :style)
     Chadcn::Chart::Cartesian::Surface.new(
-      layout: layout, declared: @declared, markup: markup, uid: container&.chart_id || "chart-#{next_sequence(:chart)}",
+      layout: layout, declared: @declared, markup: markup, tooltip_entry: plan&.default_entry, uid: container&.chart_id || "chart-#{next_sequence(:chart)}",
       title: @options[:title], desc: @options[:desc], accessibility_layer: @options[:accessibility_layer],
       role: @options[:role], tab_index: @options[:tab_index], attrs: merge_attrs({}, attrs)
     )

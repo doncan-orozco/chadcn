@@ -101,7 +101,7 @@ class Chadcn::Chart::LegendTest < Chadcn::TestCase
     content = Chadcn::Chart::Legend::Content.new
     legend = Chadcn::Chart::Legend.new(content: content)
 
-    assert_equal "", legend.call
+    assert_raises(ArgumentError) { legend.call } # a declaration renders only inside a chart
     assert_same content, legend.content_element
     assert_equal [ :bottom, :center, :horizontal, 28, false ], legend.options.values_at(:vertical_align, :align, :layout, :legend_height, :payload_uniq_by)
   end

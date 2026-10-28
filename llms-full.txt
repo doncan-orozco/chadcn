@@ -438,9 +438,7 @@ Parts (class, yielded-root helper, constructor):
 
 - `Chart::Container` / `container`: `new(config:, id: nil, initial_dimension: DEFAULT_DIMENSION, text_height: 16, text_char_width: 0.6, **attrs)` shadcn `ChartContainer`: the `div[data-slot="chart"]` that holds a chart, with the chart classes of the oracle, the `Chadcn::Chart::Style` for the config colors and the `recharts-responsive-container` shell recharts' `ResponsiveContainer` writes.
 - `Chart::Declaration` / `declaration`: `new(**attrs)` What a chart's block is made of: `Chart::Bar`, `Chart::XAxis`, `Chart::CartesianGrid` and the others.
-- `Chart::Legend` / `legend`: `new(content: nil, vertical_align: :bottom, align: :center, layout: :horizontal, icon_size: 14, icon_type: nil, inactive_color: nil, item_sorter: :value, width: nil, height: nil, payload_uniq_by: false, wrapper_style: nil, legend_height: 28, **attrs)` shadcn `ChartLegend` (recharts' `Legend`): the legend a chart root declares.
 - `Chart::Style` / `style`: `new(id:, config:)` shadcn `ChartStyle`: the `<style>` element that defines `--color-<key>` for every config entry that has a `color` or a `theme`, once under `[data-chart=<id>]` and once under `.dark [data-chart=<id>]`.
-- `Chart::Tooltip` / `tooltip`: `new(content: nil, cursor: true, default_index: nil, active: nil, shared: nil, trigger: :hover, offset: 10, allow_escape_view_box: { x: false, y: false }, reverse_direction: { x: false, y: false }, position: nil, is_animation_active: :auto, animation_duration: 400, animation_easing: :ease, wrapper_style: nil, filter_null: true, include_hidden: false, axis_id: 0, payload_uniq_by: false, formatter: nil, label_formatter: nil, separator: " : ", content_style: nil, item_sorter: :name, **attrs)` shadcn `ChartTooltip` (recharts' `Tooltip`): the tooltip a chart root declares.
 
 Example:
 
