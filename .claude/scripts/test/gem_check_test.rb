@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "test_helper"
 require "tmpdir"
 require "open3"
@@ -116,7 +118,7 @@ class GemCheckTest < ActiveSupport::TestCase
     codes, _, result = check
 
     assert_includes codes, "GEM_RAILS_REFERENCE"
-    assert_equal [ 2 ], result["findings"].select { |f| f["code"] == "GEM_RAILS_REFERENCE" }.map { |f| f["line"] }
+    assert_equal([ 2 ], result["findings"].select { |f| f["code"] == "GEM_RAILS_REFERENCE" }.map { |f| f["line"] })
   end
 
   test "a library namespace used without its gem declared is reported" do
@@ -130,7 +132,8 @@ class GemCheckTest < ActiveSupport::TestCase
     write(@gem, "lib/chadcn/merge.rb", "module Chadcn\n  def self.m(a, b) = a.deep_merge(b).presence\nend\n")
 
     assert_includes check[0], "GEM_ACTIVESUPPORT_EXT"
-    write(@gem, "phlex-x.gemspec", GEMSPEC.sub(%(  s.add_dependency "phlex", ">= 2"\n), %(  s.add_dependency "phlex", ">= 2"\n  s.add_dependency "activesupport", ">= 7"\n)))
+    write(@gem, "phlex-x.gemspec",
+          GEMSPEC.sub(%(  s.add_dependency "phlex", ">= 2"\n), %(  s.add_dependency "phlex", ">= 2"\n  s.add_dependency "activesupport", ">= 7"\n)))
 
     assert_not_includes check[0], "GEM_ACTIVESUPPORT_EXT"
   end
@@ -148,7 +151,8 @@ class GemCheckTest < ActiveSupport::TestCase
 
   test "gemspec metadata, ruby version, license and packaged files are checked" do
     write(@gem, "phlex-x.gemspec", GEMSPEC.sub(%(  s.licenses = ["MIT"]\n), "").sub(%(  s.required_ruby_version = ">= 3.3"\n), "")
-                                         .sub(%(, "changelog_uri" => "https://example.com/changes"), "").sub(%(Dir["lib/**/*",), %(Dir["lib/**/*", "test/**/*", "dev/**/*",)))
+                                         .sub(%(, "changelog_uri" => "https://example.com/changes"), "")
+                                         .sub(%(Dir["lib/**/*",), %(Dir["lib/**/*", "test/**/*", "dev/**/*",)))
     write(@gem, "dev/oracle.json", "{}")
     result = check[2]
     details = result["findings"].select { |f| f["code"].start_with?("GEMSPEC") }.map { |f| f["detail"] }.join("\n")
@@ -156,7 +160,7 @@ class GemCheckTest < ActiveSupport::TestCase
     assert_includes details, "license is missing"
     assert_includes details, "required_ruby_version"
     assert_includes details, "metadata[changelog_uri]"
-    assert_match(/packages development material: .*(test|dev)\//, details)
+    assert_match(%r{packages development material: .*(test|dev)/}, details)
   end
 
   test "missing LICENSE, tests and third-party notices are reported" do
@@ -192,7 +196,8 @@ class GemCheckTest < ActiveSupport::TestCase
     promised = skill.scan(/\b((?:GEM|GEMSPEC)_[A-Z_]+)\b/).flatten.uniq - [ "GEMSPEC_*" ]
 
     assert_empty promised - emitted, "skill names codes the script never emits"
-    assert_empty emitted - promised - [ "GEMSPEC_FIELD", "GEMSPEC_FILES", "GEMSPEC_UNLOADABLE", "GEMSPEC_MISSING", "GEM_NOT_FOUND" ], "script emits codes the skill does not map to a rule"
+    assert_empty emitted - promised - %w[GEMSPEC_FIELD GEMSPEC_FILES GEMSPEC_UNLOADABLE GEMSPEC_MISSING GEM_NOT_FOUND],
+                 "script emits codes the skill does not map to a rule"
     assert_match(/GEMSPEC_\*/, skill, "skill must say the GEMSPEC_* family belongs to R7")
   end
 end

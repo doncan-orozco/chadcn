@@ -32,7 +32,7 @@ module ShadcnStaticGate
   PALETTE = /\b(?:bg|text|border|ring|fill|stroke|outline|from|to|via|divide|shadow)-(?:slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-\d{2,3}\b/
   COLOR_LITERAL = /#(?:[0-9a-fA-F]{3,4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})\b|\b(?:rgb|rgba|hsl|hsla|oklch)\(/
   UTILITY = %r{\A[!\-\w\[\]():/.&>*%=,'#@+]+\z}
-  IGNORED_PROPS = %w[className children ...props].freeze
+  IGNORED_PROPS = %w[className children props ...props].freeze
 
   Finding = Struct.new(:code, :severity, :part, :detail, :expected, :found, keyword_init: true)
 
@@ -71,14 +71,14 @@ module ShadcnStaticGate
     end
 
     def short(part_name)
-      part_name.start_with?(root) && part_name != root ? part_name.delete_prefix(root) : part_name
+      part_name.downcase.start_with?(root.downcase) && part_name.downcase != root.downcase ? part_name[root.size..] : part_name
     end
 
     def check_parts
       @m["parts"].filter_map do |part|
         next if part["name"].match?(/\A(use|[a-z])/) # hooks / helpers
         names = [part["name"], short(part["name"])].uniq
-        next if names.any? { |n| @src.match?(/\b(?:class|module)\s+(?:\w+::)*#{n}\b/) }
+        next if names.any? { |n| @src.match?(/\b(?:class|module)\s+(?:\w+::)*#{n}\b/i) }
 
         Finding.new(code: "G1_PART_MISSING", severity: "MANDATORY", part: part["name"],
                     detail: "No Phlex class for React part #{part['name']} (expected `#{root}::#{short(part['name'])}` or `#{part['name']}`)",

@@ -13,6 +13,9 @@
 //   ... --dx helpers        ask the Phlex harness to render the same scenario tree through the yielded-root DX helpers
 //                           (`table.header { ... }`) instead of the explicit nested classes; must match React just the same
 //
+// Charts: inside [data-slot="chart"] the numeric attributes of the SVG (NUMERIC_ATTR) and the pixel lengths left/bottom/width/height inside `style`
+// are compared number by number within NUMERIC_TOLERANCE px, the text between the numbers exactly; everything else stays exact (dev/decisions/chart.md, "The G2 contract").
+//
 // Contract (see .ai/skills/shadcn-port/references/parity-gates.md):
 //   React  : {REACT}/#/parity/<component>/<scenarioId>
 //   Phlex  : {PHLEX}/design-system/parity/<component>/<scenarioId>
@@ -60,6 +63,7 @@ const STYLE_PROPS = [
   "textAlign", "boxShadow", "opacity", "transform", "cursor", "pointerEvents", "overflow", "gap", "outlineColor", "outlineWidth",
   "outlineStyle", "zIndex", "flexDirection", "alignItems", "justifyContent", "whiteSpace", "textDecorationLine",
 ];
+const WRAPPER_POSITION_STYLE = new Set(["transform"]);
 // Attributes that legitimately differ between React/Radix and Rails/Stimulus and carry no contract.
 // Same variable and default as ShadcnLayout::STIMULUS_PREFIX (layout.rb): keep them in sync.
 const STIMULUS_PREFIX = (process.env.SHADCN_STIMULUS_PREFIX || "chadcn").replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -67,6 +71,57 @@ const IGNORED_ATTR = new RegExp(
   "^(class|style|id|for|selected|data-controller|data-action|data-turbo.*|data-.*-target|data-.*-value|data-.*-class|data-parity.*|aria-labelledby|aria-controls|aria-describedby|aria-owns|aria-activedescendant|tabindex-managed)$" +
   `|^data-${STIMULUS_PREFIX}--|^data-radix|^data-reactroot`
 );
+
+// G2 contract for charts (dev/decisions/chart.md): recharts and the Phlex port write the same SVG numbers through different float
+// operation orders and path formatters, so these attributes (and the px lengths left/bottom/width/height inside `style`) may differ by up to 1e-3 px.
+// Applies only to nodes inside [data-slot="chart"]; every other attribute and every other component compares exactly.
+const NUMERIC_TOLERANCE = 1e-3;
+const NUMERIC_ATTR = new Set(["d", "points", "x", "y", "width", "height", "transform", "x1", "x2", "y1", "y2", "cx", "cy", "r"]);
+// Inside `style` only the contract's pixel lengths get the slack; every other declaration (opacity, top...) stays exact.
+const STYLE_LENGTHS = new Set(["left", "bottom", "width", "height"]);
+const PX_LENGTH = /^-?(?:\d+\.?\d*|\.\d+)(?:e[+-]?\d+)?px$/i;
+const NUMBER = /-?(?:\d+\.?\d*|\.\d+)(?:e[+-]?\d+)?/gi;
+
+// The text between the numbers must be identical and each number pair within the tolerance.
+function numbersClose(a, b) {
+  const [textsA, textsB] = [String(a).split(NUMBER), String(b).split(NUMBER)];
+  if (textsA.length !== textsB.length || textsA.some((t, i) => t !== textsB[i])) return false;
+  const [numsA, numsB] = [String(a).match(NUMBER) ?? [], String(b).match(NUMBER) ?? []];
+  // 1e-9 is float-noise headroom so a difference of exactly the tolerance (0.0005 vs 0.0015) is not lost to binary rounding.
+  // A sign flip is never noise: it passes only when both magnitudes are under half the tolerance (-0.0004 vs 0.0004).
+  return numsA.every((n, i) => {
+    const m = numsB[i];
+    if (n.startsWith("-") !== m.startsWith("-") && !(Math.abs(Number(n)) < NUMERIC_TOLERANCE / 2 && Math.abs(Number(m)) < NUMERIC_TOLERANCE / 2)) return false;
+    return Math.abs(Number(n) - Number(m)) <= NUMERIC_TOLERANCE + 1e-9;
+  });
+}
+
+const declarations = (style) => String(style).split(";").map((d) => d.trim()).filter(Boolean).map((d) => {
+  const i = d.indexOf(":");
+  return [d.slice(0, i).trim(), d.slice(i + 1).trim()];
+});
+
+function styleClose(a, b) {
+  const [da, db] = [declarations(a), declarations(b)];
+  if (da.length !== db.length) return false;
+  return da.every(([prop, value], i) => {
+    const [propB, valueB] = db[i];
+    if (prop !== propB) return false;
+    return value === valueB || (STYLE_LENGTHS.has(prop) && PX_LENGTH.test(value) && PX_LENGTH.test(valueB) && numbersClose(value, valueB));
+  });
+}
+
+function attrsSame(react, phlex, tolerant) {
+  const keys = Object.keys(react).sort();
+  if (!same(keys, Object.keys(phlex).sort())) return false;
+  return keys.every((k) => react[k] === phlex[k] || (tolerant && (k === "style" ? styleClose(react[k], phlex[k]) : NUMERIC_ATTR.has(k) && numbersClose(react[k], phlex[k]))));
+}
+
+// Computed styles are strict, except `transform` on chart nodes: the contract's tolerant `transform` attribute is reflected by
+// the browser into the computed matrix(...), so its numbers get the same slack (the tooltip wrapper pair skips transform earlier).
+function styleSame(prop, a, b, tolerant) {
+  return a === b || (tolerant && prop === "transform" && numbersClose(a, b));
+}
 
 async function snapshot(page, observe = []) {
   return page.evaluate(({ STYLE_PROPS, IGNORED_ATTR, observe }) => {
@@ -100,10 +155,21 @@ async function snapshot(page, observe = []) {
         const r = el.getBoundingClientRect();
         const attrs = {};
         for (const a of [...el.attributes].sort((x, y) => (x.name < y.name ? -1 : 1))) if (!ignored.test(a.name)) attrs[a.name] = a.value;
+        // Chart nodes: `style` carries the pixel lengths (left, width...) and is compared with the numbers; the tooltip wrapper's
+        // position is the controller's output, only its content is compared (dev/decisions/chart.md).
+        const inChart = Boolean(el.closest('[data-slot="chart"]'));
+        const tooltipWrapper = inChart && el.matches(".recharts-tooltip-wrapper");
+        if (inChart && !tooltipWrapper && el.hasAttribute("style")) attrs.style = el.getAttribute("style");
+        // Content inside a tooltip wrapper is measured from the wrapper's corner: its own placement is compared, the wrapper's is not.
+        const wrapperEl = inChart && !tooltipWrapper ? el.closest(".recharts-tooltip-wrapper") : null;
+        const origin = wrapperEl ? wrapperEl.getBoundingClientRect() : { x: 0, y: 0 };
+        const classes = [...new Set(el.className?.baseVal === undefined ? el.className.split(/\s+/) : el.className.baseVal.split(/\s+/))].filter(Boolean).sort();
         return {
+          inChart,
+          tooltipWrapper,
           slot: el.getAttribute("data-slot") ?? slotOf.get(el),
           tag: el.tagName.toLowerCase(),
-          classes: [...new Set(el.className?.baseVal === undefined ? el.className.split(/\s+/) : el.className.baseVal.split(/\s+/))].filter(Boolean).sort(),
+          classes: tooltipWrapper ? classes.filter((c) => !/^recharts-tooltip-wrapper-(left|right|top|bottom)$/.test(c)) : classes,
           attrs,
           rel: { labelledby: rel(el, "aria-labelledby"), controls: rel(el, "aria-controls"), describedby: rel(el, "aria-describedby"), owns: rel(el, "aria-owns"), activedescendant: rel(el, "aria-activedescendant"), for: rel(el, "for"), id: el.id ? (ids.get(el.id) ?? null) : null },
           text: [...el.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent.trim()).filter(Boolean).join(" "),
@@ -111,7 +177,7 @@ async function snapshot(page, observe = []) {
           focused: el === active,
           // React sets these as DOM properties, never as attributes; a server render can only write the attribute. Compare the property.
           props: el.tagName === "OPTION" ? { selected: el.selected } : el.tagName === "SELECT" ? { value: el.value } : {},
-          box: [r.x, r.y, r.width, r.height].map((n) => Math.round(n * 2) / 2),
+          box: [r.x - origin.x, r.y - origin.y, r.width, r.height].map((n) => Math.round(n * 2) / 2),
           style: Object.fromEntries(STYLE_PROPS.map((p) => [p, cs[p]])),
         };
       }),
@@ -174,7 +240,7 @@ async function runStep(page, step) {
     case "mousedown": if (target) await target.hover({ force: true, ...(step.position ? { position: step.position } : {}) }); await page.mouse.down(step.button ? { button: step.button } : {}); break;
     case "mouseup": if (target) await target.hover({ force: true, ...(step.position ? { position: step.position } : {}) }); await page.mouse.up(step.button ? { button: step.button } : {}); break; // press-drag-release selection
     case "dblclick": await target.dblclick({ force: true }); break;
-    case "hover": await target.hover({ force: true }); break;
+    case "hover": await target.hover({ force: true, ...(step.position ? { position: step.position } : {}) }); break; // position: {x, y} relative to the element's top-left (a chart is hovered at a data position)
     case "focus": await target.focus(); break;
     case "fill": await target.fill(step.value ?? ""); break;
     case "press": await pressKey(page, step.key); break;
@@ -273,14 +339,16 @@ function diffSnapshots(id, reactSnap, phlexSnap) {
     if (rn.slot !== pn.slot) return add("SLOT_ORDER", { at, react: rn.slot, phlex: pn.slot });
     if (rn.tag !== pn.tag) add("TAG", { at, react: rn.tag, phlex: pn.tag });
     if (!same(rn.classes, pn.classes)) add("CLASS", { at, onlyReact: rn.classes.filter((c) => !pn.classes.includes(c)), onlyPhlex: pn.classes.filter((c) => !rn.classes.includes(c)) });
-    if (!same(rn.attrs, pn.attrs)) add("ATTR", { at, react: rn.attrs, phlex: pn.attrs });
+    if (!attrsSame(rn.attrs, pn.attrs, rn.inChart && pn.inChart)) add("ATTR", { at, react: rn.attrs, phlex: pn.attrs });
     if (!same(rn.props, pn.props)) add("PROP", { at, react: rn.props, phlex: pn.props });
     if (!same(rn.rel, pn.rel)) add("A11Y_REL", { at, react: rn.rel, phlex: pn.rel });
     if (rn.text !== pn.text) add("TEXT", { at, react: rn.text, phlex: pn.text });
     if (rn.visible !== pn.visible) add("VISIBLE", { at, react: rn.visible, phlex: pn.visible });
     if (rn.focused !== pn.focused) add("FOCUSED", { at, react: rn.focused, phlex: pn.focused });
-    if (!same(rn.box, pn.box)) add("BOX", { at, react: rn.box, phlex: pn.box });
-    const styleDiff = Object.keys(rn.style).filter((k) => rn.style[k] !== pn.style[k]).map((k) => ({ prop: k, react: rn.style[k], phlex: pn.style[k] }));
+    // A chart tooltip wrapper's position (box, computed transform) is the controller's output; every other property still compares.
+    const wrapper = rn.tooltipWrapper && pn.tooltipWrapper;
+    if (!wrapper && !same(rn.box, pn.box)) add("BOX", { at, react: rn.box, phlex: pn.box });
+    const styleDiff = Object.keys(rn.style).filter((k) => !(wrapper && WRAPPER_POSITION_STYLE.has(k)) && !styleSame(k, rn.style[k], pn.style[k], rn.inChart && pn.inChart)).map((k) => ({ prop: k, react: rn.style[k], phlex: pn.style[k] }));
     if (styleDiff.length) add("STYLE", { at, props: styleDiff });
   });
   return out;

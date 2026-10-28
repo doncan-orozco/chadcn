@@ -2,7 +2,6 @@
   "created_at": "2026-10-27T21:10:25Z",
   "skip_tiers": [],
   "skipped": [
-    "chart",
     "form"
   ],
   "oracle": {
@@ -854,10 +853,21 @@
         "dialog"
       ],
       "source_sha": "319e9264567dd46f"
+    },
+    "chart": {
+      "status": "pending",
+      "tier": "third_party",
+      "wave": 3,
+      "iteration": 0,
+      "note": null,
+      "last_green_sha": null,
+      "updated_at": "2026-10-27T21:26:49Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "35e2fa755465ef8e"
     }
   },
   "skip_reasons": {
-    "chart": "product decision (item #27): wrapping recharts with a pinned JS chart library behind a Stimulus controller (shadcn-port R14) is deferred; no consumer needs it yet",
     "form": "wraps react-hook-form and zod, whose state model has no Phlex counterpart; Rails form builders cover it"
   }
 }

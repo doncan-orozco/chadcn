@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "test_helper"
 require "tmpdir"
 require "open3"
@@ -22,7 +24,7 @@ class AuditReceiptTest < ActiveSupport::TestCase
     AuditReceipt.write(@receipt, scores: SCORES, verdict: "PASS", mandatory_open: 0, iterations: 1, dir: @repo, **over)
   end
 
-  def check(**opts) = AuditReceipt.check(@receipt, dir: @repo, **opts)
+  def check(**) = AuditReceipt.check(@receipt, dir: @repo, **)
 
   test "a receipt at the bar for the current code passes and summarises itself" do
     write
@@ -89,7 +91,8 @@ class AuditReceiptTest < ActiveSupport::TestCase
   test "the command line writes, checks and exits 1 when the bar is missed" do
     script = TOOLING_ROOT.join(".claude/scripts/audit_receipt.rb").to_s
     scores = "architecture=9,clean_code=9,scalability=9,security=9,testability=8"
-    _, err, status = Open3.capture3(RbConfig.ruby, script, "write", "--scores", scores, "--verdict", "PASS", "--iterations", "2", "--out", @receipt, "--dir", @repo)
+    _, _, status = Open3.capture3(RbConfig.ruby, script, "write", "--scores", scores, "--verdict", "PASS", "--iterations", "2", "--out", @receipt, "--dir",
+                                  @repo)
 
     assert_predicate status, :success?
     out, = Open3.capture3(RbConfig.ruby, script, "check", @receipt, "--dir", @repo)

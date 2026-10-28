@@ -64,6 +64,11 @@ class Chadcn::Card::Description < Chadcn::Base
 class Chadcn::Card::Footer < Chadcn::Base
 class Chadcn::Card::Header < Chadcn::Base
 class Chadcn::Card::Title < Chadcn::Base
+class Chadcn::Carousel < Chadcn::Base
+class Chadcn::Carousel::Content < Chadcn::Base
+class Chadcn::Carousel::Item < Chadcn::Base
+class Chadcn::Carousel::Next < Chadcn::Base
+class Chadcn::Carousel::Previous < Chadcn::Base
 class Chadcn::Catalog::Entry < Struct
 class Chadcn::Catalog::TreeRenderer < Phlex::HTML
 class Chadcn::Catalog::TreeRenderer::Error < StandardError
@@ -167,6 +172,10 @@ class Chadcn::InputGroup::Button < Chadcn::Base
 class Chadcn::InputGroup::Input < Chadcn::Base
 class Chadcn::InputGroup::Text < Chadcn::Base
 class Chadcn::InputGroup::Textarea < Chadcn::Base
+class Chadcn::InputOtp < Chadcn::Base
+class Chadcn::InputOtp::Group < Chadcn::Base
+class Chadcn::InputOtp::Separator < Chadcn::Base
+class Chadcn::InputOtp::Slot < Chadcn::Base
 class Chadcn::Item < Chadcn::Base
 class Chadcn::Item::Actions < Chadcn::Base
 class Chadcn::Item::Content < Chadcn::Base
@@ -233,6 +242,10 @@ class Chadcn::Popover::Trigger < Chadcn::Base
 class Chadcn::Progress < Chadcn::Base
 class Chadcn::RadioGroup < Chadcn::Base
 class Chadcn::RadioGroup::Item < Chadcn::Base
+class Chadcn::Resizable < Chadcn::Base
+class Chadcn::Resizable::Handle < Chadcn::Base
+class Chadcn::Resizable::Panel < Chadcn::Base
+class Chadcn::Resizable::PanelGroup < Chadcn::Base
 class Chadcn::ScrollArea < Chadcn::Base
 class Chadcn::ScrollArea::ScrollBar < Chadcn::Base
 class Chadcn::Select < Chadcn::Base
@@ -301,6 +314,7 @@ class Chadcn::Tabs::List < Chadcn::Base
 class Chadcn::Tabs::Trigger < Chadcn::Base
 class Chadcn::Textarea < Chadcn::Base
 class Chadcn::Theme::Error < StandardError
+class Chadcn::Theme::Palette < Struct
 class Chadcn::Toggle < Chadcn::Base
 class Chadcn::ToggleGroup < Chadcn::Base
 class Chadcn::ToggleGroup::Item < Chadcn::Base
@@ -328,12 +342,16 @@ class_method Chadcn::Sidebar::MenuButton.variants (variant: "default", size: "de
 class_method Chadcn::Tabs.list_variants (variant: "default")
 class_method Chadcn::Theme.check (strict: false)
 class_method Chadcn::Theme.configured? ()
+class_method Chadcn::Theme.contrast (fg, bg)
 class_method Chadcn::Theme.dir ()
 class_method Chadcn::Theme.import (source, input: $stdin)
+class_method Chadcn::Theme.parse (css)
 class_method Chadcn::Theme.presets ()
 class_method Chadcn::Theme.presets_dir ()
+class_method Chadcn::Theme.render_colors (palette)
 class_method Chadcn::Theme.theme_file ()
 class_method Chadcn::Theme.use (name)
+class_method Chadcn::Theme.validate (palette, strict: false)
 class_method Chadcn::Toggle.variants (variant: "default", size: "default", class: nil)
 const Chadcn::Alert::VARIANTS [default, destructive]
 const Chadcn::AlertDialog::Content::SIZES [default, sm]
@@ -356,6 +374,12 @@ const Chadcn::Empty::Media::VARIANTS [default, icon]
 const Chadcn::Field::ORIENTATIONS [vertical, horizontal, responsive]
 const Chadcn::InputGroup::Addon::ALIGNS [inline-start, inline-end, block-start, block-end]
 const Chadcn::InputGroup::Button::SIZES [xs, sm, icon-xs, icon-sm]
+const Chadcn::InputOtp::NO_SCRIPT_CSS_FALLBACK
+const Chadcn::InputOtp::REGEXP_ONLY_CHARS
+const Chadcn::InputOtp::REGEXP_ONLY_DIGITS
+const Chadcn::InputOtp::REGEXP_ONLY_DIGITS_AND_CHARS
+const Chadcn::InputOtp::Slot::CARET
+const Chadcn::InputOtp::Slot::CARET_BAR
 const Chadcn::Item::Media::VARIANTS [default, icon, image]
 const Chadcn::Item::SIZES [default, sm]
 const Chadcn::Item::VARIANTS [default, outline, muted]
@@ -366,6 +390,9 @@ const Chadcn::Progress::DEFAULT_MAX
 const Chadcn::ROOT
 const Chadcn::RadioGroup::DIRECTIONS [ltr, rtl]
 const Chadcn::RadioGroup::ORIENTATIONS [horizontal, vertical]
+const Chadcn::Resizable::Panel::RESIZE_BEHAVIORS [preserve-relative-size, preserve-pixel-size]
+const Chadcn::Resizable::PanelGroup::PREVIEW_MODES [panel, separator]
+const Chadcn::Resizable::PanelGroup::TARGET_SIZE [coarse, fine]
 const Chadcn::ScrollArea::ScrollBar::ORIENTATIONS [vertical, horizontal]
 const Chadcn::ScrollArea::TYPES [auto, always, scroll, hover]
 const Chadcn::Select::Content::POSITIONS [item-aligned, popper]
@@ -549,6 +576,14 @@ method Chadcn::Card::Header#initialize (**attrs)
 method Chadcn::Card::Header#view_template ()
 method Chadcn::Card::Title#initialize (**attrs)
 method Chadcn::Card::Title#view_template ()
+method Chadcn::Carousel#initialize (orientation: "horizontal", opts: nil, plugins: nil, set_api: nil, **attrs)
+method Chadcn::Carousel#view_template ()
+method Chadcn::Carousel::Content#initialize (**attrs)
+method Chadcn::Carousel::Content#view_template ()
+method Chadcn::Carousel::Item#initialize (**attrs)
+method Chadcn::Carousel::Item#view_template ()
+method Chadcn::Carousel::Next#initialize (label: "Next slide", variant: "outline", size: "icon", **attrs)
+method Chadcn::Carousel::Previous#initialize (label: "Previous slide", variant: "outline", size: "icon", **attrs)
 method Chadcn::Catalog::Entry#component ()
 method Chadcn::Catalog::Entry#scenario_count ()
 method Chadcn::Catalog::Entry#scenario_id ()
@@ -837,6 +872,17 @@ method Chadcn::InputGroup::Text#initialize (**attrs)
 method Chadcn::InputGroup::Text#view_template ()
 method Chadcn::InputGroup::Textarea#initialize (**attrs)
 method Chadcn::InputGroup::Textarea#view_template ()
+method Chadcn::InputOtp#group (**attrs, &block)
+method Chadcn::InputOtp#initialize (max_length:, value: nil, default_value: nil, pattern: nil, placeholder: nil, input_mode: "numeric", text_align: "left", push_password_manager_strategy: "increase-width", no_script_css_fallback: NO_SCRIPT_CSS_FALLBACK, nonce: nil, container_class_name: nil, **attrs)
+method Chadcn::InputOtp#separator (**attrs)
+method Chadcn::InputOtp#slot (**attrs)
+method Chadcn::InputOtp#view_template ()
+method Chadcn::InputOtp::Group#initialize (**attrs)
+method Chadcn::InputOtp::Group#view_template ()
+method Chadcn::InputOtp::Separator#initialize (**attrs)
+method Chadcn::InputOtp::Separator#view_template ()
+method Chadcn::InputOtp::Slot#initialize (index:, **attrs)
+method Chadcn::InputOtp::Slot#view_template ()
 method Chadcn::Item#actions (**attrs, &block)
 method Chadcn::Item#content (**attrs, &block)
 method Chadcn::Item#description (**attrs, &block)
@@ -1010,6 +1056,13 @@ method Chadcn::RadioGroup#item (value:, **attrs, &block)
 method Chadcn::RadioGroup#view_template ()
 method Chadcn::RadioGroup::Item#initialize (value:, disabled: false, **attrs)
 method Chadcn::RadioGroup::Item#view_template ()
+method Chadcn::Resizable#view_template ()
+method Chadcn::Resizable::Handle#initialize (with_handle: false, disabled: false, disable_double_click: false, preview: nil, id: nil, style: nil, **attrs)
+method Chadcn::Resizable::Handle#view_template ()
+method Chadcn::Resizable::Panel#initialize (default_size: nil, min_size: "0%", max_size: "100%", collapsible: false, collapsed_size: "0%", collapsed_threshold: nil, disabled: false, group_resize_behavior: "preserve-relative-size", id: nil, class: nil, style: nil, **attrs)
+method Chadcn::Resizable::Panel#view_template ()
+method Chadcn::Resizable::PanelGroup#initialize (orientation: "horizontal", default_layout: nil, disabled: false, disable_cursor: false, resize_preview_mode: "panel", resize_target_minimum_size: TARGET_SIZE, id: nil, style: nil, **attrs)
+method Chadcn::Resizable::PanelGroup#view_template ()
 method Chadcn::ScrollArea#initialize (type: "hover", dir: nil, scroll_hide_delay: 600, **attrs)
 method Chadcn::ScrollArea#view_template ()
 method Chadcn::ScrollArea::ScrollBar#initialize (orientation: "vertical", force_mount: false, **attrs)
@@ -1173,6 +1226,10 @@ method Chadcn::Tabs::Trigger#initialize (value:, disabled: false, as_child: fals
 method Chadcn::Tabs::Trigger#view_template ()
 method Chadcn::Textarea#initialize (default_value: nil, value: nil, **attrs)
 method Chadcn::Textarea#view_template (&block)
+method Chadcn::Theme::Palette#dark ()
+method Chadcn::Theme::Palette#dark= (value)
+method Chadcn::Theme::Palette#root ()
+method Chadcn::Theme::Palette#root= (value)
 method Chadcn::Toggle#initialize (variant: "default", size: "default", pressed: nil, default_pressed: false, disabled: false, as_child: false, **attrs)
 method Chadcn::Toggle#view_template ()
 method Chadcn::ToggleGroup#initialize (type:, value: nil, default_value: nil, variant: nil, size: nil, spacing: 0, disabled: false, roving_focus: true, orientation: nil, dir: nil, loop: true, as_child: false, **attrs)
@@ -1245,6 +1302,10 @@ Chadcn::Card#description
 Chadcn::Card#footer
 Chadcn::Card#header
 Chadcn::Card#title
+Chadcn::Carousel#content
+Chadcn::Carousel#item
+Chadcn::Carousel#next
+Chadcn::Carousel#previous
 Chadcn::Collapsible#content
 Chadcn::Collapsible#trigger
 Chadcn::Combobox#chip
@@ -1329,6 +1390,9 @@ Chadcn::InputGroup#button
 Chadcn::InputGroup#input
 Chadcn::InputGroup#text
 Chadcn::InputGroup#textarea
+Chadcn::InputOtp#group
+Chadcn::InputOtp#separator
+Chadcn::InputOtp#slot
 Chadcn::Item#actions
 Chadcn::Item#content
 Chadcn::Item#description
@@ -1383,6 +1447,9 @@ Chadcn::Popover#header
 Chadcn::Popover#title
 Chadcn::Popover#trigger
 Chadcn::RadioGroup#item
+Chadcn::Resizable#handle
+Chadcn::Resizable#panel
+Chadcn::Resizable#panel_group
 Chadcn::ScrollArea#scroll_bar
 Chadcn::Select#content
 Chadcn::Select#group

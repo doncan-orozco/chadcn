@@ -312,6 +312,9 @@ application.register("chadcn--dialog", DialogController)
 
 The theme tooling works too once the directory is configured: `Chadcn.configure { |config| config.theme_dir = "/path/to/theme" }`,
 then `Chadcn::Theme.use("slate")`, `Theme.import(path_or_url)` and `Theme.check(strict: true)`.
+To build or validate a theme without touching the theme file, use the pure helpers: `Theme.parse(css)` (css to a palette),
+`Theme.validate(palette, strict: false)` (the errors and warnings, nothing written), `Theme.contrast(fg, bg)` (WCAG ratio) and
+`Theme.render_colors(palette)` (the CSS text of the colors block, usable as an export).
 
 Generated ids are numbered per top-level render (`Chadcn::Dialog.new.call` always starts at `dialog-1`). A page assembled from
 several `call`s repeats them, so either pass `id:` to the roots or give the gem a store that lives for the request: a callable
