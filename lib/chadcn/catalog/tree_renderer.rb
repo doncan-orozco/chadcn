@@ -249,7 +249,8 @@ class Chadcn::Catalog::TreeRenderer < Phlex::HTML
 
   # Root components: the top-level classes of the gem (registered by its loader, so no file access needed).
   def v2_roots
-    @v2_roots ||= Chadcn.constants(false).select do |name|
+    # Loading every autoloaded constant first registers aliases defined in the loaded files (InputOTP = InputOtp).
+    @v2_roots ||= Chadcn.constants(false).each { |name| Chadcn.const_get(name) }.then { Chadcn.constants(false) }.select do |name|
       part = Chadcn.const_get(name)
       part.is_a?(Class) && part < Chadcn::Base
     end.map(&:to_s)

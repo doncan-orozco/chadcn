@@ -33,4 +33,24 @@ class StaticGateTest < ActiveSupport::TestCase
 
     assert_equal [ "side_offset" ], found.map(&:expected)
   end
+
+  def part_findings(source)
+    manifest = {
+      "name" => "input-otp", "cva" => {}, "data_slots" => [], "class_tokens" => [], "data_attrs" => [],
+      "parts" => %w[InputOTP InputOTPGroup].map { |n| { "name" => n, "props" => { "destructured" => [], "typed" => [] } } }
+    }
+    Dir.mktmpdir do |dir|
+      file = File.join(dir, "input_otp.rb")
+      File.write(file, source)
+      ShadcnStaticGate::Checker.new(manifest, [ file ], {}).call.select { |f| f.code == "G1_PART_MISSING" }
+    end
+  end
+
+  test "an acronym part resolves to its mixed-case Ruby class" do
+    assert_empty part_findings("class Chadcn::InputOtp\n  class Group\n  end\nend\n")
+  end
+
+  test "a genuinely missing part is still flagged" do
+    assert_equal [ "InputOTPGroup" ], part_findings("class Chadcn::InputOtp\nend\n").map(&:part)
+  end
 end
