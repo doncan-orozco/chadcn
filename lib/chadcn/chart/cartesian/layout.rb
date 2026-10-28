@@ -48,7 +48,7 @@ class Chadcn::Chart::Cartesian::Layout
     @height = chart.fetch(:height)
     @rows = chart.fetch(:rows)
     @text = chart.fetch(:text)
-    @margin = %i[top right bottom left].to_h { |side| [ side, Chadcn::Chart::Cartesian::Value.number(chart[:margin]&.[](side)) || 0.0 ] }
+    @margin = %i[top right bottom left].to_h { |side| [ side, Chadcn::Chart::Cartesian::Value.number(Chadcn::Chart::Cartesian::Value.read(chart[:margin], side)) || 0.0 ] }
     @offset = legend_offset(axes_offset)
     @plot = plot_rectangle
     @axes = {}
