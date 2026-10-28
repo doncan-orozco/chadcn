@@ -233,6 +233,20 @@ class EngineTest::FormBinding < Minitest::Test
     assert_empty binding_for.nested(:profile, object: Address.new(id: 5)).hidden_fields
   end
 
+  def test_a_root_binding_with_a_scope_ending_in_attributes_has_no_hidden_id
+    root = binding_for(User.new(id: 1), scope: "user[profile_attributes]")
+
+    assert_empty root.hidden_fields
+  end
+
+  def test_the_label_of_a_single_nested_model_uses_its_translation
+    I18n.backend.store_translations(:en, helpers: { label: { user: { address: { street: "Street line" } } } })
+    user = User.new(id: 1)
+    user.define_singleton_method(:address_attributes=) { |_| }
+
+    assert_equal "Street line", binding_for(user).nested(:address, object: Address.new).label_for(:street)
+  end
+
   def test_the_root_binding_has_no_hidden_fields
     assert_empty binding_for(User.new(id: 1)).hidden_fields
   end

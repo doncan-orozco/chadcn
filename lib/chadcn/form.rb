@@ -125,10 +125,20 @@ class Chadcn::Form < Chadcn::Base
   # @yieldparam fields [Chadcn::Form::Fields]
   # @return [void]
   # @raise [ArgumentError] without a block, or when +index:+ does not select a row of the collection
-  def fields(attribute:, index: nil, &block)
+  def fields(attribute:, index: nil, &)
+    fields_of(context[CONTEXT_KEY] || @binding, attribute:, index:, &)
+  end
+
+  # {#fields} under an explicit parent binding, so a {Chadcn::Form::Fields} never depends on which binding is current.
+  #
+  # @param parent [Chadcn::Form::Binding]
+  # @param attribute [Symbol, String]
+  # @param index [Integer, String, nil]
+  # @return [void]
+  # @api private
+  def fields_of(parent, attribute:, index: nil, &block)
     raise ArgumentError, "fields(attribute: #{attribute.inspect}) needs a block" unless block
 
-    parent = context[CONTEXT_KEY] || @binding
     nested_rows(parent, attribute, index).each do |object, row|
       nested = parent.nested(attribute, object:, index: row)
       render_nested(Chadcn::Form::Fields.new(form: self, form_binding: nested), &block)
@@ -143,10 +153,12 @@ class Chadcn::Form < Chadcn::Base
     return [ [ value, index ] ] unless value.respond_to?(:each) && !value.is_a?(Hash) && !value.is_a?(Struct)
     return value.each_with_index.to_a if index.nil?
 
-    row = value.to_a[index] if index.is_a?(Integer) && index >= 0
-    raise ArgumentError, "fields(attribute: #{attribute.inspect}, index: #{index.inspect}) does not select a row of the collection" if row.nil?
+    rows = value.to_a
+    unless index.is_a?(Integer) && index.between?(0, rows.size - 1)
+      raise ArgumentError, "fields(attribute: #{attribute.inspect}, index: #{index.inspect}) does not select a row of the collection"
+    end
 
-    [ [ row, index ] ]
+    [ [ rows[index], index ] ]
   end
 
   # Yields the scope with its binding in the render context, then renders the hidden inputs the binding asks for.
@@ -208,16 +220,19 @@ class Chadcn::Form < Chadcn::Base
     # @param attribute [Symbol, String] the nested attribute
     # @param object [Object, nil] the nested object
     # @param index [Integer, String, nil] the row of a collection
-    # @param errors [#[], nil] the errors of the nested object; +nil+ lets the binding find them
+    # @param errors [#[], nil] the errors of the nested object; +nil+ (the default, once +{}+) lets the binding find them
     # @return [Chadcn::Form::Binding] a binding for the nested object
     def nested(attribute, object:, index: nil, errors: nil)
       raise NotImplementedError, "#{self.class} must implement #nested"
     end
 
+    NO_HIDDEN_FIELDS = {}.freeze
+    private_constant :NO_HIDDEN_FIELDS
+
     # The hidden inputs a nested scope renders after its fields (the +id+ of a persisted child). Optional: the default is none.
     #
     # @return [Hash{Symbol, String => Object}] attribute => value; the name and id come from {#name_for} and {#id_for}
-    def hidden_fields = {}
+    def hidden_fields = NO_HIDDEN_FIELDS
 
     # @return [String, nil] the form action
     def action
@@ -328,14 +343,17 @@ class Chadcn::Form < Chadcn::Base
 
         # @param key [Symbol, String]
         # @return [Array<String>, nil]
-        def [](key) = @errors[:"#{@prefix}#{key}"] || @errors["#{@prefix}#{key}"]
+        def [](key)
+          full_key = "#{@prefix}#{key}"
+          @errors[full_key.to_sym] || @errors[full_key]
+        end
       end
       private_constant :RowErrors
     end
   end
 
   # The scope {Chadcn::Form#fields} yields for one nested object: it knows the nested binding and renders fields and deeper scopes
-  # through the form. Use it inside the block it was yielded to; the form hands it the nested binding only for that block.
+  # through the form. Its fields and deeper scopes are bound to its own binding wherever they are called.
   #
   # @example
   #   form.fields(attribute: :addresses) { |address| address.field(attribute: :street) { |field| field.input } }
@@ -355,13 +373,14 @@ class Chadcn::Form < Chadcn::Base
     #
     # @param attrs [Hash] as {Chadcn::Form::Field}
     # @return [void]
-    def field(**attrs, &) = @form.field(**attrs, &)
+    def field(**attrs, &) = @form.field(binding: form_binding, **attrs, &)
 
     # Binds an association of the nested object; as {Chadcn::Form#fields}.
     #
-    # @param attrs [Hash] +attribute:+ and +index:+
+    # @param attribute [Symbol, String]
+    # @param index [Integer, String, nil]
     # @return [void]
-    def fields(**attrs, &) = @form.fields(**attrs, &)
+    def fields(attribute:, index: nil, &) = @form.fields_of(form_binding, attribute:, index:, &)
   end
 
   # A field bound to one attribute of the enclosing {Chadcn::Form}'s binding (shadcn `FormField` + `FormItem`). It is a

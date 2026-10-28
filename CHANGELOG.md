@@ -31,7 +31,7 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
   (once for a single object, with `index:` as `child_index:`): `user[addresses_attributes][0][street]`, id `user_addresses_attributes_0_street`,
   the `namespace:` carried, scopes nesting. `Binding::Plain` finds a row's errors under `"addresses[0].street"` keys and
   `Chadcn::Engine::FormBinding` reads them from the child model; the engine renders the hidden `id` of a persisted child after its fields
-  (`Binding#hidden_fields`, an optional protocol message) and `_attributes` only when the model defines the writer.
+  (`Binding#hidden_fields`, an optional protocol message; `Binding#nested` now defaults `errors:` to `nil`, meaning "find them", instead of `{}`) and `_attributes` only when the model defines the writer.
 - `Form::Field` bound controls: `Select`, `NativeSelect`, `Checkbox`, `Switch`, `RadioGroup`, `Slider`, `DatePicker` and `InputGroup`
   (`field.select`, `field.native_select`, `field.checkbox`, `field.switch`, `field.radio_group`, `field.slider`, `field.date_picker`,
   `field.input_group`). They bind name, id, `aria-invalid` and `aria-describedby` and the value as the uncontrolled default; the

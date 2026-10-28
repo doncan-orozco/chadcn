@@ -149,4 +149,115 @@ class Chadcn::Form::FieldsTest < Chadcn::TestCase
 
     assert_nil form.at_css("input[type=hidden]")
   end
+
+  test "a raising block leaves the root binding in place" do
+    form = render_form do |root|
+      begin
+        root.fields(attribute: :address) { |_| raise "boom" }
+      rescue RuntimeError
+        nil
+      end
+      root.field(attribute: :email, &:input)
+    end
+
+    assert_equal "user[email]", form.at_css("input")["name"]
+  end
+
+  test "a raising inner scope leaves the outer row's binding in place" do
+    tree = User.new(addresses: [ User.new(address: Address.new(street: "S"), addresses: []) ])
+    form = render_form(tree) do |root|
+      root.fields(attribute: :addresses) do |row|
+        begin
+          row.fields(attribute: :address) { |_| raise "boom" }
+        rescue RuntimeError
+          nil
+        end
+        row.field(attribute: :address, &:input)
+      end
+    end
+
+    assert_equal "user[addresses_attributes][0][address]", form.at_css("input")["name"]
+  end
+
+  test "a field of an outer scope called inside a deeper scope keeps its own binding" do
+    tree = User.new(email: "outer", addresses: [ User.new(email: "row", addresses: [ Address.new(street: "S") ]) ])
+    form = render_form(tree) do |root|
+      root.fields(attribute: :addresses) do |row|
+        row.fields(attribute: :addresses) { |inner| inner.field(attribute: :street) { |_field| row.field(attribute: :email, &:input) } }
+      end
+    end
+
+    assert_equal "user[addresses_attributes][0][email]", form.at_css("input")["name"]
+    assert_equal "row", form.at_css("input")["value"]
+  end
+
+  test "a nil association yields once with empty values" do
+    form = render_form(User.new) do |root|
+      root.fields(attribute: :address) { |address| address.field(attribute: :street, &:input) }
+    end
+    inputs = form.css("input")
+
+    assert_equal 1, inputs.size
+    assert_equal "user[address_attributes][street]", inputs.first["name"]
+    assert_nil inputs.first["value"]
+  end
+
+  test "a Hash is one object, never iterated as pairs" do
+    form = render_form(User.new(address: { street: "Hash St" })) do |root|
+      root.fields(attribute: :address) { |address| address.field(attribute: :street, &:input) }
+    end
+
+    assert_equal 1, form.css("input").size
+    assert_equal "Hash St", form.at_css("input")["value"]
+  end
+
+  test "any Enumerable collection yields its rows, with and without index:" do
+    set = User.new(addresses: Set[Address.new(street: "A"), Address.new(street: "B")])
+    all = render_form(set) { |root| root.fields(attribute: :addresses) { |row| row.field(attribute: :street, &:input) } }
+    one = render_form(set) { |root| root.fields(attribute: :addresses, index: 1) { |row| row.field(attribute: :street, &:input) } }
+
+    assert_equal(%w[A B], all.css("input").map { |input| input["value"] })
+    assert_equal(%w[B], one.css("input").map { |input| input["value"] })
+  end
+
+  test "index: 0 picks the first row; negative and out of range raise naming the attribute" do
+    first = render_form { |root| root.fields(attribute: :addresses, index: 0) { |row| row.field(attribute: :street, &:input) } }
+
+    assert_equal "One", first.at_css("input")["value"]
+    [ -1, 2 ].each do |index|
+      error = assert_raises(ArgumentError) do
+        render_form { |root| root.fields(attribute: :addresses, index:) { |row| row.field(attribute: :street) } }
+      end
+      assert_includes error.message, "addresses"
+    end
+  end
+
+  test "an Integer index on a single object is passed through" do
+    form = render_form { |root| root.fields(attribute: :address, index: 3) { |row| row.field(attribute: :street, &:input) } }
+
+    assert_equal "user[address_attributes][3][street]", form.at_css("input")["name"]
+  end
+
+  test "a nil hidden value renders no input" do
+    nil_id = Class.new(Chadcn::Form::Binding::Plain) { def hidden_fields = { id: nil } }
+    parent = Class.new(Chadcn::Form::Binding::Plain) do
+      define_method(:nested) { |attribute, object:, **| nil_id.new(scope: [ "user", "#{attribute}_attributes" ], object:) }
+    end.new(scope: :user, object: user)
+    html = Chadcn::Form.new(binding: parent).call { |root| root.fields(attribute: :address) { |address| address.field(attribute: :street, &:input) } }
+
+    assert_nil Nokogiri::HTML5.fragment(html).at_css("input[type=hidden]")
+  end
+
+  test "the namespace reaches ids of a row's hidden input and message" do
+    form = render_form(namespace: "signup", errors: { "address.street": [ "bad" ] }) do |root|
+      root.fields(attribute: :address) do |address|
+        address.field(attribute: :street) do |field|
+          field.input
+          field.error
+        end
+      end
+    end
+
+    assert_equal "signup_user_address_attributes_street-form-item-message", form.at_css("[data-slot=field-error]")["id"]
+  end
 end

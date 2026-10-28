@@ -88,6 +88,13 @@ class Chadcn::Form::Binding::PlainTest < Chadcn::TestCase
     assert_equal [ "bad" ], plain(errors: lookup).nested(:addresses, object: nil, index: 0).errors_for(:city)
   end
 
+  test "a nested row reads string-keyed parent errors and an explicit errors: wins over them" do
+    parent = plain(errors: { "addresses[0].city" => [ "bad" ] })
+
+    assert_equal [ "bad" ], parent.nested(:addresses, object: nil, index: 0).errors_for(:city)
+    assert_empty parent.nested(:addresses, object: nil, index: 0, errors: {}).errors_for(:city)
+  end
+
   test "a Plain binding has no hidden fields" do
     assert_empty plain.nested(:address, object: { id: 1 }).hidden_fields
   end
