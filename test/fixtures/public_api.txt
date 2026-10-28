@@ -130,6 +130,16 @@ class Chadcn::Dialog::Title < Chadcn::Base
 class Chadcn::Dialog::Trigger < Chadcn::Base
 class Chadcn::Direction < Chadcn::Base
 class Chadcn::Direction::Provider < Chadcn::Base
+class Chadcn::Drawer < Chadcn::Base
+class Chadcn::Drawer::Close < Chadcn::Base
+class Chadcn::Drawer::Content < Chadcn::Base
+class Chadcn::Drawer::Description < Chadcn::Base
+class Chadcn::Drawer::Footer < Chadcn::Base
+class Chadcn::Drawer::Header < Chadcn::Base
+class Chadcn::Drawer::Overlay < Chadcn::Base
+class Chadcn::Drawer::Portal < Chadcn::Base
+class Chadcn::Drawer::Title < Chadcn::Base
+class Chadcn::Drawer::Trigger < Chadcn::Base
 class Chadcn::DropdownMenu < Chadcn::Base
 class Chadcn::DropdownMenu::CheckboxItem < Chadcn::Base
 class Chadcn::DropdownMenu::Content < Chadcn::Base
@@ -770,6 +780,35 @@ method Chadcn::Dialog::Trigger#view_template ()
 method Chadcn::Direction#view_template ()
 method Chadcn::Direction::Provider#initialize (dir: nil, direction: nil)
 method Chadcn::Direction::Provider#view_template ()
+method Chadcn::Drawer#close (**attrs, &block)
+method Chadcn::Drawer#content (**attrs, &block)
+method Chadcn::Drawer#description (**attrs, &block)
+method Chadcn::Drawer#footer (**attrs, &block)
+method Chadcn::Drawer#header (**attrs, &block)
+method Chadcn::Drawer#initialize (open: nil, default_open: false, direction: "bottom", dismissible: true, modal: true, handle_only: false, auto_focus: false, snap_points: nil, active_snap_point: nil, fade_from_index: nil, snap_to_sequential_point: false, close_threshold: 0.25, scroll_lock_timeout: 100, should_scale_background: false, set_background_color_on_scale: true, no_body_styles: false, fixed: false, nested: false, disable_prevent_scroll: true, prevent_scroll_restoration: false, reposition_inputs: true, container: nil, id: nil, **attrs)
+method Chadcn::Drawer#overlay (**attrs, &block)
+method Chadcn::Drawer#portal (&block)
+method Chadcn::Drawer#title (**attrs, &block)
+method Chadcn::Drawer#trigger (**attrs, &block)
+method Chadcn::Drawer#view_template ()
+method Chadcn::Drawer::Close#initialize (as_child: false, **attrs)
+method Chadcn::Drawer::Close#view_template ()
+method Chadcn::Drawer::Content#initialize (force_mount: false, as_child: false, **attrs)
+method Chadcn::Drawer::Content#view_template ()
+method Chadcn::Drawer::Description#initialize (as_child: false, **attrs)
+method Chadcn::Drawer::Description#view_template ()
+method Chadcn::Drawer::Footer#initialize (**attrs)
+method Chadcn::Drawer::Footer#view_template ()
+method Chadcn::Drawer::Header#initialize (**attrs)
+method Chadcn::Drawer::Header#view_template ()
+method Chadcn::Drawer::Overlay#initialize (force_mount: false, as_child: false, **attrs)
+method Chadcn::Drawer::Overlay#view_template ()
+method Chadcn::Drawer::Portal#initialize (force_mount: false, container: nil)
+method Chadcn::Drawer::Portal#view_template ()
+method Chadcn::Drawer::Title#initialize (as_child: false, **attrs)
+method Chadcn::Drawer::Title#view_template ()
+method Chadcn::Drawer::Trigger#initialize (as_child: false, **attrs)
+method Chadcn::Drawer::Trigger#view_template ()
 method Chadcn::DropdownMenu#checkbox_item (**attrs, &block)
 method Chadcn::DropdownMenu#content (**attrs, &block)
 method Chadcn::DropdownMenu#group (**attrs, &block)
@@ -1448,6 +1487,15 @@ Chadcn::Dialog#portal
 Chadcn::Dialog#title
 Chadcn::Dialog#trigger
 Chadcn::Direction#provider
+Chadcn::Drawer#close
+Chadcn::Drawer#content
+Chadcn::Drawer#description
+Chadcn::Drawer#footer
+Chadcn::Drawer#header
+Chadcn::Drawer#overlay
+Chadcn::Drawer#portal
+Chadcn::Drawer#title
+Chadcn::Drawer#trigger
 Chadcn::DropdownMenu#checkbox_item
 Chadcn::DropdownMenu#content
 Chadcn::DropdownMenu#group

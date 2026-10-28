@@ -16,6 +16,7 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 
 ### Added
 
+- `Chadcn::Drawer` (`Trigger`, `Portal`, `Overlay`, `Content`, `Close`, `Header`, `Footer`, `Title`, `Description`): shadcn's Drawer over a Stimulus reimplementation of vaul 1.1.2 in `chadcn--drawer` (drag to dismiss, snap points, directions, background scaling; no new JavaScript dependency).
 - `Chadcn::Form` (`Form::Field` and its parts `Label`, `Control`, `Description`, `Error`, `Input`, `Textarea`) and the
   `Chadcn::Form::Binding` protocol with `Binding::Plain`: shadcn's form ids and ARIA contract (`form.tsx`) over plain Ruby, without
   react-hook-form. `form.field(attribute: :email)` renders a bound `Chadcn::Field` whose label, control, description and error share

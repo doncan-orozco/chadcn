@@ -1,0 +1,15 @@
+{
+  "component": "drawer",
+  "reason": "shadcn's drawer.tsx wraps vaul 1.1.2, a React-only library built on Radix Dialog. The port adds no JavaScript dependency (same policy as sonner): vaul's behavior (Radix Dialog modal layer, drag-to-dismiss, snap points, background scaling) is reimplemented in the chadcn--drawer controller on the shared primitives and vaul's injected stylesheet is shipped verbatim as vaul.css, so the compared DOM, data-vaul-* attributes and computed styles equal the oracle. vaul Root and Radix Portal render no element and closed Overlay/Content are not mounted, so a server-rendered Stimulus port needs one controller host and somewhere to ship the closed markup; neither carries a data-slot, classes or layout. React-only inputs (an HTMLElement container, function callbacks, useId) are mapped to a selector, events and explicit ids.",
+  "allow_tokens": [],
+  "allow_missing_tokens": [],
+  "api": [
+    "Drawer renders one <div style=\"display: contents\" data-controller=\"chadcn--drawer\"> host with no data-slot, classes or other data attributes besides controller wiring",
+    "closed Portal children (Overlay, Content) are server-rendered inside a <template> in the host and mounted into the container (document.body by default) on open",
+    "Drawer container: and Drawer::Portal container: are CSS selector strings instead of DOM elements",
+    "Drawer takes id: (no vaul/Radix prop): the id of the content, the other generated ids being <id>-<part>; Radix numbers ids with React's useId; the port numbers them per request with the Rails engine and per render otherwise (Chadcn::Sequence)",
+    "vaul callbacks onDrag, onRelease, onClose, onAnimationEnd and setActiveSnapPoint are the events chadcn--drawer:drag, :release, :close, :animation-end and :active-snap-point-change",
+    "the host renders data-chadcn--drawer-modal-value=\"true\" always (Radix Dialog is always modal inside vaul, the dialog controller reads it) and vaul's own modal as data-chadcn--drawer-vaul-modal-value",
+    "vaul is not a dependency: its behavior lives in chadcn--drawer and its injected stylesheet in app/assets/tailwind/chadcn/vaul.css"
+  ]
+}
