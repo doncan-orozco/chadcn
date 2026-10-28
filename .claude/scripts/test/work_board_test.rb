@@ -12,6 +12,8 @@ require TOOLING_ROOT.join(".claude/scripts/audit_receipt").to_s
 # In-process runs route `gh` to FakeGh (fast); the concurrency test runs the real script as subprocesses instead.
 module FakeGhRoute
   def gh(*args)
+    raise WorkBoard::Failure, "gh #{args.first(2).join(' ')} failed: injected" if ENV["WORK_FAKE_FAIL"] == args.first(2).join(" ")
+
     FakeGh.call(args)
   rescue FakeGh::Error => e
     raise WorkBoard::Failure, e.message
@@ -40,7 +42,7 @@ class WorkBoardTest < ActiveSupport::TestCase # rubocop:disable Style/OneClassPe
 
   # Runs a command in-process like an agent's CLI call would; returns [parsed JSON (or {"raw"=>text}), exit status].
   def wb(*args, now: T0, env: {})
-    saved = ENV.to_h.slice("WORK_NOW", "WORK_FAKE_DB", "WORK_REMOTE", "WORK_SESSION")
+    saved = ENV.to_h.slice("WORK_NOW", "WORK_FAKE_DB", "WORK_REMOTE", "WORK_SESSION", "WORK_FAKE_FAIL")
     ENV.update({ "WORK_FAKE_DB" => @db, "WORK_REMOTE" => "origin", "WORK_NOW" => now }.merge(env))
     ENV.delete("WORK_SESSION") unless env.key?("WORK_SESSION")
     out = StringIO.new
@@ -62,7 +64,7 @@ class WorkBoardTest < ActiveSupport::TestCase # rubocop:disable Style/OneClassPe
   ensure
     $stdout = real_out
     $stderr = real_err
-    %w[WORK_NOW WORK_FAKE_DB WORK_REMOTE WORK_SESSION].each { |k| saved[k] ? ENV[k] = saved[k] : ENV.delete(k) }
+    %w[WORK_NOW WORK_FAKE_DB WORK_REMOTE WORK_SESSION WORK_FAKE_FAIL].each { |k| saved[k] ? ENV[k] = saved[k] : ENV.delete(k) }
   end
 
   # Same call as a real subprocess (real `ruby script`, real fake_gh executable): used where true parallelism matters.
@@ -148,6 +150,222 @@ class WorkBoardTest < ActiveSupport::TestCase # rubocop:disable Style/OneClassPe
     assert_equal 2, code
     assert_match(/no gates/, out["error"])
     assert_equal 1, wb("status", "--epic", "demo")[0]["items"].size, "nothing was adopted"
+  end
+
+  # ---- item amend ----------------------------------------------------------------------------------------------
+  def issue_body(number) = fake_db["issues"].find { |i| i["number"] == number }["body"]
+
+  # An item whose body carries the Owns and Blocked by sections /epic-plan writes (blocker lines may carry an explanation).
+  def make_sectioned_item(title, wave:, owns:, blocked_by: [])
+    deps = blocked_by.map { |n| "- ##{n} (#{(@titles ||= {})[n]})" }
+    body = "## Goal\ndo #{title}\n\n## Owns\n- `#{owns}`\n\n## Blocked by\n#{deps.empty? ? '- nothing' : deps.join("\n")}\n\n## Gates\n- `true`\n"
+    args = [ "item", "create", "--epic", "demo", "--title", title, "--body", body, "--wave", wave.to_s, "--owns", owns ]
+    args += [ "--blocked-by", blocked_by.join(",") ] if blocked_by.any?
+    wb(*args)[0]["number"].tap { |n| (@titles ||= {})[n] = title }
+  end
+
+  def amend(number, *, session: "s1") = wb("item", "amend", number.to_s, "--epic", "demo", "--session", session, *)
+
+  test "item amend replaces and appends owns and blockers in meta and body, and the note records before and after" do
+    root = make_epic
+    a = make_sectioned_item("A", wave: 1, owns: "lib/a/**")
+    b = make_sectioned_item("B", wave: 2, owns: "lib/b/**", blocked_by: [ a ])
+    c = make_sectioned_item("C", wave: 1, owns: "lib/c/**")
+
+    out, code = amend(b, "--add-owns", "test/b.rb, CHANGELOG.md", "--add-blocked-by", c.to_s, "--reason", "needs the changelog")
+    assert_equal 0, code, out.inspect
+    assert_equal [ "lib/b/**", "test/b.rb", "CHANGELOG.md" ], out["owns"]
+    assert_equal [ a, c ], out["blocked_by"]
+    assert_includes issue_body(b), "## Owns\n- `lib/b/**`\n- `test/b.rb`\n- `CHANGELOG.md`\n"
+    assert_includes issue_body(b), "- ##{a} (A)\n- ##{c}\n"
+    meta = JSON.parse(issue_body(b)[WorkBoard::META, 1])
+    assert_equal [ "lib/b/**", "test/b.rb", "CHANGELOG.md" ], meta["owns"]
+    assert_equal [ a, c ], meta["blocked_by"]
+    assert_equal 2, meta["wave"]
+
+    note = fake_db["issues"].find { |i| i["number"] == root }["comments"].last["body"]
+    assert_includes note, "[announce]"
+    assert_includes note, "item ##{b} amended"
+    digest_note = wb("digest", "--epic", "demo", "--item", b.to_s)[0]["notes"].find { |n| n["type"] == "announce" }
+    assert_includes digest_note["body"], "item ##{b} amended", "the digest shows it"
+    assert_includes note, "needs the changelog"
+    assert_includes note, %(owns: ["lib/b/**"] -> ["lib/b/**", "test/b.rb", "CHANGELOG.md"])
+    assert_includes note, "blocked_by: [#{a}] -> [#{a}, #{c}]"
+
+    out, code = amend(b, "--owns", "lib/b2/**", "--blocked-by", c.to_s, "--reason", "replace")
+    assert_equal 0, code, out.inspect
+    assert_equal [ "lib/b2/**" ], out["owns"]
+    assert_equal [ c ], out["blocked_by"]
+    assert_includes issue_body(b), "## Owns\n- `lib/b2/**`\n\n"
+    refute_includes issue_body(b), "lib/b/**"
+    assert wb("validate", "--epic", "demo")[0]["pass"]
+  end
+
+  test "item amend refuses an item held by another session and allows the holder" do
+    make_epic
+    a = make_sectioned_item("A", wave: 1, owns: "lib/a/**")
+    claim(a, "s2")
+
+    out, code = amend(a, "--add-owns", "lib/x/**", "--reason", "r")
+    assert_equal 1, code
+    assert_equal "held_by_other", out["reason"]
+    out, code = amend(a, "--add-owns", "lib/x/**", "--reason", "r", session: "s2")
+    assert_equal 0, code, out.inspect
+  end
+
+  test "item amend refuses a done item" do
+    make_epic
+    a = make_item("A", wave: 1, owns: "lib/a/**", stage: "done")
+
+    out, code = amend(a, "--add-owns", "lib/x/**", "--reason", "r")
+    assert_equal 1, code
+    assert_match(/is done/, out["error"])
+  end
+
+  test "item amend refuses an overlap or a cycle and changes nothing" do
+    make_epic
+    a = make_sectioned_item("A", wave: 1, owns: "lib/a/**")
+    b = make_sectioned_item("B", wave: 2, owns: "lib/b/**", blocked_by: [ a ])
+    c = make_sectioned_item("C", wave: 2, owns: "lib/c/**")
+    before = issue_body(c)
+    before_a = issue_body(a)
+
+    out, code = amend(c, "--add-owns", "lib/b/x.rb", "--reason", "r")
+    assert_equal 1, code
+    assert_equal [ "OWNS_OVERLAP" ], out["findings"].map { |f| f["code"] }.uniq
+
+    out, code = amend(a, "--add-blocked-by", b.to_s, "--reason", "r")
+    assert_equal 1, code
+    assert_includes out["findings"].map { |f| f["code"] }, "CYCLE"
+    assert_equal before, issue_body(c)
+    assert_equal before_a, issue_body(a)
+    assert_equal [ "lib/a/**" ], wb("show", a.to_s, "--epic", "demo")[0]["owns"]
+    assert_empty wb("show", a.to_s, "--epic", "demo")[0]["blocked_by"]
+  end
+
+  test "item amend needs a reason and at least one change" do
+    make_epic
+    a = make_sectioned_item("A", wave: 1, owns: "lib/a/**")
+
+    assert_equal 2, amend(a, "--add-owns", "x")[1]
+    assert_equal 2, amend(a, "--reason", "r")[1]
+  end
+
+  test "item amend rejects malformed or unknown blockers and a self-block, writing nothing" do
+    make_epic
+    a = make_sectioned_item("A", wave: 1, owns: "lib/a/**")
+    before = issue_body(a)
+
+    assert_equal 2, amend(a, "--add-blocked-by", "abc", "--reason", "r")[1]
+    assert_equal 2, amend(a, "--add-blocked-by", "12abc", "--reason", "r")[1]
+    out, code = amend(a, "--add-blocked-by", "99", "--reason", "r")
+    assert_equal 1, code
+    assert_includes out["findings"].map { |f| f["code"] }, "BLOCKER_MISSING"
+    out, code = amend(a, "--add-blocked-by", a.to_s, "--reason", "r")
+    assert_equal 1, code
+    assert_includes out["findings"].map { |f| f["code"] }, "CYCLE"
+    assert_equal before, issue_body(a)
+  end
+
+  test "item amend writes nothing when a section is missing or holds prose, and reports a no-op" do
+    @root = make_epic
+    plain = make_item("Plain", wave: 1, owns: "lib/p/**")
+    out, code = amend(plain, "--add-owns", "lib/q/**", "--reason", "r")
+    assert_equal 2, code
+    assert_includes out["error"], "no `## Owns` section"
+
+    prose = wb("item", "create", "--epic", "demo", "--title", "Prose", "--wave", "1", "--owns", "lib/r/**",
+               "--body", "## Owns\n- `lib/r/**`\nsome prose a person wrote\n\n## Blocked by\n- nothing\n")[0]["number"]
+    before = issue_body(prose)
+    out, code = amend(prose, "--add-owns", "lib/s/**", "--reason", "r")
+    assert_equal 2, code
+    assert_includes out["error"], "would drop"
+    assert_equal before, issue_body(prose)
+
+    same = make_sectioned_item("Same", wave: 1, owns: "lib/t/**")
+    out, code = amend(same, "--add-owns", "lib/t/**", "--reason", "r")
+    assert_equal 0, code
+    assert out["unchanged"]
+    assert_empty fake_db["issues"].find { |i| i["number"] == @root }.fetch("comments", [])
+  end
+
+  test "item amend accepts an amendment to an item that already overlaps, and refuses a bullet with several globs" do
+    make_epic
+    a = make_sectioned_item("A", wave: 1, owns: "lib/a/**")
+    b = make_sectioned_item("B", wave: 1, owns: "lib/a/x/**")
+    assert_equal 1, wb("validate", "--epic", "demo")[1], "the fixture overlaps on purpose"
+
+    out, code = amend(b, "--add-owns", "lib/b/**", "--reason", "r")
+    assert_equal 0, code, out.inspect
+    assert_equal [ "lib/a/x/**", "lib/b/**" ], out["owns"]
+    assert_equal 2, amend("#{a}x", "--add-owns", "lib/c/**", "--reason", "r")[1], "a malformed item number is a usage error"
+
+    multi = wb("item", "create", "--epic", "demo", "--title", "Multi", "--wave", "1", "--owns", "lib/m/**",
+               "--body", "## Owns\n- `lib/m/**` and `lib/n/**`\n\n## Blocked by\n- nothing\n")[0]["number"]
+    out, code = amend(multi, "--add-owns", "lib/o/**", "--reason", "r")
+    assert_equal 2, code
+    assert_includes out["error"], "several globs"
+  end
+
+  test "item amend refuses swapping an existing overlap for a new one" do
+    make_epic
+    a = make_sectioned_item("A", wave: 1, owns: "lib/a/**")
+    make_sectioned_item("B", wave: 1, owns: "lib/a/x/**")
+    make_sectioned_item("C", wave: 1, owns: "lib/c/**")
+
+    out, code = amend(a, "--owns", "lib/c/**", "--reason", "r")
+    assert_equal 1, code, out.inspect
+    assert_equal [ "OWNS_OVERLAP" ], out["findings"].map { |f| f["code"] }.uniq
+  end
+
+  test "item amend refuses a bullet whose key is not at its start, and globs that could break the body" do
+    make_epic
+    prose = wb("item", "create", "--epic", "demo", "--title", "Prose", "--wave", "1", "--owns", "lib/p/**",
+               "--body", "## Owns\n- `lib/p/**`\n\n## Blocked by\n- waits on the review (#99)\n")[0]["number"]
+    before = issue_body(prose)
+    assert_equal 2, amend(prose, "--add-owns", "lib/q/**", "--reason", "r")[1]
+    assert_equal before, issue_body(prose)
+
+    a = make_sectioned_item("A", wave: 1, owns: "lib/a/**")
+    before = issue_body(a)
+    assert_equal 2, amend(a, "--add-owns", "x\n## Gates", "--reason", "r")[1]
+    assert_equal 2, amend(a, "--add-owns", "bad`glob", "--reason", "r")[1]
+    assert_equal 2, amend(a, "--add-owns", "x} -->", "--reason", "r")[1]
+    assert_equal before, issue_body(a)
+  end
+
+  test "item amend keeps CRLF line endings of a body edited on the web" do
+    make_epic
+    a = make_sectioned_item("A", wave: 1, owns: "lib/a/**")
+    ENV["WORK_FAKE_DB"] = @db
+    FakeGh.call([ "issue", "edit", a.to_s, "--body", issue_body(a).gsub("\n", "\r\n") ])
+
+    out, code = amend(a, "--add-owns", "lib/z/**", "--reason", "r")
+    assert_equal 0, code, out.inspect
+    assert_includes issue_body(a), "lib/z/**"
+    refute_match(/[^\r]\n/, issue_body(a))
+  end
+
+  test "item amend refuses a keyless bullet it would drop" do
+    make_epic
+    keyless = wb("item", "create", "--epic", "demo", "--title", "Keyless", "--wave", "1", "--owns", "lib/k/**",
+                 "--body", "## Owns\n- `lib/k/**`\n\n## Blocked by\n- the design review\n")[0]["number"]
+    before = issue_body(keyless)
+
+    assert_equal 2, amend(keyless, "--add-owns", "lib/l/**", "--reason", "r")[1]
+    assert_equal before, issue_body(keyless)
+  end
+
+  test "item amend fails loud with the note text when the announce note cannot be posted" do
+    make_epic
+    a = make_sectioned_item("A", wave: 1, owns: "lib/a/**")
+
+    out, code = wb("item", "amend", a.to_s, "--epic", "demo", "--session", "s1", "--add-owns", "lib/z/**", "--reason", "why",
+                   env: { "WORK_FAKE_FAIL" => "issue comment" })
+    assert_equal 1, code
+    assert_includes out["error"], "announce note failed"
+    assert_includes out["note"], "amended: why"
+    assert_includes issue_body(a), "lib/z/**"
   end
 
   # ---- plan creation and validation ----------------------------------------------------------------------------

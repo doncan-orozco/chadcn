@@ -130,6 +130,16 @@ class Chadcn::Dialog::Title < Chadcn::Base
 class Chadcn::Dialog::Trigger < Chadcn::Base
 class Chadcn::Direction < Chadcn::Base
 class Chadcn::Direction::Provider < Chadcn::Base
+class Chadcn::Drawer < Chadcn::Base
+class Chadcn::Drawer::Close < Chadcn::Base
+class Chadcn::Drawer::Content < Chadcn::Base
+class Chadcn::Drawer::Description < Chadcn::Base
+class Chadcn::Drawer::Footer < Chadcn::Base
+class Chadcn::Drawer::Header < Chadcn::Base
+class Chadcn::Drawer::Overlay < Chadcn::Base
+class Chadcn::Drawer::Portal < Chadcn::Base
+class Chadcn::Drawer::Title < Chadcn::Base
+class Chadcn::Drawer::Trigger < Chadcn::Base
 class Chadcn::DropdownMenu < Chadcn::Base
 class Chadcn::DropdownMenu::CheckboxItem < Chadcn::Base
 class Chadcn::DropdownMenu::Content < Chadcn::Base
@@ -161,6 +171,23 @@ class Chadcn::Field::Legend < Chadcn::Base
 class Chadcn::Field::Separator < Chadcn::Base
 class Chadcn::Field::Set < Chadcn::Base
 class Chadcn::Field::Title < Chadcn::Base
+class Chadcn::Form < Chadcn::Base
+class Chadcn::Form::Binding::Plain
+class Chadcn::Form::Field < Chadcn::Field
+class Chadcn::Form::Field::Checkbox < Chadcn::Base
+class Chadcn::Form::Field::Control < Chadcn::Base
+class Chadcn::Form::Field::DatePicker < Chadcn::Base
+class Chadcn::Form::Field::Description < Chadcn::Base
+class Chadcn::Form::Field::Error < Chadcn::Base
+class Chadcn::Form::Field::Input < Chadcn::Base
+class Chadcn::Form::Field::InputGroup < Chadcn::Base
+class Chadcn::Form::Field::Label < Chadcn::Base
+class Chadcn::Form::Field::NativeSelect < Chadcn::Base
+class Chadcn::Form::Field::RadioGroup < Chadcn::Base
+class Chadcn::Form::Field::Select < Chadcn::Base
+class Chadcn::Form::Field::Slider < Chadcn::Base
+class Chadcn::Form::Field::Switch < Chadcn::Base
+class Chadcn::Form::Field::Textarea < Chadcn::Base
 class Chadcn::HoverCard < Chadcn::Base
 class Chadcn::HoverCard::Content < Chadcn::Base
 class Chadcn::HoverCard::Trigger < Chadcn::Base
@@ -759,6 +786,35 @@ method Chadcn::Dialog::Trigger#view_template ()
 method Chadcn::Direction#view_template ()
 method Chadcn::Direction::Provider#initialize (dir: nil, direction: nil)
 method Chadcn::Direction::Provider#view_template ()
+method Chadcn::Drawer#close (**attrs, &block)
+method Chadcn::Drawer#content (**attrs, &block)
+method Chadcn::Drawer#description (**attrs, &block)
+method Chadcn::Drawer#footer (**attrs, &block)
+method Chadcn::Drawer#header (**attrs, &block)
+method Chadcn::Drawer#initialize (open: nil, default_open: false, direction: "bottom", dismissible: true, modal: true, handle_only: false, auto_focus: false, snap_points: nil, active_snap_point: nil, fade_from_index: nil, snap_to_sequential_point: false, close_threshold: 0.25, scroll_lock_timeout: 100, should_scale_background: false, set_background_color_on_scale: true, no_body_styles: false, fixed: false, nested: false, disable_prevent_scroll: true, prevent_scroll_restoration: false, reposition_inputs: true, container: nil, id: nil, **attrs)
+method Chadcn::Drawer#overlay (**attrs, &block)
+method Chadcn::Drawer#portal (&block)
+method Chadcn::Drawer#title (**attrs, &block)
+method Chadcn::Drawer#trigger (**attrs, &block)
+method Chadcn::Drawer#view_template ()
+method Chadcn::Drawer::Close#initialize (as_child: false, **attrs)
+method Chadcn::Drawer::Close#view_template ()
+method Chadcn::Drawer::Content#initialize (force_mount: false, as_child: false, **attrs)
+method Chadcn::Drawer::Content#view_template ()
+method Chadcn::Drawer::Description#initialize (as_child: false, **attrs)
+method Chadcn::Drawer::Description#view_template ()
+method Chadcn::Drawer::Footer#initialize (**attrs)
+method Chadcn::Drawer::Footer#view_template ()
+method Chadcn::Drawer::Header#initialize (**attrs)
+method Chadcn::Drawer::Header#view_template ()
+method Chadcn::Drawer::Overlay#initialize (force_mount: false, as_child: false, **attrs)
+method Chadcn::Drawer::Overlay#view_template ()
+method Chadcn::Drawer::Portal#initialize (force_mount: false, container: nil)
+method Chadcn::Drawer::Portal#view_template ()
+method Chadcn::Drawer::Title#initialize (as_child: false, **attrs)
+method Chadcn::Drawer::Title#view_template ()
+method Chadcn::Drawer::Trigger#initialize (as_child: false, **attrs)
+method Chadcn::Drawer::Trigger#view_template ()
 method Chadcn::DropdownMenu#checkbox_item (**attrs, &block)
 method Chadcn::DropdownMenu#content (**attrs, &block)
 method Chadcn::DropdownMenu#group (**attrs, &block)
@@ -849,6 +905,81 @@ method Chadcn::Field::Set#initialize (**attrs)
 method Chadcn::Field::Set#view_template ()
 method Chadcn::Field::Title#initialize (**attrs)
 method Chadcn::Field::Title#view_template ()
+method Chadcn::Form#field (**attrs, &block)
+method Chadcn::Form#initialize (binding: nil, scope: nil, model: nil, errors: nil, action: nil, method: nil, csrf_token: nil, namespace: nil, **attrs)
+method Chadcn::Form#view_template (&block)
+method Chadcn::Form::Binding#action ()
+method Chadcn::Form::Binding#csrf_token ()
+method Chadcn::Form::Binding#errors_for (attribute)
+method Chadcn::Form::Binding#http_method ()
+method Chadcn::Form::Binding#id_for (attribute)
+method Chadcn::Form::Binding#label_for (attribute)
+method Chadcn::Form::Binding#name_for (attribute, multiple: false)
+method Chadcn::Form::Binding#nested (attribute, object:, index: nil, errors: {})
+method Chadcn::Form::Binding#value_for (attribute)
+method Chadcn::Form::Binding::Plain#action ()
+method Chadcn::Form::Binding::Plain#csrf_token ()
+method Chadcn::Form::Binding::Plain#errors_for (attribute)
+method Chadcn::Form::Binding::Plain#http_method ()
+method Chadcn::Form::Binding::Plain#id_for (attribute)
+method Chadcn::Form::Binding::Plain#initialize (scope:, object: nil, errors: {}, action: nil, http_method: "post", csrf_token: nil, namespace: nil)
+method Chadcn::Form::Binding::Plain#label_for (attribute)
+method Chadcn::Form::Binding::Plain#name_for (attribute, multiple: false)
+method Chadcn::Form::Binding::Plain#nested (attribute, object:, index: nil, errors: {})
+method Chadcn::Form::Binding::Plain#value_for (attribute)
+method Chadcn::Form::Field#attribute ()
+method Chadcn::Form::Field#checkbox (**attrs, &block)
+method Chadcn::Form::Field#control (**attrs, &block)
+method Chadcn::Form::Field#control_attrs ()
+method Chadcn::Form::Field#date_picker (**attrs, &block)
+method Chadcn::Form::Field#description (**attrs, &block)
+method Chadcn::Form::Field#error (**attrs, &block)
+method Chadcn::Form::Field#errors ()
+method Chadcn::Form::Field#form_binding ()
+method Chadcn::Form::Field#form_description_id ()
+method Chadcn::Form::Field#form_item_id ()
+method Chadcn::Form::Field#form_message_id ()
+method Chadcn::Form::Field#initialize (attribute:, binding: nil, orientation: "vertical", **attrs)
+method Chadcn::Form::Field#input (**attrs, &block)
+method Chadcn::Form::Field#input_group (**attrs, &block)
+method Chadcn::Form::Field#label (**attrs, &block)
+method Chadcn::Form::Field#name ()
+method Chadcn::Form::Field#native_select (**attrs, &block)
+method Chadcn::Form::Field#radio_group (**attrs, &block)
+method Chadcn::Form::Field#select (**attrs, &block)
+method Chadcn::Form::Field#slider (**attrs, &block)
+method Chadcn::Form::Field#switch (**attrs, &block)
+method Chadcn::Form::Field#textarea (**attrs, &block)
+method Chadcn::Form::Field#value ()
+method Chadcn::Form::Field#view_template ()
+method Chadcn::Form::Field::Checkbox#initialize (unchecked_value: "0", **attrs)
+method Chadcn::Form::Field::Checkbox#view_template ()
+method Chadcn::Form::Field::Control#initialize (**attrs)
+method Chadcn::Form::Field::Control#view_template ()
+method Chadcn::Form::Field::DatePicker#initialize (placeholder: "Pick a date", calendar: {}, **attrs)
+method Chadcn::Form::Field::DatePicker#view_template ()
+method Chadcn::Form::Field::Description#initialize (**attrs)
+method Chadcn::Form::Field::Description#view_template ()
+method Chadcn::Form::Field::Error#initialize (**attrs)
+method Chadcn::Form::Field::Error#view_template ()
+method Chadcn::Form::Field::Input#initialize (**attrs)
+method Chadcn::Form::Field::Input#view_template ()
+method Chadcn::Form::Field::InputGroup#initialize (**attrs)
+method Chadcn::Form::Field::InputGroup#view_template ()
+method Chadcn::Form::Field::Label#initialize (**attrs)
+method Chadcn::Form::Field::Label#view_template (&block)
+method Chadcn::Form::Field::NativeSelect#initialize (**attrs)
+method Chadcn::Form::Field::NativeSelect#view_template ()
+method Chadcn::Form::Field::RadioGroup#initialize (**attrs)
+method Chadcn::Form::Field::RadioGroup#view_template ()
+method Chadcn::Form::Field::Select#initialize (**attrs)
+method Chadcn::Form::Field::Select#view_template ()
+method Chadcn::Form::Field::Slider#initialize (**attrs)
+method Chadcn::Form::Field::Slider#view_template ()
+method Chadcn::Form::Field::Switch#initialize (unchecked_value: "0", **attrs)
+method Chadcn::Form::Field::Switch#view_template ()
+method Chadcn::Form::Field::Textarea#initialize (**attrs)
+method Chadcn::Form::Field::Textarea#view_template ()
 method Chadcn::HoverCard#content (**attrs, &block)
 method Chadcn::HoverCard#initialize (open: nil, default_open: false, open_delay: 700, close_delay: 300, id: nil)
 method Chadcn::HoverCard#trigger (**attrs, &block)
@@ -1269,6 +1400,7 @@ method Chadcn::Tooltip::Trigger#view_template ()
 module Chadcn
 module Chadcn::Catalog
 module Chadcn::Direction::Consumer
+module Chadcn::Form::Binding
 module Chadcn::Generators
 module Chadcn::Theme
 
@@ -1373,6 +1505,15 @@ Chadcn::Dialog#portal
 Chadcn::Dialog#title
 Chadcn::Dialog#trigger
 Chadcn::Direction#provider
+Chadcn::Drawer#close
+Chadcn::Drawer#content
+Chadcn::Drawer#description
+Chadcn::Drawer#footer
+Chadcn::Drawer#header
+Chadcn::Drawer#overlay
+Chadcn::Drawer#portal
+Chadcn::Drawer#title
+Chadcn::Drawer#trigger
 Chadcn::DropdownMenu#checkbox_item
 Chadcn::DropdownMenu#content
 Chadcn::DropdownMenu#group
@@ -1401,6 +1542,21 @@ Chadcn::Field#legend
 Chadcn::Field#separator
 Chadcn::Field#set
 Chadcn::Field#title
+Chadcn::Form#field
+Chadcn::Form::Field#checkbox
+Chadcn::Form::Field#control
+Chadcn::Form::Field#date_picker
+Chadcn::Form::Field#description
+Chadcn::Form::Field#error
+Chadcn::Form::Field#input
+Chadcn::Form::Field#input_group
+Chadcn::Form::Field#label
+Chadcn::Form::Field#native_select
+Chadcn::Form::Field#radio_group
+Chadcn::Form::Field#select
+Chadcn::Form::Field#slider
+Chadcn::Form::Field#switch
+Chadcn::Form::Field#textarea
 Chadcn::HoverCard#content
 Chadcn::HoverCard#trigger
 Chadcn::InputGroup#addon

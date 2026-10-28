@@ -41,7 +41,8 @@ module ShadcnStaticGate
       @m = manifest
       @src = files.map { |f| File.read(f) }.join("\n").gsub(/\\\n/, "") # Ruby line continuation inside strings
       @dev = deviations
-      @literals = literals_of(@src)
+      @code = @src.lines.reject { |line| line.lstrip.start_with?("#") }.join # full-line comments are not classes
+      @literals = literals_of(@code)
       @port_tokens = ShadcnOracle::Scan.tokens(@literals).uniq
     end
 
@@ -61,8 +62,7 @@ module ShadcnStaticGate
 
     # The scanner is a regexp over the source text, so it must see what the Ruby parser sees: full-line comments never emit markup (and an
     # apostrophe in prose would pair with a later quote and swallow code), and `%w[a b]` words are string literals just like ["a", "b"].
-    def literals_of(source)
-      code = source.lines.reject { |line| line.lstrip.start_with?("#") }.join
+    def literals_of(code)
       ShadcnOracle::Scan.string_literals(code) + code.scan(/%w\[([^\]]*)\]/).flat_map { |(words)| words.split }
     end
 
@@ -74,11 +74,57 @@ module ShadcnStaticGate
       part_name.downcase.start_with?(root.downcase) && part_name.downcase != root.downcase ? part_name[root.size..] : part_name
     end
 
+    # Hooks and helper functions (`useChart`, `getPayloadConfigFromPayload`) are not parts: they have no Phlex class and their props are no kwargs.
+    def helper?(part)
+      part["name"].match?(/\A[a-z]/)
+    end
+
+    # The nested spelling of a React short name: `TooltipContent` is also `Chart::Tooltip::Content`, tried at every camel-case boundary.
+    # Strict: the nesting starts at the component root and every class sits exactly one indent step inside its parent, so a `Content` under
+    # another class's `Tooltip`, a bare `Tooltip::Content` outside `class Chart` and `Content::Bar` do not satisfy it.
+    def nested_part?(short_name)
+      words = short_name.scan(/[A-Z][a-z0-9]*/)
+      return false if words.join != short_name
+
+      root_name = Regexp.escape(root)
+      (1...words.size).any? do |i|
+        head = Regexp.escape(words.first(i).join)
+        tail = Regexp.escape(words.drop(i).join)
+        NESTED_SHAPES.any? { |shape| @code.match?(shape.call(root_name, head, tail)) }
+      end
+    end
+
+    # Header of a class line that opens a body (a one-line `class X < Y; end` has none), then the lines that stay inside it.
+    BODY = '(?:[ \t]*\r?\n|%<indent>s[ \t]+\S.*\n)*?'
+    OPENS = '(?![\w:])[^;\n]*\n'
+    KEYWORD = '(?:class|module)\s+'
+    private_constant :BODY, :OPENS, :KEYWORD
+
+    NESTED_SHAPES = [
+      # Chart::Tooltip::Content in one line (Chadcn::Chart::Tooltip::Content too)
+      ->(root, head, tail) { /\b#{KEYWORD}(?:Chadcn::)?#{root}::#{head}::#{tail}(?![\w:])/ },
+      # class Chart > class Tooltip::Content
+      lambda { |root, head, tail|
+        /^([ \t]*)#{KEYWORD}(?:Chadcn::)?#{root}#{OPENS}#{format(BODY, indent: '\\1')}\1(?:  |\t)#{KEYWORD}#{head}::#{tail}(?![\w:])/
+      },
+      # class Chart::Tooltip > class Content
+      lambda { |root, head, tail|
+        /^([ \t]*)#{KEYWORD}(?:Chadcn::)?#{root}::#{head}#{OPENS}#{format(BODY, indent: '\\1')}\1(?:  |\t)#{KEYWORD}#{tail}(?![\w:])/
+      },
+      # class Chart > class Tooltip > class Content
+      lambda { |root, head, tail|
+        /^([ \t]*)#{KEYWORD}(?:Chadcn::)?#{root}#{OPENS}#{format(BODY, indent: '\\1')}\1((?:  |\t))#{KEYWORD}#{head}#{OPENS}#{format(BODY, indent: '\\1\\2')}\1\2\2#{KEYWORD}#{tail}(?![\w:])/
+      }
+    ].freeze
+    private_constant :NESTED_SHAPES
+
     def check_parts
       @m["parts"].filter_map do |part|
-        next if part["name"].match?(/\A(use|[a-z])/) # hooks / helpers
+        next if helper?(part)
+
         names = [part["name"], short(part["name"])].uniq
-        next if names.any? { |n| @src.match?(/\b(?:class|module)\s+(?:\w+::)*#{n}\b/i) }
+        next if names.any? { |n| @code.match?(/\b(?:class|module)\s+(?:\w+::)*#{n}\b/i) }
+        next if nested_part?(short(part["name"]))
 
         Finding.new(code: "G1_PART_MISSING", severity: "MANDATORY", part: part["name"],
                     detail: "No Phlex class for React part #{part['name']} (expected `#{root}::#{short(part['name'])}` or `#{part['name']}`)",
@@ -156,7 +202,7 @@ module ShadcnStaticGate
       return [] if @m["parts"].none? { |p| p["props"]["typed"].any? || p["props"]["destructured"].any? { |d| !d["rest"] && d["name"] != "className" } }
 
       signatures = @src.scan(/def initialize\((.*?)\)\s*$/m).flatten.join(" ")
-      @m["parts"].flat_map do |part|
+      @m["parts"].reject { |part| helper?(part) }.flat_map do |part|
         names = part["props"]["destructured"].reject { |p| p["rest"] }.map { |p| p["name"] } + part["props"]["typed"].map { |p| p["name"] }
         # A renamed destructure (`open: openProp`) is listed as "open: openProp"; the kwarg is the public name before the colon.
         names = names.map { |n| n.split(":").first.strip }
