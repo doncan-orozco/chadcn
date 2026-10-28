@@ -138,6 +138,7 @@ class Chadcn::InputOtp < Chadcn::Base
   # The library spreads its own attributes after the caller's, so the caller cannot override them.
   def input_attrs
     attrs = merge_attrs({ class: CLASSES, autocomplete: "one-time-code", spellcheck: "false", data: { slot: "input-otp" } }, @attrs)
+    attrs[:spellcheck] = attrs[:spellcheck].to_s # React renders the enumerated attribute as "true"/"false", Phlex a bare `true`
     forced = { data: { input_otp: "true", chadcn__input_otp_target: "input" }, inputmode: @input_mode, pattern: @pattern,
                style: Kernel.format(INPUT_STYLE, text_align: @text_align), maxlength: @max_length, value: @value }
     forced[:data][:input_otp_placeholder_shown] = "true" if @value.empty?
@@ -181,7 +182,8 @@ class Chadcn::InputOtp < Chadcn::Base
     def view_template
       root = context[Chadcn::InputOtp::CONTEXT_KEY] or raise ArgumentError, "#{self.class.name} must be used within InputOtp"
       inside = @index < root[:max_length]
-      defaults = { class: CLASSES, data: { slot: "input-otp-slot", active: ("false" if inside), chadcn__input_otp_target: "slot", chadcn__input_otp_index_value: @index } }
+      defaults = { class: CLASSES,
+                   data: { slot: "input-otp-slot", active: ("false" if inside), chadcn__input_otp_target: "slot", chadcn__input_otp_index_value: @index } }
       div(**merge_attrs(defaults, @attrs)) do
         plain root[:value][@index] if inside && root[:value][@index]
         template(data: { chadcn__input_otp_target: "caret" }) { div(class: CARET) { div(class: CARET_BAR) } } if inside
