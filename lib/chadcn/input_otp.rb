@@ -225,8 +225,3 @@ class Chadcn::InputOtp < Chadcn::Base
     end
   end
 end
-
-# The React export name (`InputOTP`), for the parity harness and the catalog tree renderer, which load InputOtp first. Application
-# code uses Chadcn::InputOtp; this alias is not autoloadable on its own.
-# @api private
-Chadcn::InputOTP = Chadcn::InputOtp
