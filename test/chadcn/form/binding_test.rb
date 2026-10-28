@@ -15,4 +15,8 @@ class Chadcn::Form::BindingTest < Chadcn::TestCase
     end
     assert_raises(NotImplementedError) { bare.nested(:a, object: nil) }
   end
+
+  test "hidden_fields is optional: a bare includer renders none" do
+    assert_empty Bare.new.hidden_fields
+  end
 end

@@ -19,8 +19,9 @@ module Chadcn
     class FormBinding
       include Chadcn::Form::Binding
 
-      # Matches the nested part of a builder scope (+user[addresses_attributes][0]+) the way Rails' +label+ helper does.
-      NESTED_SCOPE = /\[(.*)_attributes\]\[\d+\]/
+      # Matches every nested segment of a builder scope (+[x_attributes]+ with or without an index, any index) to normalise it to
+      # +.x+ for the label translations; broader than Rails' label translator, which needs a numeric index.
+      NESTED_SCOPE = /\[([^\]]*)_attributes\](\[[^\]]+\])?/
       private_constant :NESTED_SCOPE
 
       # @return [Object, nil] the model the form is bound to
@@ -32,8 +33,10 @@ module Chadcn
       # @param url [String, nil] the action; defaults to +polymorphic_path(model)+
       # @param method [String, Symbol, nil] the verb; defaults to +patch+ for a persisted model, else +post+
       # @param namespace [String, nil] prefix of every generated id
+      # @param nested_attributes [Boolean] set by {#nested} for a child of a nested-attributes association; it owns the hidden id
+      # @api private
       # @raise [ArgumentError] without +model:+ and +scope:+
-      def initialize(view_context:, model: nil, scope: nil, url: nil, method: nil, namespace: nil)
+      def initialize(view_context:, model: nil, scope: nil, url: nil, method: nil, namespace: nil, nested_attributes: false)
         scope ||= model.model_name.param_key if model.respond_to?(:model_name)
         raise ArgumentError, "FormBinding needs model: or scope:" if scope.nil?
 
@@ -44,6 +47,7 @@ module Chadcn
         @url = url
         @method = method
         @namespace = namespace
+        @nested_attributes = nested_attributes
         @builder = ::ActionView::Helpers::FormBuilder.new(@scope, model, view_context, { namespace: }.compact)
       end
 
@@ -107,12 +111,23 @@ module Chadcn
       # @param attribute [Symbol, String] the association
       # @param object [Object, nil] the nested model
       # @param index [Integer, String, nil] the row of a collection
-      # @param errors [#[]] ignored: the errors are read from +object.errors+
+      # @param errors [#[], nil] ignored: the errors are read from +object.errors+
       # @return [Chadcn::Engine::FormBinding]
-      def nested(attribute, object:, index: nil, errors: {})
-        suffix = @model.respond_to?(:"#{attribute}_attributes=") ? "#{attribute}_attributes" : attribute.to_s
+      def nested(attribute, object:, index: nil, errors: nil)
+        accepts = @model.respond_to?(:"#{attribute}_attributes=")
+        suffix = accepts ? "#{attribute}_attributes" : attribute.to_s
         self.class.new(view_context: @view_context, model: object, scope: "#{@scope}[#{suffix}]#{"[#{index}]" if index}",
-                       namespace: @namespace)
+                       namespace: @namespace, nested_attributes: accepts)
+      end
+
+      # The hidden +id+ of a persisted nested model, as +fields_for+ emits it for nested attributes (never for the root or for a
+      # model without the +<association>_attributes=+ writer).
+      #
+      # @return [Hash{Symbol => Object}]
+      def hidden_fields
+        return super unless @nested_attributes && persisted? && @model.respond_to?(:id)
+
+        { id: @model.id }
       end
 
       # @return [String, nil] +url:+, else +polymorphic_path(model)+
