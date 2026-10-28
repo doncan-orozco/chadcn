@@ -26,7 +26,7 @@ class LlmsDriftTest < Minitest::Test
     end
     full = File.read(File.join(GEM_DIR, "llms-full.txt"))
 
-    assert_equal 54, components.size
+    assert_equal 55, components.size
     components.each do |name|
       assert_includes full, "## #{name}\n", "#{name} is missing from llms-full.txt"
       assert_includes full, "Chadcn::#{name}.new(", "#{name} has no constructor line"

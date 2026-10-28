@@ -17,7 +17,7 @@ class Chadcn::Carousel::Previous < Chadcn::Base
   # @param size [String, Symbol] any Button size
   # @param label [String] the screen-reader text
   # @param attrs [Hash] HTML attributes merged onto the button; a `disabled:` (true or false) is final, the controller never touches it
-  def initialize(label: "Previous slide", **) = super
+  def initialize(label: "Previous slide", variant: "outline", size: "icon", **attrs) = super
 
   private
 

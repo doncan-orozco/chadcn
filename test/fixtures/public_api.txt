@@ -64,6 +64,11 @@ class Chadcn::Card::Description < Chadcn::Base
 class Chadcn::Card::Footer < Chadcn::Base
 class Chadcn::Card::Header < Chadcn::Base
 class Chadcn::Card::Title < Chadcn::Base
+class Chadcn::Carousel < Chadcn::Base
+class Chadcn::Carousel::Content < Chadcn::Base
+class Chadcn::Carousel::Item < Chadcn::Base
+class Chadcn::Carousel::Next < Chadcn::Base
+class Chadcn::Carousel::Previous < Chadcn::Base
 class Chadcn::Catalog::Entry < Struct
 class Chadcn::Catalog::TreeRenderer < Phlex::HTML
 class Chadcn::Catalog::TreeRenderer::Error < StandardError
@@ -554,6 +559,14 @@ method Chadcn::Card::Header#initialize (**attrs)
 method Chadcn::Card::Header#view_template ()
 method Chadcn::Card::Title#initialize (**attrs)
 method Chadcn::Card::Title#view_template ()
+method Chadcn::Carousel#initialize (orientation: "horizontal", opts: nil, plugins: nil, set_api: nil, **attrs)
+method Chadcn::Carousel#view_template ()
+method Chadcn::Carousel::Content#initialize (**attrs)
+method Chadcn::Carousel::Content#view_template ()
+method Chadcn::Carousel::Item#initialize (**attrs)
+method Chadcn::Carousel::Item#view_template ()
+method Chadcn::Carousel::Next#initialize (label: "Next slide", variant: "outline", size: "icon", **attrs)
+method Chadcn::Carousel::Previous#initialize (label: "Previous slide", variant: "outline", size: "icon", **attrs)
 method Chadcn::Catalog::Entry#component ()
 method Chadcn::Catalog::Entry#scenario_count ()
 method Chadcn::Catalog::Entry#scenario_id ()
@@ -1254,6 +1267,10 @@ Chadcn::Card#description
 Chadcn::Card#footer
 Chadcn::Card#header
 Chadcn::Card#title
+Chadcn::Carousel#content
+Chadcn::Carousel#item
+Chadcn::Carousel#next
+Chadcn::Carousel#previous
 Chadcn::Collapsible#content
 Chadcn::Collapsible#trigger
 Chadcn::Combobox#chip
