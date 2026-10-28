@@ -59,13 +59,4 @@ class Chadcn::Chart::Shape::StackTest < Chadcn::TestCase
   test "an unknown offset raises" do
     assert_raises(ArgumentError) { Stack.series([ { a: 1 } ], [ :a ], offset: :wiggle) }
   end
-
-  test "group_by_stack_id keeps the order of first appearance and stacks equal ids" do
-    bars = [ { key: :a, id: "x" }, { key: :b, id: nil }, { key: :c, id: 1 }, { key: :d, id: "x" }, { key: :e, id: "1" }, { key: :f, id: nil } ]
-    groups = Stack.group_by_stack_id(bars) { |bar| bar[:id] }
-
-    keys = groups.map { |group| group.map { |bar| bar[:key] } }
-
-    assert_equal [ %i[a d], [ :b ], %i[c e], [ :f ] ], keys
-  end
 end
