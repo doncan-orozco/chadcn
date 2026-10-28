@@ -40,6 +40,18 @@ class EngineTest::FormBinding < Minitest::Test
     end
   end
 
+  class Profile
+    include ActiveModel::Model
+
+    def self.model_name = ActiveModel::Name.new(self, nil, "Profile")
+
+    attr_accessor :id, :bio
+
+    validates :bio, presence: true, on: :update
+
+    def persisted? = id.present?
+  end
+
   # No route is drawn for it.
   class Ghost
     include ActiveModel::Model
@@ -172,6 +184,11 @@ class EngineTest::FormBinding < Minitest::Test
   def test_a_presence_validator_on_create_requires_only_a_new_model
     assert binding_for(User.new).required?(:password)
     refute binding_for(User.new(id: 7)).required?(:password)
+  end
+
+  def test_a_presence_validator_on_update_requires_only_a_persisted_model
+    refute binding_for(Profile.new).required?(:bio)
+    assert binding_for(Profile.new(id: 3)).required?(:bio)
   end
 
   def test_a_nested_row_reads_its_errors_from_the_child_model
