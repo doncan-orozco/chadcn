@@ -1223,7 +1223,7 @@
       "tree": {
         "c": "_div",
         "props": {
-          "className": "h-80 w-full max-w-sm"
+          "className": "h-[28rem] w-full max-w-sm"
         },
         "children": [
           {

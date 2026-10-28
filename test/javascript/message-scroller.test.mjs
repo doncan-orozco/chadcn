@@ -210,3 +210,11 @@ browserTest("message-scroller: reconnecting the controller is idempotent and lea
   await nextFrames(page, 10);
   assert.ok(await offsetOf(page, "extra") >= 0, "the content observer works after the reconnect");
 });
+
+browserTest("message-scroller: default_scroll_position last-anchor opens at the end, without a spacer, when the last turn fits (ms:228-240)", async ({ open }) => {
+  const page = await open("position-last-anchor__turn-fits");
+  await nextFrames(page);
+  const { top, max } = await metrics(page);
+  assert.ok(Math.abs(top - max) <= 1, `scrollTop ${top} is at the end ${max}`);
+  assert.equal(await page.locator("[data-message-scroller-spacer]").evaluate((el) => el.hidden), true, "no spacer for a turn that fits");
+});
