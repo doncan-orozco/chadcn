@@ -13,41 +13,28 @@ class Chadcn::Chart::Shape::Curve::Bump < Chadcn::Chart::Shape::Curve::Interpola
   def initialize(context, horizontal:)
     super(context)
     @horizontal = horizontal
-    @x0 = @y0 = Float::NAN
-  end
-
-  # @api private
-  # @return [void]
-  def line_end
-    close_path_if(@point == 1)
-    toggle_line
-  end
-
-  # @api private
-  # @return [void]
-  def point(x, y)
-    x = x.to_f
-    y = y.to_f
-    if @point.zero?
-      @point = 1
-      start_subpath(x, y)
-    else
-      @point = 2
-      bump_to(x, y)
-    end
-    @x0 = x
-    @y0 = y
   end
 
   private
 
+  def add_point(x, y)
+    if point_count.zero?
+      self.point_count = 1
+      start_subpath(x, y)
+    else
+      self.point_count = 2
+      bump_to(x, y)
+    end
+    shift_window(x, y)
+  end
+
   def bump_to(x, y)
     if @horizontal
-      middle = (@x0 + x) / 2
-      @context.bezier_to(middle, @y0, middle, y, x, y)
+      middle = (x1 + x) / 2
+      draw_bezier_to(middle, y1, middle, y, x, y)
     else
-      middle = (@y0 + y) / 2
-      @context.bezier_to(@x0, middle, x, middle, x, y)
+      middle = (y1 + y) / 2
+      draw_bezier_to(x1, middle, x, middle, x, y)
     end
   end
 end

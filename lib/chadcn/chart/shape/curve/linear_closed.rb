@@ -16,18 +16,16 @@ class Chadcn::Chart::Shape::Curve::LinearClosed < Chadcn::Chart::Shape::Curve::I
 
   # @api private
   # @return [void]
-  def line_end = (@context.close if @point == 1)
+  def line_end = (close_subpath if point_count == 1)
 
-  # @api private
-  # @return [void]
-  def point(x, y)
-    x = x.to_f
-    y = y.to_f
-    if @point == 1
-      @context.line_to(x, y)
+  private
+
+  def add_point(x, y)
+    if point_count == 1
+      draw_line_to(x, y)
     else
-      @point = 1
-      @context.move_to(x, y)
+      self.point_count = 1
+      move_to_point(x, y)
     end
   end
 end

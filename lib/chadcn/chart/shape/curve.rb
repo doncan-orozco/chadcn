@@ -77,10 +77,12 @@ module Chadcn::Chart::Shape::Curve
     !point.nil? && well_behaved?(point[0]) && well_behaved?(point[1])
   end
 
+  # The recharts `isWellBehavedNumber` test of one coordinate: a finite Numeric.
+  #
   # @api private
-  # @param value [Object]
-  # @return [Boolean] true for a finite Numeric
+  # @return [Boolean]
   def self.well_behaved?(value) = value.is_a?(Numeric) && value.finite?
+  private_class_method :well_behaved?
 
   # @api private
   # @param layout [Symbol, String]

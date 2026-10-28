@@ -6,25 +6,15 @@
 #
 # @api private
 class Chadcn::Chart::Shape::Curve::Linear < Chadcn::Chart::Shape::Curve::Interpolator
-  # @api private
-  # @return [void]
-  def line_end
-    close_path_if(@point == 1)
-    toggle_line
-  end
+  private
 
-  # @api private
-  # @return [void]
-  def point(x, y)
-    x = x.to_f
-    y = y.to_f
-    case @point
-    when 0
-      @point = 1
+  def add_point(x, y)
+    if point_count.zero?
+      self.point_count = 1
       start_subpath(x, y)
     else
-      @point = 2
-      @context.line_to(x, y)
+      self.point_count = 2
+      draw_line_to(x, y)
     end
   end
 end

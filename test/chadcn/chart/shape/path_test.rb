@@ -56,6 +56,24 @@ class Chadcn::Chart::Shape::PathTest < Chadcn::TestCase
     assert_nil path.d
   end
 
+  test "close after a line without a move closes once, then does nothing" do
+    path = Path.new
+    path.line_to(1, 1)
+    path.close
+    path.close
+
+    assert_equal "L1,1Z", path.d
+  end
+
+  test "close after a move keeps the pen down, so a second close closes again" do
+    path = Path.new
+    path.move_to(0, 0)
+    path.close
+    path.close
+
+    assert_equal "M0,0ZZ", path.d
+  end
+
   test "to_s returns a copy" do
     path = Path.new
     path.move_to(1, 1)

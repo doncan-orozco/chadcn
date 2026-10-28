@@ -12,54 +12,40 @@ class Chadcn::Chart::Shape::Curve::Step < Chadcn::Chart::Shape::Curve::Interpola
   def initialize(context, position)
     super(context)
     @t = position.to_f
-    @x = @y = Float::NAN
-  end
-
-  # @api private
-  # @return [void]
-  def line_start
-    @x = @y = Float::NAN
-    @point = 0
   end
 
   # @api private
   # @return [void]
   def line_end
-    @context.line_to(@x, @y) if @t.positive? && @t < 1 && @point == 2
-    close_path_if(@point == 1)
-    return unless @line && @line >= 0
+    draw_line_to(x1, y1) if @t.positive? && @t < 1 && point_count == 2
+    close_path_if(point_count == 1)
+    return unless inside_area?
 
     @t = 1 - @t
     toggle_line
   end
 
-  # @api private
-  # @return [void]
-  def point(x, y)
-    x = x.to_f
-    y = y.to_f
-    case @point
-    when 0
-      @point = 1
+  private
+
+  def add_point(x, y)
+    if point_count.zero?
+      self.point_count = 1
       start_subpath(x, y)
     else
-      @point = 2
+      self.point_count = 2
       step_to(x, y)
     end
-    @x = x
-    @y = y
+    shift_window(x, y)
   end
-
-  private
 
   def step_to(x, y)
     if @t <= 0
-      @context.line_to(@x, y)
-      @context.line_to(x, y)
+      draw_line_to(x1, y)
+      draw_line_to(x, y)
     else
-      x1 = (@x * (1 - @t)) + (x * @t)
-      @context.line_to(x1, @y)
-      @context.line_to(x1, y)
+      middle = (x1 * (1 - @t)) + (x * @t)
+      draw_line_to(middle, y1)
+      draw_line_to(middle, y)
     end
   end
 end

@@ -16,8 +16,10 @@ class Chadcn::Chart::Shape::Path
     raise ArgumentError, "invalid digits: #{digits.inspect}" if digits && !(digits.is_a?(Integer) && digits >= 0)
 
     @digits = digits
-    @start = nil
-    @current = nil
+    # d3's `_x0/_x1` pen, reduced to what `close` reads: whether a subpath was started, and whether the pen is down (any segment drawn,
+    # until a close puts it back at the subpath start, which does not exist without a `move_to`).
+    @subpath_started = false
+    @pen_down = false
     @out = +""
   end
 
@@ -26,7 +28,7 @@ class Chadcn::Chart::Shape::Path
   # @api private
   # @return [void]
   def move_to(x, y)
-    @start = @current = [ x.to_f, y.to_f ]
+    @subpath_started = @pen_down = true
     @out << "M#{number(x)},#{number(y)}"
   end
 
@@ -35,7 +37,7 @@ class Chadcn::Chart::Shape::Path
   # @api private
   # @return [void]
   def line_to(x, y)
-    @current = [ x.to_f, y.to_f ]
+    @pen_down = true
     @out << "L#{number(x)},#{number(y)}"
   end
 
@@ -44,18 +46,18 @@ class Chadcn::Chart::Shape::Path
   # @api private
   # @return [void]
   def bezier_to(x1, y1, x2, y2, x, y)
-    @current = [ x.to_f, y.to_f ]
+    @pen_down = true
     @out << "C#{[ x1, y1, x2, y2, x, y ].map { |value| number(value) }.join(',')}"
   end
 
-  # Closes the current subpath (`Z`); nothing happens before the first `move_to`, as in d3.
+  # Closes the current subpath (`Z`); nothing happens before the first segment, as in d3.
   #
   # @api private
   # @return [void]
   def close
-    return unless @current
+    return unless @pen_down
 
-    @current = @start
+    @pen_down = @subpath_started
     @out << "Z"
   end
 
