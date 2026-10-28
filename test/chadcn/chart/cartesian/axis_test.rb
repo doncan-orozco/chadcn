@@ -20,9 +20,9 @@ class Chadcn::Chart::Cartesian::AxisTest < Chadcn::TestCase
                                                  range: range, stack_offset: stack_offset)
   end
 
-  def line(key, **options) = Chadcn::Chart::Line.new(data_key: key, **options)
+  def line(key, **) = Chadcn::Chart::Line.new(data_key: key, **)
 
-  def bar(key, **options) = Chadcn::Chart::Bar.new(data_key: key, **options)
+  def bar(key, **) = Chadcn::Chart::Bar.new(data_key: key, **)
 
   test "a number axis takes its domain from the data and widens it to the nice ticks" do
     value = axis(settings(:y), items: [ bar(:v) ], range: [ 160.0, 0.0 ])
@@ -76,13 +76,13 @@ class Chadcn::Chart::Cartesian::AxisTest < Chadcn::TestCase
     assert_equal :band, band.scale_type
     assert_equal [ 50.0, 150.0, 250.0 ], band.ticks.map(&:coordinate)
     assert_equal [ 0.0, 100.0, 200.0 ], band.item_ticks.map(&:coordinate)
-    assert_equal 100.0, band.bandwidth
+    assert_in_delta 100.0, band.bandwidth
 
     point = axis(settings(data_key: :name), chart_type: :line)
 
     assert_equal :point, point.scale_type
     assert_equal [ 0.0, 150.0, 300.0 ], point.ticks.map(&:coordinate)
-    assert_equal 0.0, point.bandwidth
+    assert_in_delta 0.0, point.bandwidth
   end
 
   test "without a data_key the categories are the row indexes; repeated categories are indexes too" do
@@ -123,8 +123,8 @@ class Chadcn::Chart::Cartesian::AxisTest < Chadcn::TestCase
   end
 
   test "band_size is the bandwidth, else the smallest distance between ticks" do
-    assert_equal 100.0, axis(settings(data_key: :name)).band_size(bar: true)
-    assert_equal 0.0, axis(settings(data_key: :name), chart_type: :line).band_size
+    assert_in_delta 100.0, axis(settings(data_key: :name)).band_size(bar: true)
+    assert_in_delta 0.0, axis(settings(data_key: :name), chart_type: :line).band_size
     assert_operator axis(settings(:y, nice_ticks: :none, tick_count: 4), items: [ line(:v) ], range: [ 300.0, 0.0 ]).band_size, :>, 0
   end
 end

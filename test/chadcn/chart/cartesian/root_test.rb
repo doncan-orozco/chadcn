@@ -6,8 +6,8 @@ class Chadcn::Chart::Cartesian::RootTest < Chadcn::TestCase
   include ChartHelper
 
   test "the chart classes share the root and say which chart they are" do
-    assert_equal [ :bar, :line, :area ], [ Chadcn::Chart::BarChart, Chadcn::Chart::LineChart, Chadcn::Chart::AreaChart ].map { |klass| klass::CHART_TYPE }
-    assert(Chadcn::Chart::BarChart < Chadcn::Chart::Cartesian::Root)
+    assert_equal(%i[bar line area], [ Chadcn::Chart::BarChart, Chadcn::Chart::LineChart, Chadcn::Chart::AreaChart ].map { |klass| klass::CHART_TYPE })
+    assert_operator Chadcn::Chart::BarChart, :<, Chadcn::Chart::Cartesian::Root
   end
 
   test "the block receives the chart and its helpers" do

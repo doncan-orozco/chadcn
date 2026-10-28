@@ -68,7 +68,7 @@ class Chadcn::Chart::AreaChartTest < Chadcn::TestCase
     paths = layer(parse(render_chart(Chadcn::Chart::AreaChart, data: rows) { |chart| chart.area(data_key: :desktop) }), 100).css("path")
 
     assert_equal 3, paths.size
-    assert_equal [ "recharts-curve recharts-area-curve" ] * 2, paths.to_a.last(2).map { |path| path["class"] }
+    assert_equal([ "recharts-curve recharts-area-curve" ] * 2, paths.to_a.last(2).map { |path| path["class"] })
   end
 
   test "a vertical area chart lays the areas out along the y axis" do

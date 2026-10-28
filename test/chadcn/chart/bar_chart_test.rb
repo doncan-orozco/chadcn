@@ -25,7 +25,7 @@ class Chadcn::Chart::BarChartTest < Chadcn::TestCase
     assert_equal %w[application 0], [ surface["role"], surface["tabindex"] ]
     assert_equal "0 0 320 200", surface["viewBox"]
     assert_equal %w[title desc], surface.element_children.first(2).map(&:name)
-    assert_equal Z_ORDER, surface.css("> g").map { |node| node["class"].delete_prefix("recharts-zIndex-layer_") }
+    assert_equal(Z_ORDER, surface.css("> g").map { |node| node["class"].delete_prefix("recharts-zIndex-layer_") })
     assert_equal "defs", surface.element_children[4].name
     clip = surface.at_css("> defs clipPath rect")
 
@@ -49,7 +49,7 @@ class Chadcn::Chart::BarChartTest < Chadcn::TestCase
     lines = layer(doc, -100).css(".recharts-cartesian-grid-horizontal line")
     labels = layer(doc, 2000).css(".recharts-cartesian-axis-tick-value")
 
-    assert_equal %w[165 125 85 45 5], lines.map { |line| line["y1"] }
+    assert_equal(%w[165 125 85 45 5], lines.map { |line| line["y1"] })
     assert_nil layer(doc, -100).at_css(".recharts-cartesian-grid-vertical")
     assert_equal %w[Jan Feb Mar Apr May Jun], labels.map(&:text)
     assert_equal %w[30.833333333333332 181 middle], values(labels.first, "x", "y", "text-anchor")
@@ -96,7 +96,7 @@ class Chadcn::Chart::BarChartTest < Chadcn::TestCase
   test "tick_formatter receives the value and the index, and its result is the label text" do
     seen = []
     html = render_chart do |chart|
-      chart.x_axis(data_key: :month, tick_formatter: ->(value, index) { seen << [ value, index ] && "#{index}:#{value[0]}" })
+      chart.x_axis(data_key: :month, tick_formatter: ->(value, index) { (seen << [ value, index ]) && "#{index}:#{value[0]}" })
       chart.bar(data_key: :desktop)
     end
 
@@ -127,7 +127,7 @@ class Chadcn::Chart::BarChartTest < Chadcn::TestCase
     end
     first, second, third = bars(parse(html))
 
-    assert_equal [ "blue", "red" ], [ first["fill"], third["fill"] ]
+    assert_equal %w[blue red], [ first["fill"], third["fill"] ]
     assert_equal "recharts-rectangle fill-foreground", second["class"]
     assert_equal %w[green 1], [ second["stroke"], second["data-index"] ]
   end
@@ -193,17 +193,11 @@ class Chadcn::Chart::BarChartTest < Chadcn::TestCase
   end
 
   test "markup the block writes lands in the svg after the clip path" do
-    html = render_chart do |chart|
-      chart.bar(data_key: :desktop)
-      raw(safe("<defs><linearGradient id=\"g\"></linearGradient></defs>")) if false
-    end
-    assert_not_includes html, "linearGradient"
-
     marked = Class.new(Phlex::HTML) do
       def view_template
         render(Chadcn::Chart::Container.new(config: ChartHelper::CONFIG, id: "m")) do
           render(Chadcn::Chart::AreaChart.new(data: ChartHelper::ROWS)) do |chart|
-            render Phlex::SVG.new { |svg| svg.defs { svg.linearGradient(id: "fill") } }
+            render(Phlex::SVG.new { |svg| svg.defs { svg.linearGradient(id: "fill") } })
             chart.area(data_key: :desktop, fill: "url(#fill)")
           end
         end

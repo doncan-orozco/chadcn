@@ -29,7 +29,8 @@ class Chadcn::Chart::Cartesian::LayoutTest < Chadcn::TestCase
   end
 
   test "axes are placed at the edge of the plot they sit on, side by side when there are several" do
-    chart = layout(Chadcn::Chart::XAxis.new(orientation: :top), Chadcn::Chart::YAxis.new(orientation: :right), Chadcn::Chart::YAxis.new(y_axis_id: "b", width: 30, orientation: :right))
+    chart = layout(Chadcn::Chart::XAxis.new(orientation: :top), Chadcn::Chart::YAxis.new(orientation: :right),
+                   Chadcn::Chart::YAxis.new(y_axis_id: "b", width: 30, orientation: :right))
     top, right, second = chart.drawn_axes
 
     assert_equal [ 5.0, 5.0, 220.0, 30 ], [ top[:x], top[:y], top[:width], top[:height] ]
@@ -40,7 +41,7 @@ class Chadcn::Chart::Cartesian::LayoutTest < Chadcn::TestCase
   test "an axis nobody declared still exists, hidden and with a scale" do
     chart = layout(Chadcn::Chart::Bar.new(data_key: :desktop, y_axis_id: "other"))
 
-    assert chart.axis(:y, "other").scaled?
+    assert_predicate chart.axis(:y, "other"), :scaled?
     assert chart.axis(:x).settings.hide
     assert_empty chart.drawn_axes
   end
@@ -50,9 +51,9 @@ class Chadcn::Chart::Cartesian::LayoutTest < Chadcn::TestCase
     top = layout(Chadcn::Chart::Legend.new(vertical_align: :top, height: 20), Chadcn::Chart::Bar.new(data_key: :desktop))
     side = layout(Chadcn::Chart::Legend.new(layout: :vertical, align: :right, width: 40), Chadcn::Chart::Bar.new(data_key: :desktop))
 
-    assert_equal 162.0, bottom.plot[:height]
+    assert_in_delta 162.0, bottom.plot[:height]
     assert_equal [ 25.0, 170.0 ], [ top.plot[:y], top.plot[:height] ]
-    assert_equal 270.0, side.plot[:width]
+    assert_in_delta 270.0, side.plot[:width]
   end
 
   test "grid points are the visible ticks plus the edges of the plot, or the points given" do

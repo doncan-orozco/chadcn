@@ -16,10 +16,10 @@ class Chadcn::Chart::Cartesian::ValueTest < Chadcn::TestCase
   end
 
   test "number accepts finite numbers and numeric strings as JavaScript does, nothing else" do
-    assert_equal 5.0, Value.number(5)
-    assert_equal 1.5, Value.number("1.5")
-    assert_equal 1000.0, Value.number(" 1e3 ")
-    assert_equal 0.0, Value.number("")
+    assert_in_delta 5.0, Value.number(5)
+    assert_in_delta 1.5, Value.number("1.5")
+    assert_in_delta 1000.0, Value.number(" 1e3 ")
+    assert_in_delta 0.0, Value.number("")
     assert_nil Value.number("12px")
     assert_nil Value.number("0x10")
     assert_nil Value.number(Float::NAN)
@@ -43,12 +43,12 @@ class Chadcn::Chart::Cartesian::ValueTest < Chadcn::TestCase
   end
 
   test "percent is a number, a numeric string or a share of the total; validate caps it" do
-    assert_equal 4.0, Value.percent(4, 100)
+    assert_in_delta 4.0, Value.percent(4, 100)
     assert_in_delta 10.0, Value.percent("10%", 100), 0.0001
-    assert_equal 7.0, Value.percent("7", 100)
-    assert_equal 0.0, Value.percent("10%", nil)
-    assert_equal 0.0, Value.percent(nil, 100)
-    assert_equal 5.0, Value.percent("abc", 100, 5.0)
+    assert_in_delta 7.0, Value.percent("7", 100)
+    assert_in_delta 0.0, Value.percent("10%", nil)
+    assert_in_delta 0.0, Value.percent(nil, 100)
+    assert_in_delta 5.0, Value.percent("abc", 100, 5.0)
     assert_equal 100, Value.percent(250, 100, 0.0, validate: true)
   end
 end

@@ -7,7 +7,7 @@ class Chadcn::Chart::Cartesian::LabelPositionTest < Chadcn::TestCase
   BOX = { x: 10.0, y: 50.0, width: 40.0, height: 30.0 }.freeze
   PARENT = { x: 0.0, y: 0.0, width: 320.0, height: 200.0 }.freeze
 
-  def place(position, **options) = LabelPosition.call(box: BOX, position: position, offset: 5, **options)
+  def place(position, **) = LabelPosition.call(box: BOX, position: position, offset: 5, **)
 
   test "top sits above the box, centered, hanging from the bottom; the clamp is the room above" do
     top = place(:top, parent: PARENT)
@@ -24,7 +24,7 @@ class Chadcn::Chart::Cartesian::LabelPositionTest < Chadcn::TestCase
     assert_equal [ 30.0, 85.0, :start ], [ bottom.x, bottom.y, bottom.vertical_anchor ]
     assert_equal [ 5.0, 65.0, :end ], [ left.x, left.y, left.horizontal_anchor ]
     assert_equal [ 55.0, :start ], [ right.x, right.horizontal_anchor ]
-    assert_equal 265.0, right.width
+    assert_in_delta 265.0, right.width
   end
 
   test "the inside positions are snake_case and keep the size of the box" do
@@ -32,7 +32,7 @@ class Chadcn::Chart::Cartesian::LabelPositionTest < Chadcn::TestCase
 
     assert_equal [ 15.0, 55.0, :start, :start ], [ inside.x, inside.y, inside.horizontal_anchor, inside.vertical_anchor ]
     assert_equal [ 40.0, 30.0 ], [ inside.width, inside.height ]
-    assert_equal [ 45.0, 75.0 ], place(:inside_bottom_right).then { |result| [ result.x, result.y ] }
+    assert_equal([ 45.0, 75.0 ], place(:inside_bottom_right).then { |result| [ result.x, result.y ] })
   end
 
   test "anything else, and a position without a parent, centers the label and has no size" do
@@ -40,7 +40,7 @@ class Chadcn::Chart::Cartesian::LabelPositionTest < Chadcn::TestCase
 
     assert_equal [ 30.0, 65.0, :middle, :middle ], [ center.x, center.y, center.horizontal_anchor, center.vertical_anchor ]
     assert_nil center.width
-    assert_equal [ 30.0, 65.0 ], place(:nonsense).then { |result| [ result.x, result.y ] }
+    assert_equal([ 30.0, 65.0 ], place(:nonsense).then { |result| [ result.x, result.y ] })
   end
 
   test "a negative height flips the vertical anchors and the offset" do

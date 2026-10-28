@@ -32,7 +32,7 @@ module ChartHelper
 
   def parse(html) = Nokogiri::HTML5.fragment(html)
 
-  def layer(doc, z) = doc.at_css("g.recharts-zIndex-layer_#{z}")
+  def layer(doc, index) = doc.at_css("g.recharts-zIndex-layer_#{index}")
 
   def number(node, name) = node[name].to_f
 

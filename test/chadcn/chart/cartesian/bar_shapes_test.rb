@@ -22,7 +22,7 @@ class Chadcn::Chart::Cartesian::BarShapesTest < Chadcn::TestCase
   test "a bar grows from the zero line to its value" do
     first = rects.first
 
-    assert_equal [ 10.1667, 84.5625, 41.0, 110.4375 ], [ first.x, first.y, first.width, first.height ].map { |value| value.round(4) }
+    assert_equal([ 10.1667, 84.5625, 41.0, 110.4375 ], [ first.x, first.y, first.width, first.height ].map { |value| value.round(4) })
     assert_equal 186, first.value
     assert_equal 0, first.index
     assert_equal "January", first.row[:month]

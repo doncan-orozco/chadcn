@@ -32,7 +32,7 @@ class Chadcn::Chart::Cartesian::RectangleTest < Chadcn::TestCase
   end
 
   test "numbers are rounded to four decimals and never print -0" do
-    assert_equal 0.3333, Rectangle.round(1.0 / 3)
+    assert_in_delta 0.3333, Rectangle.round(1.0 / 3)
     assert_equal "M 0.3333,0 h 1 v 1 h -1 Z", Rectangle.path(1.0 / 3, -0.00001, 1, 1, nil)
   end
 end

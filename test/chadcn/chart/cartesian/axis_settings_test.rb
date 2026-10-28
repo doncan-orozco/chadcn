@@ -10,7 +10,7 @@ class Chadcn::Chart::Cartesian::AxisSettingsTest < Chadcn::TestCase
                  tick_margin: 2, tick_count: 5, tick_formatter: nil, interval: :preserve_end, min_tick_gap: 5, mirror: false, reversed: false, padding: nil,
                  domain: nil, allow_decimals: true, allow_duplicated_category: true, allow_data_overflow: false, include_hidden: false, nice_ticks: :auto,
                  angle: 0, unit: nil, ticks: nil, scale: :auto, stroke: "#666", axis_id: 0, name: nil, attrs: {} }
-    AxisSettings.build(kind, **defaults.merge(changes))
+    AxisSettings.build(kind, **defaults, **changes)
   end
 
   test "an axis nobody declared is hidden, with recharts' implicit defaults" do
@@ -45,7 +45,7 @@ class Chadcn::Chart::Cartesian::AxisSettingsTest < Chadcn::TestCase
 
     assert_equal %w[dataMin dataMax], settings.domain
     assert_equal [ 0, "auto" ], build(domain: nil).domain_definition
-    assert build(domain: [ 0, :auto ]).auto_domain?
+    assert_predicate build(domain: [ 0, :auto ]), :auto_domain?
     assert_not build(domain: [ 0, 100 ]).auto_domain?
   end
 

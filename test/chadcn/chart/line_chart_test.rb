@@ -22,8 +22,8 @@ class Chadcn::Chart::LineChartTest < Chadcn::TestCase
     dots = layer(doc, 600).css("circle.recharts-line-dot")
 
     assert curve["d"].start_with?("M72,71.187C87.733,39.578,103.467,7.969,119.2,7.969C134.933,7.969,150.667,23.552,166.4,44.094C182.133,64.635,197.867,131.219,213.6,131.219")
-    assert_equal [ "none", "170", "236" ], [ curve["fill"], curve["height"], curve["width"] ]
-    assert_equal [ 72, 119.2, 166.4, 213.6, 260.8, 308 ], dots.map { |dot| dot["cx"].to_f.round(4) }
+    assert_equal %w[none 170 236], [ curve["fill"], curve["height"], curve["width"] ]
+    assert_equal([ 72, 119.2, 166.4, 213.6, 260.8, 308 ], dots.map { |dot| dot["cx"].to_f.round(4) })
     assert_equal [ "3", "var(--color-desktop)", "2" ], [ dots.first["r"], dots.first["stroke"], dots.first["stroke-width"] ]
     assert_equal "#fff", dots.first["fill"]
   end
@@ -35,7 +35,7 @@ class Chadcn::Chart::LineChartTest < Chadcn::TestCase
 
     assert_equal %w[72 0 170 236], [ clip["x"], clip["y"], clip["height"], clip["width"] ]
     assert_equal %w[0 80 160 240 320], y_labels.map(&:text)
-    assert_equal [ "end", "58" ], [ y_labels.first["text-anchor"], y_labels.first["x"] ]
+    assert_equal %w[end 58], [ y_labels.first["text-anchor"], y_labels.first["x"] ]
     assert_equal "8", y_labels.last["y"]
   end
 
@@ -81,7 +81,9 @@ class Chadcn::Chart::LineChartTest < Chadcn::TestCase
   end
 
   test "a line label list writes the value above each point" do
-    doc = parse(render_chart(Chadcn::Chart::LineChart, margin: { top: 20 }) { |chart| chart.line(data_key: :desktop) { |line| line.label_list(position: :top, offset: 8) } })
+    doc = parse(render_chart(Chadcn::Chart::LineChart, margin: { top: 20 }) do |chart|
+      chart.line(data_key: :desktop) { |line| line.label_list(position: :top, offset: 8) }
+    end)
     texts = layer(doc, 2000).css(".recharts-label-list text")
 
     assert_equal 6, texts.size

@@ -49,13 +49,15 @@ class Chadcn::Chart::Cartesian::LinePointsTest < Chadcn::TestCase
     area = placed(:area, Chadcn::Chart::Area.new(data_key: :desktop)).first.area
 
     assert_kind_of Numeric, area.baseline
-    assert_equal false, area.range
+    refute area.range
 
     top = placed(:area, Chadcn::Chart::Area.new(data_key: :desktop, base_value: :data_max)).first.area.baseline
 
     assert_operator top, :<, area.baseline
     assert_equal top, placed(:area, Chadcn::Chart::Area.new(data_key: :desktop), base_value: "dataMax").first.area.baseline
-    assert_equal 100.0, placed(:area, Chadcn::Chart::Area.new(data_key: :desktop, base_value: 160), data: [ { desktop: 0 }, { desktop: 320 } ]).first.area.baseline
+    half = placed(:area, Chadcn::Chart::Area.new(data_key: :desktop, base_value: 160), data: [ { desktop: 0 }, { desktop: 320 } ])
+
+    assert_in_delta 100.0, half.first.area.baseline
   end
 
   test "stacked areas have the lower edge of their stack as baseline" do

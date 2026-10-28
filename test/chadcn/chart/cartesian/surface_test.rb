@@ -30,7 +30,7 @@ class Chadcn::Chart::Cartesian::SurfaceTest < Chadcn::TestCase
     group = layer(parse(html), 500).at_css("g.recharts-xAxis")
 
     assert_equal "recharts-layer recharts-cartesian-axis recharts-xAxis xAxis my-axis", group["class"]
-    assert_equal [ "3", "months" ], values(group.at_css("line.recharts-cartesian-axis-line"), "stroke-width", "name")
+    assert_equal %w[3 months], values(group.at_css("line.recharts-cartesian-axis-line"), "stroke-width", "name")
     assert_equal 6, group.css("line.recharts-cartesian-axis-tick-line").size
     assert_equal "red", group.at_css("line.recharts-cartesian-axis-tick-line")["stroke"]
   end
@@ -45,7 +45,7 @@ class Chadcn::Chart::Cartesian::SurfaceTest < Chadcn::TestCase
     x_label = layer(doc, 2000).at_css(".recharts-xAxis-tick-labels text")
     y_label = layer(doc, 2000).at_css(".recharts-yAxis-tick-labels text")
 
-    assert_equal [ "middle", "0em" ], [ x_label["text-anchor"], x_label.at_css("tspan")["dy"] ]
+    assert_equal %w[middle 0em], [ x_label["text-anchor"], x_label.at_css("tspan")["dy"] ]
     assert_equal [ "start", "0.355em" ], [ y_label["text-anchor"], y_label.at_css("tspan")["dy"] ]
   end
 
@@ -108,7 +108,10 @@ class Chadcn::Chart::Cartesian::SurfaceTest < Chadcn::TestCase
   end
 
   test "a standalone label is drawn around the plot" do
-    html = render_chart { |chart| chart.label(value: "Target", position: :top, class: "fill-foreground") && chart.bar(data_key: :desktop) }
+    html = render_chart do |chart|
+      chart.label(value: "Target", position: :top, class: "fill-foreground")
+      chart.bar(data_key: :desktop)
+    end
     label = layer(parse(html), 2000).at_css("text.fill-foreground")
 
     assert_equal "Target", label.text

@@ -13,8 +13,8 @@ class Chadcn::Chart::Cartesian::TickLayoutTest < Chadcn::TestCase
   end
 
   def visible(list, **changes)
-    settings = TickLayout::Settings.new(**{ orientation: :bottom, interval: :preserve_end, min_tick_gap: 5, formatter: nil, unit: nil, angle: 0,
-                                            view_box: VIEW }.merge(changes))
+    settings = TickLayout::Settings.new(orientation: :bottom, interval: :preserve_end, min_tick_gap: 5, formatter: nil, unit: nil, angle: 0, view_box: VIEW,
+                                        **changes)
     TickLayout.visible(list, settings, Chadcn::Chart::Cartesian::Text.new)
   end
 

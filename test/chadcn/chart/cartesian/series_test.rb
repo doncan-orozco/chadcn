@@ -6,7 +6,7 @@ class Chadcn::Chart::Cartesian::SeriesTest < Chadcn::TestCase
   include ChartHelper
 
   test "a series knows its kind and keeps its options frozen" do
-    assert_equal [ :bar, :line, :area ], [ Chadcn::Chart::Bar, Chadcn::Chart::Line, Chadcn::Chart::Area ].map { |klass| klass.new(data_key: :a).kind }
+    assert_equal(%i[bar line area], [ Chadcn::Chart::Bar, Chadcn::Chart::Line, Chadcn::Chart::Area ].map { |klass| klass.new(data_key: :a).kind })
     assert_predicate Chadcn::Chart::Bar.new(data_key: :a).options, :frozen?
   end
 
@@ -28,7 +28,7 @@ class Chadcn::Chart::Cartesian::SeriesTest < Chadcn::TestCase
 
     assert_equal 1, plain.label_lists.size
     assert_equal :middle, plain.label_lists.first.options[:position]
-    assert_equal [ :top, :middle ], custom.label_lists.map { |list| list.options[:position] }
+    assert_equal(%i[top middle], custom.label_lists.map { |list| list.options[:position] })
     assert_empty Chadcn::Chart::Bar.new(data_key: :a).label_lists
   end
 

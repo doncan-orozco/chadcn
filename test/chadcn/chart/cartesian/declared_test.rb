@@ -7,12 +7,12 @@ class Chadcn::Chart::Cartesian::DeclaredTest < Chadcn::TestCase
 
   test "keeps what was declared in order, split by kind" do
     list = declared
-    parts = [ Chadcn::Chart::CartesianGrid.new, Chadcn::Chart::XAxis.new(x_axis_id: "a"), Chadcn::Chart::Bar.new(data_key: :a), Chadcn::Chart::Line.new(data_key: :b),
-              Chadcn::Chart::ReferenceLine.new(y: 1), Chadcn::Chart::YAxis.new, Chadcn::Chart::Label.new(value: "x") ]
+    parts = [ Chadcn::Chart::CartesianGrid.new, Chadcn::Chart::XAxis.new(x_axis_id: "a"), Chadcn::Chart::Bar.new(data_key: :a),
+              Chadcn::Chart::Line.new(data_key: :b), Chadcn::Chart::ReferenceLine.new(y: 1), Chadcn::Chart::YAxis.new, Chadcn::Chart::Label.new(value: "x") ]
     parts.each { |part| list.declare(part) }
 
     assert_equal parts, list.items
-    assert_equal [ :x, :y ], list.axes.map(&:kind)
+    assert_equal %i[x y], list.axes.map(&:kind)
     assert_equal [ parts[2], parts[3] ], list.series
     assert_equal [ parts[4] ], list.references
     assert_equal [ parts[0] ], list.of(Chadcn::Chart::CartesianGrid)
