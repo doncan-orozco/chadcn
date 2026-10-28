@@ -104,10 +104,59 @@ class Chadcn::CarouselTest < Chadcn::TestCase
     assert_raises(ArgumentError) { Carousel.new(set_api: -> { }) }
   end
 
+  test "targets, actions and merged caller data" do
+    doc = fragment(carousel(root: { data: { action: "click->x#y", foo: "bar" } }, content: { data: { baz: "1" }, id: "inner" }, nxt: { class: "n" }))
+    root = doc.at_css("[data-slot=carousel]")
+    viewport = doc.at_css("[data-slot=carousel-content]")
+    inner = viewport.at_css("> div")
+
+    assert_equal "chadcn--carousel", root["data-controller"]
+    assert_equal "keydown->chadcn--carousel#keydown:capture click->x#y", root["data-action"]
+    assert_equal "bar", root["data-foo"]
+    assert_equal "horizontal", root["data-chadcn--carousel-orientation-value"]
+    assert_equal "viewport", viewport["data-chadcn--carousel-target"]
+    assert_nil viewport["id"]
+    assert_nil viewport["data-baz"]
+    assert_equal "inner", inner["id"]
+    assert_equal "1", inner["data-baz"]
+    assert_equal "previous", doc.at_css("[data-slot=carousel-previous]")["data-chadcn--carousel-target"]
+    assert_equal "next", doc.at_css("[data-slot=carousel-next]")["data-chadcn--carousel-target"]
+    assert_equal "click->chadcn--carousel#scrollNext", doc.at_css("[data-slot=carousel-next]")["data-action"]
+  end
+
+  test "an item caller role wins" do
+    doc = fragment(carousel(item: { role: "listitem" }))
+
+    assert_equal "listitem", doc.css("[data-slot=carousel-item]").first["role"]
+    assert_equal "group", doc.css("[data-slot=carousel-item]").last["role"]
+  end
+
+  test "previous and next take a label" do
+    doc = fragment(carousel(previous: { label: "Anterior" }, nxt: { label: "Siguiente" }))
+
+    assert_equal "Anterior", doc.at_css("[data-slot=carousel-previous] .sr-only").text
+    assert_equal "Siguiente", doc.at_css("[data-slot=carousel-next] .sr-only").text
+    assert_nil doc.at_css("[data-slot=carousel-next]")["label"]
+  end
+
+  test "content outside a carousel raises" do
+    assert_raises(ArgumentError) { render_view { render(Carousel::Content.new) { "x" } } }
+  end
+
+  test "non-boolean and non-enum opts raise, symbols and breakpoints normalize" do
+    assert_raises(ArgumentError) { Carousel.new(opts: { loop: "yes" }) }
+    assert_raises(ArgumentError) { Carousel.new(opts: "loop") }
+    assert_equal({ "align" => "end" }, JSON.parse(fragment(render_view { render(Carousel.new(opts: { align: :end })) }).at_css("[data-slot=carousel]")["data-chadcn--carousel-opts-value"]))
+  end
+
   test "parts outside a carousel raise" do
     error = assert_raises(ArgumentError) { render_view { render(Carousel::Item.new) } }
 
     assert_match(%r{useCarousel must be used within a <Carousel />}, error.message)
+  end
+
+  test "only the four parts generate helpers" do
+    assert_equal %i[content item next previous], (Carousel.public_instance_methods(false) - %i[view_template]).sort
   end
 
   test "every spec helper renders like the explicit part" do

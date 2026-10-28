@@ -14,10 +14,7 @@ class Chadcn::Carousel::Content < Chadcn::Base
   # @yield the slides
   # @return [void]
   def view_template(&)
-    attrs = merge_attrs({
-                          class: [ "flex", (horizontal? ? "-ml-4" : "-mt-4 flex-col") ],
-                          data: { chadcn__carousel_target: "container" }
-                        }, @attrs)
+    attrs = merge_attrs({ class: [ "flex", (horizontal? ? "-ml-4" : "-mt-4 flex-col") ] }, @attrs)
     div(class: "overflow-hidden", data: { slot: "carousel-content", chadcn__carousel_target: "viewport" }) do
       div(**attrs, &)
     end

@@ -31,14 +31,19 @@ Chadcn::Carousel.new(
   booleans only), `breakpoints` (`{}`; media query String -> Hash of the same options, merged when the query matches,
   embla:1449-1468), `container` / `slides` (`null`; CSS selector Strings, embla:1516-1525). Enum values outside the lists raise
   `ArgumentError` (TS unions). Unknown keys are serialized and ignored by the controller, like embla ignores them.
+- Changing the `orientation` or `opts` value of a rendered root (Stimulus value change) re-initializes the engine with the new
+  axis/options (embla-carousel-react re-inits on option change); the server-rendered part classes (`-ml-4`/`flex-col`, `pl-4`/`pt-4`,
+  the arrow placement) belong to the Ruby render and do NOT change, so switching `orientation` at runtime is only correct when the
+  markup is rendered again.
 - `axis` is always derived from `orientation` (`"horizontal"` -> `"x"`, else `"y"`, tsx:57, written after `...opts`, so an `axis`
   in `opts` is overridden). Scenario `opts-axis-ignored__orientation-wins`.
-- `plugins:` and `set_api:` (React-only JS values, tsx:48-49) are not keyword arguments: passing them raises `ArgumentError` naming
-  the JS API below (deviation). They are never rendered as attributes.
+- `plugins:` and `set_api:` (React-only JS values, tsx:48-49) ARE keyword arguments, declared only so that a non-nil value raises
+  `ArgumentError` naming the JS API below (deviation); `nil` is accepted and ignored. They are never rendered as attributes.
 - Not forwarded: `orientation`, `opts` (tsx:45-53 destructure them). The root has NO `data-orientation`/`aria-orientation`.
 - JS API (the `setApi` / `CarouselApi` equivalent, deviation): the controller exposes `api` (an embla-shaped object, see Behavior)
   and dispatches, on the root, bubbling:
-  - `chadcn--carousel:api` with `detail: { api }` once the engine exists on connect (tsx:91-94 calls `setApi(api)` in an effect);
+  - `chadcn--carousel:api` with `detail: { api }` every time an engine is built (connect, an `opts`/`orientation` value change, and
+    the restore after a Turbo cache snapshot; tsx:91-94 calls `setApi(api)` in an effect, which also runs again when the api changes);
   - `chadcn--carousel:select` with `detail: { index, previousIndex }` (embla `select`, embla:871);
   - `chadcn--carousel:reinit` with `detail: { index }` (embla `reInit`, embla:1564);
   - `chadcn--carousel:settle` with `detail: { index }` (embla `settle`, embla:1330).
@@ -71,8 +76,8 @@ Chadcn::Carousel::Item.new(class: nil, **attrs) { slide content }
 ### `CarouselPrevious` / `CarouselNext` -> `Chadcn::Carousel::Previous` / `Chadcn::Carousel::Next`
 
 ```ruby
-Chadcn::Carousel::Previous.new(variant: "outline", size: "icon", class: nil, **attrs)
-Chadcn::Carousel::Next.new(variant: "outline", size: "icon", class: nil, **attrs)
+Chadcn::Carousel::Previous.new(variant: "outline", size: "icon", label: "Previous slide", class: nil, **attrs)
+Chadcn::Carousel::Next.new(variant: "outline", size: "icon", label: "Next slide", class: nil, **attrs)
 ```
 
 - Render `Chadcn::Button.new(variant:, size:, ...)` (tsx:182-200, 212-230) with `data-slot="carousel-previous"` /
@@ -83,7 +88,8 @@ Chadcn::Carousel::Next.new(variant: "outline", size: "icon", class: nil, **attrs
   `size-8` beats the size cva (`size-9` for `icon`), `rounded-full` beats `rounded-md`.
 - `variant:` / `size:` accept every Button option as string or symbol (`size: :icon_lg` == `"icon-lg"`).
 - Content is fixed: `Icon("arrow-left")` + `span.sr-only "Previous slide"` / `Icon("arrow-right")` + `span.sr-only "Next slide"`
-  (tsx:198-199, 228-229). A block is ignored, like React (explicit JSX children win over `props.children`). `as_child:` is not
+  (tsx:198-199, 228-229); the sr-only text is the `label:` kwarg (design-system R13: the default string is a kwarg, the DOM is
+  unchanged by default). A block is ignored, like React (explicit JSX children win over `props.children`). `as_child:` is not
   supported (Radix Slot would receive two children and throw).
 - `disabled:` in `**attrs`: React spreads `{...props}` after `disabled={!canScrollX}` (tsx:194-196), so a caller value (true OR
   false) is final: it is rendered and the controller never touches it (scenarios `next__disabled-prop`,
@@ -100,7 +106,7 @@ Server render (horizontal, 2 items):
      data-controller="chadcn--carousel" data-action="keydown->chadcn--carousel#keydown:capture"
      data-chadcn--carousel-orientation-value="horizontal" data-chadcn--carousel-opts-value="{}">
   <div class="overflow-hidden" data-slot="carousel-content" data-chadcn--carousel-target="viewport">
-    <div class="flex -ml-4" data-chadcn--carousel-target="container">
+    <div class="flex -ml-4">
       <div role="group" aria-roledescription="slide" data-slot="carousel-item" class="min-w-0 shrink-0 grow-0 basis-full pl-4">...</div>
       <div role="group" aria-roledescription="slide" data-slot="carousel-item" class="min-w-0 shrink-0 grow-0 basis-full pl-4">...</div>
     </div>
@@ -120,7 +126,9 @@ Server render (horizontal, 2 items):
   `data-orientation` anywhere (the oracle renders none).
 - Server state: both buttons `disabled=""` (React's first render: `canScrollPrev`/`canScrollNext` start `false`, tsx:61-62). On
   connect the controller builds the engine and reconciles each button whose `disabled` the caller did not set
-  (`disabled = !api.canScrollPrev()` / `!api.canScrollNext()`, tsx:64-68, 96-100), again on every `select` and `reInit`.
+  (`disabled = !api.canScrollPrev()` / `!api.canScrollNext()`, tsx:64-68, 96-100), again on every `select` and `reInit`. A button
+  whose `disabled:` the caller set carries `data-chadcn--carousel-locked="true"` (ignored by the gate) and is never touched by the
+  controller. With no slides (no engine) both buttons stay `disabled`.
 - Stimulus-owned DOM (embla parity, compared through the scenario `observe` selector `[data-slot=carousel-content] > div`):
   - the container gets `style.transform = "translate3d(<x>px,0px,0px)"` (vertical `translate3d(0px,<y>px,0px)`) on activation and
     on every rendered frame, value rounded to two decimals and skipped when unchanged (embla:954-985, 1547); not set when
@@ -229,8 +237,10 @@ true and the Next button enabled) but nothing is listened to or translated and s
 
 ### Lifecycle
 `connect()` = create the engine (embla `activate`); `disconnect()` = embla `destroy` (remove every listener and observer,
-cancel the frame, clear the container and slide transforms, emit `destroy`), so a Turbo cache snapshot restored later starts
-from `startIndex` like a fresh React mount. No timers survive disconnect. Changing `opts`/`orientation` values re-inits
+cancel the frame, clear the container and slide transforms, emit `destroy`), so a reconnect starts from `startIndex` like a fresh
+React mount. No timers survive disconnect. Turbo page cache: on `turbo:before-cache` (primitive `turbo_cache.js`) the engine is
+destroyed synchronously, so the snapshot holds the server markup (no inline transforms, both unlocked buttons `disabled`), and it
+is built again after the snapshot tick (from `startIndex`); until then `api` is null and scroll calls are no-ops. Changing `opts`/`orientation` values re-inits
 (embla-carousel-react re-inits when options change).
 
 ## Third-party
@@ -238,8 +248,8 @@ from `startIndex` like a fresh React mount. No timers survive disconnect. Changi
 - Library replaced: `embla-carousel` 8.6.0 via `embla-carousel-react` 8.6.0 (catalog `package.json` `^8.6.0`). No npm package,
   importmap pin or vendor file is added: the behavior above is re-implemented in the Stimulus controller (maintainer
   constraint, like sonner/command).
-- DOM mapping: embla `root` = shadcn `CarouselContent` viewport (`data-slot=carousel-content`), embla `container` = the inner flex
-  div (no data-slot), embla `slides` = `CarouselItem`s. The prev/next buttons and the keyboard handler are shadcn's, not embla's.
+- DOM mapping: embla `root` = shadcn `CarouselContent` viewport (`data-slot=carousel-content`, the controller's `viewport` target),
+  embla `container` = the inner flex div (no data-slot, found as the viewport's first child, like embla), embla `slides` = `CarouselItem`s. The prev/next buttons and the keyboard handler are shadcn's, not embla's.
 - Embla writes no attributes or classes, only inline `transform` on the container (and on loop slides); the port writes the same
   values, which is what the observed container and the slide boxes/computed transforms compare.
 - CSS scroll-snap is deliberately NOT used: the viewport is `overflow-hidden` (an oracle class, computed `overflow` is compared),
@@ -249,6 +259,22 @@ from `startIndex` like a fresh React mount. No timers survive disconnect. Changi
   reproduces embla exactly. No CSS class is added.
 - `Autoplay` and other embla plugins (`carousel-plugin` example) are separate npm packages, not in the oracle's dependencies;
   not ported (deviation). The `chadcn--carousel:select` events and `api.scrollNext()` let an application drive autoplay itself.
+
+<!-- spec_helpers:begin -->
+## DX helpers (derived from the oracle, do not edit)
+
+`Chadcn::Carousel` MUST `yield self` from `view_template`; `Chadcn::Base` generates one helper per nested part (`const_added`), each exactly `render Carousel::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Chadcn::Carousel::Content.new`) stay valid.
+
+| helper | part class | React export |
+|---|---|---|
+| `carousel.content` | `Carousel::Content` | `CarouselContent` |
+| `carousel.item` | `Carousel::Item` | `CarouselItem` |
+| `carousel.previous` | `Carousel::Previous` | `CarouselPrevious` |
+| `carousel.next` | `Carousel::Next` | `CarouselNext` |
+
+
+Acceptance (unit test): every row exists as a public method on the root instance and renders the same HTML as the explicit class call; no helper is defined by hand.
+<!-- spec_helpers:end -->
 
 ## Dependencies
 

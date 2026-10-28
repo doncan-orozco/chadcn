@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import { turboCacheRestore } from "chadcn/primitives/turbo_cache"
 
 // shadcn Carousel (dev/port/specs/carousel.md). Host = the carousel root. The scrolling engine below is a re-implementation of
 // embla-carousel 8.6.0 (MIT): the same measurements, snaps, scroll physics, drag, loop and slide focus, writing the same inline
@@ -891,17 +892,26 @@ function EmblaCarousel(root, userOptions) {
 }
 
 export default class extends Controller {
-  static targets = ["viewport", "container", "previous", "next"]
+  static targets = ["viewport", "previous", "next"]
   static values = {
     orientation: { type: String, default: "horizontal" },
     opts: { type: Object, default: {} }
   }
 
+  api = null
+  built = null
+  cache = null
+
   connect() {
     this.#create()
+    // The engine writes inline transforms and the buttons' `disabled`; Turbo's snapshot must hold the server markup, so the
+    // engine is destroyed on turbo:before-cache and built again once the snapshot is taken.
+    this.cache = turboCacheRestore({ teardown: () => this.#snapshot(), restore: () => this.#create() })
   }
 
   disconnect() {
+    this.cache?.release()
+    this.cache = null
     this.#destroy()
   }
 
@@ -939,21 +949,24 @@ export default class extends Controller {
   }
 
   #create() {
-    if (!this.hasViewportTarget || !this.viewportTarget.children[0]) return
+    if (!this.hasViewportTarget || !this.viewportTarget.children[0]) {
+      this.built = null
+      return
+    }
     this.built = this.#signature()
     const options = { ...this.optsValue, axis: this.orientationValue === "horizontal" ? "x" : "y" }
     this.api = EmblaCarousel(this.viewportTarget, options)
-    this.onSelect = () => {
-      this.#reconcileButtons()
-      this.#emit("select", { index: this.api.selectedScrollSnap(), previousIndex: this.api.previousScrollSnap() })
-    }
-    this.onReInit = () => {
-      this.#reconcileButtons()
-      this.#emit("reinit", { index: this.api.selectedScrollSnap() })
-    }
-    this.onSettle = () => this.#emit("settle", { index: this.api.selectedScrollSnap() })
-    this.api.on("select", this.onSelect).on("reInit", this.onReInit).on("settle", this.onSettle)
-    this.#emit("api", { api: this.api })
+    this.api
+      .on("select", () => {
+        this.#reconcileButtons()
+        this.dispatch("select", { detail: { index: this.api.selectedScrollSnap(), previousIndex: this.api.previousScrollSnap() } })
+      })
+      .on("reInit", () => {
+        this.#reconcileButtons()
+        this.dispatch("reinit", { detail: { index: this.api.selectedScrollSnap() } })
+      })
+      .on("settle", () => this.dispatch("settle", { detail: { index: this.api.selectedScrollSnap() } }))
+    this.dispatch("api", { detail: { api: this.api } })
     this.#reconcileButtons()
   }
 
@@ -966,18 +979,23 @@ export default class extends Controller {
     this.api = null
   }
 
+  // The engine is gone and the server markup is back: the buttons start disabled again (a caller's `disabled` is left alone).
+  #snapshot() {
+    this.#destroy()
+    const disable = (button) => { if (!this.#locked(button)) button.disabled = true }
+    this.previousTargets.forEach(disable)
+    this.nextTargets.forEach(disable)
+  }
+
   // Buttons whose `disabled` the caller set (data-chadcn--carousel-locked) are never touched (React spreads props last).
+  // Without an engine (an empty viewport) both start disabled, as the server rendered them.
   #reconcileButtons() {
     const { api } = this
-    this.previousTargets.forEach((button) => { if (!this.#locked(button)) button.disabled = !api.canScrollPrev() })
-    this.nextTargets.forEach((button) => { if (!this.#locked(button)) button.disabled = !api.canScrollNext() })
+    this.previousTargets.forEach((button) => { if (!this.#locked(button)) button.disabled = api ? !api.canScrollPrev() : true })
+    this.nextTargets.forEach((button) => { if (!this.#locked(button)) button.disabled = api ? !api.canScrollNext() : true })
   }
 
   #locked(button) {
     return button.hasAttribute("data-chadcn--carousel-locked")
-  }
-
-  #emit(name, detail) {
-    this.element.dispatchEvent(new CustomEvent(`chadcn--carousel:${name}`, { detail, bubbles: true }))
   }
 }

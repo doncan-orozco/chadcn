@@ -20,15 +20,7 @@ class Chadcn::Carousel < Chadcn::Base
   ROOT_KEY = :shadcn_carousel_root
 
   ORIENTATIONS = %w[horizontal vertical].freeze
-
-  # Enumerated embla options (the TS unions); other values raise like a type error would.
-  ENUM_OPTIONS = {
-    "align" => %w[start center end],
-    "containScroll" => [ "trimSnaps", "keepSnaps", false ].freeze,
-    "direction" => %w[ltr rtl]
-  }.freeze
-  BOOLEAN_OPTIONS = %w[active watchDrag watchResize watchSlides watchFocus loop dragFree skipSnaps].freeze
-  private_constant :ENUM_OPTIONS, :BOOLEAN_OPTIONS
+  private_constant :ORIENTATIONS
 
   # @param orientation [String, Symbol] "horizontal" or "vertical"
   # @param opts [Hash, nil] embla options (symbol or string keys, snake_case or camelCase); `axis` is derived from `orientation`
@@ -44,7 +36,7 @@ class Chadcn::Carousel < Chadcn::Base
     @orientation = normalize_option(orientation)
     raise ArgumentError, "unknown orientation: #{orientation.inspect} (expected horizontal or vertical)" unless ORIENTATIONS.include?(@orientation)
 
-    @opts = normalize_opts(opts)
+    @opts = Chadcn::Carousel::Options.normalize(opts)
     @attrs = attrs
     super()
   end
@@ -66,36 +58,5 @@ class Chadcn::Carousel < Chadcn::Base
     div(**attrs) { yield self if block_given? }
   ensure
     context[ROOT_KEY] = previous
-  end
-
-  private
-
-  def normalize_opts(opts)
-    return {} if opts.nil?
-    raise ArgumentError, "opts: must be a Hash (got #{opts.class})" unless opts.is_a?(Hash)
-
-    opts.each_with_object({}) do |(key, value), out|
-      name = camelize(key)
-      out[name] = option_value(name, value)
-    end
-  end
-
-  def camelize(key) = key.to_s.gsub(/_([a-z])/) { Regexp.last_match(1).upcase }
-
-  def option_value(name, value)
-    value = value.name if value.is_a?(Symbol)
-    return value.to_h { |query, nested| [ query.to_s, normalize_opts(nested) ] } if name == "breakpoints" && value.is_a?(Hash)
-
-    validate_option(name, value)
-    value
-  end
-
-  def validate_option(name, value)
-    allowed = ENUM_OPTIONS[name]
-    raise ArgumentError, "opts #{name}: #{value.inspect} is not one of #{allowed.inspect}" if allowed && !allowed.include?(value)
-    raise ArgumentError, "opts #{name}: must be true or false (got #{value.inspect})" if BOOLEAN_OPTIONS.include?(name) && ![ true, false ].include?(value)
-    return unless name == "slidesToScroll" && !(value.is_a?(Integer) && value.positive?) && value != "auto"
-
-    raise ArgumentError, "opts slidesToScroll: must be a positive Integer or \"auto\" (got #{value.inspect})"
   end
 end

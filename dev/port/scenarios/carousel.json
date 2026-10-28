@@ -11244,6 +11244,515 @@
       "observe": [
         "[data-slot=carousel-content] > div"
       ]
+    },
+    {
+      "id": "opts-watch-resize-false__resize",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex justify-center px-16 py-16"
+        },
+        "children": [
+          {
+            "c": "Carousel",
+            "props": {
+              "opts": {
+                "watchResize": false
+              },
+              "className": "w-full max-w-xl"
+            },
+            "children": [
+              {
+                "c": "CarouselContent",
+                "children": [
+                  {
+                    "c": "CarouselItem",
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex h-32 items-center justify-center rounded-md border text-2xl font-semibold"
+                        },
+                        "children": [
+                          "1"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "CarouselItem",
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex h-32 items-center justify-center rounded-md border text-2xl font-semibold"
+                        },
+                        "children": [
+                          "2"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "CarouselItem",
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex h-32 items-center justify-center rounded-md border text-2xl font-semibold"
+                        },
+                        "children": [
+                          "3"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "CarouselItem",
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex h-32 items-center justify-center rounded-md border text-2xl font-semibold"
+                        },
+                        "children": [
+                          "4"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "CarouselItem",
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex h-32 items-center justify-center rounded-md border text-2xl font-semibold"
+                        },
+                        "children": [
+                          "5"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CarouselPrevious"
+              },
+              {
+                "c": "CarouselNext"
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=carousel-next]",
+          "snapshot": false
+        },
+        {
+          "do": "wait",
+          "ms": 2000
+        },
+        {
+          "do": "viewport",
+          "width": 500,
+          "height": 700,
+          "snapshot": false
+        },
+        {
+          "do": "wait",
+          "ms": 500
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "[data-slot=carousel-content] > div"
+      ]
+    },
+    {
+      "id": "opts-watch-slides-false__click-next",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex justify-center px-16 py-16"
+        },
+        "children": [
+          {
+            "c": "Carousel",
+            "props": {
+              "opts": {
+                "watchSlides": false
+              },
+              "className": "w-full max-w-xs"
+            },
+            "children": [
+              {
+                "c": "CarouselContent",
+                "children": [
+                  {
+                    "c": "CarouselItem",
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex h-32 items-center justify-center rounded-md border text-2xl font-semibold"
+                        },
+                        "children": [
+                          "1"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "CarouselItem",
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex h-32 items-center justify-center rounded-md border text-2xl font-semibold"
+                        },
+                        "children": [
+                          "2"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "CarouselItem",
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex h-32 items-center justify-center rounded-md border text-2xl font-semibold"
+                        },
+                        "children": [
+                          "3"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "CarouselItem",
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex h-32 items-center justify-center rounded-md border text-2xl font-semibold"
+                        },
+                        "children": [
+                          "4"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "c": "CarouselItem",
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex h-32 items-center justify-center rounded-md border text-2xl font-semibold"
+                        },
+                        "children": [
+                          "5"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CarouselPrevious"
+              },
+              {
+                "c": "CarouselNext"
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=carousel-next]",
+          "snapshot": false
+        },
+        {
+          "do": "wait",
+          "ms": 2000
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "[data-slot=carousel-content] > div"
+      ]
+    },
+    {
+      "id": "opts-slides-selector__click-next",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex justify-center px-16 py-16"
+        },
+        "children": [
+          {
+            "c": "Carousel",
+            "props": {
+              "opts": {
+                "slides": ".slide"
+              },
+              "className": "w-full max-w-xs"
+            },
+            "children": [
+              {
+                "c": "CarouselContent",
+                "children": [
+                  {
+                    "c": "CarouselItem",
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex h-32 items-center justify-center rounded-md border text-2xl font-semibold"
+                        },
+                        "children": [
+                          "1"
+                        ]
+                      }
+                    ],
+                    "props": {
+                      "className": "slide"
+                    }
+                  },
+                  {
+                    "c": "CarouselItem",
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex h-32 items-center justify-center rounded-md border text-2xl font-semibold"
+                        },
+                        "children": [
+                          "2"
+                        ]
+                      }
+                    ],
+                    "props": {
+                      "className": "not-slide basis-1/2"
+                    }
+                  },
+                  {
+                    "c": "CarouselItem",
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex h-32 items-center justify-center rounded-md border text-2xl font-semibold"
+                        },
+                        "children": [
+                          "3"
+                        ]
+                      }
+                    ],
+                    "props": {
+                      "className": "slide"
+                    }
+                  },
+                  {
+                    "c": "CarouselItem",
+                    "children": [
+                      {
+                        "c": "_div",
+                        "props": {
+                          "className": "flex h-32 items-center justify-center rounded-md border text-2xl font-semibold"
+                        },
+                        "children": [
+                          "4"
+                        ]
+                      }
+                    ],
+                    "props": {
+                      "className": "not-slide basis-1/2"
+                    }
+                  }
+                ]
+              },
+              {
+                "c": "CarouselPrevious"
+              },
+              {
+                "c": "CarouselNext"
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=carousel-next]",
+          "snapshot": false
+        },
+        {
+          "do": "wait",
+          "ms": 2000
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "[data-slot=carousel-content] > div"
+      ]
+    },
+    {
+      "id": "opts-container-selector__click-next",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "flex justify-center px-16 py-16"
+        },
+        "children": [
+          {
+            "c": "Carousel",
+            "props": {
+              "opts": {
+                "container": ".wrapper"
+              },
+              "className": "w-full max-w-xs"
+            },
+            "children": [
+              {
+                "c": "CarouselContent",
+                "children": [
+                  {
+                    "c": "_div",
+                    "props": {
+                      "className": "wrapper flex"
+                    },
+                    "children": [
+                      {
+                        "c": "CarouselItem",
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "className": "flex h-32 items-center justify-center rounded-md border text-2xl font-semibold"
+                            },
+                            "children": [
+                              "1"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "CarouselItem",
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "className": "flex h-32 items-center justify-center rounded-md border text-2xl font-semibold"
+                            },
+                            "children": [
+                              "2"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "CarouselItem",
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "className": "flex h-32 items-center justify-center rounded-md border text-2xl font-semibold"
+                            },
+                            "children": [
+                              "3"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "CarouselItem",
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "className": "flex h-32 items-center justify-center rounded-md border text-2xl font-semibold"
+                            },
+                            "children": [
+                              "4"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "c": "CarouselItem",
+                        "children": [
+                          {
+                            "c": "_div",
+                            "props": {
+                              "className": "flex h-32 items-center justify-center rounded-md border text-2xl font-semibold"
+                            },
+                            "children": [
+                              "5"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "CarouselPrevious"
+              },
+              {
+                "c": "CarouselNext"
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=carousel-next]",
+          "snapshot": false
+        },
+        {
+          "do": "wait",
+          "ms": 2000
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        "[data-slot=carousel-content] > div",
+        ".wrapper"
+      ]
     }
   ]
 }
