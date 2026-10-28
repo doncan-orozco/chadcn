@@ -137,9 +137,8 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
       div(**merge_attrs({ class: ROOT_CLASSES }, option(:attrs))) do
         render_label(label) unless nest_label
         div(class: "grid gap-1.5") do
-          @payload.each_with_index do |item, index|
-            next if item_value(item, :type).to_s == "none"
-
+          # `payload.filter(type !== "none").map((item, index) => ...)`: the formatter's index counts the visible items only.
+          @payload.reject { |item| item_value(item, :type).to_s == "none" }.each_with_index do |item, index|
             render_item(config, item, index, nest_label, label)
           end
         end

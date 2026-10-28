@@ -157,6 +157,15 @@ class Chadcn::Chart::TooltipTest < Chadcn::TestCase
     assert_equal [ [ 186, "desktop", 0, "January" ], [ 80, "mobile", 1, "January" ] ], calls
   end
 
+  test "the formatter index counts only the items that are not of type none" do
+    indexes = []
+    formatter = ->(_value, name, _item, index, _row) { (indexes << [ name, index ]) && name }
+    items = payload(:desktop, :mobile).tap { |list| list.first[:type] = :none }
+    render_content(payload: items, formatter: formatter)
+
+    assert_equal [ [ "mobile", 0 ] ], indexes
+  end
+
   test "a formatter is skipped for an item without a value key or with a falsy name, and runs for an explicit nil value" do
     formatter = ->(*) { "formatted" }
 
