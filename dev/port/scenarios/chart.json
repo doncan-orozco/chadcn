@@ -101,7 +101,7 @@
       "observe": [
         ".recharts-wrapper",
         "[class^=\"recharts-zIndex-layer_\"]",
-        ".recharts-cartesian-axis-tick-value",
+        ".recharts-cartesian-axis-tick-value, .recharts-cartesian-axis-tick-value tspan",
         ".recharts-cartesian-grid line",
         ".recharts-bar-rectangle path"
       ],
@@ -231,7 +231,7 @@
       "observe": [
         ".recharts-wrapper",
         "[class^=\"recharts-zIndex-layer_\"]",
-        ".recharts-cartesian-axis-tick-value",
+        ".recharts-cartesian-axis-tick-value, .recharts-cartesian-axis-tick-value tspan",
         ".recharts-cartesian-grid line",
         ".recharts-bar-rectangle path"
       ]
@@ -343,8 +343,7 @@
       "observe": [
         ".recharts-wrapper",
         "[class^=\"recharts-zIndex-layer_\"]",
-        ".recharts-cartesian-axis-tick-value",
-        ".recharts-cartesian-grid line",
+        ".recharts-cartesian-axis-tick-value, .recharts-cartesian-axis-tick-value tspan",
         ".recharts-bar-rectangle path"
       ]
     },
@@ -442,7 +441,7 @@
       "observe": [
         ".recharts-wrapper",
         "[class^=\"recharts-zIndex-layer_\"]",
-        ".recharts-cartesian-axis-tick-value",
+        ".recharts-cartesian-axis-tick-value, .recharts-cartesian-axis-tick-value tspan",
         ".recharts-cartesian-grid line",
         ".recharts-bar-rectangle path"
       ]
@@ -561,7 +560,7 @@
       "observe": [
         ".recharts-wrapper",
         "[class^=\"recharts-zIndex-layer_\"]",
-        ".recharts-cartesian-axis-tick-value",
+        ".recharts-cartesian-axis-tick-value, .recharts-cartesian-axis-tick-value tspan",
         ".recharts-cartesian-grid line",
         ".recharts-bar-rectangle path"
       ]
@@ -666,8 +665,7 @@
       "observe": [
         ".recharts-wrapper",
         "[class^=\"recharts-zIndex-layer_\"]",
-        ".recharts-cartesian-axis-tick-value",
-        ".recharts-cartesian-grid line",
+        ".recharts-cartesian-axis-tick-value, .recharts-cartesian-axis-tick-value tspan",
         ".recharts-bar-rectangle path"
       ]
     },
@@ -779,7 +777,7 @@
       "observe": [
         ".recharts-wrapper",
         "[class^=\"recharts-zIndex-layer_\"]",
-        ".recharts-cartesian-axis-tick-value",
+        ".recharts-cartesian-axis-tick-value, .recharts-cartesian-axis-tick-value tspan",
         ".recharts-curve",
         ".recharts-line-dot"
       ]
@@ -890,9 +888,8 @@
       "observe": [
         ".recharts-wrapper",
         "[class^=\"recharts-zIndex-layer_\"]",
-        ".recharts-cartesian-axis-tick-value",
-        ".recharts-curve",
-        ".recharts-line-dot"
+        ".recharts-cartesian-axis-tick-value, .recharts-cartesian-axis-tick-value tspan",
+        ".recharts-curve"
       ]
     },
     {
@@ -1011,7 +1008,7 @@
       "observe": [
         ".recharts-wrapper",
         "[class^=\"recharts-zIndex-layer_\"]",
-        ".recharts-cartesian-axis-tick-value",
+        ".recharts-cartesian-axis-tick-value, .recharts-cartesian-axis-tick-value tspan",
         ".recharts-curve",
         ".recharts-line-dot"
       ]
@@ -1122,9 +1119,8 @@
       "observe": [
         ".recharts-wrapper",
         "[class^=\"recharts-zIndex-layer_\"]",
-        ".recharts-cartesian-axis-tick-value",
-        ".recharts-curve",
-        ".recharts-line-dot"
+        ".recharts-cartesian-axis-tick-value, .recharts-cartesian-axis-tick-value tspan",
+        ".recharts-curve"
       ]
     },
     {
@@ -1249,9 +1245,8 @@
       "observe": [
         ".recharts-wrapper",
         "[class^=\"recharts-zIndex-layer_\"]",
-        ".recharts-cartesian-axis-tick-value",
-        ".recharts-curve",
-        ".recharts-area-dot"
+        ".recharts-cartesian-axis-tick-value, .recharts-cartesian-axis-tick-value tspan",
+        ".recharts-curve"
       ]
     },
     {
@@ -1393,9 +1388,9 @@
       "observe": [
         ".recharts-wrapper",
         "[class^=\"recharts-zIndex-layer_\"]",
-        ".recharts-cartesian-axis-tick-value",
+        ".recharts-cartesian-axis-tick-value, .recharts-cartesian-axis-tick-value tspan",
         ".recharts-curve",
-        ".recharts-area-dot"
+        "#fillDesktop, #fillDesktop stop"
       ]
     },
     {
@@ -1495,7 +1490,7 @@
       "observe": [
         ".recharts-wrapper",
         "[class^=\"recharts-zIndex-layer_\"]",
-        ".recharts-cartesian-axis-tick-value",
+        ".recharts-cartesian-axis-tick-value, .recharts-cartesian-axis-tick-value tspan",
         ".recharts-cartesian-grid line",
         ".recharts-bar-rectangle path"
       ]
@@ -1600,7 +1595,7 @@
       "observe": [
         ".recharts-wrapper",
         "[class^=\"recharts-zIndex-layer_\"]",
-        ".recharts-cartesian-axis-tick-value",
+        ".recharts-cartesian-axis-tick-value, .recharts-cartesian-axis-tick-value tspan",
         ".recharts-cartesian-grid line",
         ".recharts-bar-rectangle path"
       ]
@@ -1713,7 +1708,7 @@
       "observe": [
         ".recharts-wrapper",
         "[class^=\"recharts-zIndex-layer_\"]",
-        ".recharts-cartesian-axis-tick-value",
+        ".recharts-cartesian-axis-tick-value, .recharts-cartesian-axis-tick-value tspan",
         ".recharts-cartesian-grid line",
         ".recharts-bar-rectangle path"
       ]
@@ -1815,7 +1810,7 @@
       "observe": [
         ".recharts-wrapper",
         "[class^=\"recharts-zIndex-layer_\"]",
-        ".recharts-cartesian-axis-tick-value",
+        ".recharts-cartesian-axis-tick-value, .recharts-cartesian-axis-tick-value tspan",
         ".recharts-cartesian-grid line",
         ".recharts-bar-rectangle path"
       ]
@@ -1928,7 +1923,7 @@
       "observe": [
         ".recharts-wrapper",
         "[class^=\"recharts-zIndex-layer_\"]",
-        ".recharts-cartesian-axis-tick-value",
+        ".recharts-cartesian-axis-tick-value, .recharts-cartesian-axis-tick-value tspan",
         ".recharts-cartesian-grid line",
         ".recharts-bar-rectangle path"
       ]
@@ -2065,9 +2060,8 @@
       "observe": [
         ".recharts-wrapper",
         ".recharts-tooltip-wrapper",
-        ".recharts-tooltip-cursor",
         ".recharts-bar-rectangle path",
-        ".recharts-legend-wrapper"
+        ".recharts-tooltip-wrapper *"
       ]
     },
     {
@@ -2205,9 +2199,8 @@
       "observe": [
         ".recharts-wrapper",
         ".recharts-tooltip-wrapper",
-        ".recharts-tooltip-cursor",
         ".recharts-bar-rectangle path",
-        ".recharts-legend-wrapper"
+        ".recharts-tooltip-wrapper *"
       ]
     },
     {
@@ -2345,9 +2338,8 @@
       "observe": [
         ".recharts-wrapper",
         ".recharts-tooltip-wrapper",
-        ".recharts-tooltip-cursor",
         ".recharts-bar-rectangle path",
-        ".recharts-legend-wrapper"
+        ".recharts-tooltip-wrapper *"
       ]
     },
     {
@@ -2485,9 +2477,8 @@
       "observe": [
         ".recharts-wrapper",
         ".recharts-tooltip-wrapper",
-        ".recharts-tooltip-cursor",
         ".recharts-bar-rectangle path",
-        ".recharts-legend-wrapper"
+        ".recharts-tooltip-wrapper *"
       ]
     },
     {
@@ -2625,9 +2616,8 @@
       "observe": [
         ".recharts-wrapper",
         ".recharts-tooltip-wrapper",
-        ".recharts-tooltip-cursor",
         ".recharts-bar-rectangle path",
-        ".recharts-legend-wrapper"
+        ".recharts-tooltip-wrapper *"
       ]
     },
     {
@@ -2743,7 +2733,7 @@
         ".recharts-tooltip-wrapper",
         ".recharts-tooltip-cursor",
         ".recharts-bar-rectangle path",
-        ".recharts-legend-wrapper"
+        ".recharts-tooltip-wrapper *"
       ]
     },
     {
@@ -2878,9 +2868,8 @@
       "observe": [
         ".recharts-wrapper",
         ".recharts-tooltip-wrapper",
-        ".recharts-tooltip-cursor",
         ".recharts-bar-rectangle path",
-        ".recharts-legend-wrapper"
+        ".recharts-tooltip-wrapper *"
       ]
     },
     {
@@ -3001,7 +2990,7 @@
       "observe": [
         ".recharts-wrapper",
         ".recharts-legend-wrapper",
-        ".recharts-legend-item",
+        ".recharts-legend-wrapper *",
         "[class^=\"recharts-zIndex-layer_\"]",
         ".recharts-bar-rectangle path"
       ]
@@ -3125,7 +3114,7 @@
       "observe": [
         ".recharts-wrapper",
         ".recharts-legend-wrapper",
-        ".recharts-legend-item",
+        ".recharts-legend-wrapper *",
         "[class^=\"recharts-zIndex-layer_\"]",
         ".recharts-bar-rectangle path"
       ]
@@ -3251,10 +3240,11 @@
       "observe": [
         ".recharts-wrapper",
         ".recharts-legend-wrapper",
-        ".recharts-legend-item",
+        ".recharts-legend-wrapper *",
         "[class^=\"recharts-zIndex-layer_\"]",
         ".recharts-bar-rectangle path"
-      ]
+      ],
+      "note": "JSON config cannot carry an icon component, so hideIcon renders the swatch exactly like legend__bottom; this keeps the no-icon path under G2, the icon path is covered by test/chadcn/chart_test.rb (item #45)."
     },
     {
       "id": "legend__bottom-dark",
@@ -3374,7 +3364,7 @@
       "observe": [
         ".recharts-wrapper",
         ".recharts-legend-wrapper",
-        ".recharts-legend-item",
+        ".recharts-legend-wrapper *",
         "[class^=\"recharts-zIndex-layer_\"]",
         ".recharts-bar-rectangle path"
       ]
@@ -3478,8 +3468,6 @@
       "observe": [
         ".recharts-wrapper",
         ".recharts-pie-sector",
-        ".recharts-label",
-        ".recharts-text",
         "[class^=\"recharts-zIndex-layer_\"]"
       ]
     },
@@ -3593,7 +3581,7 @@
       "observe": [
         ".recharts-wrapper",
         ".recharts-pie-sector",
-        ".recharts-label",
+        ".recharts-label, .recharts-label tspan",
         ".recharts-text",
         "[class^=\"recharts-zIndex-layer_\"]"
       ]
@@ -3708,7 +3696,6 @@
       "observe": [
         ".recharts-wrapper",
         ".recharts-pie-sector",
-        ".recharts-label",
         ".recharts-text",
         "[class^=\"recharts-zIndex-layer_\"]"
       ]
@@ -3812,8 +3799,6 @@
       "observe": [
         ".recharts-wrapper",
         ".recharts-pie-sector",
-        ".recharts-label",
-        ".recharts-text",
         "[class^=\"recharts-zIndex-layer_\"]"
       ]
     },
@@ -3906,7 +3891,6 @@
         ".recharts-wrapper",
         ".recharts-polar-grid",
         ".recharts-polygon",
-        ".recharts-radar-dot",
         ".recharts-polar-angle-axis-tick-value"
       ]
     },
@@ -4110,7 +4094,6 @@
       "observe": [
         ".recharts-wrapper",
         ".recharts-radial-bar-sector",
-        ".recharts-label",
         ".recharts-polar-grid",
         "[class^=\"recharts-zIndex-layer_\"]"
       ]
@@ -4219,8 +4202,6 @@
       "observe": [
         ".recharts-wrapper",
         ".recharts-radial-bar-sector",
-        ".recharts-label",
-        ".recharts-polar-grid",
         "[class^=\"recharts-zIndex-layer_\"]"
       ]
     },
@@ -4306,8 +4287,6 @@
       "observe": [
         ".recharts-wrapper",
         ".recharts-radial-bar-sector",
-        ".recharts-label",
-        ".recharts-polar-grid",
         "[class^=\"recharts-zIndex-layer_\"]"
       ]
     },
@@ -4455,9 +4434,8 @@
       "observe": [
         ".recharts-wrapper",
         ".recharts-tooltip-wrapper",
-        ".recharts-tooltip-cursor",
         ".recharts-bar-rectangle path",
-        ".recharts-legend-wrapper"
+        ".recharts-tooltip-wrapper *"
       ]
     },
     {
@@ -4590,7 +4568,7 @@
         ".recharts-tooltip-wrapper",
         ".recharts-tooltip-cursor",
         ".recharts-bar-rectangle path",
-        ".recharts-legend-wrapper"
+        ".recharts-tooltip-wrapper *"
       ]
     },
     {
@@ -4728,7 +4706,7 @@
         ".recharts-tooltip-wrapper",
         ".recharts-tooltip-cursor",
         ".recharts-bar-rectangle path",
-        ".recharts-legend-wrapper"
+        ".recharts-tooltip-wrapper *"
       ]
     },
     {
@@ -4855,9 +4833,8 @@
       "observe": [
         ".recharts-wrapper",
         ".recharts-tooltip-wrapper",
-        ".recharts-tooltip-cursor",
         ".recharts-bar-rectangle path",
-        ".recharts-legend-wrapper"
+        ".recharts-tooltip-wrapper *"
       ]
     },
     {
@@ -4983,7 +4960,7 @@
         ".recharts-tooltip-wrapper",
         ".recharts-tooltip-cursor",
         ".recharts-bar-rectangle path",
-        ".recharts-legend-wrapper"
+        ".recharts-tooltip-wrapper *"
       ]
     },
     {
@@ -5086,7 +5063,7 @@
       "observe": [
         ".recharts-wrapper",
         "[class^=\"recharts-zIndex-layer_\"]",
-        ".recharts-cartesian-axis-tick-value",
+        ".recharts-cartesian-axis-tick-value, .recharts-cartesian-axis-tick-value tspan",
         ".recharts-cartesian-grid line",
         ".recharts-bar-rectangle path"
       ]
@@ -5197,9 +5174,8 @@
       "observe": [
         ".recharts-wrapper",
         "[class^=\"recharts-zIndex-layer_\"]",
-        ".recharts-cartesian-axis-tick-value",
-        ".recharts-curve",
-        ".recharts-line-dot"
+        ".recharts-cartesian-axis-tick-value, .recharts-cartesian-axis-tick-value tspan",
+        ".recharts-curve"
       ]
     },
     {
@@ -5268,9 +5244,7 @@
       },
       "animations": false,
       "observe": [
-        ".recharts-responsive-container > div > div",
-        ".recharts-responsive-container > div > div > div",
-        ".recharts-responsive-container > div > div > div > div"
+        ".recharts-responsive-container *"
       ]
     },
     {
@@ -5328,9 +5302,7 @@
       },
       "animations": false,
       "observe": [
-        ".recharts-responsive-container > div > div",
-        ".recharts-responsive-container > div > div > div",
-        ".recharts-responsive-container > div > div > div > div"
+        ".recharts-responsive-container *"
       ]
     },
     {
@@ -5385,9 +5357,7 @@
       },
       "animations": false,
       "observe": [
-        ".recharts-responsive-container > div > div",
-        ".recharts-responsive-container > div > div > div",
-        ".recharts-responsive-container > div > div > div > div"
+        ".recharts-responsive-container *"
       ]
     },
     {

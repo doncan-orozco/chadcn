@@ -38,14 +38,16 @@ class ParityBatchTest < ActiveSupport::TestCase
     ids = scenario_ids("button")
     prefix = ids.first[0, 3]
     matching = ids.select { |id| id.start_with?(prefix) }
+    assert_operator ids.size, :>, matching.size, "the button scenarios must have ids outside the prefix #{prefix}"
     report, calls, status = run_batch("--components", "button", "--only", prefix)
 
     assert_predicate status, :success?
     assert_equal 1, calls.size
     assert_equal matching.join(","), calls.first[/--only (\S+)/, 1]
-    gate = report.dig("components", "button", "gates", "g2")
-    assert_equal ids.size - matching.size, gate.dig("skipped_scenarios", "count")
-    assert_includes gate.dig("skipped_scenarios", "reason"), prefix
+    skipped = report.dig("components", "button", "skipped_scenarios")
+    assert_equal ids.size - matching.size, skipped["count"]
+    assert_includes skipped["reason"], prefix
+    assert_nil report.dig("components", "button", "gates", "g2", "skipped_scenarios")
   end
 
   test "--only takes a comma list of prefixes" do
@@ -57,12 +59,43 @@ class ParityBatchTest < ActiveSupport::TestCase
     assert_equal expected.join(","), calls.first[/--only (\S+)/, 1]
   end
 
-  test "--only matching nothing skips the gate with a reason instead of running every scenario" do
+  test "--only matching no scenario of any requested component is an environment failure naming the prefix" do
     report, calls, status = run_batch("--components", "button", "--only", "nonexistent__")
 
-    assert_predicate status, :success?
+    assert_equal 2, status.exitstatus
     assert_empty calls
-    assert_includes report.dig("components", "button", "gates", "g2", "skipped"), "nonexistent__"
+    assert_includes report["error"], "nonexistent__"
+  end
+
+  test "an empty --only is an argument error" do
+    [ "", ",," ].each do |value|
+      report, calls, status = run_batch("--components", "button", "--only", value)
+
+      assert_equal 2, status.exitstatus, value.inspect
+      assert_empty calls
+      assert_includes report["error"], "--only"
+    end
+  end
+
+  test "--only matching only some components skips g2 of the others and keeps the count at component level" do
+    prefix = "variant-default__size-xs"
+    other = %w[card badge alert].find { |name| scenario_ids(name).none? { |id| id.start_with?(prefix) } }
+    skip "no component without the prefix #{prefix}" unless other
+    report, calls, status = run_batch("--components", "button,#{other}", "--only", prefix)
+
+    assert_predicate status, :success?
+    assert_equal 1, calls.size
+    assert_includes report.dig("components", other, "gates", "g2", "skipped"), prefix
+    assert_equal scenario_ids(other).size, report.dig("components", other, "skipped_scenarios", "count")
+  end
+
+  test "a g4 skip caused by --only says so" do
+    ids = scenario_ids("button")
+    prefix = ids.find { |id| !id.start_with?("variant-", "default") }&.then { |id| id[0, 3] }
+    skip "every button id is a g4 id" unless prefix && ids.none? { |id| id.start_with?(prefix) && id.start_with?("variant-", "default") }
+    report, = run_batch("--components", "button", "--only", prefix, "--themes", "slate")
+
+    assert_includes report.dig("components", "button", "gates", "g4", "skipped"), "--only"
   end
 
   test "without --only the runner gets no --only and nothing is reported skipped" do

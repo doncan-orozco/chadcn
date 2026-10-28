@@ -19,9 +19,11 @@
 #                        polar__ for a chart family); the other ids are reported as skipped with the reason
 # --out DIR              reports go to DIR/<component>/{g2,g2b,g4-<theme>,g4-dark}.json (default: layout.rb TMP_DIR, tmp/shadcn-port)
 #
-# Prints JSON { pass, servers_started, components: { name => { pass, gates => { gate => { pass, diffs } | { skipped } } } } }.
+# Prints JSON { pass, servers_started, components: { name => { pass, gates => { gate => { pass, diffs } | { skipped } },
+#   skipped_scenarios => { count, reason } (only with --only, when it left scenario ids out) } } }.
 # Exit 0 every gate passed, 1 a gate found diffs, 2 the environment or the arguments are unusable (no browser, servers down,
-# a gate crashed without a report, unknown component). Servers this run started are always stopped, also on a failed start.
+# a gate crashed without a report, unknown component, an empty --only or one matching no scenario of the requested components).
+# Servers this run started are always stopped, also on a failed start.
 
 require_relative "layout"
 require "fileutils"
@@ -30,7 +32,6 @@ require "open3"
 require "optparse"
 
 ROOT = File.expand_path("../../..", __dir__)
-Dir.chdir(ROOT)
 
 SCRIPTS = ".claude/scripts/shadcn"
 SCENARIOS = ShadcnLayout::SCENARIOS_DIR
@@ -50,7 +51,7 @@ end
 def parse_options(argv)
   options = { components: nil, dx: false, themes: [], servers: true, only: [], out: ShadcnLayout::TMP_DIR }
   OptionParser.new do |parser|
-    parser.banner = "usage: parity_batch.rb --components a,b|all [--dx] [--themes [LIST]] [--no-servers] [--out DIR]"
+    parser.banner = "usage: parity_batch.rb --components a,b|all [--dx] [--themes [LIST]] [--only PREFIXES] [--no-servers] [--out DIR]"
     parser.on("--components LIST", "comma list of components, or all (scenario files not starting with _)") { |value| options[:components] = value }
     parser.on("--dx", "also G2b through the yielded-root helpers") { options[:dx] = true }
     parser.on("--themes [LIST]", "also G4 for each theme preset plus one --dark run (default presets: #{DEFAULT_THEMES.join(',')})") do |value|
@@ -59,6 +60,7 @@ def parse_options(argv)
     parser.on("--no-servers", "servers already running; do not ensure Playwright or start/stop servers") { options[:servers] = false }
     parser.on("--only PREFIXES", "run only scenarios whose id starts with one of these comma separated prefixes") do |value|
       options[:only] = value.split(",").map(&:strip).reject(&:empty?).uniq
+      raise OptionParser::InvalidArgument, "--only needs at least one non-empty prefix" if options[:only].empty?
     end
     parser.on("--out DIR", "report directory (default #{ShadcnLayout::TMP_DIR})") { |value| options[:out] = value }
   end.parse!(argv)
@@ -74,34 +76,45 @@ def component_names(options)
     else
       options[:components].to_s.split(",").map(&:strip).reject(&:empty?).uniq
     end
-  environment_failure("usage: --components a,b|all [--dx] [--themes slate,stone] [--no-servers] [--out DIR]") if names.empty?
+  environment_failure("usage: --components a,b|all [--dx] [--themes slate,stone] [--only PREFIXES] [--no-servers] [--out DIR]") if names.empty?
 
   invalid = (names + options[:themes]).grep_v(NAME_PATTERN)
   environment_failure("invalid name(s): #{invalid.join(', ')}") if invalid.any?
 
   unknown = names.reject { |name| File.exist?(File.join(SCENARIOS, "#{name}.json")) }
   environment_failure("no scenario file for: #{unknown.join(', ')}") if unknown.any?
+
+  if options[:only].any? && names.none? { |name| all_scenario_ids(name).any? { |id| matches_prefix?(id, options[:only]) } }
+    environment_failure("--only #{options[:only].join(',')} matches no scenario id of: #{names.join(', ')}")
+  end
   names
-end
-
-def scenario_ids(component, prefixes, cap)
-  scenarios = JSON.parse(File.read(File.join(SCENARIOS, "#{component}.json"))).fetch("scenarios", [])
-  scenarios.filter_map { |scenario| scenario["id"] }.select { |id| prefixes.any? { |prefix| id.start_with?(prefix) } }.first(cap)
-end
-
-# [ids to run, ids left out] for the --only prefixes; no prefixes selects everything.
-def split_by_prefix(ids, prefixes)
-  return [ ids, [] ] if prefixes.empty?
-
-  ids.partition { |id| prefixes.any? { |prefix| id.start_with?(prefix) } }
 end
 
 def all_scenario_ids(component)
   JSON.parse(File.read(File.join(SCENARIOS, "#{component}.json"))).fetch("scenarios", []).filter_map { |scenario| scenario["id"] }
 end
 
+def matches_prefix?(id, prefixes)
+  prefixes.any? { |prefix| id.start_with?(prefix) }
+end
+
+def scenario_ids(component, prefixes, cap)
+  all_scenario_ids(component).select { |id| matches_prefix?(id, prefixes) }.first(cap)
+end
+
+# [ids to run, ids left out] for the --only prefixes; no prefixes selects everything.
+def split_by_prefix(ids, prefixes)
+  return [ ids, [] ] if prefixes.empty?
+
+  ids.partition { |id| matches_prefix?(id, prefixes) }
+end
+
 def skipped_note(skipped, prefixes)
   { "count" => skipped.size, "reason" => "id does not start with --only #{prefixes.join(',')}" }
+end
+
+def only_reason(prefixes)
+  prefixes.any? ? " among the --only #{prefixes.join(',')} scenarios" : ""
 end
 
 def run_tool(*command, **spawn_options)
@@ -143,11 +156,11 @@ end
 def run_gates(component, options)
   directory = File.join(options[:out], component)
   selected, skipped = split_by_prefix(all_scenario_ids(component), options[:only])
-  note = skipped.any? ? { "skipped_scenarios" => skipped_note(skipped, options[:only]) } : {}
+  only = options[:only]
   gates = {
     "g2" =>
-      if selected.empty? then { "skipped" => "no scenario id starts with --only #{options[:only].join(',')}" }
-      else run_parity(component, File.join(directory, "g2.json"), *(options[:only].any? ? [ "--only", selected.join(",") ] : [])).merge(note)
+      if selected.empty? then { "skipped" => "no scenario id starts with --only #{only.join(',')}" }
+      else run_parity(component, File.join(directory, "g2.json"), *(only.any? ? [ "--only", selected.join(",") ] : []))
       end
   }
 
@@ -155,7 +168,7 @@ def run_gates(component, options)
     ids = scenario_ids(component, DX_PREFIXES, 25) & selected
     gates["g2b"] =
       if !helpers?(component) then { "skipped" => "component has no yielded-root helpers" }
-      elsif ids.empty? then { "skipped" => "no default/variant-/example__ scenarios" }
+      elsif ids.empty? then { "skipped" => "no default/variant-/example__ scenarios#{only_reason(only)}" }
       else run_parity(component, File.join(directory, "g2b.json"), "--dx", "helpers", "--only", ids.join(","))
       end
   end
@@ -163,7 +176,7 @@ def run_gates(component, options)
   if options[:themes].any?
     ids = scenario_ids(component, THEME_PREFIXES, 12) & selected
     if ids.empty?
-      gates["g4"] = { "skipped" => "no variant-/default scenarios" }
+      gates["g4"] = { "skipped" => "no variant-/default scenarios#{only_reason(only)}" }
     else
       options[:themes].each do |theme|
         gates["g4-#{theme}"] = run_parity(component, File.join(directory, "g4-#{theme}.json"), "--theme", theme, "--only", ids.join(","))
@@ -172,7 +185,9 @@ def run_gates(component, options)
     end
   end
 
-  { "pass" => gates.values.all? { |gate| gate["skipped"] || gate["pass"] }, "gates" => gates }
+  result = { "pass" => gates.values.all? { |gate| gate["skipped"] || gate["pass"] }, "gates" => gates }
+  result["skipped_scenarios"] = skipped_note(skipped, only) if skipped.any?
+  result
 end
 
 def start_servers # rubocop:disable Naming/PredicateMethod -- starts servers, returns whether this run started them
@@ -204,6 +219,7 @@ def require_running_servers
 end
 
 if $PROGRAM_NAME == __FILE__
+  Dir.chdir(ROOT)
   options = parse_options(ARGV)
   components = component_names(options)
 
