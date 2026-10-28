@@ -38,6 +38,19 @@ class Chadcn::Form < Chadcn::Base
   # @api private
   NATIVE_METHODS = %w[get post].freeze
 
+  # Stimulus identifier of the controller that mirrors the browser's validity into the fields.
+  #
+  # @return [String]
+  # @api private
+  CONTROLLER = "chadcn--form"
+
+  # Stimulus action descriptors: +invalid+ does not bubble, so it is captured. +click+ is how Checkbox, Switch and RadioGroup notify
+  # their hidden native input (a synthetic bubbling click, never input/change); the controller ignores every other click.
+  #
+  # @return [String]
+  # @api private
+  ACTION = "invalid->chadcn--form#report:capture input->chadcn--form#edit change->chadcn--form#edit click->chadcn--form#edit reset->chadcn--form#reset"
+
   # Builds the form. +nil+ means "not given"; the Plain binding defaults the method to +"post"+ and the errors to +{}+. +class:+
   # travels in +**attrs+.
   #
@@ -81,7 +94,7 @@ class Chadcn::Form < Chadcn::Base
     end
 
     html_method = verb == "get" ? "get" : "post"
-    attrs = merge_attrs({ data: { slot: "form" }, action: @binding.action, method: html_method }, @attrs)
+    attrs = merge_attrs({ data: { slot: "form", controller: CONTROLLER, action: ACTION }, action: @binding.action, method: html_method }, @attrs)
     form(**attrs) do
       input(type: "hidden", name: "_method", value: verb) unless NATIVE_METHODS.include?(verb)
       token = @binding.csrf_token
@@ -510,12 +523,13 @@ class Chadcn::Form < Chadcn::Base
     end
 
     # The error message of a bound field (shadcn `FormMessage`, form.tsx:138-156; helper: `field.error`). With errors it renders
-    # {Chadcn::Field::Error} with their messages (the block is ignored); without errors it renders the block; with neither it
-    # renders nothing.
+    # {Chadcn::Field::Error} with their messages (the block is ignored); without errors it renders the block, from the server
+    # only (the +chadcn--form+ controller leaves an unmarked block alone); with neither it renders an empty hidden alert with the
+    # message id, which the controller fills with the browser's validation message and reveals.
     #
     # @example
     #   field.error
-    #   field.error { "Shown only while the field is valid" }
+    #   field.error { "Server-rendered hint" }  # rendered as is; the controller leaves an unmarked block alone
     class Error < Chadcn::Base
       include Support
 
@@ -532,10 +546,15 @@ class Chadcn::Form < Chadcn::Base
         field = form_field
         attrs = merge_attrs({ id: field.form_message_id }, @attrs)
         messages = field.errors
+        return render(Chadcn::Field::Error.new(**attrs), &) if messages.empty? && block_given?
+
+        # data-chadcn-form-message marks the elements the form controller manages; a caller's block is left alone.
+        managed = merge_attrs({ data: { chadcn_form_message: "true" } }, attrs)
         if messages.any?
-          render Chadcn::Field::Error.new(errors: messages.map { |message| { message: } }, **attrs)
+          render Chadcn::Field::Error.new(errors: messages.map { |message| { message: } }, **managed)
         else
-          render(Chadcn::Field::Error.new(**attrs), &)
+          # Chadcn::Field::Error renders nothing when empty; the controller needs the element to put the browser's message in.
+          div(**merge_attrs({ role: "alert", data: { slot: "field-error" }, class: Chadcn::Field::Error::CLASS_NAME, hidden: true }, managed))
         end
       end
     end
