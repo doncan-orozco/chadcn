@@ -4,10 +4,6 @@
 #
 # @api private
 module Chadcn::Chart::Scale::NiceTicks::Adaptive
-  Decimal = Chadcn::Chart::Scale::NiceTicks::Decimal
-
-  private_constant :Decimal
-
   class << self
     # The rough step as a multiple of 0.05 (0.1 for one digit) of its order of magnitude, plus the correction.
     #
@@ -19,12 +15,12 @@ module Chadcn::Chart::Scale::NiceTicks::Adaptive
     def step(rough, allow_decimals, correction)
       return 0r if rough <= 0
 
-      digits = Decimal.digit_count(rough.to_f)
+      digits = Chadcn::Chart::Scale::NiceTicks::Decimal.digit_count(rough.to_f)
       magnitude = 10r**digits
       ratio_scale = digits == 1 ? Rational(1, 10) : Rational(5, 100)
       amended = (((rough / magnitude) / ratio_scale).to_f.ceil + correction) * ratio_scale
       step = amended * magnitude
-      allow_decimals ? Decimal.nearest_double(step) : Rational(step.to_f.ceil)
+      allow_decimals ? Chadcn::Chart::Scale::NiceTicks::Decimal.nearest_double(step) : Rational(step.to_f.ceil)
     end
   end
 end

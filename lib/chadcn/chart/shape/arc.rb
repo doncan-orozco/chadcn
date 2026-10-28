@@ -8,9 +8,6 @@
 #
 # @api private
 module Chadcn::Chart::Shape::Arc
-  Polar = Chadcn::Chart::Shape::Polar
-  JsMath = Chadcn::Chart::Shape::JsMath
-
   # recharts clamps a full turn so the start and end points of an arc do not coincide (Sector.js `getDeltaAngle`).
   MAX_SECTOR_ANGLE = 359.999
 
@@ -21,7 +18,7 @@ module Chadcn::Chart::Shape::Arc
     #
     # @api private
     # @return [Integer]
-    def direction = JsMath.sign(end_angle - start_angle)
+    def direction = Chadcn::Chart::Shape::JsMath.sign(end_angle - start_angle)
 
     # The angle between the radius lines, in degrees.
     #
@@ -38,7 +35,7 @@ module Chadcn::Chart::Shape::Arc
   # the angle in degrees between the corner and the radius line.
   Tangent = Data.define(:circle, :line, :theta)
 
-  private_constant :Polar, :JsMath, :MAX_SECTOR_ANGLE, :Sector, :Tangent
+  private_constant :MAX_SECTOR_ANGLE, :Sector, :Tangent
 
   class << self
     # The `d` attribute of a sector (recharts `Sector`), or nil when it draws nothing (outer radius below the inner one, or equal
@@ -70,7 +67,7 @@ module Chadcn::Chart::Shape::Arc
     private
 
     def plain_sector(sector)
-      angle = Polar.delta_angle(sector.start_angle, sector.end_angle, limit: MAX_SECTOR_ANGLE)
+      angle = Chadcn::Chart::Shape::Polar.delta_angle(sector.start_angle, sector.end_angle, limit: MAX_SECTOR_ANGLE)
       clamped_end = sector.start_angle + angle
       large_arc = angle.abs > 180
       path = Templates.outer_arc(from: point_on(sector, sector.outer_radius, sector.start_angle),
@@ -124,14 +121,14 @@ module Chadcn::Chart::Shape::Arc
     def tangent_circle(sector, radius:, angle:, direction:, center_outside: false)
       corner = sector.corner_radius
       center_radius = (corner * (center_outside ? 1 : -1)) + radius
-      theta = Polar.to_degrees(JsMath.asin(corner / center_radius))
+      theta = Chadcn::Chart::Shape::Polar.to_degrees(Chadcn::Chart::Shape::JsMath.asin(corner / center_radius))
       circle_angle = sector.corner_is_external ? angle : angle + (direction * theta)
       line_angle = sector.corner_is_external ? angle - (direction * theta) : angle
       Tangent.new(circle: point_on(sector, radius, circle_angle),
-                  line: point_on(sector, center_radius * Math.cos(Polar.to_radians(theta)), line_angle), theta: theta)
+                  line: point_on(sector, center_radius * Math.cos(Chadcn::Chart::Shape::Polar.to_radians(theta)), line_angle), theta: theta)
     end
 
-    def point_on(sector, radius, angle) = Polar.polar_to_cartesian(sector.cx, sector.cy, radius, angle)
+    def point_on(sector, radius, angle) = Chadcn::Chart::Shape::Polar.polar_to_cartesian(sector.cx, sector.cy, radius, angle)
 
     # recharts util/DataUtils.js `getPercentValue(percent, total, 0, true)`: a number of pixels, or a percentage of the ring width,
     # never more than the ring width; anything else is 0.
