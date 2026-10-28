@@ -522,13 +522,13 @@ class Chadcn::Form < Chadcn::Base
     end
 
     # The error message of a bound field (shadcn `FormMessage`, form.tsx:138-156; helper: `field.error`). With errors it renders
-    # {Chadcn::Field::Error} with their messages (the block is ignored); without errors it renders the block; with neither it
-    # renders an empty hidden alert with the message id, which the +chadcn--form+ controller fills with the browser's
-    # validation message and reveals.
+    # {Chadcn::Field::Error} with their messages (the block is ignored); without errors it renders the block, from the server
+    # only (the +chadcn--form+ controller leaves an unmarked block alone); with neither it renders an empty hidden alert with the
+    # message id, which the controller fills with the browser's validation message and reveals.
     #
     # @example
     #   field.error
-    #   field.error { "Shown only while the field is valid" }
+    #   field.error { "Server-rendered hint" }  # rendered as is; the controller leaves an unmarked block alone
     class Error < Chadcn::Base
       include Support
 
@@ -545,12 +545,12 @@ class Chadcn::Form < Chadcn::Base
         field = form_field
         attrs = merge_attrs({ id: field.form_message_id }, @attrs)
         messages = field.errors
+        return render(Chadcn::Field::Error.new(**attrs), &) if messages.empty? && block_given?
+
         # data-chadcn-form-message marks the elements the form controller manages; a caller's block is left alone.
         managed = merge_attrs({ data: { chadcn_form_message: "true" } }, attrs)
         if messages.any?
           render Chadcn::Field::Error.new(errors: messages.map { |message| { message: } }, **managed)
-        elsif block_given?
-          render(Chadcn::Field::Error.new(**attrs), &)
         else
           # Chadcn::Field::Error renders nothing when empty; the controller needs the element to put the browser's message in.
           div(**merge_attrs({ role: "alert", data: { slot: "field-error" }, class: Chadcn::Field::Error::CLASS_NAME, hidden: true }, managed))

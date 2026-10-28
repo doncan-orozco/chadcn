@@ -101,6 +101,48 @@ test("form: Turbo's cache restore keeps the mirrored state and a working form", 
   assert.equal(await page.locator(field("name")).getAttribute("data-invalid"), "true", "a restored form reports invalid controls again");
 }));
 
+test("form: the attempt survives a Turbo cache restore", () => withPage(async (page) => {
+  await page.locator(submit).click();
+  await settle(page);
+  assert.equal(await page.locator("form#signup").getAttribute("data-chadcn-form-attempted"), "true");
+
+  await page.evaluate(() => window.Turbo.visit("/design-system/form-demo/two"));
+  await page.waitForSelector("#form-demo-two");
+  await page.goBack();
+  await page.waitForSelector("#form-demo-one");
+  await settle(page);
+
+  await page.locator(input("name")).fill("Ada");
+  await settle(page);
+  assert.equal(await page.locator(field("name")).getAttribute("data-invalid"), null);
+  await page.locator(input("name")).fill("");
+  await settle(page);
+  assert.equal(await page.locator(field("name")).getAttribute("data-invalid"), "true", "input re-evaluates without a change event");
+}));
+
+test("form: a field with two controls follows the aggregate, each control its own aria-invalid", () => withPage(async (page) => {
+  const pair = `[data-slot=field]:has(#contact_a)`;
+  const msg = "#user_contact-form-item-message";
+  await page.locator(submit).click();
+  await settle(page);
+  assert.equal(await page.locator(pair).getAttribute("data-invalid"), "true");
+  assert.equal(await page.locator(msg).isVisible(), true);
+
+  await page.locator("#contact_a").fill("x");
+  await settle(page);
+  assert.equal(await page.locator(pair).getAttribute("data-invalid"), "true", "the other control is still invalid");
+  assert.equal(await page.locator(msg).isVisible(), true);
+  assert.equal(await page.locator("#contact_a").getAttribute("aria-invalid"), "false");
+  assert.equal(await page.locator("#contact_b").getAttribute("aria-invalid"), "true", "left as it was");
+  assert.notEqual(await page.locator(msg).textContent(), "");
+
+  await page.locator("#contact_b").fill("y");
+  await settle(page);
+  assert.equal(await page.locator(pair).getAttribute("data-invalid"), null);
+  assert.equal(await page.locator(msg).isHidden(), true);
+  assert.equal(await page.locator("#contact_b").getAttribute("aria-invalid"), "false");
+}));
+
 test("form: a valid change leaves a caller's field.error block untouched", () => withPage(async (page) => {
   const block = message("nickname");
   assert.equal((await page.locator(block).textContent()).trim(), "Shown to everyone");

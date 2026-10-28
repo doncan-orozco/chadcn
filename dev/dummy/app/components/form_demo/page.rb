@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # A Chadcn::Form with Turbo Drive ON for the live-validity browser test (test/javascript/form.test.mjs): two required fields, a
-# field with a server error that no constraint contradicts, and a second page to leave and come back from. No scenario JSON.
+# field with two required inputs, a field with a server error that no constraint contradicts, and a second page to leave and come back from. No scenario JSON.
 class FormDemo::Page < Phlex::HTML
   include Phlex::Rails::Helpers::StylesheetLinkTag
   include Phlex::Rails::Helpers::JavascriptImportmapTags
@@ -55,6 +55,12 @@ class FormDemo::Page < Phlex::HTML
         field.label { "Nickname" }
         field.input(required: true)
         field.error { "Shown to everyone" }
+      end
+      form.field(attribute: :contact) do |field|
+        field.label { "Contact" }
+        field.input(id: "contact_a", name: "user[contact_a]", required: true)
+        field.input(id: "contact_b", name: "user[contact_b]", required: true)
+        field.error
       end
       render Chadcn::Button.new(type: "submit") { "Sign up" }
     end

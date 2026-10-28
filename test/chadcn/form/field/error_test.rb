@@ -17,6 +17,16 @@ class Chadcn::Form::Field::ErrorTest < Chadcn::TestCase
     assert_equal "true", node["data-chadcn-form-message"]
   end
 
+  test "the placeholder merges caller attrs" do
+    node = doc(render_part(class: "mt-2", data: { x: "1" })).at_css("[data-slot=field-error]")
+
+    assert_includes node["class"].split, "mt-2"
+    assert_includes node["class"].split, "text-destructive"
+    assert_equal "1", node["data-x"]
+    assert_equal "true", node["data-chadcn-form-message"]
+    assert node.key?("hidden")
+  end
+
   test "marks the server error element as managed" do
     node = doc(render_part(errors: { email: [ "bad" ] })).at_css("[data-slot=field-error]")
 
