@@ -273,6 +273,7 @@ class EngineTest::FormBinding < Minitest::Test
 
     assert_equal(%w[user[addresses_attributes][0][id]], hidden.map { |input| input["name"] })
     assert_equal "5", hidden.first["value"]
+    assert_equal "off", hidden.first["autocomplete"]
     assert_equal "user_addresses_attributes_0_id", hidden.first["id"]
   end
 

@@ -168,7 +168,9 @@ class Chadcn::Form < Chadcn::Base
     context[CONTEXT_KEY] = nested
     yield scope
     nested.hidden_fields.each do |attribute, value|
-      input(type: "hidden", name: nested.name_for(attribute), id: nested.id_for(attribute), value:) unless value.nil?
+      next if value.nil?
+
+      input(type: "hidden", name: nested.name_for(attribute), id: nested.id_for(attribute), value:, autocomplete: "off")
     end
   ensure
     context[CONTEXT_KEY] = outer

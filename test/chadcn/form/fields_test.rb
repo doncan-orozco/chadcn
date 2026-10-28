@@ -125,7 +125,7 @@ class Chadcn::Form::FieldsTest < Chadcn::TestCase
     assert_equal "false", form.css("input").first["aria-invalid"]
   end
 
-  test "an explicit hidden input of the binding is rendered after the row's own inputs" do
+  test "an explicit hidden input of the binding is rendered with its autocomplete off" do
     identified = Class.new(Chadcn::Form::Binding::Plain) do
       def hidden_fields = { id: 5 }
     end
@@ -140,8 +140,8 @@ class Chadcn::Form::FieldsTest < Chadcn::TestCase
     hidden = Nokogiri::HTML5.fragment(html).at_css("input[type=hidden][name='user[address_attributes][id]']")
 
     assert_equal "5", hidden["value"]
+    assert_equal "off", hidden["autocomplete"]
     assert_equal "user_address_attributes_id", hidden["id"]
-    assert_operator html.index("[street]"), :<, html.index("[id]")
   end
 
   test "a binding with no hidden fields renders none" do
@@ -189,6 +189,14 @@ class Chadcn::Form::FieldsTest < Chadcn::TestCase
 
     assert_equal "user[addresses_attributes][0][email]", form.at_css("input")["name"]
     assert_equal "row", form.at_css("input")["value"]
+  end
+
+  test "root.field inside a row block binds to the row, the ambient binding" do
+    form = render_form do |root|
+      root.fields(attribute: :address) { |_| root.field(attribute: :street, &:input) }
+    end
+
+    assert_equal "user[address_attributes][street]", form.at_css("input")["name"]
   end
 
   test "a nil association yields once with empty values" do

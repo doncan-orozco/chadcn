@@ -19,7 +19,8 @@ module Chadcn
     class FormBinding
       include Chadcn::Form::Binding
 
-      # Matches the nested part of a builder scope (+user[addresses_attributes][0]+) the way Rails' +label+ helper does.
+      # Matches every nested segment of a builder scope (+[x_attributes]+ with or without an index, any index) to normalise it to
+      # +.x+ for the label translations; broader than Rails' label translator, which needs a numeric index.
       NESTED_SCOPE = /\[([^\]]*)_attributes\](\[[^\]]+\])?/
       private_constant :NESTED_SCOPE
 
@@ -124,7 +125,7 @@ module Chadcn
       #
       # @return [Hash{Symbol => Object}]
       def hidden_fields
-        return {} unless @nested_attributes && persisted? && @model.respond_to?(:id)
+        return super unless @nested_attributes && persisted? && @model.respond_to?(:id)
 
         { id: @model.id }
       end
