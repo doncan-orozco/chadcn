@@ -179,6 +179,21 @@ class StaticGateTest < ActiveSupport::TestCase
     assert_equal [ "ChartTooltipContent" ], parts_findings(chart_manifest([ part("ChartTooltipContent") ]), source, "G1_PART_MISSING").map(&:part)
   end
 
+  test "a foreign namespace in front of the root does not satisfy the nested part" do
+    manifest = chart_manifest([ part("ChartTooltipContent") ])
+    one_line = "class Legend::Chart::Tooltip::Content\nend\n"
+    nested = "class Legend::Chart\n  class Tooltip\n    class Content\n    end\n  end\nend\n"
+
+    assert_equal [ "ChartTooltipContent" ], parts_findings(manifest, one_line, "G1_PART_MISSING").map(&:part)
+    assert_equal [ "ChartTooltipContent" ], parts_findings(manifest, nested, "G1_PART_MISSING").map(&:part)
+  end
+
+  test "the legit nested forms also match in a CRLF source" do
+    source = "class Chart\r\n\r\n  class Tooltip\r\n\r\n    class Content\r\n    end\r\n  end\r\nend\r\n"
+
+    assert_empty parts_findings(chart_manifest([ part("ChartTooltipContent") ]), source, "G1_PART_MISSING")
+  end
+
   test "the flat form still satisfies the part" do
     source = "class Chart\n  class TooltipContent\n  end\nend\n"
 

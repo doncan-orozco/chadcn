@@ -95,25 +95,25 @@ module ShadcnStaticGate
     end
 
     # Header of a class line that opens a body (a one-line `class X < Y; end` has none), then the lines that stay inside it.
-    BODY = '(?:[ \t]*\n|%<indent>s[ \t]+\S.*\n)*?'
+    BODY = '(?:[ \t]*\r?\n|%<indent>s[ \t]+\S.*\n)*?'
     OPENS = '(?![\w:])[^;\n]*\n'
     KEYWORD = '(?:class|module)\s+'
     private_constant :BODY, :OPENS, :KEYWORD
 
     NESTED_SHAPES = [
       # Chart::Tooltip::Content in one line (Chadcn::Chart::Tooltip::Content too)
-      ->(root, head, tail) { /\b#{KEYWORD}(?:\w+::)*#{root}::#{head}::#{tail}(?![\w:])/ },
+      ->(root, head, tail) { /\b#{KEYWORD}(?:Chadcn::)?#{root}::#{head}::#{tail}(?![\w:])/ },
       # class Chart > class Tooltip::Content
       lambda { |root, head, tail|
-        /^([ \t]*)#{KEYWORD}(?:\w+::)*#{root}#{OPENS}#{format(BODY, indent: '\\1')}\1(?:  |\t)#{KEYWORD}#{head}::#{tail}(?![\w:])/
+        /^([ \t]*)#{KEYWORD}(?:Chadcn::)?#{root}#{OPENS}#{format(BODY, indent: '\\1')}\1(?:  |\t)#{KEYWORD}#{head}::#{tail}(?![\w:])/
       },
       # class Chart::Tooltip > class Content
       lambda { |root, head, tail|
-        /^([ \t]*)#{KEYWORD}(?:\w+::)*#{root}::#{head}#{OPENS}#{format(BODY, indent: '\\1')}\1(?:  |\t)#{KEYWORD}#{tail}(?![\w:])/
+        /^([ \t]*)#{KEYWORD}(?:Chadcn::)?#{root}::#{head}#{OPENS}#{format(BODY, indent: '\\1')}\1(?:  |\t)#{KEYWORD}#{tail}(?![\w:])/
       },
       # class Chart > class Tooltip > class Content
       lambda { |root, head, tail|
-        /^([ \t]*)#{KEYWORD}(?:\w+::)*#{root}#{OPENS}#{format(BODY, indent: '\\1')}\1((?:  |\t))#{KEYWORD}#{head}#{OPENS}#{format(BODY, indent: '\\1\\2')}\1\2\2#{KEYWORD}#{tail}(?![\w:])/
+        /^([ \t]*)#{KEYWORD}(?:Chadcn::)?#{root}#{OPENS}#{format(BODY, indent: '\\1')}\1((?:  |\t))#{KEYWORD}#{head}#{OPENS}#{format(BODY, indent: '\\1\\2')}\1\2\2#{KEYWORD}#{tail}(?![\w:])/
       }
     ].freeze
     private_constant :NESTED_SHAPES
