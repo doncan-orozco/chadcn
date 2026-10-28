@@ -38,9 +38,9 @@ module Chadcn
       end.sort_by { |entry| entry["component"] }
     end
 
-    # A component is ported when its constant exists and its own file does: a directory alone (the private math of an unfinished
-    # component) autovivifies the namespace without making the component renderable.
-    def ported?(component) = Chadcn.const_defined?(constant(component), false) && File.exist?(File.join(@root, "lib/chadcn", "#{component.tr('-', '_')}.rb"))
+    # A component is ported when the gem ships its file (Chadcn::Overrides.component?, the definition the eject generator uses); a
+    # directory alone (the private math of an unfinished component) autovivifies the namespace without making it renderable.
+    def ported?(component) = Chadcn::Overrides.component?(component)
 
     def constant(component) = component.split(/[-_]/).map { |word| word.sub(/\A./, &:upcase) }.join
 

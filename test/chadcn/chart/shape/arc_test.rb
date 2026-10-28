@@ -49,10 +49,16 @@ class Chadcn::Chart::Shape::ArcTest < Chadcn::TestCase
     assert_equal plain, Arc.sector_path(**ring, corner_radius: -3)
   end
 
-  test "corner_is_external changes the corners and force_corner_radius keeps them on short arcs" do
+  test "force_corner_radius keeps the corner circles on an arc too short for them" do
     ring = { cx: 160, cy: 100, inner_radius: 40, outer_radius: 80, start_angle: 10, end_angle: 12, corner_radius: 8 }
 
     assert_not_equal Arc.sector_path(**ring), Arc.sector_path(**ring, force_corner_radius: true)
     assert_includes Arc.sector_path(**ring, force_corner_radius: true), "a8,8,0,0,1,16,0"
+  end
+
+  test "corner_is_external bulges the corners outwards" do
+    ring = { cx: 160, cy: 100, inner_radius: 40, outer_radius: 80, start_angle: 10, end_angle: 100, corner_radius: 8 }
+
+    assert_not_equal Arc.sector_path(**ring), Arc.sector_path(**ring, corner_is_external: true)
   end
 end
