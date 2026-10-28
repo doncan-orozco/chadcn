@@ -31,6 +31,7 @@ module Chadcn::Icons::Catalog
     "chevron-left" => "<path d=\"m15 18-6-6 6-6\"></path>",
     "chevron-right" => "<path d=\"m9 18 6-6-6-6\"></path>",
     "chevron-up" => "<path d=\"m18 15-6-6-6 6\"></path>",
+    "chevrons-down" => "<path d=\"m7 6 5 5 5-5\"></path><path d=\"m7 13 5 5 5-5\"></path>",
     "chevrons-left" => "<path d=\"m11 17-5-5 5-5\"></path><path d=\"m18 17-5-5 5-5\"></path>",
     "chevrons-right" => "<path d=\"m6 17 5-5-5-5\"></path><path d=\"m13 17 5-5-5-5\"></path>",
     "chevrons-up-down" => "<path d=\"m7 15 5 5 5-5\"></path><path d=\"m7 9 5-5 5 5\"></path>",
