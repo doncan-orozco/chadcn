@@ -58,25 +58,25 @@ module Chadcn::Chart::Cartesian::Value
       end
     end
 
-    # `getPercentValue(percent, total, default, validate)`: a number, a numeric string, or a percent string of `total`.
+    # `getPercentValue(percent, total, default, validate)` (`share`, `fallback`): a number, a numeric string, or a percent string of `total`.
     #
     # @api private
-    # @param percent [Numeric, String, nil]
+    # @param share [Numeric, String, nil]
     # @param total [Numeric, nil]
-    # @param default [Float]
+    # @param fallback [Float] what a share that is not a number gives
     # @param validate [Boolean] cap the result at `total`
     # @return [Float]
-    def percent(percent, total, default = 0.0, validate: false)
-      return default unless percent.is_a?(Numeric) || percent.is_a?(String)
+    def percent(share, total, fallback = 0.0, validate: false)
+      return fallback unless share.is_a?(Numeric) || share.is_a?(String)
 
-      value = if percent.is_a?(String) && percent.end_with?("%")
-        return default if total.nil?
+      value = if share.is_a?(String) && share.end_with?("%")
+        return fallback if total.nil?
 
-        total * percent.to_f / 100
+        total * share.to_f / 100
       else
-        percent.is_a?(String) ? (numeric_text(percent) || Float::NAN) : percent.to_f
+        share.is_a?(String) ? (numeric_text(share) || Float::NAN) : share.to_f
       end
-      value = default if value.nan?
+      value = fallback if value.nan?
       value = total if validate && !total.nil? && value > total
       value
     end

@@ -40,10 +40,11 @@ Chadcn::Chart::Cartesian::AxisSettings = Data.define(
     # @param kind [Symbol] :x or :y
     # @return [AxisSettings]
     def implicit(kind, id = 0)
-      x = kind == :x
-      new(kind: kind, id: id, data_key: nil, type: x ? :category : :number, hide: true, size: x ? 30 : 60, orientation: x ? :bottom : :left, tick: true,
-          tick_line: true, axis_line: true, tick_size: 6, tick_margin: 2, tick_count: 5, tick_formatter: nil, interval: :preserve_end,
-          min_tick_gap: 5, mirror: false, reversed: false, padding: x ? { left: 0, right: 0 } : { top: 0, bottom: 0 }, domain: nil,
+      horizontal = kind == :x
+      new(kind: kind, id: id, data_key: nil, type: horizontal ? :category : :number, hide: true, size: horizontal ? 30 : 60,
+          orientation: horizontal ? :bottom : :left, tick: true, tick_line: true, axis_line: true, tick_size: 6, tick_margin: 2, tick_count: 5,
+          tick_formatter: nil, interval: :preserve_end,
+          min_tick_gap: 5, mirror: false, reversed: false, padding: horizontal ? { left: 0, right: 0 } : { top: 0, bottom: 0 }, domain: nil,
           allow_decimals: true, allow_duplicated_category: true, allow_data_overflow: false, include_hidden: false, nice_ticks: :auto,
           angle: 0, unit: nil, ticks: nil, scale: :auto, stroke: "#666", name: nil, attrs: {})
     end

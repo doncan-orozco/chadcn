@@ -36,7 +36,7 @@ module Chadcn::Chart::Cartesian::LinePoints
         value = Chadcn::Chart::Cartesian::Value.read(row, series.options[:data_key])
         along = coordinate(sides.category, row, index, sides.band)
         across = value.nil? ? nil : sides.numeric.position_of(value)
-        point = point_at(sides, along, across, value, row)
+        point = point_at(sides: sides, along: along, across: across, value: value, row: row)
         point if sides.horizontal || (across && along)
       end
     end
@@ -53,19 +53,19 @@ module Chadcn::Chart::Cartesian::LinePoints
       sides = sides_of(layout, axes)
       numeric = sides.numeric
       base = base_of(series.options[:base_value].nil? ? chart_base_value : series.options[:base_value], numeric)
-      raws = rows.map { |row| Chadcn::Chart::Cartesian::Value.read(row, series.options[:data_key]) }
-      values = raws.each_with_index.map do |raw, index|
+      data_values = rows.map { |row| Chadcn::Chart::Cartesian::Value.read(row, series.options[:data_key]) }
+      values = data_values.each_with_index.map do |data_value, index|
         next pairs[index] if pairs
 
-        raw.is_a?(Array) ? raw : [ base, raw ]
+        data_value.is_a?(Array) ? data_value : [ base, data_value ]
       end
-      range = !pairs && raws.any?(Array)
+      range = !pairs && data_values.any?(Array)
       points = rows.each_with_index.map do |row, index|
         top = values[index]&.[](1)
-        gap = top.nil? || (pairs && !series.options[:connect_nulls] && raws[index].nil?)
+        gap = top.nil? || (pairs && !series.options[:connect_nulls] && data_values[index].nil?)
         along = coordinate(sides.category, row, index, sides.band)
         across = gap ? nil : numeric.position_of(top)
-        point_at(sides, along, across, values[index], row)
+        point_at(sides: sides, along: along, across: across, value: values[index], row: row)
       end
       baseline = pairs || range ? lower_edge(points, values, numeric, sides.horizontal) : numeric.position_of(base) || 0.0
       Area.new(points: points, baseline: baseline, values: values, range: range)
@@ -80,7 +80,7 @@ module Chadcn::Chart::Cartesian::LinePoints
     end
 
     # A point where `along` the category axis and `across` it (the value axis) meet, as x and y for the layout.
-    def point_at(sides, along, across, value, row)
+    def point_at(sides:, along:, across:, value:, row:)
       Point.new(x: sides.horizontal ? along : across, y: sides.horizontal ? across : along, value: value, row: row)
     end
 

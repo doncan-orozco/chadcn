@@ -12,9 +12,14 @@
 # @api private
 class Chadcn::Chart::Cartesian::TooltipPlan
   # One category: its `index`, `label` (the tick value), `coordinate` (`x:`, `y:`), the `payload` (one Hash per series, in declaration
-  # order), the `cursor` (`{ layer:, attrs: }` or nil) and the active `dots` (`{ series:, attrs: }`, the SVG attributes of one dot per line
-  # and area).
+  # order), the `cursor` ({Cursor} or nil) and the active `dots` ({ActiveDot}, one per line and area).
   Entry = Data.define(:index, :label, :coordinate, :payload, :cursor, :dots)
+
+  # The cursor of a category: the `layer` recharts draws it in and the SVG `attrs` of its path.
+  Cursor = Data.define(:layer, :attrs)
+
+  # The dot of a line or area at a category: its `series` and the SVG `attrs` of the circle.
+  ActiveDot = Data.define(:series, :attrs)
 
   Number = Chadcn::Chart::Shape::Number
 
@@ -115,8 +120,8 @@ class Chadcn::Chart::Cartesian::TooltipPlan
 
     custom = option.is_a?(Hash) ? option : {}
     shape = @layout.chart_type == :bar ? rectangle_cursor(coordinate) : line_cursor(coordinate)
-    classes = [ shape[:attrs][:class], custom[:class] ].compact.join(" ")
-    { layer: shape[:layer], attrs: shape[:attrs].merge(dashed(custom.except(:class))).merge(class: classes) }
+    classes = [ shape.attrs[:class], custom[:class] ].compact.join(" ")
+    Cursor.new(layer: shape.layer, attrs: shape.attrs.merge(dashed(custom.except(:class))).merge(class: classes))
   end
 
   # `getCursorRectangle` (util/cursor/getCursorRectangle.js).
@@ -131,7 +136,7 @@ class Chadcn::Chart::Cartesian::TooltipPlan
     attrs = { stroke: "none", "pointer-events": "none", width: round(box[:width]), height: round(box[:height]), fill: "#ccc", x: round(box[:x]),
               y: round(box[:y]), class: "recharts-rectangle recharts-tooltip-cursor", radius: "0",
               d: Chadcn::Chart::Cartesian::Rectangle.path(box[:x], box[:y], box[:width], box[:height], 0) }
-    { layer: 200, attrs: attrs }
+    Cursor.new(layer: 200, attrs: attrs)
   end
 
   # `getCursorPoints` (util/cursor/getCursorPoints.js) drawn by a `Curve`.
@@ -144,7 +149,7 @@ class Chadcn::Chart::Cartesian::TooltipPlan
     end
     attrs = { stroke: "#ccc", "pointer-events": "none", width: round(plot[:width]), height: round(plot[:height]), class: "recharts-curve recharts-tooltip-cursor",
               d: Chadcn::Chart::Shape::Curve.line(points, type: :linear, layout: @layout.direction) }
-    { layer: 1100, attrs: attrs }
+    Cursor.new(layer: 1100, attrs: attrs)
   end
 
   # --- active dots --------------------------------------------------------------------------------------------------------
@@ -160,8 +165,9 @@ class Chadcn::Chart::Cartesian::TooltipPlan
 
       custom = active.is_a?(Hash) ? dashed(active) : {}
       series = placed.series
-      { series: series,
-        attrs: { cx: round(point.x), cy: round(point.y), r: "4", fill: series.legend_color || "none", stroke: "#fff", "stroke-width": "2" }.merge(custom) }
+      ActiveDot.new(series: series,
+                    attrs: { cx: round(point.x), cy: round(point.y), r: "4", fill: series.legend_color || "none", stroke: "#fff",
+                             "stroke-width": "2" }.merge(custom))
     end
   end
 

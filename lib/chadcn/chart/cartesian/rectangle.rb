@@ -30,7 +30,7 @@ module Chadcn::Chart::Cartesian::Rectangle
       elsif max_radius.positive? && radius.is_a?(Numeric) && radius.positive?
         uniform_path(geometry, [ max_radius, radius ].min)
       else
-        "M #{n(x)},#{n(y)} h #{n(width)} v #{n(height)} h #{n(-width)} Z"
+        "M #{format_number(x)},#{format_number(y)} h #{format_number(width)} v #{format_number(height)} h #{format_number(-width)} Z"
       end
     end
 
@@ -43,42 +43,42 @@ module Chadcn::Chart::Cartesian::Rectangle
 
     private
 
-    def n(value) = Number.format(round(value))
+    def format_number(value) = Number.format(round(value))
 
     # An array radius: an arc only for a corner that has a radius; the second to fourth arcs break the line after the sweep flag.
-    def corners_path(g, radii)
-      x, y, width, height = g.values_at(:x, :y, :width, :height)
-      sx = g[:x_sign]
-      sy = g[:y_sign]
-      cw = g[:clockwise]
+    def corners_path(geometry, radii)
+      x, y, width, height = geometry.values_at(:x, :y, :width, :height)
+      x_direction = geometry[:x_sign]
+      y_direction = geometry[:y_sign]
+      sweep = geometry[:clockwise]
       top_left, top_right, bottom_right, bottom_left = radii
-      d = "M#{n(x)},#{n(y + (sy * top_left))}"
-      d << "A #{n(top_left)},#{n(top_left)},0,0,#{cw},#{n(x + (sx * top_left))},#{n(y)}" if top_left.positive?
-      d << "L #{n(x + width - (sx * top_right))},#{n(y)}"
-      d << "A #{n(top_right)},#{n(top_right)},0,0,#{cw},\n        #{n(x + width)},#{n(y + (sy * top_right))}" if top_right.positive?
-      d << "L #{n(x + width)},#{n(y + height - (sy * bottom_right))}"
-      d << "A #{n(bottom_right)},#{n(bottom_right)},0,0,#{cw},\n        #{n(x + width - (sx * bottom_right))},#{n(y + height)}" if bottom_right.positive?
-      d << "L #{n(x + (sx * bottom_left))},#{n(y + height)}"
-      d << "A #{n(bottom_left)},#{n(bottom_left)},0,0,#{cw},\n        #{n(x)},#{n(y + height - (sy * bottom_left))}" if bottom_left.positive?
-      d << "Z"
+      outline = "M#{format_number(x)},#{format_number(y + (y_direction * top_left))}"
+      outline << "A #{format_number(top_left)},#{format_number(top_left)},0,0,#{sweep},#{format_number(x + (x_direction * top_left))},#{format_number(y)}" if top_left.positive?
+      outline << "L #{format_number(x + width - (x_direction * top_right))},#{format_number(y)}"
+      outline << "A #{format_number(top_right)},#{format_number(top_right)},0,0,#{sweep},\n        #{format_number(x + width)},#{format_number(y + (y_direction * top_right))}" if top_right.positive?
+      outline << "L #{format_number(x + width)},#{format_number(y + height - (y_direction * bottom_right))}"
+      outline << "A #{format_number(bottom_right)},#{format_number(bottom_right)},0,0,#{sweep},\n        #{format_number(x + width - (x_direction * bottom_right))},#{format_number(y + height)}" if bottom_right.positive?
+      outline << "L #{format_number(x + (x_direction * bottom_left))},#{format_number(y + height)}"
+      outline << "A #{format_number(bottom_left)},#{format_number(bottom_left)},0,0,#{sweep},\n        #{format_number(x)},#{format_number(y + height - (y_direction * bottom_left))}" if bottom_left.positive?
+      outline << "Z"
     end
 
     # A number radius: the four corners, in the multi-line template of recharts.
-    def uniform_path(g, r)
-      x, y, width, height = g.values_at(:x, :y, :width, :height)
-      sx = g[:x_sign]
-      sy = g[:y_sign]
-      cw = g[:clockwise]
-      arc = "A #{n(r)},#{n(r)},0,0,#{cw},"
+    def uniform_path(geometry, radius)
+      x, y, width, height = geometry.values_at(:x, :y, :width, :height)
+      x_direction = geometry[:x_sign]
+      y_direction = geometry[:y_sign]
+      sweep = geometry[:clockwise]
+      arc = "A #{format_number(radius)},#{format_number(radius)},0,0,#{sweep},"
       indent = "\n            "
-      [ "M #{n(x)},#{n(y + (sy * r))}",
-        "#{indent}#{arc}#{n(x + (sx * r))},#{n(y)}",
-        "#{indent}L #{n(x + width - (sx * r))},#{n(y)}",
-        "#{indent}#{arc}#{n(x + width)},#{n(y + (sy * r))}",
-        "#{indent}L #{n(x + width)},#{n(y + height - (sy * r))}",
-        "#{indent}#{arc}#{n(x + width - (sx * r))},#{n(y + height)}",
-        "#{indent}L #{n(x + (sx * r))},#{n(y + height)}",
-        "#{indent}#{arc}#{n(x)},#{n(y + height - (sy * r))} Z" ].join
+      [ "M #{format_number(x)},#{format_number(y + (y_direction * radius))}",
+        "#{indent}#{arc}#{format_number(x + (x_direction * radius))},#{format_number(y)}",
+        "#{indent}L #{format_number(x + width - (x_direction * radius))},#{format_number(y)}",
+        "#{indent}#{arc}#{format_number(x + width)},#{format_number(y + (y_direction * radius))}",
+        "#{indent}L #{format_number(x + width)},#{format_number(y + height - (y_direction * radius))}",
+        "#{indent}#{arc}#{format_number(x + width - (x_direction * radius))},#{format_number(y + height)}",
+        "#{indent}L #{format_number(x + (x_direction * radius))},#{format_number(y + height)}",
+        "#{indent}#{arc}#{format_number(x)},#{format_number(y + height - (y_direction * radius))} Z" ].join
     end
   end
 end

@@ -36,17 +36,17 @@ class Chadcn::Chart::Cartesian::Text
   #
   # @api private
   # @param text [String]
-  # @param width [Numeric, nil] the line width the words must fit (nil or 0: no breaking)
+  # @param line_width [Numeric, nil] the line width the words must fit (nil or 0: no breaking)
   # @return [Array<String>] the lines, never empty
-  def lines(text, width: nil)
+  def lines(text, line_width: nil)
     words = text.to_s.empty? ? [ "" ] : text.to_s.split(BREAKING_SPACES, -1)
-    return [ words.join(" ") ] if width.nil? || width.zero?
+    return [ words.join(" ") ] if line_width.nil? || line_width.zero?
 
     space = @char_width
     broken = words.each_with_object([]) do |word, result|
       size = width(word)
       current = result.last
-      if current && current[:width] + size + space < width
+      if current && current[:width] + size + space < line_width
         current[:words] << word
         current[:width] += size + space
       else

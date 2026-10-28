@@ -14,11 +14,11 @@ class Chadcn::Chart::Cartesian::TextTest < Chadcn::TestCase
 
   test "words are broken into lines that fit the width, and kept on one line without a width" do
     assert_equal [ "New York City" ], text.lines("New York City")
-    assert_equal [ "New York City" ], text.lines("New York City", width: 0)
-    assert_equal [ "New York", "City" ], text.lines("New York City", width: 70)
-    assert_equal %w[San Francisco Bay], text.lines("San Francisco Bay", width: 60)
-    assert_equal [ "" ], text.lines("", width: 50)
-    assert_equal [ "Averyveryverylongword" ], text.lines("Averyveryverylongword", width: 50)
+    assert_equal [ "New York City" ], text.lines("New York City", line_width: 0)
+    assert_equal [ "New York", "City" ], text.lines("New York City", line_width: 70)
+    assert_equal %w[San Francisco Bay], text.lines("San Francisco Bay", line_width: 60)
+    assert_equal [ "" ], text.lines("", line_width: 50)
+    assert_equal [ "Averyveryverylongword" ], text.lines("Averyveryverylongword", line_width: 50)
   end
 
   test "the first line hangs on the anchor: start below it, end above it, middle centered" do

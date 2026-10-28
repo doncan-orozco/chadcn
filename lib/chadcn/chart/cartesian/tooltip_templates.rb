@@ -34,8 +34,8 @@ class Chadcn::Chart::Cartesian::TooltipTemplates < Chadcn::Base
     cursor = entry.cursor
     { "data-chadcn--chart-target": TARGET, "data-index": entry.index.to_s, "data-label": entry.label.to_s,
       "data-coordinate": JSON.generate(entry.coordinate.transform_values { |value| whole(value) }),
-      "data-cursor": (JSON.generate(tag: "path", attrs: cursor[:attrs]) if cursor),
-      "data-active-dots": JSON.generate(entry.dots.map { |dot| dot[:attrs] }) }
+      "data-cursor": (JSON.generate(tag: "path", attrs: cursor.attrs) if cursor),
+      "data-active-dots": JSON.generate(entry.dots.map(&:attrs)) }
   end
 
   # A pixel that is a whole number is written as one (`5`, not `5.0`).

@@ -22,7 +22,7 @@ module Chadcn::Chart::Cartesian::BarPositions
     # @param global_size [Numeric, String, nil] the chart's `bar_size`
     # @param total_size [Float] the length of the category axis
     # @return [Array<Slot>]
-    def slots(bars, global_size, total_size)
+    def slots(bars, global_size:, total_size:)
       stacked, alone = bars.partition { |bar| bar.options[:stack_id] }
       groups = stacked.group_by { |bar| bar.options[:stack_id].to_s }
       # JavaScript object keys: integer-like ids first, ascending, then the others in order of insertion
@@ -81,14 +81,14 @@ module Chadcn::Chart::Cartesian::BarPositions
 
       gap = Chadcn::Chart::Cartesian::Value.percent(bar_gap, band, 0.0, validate: true)
       if slots.first.bar_size.is_a?(Numeric) && slots.first.bar_size.to_f.finite?
-        sized(slots, band, gap)
+        sized(slots: slots, band: band, gap: gap)
       else
-        equal(slots, band, gap, Chadcn::Chart::Cartesian::Value.percent(category_gap, band, 0.0, validate: true), max)
+        equal(slots: slots, band: band, gap: gap, offset: Chadcn::Chart::Cartesian::Value.percent(category_gap, band, 0.0, validate: true), max: max)
       end
     end
 
     # The first stack asked for a `bar_size`: the group is centered.
-    def sized(slots, band, gap)
+    def sized(slots:, band:, gap:)
       count = slots.size
       full = band / count
       sum = slots.sum { |slot| slot.bar_size || 0 } + ((count - 1) * gap)
@@ -114,7 +114,7 @@ module Chadcn::Chart::Cartesian::BarPositions
     end
 
     # No `bar_size`: the band minus the category gap is shared equally.
-    def equal(slots, band, gap, offset, max)
+    def equal(slots:, band:, gap:, offset:, max:)
       count = slots.size
       gap = 0.0 if band - (2 * offset) - ((count - 1) * gap) <= 0
       original = (band - (2 * offset) - ((count - 1) * gap)) / count

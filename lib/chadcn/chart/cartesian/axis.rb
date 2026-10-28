@@ -29,9 +29,10 @@ class Chadcn::Chart::Cartesian::Axis
   # @api private
   # @return [Array(Float, Float)] the pixel range of the scale (reversed for a reversed axis)
   attr_reader :range
+
   # @api private
   # @return [Boolean] whether this is the axis that holds the categories of the chart layout
-  attr_reader :categorical
+  def categorical? = @categorical
 
   # @api private
   # @param settings [Chadcn::Chart::Cartesian::AxisSettings]
@@ -211,9 +212,9 @@ class Chadcn::Chart::Cartesian::Axis
   def data_domain
     low = high = nil
     extend_with = lambda do |value|
-      range = value_domain(value) or next
-      low = low.nil? ? range[0] : [ low, range[0] ].min
-      high = high.nil? ? range[1] : [ high, range[1] ].max
+      bounds = value_domain(value) or next
+      low = low.nil? ? bounds[0] : [ low, bounds[0] ].min
+      high = high.nil? ? bounds[1] : [ high, bounds[1] ].max
     end
     unstacked = @items.reject { |item| item.options[:stack_id] }
     value_class = Chadcn::Chart::Cartesian::Value

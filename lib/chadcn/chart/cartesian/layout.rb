@@ -270,7 +270,7 @@ class Chadcn::Chart::Cartesian::Layout
     key = @direction == :horizontal ? :x_axis_id : :y_axis_id
     bars = @declared.series.select { |other| other.kind == :bar && !other.options[:hide] && other.options[key] == series.options[key] }
     total = @direction == :horizontal ? @plot[:width] : @plot[:height]
-    slots = Chadcn::Chart::Cartesian::BarPositions.slots(bars, @chart.bar_size, total)
+    slots = Chadcn::Chart::Cartesian::BarPositions.slots(bars, global_size: @chart.bar_size, total_size: total)
     max_bar = series.options[:max_bar_size].nil? ? @chart.max_bar_size : series.options[:max_bar_size]
     bar_band = category.band_size(bar: true) || max_bar || 0
     Chadcn::Chart::Cartesian::BarPositions.positions(slots, global_max: @chart.max_bar_size, bar_gap: @chart.bar_gap,
