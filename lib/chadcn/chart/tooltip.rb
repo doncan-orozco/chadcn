@@ -8,8 +8,8 @@
 class Chadcn::Chart::Tooltip < Chadcn::Base
   # Values of `trigger:`.
   TRIGGERS = %i[hover click].freeze
-  EVENT_TYPES = [ nil, true, false ].freeze
-  private_constant :EVENT_TYPES
+  TRISTATE = [ nil, true, false ].freeze
+  private_constant :TRISTATE
 
   # @return [Chadcn::Chart::Tooltip::Content, nil] the declared content (recharts' `content` prop)
   attr_reader :content_element
@@ -47,14 +47,14 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
                  include_hidden: false, axis_id: 0, payload_uniq_by: false, formatter: nil, label_formatter: nil,
                  separator: " : ", content_style: nil, item_sorter: :name,
                  **attrs)
-    unless TRIGGERS.include?(trigger&.to_sym)
+    unless trigger.respond_to?(:to_sym) && TRIGGERS.include?(trigger.to_sym)
       raise ArgumentError, "trigger: must be one of #{TRIGGERS.map(&:inspect).join(', ')} (got #{trigger.inspect})"
     end
     unless content.nil? || content.is_a?(Chadcn::Chart::Tooltip::Content)
       raise ArgumentError, "content: must be a Chadcn::Chart::Tooltip::Content (got #{content.class})"
     end
-    raise ArgumentError, "active: must be true, false or nil (got #{active.inspect})" unless EVENT_TYPES.include?(active)
-    raise ArgumentError, "shared: must be true, false or nil (got #{shared.inspect})" unless EVENT_TYPES.include?(shared)
+    raise ArgumentError, "active: must be true, false or nil (got #{active.inspect})" unless TRISTATE.include?(active)
+    raise ArgumentError, "shared: must be true, false or nil (got #{shared.inspect})" unless TRISTATE.include?(shared)
 
     @content_element = content
     @options = {
@@ -223,12 +223,12 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
       @color || row_fill || item_value(item, :color)
     end
 
-    def render_default_item(item_config, item, indicator_color, nested_label)
+    def render_default_item(item_config, item, color, nested_label)
       nest_label = !nested_label.nil?
       if item_config&.icon
         render_icon(item_config.icon)
       elsif !@hide_indicator
-        div(class: indicator_classes(nest_label), style: "--color-bg: #{indicator_color}; --color-border: #{indicator_color};")
+        div(class: indicator_classes(nest_label), style: "--color-bg: #{color}; --color-border: #{color};")
       end
       div(class: cn("flex flex-1 justify-between leading-none", nest_label ? "items-end" : "items-center")) do
         div(class: "grid gap-1.5") do

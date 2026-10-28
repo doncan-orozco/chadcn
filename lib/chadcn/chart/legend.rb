@@ -32,12 +32,12 @@ class Chadcn::Chart::Legend < Chadcn::Base
   # @param wrapper_style [Hash, String, nil] style of the `recharts-legend-wrapper` div
   # @param legend_height [Numeric] server assumption for the measured height of the content (`pt-3` plus a 16px line)
   # @param attrs [Hash] attributes of the `recharts-legend-wrapper` div (a chadcn addition); `class:` is merged
-  # @raise [ArgumentError] on a `vertical_align:` outside the three alignments, or a `content:` that is not a legend content
+  # @raise [ArgumentError] on a `vertical_align:`, `align:` or `layout:` outside its values, or a `content:` that is not a legend content
   def initialize(content: nil, vertical_align: :bottom, align: :center, layout: :horizontal, icon_size: 14, icon_type: nil,
                  inactive_color: nil, item_sorter: :value, width: nil, height: nil, payload_uniq_by: false, wrapper_style: nil,
                  legend_height: 28, **attrs)
     { vertical_align: [ vertical_align, VERTICAL_ALIGNMENTS ], align: [ align, ALIGNMENTS ], layout: [ layout, LAYOUTS ] }.each do |name, (value, allowed)|
-      next if allowed.include?(value&.to_sym)
+      next if value.respond_to?(:to_sym) && allowed.include?(value.to_sym)
 
       raise ArgumentError, "#{name}: must be one of #{allowed.map(&:inspect).join(', ')} (got #{value.inspect})"
     end
@@ -103,8 +103,7 @@ class Chadcn::Chart::Legend < Chadcn::Base
       return if @payload.empty?
 
       config = chart_config
-      classes = [ "flex items-center justify-center gap-4", @vertical_align == "top" ? "pb-3" : "pt-3" ]
-      div(**merge_attrs({ class: classes.join(" ") }, @attrs)) do
+      div(**merge_attrs({ class: ROOT_CLASSES.fetch(@vertical_align == "top" ? "top" : "bottom") }, @attrs)) do
         @payload.each do |item|
           next if item_value(item, :type).to_s == "none"
 

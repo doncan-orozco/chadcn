@@ -48,8 +48,9 @@ class Chadcn::Base < Phlex::HTML
   # @api private
   def self.const_added(name)
     super
-    # A namespace Zeitwerk autovivifies from a directory without a file (Chart::Scale, Chart::Shape) is a plain module, never a
-    # part: loading it here would require the directory.
+    # Zeitwerk registers a directory without a file (Chart::Scale, Chart::Shape) as an autoload of the directory path, and Ruby
+    # fires const_added on that very call. Such a namespace is a plain module, never a part, and `const_get` would try to require
+    # the directory while the root is still registering its lazy parts. A part always autoloads from its .rb file.
     return if (path = autoload?(name, false)) && File.directory?(path)
 
     part = begin
