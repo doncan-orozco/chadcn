@@ -109,9 +109,26 @@ browserTest("input-otp: removing the element stops the timers and listeners (no 
   const page = await open("focus__tab");
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
+  await page.clock.install();
   await page.focus(input);
+  await page.clock.runFor(1);
+  const badgeChecked = () => page.evaluate(() => window.Stimulus.getControllerForElementAndIdentifier(document.querySelector("[data-input-otp-container]"), "chadcn--input-otp").badge.hasBadge);
+  assert.equal(await badgeChecked(), true, "control: the 0 ms badge check ran on the fake clock while connected");
   await page.locator(container).evaluate((el) => el.remove());
-  await page.waitForTimeout(120);
+  await page.clock.runFor(7000);
   await page.evaluate(() => document.dispatchEvent(new Event("selectionchange")));
   assert.deepEqual(errors, []);
+});
+
+browserTest("input-otp: a snapshot taken while focused reconnects blurred, without a stale caret", async ({ open }) => {
+  const page = await open("default");
+  await page.focus(input);
+  await page.keyboard.type("1");
+  await settle(page);
+  assert.equal(await page.locator("[data-slot=input-otp-slot][data-active=true]").count(), 1, "control: one active slot");
+  assert.equal(await page.locator(".animate-caret-blink").count(), 1, "control: the caret is mounted");
+  await page.locator(container).evaluate((el) => el.replaceWith(el.cloneNode(true)));
+  await settle(page);
+  assert.deepEqual(await slots(page), [["1", "false"], ["", "false"], ["", "false"], ["", "false"]]);
+  assert.equal(await page.locator(".animate-caret-blink").count(), 0);
 });

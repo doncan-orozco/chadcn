@@ -34,6 +34,7 @@ Chadcn::InputOtp::Separator.new(**attrs)                        # React InputOTP
 - Constants mirroring the library exports used by the examples (otp:213): `Chadcn::InputOtp::REGEXP_ONLY_DIGITS = "^\\d+$"`, `REGEXP_ONLY_CHARS = "^[a-zA-Z]+$"`, `REGEXP_ONLY_DIGITS_AND_CHARS = "^[a-zA-Z0-9]+$"`, and `NO_SCRIPT_CSS_FALLBACK` (the `Ft` string, verbatim, otp:193-212).
 - `value:` (controlled): the server renders that value; user input dispatches `change` with the attempted value and the controller puts the input back to the rendered value (React re-renders the controlled `<input value={l}>`, otp:71-72: `O` calls `onChange` and sets internal state, which is ignored while `o != null`).
 - `max_length:` is not used to truncate `value:`/`default_value:` on the server (React renders `l` as given; slots read `l[n]` for `n < maxLength`, otp:178-181).
+- `text_align:`/`push_password_manager_strategy:` raise `ArgumentError` on an unknown value; `no_script_css_fallback:` is trusted CSS and raises if it contains `</`; a negative `index:` renders like one beyond `max_length` (no char, no `data-active`).
 - `as_child:` is not offered (OTPInput has no asChild; shadcn's parts are plain divs without Slot).
 - Events (dispatched from the container, `this.dispatch`, bubbling, not cancelable):
   - `chadcn--input-otp:change`, `detail: { value }`: React `onChange(value)` (otp:71-72 `O`), after every accepted input change (otp:136-141) and on the iOS/pasteTransformer paste path (otp:157). Not dispatched for a rejected pattern (otp:137-139).
@@ -76,7 +77,7 @@ Part `InputOTPSlot` (`InputOtp::Slot`, `data-slot="input-otp-slot"`), src:InputO
 - Children: the char (`value[index]`, a text node, nothing when absent), then the fake caret only when `hasFakeCaret` (active and no char): `<div class="pointer-events-none absolute inset-0 flex items-center justify-center"><div class="h-4 w-px animate-caret-blink bg-foreground duration-1000"></div></div>`. The port ships the caret markup in an inert `<template data-chadcn--input-otp-target="caret">` (no data-slot) as the slot's last child and mounts it with `template_mount` (`into: "after"`) when needed; see Deviations. `animate-caret-blink` comes from the vendored tw-animate (`caret-blink 1.25s ease-out infinite`).
 - Server: the root passes `value`/`max_length` to its slots through the render context (the Slot needs no kwarg beyond `index:`); the server renders the initial char and `data-active="false"`.
 
-Part `InputOTPSeparator` (`InputOtp::Separator`, `data-slot="input-otp-separator"`), src:InputOTPSeparator: `div data-slot="input-otp-separator" role="separator"`, caller attrs after (so `role:` can be overridden), child `Chadcn::Icon.new(name: "minus")` (lucide `MinusIcon`, renders `svg.lucide.lucide-minus` with `aria-hidden="true"`). No classes of its own.
+Part `InputOTPSeparator` (`InputOtp::Separator`, `data-slot="input-otp-separator"`), src:InputOTPSeparator: `div data-slot="input-otp-separator" role="separator"`, caller attrs after (so `role:` can be overridden), child `Chadcn::Icon.new("minus")` (lucide `MinusIcon`, renders `svg.lucide.lucide-minus` with `aria-hidden="true"`). No classes of its own.
 
 Ids: none generated; only a caller `id:` on the input (for `<label for>`).
 
@@ -112,7 +113,7 @@ States: `focused`/blurred, value length 0..max (empty -> `data-input-otp-placeho
 
 Primitives composed: `template_mount` (fake caret). Nothing else applies (no Radix primitive in the oracle). The ResizeObserver, `selectionchange` listener, timers and interval are owned by the controller and released in `disconnect()`.
 
-Turbo: `connect()` reconciles from the input's current value (unmount any mounted caret, rewrite chars and `data-active`), so a cached snapshot taken while focused restores consistently; no `turbo_cache` restore is needed (the controller does not move server markup).
+Turbo: `connect()` reconciles from the input's current value (unmount any mounted caret, rewrite chars and `data-active`), so a cached snapshot taken while focused restores consistently; no `turbo_cache` restore is needed (the controller does not move server markup) (browser test: a snapshot taken while focused reconnects blurred).
 
 Scenario notes: the `input-otp-controlled` example keeps its value in React state; the harness has no state, so its scenario renders the controlled `value=""` with the static helper text (the `value=""` case freezes typing in both, `controlled__value-without-feedback` covers it). Clicks target `[data-slot=input-otp]` (the input covers the container).
 

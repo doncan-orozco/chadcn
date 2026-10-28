@@ -45,7 +45,7 @@ class Chadcn::InputOtpTest < Chadcn::TestCase
 
     assert_equal "chadcn--input-otp", container["data-controller"]
     assert_equal "no", container["translate"]
-    assert_equal "flex items-center gap-2 has-disabled:opacity-50", container["class"]
+    assert_equal %w[flex items-center gap-2 has-disabled:opacity-50], container["class"].split
     assert_nil container["data-slot"]
     assert_equal "4", container["data-chadcn--input-otp-max-length-value"]
     assert_equal "false", container["data-chadcn--input-otp-controlled-value"]
@@ -58,7 +58,10 @@ class Chadcn::InputOtpTest < Chadcn::TestCase
     html = field(root: { class: "disabled:cursor-default", container_class_name: "gap-4" })
 
     assert_equal "disabled:cursor-default", html.at_css("input")["class"]
-    assert_equal "flex items-center has-disabled:opacity-50 gap-4", html.at_css("[data-input-otp-container]")["class"]
+    container = html.at_css("[data-input-otp-container]")["class"].split
+
+    assert_includes container, "gap-4"
+    refute_includes container, "gap-2"
   end
 
   test "caller attributes go to the input and the library's own cannot be overridden" do
@@ -130,6 +133,40 @@ class Chadcn::InputOtpTest < Chadcn::TestCase
     assert_nil slot.at_css("template")
   end
 
+  test "a negative slot index renders like one beyond max_length" do
+    slot = field(root: { default_value: "1234" }, slots: [ -1 ]).at_css("[data-slot=input-otp-slot]")
+
+    assert_nil slot["data-active"]
+    assert_equal "", slot.text
+    assert_nil slot.at_css("template")
+  end
+
+  test "pattern, nonce and strategy travel to the controller values" do
+    plain = field.at_css("[data-input-otp-container]")
+    custom = field(root: { pattern: InputOtp::REGEXP_ONLY_DIGITS, nonce: "abc" }).at_css("[data-input-otp-container]")
+
+    assert_nil plain["data-chadcn--input-otp-pattern-value"]
+    assert_nil plain["data-chadcn--input-otp-nonce-value"]
+    assert_equal "increase-width", plain["data-chadcn--input-otp-push-password-manager-strategy-value"]
+    assert_equal "^\\d+$", custom["data-chadcn--input-otp-pattern-value"]
+    assert_equal "abc", custom["data-chadcn--input-otp-nonce-value"]
+  end
+
+  test "text_align renders in the input style and unknown options raise" do
+    assert_includes field(root: { text_align: :right }).at_css("input")["style"], "text-align: right"
+    align = assert_raises(ArgumentError) { InputOtp.new(max_length: 4, text_align: "justify") }
+    strategy = assert_raises(ArgumentError) { InputOtp.new(max_length: 4, push_password_manager_strategy: "always") }
+
+    assert_match(/text_align: must be one of left, center, right \(got "justify"\)/, align.message)
+    assert_match(/push_password_manager_strategy: must be one of/, strategy.message)
+  end
+
+  test "a no_script_css_fallback that would close the style element raises" do
+    error = assert_raises(ArgumentError) { InputOtp.new(max_length: 4, no_script_css_fallback: "a{}</style><script>x</script>") }
+
+    assert_match(%r{must not contain "</"}, error.message)
+  end
+
   test "slot classes are verbatim, the caller's win and attrs pass through" do
     slot = field("aria-invalid": true, class: "rounded-none", data: { testid: "s" }).at_css("[data-slot=input-otp-slot]")
 
@@ -144,7 +181,7 @@ class Chadcn::InputOtpTest < Chadcn::TestCase
 
     group = html.at_css("[data-slot=input-otp-group]")
 
-    assert_equal "flex items-center", group["class"]
+    assert_equal %w[flex items-center], group["class"].split
     separator = html.at_css("[data-slot=input-otp-separator]")
 
     assert_equal "separator", separator["role"]

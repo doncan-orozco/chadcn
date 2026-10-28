@@ -71,7 +71,9 @@ class Chadcn::InputOtp < Chadcn::Base
                 "color: transparent; pointer-events: all; background: transparent; caret-color: transparent; " \
                 "border: 0px solid transparent; outline: transparent solid 0px; box-shadow: none; line-height: 1; " \
                 "letter-spacing: -0.5em; font-size: var(--root-height, 16px); font-family: monospace; font-variant-numeric: tabular-nums"
-  private_constant :CONTAINER_STYLE, :WRAPPER_STYLE, :INPUT_STYLE
+  TEXT_ALIGNS = %w[left center right].freeze
+  PUSH_PASSWORD_MANAGER_STRATEGIES = %w[increase-width experimental-no-flickering none].freeze
+  private_constant :CONTAINER_STYLE, :WRAPPER_STYLE, :INPUT_STYLE, :TEXT_ALIGNS, :PUSH_PASSWORD_MANAGER_STRATEGIES
 
   # @param max_length [Integer] number of slots and the input's maxlength
   # @param value [String, nil] controlled value (nil: uncontrolled)
@@ -81,10 +83,13 @@ class Chadcn::InputOtp < Chadcn::Base
   # @param input_mode [String, Symbol] the input's inputmode
   # @param text_align [String, Symbol] "left", "center" or "right"
   # @param push_password_manager_strategy [String, Symbol] "increase-width", "experimental-no-flickering" or "none"
-  # @param no_script_css_fallback [String, nil] CSS of the `<noscript>` fallback; nil renders none
+  # @param no_script_css_fallback [String, nil] trusted CSS of the `<noscript>` fallback, rendered unescaped (never user input); must not
+  #   contain `</`; nil renders none
   # @param nonce [String, nil] CSP nonce of the stylesheet the controller injects
   # @param container_class_name [String, nil] classes of the container, merged after the defaults
   # @param attrs [Hash] HTML attributes of the input (`id:`, `name:`, `disabled:`, `aria:`, `data:`...); `class:` is merged after the input defaults
+  # @raise [ArgumentError] when `text_align` or `push_password_manager_strategy` is not one of the listed values, or
+  #   `no_script_css_fallback` contains `</`
   def initialize(max_length:, value: nil, default_value: nil, pattern: nil, placeholder: nil, input_mode: "numeric", text_align: "left",
                  push_password_manager_strategy: "increase-width", no_script_css_fallback: NO_SCRIPT_CSS_FALLBACK, nonce: nil,
                  container_class_name: nil, **attrs)
@@ -94,9 +99,9 @@ class Chadcn::InputOtp < Chadcn::Base
     @pattern = pattern
     @placeholder = placeholder
     @input_mode = normalize_option(input_mode)
-    @text_align = normalize_option(text_align)
-    @strategy = normalize_option(push_password_manager_strategy)
-    @no_script_css_fallback = no_script_css_fallback
+    @text_align = option_in(text_align, TEXT_ALIGNS, "text_align")
+    @strategy = option_in(push_password_manager_strategy, PUSH_PASSWORD_MANAGER_STRATEGIES, "push_password_manager_strategy")
+    @no_script_css_fallback = style_text(no_script_css_fallback)
     @nonce = nonce
     @container_class_name = container_class_name
     @attrs = attrs
@@ -107,7 +112,7 @@ class Chadcn::InputOtp < Chadcn::Base
   # @return [void]
   def view_template
     previous = context[CONTEXT_KEY]
-    context[CONTEXT_KEY] = { value: @value, max_length: @max_length }
+    context[CONTEXT_KEY] = { value: @value, max_length: @max_length }.freeze
     noscript { style { raw(safe(@no_script_css_fallback)) } } if @no_script_css_fallback
     div(**container_attrs) do
       yield self if block_given?
@@ -118,6 +123,22 @@ class Chadcn::InputOtp < Chadcn::Base
   end
 
   private
+
+  def option_in(value, allowed, name)
+    option = normalize_option(value)
+    return option if allowed.include?(option)
+
+    raise ArgumentError, "#{name}: must be one of #{allowed.join(', ')} (got #{value.inspect})"
+  end
+
+  def style_text(css)
+    return unless css
+
+    text = String(css)
+    raise ArgumentError, 'no_script_css_fallback must not contain "</" (it would close the <style> element)' if text.include?("</")
+
+    text
+  end
 
   def disabled? = !(@attrs[:disabled].nil? || @attrs[:disabled] == false)
 
@@ -180,7 +201,7 @@ class Chadcn::InputOtp < Chadcn::Base
     # @raise [ArgumentError] when rendered outside InputOtp
     def view_template
       root = context[Chadcn::InputOtp::CONTEXT_KEY] or raise ArgumentError, "#{self.class.name} must be used within InputOtp"
-      inside = @index < root[:max_length]
+      inside = @index >= 0 && @index < root[:max_length]
       defaults = { class: CLASSES,
                    data: { slot: "input-otp-slot", active: ("false" if inside), chadcn__input_otp_target: "slot", chadcn__input_otp_index_value: @index } }
       div(**merge_attrs(defaults, @attrs)) do
@@ -205,5 +226,7 @@ class Chadcn::InputOtp < Chadcn::Base
   end
 end
 
-# The React export name (`InputOTP`): the parity harness and ports of React code look the component up by it.
+# The React export name (`InputOTP`), for the parity harness and the catalog tree renderer, which load InputOtp first. Application
+# code uses Chadcn::InputOtp; this alias is not autoloadable on its own.
+# @api private
 Chadcn::InputOTP = Chadcn::InputOtp

@@ -14,8 +14,9 @@ const BADGE_SPACE = 40 // otp:28 `nt`
 const BADGE_PROBE_OFFSET = 18 // otp:28 `Ot`
 const BADGE_SELECTORS = ["[data-lastpass-icon-root]", "com-1password-button", "[data-dashlanecreated]", '[style$="2147483647 !important;"]'].join(",")
 const BADGE_STRATEGIES = ["increase-width", "experimental-no-flickering"]
-const TEMPLATE = ":scope > template"
-const INDEX = "data-chadcn--input-otp-index-value"
+// The slot's position. Named like a Stimulus value only because the parity runner ignores that shape (spec Deviation 6); the
+// controller reads it itself and declares no such value.
+const SLOT_INDEX = "data-chadcn--input-otp-index-value"
 const STYLE_ID = "input-otp-style"
 const AUTOFILL = "background: transparent !important; color: transparent !important; border-color: transparent !important; opacity: 0 !important; box-shadow: none !important; -webkit-box-shadow: none !important; -webkit-text-fill-color: transparent !important;"
 const RULES = [
@@ -34,14 +35,11 @@ export default class extends Controller {
     pushPasswordManagerStrategy: { type: String, default: "increase-width" },
     nonce: String,
   }
-  static targets = ["input", "slot"]
+  static targets = ["input", "slot", "caret"]
 
   connect() {
     if (!this.hasInputTarget) return
     this.input = this.inputTarget
-    this.max = this.maxLengthValue
-    this.regex = this.patternValue ? new RegExp(this.patternValue) : null
-    this.strategy = this.pushPasswordManagerStrategyValue
     this.isIOS = typeof CSS !== "undefined" && CSS.supports("-webkit-touch-callout", "none")
     this.value = this.input.getAttribute("value") ?? ""
     this.focused = false
@@ -52,7 +50,7 @@ export default class extends Controller {
     this.syncKey = null
     this.syncTimers = []
     this.badge = { hasBadge: false, hasSpace: false, done: false, timers: [], watching: false }
-    this.slots = this.slotTargets.map((el) => this.registerSlot(el))
+    this.slots = this.slotTargets.map((element) => this.registerSlot(element))
     this.abort = new AbortController()
     const { signal } = this.abort
     const input = this.input
@@ -64,7 +62,7 @@ export default class extends Controller {
     document.addEventListener("selectionchange", () => this.normalizeSelection(), { capture: true, signal })
 
     // otp:78: a value the browser restored differs from the rendered one and is reported like a change.
-    this.prev = [input.selectionStart, input.selectionEnd, input.selectionDirection]
+    this.previousSelection = [input.selectionStart, input.selectionEnd, input.selectionDirection]
     if (input.value !== this.value) this.change(() => this.commit(input.value))
     // React assigns the value as a property, which leaves the caret at its end; the server-rendered attribute leaves it at 0.
     if (document.activeElement !== input && input.selectionStart === 0 && input.selectionEnd === 0) input.setSelectionRange(this.value.length, this.value.length)
@@ -80,6 +78,55 @@ export default class extends Controller {
     this.render()
   }
 
+  get maxLength() {
+    return this.maxLengthValue
+  }
+
+  get strategy() {
+    return this.pushPasswordManagerStrategyValue
+  }
+
+  // The compiled `pattern` value, rebuilt only when its source changes.
+  get pattern() {
+    if (!this.patternValue) return null
+    if (this.compiledSource !== this.patternValue) {
+      this.compiledSource = this.patternValue
+      this.compiledPattern = new RegExp(this.patternValue)
+    }
+    return this.compiledPattern
+  }
+
+  maxLengthValueChanged() {
+    if (this.abort) this.render()
+  }
+
+  pushPasswordManagerStrategyValueChanged() {
+    if (!this.abort) return
+
+    this.stopBadgeWatch()
+    this.watchPasswordManager()
+    this.applyInputWidth()
+  }
+
+  // Slots added or removed after connect (before it, connect() registers the initial ones).
+  slotTargetConnected(element) {
+    if (!this.abort || this.slots.some((slot) => slot.element === element)) return
+
+    const slot = this.registerSlot(element)
+    this.slots.push(slot)
+    this.renderSlot(slot)
+  }
+
+  slotTargetDisconnected(element) {
+    if (!this.abort) return
+
+    const slot = this.slots.find((candidate) => candidate.element === element)
+    if (!slot) return
+
+    this.unmountCaret(slot)
+    this.slots = this.slots.filter((candidate) => candidate !== slot)
+  }
+
   disconnect() {
     if (!this.abort) return
     this.abort.abort()
@@ -93,10 +140,10 @@ export default class extends Controller {
   // --- slots ---------------------------------------------------------------------------------------------------------
 
   // A cached snapshot may carry a mounted caret: only the inert template is the server markup (spec Turbo).
-  registerSlot(el) {
-    const template = el.querySelector(TEMPLATE)
+  registerSlot(element) {
+    const template = this.caretTargets.find((caret) => caret.parentElement === element) ?? null
     while (template?.nextSibling) template.nextSibling.remove()
-    return { el, template, index: Number(el.getAttribute(INDEX)), mount: null }
+    return { element, template, index: Number(element.getAttribute(SLOT_INDEX)), mount: null }
   }
 
   unmountCaret(slot) {
@@ -105,24 +152,24 @@ export default class extends Controller {
   }
 
   renderSlot(slot) {
-    if (slot.index >= this.max) return // the context has no slot there (otp:178): no character, no data-active
+    if (slot.index < 0 || slot.index >= this.maxLength) return // the context has no slot there (otp:178): no character, no data-active
 
-    const char = this.value[slot.index] ?? null
+    const character = this.value[slot.index] ?? null
     const active = this.focused && this.selectionStart !== null && this.selectionEnd !== null &&
       ((this.selectionStart === this.selectionEnd && slot.index === this.selectionStart) ||
         (slot.index >= this.selectionStart && slot.index < this.selectionEnd))
-    slot.el.setAttribute("data-active", String(active))
-    this.renderChar(slot, char)
-    const caret = active && char === null
+    slot.element.setAttribute("data-active", String(active))
+    this.renderChar(slot, character)
+    const caret = active && character === null
     if (caret && !slot.mount) slot.mount = mountTemplate(slot.template, { into: "after" })
     else if (!caret) this.unmountCaret(slot)
   }
 
-  renderChar(slot, char) {
-    const node = [...slot.el.childNodes].find((child) => child.nodeType === Node.TEXT_NODE)
-    if (char === null) node?.remove()
-    else if (node) node.data = char
-    else slot.el.prepend(document.createTextNode(char))
+  renderChar(slot, character) {
+    const node = [...slot.element.childNodes].find((child) => child.nodeType === Node.TEXT_NODE)
+    if (character === null) node?.remove()
+    else if (node) node.data = character
+    else slot.element.prepend(document.createTextNode(character))
   }
 
   // --- state ---------------------------------------------------------------------------------------------------------
@@ -177,8 +224,8 @@ export default class extends Controller {
       this.badge.focused = this.focused
       this.scheduleBadgeChecks()
     }
-    const { prior, value, max } = this
-    if (prior !== undefined && value !== prior && prior.length < max && value.length === max) this.dispatch("complete", { detail: { value }, cancelable: false })
+    const { prior, value, maxLength } = this
+    if (prior !== undefined && value !== prior && prior.length < maxLength && value.length === maxLength) this.dispatch("complete", { detail: { value }, cancelable: false })
   }
 
   scheduleSync() {
@@ -193,7 +240,7 @@ export default class extends Controller {
     const { selectionStart: start, selectionEnd: end, selectionDirection: direction } = this.input
     if (start === null || end === null) return
     this.change(() => { this.selectionStart = start; this.selectionEnd = end })
-    this.prev = [start, end, direction]
+    this.previousSelection = [start, end, direction]
   }
 
   // --- input ---------------------------------------------------------------------------------------------------------
@@ -204,8 +251,8 @@ export default class extends Controller {
 
   // otp:136-141
   accept(raw, event) {
-    const next = raw.slice(0, this.max)
-    if (next.length > 0 && this.regex && !this.regex.test(next)) {
+    const next = raw.slice(0, this.maxLength)
+    if (next.length > 0 && this.pattern && !this.pattern.test(next)) {
       event?.preventDefault()
       this.restoreInput()
       return
@@ -226,7 +273,7 @@ export default class extends Controller {
   // otp:142-148
   focusedIn() {
     const length = this.input.value.length
-    const start = Math.min(length, this.max - 1)
+    const start = Math.min(length, this.maxLength - 1)
     this.input.setSelectionRange(start, length)
     this.change(() => {
       this.selectionStart = start
@@ -237,18 +284,19 @@ export default class extends Controller {
 
   // otp:149-160: only intercepted on iOS or with a pasteTransformer; elsewhere the browser pastes natively.
   pasted(event) {
-    if (!this.pasteTransformer && !(this.isIOS && event.clipboardData)) return
+    const clipboard = event.clipboardData
+    if (!clipboard || (!this.pasteTransformer && !this.isIOS)) return
 
-    const text = event.clipboardData.getData("text/plain")
+    const text = clipboard.getData("text/plain")
     const pasted = this.pasteTransformer ? this.pasteTransformer(text) : text
     event.preventDefault()
     const { selectionStart: start, selectionEnd: end } = this.input
     const joined = start !== end ? this.value.slice(0, start) + pasted + this.value.slice(end) : this.value.slice(0, start) + pasted + this.value.slice(start)
-    const next = joined.slice(0, this.max)
-    if (next.length > 0 && this.regex && !this.regex.test(next)) return
+    const next = joined.slice(0, this.maxLength)
+    if (next.length > 0 && this.pattern && !this.pattern.test(next)) return
 
     this.input.value = next
-    const from = Math.min(next.length, this.max - 1)
+    const from = Math.min(next.length, this.maxLength - 1)
     this.change(() => {
       this.commit(next)
       this.input.setSelectionRange(from, next.length)
@@ -271,7 +319,7 @@ export default class extends Controller {
     const direction = input.selectionDirection
     const max = input.maxLength
     const value = input.value
-    const prev = this.prev
+    const previousSelection = this.previousSelection
     let from = -1
     let to = -1
     let dir
@@ -289,9 +337,9 @@ export default class extends Controller {
           dir = "backward"
         } else if (max > 1 && value.length > 1) {
           let offset = 0
-          if (prev[0] !== null && prev[1] !== null) {
-            dir = start < prev[1] ? "backward" : "forward"
-            const wasCaretBeforeEnd = prev[0] === prev[1] && prev[0] < max
+          if (previousSelection[0] !== null && previousSelection[1] !== null) {
+            dir = start < previousSelection[1] ? "backward" : "forward"
+            const wasCaretBeforeEnd = previousSelection[0] === previousSelection[1] && previousSelection[0] < max
             if (dir === "backward" && !wasCaretBeforeEnd) offset = -1
           }
           from = offset + start
@@ -303,7 +351,7 @@ export default class extends Controller {
     const nextStart = from !== -1 ? from : start
     const nextEnd = to !== -1 ? to : end
     this.change(() => { this.selectionStart = nextStart; this.selectionEnd = nextEnd })
-    this.prev = [nextStart, nextEnd, dir ?? direction]
+    this.previousSelection = [nextStart, nextEnd, dir ?? direction]
   }
 
   // --- layout --------------------------------------------------------------------------------------------------------
