@@ -130,7 +130,7 @@ class Chadcn::Form::FieldsTest < Chadcn::TestCase
       def hidden_fields = { id: 5 }
     end
     root_binding = Class.new(Chadcn::Form::Binding::Plain) do
-      define_method(:nested) do |attribute, object:, index: nil, errors: nil|
+      define_method(:nested) do |attribute, object:, index: nil, **|
         identified.new(scope: [ "user", "#{attribute}_attributes", *index&.to_s ], object:)
       end
     end.new(scope: :user, object: user)
