@@ -16,6 +16,8 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 
 ### Added
 
+- `Chadcn::Carousel` with `Content`, `Item`, `Previous` and `Next` (shadcn Carousel over a Stimulus engine derived from embla-carousel 8.6.0;
+  `plugins:` and `setApi` are replaced by the controller's `api` and the `chadcn--carousel:api`, `:select`, `:reinit` and `:settle` events).
 - `Chadcn::Theme.parse`, `.validate`, `.contrast` and `.render_colors` (and `Theme::Palette`) are public API: build, validate and export a
   palette without touching the theme file. `write_colors`, `replace_theme_file` and the import helpers stay private.
 - `Chadcn::Catalog` (`.entries`, `.find`, `Entry`) and `Chadcn::Catalog::TreeRenderer`: an example of every component as a JSON tree plus the

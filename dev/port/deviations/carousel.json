@@ -1,0 +1,12 @@
+{
+  "component": "carousel",
+  "reason": "shadcn's carousel.tsx wraps the React-only embla-carousel-react 8.6.0. A Phlex port with no JavaScript dependency re-implements embla's engine (snaps, containScroll, scroll body, drag, loop, slide focus, resize/slide observers) in the chadcn--carousel Stimulus controller and writes the same inline transforms, so the DOM, the slide boxes and the button disabled states equal the oracle in the scenarios. The differences are the ones Ruby forces: (1) the plugins prop holds embla plugin objects from separate npm packages (Autoplay) and has no Ruby value, so it is not supported; (2) setApi/CarouselApi are a React callback and a JS object: the port exposes the controller's api object (embla's surface minus internalEngine() and plugins()) and the events chadcn--carousel:api, :select, :reinit and :settle; (3) opts accepts JSON values only, so the function forms of align/watchDrag/watchResize/watchSlides/watchFocus and element values of container/slides are not supported (selector strings are); (4) a caller data-action on Previous/Next is added to the scroll action instead of replacing it like React's onClick prop.",
+  "allow_tokens": [],
+  "allow_missing_tokens": [],
+  "api": [
+    "Carousel plugins: is not supported (raises ArgumentError); embla plugins such as Autoplay are not ported",
+    "Carousel setApi: is replaced by the controller's api object and the events chadcn--carousel:api (detail.api), :select (detail.index, detail.previousIndex), :reinit and :settle (detail.index); api omits internalEngine() and plugins()",
+    "Carousel opts: JSON values only; function forms of align and watch* options and element values of container/slides are not supported",
+    "Carousel::Previous / Carousel::Next: a caller data-action is added to the scroll action (React's onClick prop would replace it)"
+  ]
+}
