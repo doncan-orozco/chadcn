@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop:disable Naming/MethodParameterName -- x and y are the coordinate vocabulary of SVG and of recharts' getCartesianPosition
+
 # Where a label sits around a box: recharts' `getCartesianPosition` (cartesian/getCartesianPosition.js) for the rectangular boxes of
 # a bar, a data point or the plot, with `clamp: true`.
 #
@@ -40,22 +42,20 @@ module Chadcn::Chart::Cartesian::LabelPosition
     end
 
     def outside(name, g)
-      x = g[:x]
-      y = g[:y]
-      width = g[:width]
-      height = g[:height]
-      parent = g[:parent]
+      x, y, width, height, parent = g.values_at(:x, :y, :width, :height, :parent)
       case name
       when "top"
-        build(x + (width / 2), y - g[:v_offset], :middle, g[:v_end], (parent && width), (parent && [ y - parent[:y], 0 ].max))
+        build(x + (width / 2), y - g[:v_offset], :middle, g[:v_end], *(parent ? [ width, [ y - parent[:y], 0 ].max ] : [ nil, nil ]))
       when "bottom"
-        build(x + (width / 2), y + height + g[:v_offset], :middle, g[:v_start], (parent && width), (parent && [ parent[:y] + parent[:height] - (y + height), 0 ].max))
+        room = parent ? [ parent[:y] + parent[:height] - (y + height), 0 ].max : nil
+        build(x + (width / 2), y + height + g[:v_offset], :middle, g[:v_start], parent && width, room)
       when "left"
         left = x - g[:h_offset]
-        build(left, y + (height / 2), g[:h_end], :middle, (parent && [ left - parent[:x], 0 ].max), (parent && height))
+        build(left, y + (height / 2), g[:h_end], :middle, parent && [ left - parent[:x], 0 ].max, parent && height)
       else
         right = x + width + g[:h_offset]
-        build(right, y + (height / 2), g[:h_start], :middle, (parent && [ parent[:x] + parent[:width] - right, 0 ].max), (parent && height))
+        room = parent ? [ parent[:x] + parent[:width] - right, 0 ].max : nil
+        build(right, y + (height / 2), g[:h_start], :middle, room, parent && height)
       end
     end
 
@@ -100,3 +100,5 @@ module Chadcn::Chart::Cartesian::LabelPosition
     end
   end
 end
+
+# rubocop:enable Naming/MethodParameterName

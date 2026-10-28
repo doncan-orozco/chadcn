@@ -39,12 +39,14 @@ class Chadcn::Chart::Cartesian::Root < Chadcn::Base
   def initialize(data: [], layout: :horizontal, margin: DEFAULT_MARGIN, bar_category_gap: "10%", bar_gap: 4, bar_size: nil, max_bar_size: nil,
                  stack_offset: :none, reverse_stack_order: false, accessibility_layer: true, title: nil, desc: nil, role: nil, tab_index: nil,
                  base_value: nil, **attrs)
+    load_declarations
     raise ArgumentError, "data: must be an Array of Hashes (got #{data.class})" unless data.is_a?(Array) && data.all?(Hash)
     raise ArgumentError, "margin: must be a Hash (got #{margin.class})" unless margin.is_a?(Hash)
 
     @options = { data: data, layout: choice(:layout, layout, LAYOUTS), margin: margin, bar_category_gap: bar_category_gap, bar_gap: bar_gap, bar_size: bar_size,
                  max_bar_size: max_bar_size, stack_offset: stack_offset_choice(stack_offset), reverse_stack_order: reverse_stack_order,
-                 accessibility_layer: accessibility_layer, title: title, desc: desc, role: role, tab_index: tab_index, base_value: base_value, attrs: attrs }.freeze
+                 accessibility_layer: accessibility_layer, title: title, desc: desc, role: role, tab_index: tab_index, base_value: base_value,
+                 attrs: attrs }.freeze
     super()
   end
 
@@ -71,6 +73,13 @@ class Chadcn::Chart::Cartesian::Root < Chadcn::Base
   end
 
   private
+
+  # A chart's block calls the helpers of the declaration classes (`chart.bar`), which `Chadcn::Chart::Declaration.inherited` defines as each
+  # class loads. Zeitwerk may have tried to load a part before the classes it needs were registered (it registers them in alphabetical order)
+  # and left it for later, so the whole family is loaded when a chart is built (a constant being loaded right now is not autoloadable).
+  def load_declarations
+    Chadcn::Chart.constants(false).each { |name| Chadcn::Chart.const_get(name, false) if Chadcn::Chart.autoload?(name, false) }
+  end
 
   # Runs the block of the chart with the chart as the scope declarations register with. Whatever markup the block itself writes (a
   # `<defs>` of gradients) is kept, and drawn inside the svg.
@@ -131,8 +140,3 @@ class Chadcn::Chart::Cartesian::Root < Chadcn::Base
     raise ArgumentError, "#{name}: must be one of #{allowed.map(&:inspect).join(', ')} (got #{value.inspect})"
   end
 end
-
-# A chart's block calls the helpers of the declaration classes (`chart.bar`), which `Chadcn::Chart::Declaration.inherited` defines as each class
-# loads. Zeitwerk may try to load a part before the classes it needs are registered (it registers them in alphabetical order) and leave it
-# for later, so the whole family is loaded once the first chart class is (a constant being loaded right now is not autoloadable any more).
-Chadcn::Chart.constants(false).each { |name| Chadcn::Chart.const_get(name, false) if Chadcn::Chart.autoload?(name, false) }

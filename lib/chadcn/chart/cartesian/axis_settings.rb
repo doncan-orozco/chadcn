@@ -114,7 +114,7 @@ class Chadcn::Chart::Cartesian::AxisSettings < Data.define(
     return domain if domain
 
     numbers = ticks&.filter_map { |tick| Chadcn::Chart::Cartesian::Value.number(tick) }
-    return [ numbers.min, numbers.max ] if type == :number && numbers&.any?
+    return numbers.minmax if type == :number && numbers&.any?
 
     [ 0, "auto" ]
   end

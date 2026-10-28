@@ -13,8 +13,10 @@ class Chadcn::Chart::Cartesian::Layout
 
   # What was placed for one series: its rectangles (a bar) or its points (a line, an area).
   Placed = Data.define(:series, :index, :rects, :points, :area)
+  # The axes whose line is on the near side of their box (top and left) take their room before the first axis is placed.
+  LEADING_ORIENTATIONS = %i[top left].freeze
 
-  private_constant :Value, :BarPositions, :AxisSettings
+  private_constant :Value, :BarPositions, :AxisSettings, :LEADING_ORIENTATIONS
 
   # @api private
   # @return [Integer, Float] the chart size in px
@@ -52,7 +54,7 @@ class Chadcn::Chart::Cartesian::Layout
     @text = chart.fetch(:text)
     @margin = %i[top right bottom left].to_h { |side| [ side, Value.number(chart[:margin]&.[](side)) || 0.0 ] }
     @offset = legend_offset(axes_offset)
-    @plot = { x: @offset[:left], y: @offset[:top], width: [ @width - @offset[:left] - @offset[:right], 0 ].max, height: [ @height - @offset[:top] - @offset[:bottom], 0 ].max }
+    @plot = plot_rectangle
     @axes = {}
     @stacks = {}
     build_axes
@@ -104,8 +106,11 @@ class Chadcn::Chart::Cartesian::Layout
   # @return [Hash{Symbol => Array<Float>}] `:horizontal` and `:vertical` coordinates
   def grid_points(grid)
     options = grid.options
-    horizontal = options[:horizontal_points].any? ? options[:horizontal_points] : grid_coordinates(axis(:y, options[:y_axis_id]), @plot[:y], @plot[:y] + @plot[:height], options[:sync_with_ticks])
-    vertical = options[:vertical_points].any? ? options[:vertical_points] : grid_coordinates(axis(:x, options[:x_axis_id]), @plot[:x], @plot[:x] + @plot[:width], options[:sync_with_ticks])
+    sync = options[:sync_with_ticks]
+    horizontal = options[:horizontal_points]
+    vertical = options[:vertical_points]
+    horizontal = grid_coordinates(axis(:y, options[:y_axis_id]), @plot[:y], @plot[:y] + @plot[:height], sync) if horizontal.empty?
+    vertical = grid_coordinates(axis(:x, options[:x_axis_id]), @plot[:x], @plot[:x] + @plot[:width], sync) if vertical.empty?
     { horizontal: horizontal, vertical: vertical }
   end
 
@@ -144,17 +149,25 @@ class Chadcn::Chart::Cartesian::Layout
   # `selectAllXAxesOffsetSteps` / `selectAllYAxesOffsetSteps`: where each axis of an orientation starts.
   def offset_steps(kind, orientation, mirror)
     axes = @declared.axes.select { |settings| settings.kind == kind && settings.orientation == orientation && settings.mirror == mirror }
-    position = case orientation
-    when :top then @offset[:top]
-    when :bottom then @height - @offset[:bottom]
-    when :left then @offset[:left]
-    else @width - @offset[:right]
-    end
+    position = steps_start(orientation)
+    leading = LEADING_ORIENTATIONS.include?(orientation)
     axes.each_with_object({}) do |settings, steps|
-      needs_space = (%i[top left].include?(orientation) && !mirror) || (%i[bottom right].include?(orientation) && mirror)
+      needs_space = leading != mirror
       steps[settings.id] = position - (needs_space ? settings.size : 0)
       position += (needs_space ? -1 : 1) * settings.size
     end
+  end
+
+  # Where the first axis of an orientation starts: the edge of the plot it sits on.
+  def steps_start(orientation)
+    return @offset[orientation] if %i[top left].include?(orientation)
+
+    orientation == :bottom ? @height - @offset[:bottom] : @width - @offset[:right]
+  end
+
+  def plot_rectangle
+    { x: @offset[:left], y: @offset[:top], width: [ @width - @offset[:left] - @offset[:right], 0 ].max,
+      height: [ @height - @offset[:top] - @offset[:bottom], 0 ].max }
   end
 
   # --- axes ---------------------------------------------------------------------------------------------------------------
@@ -170,16 +183,20 @@ class Chadcn::Chart::Cartesian::Layout
   def build_axis(kind, id)
     settings = @declared.axes.find { |candidate| candidate.kind == kind && candidate.id == id } || AxisSettings.implicit(kind, id)
     items = @declared.series.select { |series| series.options[axis_key(kind)] == id && (settings.include_hidden || !series.options[:hide]) }
-    stackable = items.select { |series| series.options[:stack_id] && %i[bar area].include?(series.kind) }
+    stackable = items.select { |series| series.options[:stack_id] && series.kind != :line }
     stacks = Chadcn::Chart::Cartesian::Stacks.new(@rows, stackable, offset: @chart[:stack_offset], reverse: @chart[:reverse_stack_order])
     @stacks[[ kind, id ]] = stacks
-    references = @declared.references.select { |reference| reference.options[:if_overflow] == :extend_domain && reference.options[axis_key(kind)] == id }
-                          .map { |reference| { x: reference.options[:x], y: reference.options[:y] } }
     Chadcn::Chart::Cartesian::Axis.new(settings, layout: @direction, chart_type: @chart[:type], rows: @rows, items: items, stacks: stacks,
-                                                 references: references, range: axis_range(settings), stack_offset: @chart[:stack_offset])
+                                                 references: extending_references(kind, id), range: axis_range(settings), stack_offset: @chart[:stack_offset])
   end
 
   def axis_key(kind) = kind == :x ? :x_axis_id : :y_axis_id
+
+  # The reference lines that widen the domain of the axis (`if_overflow: :extend_domain`).
+  def extending_references(kind, id)
+    @declared.references.select { |reference| reference.options[:if_overflow] == :extend_domain && reference.options[axis_key(kind)] == id }
+             .map { |reference| { x: reference.options[:x], y: reference.options[:y] } }
+  end
 
   # `selectXAxisRange` / `selectYAxisRange`
   def axis_range(settings)
@@ -230,18 +247,17 @@ class Chadcn::Chart::Cartesian::Layout
 
   def category_axis(axes) = @direction == :horizontal ? axes[:x] : axes[:y]
 
-  def value_axis_key(axes, series)
+  def value_axis_key(series)
     @direction == :horizontal ? [ :y, series.options[:y_axis_id] ] : [ :x, series.options[:x_axis_id] ]
   end
 
   def place_bar(series, index, axes)
-    category = category_axis(axes)
     position = BarPositions.find(bar_positions(series, axes), series)
     return unless position
 
-    pairs = @stacks.fetch(value_axis_key(axes, series)).pairs(series)
+    pairs = @stacks.fetch(value_axis_key(series)).pairs(series)
     rects = Chadcn::Chart::Cartesian::BarShapes.rectangles(series, layout: @direction, position: position, axes: axes, rows: @rows, pairs: pairs)
-    Placed.new(series: series, index: index, rects: rects, points: nil, area: nil) if category
+    Placed.new(series: series, index: index, rects: rects, points: nil, area: nil)
   end
 
   # `selectAllBarPositions` for the bars on the category axis of this bar.
@@ -253,7 +269,8 @@ class Chadcn::Chart::Cartesian::Layout
     slots = BarPositions.slots(bars, @chart[:bar_size], total)
     max_bar = series.options[:max_bar_size].nil? ? @chart[:max_bar_size] : series.options[:max_bar_size]
     bar_band = category.band_size(bar: true) || max_bar || 0
-    BarPositions.positions(slots, @chart[:max_bar_size], @chart[:bar_gap], @chart[:bar_category_gap], bar_band, category.band_size, series.options[:max_bar_size])
+    BarPositions.positions(slots, @chart[:max_bar_size], @chart[:bar_gap], @chart[:bar_category_gap], bar_band, category.band_size,
+                           series.options[:max_bar_size])
   end
 
   def place_line(series, index, axes)
@@ -266,7 +283,7 @@ class Chadcn::Chart::Cartesian::Layout
   def place_area(series, index, axes)
     return unless axes.values.all? { |axis| axis.item_ticks.any? }
 
-    pairs = @stacks.fetch(value_axis_key(axes, series)).pairs(series)
+    pairs = @stacks.fetch(value_axis_key(series)).pairs(series)
     area = Chadcn::Chart::Cartesian::LinePoints.area(series, layout: @direction, axes: axes, rows: @rows, pairs: pairs, base_value: @chart[:base_value])
     Placed.new(series: series, index: index, rects: nil, points: area.points, area: area)
   end

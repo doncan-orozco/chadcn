@@ -47,7 +47,8 @@ class Chadcn::Chart::YAxis < Chadcn::Chart::Declaration
                  padding: { top: 0, bottom: 0 }, domain: [ 0, :auto ], allow_decimals: true, allow_duplicated_category: true, allow_data_overflow: false,
                  include_hidden: false, nice_ticks: :auto, angle: 0, unit: nil, ticks: nil, scale: :auto, stroke: "#666", y_axis_id: 0, name: nil, **attrs)
     @settings = Chadcn::Chart::Cartesian::AxisSettings.build(
-      :y, data_key: data_key, type: type, hide: hide, size: width, orientation: orientation, tick: tick, tick_line: tick_line, axis_line: axis_line,
+      :y,
+      data_key: data_key, type: type, hide: hide, size: width, orientation: orientation, tick: tick, tick_line: tick_line, axis_line: axis_line,
       tick_size: tick_size, tick_margin: tick_margin, tick_count: tick_count, tick_formatter: tick_formatter, interval: interval, min_tick_gap: min_tick_gap,
       mirror: mirror, reversed: reversed, padding: padding, domain: domain, allow_decimals: allow_decimals,
       allow_duplicated_category: allow_duplicated_category, allow_data_overflow: allow_data_overflow, include_hidden: include_hidden, nice_ticks: nice_ticks,

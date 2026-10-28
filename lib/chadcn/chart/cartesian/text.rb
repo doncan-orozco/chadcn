@@ -43,7 +43,7 @@ class Chadcn::Chart::Cartesian::Text
     return [ words.join(" ") ] if width.nil? || width.zero?
 
     space = @char_width
-    words.each_with_object([]) do |word, result|
+    broken = words.each_with_object([]) do |word, result|
       size = width(word)
       current = result.last
       if current && current[:width] + size + space < width
@@ -52,7 +52,8 @@ class Chadcn::Chart::Cartesian::Text
       else
         result << { words: [ word ], width: size }
       end
-    end.map { |line| line[:words].join(" ") }
+    end
+    broken.map { |line| line[:words].join(" ") }
   end
 
   # The `dy` of the first line (`reduceCSSCalc` of recharts' `startDy`): `start` hangs below the point, `end` sits above it, `middle`

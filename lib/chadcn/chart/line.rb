@@ -37,8 +37,8 @@ class Chadcn::Chart::Line < Chadcn::Chart::Declaration
   def initialize(data_key:, type: :linear, stroke: "#3182bd", stroke_width: 1, stroke_dasharray: nil, fill: "#fff", dot: true, active_dot: true,
                  connect_nulls: false, label: false, legend_type: :line, tooltip_type: nil, hide: false, name: nil, unit: nil, x_axis_id: 0,
                  y_axis_id: 0, is_animation_active: nil, **attrs)
-    @options = { data_key: data_key, type: curve_type(type), stroke: stroke, stroke_width: stroke_width, stroke_dasharray: stroke_dasharray, fill: fill, dot: dot,
-                 active_dot: active_dot, connect_nulls: connect_nulls, label: label, legend_type: choice(:legend_type, legend_type, Chadcn::Chart::Bar::LEGEND_TYPES),
+    @options = { data_key: data_key, type: curve_type(type), stroke: stroke, stroke_width: stroke_width, stroke_dasharray: stroke_dasharray, fill: fill,
+                 dot: dot, active_dot: active_dot, connect_nulls: connect_nulls, label: label, legend_type: choice(:legend_type, legend_type, Chadcn::Chart::Bar::LEGEND_TYPES),
                  tooltip_type: (choice(:tooltip_type, tooltip_type, %i[none]) unless tooltip_type.nil?), hide: hide, name: name, unit: unit,
                  x_axis_id: x_axis_id, y_axis_id: y_axis_id, attrs: attrs }.freeze
     initialize_series

@@ -39,5 +39,7 @@ class Chadcn::Chart::BarChart < Chadcn::Chart::Cartesian::Root
   # @raise [ArgumentError] on a `data:` that is not an Array of Hashes, or a `layout:` or `stack_offset:` outside its values
   def initialize(data: [], layout: :horizontal, margin: { top: 5, right: 5, bottom: 5, left: 5 }, bar_category_gap: "10%", bar_gap: 4, bar_size: nil,
                  max_bar_size: nil, stack_offset: :none, reverse_stack_order: false, accessibility_layer: true, title: nil, desc: nil, role: nil,
-                 tab_index: nil, **attrs) = super
+                 tab_index: nil, **attrs)
+    super
+  end
 end

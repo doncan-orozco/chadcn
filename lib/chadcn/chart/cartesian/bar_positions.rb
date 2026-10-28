@@ -31,7 +31,10 @@ module Chadcn::Chart::Cartesian::BarPositions
       groups = stacked.group_by { |bar| bar.options[:stack_id].to_s }
       # JavaScript object keys: integer-like ids first, ascending, then the others in order of insertion
       ordered = groups.keys.partition { |id| JS_INDEX.match?(id) }.then { |numbers, others| numbers.sort_by(&:to_i) + others }
-      ordered.map { |id| Slot.new(id, groups[id].map { |bar| bar.options[:data_key] }, bar_size(global_size, total_size, groups[id].first.options[:bar_size])) } +
+      stacks = ordered.map do |id|
+        Slot.new(id, groups[id].map { |bar| bar.options[:data_key] }, bar_size(global_size, total_size, groups[id].first.options[:bar_size]))
+      end
+      stacks +
         alone.map { |bar| Slot.new(nil, [ bar.options[:data_key] ].compact, bar_size(global_size, total_size, bar.options[:bar_size])) }
     end
 
@@ -100,7 +103,7 @@ module Chadcn::Chart::Cartesian::BarPositions
         full *= 0.9
         sum = count * full
       end
-      previous = ((((band - sum) / 2).to_i) - gap).to_f
+      previous = (((band - sum) / 2).to_i - gap).to_f
       previous_size = 0.0
       slots.map do |slot|
         offset = previous + previous_size + gap

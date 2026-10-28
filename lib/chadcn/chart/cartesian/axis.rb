@@ -48,14 +48,14 @@ class Chadcn::Chart::Cartesian::Axis
   # @param stack_offset [Symbol] the chart's stack offset
   def initialize(settings, layout:, chart_type:, rows:, items:, stacks:, references:, range:, stack_offset:)
     @categorical = (layout == :horizontal) == settings.x?
-    @settings = settings.type == :auto ? settings.with(type: @categorical ? :category : :number) : settings
+    @settings = settings.type == :auto ? settings.with(type: auto_type) : settings
     @layout = layout
     @rows = rows
     @items = items
     @stacks = stacks
     @references = references
     @stack_offset = stack_offset
-    @scale_type = category? ? (%i[line area].include?(chart_type) ? :point : :band) : :linear
+    @scale_type = scale_type_for(chart_type)
     @range = settings.reversed ? range.reverse : range
     resolve
     freeze
@@ -94,13 +94,13 @@ class Chadcn::Chart::Cartesian::Axis
   #
   # @api private
   # @return [Array<Chadcn::Chart::Cartesian::TickLayout::Tick>]
-  def ticks = @ticks
+  attr_reader :ticks
 
   # The ticks series are positioned with (`selectTicksOfGraphicalItem`): the start of every band.
   #
   # @api private
   # @return [Array<Chadcn::Chart::Cartesian::TickLayout::Tick>]
-  def item_ticks = @item_ticks
+  attr_reader :item_ticks
 
   # `getBandSizeOfAxis`: the width of a category band, else the smallest distance between two ticks.
   #
@@ -136,6 +136,14 @@ class Chadcn::Chart::Cartesian::Axis
     @scale = build_scale
     @ticks = scaled? ? axis_ticks(offset: true) : []
     @item_ticks = scaled? ? axis_ticks(offset: false) : []
+  end
+
+  def auto_type = @categorical ? :category : :number
+
+  def scale_type_for(chart_type)
+    return :linear unless category?
+
+    %i[line area].include?(chart_type) ? :point : :band
   end
 
   # --- domain -------------------------------------------------------------------------------------------------------------
@@ -177,8 +185,9 @@ class Chadcn::Chart::Cartesian::Axis
 
   # `combineNumericalDomain`
   def numerical_domain
-    definition = settings.domain_definition
     return if category?
+
+    definition = settings.domain_definition
     preferred = domain_without_data(definition)
     return preferred if preferred
 
@@ -197,7 +206,7 @@ class Chadcn::Chart::Cartesian::Axis
 
   def merge_domains(domains)
     present = domains.compact.flatten
-    present.empty? ? nil : [ present.min, present.max ]
+    present.empty? ? nil : present.minmax
   end
 
   # `combineDomainOfAllAppliedNumericalValuesIncludingErrorValues` over the series that are not stacked.
@@ -228,7 +237,7 @@ class Chadcn::Chart::Cartesian::Axis
 
   def reference_domain
     coordinates = @references.filter_map { |reference| Value.number(reference[settings.kind]) }
-    coordinates.empty? ? nil : [ coordinates.min, coordinates.max ]
+    coordinates.empty? ? nil : coordinates.minmax
   end
 
   # `parseNumericalUserDomain`
@@ -249,7 +258,6 @@ class Chadcn::Chart::Cartesian::Axis
 
   def user_bound(bound, data, side)
     case bound
-    when "auto" then data&.[](side)
     when Numeric then bound.to_f
     when Proc, Method then data && bound.call(data[side])
     when String then user_offset_bound(bound, data, side)

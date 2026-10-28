@@ -78,7 +78,8 @@ module Chadcn::Chart::Cartesian::Formatter
 
     def hash_formatter(formatter)
       name, args = formatter.to_a.first
-      raise ArgumentError, "unknown formatter #{formatter.inspect}" unless formatter.size == 1 && name.to_s == "slice" && args.is_a?(Array) && args.size.between?(1, 2)
+      valid = formatter.size == 1 && name.to_s == "slice" && args.is_a?(Array) && args.size.between?(1, 2)
+      raise ArgumentError, "unknown formatter #{formatter.inspect}" unless valid
 
       ->(value, *) { slice(value, *args) }
     end

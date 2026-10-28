@@ -25,11 +25,11 @@ class Chadcn::Chart::CartesianGrid < Chadcn::Chart::Declaration
   # @param x_axis_id [Object] the x axis the vertical lines follow
   # @param y_axis_id [Object] the y axis the horizontal lines follow
   # @param attrs [Hash] attributes of every line
-  def initialize(horizontal: true, vertical: true, stroke: "#ccc", fill: "none", stroke_dasharray: nil, horizontal_points: [], vertical_points: [], horizontal_fill: [],
-                 vertical_fill: [], sync_with_ticks: false, x_axis_id: 0, y_axis_id: 0, **attrs)
-    @options = { horizontal: horizontal, vertical: vertical, stroke: stroke, fill: fill, stroke_dasharray: stroke_dasharray, horizontal_points: horizontal_points,
-                 vertical_points: vertical_points, horizontal_fill: horizontal_fill, vertical_fill: vertical_fill, sync_with_ticks: sync_with_ticks,
-                 x_axis_id: x_axis_id, y_axis_id: y_axis_id, attrs: attrs }.freeze
+  def initialize(horizontal: true, vertical: true, stroke: "#ccc", fill: "none", stroke_dasharray: nil, horizontal_points: [], vertical_points: [],
+                 horizontal_fill: [], vertical_fill: [], sync_with_ticks: false, x_axis_id: 0, y_axis_id: 0, **attrs)
+    @options = { horizontal: horizontal, vertical: vertical, stroke: stroke, fill: fill, stroke_dasharray: stroke_dasharray,
+                 horizontal_points: horizontal_points, vertical_points: vertical_points, horizontal_fill: horizontal_fill, vertical_fill: vertical_fill,
+                 sync_with_ticks: sync_with_ticks, x_axis_id: x_axis_id, y_axis_id: y_axis_id, attrs: attrs }.freeze
     super()
   end
 end

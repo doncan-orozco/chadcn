@@ -85,24 +85,24 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
     end
   end
 
-  def draw(item, z)
+  def draw(item, layer)
     case item
-    when Chadcn::Chart::CartesianGrid then grid(item) if z == -100
-    when Chadcn::Chart::Cartesian::Series then draw_series(item, z)
-    when Chadcn::Chart::XAxis, Chadcn::Chart::YAxis then draw_axis(item, z)
-    when Chadcn::Chart::ReferenceLine then reference_line(item) if z == 400
-    when Chadcn::Chart::Label then standalone_label(item) if z == 2000
+    when Chadcn::Chart::CartesianGrid then grid(item) if layer == -100
+    when Chadcn::Chart::Cartesian::Series then draw_series(item, layer)
+    when Chadcn::Chart::XAxis, Chadcn::Chart::YAxis then draw_axis(item, layer)
+    when Chadcn::Chart::ReferenceLine then reference_line(item) if layer == 400
+    when Chadcn::Chart::Label then standalone_label(item) if layer == 2000
     end
   end
 
-  def draw_series(series, z)
+  def draw_series(series, layer)
     placed = @placed[series] or return
     case series.kind
-    when :bar then bar_series(placed, z)
-    when :line then line_series(placed, z)
-    else area_series(placed, z)
+    when :bar then bar_series(placed, layer)
+    when :line then line_series(placed, layer)
+    else area_series(placed, layer)
     end
-    label_lists(placed) if z == 2000
+    label_lists(placed) if layer == 2000
   end
 
   # --- grid ---------------------------------------------------------------------------------------------------------------
@@ -125,14 +125,16 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
   def grid_background(options, plot)
     return if [ nil, "none" ].include?(options[:fill])
 
-    rect(x: n(plot[:x]), y: n(plot[:y]), width: n(plot[:width]), height: n(plot[:height]), stroke: "none", fill: options[:fill], class: "recharts-cartesian-grid-bg")
+    rect(x: n(plot[:x]), y: n(plot[:y]), width: n(plot[:width]), height: n(plot[:height]), stroke: "none", fill: options[:fill],
+         class: "recharts-cartesian-grid-bg")
   end
 
   def grid_lines(grid, coordinates, direction)
     options = grid.options
     plot = @layout.plot
-    base = attrs({ stroke: options[:stroke], stroke_dasharray: options[:stroke_dasharray], x: n(plot[:x]), y: n(plot[:y]), width: n(plot[:width]), height: n(plot[:height]) },
-                 options[:attrs])
+    look = { stroke: options[:stroke], stroke_dasharray: options[:stroke_dasharray] }
+    box = { x: n(plot[:x]), y: n(plot[:y]), width: n(plot[:width]), height: n(plot[:height]) }
+    base = attrs(look, box, options[:attrs])
     g(class: "recharts-cartesian-grid-#{direction}") do
       coordinates.each do |coordinate|
         ends = if direction == :horizontal
@@ -150,7 +152,7 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
     plot = @layout.plot
     origin = direction == :horizontal ? plot[:y] : plot[:x]
     extent = direction == :horizontal ? plot[:height] : plot[:width]
-    rounded = coordinates.map { |coordinate| Chadcn::Chart::Shape::JsMath.round(coordinate) }.sort
+    rounded = coordinates.map { |coordinate| Chadcn::Chart::Shape::JsMath.round(coordinate + origin - origin) }.sort
     rounded.unshift(0.0) if origin != rounded.first
     g(class: "recharts-cartesian-gridstripes-#{direction}") do
       rounded.each_with_index do |start, index|
@@ -212,10 +214,17 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
 
   def clip_attribute(id, clip) = clip ? { "clip-path": "url(#clipPath-#{id})" } : nil
 
+  # The dots are clipped with the line, unless the dot asks to be clipped to its own rectangle (`clip_dot: false`).
+  def dots_clip_attribute(series, id)
+    return unless clip(series)
+
+    { "clip-path": "url(#clipPath-#{'dots-' if dots_clip(series)}#{id})" }
+  end
+
   # --- bars ---------------------------------------------------------------------------------------------------------------
 
-  def bar_series(placed, z)
-    case z
+  def bar_series(placed, layer)
+    case layer
     when -50 then bar_background(placed)
     when 300 then bar_rectangles(placed)
     end
@@ -269,14 +278,14 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
   # A bar's `path`: the box rounded to four decimals, the radius when it is a number, and the `d`.
   def rectangle_path(box, radius, base)
     shown_radius = radius.nil? ? "0" : (n(radius) if radius.is_a?(Numeric))
-    path(**base, x: r4(box[:x]), y: r4(box[:y]), width: r4(box[:width]), height: r4(box[:height]), radius: shown_radius,
-         d: Chadcn::Chart::Cartesian::Rectangle.path(box[:x], box[:y], box[:width], box[:height], radius.nil? ? 0 : radius))
+    outline = Chadcn::Chart::Cartesian::Rectangle.path(box[:x], box[:y], box[:width], box[:height], radius.nil? ? 0 : radius)
+    path(**base, x: r4(box[:x]), y: r4(box[:y]), width: r4(box[:width]), height: r4(box[:height]), radius: shown_radius, d: outline)
   end
 
   # --- lines --------------------------------------------------------------------------------------------------------------
 
-  def line_series(placed, z)
-    case z
+  def line_series(placed, layer)
+    case layer
     when 400 then line_curve(placed)
     when 600 then dots(placed, "line")
     end
@@ -292,15 +301,17 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
       next unless placed.points.size > 1
 
       g(class: "recharts-layer recharts-shape") do
-        path(**attrs({ stroke: options[:stroke], stroke_width: n(options[:stroke_width]), stroke_dasharray: options[:stroke_dasharray], name: options[:name], id: id },
-                     plot_size, series_attrs(series), clip_attribute(id, clip)),
-             fill: "none", class: "recharts-curve recharts-line-curve", d: curve_path(placed, options))
+        look = { stroke: options[:stroke], stroke_width: n(options[:stroke_width]), stroke_dasharray: options[:stroke_dasharray], name: options[:name], id: id }
+        shape = attrs(look, plot_size, series_attrs(series), clip_attribute(id, clip))
+        path(**shape, fill: "none", class: "recharts-curve recharts-line-curve", d: curve_path(placed, options))
       end
     end
   end
 
-  def curve_path(placed, options)
-    Chadcn::Chart::Shape::Curve.line(placed.points.map(&:xy), type: options[:type], layout: @layout.direction, connect_nulls: options[:connect_nulls])
+  def curve_path(placed, options) = curve_through(placed.points, options)
+
+  def curve_through(points, options)
+    Chadcn::Chart::Shape::Curve.line(points.map(&:xy), type: options[:type], layout: @layout.direction, connect_nulls: options[:connect_nulls])
   end
 
   # The dots of a line or an area (layer 600): `dot: true`, or a Hash of attributes, or a lone point.
@@ -311,7 +322,7 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
 
     custom = dot.is_a?(Hash) ? dot.except(:clip_dot) : {}
     base = attrs({ r: 3 }, dot_base(series), custom, { class: "recharts-dot recharts-#{name}-dot" })
-    g(**attrs({ class: "recharts-layer recharts-#{name}-dots" }, clip_attribute(series_id(series, name, placed.index), clip(series)))) do
+    g(**attrs({ class: "recharts-layer recharts-#{name}-dots" }, dots_clip_attribute(series, series_id(series, name, placed.index)))) do
       placed.points.each do |point|
         next unless point.x && point.y
 
@@ -322,14 +333,15 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
 
   def dot_base(series)
     options = series.options
-    attrs({ stroke: options[:stroke], stroke_width: n(options[:stroke_width]), fill: options[:fill], stroke_dasharray: options[:stroke_dasharray], name: options[:name],
-            fill_opacity: (n(options[:fill_opacity]) if options[:fill_opacity]) }, plot_size, series_attrs(series))
+    look = { stroke: options[:stroke], stroke_width: n(options[:stroke_width]), fill: options[:fill], stroke_dasharray: options[:stroke_dasharray],
+             name: options[:name], fill_opacity: (n(options[:fill_opacity]) if options[:fill_opacity]) }
+    attrs(look, plot_size, series_attrs(series))
   end
 
   # --- areas --------------------------------------------------------------------------------------------------------------
 
-  def area_series(placed, z)
-    case z
+  def area_series(placed, layer)
+    case layer
     when 100 then area_shapes(placed)
     when 600 then dots(placed, "area")
     end
@@ -359,26 +371,31 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
     return if options[:stroke].to_s == "none"
 
     path(**shared, stroke: options[:stroke], fill: "none", class: "recharts-curve recharts-area-curve", d: curve_path(placed, options))
+    return unless placed.area.range && placed.area.baseline.is_a?(Array)
+
+    lower = curve_through(placed.area.baseline, options)
+    path(**shared, stroke: options[:stroke], fill: "none", class: "recharts-curve recharts-area-curve", d: lower)
   end
 
   def area_fill_path(placed, options)
     baseline = placed.area.baseline
     baseline = baseline.map(&:xy) if baseline.is_a?(Array)
-    Chadcn::Chart::Shape::Area.path(placed.points.map(&:xy), baseline: baseline, type: options[:type], layout: @layout.direction, connect_nulls: options[:connect_nulls])
+    curve = { type: options[:type], layout: @layout.direction, connect_nulls: options[:connect_nulls] }
+    Chadcn::Chart::Shape::Area.path(placed.points.map(&:xy), baseline: baseline, **curve)
   end
 
   # --- axes ---------------------------------------------------------------------------------------------------------------
 
-  def draw_axis(declaration, z)
-    return unless [ 500, 2000 ].include?(z)
+  def draw_axis(declaration, layer)
+    return unless [ 500, 2000 ].include?(layer)
 
     settings = declaration.settings
     return if settings.hide
 
     drawn = @layout.drawn_axes.find { |entry| entry[:axis].settings.kind == settings.kind && entry[:axis].settings.id == settings.id }
-    return unless drawn && drawn[:width].positive? && drawn[:height].positive? && drawn[:axis].scaled?
+    return unless drawn && drawn[:width].positive? && drawn[:height].positive?
 
-    z == 500 ? axis_group(drawn) : axis_labels(drawn)
+    layer == 500 ? axis_group(drawn) : axis_labels(drawn)
   end
 
   def axis_class(settings) = "recharts-#{settings.kind}Axis"
@@ -409,8 +426,9 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
 
   # The attributes recharts spreads on the axis line and the tick lines: `svgPropertiesNoEvents` of the axis props.
   def geometry_attributes(settings, drawn)
-    attrs({ angle: n(settings.angle), height: n(drawn[:height]), orientation: settings.orientation.to_s, x: n(drawn[:x]), y: n(drawn[:y]), width: n(drawn[:width]),
-            stroke: settings.stroke, name: settings.name&.to_s }, settings.attrs.except(:class, :class_name))
+    box = { x: n(drawn[:x]), y: n(drawn[:y]), width: n(drawn[:width]), height: n(drawn[:height]) }
+    attrs({ angle: n(settings.angle), orientation: settings.orientation.to_s, stroke: settings.stroke, name: settings.name&.to_s }, box,
+          settings.attrs.except(:class, :class_name))
   end
 
   def axis_line(settings, drawn, geometry)
@@ -468,12 +486,11 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
     g(class: "recharts-cartesian-axis-tick-labels #{axis_class(settings)}-tick-labels") do
       ticks.each_with_index do |tick, index|
         g(class: "recharts-layer recharts-cartesian-axis-tick-label") do
-          at = tick_coordinates(settings, drawn, tick)[:label]
           content = settings.tick_formatter ? settings.tick_formatter.call(tick.value, index) : tick.value
-          text_node("#{Value.text(content)}#{settings.unit}", at[:x], at[:y], anchor: tick_anchor(settings), vertical: tick_vertical_anchor(settings),
-                                                                 width: drawn[:width], angle: settings.angle,
-                                                                 base: attrs(geometry, { stroke: "none", fill: settings.stroke }, custom.except(:class, :class_name)),
-                                                                 class_name: attrs({ class: "recharts-text recharts-cartesian-axis-tick-value" }, { class: custom[:class] || custom[:class_name] })[:class])
+          text_node("#{Value.text(content)}#{settings.unit}", tick_coordinates(settings, drawn, tick)[:label],
+                    anchor: tick_anchor(settings), vertical: tick_vertical_anchor(settings), width: drawn[:width], angle: settings.angle,
+                    base: attrs(geometry, { stroke: "none", fill: settings.stroke }, custom.except(:class, :class_name)),
+                    class_name: attrs({ class: "recharts-text recharts-cartesian-axis-tick-value" }, { class: custom[:class] || custom[:class_name] })[:class])
         end
       end
     end
@@ -496,13 +513,15 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
   end
 
   # recharts' `Text`: the label broken into lines for `width`, the first line hung on the anchor.
-  def text_node(content, x, y, anchor:, vertical:, width:, angle:, base:, class_name:)
+  def text_node(content, at, anchor:, vertical:, width:, angle:, base:, class_name:)
     lines = @layout.text.lines(content.to_s, width: width)
     fill = base[:fill].to_s.include?("url") ? "#808080" : base[:fill]
-    rotation = angle.to_f.zero? ? nil : "rotate(#{n(angle)}, #{n(x)}, #{n(y)})"
-    text(**base.except(:fill, :class), x: n(x), y: n(y), class: class_name, "text-anchor": anchor.to_s, fill: fill, transform: rotation) do
+    left = n(at[:x])
+    top = n(at[:y])
+    rotation = angle.to_f.zero? ? nil : "rotate(#{n(angle)}, #{left}, #{top})"
+    text(**base.except(:fill, :class), x: left, y: top, class: class_name, "text-anchor": anchor.to_s, fill: fill, transform: rotation) do
       lines.each_with_index do |line, index|
-        tspan(x: n(x), dy: index.zero? ? @layout.text.first_dy(vertical, lines.size) : "1em") { plain(line) }
+        tspan(x: left, dy: index.zero? ? @layout.text.first_dy(vertical, lines.size) : "1em") { plain(line) }
       end
     end
   end
@@ -513,7 +532,8 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
     options = reference.options
     ends = reference_ends(options) or return
     own = { x: options[:x], y: options[:y] }.compact.transform_values { |value| Value.text(value) }
-    look = { stroke: options[:stroke], stroke_dasharray: options[:stroke_dasharray], fill: options[:fill], fill_opacity: n(options[:fill_opacity]), stroke_width: n(options[:stroke_width]) }
+    look = { stroke: options[:stroke], stroke_dasharray: options[:stroke_dasharray], fill: options[:fill], fill_opacity: n(options[:fill_opacity]),
+             stroke_width: n(options[:stroke_width]) }
     g(class: group_class(reference, "reference-line")) do
       line(**attrs(own, look, options[:attrs].except(:class), ends.transform_values { |value| n(value) }, { class: "recharts-reference-line-line" }))
     end
@@ -546,7 +566,7 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
 
     coordinate += axis.bandwidth / 2 if axis.category? && axis.bandwidth
     low, high = axis.range_bounds
-    return if options[:if_overflow] == :discard && !(coordinate >= low && coordinate <= high)
+    return if options[:if_overflow] == :discard && !coordinate.between?(low, high)
 
     coordinate
   end
@@ -597,11 +617,12 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
     custom = options[:attrs]
     formatter = options[:formatter]
     anchor = %w[start middle end inherit].include?(custom[:text_anchor].to_s) ? custom[:text_anchor].to_sym : position.horizontal_anchor
-    base = attrs({ width: (n(size[:width]) if size[:width]), height: (n(size[:height]) if size[:height]), offset: n(options[:offset]), fill: options[:fill] || "#808080" },
-                 custom.except(:class, :class_name, :text_anchor, :fill))
-    text_node(Value.text(formatter ? formatter.call(value) : value), position.x, position.y, anchor: anchor, vertical: position.vertical_anchor,
-                                                                                               width: size[:width], angle: options[:angle], base: base,
-                                                                                               class_name: "recharts-text #{custom[:class] || custom[:class_name] || 'recharts-label'}")
+    box = { width: (n(size[:width]) if size[:width]), height: (n(size[:height]) if size[:height]) }
+    base = attrs(box, { offset: n(options[:offset]), fill: options[:fill] || "#808080" }, custom.except(:class, :class_name, :text_anchor, :fill))
+    class_name = "recharts-text #{custom[:class] || custom[:class_name] || 'recharts-label'}"
+    text = Value.text(formatter ? formatter.call(value) : value)
+    style = { anchor: anchor, vertical: position.vertical_anchor, width: size[:width], angle: options[:angle], base: base, class_name: class_name }
+    text_node(text, { x: position.x, y: position.y }, **style)
   end
 
   # A `Chart::Label` written in the chart: a label placed around the plot.

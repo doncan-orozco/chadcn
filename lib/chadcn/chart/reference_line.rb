@@ -28,9 +28,10 @@ class Chadcn::Chart::ReferenceLine < Chadcn::Chart::Declaration
   # @param y_axis_id [Object] the y axis the line is drawn against
   # @param attrs [Hash] attributes of the line; `class:` of the group
   # @raise [ArgumentError] on an `if_overflow:` outside its values, or without `x:` or `y:`
+  # rubocop:disable-next Naming/MethodParameterName -- x and y are the names of the axes, as in recharts
   def initialize(x: nil, y: nil, stroke: "#ccc", stroke_width: 1, stroke_dasharray: nil, fill: "none", fill_opacity: 1, if_overflow: :discard, x_axis_id: 0,
                  y_axis_id: 0, **attrs)
-    raise ArgumentError, "a reference line needs x: or y:" if x.nil? && y.nil?
+    raise ArgumentError, "#{self.class.name} needs x: or y: (got neither)" if x.nil? && y.nil?
     raise ArgumentError, "if_overflow: must be one of #{OVERFLOWS.map(&:inspect).join(', ')} (got #{if_overflow.inspect})" unless if_overflow.respond_to?(:to_sym) && OVERFLOWS.include?(if_overflow.to_sym)
 
     @options = { x: x, y: y, stroke: stroke, stroke_width: stroke_width, stroke_dasharray: stroke_dasharray, fill: fill, fill_opacity: fill_opacity,

@@ -53,7 +53,7 @@ module Chadcn::Chart::Cartesian::BarShapes
       return domain&.first unless numeric.settings.type == :number && domain
 
       low, high = domain.minmax
-      return 0.0 if low <= 0 && high >= 0
+      return 0.0 if 0.0.between?(low, high)
 
       high.negative? ? high : low
     end
@@ -98,17 +98,21 @@ module Chadcn::Chart::Cartesian::BarShapes
       [ base, y, width, position.size ]
     end
 
-    def sign(value) = value.zero? ? 0 : (value.positive? ? 1 : -1)
+    def sign(value)
+      return 0 if value.zero?
+
+      value.positive? ? 1 : -1
+    end
 
     # `getCateCoordinateOfBar`
     def category_coordinate(axis, row, index, offset)
       if axis.category?
         tick = axis.item_ticks[index]
-        return tick && tick.coordinate + offset
+        return tick && (tick.coordinate + offset)
       end
 
       scaled = axis.map(Value.read(row, axis.settings.data_key))
-      scaled && scaled - (axis.band_size(bar: true).to_f / 2) + offset
+      scaled && (scaled - (axis.band_size(bar: true).to_f / 2) + offset)
     end
   end
 end

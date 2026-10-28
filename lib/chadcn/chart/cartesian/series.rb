@@ -33,12 +33,7 @@ module Chadcn::Chart::Cartesian::Series
   # @api private
   # @return [Array<Chadcn::Chart::LabelList>]
   def label_lists
-    implicit = case options[:label]
-    when true then [ Chadcn::Chart::LabelList.new ]
-    when Hash then [ Chadcn::Chart::LabelList.new(**options[:label]) ]
-    else []
-    end
-    implicit + @label_lists
+    implicit_label_list + @label_lists
   end
 
   # @api private
@@ -55,7 +50,7 @@ module Chadcn::Chart::Cartesian::Series
     case part
     when Chadcn::Chart::LabelList then @label_lists << part
     when Chadcn::Chart::Cell
-      raise ArgumentError, "Chart::Cell goes in a Chart::Bar" unless kind == :bar
+      raise ArgumentError, "#{part.class.name} goes in a Chart::Bar, not in a Chart::#{kind.to_s.capitalize}" unless kind == :bar
 
       @cells << part
     else raise ArgumentError, "#{part.class.name} does not go in a Chart::#{kind.to_s.capitalize}"
@@ -63,6 +58,14 @@ module Chadcn::Chart::Cartesian::Series
   end
 
   private
+
+  # The `label:` shortcut of recharts: `true`, or the keywords of a list.
+  def implicit_label_list
+    label = options[:label]
+    return [] unless label
+
+    [ label.is_a?(Hash) ? Chadcn::Chart::LabelList.new(**label) : Chadcn::Chart::LabelList.new ]
+  end
 
   def initialize_series
     @label_lists = []

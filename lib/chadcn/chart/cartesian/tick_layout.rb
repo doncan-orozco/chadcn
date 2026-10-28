@@ -75,7 +75,10 @@ module Chadcn::Chart::Cartesian::TickLayout
     def visible?(sign, position, size, start, finish)
       return false if (sign * position) < (sign * start) || (sign * position) > (sign * finish)
 
-      (sign * (position - ((sign * size) / 2) - start)) >= 0 && (sign * (position + ((sign * size) / 2) - finish)) <= 0
+      half = size / 2
+      behind_start = (sign * (position - (sign * half) - start)).negative?
+      past_end = (sign * (position + (sign * half) - finish)).positive?
+      !(behind_start || past_end)
     end
 
     # `getTicksEnd`
@@ -138,10 +141,8 @@ module Chadcn::Chart::Cartesian::TickLayout
         entry = ticks[index]
         return every_nth(ticks, step) if entry.nil?
 
-        size = nil
-        shown = index.zero? || visible?(sign, entry.coordinate, (size = size_of.call(entry, index)), start, finish)
-        if shown
-          size ||= size_of.call(entry, index)
+        size = size_of.call(entry, index)
+        if index.zero? || visible?(sign, entry.coordinate, size, start, finish)
           start = entry.coordinate + (sign * ((size / 2) + min_gap))
           index += step
         else

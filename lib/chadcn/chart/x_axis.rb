@@ -31,7 +31,7 @@ class Chadcn::Chart::XAxis < Chadcn::Chart::Declaration
   # @param mirror [Boolean] draw the axis inside the plot
   # @param reversed [Boolean] reverse the direction of the scale
   # @param padding [Hash, nil] `left:` and `right:`, px
-  # @param domain [Array, #call, nil] `[min, max]`; a bound is a number, `:auto`, `:data_min`, `:data_max`, `"dataMin - 10"`, or a callable; or a callable for both
+  # @param domain [Array, #call, nil] `[min, max]`: a bound is a number, `:auto`, `:data_min`, `:data_max`, `"dataMin - 10"` or a callable; or one callable
   # @param allow_decimals [Boolean] whether the ticks of a number axis may be decimals
   # @param allow_duplicated_category [Boolean] whether a category may appear more than once
   # @param allow_data_overflow [Boolean] draw data outside an explicit `domain` (clipped to the plot) instead of widening the domain
@@ -51,7 +51,8 @@ class Chadcn::Chart::XAxis < Chadcn::Chart::Declaration
                  padding: { left: 0, right: 0 }, domain: nil, allow_decimals: true, allow_duplicated_category: true, allow_data_overflow: false,
                  include_hidden: false, nice_ticks: :auto, angle: 0, unit: nil, ticks: nil, scale: :auto, stroke: "#666", x_axis_id: 0, name: nil, **attrs)
     @settings = Chadcn::Chart::Cartesian::AxisSettings.build(
-      :x, data_key: data_key, type: type, hide: hide, size: height, orientation: orientation, tick: tick, tick_line: tick_line, axis_line: axis_line,
+      :x,
+      data_key: data_key, type: type, hide: hide, size: height, orientation: orientation, tick: tick, tick_line: tick_line, axis_line: axis_line,
       tick_size: tick_size, tick_margin: tick_margin, tick_count: tick_count, tick_formatter: tick_formatter, interval: interval, min_tick_gap: min_tick_gap,
       mirror: mirror, reversed: reversed, padding: padding, domain: domain, allow_decimals: allow_decimals,
       allow_duplicated_category: allow_duplicated_category, allow_data_overflow: allow_data_overflow, include_hidden: include_hidden, nice_ticks: nice_ticks,

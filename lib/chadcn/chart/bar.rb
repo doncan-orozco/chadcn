@@ -38,8 +38,8 @@ class Chadcn::Chart::Bar < Chadcn::Chart::Declaration
   # @param is_animation_active [Boolean, Symbol, nil] accepted for parity with recharts and ignored: the settled chart is drawn
   # @param attrs [Hash] attributes of every rectangle; `class:` and `id:` of the group
   # @raise [ArgumentError] on an invalid `radius:`, `legend_type:`, `tooltip_type:` or `active_bar:`, or no `data_key:`
-  def initialize(data_key:, stack_id: nil, fill: nil, stroke: nil, radius: nil, bar_size: nil, max_bar_size: nil, min_point_size: 0, background: false, label: false,
-                 active_bar: false, hide: false, legend_type: :rect, tooltip_type: nil, x_axis_id: 0, y_axis_id: 0, name: nil, unit: nil,
+  def initialize(data_key:, stack_id: nil, fill: nil, stroke: nil, radius: nil, bar_size: nil, max_bar_size: nil, min_point_size: 0, background: false,
+                 label: false, active_bar: false, hide: false, legend_type: :rect, tooltip_type: nil, x_axis_id: 0, y_axis_id: 0, name: nil, unit: nil,
                  is_animation_active: nil, **attrs)
     raise ArgumentError, "active_bar: only false is ported (got #{active_bar.inspect})" unless active_bar == false
     unless radius.nil? || radius.is_a?(Numeric) || (radius.is_a?(Array) && radius.size <= 4 && radius.all?(Numeric))

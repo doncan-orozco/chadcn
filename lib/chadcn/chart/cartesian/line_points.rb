@@ -17,7 +17,7 @@ module Chadcn::Chart::Cartesian::LinePoints
 
   # What an area is drawn from: the top points, the baseline (a pixel, or the points of the lower edge of a stacked area) and the
   # values (a `[lower, upper]` pair for every point).
-  Area = Data.define(:points, :baseline, :values)
+  Area = Data.define(:points, :baseline, :values, :range)
 
   private_constant :Value
 
@@ -29,14 +29,16 @@ module Chadcn::Chart::Cartesian::LinePoints
     # @param rows [Array<Hash>]
     # @return [Array<Point>] one point per row, or per row that could be placed in a vertical layout
     def line(line, layout:, axes:, rows:)
-      category = layout == :horizontal ? axes[:x] : axes[:y]
+      horizontal = layout == :horizontal
+      category = horizontal ? axes[:x] : axes[:y]
+      numeric = horizontal ? axes[:y] : axes[:x]
       band = category.band_size
       rows.each_with_index.filter_map do |row, index|
         value = Value.read(row, line.options[:data_key])
         along = coordinate(category, row, index, band)
-        across = value.nil? ? nil : axes[layout == :horizontal ? :y : :x].map(value)
-        point = layout == :horizontal ? Point.new(x: along, y: across, value: value, row: row) : Point.new(x: across, y: along, value: value, row: row)
-        point if layout == :horizontal || (across && along)
+        across = value.nil? ? nil : numeric.map(value)
+        point = Point.new(x: horizontal ? along : across, y: horizontal ? across : along, value: value, row: row)
+        point if horizontal || (across && along)
       end
     end
 
@@ -68,7 +70,8 @@ module Chadcn::Chart::Cartesian::LinePoints
         across = gap ? nil : numeric.map(top)
         Point.new(x: horizontal ? along : across, y: horizontal ? across : along, value: values[index], row: row)
       end
-      Area.new(points: points, baseline: (pairs || range) ? lower_edge(points, values, numeric, horizontal) : numeric.map(base) || 0.0, values: values)
+      baseline = pairs || range ? lower_edge(points, values, numeric, horizontal) : numeric.map(base) || 0.0
+      Area.new(points: points, baseline: baseline, values: values, range: range)
     end
 
     private
@@ -78,17 +81,17 @@ module Chadcn::Chart::Cartesian::LinePoints
       return requested.to_f if Value.numeric?(requested)
 
       domain = numeric.domain
+      named = requested.to_s.delete("_").downcase
       if numeric.settings.type == :number
         low, high = domain.minmax
-        return low if requested.to_s == "dataMin" || requested == :data_min
-        return high if requested.to_s == "dataMax" || requested == :data_max
+        return low if named == "datamin"
+        return high if named == "datamax"
 
-        return high.negative? ? high : [ [ domain[0], domain[1] ].min, 0 ].max.to_f
+        return high.negative? ? high : [ low, 0 ].max.to_f
       end
-      return domain[0] if requested.to_s == "dataMin" || requested == :data_min
-      return domain[1] if requested.to_s == "dataMax" || requested == :data_max
+      return domain[0] if named == "datamin"
 
-      domain[0]
+      named == "datamax" ? domain[1] : domain[0]
     end
 
     # The lower edge of a stacked or range area: the lower value of every point, at the same position along the category axis.
@@ -112,7 +115,7 @@ module Chadcn::Chart::Cartesian::LinePoints
           return match.coordinate + (band / 2) if match
         end
         tick = axis.item_ticks[index]
-        return tick && tick.coordinate + (band / 2)
+        return tick && (tick.coordinate + (band / 2))
       end
 
       axis.map(Value.read(row, axis.settings.data_key))

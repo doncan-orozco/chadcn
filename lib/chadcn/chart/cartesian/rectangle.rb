@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop:disable Naming/MethodParameterName -- x and y are the coordinate vocabulary of SVG paths
+
 # The `d` attribute of a bar: recharts' `getRectanglePath` (shape/Rectangle.js:31-70) with every number rounded to four decimals
 # (util/round.js `roundTemplateLiteral`). The text between the numbers, newlines and indentation included, is the template literal's.
 #
@@ -50,7 +52,7 @@ module Chadcn::Chart::Cartesian::Rectangle
       sy = g[:y_sign]
       cw = g[:clockwise]
       top_left, top_right, bottom_right, bottom_left = radii
-      d = +"M#{n(x)},#{n(y + (sy * top_left))}"
+      d = "M#{n(x)},#{n(y + (sy * top_left))}"
       d << "A #{n(top_left)},#{n(top_left)},0,0,#{cw},#{n(x + (sx * top_left))},#{n(y)}" if top_left.positive?
       d << "L #{n(x + width - (sx * top_right))},#{n(y)}"
       d << "A #{n(top_right)},#{n(top_right)},0,0,#{cw},\n        #{n(x + width)},#{n(y + (sy * top_right))}" if top_right.positive?
@@ -80,3 +82,5 @@ module Chadcn::Chart::Cartesian::Rectangle
     end
   end
 end
+
+# rubocop:enable Naming/MethodParameterName
