@@ -136,6 +136,54 @@ class Chadcn::FormTest < Chadcn::TestCase
     assert_equal "Fallback", page.at_css("[data-slot=field-error]").text.strip
   end
 
+  test "the root wires the chadcn--form controller and its actions" do
+    form = doc(render_form(scope: :user)).at_css("form")
+
+    assert_equal "chadcn--form", form["data-controller"]
+    assert_equal "invalid->chadcn--form#report:capture input->chadcn--form#edit change->chadcn--form#edit", form["data-action"]
+  end
+
+  test "caller data-controller and data-action are kept next to ours" do
+    form = doc(render_form(scope: :user, data: { controller: "mine", action: "submit->mine#go" })).at_css("form")
+
+    assert_equal %w[chadcn--form mine], form["data-controller"].split.sort
+    assert_includes form["data-action"], "submit->mine#go"
+    assert_includes form["data-action"], "invalid->chadcn--form#report:capture"
+  end
+
+  test "error with neither errors nor block renders an empty hidden alert with the message id" do
+    out = render_form(scope: :user) do |f|
+      f.field(attribute: :email) do |field|
+        field.input
+        field.error(class: "mt-1")
+      end
+    end
+    error = doc(out).at_css("[data-slot=field-error]")
+
+    assert_equal "user_email-form-item-message", error["id"]
+    assert_equal "alert", error["role"]
+    assert error.has_attribute?("hidden")
+    assert_equal "", error.text
+    assert_includes error["class"], "text-destructive"
+    assert_includes error["class"], "mt-1"
+  end
+
+  test "error with a block and no errors is not hidden" do
+    out = render_form(scope: :user) { |f| f.field(attribute: :email) { |field| field.error { "Fallback" } } }
+    error = doc(out).at_css("[data-slot=field-error]")
+
+    assert_equal "Fallback", error.text.strip
+    refute error.has_attribute?("hidden")
+  end
+
+  test "error with errors is not hidden" do
+    out = render_form(scope: :user, errors: { email: [ "bad" ] }) { |f| f.field(attribute: :email, &:error) }
+    error = doc(out).at_css("[data-slot=field-error]")
+
+    assert_equal "bad", error.text.strip
+    refute error.has_attribute?("hidden")
+  end
+
   test "control yields the same attrs the input receives" do
     seen = nil
     out = render_form(scope: :user, model: { email: "x@y.z" }, errors: { email: [ "bad" ] }) do |f|

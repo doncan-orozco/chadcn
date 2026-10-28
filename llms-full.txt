@@ -883,6 +883,8 @@ Constructor: `Chadcn::Form.new(binding: nil, scope: nil, model: nil, errors: nil
 - `namespace` [String, nil] prefix of every generated id
 - `attrs` [Hash] HTML attributes merged onto the `<form>`
 
+Stimulus: `chadcn--form`
+
 Example:
 
 ```ruby

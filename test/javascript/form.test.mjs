@@ -1,0 +1,102 @@
+import test, { after } from "node:test";
+import { assert, consoleErrors, launch, openPath, settle } from "./support.mjs";
+
+// chadcn--form (dev/port/specs/form.md, Behavior): the browser's HTML5 validity mirrored into the Form::Field contract. Runs on
+// dev/dummy's form-demo page (Turbo Drive on), not on a parity scenario: the React twin has no such behavior.
+const ONE = "/design-system/form-demo/one";
+const field = (name) => `[data-slot=field]:has(#user_${name}-form-item)`;
+const input = (name) => `#user_${name}-form-item`;
+const message = (name) => `#user_${name}-form-item-message`;
+const submit = "button[type=submit]";
+
+const browserPromise = launch();
+after(async () => { await (await browserPromise).close(); });
+
+async function withPage(fn) {
+  const page = await openPath(await browserPromise, ONE);
+  try {
+    const errors = consoleErrors(page);
+    await fn(page);
+    assert.deepEqual(errors, []);
+    assert.deepEqual(page.jsErrors, []);
+  } finally {
+    await page.context().close();
+  }
+}
+
+const describedby = (page, name) => page.locator(input(name)).evaluate((el) => (el.getAttribute("aria-describedby") || "").split(/\s+/));
+
+test("form: submitting with an empty required input mirrors the browser's validity into the field", () => withPage(async (page) => {
+  assert.equal(await page.locator(field("email")).getAttribute("data-invalid"), null, "valid before the first submit");
+  await page.locator(submit).click();
+  await settle(page);
+
+  assert.equal(await page.locator(field("email")).getAttribute("data-invalid"), "true");
+  assert.equal(await page.locator(input("email")).getAttribute("aria-invalid"), "true");
+  assert.equal(await page.locator(`${field("email")} [data-slot=field-label]`).getAttribute("data-error"), "true");
+  const native = await page.locator(input("email")).evaluate((el) => el.validationMessage);
+  assert.notEqual(native, "");
+  assert.equal(await page.locator(message("email")).textContent(), native);
+  assert.equal(await page.locator(message("email")).isVisible(), true);
+  assert.ok((await describedby(page, "email")).includes("user_email-form-item-message"));
+  assert.ok((await describedby(page, "email")).includes("user_email-form-item-description"), "existing tokens are kept");
+  assert.equal(await page.locator(input("email")).evaluate((el) => document.activeElement === el), true, "the native focus of the first invalid control stays");
+}));
+
+test("form: typing a valid value clears the error and the aria links", () => withPage(async (page) => {
+  await page.locator(submit).click();
+  await settle(page);
+  await page.locator(input("email")).fill("a@b.co");
+  await settle(page);
+
+  assert.equal(await page.locator(field("email")).getAttribute("data-invalid"), null);
+  assert.equal(await page.locator(input("email")).getAttribute("aria-invalid"), "false");
+  assert.equal(await page.locator(`${field("email")} [data-slot=field-label]`).getAttribute("data-error"), "false");
+  assert.equal(await page.locator(message("email")).textContent(), "");
+  assert.equal(await page.locator(message("email")).isHidden(), true);
+  assert.equal((await describedby(page, "email")).includes("user_email-form-item-message"), false);
+  assert.ok((await describedby(page, "email")).includes("user_email-form-item-description"));
+
+  await page.locator(input("email")).fill("nope");
+  await settle(page);
+  assert.equal(await page.locator(field("email")).getAttribute("data-invalid"), "true", "an invalid edit after the attempt shows again");
+}));
+
+test("form: a server-rendered error stays until its own control is edited", () => withPage(async (page) => {
+  assert.equal(await page.locator(field("username")).getAttribute("data-invalid"), "true");
+  assert.equal(await page.locator(message("username")).isVisible(), true);
+
+  await page.locator(input("name")).fill("Ada");
+  await settle(page);
+  assert.equal(await page.locator(field("username")).getAttribute("data-invalid"), "true", "editing another control leaves it");
+  assert.equal(await page.locator(message("username")).isVisible(), true);
+
+  await page.locator(input("username")).fill("ada");
+  await settle(page);
+  assert.equal(await page.locator(field("username")).getAttribute("data-invalid"), null, "its own edit hands it to the client");
+  assert.equal(await page.locator(input("username")).getAttribute("aria-invalid"), "false");
+  assert.equal(await page.locator(message("username")).textContent(), "");
+  assert.equal(await page.locator(message("username")).isHidden(), true);
+}));
+
+test("form: Turbo's cache restore keeps the mirrored state and a working form", () => withPage(async (page) => {
+  await page.locator(submit).click();
+  await settle(page);
+
+  await page.evaluate(() => window.Turbo.visit("/design-system/form-demo/two"));
+  await page.waitForSelector("#form-demo-two");
+  await page.goBack();
+  await page.waitForSelector("#form-demo-one");
+  await settle(page);
+
+  assert.equal(await page.locator(field("email")).getAttribute("data-invalid"), "true", "mirrored state is in the snapshot");
+  assert.equal(await page.locator(message("email")).isVisible(), true);
+
+  await page.locator(input("email")).fill("a@b.co");
+  await settle(page);
+  assert.equal(await page.locator(field("email")).getAttribute("data-invalid"), null, "the restored form is live");
+  assert.equal(await page.locator(message("email")).isHidden(), true);
+  await page.locator(submit).click();
+  await settle(page);
+  assert.equal(await page.locator(field("name")).getAttribute("data-invalid"), "true", "a restored form reports invalid controls again");
+}));
