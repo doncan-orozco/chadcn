@@ -34,7 +34,7 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 - `Chadcn::Catalog` (`.entries`, `.find`, `Entry`) and `Chadcn::Catalog::TreeRenderer`: an example of every component as a JSON tree plus the
   renderer, packaged (about 33 KB), so a host builds a component gallery page without the repository's `dev/` directory. Generated from the
   parity scenarios by `rake catalog:generate`. See [docs/catalog.md](docs/catalog.md).
-- `Chadcn::MessageScroller` (`Provider`, `Viewport`, `Content`, `Item`): shadcn's MessageScroller (sticky-to-bottom chat scrolling and a scroll-to-latest button) over the `chadcn--message-scroller` Stimulus controller, with no new JavaScript dependency.
+- `Chadcn::MessageScroller` (`Provider`, `Viewport`, `Content`, `Item`, `Button`): shadcn's MessageScroller (sticky-to-bottom chat scrolling and a scroll-to-latest button) over the `chadcn--message-scroller` Stimulus controller, with no new JavaScript dependency. It dispatches `chadcn--message-scroller:scrollable-change` and, with `track_visibility: true`, `chadcn--message-scroller:visibility-change`.
 - `Chadcn::Resizable` (`PanelGroup`, `Panel`, `Handle`): the shadcn Resizable over a Stimulus reimplementation of react-resizable-panels
   (pointer and keyboard resizing, min/max sizes, collapsible panels, horizontal and vertical groups, separator ARIA).
 - `id:` on every root that generates ids (`Dialog`, `Sheet`, `AlertDialog`, `Popover`, `HoverCard`, `Tooltip` and `Tooltip::Provider`,

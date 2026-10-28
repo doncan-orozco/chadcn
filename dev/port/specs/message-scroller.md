@@ -12,7 +12,7 @@ Chadcn::MessageScroller::Viewport.new(preserve_scroll_on_prepend: true, class: n
 Chadcn::MessageScroller::Content.new(spacer_class_name: nil, class: nil, **attrs) { ... }          # MessageScrollerContent
 Chadcn::MessageScroller::Item.new(message_id: nil, scroll_anchor: false, class: nil, **attrs) { ... } # MessageScrollerItem
 Chadcn::MessageScroller::Button.new(direction: "end", variant: "secondary", size: "icon-sm", behavior: "smooth",
-  render: nil, class: nil, **attrs) { ... }                                                        # MessageScrollerButton
+  render: nil, label: nil, class: nil, **attrs) { ... }                                                        # MessageScrollerButton
 ```
 
 Name mapping (api-mapping.md, strip the root prefix once): `MessageScrollerProvider` -> `MessageScroller::Provider`, `MessageScrollerViewport` -> `MessageScroller::Viewport`, `MessageScrollerContent` -> `MessageScroller::Content`, `MessageScrollerItem` -> `MessageScroller::Item`, `MessageScrollerButton` -> `MessageScroller::Button`; `MessageScroller` is the root class itself. (Unlike Dialog, the root here is the styled frame and renders a `div`; the Provider is a nested part that the docs place OUTSIDE the root, see Structure.)
@@ -35,6 +35,7 @@ Name mapping (api-mapping.md, strip the root prefix once): `MessageScrollerProvi
 | `Button` | `size:` | `"icon-sm"` (wrapper tsx) | every `Chadcn::Button` size (`size: :icon_sm` == `"icon-sm"`) |
 | `Button` | `behavior:` | `"smooth"` (`behavior = "smooth"`, ms:430) | `smooth`, `auto`, `instant` (`ScrollBehavior`) |
 | `Button` | `render:` | `nil` (wrapper: `render ?? <Button variant size />`) | `nil` (renders `Chadcn::Button.new(variant:, size:)`), a `Chadcn` component instance, or a tag symbol (see Deviations) |
+| `Button` | `label:` | `nil` (no React prop) | `nil` renders the sr-only text `Scroll to end` / `Scroll to start` by direction; a String replaces it (localizable default, design-system R13) |
 | all rendered parts | `**attrs` | `...props` | any HTML attribute (`id`, `role`, `tab_index:`/`tabindex`, `type`, `style`, `data: {}`, `aria: {}` / `"aria-*":`), merged per shadcn-port R6 |
 
 - Blocks = `children`. `Provider`, `MessageScroller`, `Viewport`, `Content` and `Item` yield their block. `Button` yields its block as the button content; with no block it renders the default content (Structure).
@@ -157,6 +158,24 @@ Parity scenarios cannot append rows (no such step), so streaming/anchoring/prepe
 - Library: `@shadcn/react` 0.3.1 (`dependencies: ["cn", "@shadcn/react"]` in the registry item; React 19 only, renders through React contexts, refs and `useSyncExternalStore`). It has no DOM/vanilla build, so it cannot be pinned behind a Stimulus controller; per the house rule set by sonner (no third-party JavaScript, behavior re-implemented), the port re-implements its hooks (`st`, `lt`, `nt`, ms:133-332) in `app/javascript/controllers/chadcn/message_scroller_controller.js`. No importmap pin, no vendor file, no npm dependency. The library is MIT; add it to `THIRD_PARTY_NOTICES.md` as the source of the ported algorithm.
 - DOM mapping (identical, the library is unstyled): `Provider` -> no element (port: display-contents host); `Root` -> `div` (+ `data-pending-scroll`, `data-scrollable`, `data-autoscrolling`); `Viewport` -> `div role=region aria-label=Messages tabindex=0` (+ same three data attributes); `Content` -> `div role=log aria-relevant=additions` + trailing `div[data-message-scroller-spacer][hidden][aria-hidden=true]`; `Item` -> `div[data-message-id][data-scroll-anchor]`; `Button` -> `useRender` over shadcn's `Button` (`data-active`, `data-direction`, `type`, `inert`, `tabindex`).
 - CSS utilities used by the wrapper: `scroll-fade-b` (shadcn `@utility`, already vendored in `app/assets/tailwind/chadcn/vendor/shadcn-tailwind.css`), `scrollbar-thin`, `scrollbar-gutter-stable`, `scrollbar-none`, `contain-content`, `inset-s-1/2` (Tailwind 4.3 built-ins, catalog `tailwindcss` 4.3.3). The host Tailwind must be a release that has them (G2 will show `scrollbarWidth`-type drift otherwise; report, do not replace the tokens).
+
+<!-- spec_helpers:begin -->
+## DX helpers (derived from the oracle, do not edit)
+
+`Chadcn::MessageScroller` MUST `yield self` from `view_template`; `Chadcn::Base` generates one helper per nested part (`const_added`), each exactly `render MessageScroller::<Part>.new(**attrs), &block`. The helpers are sugar: the nested classes stay the canonical API (scenarios, tests and the parity harness use them), and fully qualified calls (`render Chadcn::MessageScroller::Content.new`) stay valid.
+
+| helper | part class | React export |
+|---|---|---|
+| `message_scroller.provider` | `MessageScroller::Provider` | `MessageScrollerProvider` |
+| `message_scroller.viewport` | `MessageScroller::Viewport` | `MessageScrollerViewport` |
+| `message_scroller.content` | `MessageScroller::Content` | `MessageScrollerContent` |
+| `message_scroller.item` | `MessageScroller::Item` | `MessageScrollerItem` |
+| `message_scroller.button` | `MessageScroller::Button` | `MessageScrollerButton` |
+
+Names that shadow a Phlex HTML element inside `MessageScroller`'s OWN `view_template` (use `tag(:button)` there, never the bare method): `button`.
+
+Acceptance (unit test): every row exists as a public method on the root instance and renders the same HTML as the explicit class call; no helper is defined by hand.
+<!-- spec_helpers:end -->
 
 ## Dependencies
 

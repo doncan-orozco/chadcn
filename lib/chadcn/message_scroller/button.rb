@@ -11,6 +11,9 @@ class Chadcn::MessageScroller::Button < Chadcn::Base
   DIRECTIONS = %w[start end].freeze
   private_constant :DIRECTIONS
 
+  BEHAVIORS = %w[smooth auto instant].freeze
+  private_constant :BEHAVIORS
+
   # @param direction [String, Symbol] `start` or `end`
   # @param variant [String, Symbol] a `Chadcn::Button` variant
   # @param size [String, Symbol] a `Chadcn::Button` size (`:icon_sm` is `"icon-sm"`)
@@ -18,7 +21,7 @@ class Chadcn::MessageScroller::Button < Chadcn::Base
   # @param render [nil, Symbol, Chadcn::Base] a tag name or component to render instead of `Chadcn::Button`
   # @param label [String, nil] the screen-reader text of the default content (default `Scroll to end` / `Scroll to start`)
   # @param attrs [Hash] HTML attributes (`type` defaults to `button`; a `tabindex` applies while the button is active)
-  # @raise [ArgumentError] when the direction is neither start nor end
+  # @raise [ArgumentError] when the direction is neither start nor end or the behavior is not smooth, auto or instant
   def initialize(direction: "end", variant: "secondary", size: "icon-sm", behavior: "smooth", render: nil, label: nil, **attrs)
     @direction = normalize_option(direction)
     raise ArgumentError, "unknown direction: #{direction.inspect} (expected one of #{DIRECTIONS.join(', ')})" unless DIRECTIONS.include?(@direction)
@@ -26,6 +29,8 @@ class Chadcn::MessageScroller::Button < Chadcn::Base
     @variant = normalize_option(variant)
     @size = normalize_option(size)
     @behavior = normalize_option(behavior)
+    raise ArgumentError, "unknown behavior: #{behavior.inspect} (expected one of #{BEHAVIORS.join(', ')})" unless BEHAVIORS.include?(@behavior)
+
     @render = render
     @label = label || "Scroll to #{@direction}"
     @attrs = attrs
@@ -36,10 +41,12 @@ class Chadcn::MessageScroller::Button < Chadcn::Base
   # @return [void]
   def view_template(&block)
     content = block || proc { default_content }
-    attrs = button_attrs
-    return render_as_child(@render, **attrs, class: cn(CLASSES, @attrs[:class]), &content) if @render
+    caller_attrs = canonical_attrs(@attrs)
+    css = cn(CLASSES, caller_attrs.delete(:class), caller_attrs.delete("class"))
+    attrs = button_attrs(caller_attrs).merge(class: css)
+    return render_as_child(@render, **attrs, &content) if @render
 
-    render Chadcn::Button.new(variant: @variant, size: @size, **attrs, class: cn(CLASSES, @attrs[:class])), &content
+    render Chadcn::Button.new(variant: @variant, size: @size, **attrs), &content
   end
 
   private
@@ -50,8 +57,7 @@ class Chadcn::MessageScroller::Button < Chadcn::Base
   end
 
   # The server renders the inactive state; the controller flips active, inert and tabindex.
-  def button_attrs
-    caller_attrs = canonical_attrs(@attrs.except(:class))
+  def button_attrs(caller_attrs)
     caller_tabindex = caller_attrs.delete(:tabindex)
     attrs = merge_attrs({
                           type: "button", inert: true, tabindex: -1,

@@ -8,6 +8,7 @@
   ],
   "api": [
     "MessageScroller::Provider takes track_visibility: (default false, no React prop): enables the visibility tracking that React starts when a component subscribes to useMessageScrollerVisibility; results are dispatched as chadcn--message-scroller:visibility-change",
+    "MessageScroller::Button takes label: (default nil, no React prop): the screen-reader text of the default content, Scroll to end / Scroll to start by direction, so the default string is localizable",
     "MessageScroller::Button render: takes a Chadcn component instance or a tag symbol instead of a React element (merged with useRender semantics)",
     "MessageScroller parts rendered without an enclosing MessageScroller::Provider render without error (React throws); MessageScroller and MessageScroller::Viewport then omit data-pending-scroll",
     "MessageScroller::Provider default_scroll_position last-anchor decides 'the last turn fits' from real row heights, not from content-visibility placeholders"
