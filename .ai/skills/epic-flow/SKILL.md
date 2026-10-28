@@ -52,6 +52,7 @@ ruby .claude/scripts/epic/work_board.rb mergeable --epic S [--item N]   # review
 ruby .claude/scripts/epic/work_board.rb merge N --epic S --session ID [--method squash] [--keep-branch]   # only when mergeable says ready
 ruby .claude/scripts/epic/work_board.rb epic done --epic S --session ID [--note TXT]   # close the epic once every item is done (refuses otherwise)
 ruby .claude/scripts/epic/work_board.rb item adopt N --epic S --wave W --owns GLOBS --gates-file F [--blocked-by N,M]   # take an issue filed outside /epic-plan into the epic (appends the contract and meta block; the report stays)
+ruby .claude/scripts/epic/work_board.rb item amend N --epic S --session ID [--owns GLOBS] [--add-owns GLOBS] [--blocked-by N,M] [--add-blocked-by N,M] --reason TXT   # change an item's contract (meta + Owns / Blocked by sections + an announce note on the epic root with before/after); refuses a done item, one held by another session and a result that overlaps or cycles
 ruby .claude/scripts/epic/work_board.rb claim N --epic S --session ID
 ruby .claude/scripts/epic/work_board.rb show N --epic S
 ruby .claude/scripts/epic/work_board.rb digest --epic S --item N --format md
