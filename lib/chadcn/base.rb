@@ -92,7 +92,14 @@ class Chadcn::Base < Phlex::HTML
   # All of it is created eagerly at load time: a lazy `||=` can build two mergers or two locks when threads race on first use.
 
   # The merger is thread-safe itself (its internal LRU cache is a `LruRedux::ThreadSafeCache`).
-  TW_MERGER = TailwindMerge::Merger.new
+  #
+  # tailwind_merge 1.5.6 maps the overflow-y group to the overscroll scale (auto/contain/none), so `overflow-y-auto overflow-y-scroll`
+  # do not conflict. The group is fixed to the overflow scale here; this config can go when the gem fixes it.
+  OVERFLOW_SCALE = %w[auto hidden clip visible scroll].freeze
+  private_constant :OVERFLOW_SCALE
+  TW_MERGER = TailwindMerge::Merger.new(
+    config: { class_groups: TailwindMerge::Config::DEFAULTS[:class_groups].merge("overflow-y" => [ { "overflow-y" => OVERFLOW_SCALE } ]) }
+  )
   private_constant :TW_MERGER
 
   # Upper bound of memoized `cn` results. Callers may pass arbitrary class strings, so the cache is cleared when it fills
