@@ -155,7 +155,7 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
           @payload.each_with_index do |item, index|
             next if item_value(item, :type).to_s == "none"
 
-            render_item(config, item, index, nest_label ? label : nil)
+            render_item(config, item, index, nest_label, label)
           end
         end
       end
@@ -202,7 +202,7 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
       "value"
     end
 
-    def render_item(config, item, index, nested_label)
+    def render_item(config, item, index, nest_label, label)
       value = item_value(item, :value)
       name = item_value(item, :name)
       row = item_value(item, :payload)
@@ -212,7 +212,7 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
           render_node(@formatter.call(value, name, item, index, row))
         else
           item_config = config.payload_config(item, config_key(@name_key, item, :name, :data_key))
-          render_default_item(item_config, item, indicator_color(item, row), nested_label)
+          render_default_item(item_config, item, indicator_color(item, row), nest_label, label)
         end
       end
     end
@@ -223,8 +223,7 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
       @color || row_fill || item_value(item, :color)
     end
 
-    def render_default_item(item_config, item, color, nested_label)
-      nest_label = !nested_label.nil?
+    def render_default_item(item_config, item, color, nest_label, label)
       if item_config&.icon
         render_icon(item_config.icon)
       elsif !@hide_indicator
@@ -232,12 +231,18 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
       end
       div(class: cn("flex flex-1 justify-between leading-none", nest_label ? "items-end" : "items-center")) do
         div(class: "grid gap-1.5") do
-          render_label(nested_label) if nest_label
-          span(class: "text-muted-foreground") { render_node(item_config&.label.nil? ? item_value(item, :name) : item_config.label) }
+          render_label(label) if nest_label
+          span(class: "text-muted-foreground") { render_node(series_label(item_config, item)) }
         end
         value = item_value(item, :value)
         span(class: "font-mono font-medium text-foreground tabular-nums") { plain(locale_string(value)) } unless value.nil?
       end
+    end
+
+    # `itemConfig?.label ?? item.name`: only a missing label falls back to the series name.
+    def series_label(item_config, item)
+      label = item_config&.label
+      label.nil? ? item_value(item, :name) : label
     end
 
     def indicator_classes(nest_label)

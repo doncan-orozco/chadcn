@@ -274,4 +274,17 @@ class Chadcn::Chart::TooltipTest < Chadcn::TestCase
     assert_nil node.at_css("div.shrink-0")["style"]
     assert_equal "", node.at_css("span.text-muted-foreground").text
   end
+
+  test "an item without a config entry shows its own name" do
+    node = box(render_content(config: { other: { label: "Other" } }, payload: [ { name: "desktop", value: 3 } ]))
+
+    assert_equal "desktop", node.at_css("span.text-muted-foreground").text
+  end
+
+  test "a single non-dot item still lays out as nested when the label is hidden" do
+    node = box(render_content(payload: payload(:desktop), indicator: :dashed, hide_label: true))
+
+    assert_includes node.at_css("div.flex-1")["class"], "items-end"
+    assert_includes node.at_css("div.shrink-0")["class"].split, "my-0.5"
+  end
 end
