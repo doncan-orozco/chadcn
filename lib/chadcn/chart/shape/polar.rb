@@ -44,7 +44,7 @@ module Chadcn::Chart::Shape::Polar
     # @param limit [Numeric] degrees
     # @return [Numeric] degrees, negative when the end is below the start
     def delta_angle(start_angle, end_angle, limit:)
-      Chadcn::Chart::JsMath.sign(end_angle - start_angle) * [ (end_angle - start_angle).abs, limit ].min
+      Chadcn::Chart::Shape::JsMath.sign(end_angle - start_angle) * [ (end_angle - start_angle).abs, limit ].min
     end
   end
 end

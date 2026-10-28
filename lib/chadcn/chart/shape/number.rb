@@ -42,7 +42,7 @@ module Chadcn::Chart::Shape::Number
     # @return [Float]
     def round(value, digits)
       factor = 10.0**digits
-      rounded = Chadcn::Chart::JsMath.round(value * factor) / factor
+      rounded = Chadcn::Chart::Shape::JsMath.round(value * factor) / factor
       rounded.zero? ? 0.0 : rounded
     end
 

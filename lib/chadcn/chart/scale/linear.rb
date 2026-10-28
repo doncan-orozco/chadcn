@@ -5,7 +5,7 @@
 #
 # @api private
 class Chadcn::Chart::Scale::Linear
-  JsMath = Chadcn::Chart::JsMath
+  JsMath = Chadcn::Chart::Shape::JsMath
   # sqrt(50), sqrt(10), sqrt(2): the thresholds d3-array ticks.js uses to pick 1, 2, 5 or 10 as the step factor.
   E10 = Math.sqrt(50)
   E5 = Math.sqrt(10)

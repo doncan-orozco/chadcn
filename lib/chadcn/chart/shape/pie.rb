@@ -26,7 +26,7 @@ module Chadcn::Chart::Shape::Pie
       return [] unless total.positive?
 
       turn = Chadcn::Chart::Shape::Polar.delta_angle(start_angle, end_angle, limit: FULL_TURN)
-      direction = Chadcn::Chart::JsMath.sign(turn)
+      direction = Chadcn::Chart::Shape::JsMath.sign(turn)
       gap = counted.size <= 1 ? 0 : pad_angle
       minimum = min_angle.abs
       shared = turn.abs - (counted.count { |value| value != 0 } * minimum) - total_gap(counted, turn, gap)

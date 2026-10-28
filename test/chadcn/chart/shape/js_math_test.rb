@@ -2,8 +2,8 @@
 
 require "chadcn/test_case"
 
-class Chadcn::Chart::JsMathTest < Chadcn::TestCase
-  JsMath = Chadcn::Chart::JsMath
+class Chadcn::Chart::Shape::JsMathTest < Chadcn::TestCase
+  JsMath = Chadcn::Chart::Shape::JsMath
 
   test "round is Math.round: ties go toward positive infinity" do
     assert_in_delta 3.0, JsMath.round(2.5), 1e-9

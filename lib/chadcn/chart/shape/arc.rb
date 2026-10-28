@@ -9,7 +9,7 @@
 # @api private
 module Chadcn::Chart::Shape::Arc
   Polar = Chadcn::Chart::Shape::Polar
-  JsMath = Chadcn::Chart::JsMath
+  JsMath = Chadcn::Chart::Shape::JsMath
 
   # recharts clamps a full turn so the start and end points of an arc do not coincide (Sector.js `getDeltaAngle`).
   MAX_SECTOR_ANGLE = 359.999

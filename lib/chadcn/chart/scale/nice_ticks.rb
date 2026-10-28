@@ -51,7 +51,7 @@ module Chadcn::Chart::Scale::NiceTicks
 
       step = strategy.step((Decimal.exact(high) - Decimal.exact(low)) / ([ count, 2 ].max - 1), allow_decimals, 0)
       ticks = Decimal.range_step(Decimal.exact(low), Decimal.exact(high), step) + [ high.to_f ]
-      ticks = ticks.map { |tick| Chadcn::Chart::JsMath.round(tick) } unless allow_decimals
+      ticks = ticks.map { |tick| Chadcn::Chart::Shape::JsMath.round(tick) } unless allow_decimals
       min > max ? ticks.reverse : ticks
     end
 

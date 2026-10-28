@@ -2,7 +2,7 @@
 
 require "chadcn/test_case"
 
-# The chart math is internal: every class, module and public method under lib/chadcn/chart (the shared JsMath, scale/ and shape/)
+# The chart math is internal: every class, module and public method under lib/chadcn/chart (scale/ and shape/)
 # carries `@api private` in its YARD comment, and none of it is in the public API snapshot (test/fixtures/public_api.txt).
 class Chadcn::Chart::ApiPrivateTest < Chadcn::TestCase
   ROOT = File.expand_path("../../../..", __dir__)
@@ -13,7 +13,7 @@ class Chadcn::Chart::ApiPrivateTest < Chadcn::TestCase
 
   test "the files under test are found in every directory" do
     assert_equal EXPECTED_FILE_COUNT, FILES.size, FILES.map { |file| file.delete_prefix("#{ROOT}/") }.join("\n")
-    assert_includes FILES.join("\n"), "chart/js_math.rb"
+    assert_includes FILES.join("\n"), "chart/shape/js_math.rb"
     assert_includes FILES.join("\n"), "chart/scale/linear.rb"
     assert_includes FILES.join("\n"), "chart/shape/curve/monotone_x.rb"
   end

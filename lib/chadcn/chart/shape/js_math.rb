@@ -5,7 +5,7 @@
 # JavaScript functions they reproduce.
 #
 # @api private
-module Chadcn::Chart::JsMath
+module Chadcn::Chart::Shape::JsMath
   class << self
     # `Math.round(value)`: the nearest integer with ties rounded toward +Infinity (so -2.5 becomes -2). Non-finite values are
     # returned unchanged, as JavaScript does.
