@@ -222,6 +222,54 @@ class EngineTest::FormBinding < Minitest::Test
     assert_equal "Main St", row.value_for(:street)
   end
 
+  def test_a_persisted_nested_row_has_its_id_as_a_hidden_field_and_a_new_one_has_none
+    root = binding_for(User.new(id: 1))
+
+    assert_equal({ id: 5 }, root.nested(:addresses, object: Address.new(id: 5), index: 0).hidden_fields)
+    assert_empty root.nested(:addresses, object: Address.new, index: 1).hidden_fields
+  end
+
+  def test_a_nested_model_without_a_writer_has_no_hidden_id_like_fields_for
+    assert_empty binding_for.nested(:profile, object: Address.new(id: 5)).hidden_fields
+  end
+
+  def test_the_root_binding_has_no_hidden_fields
+    assert_empty binding_for(User.new(id: 1)).hidden_fields
+  end
+
+  def test_a_nested_collection_renders_names_ids_hidden_id_and_row_errors_like_fields_for
+    bad = Address.new(id: 5)
+    bad.valid?
+    user = User.new(id: 1, addresses: [ bad, Address.new(street: "Side St") ])
+    form = Nokogiri::HTML5.fragment(Chadcn::Form.new(binding: binding_for(user)).call do |root|
+      root.fields(attribute: :addresses) do |row|
+        row.field(attribute: :street) do |field|
+          field.input
+          field.error
+        end
+      end
+    end)
+
+    assert_equal(%w[user[addresses_attributes][0][street] user[addresses_attributes][1][street]],
+                 form.css("input:not([type=hidden])").map { |input| input["name"] })
+    assert_equal "user_addresses_attributes_1_street-form-item", form.css("input:not([type=hidden])").last["id"]
+    assert_equal "user_addresses_attributes_0_street-form-item-message", form.at_css("[data-slot=field-error]")["id"]
+    assert_includes form.at_css("[data-slot=field-error]").text, "can't be blank"
+    hidden = form.css("input[type=hidden][name$='[id]']")
+
+    assert_equal(%w[user[addresses_attributes][0][id]], hidden.map { |input| input["name"] })
+    assert_equal "5", hidden.first["value"]
+    assert_equal "user_addresses_attributes_0_id", hidden.first["id"]
+  end
+
+  def test_a_string_child_index_is_passed_through_and_keeps_the_label_scope
+    I18n.backend.store_translations(:en, helpers: { label: { user: { addresses: { street: "Street line" } } } })
+    row = binding_for(User.new(id: 1)).nested(:addresses, object: Address.new, index: "NEW_RECORD")
+
+    assert_equal "user[addresses_attributes][NEW_RECORD][street]", row.name_for(:street)
+    assert_equal "Street line", row.label_for(:street)
+  end
+
   def test_a_nested_single_model_without_a_writer_has_no_attributes_suffix
     row = binding_for.nested(:profile, object: Address.new)
 

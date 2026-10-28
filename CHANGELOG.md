@@ -26,6 +26,12 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
   the generated ids; errors set `aria-invalid`, `data-invalid` and `data-error`. A `get` form renders no CSRF input; `put`, `patch`
   and `delete` render a hidden `_method`.
 - `chadcn--form` (`Chadcn::Form` always renders `data-controller="chadcn--form"`): mirrors the browser's HTML5 validity (`validity`, `validationMessage`) into `data-invalid`, `aria-invalid`, `aria-describedby`, `data-error` and the field error on `invalid`, `input`, `change` and the synthetic `click` of the hidden input of Checkbox, Switch and RadioGroup; a server error stays until that control is edited. `Form::Field::Error` renders an empty hidden `role="alert"` element when the field has no errors and no block, so the message id exists before the round trip. `form.reset()` clears the mirrored state and the server-rendered errors (unless a later `reset` listener calls `preventDefault()`); a `novalidate` form is not re-validated on `input`/`change`.
+- `Form#fields` and `Form::Fields`: nested objects and collections with Rails nested-attributes naming.
+  `form.fields(attribute: :addresses) { |address| address.field(attribute: :street) { ... } }` yields a `Form::Fields` scope per element
+  (once for a single object, with `index:` as `child_index:`): `user[addresses_attributes][0][street]`, id `user_addresses_attributes_0_street`,
+  the `namespace:` carried, scopes nesting. `Binding::Plain` finds a row's errors under `"addresses[0].street"` keys and
+  `Chadcn::Engine::FormBinding` reads them from the child model; the engine renders the hidden `id` of a persisted child after its fields
+  (`Binding#hidden_fields`, an optional protocol message) and `_attributes` only when the model defines the writer.
 - `Form::Field` bound controls: `Select`, `NativeSelect`, `Checkbox`, `Switch`, `RadioGroup`, `Slider`, `DatePicker` and `InputGroup`
   (`field.select`, `field.native_select`, `field.checkbox`, `field.switch`, `field.radio_group`, `field.slider`, `field.date_picker`,
   `field.input_group`). They bind name, id, `aria-invalid` and `aria-describedby` and the value as the uncontrolled default; the

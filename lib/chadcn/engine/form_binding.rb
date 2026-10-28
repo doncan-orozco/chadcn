@@ -20,8 +20,12 @@ module Chadcn
       include Chadcn::Form::Binding
 
       # Matches the nested part of a builder scope (+user[addresses_attributes][0]+) the way Rails' +label+ helper does.
-      NESTED_SCOPE = /\[(.*)_attributes\]\[\d+\]/
+      NESTED_SCOPE = /\[(.*)_attributes\]\[[^\]]+\]/
       private_constant :NESTED_SCOPE
+
+      # Matches a scope that ends in nested attributes (+user[addresses_attributes][0]+, +user[address_attributes]+).
+      NESTED_ATTRIBUTES = /_attributes\](\[[^\]]+\])?\z/
+      private_constant :NESTED_ATTRIBUTES
 
       # @return [Object, nil] the model the form is bound to
       attr_reader :model
@@ -107,12 +111,22 @@ module Chadcn
       # @param attribute [Symbol, String] the association
       # @param object [Object, nil] the nested model
       # @param index [Integer, String, nil] the row of a collection
-      # @param errors [#[]] ignored: the errors are read from +object.errors+
+      # @param errors [#[], nil] ignored: the errors are read from +object.errors+
       # @return [Chadcn::Engine::FormBinding]
-      def nested(attribute, object:, index: nil, errors: {})
+      def nested(attribute, object:, index: nil, errors: nil)
         suffix = @model.respond_to?(:"#{attribute}_attributes=") ? "#{attribute}_attributes" : attribute.to_s
         self.class.new(view_context: @view_context, model: object, scope: "#{@scope}[#{suffix}]#{"[#{index}]" if index}",
                        namespace: @namespace)
+      end
+
+      # The hidden +id+ of a persisted nested model, as +fields_for+ emits it for nested attributes (never for the root or for a
+      # model without the +<association>_attributes=+ writer).
+      #
+      # @return [Hash{Symbol => Object}]
+      def hidden_fields
+        return {} unless @scope.match?(NESTED_ATTRIBUTES) && persisted? && @model.respond_to?(:id)
+
+        { id: @model.id }
       end
 
       # @return [String, nil] +url:+, else +polymorphic_path(model)+

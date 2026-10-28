@@ -74,6 +74,24 @@ class Chadcn::Form::Binding::PlainTest < Chadcn::TestCase
     assert_equal [ "bad" ], child.errors_for(:city)
   end
 
+  test "a nested row derives its errors from the parent errors keyed like index_errors" do
+    parent = plain(errors: { "addresses[1].city": [ "bad" ], "address.city": [ "short" ], city: [ "root" ] })
+
+    assert_equal [ "bad" ], parent.nested(:addresses, object: nil, index: 1).errors_for(:city)
+    assert_empty parent.nested(:addresses, object: nil, index: 0).errors_for(:city)
+    assert_equal [ "short" ], parent.nested(:address, object: nil).errors_for(:city)
+  end
+
+  test "a nested row reads errors of an ActiveModel::Errors-like lookup through []" do
+    lookup = Class.new { def [](key) = key == :"addresses[0].city" ? [ "bad" ] : [] }.new
+
+    assert_equal [ "bad" ], plain(errors: lookup).nested(:addresses, object: nil, index: 0).errors_for(:city)
+  end
+
+  test "a Plain binding has no hidden fields" do
+    assert_empty plain.nested(:address, object: { id: 1 }).hidden_fields
+  end
+
   test "an array scope nests names" do
     nested = Chadcn::Form::Binding::Plain.new(scope: %i[a b])
 
