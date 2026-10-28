@@ -48,7 +48,7 @@ class Chadcn::Form < Chadcn::Base
   #
   # @return [String]
   # @api private
-  ACTION = "invalid->chadcn--form#report:capture input->chadcn--form#edit change->chadcn--form#edit"
+  ACTION = "invalid->chadcn--form#report:capture input->chadcn--form#edit change->chadcn--form#edit reset->chadcn--form#reset"
 
   # Builds the form. +nil+ means "not given"; the Plain binding defaults the method to +"post"+ and the errors to +{}+. +class:+
   # travels in +**attrs+.
@@ -545,13 +545,15 @@ class Chadcn::Form < Chadcn::Base
         field = form_field
         attrs = merge_attrs({ id: field.form_message_id }, @attrs)
         messages = field.errors
+        # data-chadcn-form-message marks the elements the form controller manages; a caller's block is left alone.
+        managed = merge_attrs({ data: { chadcn_form_message: "true" } }, attrs)
         if messages.any?
-          render Chadcn::Field::Error.new(errors: messages.map { |message| { message: } }, **attrs)
+          render Chadcn::Field::Error.new(errors: messages.map { |message| { message: } }, **managed)
         elsif block_given?
           render(Chadcn::Field::Error.new(**attrs), &)
         else
           # Chadcn::Field::Error renders nothing when empty; the controller needs the element to put the browser's message in.
-          div(**merge_attrs({ role: "alert", data: { slot: "field-error" }, class: Chadcn::Field::Error::CLASS_NAME, hidden: true }, attrs))
+          div(**merge_attrs({ role: "alert", data: { slot: "field-error" }, class: Chadcn::Field::Error::CLASS_NAME, hidden: true }, managed))
         end
       end
     end

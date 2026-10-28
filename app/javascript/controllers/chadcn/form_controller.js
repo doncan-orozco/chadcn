@@ -15,7 +15,7 @@ export default class extends Controller {
   // it over to the client) or a committed change re-evaluates.
   edit(event) {
     const control = event.target
-    if (!control.willValidate) return
+    if (!control.willValidate || control.form?.noValidate) return
     const field = control.closest("[data-slot=field]")
     if (!field) return
     if (this.attempted || field.dataset.invalid === "true" || event.type === "change") this.mirror(control)
@@ -27,7 +27,8 @@ export default class extends Controller {
     // validity, not checkValidity(): inside an event it would fire `invalid` again.
     const { valid } = control.validity
     const label = field.querySelector("[data-slot=field-label]")
-    const error = field.querySelector("[data-slot=field-error]")
+    // Only the element Form::Field::Error marked is ours; a caller's `field.error { ... }` block is left untouched.
+    const error = field.querySelector("[data-slot=field-error][data-chadcn-form-message]")
     const labelled = label?.htmlFor ? field.ownerDocument.getElementById(label.htmlFor) : null
     const targets = labelled && labelled !== control ? [control, labelled] : [control]
 
@@ -36,9 +37,28 @@ export default class extends Controller {
     for (const target of targets) target.setAttribute("aria-invalid", valid ? "false" : "true")
     label?.setAttribute("data-error", valid ? "false" : "true")
     if (error) {
-      error.textContent = valid ? "" : control.validationMessage
+      const text = valid ? "" : control.validationMessage
+      if (error.textContent !== text) error.textContent = text
       error.hidden = valid
       if (error.id) for (const target of targets) this.describe(target, error.id, !valid)
+    }
+  }
+
+  // form.reset(): back to the pristine state. Server-rendered errors are cleared too (as react-hook-form's reset does).
+  reset() {
+    this.attempted = false
+    for (const field of this.element.querySelectorAll("[data-slot=field][data-invalid]")) {
+      delete field.dataset.invalid
+      field.querySelector("[data-slot=field-label]")?.setAttribute("data-error", "false")
+      const error = field.querySelector("[data-slot=field-error][data-chadcn-form-message]")
+      if (error) {
+        error.textContent = ""
+        error.hidden = true
+      }
+      for (const target of field.querySelectorAll("[aria-invalid]")) {
+        target.setAttribute("aria-invalid", "false")
+        if (error?.id) this.describe(target, error.id, false)
+      }
     }
   }
 

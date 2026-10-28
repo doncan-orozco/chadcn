@@ -100,3 +100,52 @@ test("form: Turbo's cache restore keeps the mirrored state and a working form", 
   await settle(page);
   assert.equal(await page.locator(field("name")).getAttribute("data-invalid"), "true", "a restored form reports invalid controls again");
 }));
+
+test("form: a valid change leaves a caller's field.error block untouched", () => withPage(async (page) => {
+  const block = message("nickname");
+  assert.equal((await page.locator(block).textContent()).trim(), "Shown to everyone");
+  await page.locator(input("nickname")).fill("ada");
+  await settle(page);
+  await page.locator(input("nickname")).fill("");
+  await page.locator(input("nickname")).fill("bob");
+  await settle(page);
+
+  assert.equal(await page.locator(field("nickname")).getAttribute("data-invalid"), null);
+  assert.equal((await page.locator(block).textContent()).trim(), "Shown to everyone", "the block is not erased");
+  assert.equal(await page.locator(block).isVisible(), true);
+  assert.equal(await page.locator(block).getAttribute("data-chadcn-form-message"), null);
+  assert.equal((await describedby(page, "nickname")).includes("user_nickname-form-item-message"), false, "its id is not mirrored");
+}));
+
+test("form: reset clears the mirrored state and forgets the attempt", () => withPage(async (page) => {
+  await page.locator(submit).click();
+  await settle(page);
+  assert.equal(await page.locator(field("email")).getAttribute("data-invalid"), "true");
+
+  await page.locator("form#signup").evaluate((form) => form.reset());
+  await settle(page);
+
+  for (const name of ["email", "username"]) {
+    assert.equal(await page.locator(field(name)).getAttribute("data-invalid"), null);
+    assert.equal(await page.locator(input(name)).getAttribute("aria-invalid"), "false");
+    assert.equal(await page.locator(message(name)).textContent(), "");
+    assert.equal(await page.locator(message(name)).isHidden(), true);
+    assert.equal((await describedby(page, name)).includes(`user_${name}-form-item-message`), false);
+  }
+  assert.equal(await page.locator(`${field("email")} [data-slot=field-label]`).getAttribute("data-error"), "false");
+
+  await page.locator(input("email")).fill("nope");
+  await settle(page);
+  assert.equal(await page.locator(field("email")).getAttribute("data-invalid"), null, "typing after reset is not revalidated as if submitted");
+}));
+
+test("form: a novalidate form does not mirror on input or change", () => withPage(async (page) => {
+  await page.locator("form#signup").evaluate((form) => { form.noValidate = true; });
+  await page.locator(input("email")).fill("nope");
+  await page.locator(input("email")).dispatchEvent("change");
+  await settle(page);
+
+  assert.equal(await page.locator(field("email")).getAttribute("data-invalid"), null);
+  assert.equal(await page.locator(input("email")).getAttribute("aria-invalid"), "false", "still the server-rendered value");
+  assert.equal(await page.locator(message("email")).isHidden(), true);
+}));

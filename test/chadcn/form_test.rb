@@ -140,7 +140,7 @@ class Chadcn::FormTest < Chadcn::TestCase
     form = doc(render_form(scope: :user)).at_css("form")
 
     assert_equal "chadcn--form", form["data-controller"]
-    assert_equal "invalid->chadcn--form#report:capture input->chadcn--form#edit change->chadcn--form#edit", form["data-action"]
+    assert_equal "invalid->chadcn--form#report:capture input->chadcn--form#edit change->chadcn--form#edit reset->chadcn--form#reset", form["data-action"]
   end
 
   test "caller data-controller and data-action are kept next to ours" do

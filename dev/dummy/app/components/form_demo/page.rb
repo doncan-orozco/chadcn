@@ -51,6 +51,11 @@ class FormDemo::Page < Phlex::HTML
         field.input
         field.error
       end
+      form.field(attribute: :nickname) do |field|
+        field.label { "Nickname" }
+        field.input(required: true)
+        field.error { "Shown to everyone" }
+      end
       render Chadcn::Button.new(type: "submit") { "Sign up" }
     end
   end
