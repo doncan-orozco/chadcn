@@ -39,7 +39,7 @@ Chadcn::Form::Field::Input.new(**attrs)         # #38: one class per bound contr
 | `field.label` (`Form::Field::Label`) | `FormLabel` | renders `Chadcn::Field::Label`, `for` = form item id, `data-error` | form.tsx:90-105 |
 | `field.control` (`Form::Field::Control`) / bound controls (`field.input` = `Form::Field::Input`, `field.textarea`, ...) | `FormControl` | the control gets id, `name`, `value`, `aria-describedby`, `aria-invalid`; no `form-control` slot | form.tsx:107-123 |
 | `field.description` (`Form::Field::Description`) | `FormDescription` | renders `Chadcn::Field::Description` with the description id | form.tsx:125-136 |
-| `field.error` (`Form::Field::Error`) | `FormMessage` | renders `Chadcn::Field::Error` with the message id; renders nothing without error and without block | form.tsx:138-156 |
+| `field.error` (`Form::Field::Error`) | `FormMessage` | renders `Chadcn::Field::Error` with the message id; without error and without block renders an empty hidden `role=alert` placeholder carrying the message id and `data-chadcn-form-message` (a block without errors renders unmarked and the controller leaves it alone) | form.tsx:138-156 |
 | `field.form_item_id` etc. | `useFormField()` | readers on the field | form.tsx:45-66 |
 
 ## Id / aria contract (the 1:1 core)
@@ -54,7 +54,7 @@ Per field the form generates `base`, one id unique per rendered field. React use
 | control `aria-describedby` | no error: `form_description_id`; with an error: `"#{form_description_id} #{form_message_id}"` (always lists the description id, even when no description is rendered, like React) | form.tsx:114-118 |
 | control `aria-invalid` | `"true"` with an error, `"false"` without (React writes the boolean as a string) | form.tsx:119 |
 | label `data-error` | `"true"` / `"false"`; the class `data-[error=true]:text-destructive` keys off it | form.tsx:99-100 |
-| error content | when the field has errors: their messages (`errors_for` strings mapped to `{ message: }` for `Field::Error`), and the block is NOT passed (`Field::Error` lets a block win, form.tsx:140 lets the error win); no errors: the block; neither: renders nothing | form.tsx:140-145 |
+| error content | when the field has errors: their messages (`errors_for` strings mapped to `{ message: }` for `Field::Error`), and the block is NOT passed (`Field::Error` lets a block win, form.tsx:140 lets the error win); no errors: the block (unmarked); neither: an empty hidden `role=alert` placeholder with the message id and `data-chadcn-form-message` | form.tsx:140-145 |
 | `name` / `value` | from the binding (`name_for`, `value_for`); no counterpart in the tsx (react-hook-form's `Controller` spreads them) | form.tsx:32-43 |
 
 Deliberate difference from the Field port: `Chadcn::Field` writes no `data-invalid` by itself; with an error the bound field passes `data: { invalid: "true" }` to the root (Field's `data-[invalid=true]:text-destructive`) and `data: { error: }` plus `class: "data-[error=true]:text-destructive"` (a literal in `lib/chadcn/form/field.rb`, from form.tsx:100) to `field.label`.
@@ -62,7 +62,7 @@ Deliberate difference from the Field port: `Chadcn::Field` writes no `data-inval
 ## Structure
 
 ```html
-<form data-slot="form" action method="post|get">   <!-- Form; hidden _method for put/patch/delete; CSRF input unless get -->
+<form data-slot="form" data-controller="chadcn--form" data-action="invalid->chadcn--form#report:capture input->chadcn--form#edit change->chadcn--form#edit click->chadcn--form#edit reset->chadcn--form#reset" action method="post|get">   <!-- Form; hidden _method for put/patch/delete; CSRF input unless get -->
   <div role="group" data-slot="field" data-orientation data-invalid="true"> <!-- data-invalid only with an error -->   <!-- Form::Field = Chadcn::Field; tsx: FormItem <div data-slot="form-item" class="grid gap-2"> -->
     <label data-slot="field-label" for="{base}-form-item" data-error>   <!-- tsx: FormLabel, data-slot="form-label" -->
     <input id="{base}-form-item" name value aria-describedby aria-invalid data-slot="input">   <!-- tsx: FormControl Slot, data-slot="form-control" not rendered -->
@@ -84,7 +84,17 @@ Registry: `label`. Port: `Chadcn::Field` (+ `Field::Label`, `Field::Description`
 
 ## Behavior
 
-`chadcn--form` (#39): mirrors HTML5 validity (`checkValidity`, `validationMessage`) into the same `aria-invalid`, `aria-describedby`, `data-error` and message element on `input`/`change`/`invalid`, so a client-side error and a server-side error render the same markup. Server errors win on first paint; client validity takes over after the first edit. Without the controller everything above is still correct (server render only).
+`chadcn--form` (#39): mirrors the browser's HTML5 validity (`validity.valid`, `validationMessage`; never `checkValidity()`, which would fire `invalid` again) into the same `data-invalid`, `aria-invalid`, `aria-describedby`, `data-error` and message element, so a client-side error and a server-side error render the same markup. Server errors win on first paint; client validity takes over at the first edit of that control. Without the controller everything above is still correct (server render only). Rules:
+
+- `invalid` does not bubble: it is captured on the form and not prevented (native bubble and focus stay).
+- `input` re-evaluates only after a submit attempt, when the field already shows an error (server errors hand over at the first edit), or on `change`/`click`.
+- `click` is listened to because Checkbox, Switch and RadioGroup notify their hidden native input (`aria-hidden`, type checkbox/radio) with a synthetic bubbling `click`, never `input`/`change` (`form_bubble_input.js`); the controller ignores a click on anything else (a visible native checkbox goes through `change` only), and a handled click counts as committed like `change`.
+- The attempt is remembered in `data-chadcn-form-attempted` on the `<form>` (all state lives in the DOM, so a Turbo cache restore keeps it).
+- `form.reset()` clears the mirrored state, the server-rendered errors and the attempted flag, unless a `reset` listener called `preventDefault()` (decided after dispatch, in a timeout cleared on disconnect).
+- A `novalidate` form is skipped on `input`/`change`.
+- Controls outside the form element (`form=""` attribute) are not reached.
+- Multi-control fields (radios, an input group with two inputs) aggregate: `data-invalid`, the label `data-error` and the message element follow every validatable control of the field; each control's own `aria-invalid` and message link in `aria-describedby` follow its own validity, and the message shown is the first invalid control's in document order. The label's `for` target mirrors the triggering control only as a proxy for non-native roots (Checkbox, Switch, RadioGroup, Select, Slider with a hidden native input); a native sibling keeps its own `aria-invalid`.
+- Only the message element marked `data-chadcn-form-message` is managed; a caller's `field.error { ... }` block is left alone.
 
 ## Out of scope
 
