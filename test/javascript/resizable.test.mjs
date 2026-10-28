@@ -1,0 +1,283 @@
+import { browserTest } from "./harness.mjs"
+import { assert, consoleErrors, host, reconnect, settle } from "./support.mjs"
+
+// Behavior of the resizable controller the parity runner cannot express: the public events, the imperative methods, the
+// document-level listeners and the cursor sheet that a disconnect must release.
+
+const GROUP = "[data-slot=resizable-panel-group]"
+const HANDLE = "[data-slot=resizable-handle]"
+const PANELS = "[data-slot=resizable-panel]"
+
+const record = (page) => page.evaluate(() => {
+  window.__resizable = []
+  for (const name of ["layout-change", "layout-changed", "resize"]) {
+    document.addEventListener(`chadcn--resizable:${name}`, (event) => window.__resizable.push({ name, detail: event.detail }))
+  }
+})
+const recorded = (page) => page.evaluate(() => window.__resizable)
+const grows = (page) => page.$$eval(PANELS, (panels) => panels.map((panel) => panel.style.flexGrow))
+const controller = (page, expression) => page.evaluate(({ selector, expression }) => {
+  const instance = window.Stimulus.getControllerForElementAndIdentifier(document.querySelector(selector), "chadcn--resizable")
+  return new Function("c", `return ${expression}`)(instance)
+}, { selector: host("chadcn--resizable"), expression })
+
+browserTest("resizable: connect writes the layout, the ARIA values of the handle and the initial layout", async ({ open }) => {
+  const page = await open("default", "resizable")
+  const handle = page.locator(HANDLE)
+
+  assert.deepEqual(await grows(page), ["50", "50"])
+  assert.equal(await handle.getAttribute("aria-valuenow"), "50")
+  assert.equal(await handle.getAttribute("aria-valuemin"), "0")
+  assert.equal(await handle.getAttribute("aria-valuemax"), "100")
+  assert.equal(await handle.getAttribute("aria-controls"), await page.locator(PANELS).first().getAttribute("id"))
+})
+
+browserTest("resizable: arrow keys resize and dispatch layout-change and a user-interaction layout-changed", async ({ open }) => {
+  const page = await open("default", "resizable")
+  await record(page)
+  await page.locator(HANDLE).focus()
+  await page.keyboard.press("ArrowRight")
+  await page.keyboard.press("ArrowRight")
+  await settle(page)
+
+  assert.deepEqual(await grows(page), ["60", "40"])
+  assert.equal(await page.locator(HANDLE).getAttribute("aria-valuenow"), "60")
+  const events = (await recorded(page)).filter((event) => event.name !== "resize")
+  assert.deepEqual(events.map((event) => event.name), ["layout-change", "layout-changed", "layout-change", "layout-changed"])
+  assert.equal(events.at(-1).detail.isUserInteraction, true)
+  assert.deepEqual(Object.values(events.at(-1).detail.layout), [60, 40])
+})
+
+browserTest("resizable: a pointer drag moves the layout, keeps data-separator in step and commits one layout-changed", async ({ open }) => {
+  const page = await open("default", "resizable")
+  const errors = consoleErrors(page)
+  await record(page)
+  const box = await page.locator(HANDLE).boundingBox()
+  const x = box.x + box.width / 2
+  const y = box.y + box.height / 2
+
+  await page.mouse.move(x, y)
+  assert.equal(await page.locator(HANDLE).getAttribute("data-separator"), "hover")
+  await page.mouse.down()
+  assert.equal(await page.locator(HANDLE).getAttribute("data-separator"), "active")
+  const tenth = (await page.locator(GROUP).boundingBox()).width / 10
+  await page.mouse.move(x + tenth, y, { steps: 4 })
+  await page.mouse.move(x + 2 * tenth, y, { steps: 4 })
+  const during = (await recorded(page)).filter((event) => event.name === "layout-changed" && event.detail.isUserInteraction)
+  assert.equal(during.length, 0)
+  await page.mouse.up()
+  await settle(page)
+
+  const [first, second] = (await grows(page)).map(Number)
+  assert.ok(Math.abs(first - 70) < 0.5 && Math.abs(first + second - 100) < 0.01, `layout after the drag: ${first}/${second}`)
+  assert.equal(await page.locator(HANDLE).getAttribute("data-separator"), "inactive")
+  const committed = (await recorded(page)).filter((event) => event.name === "layout-changed" && event.detail.isUserInteraction)
+  assert.equal(committed.length, 1)
+  assert.deepEqual(errors, [])
+})
+
+browserTest("resizable: the pointer cursor sheet and document listeners are released when the group disconnects", async ({ open }) => {
+  const page = await open("default", "resizable")
+  const box = await page.locator(HANDLE).boundingBox()
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2)
+  assert.equal(await page.evaluate(() => document.adoptedStyleSheets[0]?.cssRules[0]?.cssText.includes("ew-resize")), true)
+
+  await page.evaluate(() => document.querySelector("[data-slot=resizable-panel-group]").remove())
+  await settle(page)
+  assert.equal(await page.evaluate(() => document.adoptedStyleSheets.length), 0)
+})
+
+browserTest("resizable: a reconnected group starts again from its server props", async ({ open }) => {
+  const page = await open("default", "resizable")
+  const errors = consoleErrors(page)
+  await page.locator(HANDLE).focus()
+  await page.keyboard.press("ArrowRight")
+  assert.deepEqual(await grows(page), ["55", "45"])
+
+  await reconnect(page, "chadcn--resizable")
+  await settle(page)
+  assert.deepEqual(await grows(page), ["50", "50"])
+  await page.locator(HANDLE).focus()
+  await page.keyboard.press("ArrowLeft")
+  assert.deepEqual(await grows(page), ["45", "55"])
+  assert.deepEqual(errors, [])
+})
+
+browserTest("resizable: the controller exposes the imperative layout and panel methods", async ({ open }) => {
+  const page = await open("collapsible__default-collapsed", "resizable")
+  const ids = await page.$$eval(PANELS, (panels) => panels.map((panel) => panel.id))
+
+  assert.equal(await controller(page, "c.isCollapsed(" + JSON.stringify(ids[0]) + ")"), true)
+  await controller(page, "c.expand(" + JSON.stringify(ids[0]) + ")")
+  assert.equal(await controller(page, "c.isCollapsed(" + JSON.stringify(ids[0]) + ")"), false)
+  assert.equal(await controller(page, "c.getLayout()[" + JSON.stringify(ids[0]) + "]"), 20)
+  await controller(page, "c.collapse(" + JSON.stringify(ids[0]) + ")")
+  assert.deepEqual(await grows(page), ["0", "100"])
+  assert.deepEqual(await controller(page, "c.setLayout({ " + JSON.stringify(ids[0]) + ": 30, " + JSON.stringify(ids[1]) + ": 70 })"), { [ids[0]]: 30, [ids[1]]: 70 })
+  assert.deepEqual(await grows(page), ["30", "70"])
+  assert.equal((await controller(page, "c.getSize(" + JSON.stringify(ids[1]) + ")")).asPercentage, 70)
+})
+
+browserTest("resizable: a panel dispatches resize with its size in percent and pixels", async ({ open }) => {
+  const page = await open("default", "resizable")
+  await page.evaluate(() => {
+    window.__sizes = []
+    document.addEventListener("chadcn--resizable:resize", (event) => window.__sizes.push({ target: event.target.id, ...event.detail }))
+  })
+  await page.locator(HANDLE).focus()
+  await page.keyboard.press("ArrowRight")
+  await settle(page)
+
+  const first = await page.locator(PANELS).first().getAttribute("id")
+  const last = (await page.evaluate(() => window.__sizes)).filter((detail) => detail.target === first).at(-1)
+  assert.ok(Math.abs(last.size.asPercentage - 55) < 0.1, `size ${last.size.asPercentage}`)
+  assert.ok(last.size.inPixels > 100)
+  assert.ok(Math.abs(last.prevSize.asPercentage - 50) < 0.1, `prevSize ${last.prevSize.asPercentage}`)
+})
+
+browserTest("resizable: two groups with identical ids keep separate layouts", async ({ open }) => {
+  const page = await open("default", "resizable")
+  const errors = consoleErrors(page)
+  await page.evaluate(() => {
+    const group = document.querySelector("[data-slot=resizable-panel-group]")
+    group.insertAdjacentHTML("afterend", group.outerHTML)
+  })
+  await settle(page)
+  const groups = page.locator(GROUP)
+  assert.equal(await groups.count(), 2)
+  assert.equal(await groups.nth(0).getAttribute("id"), await groups.nth(1).getAttribute("id"))
+  const layouts = () => page.$$eval(GROUP, (all) => all.map((group) => [...group.querySelectorAll(":scope > [data-slot=resizable-panel]")].map((panel) => panel.style.flexGrow)))
+  assert.deepEqual(await layouts(), [["50", "50"], ["50", "50"]])
+
+  await groups.nth(1).locator(HANDLE).focus()
+  await page.keyboard.press("ArrowRight")
+  await settle(page)
+
+  assert.deepEqual(await layouts(), [["50", "50"], ["55", "45"]])
+  assert.deepEqual(errors, [])
+})
+
+browserTest("resizable: the imperative methods throw once the group is disconnected", async ({ open }) => {
+  const page = await open("default", "resizable")
+  const message = await page.evaluate(async () => {
+    const element = document.querySelector("[data-controller~='chadcn--resizable']")
+    const instance = window.Stimulus.getControllerForElementAndIdentifier(element, "chadcn--resizable")
+    const live = typeof instance.getLayout()
+    element.remove()
+    for (let tick = 0; tick < 3; tick++) await new Promise((resolve) => setTimeout(resolve))
+    try {
+      instance.getLayout()
+      return `${live}|did not throw`
+    } catch (error) {
+      return `${live}|${error.message}`
+    }
+  })
+
+  assert.equal(message, "object|chadcn--resizable: the group is not connected")
+})
+
+browserTest("resizable: a connect that throws on bad constraints holds no observer or document state", async ({ open }) => {
+  const page = await open("default", "resizable")
+  const errors = consoleErrors(page)
+  const box = await page.locator(HANDLE).boundingBox()
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2)
+  assert.equal(await page.evaluate(() => document.adoptedStyleSheets.length), 1, "control: the pointer sheet exists while a group is live")
+  await page.evaluate(async () => {
+    const group = document.querySelector("[data-slot=resizable-panel-group]")
+    const clone = group.cloneNode(true)
+    clone.querySelector("[data-slot=resizable-panel]").setAttribute("data-chadcn--resizable-constraints", '{"defaultSize":true}')
+    group.after(clone)
+    for (let tick = 0; tick < 3; tick++) await new Promise((resolve) => setTimeout(resolve))
+    clone.remove()
+    group.remove()
+    for (let tick = 0; tick < 3; tick++) await new Promise((resolve) => setTimeout(resolve))
+  })
+  await settle(page)
+
+  assert.ok(errors.length > 0, "the failed connect is reported")
+  assert.equal(await page.evaluate(() => document.adoptedStyleSheets.length), 0)
+})
+
+browserTest("resizable: separator-mode preview overlays exist mid-drag, vanish on release and stale ones are dropped on reconnect", async ({ open }) => {
+  const page = await open("preview-mode__separator", "resizable")
+  const overlays = () => page.locator("[data-resize-preview]").count()
+  const box = await page.locator(HANDLE).boundingBox()
+  const x = box.x + box.width / 2
+  const y = box.y + box.height / 2
+
+  assert.equal(await overlays(), 0)
+  await page.mouse.move(x, y)
+  await page.mouse.down()
+  await page.mouse.move(x + 20, y, { steps: 4 })
+  assert.ok(await overlays() > 0, "overlay mid-drag")
+  await page.mouse.up()
+  await settle(page)
+  assert.equal(await overlays(), 0)
+
+  await page.evaluate(() => {
+    const stale = document.createElement("div")
+    stale.setAttribute("data-resize-preview", "true")
+    document.querySelector("[data-slot=resizable-panel-group]").append(stale)
+  })
+  assert.equal(await overlays(), 1)
+  await reconnect(page, "chadcn--resizable")
+  await settle(page)
+  assert.equal(await overlays(), 0)
+})
+
+browserTest("resizable: a reinserted group whose connect throws does not release the document twice", async ({ open }) => {
+  const page = await open("default", "resizable")
+  const errors = consoleErrors(page)
+  await page.evaluate(async () => {
+    const tick = () => new Promise((resolve) => setTimeout(resolve))
+    const group = document.querySelector("[data-slot=resizable-panel-group]")
+    group.after(group.cloneNode(true))
+    await tick()
+    const parent = group.parentNode
+    const next = group.nextSibling
+    group.remove()
+    await tick()
+    group.querySelector("[data-slot=resizable-panel]").setAttribute("data-chadcn--resizable-constraints", '{"defaultSize":true}')
+    parent.insertBefore(group, next)
+    await tick()
+    group.remove()
+    await tick()
+  })
+
+  assert.ok(errors.length > 0, "the reinserted connect threw")
+  assert.equal(await page.locator(GROUP).count(), 1)
+  const box = await page.locator(HANDLE).boundingBox()
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2)
+  await page.waitForSelector(`${HANDLE}[data-separator=hover]`)
+  assert.equal(await page.evaluate(() => document.adoptedStyleSheets.length), 1)
+})
+
+browserTest("resizable: a group connected while hidden defers its layout until it has a size", async ({ open }) => {
+  const page = await open("default", "resizable")
+  await page.evaluate(async () => {
+    window.__resizable = []
+    for (const name of ["layout-change", "layout-changed"]) {
+      document.addEventListener(`chadcn--resizable:${name}`, (event) => window.__resizable.push({ name, detail: event.detail }))
+    }
+    const group = document.querySelector("[data-slot=resizable-panel-group]")
+    const hidden = document.createElement("div")
+    hidden.id = "hidden-host"
+    hidden.style.display = "none"
+    group.before(hidden)
+    hidden.append(group)
+    await new Promise((resolve) => setTimeout(resolve))
+  })
+
+  assert.deepEqual(await controller(page, "c.getLayout()"), {})
+  const ids = await page.$$eval(PANELS, (panels) => panels.map((panel) => panel.id))
+  await controller(page, "c.setLayout({ " + JSON.stringify(ids[0]) + ": 30, " + JSON.stringify(ids[1]) + ": 70 })")
+  assert.deepEqual(await controller(page, "c.getLayout()"), {})
+  assert.deepEqual(await recorded(page), [])
+
+  await page.evaluate(() => { document.querySelector("#hidden-host").style.display = "" })
+  await page.waitForFunction(() => window.__resizable.some((event) => event.name === "layout-changed"))
+  const layout = (await recorded(page)).find((event) => event.name === "layout-changed").detail.layout
+  assert.deepEqual(Object.values(layout), [50, 50])
+  assert.deepEqual(await grows(page), ["50", "50"])
+  assert.equal(await page.locator(HANDLE).getAttribute("aria-valuenow"), "50")
+})
