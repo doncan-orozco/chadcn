@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # A Chadcn::Form with Turbo Drive ON for the live-validity browser test (test/javascript/form.test.mjs): two required fields, a
-# field with two required inputs, a native-sibling field, a required checkbox, a field with a server error that no constraint contradicts, and a second page to leave and come back from. No scenario JSON.
+# field with two required inputs, a native-sibling field, a required checkbox, switch and radio group, a field with a server error that no constraint contradicts, and a second page to leave and come back from. No scenario JSON.
 class FormDemo::Page < Phlex::HTML
   include Phlex::Rails::Helpers::StylesheetLinkTag
   include Phlex::Rails::Helpers::JavascriptImportmapTags
@@ -77,6 +77,19 @@ class FormDemo::Page < Phlex::HTML
       form.field(attribute: :terms) do |field|
         field.label { "Terms" }
         field.checkbox(required: true)
+        field.error
+      end
+      form.field(attribute: :alerts) do |field|
+        field.label { "Alerts" }
+        field.switch(required: true)
+        field.error
+      end
+      form.field(attribute: :plan) do |field|
+        field.label { "Plan" }
+        field.radio_group(required: true, aria: { label: "Plan" }) do |group|
+          group.item(value: "free", id: "plan-free")
+          group.item(value: "pro", id: "plan-pro")
+        end
         field.error
       end
       render Chadcn::Button.new(type: "submit") { "Sign up" }

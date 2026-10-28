@@ -44,11 +44,12 @@ class Chadcn::Form < Chadcn::Base
   # @api private
   CONTROLLER = "chadcn--form"
 
-  # Stimulus action descriptors: +invalid+ does not bubble, so it is captured.
+  # Stimulus action descriptors: +invalid+ does not bubble, so it is captured. +click+ is how Checkbox, Switch and RadioGroup notify
+  # their hidden native input (a synthetic bubbling click, never input/change); the controller ignores every other click.
   #
   # @return [String]
   # @api private
-  ACTION = "invalid->chadcn--form#report:capture input->chadcn--form#edit change->chadcn--form#edit reset->chadcn--form#reset"
+  ACTION = "invalid->chadcn--form#report:capture input->chadcn--form#edit change->chadcn--form#edit click->chadcn--form#edit reset->chadcn--form#reset"
 
   # Builds the form. +nil+ means "not given"; the Plain binding defaults the method to +"post"+ and the errors to +{}+. +class:+
   # travels in +**attrs+.

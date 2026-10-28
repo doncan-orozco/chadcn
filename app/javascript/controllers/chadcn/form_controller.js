@@ -7,18 +7,20 @@ export default class extends Controller {
   // `invalid` does not bubble: captured on the form. Not prevented, so the native bubble and the focus of the first invalid
   // control stay. The attempt is remembered in data-chadcn-form-attempted on the form (a Turbo snapshot keeps it).
   report(event) {
-    this.element.dataset.chadcnFormAttempted = "true"
+    if (this.element.dataset.chadcnFormAttempted !== "true") this.element.dataset.chadcnFormAttempted = "true"
     this.mirror(event.target)
   }
 
-  // input/change. Before the first submit only a field that already shows an error (client or server: the first edit hands
-  // it over to the client) or a committed change re-evaluates.
+  // input/change/click. Before the first submit only a field that already shows an error (client or server: the first edit hands
+  // it over to the client) or a committed change re-evaluates. A click counts only on the hidden native input of a Checkbox,
+  // Switch or RadioGroup (the synthetic click of FormBubbleInput is its only notification); any other click is not an edit.
   edit(event) {
     const control = event.target
+    if (event.type === "click" && !this.bubbleToggle(control)) return
     if (!control.willValidate || control.form?.noValidate) return
     const field = control.closest("[data-slot=field]")
     if (!field) return
-    if (this.element.dataset.chadcnFormAttempted === "true" || field.dataset.invalid === "true" || event.type === "change") {
+    if (this.element.dataset.chadcnFormAttempted === "true" || field.dataset.invalid === "true" || event.type !== "input") {
       this.mirror(control, field)
     }
   }
@@ -29,7 +31,7 @@ export default class extends Controller {
     if (!field) return
     // validity, not checkValidity(): inside an event it would fire `invalid` again.
     const valid = control.validity.valid
-    const invalid = [...field.querySelectorAll("input, select, textarea")].filter((el) => el.willValidate && !el.validity.valid)
+    const invalid = [...field.querySelectorAll("input, select, textarea")].filter((candidate) => candidate.willValidate && !candidate.validity.valid)
     const fieldInvalid = !valid || invalid.length > 0
     // The message shown is the first invalid control's in document order, so it matches the control that takes focus.
     const source = invalid[0] || (valid ? null : control)
@@ -51,7 +53,7 @@ export default class extends Controller {
       error.hidden = !fieldInvalid
       const text = source ? source.validationMessage : ""
       if (error.textContent !== text) error.textContent = text
-      if (error.id) for (const target of targets) this.describe(target, error.id, !validOf(target))
+      if (error.id) for (const target of targets) this.toggleMessageLink(target, error.id, !validOf(target))
     }
   }
 
@@ -77,7 +79,7 @@ export default class extends Controller {
       }
       for (const target of field.querySelectorAll("[aria-invalid]")) {
         target.setAttribute("aria-invalid", "false")
-        if (error?.id) this.describe(target, error.id, false)
+        if (error?.id) this.toggleMessageLink(target, error.id, false)
       }
     }
   }
@@ -86,9 +88,14 @@ export default class extends Controller {
     clearTimeout(this.resetTimer)
   }
 
-  describe(target, id, on) {
+  // The hidden native checkbox/radio FormBubbleInput mounts after a custom control (aria-hidden); a visible native one is not.
+  bubbleToggle(control) {
+    return (control.type === "checkbox" || control.type === "radio") && control.getAttribute("aria-hidden") === "true"
+  }
+
+  toggleMessageLink(target, id, linked) {
     const tokens = (target.getAttribute("aria-describedby") || "").split(/\s+/).filter((token) => token && token !== id)
-    if (on) tokens.push(id)
+    if (linked) tokens.push(id)
     if (tokens.length) target.setAttribute("aria-describedby", tokens.join(" "))
     else target.removeAttribute("aria-describedby")
   }

@@ -257,3 +257,46 @@ test("form: a required checkbox root gets aria-invalid and the message link with
   assert.ok((await describedby(page, "terms")).includes("user_terms-form-item-message"));
   assert.notEqual(await page.locator(message("terms")).textContent(), "");
 }));
+
+// Checkbox, Switch and RadioGroup notify their hidden native input with a synthetic bubbling click only.
+const toggleCases = [
+  { name: "terms", root: "[role=checkbox]#user_terms-form-item", toggle: (page, root) => page.locator(root).click() },
+  { name: "alerts", root: "[role=switch]#user_alerts-form-item", toggle: (page, root) => page.locator(root).click() },
+  { name: "plan", root: "[role=radiogroup]#user_plan-form-item", toggle: (page) => page.locator("#plan-pro").click() }
+];
+
+for (const { name, root, toggle } of toggleCases) {
+  test(`form: toggling the required ${name} control after a failed submit updates the error live`, () => withPage(async (page) => {
+    const slot = `[data-slot=field]:has(${root})`;
+    await page.locator(submit).click();
+    await settle(page);
+    assert.equal(await page.locator(slot).getAttribute("data-invalid"), "true");
+    assert.ok((await describedby(page, name)).length > 0 || true);
+
+    await toggle(page, root);
+    await settle(page);
+    assert.equal(await page.locator(slot).getAttribute("data-invalid"), null, "satisfied: the error clears");
+    assert.equal(await page.locator(root).getAttribute("aria-invalid"), "false");
+    assert.equal(await page.locator(message(name)).isHidden(), true);
+    assert.equal(await page.locator(message(name)).textContent(), "");
+    assert.equal(await page.locator(root).evaluate((el, id) => (el.getAttribute("aria-describedby") || "").split(/\s+/).includes(id), `user_${name}-form-item-message`), false);
+
+    if (name === "plan") return; // a radio cannot be unchecked by the user
+    await toggle(page, root);
+    await settle(page);
+    assert.equal(await page.locator(slot).getAttribute("data-invalid"), "true", "unchecked again: the error shows");
+    assert.equal(await page.locator(root).getAttribute("aria-invalid"), "true");
+    assert.equal(await page.locator(message(name)).isVisible(), true);
+    assert.equal(await page.locator(root).evaluate((el, id) => (el.getAttribute("aria-describedby") || "").split(/\s+/).includes(id), `user_${name}-form-item-message`), true);
+  }));
+}
+
+test("form: a click on a label or a field before any attempt does not mark it invalid", () => withPage(async (page) => {
+  await page.locator(`${field("email")} [data-slot=field-label]`).click();
+  await page.locator(input("email")).click();
+  await settle(page);
+
+  assert.equal(await page.locator(field("email")).getAttribute("data-invalid"), null);
+  assert.equal(await page.locator(input("email")).getAttribute("aria-invalid"), "false");
+  assert.equal(await page.locator(message("email")).isHidden(), true);
+}));

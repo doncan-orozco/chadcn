@@ -62,7 +62,7 @@ Deliberate difference from the Field port: `Chadcn::Field` writes no `data-inval
 ## Structure
 
 ```html
-<form data-slot="form" data-controller="chadcn--form" data-action="invalid->chadcn--form#report:capture input->chadcn--form#edit change->chadcn--form#edit reset->chadcn--form#reset" action method="post|get">   <!-- Form; hidden _method for put/patch/delete; CSRF input unless get -->
+<form data-slot="form" data-controller="chadcn--form" data-action="invalid->chadcn--form#report:capture input->chadcn--form#edit change->chadcn--form#edit click->chadcn--form#edit reset->chadcn--form#reset" action method="post|get">   <!-- Form; hidden _method for put/patch/delete; CSRF input unless get -->
   <div role="group" data-slot="field" data-orientation data-invalid="true"> <!-- data-invalid only with an error -->   <!-- Form::Field = Chadcn::Field; tsx: FormItem <div data-slot="form-item" class="grid gap-2"> -->
     <label data-slot="field-label" for="{base}-form-item" data-error>   <!-- tsx: FormLabel, data-slot="form-label" -->
     <input id="{base}-form-item" name value aria-describedby aria-invalid data-slot="input">   <!-- tsx: FormControl Slot, data-slot="form-control" not rendered -->
@@ -87,7 +87,8 @@ Registry: `label`. Port: `Chadcn::Field` (+ `Field::Label`, `Field::Description`
 `chadcn--form` (#39): mirrors the browser's HTML5 validity (`validity.valid`, `validationMessage`; never `checkValidity()`, which would fire `invalid` again) into the same `data-invalid`, `aria-invalid`, `aria-describedby`, `data-error` and message element, so a client-side error and a server-side error render the same markup. Server errors win on first paint; client validity takes over at the first edit of that control. Without the controller everything above is still correct (server render only). Rules:
 
 - `invalid` does not bubble: it is captured on the form and not prevented (native bubble and focus stay).
-- `input` re-evaluates only after a submit attempt, when the field already shows an error (server errors hand over at the first edit), or on `change`.
+- `input` re-evaluates only after a submit attempt, when the field already shows an error (server errors hand over at the first edit), or on `change`/`click`.
+- `click` is listened to because Checkbox, Switch and RadioGroup notify their hidden native input (`aria-hidden`, type checkbox/radio) with a synthetic bubbling `click`, never `input`/`change` (`form_bubble_input.js`); the controller ignores a click on anything else (a visible native checkbox goes through `change` only), and a handled click counts as committed like `change`.
 - The attempt is remembered in `data-chadcn-form-attempted` on the `<form>` (all state lives in the DOM, so a Turbo cache restore keeps it).
 - `form.reset()` clears the mirrored state, the server-rendered errors and the attempted flag, unless a `reset` listener called `preventDefault()` (decided after dispatch, in a timeout cleared on disconnect).
 - A `novalidate` form is skipped on `input`/`change`.
