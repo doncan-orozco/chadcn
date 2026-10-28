@@ -75,7 +75,7 @@ class Chadcn::Chart::Cartesian::Axis
   # @api private
   # @param value [Object] a category, or a number
   # @return [Float, nil] nil for a value the scale does not know
-  def map(value)
+  def position_of(value)
     return unless @scale
 
     if category?
@@ -110,8 +110,7 @@ class Chadcn::Chart::Cartesian::Axis
 
     if @item_ticks.size >= 2
       coordinates = @item_ticks.map(&:coordinate).sort
-      smallest = coordinates.each_cons(2).map { |a, b| b - a }.min
-      return smallest.infinite? ? 0.0 : smallest
+      return coordinates.each_cons(2).map { |left, right| right - left }.min
     end
     bar ? nil : 0.0
   end
@@ -325,11 +324,11 @@ class Chadcn::Chart::Cartesian::Axis
     shift = offset && category? && bandwidth ? bandwidth / 2 : 0.0
     source = offset ? (settings.ticks || @nice_ticks) : nil
     entries = if source
-      source.each_with_index.map { |value, index| [ index, value, map(@duplicates ? @duplicates.index(value) : value) ] }
+      source.each_with_index.map { |value, index| [ index, value, position_of(@duplicates ? @duplicates.index(value) : value) ] }
     elsif !category? && @scale.respond_to?(:ticks)
       @scale.ticks(settings.tick_count).each_with_index.map { |value, index| [ index, value, @scale.call(value) ] }
     else
-      (category? ? @categories : []).each_with_index.map { |entry, index| [ index, @duplicates ? @duplicates[entry] : entry, map(entry) ] }
+      (category? ? @categories : []).each_with_index.map { |entry, index| [ index, @duplicates ? @duplicates[entry] : entry, position_of(entry) ] }
     end
     entries.filter_map do |index, value, scaled|
       Chadcn::Chart::Cartesian::TickLayout::Tick.new(index: index, value: value, coordinate: scaled + shift, offset: shift) if scaled&.finite?

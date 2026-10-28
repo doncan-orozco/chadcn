@@ -29,8 +29,8 @@ class Chadcn::Chart::Cartesian::AxisTest < Chadcn::TestCase
 
     assert_equal [ 0, 80, 160, 240, 320 ], value.nice_ticks
     assert_equal [ 0, 320 ], value.domain
-    assert_in_delta 160.0, value.map(0), 0.0001
-    assert_in_delta 0.0, value.map(320), 0.0001
+    assert_in_delta 160.0, value.position_of(0), 0.0001
+    assert_in_delta 0.0, value.position_of(320), 0.0001
     assert_equal :linear, value.scale_type
   end
 
@@ -107,7 +107,7 @@ class Chadcn::Chart::Cartesian::AxisTest < Chadcn::TestCase
 
     assert_not empty.scaled?
     assert_empty empty.ticks
-    assert_nil empty.map(1)
+    assert_nil empty.position_of(1)
   end
 
   test "references that extend the domain count" do

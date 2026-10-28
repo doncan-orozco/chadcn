@@ -21,9 +21,10 @@ class Chadcn::Chart::Cartesian::TooltipTemplates < Chadcn::Base
 
   # @return [void]
   def view_template
-    content = @plan.tooltip.content_element or return
+    return unless @plan.tooltip.content_element
+
     @plan.entries.each do |entry|
-      template(**attributes(entry)) { render Chadcn::Chart::Cartesian::Overlays.tooltip_content(@plan.tooltip, content, entry) }
+      template(**attributes(entry)) { render @plan.content(entry) }
     end
   end
 

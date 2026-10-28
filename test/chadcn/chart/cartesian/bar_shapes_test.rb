@@ -16,7 +16,7 @@ class Chadcn::Chart::Cartesian::BarShapesTest < Chadcn::TestCase
     chart = { type: :bar, direction: layout, width: 320, height: 200, margin: { top: 5, right: 5, bottom: 5, left: 5 }, rows: data,
               text: Chadcn::Chart::Cartesian::Text.new, bar_category_gap: "10%", bar_gap: 4, bar_size: nil, max_bar_size: nil, stack_offset: :none,
               reverse_stack_order: false, base_value: nil }
-    Chadcn::Chart::Cartesian::Layout.new(declared, chart).placed.first.rects
+    Chadcn::Chart::Cartesian::Layout.new(declared, Chadcn::Chart::Cartesian::ChartSettings.new(**chart)).placed.first.rects
   end
 
   test "a bar grows from the zero line to its value" do

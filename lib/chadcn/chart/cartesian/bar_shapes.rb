@@ -24,10 +24,11 @@ module Chadcn::Chart::Cartesian::BarShapes
       min_point = bar.options[:min_point_size].to_f
       rows.each_with_index.filter_map do |row, index|
         value = value_pair(bar, row, index, pairs, numeric, base) or next
-        rect = layout == :horizontal ? horizontal(axes, position, row, index, value, min_point) : vertical(axes, position, row, index, value, min_point)
-        next if rect.nil? || rect[2].zero? || rect[3].zero?
+        placement = { axes: axes, position: position, row: row, index: index, value: value, shown: pairs ? value : value[1], min_point: min_point }
+        rect = layout == :horizontal ? horizontal(**placement) : vertical(**placement)
+        next if rect.nil? || rect.width.zero? || rect.height.zero?
 
-        Rect.new(x: rect[0], y: rect[1], width: rect[2], height: rect[3], value: pairs ? value : value[1], row: row, index: index)
+        rect
       end
     end
 
@@ -66,9 +67,9 @@ module Chadcn::Chart::Cartesian::BarShapes
       [ lower, upper ]
     end
 
-    def horizontal(axes, position, row, index, value, min_point)
-      base = axes[:y].map(value[0])
-      current = axes[:y].map(value[1])
+    def horizontal(axes:, position:, row:, index:, value:, shown:, min_point:)
+      base = axes[:y].position_of(value[0])
+      current = axes[:y].position_of(value[1])
       return if base.nil? || current.nil?
 
       x = category_coordinate(axes[:x], row, index, position.offset) or return
@@ -80,18 +81,18 @@ module Chadcn::Chart::Cartesian::BarShapes
         y -= delta
         height += delta
       end
-      [ x, y, position.size, height ]
+      Rect.new(x: x, y: y, width: position.size, height: height, value: shown, row: row, index: index)
     end
 
-    def vertical(axes, position, row, index, value, min_point)
-      base = axes[:x].map(value[0])
-      current = axes[:x].map(value[1])
+    def vertical(axes:, position:, row:, index:, value:, shown:, min_point:)
+      base = axes[:x].position_of(value[0])
+      current = axes[:x].position_of(value[1])
       return if base.nil? || current.nil?
 
       y = category_coordinate(axes[:y], row, index, position.offset) or return
       width = current - base
       width += sign(width.zero? ? min_point : width) * (min_point.abs - width.abs) if min_point.abs.positive? && width.abs < min_point.abs
-      [ base, y, width, position.size ]
+      Rect.new(x: base, y: y, width: width, height: position.size, value: shown, row: row, index: index)
     end
 
     def sign(value)
@@ -107,7 +108,7 @@ module Chadcn::Chart::Cartesian::BarShapes
         return tick && (tick.coordinate + offset)
       end
 
-      scaled = axis.map(Chadcn::Chart::Cartesian::Value.read(row, axis.settings.data_key))
+      scaled = axis.position_of(Chadcn::Chart::Cartesian::Value.read(row, axis.settings.data_key))
       scaled && (scaled - (axis.band_size(bar: true).to_f / 2) + offset)
     end
   end

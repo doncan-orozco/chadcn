@@ -8,10 +8,34 @@
 module Chadcn::Chart::Cartesian::TickLayout
   # A tick of an axis: its position in the full list, the value on the axis, its pixel `coordinate`, the `offset` of the label from it
   # and, once laid out, the `tick_coord` the label is drawn at.
-  Tick = Struct.new(:index, :value, :coordinate, :offset, :tick_coord, :shown, keyword_init: true)
+  Tick = Data.define(:index, :value, :coordinate, :offset, :tick_coord) do
+    def initialize(index:, value:, coordinate:, offset:, tick_coord: nil) = super
+  end
 
   # The settings `getTicks` reads.
   Settings = Data.define(:orientation, :interval, :min_tick_gap, :formatter, :unit, :angle, :view_box)
+
+  # What every pass walks with: the direction of the axis (`sign`), the span the labels must stay inside, how wide a label is and the
+  # least room between two labels.
+  Pass = Data.define(:sign, :start, :finish, :size_of, :gap) do
+    # Whether a label of `size` centered on `position` lies inside the span left between `start` and `finish`.
+    def fits?(position, size, start:, finish:)
+      return false if (sign * position) < (sign * start) || (sign * position) > (sign * finish)
+
+      half = size / 2
+      behind_start = (sign * (position - (sign * half) - start)).negative?
+      past_end = (sign * (position + (sign * half) - finish)).positive?
+      !(behind_start || past_end)
+    end
+
+    # Where the span starts after a label of `size` centered on `position`.
+    def start_after(position, size) = position + (sign * ((size / 2) + gap))
+
+    # Where the span ends before a label of `size` centered on `position`.
+    def finish_before(position, size) = position - (sign * ((size / 2) + gap))
+  end
+
+  private_constant :Pass
 
   class << self
     # @api private
@@ -27,13 +51,13 @@ module Chadcn::Chart::Cartesian::TickLayout
       size_of = size_function(settings, text, horizontal)
       sign = ticks.size >= 2 ? (ticks[1].coordinate - ticks[0].coordinate <=> 0) : 1
       start, finish = boundaries(settings.view_box, sign, horizontal)
-      gap = settings.min_tick_gap
+      pass = Pass.new(sign: sign, start: start, finish: finish, size_of: size_of, gap: settings.min_tick_gap)
       case settings.interval.to_sym
-      when :equidistant_preserve_start then equidistant(sign, start, finish, size_of, ticks, gap)
-      when :equidistant_preserve_end then equidistant_preserve_end(sign, start, finish, size_of, ticks, gap)
-      when :preserve_start then from_start(sign, start, finish, size_of, ticks, gap, false)
-      when :preserve_start_end then from_start(sign, start, finish, size_of, ticks, gap, true)
-      else from_end(sign, start, finish, size_of, ticks, gap)
+      when :equidistant_preserve_start then evenly_spaced_from_start(ticks, pass)
+      when :equidistant_preserve_end then evenly_spaced_ending_on_last(ticks, pass)
+      when :preserve_start then drop_overlaps_from_start(ticks, pass, keep_last: false)
+      when :preserve_start_end then drop_overlaps_from_start(ticks, pass, keep_last: true)
+      else drop_overlaps_from_end(ticks, pass)
       end
     end
 
@@ -72,82 +96,77 @@ module Chadcn::Chart::Cartesian::TickLayout
       width.abs
     end
 
-    def visible?(sign, position, size, start, finish)
-      return false if (sign * position) < (sign * start) || (sign * position) > (sign * finish)
-
-      half = size / 2
-      behind_start = (sign * (position - (sign * half) - start)).negative?
-      past_end = (sign * (position + (sign * half) - finish)).positive?
-      !(behind_start || past_end)
-    end
-
     # `getTicksEnd`
-    def from_end(sign, start, finish, size_of, ticks, min_gap)
-      result = ticks.map(&:dup)
-      (result.size - 1).downto(0) do |i|
-        entry = result[i]
-        size = size_of.call(entry, i)
-        entry.tick_coord = i == result.size - 1 ? last_coord(sign, entry, size, finish) : entry.coordinate
-        next unless visible?(sign, entry.tick_coord, size, start, finish)
+    def drop_overlaps_from_end(ticks, pass)
+      finish = pass.finish
+      last = ticks.size - 1
+      kept = []
+      last.downto(0) do |index|
+        tick = ticks[index]
+        size = pass.size_of.call(tick, index)
+        coord = index == last ? last_coord(pass, tick, size, finish: finish) : tick.coordinate
+        next unless pass.fits?(coord, size, start: pass.start, finish: finish)
 
-        finish = entry.tick_coord - (sign * ((size / 2) + min_gap))
-        entry.shown = true
+        finish = pass.finish_before(coord, size)
+        kept.unshift(tick.with(tick_coord: coord))
       end
-      result.select(&:shown)
+      kept
     end
 
-    def last_coord(sign, entry, size, finish)
-      gap = sign * (entry.coordinate + (sign * size / 2) - finish)
-      gap.positive? ? entry.coordinate - (gap * sign) : entry.coordinate
+    def last_coord(pass, tick, size, finish:)
+      overshoot = pass.sign * (tick.coordinate + (pass.sign * size / 2) - finish)
+      overshoot.positive? ? tick.coordinate - (overshoot * pass.sign) : tick.coordinate
     end
 
-    # `getTicksStart`; `preserve_end` first tries to keep the last tick.
-    def from_start(sign, start, finish, size_of, ticks, min_gap, preserve_end)
-      result = ticks.map(&:dup)
-      count = result.size
-      if preserve_end
-        tail = result.last
-        size = size_of.call(tail, count - 1)
-        tail.tick_coord = last_coord(sign, tail, size, finish)
-        if visible?(sign, tail.tick_coord, size, start, finish)
-          finish = tail.tick_coord - (sign * ((size / 2) + min_gap))
-          tail.shown = true
+    # `getTicksStart`; `keep_last` (`preserve_start_end`) first tries to keep the last tick.
+    def drop_overlaps_from_start(ticks, pass, keep_last:)
+      start = pass.start
+      finish = pass.finish
+      count = ticks.size
+      kept = []
+      tail = nil
+      if keep_last
+        size = pass.size_of.call(ticks.last, count - 1)
+        coord = last_coord(pass, ticks.last, size, finish: finish)
+        if pass.fits?(coord, size, start: start, finish: finish)
+          finish = pass.finish_before(coord, size)
+          tail = ticks.last.with(tick_coord: coord)
         end
         count -= 1
       end
-      count.times do |i|
-        entry = result[i]
-        size = size_of.call(entry, i)
-        entry.tick_coord = i.zero? ? first_coord(sign, entry, size, start) : entry.coordinate
-        next unless visible?(sign, entry.tick_coord, size, start, finish)
+      count.times do |index|
+        tick = ticks[index]
+        size = pass.size_of.call(tick, index)
+        coord = index.zero? ? first_coord(pass, tick, size, start: start) : tick.coordinate
+        next unless pass.fits?(coord, size, start: start, finish: finish)
 
-        start = entry.tick_coord + (sign * ((size / 2) + min_gap))
-        entry.shown = true
+        start = pass.start_after(coord, size)
+        kept << tick.with(tick_coord: coord)
       end
-      result.select(&:shown)
+      tail ? kept << tail : kept
     end
 
-    def first_coord(sign, entry, size, start)
-      gap = sign * (entry.coordinate - (sign * size / 2) - start)
-      gap.negative? ? entry.coordinate - (gap * sign) : entry.coordinate
+    def first_coord(pass, tick, size, start:)
+      overshoot = pass.sign * (tick.coordinate - (pass.sign * size / 2) - start)
+      overshoot.negative? ? tick.coordinate - (overshoot * pass.sign) : tick.coordinate
     end
 
     # `getEquidistantTicks`: every step-th tick, the smallest step at which they all fit.
-    def equidistant(sign, start, finish, size_of, ticks, min_gap)
-      first_start = start
+    def evenly_spaced_from_start(ticks, pass)
+      start = pass.start
       index = 0
       step = 1
       while step <= ticks.size
-        entry = ticks[index]
-        return every_nth(ticks, step) if entry.nil?
+        tick = ticks[index]
+        return every_nth(ticks, step) if tick.nil?
 
-        size = size_of.call(entry, index)
-        if index.zero? || visible?(sign, entry.coordinate, size, start, finish)
-          start = entry.coordinate + (sign * ((size / 2) + min_gap))
+        size = pass.size_of.call(tick, index)
+        if index.zero? || pass.fits?(tick.coordinate, size, start: start, finish: pass.finish)
+          start = pass.start_after(tick.coordinate, size)
           index += step
         else
           index = 0
-          start = first_start
+          start = pass.start
           step += 1
         end
       end
@@ -155,18 +174,18 @@ module Chadcn::Chart::Cartesian::TickLayout
     end
 
     # `getEquidistantPreserveEndTicks`: the sequence ends on the last tick.
-    def equidistant_preserve_end(sign, first_start, finish, size_of, ticks, min_gap)
+    def evenly_spaced_ending_on_last(ticks, pass)
       count = ticks.size
       (1..count).each do |step|
         offset = (count - 1) % step
-        start = first_start
+        start = pass.start
         indexes = offset.step(count - 1, step).to_a
         fits = indexes.all? do |index|
-          entry = ticks[index]
-          size = size_of.call(entry, index)
-          next false unless index == offset || visible?(sign, entry.coordinate, size, start, finish)
+          tick = ticks[index]
+          size = pass.size_of.call(tick, index)
+          next false unless index == offset || pass.fits?(tick.coordinate, size, start: start, finish: pass.finish)
 
-          start = entry.coordinate + (sign * ((size / 2) + min_gap))
+          start = pass.start_after(tick.coordinate, size)
           true
         end
         return indexes.map { |index| ticks[index] } if fits

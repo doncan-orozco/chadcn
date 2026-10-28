@@ -7,6 +7,7 @@
 # @api private
 module Chadcn::Chart::Cartesian::Series
   include Chadcn::Chart::Declarations
+  include Chadcn::Chart::Cartesian::Choice
 
   # @api private
   # @return [Hash{Symbol => Object}] the keywords with recharts' defaults applied, frozen
@@ -27,6 +28,19 @@ module Chadcn::Chart::Cartesian::Series
   # @api private
   # @return [Symbol] :bar, :line or :area
   def kind = self.class::KIND
+
+  # The colour the legend and the tooltip show for the series: a bar's `fill`, a line's `stroke`, an area's
+  # `getLegendItemColor(stroke, fill)` (Area.js:64-66): its `stroke` unless that is absent or `none`, else its `fill`.
+  #
+  # @api private
+  # @return [String, nil]
+  def legend_color
+    case kind
+    when :bar then options[:fill]
+    when :line then options[:stroke]
+    else options[:stroke] && options[:stroke].to_s != "none" ? options[:stroke] : options[:fill]
+    end
+  end
 
   # The `LabelList`s of the series, the one `label:` asks for first.
   #
@@ -70,11 +84,5 @@ module Chadcn::Chart::Cartesian::Series
   def initialize_series
     @label_lists = []
     @cells = []
-  end
-
-  def choice(name, value, allowed)
-    return value.to_sym if value.respond_to?(:to_sym) && allowed.include?(value.to_sym)
-
-    raise ArgumentError, "#{name}: must be one of #{allowed.map(&:inspect).join(', ')} (got #{value.inspect})"
   end
 end

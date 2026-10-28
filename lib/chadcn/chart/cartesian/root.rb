@@ -11,6 +11,7 @@
 # @api private
 class Chadcn::Chart::Cartesian::Root < Chadcn::Base
   include Chadcn::Chart::Declarations
+  include Chadcn::Chart::Cartesian::Choice
 
   LAYOUTS = %i[horizontal vertical].freeze
   STACK_OFFSETS = %i[none expand].freeze
@@ -29,6 +30,7 @@ class Chadcn::Chart::Cartesian::Root < Chadcn::Base
   # @param bar_size [Numeric, String, nil] width of a bar
   # @param max_bar_size [Numeric, nil] widest a bar may be
   # @param stack_offset [Symbol] `:none` or `:expand`
+  # @param base_value [Numeric, String, Symbol, nil] where the areas of the chart start from (`:data_min`, `:data_max`, a number); an area's own wins
   # @param reverse_stack_order [Boolean]
   # @param accessibility_layer [Boolean] `role="application"` and `tabindex="0"` on the svg
   # @param title [String, nil] text of the svg `title`
@@ -102,18 +104,20 @@ class Chadcn::Chart::Cartesian::Root < Chadcn::Base
   def layout_settings(container)
     dimension = container ? container.initial_dimension : DEFAULT_DIMENSION
     text = Chadcn::Chart::Cartesian::Text.new(char_width: container&.text_char_width || 0.6, line_height: container&.text_height || 16)
-    { type: self.class::CHART_TYPE, direction: @options[:layout], width: dimension[:width], height: dimension[:height], margin: @options[:margin],
+    Chadcn::Chart::Cartesian::ChartSettings.new(
+      type: self.class::CHART_TYPE, direction: @options[:layout], width: dimension[:width], height: dimension[:height], margin: @options[:margin],
       rows: @options[:data], text: text, bar_category_gap: @options[:bar_category_gap], bar_gap: @options[:bar_gap], bar_size: @options[:bar_size],
       max_bar_size: @options[:max_bar_size], stack_offset: @options[:stack_offset], reverse_stack_order: @options[:reverse_stack_order],
-      base_value: @options[:base_value] }
+      base_value: @options[:base_value]
+    )
   end
 
   # A chart outside a container is wrapped the way the container wraps it.
   def within_responsive_shell(container, &block)
     return yield if container
 
-    div(class: "recharts-responsive-container", style: "width: 100%; height: 100%; min-width: 0px;") do
-      div(style: "width: 0px; height: 0px; overflow: visible;", &block)
+    div(class: "recharts-responsive-container", style: Chadcn::Chart::Container::SHELL_STYLE) do
+      div(style: Chadcn::Chart::Container::INNER_STYLE, &block)
     end
   end
 
@@ -139,11 +143,5 @@ class Chadcn::Chart::Cartesian::Root < Chadcn::Base
     choice(:stack_offset, value, STACK_OFFSETS)
   rescue ArgumentError
     raise ArgumentError, "stack_offset: must be one of #{STACK_OFFSETS.map(&:inspect).join(', ')} (got #{value.inspect}; sign, silhouette, wiggle and positive are not ported)"
-  end
-
-  def choice(name, value, allowed)
-    return value.to_sym if value.respond_to?(:to_sym) && allowed.include?(value.to_sym)
-
-    raise ArgumentError, "#{name}: must be one of #{allowed.map(&:inspect).join(', ')} (got #{value.inspect})"
   end
 end

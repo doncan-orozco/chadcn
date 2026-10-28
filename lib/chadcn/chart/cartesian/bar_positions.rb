@@ -6,7 +6,7 @@
 # @api private
 module Chadcn::Chart::Cartesian::BarPositions
   # A slot: the stack id (nil for a bar alone), the data keys it holds and the `bar_size` its first bar asked for.
-  Slot = Struct.new(:stack_id, :data_keys, :bar_size)
+  Slot = Data.define(:stack_id, :data_keys, :bar_size)
   # Where a slot sits: `offset` from the start of the band, `size` of the bar.
   Position = Data.define(:stack_id, :data_keys, :offset, :size)
 
@@ -28,10 +28,13 @@ module Chadcn::Chart::Cartesian::BarPositions
       # JavaScript object keys: integer-like ids first, ascending, then the others in order of insertion
       ordered = groups.keys.partition { |id| JS_INDEX.match?(id) }.then { |numbers, others| numbers.sort_by(&:to_i) + others }
       stacks = ordered.map do |id|
-        Slot.new(id, groups[id].map { |bar| bar.options[:data_key] }, bar_size(global_size, total_size, groups[id].first.options[:bar_size]))
+        Slot.new(stack_id: id, data_keys: groups[id].map { |bar| bar.options[:data_key] },
+                 bar_size: bar_size(global_size, total_size, groups[id].first.options[:bar_size]))
       end
       stacks +
-        alone.map { |bar| Slot.new(nil, [ bar.options[:data_key] ].compact, bar_size(global_size, total_size, bar.options[:bar_size])) }
+        alone.map do |bar|
+          Slot.new(stack_id: nil, data_keys: [ bar.options[:data_key] ].compact, bar_size: bar_size(global_size, total_size, bar.options[:bar_size]))
+        end
     end
 
     # `combineAllBarPositions` (and `getBarPositions`).
@@ -45,7 +48,7 @@ module Chadcn::Chart::Cartesian::BarPositions
     # @param band [Float] the band size of the axis
     # @param child_max [Numeric, nil] the `max_bar_size` of the bar being positioned
     # @return [Array<Position>, nil]
-    def positions(slots, global_max, bar_gap, category_gap, bar_band, band, child_max)
+    def positions(slots, global_max:, bar_gap:, category_gap:, bar_band:, band:, child_max:)
       max = child_max.nil? ? global_max : child_max
       result = layout(bar_gap, category_gap, bar_band, slots, max)
       return result if result.nil? || bar_band == band
@@ -59,7 +62,7 @@ module Chadcn::Chart::Cartesian::BarPositions
     # @param positions [Array<Position>, nil]
     # @param bar [#options]
     # @return [Position, nil]
-    def find(positions, bar)
+    def position_for(positions, bar)
       key = bar.options[:data_key]
       stack_id = bar.options[:stack_id]&.to_s
       positions&.find { |position| position.stack_id == stack_id && !key.nil? && position.data_keys.include?(key) }

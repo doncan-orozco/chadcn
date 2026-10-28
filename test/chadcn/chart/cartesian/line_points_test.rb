@@ -14,7 +14,7 @@ class Chadcn::Chart::Cartesian::LinePointsTest < Chadcn::TestCase
     chart = { type: chart_class_type, direction: layout, width: 320, height: 200, margin: { top: 5, right: 5, bottom: 5, left: 5 }, rows: data,
               text: Chadcn::Chart::Cartesian::Text.new, bar_category_gap: "10%", bar_gap: 4, bar_size: nil, max_bar_size: nil, stack_offset: stack_offset,
               reverse_stack_order: false, base_value: base_value }
-    Chadcn::Chart::Cartesian::Layout.new(declared, chart).placed
+    Chadcn::Chart::Cartesian::Layout.new(declared, Chadcn::Chart::Cartesian::ChartSettings.new(**chart)).placed
   end
 
   test "a line has a point per row on a point scale" do

@@ -9,7 +9,7 @@ class Chadcn::Chart::Cartesian::BarPositionsTest < Chadcn::TestCase
 
   def positions(bars, band: 51.6667, gap: 4, category_gap: "10%", global_size: nil, global_max: nil, child_max: nil)
     slots = BarPositions.slots(bars, global_size, 310)
-    BarPositions.positions(slots, global_max, gap, category_gap, band, band, child_max)
+    BarPositions.positions(slots, global_max: global_max, bar_gap: gap, category_gap: category_gap, bar_band: band, band: band, child_max: child_max)
   end
 
   test "stacks come first, in the order JavaScript gives object keys, then the bars alone" do
@@ -65,8 +65,8 @@ class Chadcn::Chart::Cartesian::BarPositionsTest < Chadcn::TestCase
     bars = [ bar(:a), bar(:b, stack_id: "s") ]
     found = positions(bars)
 
-    assert_equal "s", BarPositions.find(found, bars.last).stack_id
-    assert_nil BarPositions.find(found, bar(:zzz))
-    assert_nil BarPositions.positions([], nil, 4, "10%", 50, 50, nil)
+    assert_equal "s", BarPositions.position_for(found, bars.last).stack_id
+    assert_nil BarPositions.position_for(found, bar(:zzz))
+    assert_nil BarPositions.positions([], global_max: nil, bar_gap: 4, category_gap: "10%", bar_band: 50, band: 50, child_max: nil)
   end
 end

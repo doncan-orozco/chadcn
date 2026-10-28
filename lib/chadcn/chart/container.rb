@@ -30,6 +30,14 @@ class Chadcn::Chart::Container < Chadcn::Base
             "[&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden"
   private_constant :CLASSES
 
+  # The two divs recharts' `ResponsiveContainer` writes around the chart (component/ResponsiveContainer.js), shared with a chart that has no
+  # container around it.
+  #
+  # @api private
+  SHELL_STYLE = "width: 100%; height: 100%; min-width: 0px;"
+  # @api private
+  INNER_STYLE = "width: 0px; height: 0px; overflow: visible;"
+
   # @return [Chadcn::Chart::Config]
   attr_reader :config
   # @return [String] the value of `data-chart` and of the {Chadcn::Chart::Style} selector, `chart-<id>`
@@ -79,8 +87,8 @@ class Chadcn::Chart::Container < Chadcn::Base
   def view_template
     div(**merge_attrs({ data: { slot: "chart", chart: @chart_id }, class: CLASSES }, @attrs)) do
       render Chadcn::Chart::Style.new(id: @chart_id, config: @config)
-      div(class: "recharts-responsive-container", style: "width: 100%; height: 100%; min-width: 0px;") do
-        div(style: "width: 0px; height: 0px; overflow: visible;") { publish { |container| yield container if block_given? } }
+      div(class: "recharts-responsive-container", style: SHELL_STYLE) do
+        div(style: INNER_STYLE) { publish { |container| yield container if block_given? } }
       end
       raw(safe(@after_shell)) if @after_shell
     end

@@ -17,60 +17,72 @@ module Chadcn::Chart::Cartesian::LinePoints
   # values (a `[lower, upper]` pair for every point).
   Area = Data.define(:points, :baseline, :values, :range)
 
+  # The two axes of a layout seen from the series: the one the categories run along, the one the values are measured on, and the
+  # width of a category band.
+  Sides = Data.define(:category, :numeric, :horizontal, :band)
+
+  private_constant :Sides
+
   class << self
     # @api private
-    # @param line [#options] the series
+    # @param series [#options] the line
     # @param layout [Symbol]
     # @param axes [Hash{Symbol => Chadcn::Chart::Cartesian::Axis}] `:x` and `:y`
     # @param rows [Array<Hash>]
     # @return [Array<Point>] one point per row, or per row that could be placed in a vertical layout
-    def line(line, layout:, axes:, rows:)
-      horizontal = layout == :horizontal
-      category = horizontal ? axes[:x] : axes[:y]
-      numeric = horizontal ? axes[:y] : axes[:x]
-      band = category.band_size
+    def line(series, layout:, axes:, rows:)
+      sides = sides_of(layout, axes)
       rows.each_with_index.filter_map do |row, index|
-        value = Chadcn::Chart::Cartesian::Value.read(row, line.options[:data_key])
-        along = coordinate(category, row, index, band)
-        across = value.nil? ? nil : numeric.map(value)
-        point = Point.new(x: horizontal ? along : across, y: horizontal ? across : along, value: value, row: row)
-        point if horizontal || (across && along)
+        value = Chadcn::Chart::Cartesian::Value.read(row, series.options[:data_key])
+        along = coordinate(sides.category, row, index, sides.band)
+        across = value.nil? ? nil : sides.numeric.position_of(value)
+        point = point_at(sides, along, across, value, row)
+        point if sides.horizontal || (across && along)
       end
     end
 
     # @api private
-    # @param area [#options] the series
+    # @param series [#options] the area
     # @param layout [Symbol]
     # @param axes [Hash{Symbol => Chadcn::Chart::Cartesian::Axis}]
     # @param rows [Array<Hash>]
     # @param pairs [Array<Array(Float, Float)>, nil] the stacked pairs, nil when the area is not stacked
-    # @param base_value [Numeric, String, Symbol, nil] the chart's `base_value`
+    # @param chart_base_value [Numeric, String, Symbol, nil] the chart's `base_value`
     # @return [Area]
-    def area(area, layout:, axes:, rows:, pairs:, base_value:)
-      horizontal = layout == :horizontal
-      category = horizontal ? axes[:x] : axes[:y]
-      numeric = horizontal ? axes[:y] : axes[:x]
-      band = category.band_size
-      base = base_of(area.options[:base_value].nil? ? base_value : area.options[:base_value], numeric)
-      values = rows.each_with_index.map do |row, index|
+    def area(series, layout:, axes:, rows:, pairs:, chart_base_value:)
+      sides = sides_of(layout, axes)
+      numeric = sides.numeric
+      base = base_of(series.options[:base_value].nil? ? chart_base_value : series.options[:base_value], numeric)
+      raws = rows.map { |row| Chadcn::Chart::Cartesian::Value.read(row, series.options[:data_key]) }
+      values = raws.each_with_index.map do |raw, index|
         next pairs[index] if pairs
 
-        raw = Chadcn::Chart::Cartesian::Value.read(row, area.options[:data_key])
         raw.is_a?(Array) ? raw : [ base, raw ]
       end
-      range = !pairs && rows.any? { |row| Chadcn::Chart::Cartesian::Value.read(row, area.options[:data_key]).is_a?(Array) }
+      range = !pairs && raws.any?(Array)
       points = rows.each_with_index.map do |row, index|
         top = values[index]&.[](1)
-        gap = top.nil? || (pairs && !area.options[:connect_nulls] && Chadcn::Chart::Cartesian::Value.read(row, area.options[:data_key]).nil?)
-        along = coordinate(category, row, index, band)
-        across = gap ? nil : numeric.map(top)
-        Point.new(x: horizontal ? along : across, y: horizontal ? across : along, value: values[index], row: row)
+        gap = top.nil? || (pairs && !series.options[:connect_nulls] && raws[index].nil?)
+        along = coordinate(sides.category, row, index, sides.band)
+        across = gap ? nil : numeric.position_of(top)
+        point_at(sides, along, across, values[index], row)
       end
-      baseline = pairs || range ? lower_edge(points, values, numeric, horizontal) : numeric.map(base) || 0.0
+      baseline = pairs || range ? lower_edge(points, values, numeric, sides.horizontal) : numeric.position_of(base) || 0.0
       Area.new(points: points, baseline: baseline, values: values, range: range)
     end
 
     private
+
+    def sides_of(layout, axes)
+      horizontal = layout == :horizontal
+      category = horizontal ? axes[:x] : axes[:y]
+      Sides.new(category: category, numeric: horizontal ? axes[:y] : axes[:x], horizontal: horizontal, band: category.band_size)
+    end
+
+    # A point where `along` the category axis and `across` it (the value axis) meet, as x and y for the layout.
+    def point_at(sides, along, across, value, row)
+      Point.new(x: sides.horizontal ? along : across, y: sides.horizontal ? across : along, value: value, row: row)
+    end
 
     # `getBaseValue`
     def base_of(requested, numeric)
@@ -95,9 +107,9 @@ module Chadcn::Chart::Cartesian::LinePoints
       points.each_with_index.map do |point, index|
         lower = values[index]&.first
         if horizontal
-          Point.new(x: point.x, y: (!lower.nil? && !point.y.nil? ? numeric.map(lower) : nil), value: nil, row: nil)
+          Point.new(x: point.x, y: (!lower.nil? && !point.y.nil? ? numeric.position_of(lower) : nil), value: nil, row: nil)
         else
-          Point.new(x: (lower.nil? ? nil : numeric.map(lower)), y: point.y, value: nil, row: nil)
+          Point.new(x: (lower.nil? ? nil : numeric.position_of(lower)), y: point.y, value: nil, row: nil)
         end
       end
     end
@@ -114,7 +126,7 @@ module Chadcn::Chart::Cartesian::LinePoints
         return tick && (tick.coordinate + (band / 2))
       end
 
-      axis.map(Chadcn::Chart::Cartesian::Value.read(row, axis.settings.data_key))
+      axis.position_of(Chadcn::Chart::Cartesian::Value.read(row, axis.settings.data_key))
     end
   end
 end

@@ -581,7 +581,7 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
   def reference_coordinate(axis, value, options)
     return unless axis.scaled?
 
-    coordinate = axis.map(value)
+    coordinate = axis.position_of(value)
     return unless coordinate&.finite?
 
     coordinate += axis.bandwidth / 2 if axis.category? && axis.bandwidth

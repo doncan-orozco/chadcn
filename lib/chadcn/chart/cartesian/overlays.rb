@@ -30,22 +30,6 @@ class Chadcn::Chart::Cartesian::Overlays < Chadcn::Base
     super()
   end
 
-  # The declared content with the payload and label of one category; the `Tooltip`'s own `formatter:` and `label_formatter:` override the
-  # content's (recharts clones the content with the props of the `Tooltip`, component/Tooltip.js:170).
-  #
-  # @api private
-  # @param tooltip [Chadcn::Chart::Tooltip]
-  # @param content [Chadcn::Chart::Tooltip::Content] the declared content
-  # @param entry [Chadcn::Chart::Cartesian::TooltipPlan::Entry]
-  # @return [Chadcn::Chart::Tooltip::Content]
-  def self.tooltip_content(tooltip, content, entry)
-    options = tooltip.options
-    changes = { payload: entry.payload, label: entry.label }
-    changes[:formatter] = options[:formatter] if options[:formatter]
-    changes[:label_formatter] = options[:label_formatter] if options[:label_formatter]
-    content.with(**changes)
-  end
-
   # @return [void]
   def view_template
     tooltip_wrapper if @plan
@@ -61,7 +45,7 @@ class Chadcn::Chart::Cartesian::Overlays < Chadcn::Base
     options = tooltip.options
     shown = @plan.default_entry
     attrs = merge_attrs({ xmlns: XHTML, tabindex: "-1", class: "recharts-tooltip-wrapper", style: wrapper_style(options, shown) }, options[:attrs])
-    div(**attrs) { render self.class.tooltip_content(tooltip, tooltip.content_element, shown) if shown && tooltip.content_element }
+    div(**attrs) { render @plan.content(shown) if shown && tooltip.content_element }
   end
 
   # `transition` is present only while the tooltip is active and animated (TooltipBoundingBox.js:9-17); `wrapper_style` is spread last, so a
@@ -140,13 +124,7 @@ class Chadcn::Chart::Cartesian::Overlays < Chadcn::Base
   def legend_item(series)
     options = series.options
     key = options[:data_key]
-    color = { bar: options[:fill], line: options[:stroke] }.fetch(series.kind) { legend_color(options) }
-    { value: (options[:name] || (key if key.is_a?(String) || key.is_a?(Symbol)))&.to_s, data_key: key.to_s, color: color,
+    { value: (options[:name] || (key if key.is_a?(String) || key.is_a?(Symbol)))&.to_s, data_key: key.to_s, color: series.legend_color,
       type: options[:legend_type], inactive: options[:hide] }
-  end
-
-  # An area: `getLegendItemColor(stroke, fill)` (Area.js:64-66).
-  def legend_color(options)
-    options[:stroke] && options[:stroke].to_s != "none" ? options[:stroke] : options[:fill]
   end
 end

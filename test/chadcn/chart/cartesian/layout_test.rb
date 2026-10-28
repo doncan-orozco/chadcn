@@ -10,7 +10,7 @@ class Chadcn::Chart::Cartesian::LayoutTest < Chadcn::TestCase
     parts.each { |part| declared.declare(part) }
     settings = { type: type, direction: direction, width: width, height: height, margin: margin, rows: data, text: Chadcn::Chart::Cartesian::Text.new,
                  bar_category_gap: "10%", bar_gap: 4, bar_size: nil, max_bar_size: nil, stack_offset: :none, reverse_stack_order: false, base_value: nil }
-    Chadcn::Chart::Cartesian::Layout.new(declared, settings.merge(chart))
+    Chadcn::Chart::Cartesian::Layout.new(declared, Chadcn::Chart::Cartesian::ChartSettings.new(**settings, **chart))
   end
 
   test "the plot is the chart minus the margin and the room of the visible axes" do

@@ -51,6 +51,22 @@ class Chadcn::Chart::Cartesian::TooltipPlan
     entries.find { |entry| entry.index == index } if index
   end
 
+  # The declared content with the payload and label of one category; the `Tooltip`'s own `formatter:` and `label_formatter:` override the
+  # content's (recharts clones the content with the props of the `Tooltip`, component/Tooltip.js:170).
+  #
+  # @api private
+  # @param entry [Entry]
+  # @return [Chadcn::Chart::Tooltip::Content, nil] nil when the tooltip declares no content
+  def content(entry)
+    return unless @tooltip.content_element
+
+    options = @tooltip.options
+    changes = { payload: entry.payload, label: entry.label }
+    changes[:formatter] = options[:formatter] if options[:formatter]
+    changes[:label_formatter] = options[:label_formatter] if options[:label_formatter]
+    @tooltip.content_element.with(**changes)
+  end
+
   private
 
   def entry(tick)
@@ -86,17 +102,7 @@ class Chadcn::Chart::Cartesian::TooltipPlan
     key = options[:data_key]
     value = Chadcn::Chart::Cartesian::Value.read(row, key)
     { name: (options[:name] || (key if key.is_a?(String) || key.is_a?(Symbol)))&.to_s, data_key: key.to_s, value: value,
-      color: color(series), type: options[:tooltip_type], unit: options[:unit], hide: options[:hide], payload: row }
-  end
-
-  # A bar's color is its `fill`, a line's its `stroke`, an area's `getLegendItemColor(stroke, fill)`.
-  def color(series)
-    options = series.options
-    case series.kind
-    when :bar then options[:fill]
-    when :line then options[:stroke]
-    else options[:stroke] && options[:stroke].to_s != "none" ? options[:stroke] : options[:fill]
-    end
+      color: series.legend_color, type: options[:tooltip_type], unit: options[:unit], hide: options[:hide], payload: row }
   end
 
   # --- cursor -------------------------------------------------------------------------------------------------------------
@@ -153,8 +159,9 @@ class Chadcn::Chart::Cartesian::TooltipPlan
       next if active == false || point.nil? || point.x.nil? || point.y.nil?
 
       custom = active.is_a?(Hash) ? dashed(active) : {}
-      { series: placed.series,
-        attrs: { cx: round(point.x), cy: round(point.y), r: "4", fill: color(placed.series) || "none", stroke: "#fff", "stroke-width": "2" }.merge(custom) }
+      series = placed.series
+      { series: series,
+        attrs: { cx: round(point.x), cy: round(point.y), r: "4", fill: series.legend_color || "none", stroke: "#fff", "stroke-width": "2" }.merge(custom) }
     end
   end
 

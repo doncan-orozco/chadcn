@@ -13,6 +13,8 @@ Chadcn::Chart::Cartesian::AxisSettings = Data.define(
   :allow_data_overflow, :include_hidden, :nice_ticks, :angle, :unit, :ticks, :scale, :stroke, :name, :attrs
 ) do
   class << self
+    include Chadcn::Chart::Cartesian::Choice
+
     # The settings of a declared axis.
     #
     # @api private
@@ -47,12 +49,6 @@ Chadcn::Chart::Cartesian::AxisSettings = Data.define(
     end
 
     private
-
-    def choice(name, value, allowed)
-      return value.to_sym if value.respond_to?(:to_sym) && allowed.include?(value.to_sym)
-
-      raise ArgumentError, "#{name}: must be one of #{allowed.map(&:inspect).join(', ')} (got #{value.inspect})"
-    end
 
     def scale(value)
       return value.to_sym if value.respond_to?(:to_sym) && %i[auto linear].include?(value.to_sym)
