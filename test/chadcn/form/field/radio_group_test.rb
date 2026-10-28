@@ -42,11 +42,13 @@ class Chadcn::Form::Field::RadioGroupTest < Chadcn::TestCase
   end
 
   test "caller attrs win" do
-    group = doc(render_group(id: "mine", name: "custom", disabled: true, orientation: "horizontal")).at_css("[data-slot=radio-group]")
+    html = doc(render_group(id: "mine", name: "custom", disabled: true, orientation: "horizontal"))
+    group = html.at_css("[data-slot=radio-group]")
 
     assert_equal "mine", group["id"]
     assert_equal "horizontal", group["aria-orientation"]
     assert group.key?("data-disabled")
+    assert_equal "custom", html.at_css("input[name]")["name"]
   end
 
   test "a value the group cannot express raises with the attribute" do

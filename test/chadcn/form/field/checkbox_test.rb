@@ -55,6 +55,9 @@ class Chadcn::Form::Field::CheckboxTest < Chadcn::TestCase
 
     assert_equal "checked", html.at_css("button")["data-state"]
     assert_equal "agree", html.at_css("button")["value"]
+  end
+
+  test "a string other than the checkbox value raises" do
     assert_raises(ArgumentError) { render_box(object: { email: "other" }, value: "agree") }
   end
 
@@ -77,6 +80,21 @@ class Chadcn::Form::Field::CheckboxTest < Chadcn::TestCase
     assert_includes button["class"], "x"
     assert_equal "custom", html.at_css("input[type=hidden]")["name"]
     assert_equal "f1", html.at_css("input[type=hidden]")["form"]
+  end
+
+  test "disabled disables the control and the hidden input, by default neither is disabled" do
+    html = doc(render_box(disabled: true))
+
+    assert html.at_css("button").key?("disabled")
+    assert html.at_css("input[type=hidden]").key?("disabled")
+    refute doc(render_box).at_css("input[type=hidden]").key?("disabled")
+    refute doc(render_box).at_css("button").key?("disabled")
+  end
+
+  test "outside a Field it raises naming the part" do
+    error = assert_raises(ArgumentError) { Chadcn::Form::Field::Checkbox.new.call }
+
+    assert_includes error.message, "must be rendered inside Chadcn::Form::Field"
   end
 
   test "the helper renders the same HTML as the explicit part" do

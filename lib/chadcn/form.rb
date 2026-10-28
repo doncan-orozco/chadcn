@@ -573,9 +573,11 @@ class Chadcn::Form < Chadcn::Base
     #
     # @api private
     module SelectTrigger
+      include Support
+
       # @return [void]
       def trigger(**attrs, &)
-        bound = context[FIELD_KEY].control_attrs.except(:name, :value)
+        bound = form_field.control_attrs.except(:name, :value)
         super(**merge_attrs(bound, attrs), &)
       end
     end
@@ -584,6 +586,8 @@ class Chadcn::Form < Chadcn::Base
     #
     # @api private
     module GroupControls
+      include Support
+
       # @return [void]
       def input(**attrs, &)
         super(**merge_attrs(bound_field_attrs, attrs), &)
@@ -597,7 +601,7 @@ class Chadcn::Form < Chadcn::Base
       private
 
       def bound_field_attrs
-        bound = context[FIELD_KEY].control_attrs
+        bound = form_field.control_attrs
         bound.merge(value: bound[:value]&.to_s)
       end
     end
@@ -606,8 +610,11 @@ class Chadcn::Form < Chadcn::Base
     #
     # @api private
     module Toggleable
+      include Support
+
       CHECKED = [ true, 1, "1", "true", "t", "on", "yes" ].freeze
       UNCHECKED = [ nil, false, 0, "0", "false", "f", "off", "no", "" ].freeze
+      private_constant :CHECKED, :UNCHECKED
 
       private
 
@@ -616,10 +623,12 @@ class Chadcn::Form < Chadcn::Base
         box = @attrs.fetch(:value, "1").to_s
         bound = field.control_attrs.except(:value).merge(value: "1", default_checked: checked?(field, box))
         attrs = merge_attrs(bound, @attrs)
-        unless @unchecked_value.nil?
-          input(type: "hidden", name: attrs[:name], value: @unchecked_value.to_s, autocomplete: "off", form: attrs[:form])
-        end
+        render_unchecked_input(attrs) unless @unchecked_value.nil?
         render component.new(**attrs)
+      end
+
+      def render_unchecked_input(attrs)
+        input(type: "hidden", name: attrs[:name], value: @unchecked_value.to_s, autocomplete: "off", form: attrs[:form], disabled: attrs[:disabled])
       end
 
       def checked?(field, box)
@@ -690,13 +699,14 @@ class Chadcn::Form < Chadcn::Base
 
     # A checkbox bound to the field (helper: `field.checkbox`). Renders a hidden +unchecked_value+ input (the value a browser omits
     # for an unchecked box) and then {Chadcn::Checkbox} with the field's `name`, `id`, `aria` and `value: "1"`, checked when the
-    # field's value is truthy (+true+, +1+, +"1"+, +"true"+, +"on"+..., or the checkbox value). The attributes you pass win.
+    # field's value is truthy (+true+, +1+, +"1"+, +"true"+, +"on"+..., or the checkbox value). The attributes you pass win. The hidden
+    # input is disabled together with the control. Passing +checked:+ next to the bound default makes the component controlled (use
+    # +default_checked:+ to override).
     #
     # @example
     #   field.checkbox
     #   field.checkbox(unchecked_value: nil, value: "yes")
     class Checkbox < Chadcn::Base
-      include Support
       include Toggleable
 
       # @param unchecked_value [String, nil] value of the hidden input; +nil+ renders none
@@ -712,12 +722,12 @@ class Chadcn::Form < Chadcn::Base
       def view_template = render_toggle(Chadcn::Checkbox)
     end
 
-    # A switch bound to the field (helper: `field.switch`). Same contract as {Checkbox}, rendering {Chadcn::Switch}.
+    # A switch bound to the field (helper: `field.switch`). Same contract as {Checkbox}, rendering {Chadcn::Switch}; the hidden input is
+    # disabled together with the switch.
     #
     # @example
     #   field.switch(size: "sm")
     class Switch < Chadcn::Base
-      include Support
       include Toggleable
 
       # @param unchecked_value [String, nil] value of the hidden input; +nil+ renders none
@@ -734,7 +744,8 @@ class Chadcn::Form < Chadcn::Base
     end
 
     # A radio group bound to the field (helper: `field.radio_group`). Renders {Chadcn::RadioGroup} with the field's `name`, `id`,
-    # `aria` and value as +default_value+; the items keep their own ids.
+    # `aria` and value as +default_value+; the items keep their own ids. The root is not labelable: pass +aria: { labelledby: }+ or
+    # +aria: { label: }+. Passing +value:+ next to the bound default makes the group controlled (use +default_value:+ to override).
     #
     # @example
     #   field.radio_group { |group| group.item(value: "a", id: "role-a") }
@@ -759,7 +770,8 @@ class Chadcn::Form < Chadcn::Base
 
     # A slider bound to the field (helper: `field.slider`). Renders {Chadcn::Slider} with the field's `name` and value as
     # +default_value+ (a number becomes one thumb, an Array of numbers one per element, +nil+ the slider's default); the field `id`
-    # and `aria` land on the root.
+    # and `aria` land on the root, which is not labelable: pass +aria: { labelledby: }+ or +aria: { label: }+. Passing +value:+ makes the
+    # slider controlled (use +default_value:+ to override).
     #
     # @example
     #   field.slider(max: 10)
@@ -788,7 +800,8 @@ class Chadcn::Form < Chadcn::Base
 
     # A date picker bound to the field (helper: `field.date_picker`): the Popover + outline Button + {Chadcn::Calendar} recipe of
     # docs/form-controls.md, with a hidden input named after the field. The trigger button carries the field `id` and `aria`; the
-    # label shows the date in English ("March 10th, 2026") or the placeholder. The attributes you pass merge onto the button.
+    # label shows the date in English ("March 10th, 2026") or the placeholder. The attributes you pass merge onto the button. The hidden
+    # input is disabled together with the button.
     #
     # @example
     #   field.date_picker(placeholder: "Birthday", calendar: { start_month: Date.new(1990, 1, 1) })
@@ -819,7 +832,7 @@ class Chadcn::Form < Chadcn::Base
         button = merge_attrs({ variant: "outline", class: BUTTON_CLASS, **field.control_attrs.except(:name, :value) }, @attrs)
         calendar = { mode: :single, selected: date, input: "##{value_id}", label: "##{label_id}", close_on_select: true }.merge(@calendar)
 
-        input(type: "hidden", id: value_id, name: field.name, value: date&.iso8601)
+        input(type: "hidden", id: value_id, name: field.name, value: date&.iso8601, disabled: button[:disabled])
         render Chadcn::Popover.new do
           render Chadcn::Popover::Trigger.new(as_child: Chadcn::Button.new(**button)) do
             render Chadcn::Icon.new("calendar")

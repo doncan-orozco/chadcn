@@ -42,12 +42,15 @@ class Chadcn::Form::Field::SliderTest < Chadcn::TestCase
   end
 
   test "caller attrs win" do
-    root = doc(render_slider(id: "mine", name: "custom", default_value: [ 5 ], max: 10, class: "w-9")).at_css("[data-slot=slider]")
+    html = doc(render_slider(id: "mine", name: "custom", default_value: [ 5 ], max: 10, class: "w-9"))
+    root = html.at_css("[data-slot=slider]")
 
     assert_equal "mine", root["id"]
     assert_equal "10", root["data-chadcn--slider-max-value"]
     assert_includes root["class"], "w-9"
     assert_equal "5", root.at_css("[role=slider]")["aria-valuenow"]
+    assert_equal "custom", html.at_css("input")["name"]
+    assert_equal 1, html.css("[role=slider]").size
   end
 
   test "values the slider cannot express raise with the attribute" do

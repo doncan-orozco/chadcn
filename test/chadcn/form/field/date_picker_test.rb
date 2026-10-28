@@ -25,7 +25,6 @@ class Chadcn::Form::Field::DatePickerTest < Chadcn::TestCase
     assert_equal "March 10th, 2026", label.text
     assert_equal "false", label["data-empty"]
     assert_equal "Pick a date", label["data-chadcn--calendar-placeholder"]
-    assert_nil html.at_css("[data-slot=popover-content]")&.at_css("input[type=hidden]")
     assert_includes html.to_html, "#user_email-form-item-value"
     assert_includes html.to_html, "#user_email-form-item-label"
   end
@@ -76,7 +75,20 @@ class Chadcn::Form::Field::DatePickerTest < Chadcn::TestCase
     assert_equal "mine", button["id"]
     assert_includes button["class"], "w-1"
     assert button.key?("disabled")
-    assert_includes html.to_html, "&quot;weekStartsOn&quot;:1"
+    calendar = html.css("[data-controller~='chadcn--calendar']").first
+
+    assert_equal 1, JSON.parse(calendar["data-chadcn--calendar-config-value"])["weekStartsOn"]
+  end
+
+  test "a disabled picker disables the hidden input too" do
+    assert doc(render_picker(disabled: true)).at_css("input[type=hidden]").key?("disabled")
+    refute doc(render_picker).at_css("input[type=hidden]").key?("disabled")
+  end
+
+  test "outside a Field it raises" do
+    error = assert_raises(ArgumentError) { Part.new.call }
+
+    assert_includes error.message, "must be rendered inside Chadcn::Form::Field"
   end
 
   test "values it cannot express raise with the attribute" do

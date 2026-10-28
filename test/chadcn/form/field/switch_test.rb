@@ -7,10 +7,10 @@ class Chadcn::Form::Field::SwitchTest < Chadcn::TestCase
 
   Part = Chadcn::Form::Field::Switch
 
-  def render_box(errors: {}, object: { email: true }, **) = render_part(Part, errors:, object:, **)
+  def render_switch(errors: {}, object: { email: true }, **) = render_part(Part, errors:, object:, **)
 
   test "renders the hidden unchecked input before a bound switch" do
-    html = doc(render_box)
+    html = doc(render_switch)
     hidden = html.at_css("input[type=hidden]")
     button = html.at_css("button[data-slot=switch]")
 
@@ -27,40 +27,43 @@ class Chadcn::Form::Field::SwitchTest < Chadcn::TestCase
   end
 
   test "errors mark the button invalid" do
-    button = doc(render_box(errors: { email: [ "x" ] })).at_css("button")
+    button = doc(render_switch(errors: { email: [ "x" ] })).at_css("button")
 
     assert_equal "true", button["aria-invalid"]
     assert_equal "user_email-form-item-description user_email-form-item-message", button["aria-describedby"]
   end
 
   test "unchecked_value nil omits the hidden input and a custom one is used" do
-    assert_nil doc(render_box(unchecked_value: nil)).at_css("input[type=hidden]")
-    assert_equal "no", doc(render_box(unchecked_value: "no")).at_css("input[type=hidden]")["value"]
+    assert_nil doc(render_switch(unchecked_value: nil)).at_css("input[type=hidden]")
+    assert_equal "no", doc(render_switch(unchecked_value: "no")).at_css("input[type=hidden]")["value"]
   end
 
   test "values that mean checked" do
     [ true, 1, "1", "true", "t", "on", "yes", "TRUE" ].each do |value|
-      assert_equal "checked", doc(render_box(object: { email: value })).at_css("button")["data-state"], value.inspect
+      assert_equal "checked", doc(render_switch(object: { email: value })).at_css("button")["data-state"], value.inspect
     end
   end
 
   test "values that mean unchecked" do
     [ nil, false, 0, "0", "false", "f", "off", "no", "" ].each do |value|
-      assert_equal "unchecked", doc(render_box(object: { email: value })).at_css("button")["data-state"], value.inspect
+      assert_equal "unchecked", doc(render_switch(object: { email: value })).at_css("button")["data-state"], value.inspect
     end
   end
 
   test "a string equal to the switch value is checked" do
-    html = doc(render_box(object: { email: "agree" }, value: "agree"))
+    html = doc(render_switch(object: { email: "agree" }, value: "agree"))
 
     assert_equal "checked", html.at_css("button")["data-state"]
     assert_equal "agree", html.at_css("button")["value"]
-    assert_raises(ArgumentError) { render_box(object: { email: "other" }, value: "agree") }
+  end
+
+  test "a string other than the switch value raises" do
+    assert_raises(ArgumentError) { render_switch(object: { email: "other" }, value: "agree") }
   end
 
   test "anything else raises with the attribute" do
     [ [ 1 ], { a: 1 }, :maybe, 2 ].each do |value|
-      error = assert_raises(ArgumentError) { render_box(object: { email: value }) }
+      error = assert_raises(ArgumentError) { render_switch(object: { email: value }) }
 
       assert_includes error.message, "Chadcn::Form::Field::Switch"
       assert_includes error.message, ":email"
@@ -68,7 +71,7 @@ class Chadcn::Form::Field::SwitchTest < Chadcn::TestCase
   end
 
   test "caller attrs win" do
-    html = doc(render_box(id: "mine", name: "custom", form: "f1", default_checked: false, disabled: true, class: "x"))
+    html = doc(render_switch(id: "mine", name: "custom", form: "f1", default_checked: false, disabled: true, class: "x"))
     button = html.at_css("button")
 
     assert_equal "mine", button["id"]
@@ -79,7 +82,22 @@ class Chadcn::Form::Field::SwitchTest < Chadcn::TestCase
     assert_equal "f1", html.at_css("input[type=hidden]")["form"]
   end
 
+  test "disabled disables the control and the hidden input, by default neither is disabled" do
+    html = doc(render_switch(disabled: true))
+
+    assert html.at_css("button").key?("disabled")
+    assert html.at_css("input[type=hidden]").key?("disabled")
+    refute doc(render_switch).at_css("input[type=hidden]").key?("disabled")
+    refute doc(render_switch).at_css("button").key?("disabled")
+  end
+
+  test "outside a Field it raises naming the part" do
+    error = assert_raises(ArgumentError) { Chadcn::Form::Field::Switch.new.call }
+
+    assert_includes error.message, "must be rendered inside Chadcn::Form::Field"
+  end
+
   test "the helper renders the same HTML as the explicit part" do
-    assert_equal(render_box(unchecked_value: "n"), field_for(object: { email: true }).call { |field| field.switch(unchecked_value: "n") })
+    assert_equal(render_switch(unchecked_value: "n"), field_for(object: { email: true }).call { |field| field.switch(unchecked_value: "n") })
   end
 end

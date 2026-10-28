@@ -63,6 +63,17 @@ class Chadcn::Form::Field::InputGroupTest < Chadcn::TestCase
     assert_nil doc(Chadcn::InputGroup.new.call(&:input)).at_css("input")["name"]
   end
 
+  test "outside a Field the part and the bound controls raise" do
+    assert_includes assert_raises(ArgumentError) { Part.new.call }.message, "must be rendered inside Chadcn::Form::Field"
+
+    %i[input textarea].each do |name|
+      group = Chadcn::InputGroup.new.extend(Chadcn::Form::Field::GroupControls)
+      error = assert_raises(ArgumentError) { group.call { group.public_send(name) } }
+
+      assert_includes error.message, "must be rendered inside Chadcn::Form::Field"
+    end
+  end
+
   test "the helper renders the same HTML as the explicit part" do
     block = :input.to_proc
 

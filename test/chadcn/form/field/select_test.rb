@@ -65,6 +65,15 @@ class Chadcn::Form::Field::SelectTest < Chadcn::TestCase
     assert_equal "user_email-form-item-description", trigger["aria-describedby"]
   end
 
+  test "outside a Field the part and its trigger raise" do
+    assert_includes assert_raises(ArgumentError) { Part.new.call }.message, "must be rendered inside Chadcn::Form::Field"
+
+    select = Chadcn::Select.new.extend(Chadcn::Form::Field::SelectTrigger)
+    error = assert_raises(ArgumentError) { select.call { select.trigger { "x" } } }
+
+    assert_includes error.message, "must be rendered inside Chadcn::Form::Field"
+  end
+
   test "a value the select cannot express raises with the attribute" do
     [ [ "a" ], { a: 1 } ].each do |value|
       error = assert_raises(ArgumentError) { render_select(object: { email: value }) }

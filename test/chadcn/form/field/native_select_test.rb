@@ -41,6 +41,7 @@ class Chadcn::Form::Field::NativeSelectTest < Chadcn::TestCase
     assert_equal "mine", select["id"]
     assert_includes select["class"], "w-1"
     assert select.key?("disabled")
+    assert_equal "sm", select["data-size"]
   end
 
   test "multiple takes an array, appends [] to the name and selects each value" do
