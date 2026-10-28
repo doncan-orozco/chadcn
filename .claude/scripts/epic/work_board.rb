@@ -703,7 +703,7 @@ module WorkBoard
 
     # Glob text goes into a backtick span of the issue body: a backtick breaks the next parse and a line break could start a section.
     def amend_globs(text)
-      amend_list(text).each { |glob| out({ error: "not a glob: #{glob.inspect}" }, 2) if glob.match?(/[`\r\n]/) }
+      amend_list(text).each { |glob| out({ error: "not a glob: #{glob.inspect}" }, 2) if glob.match?(/[`\r\n]|-->/) }
     end
 
     # Blocker numbers are digits (optionally `#N`): "abc" or "12abc" must not turn into 0 or 12 through to_i.

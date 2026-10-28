@@ -234,8 +234,9 @@ class WorkBoardTest < ActiveSupport::TestCase # rubocop:disable Style/OneClassPe
     assert_equal 1, code
     assert_equal [ "OWNS_OVERLAP" ], out["findings"].map { |f| f["code"] }.uniq
 
-    _, code = amend(a, "--add-blocked-by", b.to_s, "--reason", "r")
+    out, code = amend(a, "--add-blocked-by", b.to_s, "--reason", "r")
     assert_equal 1, code
+    assert_includes out["findings"].map { |f| f["code"] }, "CYCLE"
     assert_equal before, issue_body(c)
     assert_equal before_a, issue_body(a)
     assert_equal [ "lib/a/**" ], wb("show", a.to_s, "--epic", "demo")[0]["owns"]
@@ -267,7 +268,7 @@ class WorkBoardTest < ActiveSupport::TestCase # rubocop:disable Style/OneClassPe
   end
 
   test "item amend writes nothing when a section is missing or holds prose, and reports a no-op" do
-    make_epic
+    @root = make_epic
     plain = make_item("Plain", wave: 1, owns: "lib/p/**")
     out, code = amend(plain, "--add-owns", "lib/q/**", "--reason", "r")
     assert_equal 2, code
@@ -285,7 +286,7 @@ class WorkBoardTest < ActiveSupport::TestCase # rubocop:disable Style/OneClassPe
     out, code = amend(same, "--add-owns", "lib/t/**", "--reason", "r")
     assert_equal 0, code
     assert out["unchanged"]
-    assert_empty fake_db["issues"].find { |i| i["number"] == 1 }.fetch("comments", [])
+    assert_empty fake_db["issues"].find { |i| i["number"] == @root }.fetch("comments", [])
   end
 
   test "item amend accepts an amendment to an item that already overlaps, and refuses a bullet with several globs" do
@@ -329,6 +330,7 @@ class WorkBoardTest < ActiveSupport::TestCase # rubocop:disable Style/OneClassPe
     before = issue_body(a)
     assert_equal 2, amend(a, "--add-owns", "x\n## Gates", "--reason", "r")[1]
     assert_equal 2, amend(a, "--add-owns", "bad`glob", "--reason", "r")[1]
+    assert_equal 2, amend(a, "--add-owns", "x} -->", "--reason", "r")[1]
     assert_equal before, issue_body(a)
   end
 
