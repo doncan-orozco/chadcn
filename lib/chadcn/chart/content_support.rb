@@ -6,6 +6,25 @@
 #
 # @api private
 module Chadcn::Chart::ContentSupport
+  # Key of the render context a Tooltip or Legend publishes itself under while its block runs.
+  #
+  # @api private
+  HOLDER_KEY = :chadcn_chart_content_holder
+
+  # Runs the block with `holder` as the declaration a content written inside it registers with.
+  #
+  # @api private
+  # @param context [Hash] the Phlex render context
+  # @param holder [#adopt_content] a {Chadcn::Chart::Tooltip} or {Chadcn::Chart::Legend}
+  # @return [Object] what the block returns
+  def self.holding(context, holder)
+    previous = context[HOLDER_KEY]
+    context[HOLDER_KEY] = holder
+    yield
+  ensure
+    previous ? context[HOLDER_KEY] = previous : context.delete(HOLDER_KEY)
+  end
+
   # A copy with other options, e.g. the payload and label of one tooltip index.
   #
   # @api private
@@ -13,6 +32,13 @@ module Chadcn::Chart::ContentSupport
   def with(**changes) = self.class.new(**@options.except(:attrs), **@options.fetch(:attrs), payload: @payload, **changes)
 
   private
+
+  # Inside the block of a Tooltip or Legend the content is declared, not drawn: it hands itself to the declaration.
+  def adopted?
+    holder = context[Chadcn::Chart::ContentSupport::HOLDER_KEY] or return false
+    holder.adopt_content(self)
+    true
+  end
 
   def option(name) = @options.fetch(name)
 

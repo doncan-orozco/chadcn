@@ -184,15 +184,42 @@ class Chadcn::ChartTest < Chadcn::TestCase
     assert_equal explicit, block
   end
 
-  test "a tooltip or a legend takes one content: both content: and the block raise" do
-    tooltip = assert_raises(ArgumentError) do
-      Chadcn::Chart::Tooltip.new(content: Chadcn::Chart::Tooltip::Content.new).tap(&:content)
+  test "the content helpers are the generated ones, and rendering the content class in the block equals the helper" do
+    [ Chadcn::Chart::Tooltip, Chadcn::Chart::Legend ].each do |declaration|
+      assert_equal "base.rb", File.basename(declaration.instance_method(:content).source_location.first)
     end
-    legend = assert_raises(ArgumentError) do
-      Chadcn::Chart::Legend.new(content: Chadcn::Chart::Legend::Content.new).tap(&:content)
+    build = lambda do |&declare|
+      render_view do
+        render(Chadcn::Chart::Container.new(config: { a: { label: "A", color: "red" } }, id: "k")) do
+          render(Chadcn::Chart::BarChart.new(data: [ { a: 1 }, { a: 2 } ])) do |chart|
+            declare.call(chart)
+            chart.bar(data_key: :a)
+          end
+        end
+      end
     end
+    helper = build.call { |chart| chart.tooltip(default_index: 1) { |tooltip| tooltip.content(hide_label: true) } }
+    explicit = build.call { |chart| chart.tooltip(default_index: 1) { |tooltip| tooltip.render Chadcn::Chart::Tooltip::Content.new(hide_label: true) } }
+
+    assert_includes helper, "<template"
+    assert_equal helper, explicit
+  end
+
+  test "a tooltip or a legend takes one content of its own kind: content: and the block, or another kind, raise" do
+    both = lambda do |declaration, content|
+      ->(chart) { chart.public_send(declaration, content: content.new, &:content) }
+    end
+    build = lambda do |declare|
+      render_view do
+        render(Chadcn::Chart::Container.new(config: { a: { label: "A", color: "red" } }, id: "k")) { render(Chadcn::Chart::BarChart.new(data: [ { a: 1 } ])) { |chart| declare.call(chart) } }
+      end
+    end
+    tooltip = assert_raises(ArgumentError) { build.call(both.call(:tooltip, Chadcn::Chart::Tooltip::Content)) }
+    legend = assert_raises(ArgumentError) { build.call(both.call(:legend, Chadcn::Chart::Legend::Content)) }
+    other = assert_raises(ArgumentError) { build.call(->(chart) { chart.tooltip { |held| held.render Chadcn::Chart::Legend::Content.new } }) }
 
     assert_equal "Chadcn::Chart::Tooltip takes one content (content: or the block, not both)", tooltip.message
     assert_equal "Chadcn::Chart::Legend takes one content (content: or the block, not both)", legend.message
+    assert_includes other.message, "takes a Chadcn::Chart::Tooltip::Content"
   end
 end

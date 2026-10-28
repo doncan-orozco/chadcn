@@ -129,7 +129,7 @@ class Chadcn::Chart::Cartesian::TooltipPlan
     option = @tooltip.options[:cursor]
     return if option.nil? || option == false
 
-    custom = option.is_a?(Hash) ? option : {}
+    custom = option.is_a?(Hash) ? option.transform_keys(&:to_sym) : {}
     shape = @layout.chart_type == :bar ? rectangle_cursor(coordinate) : line_cursor(coordinate)
     classes = [ shape.attrs[:class], custom[:class] ].compact.join(" ")
     Cursor.new(layer: shape.layer, attrs: shape.attrs.merge(shape_attributes(custom.except(:class))).merge(class: classes))

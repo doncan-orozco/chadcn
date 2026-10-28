@@ -129,7 +129,7 @@ class Chadcn::Chart::Tooltip < Chadcn::Chart::Declaration
 
     # @return [void]
     def view_template
-      return if @payload.empty?
+      return if adopted? || @payload.empty?
 
       config = chart_config
       nest_label = @payload.length == 1 && option(:indicator) != "dot"
@@ -232,22 +232,23 @@ class Chadcn::Chart::Tooltip < Chadcn::Chart::Declaration
     end
   end
 
-  # The block form of `content:`: `chart.tooltip { |tooltip| tooltip.content(hide_label: true) }` is
-  # `chart.tooltip(content: Chadcn::Chart::Tooltip::Content.new(hide_label: true))`. Replaces the helper generated for the nested class.
+  # Takes the content declared in the block (`tooltip.content(...)`, the generated helper, or `render Tooltip::Content.new(...)`).
   #
-  # @param attrs [Hash] the keywords of {Chadcn::Chart::Tooltip::Content}
+  # @api private
+  # @param content [Chadcn::Base]
   # @return [void]
-  # @raise [ArgumentError] when the tooltip already has a content (`content:` or an earlier call)
-  def content(**attrs)
+  # @raise [ArgumentError] on a content of another kind, or a second content
+  def adopt_content(content)
+    raise ArgumentError, "#{self.class.name} takes a #{Content.name} (got #{content.class})" unless content.is_a?(Content)
     raise ArgumentError, "#{self.class.name} takes one content (content: or the block, not both)" if @content_element
 
-    @content_element = Content.new(**attrs)
+    @content_element = content
   end
 
-  # @yieldparam tooltip [Chadcn::Chart::Tooltip] itself, to declare its {#content}
+  # @yieldparam tooltip [Chadcn::Chart::Tooltip] itself; its generated #content declares the content
   # @return [void]
-  def view_template
-    yield self if block_given?
-    super
+  def view_template(&block)
+    Chadcn::Chart::ContentSupport.holding(context, self) { yield self } if block
+    super()
   end
 end

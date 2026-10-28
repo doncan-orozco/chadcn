@@ -91,7 +91,7 @@ class Chadcn::Chart::Legend < Chadcn::Chart::Declaration
 
     # @return [void]
     def view_template
-      return if @payload.empty?
+      return if adopted? || @payload.empty?
 
       config = chart_config
       side = option(:vertical_align).to_s == "top" ? "top" : "bottom"
@@ -119,22 +119,23 @@ class Chadcn::Chart::Legend < Chadcn::Chart::Declaration
     end
   end
 
-  # The block form of `content:`: `chart.legend { |legend| legend.content(hide_icon: true) }` is
-  # `chart.legend(content: Chadcn::Chart::Legend::Content.new(hide_icon: true))`. Replaces the helper generated for the nested class.
+  # Takes the content declared in the block (`legend.content(...)`, the generated helper, or `render Legend::Content.new(...)`).
   #
-  # @param attrs [Hash] the keywords of {Chadcn::Chart::Legend::Content}
+  # @api private
+  # @param content [Chadcn::Base]
   # @return [void]
-  # @raise [ArgumentError] when the legend already has a content (`content:` or an earlier call)
-  def content(**attrs)
+  # @raise [ArgumentError] on a content of another kind, or a second content
+  def adopt_content(content)
+    raise ArgumentError, "#{self.class.name} takes a #{Content.name} (got #{content.class})" unless content.is_a?(Content)
     raise ArgumentError, "#{self.class.name} takes one content (content: or the block, not both)" if @content_element
 
-    @content_element = Content.new(**attrs)
+    @content_element = content
   end
 
-  # @yieldparam legend [Chadcn::Chart::Legend] itself, to declare its {#content}
+  # @yieldparam legend [Chadcn::Chart::Legend] itself; its generated #content declares the content
   # @return [void]
-  def view_template
-    yield self if block_given?
-    super
+  def view_template(&block)
+    Chadcn::Chart::ContentSupport.holding(context, self) { yield self } if block
+    super()
   end
 end

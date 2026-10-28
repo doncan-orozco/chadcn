@@ -75,7 +75,8 @@ class Chadcn::Chart::Cartesian::Overlays < Chadcn::Base
     return text.to_sym if text.start_with?("--")
 
     kebab = text.gsub(/([a-z\d])([A-Z])/, '\1-\2').tr("_", "-").downcase
-    kebab = "-#{kebab}" if text.match?(/\A(?:Webkit|Moz|Ms|O)[A-Z]/) # React's vendor prefixes: WebkitTransition is -webkit-transition
+    # A vendor prefix in the React spelling (WebkitTransition) is a leading dash in CSS (-webkit-transition).
+    kebab = "-#{kebab}" if text.match?(/\A(?:Webkit|Moz|Ms|O)[A-Z]/)
     kebab.to_sym
   end
 
