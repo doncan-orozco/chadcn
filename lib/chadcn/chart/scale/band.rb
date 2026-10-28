@@ -41,7 +41,7 @@ class Chadcn::Chart::Scale::Band
   # @param padding_outer [Numeric, nil] empty space at both ends, in steps
   # @param align [Numeric] 0 packs the bands at the start of the range, 1 at the end, 0.5 centers them (clamped to 0..1)
   def initialize(count:, range:, padding: nil, padding_inner: nil, padding_outer: nil, align: 0.5)
-    raise ArgumentError, "range takes two values" unless range.size == 2
+    raise ArgumentError, "range: takes two values (got #{range.size})" unless range.size == 2
 
     @count = count
     @range = range.map(&:to_f).freeze

@@ -6,6 +6,7 @@
 # @example
 #   Chadcn::Chart::Legend.new(content: Chadcn::Chart::Legend::Content.new, vertical_align: :top)
 class Chadcn::Chart::Legend < Chadcn::Base
+  # Values of `vertical_align:`.
   ALIGNMENTS = %i[top middle bottom].freeze
 
   # @return [Chadcn::Chart::Legend::Content, nil] the declared content (recharts' `content` prop)

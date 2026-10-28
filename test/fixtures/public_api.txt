@@ -72,6 +72,15 @@ class Chadcn::Carousel::Previous < Chadcn::Base
 class Chadcn::Catalog::Entry < Struct
 class Chadcn::Catalog::TreeRenderer < Phlex::HTML
 class Chadcn::Catalog::TreeRenderer::Error < StandardError
+class Chadcn::Chart < Chadcn::Base
+class Chadcn::Chart::Config
+class Chadcn::Chart::Config::Entry < Data
+class Chadcn::Chart::Container < Chadcn::Base
+class Chadcn::Chart::Legend < Chadcn::Base
+class Chadcn::Chart::Legend::Content < Chadcn::Base
+class Chadcn::Chart::Style < Chadcn::Base
+class Chadcn::Chart::Tooltip < Chadcn::Base
+class Chadcn::Chart::Tooltip::Content < Chadcn::Base
 class Chadcn::Checkbox < Chadcn::Base
 class Chadcn::Collapsible < Chadcn::Base
 class Chadcn::Collapsible::Content < Chadcn::Base
@@ -395,6 +404,10 @@ const Chadcn::Bubble::VARIANTS [default, secondary, muted, tinted, outline, ghos
 const Chadcn::Button::SIZES [default, xs, sm, lg, icon, icon-xs, icon-sm, icon-lg]
 const Chadcn::Button::VARIANTS [default, destructive, outline, secondary, ghost, link]
 const Chadcn::ButtonGroup::ORIENTATIONS [horizontal, vertical]
+const Chadcn::Chart::Config::THEMES [light, dark]
+const Chadcn::Chart::Container::DEFAULT_DIMENSION [width, height]
+const Chadcn::Chart::Legend::ALIGNMENTS [top, middle, bottom]
+const Chadcn::Chart::Tooltip::TRIGGERS [hover, click]
 const Chadcn::Command::Item::KEYWORDS
 const Chadcn::Direction::VALUES [ltr, rtl]
 const Chadcn::Empty::Media::VARIANTS [default, icon]
@@ -618,6 +631,45 @@ method Chadcn::Catalog::Entry#title ()
 method Chadcn::Catalog::Entry#tree ()
 method Chadcn::Catalog::TreeRenderer#initialize (tree:, component: nil, dx: nil)
 method Chadcn::Catalog::TreeRenderer#view_template ()
+method Chadcn::Chart#container (**attrs, &block)
+method Chadcn::Chart#legend (**attrs, &block)
+method Chadcn::Chart#style (**attrs, &block)
+method Chadcn::Chart#tooltip (**attrs, &block)
+method Chadcn::Chart#view_template ()
+method Chadcn::Chart::Config#[] (key)
+method Chadcn::Chart::Config#color_entries ()
+method Chadcn::Chart::Config#each ()
+method Chadcn::Chart::Config#empty? ()
+method Chadcn::Chart::Config#initialize (entries = nil, **keywords)
+method Chadcn::Chart::Config#key? (key)
+method Chadcn::Chart::Config#keys ()
+method Chadcn::Chart::Config#payload_config (payload, key)
+method Chadcn::Chart::Config#to_h ()
+method Chadcn::Chart::Config::Entry#color ()
+method Chadcn::Chart::Config::Entry#icon ()
+method Chadcn::Chart::Config::Entry#label ()
+method Chadcn::Chart::Config::Entry#theme ()
+method Chadcn::Chart::Container#chart_id ()
+method Chadcn::Chart::Container#config ()
+method Chadcn::Chart::Container#initial_dimension ()
+method Chadcn::Chart::Container#initialize (config:, id: nil, initial_dimension: DEFAULT_DIMENSION, text_height: 16, text_char_width: 0.6, **attrs)
+method Chadcn::Chart::Container#text_char_width ()
+method Chadcn::Chart::Container#text_height ()
+method Chadcn::Chart::Container#view_template ()
+method Chadcn::Chart::Legend#content_element ()
+method Chadcn::Chart::Legend#initialize (content: nil, vertical_align: :bottom, align: :center, layout: :horizontal, icon_size: 14, icon_type: nil, inactive_color: nil, item_sorter: :value, width: nil, height: nil, payload_uniq_by: false, wrapper_style: nil, legend_height: 28, **attrs)
+method Chadcn::Chart::Legend#options ()
+method Chadcn::Chart::Legend#view_template ()
+method Chadcn::Chart::Legend::Content#initialize (hide_icon: false, vertical_align: :bottom, name_key: nil, payload: [], **attrs)
+method Chadcn::Chart::Legend::Content#view_template ()
+method Chadcn::Chart::Style#initialize (id:, config:)
+method Chadcn::Chart::Style#view_template ()
+method Chadcn::Chart::Tooltip#content_element ()
+method Chadcn::Chart::Tooltip#initialize (content: nil, cursor: true, default_index: nil, active: nil, shared: nil, trigger: :hover, offset: 10, allow_escape_view_box: { x: false, y: false }, reverse_direction: { x: false, y: false }, position: nil, is_animation_active: :auto, animation_duration: 400, animation_easing: :ease, wrapper_style: nil, filter_null: true, include_hidden: false, axis_id: 0, payload_uniq_by: false, formatter: nil, label_formatter: nil, separator: " : ", content_style: nil, item_sorter: :name, **attrs)
+method Chadcn::Chart::Tooltip#options ()
+method Chadcn::Chart::Tooltip#view_template ()
+method Chadcn::Chart::Tooltip::Content#initialize (indicator: :dot, hide_label: false, hide_indicator: false, label: nil, label_formatter: nil, label_class_name: nil, formatter: nil, color: nil, name_key: nil, label_key: nil, payload: [], **attrs)
+method Chadcn::Chart::Tooltip::Content#view_template ()
 method Chadcn::Checkbox#initialize (checked: nil, default_checked: false, disabled: false, required: nil, name: nil, value: "on", form: nil, **attrs)
 method Chadcn::Checkbox#view_template ()
 method Chadcn::Collapsible#initialize (open: nil, default_open: false, disabled: false, as_child: false, id: nil, **attrs)
@@ -1438,6 +1490,12 @@ Chadcn::Carousel#content
 Chadcn::Carousel#item
 Chadcn::Carousel#next
 Chadcn::Carousel#previous
+Chadcn::Chart#container
+Chadcn::Chart#legend
+Chadcn::Chart#style
+Chadcn::Chart#tooltip
+Chadcn::Chart::Legend#content
+Chadcn::Chart::Tooltip#content
 Chadcn::Collapsible#content
 Chadcn::Collapsible#trigger
 Chadcn::Combobox#chip

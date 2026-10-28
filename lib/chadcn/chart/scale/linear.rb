@@ -27,7 +27,7 @@ class Chadcn::Chart::Scale::Linear
   # @param domain [Array<Numeric>] two values, `[0, 1]` by default like d3
   # @param range [Array<Numeric>] two values, `[0, 1]` by default like d3
   def initialize(domain: [ 0, 1 ], range: [ 0, 1 ])
-    raise ArgumentError, "domain and range take two values each" unless domain.size == 2 && range.size == 2
+    raise ArgumentError, "domain: and range: take two values each (got #{domain.size} and #{range.size})" unless domain.size == 2 && range.size == 2
 
     @domain = domain.map(&:to_f).freeze
     @range = range.map(&:to_f).freeze

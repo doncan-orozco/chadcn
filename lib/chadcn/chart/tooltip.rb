@@ -6,6 +6,7 @@
 # @example
 #   Chadcn::Chart::Tooltip.new(default_index: 1, content: Chadcn::Chart::Tooltip::Content.new(hide_label: true))
 class Chadcn::Chart::Tooltip < Chadcn::Base
+  # Values of `trigger:`.
   TRIGGERS = %i[hover click].freeze
   EVENT_TYPES = [ nil, true, false ].freeze
   private_constant :EVENT_TYPES

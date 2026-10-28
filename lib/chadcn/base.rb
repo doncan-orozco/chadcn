@@ -48,6 +48,10 @@ class Chadcn::Base < Phlex::HTML
   # @api private
   def self.const_added(name)
     super
+    # A namespace Zeitwerk autovivifies from a directory without a file (Chart::Scale, Chart::Shape) is a plain module, never a
+    # part: loading it here would require the directory.
+    return if (path = autoload?(name, false)) && File.directory?(path)
+
     part = begin
       const_get(name, false)
     rescue NameError
