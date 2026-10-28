@@ -14,9 +14,10 @@ module Catalog
       Chadcn::Catalog.entries.map { |entry| Entry.new(**entry.to_h) }
     end
 
-    # Scenario files that start with "_" are primitives/harness fixtures, not components.
+    # Scenario files that start with "_" are primitives/harness fixtures, not components; a component is a gem file
+    # (Chadcn::Overrides.component?, the same test the catalog generator applies).
     def ported?(component)
-      !component.start_with?("_") && Chadcn.const_defined?(component.tr("-", "_").camelize, false)
+      !component.start_with?("_") && Chadcn::Overrides.component?(component)
     end
   end
 end
