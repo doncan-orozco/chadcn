@@ -5930,7 +5930,7 @@
     },
     {
      "do": "click",
-     "target": "role=button[name=\"Outside\"]"
+     "target": "button:text-is(\"Outside\")"
     }
    ],
    "dark": false,
@@ -6596,8 +6596,7 @@
      "ms": 300
     },
     {
-     "do": "mouseup",
-     "target": "[data-slot=drawer-footer]"
+     "do": "mouseup"
     }
    ],
    "dark": false,
