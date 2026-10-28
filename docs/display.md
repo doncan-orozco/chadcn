@@ -129,9 +129,10 @@ updates instead of stacking.
   `chadcn--message-scroller:scrollable-change` and, with `track_visibility: true`, `:visibility-change`.
 - `Resizable` renders no element; nest `Panel`s and `Handle`s directly inside a `PanelGroup` (a nested group goes inside a panel).
   `Panel.new(class:, style:)` style the inner div and `**attrs` the outer one.
+- Panel sizes (`default_size:`, `min_size:`, `max_size:`, `collapsed_size:`): a Numeric is pixels; a String is parsed with its unit
+  (`"25%"`, `"200px"`, `"10rem"`, `"2em"`, `"20vh"`, `"30vw"`), and a String with no unit is a percent.
 - `MessageScroller::Provider` carries the behavior and may also wrap controls placed outside the frame; wrap the `MessageScroller`
   frame in it.
-
 - `Avatar::Image` ships its `<img>` in an inert `<template>` and the `chadcn--avatar` controller mounts it once it has loaded (Radix
   `Avatar.Image` semantics, event `chadcn--avatar:loading-status-change`); `Avatar::Fallback` shows meanwhile, after `delay_ms:` when given.
 - `Badge`, `Item`, `Marker` and `Empty::Media` expose `.variants(...)` returning the class string, like React's cva helpers, to

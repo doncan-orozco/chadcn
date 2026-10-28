@@ -9,7 +9,8 @@
 
 [shadcn/ui](https://ui.shadcn.com) for [Phlex](https://www.phlex.fun): the same component API, the same Tailwind class strings and
 the same behavior as the React originals (Radix, and the libraries shadcn wraps), as Phlex views with Stimulus controllers. 61 components (`Button`, `Dialog`, `Select`, `Sidebar`,
-`Toaster`, `Command`, `Combobox`, `Calendar`...), each one checked against the React original in a browser.
+`Toaster`, `Command`, `Combobox`, `Calendar`...), checked against the React original in a browser. Two are partial: `Form` ports shadcn's ids and ARIA contract
+without react-hook-form and is tested in Ruby, and `Chart` ships shadcn's chart layer, with the chart roots (`BarChart`...) still to come and so no browser comparison yet.
 
 > Status: pre-release (0.x). The public API follows semantic versioning from the first release; see [CHANGELOG.md](CHANGELOG.md).
 >
@@ -27,7 +28,7 @@ the same behavior as the React originals (Radix, and the libraries shadcn wraps)
 | Copies component files into the app, one by one | `bundle add chadcn` and one generator: `bin/rails g chadcn:install` |
 | Re-applies upstream fixes to every copied file by hand | Upgrades are a `bundle update` |
 | Ships a React runtime for one dropdown | Radix behavior as Stimulus controllers, zero React |
-| Eyeballs the dialog and hopes it matches | 61 components checked against the React original in a browser |
+| Eyeballs the dialog and hopes it matches | Every component with a React DOM (all but `Form` and `Chart`) checked against the original in a browser |
 | Pulls in a framework's worth of gems to render a button | Three runtime dependencies: `phlex`, `tailwind_merge`, `zeitwerk` |
 | Re-types the theme colors by hand | Pastes a theme from ui.shadcn.com/themes, unchanged |
 | Greps the app to find out why the styles are missing | `bin/rails chadcn:doctor` says why |
@@ -42,7 +43,7 @@ The facts behind the right column (all but the last row, which is a joke):
   (dismissable layer, focus scope, roving focus, positioning, scroll lock...). In the repository's dev kit (not packaged), browser
   parity tests render every component next to the React original and compare DOM, styles and behavior.
 - **Small runtime.** The only runtime dependencies are `phlex`, `tailwind_merge` and `zeitwerk`: no Active Support, no Nokogiri, and no
-  new JavaScript library for `Toaster`, `Command`, `Combobox` or `Calendar` (besides Stimulus, the only JavaScript dependency is
+  new JavaScript library for the nine components that wrap a library in shadcn (`Toaster`, `Command`, `Combobox`, `Calendar`, `Carousel`, `Drawer`, `Resizable`, `InputOtp`, `MessageScroller`) (besides Stimulus, the only JavaScript dependency is
   `@floating-ui/dom` for positioning, vendored for importmap apps and added from npm for esbuild apps).
 - **Upgrades are a `bundle update`** (and your usual `tailwindcss:build`). The components, controllers and CSS live in the gem, not copied into your app (the two
   exceptions you opt into: [ejected components](#eject-a-component) and, with esbuild, the managed JavaScript copies).
@@ -383,7 +384,7 @@ per family, in [`docs/`](docs/): [conventions](docs/api-conventions.md), [displa
 [disclosure and navigation](docs/disclosure-and-navigation.md), [overlays](docs/overlays.md), [menus and select](docs/menus-and-select.md), [catalog](docs/catalog.md) (an example of every component, for a gallery page).
 [Compatibility](docs/compatibility.md) lists the supported Ruby, Phlex, Rails and Tailwind versions and the Phlex 3 policy.
 
-### Toaster, Command, Combobox, Calendar and the date picker
+### Library-wrapping components: Toaster, Command, Combobox, Calendar, Carousel, Drawer, Resizable, InputOtp, MessageScroller
 
 Nine components port libraries that shadcn wraps (sonner, cmdk, Base UI's combobox, react-day-picker, embla-carousel, vaul,
 react-resizable-panels, input-otp and `@shadcn/react`'s message scroller) without taking those libraries as dependencies: the behavior
@@ -434,10 +435,11 @@ render Chadcn::Drawer.new(direction: :bottom) do |drawer|
 end
 
 # Resizable (react-resizable-panels): pointer and keyboard resizing
+# a Numeric size is pixels, a String is parsed ("50%", "200px")
 render Chadcn::Resizable::PanelGroup.new(class: "h-[200px] max-w-md rounded-lg border") do
-  render(Chadcn::Resizable::Panel.new(default_size: 50)) { "One" }
+  render(Chadcn::Resizable::Panel.new(default_size: "50%")) { "One" }
   render Chadcn::Resizable::Handle.new(with_handle: true)
-  render(Chadcn::Resizable::Panel.new(default_size: 50)) { "Two" }
+  render(Chadcn::Resizable::Panel.new(default_size: "50%")) { "Two" }
 end
 
 # InputOtp (input-otp): one input, a slot per character; chadcn--input-otp:complete fires when it is full

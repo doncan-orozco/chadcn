@@ -18,7 +18,7 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 
 - The gem now ships 61 component roots, one for each of the 61 components of the tracked oracle (the registry the llms drift test counts went from 54 to
   61): `Carousel`, `Drawer`, `InputOtp`, `MessageScroller` and `Resizable` complete the set, and `Form` and `Chart` are in, `Chart` as its shadcn layer
-  (the chart roots follow). README and `docs/` list them.
+  (the chart roots follow). README and `docs/` document the five new components; `Form` and `Chart` are documented in YARD and `llms-full.txt`.
 - `Chadcn::Drawer` (`Trigger`, `Portal`, `Overlay`, `Content`, `Close`, `Header`, `Footer`, `Title`, `Description`): shadcn's Drawer over a Stimulus reimplementation of vaul 1.1.2 in `chadcn--drawer` (drag to dismiss, snap points, directions, background scaling; no new JavaScript dependency).
 - `Chadcn::Form` (`Form::Field` and its parts `Label`, `Control`, `Description`, `Error`, `Input`, `Textarea`) and the
   `Chadcn::Form::Binding` protocol with `Binding::Plain`: shadcn's form ids and ARIA contract (`form.tsx`) over plain Ruby, without

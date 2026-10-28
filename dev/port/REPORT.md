@@ -4,7 +4,7 @@ Run: `/shadcn-run all` (resumed from `state.json`), 2026-10-10 to 2026-10-11. No
 
 ## Totals
 
-- **Components: 50 of 50 done in the first two runs** (sidebar was blocked after the first run and closed in the second run, `/shadcn-run all --retry-blocked`, see "Resolved" below). Infra tasks (_base, _harness, _icons, _primitives, _theme): all done. The 11 `third_party` components that run skipped by plan (calendar, carousel, chart, combobox, command, drawer, form, input-otp, message-scroller, resizable, sonner) were ported afterwards, one epic item each: see "Final state: oracle vs port".
+- **Components: 50 of 50 done in the first two runs** (sidebar was blocked after the first run and closed in the second run, `/shadcn-run all --retry-blocked`, see "Resolved" below). Infra tasks (_base, _harness, _icons, _primitives, _theme): all done. The 11 `third_party` components that run skipped by plan (calendar, carousel, chart, combobox, command, drawer, form, input-otp, message-scroller, resizable, sonner) were ported afterwards, one epic item each (nine fully, `form` and `chart` in part; see "Final state: oracle vs port").
 - This session built or finished 23 components: slider, popover, spinner first (as requested; all three passed every gate unchanged), then wave 3 (context-menu, hover-card, menubar, native-select, navigation-menu, radio-group, scroll-area, sheet, table, tabs, toggle) and wave 4 (alert-dialog, attachment, button-group, field, input-group, item, pagination, toggle-group). Sidebar was built in the first run and finished in the second.
 - Agent dispatches counted: 147 in the first run (cap 165) plus 1 in the `--retry-blocked` run (the counter resets on retry). No stop condition fired in either run.
 
@@ -156,4 +156,4 @@ Closing checks: rubocop 656 files clean; `bin/rails test:with_studio` 869 runs 0
 
 ## Resume
 
-`/shadcn-run all --resume` (nothing is pending or blocked; all 55 items are done). Logs: `tmp/shadcn-port/run.log`; per-component reports under `tmp/shadcn-port/<name>/`; G4 sweep under `tmp/shadcn-port/_house/`.
+`/shadcn-run all --resume` (nothing is pending or blocked; all 55 items are done, as of the first two runs; see "Final state" for the later epics). Logs: `tmp/shadcn-port/run.log`; per-component reports under `tmp/shadcn-port/<name>/`; G4 sweep under `tmp/shadcn-port/_house/`.
