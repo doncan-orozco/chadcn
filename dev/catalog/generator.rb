@@ -40,7 +40,7 @@ module Chadcn
 
     # A component is ported when its constant exists and its own file does: a directory alone (the private math of an unfinished
     # component) autovivifies the namespace without making the component renderable.
-    def ported?(component) = Chadcn.const_defined?(constant(component), false) && File.exist?(File.join(@root, "lib/chadcn/#{component.tr("-", "_")}.rb"))
+    def ported?(component) = Chadcn.const_defined?(constant(component), false) && File.exist?(File.join(@root, "lib/chadcn", "#{component.tr('-', '_')}.rb"))
 
     def constant(component) = component.split(/[-_]/).map { |word| word.sub(/\A./, &:upcase) }.join
 
