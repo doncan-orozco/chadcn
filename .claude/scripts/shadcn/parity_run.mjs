@@ -196,6 +196,10 @@ async function withAnimationClock(page, sc, clock, take) {
     const held = (window.__parityHeld = []);
     for (const a of document.getAnimations()) {
       if (!(a instanceof CSSAnimation || a instanceof CSSTransition) || a.playState === "idle" || a.playState === "finished") continue;
+      // Scroll/view-driven animations (animation-timeline: scroll()) have no time to seek: Chrome rejects currentTime for them
+      // ("Invalid currentTime"). Their progress follows the scroll position, identical on both sides, so the computed styles are read as they are.
+      // A null timeline (animation-timeline: none) is inactive on both sides and skipped too.
+      if (!(a.timeline instanceof DocumentTimeline)) continue;
       if (!seen.has(a)) seen.set(a, now);
       const end = a.effect.getComputedTiming().endTime;
       const at = now - seen.get(a);
@@ -232,6 +236,28 @@ async function pressKey(page, key) {
   await page.keyboard.up(key);
 }
 
+// Chrome refreshes :hover after a layout change only when it schedules a fake mouse move, which it skips for some DOM changes (an element
+// under the pointer toggling `inert`): the same page then ends hovered on one side and not on the other. When the element under the last
+// pointer position is not :hover, repeat a REAL move at that position: the page receives mousemove/pointermove (and boundary events) at an
+// unchanged position, exactly what a user's next pointer jitter would deliver. When it is :hover, nothing is dispatched, so scenarios whose
+// hover state is current see no extra pointer events. Hit-testing skips inert and pointer-events:none elements, so a page that genuinely
+// does not hover is never "repaired". A step that leaves a button held (a bare mousedown) makes the repair move a drag move at the same position; it reaches the page only when :hover is stale, identically on both sides.
+async function refreshHover(page) {
+  const at = await page.evaluate(() => {
+    const p = window.__parityPointer;
+    const el = p && document.elementFromPoint(p.x, p.y);
+    return el && !el.matches(":hover") ? p : null;
+  });
+  if (!at) return;
+  await page.mouse.move(at.x, at.y);
+  await frames(page);
+}
+
+function trackPointer() {
+  const save = (e) => { window.__parityPointer = { x: e.clientX, y: e.clientY }; };
+  for (const type of ["mousemove", "mousedown", "mouseup"]) window.addEventListener(type, save, true);
+}
+
 async function runStep(page, step) {
   const target = step.target ? page.locator(step.target).first() : null;
   switch (step.do) {
@@ -251,6 +277,7 @@ async function runStep(page, step) {
     default: throw new Error(`unknown step ${step.do}`);
   }
   await frames(page);
+  await refreshHover(page);
 }
 
 function installNoMotion(css) {
@@ -293,6 +320,7 @@ async function capture(browser, base, urlPath, sc, side) {
   // Host-only `prefers-reduced-motion` rules must not make the two pages differ, so never emulate reduce; NO_MOTION goes in before any page script/layout.
   await ctx.addInitScript(installTheme, { css: themeCss, dark: Boolean(args.dark || sc.dark) });
   if (!sc.animations) await ctx.addInitScript(installNoMotion, NO_MOTION);
+  await ctx.addInitScript(trackPointer);
   const page = await ctx.newPage();
   const errors = [];
   page.on("pageerror", (e) => errors.push(String(e)));

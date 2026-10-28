@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "fileutils"
+require "tmpdir"
+require_relative "../../dev/catalog/generator"
 
 class CatalogTest < Minitest::Test
   def render_tree(tree, **) = Chadcn::Catalog::TreeRenderer.new(tree:, **).call
@@ -47,6 +50,25 @@ class CatalogTest < Minitest::Test
       html = render_tree(entry.tree, component: entry.component)
 
       refute_predicate html, :empty?, entry.component
+    end
+  end
+
+  def test_a_simulated_registered_chart_component_adds_no_entry
+    Dir.mktmpdir("catalog-chart") do |dir|
+      FileUtils.mkdir_p(File.join(dir, "dev/port"))
+      FileUtils.cp_r(File.join(File.expand_path("../..", __dir__), "dev/port/scenarios"), File.join(dir, "dev/port"))
+      data = Chadcn::CatalogData.new(dir)
+      original = Chadcn::Overrides.method(:component?)
+      Chadcn::Overrides.define_singleton_method(:component?) { |name| name == "chart" || original.call(name) }
+      begin
+        entries = JSON.parse(data.build).fetch("entries")
+      ensure
+        Chadcn::Overrides.define_singleton_method(:component?, original)
+      end
+
+      refute_includes entries.map { |entry| entry["component"] }, "chart"
+      entries.each { |entry| refute_match(/"c":"_(?!Each")[A-Z]/, JSON.generate(entry["tree"]), entry["component"]) }
+      assert_equal(Chadcn::Catalog.entries.map(&:component), entries.map { |entry| entry["component"] })
     end
   end
 

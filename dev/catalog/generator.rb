@@ -5,24 +5,34 @@ require "json"
 module Chadcn
   # Builds lib/chadcn/catalog/entries.json (what Chadcn::Catalog reads) from the parity scenarios in dev/port/scenarios: per ported
   # component its first plain (light) default scenario, with the harness-only probe nodes (`data-testid` outside/next/neutral)
-  # pruned. `rake catalog:check` fails when the committed file differs. The output is deterministic (sorted, no timestamps).
+  # pruned. A scenario whose tree holds a harness-scope node (`_Name`, capitalized: a parity-harness fixture the real renderer cannot
+  # resolve) cannot be the preview: the component is then left out (no other scenario is substituted) and listed in #skipped. `rake catalog:check` fails when the committed file differs. The output is deterministic (sorted, no timestamps).
   class CatalogData
     OUTPUT = "lib/chadcn/catalog/entries.json"
     SCENARIOS = "dev/port/scenarios"
     PROBES = %w[outside next neutral].freeze
+    # `_Each` is the renderer's own iteration marker (Chadcn::Catalog::TreeRenderer), so it is not harness-only.
+    HARNESS_NODE = /\A_(?!Each\z)[A-Z]/
+
+    # @return [Array<Hash>] the components left out of the last #build, each `{ component:, reason: }`
+    attr_reader :skipped
 
     # @param root [String] the repository root (the one holding lib/ and dev/)
     def initialize(root)
       @root = root
+      @skipped = []
     end
 
     # @return [String] the generated file content
     def build
+      @skipped = []
       "#{JSON.generate({ "entries" => entries })}\n"
     end
 
+    # Writes {OUTPUT} under the root.
     def write = File.write(File.join(@root, OUTPUT), build)
 
+    # @return [Boolean] whether the committed file differs from what {#build} produces
     def drifted? = !File.exist?(path) || File.read(path, encoding: "UTF-8") != build
 
     private
@@ -45,10 +55,27 @@ module Chadcn
     def constant(component) = component.split(/[-_]/).map { |word| word.sub(/\A./, &:upcase) }.join
 
     def entry(component, scenarios)
-      preview = scenarios.find { |s| s["id"].start_with?("default") && !s["dark"] } || scenarios.find { |s| !s["dark"] }
-      return unless preview
+      light = scenarios.reject { |scenario| scenario["dark"] }
+      preview = light.find { |scenario| scenario["id"].start_with?("default") } || light.first
+      return skip(component, "no light scenario") unless preview
 
-      { "component" => component, "scenario_id" => preview["id"], "scenario_count" => scenarios.size, "tree" => prune(preview.fetch("tree")) }
+      tree = prune(preview.fetch("tree"))
+      return skip(component, "preview scenario uses harness-only nodes") if harness_node?(tree)
+
+      { "component" => component, "scenario_id" => preview["id"], "scenario_count" => scenarios.size, "tree" => tree }
+    end
+
+    def skip(component, reason)
+      @skipped << { component:, reason: }
+      nil
+    end
+
+    def harness_node?(node)
+      case node
+      when Hash then node["c"].to_s.match?(HARNESS_NODE) || node.each_value.any? { |value| harness_node?(value) }
+      when Array then node.any? { |item| harness_node?(item) }
+      else false
+      end
     end
 
     def prune(node)
