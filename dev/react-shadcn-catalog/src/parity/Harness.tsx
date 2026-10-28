@@ -12,7 +12,12 @@
 //   - a string anywhere inside a prop value "$date:YYYY-MM-DD" becomes a local-midnight Date (Calendar `selected`, `today`,
 //     `disabled` matchers...); the Phlex side passes the ISO string. "$locale:es" becomes the react-day-picker locale `es`
 //     ("en-GB" -> enGB); the Phlex side passes the BCP 47 tag
+//   - charts (dev/port/specs/chart.md, "Oracle driving"): c = "_BarChart" / "_Bar" / "_XAxis" / "_Label" ... is the recharts export of
+//     that name (series have isAnimationActive forced false); `content: "ChartTooltipContent" | "ChartLegendContent"` (+ `contentProps`)
+//     becomes that React element; an object `{ "formatter": "slice" | "locale" | "percent", "args": [...] }` becomes the named formatter
+//     function (tickFormatter, labelFormatter, formatter). Nothing else in the registry changes.
 import * as React from "react"
+import * as Recharts from "recharts"
 import * as Lucide from "lucide-react"
 import * as probes from "./probes"
 import * as dayPickerLocales from "react-day-picker/locale"
@@ -33,6 +38,28 @@ for (const mod of Object.values(modules)) {
 const primitiveModules = import.meta.glob("./primitives/*.tsx", { eager: true }) as Record<string, { probe?: { controller: string; Component: React.ElementType } }>
 const primitiveProbes: Record<string, React.ElementType> = {}
 for (const mod of Object.values(primitiveModules)) if (mod.probe) primitiveProbes[mod.probe.controller] = mod.probe.Component
+
+// recharts exports reachable from a scenario tree as `_<Name>`; the series are drawn without animation (a settled chart is the oracle).
+const RECHARTS_SERIES = ["Bar", "Line", "Area", "Pie", "Radar", "RadialBar"]
+const RECHARTS_PARTS = [
+  ...RECHARTS_SERIES, "BarChart", "LineChart", "AreaChart", "PieChart", "RadarChart", "RadialBarChart", "XAxis", "YAxis", "CartesianGrid",
+  "Cell", "Label", "LabelList", "ReferenceLine", "PolarGrid", "PolarAngleAxis", "PolarRadiusAxis",
+]
+const rechartsParts: Record<string, React.ElementType> = {}
+for (const name of RECHARTS_PARTS) {
+  const Part = (Recharts as unknown as Record<string, React.ElementType | undefined>)[name]
+  if (!Part) continue
+  rechartsParts[name] = RECHARTS_SERIES.includes(name) ? (props: Record<string, unknown>) => <Part {...props} isAnimationActive={false} /> : Part
+}
+
+// JSON cannot carry functions: the named formatters of the spec ("Named formatters"), one shape on both sides.
+const FORMATTERS: Record<string, (args: unknown[]) => (value: unknown) => unknown> = {
+  slice: ([start, stop]) => (value) => String(value).slice(start as number, stop as number | undefined),
+  locale: () => (value) => Number(value).toLocaleString("en-US"),
+  percent: () => (value) => `${(Number(value) * 100).toLocaleString("en-US")}%`,
+}
+
+const CONTENTS = ["ChartTooltipContent", "ChartLegendContent"]
 
 const scenarioFiles = import.meta.glob("@scenarios/*.json")
 
@@ -101,6 +128,12 @@ const DATE = /^\$date:(\d{4})-(\d{2})-(\d{2})$/
 
 // "$date:2026-03-15" -> Date(2026, 2, 15) and "$locale:es" -> the react-day-picker locale, at any depth of a prop value.
 function reviveValue(value: unknown): unknown {
+  if (value && typeof value === "object" && typeof (value as { formatter?: unknown }).formatter === "string") {
+    const { formatter, args } = value as { formatter: string; args?: unknown[] }
+    const build = FORMATTERS[formatter]
+    if (!build) throw new ParityError(`unknown formatter ${formatter}`)
+    return build(args ?? [])
+  }
   if (typeof value === "string") {
     const date = value.match(DATE)
     if (date) return new Date(Number(date[1]), Number(date[2]) - 1, Number(date[3]))
@@ -118,7 +151,13 @@ function reviveValue(value: unknown): unknown {
 }
 
 function refProps(props: Record<string, unknown>) {
-  return Object.fromEntries(Object.entries(props).map(([k, v]) => [k, typeof v === "string" && v.startsWith("$ref:") ? lazyRef(v.slice(5)) : reviveValue(v)]))
+  const { contentProps, ...rest } = props
+  const revived = Object.fromEntries(Object.entries(rest).map(([k, v]) => [k, typeof v === "string" && v.startsWith("$ref:") ? lazyRef(v.slice(5)) : reviveValue(v)]))
+  // `content: "ChartTooltipContent"` is a React element on the oracle side (ChartTooltip / ChartLegend `content`).
+  if (typeof revived.content === "string" && CONTENTS.includes(revived.content)) {
+    revived.content = React.createElement(registry[revived.content], refProps((contentProps ?? {}) as Record<string, unknown>))
+  }
+  return revived
 }
 
 function renderNode(node: Node, key?: number): React.ReactNode {
@@ -136,7 +175,7 @@ function renderNode(node: Node, key?: number): React.ReactNode {
     const Probe = primitiveProbes[String(props["data-controller" as keyof typeof props] ?? "")]
     return Probe ? React.createElement(Probe, props, children) : React.createElement(node.c.slice(1), props, children)
   }
-  const component = node.c.startsWith("_") ? (probes as Record<string, React.ElementType>)[node.c.slice(1)] : registry[node.c]
+  const component = node.c.startsWith("_") ? (rechartsParts[node.c.slice(1)] ?? (probes as Record<string, React.ElementType>)[node.c.slice(1)]) : registry[node.c]
   if (!component) throw new ParityError(`unknown component ${node.c}`)
   // A lone child stays a single element: Radix Slot (asChild) rejects an array.
   return React.createElement(component, props, kids.length === 1 ? kids[0] : children)

@@ -13,6 +13,9 @@
 //   ... --dx helpers        ask the Phlex harness to render the same scenario tree through the yielded-root DX helpers
 //                           (`table.header { ... }`) instead of the explicit nested classes; must match React just the same
 //
+// Charts: inside [data-slot="chart"] the numeric attributes of the SVG (NUMERIC_ATTR) are compared number by number within
+// NUMERIC_TOLERANCE px, the text between the numbers exactly; everything else stays exact (dev/decisions/chart.md, "The G2 contract").
+//
 // Contract (see .ai/skills/shadcn-port/references/parity-gates.md):
 //   React  : {REACT}/#/parity/<component>/<scenarioId>
 //   Phlex  : {PHLEX}/design-system/parity/<component>/<scenarioId>
@@ -68,6 +71,27 @@ const IGNORED_ATTR = new RegExp(
   `|^data-${STIMULUS_PREFIX}--|^data-radix|^data-reactroot`
 );
 
+// G2 contract for charts (dev/decisions/chart.md): recharts and the Phlex port write the same SVG numbers through different float
+// operation orders and path formatters, so these attributes (and the lengths inside `style`) may differ by up to 1e-3 px.
+// Applies only to nodes inside [data-slot="chart"]; every other attribute and every other component compares exactly.
+const NUMERIC_TOLERANCE = 1e-3;
+const NUMERIC_ATTR = new Set(["d", "points", "x", "y", "width", "height", "transform", "x1", "x2", "y1", "y2", "cx", "cy", "r", "style"]);
+const NUMBER = /-?(?:\d+\.?\d*|\.\d+)(?:e[+-]?\d+)?/gi;
+
+// The text between the numbers must be identical and each number pair within the tolerance.
+function numbersClose(a, b) {
+  const [textsA, textsB] = [String(a).split(NUMBER), String(b).split(NUMBER)];
+  if (textsA.length !== textsB.length || textsA.some((t, i) => t !== textsB[i])) return false;
+  const [numsA, numsB] = [String(a).match(NUMBER) ?? [], String(b).match(NUMBER) ?? []];
+  return numsA.every((n, i) => Math.abs(Number(n) - Number(numsB[i])) <= NUMERIC_TOLERANCE + 1e-9);
+}
+
+function attrsSame(react, phlex, tolerant) {
+  const keys = Object.keys(react).sort();
+  if (!same(keys, Object.keys(phlex).sort())) return false;
+  return keys.every((k) => react[k] === phlex[k] || (tolerant && NUMERIC_ATTR.has(k) && numbersClose(react[k], phlex[k])));
+}
+
 async function snapshot(page, observe = []) {
   return page.evaluate(({ STYLE_PROPS, IGNORED_ATTR, observe }) => {
     const ignored = new RegExp(IGNORED_ATTR);
@@ -100,10 +124,18 @@ async function snapshot(page, observe = []) {
         const r = el.getBoundingClientRect();
         const attrs = {};
         for (const a of [...el.attributes].sort((x, y) => (x.name < y.name ? -1 : 1))) if (!ignored.test(a.name)) attrs[a.name] = a.value;
+        // Chart nodes: `style` carries the pixel lengths (left, width...) and is compared with the numbers; the tooltip wrapper's
+        // position is the controller's output, only its content is compared (dev/decisions/chart.md).
+        const inChart = Boolean(el.closest('[data-slot="chart"]'));
+        const tooltipWrapper = el.matches(".recharts-tooltip-wrapper");
+        if (inChart && !tooltipWrapper && el.hasAttribute("style")) attrs.style = el.getAttribute("style");
+        const classes = [...new Set(el.className?.baseVal === undefined ? el.className.split(/\s+/) : el.className.baseVal.split(/\s+/))].filter(Boolean).sort();
         return {
+          inChart,
+          tooltipWrapper,
           slot: el.getAttribute("data-slot") ?? slotOf.get(el),
           tag: el.tagName.toLowerCase(),
-          classes: [...new Set(el.className?.baseVal === undefined ? el.className.split(/\s+/) : el.className.baseVal.split(/\s+/))].filter(Boolean).sort(),
+          classes: tooltipWrapper ? classes.filter((c) => !/^recharts-tooltip-wrapper-(left|right|top|bottom)$/.test(c)) : classes,
           attrs,
           rel: { labelledby: rel(el, "aria-labelledby"), controls: rel(el, "aria-controls"), describedby: rel(el, "aria-describedby"), owns: rel(el, "aria-owns"), activedescendant: rel(el, "aria-activedescendant"), for: rel(el, "for"), id: el.id ? (ids.get(el.id) ?? null) : null },
           text: [...el.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent.trim()).filter(Boolean).join(" "),
@@ -174,7 +206,7 @@ async function runStep(page, step) {
     case "mousedown": if (target) await target.hover({ force: true, ...(step.position ? { position: step.position } : {}) }); await page.mouse.down(step.button ? { button: step.button } : {}); break;
     case "mouseup": if (target) await target.hover({ force: true, ...(step.position ? { position: step.position } : {}) }); await page.mouse.up(step.button ? { button: step.button } : {}); break; // press-drag-release selection
     case "dblclick": await target.dblclick({ force: true }); break;
-    case "hover": await target.hover({ force: true }); break;
+    case "hover": await target.hover({ force: true, ...(step.position ? { position: step.position } : {}) }); break; // position: {x, y} relative to the element's top-left (a chart is hovered at a data position)
     case "focus": await target.focus(); break;
     case "fill": await target.fill(step.value ?? ""); break;
     case "press": await pressKey(page, step.key); break;
@@ -273,12 +305,13 @@ function diffSnapshots(id, reactSnap, phlexSnap) {
     if (rn.slot !== pn.slot) return add("SLOT_ORDER", { at, react: rn.slot, phlex: pn.slot });
     if (rn.tag !== pn.tag) add("TAG", { at, react: rn.tag, phlex: pn.tag });
     if (!same(rn.classes, pn.classes)) add("CLASS", { at, onlyReact: rn.classes.filter((c) => !pn.classes.includes(c)), onlyPhlex: pn.classes.filter((c) => !rn.classes.includes(c)) });
-    if (!same(rn.attrs, pn.attrs)) add("ATTR", { at, react: rn.attrs, phlex: pn.attrs });
+    if (!attrsSame(rn.attrs, pn.attrs, rn.inChart && pn.inChart)) add("ATTR", { at, react: rn.attrs, phlex: pn.attrs });
     if (!same(rn.props, pn.props)) add("PROP", { at, react: rn.props, phlex: pn.props });
     if (!same(rn.rel, pn.rel)) add("A11Y_REL", { at, react: rn.rel, phlex: pn.rel });
     if (rn.text !== pn.text) add("TEXT", { at, react: rn.text, phlex: pn.text });
     if (rn.visible !== pn.visible) add("VISIBLE", { at, react: rn.visible, phlex: pn.visible });
     if (rn.focused !== pn.focused) add("FOCUSED", { at, react: rn.focused, phlex: pn.focused });
+    if (rn.tooltipWrapper && pn.tooltipWrapper) return; // its position (box, computed transform) is the controller's output; the content is its children
     if (!same(rn.box, pn.box)) add("BOX", { at, react: rn.box, phlex: pn.box });
     const styleDiff = Object.keys(rn.style).filter((k) => rn.style[k] !== pn.style[k]).map((k) => ({ prop: k, react: rn.style[k], phlex: pn.style[k] }));
     if (styleDiff.length) add("STYLE", { at, props: styleDiff });

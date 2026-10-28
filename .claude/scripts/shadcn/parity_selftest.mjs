@@ -55,6 +55,13 @@ const CTX_JS = (listens) => listens ? `const el = document.querySelector("[data-
 const SELECT_BOX = `<select data-slot="native-select"><option data-slot="o" value="a">A</option><option data-slot="o" value="b">B</option></select>`;
 const SELECT_BOX_ATTR = (i) => `<select data-slot="native-select"><option data-slot="o" value="a"${i === 0 ? " selected" : ""}>A</option><option data-slot="o" value="b"${i === 1 ? " selected" : ""}>B</option></select>`;
 const SELECT_JS = (i) => `document.querySelectorAll("option")[${i}].selected = true`;
+// Charts (dev/decisions/chart.md, "The G2 contract"): the numeric SVG attributes inside [data-slot=chart] compare number by number
+// within 1e-3 px. The svg nodes carry no data-slot, so these scenarios `observe` them.
+const chart = (attrs = 'd="M10,20L30.4,40" x="5" class="bar"', extra = "", rootSlot = "chart") =>
+  `<div data-slot="${rootSlot}"><svg width="100" height="100"><path ${attrs}/>${extra}</svg></div>`;
+const CHART_OBSERVE = ["svg path", "svg rect"];
+const HOVER_BOX = `<div data-slot="probe" class="btn" style="width:200px;padding:0">x</div>`;
+const HOVER_JS = (positionAware) => `document.querySelector("[data-slot=probe]").addEventListener("mousemove", (e) => { document.querySelector("[data-slot=probe]").dataset.side = ${positionAware ? "e.offsetX > 150 ? 'right' : 'left'" : "'left'"}; })`;
 const toggler = `onclick="this.dataset.state=this.dataset.state==='on'?'off':'on';this.classList.toggle('on')"`;
 
 // html: [reactHtml, phlexHtml, optional phlexStatus, optional phlexScript]
@@ -108,6 +115,20 @@ const S = [
   { id: "dx-not-requested", html: [btn(), btn()], dxHtml: btn("", "btn wide"), expect: { pass: true } },
   { id: "tab-same", steps: [{ do: "tab" }], html: [btn(), btn()], expect: { pass: true } },
   { id: "tab-not-focusable", steps: [{ do: "tab" }], html: [btn(), btn('tabindex="-1"')], expect: { kinds: ["FOCUS", "FOCUSED"], step: "0:tab" } },
+  { id: "chart-numbers-equal", observe: CHART_OBSERVE, html: [chart(), chart()], expect: { pass: true } },
+  { id: "chart-number-within-tolerance", observe: CHART_OBSERVE, html: [chart(), chart('d="M10.0005,20L30.4004,40" x="5.0009" class="bar"')], expect: { pass: true } },
+  { id: "chart-number-outside-tolerance", observe: CHART_OBSERVE, html: [chart(), chart('d="M10,20L30.402,40" x="5" class="bar"')], expect: { kinds: ["ATTR"] } },
+  { id: "chart-text-between-numbers-exact", observe: CHART_OBSERVE, html: [chart(), chart('d="M10,20C30.4,40" x="5" class="bar"')], expect: { kinds: ["ATTR"] } },
+  { id: "chart-number-count-differs", observe: CHART_OBSERVE, html: [chart(), chart('d="M10,20L30.4,40,1" x="5" class="bar"')], expect: { kinds: ["ATTR"] } },
+  { id: "chart-attribute-outside-list-exact", observe: CHART_OBSERVE, html: [chart('d="M10,20" stroke-width="2" class="bar"'), chart('d="M10,20" stroke-width="2.0005" class="bar"')], expect: { kinds: ["ATTR"] } },
+  { id: "chart-class-exact", observe: CHART_OBSERVE, html: [chart(), chart('d="M10,20L30.4,40" x="5" class="bar2"')], expect: { kinds: ["CLASS"] } },
+  { id: "chart-style-lengths-tolerant", observe: CHART_OBSERVE, html: [chart('d="M1,1" style="left:10px;top:5px"'), chart('d="M1,1" style="left:10.0004px;top:5px"')], expect: { pass: true } },
+  { id: "chart-style-text-exact", observe: CHART_OBSERVE, html: [chart('d="M1,1" style="left:10px"'), chart('d="M1,1" style="right:10px"')], expect: { kinds: ["ATTR"] } },
+  // The tolerance is for chart nodes only: the same drift on a node outside [data-slot=chart] is a difference.
+  { id: "tolerance-only-inside-chart", observe: CHART_OBSERVE, html: [chart("", "", "other"), chart('d="M10.0005,20L30.4004,40"', "", "other")], expect: { kinds: ["ATTR"] } },
+  { id: "chart-tooltip-position-not-compared", observe: ["svg path", ".recharts-tooltip-wrapper"], html: [`<div data-slot="chart"><svg><path d="M1,1"/></svg><div class="recharts-tooltip-wrapper recharts-tooltip-wrapper-left" style="transform: translate(10px, 20px)"></div></div>`, `<div data-slot="chart"><svg><path d="M1,1"/></svg><div class="recharts-tooltip-wrapper recharts-tooltip-wrapper-right" style="transform: translate(90px, 20px)"></div></div>`], expect: { pass: true } },
+  { id: "hover-position-honored", steps: [{ do: "hover", target: "[data-slot=probe]", position: { x: 180, y: 5 } }], html: [HOVER_BOX, HOVER_BOX], js: [HOVER_JS(true), HOVER_JS(true)], expect: { pass: true } },
+  { id: "hover-position-differs", steps: [{ do: "hover", target: "[data-slot=probe]", position: { x: 180, y: 5 } }], html: [HOVER_BOX, HOVER_BOX], js: [HOVER_JS(true), HOVER_JS(false)], expect: { kinds: ["ATTR"], step: "0:hover" } },
   { id: "dark-same", dark: true, html: [btn(), btn()], expect: { pass: true } },
   { id: "hidden-differs", html: [btn(), btn('style="display:none"')], expect: { kinds: ["VISIBLE"] } },
   { id: "extra-node", html: [btn(), btn() + `<i data-slot="extra"></i>`], expect: { kinds: ["NODE_COUNT"] } },
@@ -156,7 +177,7 @@ fs.mkdirSync(presetsDir, { recursive: true });
 fs.writeFileSync(path.join(presetsDir, "probe.css"), ":root{--c:#ff0000}");
 fs.writeFileSync(
   path.join(scenariosDir, "probe.json"),
-  JSON.stringify({ component: "probe", scenarios: S.map(({ id, steps, dark, allowEmpty }) => ({ id, steps, dark, allowEmpty })) }),
+  JSON.stringify({ component: "probe", scenarios: S.map(({ id, steps, dark, allowEmpty, observe }) => ({ id, steps, dark, allowEmpty, observe })) }),
 );
 
 const results = [];
