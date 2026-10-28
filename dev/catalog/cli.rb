@@ -9,12 +9,16 @@ require "chadcn"
 require_relative "generator"
 
 data = Chadcn::CatalogData.new(root)
+report_skipped = -> { data.skipped.each { |item| warn "catalog: skipped #{item[:component]} (#{item[:reason]})" } }
 case command
 when "generate"
   data.write
+  report_skipped.call
   puts "catalog: wrote #{Chadcn::CatalogData::OUTPUT}"
 when "check"
-  if data.drifted?
+  drifted = data.drifted?
+  report_skipped.call
+  if drifted
     warn "catalog: #{Chadcn::CatalogData::OUTPUT} drifted from dev/port/scenarios. Run `bundle exec rake catalog:generate` and commit the result."
     exit 1
   end
