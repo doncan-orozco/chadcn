@@ -16,11 +16,16 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 
 ### Added
 
+- `Chadcn::InputOtp` (`Group`, `Slot`, `Separator`): shadcn's InputOTP with the input-otp library re-implemented in the `chadcn--input-otp` Stimulus controller (no new JavaScript dependency); `chadcn--input-otp:change` and `:complete` events (`detail: { value }`); `pasteTransformer` is assigned on the controller from JavaScript.
+- `Chadcn::Carousel` with `Content`, `Item`, `Previous` and `Next` (shadcn Carousel over a Stimulus engine derived from embla-carousel 8.6.0;
+  `plugins:` and `setApi` are replaced by the controller's `api` and the `chadcn--carousel:api`, `:select`, `:reinit` and `:settle` events).
 - `Chadcn::Theme.parse`, `.validate`, `.contrast` and `.render_colors` (and `Theme::Palette`) are public API: build, validate and export a
   palette without touching the theme file. `write_colors`, `replace_theme_file` and the import helpers stay private.
 - `Chadcn::Catalog` (`.entries`, `.find`, `Entry`) and `Chadcn::Catalog::TreeRenderer`: an example of every component as a JSON tree plus the
   renderer, packaged (about 33 KB), so a host builds a component gallery page without the repository's `dev/` directory. Generated from the
   parity scenarios by `rake catalog:generate`. See [docs/catalog.md](docs/catalog.md).
+- `Chadcn::Resizable` (`PanelGroup`, `Panel`, `Handle`): the shadcn Resizable over a Stimulus reimplementation of react-resizable-panels
+  (pointer and keyboard resizing, min/max sizes, collapsible panels, horizontal and vertical groups, separator ARIA).
 - `id:` on every root that generates ids (`Dialog`, `Sheet`, `AlertDialog`, `Popover`, `HoverCard`, `Tooltip` and `Tooltip::Provider`,
   `DropdownMenu`, `ContextMenu`, `Menubar`, `NavigationMenu`, `Collapsible`, `Accordion`, `Command`, `Sidebar::Provider`; `Select` and
   `Combobox` already took it): the base of the generated ids. On a root that stands for no element in the React source it is the content's id

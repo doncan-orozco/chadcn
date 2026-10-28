@@ -1,0 +1,4428 @@
+{
+  "component": "input-otp",
+  "scenarios": [
+    {
+      "id": "default",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 4
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default__dark",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 4
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default__focus",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 4
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default__focus__dark",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 4
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__input-otp-demo",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__input-otp-pattern",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6,
+          "pattern": "^[a-zA-Z0-9]+$"
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__input-otp-separator",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__input-otp-controlled",
+      "tree": {
+        "c": "_div",
+        "props": {
+          "className": "space-y-2"
+        },
+        "children": [
+          {
+            "c": "InputOTP",
+            "props": {
+              "maxLength": 6,
+              "value": ""
+            },
+            "children": [
+              {
+                "c": "InputOTPGroup",
+                "props": {},
+                "children": [
+                  {
+                    "c": "InputOTPSlot",
+                    "props": {
+                      "index": 0
+                    }
+                  },
+                  {
+                    "c": "InputOTPSlot",
+                    "props": {
+                      "index": 1
+                    }
+                  },
+                  {
+                    "c": "InputOTPSlot",
+                    "props": {
+                      "index": 2
+                    }
+                  },
+                  {
+                    "c": "InputOTPSlot",
+                    "props": {
+                      "index": 3
+                    }
+                  },
+                  {
+                    "c": "InputOTPSlot",
+                    "props": {
+                      "index": 4
+                    }
+                  },
+                  {
+                    "c": "InputOTPSlot",
+                    "props": {
+                      "index": 5
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "c": "_div",
+            "props": {
+              "className": "text-center text-sm"
+            },
+            "children": [
+              "Enter your one-time password."
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "example__input-otp-demo__dark",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus__tab",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus__tab__dark",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus__tab__settled",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "wait",
+          "ms": 60
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus__click-input",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=input-otp]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "focus__blur",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "type",
+          "text": "12"
+        },
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "type__partial",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "type",
+          "text": "123"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "type__partial__dark",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "type",
+          "text": "123"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "type__complete",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "type",
+          "text": "123456"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "type__complete__dark",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "type",
+          "text": "123456"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "type__overflow-replaces-last",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "type",
+          "text": "1234567"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "type__letters-without-pattern",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "type",
+          "text": "ab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "backspace__empty",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "press",
+          "key": "Backspace"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "backspace__partial",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "type",
+          "text": "123"
+        },
+        {
+          "do": "press",
+          "key": "Backspace"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "backspace__complete",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "type",
+          "text": "123456"
+        },
+        {
+          "do": "press",
+          "key": "Backspace"
+        },
+        {
+          "do": "press",
+          "key": "Backspace"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "delete__selected-char",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "type",
+          "text": "123"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "Delete"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "caret__arrow-left",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "type",
+          "text": "123"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "caret__arrow-left__type-replaces",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "type",
+          "text": "123"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "type",
+          "text": "9"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "caret__arrow-right",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "type",
+          "text": "123"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "caret__home-end",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "type",
+          "text": "123"
+        },
+        {
+          "do": "press",
+          "key": "Home"
+        },
+        {
+          "do": "press",
+          "key": "End"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "caret__complete-arrow-left",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "type",
+          "text": "123456"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "click__with-value",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6,
+          "defaultValue": "123"
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "[data-slot=input-otp]"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "fill__full",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "fill",
+          "target": "[data-slot=input-otp]",
+          "value": "123456"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "fill__over-max-length",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "fill",
+          "target": "[data-slot=input-otp]",
+          "value": "12345678"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "fill__then-clear",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "fill",
+          "target": "[data-slot=input-otp]",
+          "value": "123"
+        },
+        {
+          "do": "fill",
+          "target": "[data-slot=input-otp]",
+          "value": ""
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "pattern-digits__type-rejects-letter",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6,
+          "pattern": "^\\d+$"
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "type",
+          "text": "1a2"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "pattern-digits__fill-rejected",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6,
+          "pattern": "^\\d+$"
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "fill",
+          "target": "[data-slot=input-otp]",
+          "value": "12ab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "pattern-chars__type",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6,
+          "pattern": "^[a-zA-Z]+$"
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "type",
+          "text": "ab1c"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "pattern-digits-and-chars__type",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6,
+          "pattern": "^[a-zA-Z0-9]+$"
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "type",
+          "text": "a1-B"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default-value__partial",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6,
+          "defaultValue": "123"
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default-value__partial__dark",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6,
+          "defaultValue": "123"
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default-value__partial__focus",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6,
+          "defaultValue": "123"
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "default-value__full__focus",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6,
+          "defaultValue": "123456"
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "controlled__value-without-feedback",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6,
+          "value": "12"
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "type",
+          "text": "3"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "controlled__value-full",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6,
+          "value": "123456"
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6,
+          "disabled": true
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__dark",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6,
+          "disabled": true
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "disabled__tab-skips",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6,
+          "disabled": true,
+          "defaultValue": "12"
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0,
+                  "aria-invalid": true
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1,
+                  "aria-invalid": true
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2,
+                  "aria-invalid": true
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3,
+                  "aria-invalid": true
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4,
+                  "aria-invalid": true
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5,
+                  "aria-invalid": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid__dark",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0,
+                  "aria-invalid": true
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1,
+                  "aria-invalid": true
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2,
+                  "aria-invalid": true
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3,
+                  "aria-invalid": true
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4,
+                  "aria-invalid": true
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5,
+                  "aria-invalid": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid__focus",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0,
+                  "aria-invalid": true
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1,
+                  "aria-invalid": true
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2,
+                  "aria-invalid": true
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3,
+                  "aria-invalid": true
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4,
+                  "aria-invalid": true
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5,
+                  "aria-invalid": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "aria-invalid__focus__dark",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0,
+                  "aria-invalid": true
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1,
+                  "aria-invalid": true
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2,
+                  "aria-invalid": true
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3,
+                  "aria-invalid": true
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4,
+                  "aria-invalid": true
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5,
+                  "aria-invalid": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": true,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "placeholder",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6,
+          "placeholder": "123456"
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "input-mode-text",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6,
+          "inputMode": "text"
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "text-align-center",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6,
+          "textAlign": "center"
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "auto-complete-override",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6,
+          "autoComplete": "off"
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "push-password-manager-none__focus",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 6,
+          "pushPasswordManagerStrategy": "none"
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "class-name__merge",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 4,
+          "className": "disabled:cursor-default",
+          "containerClassName": "gap-4"
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {
+              "className": "gap-1"
+            },
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0,
+                  "className": "rounded-md border-l"
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1,
+                  "className": "rounded-md border-l"
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {
+              "className": "text-muted-foreground"
+            }
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "forwarded-attrs",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 4,
+          "id": "otp-code",
+          "name": "code",
+          "aria-label": "One-time code",
+          "data-testid": "otp"
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {
+              "id": "otp-group",
+              "aria-label": "First pair"
+            },
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0,
+                  "data-foo": "bar"
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1,
+                  "data-foo": "bar"
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {
+              "id": "otp-sep",
+              "aria-orientation": "vertical"
+            }
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "slot-index-beyond-max-length",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 4,
+          "defaultValue": "1234"
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 1
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 2
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 3
+                }
+              }
+            ]
+          },
+          {
+            "c": "InputOTPSeparator",
+            "props": {}
+          },
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 4
+                }
+              },
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "single-slot",
+      "tree": {
+        "c": "InputOTP",
+        "props": {
+          "maxLength": 1
+        },
+        "children": [
+          {
+            "c": "InputOTPGroup",
+            "props": {},
+            "children": [
+              {
+                "c": "InputOTPSlot",
+                "props": {
+                  "index": 0
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "tab"
+        },
+        {
+          "do": "type",
+          "text": "7"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    },
+    {
+      "id": "in-form-with-label",
+      "tree": {
+        "c": "_form",
+        "props": {
+          "className": "space-y-2"
+        },
+        "children": [
+          {
+            "c": "_label",
+            "props": {
+              "htmlFor": "otp-form",
+              "className": "text-sm"
+            },
+            "children": [
+              "Code"
+            ]
+          },
+          {
+            "c": "InputOTP",
+            "props": {
+              "maxLength": 4,
+              "id": "otp-form",
+              "name": "otp"
+            },
+            "children": [
+              {
+                "c": "InputOTPGroup",
+                "props": {},
+                "children": [
+                  {
+                    "c": "InputOTPSlot",
+                    "props": {
+                      "index": 0
+                    }
+                  },
+                  {
+                    "c": "InputOTPSlot",
+                    "props": {
+                      "index": 1
+                    }
+                  },
+                  {
+                    "c": "InputOTPSlot",
+                    "props": {
+                      "index": 2
+                    }
+                  },
+                  {
+                    "c": "InputOTPSlot",
+                    "props": {
+                      "index": 3
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "click",
+          "target": "label"
+        },
+        {
+          "do": "type",
+          "text": "12"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false
+    }
+  ]
+}

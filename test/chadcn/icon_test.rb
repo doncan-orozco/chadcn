@@ -12,6 +12,13 @@ class Chadcn::IconTest < Chadcn::TestCase
     assert_not_includes html, "size-"
   end
 
+  test "renders chevrons-down, which no oracle source names" do
+    html = Chadcn::Icon.new("chevrons-down").call
+
+    assert_includes html, "lucide-chevrons-down"
+    assert_includes html, "<svg"
+  end
+
   test "keeps a caller size class" do
     html = Chadcn::Icon.new("chevron-right", class: "size-3 text-primary").call
 

@@ -429,6 +429,7 @@
     "drawer-trigger"
   ],
   "non_rendered_slots": [
+    "drawer",
     "drawer-portal"
   ],
   "radix_primitives": [],
