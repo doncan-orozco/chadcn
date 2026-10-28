@@ -141,7 +141,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ## d3 (ISC)
 
-The private chart math in `lib/chadcn/chart/scale/*.rb` and `lib/chadcn/chart/shape/*.rb` (and `lib/chadcn/chart/shape/curve/*.rb`) is a Ruby port of d3 (`scale/linear.rb`, `scale/band.rb`, `scale/point.rb`, `shape/path.rb`, `shape/curve.rb` and `shape/curve/*.rb`, `shape/area.rb`, `shape/stack.rb`): tick generation and `nice` (d3-array `ticks`, `tickIncrement`; d3-scale `linear`), band and point scales (d3-scale `band`), the curves, `line`, `area` and `stack` (d3-shape) and the path builder with rounded digits (d3-path). No d3 code is shipped; the algorithms are reimplemented and verified against the real libraries.
+The private chart math below is a Ruby port of d3; no d3 code is shipped, the algorithms are reimplemented and verified against the real libraries: `lib/chadcn/chart/scale/linear.rb` (d3-array `ticks`, `tickIncrement`; d3-scale `linear`, `nice`), `lib/chadcn/chart/scale/band.rb` and `lib/chadcn/chart/scale/point.rb` (d3-scale `band`, `point`), `lib/chadcn/chart/shape/path.rb` (d3-path with `digits`), `lib/chadcn/chart/shape/curve.rb`, `lib/chadcn/chart/shape/curve/*.rb` and `lib/chadcn/chart/shape/curve/natural/control_points.rb` (d3-shape `line` and the curves), `lib/chadcn/chart/shape/area.rb` (d3-shape `area`) and `lib/chadcn/chart/shape/stack.rb` (d3-shape `stack`, offsets `none` and `expand`).
 
 Copyright 2010-2023 Mike Bostock (d3-array), 2010-2021 Mike Bostock (d3-scale), 2010-2022 Mike Bostock (d3-shape), 2015-2022 Mike Bostock (d3-path)
 
@@ -155,7 +155,7 @@ NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE US
 
 ## Recharts (MIT)
 
-The private chart math in `lib/chadcn/chart/scale/nice_ticks.rb` (`getNiceTickValues`, `getTickValuesFixedDomain`), `lib/chadcn/chart/shape/arc.rb` (`Sector`, `computePieSectors`), `lib/chadcn/chart/shape/curve.rb` and `lib/chadcn/chart/shape/area.rb` (`getPath` of `Curve`), `lib/chadcn/chart/shape/stack.rb` (`getStackedData`) and the rounding of `lib/chadcn/chart/shape/number.rb` (`round`) is a Ruby port of Recharts.
+The private chart math below is a Ruby port of Recharts: `lib/chadcn/chart/scale/nice_ticks.rb` (`getNiceTickValues`, `getTickValuesFixedDomain`), `lib/chadcn/chart/scale/nice_ticks/decimal.rb` (util/scale/util/arithmetic.js), `lib/chadcn/chart/scale/nice_ticks/adaptive.rb` (`getAdaptiveStep`), `lib/chadcn/chart/scale/nice_ticks/snap125.rb` (`getSnap125Step`), `lib/chadcn/chart/shape/arc.rb` (shape/Sector.js), `lib/chadcn/chart/shape/arc/templates.rb` (the path template literals of shape/Sector.js, copied verbatim), `lib/chadcn/chart/shape/polar.rb` (util/PolarUtils.js and `getDeltaAngle`), `lib/chadcn/chart/shape/pie.rb` (polar/Pie.js `computePieSectors`), `lib/chadcn/chart/shape/curve.rb` and `lib/chadcn/chart/shape/area.rb` (shape/Curve.js `getPath`), `lib/chadcn/chart/shape/stack.rb` and `lib/chadcn/chart/shape/stack/groups.rb` (util/ChartUtils.js `getStackedData` and the `stackId` grouping), and the rounding of `lib/chadcn/chart/shape/number.rb` (util/round.js).
 
 Copyright (c) 2015-present recharts
 

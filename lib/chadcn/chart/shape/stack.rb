@@ -44,7 +44,9 @@ module Chadcn::Chart::Shape::Stack
 
     private
 
-    # `Number(value)` for the values of a chart: nil and non-numbers are 0.
+    # The value of one series at one row. recharts applies JavaScript `Number()` (a numeric string counts, "abc" is NaN); here only
+    # Numerics count and everything else (nil, strings, a ready-made range before it overwrites the pair) is 0, so the chart layer
+    # must pass numbers. Equal to recharts for every Numeric, nil and range input.
     def numeric_or_zero(value)
       value.is_a?(Numeric) ? value.to_f : 0.0
     end

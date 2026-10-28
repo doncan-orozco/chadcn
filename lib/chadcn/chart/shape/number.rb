@@ -30,6 +30,8 @@ module Chadcn::Chart::Shape::Number
       return "NaN" if float.nan?
       return float.positive? ? "Infinity" : "-Infinity" if float.infinite?
       return "0" if float.zero?
+      # Whole numbers (pixel-snapped coordinates) skip the digit layout (exact below 2**53; larger floats print shortest digits padded with zeros).
+      return float.to_i.to_s if float == float.truncate && float.abs < 2**53
 
       format_finite(float)
     end

@@ -2,14 +2,19 @@
 
 require "chadcn/test_case"
 
-# The chart math is internal: every class, module and public method under lib/chadcn/chart (scale/ and shape/)
+# The chart math is internal: every class, module and public method under lib/chadcn/chart/scale and lib/chadcn/chart/shape
 # carries `@api private` in its YARD comment, and none of it is in the public API snapshot (test/fixtures/public_api.txt).
+# The public chart components (Chadcn::Chart::Container, ...) live beside these directories and are not covered here.
 class Chadcn::Chart::ApiPrivateTest < Chadcn::TestCase
   ROOT = File.expand_path("../../../..", __dir__)
-  FILES = Dir[File.join(ROOT, "lib/chadcn/chart/**/*.rb")].freeze
+  FILES = Dir[File.join(ROOT, "lib/chadcn/chart/{scale,shape}/**/*.rb")].freeze
   # Files of the chart math today; a new file raises it here, so a glob that silently stops matching fails the suite.
   EXPECTED_FILE_COUNT = 30
   DECLARATION = /\A(?<indent>\s*)(?:(?:class|module)\s+(?<constant>[A-Z][\w:]*)|def\s+(?<method>[\w.?!=]+)|attr_(?:reader|accessor|writer)\s+:)/
+
+  test "the gate covers only the math directories" do
+    assert(FILES.all? { |file| file.match?(%r{/lib/chadcn/chart/(scale|shape)/}) })
+  end
 
   test "the files under test are found in every directory" do
     assert_equal EXPECTED_FILE_COUNT, FILES.size, FILES.map { |file| file.delete_prefix("#{ROOT}/") }.join("\n")

@@ -59,4 +59,11 @@ class Chadcn::Chart::Shape::StackTest < Chadcn::TestCase
   test "an unknown offset raises" do
     assert_raises(ArgumentError) { Stack.series([ { a: 1 } ], [ :a ], offset: :wiggle) }
   end
+
+  test "a string value counts as zero (recharts would parse it with Number(); the chart layer passes numbers)" do
+    series = Stack.series([ { a: "12", b: 3 } ], %i[a b])
+
+    assert_equal [ [ 0.0, 0.0 ] ], series[0]
+    assert_equal [ [ 0.0, 3.0 ] ], series[1]
+  end
 end
