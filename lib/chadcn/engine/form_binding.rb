@@ -16,8 +16,6 @@ module Chadcn
     #   render Chadcn::Form.new(binding: Chadcn::Engine::FormBinding.new(view_context: helpers, model: @user)) do |form|
     #     form.field(attribute: :email) { |field| field.label; field.input(type: "email", required: field.form_binding.required?(:email)) }
     #   end
-    #
-    # @api private
     class FormBinding
       include Chadcn::Form::Binding
 

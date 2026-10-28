@@ -124,6 +124,11 @@ class EngineTest::FormBinding < Minitest::Test
 
     assert_equal "user[email]", input["name"]
     assert_equal "user_email-form-item", input["id"]
+  end
+
+  def test_the_field_carries_the_form_item_aria
+    input = render_form.at_css("input[type=email]")
+
     assert_equal "user_email-form-item-description", input["aria-describedby"]
     assert_equal "false", input["aria-invalid"]
   end
@@ -161,7 +166,7 @@ class EngineTest::FormBinding < Minitest::Test
     assert_nil form.at_css("input[name='user[nickname]']")["required"]
   end
 
-  def test_errors_and_values_are_read_from_the_model
+  def test_errors_are_read_from_the_model
     user = User.new(email: "")
     user.valid?
     input = render_form(user).at_css("input[type=email]")
