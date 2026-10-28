@@ -127,7 +127,7 @@ express (an Array for a `select`, a String that is not a date for a `date_picker
 The bound controls are uncontrolled. `field.input`, `field.textarea`, `group.input`/`group.textarea` and `field.control` get the value
 as the HTML `value` (the textarea's text); `field.select`, `field.native_select`, `field.radio_group` and `field.slider` get it as
 `default_value:`; `field.checkbox` and `field.switch` get `default_checked:`, and their `value:` is the submitted box value (`"1"`
-unless you pass one). Passing `value:` to a select, radio group or slider, or `checked:` to a checkbox or switch, makes it controlled,
+unless you pass one); `field.date_picker` gets it as the calendar's `selected:` and as the ISO value of its hidden input. Passing `value:` to a select, radio group or slider, or `checked:` to a checkbox or switch, makes it controlled,
 and is yours to own. The hidden inputs of the checkbox, switch and date picker are
 disabled together with their control.
 
@@ -221,11 +221,11 @@ renders the block; with neither it renders an empty hidden `role="alert"` elemen
 - on `invalid` (the browser blocked a submit) it marks the form as attempted (`data-chadcn-form-attempted`) and, for the invalid control, sets
   the field's `data-invalid`, the label's `data-error`, the control's `aria-invalid="true"`, links the message id in `aria-describedby` and writes
   the browser's `validationMessage` in the message element;
-- on `input`, `change` and the synthetic `click` of the hidden input of `Checkbox`, `Switch` and `RadioGroup` it re-evaluates once the form was
-  attempted, when the field already shows an error (a server error hands over at the first edit of that control) or on `change` and the synthetic `click`; a valid control
-  clears all of it;
+- on `change` and on the synthetic `click` of the hidden input of `Checkbox`, `Switch` and `RadioGroup` it always re-evaluates the
+  control; on `input` only once the form was attempted or while the field already shows an error (so a server error hands over at
+  the first edit of that control). A valid control clears all of it;
 - `form.reset()` clears the mirrored state and the server-rendered errors, unless any `reset` listener calls `preventDefault()` (which also cancels the reset);
-- a `novalidate` form is not re-validated on `input` or `change`; controls outside the form (`form="..."`) are not reached; a multi-control
+- a `novalidate` form is not re-validated on `input`, `change` or the synthetic `click`; controls outside the form (`form="..."`) are not reached; a multi-control
   field (radios, an input group with two inputs) aggregates, each control keeping its own `aria-invalid`.
 
 It declares no targets and no values and keeps all state in the DOM, so a Turbo cache restore keeps it. It never touches a message you wrote
@@ -239,8 +239,8 @@ so they are in the user's locale.
 fields are named like Rails nested attributes:
 
 ```ruby
-address = Struct.new(:street, :city)
-account = Struct.new(:name, :address, :addresses).new("Acme", address.new("1 Main St"), [ address.new("2 Elm St", "Leon"), address.new("", "Cadiz") ])
+address_type = Struct.new(:street, :city)
+account = Struct.new(:name, :address, :addresses).new("Acme", address_type.new("1 Main St"), [ address_type.new("2 Elm St", "Leon"), address_type.new("", "Cadiz") ])
 errors = { "addresses[1].street": [ "can't be blank" ] }
 
 render Chadcn::Form.new(scope: :account, model: account, errors: errors, action: "/accounts", namespace: "billing") do |form|
