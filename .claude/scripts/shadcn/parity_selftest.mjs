@@ -72,7 +72,8 @@ const HOT_BOX = `<div data-slot="probe" class="btn" style="width:200px;padding:0
 const HOT_JS = (staleAfterClick) => `const el = document.querySelector("[data-slot=probe]"); el.addEventListener("mousemove", () => { el.dataset.hot = "1"; window.__stale = false; });
   ${staleAfterClick ? 'const matches = Element.prototype.matches; Element.prototype.matches = function (s) { return s === ":hover" && window.__stale ? false : matches.call(this, s); }; el.addEventListener("click", () => { el.dataset.hot = ""; window.__stale = true; });' : ""}`;
 // A scroll-driven animation (animation-timeline: scroll()) has no document time: Chrome throws on `currentTime = ms`.
-const SCROLL_DRIVEN = `<div data-slot="probe" class="btn scroll-driven">x</div>`;
+// The spacer (no data-slot, not compared) makes the root scroll, so the timeline is active and its progress drives the probe's opacity.
+const SCROLL_DRIVEN = `<div data-slot="probe" class="btn scroll-driven">x</div><div style="height:3000px"></div>`;
 const toggler = `onclick="this.dataset.state=this.dataset.state==='on'?'off':'on';this.classList.toggle('on')"`;
 
 // html: [reactHtml, phlexHtml, optional phlexStatus, optional phlexScript]
@@ -155,7 +156,7 @@ const S = [
   { id: "hover-position-differs", steps: [{ do: "hover", target: "[data-slot=probe]", position: { x: 180, y: 5 } }], html: [HOVER_BOX, HOVER_BOX], js: [HOVER_JS(true), HOVER_JS(false)], expect: { kinds: ["ATTR"], step: "0:hover" } },
   { id: "hover-restored-after-stale", steps: [{ do: "hover", target: "[data-slot=probe]", position: { x: 20, y: 5 } }, { do: "click", target: "[data-slot=probe]", position: { x: 20, y: 5 } }], html: [HOT_BOX, HOT_BOX], js: [HOT_JS(true), HOT_JS(false)], expect: { pass: true } },
   { id: "scroll-driven-animation-ok", animations: true, html: [SCROLL_DRIVEN, SCROLL_DRIVEN], expect: { pass: true } },
-  { id: "scroll-driven-animation-differs", animations: true, html: [SCROLL_DRIVEN, SCROLL_DRIVEN.replace("scroll-driven", "wide")], expect: { kinds: ["CLASS"] } },
+  { id: "scroll-driven-animation-differs", animations: true, html: [SCROLL_DRIVEN, SCROLL_DRIVEN], js: ["", "window.scrollTo(0, 1500)"], expect: { kinds: ["STYLE"] } },
   { id: "dark-same", dark: true, html: [btn(), btn()], expect: { pass: true } },
   { id: "hidden-differs", html: [btn(), btn('style="display:none"')], expect: { kinds: ["VISIBLE"] } },
   { id: "extra-node", html: [btn(), btn() + `<i data-slot="extra"></i>`], expect: { kinds: ["NODE_COUNT"] } },

@@ -198,6 +198,7 @@ async function withAnimationClock(page, sc, clock, take) {
       if (!(a instanceof CSSAnimation || a instanceof CSSTransition) || a.playState === "idle" || a.playState === "finished") continue;
       // Scroll/view-driven animations (animation-timeline: scroll()) have no time to seek: Chrome rejects currentTime for them
       // ("Invalid currentTime"). Their progress follows the scroll position, identical on both sides, so the computed styles are read as they are.
+      // A null timeline (animation-timeline: none) is inactive on both sides and skipped too.
       if (!(a.timeline instanceof DocumentTimeline)) continue;
       if (!seen.has(a)) seen.set(a, now);
       const end = a.effect.getComputedTiming().endTime;
@@ -237,8 +238,10 @@ async function pressKey(page, key) {
 
 // Chrome refreshes :hover after a layout change only when it schedules a fake mouse move, which it skips for some DOM changes (an element
 // under the pointer toggling `inert`): the same page then ends hovered on one side and not on the other. When the element under the last
-// pointer position is not :hover, repeat the move at that position (only the hover state refreshes); when it is, nothing is dispatched,
-// so no extra pointer events reach scenarios that did not need it.
+// pointer position is not :hover, repeat a REAL move at that position: the page receives mousemove/pointermove (and boundary events) at an
+// unchanged position, exactly what a user's next pointer jitter would deliver. When it is :hover, nothing is dispatched, so scenarios whose
+// hover state is current see no extra pointer events. Hit-testing skips inert and pointer-events:none elements, so a page that genuinely
+// does not hover is never "repaired".
 async function refreshHover(page) {
   const at = await page.evaluate(() => {
     const p = window.__parityPointer;
