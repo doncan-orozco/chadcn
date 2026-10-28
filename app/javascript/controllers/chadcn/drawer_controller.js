@@ -181,6 +181,8 @@ export default class extends DialogController {
   connect() {
     this.ready = false
     this.timers = new Set()
+    this.frames = new Set()
+    this.lifecycle = new AbortController()
     this.bound = new Map()
     this.hasBeenOpened = false
     this.isDragging = false
@@ -199,14 +201,13 @@ export default class extends DialogController {
     // vaul: shouldAnimate = !defaultOpen; a controlled open is not a defaultOpen.
     this.shouldAnimate = this.controlledValue || !this.openValue
     this.activeSnap = this.snapPoints[0]
-    this.cleanups = []
     this.scrollPosition = window.scrollY
 
     super.connect()
     this.ready = true
 
-    requestAnimationFrame(() => (this.shouldAnimate = true))
-    if (!this.vaulModalValue) requestAnimationFrame(() => (document.body.style.pointerEvents = "auto"))
+    this.#frame(() => (this.shouldAnimate = true))
+    if (!this.vaulModalValue) this.#frame(() => (document.body.style.pointerEvents = "auto"))
     this.#listen(window, "scroll", () => (this.scrollPosition = window.scrollY))
     this.#listen(window, "resize", () => this.#onResize())
     if (window.visualViewport) this.#listen(window.visualViewport, "resize", () => this.#onVisualViewportChange())
@@ -219,11 +220,12 @@ export default class extends DialogController {
     this.ready = false
     this.timers.forEach((id) => clearTimeout(id))
     this.timers.clear()
-    this.#closeEffects()
+    this.frames.forEach((id) => cancelAnimationFrame(id))
+    this.frames.clear()
+    this.lifecycle.abort()
+    this.#releaseEffects()
     this.bound.forEach((entry) => entry.abort.abort())
     this.bound.clear()
-    this.cleanups.forEach((cleanup) => cleanup())
-    this.cleanups = []
     super.disconnect()
   }
 
@@ -293,7 +295,7 @@ export default class extends DialogController {
   #onOpenChange(open) {
     if (!open && !this.nestedValue) this.#restorePositionSetting()
     this.#later(() => this.dispatch("animation-end", { detail: { open } }), TRANSITION_MS)
-    if (open && !this.vaulModalValue) requestAnimationFrame(() => (document.body.style.pointerEvents = "auto"))
+    if (open && !this.vaulModalValue) this.#frame(() => (document.body.style.pointerEvents = "auto"))
     if (!open) document.body.style.pointerEvents = "auto"
   }
 
@@ -315,6 +317,21 @@ export default class extends DialogController {
     this.scaleCleanup = null
     this.#syncPreventScroll()
     this.#positionFixed()
+  }
+
+  // disconnect() gives back what the open drawer holds (scroll lock, html scroll-behavior, background, body position) without the
+  // close path: no events, no state change, no timers.
+  #releaseEffects() {
+    const wasOpen = this.vaulOpen
+    this.vaulOpen = false
+    this.isDragging = false
+    this.justReleased = false
+    if (this.htmlScrollBehavior !== undefined) document.documentElement.style.scrollBehavior = this.htmlScrollBehavior
+    this.htmlScrollBehavior = undefined
+    this.scaleCleanup?.({ immediate: true })
+    this.scaleCleanup = null
+    this.#syncPreventScroll()
+    if (wasOpen && !this.nestedValue && this.hasBeenOpened) this.#restorePositionSetting()
   }
 
   // --- parts -------------------------------------------------------------------------------------------------------------------------
@@ -360,7 +377,7 @@ export default class extends DialogController {
     part.delayed = false
     this.snapEffectDone = false
     if (this.hasSnapPoints) {
-      requestAnimationFrame(() => {
+      this.#frame(() => {
         if (!this.parts.includes(part)) return
         part.delayed = true
         this.#paint()
@@ -435,7 +452,7 @@ export default class extends DialogController {
     this.drawerWidth = content?.getBoundingClientRect().width || 0
     this.#setDragging(true)
     this.dragStartTime = new Date()
-    if (isIOS()) window.addEventListener("touchend", () => (this.isAllowedToDrag = false), { once: true })
+    if (isIOS()) window.addEventListener("touchend", () => (this.isAllowedToDrag = false), { once: true, signal: this.lifecycle.signal })
     event.target.setPointerCapture(event.pointerId)
     this.pointerStart = isVertical(this.direction) ? event.pageY : event.pageX
   }
@@ -795,7 +812,7 @@ export default class extends DialogController {
   // useScaleBackground (vaul:714-760). The first assignStyle pair is never undone by vaul (its chain() result is not called).
   #scaleBackground() {
     if (!this.shouldScaleBackgroundValue) return
-    clearTimeout(this.backgroundTimer)
+    this.scaleCleanup?.({ immediate: true })
     const wrapper = document.querySelector(WRAPPER)
     if (!wrapper) return
     const vertical = isVertical(this.direction)
@@ -816,13 +833,14 @@ export default class extends DialogController {
         ? `scale(${this.#scale()}) translate3d(0, calc(env(safe-area-inset-top) + 14px), 0)`
         : `scale(${this.#scale()}) translate3d(calc(env(safe-area-inset-top) + 14px), 0, 0)`
     })
-    this.scaleCleanup = () => {
+    this.scaleCleanup = ({ immediate = false } = {}) => {
       restore()
-      this.backgroundTimer = setTimeout(() => {
+      const restoreBackground = () => {
         if (this.initialBackground) document.body.style.background = this.initialBackground
         else document.body.style.removeProperty("background")
-      }, TRANSITION_MS)
-      this.timers.add(this.backgroundTimer)
+      }
+      if (immediate) restoreBackground()
+      else this.#later(restoreBackground, TRANSITION_MS)
     }
   }
 
@@ -847,7 +865,7 @@ export default class extends DialogController {
     Object.assign(style, { top: `${-this.scrollPosition}px`, left: `${-scrollX}px`, right: "0px", height: "auto" })
     this.#later(
       () =>
-        requestAnimationFrame(() => {
+        this.#frame(() => {
           const bottomBarHeight = innerHeight - window.innerHeight
           if (bottomBarHeight && this.scrollPosition >= innerHeight) style.top = `${-(this.scrollPosition + bottomBarHeight)}px`
         }),
@@ -861,6 +879,7 @@ export default class extends DialogController {
     const x = -parseInt(document.body.style.left, 10)
     Object.assign(document.body.style, previousBodyPosition)
     const url = window.location.href
+    // Raw on purpose: this restore also runs from disconnect(), and the scroll position has to be given back after the controller is gone.
     requestAnimationFrame(() => {
       if (this.preventScrollRestorationValue && url !== window.location.href) return
       window.scrollTo(x, y)
@@ -915,8 +934,15 @@ export default class extends DialogController {
   // --- helpers -----------------------------------------------------------------------------------------------------------------------
 
   #listen(target, type, handler) {
-    target.addEventListener(type, handler)
-    this.cleanups.push(() => target.removeEventListener(type, handler))
+    target.addEventListener(type, handler, { signal: this.lifecycle.signal })
+  }
+
+  #frame(fn) {
+    const id = requestAnimationFrame(() => {
+      this.frames.delete(id)
+      fn()
+    })
+    this.frames.add(id)
   }
 
   #later(fn, ms) {

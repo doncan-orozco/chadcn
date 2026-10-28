@@ -52,6 +52,7 @@ class Chadcn::Drawer < Chadcn::Base
   PORTAL_KEY = :shadcn_drawer_portal
   # @api private
   SEQUENCE_KEY = :shadcn_drawer_sequence
+  # @api private
   DIRECTIONS = %w[top bottom left right].freeze
 
   # @param open [Boolean, nil] controlled open state when not nil (user actions only dispatch open-change; the caller updates it)
@@ -79,8 +80,8 @@ class Chadcn::Drawer < Chadcn::Base
   # @param id [String, nil] id of the content (what the trigger controls); the other generated ids derive from it (`"x-title"`,
   #   `"x-description"`). Default `drawer-N`, numbered per request with the engine, per render without it
   # @param attrs [Hash] HTML attributes merged into the host element
-  # @raise [ArgumentError] when direction is not one of top, bottom, left, right, or id: is empty or contains whitespace, a double
-  #   quote or a backslash
+  # @raise [ArgumentError] when direction is not one of top, bottom, left, right, container: is not a non-empty String, or id: is
+  #   empty or contains whitespace, a double quote or a backslash
   def initialize(open: nil, default_open: false, direction: "bottom", dismissible: true, modal: true, handle_only: false,
                  auto_focus: false, snap_points: nil, active_snap_point: nil, fade_from_index: nil, snap_to_sequential_point: false,
                  close_threshold: 0.25, scroll_lock_timeout: 100, should_scale_background: false, set_background_color_on_scale: true,
@@ -94,6 +95,8 @@ class Chadcn::Drawer < Chadcn::Base
     @snap_points = snap_points&.to_a
     @active_snap_point = active_snap_point
     @fade_from_index = fade_from_index || @snap_points&.length&.pred
+    raise ArgumentError, "container must be a non-empty String selector, got #{container.inspect}" unless container.nil? || (container.is_a?(String) && !container.empty?)
+
     @container = container
     @id = validated_id(id)
     @options = { dismissible:, modal:, handle_only:, auto_focus:, snap_to_sequential_point:, close_threshold:, scroll_lock_timeout:,

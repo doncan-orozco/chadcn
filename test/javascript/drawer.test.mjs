@@ -24,7 +24,16 @@ const record = (page, { prevent = [] } = {}) => page.evaluate(({ prevent }) => {
 }, { prevent });
 const log = (page, name) => page.evaluate((wanted) => window.__drawer.filter((e) => e.name === wanted), name);
 const names = (page) => page.evaluate(() => window.__drawer.map((e) => e.name));
-const openDrawer = async (page) => { await page.click(trigger); await page.waitForSelector(content); await page.waitForTimeout(600); };
+// Opens and waits for the controller's own animation-end {open: true} (500 ms after the change), not for a fixed delay.
+const openDrawer = async (page) => {
+  await page.evaluate(() => {
+    window.__drawerOpened = false;
+    document.addEventListener("chadcn--drawer:animation-end", (event) => { if (event.detail.open) window.__drawerOpened = true; }, { once: true });
+  });
+  await page.click(trigger);
+  await page.waitForSelector(content);
+  await page.waitForFunction(() => window.__drawerOpened === true);
+};
 const drag = async (page, dy, { steps = 5, hold = 0 } = {}) => {
   const box = await page.locator(bar).boundingBox();
   const x = box.x + box.width / 2;
@@ -33,7 +42,7 @@ const drag = async (page, dy, { steps = 5, hold = 0 } = {}) => {
   await page.mouse.down();
   await page.mouse.move(x, y + dy / 2, { steps });
   await page.mouse.move(x, y + dy, { steps });
-  if (hold) await page.waitForTimeout(hold);
+  if (hold) await page.waitForTimeout(hold); // the pause before release is the gesture's release-velocity input, not a wait for the UI
   await page.mouse.up();
 };
 
@@ -57,6 +66,15 @@ browserTest("drawer: dismissible false ignores Escape without an open-change", a
   assert.equal(await page.locator(content).count(), 1);
   assert.ok((await log(page, "escape-key-down")).length >= 1);
   assert.deepEqual((await log(page, "open-change")).map((e) => e.detail), [{ open: true }]);
+});
+
+browserTest("drawer: dismissible true (control) closes on Escape", async ({ open }) => {
+  const page = await open("open__direction-bottom-default");
+  await record(page);
+  await openDrawer(page);
+  await page.keyboard.press("Escape");
+  await page.waitForSelector(content, { state: "detached" });
+  assert.deepEqual((await log(page, "open-change")).map((e) => e.detail), [{ open: true }, { open: false }]);
 });
 
 browserTest("drawer: open-auto-focus is cancelable and unprevented for listeners, yet nothing is focused by default", async ({ open }) => {
@@ -138,6 +156,30 @@ browserTest("drawer: a right-click outside never dismisses", async ({ open }) =>
   await page.locator(overlay).click({ button: "right", position: { x: 10, y: 10 }, force: true });
   await settle(page);
   assert.equal(await page.locator(content).getAttribute("data-state"), "open");
+  // Control: a primary press on the same overlay does dismiss.
+  await page.locator(overlay).click({ position: { x: 10, y: 10 }, force: true });
+  await page.waitForSelector(content, { state: "detached" });
+});
+
+browserTest("drawer: disconnect while open releases scroll lock, timers, frames and body styles", async ({ open }) => {
+  const page = await open("open__direction-bottom-default");
+  await openDrawer(page);
+  const state = () => page.evaluate(({ controller, host }) => {
+    const ctrl = window.Stimulus.getControllerForElementAndIdentifier(document.querySelector(host), controller);
+    return { preventingScroll: ctrl.preventingScroll, pending: ctrl.timers.size + ctrl.frames.size, position: document.body.style.position };
+  }, { controller, host: host(controller) });
+  // Control: the lock is held while open.
+  assert.equal((await state()).preventingScroll, true);
+  await page.evaluate(({ controller, host }) => {
+    window.__ctrl = window.Stimulus.getControllerForElementAndIdentifier(document.querySelector(host), controller);
+    document.querySelector(host).remove();
+  }, { controller, host: host(controller) });
+  const after = await page.evaluate(() => ({
+    preventingScroll: window.__ctrl.preventingScroll, pending: window.__ctrl.timers.size + window.__ctrl.frames.size, position: document.body.style.position
+  }));
+  assert.equal(after.preventingScroll, false);
+  assert.equal(after.pending, 0);
+  assert.equal(after.position, "");
 });
 
 browserTest("drawer: disconnect removes the portaled nodes and restores body, html and the scaled wrapper", async ({ open }) => {
@@ -152,4 +194,5 @@ browserTest("drawer: disconnect removes the portaled nodes and restores body, ht
   assert.equal(await page.locator(overlay).count(), 0);
   assert.equal(await page.evaluate(() => document.documentElement.style.scrollBehavior), "");
   assert.doesNotMatch((await page.locator(wrapper).getAttribute("style")) ?? "", /scale\(/);
+  assert.equal(await page.evaluate(() => document.body.style.background), "");
 });

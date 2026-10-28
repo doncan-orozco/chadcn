@@ -3,6 +3,11 @@
 # vaul Portal over Radix DialogPortal: renders no element. Its children ship in an inert template that the controller mounts
 # directly in the container (a CSS selector, default the Root's `container:`, else body) while the drawer is open, or always with
 # force_mount.
+#
+# @example Explicit form
+#   render Chadcn::Drawer::Portal.new(container: "#slot") { render Chadcn::Drawer::Overlay.new }
+# @example Yielded-root helper form
+#   drawer.portal { drawer.overlay }
 class Chadcn::Drawer::Portal < Chadcn::Base
   include Chadcn::Drawer::Support
 

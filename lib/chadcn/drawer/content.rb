@@ -4,9 +4,15 @@ using Chadcn::Values::Refinements
 
 # vaul Content over Radix DialogContent, inside the Portal and Overlay the shadcn component renders. The first child is the
 # shadcn drag bar (a plain div, not a vaul Handle). The direction comes from the Root.
+#
+# @example Explicit form
+#   render Chadcn::Drawer::Content.new(class: "w-96") { "Body" }
+# @example Yielded-root helper form
+#   drawer.content { "Body" }
 class Chadcn::Drawer::Content < Chadcn::Base
   include Chadcn::Drawer::Support
 
+  # @api private
   CLASSES = [
     "group/drawer-content fixed z-50 flex h-auto flex-col bg-background",
     "data-[vaul-drawer-direction=top]:inset-x-0 data-[vaul-drawer-direction=top]:top-0 data-[vaul-drawer-direction=top]:mb-24 data-[vaul-drawer-direction=top]:max-h-[80vh] data-[vaul-drawer-direction=top]:rounded-b-lg data-[vaul-drawer-direction=top]:border-b",
@@ -14,6 +20,7 @@ class Chadcn::Drawer::Content < Chadcn::Base
     "data-[vaul-drawer-direction=right]:inset-y-0 data-[vaul-drawer-direction=right]:right-0 data-[vaul-drawer-direction=right]:w-3/4 data-[vaul-drawer-direction=right]:border-l data-[vaul-drawer-direction=right]:sm:max-w-sm",
     "data-[vaul-drawer-direction=left]:inset-y-0 data-[vaul-drawer-direction=left]:left-0 data-[vaul-drawer-direction=left]:w-3/4 data-[vaul-drawer-direction=left]:border-r data-[vaul-drawer-direction=left]:sm:max-w-sm"
   ].freeze
+  # @api private
   BAR_CLASSES = "mx-auto mt-4 hidden h-2 w-[100px] shrink-0 rounded-full bg-muted group-data-[vaul-drawer-direction=bottom]/drawer-content:block"
 
   # @param force_mount [Boolean] accepted for API parity; it has no effect (the inner Portal is not force-mounted, dialog:101)

@@ -2,9 +2,15 @@
 
 # vaul Overlay over Radix DialogOverlay. Renders nothing when the Root is `modal: false` (vaul:1392). The data-vaul-* flags are
 # repainted by the controller on every state change.
+#
+# @example Explicit form
+#   render Chadcn::Drawer::Overlay.new(class: "bg-black/70")
+# @example Yielded-root helper form
+#   drawer.overlay(class: "bg-black/70")
 class Chadcn::Drawer::Overlay < Chadcn::Base
   include Chadcn::Drawer::Support
 
+  # @api private
   CLASSES = "fixed inset-0 z-50 bg-black/50 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0"
 
   # @param force_mount [Boolean] accepted for API parity; the Portal decides what stays mounted

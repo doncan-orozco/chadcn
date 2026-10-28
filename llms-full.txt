@@ -734,8 +734,6 @@ Constructor: `Chadcn::Drawer.new(open: nil, default_open: false, direction: "bot
 - `id` [String, nil] id of the content (what the trigger controls); the other generated ids derive from it (`"x-title"`, `"x-description"`). Default `drawer-N`, numbered per request with the engine, per render without it
 - `attrs` [Hash] HTML attributes merged into the host element
 
-- DIRECTIONS: `top`, `bottom`, `left`, `right`
-
 Parts (class, yielded-root helper, constructor):
 
 - `Drawer::Close` / `close`: `new(as_child: false, **attrs)` Radix DialogClose: no data-state and no aria attributes (dialog:305-312).

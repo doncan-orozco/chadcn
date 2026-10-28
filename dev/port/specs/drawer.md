@@ -23,7 +23,7 @@ Content, Title, Description) accept `as_child:` (`false` | tag symbol | `Chadcn:
 
 | React (drawer.tsx) | Ruby | Notes |
 |---|---|---|
-| `Drawer` (`DrawerPrimitive.Root`, every vaul Root prop, vaul:879) | `Chadcn::Drawer.new(open: nil, default_open: false, direction: "bottom", dismissible: true, modal: true, handle_only: false, auto_focus: false, snap_points: nil, active_snap_point: nil, fade_from_index: nil, snap_to_sequential_point: false, close_threshold: 0.25, scroll_lock_timeout: 100, should_scale_background: false, set_background_color_on_scale: true, no_body_styles: false, fixed: false, nested: false, disable_prevent_scroll: true, prevent_scroll_restoration: false, reposition_inputs: true, container: nil, id: nil) { ... }` | Defaults are vaul's (vaul:879, constants vaul:446-448). `open:` true/false = controlled (the controller only dispatches `open-change`; callers set `data-chadcn--drawer-open-value`), `nil` = uncontrolled from `default_open`. `direction:` one of `"top" \| "bottom" \| "left" \| "right"` (vaul `DrawerDirection`), `nil` = `"bottom"`, anything else raises `ArgumentError`. `snap_points:` Array of Floats (fraction of the viewport) and/or `"<n>px"` Strings (vaul:552-569). `fade_from_index:` `nil` = `snap_points.length - 1` (vaul:879). `active_snap_point:` non-nil = controlled snap point (vaul:509-513). `container:` CSS selector (deviation 3). The `data-slot="drawer"` passed by shadcn never reaches the DOM (vaul Root does not spread props, vaul:879). |
+| `Drawer` (`DrawerPrimitive.Root`, every vaul Root prop, vaul:879) | `Chadcn::Drawer.new(open: nil, default_open: false, direction: "bottom", dismissible: true, modal: true, handle_only: false, auto_focus: false, snap_points: nil, active_snap_point: nil, fade_from_index: nil, snap_to_sequential_point: false, close_threshold: 0.25, scroll_lock_timeout: 100, should_scale_background: false, set_background_color_on_scale: true, no_body_styles: false, fixed: false, nested: false, disable_prevent_scroll: true, prevent_scroll_restoration: false, reposition_inputs: true, container: nil, id: nil, **attrs) { ... }` | Defaults are vaul's (vaul:879, constants vaul:446-448). `open:` true/false = controlled (the controller only dispatches `open-change`; callers set `data-chadcn--drawer-open-value`), `nil` = uncontrolled from `default_open`. `direction:` one of `"top" \| "bottom" \| "left" \| "right"` (vaul `DrawerDirection`), `nil` = `"bottom"`, anything else raises `ArgumentError`. `snap_points:` Array of Floats (fraction of the viewport) and/or `"<n>px"` Strings (vaul:552-569). `fade_from_index:` `nil` = `snap_points.length - 1` (vaul:879). `active_snap_point:` non-nil = controlled snap point (vaul:509-513). `container:` CSS selector (deviation 3). The `data-slot="drawer"` passed by shadcn never reaches the DOM (vaul Root does not spread props, vaul:879). `**attrs` land on the `display: contents` host (a port-only seam; `class` goes through `cn`). `container:` must be a non-empty String or nil, anything else raises `ArgumentError`. Host values: `modal` is always `true` (the Radix side is always modal) and `vaul-modal` carries vaul's `modal`. |
 | `DrawerTrigger` (`DialogPrimitive.Trigger`, vaul:1647) | `Chadcn::Drawer::Trigger.new(as_child: false, class: nil, **attrs) { label }` | Toggles (dialog:89). No default classes. |
 | `DrawerPortal` (vaul `Portal` -> `DialogPrimitive.Portal`, vaul:1634-1641) | `Chadcn::Drawer::Portal.new(container: nil, force_mount: false) { ... }` | Renders nothing; each child goes to `container` (default: the Root's `container:`, else `document.body`). Usable on its own (scenario `api__portal-overlay-standalone`). |
 | `DrawerOverlay` (vaul `Overlay`, vaul:1387-1407) | `Chadcn::Drawer::Overlay.new(force_mount: false, as_child: false, class: nil, **attrs)` | Renders NOTHING when the Root is `modal: false` (vaul:1392). |
@@ -92,6 +92,8 @@ Class strings are verbatim from the oracle (set equality is the gate).
 `DrawerPrimitive.Root`; blocker reported), but the port must render no `data-slot="drawer"`. Controller host (deviation 1):
 `<div style="display: contents" data-controller="chadcn--drawer" data-chadcn--drawer-*-value...>` with no `data-slot`, no classes, wrapping the
 block in place.
+
+**Markers (port-only, the shared dialog controller reads them).** Trigger, Overlay, Content and Close carry `data-chadcn--dialog-part="trigger|overlay|content|close"`; the Portal `<template>` carries `data-chadcn--dialog-template="<root id>"` and `data-chadcn--dialog-options` (JSON `{forceMount, container}`). They are not React attributes and are excluded from the DOM comparison.
 
 **Portal and Presence.** Overlay then Content are appended directly to the container (`document.body` default) with no wrapper (po:17); closed
 and not force-mounted they do not exist (pr:26). Server: closed -> the Portal children ship in one inert `<template>` in the host
@@ -269,8 +271,8 @@ Positioning: none (CSS `fixed` at an edge). Responsive: left/right `w-3/4`, `sm:
 centered for top/bottom below 768 px (`md:text-left`).
 
 Primitives composed: `portal`, `template_mount`, `presence`, `dismissable_layer`, `focus_scope`, `focus_guards`, `hide_others`, `scroll_lock`,
-`ids`, `turbo_cache`, `pointer_capture` (drag), and the Dialog overlay behavior shared with `chadcn--dialog`/`chadcn--sheet` (import it, do
-not copy it). The drag/snap/scale logic is new and drawer-only: it lives in `chadcn--drawer` (or a `drawer_gesture.js` primitive if the
+`ids`, `turbo_cache`, and the Dialog overlay behavior shared with `chadcn--dialog`/`chadcn--sheet` (import it, do
+not copy it). The drag calls `setPointerCapture` directly instead of composing `pointer_capture`, because that primitive calls `preventDefault()` on pointerdown, which vaul does not. The drag/snap/scale logic is new and drawer-only: it lives in `chadcn--drawer` (or a `drawer_gesture.js` primitive if the
 orchestrator wants it shared). Controller `chadcn--drawer` (radix-stimulus R12) with values for every Root kwarg above (`open`,
 `controlled`, `direction`, `dismissible`, `modal`, `handle-only`, `auto-focus`, `snap-points` (JSON), `active-snap-point`, `fade-from-index`,
 `snap-to-sequential-point`, `close-threshold` 0.25, `scroll-lock-timeout` 100, `should-scale-background`, `set-background-color-on-scale`,
@@ -303,7 +305,7 @@ DOM mapping (vaul -> shadcn -> port):
 - No icon and no other `Chadcn` component is rendered (manifest `icons: []`, `registry_dependencies: []`). Callers compose `Chadcn::Button`
   (trigger/close via `as_child:`), `Chadcn::Input`, `Chadcn::Label`; scenarios use raw elements for them.
 - Primitives (`app/javascript/chadcn/primitives/`): `portal.js`, `template_mount.js`, `presence.js`, `dismissable_layer.js`, `focus_scope.js`,
-  `focus_guards.js`, `hide_others.js`, `scroll_lock.js`, `ids.js`, `turbo_cache.js`, `pointer_capture.js`; behavior shared with `chadcn--dialog`.
+  `focus_guards.js`, `hide_others.js`, `scroll_lock.js`, `ids.js`, `turbo_cache.js`; behavior shared with `chadcn--dialog`.
 - Shared files the orchestrator/infra must add (the builder may not, shadcn-port R13): `app/assets/tailwind/chadcn/vaul.css` (vaul:62 verbatim)
   + `@import "./vaul.css";` in `engine.css` + a THIRD_PARTY_NOTICES.md entry; `oracle_extract.rb` `NO_DOM` must include `DrawerPrimitive.Root`
   so `drawer` lands in `non_rendered_slots` (otherwise G1 demands a `data-slot="drawer"` React never renders).

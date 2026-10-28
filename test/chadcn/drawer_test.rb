@@ -75,7 +75,7 @@ class Chadcn::DrawerTest < Chadcn::TestCase
     html = drawer(root: { snap_points: [ 0.5, "300px", 1 ], active_snap_point: 0.5 })
     host = host_of(html)
 
-    assert_equal "[0.5,\"300px\",1]", host["data-chadcn--drawer-snap-points-value"]
+    assert_equal [ 0.5, "300px", 1 ], JSON.parse(host["data-chadcn--drawer-snap-points-value"])
     assert_equal "2", host["data-chadcn--drawer-fade-from-index-value"]
     assert_equal "0.5", host["data-chadcn--drawer-active-snap-point-value"]
     assert_equal "true", fragment(html).at_css("[data-slot=drawer-content]")["data-vaul-snap-points"]
@@ -158,7 +158,48 @@ class Chadcn::DrawerTest < Chadcn::TestCase
 
   test "the trigger controls the content only while open" do
     assert_nil fragment(drawer).at_css("[data-slot=drawer-trigger]")["aria-controls"]
-    assert_equal "drawer-1", fragment(drawer(root: { default_open: true })).at_css("[data-slot=drawer-trigger]")["aria-controls"]
+    assert_equal "goal", fragment(drawer(root: { default_open: true, id: "goal" })).at_css("[data-slot=drawer-trigger]")["aria-controls"]
+  end
+
+  test "the trigger is the toggle action with the dialog part marker and closed ARIA" do
+    trigger = fragment(drawer).at_css("[data-slot=drawer-trigger]")
+
+    assert_equal "click->chadcn--drawer#toggle", trigger["data-action"]
+    assert_equal "trigger", trigger["data-chadcn--dialog-part"]
+    assert_equal "dialog", trigger["aria-haspopup"]
+    assert_equal "false", trigger["aria-expanded"]
+    assert_equal "closed", trigger["data-state"]
+    assert_equal "button", trigger["type"]
+  end
+
+  test "the portal template carries the root id and the overlay its part marker and vaul flags" do
+    doc = fragment(drawer(root: { id: "goal" }))
+    template = doc.at_css("template")
+    overlay = template.at_css("[data-slot=drawer-overlay]")
+
+    assert_equal "goal", template["data-chadcn--dialog-template"]
+    assert_equal "overlay", overlay["data-chadcn--dialog-part"]
+    assert_equal "open", overlay["data-state"]
+    assert_equal "pointer-events: auto", overlay["style"]
+    assert overlay.key?("data-vaul-overlay")
+  end
+
+  test "close is a button with the close action, the part marker, no data-state and no aria" do
+    close = fragment(render_view { render(Drawer.new(default_open: true)) { render(Drawer::Close.new) { "x" } } }).at_css("[data-slot=drawer-close]")
+
+    assert_equal "button", close["type"]
+    assert_equal "click->chadcn--drawer#close", close["data-action"]
+    assert_equal "close", close["data-chadcn--dialog-part"]
+    assert_nil close["data-state"]
+    assert_empty(close.attribute_nodes.select { |attr| attr.name.start_with?("aria-") })
+  end
+
+  test "container must be a non-empty String selector" do
+    [ "", 3 ].each do |bad|
+      error = assert_raises(ArgumentError) { drawer(root: { container: bad }) }
+
+      assert_match(/container must be a non-empty String/, error.message)
+    end
   end
 
   test "a portal container reaches the template options" do

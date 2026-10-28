@@ -380,7 +380,6 @@ const Chadcn::Button::VARIANTS [default, destructive, outline, secondary, ghost,
 const Chadcn::ButtonGroup::ORIENTATIONS [horizontal, vertical]
 const Chadcn::Command::Item::KEYWORDS
 const Chadcn::Direction::VALUES [ltr, rtl]
-const Chadcn::Drawer::DIRECTIONS [top, bottom, left, right]
 const Chadcn::Empty::Media::VARIANTS [default, icon]
 const Chadcn::Field::ORIENTATIONS [vertical, horizontal, responsive]
 const Chadcn::InputGroup::Addon::ALIGNS [inline-start, inline-end, block-start, block-end]
