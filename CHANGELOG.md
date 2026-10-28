@@ -18,7 +18,7 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 
 - The gem now ships 61 component roots, one for each of the 61 components of the tracked oracle (the registry the llms drift test counts went from 54 to
   61): `Carousel`, `Drawer`, `InputOtp`, `MessageScroller` and `Resizable` complete the set, and `Form` and `Chart` are in, `Chart` as its shadcn layer
-  (the chart roots follow). README and `docs/` document the five new components; `Form` and `Chart` are documented in YARD and `llms-full.txt`.
+  (the chart roots follow). README and `docs/` document the five new components and `Form` ([docs/forms.md](docs/forms.md)); `Chart` is documented in YARD and `llms-full.txt`.
 - `Chadcn::Drawer` (`Trigger`, `Portal`, `Overlay`, `Content`, `Close`, `Header`, `Footer`, `Title`, `Description`): shadcn's Drawer over a Stimulus reimplementation of vaul 1.1.2 in `chadcn--drawer` (drag to dismiss, snap points, directions, background scaling; no new JavaScript dependency).
 - `Chadcn::Form` (`Form::Field` and its parts `Label`, `Control`, `Description`, `Error`, `Input`, `Textarea`) and the
   `Chadcn::Form::Binding` protocol with `Binding::Plain`: shadcn's form ids and ARIA contract (`form.tsx`) over plain Ruby, without
@@ -32,6 +32,8 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
   the `namespace:` carried, scopes nesting. `Binding::Plain` finds a row's errors under `"addresses[0].street"` keys and
   `Chadcn::Engine::FormBinding` reads them from the child model; the engine renders the hidden `id` (`autocomplete="off"`) of a persisted child after its fields
   (`Binding#hidden_fields`, an optional protocol message; `Binding#nested` now defaults `errors:` to `nil`, meaning "find them", instead of `{}`) and `_attributes` only when the model defines the writer.
+- `Chadcn::Engine::FormBinding` (Rails only): a `Chadcn::Form::Binding` over a real `ActionView` form builder, for `Chadcn::Form.new(binding: Chadcn::Engine::FormBinding.new(view_context: helpers, model: @user))`. Names and ids are Rails' own (`field_name`, `field_id`, `namespace:`), the action comes from `polymorphic_path`, the verb from `persisted?`, the CSRF token from the view, the errors and values from the model and the labels from `helpers.label.*` before `human_attribute_name`; `required?(attribute)` reports a plain presence validator. It never wraps `form_with`: `Chadcn::Form` renders the only `<form>`.
+- `docs/forms.md`, the guide to a bound `Chadcn::Form` (plain Phlex and Rails examples, every bound control, the id and ARIA contract, nested fields, the `chadcn--form` controller, a `form_with` comparison and a custom binding), and a Forms section in the README.
 - `Form::Field` bound controls: `Select`, `NativeSelect`, `Checkbox`, `Switch`, `RadioGroup`, `Slider`, `DatePicker` and `InputGroup`
   (`field.select`, `field.native_select`, `field.checkbox`, `field.switch`, `field.radio_group`, `field.slider`, `field.date_picker`,
   `field.input_group`). They bind name, id, `aria-invalid` and `aria-describedby` and the value as the uncontrolled default; the

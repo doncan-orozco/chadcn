@@ -10,7 +10,7 @@
 [shadcn/ui](https://ui.shadcn.com) for [Phlex](https://www.phlex.fun): the same component API, the same Tailwind class strings and
 the same behavior as the React originals (Radix, and the libraries shadcn wraps), as Phlex views with Stimulus controllers. 61 components (`Button`, `Dialog`, `Select`, `Sidebar`,
 `Toaster`, `Command`, `Combobox`, `Calendar`...), checked against the React original in a browser. Two are partial: `Form` ports shadcn's ids and ARIA contract
-without react-hook-form and is tested in Ruby, and `Chart` ships shadcn's chart layer, with the chart roots (`BarChart`...) still to come and so no browser comparison yet.
+without react-hook-form (a [bound form](docs/forms.md)) and is tested in Ruby, and `Chart` ships shadcn's chart layer, with the chart roots (`BarChart`...) still to come and so no browser comparison yet.
 
 > Status: pre-release (0.x). The public API follows semantic versioning from the first release; see [CHANGELOG.md](CHANGELOG.md).
 >
@@ -380,9 +380,33 @@ end
   [docs/api-conventions.md](docs/api-conventions.md).
 
 The API of every component is in the YARD documentation (`bundle exec yard server` in the gem) and,
-per family, in [`docs/`](docs/): [conventions](docs/api-conventions.md), [display](docs/display.md), [form controls](docs/form-controls.md),
+per family, in [`docs/`](docs/): [conventions](docs/api-conventions.md), [display](docs/display.md), [form controls](docs/form-controls.md), [forms](docs/forms.md),
 [disclosure and navigation](docs/disclosure-and-navigation.md), [overlays](docs/overlays.md), [menus and select](docs/menus-and-select.md), [catalog](docs/catalog.md) (an example of every component, for a gallery page).
 [Compatibility](docs/compatibility.md) lists the supported Ruby, Phlex, Rails and Tailwind versions and the Phlex 3 policy.
+
+### Forms
+
+`Chadcn::Form` is shadcn's `Form` without react-hook-form: it renders the only `<form>`, and `form.field(attribute: :email)` binds a
+label, control, description and error to one attribute of a model, with the ids and ARIA of `form.tsx`. A `Binding` answers name, id,
+value and errors: `Binding::Plain` (scope, any object with readers, an errors Hash) in plain Phlex and `Chadcn::Engine::FormBinding`
+(`binding: Chadcn::Engine::FormBinding.new(view_context: helpers, model: @user)`) in Rails.
+
+```ruby
+user = Struct.new(:email, :newsletter).new("ada@example", true)
+
+render Chadcn::Form.new(scope: :user, model: user, errors: { email: [ "is invalid" ] }, action: "/users") do |form|
+  form.field(attribute: :email) do |field|
+    field.label
+    field.input(type: "email", required: true)
+    field.error
+  end
+  form.field(attribute: :newsletter, orientation: "horizontal") { |field| field.checkbox; field.label }
+end
+```
+
+Ten bound controls (`input` to `input_group`) and `form.fields(attribute: :addresses)` for nested attributes. The control id is
+`user_email-form-item`, not Rails' `user_email`, and `chadcn--form` mirrors HTML5 validity into the markup a server error renders. The
+guide, with the Rails example, GET forms, `namespace:` and the `form_with` comparison, is [docs/forms.md](docs/forms.md).
 
 ### Library-wrapping components: Toaster, Command, Combobox, Calendar, Carousel, Drawer, Resizable, InputOtp, MessageScroller
 
@@ -482,10 +506,11 @@ end
   Resizable over react-resizable-panels, InputOtp over input-otp (`pasteTransformer` is assigned on the controller from JavaScript) and
   MessageScroller over `@shadcn/react` 0.3.1. See [overlays](docs/overlays.md), [display](docs/display.md) and
   [form controls](docs/form-controls.md).
-- **Date picker.** There is no `DatePicker` class: shadcn's date picker is a block (an example), not a registry component. It is a
+- **Date picker.** There is no standalone `DatePicker` component: shadcn's date picker is a block (an example), not a registry component. It is a
   composition of `Popover`, a `Button` trigger and a `Calendar` with an external hidden input, using the `Calendar` keywords `input:`
   (the hidden ISO input to read and write), `label:` (the element that shows the formatted date) and `close_on_select:`. The full,
-  tested recipe is in [form controls](docs/form-controls.md#example-a-calendar-and-a-date-picker).
+  tested recipe is in [form controls](docs/form-controls.md#example-a-calendar-and-a-date-picker); inside a `Chadcn::Form` the bound
+  `field.date_picker` renders that recipe for you (see [forms](docs/forms.md)).
 
 ## Eject a component
 
