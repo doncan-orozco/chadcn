@@ -8,8 +8,9 @@
 <p align="center"><strong>chadcn go brrrrrr</strong></p>
 
 [shadcn/ui](https://ui.shadcn.com) for [Phlex](https://www.phlex.fun): the same component API, the same Tailwind class strings and
-the same behavior as the React originals (Radix, and the libraries shadcn wraps), as Phlex views with Stimulus controllers. 54 components (`Button`, `Dialog`, `Select`, `Sidebar`,
-`Toaster`, `Command`, `Combobox`, `Calendar`...), each one checked against the React original in a browser.
+the same behavior as the React originals (Radix, and the libraries shadcn wraps), as Phlex views with Stimulus controllers. 61 components (`Button`, `Dialog`, `Select`, `Sidebar`,
+`Toaster`, `Command`, `Combobox`, `Calendar`...), checked against the React original in a browser. Two are partial: `Form` ports shadcn's ids and ARIA contract
+without react-hook-form and is tested in Ruby, and `Chart` ships shadcn's chart layer, with the chart roots (`BarChart`...) still to come and so no browser comparison yet.
 
 > Status: pre-release (0.x). The public API follows semantic versioning from the first release; see [CHANGELOG.md](CHANGELOG.md).
 >
@@ -27,7 +28,7 @@ the same behavior as the React originals (Radix, and the libraries shadcn wraps)
 | Copies component files into the app, one by one | `bundle add chadcn` and one generator: `bin/rails g chadcn:install` |
 | Re-applies upstream fixes to every copied file by hand | Upgrades are a `bundle update` |
 | Ships a React runtime for one dropdown | Radix behavior as Stimulus controllers, zero React |
-| Eyeballs the dialog and hopes it matches | 54 components checked against the React original in a browser |
+| Eyeballs the dialog and hopes it matches | Every component with a React DOM (all but `Form` and `Chart`) checked against the original in a browser |
 | Pulls in a framework's worth of gems to render a button | Three runtime dependencies: `phlex`, `tailwind_merge`, `zeitwerk` |
 | Re-types the theme colors by hand | Pastes a theme from ui.shadcn.com/themes, unchanged |
 | Greps the app to find out why the styles are missing | `bin/rails chadcn:doctor` says why |
@@ -42,7 +43,7 @@ The facts behind the right column (all but the last row, which is a joke):
   (dismissable layer, focus scope, roving focus, positioning, scroll lock...). In the repository's dev kit (not packaged), browser
   parity tests render every component next to the React original and compare DOM, styles and behavior.
 - **Small runtime.** The only runtime dependencies are `phlex`, `tailwind_merge` and `zeitwerk`: no Active Support, no Nokogiri, and no
-  new JavaScript library for `Toaster`, `Command`, `Combobox` or `Calendar` (besides Stimulus, the only JavaScript dependency is
+  new JavaScript library for the nine components that wrap a library in shadcn (`Toaster`, `Command`, `Combobox`, `Calendar`, `Carousel`, `Drawer`, `Resizable`, `InputOtp`, `MessageScroller`) (besides Stimulus, the only JavaScript dependency is
   `@floating-ui/dom` for positioning, vendored for importmap apps and added from npm for esbuild apps).
 - **Upgrades are a `bundle update`** (and your usual `tailwindcss:build`). The components, controllers and CSS live in the gem, not copied into your app (the two
   exceptions you opt into: [ejected components](#eject-a-component) and, with esbuild, the managed JavaScript copies).
@@ -383,10 +384,11 @@ per family, in [`docs/`](docs/): [conventions](docs/api-conventions.md), [displa
 [disclosure and navigation](docs/disclosure-and-navigation.md), [overlays](docs/overlays.md), [menus and select](docs/menus-and-select.md), [catalog](docs/catalog.md) (an example of every component, for a gallery page).
 [Compatibility](docs/compatibility.md) lists the supported Ruby, Phlex, Rails and Tailwind versions and the Phlex 3 policy.
 
-### Toaster, Command, Combobox, Calendar and the date picker
+### Library-wrapping components: Toaster, Command, Combobox, Calendar, Carousel, Drawer, Resizable, InputOtp, MessageScroller
 
-Four components port libraries that shadcn wraps (sonner, cmdk, Base UI's combobox, react-day-picker) without taking those libraries
-as dependencies: the behavior is rewritten as Stimulus controllers on shared primitives, and the markup follows shadcn's.
+Nine components port libraries that shadcn wraps (sonner, cmdk, Base UI's combobox, react-day-picker, embla-carousel, vaul,
+react-resizable-panels, input-otp and `@shadcn/react`'s message scroller) without taking those libraries as dependencies: the behavior
+is rewritten as Stimulus controllers on shared primitives, and the markup follows shadcn's.
 
 ```ruby
 # Toaster (sonner): render it once in the layout; the flash becomes toasts
@@ -415,6 +417,47 @@ end
 
 # Calendar (react-day-picker): native Date and Intl, hidden ISO inputs with name:
 render Chadcn::Calendar.new(mode: :single, selected: Date.new(2026, 3, 15), name: "starts_on")
+
+# Carousel (embla-carousel 8.6.0): a Stimulus engine derived from embla's; `opts:` are embla options
+render Chadcn::Carousel.new(opts: { loop: true }) do |carousel|
+  carousel.content { 3.times { |i| carousel.item { "Slide #{i + 1}" } } }
+  carousel.previous
+  carousel.next
+end
+
+# Drawer (vaul 1.1.2): drag to dismiss, snap points and directions
+render Chadcn::Drawer.new(direction: :bottom) do |drawer|
+  drawer.trigger(as_child: Chadcn::Button.new(variant: "outline")) { "Open" }
+  drawer.content do
+    drawer.header { drawer.title { "Move goal" } }
+    drawer.footer { drawer.close(as_child: Chadcn::Button.new(variant: "outline")) { "Cancel" } }
+  end
+end
+
+# Resizable (react-resizable-panels): pointer and keyboard resizing
+# a Numeric size is pixels, a String is parsed ("50%", "200px")
+render Chadcn::Resizable::PanelGroup.new(class: "h-[200px] max-w-md rounded-lg border") do
+  render(Chadcn::Resizable::Panel.new(default_size: "50%")) { "One" }
+  render Chadcn::Resizable::Handle.new(with_handle: true)
+  render(Chadcn::Resizable::Panel.new(default_size: "50%")) { "Two" }
+end
+
+# InputOtp (input-otp): one input, a slot per character; chadcn--input-otp:complete fires when it is full
+render Chadcn::InputOtp.new(max_length: 4, name: "code") do |otp|
+  otp.group { 4.times { |i| otp.slot(index: i) } }
+end
+
+# MessageScroller (@shadcn/react): sticky-to-bottom chat scrolling and a scroll-to-latest button
+render Chadcn::MessageScroller::Provider.new(auto_scroll: true) do
+  render Chadcn::MessageScroller.new(class: "h-80") do |scroller|
+    scroller.viewport do
+      render Chadcn::MessageScroller::Content.new do
+        render(Chadcn::MessageScroller::Item.new(message_id: "m1")) { "Hello" }
+      end
+    end
+    scroller.button
+  end
+end
 ```
 
 - **Toaster.** Toasts come from the flash (`Toaster.new(flash:)`), from a Turbo Stream that appends a `Sonner::Toast` to the Toaster
@@ -433,6 +476,12 @@ render Chadcn::Calendar.new(mode: :single, selected: Date.new(2026, 3, 15), name
 - **Calendar.** Single, multiple and range modes. Month and weekday names and the labels are exact for English and Spanish
   (`locale: :es`); other locales are `Intl` approximations with English labels. `name:` renders ISO 8601 (`YYYY-MM-DD`) hidden inputs.
   See [form controls](docs/form-controls.md#example-a-calendar-and-a-date-picker).
+- **Carousel, Drawer, Resizable, InputOtp and MessageScroller.** Each is a Stimulus reimplementation with no added JavaScript dependency:
+  Carousel over an engine derived from embla-carousel 8.6.0 (React's `plugins:` and `setApi` are replaced by the controller's `api` and
+  the `chadcn--carousel:*` events), Drawer over vaul 1.1.2 (`Handle` and `NestedRoot` are not shadcn exports and are not ported),
+  Resizable over react-resizable-panels, InputOtp over input-otp (`pasteTransformer` is assigned on the controller from JavaScript) and
+  MessageScroller over `@shadcn/react` 0.3.1. See [overlays](docs/overlays.md), [display](docs/display.md) and
+  [form controls](docs/form-controls.md).
 - **Date picker.** There is no `DatePicker` class: shadcn's date picker is a block (an example), not a registry component. It is a
   composition of `Popover`, a `Button` trigger and a `Calendar` with an external hidden input, using the `Calendar` keywords `input:`
   (the hidden ISO input to read and write), `label:` (the element that shows the formatted date) and `close_on_select:`. The full,
