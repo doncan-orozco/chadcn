@@ -72,7 +72,7 @@ class Chadcn::ChartTest < Chadcn::TestCase
 
   test "every chart class offers one generated helper per declaration, equal to the explicit class" do
     Chadcn::Chart::BarChart.new # building a chart loads the declarations
-    helpers = Chadcn::Chart::Declaration.subclasses.map { |part| Chadcn::Chart::Declarations.helper_name(part.name) }
+    helpers = Chadcn::Chart::Declaration.subclasses.select(&:name).map { |part| Chadcn::Chart::Declarations.helper_name(part.name) }
 
     assert_equal 12, helpers.size
     [ Chadcn::Chart::BarChart, Chadcn::Chart::LineChart, Chadcn::Chart::AreaChart ].each do |chart_class|
@@ -155,5 +155,44 @@ class Chadcn::ChartTest < Chadcn::TestCase
       assert_not root.public_method_defined?(:scale, false)
       assert_equal namespace, root.autoload?(:Scale, false)
     end
+  end
+
+  test "the block form of content renders the same HTML as content: for the tooltip and the legend" do
+    rows = [ { a: 1 }, { a: 2 } ]
+    config = { a: { label: "A", color: "red" } }
+    build = lambda do |tooltip_block, legend_block|
+      render_view do
+        render(Chadcn::Chart::Container.new(config: config, id: "k")) do
+          render(Chadcn::Chart::BarChart.new(data: rows)) do |chart|
+            tooltip_block.call(chart)
+            legend_block.call(chart)
+            chart.bar(data_key: :a)
+          end
+        end
+      end
+    end
+    explicit = build.call(
+      ->(chart) { chart.tooltip(default_index: 1, content: Chadcn::Chart::Tooltip::Content.new(hide_label: true)) },
+      ->(chart) { chart.legend(vertical_align: :top, content: Chadcn::Chart::Legend::Content.new(hide_icon: true)) }
+    )
+    block = build.call(
+      ->(chart) { chart.tooltip(default_index: 1) { |tooltip| tooltip.content(hide_label: true) } },
+      ->(chart) { chart.legend(vertical_align: :top) { |legend| legend.content(hide_icon: true) } }
+    )
+
+    assert_includes explicit, "<template"
+    assert_equal explicit, block
+  end
+
+  test "a tooltip or a legend takes one content: both content: and the block raise" do
+    tooltip = assert_raises(ArgumentError) do
+      Chadcn::Chart::Tooltip.new(content: Chadcn::Chart::Tooltip::Content.new).tap(&:content)
+    end
+    legend = assert_raises(ArgumentError) do
+      Chadcn::Chart::Legend.new(content: Chadcn::Chart::Legend::Content.new).tap(&:content)
+    end
+
+    assert_equal "Chadcn::Chart::Tooltip takes one content (content: or the block, not both)", tooltip.message
+    assert_equal "Chadcn::Chart::Legend takes one content (content: or the block, not both)", legend.message
   end
 end

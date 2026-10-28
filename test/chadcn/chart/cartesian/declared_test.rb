@@ -43,4 +43,17 @@ class Chadcn::Chart::Cartesian::DeclaredTest < Chadcn::TestCase
     assert_raises(ArgumentError) { declared.declare(Chadcn::Chart::Cell.new) }
     assert_raises(ArgumentError) { declared.declare(Chadcn::Chart::LabelList.new) }
   end
+
+  test "a second tooltip or legend is refused" do
+    list = declared
+    list.declare(Chadcn::Chart::Tooltip.new)
+    list.declare(Chadcn::Chart::Legend.new)
+
+    tooltip = assert_raises(ArgumentError) { list.declare(Chadcn::Chart::Tooltip.new) }
+    legend = assert_raises(ArgumentError) { list.declare(Chadcn::Chart::Legend.new) }
+
+    assert_equal "a chart takes one tooltip (got a second Chadcn::Chart::Tooltip)", tooltip.message
+    assert_equal "a chart takes one legend (got a second Chadcn::Chart::Legend)", legend.message
+    assert_equal 2, list.items.size
+  end
 end

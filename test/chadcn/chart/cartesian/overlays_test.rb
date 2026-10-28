@@ -101,4 +101,34 @@ class Chadcn::Chart::Cartesian::OverlaysTest < Chadcn::TestCase
       end
     end
   end
+
+  test "a middle legend with a numeric height is centered by that height, the one Layout reserves" do
+    middle = wrapper(render_legend(legend: { vertical_align: :middle, height: 40 }))
+
+    assert_includes middle["style"], "top: 80px;"
+  end
+
+  test "wrapper_style keys are CSS names: zIndex and z_index are z-index, unitless; custom properties are kept" do
+    [ { zIndex: 3 }, { z_index: 3 } ].each do |style|
+      assert_includes wrapper(render_legend(legend: { wrapper_style: style }))["style"], "z-index: 3;"
+    end
+    custom = wrapper(render_legend(legend: { wrapper_style: { "--gap": 2, backgroundColor: "red" } }))["style"]
+
+    assert_includes custom, "--gap: 2px;"
+    assert_includes custom, "background-color: red;"
+  end
+
+  test "a String wrapper_style cannot leave the style attribute, on the legend or the tooltip wrapper" do
+    hostile = 'color: red" onmouseover="x'
+    legend = wrapper(render_legend(legend: { wrapper_style: hostile }))
+    tooltip = parse(render_chart do |chart|
+      chart.tooltip(content: Chadcn::Chart::Tooltip::Content.new, wrapper_style: hostile)
+      chart.bar(data_key: :desktop)
+    end).at_css(".recharts-tooltip-wrapper")
+
+    [ legend, tooltip ].each do |node|
+      assert_nil node["onmouseover"]
+      assert_includes node["style"], "onmouseover"
+    end
+  end
 end

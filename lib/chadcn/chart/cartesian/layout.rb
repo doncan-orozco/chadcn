@@ -119,6 +119,18 @@ class Chadcn::Chart::Cartesian::Layout
     { horizontal: horizontal, vertical: vertical }
   end
 
+  # The height the legend takes: its `height:` when that is a number, else the assumed height of its content (`legend_height:`). The room
+  # it reserves and where `vertical_align: :middle` puts it both use this one number.
+  #
+  # @api private
+  # @return [Numeric, nil] nil without a legend
+  def legend_box_height
+    legend = @declared.legend&.options
+    return unless legend
+
+    legend[:height].is_a?(Numeric) ? legend[:height] : legend[:legend_height]
+  end
+
   private
 
   # --- offsets ------------------------------------------------------------------------------------------------------------
@@ -141,7 +153,7 @@ class Chadcn::Chart::Cartesian::Layout
     vertical_align = legend[:vertical_align]
     legend_layout = legend[:layout]
     box_width = legend[:width].is_a?(Numeric) ? legend[:width] : 0
-    box_height = legend[:height].is_a?(Numeric) ? legend[:height] : legend[:legend_height]
+    box_height = legend_box_height
     if (legend_layout == :vertical || (legend_layout == :horizontal && vertical_align == :middle)) && align != :center
       offset.merge(align => offset[align] + box_width)
     elsif (legend_layout == :horizontal || (legend_layout == :vertical && align == :center)) && vertical_align != :middle

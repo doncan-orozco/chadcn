@@ -45,12 +45,22 @@ module Chadcn::Chart::Cartesian::Formatter
     # @api private
     # @param value [Object]
     # @return [String]
-    def locale(value)
-      number = Chadcn::Chart::Cartesian::Value.number(value)
-      return Chadcn::Chart::Cartesian::Value.text(value) if number.nil?
+    def locale(value) = locale_string(Chadcn::Chart::Cartesian::Value.number(value) || value)
 
-      whole, fraction = (exact(number).abs * 1000).round(half: :up).divmod(1000)
-      sign = number.negative? || (number.zero? && (1.0 / number).negative?) ? "-" : ""
+    # JavaScript `value.toLocaleString("en-US")` of a value that is already a number (no coercion of text): comma grouping, at most three
+    # fraction digits (half away from zero), a negative zero or a negative that rounds to zero keeps its sign, the infinities are "∞" and
+    # "-∞" (CLDR), NaN is "NaN"; anything that is not a real number is `String(value)`.
+    #
+    # @api private
+    # @param value [Object]
+    # @return [String]
+    def locale_string(value)
+      return Chadcn::Chart::Cartesian::Value.text(value) unless value.is_a?(Numeric) && value.real?
+      return value.negative? ? "-∞" : "∞" if value.infinite?
+      return value.to_s unless value.finite?
+
+      whole, fraction = (exact(value).abs * 1000).round(half: :up).divmod(1000)
+      sign = value.negative? || (value.is_a?(Float) && value.zero? && (1.0 / value).negative?) ? "-" : ""
       grouped = whole.to_s.gsub(/\B(?=(\d{3})+(?!\d))/, ",")
       suffix = fraction.zero? ? "" : ".#{format('%03d', fraction).sub(/0+\z/, '')}"
       "#{sign}#{grouped}#{suffix}"
@@ -86,7 +96,7 @@ module Chadcn::Chart::Cartesian::Formatter
 
     def clamp_index(index, length) = index.negative? ? [ length + index, 0 ].max : [ index, length ].min
 
-    # The decimal ICU sees: floats by their shortest representation.
-    def exact(number) = Rational(number.to_s)
+    # The decimal ICU sees: floats by their shortest representation (1.0005 stays 1.0005, not its binary neighbor).
+    def exact(number) = number.is_a?(Float) ? Rational(number.to_s) : number.to_r
   end
 end

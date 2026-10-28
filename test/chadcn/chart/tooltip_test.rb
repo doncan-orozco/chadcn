@@ -191,17 +191,6 @@ class Chadcn::Chart::TooltipTest < Chadcn::TestCase
     assert_equal "", Chadcn::Chart::Tooltip::Content.new(payload: nil).call
   end
 
-  test "the generated content helper of a Tooltip renders the same as the explicit class" do
-    items = [ { name: "desktop", data_key: "desktop", value: 186, color: "red" } ]
-    helper = Class.new(Chadcn::Chart::Tooltip) { define_method(:view_template) { content(indicator: :line, label: "January", payload: items) } }
-    explicit = render_content(indicator: :line, label: "January", payload: items)
-    through_helper = Class.new(Phlex::HTML) do
-      define_method(:view_template) { render(Chadcn::Chart::Container.new(config: CONFIG, id: "t")) { render helper.new } }
-    end.new.call
-
-    assert_equal explicit, through_helper
-  end
-
   test "attrs land on the root div" do
     node = box(render_content(payload: payload(:desktop), class: "w-40", data: { index: 1 }))
 

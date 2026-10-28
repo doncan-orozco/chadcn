@@ -46,4 +46,22 @@ class Chadcn::Chart::Cartesian::FormatterTest < Chadcn::TestCase
     assert_raises(ArgumentError) { Formatter.resolve({ slice: "x" }) }
     assert_raises(ArgumentError) { Formatter.resolve(42) }
   end
+
+  test "locale_string is the JavaScript toLocaleString of a number: infinities, NaN, negative zero, text as String" do
+    assert_equal "∞", Formatter.locale_string(Float::INFINITY)
+    assert_equal "-∞", Formatter.locale_string(-Float::INFINITY)
+    assert_equal "NaN", Formatter.locale_string(Float::NAN)
+    assert_equal "-0", Formatter.locale_string(-0.0)
+    assert_equal "-0", Formatter.locale_string(-0.0004)
+    assert_equal "12,345,678,901,234,567,890", Formatter.locale_string(12_345_678_901_234_567_890)
+    assert_equal "abc", Formatter.locale_string("abc")
+    assert_equal "", Formatter.locale_string(nil)
+  end
+
+  test "locale coerces numeric text and spells the infinities the same way" do
+    assert_equal "1,234.5", Formatter.locale("1234.5")
+    assert_equal "∞", Formatter.locale(Float::INFINITY)
+    assert_equal "-0", Formatter.locale(-0.0)
+    assert_equal "abc", Formatter.locale("abc")
+  end
 end

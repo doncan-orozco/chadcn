@@ -213,7 +213,7 @@ class Chadcn::Chart::Tooltip < Chadcn::Chart::Declaration
           span(class: "text-muted-foreground") { render_node(series_label(item_config, item)) }
         end
         value = item_value(item, :value)
-        span(class: "font-mono font-medium text-foreground tabular-nums") { plain(locale_string(value)) } unless value.nil?
+        span(class: "font-mono font-medium text-foreground tabular-nums") { plain(Chadcn::Chart::Cartesian::Formatter.locale_string(value)) } unless value.nil?
       end
     end
 
@@ -230,30 +230,24 @@ class Chadcn::Chart::Tooltip < Chadcn::Chart::Declaration
            "w-0 border-[1.5px] border-dashed bg-transparent" => option(:indicator) == "dashed",
            "my-0.5" => nest_label && option(:indicator) == "dashed" })
     end
+  end
 
-    # The decimal ICU sees: floats by their shortest representation (1.0005 stays 1.0005, not its binary neighbor).
-    def exact(number) = number.is_a?(Float) ? Rational(number.to_s) : number.to_r
+  # The block form of `content:`: `chart.tooltip { |tooltip| tooltip.content(hide_label: true) }` is
+  # `chart.tooltip(content: Chadcn::Chart::Tooltip::Content.new(hide_label: true))`. Replaces the helper generated for the nested class.
+  #
+  # @param attrs [Hash] the keywords of {Chadcn::Chart::Tooltip::Content}
+  # @return [void]
+  # @raise [ArgumentError] when the tooltip already has a content (`content:` or an earlier call)
+  def content(**attrs)
+    raise ArgumentError, "#{self.class.name} takes one content (content: or the block, not both)" if @content_element
 
-    # JS `toLocaleString()` of the default (en-US) locale for a number: comma grouping, at most 3 fraction digits, half away from
-    # zero; the infinities are "∞" and "-∞" (CLDR), NaN is "NaN"; other values are `String(value)`.
-    def locale_string(value)
-      return value.to_s unless value.is_a?(Numeric) && value.real?
-      return value.negative? ? "-∞" : "∞" if value.infinite?
-      return value.to_s unless value.finite?
+    @content_element = Content.new(**attrs)
+  end
 
-      whole, fraction = (exact(value).abs * 1000).round(half: :up).divmod(1000)
-      "#{'-' if negative_sign?(value)}#{group_thousands(whole)}#{fraction_suffix(fraction)}"
-    end
-
-    # JS prints a negative zero (and a negative that rounds to zero) with its sign.
-    def negative_sign?(value) = value.negative? || (value.is_a?(Float) && value.zero? && (1.0 / value).negative?)
-
-    def group_thousands(whole) = whole.to_s.gsub(/\B(?=(\d{3})+(?!\d))/, ",")
-
-    def fraction_suffix(fraction)
-      return "" if fraction.zero?
-
-      ".#{format('%03d', fraction).sub(/0+\z/, '')}"
-    end
+  # @yieldparam tooltip [Chadcn::Chart::Tooltip] itself, to declare its {#content}
+  # @return [void]
+  def view_template
+    yield self if block_given?
+    super
   end
 end

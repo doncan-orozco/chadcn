@@ -49,13 +49,30 @@ class Chadcn::Chart::Container < Chadcn::Base
   # @return [Numeric] server assumption for the width of a character in em
   attr_reader :text_char_width
 
-  # Adds markup after the responsive shell, as the last children of the `div[data-slot="chart"]` (what a chart inside writes there: the inert
-  # tooltip templates `chadcn--chart` swaps in, dev/port/specs/chart.md "Tooltip"). Call it while the container's block runs.
+  # Adds a component after the responsive shell, rendered as the last children of the `div[data-slot="chart"]` (what a chart inside writes
+  # there: the inert tooltip templates `chadcn--chart` swaps in, dev/port/specs/chart.md "Tooltip"). Call it while the container's block runs.
   #
   # @api private
-  # @param markup [String] HTML the caller already escaped
+  # @param part [Phlex::SGML] the component to render
   # @return [void]
-  def append_after_shell(markup) = (@after_shell ||= +"") << markup
+  # @raise [ArgumentError] on anything that is not a Phlex component
+  def append_after_shell(part)
+    raise ArgumentError, "append_after_shell takes a Phlex component (got #{part.class})" unless part.is_a?(Phlex::SGML)
+
+    @after_shell << part
+  end
+
+  # The container holds one chart: `chadcn--chart` reads one set of templates and one config scope.
+  #
+  # @api private
+  # @param chart [Object] the chart root about to render inside
+  # @return [void]
+  # @raise [ArgumentError] when a chart already claimed the container
+  def claim_chart(chart)
+    raise ArgumentError, "a Chart::Container holds one chart (got a second #{chart.class.name})" if @chart
+
+    @chart = chart
+  end
 
   # The container the current render is inside, or nil. Used by the contents and the chart roots (React's `useChart`).
   #
@@ -79,6 +96,8 @@ class Chadcn::Chart::Container < Chadcn::Base
     @text_height = validated_measure(:text_height, text_height)
     @text_char_width = validated_measure(:text_char_width, text_char_width)
     @attrs = attrs
+    @after_shell = []
+    @chart = nil
     super()
   end
 
@@ -90,7 +109,7 @@ class Chadcn::Chart::Container < Chadcn::Base
       div(class: "recharts-responsive-container", style: SHELL_STYLE) do
         div(style: INNER_STYLE) { publish { |container| yield container if block_given? } }
       end
-      raw(safe(@after_shell)) if @after_shell
+      publish { @after_shell.each { |part| render part } }
     end
   end
 

@@ -64,9 +64,17 @@ class Chadcn::Chart::Cartesian::Overlays < Chadcn::Base
 
   # The style attribute: the base properties with the caller's Hash merged over them, or a String appended.
   def style_text(base, extra)
-    base = base.merge(extra.to_h { |name, value| [ name.to_s.tr("_", "-").to_sym, value ] }) if extra.is_a?(Hash)
+    base = base.merge(extra.to_h { |name, value| [ css_name(name), value ] }) if extra.is_a?(Hash)
     text = base.map { |name, value| "#{name}: #{css_value(name, value)};" }.join(" ")
     extra.is_a?(String) ? "#{text} #{extra}" : text
+  end
+
+  # A property name the CSS way: `zIndex` and `z_index` are `z-index`; a custom property (`--gap`) is kept as written.
+  def css_name(name)
+    text = name.to_s
+    return text.to_sym if text.start_with?("--")
+
+    text.gsub(/([a-z\d])([A-Z])/, '\1-\2').tr("_", "-").downcase.to_sym
   end
 
   # A number is pixels, as React DOM writes it, except for the properties that take a plain number.
@@ -104,7 +112,7 @@ class Chadcn::Chart::Cartesian::Overlays < Chadcn::Base
 
   def vertical_position(options, margin)
     case options[:vertical_align]
-    when :middle then { top: (@layout.height - options[:legend_height]) / 2.0 }
+    when :middle then { top: (@layout.height - @layout.legend_box_height) / 2.0 }
     when :bottom then { bottom: margin[:bottom] }
     else { top: margin[:top] }
     end

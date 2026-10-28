@@ -32,7 +32,7 @@ class Chadcn::Chart::Legend < Chadcn::Chart::Declaration
   # @param wrapper_style [Hash, String, nil] style of the `recharts-legend-wrapper` div
   # @param legend_height [Numeric] server assumption for the measured height of the content (`pt-3` plus a 16px line)
   # @param attrs [Hash] attributes of the `recharts-legend-wrapper` div (a chadcn addition); `class:` is merged
-  # @raise [ArgumentError] on a `vertical_align:`, `align:` or `layout:` outside its values, or a `content:` that is not a legend content
+  # @raise [ArgumentError] on a `vertical_align:`, `align:`, `layout:` or `item_sorter:` outside its values, or a `content:` that is not a legend content
   def initialize(content: nil, vertical_align: :bottom, align: :center, layout: :horizontal, icon_size: 14, icon_type: nil,
                  inactive_color: nil, item_sorter: :value, width: nil, height: nil, payload_uniq_by: false, wrapper_style: nil,
                  legend_height: 28, **attrs)
@@ -41,6 +41,9 @@ class Chadcn::Chart::Legend < Chadcn::Chart::Declaration
 
       raise ArgumentError, "#{name}: must be one of #{allowed.map(&:inspect).join(', ')} (got #{value.inspect})"
     end
+    unless item_sorter.nil? || item_sorter.to_s == "value"
+      raise ArgumentError, "item_sorter: must be :value or nil (got #{item_sorter.inspect}; a dataKey and a function are not ported)"
+    end
     unless content.nil? || content.is_a?(Chadcn::Chart::Legend::Content)
       raise ArgumentError, "content: must be a Chadcn::Chart::Legend::Content (got #{content.class})"
     end
@@ -48,7 +51,7 @@ class Chadcn::Chart::Legend < Chadcn::Chart::Declaration
     @content_element = content
     @options = {
       vertical_align: vertical_align.to_sym, align: align.to_sym, layout: layout.to_sym, icon_size: icon_size, icon_type: icon_type,
-      inactive_color: inactive_color, item_sorter: item_sorter, width: width, height: height, payload_uniq_by: payload_uniq_by,
+      inactive_color: inactive_color, item_sorter: item_sorter&.to_sym, width: width, height: height, payload_uniq_by: payload_uniq_by,
       wrapper_style: wrapper_style, legend_height: legend_height, attrs: attrs
     }.freeze
     super()
@@ -114,5 +117,24 @@ class Chadcn::Chart::Legend < Chadcn::Chart::Declaration
         render_node(item_config&.label)
       end
     end
+  end
+
+  # The block form of `content:`: `chart.legend { |legend| legend.content(hide_icon: true) }` is
+  # `chart.legend(content: Chadcn::Chart::Legend::Content.new(hide_icon: true))`. Replaces the helper generated for the nested class.
+  #
+  # @param attrs [Hash] the keywords of {Chadcn::Chart::Legend::Content}
+  # @return [void]
+  # @raise [ArgumentError] when the legend already has a content (`content:` or an earlier call)
+  def content(**attrs)
+    raise ArgumentError, "#{self.class.name} takes one content (content: or the block, not both)" if @content_element
+
+    @content_element = Content.new(**attrs)
+  end
+
+  # @yieldparam legend [Chadcn::Chart::Legend] itself, to declare its {#content}
+  # @return [void]
+  def view_template
+    yield self if block_given?
+    super
   end
 end

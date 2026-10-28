@@ -23,7 +23,10 @@ class Chadcn::Chart::Cartesian::TooltipPlan
 
   Number = Chadcn::Chart::Shape::Number
 
-  private_constant :Number
+  # The SVG attributes a `cursor:` or `active_dot:` Hash may carry; they go into JSON and attributes, so nothing else (`onclick`, `href`) passes.
+  SHAPE_ATTRIBUTES = %i[class fill fill-opacity stroke stroke-width stroke-dasharray stroke-opacity stroke-linecap stroke-linejoin opacity r].freeze
+
+  private_constant :Number, :SHAPE_ATTRIBUTES
 
   # @api private
   # @return [Chadcn::Chart::Tooltip]
@@ -39,6 +42,7 @@ class Chadcn::Chart::Cartesian::TooltipPlan
     @rows = rows
     @tooltip = declared.tooltip
     @axis = layout.tooltip_axis(@tooltip.options[:axis_id])
+    validate_shape_attributes
   end
 
   # @api private
@@ -73,6 +77,13 @@ class Chadcn::Chart::Cartesian::TooltipPlan
   end
 
   private
+
+  # The attributes of the cursor and of the active dots are checked when the plan is built, not only when a category is drawn.
+  def validate_shape_attributes
+    cursor = @tooltip.options[:cursor]
+    dashed(cursor.except(:class)) if cursor.is_a?(Hash)
+    @declared.series.each { |series| dashed(series.options[:active_dot]) if series.options[:active_dot].is_a?(Hash) }
+  end
 
   def entry(tick)
     row = @rows[tick.index]
@@ -175,5 +186,15 @@ class Chadcn::Chart::Cartesian::TooltipPlan
   def round(value) = Number.format(Chadcn::Chart::Cartesian::Rectangle.round(value))
 
   # Hash keys written the SVG way (`stroke_dasharray` is `stroke-dasharray`).
-  def dashed(attributes) = attributes.to_h { |key, value| [ key.to_s.tr("_", "-").to_sym, value.is_a?(Numeric) ? Number.format(value) : value ] }
+  # Only SHAPE_ATTRIBUTES pass.
+  def dashed(attributes)
+    attributes.to_h do |key, value|
+      name = key.to_s.tr("_", "-").to_sym
+      unless SHAPE_ATTRIBUTES.include?(name)
+        raise ArgumentError, "#{key.inspect} is not an attribute of the cursor or the active dot (allowed: #{SHAPE_ATTRIBUTES.map(&:inspect).join(', ')})"
+      end
+
+      [ name, value.is_a?(Numeric) ? Number.format(value) : value ]
+    end
+  end
 end

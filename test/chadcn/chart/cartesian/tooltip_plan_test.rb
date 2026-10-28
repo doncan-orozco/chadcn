@@ -170,4 +170,17 @@ class Chadcn::Chart::Cartesian::TooltipPlanTest < Chadcn::TestCase
     assert_empty parse(html).at_css(".recharts-tooltip-wrapper").children
     assert_raises(ArgumentError) { Chadcn::Chart::Tooltip.new.call }
   end
+
+  test "a cursor or active_dot attribute outside the SVG shape attributes is refused, with and without default_index" do
+    lines = ->(chart) { chart.line(data_key: :desktop) }
+    [ {}, { default_index: 1 } ].each do |extra|
+      error = assert_raises(ArgumentError) { render_tooltip(tooltip: { cursor: { onclick: "x" }, **extra }) }
+      assert_includes error.message, ":onclick"
+      assert_includes error.message, "allowed:"
+      assert_raises(ArgumentError) do
+        render_tooltip(Chadcn::Chart::LineChart, tooltip: extra) { |chart| chart.line(data_key: :desktop, active_dot: { href: "javascript:x" }) }
+      end
+    end
+    assert_includes render_tooltip(Chadcn::Chart::LineChart, tooltip: { cursor: { stroke_width: 2 } }, &lines), "stroke-width"
+  end
 end

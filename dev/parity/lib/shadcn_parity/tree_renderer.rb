@@ -10,5 +10,6 @@ class ShadcnParity::TreeRenderer < Chadcn::Catalog::TreeRenderer
 
   private
 
-  def harness_scope(bare) = PARITY_ROOTS.include?(bare) ? [ ShadcnParity, bare, PARITY_ROOTS ] : super
+  # A chart part is {ShadcnParity::ChartScope}'s; every other `_Name` is a stub of the harness (`_ProbeGroupItem` is a part of `_ProbeGroup`).
+  def harness_scope(bare) = ShadcnParity::ChartScope::RECHARTS_PARTS.include?(bare) ? super : [ ShadcnParity, bare, PARITY_ROOTS ]
 end

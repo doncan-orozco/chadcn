@@ -29,12 +29,12 @@ class Chadcn::Chart::Cartesian::Declared
   # @api private
   # @param declaration [Object] a chart part
   # @return [void]
-  # @raise [ArgumentError] on a part a chart cannot hold (a `Cell` outside a bar)
+  # @raise [ArgumentError] on a part a chart cannot hold (a `Cell` outside a bar) or a second tooltip or legend
   def declare(declaration)
     case declaration
     when Chadcn::Chart::XAxis, Chadcn::Chart::YAxis then @axes << declaration.settings
-    when Chadcn::Chart::Tooltip then @tooltip = declaration
-    when Chadcn::Chart::Legend then @legend = declaration
+    when Chadcn::Chart::Tooltip then @tooltip = single(@tooltip, declaration, "tooltip")
+    when Chadcn::Chart::Legend then @legend = single(@legend, declaration, "legend")
     when Chadcn::Chart::Cartesian::Series then @series << declaration
     when Chadcn::Chart::ReferenceLine then @references << declaration
     when Chadcn::Chart::CartesianGrid, Chadcn::Chart::Label then nil
@@ -67,4 +67,12 @@ class Chadcn::Chart::Cartesian::Declared
   # @param kind [Class] a declaration class
   # @return [Array<Object>] the declarations of that class, in order
   def of(kind) = @items.grep(kind)
+
+  private
+
+  def single(current, declaration, name)
+    raise ArgumentError, "a chart takes one #{name} (got a second #{declaration.class.name})" if current
+
+    declaration
+  end
 end

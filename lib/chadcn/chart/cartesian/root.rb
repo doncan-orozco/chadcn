@@ -65,6 +65,7 @@ class Chadcn::Chart::Cartesian::Root < Chadcn::Base
     @declared = Chadcn::Chart::Cartesian::Declared.new
     markup = collect(&)
     container = Chadcn::Chart::Container.current(context)
+    container&.claim_chart(self)
     layout = Chadcn::Chart::Cartesian::Layout.new(@declared, layout_settings(container))
     plan = Chadcn::Chart::Cartesian::TooltipPlan.new(layout: layout, declared: @declared, rows: @options[:data]) if @declared.tooltip
     append_tooltip_templates(container, plan) if plan
@@ -98,7 +99,7 @@ class Chadcn::Chart::Cartesian::Root < Chadcn::Base
   def append_tooltip_templates(container, plan)
     return unless container && plan.tooltip.content_element
 
-    container.append_after_shell(capture { render Chadcn::Chart::Cartesian::TooltipTemplates.new(plan: plan) })
+    container.append_after_shell(Chadcn::Chart::Cartesian::TooltipTemplates.new(plan: plan))
   end
 
   def layout_settings(container)

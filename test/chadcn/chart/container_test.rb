@@ -140,4 +140,24 @@ class Chadcn::Chart::ContainerTest < Chadcn::TestCase
 
     assert_match(/\Aid: /, error.message)
   end
+
+  test "append_after_shell renders a Phlex component after the shell, inside the container context, and refuses markup" do
+    part = Class.new(Phlex::HTML) { define_method(:view_template) { span(data: { after: "yes" }) } }.new
+    html = render_container { |container| container.append_after_shell(part) }
+    node = root(html)
+
+    assert_equal %w[style div span], node.element_children.map(&:name)
+    assert_raises(ArgumentError) { Chadcn::Chart::Container.new(config: CONFIG).append_after_shell("<b>x</b>") }
+  end
+
+  test "a container holds one chart" do
+    error = assert_raises(ArgumentError) do
+      render_container do |container|
+        container.claim_chart(Chadcn::Chart::BarChart.new)
+        container.claim_chart(Chadcn::Chart::LineChart.new)
+      end
+    end
+
+    assert_includes error.message, "a Chart::Container holds one chart (got a second Chadcn::Chart::LineChart)"
+  end
 end
