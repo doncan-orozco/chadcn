@@ -17,6 +17,8 @@ require "time"
 class FakeGh
   class Error < StandardError; end
 
+  MERGE_METHOD_FLAGS = %w[--squash --merge --rebase].freeze
+
   def self.call(argv) = new(ENV.fetch("WORK_FAKE_DB")).call(argv)
 
   def initialize(path)
@@ -112,9 +114,9 @@ class FakeGh
   end
 
   # Fields `gh pr view --json` returns that tests may leave out.
-  def pr_defaults(pr)
-    { "isDraft" => false, "mergeable" => "MERGEABLE", "mergeStateStatus" => "CLEAN", "headRefOid" => "head#{pr['number']}",
-      "baseRefName" => "main", "statusCheckRollup" => [], "mergeCommit" => nil }.merge(pr)
+  def pr_defaults(record)
+    { "isDraft" => false, "mergeable" => "MERGEABLE", "mergeStateStatus" => "CLEAN", "headRefOid" => "head#{record['number']}",
+      "baseRefName" => "main", "statusCheckRollup" => [], "mergeCommit" => nil }.merge(record)
   end
 
   # Real gh refuses --match-head-commit when the head moved, and merging a PR that is not open.
@@ -122,13 +124,14 @@ class FakeGh
     locked do |db|
       pr = Array(db["prs"]).find { |p| p["number"] == args.first.to_i } or raise Error, "no pull requests found for #{args.first}"
       raise Error, "pull request ##{pr['number']} is not open" unless pr["state"] == "OPEN"
+
       expected = flag(args, "--match-head-commit")
       raise Error, "head commit #{pr_defaults(pr)['headRefOid']} does not match #{expected}" if expected && expected != pr_defaults(pr)["headRefOid"]
 
       pr["state"] = "MERGED"
       pr["mergedAt"] = Time.now.utc.iso8601
       pr["mergeCommit"] = { "oid" => "merge#{pr['number']}#{'0' * 30}" }
-      pr["method"] = args.find { |a| %w[--squash --merge --rebase].include?(a) }
+      pr["method"] = args.find { |arg| MERGE_METHOD_FLAGS.include?(arg) }
     end
     ""
   end
@@ -141,7 +144,9 @@ class FakeGh
     when %r{/commits/#{Regexp.escape(base)}/check-runs}
       JSON.generate({ "check_runs" => Array(db["base_checks"]).map { |c| { "head_sha" => db["base_sha"] || "base0000" }.merge(c) } })
     when %r{/compare/#{Regexp.escape(base)}\.\.\.(\S+)\z}
-      pr = Array(db["prs"]).find { |p| pr_defaults(p)["headRefOid"] == Regexp.last_match(1) } or raise Error, "HTTP 404: No commit found for SHA: #{Regexp.last_match(1)}"
+      pr = Array(db["prs"]).find do |p|
+        pr_defaults(p)["headRefOid"] == Regexp.last_match(1)
+      end or raise Error, "HTTP 404: No commit found for SHA: #{Regexp.last_match(1)}"
       JSON.generate({ "behind_by" => pr["behind_by"].to_i, "ahead_by" => 1, "base_commit" => { "sha" => db["base_sha"] || "base0000" },
                       "merge_base_commit" => { "sha" => "mergebase" }, "files" => Array(pr["files"]).map { |f| { "filename" => f } } })
     when %r{/compare/\S+\.\.\.#{Regexp.escape(base)}\z}

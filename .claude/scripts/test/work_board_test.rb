@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "test_helper"
 require "tmpdir"
 require "open3"
@@ -19,7 +21,7 @@ WorkBoard::Shell.prepend(FakeGhRoute)
 
 # Golden tests for the multi-session coordination board (.claude/scripts/epic/work_board.rb). GitHub is replaced by
 # .claude/scripts/test/fake_gh.rb; claims are real git refs on a local bare repository, so the atomicity under test is git's own.
-class WorkBoardTest < ActiveSupport::TestCase
+class WorkBoardTest < ActiveSupport::TestCase # rubocop:disable Style/OneClassPerFile -- FakeGhRoute above is the in-process gh seam
   SCRIPT = TOOLING_ROOT.join(".claude/scripts/epic/work_board.rb").to_s
   FAKE_GH = File.expand_path("fake_gh.rb", __dir__)
   T0 = "2026-10-12T10:00:00Z"
@@ -43,24 +45,35 @@ class WorkBoardTest < ActiveSupport::TestCase
     ENV.delete("WORK_SESSION") unless env.key?("WORK_SESSION")
     out = StringIO.new
     code = 0
-    real_out, real_err = $stdout, $stderr
-    $stdout, $stderr = out, StringIO.new
+    real_out = $stdout
+    real_err = $stderr
+    $stdout = out
+    $stderr = StringIO.new
     Dir.chdir(@work) do
       WorkBoard::Cli.new(args).run
     rescue SystemExit => e
       code = e.status
     end
-    [ (JSON.parse(out.string) rescue { "raw" => out.string }), code ]
+    [ begin
+      JSON.parse(out.string)
+    rescue StandardError
+      { "raw" => out.string }
+    end, code ]
   ensure
-    $stdout, $stderr = real_out, real_err
+    $stdout = real_out
+    $stderr = real_err
     %w[WORK_NOW WORK_FAKE_DB WORK_REMOTE WORK_SESSION].each { |k| saved[k] ? ENV[k] = saved[k] : ENV.delete(k) }
   end
 
   # Same call as a real subprocess (real `ruby script`, real fake_gh executable): used where true parallelism matters.
-  def wb_process(*args, now: T0)
+  def wb_process(*, now: T0)
     out, _err, status = Open3.capture3({ "WORK_GH" => "#{RbConfig.ruby} #{FAKE_GH}", "WORK_FAKE_DB" => @db, "WORK_REMOTE" => "origin", "WORK_NOW" => now },
-                                       RbConfig.ruby, SCRIPT, *args, chdir: @work)
-    [ (JSON.parse(out) rescue { "raw" => out }), status.exitstatus ]
+                                       RbConfig.ruby, SCRIPT, *, chdir: @work)
+    [ begin
+      JSON.parse(out)
+    rescue StandardError
+      { "raw" => out }
+    end, status.exitstatus ]
   end
 
   def make_epic(slug = "demo")
@@ -147,7 +160,7 @@ class WorkBoardTest < ActiveSupport::TestCase
     assert_includes issue["labels"].map { |l| l["name"] }, "epic:demo"
     assert_includes issue["labels"].map { |l| l["name"] }, "stage:plan"
     assert_includes issue["labels"].map { |l| l["name"] }, "wave:1"
-    assert_match(/work-item \{.*"owns":\["lib\/a\/\*\*"\]/, issue["body"])
+    assert_match(%r{work-item \{.*"owns":\["lib/a/\*\*"\]}, issue["body"])
     assert_includes fake_db["issues"].first["labels"].map { |l| l["name"] }, "epic-root"
   end
 
@@ -185,7 +198,7 @@ class WorkBoardTest < ActiveSupport::TestCase
     assert_equal 0, code, result.inspect
     assert result["pass"]
 
-    c = make_item("C", wave: 1, owns: "lib/a/x.rb")             # parallel to A, overlapping files
+    c = make_item("C", wave: 1, owns: "lib/a/x.rb") # parallel to A, overlapping files
     d = make_item("D", wave: 1, owns: "lib/d/**", blocked_by: [ a ]) # same wave as its blocker
     e = make_item("E", wave: 3, owns: "lib/e/**", blocked_by: [ 999 ]) # blocker outside the epic
     result, code = wb("validate", "--epic", "demo")
@@ -228,7 +241,7 @@ class WorkBoardTest < ActiveSupport::TestCase
   test "next returns the lowest wave ready item and never an item with an open blocker" do
     make_epic
     a = make_item("A", wave: 1, owns: "lib/a/**")
-    b = make_item("B", wave: 2, owns: "lib/b/**", blocked_by: [ a ])
+    make_item("B", wave: 2, owns: "lib/b/**", blocked_by: [ a ])
     c = make_item("C", wave: 1, owns: "lib/c/**")
 
     assert_equal a, wb("next", "--epic", "demo")[0]["item"]["number"]
@@ -317,7 +330,7 @@ class WorkBoardTest < ActiveSupport::TestCase
     make_epic
     3.times do |round|
       number = make_item("race-#{round}", wave: 1, owns: "lib/race#{round}/**")
-      results = 8.times.map do |i|
+      results = Array.new(8) do |i|
         Thread.new { wb_process("claim", number.to_s, "--epic", "demo", "--session", "racer-#{i}") }
       end.map(&:value)
       winners = results.select { |_, code| code.zero? }
@@ -424,7 +437,7 @@ class WorkBoardTest < ActiveSupport::TestCase
     assert_nil wb("status", "--epic", "demo")[0]["items"].first["holder"]
     logs = fake_db["issues"].find { |i| i["number"] == a }["comments"].map { |c| c["body"] }
 
-    assert_equal 2, logs.count { |b| b.include?('"type":"stage-log"') }
+    assert_equal(2, logs.count { |b| b.include?('"type":"stage-log"') })
   end
 
   test "advance and block are refused for a session that does not hold the item" do
@@ -512,9 +525,12 @@ class WorkBoardTest < ActiveSupport::TestCase
   # ---- plan files ---------------------------------------------------------------------------------------------------
   def plan_file(items: nil, epic: { "slug" => "gemx", "title" => "Gem epic", "body" => "scope" })
     items ||= [
-      { "key" => "skeleton", "title" => "Gem skeleton", "wave" => 0, "owns" => [ "gems/x/**" ], "goal" => "make it", "gates" => [ "bundle exec rake test" ], "acceptance" => [ "suite green" ] },
-      { "key" => "move", "title" => "Move code", "wave" => 1, "owns" => [ "gems/x/lib/**" ], "blocked_by" => [ "skeleton" ], "goal" => "move", "gates" => [ "ruby check.rb" ], "acceptance" => [ "all pass" ], "context" => "see skeleton" },
-      { "key" => "docs", "title" => "Docs", "wave" => 1, "owns" => [ "gems/x/README.md" ], "blocked_by" => [ "skeleton" ], "goal" => "write", "gates" => [ "true" ], "acceptance" => [ "readme" ] }
+      { "key" => "skeleton", "title" => "Gem skeleton", "wave" => 0, "owns" => [ "gems/x/**" ], "goal" => "make it", "gates" => [ "bundle exec rake test" ],
+        "acceptance" => [ "suite green" ] },
+      { "key" => "move", "title" => "Move code", "wave" => 1, "owns" => [ "gems/x/lib/**" ], "blocked_by" => [ "skeleton" ], "goal" => "move",
+        "gates" => [ "ruby check.rb" ], "acceptance" => [ "all pass" ], "context" => "see skeleton" },
+      { "key" => "docs", "title" => "Docs", "wave" => 1, "owns" => [ "gems/x/README.md" ], "blocked_by" => [ "skeleton" ], "goal" => "write",
+        "gates" => [ "true" ], "acceptance" => [ "readme" ] }
     ]
     path = File.join(@dir, "plan.json")
     File.write(path, JSON.generate("epic" => epic, "items" => items))
@@ -532,7 +548,8 @@ class WorkBoardTest < ActiveSupport::TestCase
     items = [
       { "key" => "a", "title" => "A", "wave" => 1, "owns" => [ "lib/a/**" ], "goal" => "g", "gates" => [], "acceptance" => [ "x" ] },
       { "key" => "b", "title" => "B", "wave" => 1, "owns" => [ "lib/a/x.rb" ], "goal" => "g", "gates" => [ "true" ], "acceptance" => [ "x" ] },
-      { "key" => "b", "title" => "B2", "wave" => 2, "owns" => [ "lib/z/**" ], "blocked_by" => [ "ghost" ], "goal" => "g", "gates" => [ "true" ], "acceptance" => [ "x" ] }
+      { "key" => "b", "title" => "B2", "wave" => 2, "owns" => [ "lib/z/**" ], "blocked_by" => [ "ghost" ], "goal" => "g", "gates" => [ "true" ],
+        "acceptance" => [ "x" ] }
     ]
     result, code = wb("plan-check", "--file", plan_file(items: items))
     codes = result["findings"].map { |f| f["code"] }
@@ -585,7 +602,7 @@ class WorkBoardTest < ActiveSupport::TestCase
     assert_equal "s1", shown["holder"]
     refute_includes shown["body"], "work-item"
     assert_includes shown["body"], "## Acceptance"
-    assert_equal [ "handoff" ], shown["notes"].map { |n| n["type"] }
+    assert_equal([ "handoff" ], shown["notes"].map { |n| n["type"] })
   end
 
   test "a human can force-release an abandoned claim of any session" do
@@ -784,7 +801,7 @@ class WorkBoardTest < ActiveSupport::TestCase
     add_pr(number: 12, head: "epic/demo/#{a}-second-try", state: "MERGED")
     result = wb("reviews", "--epic", "demo")[0]
 
-    assert_equal [ a ], result["reviews"].map { |r| r["number"] }
+    assert_equal([ a ], result["reviews"].map { |r| r["number"] })
     assert_equal "merged", result["reviews"].first["verdict"]
     assert_equal 12, result["reviews"].first["pr"]["number"]
   end
@@ -841,7 +858,8 @@ class WorkBoardTest < ActiveSupport::TestCase
   def add_open_pr(item, number:, checks: [ check("test"), check("lint") ], draft: false, mergeable: "MERGEABLE", behind_by: 0, files: [ "lib/a/x.rb" ])
     db = fake_db
     db["prs"] = Array(db["prs"]) << { "number" => number, "state" => "OPEN", "headRefName" => "epic/demo/#{item}-item", "mergedAt" => nil,
-                                      "url" => "https://github.test/o/r/pull/#{number}", "isDraft" => draft, "mergeable" => mergeable, "headRefOid" => "head#{number}",
+                                      "url" => "https://github.test/o/r/pull/#{number}", "isDraft" => draft, "mergeable" => mergeable,
+                                      "headRefOid" => "head#{number}",
                                       "statusCheckRollup" => checks, "behind_by" => behind_by, "files" => files }
     File.write(@db, JSON.generate(db))
   end
@@ -860,13 +878,14 @@ class WorkBoardTest < ActiveSupport::TestCase
     assert_equal 0, code, result.inspect
     assert_equal "ready", row["verdict"]
     assert row["audited"]
-    assert_equal %w[test lint], row["checks"]["passing"].map { |c| c["name"] }
+    assert_equal(%w[test lint], row["checks"]["passing"].map { |c| c["name"] })
     assert_equal({ "number" => 50, "state" => "OPEN", "url" => "https://github.test/o/r/pull/50", "head" => "head50", "branch" => "epic/demo/#{a}-item",
                    "base" => "main", "draft" => false, "mergeable" => "MERGEABLE", "merge_state" => "CLEAN" }, row["pr"])
     assert_equal [ a ], result["ready"]
     assert_equal({ "branch" => "main", "sha" => "base1234", "failing" => [], "checks" => [
-      { "name" => "test", "status" => "COMPLETED", "conclusion" => "SUCCESS", "url" => "https://ci.test/test" },
-      { "name" => "lint", "status" => "COMPLETED", "conclusion" => "SUCCESS", "url" => "https://ci.test/lint" } ] }, result["base"])
+                   { "name" => "test", "status" => "COMPLETED", "conclusion" => "SUCCESS", "url" => "https://ci.test/test" },
+                   { "name" => "lint", "status" => "COMPLETED", "conclusion" => "SUCCESS", "url" => "https://ci.test/lint" }
+                 ] }, result["base"])
   end
 
   test "mergeable: a check that fails on the base branch too is pre-existing and reported, not held against the PR" do
@@ -879,7 +898,7 @@ class WorkBoardTest < ActiveSupport::TestCase
     row = result["items"].first
 
     assert_equal "ready", row["verdict"]
-    assert_equal [ "scan_ruby" ], row["checks"]["preexisting"].map { |c| c["name"] }
+    assert_equal([ "scan_ruby" ], row["checks"]["preexisting"].map { |c| c["name"] })
     assert_empty row["checks"]["failing"]
     assert_equal [ { "name" => "scan_ruby", "conclusion" => "FAILURE", "url" => "https://ci.test/scan_ruby" } ], result["base"]["failing"]
   end
@@ -898,7 +917,7 @@ class WorkBoardTest < ActiveSupport::TestCase
     assert_equal "ci_failed", judged(a)["verdict"]
     assert_equal [ { "name" => "test", "conclusion" => "FAILURE", "url" => "https://ci.test/test" } ], judged(a)["checks"]["failing"]
     assert_equal "ci_pending", judged(b)["verdict"]
-    assert_equal [ "test" ], judged(b)["checks"]["pending"].map { |c| c["name"] }
+    assert_equal([ "test" ], judged(b)["checks"]["pending"].map { |c| c["name"] })
     assert_empty result["ready"]
   end
 
