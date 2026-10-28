@@ -1,0 +1,123 @@
+# frozen_string_literal: true
+
+# shadcn `ChartLegend` (recharts' `Legend`): the legend a chart root declares. It renders nothing where it is written; the chart
+# reads {#options} and {#content_element} and writes the legend wrapper with the content.
+#
+# @example
+#   Chadcn::Chart::Legend.new(content: Chadcn::Chart::Legend::Content.new, vertical_align: :top)
+class Chadcn::Chart::Legend < Chadcn::Base
+  # Values of `vertical_align:`.
+  VERTICAL_ALIGNMENTS = %i[top middle bottom].freeze
+  # Values of `align:`.
+  ALIGNMENTS = %i[left center right].freeze
+  # Values of `layout:`.
+  LAYOUTS = %i[horizontal vertical].freeze
+
+  # @return [Chadcn::Chart::Legend::Content, nil] the declared content (recharts' `content` prop)
+  attr_reader :content_element
+  # @return [Hash{Symbol => Object}] the keywords with recharts' defaults applied, frozen
+  attr_reader :options
+
+  # @param content [Chadcn::Chart::Legend::Content, nil]
+  # @param vertical_align [Symbol] `:top`, `:middle` or `:bottom`; also the padding side of the content
+  # @param align [Symbol] `:left`, `:center` or `:right`
+  # @param layout [Symbol] `:horizontal` or `:vertical`
+  # @param icon_size [Numeric] accepted for parity with recharts, ignored by the shadcn content
+  # @param icon_type [Symbol, nil] accepted and ignored
+  # @param inactive_color [String, nil] accepted and ignored (recharts' default is a light gray, used only by its default content)
+  # @param item_sorter [Symbol, nil] `:value` sorts the payload by name, nil keeps the series order
+  # @param width [Numeric, nil] width of the wrapper
+  # @param height [Numeric, nil] height of the wrapper
+  # @param payload_uniq_by [Boolean] unique payload by `value`
+  # @param wrapper_style [Hash, String, nil] style of the `recharts-legend-wrapper` div
+  # @param legend_height [Numeric] server assumption for the measured height of the content (`pt-3` plus a 16px line)
+  # @param attrs [Hash] attributes of the `recharts-legend-wrapper` div (a chadcn addition); `class:` is merged
+  # @raise [ArgumentError] on a `vertical_align:`, `align:` or `layout:` outside its values, or a `content:` that is not a legend content
+  def initialize(content: nil, vertical_align: :bottom, align: :center, layout: :horizontal, icon_size: 14, icon_type: nil,
+                 inactive_color: nil, item_sorter: :value, width: nil, height: nil, payload_uniq_by: false, wrapper_style: nil,
+                 legend_height: 28, **attrs)
+    { vertical_align: [ vertical_align, VERTICAL_ALIGNMENTS ], align: [ align, ALIGNMENTS ], layout: [ layout, LAYOUTS ] }.each do |name, (value, allowed)|
+      next if value.respond_to?(:to_sym) && allowed.include?(value.to_sym)
+
+      raise ArgumentError, "#{name}: must be one of #{allowed.map(&:inspect).join(', ')} (got #{value.inspect})"
+    end
+    unless content.nil? || content.is_a?(Chadcn::Chart::Legend::Content)
+      raise ArgumentError, "content: must be a Chadcn::Chart::Legend::Content (got #{content.class})"
+    end
+
+    @content_element = content
+    @options = {
+      vertical_align: vertical_align.to_sym, align: align.to_sym, layout: layout.to_sym, icon_size: icon_size, icon_type: icon_type,
+      inactive_color: inactive_color, item_sorter: item_sorter, width: width, height: height, payload_uniq_by: payload_uniq_by,
+      wrapper_style: wrapper_style, legend_height: legend_height, attrs: attrs
+    }.freeze
+    super()
+  end
+
+  # A declaration renders nothing where it is written; the chart that contains it draws the legend.
+  #
+  # @return [void]
+  def view_template; end
+
+  # Nested in this file, not in `legend/content.rb`: `Base.const_added` loads the parts of `Chart` while Zeitwerk is still
+  # registering them, before it can hook the namespace of a file that also has a directory, so a `legend/` directory
+  # would stay unregistered (epic chart, item #45).
+
+  # shadcn `ChartLegendContent`: the legend of a chart, rendered from a payload (one item per series) and the config of the enclosing
+  # {Chadcn::Chart::Container}. Renders nothing for an empty payload; items of type `none` are skipped.
+  #
+  # Declare it on a {Chadcn::Chart::Legend} (`content:`); the chart renders it with the series payload. A payload item is a Hash:
+  # `value:` (name), `data_key:`, `color:`, `type:`. Inside a `Legend` the padding side follows the Legend's own `vertical_align`.
+  #
+  # @example
+  #   render Chadcn::Chart::Legend::Content.new(payload: [ { data_key: "desktop", color: "var(--color-desktop)" } ])
+  class Content < Chadcn::Base
+    include Chadcn::Chart::ContentSupport
+
+    ITEM_CLASSES = "flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground"
+    ROOT_CLASSES = { "top" => "flex items-center justify-center gap-4 pb-3", "bottom" => "flex items-center justify-center gap-4 pt-3" }.freeze
+    INDICATOR_CLASSES = "h-2 w-2 shrink-0 rounded-[2px]"
+    private_constant :ITEM_CLASSES, :ROOT_CLASSES, :INDICATOR_CLASSES
+
+    # @param hide_icon [Boolean] show the color dot even where the config has an icon
+    # @param vertical_align [Symbol, String] `:top` pads below (`pb-3`), anything else above (`pt-3`)
+    # @param name_key [String, Symbol, nil] the payload key whose value names the config entry of an item
+    # @param payload [Array<Hash>, nil] the series
+    # @param attrs [Hash] attributes of the root div; `class:` is merged last
+    # @raise [ArgumentError] on a `payload:` that is not an Array of Hashes
+    def initialize(hide_icon: false, vertical_align: :bottom, name_key: nil, payload: [], **attrs)
+      @options = { hide_icon: hide_icon, vertical_align: vertical_align, name_key: name_key, attrs: attrs }.freeze
+      @payload = validated_payload(payload)
+      super()
+    end
+
+    # @return [void]
+    def view_template
+      return if @payload.empty?
+
+      config = chart_config
+      side = option(:vertical_align).to_s == "top" ? "top" : "bottom"
+      div(**merge_attrs({ class: ROOT_CLASSES.fetch(side) }, option(:attrs))) do
+        @payload.each do |item|
+          next if item_value(item, :type).to_s == "none"
+
+          render_item(config.payload_config(item, (option(:name_key) || item_value(item, :data_key) || "value").to_s), item)
+        end
+      end
+    end
+
+    private
+
+    def render_item(item_config, item)
+      div(class: ITEM_CLASSES) do
+        icon = item_config&.icon
+        if icon && !option(:hide_icon)
+          render_icon(icon)
+        else
+          div(class: INDICATOR_CLASSES, style: ("background-color: #{item_value(item, :color)};" if item_value(item, :color)))
+        end
+        render_node(item_config&.label)
+      end
+    end
+  end
+end
