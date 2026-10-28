@@ -7,7 +7,11 @@
 #   Chadcn::Chart::Legend.new(content: Chadcn::Chart::Legend::Content.new, vertical_align: :top)
 class Chadcn::Chart::Legend < Chadcn::Base
   # Values of `vertical_align:`.
-  ALIGNMENTS = %i[top middle bottom].freeze
+  VERTICAL_ALIGNMENTS = %i[top middle bottom].freeze
+  # Values of `align:`.
+  ALIGNMENTS = %i[left center right].freeze
+  # Values of `layout:`.
+  LAYOUTS = %i[horizontal vertical].freeze
 
   # @return [Chadcn::Chart::Legend::Content, nil] the declared content (recharts' `content` prop)
   attr_reader :content_element
@@ -32,8 +36,10 @@ class Chadcn::Chart::Legend < Chadcn::Base
   def initialize(content: nil, vertical_align: :bottom, align: :center, layout: :horizontal, icon_size: 14, icon_type: nil,
                  inactive_color: nil, item_sorter: :value, width: nil, height: nil, payload_uniq_by: false, wrapper_style: nil,
                  legend_height: 28, **attrs)
-    unless ALIGNMENTS.include?(vertical_align&.to_sym)
-      raise ArgumentError, "vertical_align: must be one of #{ALIGNMENTS.map(&:inspect).join(', ')} (got #{vertical_align.inspect})"
+    { vertical_align: [ vertical_align, VERTICAL_ALIGNMENTS ], align: [ align, ALIGNMENTS ], layout: [ layout, LAYOUTS ] }.each do |name, (value, allowed)|
+      next if allowed.include?(value&.to_sym)
+
+      raise ArgumentError, "#{name}: must be one of #{allowed.map(&:inspect).join(', ')} (got #{value.inspect})"
     end
     unless content.nil? || content.is_a?(Chadcn::Chart::Legend::Content)
       raise ArgumentError, "content: must be a Chadcn::Chart::Legend::Content (got #{content.class})"
@@ -41,7 +47,7 @@ class Chadcn::Chart::Legend < Chadcn::Base
 
     @content_element = content
     @options = {
-      vertical_align: vertical_align.to_sym, align: align, layout: layout, icon_size: icon_size, icon_type: icon_type,
+      vertical_align: vertical_align.to_sym, align: align.to_sym, layout: layout.to_sym, icon_size: icon_size, icon_type: icon_type,
       inactive_color: inactive_color, item_sorter: item_sorter, width: width, height: height, payload_uniq_by: payload_uniq_by,
       wrapper_style: wrapper_style, legend_height: legend_height, attrs: attrs
     }.freeze
@@ -56,6 +62,7 @@ class Chadcn::Chart::Legend < Chadcn::Base
   # Nested in this file, not in `legend/content.rb`: `Base.const_added` loads the parts of `Chart` while Zeitwerk is still
   # registering them, before it can hook the namespace of a file that also has a directory, so a `legend/` directory
   # would stay unregistered (epic chart, item #45).
+
   # shadcn `ChartLegendContent`: the legend of a chart, rendered from a payload (one item per series) and the config of the enclosing
   # {Chadcn::Chart::Container}. Renders nothing for an empty payload; items of type `none` are skipped.
   #
@@ -66,7 +73,9 @@ class Chadcn::Chart::Legend < Chadcn::Base
   #   render Chadcn::Chart::Legend::Content.new(payload: [ { data_key: "desktop", color: "var(--color-desktop)" } ])
   class Content < Chadcn::Base
     ITEM_CLASSES = "flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground"
-    private_constant :ITEM_CLASSES
+    ROOT_CLASSES = { "top" => "flex items-center justify-center gap-4 pb-3", "bottom" => "flex items-center justify-center gap-4 pt-3" }.freeze
+    INDICATOR_CLASSES = "h-2 w-2 shrink-0 rounded-[2px]"
+    private_constant :ITEM_CLASSES, :ROOT_CLASSES, :INDICATOR_CLASSES
 
     # @param hide_icon [Boolean] show the color dot even where the config has an icon
     # @param vertical_align [Symbol, String] `:top` pads below (`pb-3`), anything else above (`pt-3`)
@@ -114,12 +123,12 @@ class Chadcn::Chart::Legend < Chadcn::Base
     end
 
     def render_item(item_config, item)
-      div(class: cn(ITEM_CLASSES)) do
+      div(class: ITEM_CLASSES) do
         icon = item_config&.icon
         if icon && !@hide_icon
           render(icon.is_a?(Phlex::SGML) ? icon : Chadcn::Icon.new(icon))
         else
-          div(class: "h-2 w-2 shrink-0 rounded-[2px]", style: "background-color: #{item_value(item, :color)};")
+          div(class: INDICATOR_CLASSES, style: "background-color: #{item_value(item, :color)};")
         end
         label = item_config&.label
         unless label.nil?

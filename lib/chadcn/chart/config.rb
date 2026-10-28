@@ -19,6 +19,8 @@ class Chadcn::Chart::Config
 
   # The themes of `chart.tsx` (`THEMES`) and the selector prefix of each.
   THEMES = { "light" => "", "dark" => ".dark" }.freeze
+  THEME_NAMES = THEMES.keys.freeze
+  private_constant :THEME_NAMES
 
   KEY = /\A[A-Za-z0-9_-]+\z/
   private_constant :KEY
@@ -31,9 +33,12 @@ class Chadcn::Chart::Config
   # @raise [ArgumentError] on a key or color that cannot go into the style, an unknown entry option, or `color` together with `theme`
   def initialize(entries = nil, **keywords)
     source = entries.is_a?(self.class) ? entries.to_h : (entries || {}).to_h
-    @entries = source.merge(keywords) { |_key, _old, new| new }
-                     .to_h { |key, options| [ validated_key(key), build_entry(key, options) ] }
-                     .freeze
+    @entries = source.merge(keywords) { |_key, _old, new| new }.each_with_object({}) do |(key, options), result|
+      name = validated_key(key)
+      raise ArgumentError, "chart config key #{key.inspect} is given twice (as a String and as a Symbol)" if result.key?(name)
+
+      result[name] = build_entry(key, options)
+    end.freeze
   end
 
   # @param key [String, Symbol]
@@ -70,14 +75,20 @@ class Chadcn::Chart::Config
     return unless payload.is_a?(Hash)
 
     key = key.to_s
-    row = fetch_value(payload, :payload)
-    row = nil unless row.is_a?(Hash)
-    named = fetch_value(payload, key)
-    named = fetch_value(row, key) if !named.is_a?(String) && row
-    @entries[named.is_a?(String) && @entries.key?(named) ? named : key]
+    @entries[payload_name(payload, key)] || @entries[key]
   end
 
   private
+
+  # The String under `key` in the item, else in the item's own data row (nil when neither has one): it names the config entry.
+  def payload_name(payload, key)
+    named = fetch_value(payload, key)
+    return named if named.is_a?(String)
+
+    row = fetch_value(payload, :payload)
+    named = fetch_value(row, key) if row.is_a?(Hash)
+    named if named.is_a?(String)
+  end
 
   def validated_key(key)
     name = key.to_s
@@ -107,19 +118,21 @@ class Chadcn::Chart::Config
     raise ArgumentError, "chart config #{key.inspect}: theme: must be a Hash with light: and dark:, got #{theme.inspect}" unless theme.is_a?(Hash)
 
     theme = theme.transform_keys(&:to_s)
-    unknown = theme.keys - THEMES.keys
-    raise ArgumentError, "chart config #{key.inspect}: unknown theme #{unknown.first.inspect} (use #{THEMES.keys.join(', ')})" if unknown.any?
+    unknown = theme.keys - THEME_NAMES
+    raise ArgumentError, "chart config #{key.inspect}: unknown theme #{unknown.first.inspect} (use #{THEME_NAMES.join(', ')})" if unknown.any?
 
-    theme.to_h { |name, color| [ name, validated_color(key, color) ] }.compact.freeze
+    colors = theme.to_h { |name, color| [ name, validated_color(key, color) ] }.compact.freeze
+    colors unless colors.empty?
   end
 
   def validated_color(key, color)
     return if color.nil?
 
-    color = color.to_s
-    return color if COLOR.match?(color)
+    unless color.is_a?(String) && COLOR.match?(color)
+      raise ArgumentError, "chart config #{key.inspect}: color #{color.inspect} must be a String without < > { } ; \\ or /* (it goes into a style)"
+    end
 
-    raise ArgumentError, "chart config #{key.inspect}: color #{color.inspect} cannot go into a style (no < > { } ; \\ or /*)"
+    -color
   end
 
   # A Hash value by string or symbol key (the payload items come from Ruby code or from JSON).

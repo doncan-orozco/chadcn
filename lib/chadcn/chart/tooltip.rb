@@ -76,6 +76,7 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
   # Nested in this file, not in `tooltip/content.rb`: `Base.const_added` loads the parts of `Chart` while Zeitwerk is still
   # registering them, before it can hook the namespace of a file that also has a directory, so a `tooltip/` directory
   # would stay unregistered (epic chart, item #45).
+
   # shadcn `ChartTooltipContent`: the tooltip box of a chart, rendered from a payload (the series at the hovered category) and the
   # config of the enclosing {Chadcn::Chart::Container}. Renders nothing for an empty payload.
   #
@@ -93,6 +94,9 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
   class Content < Chadcn::Base
     INDICATORS = %w[dot line dashed].freeze
     private_constant :INDICATORS
+
+    ROOT_CLASSES = "grid min-w-[8rem] items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl"
+    private_constant :ROOT_CLASSES
 
     ITEM_CLASSES = "flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-muted-foreground"
     private_constant :ITEM_CLASSES
@@ -145,7 +149,7 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
       config = chart_config
       nest_label = @payload.length == 1 && @indicator != "dot"
       label = tooltip_label(config)
-      div(**merge_attrs({ class: "grid min-w-[8rem] items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl" }, @attrs)) do
+      div(**merge_attrs({ class: ROOT_CLASSES }, @attrs)) do
         render_label(label) unless nest_label
         div(class: "grid gap-1.5") do
           @payload.each_with_index do |item, index|
@@ -166,17 +170,15 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
       container.config
     end
 
-    # The label as [kind, value]: nil (nothing), or the text/component after the formatter. `chart.tsx` `tooltipLabel`.
+    # The label as a one-element array (the text or component after the formatter), or nil when there is none. `chart.tsx` `tooltipLabel`.
     def tooltip_label(config)
       return if @hide_label || @payload.empty?
 
       item = @payload.first
-      key = (@label_key || item_value(item, :data_key) || item_value(item, :name) || "value").to_s
-      item_config = config.payload_config(item, key)
       value = if !@label_key && @label.is_a?(String)
         config[@label]&.label || @label
       else
-        item_config&.label
+        config.payload_config(item, config_key(@label_key, item, :data_key, :name))&.label
       end
       return [ @label_formatter.call(value, @payload) ] if @label_formatter
 
@@ -189,22 +191,36 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
       div(class: cn("font-medium", @label_class_name)) { render_node(label.first) }
     end
 
+    # The payload key that names a config entry: the explicit key, else the first item key that has a value, else "value".
+    def config_key(explicit, item, *item_keys)
+      return explicit.to_s if explicit
+
+      item_keys.each do |item_key|
+        found = item_value(item, item_key)
+        return found.to_s if found
+      end
+      "value"
+    end
+
     def render_item(config, item, index, nested_label)
-      key = (@name_key || item_value(item, :name) || item_value(item, :data_key) || "value").to_s
-      item_config = config.payload_config(item, key)
-      row = item_value(item, :payload)
-      row_fill = row.is_a?(Hash) ? item_value(row, :fill) : nil
-      indicator_color = @color || row_fill || item_value(item, :color)
       value = item_value(item, :value)
       name = item_value(item, :name)
+      row = item_value(item, :payload)
 
-      div(class: cn(ITEM_CLASSES, @indicator == "dot" && "items-center")) do
+      div(class: cn(ITEM_CLASSES, @indicator == "dot" ? "items-center" : nil)) do
         if @formatter && !value.nil? && name
           render_node(@formatter.call(value, name, item, index, row))
         else
-          render_default_item(item_config, item, indicator_color, nested_label)
+          item_config = config.payload_config(item, config_key(@name_key, item, :name, :data_key))
+          render_default_item(item_config, item, indicator_color(item, row), nested_label)
         end
       end
+    end
+
+    # The color of an indicator: the content's `color:`, then the fill of the data row, then the color of the item (`chart.tsx`).
+    def indicator_color(item, row)
+      row_fill = row.is_a?(Hash) ? item_value(row, :fill) : nil
+      @color || row_fill || item_value(item, :color)
     end
 
     def render_default_item(item_config, item, indicator_color, nested_label)
@@ -255,14 +271,21 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
     # JS `toLocaleString()` of the default (en-US) locale for a number: comma grouping, at most 3 fraction digits, half away from
     # zero; other values are `String(value)`.
     def locale_string(value)
-      return value.to_s unless value.is_a?(Numeric)
-      return value.to_s unless value.is_a?(Integer) || (value.real? && (!value.respond_to?(:finite?) || value.finite?))
+      return value.to_s unless value.is_a?(Numeric) && value.real? && value.finite?
 
-      scaled = (exact(value).abs * 1000).round(half: :up)
-      whole, fraction = scaled.divmod(1000)
-      digits = whole.to_s.reverse.scan(/\d{1,3}/).join(",").reverse
-      fraction = format("%03d", fraction).sub(/0+\z/, "")
-      "#{'-' if value.negative? || (value.is_a?(Float) && value.zero? && (1.0 / value).negative?)}#{digits}#{".#{fraction}" unless fraction.empty?}"
+      whole, fraction = (exact(value).abs * 1000).round(half: :up).divmod(1000)
+      "#{'-' if negative_sign?(value)}#{group_thousands(whole)}#{fraction_suffix(fraction)}"
+    end
+
+    # JS prints a negative zero (and a negative that rounds to zero) with its sign.
+    def negative_sign?(value) = value.negative? || (value.is_a?(Float) && value.zero? && (1.0 / value).negative?)
+
+    def group_thousands(whole) = whole.to_s.gsub(/\B(?=(\d{3})+(?!\d))/, ",")
+
+    def fraction_suffix(fraction)
+      return "" if fraction.zero?
+
+      ".#{format('%03d', fraction).sub(/0+\z/, '')}"
     end
   end
 end

@@ -96,4 +96,24 @@ class Chadcn::Chart::LegendTest < Chadcn::TestCase
     assert_raises(ArgumentError) { Chadcn::Chart::Legend.new(vertical_align: :left) }
     assert_raises(ArgumentError) { Chadcn::Chart::Legend.new(content: Chadcn::Chart::Tooltip::Content.new) }
   end
+
+  test "Legend validates align and layout like vertical_align" do
+    assert_equal %i[left vertical], Chadcn::Chart::Legend.new(align: "left", layout: :vertical).options.values_at(:align, :layout)
+    assert_raises(ArgumentError) { Chadcn::Chart::Legend.new(align: :justify) }
+    assert_raises(ArgumentError) { Chadcn::Chart::Legend.new(layout: :grid) }
+  end
+
+  test "string-key items and a label that is a component" do
+    label = Class.new(Phlex::HTML) { define_method(:view_template) { b { "Rich" } } }.new
+    html = render_content(config: { desktop: { label: label } }, payload: [ { "data_key" => "desktop", "color" => "red" } ])
+
+    assert_equal "Rich", box(html).at_css("> div b").text
+  end
+
+  test "an entry without a label renders only the dot" do
+    node = box(render_content(config: { desktop: { color: "red" } }, payload: payload(:desktop)))
+
+    assert_equal "", node.text
+    assert node.at_css("> div > div")
+  end
 end

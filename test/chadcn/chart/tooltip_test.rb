@@ -53,7 +53,7 @@ class Chadcn::Chart::TooltipTest < Chadcn::TestCase
     assert_equal "Desktop", box(render_content(payload: payload(:desktop, :mobile))).at_css("> .font-medium").text
   end
 
-  test "hide_label drops the label and label_class is merged" do
+  test "hide_label drops the label and label_class_name is merged" do
     assert_nil box(render_content(payload: payload(:desktop), label: "x", hide_label: true)).at_css("> .font-medium")
     assert_includes box(render_content(payload: payload(:desktop), label: "x", label_class_name: "text-red-500")).at_css("> .font-medium")["class"],
                     "text-red-500"
@@ -207,5 +207,64 @@ class Chadcn::Chart::TooltipTest < Chadcn::TestCase
     assert_raises(ArgumentError) { Chadcn::Chart::Tooltip.new(content: Chadcn::Chart::Legend::Content.new) }
     assert_raises(ArgumentError) { Chadcn::Chart::Tooltip.new(active: "yes") }
     assert_raises(ArgumentError) { Chadcn::Chart::Tooltip.new(shared: 1) }
+  end
+
+  test "item rows of a non-dot indicator carry no stray class token" do
+    %i[line dashed].each do |indicator|
+      row = box(render_content(payload: payload(:desktop, :mobile), indicator: indicator)).at_css("div[class='grid gap-1.5'] > div")
+
+      assert_not_includes row["class"].split, "false", indicator.to_s
+      assert_includes row["class"].split, "items-stretch"
+    end
+  end
+
+  test "the indicator may be given as a String" do
+    node = box(render_content(payload: payload(:desktop), indicator: "line"))
+
+    assert_includes node.at_css("div.shrink-0")["class"], "w-1"
+  end
+
+  test "payload items and rows with string keys are read like symbol keys" do
+    item = { "name" => "desktop", "data_key" => "desktop", "value" => 186, "color" => "red", "payload" => { "fill" => "blue" } }
+    node = box(render_content(payload: [ item ]))
+
+    assert_equal "Desktop", node.at_css("span.text-muted-foreground").text
+    assert_equal "186", node.at_css("span.tabular-nums").text
+    assert_includes node.at_css("div.shrink-0")["style"], "--color-bg: blue;"
+  end
+
+  test "numbers that JavaScript prints specially" do
+    values = { Float::INFINITY => "Infinity", -Float::INFINITY => "-Infinity", -0.0 => "-0", 12_345_678_901_234_567_890 => "12,345,678,901,234,567,890",
+               Rational(1, 3) => "0.333", 999.9995 => "1,000" }
+
+    values.each do |value, text|
+      assert_equal text, box(render_content(payload: [ { name: "desktop", value: value } ])).at_css("span.tabular-nums").text, value.inspect
+    end
+    assert_equal "NaN", box(render_content(payload: [ { name: "desktop", value: Float::NAN } ])).at_css("span.tabular-nums").text
+  end
+
+  test "a formatter or label formatter may return a component" do
+    component = Class.new(Phlex::HTML) { define_method(:view_template) { span(class: "custom") { "made" } } }
+    node = box(render_content(payload: payload(:desktop), formatter: ->(*) { component.new }, label_formatter: ->(*) { component.new }))
+
+    assert_equal 2, node.css("span.custom").length
+  end
+
+  test "a config icon may be a component instance" do
+    icon = Class.new(Phlex::HTML) { define_method(:view_template) { svg(class: "mine") } }.new
+    node = box(render_content(config: { desktop: { label: "Desktop", icon: icon } }, payload: payload(:desktop)))
+
+    assert node.at_css("svg.mine")
+    assert_nil node.at_css("div.shrink-0")
+  end
+
+  test "Tooltip keeps the formatters that override its content" do
+    formatter = ->(*) { "x" }
+    options = Chadcn::Chart::Tooltip.new(formatter: formatter, label_formatter: formatter, wrapper_style: { zIndex: 1 }, position: { x: 1 }).options
+
+    assert_same formatter, options[:formatter]
+    assert_same formatter, options[:label_formatter]
+    assert_equal [ { zIndex: 1 }, { x: 1 } ], options.values_at(:wrapper_style, :position)
+    assert_raises(ArgumentError) { Chadcn::Chart::Tooltip.new(trigger: nil) }
   end
 end

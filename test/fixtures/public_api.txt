@@ -406,7 +406,9 @@ const Chadcn::Button::VARIANTS [default, destructive, outline, secondary, ghost,
 const Chadcn::ButtonGroup::ORIENTATIONS [horizontal, vertical]
 const Chadcn::Chart::Config::THEMES [light, dark]
 const Chadcn::Chart::Container::DEFAULT_DIMENSION [width, height]
-const Chadcn::Chart::Legend::ALIGNMENTS [top, middle, bottom]
+const Chadcn::Chart::Legend::ALIGNMENTS [left, center, right]
+const Chadcn::Chart::Legend::LAYOUTS [horizontal, vertical]
+const Chadcn::Chart::Legend::VERTICAL_ALIGNMENTS [top, middle, bottom]
 const Chadcn::Chart::Tooltip::TRIGGERS [hover, click]
 const Chadcn::Command::Item::KEYWORDS
 const Chadcn::Direction::VALUES [ltr, rtl]

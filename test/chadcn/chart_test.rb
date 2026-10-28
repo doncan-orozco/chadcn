@@ -62,9 +62,30 @@ class Chadcn::ChartTest < Chadcn::TestCase
       puts Chadcn::Chart::Container.new(config: { a: { color: "red" } }, id: "z").call.include?('data-chart="chart-z"')
       puts Chadcn::Chart::Tooltip::Content.instance_method(:view_template).owner
       puts Chadcn::Chart::Legend::Content.name
+      puts Chadcn::Chart::Scale.class
+      puts Chadcn::Chart.public_method_defined?(:scale)
     RUBY
     output = IO.popen([ RbConfig.ruby, "-I", File.expand_path("../../lib", __dir__), "-e", script ], err: %i[child out], &:read)
 
-    assert_equal [ "true", "Chadcn::Chart::Tooltip::Content", "Chadcn::Chart::Legend::Content" ], output.lines.map(&:strip).last(3), output
+    assert_equal [ "true", "Chadcn::Chart::Tooltip::Content", "Chadcn::Chart::Legend::Content", "Module", "false" ], output.lines.map(&:strip).last(5), output
+  end
+
+  test "the root renders without a block" do
+    assert_equal "", Chadcn::Chart.new.call
+  end
+
+  test "the tooltip and legend helpers render the same HTML as the explicit classes" do
+    explicit = render_view do
+      render(Chadcn::Chart::Tooltip.new(default_index: 1)) { nil }
+      render(Chadcn::Chart::Legend.new(vertical_align: :top)) { nil }
+    end
+    helpers = render_view do
+      render(Chadcn::Chart.new) do |chart|
+        chart.tooltip(default_index: 1)
+        chart.legend(vertical_align: :top)
+      end
+    end
+
+    assert_equal explicit, helpers
   end
 end

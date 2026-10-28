@@ -28,14 +28,14 @@ class Chadcn::Chart::Style < Chadcn::Base
     colors = @config.color_entries
     return if colors.empty?
 
-    css = Chadcn::Chart::Config::THEMES.map { |theme, prefix| rule(prefix, theme, colors) }.join("\n")
+    css = Chadcn::Chart::Config::THEMES.map { |theme, prefix| rule(theme: theme, prefix: prefix, colors: colors) }.join("\n")
     style { raw safe(css) }
   end
 
   private
 
   # `chart.tsx`: a null entry (no color for this theme) joins as an empty line.
-  def rule(prefix, theme, colors)
+  def rule(theme:, prefix:, colors:)
     lines = colors.map do |key, entry|
       color = entry.theme ? entry.theme[theme] : entry.color
       color ? "  --color-#{key}: #{color};" : ""

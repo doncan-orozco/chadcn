@@ -86,4 +86,52 @@ class Chadcn::Chart::ContainerTest < Chadcn::TestCase
     assert_equal({ width: 100, height: 50 },
                  Chadcn::Chart::Container.new(config: CONFIG, initial_dimension: { "width" => 100, "height" => 50 }).initial_dimension)
   end
+
+  test "a dimension that is not a Hash, or not finite, raises ArgumentError" do
+    [ nil, "320x200", [ 320, 200 ], { width: Float::INFINITY, height: 10 }, { width: "320", height: 10 } ].each do |dimension|
+      assert_raises(ArgumentError, dimension.inspect) { Chadcn::Chart::Container.new(config: CONFIG, initial_dimension: dimension) }
+    end
+  end
+
+  test "text_height and text_char_width are readable and validated" do
+    container = Chadcn::Chart::Container.new(config: CONFIG, text_height: 20, text_char_width: 0.5)
+
+    assert_equal [ 20, 0.5 ], [ container.text_height, container.text_char_width ]
+    assert_raises(ArgumentError) { Chadcn::Chart::Container.new(config: CONFIG, text_height: 0) }
+    assert_raises(ArgumentError) { Chadcn::Chart::Container.new(config: CONFIG, text_char_width: "wide") }
+  end
+
+  test "a nested container is current inside and the outer one is restored after it" do
+    view = Class.new(Phlex::HTML) do
+      define_method(:view_template) do
+        render(Chadcn::Chart::Container.new(config: CONFIG, id: "outer")) do
+          render(Chadcn::Chart::Container.new(config: CONFIG, id: "inner")) { plain "in=#{Chadcn::Chart::Container.current(context).chart_id} " }
+          plain "out=#{Chadcn::Chart::Container.current(context).chart_id}"
+        end
+      end
+    end
+
+    html = view.new.call
+
+    assert_includes html, "in=chart-inner"
+    assert_includes html, "out=chart-outer"
+  end
+
+  test "the context is cleaned up when the block raises" do
+    context = {}
+    view = Class.new(Phlex::HTML) do
+      define_method(:view_template) { render(Chadcn::Chart::Container.new(config: CONFIG, id: "a")) { raise "boom" } }
+    end
+
+    assert_raises(RuntimeError) { view.new.call(context: context) }
+    assert_nil Chadcn::Chart::Container.current(context)
+    assert_not context.key?(Chadcn::Chart::Container::CONTEXT_KEY)
+  end
+
+  test "renders without a block and accepts a Config instance and a Symbol id" do
+    html = Chadcn::Chart::Container.new(config: Chadcn::Chart::Config.new(CONFIG), id: :sym).call
+
+    assert_equal "chart-sym", root(html)["data-chart"]
+    assert_equal "chart", root(html)["data-slot"]
+  end
 end

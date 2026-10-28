@@ -76,4 +76,34 @@ class Chadcn::Chart::ConfigTest < Chadcn::TestCase
     assert_nil cfg.payload_config("browser", "browser")
     assert_nil cfg.payload_config({}, "missing")
   end
+
+  test "a key given as a String and as a Symbol raises" do
+    assert_raises(ArgumentError) { Chadcn::Chart::Config.new({ "a" => { color: "red" } }, a: { color: "blue" }) }
+  end
+
+  test "a theme with no color is dropped and a one-sided theme keeps its side" do
+    assert_nil config(a: { theme: {} })[:a].theme
+    assert_nil config(a: { theme: { light: nil } })[:a].theme
+    assert_equal({ "light" => "#000" }, config(a: { theme: { light: "#000" } })[:a].theme)
+    assert_raises(ArgumentError) { config(a: { theme: "dark" }) }
+  end
+
+  test "a color that is not a String raises, and a stored color is frozen" do
+    assert_raises(ArgumentError) { config(a: { color: false }) }
+    assert_raises(ArgumentError) { config(a: { color: :red }) }
+    assert_predicate config(a: { color: +"red" })[:a].color, :frozen?
+  end
+
+  test "each, empty? and to_h" do
+    cfg = config(a: { label: "A" }, b: { color: "red" })
+
+    assert_equal(%w[a b], cfg.each.map { |key, _entry| key })
+    assert_not_predicate cfg, :empty?
+    assert_predicate Chadcn::Chart::Config.new, :empty?
+    assert_equal({ "a" => { label: "A" }, "b" => { color: "red" } }, cfg.to_h)
+  end
+
+  test "keywords win over the positional entries" do
+    assert_equal "blue", Chadcn::Chart::Config.new({ a: { color: "red" } }, a: { color: "blue" })[:a].color
+  end
 end

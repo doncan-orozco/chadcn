@@ -60,19 +60,19 @@ class Chadcn::Chart::Container < Chadcn::Base
     @config = Chadcn::Chart::Config.new(config)
     @chart_id = "chart-#{validated_chart_id(id)}"
     @initial_dimension = validated_dimension(initial_dimension)
-    @text_height = text_height
-    @text_char_width = text_char_width
+    @text_height = validated_measure(:text_height, text_height)
+    @text_char_width = validated_measure(:text_char_width, text_char_width)
     @attrs = attrs
     super()
   end
 
   # @yieldparam container [Chart::Container] itself
   # @return [void]
-  def view_template(&)
+  def view_template
     div(**merge_attrs({ data: { slot: "chart", chart: @chart_id }, class: CLASSES }, @attrs)) do
       render Chadcn::Chart::Style.new(id: @chart_id, config: @config)
       div(class: "recharts-responsive-container", style: "width: 100%; height: 100%; min-width: 0px;") do
-        div(style: "width: 0px; height: 0px; overflow: visible;") { publish(&) }
+        div(style: "width: 0px; height: 0px; overflow: visible;") { publish { |container| yield container if block_given? } }
       end
     end
   end
@@ -82,9 +82,9 @@ class Chadcn::Chart::Container < Chadcn::Base
   def publish
     previous = context[CONTEXT_KEY]
     context[CONTEXT_KEY] = self
-    yield self if block_given?
+    yield self
   ensure
-    context[CONTEXT_KEY] = previous
+    previous ? context[CONTEXT_KEY] = previous : context.delete(CONTEXT_KEY)
   end
 
   def validated_chart_id(id)
@@ -92,12 +92,19 @@ class Chadcn::Chart::Container < Chadcn::Base
   end
 
   def validated_dimension(dimension)
-    width = dimension[:width] || dimension["width"]
-    height = dimension[:height] || dimension["height"]
-    unless [ width, height ].all? { |size| size.is_a?(Numeric) && size.positive? }
+    width, height = dimension.is_a?(Hash) ? [ dimension[:width] || dimension["width"], dimension[:height] || dimension["height"] ] : []
+    unless measure?(width) && measure?(height)
       raise ArgumentError, "initial_dimension: needs a positive width: and height: (got #{dimension.inspect})"
     end
 
     { width: width, height: height }.freeze
   end
+
+  def validated_measure(name, value)
+    return value if measure?(value)
+
+    raise ArgumentError, "#{name}: must be a positive finite number (got #{value.inspect})"
+  end
+
+  def measure?(value) = value.is_a?(Numeric) && value.real? && value.finite? && value.positive?
 end
