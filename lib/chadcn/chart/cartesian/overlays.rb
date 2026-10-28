@@ -74,7 +74,9 @@ class Chadcn::Chart::Cartesian::Overlays < Chadcn::Base
     text = name.to_s
     return text.to_sym if text.start_with?("--")
 
-    text.gsub(/([a-z\d])([A-Z])/, '\1-\2').tr("_", "-").downcase.to_sym
+    kebab = text.gsub(/([a-z\d])([A-Z])/, '\1-\2').tr("_", "-").downcase
+    kebab = "-#{kebab}" if text.match?(/\A(?:Webkit|Moz|Ms|O)[A-Z]/) # React's vendor prefixes: WebkitTransition is -webkit-transition
+    kebab.to_sym
   end
 
   # A number is pixels, as React DOM writes it, except for the properties that take a plain number.

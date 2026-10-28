@@ -81,8 +81,8 @@ class Chadcn::Chart::Cartesian::TooltipPlan
   # The attributes of the cursor and of the active dots are checked when the plan is built, not only when a category is drawn.
   def validate_shape_attributes
     cursor = @tooltip.options[:cursor]
-    dashed(cursor.except(:class)) if cursor.is_a?(Hash)
-    @declared.series.each { |series| dashed(series.options[:active_dot]) if series.options[:active_dot].is_a?(Hash) }
+    shape_attributes(cursor.transform_keys(&:to_sym).except(:class)) if cursor.is_a?(Hash)
+    @declared.series.each { |series| shape_attributes(series.options[:active_dot]) if series.options[:active_dot].is_a?(Hash) }
   end
 
   def entry(tick)
@@ -132,7 +132,7 @@ class Chadcn::Chart::Cartesian::TooltipPlan
     custom = option.is_a?(Hash) ? option : {}
     shape = @layout.chart_type == :bar ? rectangle_cursor(coordinate) : line_cursor(coordinate)
     classes = [ shape.attrs[:class], custom[:class] ].compact.join(" ")
-    Cursor.new(layer: shape.layer, attrs: shape.attrs.merge(dashed(custom.except(:class))).merge(class: classes))
+    Cursor.new(layer: shape.layer, attrs: shape.attrs.merge(shape_attributes(custom.except(:class))).merge(class: classes))
   end
 
   # `getCursorRectangle` (util/cursor/getCursorRectangle.js).
@@ -174,7 +174,7 @@ class Chadcn::Chart::Cartesian::TooltipPlan
       point = placed.points.find { |candidate| candidate.row.equal?(row) }
       next if active == false || point.nil? || point.x.nil? || point.y.nil?
 
-      custom = active.is_a?(Hash) ? dashed(active) : {}
+      custom = active.is_a?(Hash) ? shape_attributes(active) : {}
       series = placed.series
       ActiveDot.new(series: series,
                     attrs: { cx: round(point.x), cy: round(point.y), r: "4", fill: series.legend_color || "none", stroke: "#fff",
@@ -187,7 +187,7 @@ class Chadcn::Chart::Cartesian::TooltipPlan
 
   # Hash keys written the SVG way (`stroke_dasharray` is `stroke-dasharray`).
   # Only SHAPE_ATTRIBUTES pass.
-  def dashed(attributes)
+  def shape_attributes(attributes)
     attributes.to_h do |key, value|
       name = key.to_s.tr("_", "-").to_sym
       unless SHAPE_ATTRIBUTES.include?(name)

@@ -131,4 +131,10 @@ class Chadcn::Chart::Cartesian::OverlaysTest < Chadcn::TestCase
       assert_includes node["style"], "onmouseover"
     end
   end
+
+  test "wrapper_style keeps React's vendor prefixes: WebkitTransition is -webkit-transition" do
+    style = wrapper(render_legend(legend: { wrapper_style: { WebkitTransition: "none" } }))["style"]
+
+    assert_includes style, "-webkit-transition: none;"
+  end
 end
