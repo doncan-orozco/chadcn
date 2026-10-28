@@ -34,9 +34,12 @@ module Chadcn
       # @param namespace [String, nil] prefix of every generated id
       # @raise [ArgumentError] without +model:+ and +scope:+
       def initialize(view_context:, model: nil, scope: nil, url: nil, method: nil, namespace: nil)
+        scope ||= model.model_name.param_key if model.respond_to?(:model_name)
+        raise ArgumentError, "FormBinding needs model: or scope:" if scope.nil?
+
         @view_context = view_context
         @model = model
-        @scope = (scope || (model.model_name.param_key if model.respond_to?(:model_name)) || raise(ArgumentError, "FormBinding needs model: or scope:")).to_s
+        @scope = scope.to_s
         @translation_scope = @scope.gsub(NESTED_SCOPE, '.\1')
         @url = url
         @method = method
@@ -53,6 +56,8 @@ module Chadcn
       # @return [String]
       def id_for(attribute) = @builder.field_id(attribute)
 
+      # The attribute is read with +public_send+; never pass request input as the attribute.
+      #
       # @param attribute [Symbol, String]
       # @return [Object, nil]
       def value_for(attribute) = @model&.public_send(attribute)
@@ -76,15 +81,23 @@ module Chadcn
         @model.class.respond_to?(:human_attribute_name) ? @model.class.human_attribute_name(attribute) : attribute.to_s.tr("_", " ").capitalize
       end
 
-      # Whether a presence validator (without +if:+/+unless:+) applies to the attribute, for +required+ on a control.
+      # Whether a presence validator applies to the attribute in the model's current context, for +required+ on a control:
+      # validators with +if:+/+unless:+ never count, and one with +on:+ counts only for its context (+:update+ for a persisted
+      # model, else +:create+).
       #
       # @param attribute [Symbol, String]
       # @return [Boolean]
       def required?(attribute)
         return false unless @model.class.respond_to?(:validators_on)
 
+        context = persisted? ? :update : :create
         @model.class.validators_on(attribute.to_sym).any? do |validator|
-          validator.is_a?(::ActiveModel::Validations::PresenceValidator) && !validator.options.key?(:if) && !validator.options.key?(:unless)
+          next false unless validator.is_a?(::ActiveModel::Validations::PresenceValidator)
+
+          options = validator.options
+          next false if options.key?(:if) || options.key?(:unless)
+
+          !options.key?(:on) || Array(options[:on]).include?(context)
         end
       end
 

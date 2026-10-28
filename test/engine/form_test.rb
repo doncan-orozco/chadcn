@@ -28,6 +28,9 @@ class EngineTest::FormBinding < Minitest::Test
     attr_accessor :email, :nickname, :id, :addresses
 
     validates :email, presence: true
+    attr_accessor :password
+
+    validates :password, presence: true, on: :create
     validates :nickname, presence: true, if: -> { false }
 
     def persisted? = id.present?
@@ -164,6 +167,23 @@ class EngineTest::FormBinding < Minitest::Test
 
     assert_equal "", form.at_css("input[type=email]")["required"]
     assert_nil form.at_css("input[name='user[nickname]']")["required"]
+  end
+
+  def test_a_presence_validator_on_create_requires_only_a_new_model
+    assert binding_for(User.new).required?(:password)
+    refute binding_for(User.new(id: 7)).required?(:password)
+  end
+
+  def test_a_nested_row_reads_its_errors_from_the_child_model
+    address = Address.new
+    address.valid?
+    row = binding_for(User.new(id: 1)).nested(:addresses, object: address, index: 0, errors: { street: [ "ignored" ] })
+
+    assert_equal [ "can't be blank" ], row.errors_for(:street)
+  end
+
+  def test_the_field_renders_the_model_value
+    assert_equal "a@b.co", render_form(User.new(email: "a@b.co")).at_css("input[type=email]")["value"]
   end
 
   def test_errors_are_read_from_the_model
