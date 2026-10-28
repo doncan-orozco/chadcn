@@ -1,17 +1,11 @@
 # frozen_string_literal: true
 
-require "chadcn/test_case"
-require "nokogiri"
+require "chadcn/form/support"
 
 class Chadcn::Form::Field::TextareaTest < Chadcn::TestCase
-  def render_part(errors: {}, **, &block)
-    binding_object = Chadcn::Form::Binding::Plain.new(scope: :user, object: { email: "e", bio: "b" }, errors:)
-    Chadcn::Form::Field.new(attribute: :email, binding: binding_object).call do |field|
-      field.render(Chadcn::Form::Field::Textarea.new(**), &block)
-    end
-  end
+  include Chadcn::FormSupport
 
-  def doc(html) = Nokogiri::HTML5.fragment(html)
+  def render_part(errors: {}, **, &) = super(Chadcn::Form::Field::Textarea, errors:, **, &)
 
   test "renders a bound textarea with the value as content" do
     area = doc(render_part).at_css("textarea[data-slot=textarea]")

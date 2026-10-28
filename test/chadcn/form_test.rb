@@ -129,22 +129,6 @@ class Chadcn::FormTest < Chadcn::TestCase
     assert_equal "Fallback", page.at_css("[data-slot=field-error]").text.strip
   end
 
-  test "error renders nothing without errors and without a block" do
-    out = render_form(scope: :user) { |f| f.field(attribute: :email, &:error) }
-
-    assert_nil doc(out).at_css("[data-slot=field-error]")
-  end
-
-  test "errors win over the block and several render a list" do
-    out = render_form(scope: :user, errors: { "email" => [ "is blank", "is short" ] }) do |f|
-      f.field(attribute: :email) { |field| field.error { "ignored" } }
-    end
-    page = doc(out)
-
-    assert_equal 2, page.css("[data-slot=field-error] li").size
-    assert_not_includes out, "ignored"
-  end
-
   test "control yields the same attrs the input receives" do
     seen = nil
     out = render_form(scope: :user, model: { email: "x@y.z" }, errors: { email: [ "bad" ] }) do |f|
@@ -161,34 +145,6 @@ class Chadcn::FormTest < Chadcn::TestCase
     assert_equal "true", seen[:aria][:invalid]
     assert_equal "1", seen[:data][:extra]
     assert_equal seen[:aria][:describedby], input["aria-describedby"]
-  end
-
-  test "control can render a custom element" do
-    out = render_form(scope: :user) do |f|
-      f.field(attribute: :email) { |field| field.control { |attrs| field.render Chadcn::Input.new(**attrs, type: "email") } }
-    end
-
-    assert_equal "user[email]", doc(out).at_css("input")["name"]
-  end
-
-  test "textarea renders the value as content and caller attrs win" do
-    out = render_form(scope: :user, model: User.new(bio: "Hello")) do |f|
-      f.field(attribute: :bio) { |field| field.textarea(rows: 3, id: "custom") }
-    end
-    area = doc(out).at_css("textarea")
-
-    assert_equal "Hello", area.text
-    assert_equal "custom", area["id"]
-    assert_equal "3", area["rows"]
-    assert_equal "user[bio]", area["name"]
-  end
-
-  test "input caller attrs win over the bound ones" do
-    out = render_form(scope: :user) { |f| f.field(attribute: :email) { |field| field.input(name: "mine", class: "w-1/2") } }
-    input = doc(out).at_css("input")
-
-    assert_equal "mine", input["name"]
-    assert_includes input["class"], "w-1/2"
   end
 
   test "namespace prefixes the ids" do
@@ -253,8 +209,32 @@ class Chadcn::FormTest < Chadcn::TestCase
     assert_raises(RuntimeError) do
       Chadcn::Form.new(scope: :user).call(context: ctx) { |_| raise "boom" }
     end
+    out = Chadcn::Form.new(scope: :other).call(context: ctx) { |f| f.field(attribute: :name, &:input) }
 
-    assert_nil ctx[Chadcn::Form::CONTEXT_KEY]
+    assert_equal "other[name]", doc(out).at_css("input")["name"]
+    assert_raises(ArgumentError) { Chadcn::Form::Field.new(attribute: :name).call(context: ctx) { |_| } }
+  end
+
+  test "put and delete render a hidden _method with method post" do
+    %w[put delete].each do |verb|
+      form = doc(render_form(scope: :user, method: verb.to_sym)).at_css("form")
+
+      assert_equal "post", form["method"], verb
+      assert_equal verb, form.at_css("input[name=_method]")["value"], verb
+    end
+  end
+
+  test "an unknown method raises" do
+    error = assert_raises(ArgumentError) { Chadcn::Form.new(scope: :user, method: "trace") }
+
+    assert_includes error.message, "method: must be get, post, put, patch or delete"
+  end
+
+  test "a field's own binding wins over the enclosing form's" do
+    own = Chadcn::Form::Binding::Plain.new(scope: :own)
+    out = render_form(scope: :outer) { |f| f.field(attribute: :email, binding: own, &:input) }
+
+    assert_equal "own[email]", doc(out).at_css("input")["name"]
   end
 
   test "Form::Item Label Control Description and Message are not defined" do

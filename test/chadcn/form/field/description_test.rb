@@ -1,17 +1,11 @@
 # frozen_string_literal: true
 
-require "chadcn/test_case"
-require "nokogiri"
+require "chadcn/form/support"
 
 class Chadcn::Form::Field::DescriptionTest < Chadcn::TestCase
-  def render_part(errors: {}, **, &block)
-    binding_object = Chadcn::Form::Binding::Plain.new(scope: :user, object: { email: "e", bio: "b" }, errors:)
-    Chadcn::Form::Field.new(attribute: :email, binding: binding_object).call do |field|
-      field.render(Chadcn::Form::Field::Description.new(**), &block)
-    end
-  end
+  include Chadcn::FormSupport
 
-  def doc(html) = Nokogiri::HTML5.fragment(html)
+  def render_part(errors: {}, **, &) = super(Chadcn::Form::Field::Description, errors:, **, &)
 
   test "renders the description with the bound id" do
     node = doc(render_part { "Hint" }).at_css("[data-slot=field-description]")
@@ -22,5 +16,9 @@ class Chadcn::Form::Field::DescriptionTest < Chadcn::TestCase
 
   test "caller class is merged" do
     assert_includes doc(render_part(class: "mine") { "x" }).at_css("[data-slot=field-description]")["class"], "mine"
+  end
+
+  test "caller id wins" do
+    assert_equal "mine", doc(render_part(id: "mine") { "x" }).at_css("[data-slot=field-description]")["id"]
   end
 end

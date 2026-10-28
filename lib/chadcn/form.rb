@@ -26,10 +26,6 @@ class Chadcn::Form < Chadcn::Base
   # @api private
   CONTEXT_KEY = :chadcn_form_binding
 
-  # Plain-building kwargs, rejected together with +binding:+.
-  PLAIN_KEYS = %i[scope model errors action method csrf_token namespace].freeze
-  private_constant :PLAIN_KEYS
-
   # Builds the form. +nil+ means "not given"; the Plain binding defaults the method to +"post"+ and the errors to +{}+. +class:+
   # travels in +**attrs+.
   #
@@ -43,7 +39,7 @@ class Chadcn::Form < Chadcn::Base
   # @param csrf_token [String, nil] rendered as a hidden +authenticity_token+ (never on a +get+ form)
   # @param namespace [String, nil] prefix of every generated id
   # @param attrs [Hash] HTML attributes merged onto the +<form>+
-  # @raise [ArgumentError] when +binding:+ comes with another kwarg, or +model:+ without +scope:+
+  # @raise [ArgumentError] when +binding:+ comes with another kwarg, +model:+ comes without +scope:+, or +method:+ is not a known verb
   def initialize(binding: nil, scope: nil, model: nil, errors: nil, action: nil, method: nil, csrf_token: nil, namespace: nil, **attrs)
     given = { scope:, model:, errors:, action:, method:, csrf_token:, namespace: }.compact
     if binding
@@ -51,6 +47,10 @@ class Chadcn::Form < Chadcn::Base
     elsif model && scope.nil?
       raise ArgumentError, "model: needs scope: (the name prefix of the fields)"
     end
+    if method && !%w[get post put patch delete].include?(method.to_s.downcase)
+      raise ArgumentError, "method: must be get, post, put, patch or delete (got #{method.inspect})"
+    end
+
     @binding = binding || Chadcn::Form::Binding::Plain.new(scope:, object: model, errors: errors || {}, action:,
                                                            http_method: method || "post", csrf_token:, namespace:)
     @attrs = attrs
@@ -188,6 +188,8 @@ class Chadcn::Form < Chadcn::Base
         [ @namespace, *@path, attribute.to_s ].compact.join("_")
       end
 
+      # The attribute is read with +public_send+; never pass request input as the attribute.
+      #
       # @param attribute [Symbol, String]
       # @return [Object, nil]
       def value_for(attribute)
@@ -282,22 +284,22 @@ class Chadcn::Form < Chadcn::Base
     #
     # @return [Chadcn::Form::Binding]
     # @raise [ArgumentError] outside a {Chadcn::Form} without +binding:+
-    def binding
-      @binding ||= @given_binding || context[CONTEXT_KEY] ||
-                   raise(ArgumentError, "Chadcn::Form::Field must be rendered inside Chadcn::Form or given binding:")
+    def form_binding
+      @form_binding ||= @given_binding || context[CONTEXT_KEY] ||
+                        raise(ArgumentError, "Chadcn::Form::Field must be rendered inside Chadcn::Form or given binding:")
     end
 
     # @return [String] the +name+ of the control
-    def name = binding.name_for(attribute)
+    def name = form_binding.name_for(attribute)
 
     # @return [Object, nil] the current value
-    def value = binding.value_for(attribute)
+    def value = form_binding.value_for(attribute)
 
     # @return [Array<String>] the error messages
-    def errors = binding.errors_for(attribute)
+    def errors = (@errors ||= form_binding.errors_for(attribute).freeze)
 
     # @return [String] id of the control and +for+ of the label
-    def form_item_id = "#{binding.id_for(attribute)}-form-item"
+    def form_item_id = "#{form_binding.id_for(attribute)}-form-item"
 
     # @return [String] id of the description
     def form_description_id = "#{form_item_id}-description"
@@ -320,7 +322,7 @@ class Chadcn::Form < Chadcn::Base
     # @raise [ArgumentError] outside a {Chadcn::Form} without +binding:+
     def view_template(&)
       previous = context[FIELD_KEY]
-      binding
+      form_binding
       context[FIELD_KEY] = self
       @attrs = merge_attrs({ data: { invalid: "true" } }, @attrs) if errors.any?
       super
@@ -369,8 +371,7 @@ class Chadcn::Form < Chadcn::Base
       def view_template(&block)
         field = form_field
         attrs = merge_attrs({ html_for: field.form_item_id, data: { error: field.errors.any?.to_s }, class: CLASS_NAME }, @attrs)
-        text = field.binding.label_for(field.attribute)
-        render(Chadcn::Field::Label.new(**attrs), &block || proc { plain text })
+        render(Chadcn::Field::Label.new(**attrs), &block || proc { plain field.form_binding.label_for(field.attribute) })
       end
     end
 
@@ -450,8 +451,8 @@ class Chadcn::Form < Chadcn::Base
       end
     end
 
-    # an input bound to the field (helper: `field.input`). Renders {Chadcn::Input} with the field's `name`, `id`, `value` and `aria`
-    # (form.tsx:107-123); the attributes you pass win.
+    # An input bound to the field (helper: `field.input`). Renders {Chadcn::Input} with the field's `name`, `id`, `value` and `aria`
+    # (form.tsx:107-123); the attributes you pass win. An +id:+ you pass breaks the label's +for+ and the description/message ids.
     #
     # @example
     #   field.input
@@ -467,12 +468,14 @@ class Chadcn::Form < Chadcn::Base
       # @return [void]
       # @raise [ArgumentError] when rendered outside {Chadcn::Form::Field}
       def view_template
-        render Chadcn::Input.new(**merge_attrs(form_field.control_attrs, @attrs))
+        bound = merge_attrs(form_field.control_attrs, @attrs)
+        bound[:value] = bound[:value].to_s unless bound[:value].nil? # Phlex drops a +false+ attribute
+        render Chadcn::Input.new(**bound)
       end
     end
 
-    # a textarea bound to the field (helper: `field.textarea`). Renders {Chadcn::Textarea} with the field's `name`, `id`, `value` and `aria`
-    # (form.tsx:107-123); the attributes you pass win.
+    # A textarea bound to the field (helper: `field.textarea`). Renders {Chadcn::Textarea} with the field's `name`, `id`, `value` and `aria`
+    # (form.tsx:107-123); the attributes you pass win. An +id:+ you pass breaks the label's +for+ and the description/message ids.
     #
     # @example
     #   field.textarea

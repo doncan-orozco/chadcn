@@ -1,17 +1,11 @@
 # frozen_string_literal: true
 
-require "chadcn/test_case"
-require "nokogiri"
+require "chadcn/form/support"
 
 class Chadcn::Form::Field::ControlTest < Chadcn::TestCase
-  def render_part(errors: {}, **, &block)
-    binding_object = Chadcn::Form::Binding::Plain.new(scope: :user, object: { email: "e", bio: "b" }, errors:)
-    Chadcn::Form::Field.new(attribute: :email, binding: binding_object).call do |field|
-      field.render(Chadcn::Form::Field::Control.new(**), &block)
-    end
-  end
+  include Chadcn::FormSupport
 
-  def doc(html) = Nokogiri::HTML5.fragment(html)
+  def render_part(errors: {}, **, &) = super(Chadcn::Form::Field::Control, errors:, **, &)
 
   test "yields the control attrs merged with the part attrs" do
     seen = nil
@@ -28,5 +22,13 @@ class Chadcn::Form::Field::ControlTest < Chadcn::TestCase
     render_part(id: "mine") { |attrs| seen = attrs }
 
     assert_equal "mine", seen[:id]
+  end
+
+  test "with errors the attrs are invalid and list both ids" do
+    seen = nil
+    render_part(errors: { email: [ "x" ] }) { |attrs| seen = attrs }
+
+    assert_equal "true", seen[:aria][:invalid]
+    assert_equal "user_email-form-item-description user_email-form-item-message", seen[:aria][:describedby]
   end
 end

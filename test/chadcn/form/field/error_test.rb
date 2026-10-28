@@ -1,17 +1,11 @@
 # frozen_string_literal: true
 
-require "chadcn/test_case"
-require "nokogiri"
+require "chadcn/form/support"
 
 class Chadcn::Form::Field::ErrorTest < Chadcn::TestCase
-  def render_part(errors: {}, **, &block)
-    binding_object = Chadcn::Form::Binding::Plain.new(scope: :user, object: { email: "e", bio: "b" }, errors:)
-    Chadcn::Form::Field.new(attribute: :email, binding: binding_object).call do |field|
-      field.render(Chadcn::Form::Field::Error.new(**), &block)
-    end
-  end
+  include Chadcn::FormSupport
 
-  def doc(html) = Nokogiri::HTML5.fragment(html)
+  def render_part(errors: {}, **, &) = super(Chadcn::Form::Field::Error, errors:, **, &)
 
   test "renders nothing without errors and without a block" do
     assert_nil doc(render_part).at_css("[data-slot=field-error]")
@@ -29,5 +23,9 @@ class Chadcn::Form::Field::ErrorTest < Chadcn::TestCase
 
     assert_includes out, "bad"
     assert_not_includes out, "Custom"
+  end
+
+  test "caller id wins" do
+    assert_equal "mine", doc(render_part(id: "mine", errors: { email: [ "x" ] })).at_css("[data-slot=field-error]")["id"]
   end
 end

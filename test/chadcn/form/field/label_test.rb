@@ -1,17 +1,11 @@
 # frozen_string_literal: true
 
-require "chadcn/test_case"
-require "nokogiri"
+require "chadcn/form/support"
 
 class Chadcn::Form::Field::LabelTest < Chadcn::TestCase
-  def render_part(errors: {}, **, &block)
-    binding_object = Chadcn::Form::Binding::Plain.new(scope: :user, object: { email: "e", bio: "b" }, errors:)
-    Chadcn::Form::Field.new(attribute: :email, binding: binding_object).call do |field|
-      field.render(Chadcn::Form::Field::Label.new(**), &block)
-    end
-  end
+  include Chadcn::FormSupport
 
-  def doc(html) = Nokogiri::HTML5.fragment(html)
+  def render_part(errors: {}, **, &) = super(Chadcn::Form::Field::Label, errors:, **, &)
 
   test "renders the field label bound to the control id" do
     label = doc(render_part).at_css("[data-slot=field-label]")
