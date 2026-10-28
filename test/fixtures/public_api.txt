@@ -64,6 +64,11 @@ class Chadcn::Card::Description < Chadcn::Base
 class Chadcn::Card::Footer < Chadcn::Base
 class Chadcn::Card::Header < Chadcn::Base
 class Chadcn::Card::Title < Chadcn::Base
+class Chadcn::Carousel < Chadcn::Base
+class Chadcn::Carousel::Content < Chadcn::Base
+class Chadcn::Carousel::Item < Chadcn::Base
+class Chadcn::Carousel::Next < Chadcn::Base
+class Chadcn::Carousel::Previous < Chadcn::Base
 class Chadcn::Catalog::Entry < Struct
 class Chadcn::Catalog::TreeRenderer < Phlex::HTML
 class Chadcn::Catalog::TreeRenderer::Error < StandardError
@@ -237,6 +242,10 @@ class Chadcn::Popover::Trigger < Chadcn::Base
 class Chadcn::Progress < Chadcn::Base
 class Chadcn::RadioGroup < Chadcn::Base
 class Chadcn::RadioGroup::Item < Chadcn::Base
+class Chadcn::Resizable < Chadcn::Base
+class Chadcn::Resizable::Handle < Chadcn::Base
+class Chadcn::Resizable::Panel < Chadcn::Base
+class Chadcn::Resizable::PanelGroup < Chadcn::Base
 class Chadcn::ScrollArea < Chadcn::Base
 class Chadcn::ScrollArea::ScrollBar < Chadcn::Base
 class Chadcn::Select < Chadcn::Base
@@ -381,6 +390,9 @@ const Chadcn::Progress::DEFAULT_MAX
 const Chadcn::ROOT
 const Chadcn::RadioGroup::DIRECTIONS [ltr, rtl]
 const Chadcn::RadioGroup::ORIENTATIONS [horizontal, vertical]
+const Chadcn::Resizable::Panel::RESIZE_BEHAVIORS [preserve-relative-size, preserve-pixel-size]
+const Chadcn::Resizable::PanelGroup::PREVIEW_MODES [panel, separator]
+const Chadcn::Resizable::PanelGroup::TARGET_SIZE [coarse, fine]
 const Chadcn::ScrollArea::ScrollBar::ORIENTATIONS [vertical, horizontal]
 const Chadcn::ScrollArea::TYPES [auto, always, scroll, hover]
 const Chadcn::Select::Content::POSITIONS [item-aligned, popper]
@@ -564,6 +576,14 @@ method Chadcn::Card::Header#initialize (**attrs)
 method Chadcn::Card::Header#view_template ()
 method Chadcn::Card::Title#initialize (**attrs)
 method Chadcn::Card::Title#view_template ()
+method Chadcn::Carousel#initialize (orientation: "horizontal", opts: nil, plugins: nil, set_api: nil, **attrs)
+method Chadcn::Carousel#view_template ()
+method Chadcn::Carousel::Content#initialize (**attrs)
+method Chadcn::Carousel::Content#view_template ()
+method Chadcn::Carousel::Item#initialize (**attrs)
+method Chadcn::Carousel::Item#view_template ()
+method Chadcn::Carousel::Next#initialize (label: "Next slide", variant: "outline", size: "icon", **attrs)
+method Chadcn::Carousel::Previous#initialize (label: "Previous slide", variant: "outline", size: "icon", **attrs)
 method Chadcn::Catalog::Entry#component ()
 method Chadcn::Catalog::Entry#scenario_count ()
 method Chadcn::Catalog::Entry#scenario_id ()
@@ -1036,6 +1056,13 @@ method Chadcn::RadioGroup#item (value:, **attrs, &block)
 method Chadcn::RadioGroup#view_template ()
 method Chadcn::RadioGroup::Item#initialize (value:, disabled: false, **attrs)
 method Chadcn::RadioGroup::Item#view_template ()
+method Chadcn::Resizable#view_template ()
+method Chadcn::Resizable::Handle#initialize (with_handle: false, disabled: false, disable_double_click: false, preview: nil, id: nil, style: nil, **attrs)
+method Chadcn::Resizable::Handle#view_template ()
+method Chadcn::Resizable::Panel#initialize (default_size: nil, min_size: "0%", max_size: "100%", collapsible: false, collapsed_size: "0%", collapsed_threshold: nil, disabled: false, group_resize_behavior: "preserve-relative-size", id: nil, class: nil, style: nil, **attrs)
+method Chadcn::Resizable::Panel#view_template ()
+method Chadcn::Resizable::PanelGroup#initialize (orientation: "horizontal", default_layout: nil, disabled: false, disable_cursor: false, resize_preview_mode: "panel", resize_target_minimum_size: TARGET_SIZE, id: nil, style: nil, **attrs)
+method Chadcn::Resizable::PanelGroup#view_template ()
 method Chadcn::ScrollArea#initialize (type: "hover", dir: nil, scroll_hide_delay: 600, **attrs)
 method Chadcn::ScrollArea#view_template ()
 method Chadcn::ScrollArea::ScrollBar#initialize (orientation: "vertical", force_mount: false, **attrs)
@@ -1275,6 +1302,10 @@ Chadcn::Card#description
 Chadcn::Card#footer
 Chadcn::Card#header
 Chadcn::Card#title
+Chadcn::Carousel#content
+Chadcn::Carousel#item
+Chadcn::Carousel#next
+Chadcn::Carousel#previous
 Chadcn::Collapsible#content
 Chadcn::Collapsible#trigger
 Chadcn::Combobox#chip
@@ -1416,6 +1447,9 @@ Chadcn::Popover#header
 Chadcn::Popover#title
 Chadcn::Popover#trigger
 Chadcn::RadioGroup#item
+Chadcn::Resizable#handle
+Chadcn::Resizable#panel
+Chadcn::Resizable#panel_group
 Chadcn::ScrollArea#scroll_bar
 Chadcn::Select#content
 Chadcn::Select#group

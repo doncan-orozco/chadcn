@@ -1,0 +1,25 @@
+# frozen_string_literal: true
+
+# shadcn CarouselPrevious: an outline icon Button. Its content is fixed (a block is ignored, like React's explicit children).
+class Chadcn::Carousel::Previous < Chadcn::Base
+  include Chadcn::Carousel::Arrow
+
+  ARROW = {
+    slot: "carousel-previous", target: "previous", action: "click->chadcn--carousel#scrollPrev", icon: "arrow-left",
+    placement: {
+      "horizontal" => "absolute size-8 rounded-full top-1/2 -left-12 -translate-y-1/2",
+      "vertical" => "absolute size-8 rounded-full -top-12 left-1/2 -translate-x-1/2 rotate-90"
+    }.freeze
+  }.freeze
+  private_constant :ARROW
+
+  # @param variant [String, Symbol] any Button variant
+  # @param size [String, Symbol] any Button size
+  # @param label [String] the screen-reader text
+  # @param attrs [Hash] HTML attributes merged onto the button; a `disabled:` (true or false) is final, the controller never touches it
+  def initialize(label: "Previous slide", variant: "outline", size: "icon", **attrs) = super
+
+  private
+
+  def arrow = ARROW
+end
