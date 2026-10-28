@@ -117,6 +117,49 @@ updates instead of stacking.
 - `toast_options: { class_names: { toast: "...", error: "..." } }`, `class:` (added to the lists) and `style:` customise the look; the
   colors come from the theme (`--popover`, `--popover-foreground`, `--border`, `--radius`).
 
+## Charts (cartesian)
+
+`Chadcn::Chart::BarChart`, `LineChart` and `AreaChart` draw the SVG of [recharts](https://recharts.org) 3.8 (its class names, layers and
+numbers) from Ruby, with no JavaScript library. Put one inside a `Chart::Container` (the shadcn `ChartContainer`: the config colors as
+`--color-<key>` variables and the size, `initial_dimension:`, 320x200 by default). The chart is laid out once at that size.
+
+The block of a chart declares what is in it; it runs first, then everything is laid out in one pass. Each part renders nothing where it
+is written and registers with its chart; the generated helper of a part (`chart.bar`) is `render Chadcn::Chart::Bar.new(...)`.
+
+| Part | Keywords (besides `**attrs`) |
+|---|---|
+| `BarChart`, `LineChart`, `AreaChart` | `data:` (rows), `layout:` (`horizontal`, `vertical`), `margin:` (a side not given is 0), `bar_category_gap:` (`"10%"`), `bar_gap:` (4), `bar_size:`, `max_bar_size:`, `stack_offset:` (`none`, `expand`), `reverse_stack_order:`, `accessibility_layer:` (true), `title:`, `desc:`, `role:`, `tab_index:`; `AreaChart` also `base_value:`. `class:` and `style:` go on `.recharts-wrapper`, other attributes on the `svg` |
+| `Bar` `chart.bar` | `data_key:`, `stack_id:`, `fill:`, `stroke:`, `radius:` (number or `[tl, tr, br, bl]`), `bar_size:`, `max_bar_size:`, `min_point_size:`, `background:`, `label:`, `hide:`, `legend_type:`, `tooltip_type:`, `x_axis_id:`, `y_axis_id:`, `name:`, `unit:`; its block takes `bar.cell` and `bar.label_list` |
+| `Line` `chart.line` | `data_key:`, `type:` (`linear`, `monotone`, `natural`, `step`, ...), `stroke:`, `stroke_width:`, `stroke_dasharray:`, `fill:`, `dot:`, `connect_nulls:`, `label:`, ... |
+| `Area` `chart.area` | `data_key:`, `type:`, `stack_id:`, `fill:`, `fill_opacity:`, `stroke:`, `stroke_width:`, `dot:`, `base_value:`, `connect_nulls:`, `label:`, ... |
+| `XAxis` `chart.x_axis`, `YAxis` `chart.y_axis` | `data_key:`, `type:`, `hide:`, `height:` / `width:`, `orientation:`, `tick:`, `tick_line:`, `axis_line:`, `tick_size:`, `tick_margin:`, `tick_count:`, `tick_formatter:`, `interval:`, `min_tick_gap:`, `mirror:`, `reversed:`, `padding:`, `domain:`, `allow_decimals:`, `allow_data_overflow:`, `nice_ticks:`, `angle:`, `unit:`, `ticks:`, `x_axis_id:` / `y_axis_id:` |
+| `CartesianGrid` `chart.cartesian_grid` | `horizontal:`, `vertical:`, `stroke:`, `stroke_dasharray:`, `horizontal_fill:`, `vertical_fill:`, `sync_with_ticks:` |
+| `ReferenceLine` `chart.reference_line` | `x:` or `y:`, `stroke:`, `stroke_dasharray:`, `if_overflow:` (`discard`, `hidden`, `visible`, `extend_domain`) |
+| `LabelList` `bar.label_list`, `Label` `chart.label`, `Cell` `bar.cell` | `position:`, `offset:`, `formatter:`, `fill:`, `angle:`, `data_key:`; `Cell` takes `fill:`, `stroke:` and any attribute of its shape |
+
+`tick_formatter:`, `formatter:` and `label_formatter:` take a callable (`->(value, index) { ... }`) or a named formatter that holds no code:
+`{ slice: [0, 3] }`, `:locale`, `:percent`.
+
+```ruby
+rows = [ { month: "January", desktop: 186, mobile: 80 }, { month: "February", desktop: 305, mobile: 200 }, { month: "March", desktop: 237, mobile: 120 } ]
+config = { desktop: { label: "Desktop", color: "var(--chart-1)" }, mobile: { label: "Mobile", color: "var(--chart-2)" } }
+
+render Chadcn::Chart::Container.new(config: config, id: "sales") do
+  render Chadcn::Chart::BarChart.new(data: rows) do |chart|
+    chart.cartesian_grid(vertical: false)
+    chart.x_axis(data_key: :month, tick_line: false, tick_margin: 10, axis_line: false, tick_formatter: { slice: [ 0, 3 ] })
+    chart.bar(data_key: :desktop, stack_id: "a", fill: "var(--color-desktop)", radius: [ 0, 0, 4, 4 ])
+    chart.bar(data_key: :mobile, stack_id: "a", fill: "var(--color-mobile)", radius: [ 4, 4, 0, 0 ]) do |bar|
+      bar.label_list(position: :top, offset: 12, class: "fill-foreground")
+    end
+  end
+end
+```
+
+A `<defs>` of gradients (or any SVG the block writes itself, e.g. by rendering a `Phlex::SVG` component) is placed in the `svg` after the clip
+path, where recharts renders its non-chart children. A tooltip or a legend written in the block (`chart.tooltip`, `chart.legend`) is
+accepted and a legend reserves its room, but neither draws its markup yet.
+
 ## Notes
 
 - `Avatar::Image` ships its `<img>` in an inert `<template>` and the `chadcn--avatar` controller mounts it once it has loaded (Radix

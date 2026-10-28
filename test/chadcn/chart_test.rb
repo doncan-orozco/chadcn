@@ -70,6 +70,51 @@ class Chadcn::ChartTest < Chadcn::TestCase
     assert_equal [ "true", "Chadcn::Chart::Tooltip::Content", "Chadcn::Chart::Legend::Content", "Module", "false" ], output.lines.map(&:strip).last(5), output
   end
 
+  test "every chart class offers one generated helper per declaration, equal to the explicit class" do
+    Chadcn::Chart::BarChart.new # building a chart loads the declarations
+    helpers = Chadcn::Chart::Declaration.subclasses.map { |part| Chadcn::Chart::Declarations.helper_name(part.name) }
+
+    assert_equal 10, helpers.size
+    [ Chadcn::Chart::BarChart, Chadcn::Chart::LineChart, Chadcn::Chart::AreaChart ].each do |chart_class|
+      assert_empty(helpers.reject { |helper| chart_class.public_method_defined?(helper) }, chart_class.name)
+    end
+    rows = [ { a: 1 }, { a: 2 } ]
+    explicit = render_view { render(Chadcn::Chart::BarChart.new(data: rows)) { |chart| chart.render Chadcn::Chart::Bar.new(data_key: :a) } }
+    generated = render_view { render(Chadcn::Chart::BarChart.new(data: rows)) { |chart| chart.bar(data_key: :a) } }
+
+    assert_equal explicit, generated
+  end
+
+  test "in a fresh process with the lazy loader the declaration helpers exist before any declaration constant is referenced" do
+    script = <<~RUBY
+      require "chadcn"
+      rows = [ { a: 1 }, { a: 2 } ]
+      helper = Class.new(Phlex::HTML) { define_method(:view_template) { render(Chadcn::Chart::BarChart.new(data: rows)) { |chart| chart.bar(data_key: :a) } } }.new.call
+      explicit = Class.new(Phlex::HTML) { define_method(:view_template) { render(Chadcn::Chart::BarChart.new(data: rows)) { |chart| chart.render Chadcn::Chart::Bar.new(data_key: :a) } } }.new.call
+      puts helper == explicit
+      puts helper.include?("recharts-bar-rectangle")
+    RUBY
+    output = IO.popen([ RbConfig.ruby, "-I", File.expand_path("../../lib", __dir__), "-e", script ], err: %i[child out], &:read)
+
+    assert_equal %w[true true], output.lines.map(&:strip).last(2), output
+  end
+
+  test "in a fresh process a declaration named like a Phlex method is refused" do
+    script = <<~RUBY
+      require "chadcn"
+      module Custom; end
+      begin
+        class Custom::Render < Chadcn::Chart::Declaration; end
+        puts "no error"
+      rescue ArgumentError => error
+        puts error.message
+      end
+    RUBY
+    output = IO.popen([ RbConfig.ruby, "-I", File.expand_path("../../lib", __dir__), "-e", script ], err: %i[child out], &:read)
+
+    assert_equal "helper #render (from Custom::Render) would override a Ruby/Phlex API method", output.lines.map(&:strip).last
+  end
+
   test "the root renders without a block" do
     assert_equal "", Chadcn::Chart.new.call
   end
