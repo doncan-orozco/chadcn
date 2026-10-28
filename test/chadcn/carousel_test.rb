@@ -11,6 +11,15 @@ class Chadcn::CarouselTest < Chadcn::TestCase
 
   def fragment(html) = Nokogiri::HTML5.fragment(html)
 
+  # Order-free class check: every token present, none of `absent` (proves tailwind_merge dropped a default).
+  def assert_classes(node, *tokens, absent: [])
+    actual = node["class"].to_s.split
+    shown = node["class"].inspect
+
+    tokens.each { |token| assert_includes actual, token, "missing class #{token.inspect} in #{shown}" }
+    absent.each { |token| refute_includes actual, token, "unexpected class #{token.inspect} in #{shown}" }
+  end
+
   def carousel(root: {}, content: {}, item: {}, previous: {}, nxt: {})
     render_view do
       render(Carousel.new(**root)) do
@@ -29,30 +38,30 @@ class Chadcn::CarouselTest < Chadcn::TestCase
     root = doc.at_css("[data-slot=carousel]")
     viewport = doc.at_css("[data-slot=carousel-content]")
 
-    assert_equal "relative w-full max-w-xs", root["class"]
+    assert_classes root, "relative", "w-full", "max-w-xs"
     assert_equal "region", root["role"]
     assert_equal "carousel", root["aria-roledescription"]
     assert_equal "c", root["id"]
     assert_equal "horizontal", root["data-chadcn--carousel-orientation-value"]
     assert_equal "{}", root["data-chadcn--carousel-opts-value"]
     assert_equal "keydown->chadcn--carousel#keydown:capture", root["data-action"]
-    assert_equal "overflow-hidden", viewport["class"]
-    assert_equal "flex -ml-1", viewport.at_css("> div")["class"]
+    assert_classes viewport, "overflow-hidden"
+    assert_classes viewport.at_css("> div"), "flex", "-ml-1", absent: %w[-ml-4]
     slides = doc.css("[data-slot=carousel-item]")
 
     assert_equal 2, slides.size
     assert_equal "slide", slides.first["aria-roledescription"]
     assert_equal "group", slides.first["role"]
-    assert_equal "min-w-0 shrink-0 grow-0 basis-full pl-4 md:basis-1/2", slides.first["class"]
+    assert_classes slides.first, "min-w-0", "shrink-0", "grow-0", "basis-full", "pl-4", "md:basis-1/2"
   end
 
   test "vertical orientation switches the part classes" do
     doc = fragment(carousel(root: { orientation: :vertical }))
 
-    assert_equal "flex -mt-4 flex-col", doc.at_css("[data-slot=carousel-content] > div")["class"]
-    assert_includes doc.at_css("[data-slot=carousel-item]")["class"], "pt-4"
-    assert_includes doc.at_css("[data-slot=carousel-previous]")["class"], "-top-12 left-1/2 -translate-x-1/2 rotate-90"
-    assert_includes doc.at_css("[data-slot=carousel-next]")["class"], "-bottom-12 left-1/2 -translate-x-1/2 rotate-90"
+    assert_classes doc.at_css("[data-slot=carousel-content] > div"), "flex", "-mt-4", "flex-col", absent: %w[-ml-4]
+    assert_classes doc.at_css("[data-slot=carousel-item]"), "pt-4", absent: %w[pl-4]
+    assert_classes doc.at_css("[data-slot=carousel-previous]"), *%w[-top-12 left-1/2 -translate-x-1/2 rotate-90], absent: %w[-left-12]
+    assert_classes doc.at_css("[data-slot=carousel-next]"), *%w[-bottom-12 left-1/2 -translate-x-1/2 rotate-90], absent: %w[-right-12]
   end
 
   test "previous and next are disabled outline icon buttons with a fixed label" do
@@ -63,8 +72,8 @@ class Chadcn::CarouselTest < Chadcn::TestCase
     assert_equal "", previous["disabled"]
     assert_equal "outline", previous["data-variant"]
     assert_equal "icon", previous["data-size"]
-    assert_includes previous["class"], "absolute size-8 rounded-full top-1/2 -left-12 -translate-y-1/2 extra"
-    assert_includes following["class"], "top-1/2 -right-12 -translate-y-1/2"
+    assert_classes previous, *%w[absolute size-8 rounded-full top-1/2 -left-12 -translate-y-1/2 extra]
+    assert_classes following, *%w[top-1/2 -right-12 -translate-y-1/2]
     assert_equal "Previous slide", previous.at_css(".sr-only").text
     assert_equal "Next slide", following.at_css(".sr-only").text
     assert_equal "click->chadcn--carousel#scrollPrev", previous["data-action"]
@@ -77,6 +86,49 @@ class Chadcn::CarouselTest < Chadcn::TestCase
     assert_nil previous["disabled"]
     assert_equal "true", previous["data-chadcn--carousel-locked"]
     assert_equal "", doc.at_css("[data-slot=carousel-next]")["disabled"]
+  end
+
+  test "the locked flag is absent by default and the icon is a fixed svg" do
+    doc = fragment(carousel)
+    previous = doc.at_css("[data-slot=carousel-previous]")
+
+    assert_nil previous["data-chadcn--carousel-locked"]
+    assert_nil doc.at_css("[data-slot=carousel-next]")["data-chadcn--carousel-locked"]
+    assert_classes previous.at_css("svg"), "lucide", "lucide-arrow-left"
+    assert_classes doc.at_css("[data-slot=carousel-next] svg"), "lucide", "lucide-arrow-right"
+  end
+
+  test "a string-key disabled locks like the symbol key" do
+    doc = fragment(render_view do
+      render(Carousel.new) do
+        render(Carousel::Previous.new(**{ "disabled" => false }))
+        render(Carousel::Next.new)
+      end
+    end)
+
+    assert_equal "true", doc.at_css("[data-slot=carousel-previous]")["data-chadcn--carousel-locked"]
+    assert_nil doc.at_css("[data-slot=carousel-previous]")["disabled"]
+    assert_nil doc.at_css("[data-slot=carousel-next]")["data-chadcn--carousel-locked"]
+  end
+
+  test "a nested carousel restores the outer orientation" do
+    doc = fragment(render_view do
+      render(Carousel.new(orientation: :vertical)) do
+        render(Carousel.new) { render(Carousel::Item.new) { "inner" } }
+        render(Carousel::Item.new) { "outer" }
+      end
+    end)
+    items = doc.css("[data-slot=carousel-item]")
+
+    assert_classes items.first, "pl-4", absent: %w[pt-4]
+    assert_classes items.last, "pt-4", absent: %w[pl-4]
+  end
+
+  test "Arrow without an arrow declaration raises a clear error" do
+    part = Class.new(Chadcn::Base) { include Chadcn::Carousel::Arrow }
+    error = assert_raises(NotImplementedError) { render_view { render(Carousel.new) { render(part.new(label: "x")) } } }
+
+    assert_match(/must define a private `arrow`/, error.message)
   end
 
   test "variant and size accept strings and symbols, and a caller data-action is added" do
@@ -102,6 +154,17 @@ class Chadcn::CarouselTest < Chadcn::TestCase
     assert_raises(ArgumentError) { Carousel.new(opts: { slides_to_scroll: 0 }) }
     assert_raises(ArgumentError) { Carousel.new(plugins: []) }
     assert_raises(ArgumentError) { Carousel.new(set_api: -> { }) }
+  end
+
+  test "slides_to_scroll auto is accepted, bad contain_scroll, direction, container and slides raise" do
+    doc = fragment(render_view { render(Carousel.new(opts: { slides_to_scroll: "auto", container: ".c", slides: ".s" })) })
+    opts = JSON.parse(doc.at_css("[data-slot=carousel]")["data-chadcn--carousel-opts-value"])
+
+    assert_equal({ "slidesToScroll" => "auto", "container" => ".c", "slides" => ".s" }, opts)
+    assert_raises(ArgumentError) { Carousel.new(opts: { contain_scroll: "all" }) }
+    assert_raises(ArgumentError) { Carousel.new(opts: { direction: "up" }) }
+    assert_raises(ArgumentError) { Carousel.new(opts: { container: 1 }) }
+    assert_raises(ArgumentError) { Carousel.new(opts: { slides: true }) }
   end
 
   test "targets, actions and merged caller data" do

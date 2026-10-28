@@ -7,8 +7,8 @@ class Chadcn::Carousel::Previous < Chadcn::Base
   ARROW = {
     slot: "carousel-previous", target: "previous", action: "click->chadcn--carousel#scrollPrev", icon: "arrow-left",
     placement: {
-      "horizontal" => "top-1/2 -left-12 -translate-y-1/2",
-      "vertical" => "-top-12 left-1/2 -translate-x-1/2 rotate-90"
+      "horizontal" => "absolute size-8 rounded-full top-1/2 -left-12 -translate-y-1/2",
+      "vertical" => "absolute size-8 rounded-full -top-12 left-1/2 -translate-x-1/2 rotate-90"
     }.freeze
   }.freeze
   private_constant :ARROW

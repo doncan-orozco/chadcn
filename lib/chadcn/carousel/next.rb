@@ -7,8 +7,8 @@ class Chadcn::Carousel::Next < Chadcn::Base
   ARROW = {
     slot: "carousel-next", target: "next", action: "click->chadcn--carousel#scrollNext", icon: "arrow-right",
     placement: {
-      "horizontal" => "top-1/2 -right-12 -translate-y-1/2",
-      "vertical" => "-bottom-12 left-1/2 -translate-x-1/2 rotate-90"
+      "horizontal" => "absolute size-8 rounded-full top-1/2 -right-12 -translate-y-1/2",
+      "vertical" => "absolute size-8 rounded-full -bottom-12 left-1/2 -translate-x-1/2 rotate-90"
     }.freeze
   }.freeze
   private_constant :ARROW

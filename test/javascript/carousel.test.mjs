@@ -106,17 +106,15 @@ browserTest("carousel: disconnect clears the transform and a reconnect starts fr
   const page = await open("default__rest");
   await page.click(next);
   await waitIndex(page, 1);
-  const cleared = await page.locator(root).evaluate(async (node) => {
+  const before = await page.locator(root).evaluate((node) => {
     const inner = node.querySelector("[data-slot=carousel-content] > div");
-    const parent = node.parentNode;
-    const after = node.nextSibling;
-    node.remove();
-    await new Promise((resolve) => requestAnimationFrame(resolve));
-    const result = inner.hasAttribute("style");
-    parent.insertBefore(node, after);
-    return result;
+    Object.assign(window, { carouselInner: inner, carouselParent: node.parentNode, carouselAfter: node.nextSibling, carouselNode: node });
+    return inner.style.transform;
   });
-  assert.equal(cleared, false);
+  assert.match(before, /^translate3d\(-[\d.]+px, 0px, 0px\)$/);
+  await page.evaluate(() => window.carouselNode.remove());
+  await page.waitForFunction(() => !window.carouselInner.hasAttribute("style"));
+  await page.evaluate(() => window.carouselParent.insertBefore(window.carouselNode, window.carouselAfter));
   await waitIndex(page, 0);
   await page.waitForFunction((selector) => document.querySelector(selector).style.transform === "translate3d(0px, 0px, 0px)", container);
 });

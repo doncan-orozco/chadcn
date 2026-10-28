@@ -5,6 +5,9 @@
 class Chadcn::Carousel::Content < Chadcn::Base
   include Chadcn::Carousel::Support
 
+  CLASSES = { true => "flex -ml-4", false => "flex -mt-4 flex-col" }.freeze
+  private_constant :CLASSES
+
   # @param attrs [Hash] HTML attributes merged onto the inner container element
   def initialize(**attrs)
     @attrs = attrs
@@ -14,7 +17,7 @@ class Chadcn::Carousel::Content < Chadcn::Base
   # @yield the slides
   # @return [void]
   def view_template(&)
-    attrs = merge_attrs({ class: [ "flex", (horizontal? ? "-ml-4" : "-mt-4 flex-col") ] }, @attrs)
+    attrs = merge_attrs({ class: CLASSES.fetch(horizontal?) }, @attrs)
     div(class: "overflow-hidden", data: { slot: "carousel-content", chadcn__carousel_target: "viewport" }) do
       div(**attrs, &)
     end

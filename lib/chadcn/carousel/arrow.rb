@@ -16,6 +16,7 @@ module Chadcn::Carousel::Arrow
     @variant = variant
     @size = size
     @label = label
+    attrs[:disabled] = attrs.delete("disabled") if attrs.key?("disabled")
     @attrs = attrs
     super()
   end
@@ -26,14 +27,22 @@ module Chadcn::Carousel::Arrow
   def view_template
     spec = arrow
     attrs = merge_attrs({
-                          class: [ "absolute size-8 rounded-full", spec.fetch(:placement).fetch(orientation) ],
+                          class: spec.fetch(:placement).fetch(orientation),
                           disabled: true,
                           data: { slot: spec.fetch(:slot), chadcn__carousel_target: spec.fetch(:target), action: spec.fetch(:action) }
                         }, @attrs.compact)
-    attrs[:data] = attrs[:data].merge(chadcn__carousel_locked: "true") if @attrs.key?(:disabled) && !@attrs[:disabled].nil?
+    attrs[:data] = attrs[:data].merge(chadcn__carousel_locked: "true") if locked?
     render(Chadcn::Button.new(variant: @variant, size: @size, **attrs)) do
       render Chadcn::Icon.new(spec.fetch(:icon))
       span(class: "sr-only") { @label }
     end
   end
+
+  private
+
+  # What the including part declares: slot, target, action, icon and the full class string per orientation.
+  def arrow = raise(NotImplementedError, "#{self.class} must define a private `arrow` (slot, target, action, icon, placement)")
+
+  # A caller `disabled:` (symbol or string key, true or false; a string key is normalized to the symbol in `initialize`) is final; `nil` counts as not given.
+  def locked? = !@attrs[:disabled].nil?
 end

@@ -128,7 +128,9 @@ Server render (horizontal, 2 items):
   connect the controller builds the engine and reconciles each button whose `disabled` the caller did not set
   (`disabled = !api.canScrollPrev()` / `!api.canScrollNext()`, tsx:64-68, 96-100), again on every `select` and `reInit`. A button
   whose `disabled:` the caller set carries `data-chadcn--carousel-locked="true"` (ignored by the gate) and is never touched by the
-  controller. With no slides (no engine) both buttons stay `disabled`.
+  controller (a string-key `"disabled"` locks like `:disabled`). Without a Content part there is no engine and both buttons stay
+  `disabled`. An empty container (Content with no slides) still builds an engine with no snaps, so both buttons are `disabled`;
+  `watchSlides` re-initializes the engine when slides are appended later.
 - Stimulus-owned DOM (embla parity, compared through the scenario `observe` selector `[data-slot=carousel-content] > div`):
   - the container gets `style.transform = "translate3d(<x>px,0px,0px)"` (vertical `translate3d(0px,<y>px,0px)`) on activation and
     on every rendered frame, value rounded to two decimals and skipped when unchanged (embla:954-985, 1547); not set when
@@ -143,8 +145,7 @@ Server render (horizontal, 2 items):
 States are embla's engine state: the selected snap index, the location (current translate), the target, and per-snap
 `canScrollPrev`/`canScrollNext`. Primitives composed: none of the shared primitives apply (no overlay, focus scope, roving
 focus, positioning or presence). The engine (measurements, snaps, scroll body, drag, loop) is component code owned by the
-carousel controller (`app/javascript/controllers/chadcn/carousel_controller.js`, plus modules under
-`app/javascript/controllers/chadcn/carousel/` if split).
+carousel controller (`app/javascript/controllers/chadcn/carousel_controller.js`).
 
 ### Measurements and snaps (embla:1235-1290)
 - `root` = the viewport (carousel-content), `container` = `opts.container` selector or the viewport's first child, `slides` =
@@ -296,6 +297,10 @@ Acceptance (unit test): every row exists as a public method on the root instance
    element values of `container`/`slides` are not supported (selector strings are).
 4. A caller `data-action` on `Carousel::Previous`/`Next` is added to the scroll action instead of replacing it as React's `onClick`
    prop does.
+
+Known parity noise: the scenarios `opts-duration__click-next` and `opts-drag-free__drag` can differ by 0.01px of transform while
+the animation settles; this reproduces on the original controller and is a settle-timing flap, not a deviation (the scenarios are
+not edited to hide it).
 
 Notes on the scenario trees: the `carousel-api` example's "Slide N of M" caption is React state fed by `setApi`; the tree renders
 its initial text statically (the API itself is covered by the controller's JS tests). The `carousel-plugin` example renders
