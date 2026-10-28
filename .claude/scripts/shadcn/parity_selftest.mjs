@@ -66,11 +66,15 @@ const HOVER_BOX = `<div data-slot="probe" class="btn" style="width:200px;padding
 const HOVER_JS = (positionAware) => `document.querySelector("[data-slot=probe]").addEventListener("mousemove", (e) => { document.querySelector("[data-slot=probe]").dataset.side = ${positionAware ? "e.offsetX > 150 ? 'right' : 'left'" : "'left'"}; })`;
 // Chrome sometimes leaves :hover stale under a still pointer after a DOM change (message-scroller's end button toggling `inert` after a
 // click) and then repairs it only on the next mouse move; that race cannot be forced, so the React side fakes the outcome: its click handler
-// forgets the hover (data-hot) and makes `:hover` report false until a mousemove arrives. The sides differ ONLY if the runner repeats the
-// pointer move when the element under the pointer is not :hover.
+// forgets the hover (data-hot) and makes `:hover` report false until a mousemove arrives. The sides agree ONLY if the runner repeats the
+// pointer move when the element under the pointer is not :hover; without that refresh the React side keeps data-hot="" and the case fails.
 const HOT_BOX = `<div data-slot="probe" class="btn" style="width:200px;padding:0">x</div>`;
 const HOT_JS = (staleAfterClick) => `const el = document.querySelector("[data-slot=probe]"); el.addEventListener("mousemove", () => { el.dataset.hot = "1"; window.__stale = false; });
   ${staleAfterClick ? 'const matches = Element.prototype.matches; Element.prototype.matches = function (s) { return s === ":hover" && window.__stale ? false : matches.call(this, s); }; el.addEventListener("click", () => { el.dataset.hot = ""; window.__stale = true; });' : ""}`;
+// Control for the refresh: a REAL hover loss (the click makes the probe pointer-events:none, so hit-testing lands elsewhere and the repeated
+// move never reaches it) must still be reported, so the refresh cannot hide a genuine hover difference.
+const LOST_JS = `const el = document.querySelector("[data-slot=probe]"); el.addEventListener("mousemove", () => { el.dataset.hot = "1"; });
+  el.addEventListener("click", () => { el.dataset.hot = ""; el.style.pointerEvents = "none"; });`;
 // A scroll-driven animation (animation-timeline: scroll()) has no document time: Chrome throws on `currentTime = ms`.
 // The spacer (no data-slot, not compared) makes the root scroll, so the timeline is active and its progress drives the probe's opacity.
 const SCROLL_DRIVEN = `<div data-slot="probe" class="btn scroll-driven">x</div><div style="height:3000px"></div>`;
@@ -155,6 +159,7 @@ const S = [
   { id: "hover-position-honored", steps: [{ do: "hover", target: "[data-slot=probe]", position: { x: 180, y: 5 } }], html: [HOVER_BOX, HOVER_BOX], js: [HOVER_JS(true), HOVER_JS(true)], expect: { pass: true } },
   { id: "hover-position-differs", steps: [{ do: "hover", target: "[data-slot=probe]", position: { x: 180, y: 5 } }], html: [HOVER_BOX, HOVER_BOX], js: [HOVER_JS(true), HOVER_JS(false)], expect: { kinds: ["ATTR"], step: "0:hover" } },
   { id: "hover-restored-after-stale", steps: [{ do: "hover", target: "[data-slot=probe]", position: { x: 20, y: 5 } }, { do: "click", target: "[data-slot=probe]", position: { x: 20, y: 5 } }], html: [HOT_BOX, HOT_BOX], js: [HOT_JS(true), HOT_JS(false)], expect: { pass: true } },
+  { id: "hover-genuinely-lost-differs", steps: [{ do: "hover", target: "[data-slot=probe]", position: { x: 20, y: 5 } }, { do: "click", target: "[data-slot=probe]", position: { x: 20, y: 5 } }], html: [HOT_BOX, HOT_BOX], js: [HOT_JS(false), LOST_JS], expect: { kinds: ["ATTR"] } },
   { id: "scroll-driven-animation-ok", animations: true, html: [SCROLL_DRIVEN, SCROLL_DRIVEN], expect: { pass: true } },
   { id: "scroll-driven-animation-differs", animations: true, html: [SCROLL_DRIVEN, SCROLL_DRIVEN], js: ["", "window.scrollTo(0, 1500)"], expect: { kinds: ["STYLE"] } },
   { id: "dark-same", dark: true, html: [btn(), btn()], expect: { pass: true } },

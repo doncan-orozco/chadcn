@@ -245,6 +245,7 @@ async function pressKey(page, key) {
 async function refreshHover(page) {
   const at = await page.evaluate(() => {
     const p = window.__parityPointer;
+    if (p && p.buttons) return null; // a held button would turn the repair move into a drag move
     const el = p && document.elementFromPoint(p.x, p.y);
     return el && !el.matches(":hover") ? p : null;
   });
@@ -254,7 +255,7 @@ async function refreshHover(page) {
 }
 
 function trackPointer() {
-  const save = (e) => { window.__parityPointer = { x: e.clientX, y: e.clientY }; };
+  const save = (e) => { window.__parityPointer = { x: e.clientX, y: e.clientY, buttons: e.buttons }; };
   for (const type of ["mousemove", "mousedown", "mouseup"]) window.addEventListener(type, save, true);
 }
 
