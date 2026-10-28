@@ -241,11 +241,10 @@ async function pressKey(page, key) {
 // pointer position is not :hover, repeat a REAL move at that position: the page receives mousemove/pointermove (and boundary events) at an
 // unchanged position, exactly what a user's next pointer jitter would deliver. When it is :hover, nothing is dispatched, so scenarios whose
 // hover state is current see no extra pointer events. Hit-testing skips inert and pointer-events:none elements, so a page that genuinely
-// does not hover is never "repaired".
+// does not hover is never "repaired". A step that leaves a button held (a bare mousedown) makes the repair move a drag move at the same position; it reaches the page only when :hover is stale, identically on both sides.
 async function refreshHover(page) {
   const at = await page.evaluate(() => {
     const p = window.__parityPointer;
-    if (p && p.buttons) return null; // a held button would turn the repair move into a drag move
     const el = p && document.elementFromPoint(p.x, p.y);
     return el && !el.matches(":hover") ? p : null;
   });
@@ -255,7 +254,7 @@ async function refreshHover(page) {
 }
 
 function trackPointer() {
-  const save = (e) => { window.__parityPointer = { x: e.clientX, y: e.clientY, buttons: e.buttons }; };
+  const save = (e) => { window.__parityPointer = { x: e.clientX, y: e.clientY }; };
   for (const type of ["mousemove", "mousedown", "mouseup"]) window.addEventListener(type, save, true);
 }
 
