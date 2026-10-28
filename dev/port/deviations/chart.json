@@ -11,7 +11,7 @@
     "Chart::Legend legend_height: is the server's assumption for the measured legend box (default 28 = pt-3 + one 16px line); chadcn--chart re-measures but does not recompute the plot when it differs",
     "Chart naming (naming-conventions R2, open for the maintainer): chart names keep the Chart suffix (Chart::BarChart, not Chart::Bar) because Chart::Bar, Line, Area, Pie, Radar and RadialBar are the series classes of the same React names; de-stuttering would make two React exports share one Ruby constant",
     "Chart::Container text_height: and text_char_width: are the server's assumptions for DOM text measurement (16 and 0.6em)",
-    "Chart::Config is a Hash of key => { label:, icon:, color: | theme: { light:, dark: } } (ChartConfig); icon is a component instance instead of a React component type",
+    "Chart::Config is a Hash of key => { label:, icon:, color: or theme: { light:, dark: } } (ChartConfig); icon is a component instance instead of a React component type",
     "Brush, ReferenceLine, ReferenceArea, ErrorBar, Customized, syncId, ref and mouse/touch callback props are not ported",
     "Chart::Tooltip::Content and Chart::Legend::Content accept **attrs on their root div (shadcn-port R6); React's ChartTooltipContent/ChartLegendContent do not spread props",
     "Chart::Cell renders nothing itself (recharts Cell is () => null) but, as in recharts, its props are spread into the parent's shape at its index: it accepts **attrs (class: included) like every part and the parent lands them on that sector or rectangle (no R6 exception)",
