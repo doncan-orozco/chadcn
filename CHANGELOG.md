@@ -16,6 +16,7 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 
 ### Added
 
+- `Chadcn::InputOtp` (`Group`, `Slot`, `Separator`): shadcn's InputOTP with the input-otp library re-implemented in the `chadcn--input-otp` Stimulus controller (no new JavaScript dependency); `chadcn--input-otp:change` and `:complete` events (`detail: { value }`); `pasteTransformer` is assigned on the controller from JavaScript.
 - `Chadcn::Theme.parse`, `.validate`, `.contrast` and `.render_colors` (and `Theme::Palette`) are public API: build, validate and export a
   palette without touching the theme file. `write_colors`, `replace_theme_file` and the import helpers stay private.
 - `Chadcn::Catalog` (`.entries`, `.find`, `Entry`) and `Chadcn::Catalog::TreeRenderer`: an example of every component as a JSON tree plus the
