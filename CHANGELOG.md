@@ -16,6 +16,7 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 
 ### Added
 
+- `Chadcn::Drawer` (`Trigger`, `Portal`, `Overlay`, `Content`, `Close`, `Header`, `Footer`, `Title`, `Description`): shadcn's Drawer over a Stimulus reimplementation of vaul 1.1.2 in `chadcn--drawer` (drag to dismiss, snap points, directions, background scaling; no new JavaScript dependency).
 - `Chadcn::InputOtp` (`Group`, `Slot`, `Separator`): shadcn's InputOTP with the input-otp library re-implemented in the `chadcn--input-otp` Stimulus controller (no new JavaScript dependency); `chadcn--input-otp:change` and `:complete` events (`detail: { value }`); `pasteTransformer` is assigned on the controller from JavaScript.
 - `Chadcn::Carousel` with `Content`, `Item`, `Previous` and `Next` (shadcn Carousel over a Stimulus engine derived from embla-carousel 8.6.0;
   `plugins:` and `setApi` are replaced by the controller's `api` and the `chadcn--carousel:api`, `:select`, `:reinit` and `:settle` events).
