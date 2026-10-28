@@ -80,6 +80,23 @@ class Chadcn::Chart::LegendTest < Chadcn::TestCase
     assert_includes box(html)["class"], "pb-3"
   end
 
+  test "payload must be an Array of Hashes" do
+    [ "x", { a: 1 }, [ 1 ] ].each do |bad|
+      assert_raises(ArgumentError) { Chadcn::Chart::Legend::Content.new(payload: bad) }
+    end
+    assert_equal "", Chadcn::Chart::Legend::Content.new(payload: nil).call
+  end
+
+  test "the generated content helper of a Legend renders the same as the explicit class" do
+    items = payload(:desktop)
+    helper = Class.new(Chadcn::Chart::Legend) { define_method(:view_template) { content(payload: items, vertical_align: :top) } }
+    through_helper = Class.new(Phlex::HTML) do
+      define_method(:view_template) { render(Chadcn::Chart::Container.new(config: CONFIG, id: "l")) { render helper.new } }
+    end.new.call
+
+    assert_equal render_content(payload: items, vertical_align: :top), through_helper
+  end
+
   test "Legend is a declaration: it renders nothing and keeps the recharts defaults" do
     content = Chadcn::Chart::Legend::Content.new
     legend = Chadcn::Chart::Legend.new(content: content)

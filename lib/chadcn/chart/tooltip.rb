@@ -92,6 +92,8 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
   #     payload: [ { name: "desktop", data_key: "desktop", value: 1860, color: "var(--color-desktop)" } ]
   #   )
   class Content < Chadcn::Base
+    include Chadcn::Chart::ContentSupport
+
     INDICATORS = %w[dot line dashed].freeze
     private_constant :INDICATORS
 
@@ -111,45 +113,28 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
     # @param color [String, nil] color of every indicator
     # @param name_key [String, Symbol, nil] the payload key whose value names the config entry of an item
     # @param label_key [String, Symbol, nil] same for the label
-    # @param payload [Array<Hash>] the series at the hovered category
+    # @param payload [Array<Hash>, nil] the series at the hovered category
     # @param attrs [Hash] attributes of the root div; `class:` is merged last
-    # @raise [ArgumentError] on an unknown `indicator:`
+    # @raise [ArgumentError] on an unknown `indicator:` or a `payload:` that is not an Array of Hashes
     def initialize(indicator: :dot, hide_label: false, hide_indicator: false, label: nil, label_formatter: nil, label_class_name: nil,
                    formatter: nil, color: nil, name_key: nil, label_key: nil, payload: [], **attrs)
-      @indicator = indicator.to_s
-      raise ArgumentError, "indicator: must be one of #{INDICATORS.join(', ')} (got #{indicator.inspect})" unless INDICATORS.include?(@indicator)
+      raise ArgumentError, "indicator: must be one of #{INDICATORS.join(', ')} (got #{indicator.inspect})" unless INDICATORS.include?(indicator.to_s)
 
-      @options = { indicator: indicator, hide_label: hide_label, hide_indicator: hide_indicator, label: label,
-                   label_formatter: label_formatter, label_class_name: label_class_name, formatter: formatter, color: color, name_key: name_key,
-                   label_key: label_key, **attrs }.freeze
-      @hide_label = hide_label
-      @hide_indicator = hide_indicator
-      @label = label
-      @label_formatter = label_formatter
-      @label_class_name = label_class_name
-      @formatter = formatter
-      @color = color
-      @name_key = name_key
-      @label_key = label_key
-      @payload = payload || []
-      @attrs = attrs
+      @options = { indicator: indicator.to_s, hide_label: hide_label, hide_indicator: hide_indicator, label: label,
+                   label_formatter: label_formatter, label_class_name: label_class_name, formatter: formatter, color: color,
+                   name_key: name_key, label_key: label_key, attrs: attrs }.freeze
+      @payload = validated_payload(payload)
       super()
     end
-
-    # A copy with other options, e.g. the payload and label of one tooltip index.
-    #
-    # @api private
-    # @return [Chadcn::Chart::Tooltip::Content]
-    def with(**changes) = self.class.new(**@options, payload: @payload, **changes)
 
     # @return [void]
     def view_template
       return if @payload.empty?
 
       config = chart_config
-      nest_label = @payload.length == 1 && @indicator != "dot"
+      nest_label = @payload.length == 1 && option(:indicator) != "dot"
       label = tooltip_label(config)
-      div(**merge_attrs({ class: ROOT_CLASSES }, @attrs)) do
+      div(**merge_attrs({ class: ROOT_CLASSES }, option(:attrs))) do
         render_label(label) unless nest_label
         div(class: "grid gap-1.5") do
           @payload.each_with_index do |item, index|
@@ -163,24 +148,18 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
 
     private
 
-    def chart_config
-      container = Chadcn::Chart::Container.current(context)
-      raise ArgumentError, "#{self.class.name} has no Chart::Container around it; React's useChart() raises the same" unless container
-
-      container.config
-    end
-
     # The label as a one-element array (the text or component after the formatter), or nil when there is none. `chart.tsx` `tooltipLabel`.
     def tooltip_label(config)
-      return if @hide_label || @payload.empty?
+      return if option(:hide_label) || @payload.empty?
 
       item = @payload.first
-      value = if !@label_key && @label.is_a?(String)
-        config[@label]&.label || @label
+      value = if !option(:label_key) && option(:label).is_a?(String)
+        config_label = config[option(:label)]&.label
+        config_label.nil? ? option(:label) : config_label
       else
-        config.payload_config(item, config_key(@label_key, item, :data_key, :name))&.label
+        config.payload_config(item, config_key(option(:label_key), item, :data_key, :name))&.label
       end
-      return [ @label_formatter.call(value, @payload) ] if @label_formatter
+      return [ option(:label_formatter).call(value, @payload) ] if option(:label_formatter)
 
       [ value ] unless value.nil? || value == false || value == ""
     end
@@ -188,7 +167,7 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
     def render_label(label)
       return unless label
 
-      div(class: cn("font-medium", @label_class_name)) { render_node(label.first) }
+      div(class: cn("font-medium", option(:label_class_name))) { render_node(label.first) }
     end
 
     # The payload key that names a config entry: the explicit key, else the first item key that has a value, else "value".
@@ -207,11 +186,11 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
       name = item_value(item, :name)
       row = item_value(item, :payload)
 
-      div(class: cn(ITEM_CLASSES, @indicator == "dot" ? "items-center" : nil)) do
-        if @formatter && !value.nil? && name
-          render_node(@formatter.call(value, name, item, index, row))
+      div(class: cn(ITEM_CLASSES, option(:indicator) == "dot" ? "items-center" : nil)) do
+        if option(:formatter) && item_key?(item, :value) && js_truthy?(name)
+          render_node(option(:formatter).call(value, name, item, index, row))
         else
-          item_config = config.payload_config(item, config_key(@name_key, item, :name, :data_key))
+          item_config = config.payload_config(item, config_key(option(:name_key), item, :name, :data_key))
           render_default_item(item_config, item, indicator_color(item, row), nest_label, label)
         end
       end
@@ -220,13 +199,13 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
     # The color of an indicator: the content's `color:`, then the fill of the data row, then the color of the item (`chart.tsx`).
     def indicator_color(item, row)
       row_fill = row.is_a?(Hash) ? item_value(row, :fill) : nil
-      @color || row_fill || item_value(item, :color)
+      option(:color) || row_fill || item_value(item, :color)
     end
 
     def render_default_item(item_config, item, color, nest_label, label)
       if item_config&.icon
         render_icon(item_config.icon)
-      elsif !@hide_indicator
+      elsif !option(:hide_indicator)
         div(class: indicator_classes(nest_label), style: ("--color-bg: #{color}; --color-border: #{color};" if color))
       end
       div(class: cn("flex flex-1 justify-between leading-none", nest_label ? "items-end" : "items-center")) do
@@ -247,27 +226,10 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
 
     def indicator_classes(nest_label)
       cn("shrink-0 rounded-[2px] border-(--color-border) bg-(--color-bg)",
-         { "h-2.5 w-2.5" => @indicator == "dot",
-           "w-1" => @indicator == "line",
-           "w-0 border-[1.5px] border-dashed bg-transparent" => @indicator == "dashed",
-           "my-0.5" => nest_label && @indicator == "dashed" })
-    end
-
-    def render_icon(icon)
-      render(icon.is_a?(Phlex::SGML) ? icon : Chadcn::Icon.new(icon))
-    end
-
-    def render_node(node)
-      case node
-      when nil, false then nil
-      when Phlex::SGML then render(node)
-      else plain(node.to_s)
-      end
-    end
-
-    # A payload item by symbol or string key.
-    def item_value(item, key)
-      item.fetch(key) { item[key.to_s] }
+         { "h-2.5 w-2.5" => option(:indicator) == "dot",
+           "w-1" => option(:indicator) == "line",
+           "w-0 border-[1.5px] border-dashed bg-transparent" => option(:indicator) == "dashed",
+           "my-0.5" => nest_label && option(:indicator) == "dashed" })
     end
 
     # The decimal ICU sees: floats by their shortest representation (1.0005 stays 1.0005, not its binary neighbor).

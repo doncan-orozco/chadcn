@@ -72,6 +72,8 @@ class Chadcn::Chart::Legend < Chadcn::Base
   # @example
   #   render Chadcn::Chart::Legend::Content.new(payload: [ { data_key: "desktop", color: "var(--color-desktop)" } ])
   class Content < Chadcn::Base
+    include Chadcn::Chart::ContentSupport
+
     ITEM_CLASSES = "flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground"
     ROOT_CLASSES = { "top" => "flex items-center justify-center gap-4 pb-3", "bottom" => "flex items-center justify-center gap-4 pt-3" }.freeze
     INDICATOR_CLASSES = "h-2 w-2 shrink-0 rounded-[2px]"
@@ -80,64 +82,42 @@ class Chadcn::Chart::Legend < Chadcn::Base
     # @param hide_icon [Boolean] show the color dot even where the config has an icon
     # @param vertical_align [Symbol, String] `:top` pads below (`pb-3`), anything else above (`pt-3`)
     # @param name_key [String, Symbol, nil] the payload key whose value names the config entry of an item
-    # @param payload [Array<Hash>] the series
+    # @param payload [Array<Hash>, nil] the series
     # @param attrs [Hash] attributes of the root div; `class:` is merged last
+    # @raise [ArgumentError] on a `payload:` that is not an Array of Hashes
     def initialize(hide_icon: false, vertical_align: :bottom, name_key: nil, payload: [], **attrs)
-      @options = { hide_icon: hide_icon, vertical_align: vertical_align, name_key: name_key, **attrs }.freeze
-      @hide_icon = hide_icon
-      @vertical_align = vertical_align.to_s
-      @name_key = name_key
-      @payload = payload || []
-      @attrs = attrs
+      @options = { hide_icon: hide_icon, vertical_align: vertical_align, name_key: name_key, attrs: attrs }.freeze
+      @payload = validated_payload(payload)
       super()
     end
-
-    # A copy with other options, e.g. the payload and the Legend's `vertical_align`.
-    #
-    # @api private
-    # @return [Chadcn::Chart::Legend::Content]
-    def with(**changes) = self.class.new(**@options, payload: @payload, **changes)
 
     # @return [void]
     def view_template
       return if @payload.empty?
 
       config = chart_config
-      div(**merge_attrs({ class: ROOT_CLASSES.fetch(@vertical_align == "top" ? "top" : "bottom") }, @attrs)) do
+      side = option(:vertical_align).to_s == "top" ? "top" : "bottom"
+      div(**merge_attrs({ class: ROOT_CLASSES.fetch(side) }, option(:attrs))) do
         @payload.each do |item|
           next if item_value(item, :type).to_s == "none"
 
-          render_item(config.payload_config(item, (@name_key || item_value(item, :data_key) || "value").to_s), item)
+          render_item(config.payload_config(item, (option(:name_key) || item_value(item, :data_key) || "value").to_s), item)
         end
       end
     end
 
     private
 
-    def chart_config
-      container = Chadcn::Chart::Container.current(context)
-      raise ArgumentError, "#{self.class.name} has no Chart::Container around it; React's useChart() raises the same" unless container
-
-      container.config
-    end
-
     def render_item(item_config, item)
       div(class: ITEM_CLASSES) do
         icon = item_config&.icon
-        if icon && !@hide_icon
-          render(icon.is_a?(Phlex::SGML) ? icon : Chadcn::Icon.new(icon))
+        if icon && !option(:hide_icon)
+          render_icon(icon)
         else
           div(class: INDICATOR_CLASSES, style: ("background-color: #{item_value(item, :color)};" if item_value(item, :color)))
         end
-        label = item_config&.label
-        unless label.nil? || label == false
-          label.is_a?(Phlex::SGML) ? render(label) : plain(label.to_s)
-        end
+        render_node(item_config&.label)
       end
-    end
-
-    def item_value(item, key)
-      item.fetch(key) { item[key.to_s] }
     end
   end
 end

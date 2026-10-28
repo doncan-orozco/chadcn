@@ -157,10 +157,40 @@ class Chadcn::Chart::TooltipTest < Chadcn::TestCase
     assert_equal [ [ 186, "desktop", 0, "January" ], [ 80, "mobile", 1, "January" ] ], calls
   end
 
-  test "a formatter is skipped for an item without a value or a name" do
-    node = box(render_content(payload: [ { name: "desktop", value: nil } ], formatter: ->(*) { "formatted" }))
+  test "a formatter is skipped for an item without a value key or with a falsy name, and runs for an explicit nil value" do
+    formatter = ->(*) { "formatted" }
 
-    assert_not_includes node.text, "formatted"
+    assert_not_includes box(render_content(payload: [ { name: "desktop" } ], formatter: formatter)).text, "formatted"
+    assert_not_includes box(render_content(payload: [ { name: "", value: 1 } ], formatter: formatter)).text, "formatted"
+    assert_not_includes box(render_content(payload: [ { name: 0, value: 1 } ], formatter: formatter)).text, "formatted"
+    assert_includes box(render_content(payload: [ { name: "desktop", value: nil } ], formatter: formatter)).text, "formatted"
+    assert_includes box(render_content(payload: [ { "name" => "desktop", "value" => nil } ], formatter: formatter)).text, "formatted"
+  end
+
+  test "a config label that is an empty string wins over the label like a nullish check" do
+    node = box(render_content(config: { january: { label: "" } }, payload: payload(:desktop), label: "january"))
+
+    assert_nil node.at_css("> .font-medium")
+  end
+
+  test "payload must be an Array of Hashes" do
+    [ "x", { a: 1 }, [ 1 ], [ { a: 1 }, "x" ] ].each do |bad|
+      error = assert_raises(ArgumentError) { Chadcn::Chart::Tooltip::Content.new(payload: bad) }
+
+      assert_match(/payload: must be an Array of Hashes/, error.message)
+    end
+    assert_equal "", Chadcn::Chart::Tooltip::Content.new(payload: nil).call
+  end
+
+  test "the generated content helper of a Tooltip renders the same as the explicit class" do
+    items = [ { name: "desktop", data_key: "desktop", value: 186, color: "red" } ]
+    helper = Class.new(Chadcn::Chart::Tooltip) { define_method(:view_template) { content(indicator: :line, label: "January", payload: items) } }
+    explicit = render_content(indicator: :line, label: "January", payload: items)
+    through_helper = Class.new(Phlex::HTML) do
+      define_method(:view_template) { render(Chadcn::Chart::Container.new(config: CONFIG, id: "t")) { render helper.new } }
+    end.new.call
+
+    assert_equal explicit, through_helper
   end
 
   test "attrs land on the root div" do
