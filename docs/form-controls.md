@@ -2,7 +2,7 @@
 
 [chadcn](../README.md) docs, form family: inputs, buttons and the `Field` layout primitives. Interactive ones carry a Stimulus
 controller (`chadcn--checkbox`, `chadcn--switch`, `chadcn--radio-group`, `chadcn--toggle`, `chadcn--toggle-group`,
-`chadcn--slider`, `chadcn--input-group`, `chadcn--label`) and dispatch `chadcn--<name>:<event>` events. Conventions:
+`chadcn--slider`, `chadcn--input-group`, `chadcn--input-otp`, `chadcn--label`) and dispatch `chadcn--<name>:<event>` events. Conventions:
 [api-conventions.md](api-conventions.md).
 
 | Component | Root kwargs (besides `**attrs`) | Parts (class and generated helper) | Events |
@@ -14,6 +14,7 @@ controller (`chadcn--checkbox`, `chadcn--switch`, `chadcn--radio-group`, `chadcn
 | `Field` | `orientation:` (`vertical`, `horizontal`, `responsive`); `Field.variants` | `Set` `field.set`, `Legend` (`variant:` `legend`, `label`) `field.legend`, `Group` `field.group`, `Content` `field.content`, `Label` `field.label`, `Title` `field.title`, `Description` `field.description`, `Separator` `field.separator`, `Error` (`errors:`) `field.error` | |
 | `Input` | `type:`, `default_value:` | none | |
 | `InputGroup` | none | `Addon` (`align:` `inline-start`, `inline-end`, `block-start`, `block-end`) `input_group.addon`, `Button` (`type:`, `variant:`, `size:`, `as_child:`) `input_group.button`, `Text` `input_group.text`, `Input` `input_group.input`, `Textarea` `input_group.textarea` | |
+| `InputOtp` | `max_length:` (required), `value:`, `default_value:`, `pattern:` (a JS regexp source; `Chadcn::InputOtp::REGEXP_ONLY_DIGITS` and friends), `placeholder:`, `input_mode:` ("numeric"), `text_align:` (`left`, `center`, `right`), `push_password_manager_strategy:` (`increase-width`, `experimental-no-flickering`, `none`), `no_script_css_fallback:`, `nonce:`, `container_class_name:`; `**attrs` go to the input (`id:`, `name:`, `disabled:`) | `Group` `input_otp.group`, `Slot` (`index:`) `input_otp.slot`, `Separator` `input_otp.separator` | `change`, `complete` (`detail: { value }`) |
 | `Label` | `html_for:`, `as_child:` | none | |
 | `NativeSelect` | `size:` (`default`, `sm`), `default_value:`, `value:` | `Option` `native_select.option`, `OptGroup` `native_select.opt_group` | |
 | `RadioGroup` | `value:`, `default_value:`, `disabled:`, `required:`, `name:`, `form:`, `orientation:`, `dir:`, `loop:`, `as_child:` | `Item` (`value:`, `disabled:`...) `radio_group.item`, `Item::Indicator` `item.indicator` | `value-change` |
