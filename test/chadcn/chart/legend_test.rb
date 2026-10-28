@@ -87,21 +87,11 @@ class Chadcn::Chart::LegendTest < Chadcn::TestCase
     assert_equal "", Chadcn::Chart::Legend::Content.new(payload: nil).call
   end
 
-  test "the generated content helper of a Legend renders the same as the explicit class" do
-    items = payload(:desktop)
-    helper = Class.new(Chadcn::Chart::Legend) { define_method(:view_template) { content(payload: items, vertical_align: :top) } }
-    through_helper = Class.new(Phlex::HTML) do
-      define_method(:view_template) { render(Chadcn::Chart::Container.new(config: CONFIG, id: "l")) { render helper.new } }
-    end.new.call
-
-    assert_equal render_content(payload: items, vertical_align: :top), through_helper
-  end
-
   test "Legend is a declaration: it renders nothing and keeps the recharts defaults" do
     content = Chadcn::Chart::Legend::Content.new
     legend = Chadcn::Chart::Legend.new(content: content)
 
-    assert_equal "", legend.call
+    assert_raises(ArgumentError) { legend.call } # a declaration renders only inside a chart
     assert_same content, legend.content_element
     assert_equal [ :bottom, :center, :horizontal, 28, false ], legend.options.values_at(:vertical_align, :align, :layout, :legend_height, :payload_uniq_by)
   end
@@ -139,5 +129,13 @@ class Chadcn::Chart::LegendTest < Chadcn::TestCase
 
     assert_nil node.at_css("> div > div")["style"]
     assert_equal "", node.text
+  end
+
+  test "item_sorter takes :value or nil; anything else is refused" do
+    assert_equal :value, Chadcn::Chart::Legend.new(item_sorter: "value").options[:item_sorter]
+    assert_nil Chadcn::Chart::Legend.new(item_sorter: nil).options[:item_sorter]
+    [ :name, "name", true, ->(item) { item } ].each do |sorter|
+      assert_raises(ArgumentError) { Chadcn::Chart::Legend.new(item_sorter: sorter) }
+    end
   end
 end

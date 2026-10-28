@@ -99,6 +99,7 @@ Fixed here so every chart item uses the same one (`Compare` in `dev/spikes/chart
   `.recharts-tooltip-cursor`, `.recharts-curve` (line / area), `.recharts-line-dot`, `.recharts-area-dot`, `.recharts-sector`, `.recharts-polar-grid`, `.recharts-polygon`,
   `.recharts-radial-bar-sector`, `.recharts-pie-sector`, `.recharts-legend-wrapper` (and its content), `.recharts-tooltip-wrapper` (content only), `.recharts-label`.
 - **Pinned page**: the same CSS as `oracle_ssr.mjs` (12px/16px, `html` 16px) on both sides, container `width x height` = `initial_dimension`, animation off.
+  **Amendment (item #48, 2026-10-28):** this holds for the committed oracle (`oracle_ssr.mjs`). The G2 parity page is the shared runner page and is not font-pinned, so recharts measures a tick label 18px high there; the Phlex harness renders `ChartContainer` with `text_height: 18` (`ShadcnParity::ChartScope::PAGE_TEXT_HEIGHT`) and the gem default stays 16, locked by `test/chadcn/chart/cartesian/text_height_test.rb`. Pinning the runner page for chart scenarios (both sides) removes the assumption; it edits the shared gate, so it is a follow-up.
 
 ## Alternatives considered
 

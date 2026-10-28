@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-# shadcn `ChartLegend` (recharts' `Legend`): the legend a chart root declares. It renders nothing where it is written; the chart
-# reads {#options} and {#content_element} and writes the legend wrapper with the content.
+# shadcn `ChartLegend` (recharts' `Legend`): the legend a chart root declares. It renders nothing where it is written (a
+# {Chadcn::Chart::Declaration}); the chart reads {#options} and {#content_element} and writes the legend wrapper with the content.
 #
 # @example
 #   Chadcn::Chart::Legend.new(content: Chadcn::Chart::Legend::Content.new, vertical_align: :top)
-class Chadcn::Chart::Legend < Chadcn::Base
+class Chadcn::Chart::Legend < Chadcn::Chart::Declaration
   # Values of `vertical_align:`.
   VERTICAL_ALIGNMENTS = %i[top middle bottom].freeze
   # Values of `align:`.
@@ -32,7 +32,7 @@ class Chadcn::Chart::Legend < Chadcn::Base
   # @param wrapper_style [Hash, String, nil] style of the `recharts-legend-wrapper` div
   # @param legend_height [Numeric] server assumption for the measured height of the content (`pt-3` plus a 16px line)
   # @param attrs [Hash] attributes of the `recharts-legend-wrapper` div (a chadcn addition); `class:` is merged
-  # @raise [ArgumentError] on a `vertical_align:`, `align:` or `layout:` outside its values, or a `content:` that is not a legend content
+  # @raise [ArgumentError] on a `vertical_align:`, `align:`, `layout:` or `item_sorter:` outside its values, or a `content:` that is not a legend content
   def initialize(content: nil, vertical_align: :bottom, align: :center, layout: :horizontal, icon_size: 14, icon_type: nil,
                  inactive_color: nil, item_sorter: :value, width: nil, height: nil, payload_uniq_by: false, wrapper_style: nil,
                  legend_height: 28, **attrs)
@@ -41,6 +41,9 @@ class Chadcn::Chart::Legend < Chadcn::Base
 
       raise ArgumentError, "#{name}: must be one of #{allowed.map(&:inspect).join(', ')} (got #{value.inspect})"
     end
+    unless item_sorter.nil? || item_sorter.to_s == "value"
+      raise ArgumentError, "item_sorter: must be :value or nil (got #{item_sorter.inspect}; a dataKey and a function are not ported)"
+    end
     unless content.nil? || content.is_a?(Chadcn::Chart::Legend::Content)
       raise ArgumentError, "content: must be a Chadcn::Chart::Legend::Content (got #{content.class})"
     end
@@ -48,16 +51,11 @@ class Chadcn::Chart::Legend < Chadcn::Base
     @content_element = content
     @options = {
       vertical_align: vertical_align.to_sym, align: align.to_sym, layout: layout.to_sym, icon_size: icon_size, icon_type: icon_type,
-      inactive_color: inactive_color, item_sorter: item_sorter, width: width, height: height, payload_uniq_by: payload_uniq_by,
+      inactive_color: inactive_color, item_sorter: item_sorter&.to_sym, width: width, height: height, payload_uniq_by: payload_uniq_by,
       wrapper_style: wrapper_style, legend_height: legend_height, attrs: attrs
     }.freeze
     super()
   end
-
-  # A declaration renders nothing where it is written; the chart that contains it draws the legend.
-  #
-  # @return [void]
-  def view_template; end
 
   # Nested in this file, not in `legend/content.rb`: `Base.const_added` loads the parts of `Chart` while Zeitwerk is still
   # registering them, before it can hook the namespace of a file that also has a directory, so a `legend/` directory
@@ -93,7 +91,7 @@ class Chadcn::Chart::Legend < Chadcn::Base
 
     # @return [void]
     def view_template
-      return if @payload.empty?
+      return if adopted? || @payload.empty?
 
       config = chart_config
       side = option(:vertical_align).to_s == "top" ? "top" : "bottom"
@@ -119,5 +117,25 @@ class Chadcn::Chart::Legend < Chadcn::Base
         render_node(item_config&.label)
       end
     end
+  end
+
+  # Takes the content declared in the block (`legend.content(...)`, the generated helper, or `render Legend::Content.new(...)`).
+  #
+  # @api private
+  # @param content [Chadcn::Base]
+  # @return [void]
+  # @raise [ArgumentError] on a content of another kind, or a second content
+  def adopt_content(content)
+    raise ArgumentError, "#{self.class.name} takes a #{Content.name} (got #{content.class})" unless content.is_a?(Content)
+    raise ArgumentError, "#{self.class.name} takes one content (content: or the block, not both)" if @content_element
+
+    @content_element = content
+  end
+
+  # @yieldparam legend [Chadcn::Chart::Legend] itself; its generated #content declares the content
+  # @return [void]
+  def view_template(&block)
+    Chadcn::Chart::ContentSupport.holding(context, self) { yield self } if block
+    super()
   end
 end

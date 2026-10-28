@@ -70,19 +70,74 @@ class Chadcn::ChartTest < Chadcn::TestCase
     assert_equal [ "true", "Chadcn::Chart::Tooltip::Content", "Chadcn::Chart::Legend::Content", "Module", "false" ], output.lines.map(&:strip).last(5), output
   end
 
+  test "every chart class offers one generated helper per declaration, equal to the explicit class" do
+    Chadcn::Chart::BarChart.new # building a chart loads the declarations
+    helpers = Chadcn::Chart::Declaration.subclasses.select(&:name).map { |part| Chadcn::Chart::Declarations.helper_name(part.name) }
+
+    assert_equal 12, helpers.size
+    [ Chadcn::Chart::BarChart, Chadcn::Chart::LineChart, Chadcn::Chart::AreaChart ].each do |chart_class|
+      assert_empty(helpers.reject { |helper| chart_class.public_method_defined?(helper) }, chart_class.name)
+    end
+    rows = [ { a: 1 }, { a: 2 } ]
+    explicit = render_view { render(Chadcn::Chart::BarChart.new(data: rows)) { |chart| chart.render Chadcn::Chart::Bar.new(data_key: :a) } }
+    generated = render_view { render(Chadcn::Chart::BarChart.new(data: rows)) { |chart| chart.bar(data_key: :a) } }
+
+    assert_equal explicit, generated
+  end
+
+  test "in a fresh process with the lazy loader the declaration helpers exist before any declaration constant is referenced" do
+    script = <<~RUBY
+      require "chadcn"
+      rows = [ { a: 1 }, { a: 2 } ]
+      helper = Class.new(Phlex::HTML) { define_method(:view_template) { render(Chadcn::Chart::BarChart.new(data: rows)) { |chart| chart.bar(data_key: :a) } } }.new.call
+      explicit = Class.new(Phlex::HTML) { define_method(:view_template) { render(Chadcn::Chart::BarChart.new(data: rows)) { |chart| chart.render Chadcn::Chart::Bar.new(data_key: :a) } } }.new.call
+      puts helper == explicit
+      puts helper.include?("recharts-bar-rectangle")
+    RUBY
+    output = IO.popen([ RbConfig.ruby, "-I", File.expand_path("../../lib", __dir__), "-e", script ], err: %i[child out], &:read)
+
+    assert_equal %w[true true], output.lines.map(&:strip).last(2), output
+  end
+
+  test "in a fresh process a declaration named like a Phlex method is refused" do
+    script = <<~RUBY
+      require "chadcn"
+      module Custom; end
+      begin
+        class Custom::Render < Chadcn::Chart::Declaration; end
+        puts "no error"
+      rescue ArgumentError => error
+        puts error.message
+      end
+    RUBY
+    output = IO.popen([ RbConfig.ruby, "-I", File.expand_path("../../lib", __dir__), "-e", script ], err: %i[child out], &:read)
+
+    assert_equal "helper #render (from Custom::Render) would override a Ruby/Phlex API method", output.lines.map(&:strip).last
+  end
+
   test "the root renders without a block" do
     assert_equal "", Chadcn::Chart.new.call
   end
 
   test "the tooltip and legend helpers render the same HTML as the explicit classes" do
+    rows = [ { a: 1 }, { a: 2 } ]
+    contents = { tooltip: Chadcn::Chart::Tooltip::Content.new, legend: Chadcn::Chart::Legend::Content.new }
     explicit = render_view do
-      render(Chadcn::Chart::Tooltip.new(default_index: 1)) { nil }
-      render(Chadcn::Chart::Legend.new(vertical_align: :top)) { nil }
+      render(Chadcn::Chart::Container.new(config: { a: { label: "A", color: "red" } }, id: "k")) do
+        render(Chadcn::Chart::BarChart.new(data: rows)) do |chart|
+          chart.render Chadcn::Chart::Tooltip.new(default_index: 1, content: contents[:tooltip])
+          chart.render Chadcn::Chart::Legend.new(vertical_align: :top, content: contents[:legend])
+          chart.bar(data_key: :a)
+        end
+      end
     end
     helpers = render_view do
-      render(Chadcn::Chart.new) do |chart|
-        chart.tooltip(default_index: 1)
-        chart.legend(vertical_align: :top)
+      render(Chadcn::Chart::Container.new(config: { a: { label: "A", color: "red" } }, id: "k")) do
+        render(Chadcn::Chart::BarChart.new(data: rows)) do |chart|
+          chart.tooltip(default_index: 1, content: contents[:tooltip])
+          chart.legend(vertical_align: :top, content: contents[:legend])
+          chart.bar(data_key: :a)
+        end
       end
     end
 
@@ -100,5 +155,71 @@ class Chadcn::ChartTest < Chadcn::TestCase
       assert_not root.public_method_defined?(:scale, false)
       assert_equal namespace, root.autoload?(:Scale, false)
     end
+  end
+
+  test "the block form of content renders the same HTML as content: for the tooltip and the legend" do
+    rows = [ { a: 1 }, { a: 2 } ]
+    config = { a: { label: "A", color: "red" } }
+    build = lambda do |tooltip_block, legend_block|
+      render_view do
+        render(Chadcn::Chart::Container.new(config: config, id: "k")) do
+          render(Chadcn::Chart::BarChart.new(data: rows)) do |chart|
+            tooltip_block.call(chart)
+            legend_block.call(chart)
+            chart.bar(data_key: :a)
+          end
+        end
+      end
+    end
+    explicit = build.call(
+      ->(chart) { chart.tooltip(default_index: 1, content: Chadcn::Chart::Tooltip::Content.new(hide_label: true)) },
+      ->(chart) { chart.legend(vertical_align: :top, content: Chadcn::Chart::Legend::Content.new(hide_icon: true)) }
+    )
+    block = build.call(
+      ->(chart) { chart.tooltip(default_index: 1) { |tooltip| tooltip.content(hide_label: true) } },
+      ->(chart) { chart.legend(vertical_align: :top) { |legend| legend.content(hide_icon: true) } }
+    )
+
+    assert_includes explicit, "<template"
+    assert_equal explicit, block
+  end
+
+  test "the content helpers are the generated ones, and rendering the content class in the block equals the helper" do
+    [ Chadcn::Chart::Tooltip, Chadcn::Chart::Legend ].each do |declaration|
+      assert_equal "base.rb", File.basename(declaration.instance_method(:content).source_location.first)
+    end
+    build = lambda do |&declare|
+      render_view do
+        render(Chadcn::Chart::Container.new(config: { a: { label: "A", color: "red" } }, id: "k")) do
+          render(Chadcn::Chart::BarChart.new(data: [ { a: 1 }, { a: 2 } ])) do |chart|
+            declare.call(chart)
+            chart.bar(data_key: :a)
+          end
+        end
+      end
+    end
+    helper = build.call { |chart| chart.tooltip(default_index: 1) { |tooltip| tooltip.content(hide_label: true) } }
+    explicit = build.call { |chart| chart.tooltip(default_index: 1) { |tooltip| tooltip.render Chadcn::Chart::Tooltip::Content.new(hide_label: true) } }
+
+    assert_includes helper, "<template"
+    assert_equal helper, explicit
+  end
+
+  test "a tooltip or a legend takes one content of its own kind: content: and the block, or another kind, raise" do
+    both = lambda do |declaration, content|
+      ->(chart) { chart.public_send(declaration, content: content.new, &:content) }
+    end
+    build = lambda do |declare|
+      render_view do
+        render(Chadcn::Chart::Container.new(config: { a: { label: "A", color: "red" } }, id: "k")) { render(Chadcn::Chart::BarChart.new(data: [ { a: 1 } ])) { |chart| declare.call(chart) } }
+      end
+    end
+    tooltip = assert_raises(ArgumentError) { build.call(both.call(:tooltip, Chadcn::Chart::Tooltip::Content)) }
+    legend = assert_raises(ArgumentError) { build.call(both.call(:legend, Chadcn::Chart::Legend::Content)) }
+    other = assert_raises(ArgumentError) { build.call(->(chart) { chart.tooltip { |held| held.render Chadcn::Chart::Legend::Content.new } }) }
+
+    assert_equal "Chadcn::Chart::Tooltip takes one content (content: or the block, not both)", tooltip.message
+    assert_equal "Chadcn::Chart::Legend takes one content (content: or the block, not both)", legend.message
+    assert_includes other.message, "takes a Chadcn::Chart::Tooltip::Content"
   end
 end

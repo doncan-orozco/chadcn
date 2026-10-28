@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
-# shadcn `ChartTooltip` (recharts' `Tooltip`): the tooltip a chart root declares. It renders nothing where it is written; the
-# chart reads {#options} and {#content_element} and writes the per-index tooltip templates (dev/port/specs/chart.md, "Tooltip").
+# shadcn `ChartTooltip` (recharts' `Tooltip`): the tooltip a chart root declares. It renders nothing where it is written (a
+# {Chadcn::Chart::Declaration}); the chart reads {#options} and {#content_element} and writes the per-index tooltip templates
+# (dev/port/specs/chart.md, "Tooltip").
 #
 # @example
 #   Chadcn::Chart::Tooltip.new(default_index: 1, content: Chadcn::Chart::Tooltip::Content.new(hide_label: true))
-class Chadcn::Chart::Tooltip < Chadcn::Base
+class Chadcn::Chart::Tooltip < Chadcn::Chart::Declaration
   # Values of `trigger:`.
   TRIGGERS = %i[hover click].freeze
   TRISTATE = [ nil, true, false ].freeze
@@ -34,8 +35,9 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
   # @param include_hidden [Boolean] keep payload entries of hidden series
   # @param axis_id [Integer] the axis the tooltip follows
   # @param payload_uniq_by [Boolean] unique payload by `data_key`
-  # @param formatter [#call, nil] overrides the `formatter:` of the content (recharts clones the content with the Tooltip's props)
-  # @param label_formatter [#call, nil] overrides the `label_formatter:` of the content
+  # @param formatter [#call, Hash, Symbol, nil] a callable or a named formatter (`{ slice: [0, 3] }`, `:locale`, `:percent`); overrides the
+  #   `formatter:` of the content (recharts clones the content with the Tooltip's props)
+  # @param label_formatter [#call, Hash, Symbol, nil] same; overrides the `label_formatter:` of the content
   # @param separator [String] accepted for parity with recharts, ignored by the shadcn content
   # @param content_style [Hash, nil] accepted and ignored (only recharts' default content reads it)
   # @param item_sorter [Symbol, nil] accepted and ignored by the shadcn content
@@ -62,16 +64,12 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
       allow_escape_view_box: allow_escape_view_box, reverse_direction: reverse_direction, position: position,
       is_animation_active: is_animation_active, animation_duration: animation_duration, animation_easing: animation_easing,
       wrapper_style: wrapper_style, filter_null: filter_null, include_hidden: include_hidden, axis_id: axis_id,
-      payload_uniq_by: payload_uniq_by, formatter: formatter, label_formatter: label_formatter,
+      payload_uniq_by: payload_uniq_by, formatter: Chadcn::Chart::Cartesian::Formatter.resolve(formatter),
+      label_formatter: Chadcn::Chart::Cartesian::Formatter.resolve(label_formatter),
       separator: separator, content_style: content_style, item_sorter: item_sorter, attrs: attrs
     }.freeze
     super()
   end
-
-  # A declaration renders nothing where it is written; the chart that contains it draws the tooltip.
-  #
-  # @return [void]
-  def view_template; end
 
   # Nested in this file, not in `tooltip/content.rb`: `Base.const_added` loads the parts of `Chart` while Zeitwerk is still
   # registering them, before it can hook the namespace of a file that also has a directory, so a `tooltip/` directory
@@ -107,9 +105,10 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
     # @param hide_label [Boolean]
     # @param hide_indicator [Boolean]
     # @param label [String, nil] the category label; a config key is replaced by its label
-    # @param label_formatter [#call, nil] `(label, payload)`, returns a String or a component; its result replaces the label
+    # @param label_formatter [#call, Hash, Symbol, nil] `(label, payload)`, returns a String or a component; its result replaces the label
     # @param label_class_name [String, nil] classes of the label div (React `labelClassName`)
-    # @param formatter [#call, nil] `(value, name, item, index, row)` renders an item instead of the default markup
+    # @param formatter [#call, Hash, Symbol, nil] `(value, name, item, index, row)` renders an item instead of the default markup; or a named
+    #   formatter (`{ slice: [0, 3] }`, `:locale`, `:percent`) that returns the text of the value
     # @param color [String, nil] color of every indicator
     # @param name_key [String, Symbol, nil] the payload key whose value names the config entry of an item
     # @param label_key [String, Symbol, nil] same for the label
@@ -121,7 +120,8 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
       raise ArgumentError, "indicator: must be one of #{INDICATORS.join(', ')} (got #{indicator.inspect})" unless INDICATORS.include?(indicator.to_s)
 
       @options = { indicator: indicator.to_s, hide_label: hide_label, hide_indicator: hide_indicator, label: label,
-                   label_formatter: label_formatter, label_class_name: label_class_name, formatter: formatter, color: color,
+                   label_formatter: Chadcn::Chart::Cartesian::Formatter.resolve(label_formatter), label_class_name: label_class_name,
+                   formatter: Chadcn::Chart::Cartesian::Formatter.resolve(formatter), color: color,
                    name_key: name_key, label_key: label_key, attrs: attrs }.freeze
       @payload = validated_payload(payload)
       super()
@@ -129,7 +129,7 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
 
     # @return [void]
     def view_template
-      return if @payload.empty?
+      return if adopted? || @payload.empty?
 
       config = chart_config
       nest_label = @payload.length == 1 && option(:indicator) != "dot"
@@ -213,7 +213,7 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
           span(class: "text-muted-foreground") { render_node(series_label(item_config, item)) }
         end
         value = item_value(item, :value)
-        span(class: "font-mono font-medium text-foreground tabular-nums") { plain(locale_string(value)) } unless value.nil?
+        span(class: "font-mono font-medium text-foreground tabular-nums") { plain(Chadcn::Chart::Cartesian::Formatter.locale_string(value)) } unless value.nil?
       end
     end
 
@@ -230,30 +230,25 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
            "w-0 border-[1.5px] border-dashed bg-transparent" => option(:indicator) == "dashed",
            "my-0.5" => nest_label && option(:indicator) == "dashed" })
     end
+  end
 
-    # The decimal ICU sees: floats by their shortest representation (1.0005 stays 1.0005, not its binary neighbor).
-    def exact(number) = number.is_a?(Float) ? Rational(number.to_s) : number.to_r
+  # Takes the content declared in the block (`tooltip.content(...)`, the generated helper, or `render Tooltip::Content.new(...)`).
+  #
+  # @api private
+  # @param content [Chadcn::Base]
+  # @return [void]
+  # @raise [ArgumentError] on a content of another kind, or a second content
+  def adopt_content(content)
+    raise ArgumentError, "#{self.class.name} takes a #{Content.name} (got #{content.class})" unless content.is_a?(Content)
+    raise ArgumentError, "#{self.class.name} takes one content (content: or the block, not both)" if @content_element
 
-    # JS `toLocaleString()` of the default (en-US) locale for a number: comma grouping, at most 3 fraction digits, half away from
-    # zero; the infinities are "∞" and "-∞" (CLDR), NaN is "NaN"; other values are `String(value)`.
-    def locale_string(value)
-      return value.to_s unless value.is_a?(Numeric) && value.real?
-      return value.negative? ? "-∞" : "∞" if value.infinite?
-      return value.to_s unless value.finite?
+    @content_element = content
+  end
 
-      whole, fraction = (exact(value).abs * 1000).round(half: :up).divmod(1000)
-      "#{'-' if negative_sign?(value)}#{group_thousands(whole)}#{fraction_suffix(fraction)}"
-    end
-
-    # JS prints a negative zero (and a negative that rounds to zero) with its sign.
-    def negative_sign?(value) = value.negative? || (value.is_a?(Float) && value.zero? && (1.0 / value).negative?)
-
-    def group_thousands(whole) = whole.to_s.gsub(/\B(?=(\d{3})+(?!\d))/, ",")
-
-    def fraction_suffix(fraction)
-      return "" if fraction.zero?
-
-      ".#{format('%03d', fraction).sub(/0+\z/, '')}"
-    end
+  # @yieldparam tooltip [Chadcn::Chart::Tooltip] itself; its generated #content declares the content
+  # @return [void]
+  def view_template(&block)
+    Chadcn::Chart::ContentSupport.holding(context, self) { yield self } if block
+    super()
   end
 end
