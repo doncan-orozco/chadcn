@@ -74,7 +74,7 @@ class Chadcn::Chart::Cartesian::Layout
   # @api private
   # @return [Array<Hash>] `{ axis:, x:, y:, width:, height: }` for every declared axis that is not hidden
   def drawn_axes
-    @declared.axes.reject(&:hide).map do |settings|
+    @drawn_axes ||= @declared.axes.reject(&:hide).map do |settings|
       axis = axis(settings.kind, settings.id)
       steps = offset_steps(settings.kind, settings.orientation, settings.mirror)
       position = settings.x? ? { x: @offset[:left], y: steps[settings.id] } : { x: steps[settings.id], y: @offset[:top] }

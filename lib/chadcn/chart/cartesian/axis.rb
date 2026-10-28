@@ -79,7 +79,7 @@ class Chadcn::Chart::Cartesian::Axis
     return unless @scale
 
     if category?
-      index = @categories.index(value)
+      index = @category_index.fetch(value) { @categories.index(value) }
       index && @scale.call(index)
     else
       (number = Chadcn::Chart::Cartesian::Value.number(value)) && @scale.call(number)
@@ -124,12 +124,14 @@ class Chadcn::Chart::Cartesian::Axis
 
   def resolve
     @categories = []
+    @category_index = {}
     numeric_domain = numerical_domain
     base = base_domain(numeric_domain)
     @nice_ticks = category? ? nil : nice_ticks_for(base)
     @domain = with_nice_ticks(base)
     @duplicates = duplicate_values
     @categories = category? && @domain ? @domain.uniq : []
+    @category_index = @categories.each_with_index.to_h
     @scale = build_scale
     @ticks = scaled? ? axis_ticks(offset: true) : []
     @item_ticks = scaled? ? axis_ticks(offset: false) : []
