@@ -224,11 +224,12 @@ test("form: two invalid controls in one field show the first control's message",
 test("form: a later preventDefault reset listener keeps the errors", () => withPage(async (page) => {
   await page.locator(submit).click();
   await settle(page);
-  await page.locator("form#signup").evaluate((form) => {
+  await page.locator("form#signup").evaluate(async (form) => {
     form.addEventListener("reset", (event) => event.preventDefault());
     form.reset();
+    // queued after the controller's deferred decision, so it runs once that decision has been taken
+    await new Promise((resolve) => setTimeout(resolve, 0));
   });
-  await page.waitForTimeout(100);
   await settle(page);
 
   assert.equal(await page.locator(field("email")).getAttribute("data-invalid"), "true");
@@ -265,13 +266,25 @@ const toggleCases = [
   { name: "plan", root: "[role=radiogroup]#user_plan-form-item", toggle: (page) => page.locator("#plan-pro").click() }
 ];
 
+test("form: resetting a toggled required checkbox before any attempt leaves no error", () => withPage(async (page) => {
+  const root = "[role=checkbox]#user_terms-form-item";
+  await page.locator(root).click();
+  await page.locator("form#signup").evaluate(async (form) => {
+    form.reset();
+    await new Promise((resolve) => setTimeout(resolve, 0));
+  });
+  await settle(page);
+  assert.equal(await page.locator(`[data-slot=field]:has(${root})`).getAttribute("data-invalid"), null);
+  assert.equal(await page.locator(root).getAttribute("aria-invalid"), "false");
+}));
+
 for (const { name, root, toggle } of toggleCases) {
   test(`form: toggling the required ${name} control after a failed submit updates the error live`, () => withPage(async (page) => {
     const slot = `[data-slot=field]:has(${root})`;
     await page.locator(submit).click();
     await settle(page);
     assert.equal(await page.locator(slot).getAttribute("data-invalid"), "true");
-    assert.ok((await describedby(page, name)).length > 0 || true);
+    assert.equal(await page.locator(root).evaluate((el, id) => (el.getAttribute("aria-describedby") || "").split(/\s+/).includes(id), `user_${name}-form-item-message`), true, "failed submit: message linked");
 
     await toggle(page, root);
     await settle(page);
