@@ -158,6 +158,27 @@ class StaticGateTest < ActiveSupport::TestCase
     assert_equal [ "ChartTooltipContent" ], parts_findings(chart_manifest([ part("ChartTooltipContent") ]), source, "G1_PART_MISSING").map(&:part)
   end
 
+  test "an indented Content::Bar below Tooltip does not satisfy the nested part" do
+    source = "class Chart\n  class Tooltip\n    class Content::Bar\n    end\n  end\nend\n"
+
+    assert_equal [ "ChartTooltipContent" ], parts_findings(chart_manifest([ part("ChartTooltipContent") ]), source, "G1_PART_MISSING").map(&:part)
+  end
+
+  test "a bare Tooltip::Content outside class Chart does not satisfy the nested part" do
+    manifest = chart_manifest([ part("ChartTooltipContent") ])
+    inside_legend = "class Chart\nend\n\nclass Legend\n  class Tooltip::Content\n  end\nend\n"
+    top_level = "class Chart\nend\n\nclass Tooltip::Content\nend\n"
+
+    assert_equal [ "ChartTooltipContent" ], parts_findings(manifest, inside_legend, "G1_PART_MISSING").map(&:part)
+    assert_equal [ "ChartTooltipContent" ], parts_findings(manifest, top_level, "G1_PART_MISSING").map(&:part)
+  end
+
+  test "a Tooltip outside class Chart does not lend its Content" do
+    source = "class Chart\nend\n\nclass Legend\n  class Tooltip\n    class Content\n    end\n  end\nend\n"
+
+    assert_equal [ "ChartTooltipContent" ], parts_findings(chart_manifest([ part("ChartTooltipContent") ]), source, "G1_PART_MISSING").map(&:part)
+  end
+
   test "the flat form still satisfies the part" do
     source = "class Chart\n  class TooltipContent\n  end\nend\n"
 

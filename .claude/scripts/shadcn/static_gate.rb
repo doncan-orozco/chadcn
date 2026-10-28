@@ -79,23 +79,44 @@ module ShadcnStaticGate
       part["name"].match?(/\A[a-z]/)
     end
 
-    # The nested spelling of a React short name: `TooltipContent` is also `class Tooltip` holding `class Content` (or `class Tooltip::Content`),
-    # tried at every camel-case boundary. Strict: both classes must exist in that nesting
-    # (the child one indent step inside the parent); an unrelated `Content` does not satisfy it.
+    # The nested spelling of a React short name: `TooltipContent` is also `Chart::Tooltip::Content`, tried at every camel-case boundary.
+    # Strict: the nesting starts at the component root and every class sits exactly one indent step inside its parent, so a `Content` under
+    # another class's `Tooltip`, a bare `Tooltip::Content` outside `class Chart` and `Content::Bar` do not satisfy it.
     def nested_part?(short_name)
       words = short_name.scan(/[A-Z][a-z0-9]*/)
       return false if words.join != short_name
 
-      # The nesting must start at the component root (`Chart::Tooltip::Content`, `Chadcn::Chart::Tooltip::Content` or bare `Tooltip::Content`
-      # inside `class Chart`): `Legend::Tooltip::Content` is somebody else's class.
-      owner = "(?:(?:\\w+::)*#{Regexp.escape(root)}::)?"
+      root_name = Regexp.escape(root)
       (1...words.size).any? do |i|
         head = Regexp.escape(words.first(i).join)
         tail = Regexp.escape(words.drop(i).join)
-        @code.match?(/\b(?:class|module)\s+#{owner}#{head}::#{tail}(?![\w:])/) ||
-          @code.match?(/^([ \t]*)(?:class|module)\s+#{owner}#{head}(?![\w:])[^;\n]*\n(?:[ \t]*\n|\1[ \t]+\S.*\n)*?\1(?:  |\t)(?:class|module)\s+#{tail}\b/)
+        NESTED_SHAPES.any? { |shape| @code.match?(shape.call(root_name, head, tail)) }
       end
     end
+
+    # Header of a class line that opens a body (a one-line `class X < Y; end` has none), then the lines that stay inside it.
+    BODY = '(?:[ \t]*\n|%<indent>s[ \t]+\S.*\n)*?'
+    OPENS = '(?![\w:])[^;\n]*\n'
+    KEYWORD = '(?:class|module)\s+'
+    private_constant :BODY, :OPENS, :KEYWORD
+
+    NESTED_SHAPES = [
+      # Chart::Tooltip::Content in one line (Chadcn::Chart::Tooltip::Content too)
+      ->(root, head, tail) { /\b#{KEYWORD}(?:\w+::)*#{root}::#{head}::#{tail}(?![\w:])/ },
+      # class Chart > class Tooltip::Content
+      lambda { |root, head, tail|
+        /^([ \t]*)#{KEYWORD}(?:\w+::)*#{root}#{OPENS}#{format(BODY, indent: '\\1')}\1(?:  |\t)#{KEYWORD}#{head}::#{tail}(?![\w:])/
+      },
+      # class Chart::Tooltip > class Content
+      lambda { |root, head, tail|
+        /^([ \t]*)#{KEYWORD}(?:\w+::)*#{root}::#{head}#{OPENS}#{format(BODY, indent: '\\1')}\1(?:  |\t)#{KEYWORD}#{tail}(?![\w:])/
+      },
+      # class Chart > class Tooltip > class Content
+      lambda { |root, head, tail|
+        /^([ \t]*)#{KEYWORD}(?:\w+::)*#{root}#{OPENS}#{format(BODY, indent: '\\1')}\1((?:  |\t))#{KEYWORD}#{head}#{OPENS}#{format(BODY, indent: '\\1\\2')}\1\2\2#{KEYWORD}#{tail}(?![\w:])/
+      }
+    ].freeze
+    private_constant :NESTED_SHAPES
 
     def check_parts
       @m["parts"].filter_map do |part|
