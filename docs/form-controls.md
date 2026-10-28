@@ -5,6 +5,8 @@ controller (`chadcn--checkbox`, `chadcn--switch`, `chadcn--radio-group`, `chadcn
 `chadcn--slider`, `chadcn--input-group`, `chadcn--input-otp`, `chadcn--label`) and dispatch `chadcn--<name>:<event>` events. Conventions:
 [api-conventions.md](api-conventions.md).
 
+To bind these controls to a model (names, values, errors and the `form.tsx` ids and ARIA), see [forms](forms.md).
+
 | Component | Root kwargs (besides `**attrs`) | Parts (class and generated helper) | Events |
 |---|---|---|---|
 | `Button` | `variant:` (`default`, `destructive`, `outline`, `secondary`, `ghost`, `link`), `size:` (`default`, `xs`, `sm`, `lg`, `icon`, `icon-xs`, `icon-sm`, `icon-lg`), `as_child:`; `Button.variants(variant:, size:, class:)` | none | |
@@ -79,7 +81,7 @@ render Chadcn::Calendar.new(
 )
 ```
 
-There is no `DatePicker` component (shadcn has none either: its date pickers are examples). The composition is a `Popover`, a `Button`
+There is no standalone `DatePicker` component (shadcn has none either: its date pickers are examples; inside a `Chadcn::Form`, `field.date_picker` renders this composition bound to a model, see [forms](forms.md)). The composition is a `Popover`, a `Button`
 trigger and a `Calendar`. Keep the form field OUTSIDE `Popover::Content`: the content is an inert `<template>` that is mounted into
 `body` on open and removed on close, so anything inside it is not in the form. `input:` is the source of truth: the calendar reads the
 input's value every time it opens and writes `YYYY-MM-DD` back (then dispatches bubbling `input` and `change`); `label:` is an element
