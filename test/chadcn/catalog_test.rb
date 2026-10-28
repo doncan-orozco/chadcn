@@ -53,7 +53,7 @@ class CatalogTest < Minitest::Test
     end
   end
 
-  def test_a_simulated_registered_chart_component_adds_no_unrenderable_entry
+  def test_a_simulated_registered_chart_component_adds_no_entry
     Dir.mktmpdir("catalog-chart") do |dir|
       FileUtils.mkdir_p(File.join(dir, "dev/port"))
       FileUtils.cp_r(File.join(File.expand_path("../..", __dir__), "dev/port/scenarios"), File.join(dir, "dev/port"))
@@ -66,8 +66,9 @@ class CatalogTest < Minitest::Test
         Chadcn::Overrides.define_singleton_method(:component?, original)
       end
 
+      refute_includes entries.map { |entry| entry["component"] }, "chart"
       entries.each { |entry| refute_match(/"c":"_(?!Each")[A-Z]/, JSON.generate(entry["tree"]), entry["component"]) }
-      assert_equal(Chadcn::Catalog.entries.map(&:component), entries.map { |entry| entry["component"] } - [ "chart" ])
+      assert_equal(Chadcn::Catalog.entries.map(&:component), entries.map { |entry| entry["component"] })
     end
   end
 

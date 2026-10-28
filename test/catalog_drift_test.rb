@@ -34,14 +34,13 @@ class CatalogDriftTest < Minitest::Test
     end
   end
 
-  def test_a_harness_node_scenario_is_skipped_for_the_next_light_one
+  def test_a_preview_with_a_nested_harness_node_skips_the_component_and_uses_no_sibling
     harness = scenario("default-bar", { "c" => "Chart", "children" => [ { "c" => "Wrap", "children" => [ { "c" => "_BarChart" } ] } ] })
     plain = scenario("basic", { "c" => "Chart", "children" => [ { "c" => "_div", "children" => [ "x" ] } ] })
     data, entry = generated("chart", [ harness, plain ])
 
-    assert_equal "basic", entry["scenario_id"]
-    assert_equal 2, entry["scenario_count"]
-    assert_empty data.skipped
+    assert_nil entry
+    assert_equal [ { component: "chart", reason: "preview scenario uses harness-only nodes" } ], data.skipped
   end
 
   def test_lowercase_raw_nodes_are_not_harness_nodes
@@ -65,11 +64,11 @@ class CatalogDriftTest < Minitest::Test
     assert_empty entry["tree"]["children"]
   end
 
-  def test_a_component_without_a_usable_scenario_is_skipped_with_a_reason
+  def test_a_dark_sibling_never_replaces_a_harness_preview
     data, entry = generated("chart", [ scenario("default", { "c" => "_BarChart" }), scenario("dark", { "c" => "Chart" }, dark: true) ])
 
     assert_nil entry
-    assert_equal [ { component: "chart", reason: "every light scenario uses harness-only nodes" } ], data.skipped
+    assert_equal "preview scenario uses harness-only nodes", data.skipped.first[:reason]
   end
 
   def test_a_component_with_only_dark_scenarios_is_skipped_with_a_reason
@@ -94,7 +93,7 @@ class CatalogDriftTest < Minitest::Test
       out, status = run_cli("generate", dir)
 
       assert_predicate status, :success?, out
-      assert_includes out, "catalog: skipped button (every light scenario uses harness-only nodes)"
+      assert_includes out, "catalog: skipped button (preview scenario uses harness-only nodes)"
     end
   end
 

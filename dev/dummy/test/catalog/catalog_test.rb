@@ -4,7 +4,7 @@ require "test_helper"
 require Rails.root.join("../catalog/generator").to_s
 
 class CatalogTest < ActionDispatch::IntegrationTest
-  # Components the generator leaves out on purpose (every light scenario uses harness-only nodes) have no entry to find.
+  # Components the generator leaves out on purpose (the preview scenario uses harness-only nodes) have no entry to find.
   SKIPPED = begin
     generator = Chadcn::CatalogData.new(Rails.root.join("../..").to_s)
     generator.build

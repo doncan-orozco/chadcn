@@ -6,7 +6,7 @@ module Chadcn
   # Builds lib/chadcn/catalog/entries.json (what Chadcn::Catalog reads) from the parity scenarios in dev/port/scenarios: per ported
   # component its first plain (light) default scenario, with the harness-only probe nodes (`data-testid` outside/next/neutral)
   # pruned. A scenario whose tree holds a harness-scope node (`_Name`, capitalized: a parity-harness fixture the real renderer cannot
-  # resolve) is never the preview; a component with no other light scenario is left out and listed in #skipped. `rake catalog:check` fails when the committed file differs. The output is deterministic (sorted, no timestamps).
+  # resolve) cannot be the preview: the component is then left out (no other scenario is substituted) and listed in #skipped. `rake catalog:check` fails when the committed file differs. The output is deterministic (sorted, no timestamps).
   class CatalogData
     OUTPUT = "lib/chadcn/catalog/entries.json"
     SCENARIOS = "dev/port/scenarios"
@@ -56,11 +56,11 @@ module Chadcn
 
     def entry(component, scenarios)
       light = scenarios.reject { |scenario| scenario["dark"] }
-      return skip(component, "no light scenario") if light.empty?
+      preview = light.find { |scenario| scenario["id"].start_with?("default") } || light.first
+      return skip(component, "no light scenario") unless preview
 
-      usable = light.map { |scenario| [ scenario, prune(scenario.fetch("tree")) ] }.reject { |_, tree| harness_node?(tree) }
-      preview, tree = usable.find { |scenario, _| scenario["id"].start_with?("default") } || usable.first
-      return skip(component, "every light scenario uses harness-only nodes") unless preview
+      tree = prune(preview.fetch("tree"))
+      return skip(component, "preview scenario uses harness-only nodes") if harness_node?(tree)
 
       { "component" => component, "scenario_id" => preview["id"], "scenario_count" => scenarios.size, "tree" => tree }
     end
