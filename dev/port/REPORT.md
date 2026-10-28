@@ -4,9 +4,37 @@ Run: `/shadcn-run all` (resumed from `state.json`), 2026-10-10 to 2026-10-11. No
 
 ## Totals
 
-- **Components: 50 of 50 done** (sidebar was blocked after the first run and closed in the second run, `/shadcn-run all --retry-blocked`, see "Resolved" below). Infra tasks (_base, _harness, _icons, _primitives, _theme): all done. 11 `third_party` components are skipped by plan (calendar, carousel, chart, combobox, command, drawer, form, input-otp, message-scroller, resizable, sonner).
+- **Components: 50 of 50 done in the first two runs** (sidebar was blocked after the first run and closed in the second run, `/shadcn-run all --retry-blocked`, see "Resolved" below). Infra tasks (_base, _harness, _icons, _primitives, _theme): all done. The 11 `third_party` components that run skipped by plan (calendar, carousel, chart, combobox, command, drawer, form, input-otp, message-scroller, resizable, sonner) were ported afterwards, one epic item each (nine fully, `form` and `chart` in part; see "Final state: oracle vs port").
 - This session built or finished 23 components: slider, popover, spinner first (as requested; all three passed every gate unchanged), then wave 3 (context-menu, hover-card, menubar, native-select, navigation-menu, radio-group, scroll-area, sheet, table, tabs, toggle) and wave 4 (alert-dialog, attachment, button-group, field, input-group, item, pagination, toggle-group). Sidebar was built in the first run and finished in the second.
 - Agent dispatches counted: 147 in the first run (cap 165) plus 1 in the `--retry-blocked` run (the counter resets on retry). No stop condition fired in either run.
+
+## Final state: oracle vs port
+
+Oracle: shadcn/ui style `new-york-v4`, digest `7de7073d0e253001`, **61 components** (`dev/port/oracle/graph.json`). The gem ships **61 component roots**
+(public `Chadcn::Base` subclasses of the YARD registry, `Icon` and `@api private` excluded, the count `test/llms_drift_test.rb` and `llms-full.txt` use):
+every oracle component has a `Chadcn` class. Per component:
+
+- **Ported and compared with the React original in a browser (50, the first two runs):** accordion, alert, alert-dialog, aspect-ratio, attachment, avatar, badge,
+  breadcrumb, bubble, button, button-group, card, checkbox, collapsible, context-menu, dialog, direction, dropdown-menu, empty, field, hover-card,
+  input, input-group, item, kbd, label, marker, menubar, message, native-select, navigation-menu, pagination, popover, progress, radio-group,
+  scroll-area, select, separator, sheet, sidebar, skeleton, slider, spinner, switch, table, tabs, textarea, toggle, toggle-group, tooltip.
+- **Library-wrapping components (9), re-implemented as Stimulus controllers with no added JavaScript dependency (`third_party` tier, compared with the
+  library's own behavior):** Sonner (sonner; `Chadcn::Toaster`), Command (cmdk), Combobox (Base UI), Calendar (react-day-picker; the date picker
+  is a documented composition), Carousel (embla-carousel 8.6.0, an engine derived from it), Drawer (vaul 1.1.2), Resizable (react-resizable-panels),
+  InputOtp (input-otp) and MessageScroller (`@shadcn/react` 0.3.1).
+- **Partly ported (2):**
+  - **Form** (`Chadcn::Form`, `Form::Field`, `Form::Binding`, `Binding::Plain`, `Chadcn::Engine::FormBinding` with Rails): `form.tsx` is react-hook-form glue
+    (and zod), whose state model has no Phlex counterpart. What is ported 1:1 is the ids/ARIA/data contract of `useFormField`; the form state, validation
+    and submission belong to a `Binding` over plain Ruby or Rails form builders. There is no oracle DOM to compare, so it is gated by Minitest
+    (`dev/decisions/form.md`, `dev/port/specs/form.md`). `state.json` still lists `form` in `skipped` with that reason; the skip predates the Form epic.
+  - **Chart** (`Chadcn::Chart`: `Container`, `Style`, `Config`, `Tooltip::Content`, `Legend::Content`, plus the plain-Ruby scales, curves, stacks and arcs the chart
+    roots will use): shadcn's own layer of `chart.tsx` is ported 1:1; recharts is replaced by Phlex SVG that emits the DOM recharts produces, with no
+    third-party JavaScript (`dev/decisions/chart.md`). The chart roots (`BarChart`, `LineChart`...) are not shipped yet, so the chart is the
+    one component of the oracle that is not usable end to end.
+- **Not ported:** none. No oracle component is omitted. The only entry of `state.json` `skipped` is `form` (reason above), and it is partly ported.
+
+`dev/port/state.json` is the run ledger of `/shadcn-run` and was not updated by the later epics: it still shows calendar, carousel, chart, drawer,
+input-otp, message-scroller, resizable and sonner as `pending`, although they are built and merged. Treat this section as the current state.
 
 ## Resolved since the first run
 
@@ -128,4 +156,4 @@ Closing checks: rubocop 656 files clean; `bin/rails test:with_studio` 869 runs 0
 
 ## Resume
 
-`/shadcn-run all --resume` (nothing is pending or blocked; all 55 items are done). Logs: `tmp/shadcn-port/run.log`; per-component reports under `tmp/shadcn-port/<name>/`; G4 sweep under `tmp/shadcn-port/_house/`.
+`/shadcn-run all --resume` (nothing is pending or blocked; all 55 items are done, as of the first two runs; see "Final state" for the later epics). Logs: `tmp/shadcn-port/run.log`; per-component reports under `tmp/shadcn-port/<name>/`; G4 sweep under `tmp/shadcn-port/_house/`.

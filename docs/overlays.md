@@ -1,8 +1,8 @@
 # Overlays
 
-Radix behavior, zero React. [chadcn](../README.md) docs, overlay family: dialog, alert dialog, sheet, popover, tooltip and hover
-card. Each root carries a Stimulus controller (`chadcn--dialog`, `chadcn--alert-dialog`, `chadcn--sheet`, `chadcn--popover`,
-`chadcn--tooltip`, `chadcn--hover-card`) that reproduces the Radix behavior: focus trap and return, Escape and outside-pointer
+Radix behavior, zero React. [chadcn](../README.md) docs, overlay family: dialog, alert dialog, sheet, drawer, popover, tooltip and
+hover card. Each root carries a Stimulus controller (`chadcn--dialog`, `chadcn--alert-dialog`, `chadcn--sheet`, `chadcn--drawer`,
+`chadcn--popover`, `chadcn--tooltip`, `chadcn--hover-card`) that reproduces the Radix behavior: focus trap and return, Escape and outside-pointer
 dismissal, scroll lock for modals, `aria-*` wiring, positioning with Floating UI for the anchored ones. Conventions:
 [api-conventions.md](api-conventions.md).
 
@@ -11,6 +11,7 @@ dismissal, scroll lock for modals, `aria-*` wiring, positioning with Floating UI
 | `Dialog` | `open:`, `default_open:`, `modal:` (true), `id:` (the content's id), `**attrs` on the host | `Trigger` (`as_child:`) `dialog.trigger`, `Portal` (`force_mount:`, `container:`) `dialog.portal`, `Overlay` `dialog.overlay`, `Content` (`show_close_button:` true, `close_label:` "Close", `force_mount:`, `as_child:`) `dialog.content`, `Header` `dialog.header`, `Footer` `dialog.footer`, `Title` `dialog.title`, `Description` `dialog.description`, `Close` (`as_child:`) `dialog.close` | `open-change`, `open-auto-focus`, `close-auto-focus` |
 | `AlertDialog` | `open:`, `default_open:`, `id:`, `**attrs` | `Trigger`, `Portal`, `Overlay`, `Content` (`size:` `default`, `sm`), `Media`, `Header`, `Footer`, `Title`, `Description`, `Action` (`variant:`, `size:`, `as_child:`) `alert_dialog.action`, `Cancel` (same kwargs) `alert_dialog.cancel` | `open-change`, `open-auto-focus`, `close-auto-focus` |
 | `Sheet` | `open:`, `default_open:`, `modal:`, `id:`, `**attrs` | `Trigger`, `Portal`, `Overlay`, `Content` (`side:` `right`, `left`, `top`, `bottom`; `show_close_button:`, `close_label:`), `Header`, `Footer`, `Title`, `Description`, `Close` | `open-change`, `open-auto-focus`, `close-auto-focus` |
+| `Drawer` | `open:`, `default_open:`, `direction:` (`bottom`, `top`, `left`, `right`), `dismissible:` (true), `modal:` (true), `handle_only:`, `auto_focus:`, `snap_points:` (floats and `"<n>px"` strings), `active_snap_point:`, `fade_from_index:`, `snap_to_sequential_point:`, `close_threshold:` (0.25), `scroll_lock_timeout:` (100), `should_scale_background:`, `set_background_color_on_scale:` (true), `no_body_styles:`, `fixed:`, `nested:`, `disable_prevent_scroll:` (true), `prevent_scroll_restoration:`, `reposition_inputs:` (true), `container:` (a CSS selector), `id:`, `**attrs` on the host | `Trigger` (`as_child:`) `drawer.trigger`, `Portal` (`force_mount:`, `container:`) `drawer.portal`, `Overlay` (`force_mount:`, `as_child:`) `drawer.overlay`, `Content` (`force_mount:`, `as_child:`) `drawer.content`, `Header` `drawer.header`, `Footer` `drawer.footer`, `Title` `drawer.title`, `Description` `drawer.description`, `Close` (`as_child:`) `drawer.close` | `open-change`, `drag`, `release`, `close`, `animation-end`, `active-snap-point-change`, `open-auto-focus`, `close-auto-focus`, `escape-key-down`, `pointer-down-outside`, `focus-outside`, `interact-outside` |
 | `Popover` | `open:`, `default_open:`, `modal:` (false), `id:` (the content's id); renders no element | `Trigger` (`as_child:`) `popover.trigger`, `Anchor` (`as_child:`) `popover.anchor`, `Content` (`side:` bottom, `side_offset:` 4, `align:` center, `align_offset:`, `avoid_collisions:`, `collision_padding:`, `collision_boundary:`, `arrow_padding:`, `sticky:`, `hide_when_detached:`, `update_position_strategy:`, `force_mount:`) `popover.content`, `Header` `popover.header`, `Title` `popover.title`, `Description` `popover.description` | `open-change`, `open-auto-focus`, `close-auto-focus` |
 | `Tooltip` | `open:`, `default_open:`, `delay_duration:`, `disable_hoverable_content:`, `id:` (the content's id); renders no element | `Provider` (`delay_duration:` 0, `skip_delay_duration:` 300, `disable_hoverable_content:`, `id:`) `tooltip.provider`, `Trigger` (`as_child:`) `tooltip.trigger`, `Content` (`side:` top, `side_offset:` 0, `align:`... as Popover) `tooltip.content` | `open-change` |
 | `HoverCard` | `open:`, `default_open:`, `open_delay:` (700), `close_delay:` (300), `id:` (the content template's key); renders no element | `Trigger` (`as_child:`) `hover_card.trigger`, `Content` (`side:` bottom, `side_offset:` 4, ... as Popover) `hover_card.content` | `open-change` |
@@ -107,6 +108,10 @@ end
 
 ## Notes
 
+- `Drawer` is shadcn's Drawer over a Stimulus reimplementation of vaul 1.1.2 (no JavaScript dependency): drag to dismiss, snap points,
+  the four directions and background scaling, on the same dialog behavior as `Dialog`. `direction:` is on the root, not on `Content`;
+  vaul's `Handle` and `NestedRoot` are not exports of shadcn's `drawer.tsx` and are not ported. A controlled drawer (`open:`) only
+  dispatches `open-change`; `Drawer::Close` does nothing when `dismissible: false`.
 - `Dialog::Close`, `Sheet::Close` and `AlertDialog::Action` / `Cancel` render a `<button>` that closes the nearest open root; pass a
   styled `Button` through `as_child:` instead of nesting one.
 - `AlertDialog` is always modal and does not dismiss on outside click, like Radix; `Dialog.new(modal: false)` keeps the page

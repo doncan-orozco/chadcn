@@ -1,7 +1,7 @@
 # Display components
 
 [chadcn](../README.md) docs, display family. Static building blocks: no Stimulus controller is needed except for `Avatar` (image
-loading state) and `Toaster` (toasts). Conventions shared by every component: [api-conventions.md](api-conventions.md).
+loading state), `Toaster` (toasts), `Carousel`, `Resizable` and `MessageScroller`. Conventions shared by every component: [api-conventions.md](api-conventions.md).
 
 | Component | Root kwargs (besides `**attrs`) | Parts (class and generated helper) |
 |---|---|---|
@@ -11,11 +11,14 @@ loading state) and `Toaster` (toasts). Conventions shared by every component: [a
 | `Badge` | `variant:` (`default`, `secondary`, `destructive`, `outline`, `ghost`, `link`), `as_child:`; `Badge.variants(variant:, class:)` | none |
 | `Bubble` | `variant:` (`default`, `secondary`, `muted`, `tinted`, `outline`, `ghost`, `destructive`), `align:` (`start`, `end`) | `Group` `bubble.group`, `Content` (`as_child:`) `bubble.content`, `Reactions` (`side:`, `align:`) `bubble.reactions` |
 | `Card` | none | `Header` `card.header`, `Title` `card.title`, `Description` `card.description`, `Action` `card.action`, `Content` `card.content`, `Footer` `card.footer` |
+| `Carousel` | `orientation:` (`horizontal`, `vertical`), `opts:` (embla options, snake_case or camelCase keys; `axis` comes from `orientation:`); `plugins:` and `set_api:` raise `ArgumentError` | `Content` `carousel.content`, `Item` `carousel.item`, `Previous` (`label:` "Previous slide", `variant:` `outline`, `size:` `icon`) `carousel.previous`, `Next` (`label:` "Next slide", `variant:`, `size:`) `carousel.next` |
 | `Empty` | none | `Header` `empty.header`, `Media` (`variant:` `default`, `icon`) `empty.media`, `Title` `empty.title`, `Description` `empty.description`, `Content` `empty.content` |
 | `Kbd` | none | `Group` `kbd.group` |
 | `Marker` | `variant:`, `as_child:`; `Marker.variants` | `Icon` `marker.icon`, `Content` `marker.content` |
 | `Message` | `align:` (`start`, `end`) | `Group` `message.group`, `Avatar` `message.avatar`, `Content` `message.content`, `Header` `message.header`, `Footer` `message.footer` |
+| `MessageScroller` (the styled frame) | none | `Provider` (`auto_scroll:`, `default_scroll_position:` `start`, `end`, `last-anchor`; `scroll_edge_threshold:` 8, `scroll_previous_item_peek:` 64, `scroll_margin:`, `track_visibility:`) `message_scroller.provider`, `Viewport` (`preserve_scroll_on_prepend:` true) `message_scroller.viewport`, `Content` (`spacer_class_name:`) `message_scroller.content`, `Item` (`message_id:`, `scroll_anchor:`) `message_scroller.item`, `Button` (`direction:` `end`, `start`; `variant:`, `size:`, `behavior:`, `render:`, `label:`) `message_scroller.button` |
 | `Progress` | `value:`, `max:` | none |
+| `Resizable` (renderless namespace) | none; the exports are the parts | `PanelGroup` (`orientation:`, `default_layout:`, `disabled:`, `disable_cursor:`, `resize_preview_mode:`, `resize_target_minimum_size:`, `id:`, `style:`) `resizable.panel_group`, `Panel` (`default_size:`, `min_size:`, `max_size:`, `collapsible:`, `collapsed_size:`, `collapsed_threshold:`, `disabled:`, `group_resize_behavior:`, `id:`, `class:` and `style:` go to the inner div) `resizable.panel`, `Handle` (`with_handle:`, `disabled:`, `disable_double_click:`, `preview:`, `id:`, `style:`) `resizable.handle` |
 | `Separator` | `orientation:` (`horizontal`, `vertical`), `decorative:` (true), `as_child:` | none |
 | `Skeleton` | none | none |
 | `Spinner` | none | none |
@@ -174,6 +177,17 @@ path, where recharts renders its non-chart children.
 
 ## Notes
 
+- `Carousel`, `Resizable` and `MessageScroller` re-implement their libraries (embla-carousel 8.6.0, react-resizable-panels,
+  `@shadcn/react` 0.3.1) as Stimulus controllers, with no JavaScript dependency. Events (prefix `chadcn--<name>:`):
+  `chadcn--carousel:api` (`detail.api`, the engine's API, replaces React's `setApi`), `:select`, `:reinit` and `:settle`;
+  `chadcn--resizable:resize` (`detail: { size, id, prevSize }`), `:layout-change` and `:layout-changed`;
+  `chadcn--message-scroller:scrollable-change` and, with `track_visibility: true`, `:visibility-change`.
+- `Resizable` renders no element; nest `Panel`s and `Handle`s directly inside a `PanelGroup` (a nested group goes inside a panel).
+  `Panel.new(class:, style:)` style the inner div and `**attrs` the outer one.
+- Panel sizes (`default_size:`, `min_size:`, `max_size:`, `collapsed_size:`): a Numeric is pixels; a String is parsed with its unit
+  (`"25%"`, `"200px"`, `"10rem"`, `"2em"`, `"20vh"`, `"30vw"`), and a String with no unit is a percent.
+- `MessageScroller::Provider` carries the behavior and may also wrap controls placed outside the frame; wrap the `MessageScroller`
+  frame in it.
 - `Avatar::Image` ships its `<img>` in an inert `<template>` and the `chadcn--avatar` controller mounts it once it has loaded (Radix
   `Avatar.Image` semantics, event `chadcn--avatar:loading-status-change`); `Avatar::Fallback` shows meanwhile, after `delay_ms:` when given.
 - `Badge`, `Item`, `Marker` and `Empty::Media` expose `.variants(...)` returning the class string, like React's cva helpers, to
