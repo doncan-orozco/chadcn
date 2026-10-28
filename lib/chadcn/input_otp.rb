@@ -84,8 +84,7 @@ class Chadcn::InputOtp < Chadcn::Base
   # @param no_script_css_fallback [String, nil] CSS of the `<noscript>` fallback; nil renders none
   # @param nonce [String, nil] CSP nonce of the stylesheet the controller injects
   # @param container_class_name [String, nil] classes of the container, merged after the defaults
-  # @param class [String, nil] classes of the input, merged after the defaults
-  # @param attrs [Hash] HTML attributes of the input (`id:`, `name:`, `disabled:`, `aria:`, `data:`...)
+  # @param attrs [Hash] HTML attributes of the input (`id:`, `name:`, `disabled:`, `aria:`, `data:`...); `class:` is merged after the input defaults
   def initialize(max_length:, value: nil, default_value: nil, pattern: nil, placeholder: nil, input_mode: "numeric", text_align: "left",
                  push_password_manager_strategy: "increase-width", no_script_css_fallback: NO_SCRIPT_CSS_FALLBACK, nonce: nil,
                  container_class_name: nil, **attrs)
