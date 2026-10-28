@@ -37,6 +37,8 @@ body{margin:0;padding:32px;font:16px/1.5 sans-serif}
 .on{background:#16a34a}
 .themed{background:var(--c,#dddddd);padding:8px}
 html.dark body{background:#111;color:#eee}
+@keyframes scroll-fade{from{opacity:0}to{opacity:1}}
+.scroll-driven{animation:scroll-fade linear both;animation-timeline:scroll()}
 `;
 const btn = (extra = "", cls = "btn") => `<button data-slot="probe" class="${cls}" ${extra}>Hi</button>`;
 // A plain 200px box; the click handler is attached by script (an onclick ATTRIBUTE would differ between the sides and
@@ -62,6 +64,15 @@ const chart = (attrs = 'd="M10,20L30.4,40" x="5" class="bar"', extra = "", rootS
 const CHART_OBSERVE = ["svg path", "svg rect"];
 const HOVER_BOX = `<div data-slot="probe" class="btn" style="width:200px;padding:0">x</div>`;
 const HOVER_JS = (positionAware) => `document.querySelector("[data-slot=probe]").addEventListener("mousemove", (e) => { document.querySelector("[data-slot=probe]").dataset.side = ${positionAware ? "e.offsetX > 150 ? 'right' : 'left'" : "'left'"}; })`;
+// Chrome sometimes leaves :hover stale under a still pointer after a DOM change (message-scroller's end button toggling `inert` after a
+// click) and then repairs it only on the next mouse move; that race cannot be forced, so the React side fakes the outcome: its click handler
+// forgets the hover (data-hot) and makes `:hover` report false until a mousemove arrives. The sides differ ONLY if the runner repeats the
+// pointer move when the element under the pointer is not :hover.
+const HOT_BOX = `<div data-slot="probe" class="btn" style="width:200px;padding:0">x</div>`;
+const HOT_JS = (staleAfterClick) => `const el = document.querySelector("[data-slot=probe]"); el.addEventListener("mousemove", () => { el.dataset.hot = "1"; window.__stale = false; });
+  ${staleAfterClick ? 'const matches = Element.prototype.matches; Element.prototype.matches = function (s) { return s === ":hover" && window.__stale ? false : matches.call(this, s); }; el.addEventListener("click", () => { el.dataset.hot = ""; window.__stale = true; });' : ""}`;
+// A scroll-driven animation (animation-timeline: scroll()) has no document time: Chrome throws on `currentTime = ms`.
+const SCROLL_DRIVEN = `<div data-slot="probe" class="btn scroll-driven">x</div>`;
 const toggler = `onclick="this.dataset.state=this.dataset.state==='on'?'off':'on';this.classList.toggle('on')"`;
 
 // html: [reactHtml, phlexHtml, optional phlexStatus, optional phlexScript]
@@ -142,6 +153,9 @@ const S = [
   { id: "chart-dropped-sign", observe: CHART_OBSERVE, html: [chart('d="M1,1" x="-0.0005"'), chart('d="M1,1" x="0.0005"')], expect: { kinds: ["ATTR"] } },
   { id: "hover-position-honored", steps: [{ do: "hover", target: "[data-slot=probe]", position: { x: 180, y: 5 } }], html: [HOVER_BOX, HOVER_BOX], js: [HOVER_JS(true), HOVER_JS(true)], expect: { pass: true } },
   { id: "hover-position-differs", steps: [{ do: "hover", target: "[data-slot=probe]", position: { x: 180, y: 5 } }], html: [HOVER_BOX, HOVER_BOX], js: [HOVER_JS(true), HOVER_JS(false)], expect: { kinds: ["ATTR"], step: "0:hover" } },
+  { id: "hover-restored-after-stale", steps: [{ do: "hover", target: "[data-slot=probe]", position: { x: 20, y: 5 } }, { do: "click", target: "[data-slot=probe]", position: { x: 20, y: 5 } }], html: [HOT_BOX, HOT_BOX], js: [HOT_JS(true), HOT_JS(false)], expect: { pass: true } },
+  { id: "scroll-driven-animation-ok", animations: true, html: [SCROLL_DRIVEN, SCROLL_DRIVEN], expect: { pass: true } },
+  { id: "scroll-driven-animation-differs", animations: true, html: [SCROLL_DRIVEN, SCROLL_DRIVEN.replace("scroll-driven", "wide")], expect: { kinds: ["CLASS"] } },
   { id: "dark-same", dark: true, html: [btn(), btn()], expect: { pass: true } },
   { id: "hidden-differs", html: [btn(), btn('style="display:none"')], expect: { kinds: ["VISIBLE"] } },
   { id: "extra-node", html: [btn(), btn() + `<i data-slot="extra"></i>`], expect: { kinds: ["NODE_COUNT"] } },
@@ -190,7 +204,7 @@ fs.mkdirSync(presetsDir, { recursive: true });
 fs.writeFileSync(path.join(presetsDir, "probe.css"), ":root{--c:#ff0000}");
 fs.writeFileSync(
   path.join(scenariosDir, "probe.json"),
-  JSON.stringify({ component: "probe", scenarios: S.map(({ id, steps, dark, allowEmpty, observe }) => ({ id, steps, dark, allowEmpty, observe })) }),
+  JSON.stringify({ component: "probe", scenarios: S.map(({ id, steps, dark, allowEmpty, observe, animations }) => ({ id, steps, dark, allowEmpty, observe, animations })) }),
 );
 
 const results = [];
