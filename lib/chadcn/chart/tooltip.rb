@@ -235,9 +235,11 @@ class Chadcn::Chart::Tooltip < Chadcn::Base
     def exact(number) = number.is_a?(Float) ? Rational(number.to_s) : number.to_r
 
     # JS `toLocaleString()` of the default (en-US) locale for a number: comma grouping, at most 3 fraction digits, half away from
-    # zero; other values are `String(value)`.
+    # zero; the infinities are "∞" and "-∞" (CLDR), NaN is "NaN"; other values are `String(value)`.
     def locale_string(value)
-      return value.to_s unless value.is_a?(Numeric) && value.real? && value.finite?
+      return value.to_s unless value.is_a?(Numeric) && value.real?
+      return value.negative? ? "-∞" : "∞" if value.infinite?
+      return value.to_s unless value.finite?
 
       whole, fraction = (exact(value).abs * 1000).round(half: :up).divmod(1000)
       "#{'-' if negative_sign?(value)}#{group_thousands(whole)}#{fraction_suffix(fraction)}"

@@ -273,7 +273,7 @@ class Chadcn::Chart::TooltipTest < Chadcn::TestCase
   end
 
   test "numbers that JavaScript prints specially" do
-    values = { Float::INFINITY => "Infinity", -Float::INFINITY => "-Infinity", -0.0 => "-0", 12_345_678_901_234_567_890 => "12,345,678,901,234,567,890",
+    values = { Float::INFINITY => "∞", -Float::INFINITY => "-∞", -0.0 => "-0", 12_345_678_901_234_567_890 => "12,345,678,901,234,567,890",
                Rational(1, 3) => "0.333", 999.9995 => "1,000" }
 
     values.each do |value, text|
