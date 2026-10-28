@@ -223,7 +223,8 @@ renders the block; with neither it renders an empty hidden `role="alert"` elemen
   the browser's `validationMessage` in the message element;
 - on `change` and on the synthetic `click` of the hidden input of `Checkbox`, `Switch` and `RadioGroup` it always re-evaluates the
   control; on `input` only once the form was attempted or while the field already shows an error (so a server error hands over at
-  the first edit of that control). A valid control clears all of it;
+  the first edit in that field). The field's state clears once every control of the field is valid; each control's own
+  `aria-invalid` clears when that control is edited;
 - `form.reset()` clears the mirrored state and the server-rendered errors, unless any `reset` listener calls `preventDefault()` (which also cancels the reset);
 - a `novalidate` form is not re-validated on `input`, `change` or the synthetic `click`; controls outside the form (`form="..."`) are not reached; a multi-control
   field (radios, an input group with two inputs) aggregates, each control keeping its own `aria-invalid`.
