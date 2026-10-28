@@ -22,7 +22,7 @@ Core Phlex never names `Rails`; the binding is the only place that knows which w
 ## A form in plain Phlex
 
 Give the form a `scope:` (the name prefix, so `user` gives `user[email]`), a `model:` (any object that answers the attribute readers)
-and an `errors:` lookup (attribute => messages). `action:` and `method:` go to the `<form>`.
+and an `errors:` lookup (attribute => messages). `model:` without `scope:` raises `ArgumentError`. `action:` and `method:` go to the `<form>`.
 
 ```ruby
 user = Struct.new(:name, :email, :bio, :role, :country, :newsletter, :plan, :volume, :birthday, :website, keyword_init: true).new(
@@ -124,8 +124,11 @@ express (an Array for a `select`, a String that is not a date for a `date_picker
 | `field.date_picker` | `Popover` + `Calendar` | `placeholder:`, `calendar: { ... }`; a hidden input with an ISO date is submitted |
 | `field.input_group` | `InputGroup` | `group.input` and `group.textarea` are bound |
 
-The bound controls are uncontrolled: the value becomes the `default_value:` or `default_checked:`, never `value:` or `checked:`
-(passing those makes the control controlled, and is yours to own). The hidden inputs of the checkbox, switch and date picker are
+The bound controls are uncontrolled. `field.input`, `field.textarea`, `group.input`/`group.textarea` and `field.control` get the value
+as the HTML `value` (the textarea's text); `field.select`, `field.native_select`, `field.radio_group` and `field.slider` get it as
+`default_value:`; `field.checkbox` and `field.switch` get `default_checked:`, and their `value:` is the submitted box value (`"1"`
+unless you pass one). Passing `value:` to a select, radio group or slider, or `checked:` to a checkbox or switch, makes it controlled,
+and is yours to own. The hidden inputs of the checkbox, switch and date picker are
 disabled together with their control.
 
 ## The id and ARIA contract
@@ -177,7 +180,8 @@ end
 - `Chadcn::Form.new(method:)` takes `get`, `post` (the default), `put`, `patch` or `delete`. A browser submits only `get` and `post`, so
   `put`, `patch` and `delete` render `method="post"` and a hidden `_method` input, as Rails does. Anything else raises `ArgumentError`.
 - The form's keyword is `method:`; a binding answers the same question with `http_method` (lowercase, `"patch"`). With a `binding:` the form uses
-  the binding's `action`, `http_method` and `csrf_token`, and any other kwarg (`method:`, `action:`, `scope:`...) raises `ArgumentError`.
+  the binding's `action`, `http_method` and `csrf_token`; passing `scope:`, `model:`, `errors:`, `action:`, `method:`, `csrf_token:` or
+  `namespace:` next to it raises `ArgumentError` (give `namespace:` to the binding). HTML attributes still go to the `<form>`.
 - `csrf_token:` renders a hidden `authenticity_token` input, **never on a `get` form** (Rails does the same). With the engine binding the token
   comes from the view; nothing to pass.
 - Any other attribute (`class:`, `id:`, `data:`, `novalidate: true`, `enctype:`) goes to the `<form>`; `class:` and `data:` merge.
@@ -218,9 +222,9 @@ renders the block; with neither it renders an empty hidden `role="alert"` elemen
   the field's `data-invalid`, the label's `data-error`, the control's `aria-invalid="true"`, links the message id in `aria-describedby` and writes
   the browser's `validationMessage` in the message element;
 - on `input`, `change` and the synthetic `click` of the hidden input of `Checkbox`, `Switch` and `RadioGroup` it re-evaluates once the form was
-  attempted, when the field already shows an error (a server error hands over at the first edit of that control) or on `change`; a valid control
+  attempted, when the field already shows an error (a server error hands over at the first edit of that control) or on `change` and the synthetic `click`; a valid control
   clears all of it;
-- `form.reset()` clears the mirrored state and the server-rendered errors, unless a later `reset` listener calls `preventDefault()`;
+- `form.reset()` clears the mirrored state and the server-rendered errors, unless any `reset` listener calls `preventDefault()` (which also cancels the reset);
 - a `novalidate` form is not re-validated on `input` or `change`; controls outside the form (`form="..."`) are not reached; a multi-control
   field (radios, an input group with two inputs) aggregates, each control keeping its own `aria-invalid`.
 
@@ -252,16 +256,18 @@ end
 ```
 
 - An enumerable (not a `Hash` or `Struct`) yields once per element with its row; `nil` or a single object yields once; an empty collection yields
-  nothing. `index:` picks one row of a collection (an `Integer`) or, for a single object, becomes the row in the name
-  (`form.fields(attribute: :address, index: "NEW_RECORD")`, the template row of a JavaScript "add" button). A block is required.
+  nothing. `index:` picks one row of a collection (an `Integer` in range; anything else raises `ArgumentError`) or, when the attribute
+  reads a single object or `nil`, becomes the row in the name (`form.fields(attribute: :address, index: "NEW_RECORD")` names
+  `account[address_attributes][NEW_RECORD][street]`). A template row for a collection (Rails' `fields_for :addresses, Address.new,
+  child_index: "NEW_RECORD"`) is not supported: `form.fields` reads the object from the attribute and takes no `object:`. A block is required.
 - Scopes nest: `address.fields(attribute: :phones) { |phone| ... }`. The `namespace:` is carried into every row.
 - Inside a row block, `form.field` (the root) is bound to the **row**, like `address.field`; use the yielded scope to stay readable.
 - Calling `form.fields` twice for the same association on one parent restarts the numbering at `0` for the second call: render a
   collection with one call, or give `index:`.
 - `Binding::Plain` finds the errors of a row in the parent `errors:` under Rails' `index_errors` keys: `"addresses[0].street"` for a
-  collection row and `"address.street"` for a single object. An explicit `errors:` on a nested binding of your own wins.
+  collection row and `"address.street"` for a single object. `form.fields` never passes `errors:`; a direct `Binding::Plain#nested(attribute, object:, errors:)` call with explicit errors wins, and the engine binding always reads the child model's errors.
 - After the block, the hidden inputs the nested binding asks for are rendered (`Binding#hidden_fields`): none for `Plain`; with the engine
-  binding the `id` of a persisted child (`autocomplete="off"`), as `fields_for` does. A row block that renders its own `id` input gets a duplicate.
+  binding the `id` of a persisted child (`autocomplete="off"`) when the parent defines `<association>_attributes=`, as `fields_for` does. A row block that renders its own `id` input gets a duplicate.
 
 ## In Rails
 
@@ -286,7 +292,7 @@ class UsersController < ApplicationController
     if user.update(params.expect(user: [ :name, :email, :bio, :role, :newsletter, { addresses_attributes: [ %i[id street city] ] } ]))
       redirect_to user
     else
-      render Views::Users::Edit.new(user:), status: :unprocessable_entity
+      render Views::Users::Edit.new(user:), status: :unprocessable_content
     end
   end
 end
@@ -346,7 +352,7 @@ What Rails still computes, and where it differs from `form_with`:
 | errors | `field_with_errors` wrapper around the tag | `model.errors[attribute]` into `field.error`, `aria-invalid`, `data-invalid` and `data-error`; no wrapper |
 | label text | `helpers.label.<scope>.<attribute>`, then `human_attribute_name` | the same translations |
 | `required` | not set | `binding.required?(attribute)` (a plain presence validator, in the model's create/update context; `if:`/`unless:` never count); you pass it on |
-| value | the reader of the model | the same, as the uncontrolled default (`value_for` calls the reader: never pass request input as the attribute) |
+| value | `value_before_type_cast` for text inputs and textareas, the reader for the other tags | the reader, as the uncontrolled default (never `*_before_type_cast`, see below; `value_for` calls the reader: never pass request input as the attribute) |
 | nested attributes | `fields_for`, `user[addresses_attributes][0][street]`, hidden `id` | `form.fields`, the same names and hidden `id`; `_attributes` only when the model defines `addresses_attributes=` |
 | submit button | `f.submit`, with i18n text | `render Chadcn::Button.new(type: "submit")`: the text is yours |
 

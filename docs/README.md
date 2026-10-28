@@ -14,6 +14,7 @@ in the [README](../README.md); these pages are the per-family reference.
 - [API conventions](api-conventions.md): class per React export, keyword arguments, `as_child:`, yielded-root helpers, events.
 - [Compatibility](compatibility.md): supported Ruby, Phlex, Rails, Tailwind and Stimulus versions, and the Phlex 3 plan.
 - [Form controls](form-controls.md): buttons, inputs, checkbox, switch, radio group, toggle, slider, calendar, one-time-code input (`InputOtp`), `Field`.
+- [Forms](forms.md): `Chadcn::Form`, a form bound to a model in plain Phlex or Rails, the `form.tsx` ids and ARIA, nested fields and the `chadcn--form` controller.
 - [Display components](display.md): alert, avatar, badge, card, empty, table, toaster, carousel, resizable panels, message scroller
   and the other static blocks.
 - [Overlays](overlays.md): dialog, alert dialog, sheet, drawer, popover, tooltip, hover card.
