@@ -51,6 +51,10 @@ module Chadcn
     require_relative "engine/sprockets"
     private_constant :SprocketsAssets
 
+    # The Rails {Chadcn::Form::Binding}. Autoloaded: it includes a core module, and the loader of the components is set up by an
+    # initializer, after this file is required.
+    autoload :FormBinding, File.join(__dir__, "engine/form_binding")
+
     # The counters behind the generated ids for the current request (Chadcn::Sequence): an ActiveSupport::CurrentAttributes, so one
     # instance per thread, reset by the Rails executor when every request and job completes. Installed as
     # `Chadcn.config.sequence_store` below, so a layout, its view and the Turbo frames of one response number the roots in one

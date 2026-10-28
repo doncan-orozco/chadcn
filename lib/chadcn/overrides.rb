@@ -49,14 +49,19 @@ module Chadcn
       match && match.names.to_h { |name| [ name.to_sym, match[name] ] }
     end
 
-    # The components of the gem, as the names the generator takes: `button`, `alert_dialog`.
+    # The components of the gem, as the names the generator takes: `button`, `alert_dialog`. A component is a top-level file; a
+    # directory alone (the private math of a component not ported yet, such as `chart/`) autovivifies a namespace but is not one.
     #
     # @param gem_dir [String]
     # @return [Array<String>] sorted
     def self.components(gem_dir: GEM_DIR)
-      entries = Dir.children(gem_dir).map { |entry| entry.delete_suffix(".rb") }.uniq
-      (entries - INFRASTRUCTURE).select { |entry| File.exist?(File.join(gem_dir, "#{entry}.rb")) || File.directory?(File.join(gem_dir, entry)) }.sort
+      (Dir.glob("*.rb", base: gem_dir).map { |entry| entry.delete_suffix(".rb") } - INFRASTRUCTURE).sort
     end
+
+    # @param name [String] a component name or a scenario name (`input-otp`)
+    # @param gem_dir [String]
+    # @return [Boolean] whether the gem ships that component (its own file exists)
+    def self.component?(name, gem_dir: GEM_DIR) = components(gem_dir: gem_dir).include?(name.to_s.tr("-", "_"))
 
     # The files that make up one ejectable unit: `dialog` is dialog.rb and everything under dialog/; `dialog/content` is that one part
     # (and what is under dialog/content/, if anything).
