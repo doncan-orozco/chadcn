@@ -161,6 +161,15 @@ class Chadcn::Field::Legend < Chadcn::Base
 class Chadcn::Field::Separator < Chadcn::Base
 class Chadcn::Field::Set < Chadcn::Base
 class Chadcn::Field::Title < Chadcn::Base
+class Chadcn::Form < Chadcn::Base
+class Chadcn::Form::Binding::Plain
+class Chadcn::Form::Field < Chadcn::Field
+class Chadcn::Form::Field::Control < Chadcn::Base
+class Chadcn::Form::Field::Description < Chadcn::Base
+class Chadcn::Form::Field::Error < Chadcn::Base
+class Chadcn::Form::Field::Input < Chadcn::Base
+class Chadcn::Form::Field::Label < Chadcn::Base
+class Chadcn::Form::Field::Textarea < Chadcn::Base
 class Chadcn::HoverCard < Chadcn::Base
 class Chadcn::HoverCard::Content < Chadcn::Base
 class Chadcn::HoverCard::Trigger < Chadcn::Base
@@ -843,6 +852,57 @@ method Chadcn::Field::Set#initialize (**attrs)
 method Chadcn::Field::Set#view_template ()
 method Chadcn::Field::Title#initialize (**attrs)
 method Chadcn::Field::Title#view_template ()
+method Chadcn::Form#field (**attrs, &block)
+method Chadcn::Form#initialize (binding: nil, scope: nil, model: nil, errors: nil, action: nil, method: nil, csrf_token: nil, namespace: nil, **attrs)
+method Chadcn::Form#view_template (&block)
+method Chadcn::Form::Binding#action ()
+method Chadcn::Form::Binding#csrf_token ()
+method Chadcn::Form::Binding#errors_for (attribute)
+method Chadcn::Form::Binding#http_method ()
+method Chadcn::Form::Binding#id_for (attribute)
+method Chadcn::Form::Binding#label_for (attribute)
+method Chadcn::Form::Binding#name_for (attribute, multiple: false)
+method Chadcn::Form::Binding#nested (attribute, object:, index: nil, errors: {})
+method Chadcn::Form::Binding#value_for (attribute)
+method Chadcn::Form::Binding::Plain#action ()
+method Chadcn::Form::Binding::Plain#csrf_token ()
+method Chadcn::Form::Binding::Plain#errors_for (attribute)
+method Chadcn::Form::Binding::Plain#http_method ()
+method Chadcn::Form::Binding::Plain#id_for (attribute)
+method Chadcn::Form::Binding::Plain#initialize (scope:, object: nil, errors: {}, action: nil, http_method: "post", csrf_token: nil, namespace: nil)
+method Chadcn::Form::Binding::Plain#label_for (attribute)
+method Chadcn::Form::Binding::Plain#name_for (attribute, multiple: false)
+method Chadcn::Form::Binding::Plain#nested (attribute, object:, index: nil, errors: {})
+method Chadcn::Form::Binding::Plain#value_for (attribute)
+method Chadcn::Form::Field#attribute ()
+method Chadcn::Form::Field#control (**attrs, &block)
+method Chadcn::Form::Field#control_attrs ()
+method Chadcn::Form::Field#description (**attrs, &block)
+method Chadcn::Form::Field#error (**attrs, &block)
+method Chadcn::Form::Field#errors ()
+method Chadcn::Form::Field#form_binding ()
+method Chadcn::Form::Field#form_description_id ()
+method Chadcn::Form::Field#form_item_id ()
+method Chadcn::Form::Field#form_message_id ()
+method Chadcn::Form::Field#initialize (attribute:, binding: nil, orientation: "vertical", **attrs)
+method Chadcn::Form::Field#input (**attrs, &block)
+method Chadcn::Form::Field#label (**attrs, &block)
+method Chadcn::Form::Field#name ()
+method Chadcn::Form::Field#textarea (**attrs, &block)
+method Chadcn::Form::Field#value ()
+method Chadcn::Form::Field#view_template ()
+method Chadcn::Form::Field::Control#initialize (**attrs)
+method Chadcn::Form::Field::Control#view_template ()
+method Chadcn::Form::Field::Description#initialize (**attrs)
+method Chadcn::Form::Field::Description#view_template ()
+method Chadcn::Form::Field::Error#initialize (**attrs)
+method Chadcn::Form::Field::Error#view_template ()
+method Chadcn::Form::Field::Input#initialize (**attrs)
+method Chadcn::Form::Field::Input#view_template ()
+method Chadcn::Form::Field::Label#initialize (**attrs)
+method Chadcn::Form::Field::Label#view_template (&block)
+method Chadcn::Form::Field::Textarea#initialize (**attrs)
+method Chadcn::Form::Field::Textarea#view_template ()
 method Chadcn::HoverCard#content (**attrs, &block)
 method Chadcn::HoverCard#initialize (open: nil, default_open: false, open_delay: 700, close_delay: 300, id: nil)
 method Chadcn::HoverCard#trigger (**attrs, &block)
@@ -1251,6 +1311,7 @@ method Chadcn::Tooltip::Trigger#view_template ()
 module Chadcn
 module Chadcn::Catalog
 module Chadcn::Direction::Consumer
+module Chadcn::Form::Binding
 module Chadcn::Generators
 module Chadcn::Theme
 
@@ -1383,6 +1444,13 @@ Chadcn::Field#legend
 Chadcn::Field#separator
 Chadcn::Field#set
 Chadcn::Field#title
+Chadcn::Form#field
+Chadcn::Form::Field#control
+Chadcn::Form::Field#description
+Chadcn::Form::Field#error
+Chadcn::Form::Field#input
+Chadcn::Form::Field#label
+Chadcn::Form::Field#textarea
 Chadcn::HoverCard#content
 Chadcn::HoverCard#trigger
 Chadcn::InputGroup#addon

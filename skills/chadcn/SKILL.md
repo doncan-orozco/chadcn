@@ -7,7 +7,7 @@ description: "Use when writing Phlex views with the chadcn gem (shadcn/ui compon
 
 chadcn is a Ruby gem (RubyGems only). Not affiliated with shadcn. Built on shadcn/ui (MIT). Setup: [README](../../README.md).
 
-57 shadcn/ui components as Phlex classes under `Chadcn`. The exact keywords, variants, parts, controllers and events of every component are in [llms-full.txt](../../llms-full.txt) (generated, always current): read the section of the component before using it.
+58 shadcn/ui components as Phlex classes under `Chadcn`. The exact keywords, variants, parts, controllers and events of every component are in [llms-full.txt](../../llms-full.txt) (generated, always current): read the section of the component before using it.
 
 ## Rules
 
@@ -20,7 +20,7 @@ chadcn is a Ruby gem (RubyGems only). Not affiliated with shadcn. Built on shadc
 
 ## Components
 
-`Accordion`, `Alert`, `AlertDialog`, `AspectRatio`, `Attachment`, `Avatar`, `Badge`, `Breadcrumb`, `Bubble`, `Button`, `ButtonGroup`, `Calendar`, `Card`, `Carousel`, `Checkbox`, `Collapsible`, `Combobox`, `Command`, `ContextMenu`, `Dialog`, `Direction`, `DropdownMenu`, `Empty`, `Field`, `HoverCard`, `Input`, `InputGroup`, `InputOtp`, `Item`, `Kbd`, `Label`, `Marker`, `Menubar`, `Message`, `NativeSelect`, `NavigationMenu`, `Pagination`, `Popover`, `Progress`, `RadioGroup`, `Resizable`, `ScrollArea`, `Select`, `Separator`, `Sheet`, `Sidebar`, `Skeleton`, `Slider`, `Sonner`, `Spinner`, `Switch`, `Table`, `Tabs`, `Textarea`, `Toggle`, `ToggleGroup`, `Tooltip`.
+`Accordion`, `Alert`, `AlertDialog`, `AspectRatio`, `Attachment`, `Avatar`, `Badge`, `Breadcrumb`, `Bubble`, `Button`, `ButtonGroup`, `Calendar`, `Card`, `Carousel`, `Checkbox`, `Collapsible`, `Combobox`, `Command`, `ContextMenu`, `Dialog`, `Direction`, `DropdownMenu`, `Empty`, `Field`, `Form`, `HoverCard`, `Input`, `InputGroup`, `InputOtp`, `Item`, `Kbd`, `Label`, `Marker`, `Menubar`, `Message`, `NativeSelect`, `NavigationMenu`, `Pagination`, `Popover`, `Progress`, `RadioGroup`, `Resizable`, `ScrollArea`, `Select`, `Separator`, `Sheet`, `Sidebar`, `Skeleton`, `Slider`, `Sonner`, `Spinner`, `Switch`, `Table`, `Tabs`, `Textarea`, `Toggle`, `ToggleGroup`, `Tooltip`.
 
 ## Stimulus controllers
 
