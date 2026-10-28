@@ -214,6 +214,12 @@ class Chadcn::Message::Content < Chadcn::Base
 class Chadcn::Message::Footer < Chadcn::Base
 class Chadcn::Message::Group < Chadcn::Base
 class Chadcn::Message::Header < Chadcn::Base
+class Chadcn::MessageScroller < Chadcn::Base
+class Chadcn::MessageScroller::Button < Chadcn::Base
+class Chadcn::MessageScroller::Content < Chadcn::Base
+class Chadcn::MessageScroller::Item < Chadcn::Base
+class Chadcn::MessageScroller::Provider < Chadcn::Base
+class Chadcn::MessageScroller::Viewport < Chadcn::Base
 class Chadcn::NativeSelect < Chadcn::Base
 class Chadcn::NativeSelect::OptGroup < Chadcn::Base
 class Chadcn::NativeSelect::Option < Chadcn::Base
@@ -991,6 +997,18 @@ method Chadcn::Message::Group#initialize (**attrs)
 method Chadcn::Message::Group#view_template ()
 method Chadcn::Message::Header#initialize (**attrs)
 method Chadcn::Message::Header#view_template ()
+method Chadcn::MessageScroller#initialize (**attrs)
+method Chadcn::MessageScroller#view_template ()
+method Chadcn::MessageScroller::Button#initialize (direction: "end", variant: "secondary", size: "icon-sm", behavior: "smooth", render: nil, label: nil, **attrs)
+method Chadcn::MessageScroller::Button#view_template (&block)
+method Chadcn::MessageScroller::Content#initialize (spacer_class_name: nil, **attrs)
+method Chadcn::MessageScroller::Content#view_template ()
+method Chadcn::MessageScroller::Item#initialize (message_id: nil, scroll_anchor: false, **attrs)
+method Chadcn::MessageScroller::Item#view_template ()
+method Chadcn::MessageScroller::Provider#initialize (auto_scroll: false, default_scroll_position: "end", scroll_edge_threshold: 8, scroll_previous_item_peek: 64, scroll_margin: 0, track_visibility: false, **attrs)
+method Chadcn::MessageScroller::Provider#view_template ()
+method Chadcn::MessageScroller::Viewport#initialize (preserve_scroll_on_prepend: true, **attrs)
+method Chadcn::MessageScroller::Viewport#view_template ()
 method Chadcn::NativeSelect#initialize (size: "default", default_value: nil, value: nil, **attrs)
 method Chadcn::NativeSelect#opt_group (**attrs, &block)
 method Chadcn::NativeSelect#option (**attrs, &block)
@@ -1425,6 +1443,11 @@ Chadcn::Message#content
 Chadcn::Message#footer
 Chadcn::Message#group
 Chadcn::Message#header
+Chadcn::MessageScroller#button
+Chadcn::MessageScroller#content
+Chadcn::MessageScroller#item
+Chadcn::MessageScroller#provider
+Chadcn::MessageScroller#viewport
 Chadcn::NativeSelect#opt_group
 Chadcn::NativeSelect#option
 Chadcn::NavigationMenu#content
