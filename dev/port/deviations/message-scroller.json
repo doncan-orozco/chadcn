@@ -1,0 +1,16 @@
+{
+  "component": "message-scroller",
+  "reason": "@shadcn/react's MessageScrollerProvider renders no element and keeps its state in React context; a server-rendered Stimulus port needs one controller host that also contains controls placed outside the MessageScroller frame. The host is a display: contents div without data-slot, classes or layout, so the compared DOM is unchanged. React-only inputs are mapped to Ruby equivalents: the useMessageScrollerVisibility subscription becomes an explicit opt-in kwarg (a DOM event listener cannot be detected), the Button's render React element becomes a component instance or tag symbol, and parts render without an enclosing Provider (React throws) so that a Turbo Stream can append a lone MessageScroller::Item into the content. Opening at last-anchor: the primitive measures in its mount effect, before first paint, when content-visibility:auto rows still read as 160px placeholders, so React's 'does the last turn fit' check sees placeholder heights (a turn that really measures 136px reads as 344px) and anchors with a spacer where the port, measuring real heights after styles apply, scrolls to the end with no spacer. IMPACT: only default_scroll_position last-anchor on a viewport shorter than the placeholder-sized last turn but taller than the real one; the port then opens at the end instead of at the anchor with a spacer. HOW IT IS PINNED: scenario position-last-anchor__turn-fits uses a viewport (h-[28rem]) tall enough for the placeholder-sized turn so both sides agree, and test/javascript/message-scroller.test.mjs asserts that a last turn that fits opens at the end with no spacer. REVISIT IF: the port should reproduce the placeholder measurement (size items from content-visibility placeholders at connect), then restore h-80 in the scenario and delete this entry. AWAITING: the owner's approval (approved-by in DEVIATIONS.md stays 'pending').",
+  "allow_tokens": [],
+  "allow_missing_tokens": [],
+  "structure": [
+    "MessageScroller::Provider renders one <div style=\"display: contents\" data-controller=\"chadcn--message-scroller\"> host with no data-slot, classes or other data attributes besides controller wiring"
+  ],
+  "api": [
+    "MessageScroller::Provider takes track_visibility: (default false, no React prop): enables the visibility tracking that React starts when a component subscribes to useMessageScrollerVisibility; results are dispatched as chadcn--message-scroller:visibility-change",
+    "MessageScroller::Button takes label: (default nil, no React prop): the screen-reader text of the default content, Scroll to end / Scroll to start by direction, so the default string is localizable",
+    "MessageScroller::Button render: takes a Chadcn component instance or a tag symbol instead of a React element (merged with useRender semantics)",
+    "MessageScroller parts rendered without an enclosing MessageScroller::Provider render without error (React throws); MessageScroller and MessageScroller::Viewport then omit data-pending-scroll",
+    "MessageScroller::Provider default_scroll_position last-anchor decides 'the last turn fits' from real row heights, not from content-visibility placeholders"
+  ]
+}
