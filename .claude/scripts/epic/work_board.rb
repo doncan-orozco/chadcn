@@ -11,6 +11,9 @@
 #   work_board.rb item create --epic S --title T --body-file F --wave N --owns a,b [--blocked-by 1,2] [--stage plan] [--priority N]
 #   work_board.rb plan-check --file plan.json              # lint a plan BEFORE creating anything (same rules as validate + contract fields)
 #   work_board.rb plan-apply --file plan.json              # create the epic root + all items in dependency order (refuses an existing epic)
+#   work_board.rb item amend N --epic S --session ID [--owns GLOBS] [--add-owns GLOBS] [--blocked-by N,M] [--add-blocked-by N,M] --reason TXT
+#       rewrites the work-item meta and the Owns / Blocked by sections of an item, posts an announce note on the epic root (reason, before, after); refuses
+#       a done item, an item held by another session and a result that adds an overlap or a cycle (plan lint).
 #   work_board.rb validate --epic S                        # plan lint on created issues: deps exist, no cycles, owns present and non-overlapping
 #   work_board.rb show N --epic S                          # one item: stage, meta, body, notes (what a worker reads before starting)
 #   work_board.rb status --epic S
@@ -127,6 +130,34 @@ module WorkBoard
     def priority = meta.fetch("priority", 0).to_i
     def owns = Array(meta["owns"])
     def blocked_by = Array(meta["blocked_by"]).map(&:to_i)
+
+    # The body with the Owns and Blocked by sections and the meta block rewritten. A kept entry keeps its line (blockers carry a
+    # trailing explanation), a new one gets a plain line. Raises (nothing is written) when a section or the meta block is missing, or
+    # when a section holds a line that is not a bullet: the rewrite would drop text a person wrote.
+    def with_contract(owns:, blocked_by:)
+      text = @body.dup
+      rewrite = lambda do |title, entries, key, make|
+        pattern = /^## #{title}[ \t]*\r?\n(.*?)(?=^## |^<!--|\z)/m
+        raise Failure, "item ##{number} has no `## #{title}` section to amend" unless text.match?(pattern)
+
+        old = text[pattern, 1].lines.map(&:chomp).reject { |line| line.strip.empty? || line.strip == "- nothing" }
+        stray = old.reject { |line| line.start_with?("- ") && key.call(line) }
+        raise Failure, "item ##{number}: `## #{title}` holds a line the rewrite would drop (#{stray.first.strip.inspect}), amend it by hand" if stray.any?
+
+        multi = old.find { |line| line.scan(/`[^`]+`/).size > 1 } if title == "Owns"
+        raise Failure, "item ##{number}: `## Owns` has a bullet with several globs (#{multi.strip.inspect}), amend it by hand" if multi
+
+        lines = entries.map { |entry| old.find { |line| key.call(line) == entry.to_s } || make.call(entry) }
+        text.sub!(pattern) { "## #{title}\n#{lines.empty? ? '- nothing' : lines.join("\n")}\n\n" }
+      end
+      rewrite.call("Owns", owns, ->(line) { line[/\A-\s+`([^`]+)`/, 1] }, ->(glob) { "- `#{glob}`" })
+      rewrite.call("Blocked by", blocked_by, ->(line) { line[/\A-\s+#(\d+)\b/, 1] }, ->(blocker) { "- ##{blocker}" })
+      raise Failure, "item ##{number} has no work-item meta block" unless text.match?(META)
+
+      amended = meta.merge("owns" => owns, "blocked_by" => blocked_by)
+      text = text.sub(META) { "<!-- work-item #{JSON.generate(amended)} -->" }
+      @body.include?("\r\n") ? text.gsub(/\r?\n/, "\r\n") : text # a body edited on GitHub's web UI keeps its line endings
+    end
 
     def summary
       { number: number, title: title, stage: stage, wave: wave, owns: owns, blocked_by: blocked_by, labels: labels }
@@ -483,6 +514,7 @@ module WorkBoard
         case @argv.shift
         when "create" then item_create
         when "adopt" then item_adopt
+        when "amend" then item_amend
         else usage
         end
       when "validate" then validate
@@ -510,7 +542,7 @@ module WorkBoard
       out({ error: e.message }, 2)
     end
 
-    def usage = out({ error: "usage: work_board.rb <session|epic create|epic done|item create|item adopt|validate|status|next|reviews|mergeable|merge|claim|heartbeat|release|advance|block|unblock|comment|digest|reap> ..." }, 2)
+    def usage = out({ error: "usage: work_board.rb <session|epic create|epic done|item create|item adopt|item amend|validate|status|next|reviews|mergeable|merge|claim|heartbeat|release|advance|block|unblock|comment|digest|reap> ..." }, 2)
 
     def need(opts, *keys)
       missing = keys.reject { |k| opts[k] }
@@ -623,6 +655,87 @@ module WorkBoard
         b.gh("issue", "edit", number.to_s, "--body-file", f.path, "--add-label", labels.join(","))
       end
       out({ number: number, title: issue.title, labels: labels, meta: meta, gates: gates })
+    end
+
+    # Amends the contract of an existing item (Owns, Blocked by): meta block and the two body sections, plus an `announce` note on the epic root with the
+    # reason and the before/after. --owns / --blocked-by replace, --add-owns / --add-blocked-by append. Refuses a done item, one held
+    # by another session and an amendment that makes the plan lint (`validate`) report something it did not report before.
+    def item_amend
+      opts, rest = parse("--epic" => :v, "--session" => :v, "--owns" => :v, "--add-owns" => :v, "--blocked-by" => :v,
+                         "--add-blocked-by" => :v, "--reason" => :v)
+      need(opts, :epic, :session, :reason)
+      number = rest.first.to_s.match?(/\A#?\d+\z/) ? rest.first.delete("#").to_i : 0
+      if number.zero? || %i[owns add_owns blocked_by add_blocked_by].none? { |key| opts[key] }
+        out({ error: "usage: item amend N --epic S --session ID [--owns G] [--add-owns G] [--blocked-by N,M] [--add-blocked-by N,M] --reason TXT" }, 2)
+      end
+      board = board(opts)
+      item = board.item(number)
+      refuse_amend(board, item, opts[:session])
+      owns = (opts[:owns] ? amend_globs(opts[:owns]) : item.owns) + amend_globs(opts[:add_owns])
+      blockers = (opts[:blocked_by] ? amend_blockers(opts[:blocked_by]) : item.blocked_by) + amend_blockers(opts[:add_blocked_by])
+      owns = owns.uniq
+      blockers = blockers.uniq
+      added = amend_lint_delta(board, number, owns, blockers)
+      out({ error: "amendment refused: the plan lint reports new findings", findings: added }, 1) if added.any?
+      out({ number: number, unchanged: true, owns: owns, blocked_by: blockers }) if owns == item.owns && blockers == item.blocked_by
+
+      write_amended_body(board, item, owns, blockers, opts[:session])
+      text = "item ##{number} amended: #{opts[:reason]}\nowns: #{item.owns.inspect} -> #{owns.inspect}\nblocked_by: #{item.blocked_by.inspect} -> #{blockers.inspect}"
+      was = { owns: item.owns, blocked_by: item.blocked_by }
+      begin
+        board.post_note(board.root.number, type: "announce", session: opts[:session], text: text)
+      rescue Failure => e
+        out({ error: "item ##{number} amended but the announce note failed: #{e.message}; post it by hand", number: number, owns: owns,
+              blocked_by: blockers, was: was, note: text }, 1)
+      end
+      out({ number: number, owns: owns, blocked_by: blockers, was: was })
+    end
+
+    def refuse_amend(board, item, session)
+      out({ error: "item ##{item.number} is done" }, 1) if item.done?
+      holder = board.claims[item.number]
+      return unless holder && !holder[:expired] && holder[:session] != session
+
+      out({ error: "item ##{item.number} is held by #{holder[:session]}", reason: "held_by_other" }, 1)
+    end
+
+    def amend_list(text) = text.to_s.split(",").map(&:strip).reject(&:empty?)
+
+    # Glob text goes into a backtick span of the issue body: a backtick breaks the next parse and a line break could start a section.
+    def amend_globs(text)
+      amend_list(text).each { |glob| out({ error: "not a glob: #{glob.inspect}" }, 2) if glob.match?(/[`\r\n]/) }
+    end
+
+    # Blocker numbers are digits (optionally `#N`): "abc" or "12abc" must not turn into 0 or 12 through to_i.
+    def amend_blockers(text)
+      amend_list(text).map do |token|
+        out({ error: "not an item number: #{token.inspect}" }, 2) unless token.match?(/\A#?\d+\z/)
+        token.delete("#").to_i
+      end
+    end
+
+    # Findings the plan lint reports for the amended plan that it did not report before. Keyed by code, item and the detail without its
+    # trailing owns lists: the lists change with the amendment, but the pair (`A and C`) or the blocker the detail names must count as new.
+    def amend_lint_delta(board, number, owns, blockers)
+      nodes = board.items.map { |i| { id: i.number, wave: i.wave, owns: i.owns, blocked_by: i.blocked_by, stage: i.stage } }
+      amended = nodes.map { |node| node[:id] == number ? node.merge(owns: owns, blocked_by: blockers) : node }
+      key = ->(finding) { [ finding[:code], finding[:item], finding[:detail].to_s.sub(/ \(.*\)\z/m, "") ] }
+      known = Hash.new(0).merge!(Plan.check(nodes).map(&key).tally)
+      Plan.check(amended).select { |finding| (known[key.call(finding)] -= 1).negative? }
+    end
+
+    # Rewrites the issue from a fresh read (a body edited since the item was listed is not overwritten blindly).
+    def write_amended_body(board, item, owns, blockers, session)
+      fresh = Item.new(board.gh_json("issue", "view", item.number.to_s, "--json", "number,title,state,labels,body"))
+      raise Failure, "item ##{item.number} changed while it was being amended, run it again" unless fresh.body == item.body
+
+      refuse_amend(board, fresh, session)
+
+      Tempfile.create("work-amend") do |f|
+        f.write(item.with_contract(owns: owns, blocked_by: blockers))
+        f.flush
+        board.gh("issue", "edit", item.number.to_s, "--body-file", f.path)
+      end
     end
 
     def validate
