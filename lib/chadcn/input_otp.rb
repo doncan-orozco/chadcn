@@ -37,9 +37,11 @@ class Chadcn::InputOtp < Chadcn::Base
   # Tailwind classes of the input, as in the shadcn source.
   CLASSES = "disabled:cursor-not-allowed"
 
-  # The library's exported patterns (`REGEXP_ONLY_DIGITS` and friends).
+  # Pattern accepting digits only (the library's `REGEXP_ONLY_DIGITS`).
   REGEXP_ONLY_DIGITS = "^\\d+$"
+  # Pattern accepting letters only (the library's `REGEXP_ONLY_CHARS`).
   REGEXP_ONLY_CHARS = "^[a-zA-Z]+$"
+  # Pattern accepting letters and digits (the library's `REGEXP_ONLY_DIGITS_AND_CHARS`).
   REGEXP_ONLY_DIGITS_AND_CHARS = "^[a-zA-Z0-9]+$"
 
   # The library's `noScriptCSSFallback`, verbatim.
@@ -168,6 +170,7 @@ class Chadcn::InputOtp < Chadcn::Base
 
   # shadcn InputOTPGroup: a row of slots.
   class Group < Chadcn::Base
+    # Tailwind classes of the group, as in the shadcn source.
     CLASSES = "flex items-center"
 
     # @param attrs [Hash] HTML attributes merged into the element (class goes through tailwind-merge)
@@ -184,9 +187,11 @@ class Chadcn::InputOtp < Chadcn::Base
 
   # shadcn InputOTPSlot: one character box. The controller keeps its character, `data-active` and fake caret in step with the input.
   class Slot < Chadcn::Base
+    # Tailwind classes of the slot, as in the shadcn source.
     CLASSES = "relative flex h-9 w-9 items-center justify-center border-y border-r border-input text-sm shadow-xs transition-all outline-none first:rounded-l-md first:border-l last:rounded-r-md aria-invalid:border-destructive data-[active=true]:z-10 data-[active=true]:border-ring data-[active=true]:ring-[3px] data-[active=true]:ring-ring/50 data-[active=true]:aria-invalid:border-destructive data-[active=true]:aria-invalid:ring-destructive/20 dark:bg-input/30 dark:data-[active=true]:aria-invalid:ring-destructive/40"
     # The fake caret, shipped inert and mounted by the controller while the slot is active and empty.
     CARET = "pointer-events-none absolute inset-0 flex items-center justify-center"
+    # Tailwind classes of the blinking bar inside the fake caret.
     CARET_BAR = "h-4 w-px animate-caret-blink bg-foreground duration-1000"
 
     # @param index [Integer] position of the character this slot shows

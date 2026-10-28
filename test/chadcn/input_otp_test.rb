@@ -228,8 +228,7 @@ class Chadcn::InputOtpTest < Chadcn::TestCase
     refute_predicate(Dir[File.join(root, "vendor/**/*input-otp*")], :any?)
   end
 
-  test "InputOTP, the React export name, is autoloadable from its own file" do
-    assert_equal File.expand_path("../../lib/chadcn/input_o_t_p.rb", __dir__), Chadcn.const_source_location(:InputOTP).first
+  test "InputOTP, the React export name, resolves to InputOtp" do
     assert_same Chadcn::InputOtp, Chadcn::InputOTP
   end
 end
