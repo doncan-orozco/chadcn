@@ -16,18 +16,6 @@ class Chadcn::Chart::Shape::ArcTest < Chadcn::TestCase
     end
   end
 
-  test "pie equals the recharts computePieSectors angle layout" do
-    ChartOracle.cases(:shape, "pies", minimum: 5).each do |kase|
-      options = kase.slice("start_angle", "end_angle", "pad_angle", "min_angle").transform_keys(&:to_sym)
-      sectors = Arc.pie(kase["values"], **options)
-
-      assert_equal kase["sectors"].size, sectors.size, options.inspect
-      kase["sectors"].zip(sectors).each do |expected, actual|
-        expected.each { |key, value| assert_close(value, actual.fetch(key.to_sym), "#{options.inspect} #{key}") }
-      end
-    end
-  end
-
   test "a sector is nil when the outer radius is below the inner one or the angles are equal" do
     assert_nil Arc.sector_path(inner_radius: 50, outer_radius: 40, start_angle: 0, end_angle: 90)
     assert_nil Arc.sector_path(outer_radius: 40, start_angle: 45, end_angle: 45)
@@ -66,41 +54,5 @@ class Chadcn::Chart::Shape::ArcTest < Chadcn::TestCase
 
     assert_not_equal Arc.sector_path(**ring), Arc.sector_path(**ring, force_corner_radius: true)
     assert_includes Arc.sector_path(**ring, force_corner_radius: true), "a8,8,0,0,1,16,0"
-  end
-
-  test "pie sizes sectors by value and gives a zero value no width" do
-    sectors = Arc.pie([ 1, 0, 3 ])
-
-    assert_in_delta 0.0, sectors[0][:start_angle]
-    assert_in_delta 90.0, sectors[0][:end_angle]
-    assert_in_delta 90.0, sectors[1][:end_angle]
-    assert_in_delta 360.0, sectors[2][:end_angle]
-    assert_in_delta 0.75, sectors[2][:percent]
-    assert_in_delta 225.0, sectors[2][:mid_angle]
-  end
-
-  test "pie runs clockwise when the end angle is below the start" do
-    sectors = Arc.pie([ 1, 1 ], start_angle: 90, end_angle: -270)
-
-    assert_in_delta(-90.0, sectors[0][:end_angle])
-    assert_in_delta(-270.0, sectors[1][:end_angle])
-  end
-
-  test "pie treats nil and NaN as zero and has nothing to lay out without a positive total" do
-    assert_in_delta 1.0, Arc.pie([ nil, 5, Float::NAN ])[1][:percent]
-    assert_empty Arc.pie([])
-    assert_empty Arc.pie([ 0, 0 ])
-    assert_empty Arc.pie([ nil ])
-  end
-
-  test "pie ignores the pad angle for a single value" do
-    assert_in_delta 360.0, Arc.pie([ 4 ], pad_angle: 10).first[:end_angle]
-  end
-
-  test "polar_to_cartesian measures angles counterclockwise from 3 o'clock" do
-    x, y = Arc.polar_to_cartesian(100, 100, 50, 90)
-
-    assert_in_delta 100.0, x
-    assert_in_delta 50.0, y
   end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# The few `Math` functions of JavaScript whose results differ from Ruby's (ties of `Math.round`, `floor` of an infinity, `log10` of a
-# negative number), so the scales and the shapes that port d3 and recharts agree with them to the last digit. Named after the
+# The few `Math` functions of JavaScript whose results differ from Ruby's (ties of `Math.round`, `floor` of an infinity, `log10` and
+# `asin` out of their domain), so the scales and the shapes that port d3 and recharts agree with them to the last digit. Named after the
 # JavaScript functions they reproduce.
 #
 # @api private
@@ -34,6 +34,24 @@ module Chadcn::Chart::JsMath
     # @param value [Float]
     # @return [Float]
     def ceil(value) = value.finite? ? value.ceil.to_f : value
+
+    # `Math.sign(value)`: -1, 0 or 1 (NaN is not handled: callers pass real angles).
+    #
+    # @api private
+    # @param value [Numeric]
+    # @return [Integer]
+    def sign(value)
+      return 0 if value.zero?
+
+      value.positive? ? 1 : -1
+    end
+
+    # `Math.asin(value)`: NaN outside -1..1 (Ruby raises).
+    #
+    # @api private
+    # @param value [Float]
+    # @return [Float]
+    def asin(value) = value.abs > 1 || value.nan? ? Float::NAN : Math.asin(value)
 
     # `Math.log10(value)`: NaN below zero (Ruby raises), -Infinity at zero.
     #
