@@ -68,7 +68,9 @@ class Chadcn::Chart::Polar::WiringTest < Chadcn::TestCase
     [ radar_html, radial_html, render_pie(around: ->(chart) { chart.tooltip(default_index: 1, content: CONTENT) }) ].each do |html|
       node = controller(html)
 
-      assert_equal %w[-1 false -1 false], %w[pointer-index pointer-active keyboard-index keyboard-active].map { |name| value(node, name) }
+      names = %w[pointer-index pointer-active keyboard-index keyboard-active]
+
+      assert_equal(%w[-1 false -1 false], names.map { |name| value(node, name) })
       assert_equal "hover", value(node, "trigger")
       assert_equal({ "x" => 10, "y" => 10 }, JSON.parse(value(node, "offset")))
       assert_equal "transform 400ms ease", value(node, "transition")

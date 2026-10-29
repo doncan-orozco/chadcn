@@ -16,14 +16,16 @@
 class Chadcn::Chart::Polar::TooltipPlan < Chadcn::Chart::Cartesian::TooltipPlan
   # @api private
   # @return [Array<Entry>] one per sector or category, in order
-  def entries
-    @entries ||= if @layout.chart_type == :pie then pie_entries
-                 elsif @event_type == :item then []
-                 else axis_entries
-                 end
-  end
+  def entries = @entries ||= compute_entries
 
   private
+
+  # A pie is an item tooltip with an entry per sector; any other chart of the item event type (a radial bar with `shared: false`) draws nothing.
+  def compute_entries
+    return pie_entries if @layout.chart_type == :pie
+
+    @event_type == :item ? [] : axis_entries
+  end
 
   # --- pie ----------------------------------------------------------------------------------------------------------------
 
