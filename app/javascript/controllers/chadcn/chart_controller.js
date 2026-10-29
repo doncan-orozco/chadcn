@@ -68,8 +68,11 @@ export default class extends Controller {
     this.cache = null
     // A re-inserted element starts from the server state: no interaction values, no content, a hidden wrapper.
     this.writeInteraction(this.serverState)
+    // An inert controller (an item tooltip, no tooltip) never touched the DOM, so it leaves the server-drawn tooltip alone.
+    if (!this.interactive) return
+
     this.clearContent()
-    if (this.hasTooltipTarget) this.tooltipTarget.style.visibility = "hidden"
+    this.tooltipTarget.style.visibility = "hidden"
   }
 
   // --- actions (data-action on .recharts-wrapper, rendered by the Phlex chart) -------------------------------------------------

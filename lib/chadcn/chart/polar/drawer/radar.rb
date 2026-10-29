@@ -47,7 +47,7 @@ class Chadcn::Chart::Polar::Drawer::Radar < Chadcn::Chart::Polar::Drawer
     dot = canvas.tooltip_entry&.dots&.find { |candidate| candidate.series.equal?(subject.series) }
     return unless dot
 
-    g(class: "recharts-layer recharts-active-dot") { circle(**dot.attrs, class: "recharts-dot") }
+    g(class: "recharts-layer recharts-active-dot", data: { chadcn__chart_target: "activeDots" }) { circle(**dot.attrs, class: "recharts-dot") }
   end
 
   # `Dots`: `dot: true`, or a Hash of attributes, or a lone point.

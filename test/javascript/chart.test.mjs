@@ -447,3 +447,139 @@ test("chart: position, wrapperStyle and tooltipActive reach the wrapper", () => 
   await hidesTooltip(page);
   assert.equal(await attribute(page, "pointer-index"), "4", "the pointer still moved");
 }));
+
+// A polar chart publishes only its tooltip values and no data-action: the controller keeps the server-drawn default_index tooltip.
+const tooltipState = (page) => page.locator(TOOLTIP).evaluate((el) => ({ visibility: el.style.visibility, transform: el.style.transform, text: el.textContent.trim() }));
+
+async function pokeChart(page) {
+  const box = await page.locator(PLOT).boundingBox();
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+  await page.mouse.move(box.x + box.width / 3, box.y + box.height / 3);
+  await page.locator(SURFACE).focus();
+  await page.keyboard.press("ArrowRight");
+  await page.keyboard.press("Enter");
+  await page.keyboard.press("Escape");
+}
+
+test("chart: a pie is an item tooltip, the controller leaves the server-drawn tooltip alone and nothing moves it", () => withPage("pie", async (page) => {
+  assert.equal(await attribute(page, "tooltip-event-type"), "item");
+  assert.equal(await attribute(page, "ticks"), "[]");
+  assert.equal(await page.locator(PLOT).getAttribute("data-action"), null);
+  await showsTooltip(page);
+  const before = await tooltipState(page);
+  assert.match(before.text, /Safari/);
+  assert.equal(before.transform, "", "an item tooltip is never placed by the controller");
+
+  await pokeChart(page);
+  await settle(page);
+  assert.deepEqual(await tooltipState(page), before);
+  assert.equal(await attribute(page, "pointer-index"), "-1");
+  assert.equal(await attribute(page, "keyboard-index"), "-1");
+}));
+
+test("chart: a radar keeps, places and restores its default_index tooltip, and no pointer or key moves it", () => withPage("radar", async (page) => {
+  assert.equal(await attribute(page, "tooltip-event-type"), "axis");
+  assert.equal(await attribute(page, "ticks"), "[]");
+  assert.equal(await page.locator(PLOT).getAttribute("data-action"), null);
+  await showsTooltip(page);
+  await page.locator(TOOLTIP).filter({ hasText: "February" }).waitFor();
+  const before = await tooltipState(page);
+  assert.equal(before.visibility, "visible");
+  assert.match(before.transform, /^translate\(/, "the controller placed the wrapper, which the server never does");
+  assert.ok(before.text.length > 0);
+
+  await pokeChart(page);
+  await settle(page);
+  assert.deepEqual(await tooltipState(page), before);
+  assert.equal(await attribute(page, "pointer-index"), "-1");
+  assert.equal(await attribute(page, "keyboard-index"), "-1");
+}));
+
+test("chart: a re-inserted radar shows its default_index tooltip again with one active dot", () => withPage("radar", async (page) => {
+  await page.locator(TOOLTIP).filter({ hasText: "February" }).waitFor();
+  assert.equal(await page.locator(ACTIVE_DOT).count(), 1);
+
+  await page.evaluate(async () => {
+    const chart = document.querySelector("[data-slot=chart]");
+    const parent = chart.parentElement;
+    chart.remove();
+    await new Promise((resolve) => setTimeout(resolve));
+    parent.append(chart);
+  });
+  await settle(page);
+  await showsTooltip(page);
+  await page.locator(TOOLTIP).filter({ hasText: "February" }).waitFor();
+  assert.equal(await page.locator(ACTIVE_DOT).count(), 1, "the server-drawn dot is the activeDots target, so it is not drawn twice");
+  assert.match((await tooltipState(page)).transform, /^translate\(/);
+}));
+
+test("chart: a re-inserted pie keeps its server-drawn default_index tooltip, an inert controller leaves the DOM alone", () => withPage("pie", async (page) => {
+  await showsTooltip(page);
+  assert.match(await tooltipText(page), /Safari/);
+
+  const detached = await page.evaluate(async () => {
+    const chart = document.querySelector("[data-slot=chart]");
+    window.__chartParent = chart.parentElement;
+    window.__chartNode = chart;
+    chart.remove();
+    await new Promise((resolve) => setTimeout(resolve));
+    const wrapper = chart.querySelector(".recharts-tooltip-wrapper");
+    return { visibility: wrapper.style.visibility, children: wrapper.childElementCount };
+  });
+  assert.equal(detached.visibility, "visible", "the inert controller did not hide the wrapper");
+  assert.ok(detached.children > 0, "the inert controller did not empty the wrapper");
+
+  await page.evaluate(() => window.__chartParent.append(window.__chartNode));
+  await settle(page);
+  await showsTooltip(page);
+  assert.match(await tooltipText(page), /Safari/);
+}));
+
+test("chart: a radial bar keeps and places its default_index tooltip, nothing moves it and a re-insert shows it again", () => withPage("radial", async (page) => {
+  assert.equal(await attribute(page, "tooltip-event-type"), "axis");
+  assert.equal(await attribute(page, "ticks"), "[]");
+  assert.equal(await page.locator(PLOT).getAttribute("data-action"), null);
+  await showsTooltip(page);
+  const before = await tooltipState(page);
+  assert.equal(before.visibility, "visible");
+  assert.match(before.transform, /^translate\(/, "the controller placed the wrapper, which the server never does");
+  assert.ok(before.text.length > 0);
+
+  await pokeChart(page);
+  await settle(page);
+  assert.deepEqual(await tooltipState(page), before);
+  assert.equal(await attribute(page, "pointer-index"), "-1");
+  assert.equal(await attribute(page, "keyboard-index"), "-1");
+
+  await page.evaluate(async () => {
+    const chart = document.querySelector("[data-slot=chart]");
+    const parent = chart.parentElement;
+    chart.remove();
+    await new Promise((resolve) => setTimeout(resolve));
+    parent.append(chart);
+  });
+  await settle(page);
+  await showsTooltip(page);
+  assert.deepEqual(await tooltipState(page), before);
+}));
+
+test("chart: the Turbo snapshot of a radar holds the server tooltip and the restore places it again with one active dot", () => withPage("radar", async (page) => {
+  await page.locator(TOOLTIP).filter({ hasText: "February" }).waitFor();
+
+  const snapshot = await page.evaluate(async () => {
+    document.dispatchEvent(new Event("turbo:before-cache"));
+    await new Promise((resolve) => setTimeout(resolve));
+    const chart = document.querySelector("[data-slot=chart]");
+    const wrapper = chart.querySelector(".recharts-tooltip-wrapper");
+    return { text: wrapper.textContent, dots: chart.querySelectorAll(".recharts-active-dot").length, visibility: wrapper.style.visibility };
+  });
+  assert.match(snapshot.text, /February/, "the snapshot holds the server tooltip");
+  assert.equal(snapshot.dots, 1);
+  assert.equal(snapshot.visibility, "visible");
+
+  await settle(page);
+  await showsTooltip(page);
+  assert.match((await tooltipState(page)).transform, /^translate\(/);
+  assert.match(await tooltipText(page), /February/);
+  assert.equal(await page.locator(ACTIVE_DOT).count(), 1);
+}));

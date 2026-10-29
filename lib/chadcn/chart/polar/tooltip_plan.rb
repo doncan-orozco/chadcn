@@ -9,15 +9,23 @@
 #
 # A polar tooltip has no cursor on the server: recharts draws it from the polar coordinate of the pointer (component/Cursor.js:66-94,
 # util/cursor/getCursorPoints.js:19), which a `default_index:` does not have, and `Tooltip`'s `shared: false` (item tooltips of a radial bar
-# chart) is not ported.
+# chart) is not drawn yet: a radial bar chart with `shared: false` is an item tooltip (chart/RadialBarChart.js:11, state/selectors/
+# selectTooltipEventType.js:4-13) and has no entries here, like a BarChart; a radar allows `axis` only, so it stays an axis tooltip.
 #
 # @api private
 class Chadcn::Chart::Polar::TooltipPlan < Chadcn::Chart::Cartesian::TooltipPlan
   # @api private
   # @return [Array<Entry>] one per sector or category, in order
-  def entries = @entries ||= (@layout.chart_type == :pie ? pie_entries : axis_entries)
+  def entries = @entries ||= compute_entries
 
   private
+
+  # A pie is an item tooltip with an entry per sector; any other chart of the item event type (a radial bar with `shared: false`) draws nothing.
+  def compute_entries
+    return pie_entries if @layout.chart_type == :pie
+
+    @event_type == :item ? [] : axis_entries
+  end
 
   # --- pie ----------------------------------------------------------------------------------------------------------------
 
@@ -56,7 +64,7 @@ class Chadcn::Chart::Polar::TooltipPlan < Chadcn::Chart::Cartesian::TooltipPlan
   # --- axis ---------------------------------------------------------------------------------------------------------------
 
   # One entry per category of the tooltip axis. The anchor is `combineCoordinateForDefaultIndex` (state/selectors/combiners/
-  # combineCoordinateForDefaultIndex.js:23-37), which recharts itself marks as unsound for the polar layouts: the x is the middle of the chart
+  # combineCoordinateForDefaultIndex.js:27-34), which recharts itself marks as unsound for the polar layouts: the x is the middle of the chart
   # and the y the angle (or radius) of the tick.
   def axis_entries
     return [] unless @axis&.category?

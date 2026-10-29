@@ -173,7 +173,7 @@ path, where recharts renders its non-chart children.
   the chart's `div[data-slot="chart"]`, after its shell) holding the content for that category's payload, and, with `default_index:`, the wrapper
   visible with that category's content and the cursor (a rectangle behind the bars of a bar chart, a line on a line or area chart) and the active dots
   in the svg. A series is left out of the payload with `tooltip_type: :none` (the content drops it), a nil value or a hidden series by `filter_null`.
-  Where the wrapper sits and the hover itself belong to the `chadcn--chart` controller; `shared: false` (item tooltips) is not drawn.
+  Where the wrapper sits and the hover itself belong to the `chadcn--chart` controller; `shared: false` is an item tooltip on a `BarChart` or a `RadialBarChart`, which is not drawn; on a `LineChart`, an `AreaChart` or a `RadarChart` it stays an axis tooltip.
 
 ## Charts (polar)
 
@@ -232,7 +232,7 @@ end
 What `chart.tooltip` and `chart.legend` do is as for the cartesian charts, with these differences: a pie has item tooltips (one inert template per sector,
 the sector alone, `data-label` empty) and lists its sectors in the legend (name from `name_key:`, color from the cell, the row or the pie); a radar and a
 radial bar have one template per category of their tooltip axis. The server draws no tooltip cursor (recharts draws it from the polar coordinate of the pointer),
-a radar's active dot is drawn for `default_index:`, and `shared: false` (item tooltips) is not drawn on a radial bar chart. The hover mapping of `chadcn--chart` is cartesian only for now.
+a radar's active dot is drawn for `default_index:`, and `shared: false` on a radial bar chart (an item tooltip, as on a `BarChart`) draws nothing. `chadcn--chart` maps the pointer and the keys for the cartesian charts only: a polar chart publishes its tooltip values and no action, a pie as an item tooltip (the controller leaves the drawn tooltip alone), a radar and a radial bar as axis tooltips (a radial bar with `shared: false` as an item one; the controller keeps and places the `default_index:` tooltip); nothing moves it.
 Not ported: a radar range (`[low, high]` values raises), `active_shape:` (raises), `stack_offset:`, `hide:` and children of the polar axes, `tick_count:` of the angle axis;
 only `fill`, `stroke`, `name` and `opacity` of a data row reach its sector.
 

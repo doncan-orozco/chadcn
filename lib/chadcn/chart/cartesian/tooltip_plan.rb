@@ -32,8 +32,9 @@ class Chadcn::Chart::Cartesian::TooltipPlan
   # @return [Chadcn::Chart::Tooltip]
   attr_reader :tooltip
 
-  # The tooltip's event type, `:axis` or `:item` (state/selectors/selectTooltipEventType.js:4-13). Only `:axis` is drawn: an `:item`
-  # tooltip has no entries, so no templates and no default index.
+  # The tooltip's event type, `:axis` or `:item` (state/selectors/selectTooltipEventType.js:4-13). A cartesian chart draws `:axis` only: its `:item`
+  # tooltip has no entries, so no templates and no default index. A pie (via {Chadcn::Chart::Polar::TooltipPlan}) is an `:item` tooltip
+  # with an entry per sector.
   #
   # @api private
   # @return [Symbol]

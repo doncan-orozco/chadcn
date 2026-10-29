@@ -5,7 +5,7 @@ require_relative "polar_helper"
 class Chadcn::Chart::Polar::TooltipPlanTest < Chadcn::TestCase
   include PolarHelper
 
-  def build(chart_class, series, rows: ROWS, **tooltip)
+  def build(chart_class, series, rows: ROWS, event_type: :axis, **tooltip)
     declared = Chadcn::Chart::Polar::Declared.new(chart: chart_class)
     declared.declare(Chadcn::Chart::Tooltip.new(**tooltip))
     Array(series).each { |item| declared.declare(item) }
@@ -17,7 +17,7 @@ class Chadcn::Chart::Polar::TooltipPlanTest < Chadcn::TestCase
       bar_size: nil, max_bar_size: nil, **angles
     )
     layout = Chadcn::Chart::Polar::Layout.new(declared, settings)
-    [ Chadcn::Chart::Polar::TooltipPlan.new(layout: layout, declared: declared, rows: rows), layout ]
+    [ Chadcn::Chart::Polar::TooltipPlan.new(layout: layout, declared: declared, rows: rows, event_type: event_type), layout ]
   end
 
   test "a pie has an entry per sector, the sector alone, at its centroid, with no label and no cursor" do
@@ -108,5 +108,17 @@ class Chadcn::Chart::Polar::TooltipPlanTest < Chadcn::TestCase
     plan, = build(Chadcn::Chart::RadarChart, [ axis, Chadcn::Chart::Radar.new(data_key: :desktop) ])
 
     assert_empty plan.entries
+  end
+
+  test "an item event type has no entries on a radial bar (not drawn), but a pie's entries are items" do
+    bar = Chadcn::Chart::RadialBar.new(data_key: :visitors)
+    radial, = build(Chadcn::Chart::RadialBarChart, bar, rows: BROWSERS.first(3), event_type: :item, default_index: 1)
+    pie = Chadcn::Chart::Pie.new(data: BROWSERS, data_key: :visitors, name_key: :browser)
+    pie_plan, = build(Chadcn::Chart::PieChart, pie, rows: [], event_type: :item, default_index: 1)
+
+    assert_empty radial.entries
+    assert_nil radial.default_entry
+    assert_equal 5, pie_plan.entries.size
+    assert_equal 1, pie_plan.default_entry.index
   end
 end

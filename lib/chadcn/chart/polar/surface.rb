@@ -76,7 +76,7 @@ class Chadcn::Chart::Polar::Surface < Phlex::SVG
     own = { class: "recharts-surface", width: number.format(@layout.width), height: number.format(@layout.height),
             viewBox: "0 0 #{number.format(@layout.width)} #{number.format(@layout.height)}", style: "width: 100%; height: 100%; display: block;" }
     own = { role: @frame[:role] || "application", tabindex: (@frame[:tab_index] || 0).to_s }.merge(own) if @frame[:accessibility_layer]
-    own.merge(@frame[:attrs])
+    own.merge(@frame[:attrs]).merge(data: { chadcn__chart_target: "surface" }.merge(@frame[:attrs][:data] || {}))
   end
 
   # --- what each declaration draws -----------------------------------------------------------------------------------------
