@@ -30,7 +30,18 @@ class ChartDemosControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "a#to-bar"
 
-    get "/design-system/chart-demo/pie"
+    get "/design-system/chart-demo/unknown"
     assert_response :not_found
+  end
+
+  test "the polar families publish their tooltip values and no action" do
+    { "pie" => "item", "radar" => "axis" }.each do |family, event_type|
+      get "/design-system/chart-demo/#{family}"
+
+      assert_response :success
+      assert_select "div[data-slot=chart][data-controller~='chadcn--chart'][data-chadcn--chart-default-index-value='1']"
+      assert_select "div[data-slot=chart][data-chadcn--chart-tooltip-event-type-value=#{event_type}]"
+      assert_select ".recharts-wrapper[data-action]", count: 0
+    end
   end
 end

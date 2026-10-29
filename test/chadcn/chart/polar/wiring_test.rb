@@ -83,6 +83,10 @@ class Chadcn::Chart::Polar::WiringTest < Chadcn::TestCase
     assert_equal "activeDots", dots.first["data-chadcn--chart-target"]
   end
 
+  test "the svg of a polar chart is the surface target, where the controller draws its dots" do
+    assert_equal "surface", parse(radar_html).at_css("svg.recharts-surface")["data-chadcn--chart-target"]
+  end
+
   test "a polar chart outside a container renders" do
     html = render_bare_chart(Chadcn::Chart::RadarChart) do |chart|
       chart.tooltip(default_index: 1)
