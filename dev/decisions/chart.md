@@ -176,7 +176,7 @@ Follow-ups left open (none is owned by an item):
 - **Whole-component parity is red on main**: `ruby .claude/scripts/shadcn/parity_batch.rb --components chart` reports 12 diffs, all `parts__*` scenarios
   (`parts__tooltip-content`, `parts__tooltip-content-line`, `parts__legend-content`, ...): the Phlex side raises `unknown component ChartTooltipContent` /
   `ChartLegendContent` because `ShadcnParity::ChartScope` maps those names only as the `content:` prop of `Chart::Tooltip` / `Legend`, not as standalone
-  nodes. #47's hand-off assigned the mapping to #45 / #48 and nobody finished it. The per-family runs (`--only cartesian__,tooltip__,legend__,polar__,interaction__`) pass.
+  nodes. #47's hand-off assigned the mapping to #45 / #48 and nobody finished it. The per-family runs (`--only cartesian__,tooltip__,legend__,polar__`, and `interaction__` after #50) were reported green by #49 and #50 on main; this item did not re-run them.
 - **Move the chart mapping into `Catalog::TreeRenderer`** (its `harness_scope` hook is empty): `RECHARTS_PARTS`, the content and formatter revival and the
   text height, so the catalog can show a chart (57 scenarios) and the standalone parts resolve in the gem too.
 - **The reconnect helpers** of `test/javascript/hover_card.test.mjs` and `turbo_overlays.test.mjs` hold a promise pending across the disconnect, which V8
