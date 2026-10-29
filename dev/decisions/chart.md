@@ -99,7 +99,7 @@ Fixed here so every chart item uses the same one (`Compare` in `dev/spikes/chart
   `.recharts-tooltip-cursor`, `.recharts-curve` (line / area), `.recharts-line-dot`, `.recharts-area-dot`, `.recharts-sector`, `.recharts-polar-grid`, `.recharts-polygon`,
   `.recharts-radial-bar-sector`, `.recharts-pie-sector`, `.recharts-legend-wrapper` (and its content), `.recharts-tooltip-wrapper` (content only), `.recharts-label`.
 - **Pinned page**: the same CSS as `oracle_ssr.mjs` (12px/16px, `html` 16px) on both sides, container `width x height` = `initial_dimension`, animation off.
-  **Amendment (item #48, 2026-10-28):** this holds for the committed oracle (`oracle_ssr.mjs`). The G2 parity page is the shared runner page and is not font-pinned, so recharts measures a tick label 18px high there; the Phlex harness renders `ChartContainer` with `text_height: 18` (`ShadcnParity::ChartScope::PAGE_TEXT_HEIGHT`) and the gem default stays 16, locked by `test/chadcn/chart/cartesian/text_height_test.rb`. Pinning the runner page for chart scenarios (both sides) removes the assumption; it edits the shared gate, so it is a follow-up.
+  **Amendment (item #48, 2026-10-28):** this holds for the committed oracle (`oracle_ssr.mjs`). The G2 parity page is the shared runner page and is not font-pinned, so recharts measures a tick label 18px high there; the Phlex harness renders `ChartContainer` with `text_height: 18` (`ShadcnParity::TreeRenderer::PAGE_TEXT_HEIGHT`) and the gem default stays 16, locked by `test/chadcn/chart/cartesian/text_height_test.rb`. Pinning the runner page for chart scenarios (both sides) removes the assumption; it edits the shared gate, so it is a follow-up.
 
 ## Alternatives considered
 
@@ -139,13 +139,13 @@ Items (GitHub issue numbers; the PRs are in each issue's `shared` note):
 | #45 | The shadcn layer: `Chart::Container`, `Style`, `Config`, `Tooltip` / `Tooltip::Content`, `Legend` / `Legend::Content`; `Chart` became a registered component (61 roots) |
 | #46 | The private math in `lib/chadcn/chart/scale/**` and `shape/**` (linear, band and point scales, recharts' nice ticks, curves, sectors, stacks), with `THIRD_PARTY_NOTICES.md` |
 | #47 | The parity harness: recharts registered in `Harness.tsx`, `dev/port/scenarios/chart.json` (57 scenarios), the numeric tolerance (1e-3) and `--only` in the gates |
-| #48 | `BarChart`, `LineChart`, `AreaChart` and their parts (`Declaration` / `Declarations`), the Phlex side of the parity mapping (`dev/parity/lib/shadcn_parity/chart_scope.rb`), the tooltip templates |
+| #48 | `BarChart`, `LineChart`, `AreaChart` and their parts (`Declaration` / `Declarations`), the Phlex side of the parity mapping (first in `dev/parity/lib/shadcn_parity/chart_scope.rb`, moved by #51 to `lib/chadcn/catalog/chart_scope.rb`), the tooltip templates |
 | #49 | `PieChart`, `RadarChart`, `RadialBarChart` and the polar grid and axes |
 | #50 | The `chadcn--chart` controller and the primitives `chart_pointer`, `chart_shapes`, `chart_tooltip_placement` |
 | #63 | Tooling: the static gate reads nested parts and helper-function props, `work_board.rb item amend` |
 | #73 | The catalog generator leaves out an entry whose preview uses harness-only nodes |
 | #85 | Integration fix of #49 and #50: the polar charts publish the controller wiring |
-| #51 | `docs/charts.md`, the README section, the CHANGELOG, the generated llms files, this section |
+| #51 | `docs/charts.md`, the README section, the CHANGELOG, the generated llms files, this section; the chart mapping moved into the gem (`Chadcn::Catalog::ChartScope`), the chart catalog entry, the standalone `parts__*` nodes |
 
 Where the build differs from the proposal:
 
@@ -162,23 +162,19 @@ Where the build differs from the proposal:
 - **`ReferenceLine` is implemented** although the spec and the deviations register (`api`, "Brush, ReferenceLine, ... are not ported") list it as not
   ported; `ReferenceArea`, `ErrorBar` and `Brush` are not. The register line is stale.
 - **The G2 page is not font-pinned for charts** (amendment of item #48 above): the harness renders `ChartContainer` with `text_height: 18`
-  (`ShadcnParity::ChartScope::PAGE_TEXT_HEIGHT`). Pinning the shared runner page for chart scenarios, on both sides, removes the assumption and is a follow-up.
+  (`ShadcnParity::TreeRenderer::PAGE_TEXT_HEIGHT`). Pinning the shared runner page for chart scenarios, on both sides, removes the assumption and is a follow-up.
 - **Naming.** The roots keep the `Chart` suffix (`Chart::BarChart`), because `Chart::Bar` is the series; recorded in the register (naming exception, open
   for the maintainer). The yielded-root helpers of the declarations are `x_axis` / `y_axis` on the chart roots (`Chart::Declarations`), while the
   generated helpers of `Chadcn::Chart` itself, made by `Base.const_added`, are `xaxis` / `yaxis` (it splits only at a lowercase-then-uppercase boundary).
-- **Not in the catalog.** `lib/chadcn/catalog/entries.json` has no chart entry: the preview scenario is the first light one (`cartesian__bar-default`),
-  and its `_BarChart` nodes are resolved only by the parity harness (`ChartScope`), not by `Chadcn::Catalog::TreeRenderer`, so the generator (#73) skips it.
-  The acceptance of #51 ("the catalog page shows the chart entry with its scenario count") is therefore not met; it needs the chart mapping in the gem's
-  renderer (below).
+- **The chart mapping lives in the gem (item #51).** The first build left chart out of the catalog: the parity harness alone resolved the `_BarChart`
+  nodes (`ShadcnParity::ChartScope`), so the generator (#73) skipped the entry. #51 moved the mapping (`RECHARTS_PARTS`, the content and formatter revival,
+  the SVG nodes) to `Chadcn::Catalog::ChartScope`, prepended by `Chadcn::Catalog::TreeRenderer`; the harness keeps only its page text height
+  (`ShadcnParity::TreeRenderer::PAGE_TEXT_HEIGHT`) and its stubs. The generator treats the recharts parts as renderable, so `entries.json` has the chart
+  entry (`cartesian__bar-default`, 57 scenarios), and `ChartTooltipContent` / `ChartLegendContent` also resolve as nodes of their own, which turned
+  the `parts__*` scenarios green: `parity_batch.rb --components chart` passes as a whole.
 
 Follow-ups left open (none is owned by an item):
 
-- **Whole-component parity is red on main**: `ruby .claude/scripts/shadcn/parity_batch.rb --components chart` reports diffs on the `parts__*` scenarios
-  (`parts__tooltip-content`, `parts__tooltip-content-line`, `parts__legend-content`; #50 counted 12 diffs, this item did not re-measure them): the Phlex side raises `unknown component ChartTooltipContent` /
-  `ChartLegendContent` because `ShadcnParity::ChartScope` maps those names only as the `content:` prop of `Chart::Tooltip` / `Legend`, not as standalone
-  nodes. #47's hand-off assigned the mapping to #45 / #48 and nobody finished it. The per-family runs (`--only cartesian__,tooltip__,legend__,polar__`, and `interaction__` after #50) were reported green by #49 and #50 on main; this item did not re-run them.
-- **Move the chart mapping into `Catalog::TreeRenderer`** (its `harness_scope` hook raises for every `_` node): `RECHARTS_PARTS`, the content and formatter revival and the
-  text height, so the catalog can show a chart (57 scenarios) and the standalone parts resolve in the gem too.
 - **The reconnect helpers** of `test/javascript/hover_card.test.mjs` and `turbo_overlays.test.mjs` hold a promise pending across the disconnect, which V8
   can collect and Playwright reports as "Execution context was destroyed"; `calendar.test.mjs` had the same defect and #50 fixed it. They do not fail today.
 - **The font pin** of the parity runner page for chart scenarios (above).

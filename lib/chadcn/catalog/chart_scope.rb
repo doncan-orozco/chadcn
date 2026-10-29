@@ -2,11 +2,14 @@
 
 using Chadcn::Values::Refinements
 
-# The chart half of the parity harness (dev/port/specs/chart.md, "Oracle driving"). Mirror of the chart code of
-# dev/react-shadcn-catalog/src/parity/Harness.tsx (`chartProps`, `reviveFormatters`): the recharts parts are `_`-prefixed nodes
-# (`_BarChart`, `_Bar`, ...) resolved to `Chadcn::Chart::*`, `content: "ChartTooltipContent"` (+ `contentProps`) becomes the content
-# instance, and `{ "formatter": "slice", "args": [0, 3] }` becomes the named formatter the chart classes accept.
-module ShadcnParity::ChartScope
+# The chart half of {Chadcn::Catalog::TreeRenderer} (dev/port/specs/chart.md, "Oracle driving"); the renderer prepends it. Mirror of the
+# chart code of dev/react-shadcn-catalog/src/parity/Harness.tsx (`chartProps`, `reviveFormatters`): the recharts parts are `_`-prefixed
+# nodes (`_BarChart`, `_Bar`, ...) resolved to `Chadcn::Chart::*`, `content: "ChartTooltipContent"` (+ `contentProps`) becomes the content
+# instance, a node `ChartTooltipContent` / `ChartLegendContent` on its own is that content, and `{ "formatter": "slice", "args": [0, 3] }`
+# becomes the named formatter the chart classes accept.
+#
+# @api private
+module Chadcn::Catalog::ChartScope
   # The recharts exports a scenario reaches as `_<Name>` that the gem ports.
   RECHARTS_PARTS = %w[
     BarChart LineChart AreaChart PieChart RadarChart RadialBarChart Bar Line Area Pie Radar RadialBar Cell XAxis YAxis CartesianGrid PolarGrid
@@ -14,14 +17,10 @@ module ShadcnParity::ChartScope
   ].freeze
   # The nodes whose props are chart props: the parts above, the shadcn layer that takes a `content`.
   CHART_NODES = (RECHARTS_PARTS.map { |name| "_#{name}" } + %w[ChartTooltip ChartLegend]).freeze
-  # `content: <name>` on the oracle side is a React element; here the instance of its class.
+  # `content: <name>` is a React element in the oracle; here the instance of its class.
   CONTENTS = { "ChartTooltipContent" => "Tooltip", "ChartLegendContent" => "Legend" }.freeze
   # The SVG a chart's block writes itself (a gradient for an area), drawn inside the chart's svg.
   SVG_NODES = %w[_defs _linearGradient _radialGradient _stop].freeze
-  # The height of one line of text in the harness page: recharts measures a tick label in a span under `body` (the page font, not the
-  # chart's `text-xs`), the server has to assume it (`Chart::Container text_height:`); it decides how far the last tick of a vertical
-  # axis is pulled inside the plot (recharts:cartesian/getTicks.js, `getTicksEnd`).
-  PAGE_TEXT_HEIGHT = 18
   # Props that are data, not options: their keys are the caller's, kept as they are.
   DATA_PROPS = %w[data].freeze
 
@@ -36,7 +35,7 @@ module ShadcnParity::ChartScope
   # Chart nodes only; every other node reads its props as before.
   def render_node(node, roots)
     return render_svg(node, roots) if SVG_NODES.include?(node["c"])
-    return super(node.merge("props" => container_props(node["props"] || {})), roots) if node["c"] == "ChartContainer"
+    return render_content(node) if CONTENTS.key?(node["c"])
     return super unless CHART_NODES.include?(node["c"])
 
     super(node.merge("props" => revive_chart_props(node["props"] || {})), roots)
@@ -44,21 +43,25 @@ module ShadcnParity::ChartScope
 
   def render_svg(node, roots)
     attributes = (node["props"] || {}).to_h { |key, value| [ key.snake_case.to_sym, value ] }
-    render(ShadcnParity::SvgElement.new(node["c"].delete_prefix("_"), **attributes)) { render_children(node["children"], roots) }
+    render(Chadcn::Catalog::SvgElement.new(node["c"].delete_prefix("_"), **attributes)) { render_children(node["children"], roots) }
   end
 
-  def container_props(props) = props.key?("textHeight") ? props : props.merge("textHeight" => PAGE_TEXT_HEIGHT)
+  # A content node on its own (`<ChartTooltipContent active payload=... />` under the container); React's `active: false` renders nothing.
+  def render_content(node)
+    props = node["props"] || {}
+    return if props["active"] == false
+
+    render content_instance(node["c"], props.except("active"))
+  end
 
   def revive_chart_props(props)
-    content_props = props["contentProps"] || {}
     revived = props.except("contentProps").to_h { |key, value| [ key, DATA_PROPS.include?(key) ? value : revive(value) ] }
-    kind = CONTENTS[revived["content"]]
-    revived["content"] = Chadcn::Chart.const_get(kind).const_get(:Content).new(**content_kwargs(content_props)) if kind
+    revived["content"] = content_instance(revived["content"], props["contentProps"] || {}) if CONTENTS.key?(revived["content"])
     revived
   end
 
-  def content_kwargs(props)
-    props.to_h { |key, value| [ key.snake_case.to_sym, revive(value) ] }
+  def content_instance(name, props)
+    Chadcn::Chart.const_get(CONTENTS.fetch(name)).const_get(:Content).new(**props.to_h { |key, value| [ key.snake_case.to_sym, revive(value) ] })
   end
 
   # A named formatter becomes `{ slice: [from, to] }`, `:locale` or `:percent`; hashes keep their keys as symbols, in snake case

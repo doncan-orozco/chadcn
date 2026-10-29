@@ -17,6 +17,9 @@ using Chadcn::Values::Refinements
 # - a string prop "$ref:<css selector>" is passed as the selector string (React side: a lazy ref)
 # - a string anywhere inside a prop value "$date:YYYY-MM-DD" is passed as the ISO string "YYYY-MM-DD" (React side: a local Date);
 #   "$locale:es" is passed as the BCP 47 tag "es" (React side: the react-day-picker locale)
+# - the recharts nodes of a chart scenario (`_BarChart`, `_Bar`, `_XAxis`, ...; underscore + capital) resolve to `Chadcn::Chart::*`, with
+#   `ChartTooltipContent` / `ChartLegendContent` as a `content:` prop (+ `contentProps`) or as a node of their own, and named formatters
+#   (`{ "formatter": "slice", "args": [0, 3] }`); see {Chadcn::Catalog::ChartScope}
 #
 # With `dx: "helpers"` nested parts render through the YIELDED root (`root.header { ... }`) instead of `Root::Header.new`.
 #
@@ -27,6 +30,8 @@ using Chadcn::Values::Refinements
 class Chadcn::Catalog::TreeRenderer < Phlex::HTML
   # A malformed node, or a component name the gem does not know.
   class Error < StandardError; end
+
+  prepend Chadcn::Catalog::ChartScope
 
   ICON = /\A<icon:([\w-]+)>/
   REF = /\A\$ref:/
@@ -243,8 +248,8 @@ class Chadcn::Catalog::TreeRenderer < Phlex::HTML
     raise Error, "unknown component #{name}"
   end
 
-  # A harness stub (`c` "_Probe": underscore + capital) belongs to a test harness, not to the gem; a subclass returns
-  # [namespace, bare name, root names] for it.
+  # A harness stub (`c` "_Probe": underscore + capital) belongs to a test harness, not to the gem, except the recharts nodes of
+  # {Chadcn::Catalog::ChartScope}; a subclass returns [namespace, bare name, root names] for the stubs it knows.
   def harness_scope(bare) = raise(Error, "unknown component _#{bare}")
 
   # Root components: the top-level classes of the gem (registered by its loader, so no file access needed).

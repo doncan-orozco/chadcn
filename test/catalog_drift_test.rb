@@ -35,7 +35,7 @@ class CatalogDriftTest < Minitest::Test
   end
 
   def test_a_preview_with_a_nested_harness_node_skips_the_component_and_uses_no_sibling
-    harness = scenario("default-bar", { "c" => "Chart", "children" => [ { "c" => "Wrap", "children" => [ { "c" => "_BarChart" } ] } ] })
+    harness = scenario("default-bar", { "c" => "Chart", "children" => [ { "c" => "Wrap", "children" => [ { "c" => "_ProbeGroup" } ] } ] })
     plain = scenario("basic", { "c" => "Chart", "children" => [ { "c" => "_div", "children" => [ "x" ] } ] })
     data, entry = generated("chart", [ harness, plain ])
 
@@ -48,6 +48,21 @@ class CatalogDriftTest < Minitest::Test
 
     assert_equal "default", entry["scenario_id"]
     assert_empty data.skipped
+  end
+
+  def test_the_recharts_nodes_the_renderer_resolves_are_not_harness_nodes
+    tree = { "c" => "ChartContainer", "children" => [ { "c" => "_BarChart", "children" => [ { "c" => "_Bar" }, { "c" => "_defs" } ] } ] }
+    _, entry = generated("chart", [ scenario("default-bar", tree) ])
+
+    assert_equal "default-bar", entry["scenario_id"]
+  end
+
+  def test_a_recharts_node_beside_a_harness_stub_still_skips_the_component
+    tree = { "c" => "ChartContainer", "children" => [ { "c" => "_BarChart", "children" => [ { "c" => "_Probe" } ] } ] }
+    data, entry = generated("chart", [ scenario("default-bar", tree) ])
+
+    assert_nil entry
+    assert_equal [ { component: "chart", reason: "preview scenario uses harness-only nodes" } ], data.skipped
   end
 
   def test_the_each_marker_is_not_a_harness_node
@@ -65,7 +80,7 @@ class CatalogDriftTest < Minitest::Test
   end
 
   def test_a_dark_sibling_never_replaces_a_harness_preview
-    data, entry = generated("chart", [ scenario("default", { "c" => "_BarChart" }), scenario("dark", { "c" => "Chart" }, dark: true) ])
+    data, entry = generated("chart", [ scenario("default", { "c" => "_Probe" }), scenario("dark", { "c" => "Chart" }, dark: true) ])
 
     assert_nil entry
     assert_equal "preview scenario uses harness-only nodes", data.skipped.first[:reason]

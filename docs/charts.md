@@ -407,6 +407,6 @@ and `hide:` on the polar axes, `tick_count:` of the angle axis; the hover and ke
 
 ## Trying it
 
-`bin/demo` in the repository serves the component catalog of the dummy app, and the pages `/design-system/chart-demo/{bar,line,area,pie,radar,radial}`
+`Chadcn::Catalog.find("chart")` is a ready-made bar chart for a gallery page (see [catalog](catalog.md)). `bin/demo` in the repository serves the component catalog of the dummy app, and the pages `/design-system/chart-demo/{bar,line,area,pie,radar,radial}`
 render one chart of each family (bar on hover, line with a `default_index`, area on click; the polar pages show a fixed `default_index` tooltip; the pages `test/javascript/chart.test.mjs` drives). The dev kit compares the cartesian and
 polar charts, the tooltips and the legends with the React original in a browser, scenario by scenario (`ruby .claude/scripts/shadcn/parity_batch.rb --components chart`).
