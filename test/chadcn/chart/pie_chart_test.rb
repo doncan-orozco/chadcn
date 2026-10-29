@@ -50,6 +50,7 @@ class Chadcn::Chart::PieChartTest < Chadcn::TestCase
     assert_equal "M 236,100\n    A 76,76,0,\n    0,0,\n    137.7455,27.3313\n  L 142.4306,42.63\n            A 60,60,0,\n            0,1,\n            220,100 Z", first["d"]
     assert_equal [ "recharts-text recharts-label", "middle", "160", "100", "#808080", "5" ], values(text, "class", "text-anchor", "x", "y", "fill", "offset")
     assert_equal [ "0.355em", "Visitors" ], [ text.at_css("tspan")["dy"], text.text ]
+    assert_nil text["width"]
   end
 
   test "a label list writes the value of a key on every sector, in the fill of the sector unless the list has one" do

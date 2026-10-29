@@ -20,6 +20,6 @@ class Chadcn::Chart::Polar::Drawer::Label < Chadcn::Chart::Polar::Drawer
   def entry(options)
     centered = options[:position].to_s == "center"
     Chadcn::Chart::Polar::LabelEntries::Entry.new(value: options[:value], fill: nil, row: nil, view_box: (layout.view_box unless centered),
-                                                  box: (layout.plot if centered))
+                                                  box: (layout.plot if centered), attributes: {})
   end
 end

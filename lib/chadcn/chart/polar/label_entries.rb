@@ -7,8 +7,9 @@
 # @api private
 module Chadcn::Chart::Polar::LabelEntries
   # `value` is what the shape shows, `fill` its color (nil when the shape has none), `row` the data row, `view_box` the sector or `box` the
-  # point the label sits on.
-  Entry = Data.define(:value, :fill, :row, :view_box, :box)
+  # point the label sits on, `attributes` the SVG attributes the entry gives the label (`svgPropertiesAndEvents(entry)`, component/LabelList.js:97:
+  # a radar point is a box of no size, so its labels carry `width="0" height="0"`).
+  Entry = Data.define(:value, :fill, :row, :view_box, :box, :attributes)
 
   class << self
     # @api private
@@ -26,13 +27,13 @@ module Chadcn::Chart::Polar::LabelEntries
 
     def point_entry(point)
       Entry.new(value: point.value.nil? ? "" : point.value, fill: nil, row: point.row, view_box: nil,
-                box: { x: point.x, y: point.y, width: 0.0, height: 0.0 })
+                box: { x: point.x, y: point.y, width: 0.0, height: 0.0 }, attributes: { width: 0.0, height: 0.0 })
     end
 
     def sector_entry(sector, series)
       # A pie sector falls back to the pie's own fill (polar/Pie.js:399, `presentationProps`); a radial bar sector has the row's and cell's only.
       fill = sector.attributes[:fill] || (series.options[:fill] if series.kind == :pie)
-      Entry.new(value: sector.value, fill: fill, row: sector.row, view_box: sector.view_box, box: nil)
+      Entry.new(value: sector.value, fill: fill, row: sector.row, view_box: sector.view_box, box: nil, attributes: {})
     end
   end
 end
