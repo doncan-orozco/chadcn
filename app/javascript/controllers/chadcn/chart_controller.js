@@ -69,7 +69,7 @@ export default class extends Controller {
   // --- actions (data-action on .recharts-wrapper, rendered by the Phlex chart) -------------------------------------------------
 
   // `pointermove` and touch: recharts `mouseMoveAction` / `touchMoveAction` (`state/mouseEventsMiddleware.js:38-110`,
-  // `state/touchEventsMiddleware.js:45-60`). A mouse outside the plot clears the hover (`:90-93`), a touch outside does nothing.
+  // `state/touchEventsMiddleware.js:38-64`). A mouse outside the plot clears the hover (`:90-93`), a touch outside does nothing.
   move(event) {
     if (!this.interactive || this.triggerValue !== "hover") return
 
