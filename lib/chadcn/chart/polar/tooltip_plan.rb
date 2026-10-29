@@ -64,7 +64,7 @@ class Chadcn::Chart::Polar::TooltipPlan < Chadcn::Chart::Cartesian::TooltipPlan
   # --- axis ---------------------------------------------------------------------------------------------------------------
 
   # One entry per category of the tooltip axis. The anchor is `combineCoordinateForDefaultIndex` (state/selectors/combiners/
-  # combineCoordinateForDefaultIndex.js:23-37), which recharts itself marks as unsound for the polar layouts: the x is the middle of the chart
+  # combineCoordinateForDefaultIndex.js:27-34), which recharts itself marks as unsound for the polar layouts: the x is the middle of the chart
   # and the y the angle (or radius) of the tick.
   def axis_entries
     return [] unless @axis&.category?
