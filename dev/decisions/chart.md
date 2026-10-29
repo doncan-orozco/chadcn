@@ -1,6 +1,6 @@
 # Decision: charts are a Phlex SVG that emits recharts' DOM, with the shadcn layer ported 1:1
 
-Status: proposed by the spike (item #44 of the `chart` epic); built by the items #45 to #51 and #85 of the epic, the "As built" section at the end records where the build differs from this proposal.
+Status: proposed by the spike (item #44 of the `chart` epic); built by the items #45 to #51, #63, #73 and #85 of the epic, the "As built" section at the end records where the build differs from this proposal.
 Proof: `dev/spikes/chart/bar_chart_test.rb` and `line_chart_test.rb` against the committed oracle `dev/spikes/chart/oracle/{bar,line}.html`
 (reproducible with `cd dev/react-shadcn-catalog && node ../spikes/chart/oracle_ssr.mjs --check`). Spec: `dev/port/specs/chart.md`. Register entry: `dev/port/deviations/chart.json`.
 
@@ -157,7 +157,7 @@ Where the build differs from the proposal:
   `ticks`, `plot`, the four interaction states, `defaultIndex`, `tooltipEventType`, `trigger`, `tooltipActive`, `offset`, `allowEscape`,
   `reverseDirection`, `position`, `transition`, `transitionAuto`, `wrapperStyle`); the part wiring is `Cartesian::Wiring`. The controller handles
   axis tooltips only. An item tooltip (`shared: false` on a `BarChart` or a `RadialBarChart`, a pie) is not driven (a `LineChart`, `AreaChart` or `RadarChart` allows `axis` only, so `shared: false` keeps the axis tooltip: recharts 3.8.0 `state/selectors/selectTooltipEventType.js:4-13`, `chart/LineChart.js:5`, `chart/AreaChart.js:5`, `chart/RadarChart.js:11`): the controller is inert and the
-  server-drawn tooltip is left alone, and the item event type does not exist. The polar charts publish their values and no action (#85). A chart outside
+  server-drawn tooltip is left alone, and no item-tooltip rendering exists (no templates, a hidden empty wrapper). The polar charts publish their values and no action (#85). A chart outside
   a `Container` is not wired.
 - **`ReferenceLine` is implemented** although the spec and the deviations register (`api`, "Brush, ReferenceLine, ... are not ported") list it as not
   ported; `ReferenceArea`, `ErrorBar` and `Brush` are not. The register line is stale.
@@ -177,7 +177,7 @@ Follow-ups left open (none is owned by an item):
   (`parts__tooltip-content`, `parts__tooltip-content-line`, `parts__legend-content`, ...): the Phlex side raises `unknown component ChartTooltipContent` /
   `ChartLegendContent` because `ShadcnParity::ChartScope` maps those names only as the `content:` prop of `Chart::Tooltip` / `Legend`, not as standalone
   nodes. #47's hand-off assigned the mapping to #45 / #48 and nobody finished it. The per-family runs (`--only cartesian__,tooltip__,legend__,polar__`, and `interaction__` after #50) were reported green by #49 and #50 on main; this item did not re-run them.
-- **Move the chart mapping into `Catalog::TreeRenderer`** (its `harness_scope` hook is empty): `RECHARTS_PARTS`, the content and formatter revival and the
+- **Move the chart mapping into `Catalog::TreeRenderer`** (its `harness_scope` hook raises for every `_` node): `RECHARTS_PARTS`, the content and formatter revival and the
   text height, so the catalog can show a chart (57 scenarios) and the standalone parts resolve in the gem too.
 - **The reconnect helpers** of `test/javascript/hover_card.test.mjs` and `turbo_overlays.test.mjs` hold a promise pending across the disconnect, which V8
   can collect and Playwright reports as "Execution context was destroyed"; `calendar.test.mjs` had the same defect and #50 fixed it. They do not fail today.

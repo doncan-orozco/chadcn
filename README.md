@@ -426,7 +426,7 @@ render Chadcn::Chart::Container.new(config: { desktop: { label: "Desktop", color
 end
 ```
 
-A chart is laid out once at `initial_dimension:` (no responsive resize or animation), and `tickFormatter` and friends take a callable or a named
+A chart is laid out once at `initial_dimension:` (no responsive resize or animation), and `tick_formatter:`, `formatter:` and `label_formatter:` take a callable or a named
 formatter. One example per family next to its React source, the tooltip and legend options and the list of deviations: [docs/charts.md](docs/charts.md).
 
 ### Library-wrapping components: Toaster, Command, Combobox, Calendar, Carousel, Drawer, Resizable, InputOtp, MessageScroller

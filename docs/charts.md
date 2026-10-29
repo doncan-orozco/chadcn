@@ -44,7 +44,7 @@ in recharts); everything else is the recharts name in Ruby style: `dataKey` is `
 `config:` is shadcn's `ChartConfig`: for each series key a `label`, an `icon` (a Lucide icon name or a component instance) and either
 one `color` or a `theme: { light:, dark: }`, never both. Each color becomes the variable `--color-<key>` on the container, which is
 what `fill: "var(--color-desktop)"` reads, for light and for dark. A config key that does not name a series is still useful: the tooltip
-and the legend look the label up in it (the `visitors` entry of the pie below).
+and the legend look the label up in it (the `visitors` entry of the pie below names its tooltip label when `hide_label:` is false).
 
 ```ruby
 config = {
@@ -65,11 +65,15 @@ without one the container takes a random token per render.
 
 ## One example per family
 
-Each example is a shadcn chart of that family adapted to what the port supports, with the React source first. The data arrays are the
-ones of the shadcn examples (the months with `desktop` and `mobile`, the five browsers) and each example is also a scenario of the parity
-gates (`dev/port/scenarios/chart.json`), where the React original renders next to this DOM. The site's examples add classes to the container
-that only size the box (see [Sizing](#sizing)), and a title, a footer and an interactive variant, which are left out. `className` becomes `class:`, an inline function (`tickFormatter`) becomes a named formatter (see
-[Formatters](#formatters)), and the chart is drawn at the size of the container (see [Sizing](#sizing)).
+Each example is a shadcn chart of that family adapted to what the port supports, with its React tree first. The pie, radar and radial
+examples are the parity scenarios `polar__donut-label`, `polar__radar-circle` and `polar__radial-bar-stack-id` (`dev/port/scenarios/chart.json`),
+where that React tree renders next to this DOM. The bar, line and area examples follow shadcn's multiple bar, default line and default area
+charts (the repository holds only `chart.tsx` of the site, so those React trees are written to the shadcn pattern, not copied from a file here); the
+gated scenarios nearest to them are `tooltip__indicator-dashed`, `cartesian__line-linear-nodots` and `cartesian__area-stacked`. The data arrays
+are the ones of the shadcn examples (the months with `desktop` and `mobile`, the five browsers). The site's examples add classes to the container
+that only size the box, and a title, a footer and an interactive variant, which are left out. `className` becomes `class:`, an inline function
+(`tickFormatter`) becomes a named formatter (see [Formatters](#formatters)), and the chart is drawn at the container's `initial_dimension:`
+(320 x 200 by default), not at the size of its box (see [Sizing](#sizing)).
 
 ### Bar
 
@@ -180,7 +184,14 @@ rows = [ { month: "January", desktop: 186 }, { month: "February", desktop: 305 }
 
 render Chadcn::Chart::Container.new(config: { desktop: { label: "Desktop", color: "var(--chart-1)" } }, id: "gradient") do
   render Chadcn::Chart::AreaChart.new(data: rows) do |chart|
-    render(Phlex::SVG.new { |svg| svg.defs { svg.linearGradient(id: "fillDesktop", x1: "0", y1: "0", x2: "0", y2: "1") { svg.stop(offset: "5%", stop_color: "var(--color-desktop)", stop_opacity: 0.8); svg.stop(offset: "95%", stop_color: "var(--color-desktop)", stop_opacity: 0.1) } } })
+    render(Phlex::SVG.new do |svg|
+      svg.defs do
+        svg.linearGradient(id: "fillDesktop", x1: "0", y1: "0", x2: "0", y2: "1") do
+          svg.stop(offset: "5%", stop_color: "var(--color-desktop)", stop_opacity: 0.8)
+          svg.stop(offset: "95%", stop_color: "var(--color-desktop)", stop_opacity: 0.1)
+        end
+      end
+    end)
     chart.area(data_key: :desktop, type: :natural, fill: "url(#fillDesktop)", stroke: "var(--color-desktop)")
   end
 end
@@ -325,7 +336,8 @@ code, which is what the parity scenarios (JSON) use too:
 - `{ slice: [0, 3] }` is `value.slice(0, 3)`, `:locale` is `value.toLocaleString("en-US")` and `:percent` multiplies by 100 and adds `%`.
 - A callable runs on the server, at render time: `tick_formatter: ->(value, index) { "Q#{index + 1}" }`,
   `label_formatter: ->(label, payload) { ... }` (a String or a component), and the content's `formatter:` is called with
-  `(value, name, item, index, row)` and returns what to render in place of the default item.
+  `(value, name, item, index, row)` and returns what to render in place of the default item. It replaces the whole item (indicator and name included), as in shadcn; the default item already formats
+  the value with `toLocaleString`.
 
 ```ruby
 rows = [ { month: "January", desktop: 1860 }, { month: "February", desktop: 3050 } ]
@@ -333,7 +345,7 @@ render Chadcn::Chart::Container.new(config: { desktop: { label: "Desktop", color
   render Chadcn::Chart::LineChart.new(data: rows) do |chart|
     chart.x_axis(data_key: :month, tick_formatter: ->(value, index) { "#{index + 1}. #{value.to_s[0, 3]}" })
     chart.y_axis(tick_formatter: :locale)
-    chart.tooltip(content: Chadcn::Chart::Tooltip::Content.new(formatter: :locale))
+    chart.tooltip(content: Chadcn::Chart::Tooltip::Content.new)
     chart.line(data_key: :desktop, stroke: "var(--color-desktop)")
   end
 end
@@ -348,7 +360,7 @@ the active dots from the template's data, and places the wrapper with recharts' 
 
 - **Pointer.** `pointermove` (and touch) activates the nearest category; leaving the plot clears it. `trigger: :click` follows clicks instead.
 - **Keyboard** (`accessibility_layer: true`, the default; it puts `role="application"` and `tabindex="0"` on the `svg`). Focusing the chart
-  activates the first category; the arrow keys move the tooltip, Enter toggles it, Escape hides it until the active position changes. A vertical layout or
+  activates the first category; ArrowLeft and ArrowRight move the tooltip, Enter toggles it, Escape hides it until the active position changes. A vertical layout or
   a reversed `x_axis` makes ArrowRight go backward, as in recharts (the controller's `keyboardStep`).
 - **Precedence.** The pointer wins while it is active, then the keyboard, then `default_index`, which only holds until the pointer has first
   activated a category.
@@ -362,7 +374,7 @@ nothing moves it. The controller is `app/javascript/controllers/chadcn/chart_con
 
 ## Sizing
 
-A chart is laid out **once**, at `initial_dimension:` (320 x 200 px by default), and drawn at that pixel size: the `svg` carries that
+A chart is laid out **once**, at `Chart::Container initial_dimension:` (320 x 200 px by default), and drawn at that pixel size: the `svg` carries that
 `width`, `height` and `viewBox`, and `.recharts-wrapper` that size in px. The `class:` of the container only sizes the box around it
 (`flex aspect-video justify-center` by default), so choose the size with `initial_dimension: { width: 480, height: 280 }`, not with
 Tailwind width classes. There is no `ResponsiveContainer` re-layout on window resize.
@@ -376,8 +388,8 @@ built, so these stay assumptions.
 
 The full list is `dev/port/deviations/chart.json`; in prose:
 
-- **No third-party JavaScript.** recharts is not shipped (the maintainer constraint of the sonner port too), so shadcn-port's rule of a pinned JS
-  equivalent behind a controller does not apply. recharts also renders an empty wrapper on the server, so the SVG is written by Ruby and the
+- **No third-party JavaScript.** recharts is not shipped (the maintainer constraint of the sonner port too), so shadcn-port R14 (a pinned JS equivalent behind a
+  controller) is not followed; the deviation is recorded in `dev/port/deviations/chart.json`. recharts also renders an empty wrapper on the server, so the SVG is written by Ruby and the
   numbers (scales, nice ticks, curves, sector paths, bar sizes) are ported to Ruby and checked against the recharts DOM within a thousandth of a pixel.
 - **Layout once, no animation.** No responsive re-layout; `is_animation_active:` and the `animation_*` keywords are accepted and ignored, the
   settled state is rendered (the tooltip wrapper keeps its 400 ms transition, switched off under `prefers-reduced-motion`).
@@ -389,12 +401,12 @@ The full list is `dev/port/deviations/chart.json`; in prose:
 - **chadcn additions.** `**attrs` and `class:` on the tooltip and legend wrappers and contents, which React's components do not spread.
 
 Not ported: `Brush`, `ReferenceArea`, `ErrorBar`, `Customized`, `syncId`, `ref` and the mouse and touch callback props; `portal:`, `use_translate3d:`,
-`item_style:` and `label_style:` of the tooltip; a radar range (`[low, high]` values), `active_shape:` / `active_bar:` other than `false`, `stack_offset:`
+`item_style:` and `label_style:` of the tooltip; a radar range (`[low, high]` values), `active_shape:` / `active_bar:` other than `false`, `stack_offset:` of the polar charts (the cartesian ones take `:none` and `:expand`)
 and `hide:` on the polar axes, `tick_count:` of the angle axis; the hover and key mapping for polar charts. `ReferenceLine` *is* ported
 (`chart.reference_line(y: 200)`), though the deviations file still lists it as not ported.
 
 ## Trying it
 
 `bin/demo` in the repository serves the component catalog of the dummy app, and the pages `/design-system/chart-demo/{bar,line,area,pie,radar,radial}`
-render one interactive chart of each family (the pages `test/javascript/chart.test.mjs` drives). The dev kit compares the cartesian and
+render one chart of each family (bar on hover, line with a `default_index`, area on click; the polar pages show a fixed `default_index` tooltip; the pages `test/javascript/chart.test.mjs` drives). The dev kit compares the cartesian and
 polar charts, the tooltips and the legends with the React original in a browser, scenario by scenario (`ruby .claude/scripts/shadcn/parity_batch.rb --components chart`).
