@@ -1,8 +1,10 @@
 // Maps a pointer on a chart to the category it is over, the way recharts' axis tooltip does (pure functions, no DOM state).
-// Ported from recharts 3.8 `es6/`: `util/getRelativeCoordinate.js:62-92` (the pointer relative to the chart root),
-// `util/getActiveCoordinate.js:78-84` (`isInCartesianRange`) and `:85-88,131-155` (`calculateActiveTickIndex`, the single direction branch).
+// Ported from recharts 3.8 `es6/`: `util/getRelativeCoordinate.js:62-89,93` (the mouse path: the pointer relative to the chart root),
+// `util/getActiveCoordinate.js:78-84` (`isInCartesianRange`) and `:85-92,131-150` (`calculateActiveTickIndex` with its `len <= 1`
+// guard, the single direction branch).
 // Known divergences: the angle-axis branch (polar charts, a later item) is not ported; an SVG `currentTarget` (recharts scales with
-// `getBBox()`) is not supported because the chart root is always the HTML `.recharts-wrapper` div.
+// `getBBox()`) is not supported because the chart root is always the HTML `.recharts-wrapper` div; the touch-event branch
+// (`getRelativeCoordinate.js:90-92`, `event.touches`) is not ported: a touch arrives as a pointer event with `clientX`/`clientY`.
 //
 //   const pointer = relativePointer(event)               // { x, y } in chart pixels, rounded
 //   pointerInPlot(pointer, { x: 5, y: 5, width: 310, height: 160 })
@@ -10,7 +12,9 @@
 
 /**
  * The pointer position relative to the top-left corner of `event.currentTarget`, rounded to whole pixels and corrected for a CSS
- * `transform: scale()` (recharts `getRelativeCoordinate`, `util/getRelativeCoordinate.js:62-92`).
+ * `transform: scale()` (recharts `getRelativeCoordinate`, `util/getRelativeCoordinate.js:62-89,93`).
+ * @example
+ * relativePointer({ currentTarget: wrapper, clientX: 110, clientY: 70 }) // { x: 100, y: 60 } for a wrapper at left 10, top 10
  * @param {{ currentTarget: HTMLElement, clientX: number, clientY: number }} event
  * @returns {{ x: number, y: number }}
  */
@@ -38,8 +42,11 @@ export function pointerInPlot(pointer, plot) {
 /**
  * The `index` of the tick whose band holds `coordinate`: the bands are bounded by the midpoints between ticks sorted by coordinate,
  * the lower bound included for the first tick and the upper bound included for the others (`calculateActiveTickIndex`,
- * `util/getActiveCoordinate.js:131-155`; the ticks are sorted by coordinate first, `state/selectors/selectors.js` `selectOrderedTooltipTicks`).
- * With one tick or fewer the answer is 0 (`:89-92`).
+ * `util/getActiveCoordinate.js:131-150`; the ticks are sorted by coordinate first, `state/selectors/selectors.js:28`
+ * `selectOrderedTooltipTicks`). With one tick or fewer, or a null coordinate, the answer is 0 (`:85-92`), which is not necessarily a
+ * tick `index`.
+ * @example
+ * nearestTickIndex(60, [{ index: 0, coordinate: 30 }, { index: 1, coordinate: 82 }]) // 1 (the midpoint is 56)
  * @param {number} coordinate x for a horizontal layout, y for a vertical one
  * @param {{ index: number, coordinate: number }[]} ticks
  * @returns {number} -1 when no band holds the coordinate (a degenerate tick list)

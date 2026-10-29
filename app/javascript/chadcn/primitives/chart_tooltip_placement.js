@@ -3,7 +3,9 @@
 // `translate()` form), `getTooltipTranslate` (:72-124) and `getTooltipCSSClassName` (:7-19).
 // This is NOT floating-ui (`primitives/positioner.js` is Radix popper, a different algorithm): the chart tooltip follows the pointer
 // inside the plot and flips at its edges the way recharts does.
-// Known divergences: `useTranslate3d` is not offered (recharts' default is the 2D translate).
+// Known divergences: `useTranslate3d` is not offered (recharts' default is the 2D translate); a box without size or a missing
+// coordinate answers `transform: null` where recharts answers `{ visibility: "hidden" }` (`translate.js:113-115`), the controller sets the
+// visibility; the base class `recharts-tooltip-wrapper` is not in `classes` (the server renders it).
 //
 //   const { transform, classes } = tooltipPlacement({ coordinate: { x: 82, y: 40 }, box: { width: 120, height: 60 },
 //     viewBox: { x: 5, y: 5, width: 310, height: 160 }, offset: { x: 10, y: 10 }, position: {},
@@ -35,13 +37,18 @@ function translateAlong({ key, coordinate, offset, position, tooltipDimension, v
  * @param {object} options
  * @param {{ x: number, y: number } | null} options.coordinate the active coordinate in chart pixels
  * @param {{ width: number, height: number }} options.box the measured tooltip box
- * @param {{ x: number, y: number, width: number, height: number }} options.viewBox the plot rectangle (`selectChartViewBox`)
+ * @param {{ x: number, y: number, width: number, height: number }} options.viewBox the plot rectangle (`selectChartViewBox`,
+ *   `state/selectors/selectChartOffsetInternal.js:81`)
  * @param {{ x: number, y: number }} options.offset distance from the coordinate
  * @param {{ x?: number, y?: number }} options.position a fixed position per axis
  * @param {{ x: boolean, y: boolean }} options.allowEscapeViewBox
  * @param {{ x: boolean, y: boolean }} options.reverseDirection
  * @returns {{ transform: string | null, classes: string[] }} `transform` is null (and `classes` empty) while the box has no size
  *   or there is no coordinate: the wrapper stays where it is and hidden (`translate.js:113-115`)
+ * @example
+ * tooltipPlacement({ coordinate: { x: 82, y: 40 }, box: { width: 120, height: 60 }, viewBox: { x: 5, y: 5, width: 310, height: 160 },
+ *   offset: { x: 10, y: 10 }, position: {}, allowEscapeViewBox: { x: false, y: false }, reverseDirection: { x: false, y: false } })
+ * // { transform: "translate(92px, 50px)", classes: ["recharts-tooltip-wrapper-right", "recharts-tooltip-wrapper-bottom"] }
  */
 export function tooltipPlacement({ coordinate, box, viewBox, offset, position, allowEscapeViewBox, reverseDirection }) {
   if (!(box.height > 0 && box.width > 0 && coordinate)) return { transform: null, classes: [] }
