@@ -23,13 +23,13 @@ async function configure(page, patch, selector = ROOT) {
   await settle(page);
 }
 
-// Disconnects and reconnects the controller, like a Turbo snapshot restore (the DOM stays as it was).
+// Disconnects and reconnects the controller, like a Turbo snapshot restore (the DOM stays as it was). A frame passes between the two
+// steps, which are separate evaluations: a promise pending inside one evaluation across the disconnect can be garbage collected before
+// the frame fires ("Promise was collected", which Playwright reports as "Execution context was destroyed").
 async function reconnect(page, selector = ROOT) {
-  await page.evaluate(({ selector }) => new Promise((resolve) => {
-    const root = document.querySelector(selector);
-    root.setAttribute("data-controller", "");
-    requestAnimationFrame(() => { root.setAttribute("data-controller", "chadcn--calendar"); resolve(); });
-  }), { selector });
+  await page.evaluate(({ selector }) => document.querySelector(selector).setAttribute("data-controller", ""), { selector });
+  await settle(page);
+  await page.evaluate(({ selector }) => document.querySelector(selector).setAttribute("data-controller", "chadcn--calendar"), { selector });
   await settle(page);
 }
 

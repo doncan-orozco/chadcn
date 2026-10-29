@@ -4964,6 +4964,583 @@
       ]
     },
     {
+      "id": "interaction__keyboard-reversed",
+      "tree": {
+        "c": "ChartContainer",
+        "props": {
+          "id": "kbd-reversed",
+          "config": {
+            "desktop": {
+              "label": "Desktop",
+              "color": "var(--chart-1)"
+            },
+            "mobile": {
+              "label": "Mobile",
+              "color": "var(--chart-2)"
+            }
+          },
+          "className": "aspect-auto h-[200px] w-[320px]",
+          "initialDimension": {
+            "width": 320,
+            "height": 200
+          }
+        },
+        "children": [
+          {
+            "c": "_BarChart",
+            "props": {
+              "data": [
+                {
+                  "month": "January",
+                  "desktop": 186,
+                  "mobile": 80
+                },
+                {
+                  "month": "February",
+                  "desktop": 305,
+                  "mobile": 200
+                },
+                {
+                  "month": "March",
+                  "desktop": 237,
+                  "mobile": 120
+                },
+                {
+                  "month": "April",
+                  "desktop": 73,
+                  "mobile": 190
+                },
+                {
+                  "month": "May",
+                  "desktop": 209,
+                  "mobile": 130
+                },
+                {
+                  "month": "June",
+                  "desktop": 214,
+                  "mobile": 140
+                }
+              ],
+              "accessibilityLayer": true
+            },
+            "children": [
+              {
+                "c": "_CartesianGrid",
+                "props": {
+                  "vertical": false
+                }
+              },
+              {
+                "c": "_XAxis",
+                "props": {
+                  "dataKey": "month",
+                  "tickLine": false,
+                  "tickMargin": 10,
+                  "axisLine": false,
+                  "tickFormatter": {
+                    "formatter": "slice",
+                    "args": [
+                      0,
+                      3
+                    ]
+                  },
+                  "reversed": true
+                }
+              },
+              {
+                "c": "ChartTooltip",
+                "props": {
+                  "cursor": true,
+                  "content": "ChartTooltipContent"
+                }
+              },
+              {
+                "c": "_Bar",
+                "props": {
+                  "dataKey": "desktop",
+                  "fill": "var(--color-desktop)",
+                  "radius": 4
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": ".recharts-surface"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".recharts-wrapper",
+        ".recharts-tooltip-wrapper",
+        ".recharts-tooltip-cursor",
+        ".recharts-bar-rectangle path",
+        ".recharts-tooltip-wrapper *"
+      ]
+    },
+    {
+      "id": "interaction__keyboard-vertical",
+      "tree": {
+        "c": "ChartContainer",
+        "props": {
+          "id": "kbd-vertical",
+          "config": {
+            "desktop": {
+              "label": "Desktop",
+              "color": "var(--chart-1)"
+            }
+          },
+          "className": "aspect-auto h-[200px] w-[320px]",
+          "initialDimension": {
+            "width": 320,
+            "height": 200
+          }
+        },
+        "children": [
+          {
+            "c": "_BarChart",
+            "props": {
+              "data": [
+                {
+                  "month": "January",
+                  "desktop": 186,
+                  "mobile": 80
+                },
+                {
+                  "month": "February",
+                  "desktop": 305,
+                  "mobile": 200
+                },
+                {
+                  "month": "March",
+                  "desktop": 237,
+                  "mobile": 120
+                },
+                {
+                  "month": "April",
+                  "desktop": 73,
+                  "mobile": 190
+                },
+                {
+                  "month": "May",
+                  "desktop": 209,
+                  "mobile": 130
+                },
+                {
+                  "month": "June",
+                  "desktop": 214,
+                  "mobile": 140
+                }
+              ],
+              "layout": "vertical",
+              "margin": {
+                "left": -20
+              },
+              "accessibilityLayer": true
+            },
+            "children": [
+              {
+                "c": "_XAxis",
+                "props": {
+                  "type": "number",
+                  "dataKey": "desktop",
+                  "hide": true
+                }
+              },
+              {
+                "c": "_YAxis",
+                "props": {
+                  "dataKey": "month",
+                  "type": "category",
+                  "tickLine": false,
+                  "tickMargin": 10,
+                  "axisLine": false,
+                  "tickFormatter": {
+                    "formatter": "slice",
+                    "args": [
+                      0,
+                      3
+                    ]
+                  }
+                }
+              },
+              {
+                "c": "ChartTooltip",
+                "props": {
+                  "cursor": true,
+                  "content": "ChartTooltipContent"
+                }
+              },
+              {
+                "c": "_Bar",
+                "props": {
+                  "dataKey": "desktop",
+                  "fill": "var(--color-desktop)",
+                  "radius": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": ".recharts-surface"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".recharts-wrapper",
+        ".recharts-tooltip-wrapper",
+        ".recharts-tooltip-cursor",
+        ".recharts-bar-rectangle path",
+        ".recharts-tooltip-wrapper *"
+      ]
+    },
+    {
+      "id": "interaction__line-hover",
+      "tree": {
+        "c": "ChartContainer",
+        "props": {
+          "id": "line-hover",
+          "config": {
+            "desktop": {
+              "label": "Desktop",
+              "color": "var(--chart-1)"
+            }
+          },
+          "className": "aspect-auto h-[200px] w-[320px]",
+          "initialDimension": {
+            "width": 320,
+            "height": 200
+          }
+        },
+        "children": [
+          {
+            "c": "_LineChart",
+            "props": {
+              "data": [
+                {
+                  "month": "January",
+                  "desktop": 186,
+                  "mobile": 80
+                },
+                {
+                  "month": "February",
+                  "desktop": 305,
+                  "mobile": 200
+                },
+                {
+                  "month": "March",
+                  "desktop": 237,
+                  "mobile": 120
+                },
+                {
+                  "month": "April",
+                  "desktop": 73,
+                  "mobile": 190
+                },
+                {
+                  "month": "May",
+                  "desktop": 209,
+                  "mobile": 130
+                },
+                {
+                  "month": "June",
+                  "desktop": 214,
+                  "mobile": 140
+                }
+              ],
+              "margin": {
+                "left": 12,
+                "right": 12
+              }
+            },
+            "children": [
+              {
+                "c": "_CartesianGrid",
+                "props": {
+                  "vertical": false
+                }
+              },
+              {
+                "c": "_XAxis",
+                "props": {
+                  "dataKey": "month",
+                  "tickLine": false,
+                  "tickMargin": 10,
+                  "axisLine": false,
+                  "tickFormatter": {
+                    "formatter": "slice",
+                    "args": [
+                      0,
+                      3
+                    ]
+                  }
+                }
+              },
+              {
+                "c": "ChartTooltip",
+                "props": {
+                  "cursor": true,
+                  "content": "ChartTooltipContent"
+                }
+              },
+              {
+                "c": "_Line",
+                "props": {
+                  "dataKey": "desktop",
+                  "type": "linear",
+                  "stroke": "var(--color-desktop)",
+                  "strokeWidth": 2,
+                  "dot": {
+                    "fill": "var(--color-desktop)"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 70,
+            "y": 60
+          }
+        },
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 230,
+            "y": 90
+          }
+        },
+        {
+          "do": "hover",
+          "target": "body",
+          "position": {
+            "x": 2,
+            "y": 2
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".recharts-tooltip-wrapper",
+        ".recharts-tooltip-cursor",
+        ".recharts-active-dot, .recharts-active-dot circle",
+        ".recharts-curve",
+        ".recharts-tooltip-wrapper *"
+      ]
+    },
+    {
+      "id": "interaction__area-click",
+      "tree": {
+        "c": "ChartContainer",
+        "props": {
+          "id": "area-click",
+          "config": {
+            "desktop": {
+              "label": "Desktop",
+              "color": "var(--chart-1)"
+            },
+            "mobile": {
+              "label": "Mobile",
+              "color": "var(--chart-2)"
+            }
+          },
+          "className": "aspect-auto h-[200px] w-[320px]",
+          "initialDimension": {
+            "width": 320,
+            "height": 200
+          }
+        },
+        "children": [
+          {
+            "c": "_AreaChart",
+            "props": {
+              "data": [
+                {
+                  "month": "January",
+                  "desktop": 186,
+                  "mobile": 80
+                },
+                {
+                  "month": "February",
+                  "desktop": 305,
+                  "mobile": 200
+                },
+                {
+                  "month": "March",
+                  "desktop": 237,
+                  "mobile": 120
+                },
+                {
+                  "month": "April",
+                  "desktop": 73,
+                  "mobile": 190
+                },
+                {
+                  "month": "May",
+                  "desktop": 209,
+                  "mobile": 130
+                },
+                {
+                  "month": "June",
+                  "desktop": 214,
+                  "mobile": 140
+                }
+              ],
+              "margin": {
+                "left": 12,
+                "right": 12
+              }
+            },
+            "children": [
+              {
+                "c": "_CartesianGrid",
+                "props": {
+                  "vertical": false
+                }
+              },
+              {
+                "c": "_XAxis",
+                "props": {
+                  "dataKey": "month",
+                  "tickLine": false,
+                  "tickMargin": 10,
+                  "axisLine": false,
+                  "tickFormatter": {
+                    "formatter": "slice",
+                    "args": [
+                      0,
+                      3
+                    ]
+                  }
+                }
+              },
+              {
+                "c": "ChartTooltip",
+                "props": {
+                  "cursor": true,
+                  "trigger": "click",
+                  "content": "ChartTooltipContent"
+                }
+              },
+              {
+                "c": "_Area",
+                "props": {
+                  "dataKey": "mobile",
+                  "type": "natural",
+                  "fill": "var(--color-mobile)",
+                  "fillOpacity": 0.4,
+                  "stroke": "var(--color-mobile)",
+                  "stackId": "a"
+                }
+              },
+              {
+                "c": "_Area",
+                "props": {
+                  "dataKey": "desktop",
+                  "type": "natural",
+                  "fill": "var(--color-desktop)",
+                  "fillOpacity": 0.4,
+                  "stroke": "var(--color-desktop)",
+                  "stackId": "a"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 100,
+            "y": 60
+          }
+        },
+        {
+          "do": "click",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 100,
+            "y": 60
+          }
+        },
+        {
+          "do": "hover",
+          "target": "body",
+          "position": {
+            "x": 2,
+            "y": 2
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".recharts-wrapper",
+        ".recharts-tooltip-wrapper",
+        ".recharts-tooltip-cursor",
+        ".recharts-active-dot, .recharts-active-dot circle",
+        ".recharts-tooltip-wrapper *"
+      ]
+    },
+    {
       "id": "cartesian__bar-default-dark",
       "tree": {
         "c": "ChartContainer",
@@ -5398,6 +5975,634 @@
       "animations": false,
       "observe": [
         "[data-slot=style-host] style"
+      ]
+    },
+    {
+      "id": "interaction__hover-vertical",
+      "tree": {
+        "c": "ChartContainer",
+        "props": {
+          "id": "hover-vertical",
+          "config": {
+            "desktop": {
+              "label": "Desktop",
+              "color": "var(--chart-1)"
+            }
+          },
+          "className": "aspect-auto h-[200px] w-[320px]",
+          "initialDimension": {
+            "width": 320,
+            "height": 200
+          }
+        },
+        "children": [
+          {
+            "c": "_BarChart",
+            "props": {
+              "data": [
+                {
+                  "month": "January",
+                  "desktop": 186,
+                  "mobile": 80
+                },
+                {
+                  "month": "February",
+                  "desktop": 305,
+                  "mobile": 200
+                },
+                {
+                  "month": "March",
+                  "desktop": 237,
+                  "mobile": 120
+                },
+                {
+                  "month": "April",
+                  "desktop": 73,
+                  "mobile": 190
+                },
+                {
+                  "month": "May",
+                  "desktop": 209,
+                  "mobile": 130
+                },
+                {
+                  "month": "June",
+                  "desktop": 214,
+                  "mobile": 140
+                }
+              ],
+              "layout": "vertical",
+              "margin": {
+                "left": -20
+              },
+              "accessibilityLayer": true
+            },
+            "children": [
+              {
+                "c": "_XAxis",
+                "props": {
+                  "type": "number",
+                  "dataKey": "desktop",
+                  "hide": true
+                }
+              },
+              {
+                "c": "_YAxis",
+                "props": {
+                  "dataKey": "month",
+                  "type": "category",
+                  "tickLine": false,
+                  "tickMargin": 10,
+                  "axisLine": false,
+                  "tickFormatter": {
+                    "formatter": "slice",
+                    "args": [
+                      0,
+                      3
+                    ]
+                  }
+                }
+              },
+              {
+                "c": "ChartTooltip",
+                "props": {
+                  "cursor": true,
+                  "content": "ChartTooltipContent"
+                }
+              },
+              {
+                "c": "_Bar",
+                "props": {
+                  "dataKey": "desktop",
+                  "fill": "var(--color-desktop)",
+                  "radius": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 150,
+            "y": 40
+          }
+        },
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 150,
+            "y": 110
+          }
+        },
+        {
+          "do": "hover",
+          "target": "body",
+          "position": {
+            "x": 2,
+            "y": 2
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".recharts-wrapper",
+        ".recharts-tooltip-wrapper",
+        ".recharts-tooltip-cursor",
+        ".recharts-bar-rectangle path",
+        ".recharts-tooltip-wrapper *"
+      ]
+    },
+    {
+      "id": "interaction__active-true-leave",
+      "tree": {
+        "c": "ChartContainer",
+        "props": {
+          "id": "active-true-leave",
+          "config": {
+            "desktop": {
+              "label": "Desktop",
+              "color": "var(--chart-1)"
+            },
+            "mobile": {
+              "label": "Mobile",
+              "color": "var(--chart-2)"
+            }
+          },
+          "className": "aspect-auto h-[200px] w-[320px]",
+          "initialDimension": {
+            "width": 320,
+            "height": 200
+          }
+        },
+        "children": [
+          {
+            "c": "_BarChart",
+            "props": {
+              "data": [
+                {
+                  "month": "January",
+                  "desktop": 186,
+                  "mobile": 80
+                },
+                {
+                  "month": "February",
+                  "desktop": 305,
+                  "mobile": 200
+                },
+                {
+                  "month": "March",
+                  "desktop": 237,
+                  "mobile": 120
+                },
+                {
+                  "month": "April",
+                  "desktop": 73,
+                  "mobile": 190
+                },
+                {
+                  "month": "May",
+                  "desktop": 209,
+                  "mobile": 130
+                },
+                {
+                  "month": "June",
+                  "desktop": 214,
+                  "mobile": 140
+                }
+              ]
+            },
+            "children": [
+              {
+                "c": "_CartesianGrid",
+                "props": {
+                  "vertical": false
+                }
+              },
+              {
+                "c": "_XAxis",
+                "props": {
+                  "dataKey": "month",
+                  "tickLine": false,
+                  "tickMargin": 10,
+                  "axisLine": false,
+                  "tickFormatter": {
+                    "formatter": "slice",
+                    "args": [
+                      0,
+                      3
+                    ]
+                  }
+                }
+              },
+              {
+                "c": "ChartTooltip",
+                "props": {
+                  "cursor": true,
+                  "content": "ChartTooltipContent",
+                  "active": true
+                }
+              },
+              {
+                "c": "_Bar",
+                "props": {
+                  "dataKey": "desktop",
+                  "fill": "var(--color-desktop)",
+                  "radius": 4
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 134.17,
+            "y": 60
+          }
+        },
+        {
+          "do": "hover",
+          "target": "body",
+          "position": {
+            "x": 2,
+            "y": 2
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".recharts-wrapper",
+        ".recharts-tooltip-wrapper",
+        ".recharts-bar-rectangle path",
+        ".recharts-tooltip-wrapper *"
+      ]
+    },
+    {
+      "id": "interaction__default-index-active-false",
+      "tree": {
+        "c": "ChartContainer",
+        "props": {
+          "id": "di-active-false",
+          "config": {
+            "desktop": {
+              "label": "Desktop",
+              "color": "var(--chart-1)"
+            },
+            "mobile": {
+              "label": "Mobile",
+              "color": "var(--chart-2)"
+            }
+          },
+          "className": "aspect-auto h-[200px] w-[320px]",
+          "initialDimension": {
+            "width": 320,
+            "height": 200
+          }
+        },
+        "children": [
+          {
+            "c": "_BarChart",
+            "props": {
+              "data": [
+                {
+                  "month": "January",
+                  "desktop": 186,
+                  "mobile": 80
+                },
+                {
+                  "month": "February",
+                  "desktop": 305,
+                  "mobile": 200
+                },
+                {
+                  "month": "March",
+                  "desktop": 237,
+                  "mobile": 120
+                },
+                {
+                  "month": "April",
+                  "desktop": 73,
+                  "mobile": 190
+                },
+                {
+                  "month": "May",
+                  "desktop": 209,
+                  "mobile": 130
+                },
+                {
+                  "month": "June",
+                  "desktop": 214,
+                  "mobile": 140
+                }
+              ]
+            },
+            "children": [
+              {
+                "c": "_CartesianGrid",
+                "props": {
+                  "vertical": false
+                }
+              },
+              {
+                "c": "_XAxis",
+                "props": {
+                  "dataKey": "month",
+                  "tickLine": false,
+                  "tickMargin": 10,
+                  "axisLine": false,
+                  "tickFormatter": {
+                    "formatter": "slice",
+                    "args": [
+                      0,
+                      3
+                    ]
+                  }
+                }
+              },
+              {
+                "c": "ChartTooltip",
+                "props": {
+                  "cursor": true,
+                  "content": "ChartTooltipContent",
+                  "defaultIndex": 1,
+                  "active": false
+                }
+              },
+              {
+                "c": "_Bar",
+                "props": {
+                  "dataKey": "desktop",
+                  "fill": "var(--color-desktop)",
+                  "radius": 4
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".recharts-wrapper",
+        ".recharts-tooltip-wrapper",
+        ".recharts-bar-rectangle path",
+        ".recharts-tooltip-wrapper *"
+      ]
+    },
+    {
+      "id": "interaction__default-index-active-true",
+      "tree": {
+        "c": "ChartContainer",
+        "props": {
+          "id": "di-active-true",
+          "config": {
+            "desktop": {
+              "label": "Desktop",
+              "color": "var(--chart-1)"
+            },
+            "mobile": {
+              "label": "Mobile",
+              "color": "var(--chart-2)"
+            }
+          },
+          "className": "aspect-auto h-[200px] w-[320px]",
+          "initialDimension": {
+            "width": 320,
+            "height": 200
+          }
+        },
+        "children": [
+          {
+            "c": "_BarChart",
+            "props": {
+              "data": [
+                {
+                  "month": "January",
+                  "desktop": 186,
+                  "mobile": 80
+                },
+                {
+                  "month": "February",
+                  "desktop": 305,
+                  "mobile": 200
+                },
+                {
+                  "month": "March",
+                  "desktop": 237,
+                  "mobile": 120
+                },
+                {
+                  "month": "April",
+                  "desktop": 73,
+                  "mobile": 190
+                },
+                {
+                  "month": "May",
+                  "desktop": 209,
+                  "mobile": 130
+                },
+                {
+                  "month": "June",
+                  "desktop": 214,
+                  "mobile": 140
+                }
+              ]
+            },
+            "children": [
+              {
+                "c": "_CartesianGrid",
+                "props": {
+                  "vertical": false
+                }
+              },
+              {
+                "c": "_XAxis",
+                "props": {
+                  "dataKey": "month",
+                  "tickLine": false,
+                  "tickMargin": 10,
+                  "axisLine": false,
+                  "tickFormatter": {
+                    "formatter": "slice",
+                    "args": [
+                      0,
+                      3
+                    ]
+                  }
+                }
+              },
+              {
+                "c": "ChartTooltip",
+                "props": {
+                  "cursor": true,
+                  "content": "ChartTooltipContent",
+                  "defaultIndex": 1,
+                  "active": true
+                }
+              },
+              {
+                "c": "_Bar",
+                "props": {
+                  "dataKey": "desktop",
+                  "fill": "var(--color-desktop)",
+                  "radius": 4
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".recharts-wrapper",
+        ".recharts-tooltip-wrapper",
+        ".recharts-bar-rectangle path",
+        ".recharts-tooltip-wrapper *"
+      ]
+    },
+    {
+      "id": "tooltip__item-shared-false-rest",
+      "tree": {
+        "c": "ChartContainer",
+        "props": {
+          "id": "item-shared-false",
+          "config": {
+            "desktop": {
+              "label": "Desktop",
+              "color": "var(--chart-1)"
+            },
+            "mobile": {
+              "label": "Mobile",
+              "color": "var(--chart-2)"
+            }
+          },
+          "className": "aspect-auto h-[200px] w-[320px]",
+          "initialDimension": {
+            "width": 320,
+            "height": 200
+          }
+        },
+        "children": [
+          {
+            "c": "_BarChart",
+            "props": {
+              "data": [
+                {
+                  "month": "January",
+                  "desktop": 186,
+                  "mobile": 80
+                },
+                {
+                  "month": "February",
+                  "desktop": 305,
+                  "mobile": 200
+                },
+                {
+                  "month": "March",
+                  "desktop": 237,
+                  "mobile": 120
+                },
+                {
+                  "month": "April",
+                  "desktop": 73,
+                  "mobile": 190
+                },
+                {
+                  "month": "May",
+                  "desktop": 209,
+                  "mobile": 130
+                },
+                {
+                  "month": "June",
+                  "desktop": 214,
+                  "mobile": 140
+                }
+              ]
+            },
+            "children": [
+              {
+                "c": "_CartesianGrid",
+                "props": {
+                  "vertical": false
+                }
+              },
+              {
+                "c": "_XAxis",
+                "props": {
+                  "dataKey": "month",
+                  "tickLine": false,
+                  "tickMargin": 10,
+                  "axisLine": false,
+                  "tickFormatter": {
+                    "formatter": "slice",
+                    "args": [
+                      0,
+                      3
+                    ]
+                  }
+                }
+              },
+              {
+                "c": "ChartTooltip",
+                "props": {
+                  "cursor": true,
+                  "content": "ChartTooltipContent",
+                  "shared": false
+                }
+              },
+              {
+                "c": "_Bar",
+                "props": {
+                  "dataKey": "desktop",
+                  "fill": "var(--color-desktop)",
+                  "radius": 4
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".recharts-wrapper",
+        ".recharts-tooltip-wrapper",
+        ".recharts-bar-rectangle path",
+        ".recharts-tooltip-wrapper *"
       ]
     }
   ]

@@ -440,6 +440,8 @@ Parts (class, yielded-root helper, constructor):
 - `Chart::Declaration` / `declaration`: `new(**attrs)` What a chart's block is made of: `Chart::Bar`, `Chart::XAxis`, `Chart::CartesianGrid` and the others.
 - `Chart::Style` / `style`: `new(id:, config:)` shadcn `ChartStyle`: the `<style>` element that defines `--color-<key>` for every config entry that has a `color` or a `theme`, once under `[data-chart=<id>]` and once under `.dark [data-chart=<id>]`.
 
+Stimulus: `chadcn--chart`; values: `accessibility-layer`, `allow-escape`, `default-index`, `keyboard-active`, `keyboard-index`, `keyboard-step`, `layout`, `offset`, `plot`, `pointer-active`, `pointer-index`, `position`, `reverse-direction`, `ticks`, `tooltip-active`, `tooltip-event-type`, `transition`, `transition-auto`, `trigger`, `wrapper-style`
+
 Example:
 
 ```ruby

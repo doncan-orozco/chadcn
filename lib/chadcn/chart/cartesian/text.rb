@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # What recharts' `Text` does with a label, with the browser's measurement replaced by the server's assumption (a fixed character width
-# and line height, `Chart::Container#text_char_width` / `#text_height`; `chadcn--chart` re-measures): the words broken into lines for a
+# and line height, `Chart::Container#text_char_width` / `#text_height`; not re-measured in the browser): the words broken into lines for a
 # given width (`getWordsByLines`, component/Text.js) and the `dy` of the first line for a vertical anchor.
 #
 # @api private

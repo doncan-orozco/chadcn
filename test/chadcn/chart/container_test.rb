@@ -160,4 +160,28 @@ class Chadcn::Chart::ContainerTest < Chadcn::TestCase
 
     assert_includes error.message, "a Chart::Container holds one chart (got a second Chadcn::Chart::LineChart)"
   end
+
+  test "the div is always the chadcn--chart controller, with no values until a chart hands them over" do
+    node = root(render_container)
+
+    assert_equal "chadcn--chart", node["data-controller"]
+    assert_empty node.attributes.keys.grep(/-value\z/)
+  end
+
+  test "the values a chart publishes are written on the div, the controller element Stimulus reads values from" do
+    html = render_container do |container|
+      container.publish_chart_values(chadcn__chart_layout_value: "vertical", chadcn__chart_ticks_value: "[]")
+    end
+    node = root(html)
+
+    assert_equal "vertical", node["data-chadcn--chart-layout-value"]
+    assert_equal "[]", node["data-chadcn--chart-ticks-value"]
+    assert_equal "chadcn--chart", node["data-controller"]
+  end
+
+  test "a caller controller is added to chadcn--chart, not instead of it" do
+    node = root(render_container(data: { controller: "analytics" }))
+
+    assert_equal [ "analytics", "chadcn--chart" ].sort, node["data-controller"].split.sort
+  end
 end

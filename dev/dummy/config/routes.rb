@@ -8,5 +8,6 @@ Rails.application.routes.draw do
   get "design-system/parity/:component/:scenario", to: "parity_scenarios#show", as: :parity_scenario
   get "design-system/turbo-round-trip/:page", to: "turbo_round_trips#show", as: :turbo_round_trip
   get "design-system/form-demo/:page", to: "form_demos#show", as: :form_demo
+  get "design-system/chart-demo/:family", to: "chart_demos#show", as: :chart_demo
   resource :theme_panel, only: :show, path: "design-system/theme-panel"
 end

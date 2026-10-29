@@ -19,7 +19,12 @@ class Chadcn::Chart::Cartesian::Root < Chadcn::Base
   # The size recharts lays a chart out at when nothing measures it (`INITIAL_DIMENSION` of chart.tsx).
   DEFAULT_DIMENSION = { width: 320, height: 200 }.freeze
 
-  private_constant :LAYOUTS, :STACK_OFFSETS, :DEFAULT_MARGIN, :DEFAULT_DIMENSION
+  # The charts whose `Tooltip shared: false` resolves to recharts' item event type: a BarChart allows `['axis', 'item']`
+  # (chart/BarChart.js:5), a LineChart and an AreaChart only `['axis']` (chart/LineChart.js:5, chart/AreaChart.js:5), where the
+  # request falls back to axis (state/selectors/selectTooltipEventType.js:4-13).
+  ITEM_TOOLTIP_CHARTS = %i[bar].freeze
+
+  private_constant :LAYOUTS, :STACK_OFFSETS, :DEFAULT_MARGIN, :DEFAULT_DIMENSION, :ITEM_TOOLTIP_CHARTS
 
   # @api private
   # @param data [Array<Hash>] one row per category
@@ -67,8 +72,12 @@ class Chadcn::Chart::Cartesian::Root < Chadcn::Base
     container = Chadcn::Chart::Container.current(context)
     container&.claim_chart(self)
     layout = Chadcn::Chart::Cartesian::Layout.new(@declared, layout_settings(container))
-    plan = Chadcn::Chart::Cartesian::TooltipPlan.new(layout: layout, declared: @declared, rows: @options[:data]) if @declared.tooltip
+    if @declared.tooltip
+      plan = Chadcn::Chart::Cartesian::TooltipPlan.new(layout: layout, declared: @declared, rows: @options[:data], event_type: tooltip_event_type)
+    end
     append_tooltip_templates(container, plan) if plan
+    wiring = Chadcn::Chart::Cartesian::Wiring.new(layout: layout, declared: @declared, accessibility_layer: @options[:accessibility_layer], plan: plan)
+    container&.publish_chart_values(wiring.values)
     within_responsive_shell(container) do
       div(**wrapper_attributes(layout)) do
         render Chadcn::Chart::Cartesian::Overlays.new(layout: layout, declared: @declared, plan: plan)
@@ -102,6 +111,11 @@ class Chadcn::Chart::Cartesian::Root < Chadcn::Base
     container.append_after_shell(Chadcn::Chart::Cartesian::TooltipTemplates.new(plan: plan))
   end
 
+  # `:item` for a `Tooltip shared: false` on a chart that allows item tooltips (see ITEM_TOOLTIP_CHARTS), else `:axis`.
+  def tooltip_event_type
+    @declared.tooltip.options[:shared] == false && ITEM_TOOLTIP_CHARTS.include?(self.class::CHART_TYPE) ? :item : :axis
+  end
+
   def layout_settings(container)
     dimension = container ? container.initial_dimension : DEFAULT_DIMENSION
     text = Chadcn::Chart::Cartesian::Text.new(char_width: container&.text_char_width || 0.6, line_height: container&.text_height || 16)
@@ -122,13 +136,14 @@ class Chadcn::Chart::Cartesian::Root < Chadcn::Base
     end
   end
 
-  # `.recharts-wrapper` (chart/RechartsWrapper.js:323): the size, and the caller's `class:` and `style:`.
+  # `.recharts-wrapper` (chart/RechartsWrapper.js:323): the size, and the caller's `class:` and `style:`; plus the `data-action` of `chadcn--chart`.
   def wrapper_attributes(layout)
     attrs = @options[:attrs]
     width = Chadcn::Chart::Shape::Number.format(layout.width)
     height = Chadcn::Chart::Shape::Number.format(layout.height)
     style = [ "position: relative; cursor: default; width: #{width}px; height: #{height}px;", attrs[:style] ].compact.join(" ")
-    { width: width, height: height, class: cn("recharts-wrapper", attrs[:class]), style: style }
+    merge_attrs({ width: width, height: height, class: "recharts-wrapper", style: style, data: { action: Chadcn::Chart::Cartesian::Wiring::ACTION } },
+                { class: attrs[:class] })
   end
 
   def surface(layout, container, markup, plan)
