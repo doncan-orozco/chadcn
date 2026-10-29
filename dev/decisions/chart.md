@@ -173,8 +173,8 @@ Where the build differs from the proposal:
 
 Follow-ups left open (none is owned by an item):
 
-- **Whole-component parity is red on main**: `ruby .claude/scripts/shadcn/parity_batch.rb --components chart` reports 12 diffs, all `parts__*` scenarios
-  (`parts__tooltip-content`, `parts__tooltip-content-line`, `parts__legend-content`, ...): the Phlex side raises `unknown component ChartTooltipContent` /
+- **Whole-component parity is red on main**: `ruby .claude/scripts/shadcn/parity_batch.rb --components chart` reports diffs on the `parts__*` scenarios
+  (`parts__tooltip-content`, `parts__tooltip-content-line`, `parts__legend-content`; #50 counted 12 diffs, this item did not re-measure them): the Phlex side raises `unknown component ChartTooltipContent` /
   `ChartLegendContent` because `ShadcnParity::ChartScope` maps those names only as the `content:` prop of `Chart::Tooltip` / `Legend`, not as standalone
   nodes. #47's hand-off assigned the mapping to #45 / #48 and nobody finished it. The per-family runs (`--only cartesian__,tooltip__,legend__,polar__`, and `interaction__` after #50) were reported green by #49 and #50 on main; this item did not re-run them.
 - **Move the chart mapping into `Catalog::TreeRenderer`** (its `harness_scope` hook raises for every `_` node): `RECHARTS_PARTS`, the content and formatter revival and the

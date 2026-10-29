@@ -143,8 +143,8 @@ render Chadcn::Chart::Container.new(config: { desktop: { label: "Desktop", color
 end
 ```
 
-`type:` is any curve recharts has (`linear`, `monotone`, `natural`, `step`, `basis`...); `dot:` is `false` or a Hash of the attributes of
-the dots.
+`type:` is any curve recharts has (`linear`, `monotone`, `natural`, `step`, `basis`...); `dot:` is `true` (the default), `false` or a Hash of the
+attributes of the dots.
 
 ### Area
 
