@@ -358,12 +358,92 @@ test("chart: a real Turbo visit away and back leaves no error and a working char
 test("chart: a removed chart stops listening to the document", () => withPage("bar", async (page) => {
   await hoverCategory(page, 1);
   await showsTooltip(page);
-  await page.evaluate(async () => {
+  const visibility = await page.evaluate(async () => {
     const chart = document.querySelector("[data-slot=chart]");
-    window.__kept = chart.querySelector(".recharts-tooltip-wrapper");
+    const wrapper = chart.querySelector(".recharts-tooltip-wrapper");
     chart.remove();
     await new Promise((resolve) => setTimeout(resolve));
+    wrapper.style.visibility = "visible"; // the control: only a live listener would hide it again
     document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+    return wrapper.style.visibility;
   });
-  assert.equal(await page.evaluate(() => window.__kept.style.visibility), "visible", "the detached chart did not react to Escape");
+  assert.equal(visibility, "visible", "the detached chart did not react to Escape");
+}));
+
+test("chart: disconnect leaves the server state, so a re-inserted chart starts clean", () => withPage("bar", async (page) => {
+  await hoverCategory(page, 3);
+  await page.locator(TOOLTIP).filter({ hasText: "April" }).waitFor();
+
+  const detached = await page.evaluate(async () => {
+    const chart = document.querySelector("[data-slot=chart]");
+    window.__chartParent = chart.parentElement;
+    window.__chartNode = chart;
+    chart.remove();
+    await new Promise((resolve) => setTimeout(resolve));
+    const wrapper = chart.querySelector(".recharts-tooltip-wrapper");
+    return {
+      pointerIndex: chart.getAttribute("data-chadcn--chart-pointer-index-value"),
+      pointerActive: chart.getAttribute("data-chadcn--chart-pointer-active-value"),
+      visibility: wrapper.style.visibility,
+      children: wrapper.childElementCount,
+      cursors: chart.querySelectorAll(".recharts-tooltip-cursor").length,
+    };
+  });
+  assert.deepEqual(detached, { pointerIndex: "-1", pointerActive: "false", visibility: "hidden", children: 0, cursors: 0 });
+
+  await page.evaluate(() => window.__chartParent.append(window.__chartNode));
+  await settle(page);
+  assert.equal(await page.locator(TOOLTIP).isHidden(), true, "no stale tooltip after the re-insert");
+  assert.equal(await page.locator(CURSOR).count(), 0);
+
+  await hoverCategory(page, 2);
+  await page.locator(TOOLTIP).filter({ hasText: "March" }).waitFor();
+}));
+
+test("chart: a pointer move inside the snapshot window does not reach the cached page", () => withPage("bar", async (page) => {
+  const snapshot = await page.evaluate(async ({ chart, plot }) => {
+    const ticks = JSON.parse(document.querySelector(chart).getAttribute("data-chadcn--chart-ticks-value"));
+    const wrapper = document.querySelector(plot);
+    const rect = wrapper.getBoundingClientRect();
+    document.dispatchEvent(new Event("turbo:before-cache"));
+    wrapper.dispatchEvent(new PointerEvent("pointermove", { bubbles: true, pointerType: "mouse", clientX: rect.left + ticks[2].coordinate, clientY: rect.top + 60 }));
+    await new Promise((resolve) => setTimeout(resolve));
+    const tooltip = document.querySelector(chart).querySelector(".recharts-tooltip-wrapper");
+    return { visibility: tooltip.style.visibility, children: tooltip.childElementCount };
+  }, { chart: CHART, plot: PLOT });
+  assert.deepEqual(snapshot, { visibility: "hidden", children: 0 });
+
+  await settle(page);
+  await hoverCategory(page, 2);
+  await page.locator(TOOLTIP).filter({ hasText: "March" }).waitFor();
+}));
+
+test("chart: a second turbo:before-cache inside the window keeps the live tooltip for the restore", () => withPage("bar", async (page) => {
+  await hoverCategory(page, 3);
+  await page.locator(TOOLTIP).filter({ hasText: "April" }).waitFor();
+
+  await page.evaluate(async () => {
+    document.dispatchEvent(new Event("turbo:before-cache"));
+    await new Promise((resolve) => setTimeout(resolve));
+    document.dispatchEvent(new Event("turbo:before-cache"));
+  });
+  await page.locator(TOOLTIP).filter({ hasText: "April" }).waitFor();
+  assert.equal(await attribute(page, "pointer-index"), "3");
+}));
+
+test("chart: position, wrapperStyle and tooltipActive reach the wrapper", () => withPage("bar", async (page) => {
+  await page.evaluate((chart) => {
+    const element = document.querySelector(chart);
+    element.setAttribute("data-chadcn--chart-position-value", JSON.stringify({ x: 7, y: 9 }));
+    element.setAttribute("data-chadcn--chart-wrapper-style-value", JSON.stringify({ "z-index": "42" }));
+  }, CHART);
+  await hoverCategory(page, 2);
+  await showsTooltip(page);
+  assert.equal(await page.locator(TOOLTIP).evaluate((el) => el.style.transform), "translate(7px, 9px)", "a fixed position wins over the pointer");
+  assert.equal(await page.locator(TOOLTIP).evaluate((el) => el.style.zIndex), "42");
+
+  await page.evaluate((chart) => document.querySelector(chart).setAttribute("data-chadcn--chart-tooltip-active-value", "false"), CHART);
+  await hoverCategory(page, 4);
+  await hidesTooltip(page);
+  assert.equal(await attribute(page, "pointer-index"), "4", "the pointer still moved");
 }));

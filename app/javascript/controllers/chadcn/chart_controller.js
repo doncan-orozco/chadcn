@@ -10,7 +10,7 @@ import { turboCacheRestore } from "chadcn/primitives/turbo_cache"
 // this controller mounts the one for the active index into `.recharts-tooltip-wrapper`, draws the cursor and the active dots from the
 // template's JSON and positions the wrapper with recharts' own algorithm.
 //
-// Three interactions are independent states (`state/selectors/combiners/combineTooltipInteractionState.js:19-58`): the pointer's, the
+// Three interactions are independent states (`state/selectors/combiners/combineTooltipInteractionState.js:22-58`): the pointer's, the
 // keyboard's and `default_index`. The tooltip shows the pointer index while the pointer is active, else the keyboard index while the
 // keyboard is active, else `default_index` only while the pointer has never activated an index. The states are the values
 // (pointerIndex/pointerActive/keyboardIndex/keyboardActive); only the pointer's last coordinate and the Escape dismissal are kept
@@ -19,6 +19,8 @@ const ARROWS = { ArrowRight: 1, ArrowLeft: -1 }
 const REDUCED_MOTION = "(prefers-reduced-motion: reduce)"
 const EVENT_ACTIVATE = "activate"
 const EVENT_DEACTIVATE = "deactivate"
+// The z-index layer of the active dots: DefaultZIndexes.activeDot (recharts es6/zIndex/DefaultZIndexes.js:68).
+const ACTIVE_DOT_LAYER = 1200
 
 export default class extends Controller {
   static targets = ["surface", "tooltip", "tooltipTemplate", "cursor", "activeDots"]
@@ -52,9 +54,10 @@ export default class extends Controller {
     this.mounted = null
     this.pointerCoordinate = null
     this.dismissedAt = null
+    this.activeCoordinate = null
     this.serverState = this.interactionState()
     this.cache = turboCacheRestore({
-      teardown: () => this.resetToServerState(),
+      teardown: (cancelled) => this.resetToServerState(cancelled),
       restore: (live) => this.applyState(live),
     })
     this.render()
@@ -63,22 +66,27 @@ export default class extends Controller {
   disconnect() {
     this.cache?.release()
     this.cache = null
+    // A re-inserted element starts from the server state: no interaction values, no content, a hidden wrapper.
+    this.writeInteraction(this.serverState)
     this.clearContent()
+    if (this.hasTooltipTarget) this.tooltipTarget.style.visibility = "hidden"
   }
 
   // --- actions (data-action on .recharts-wrapper, rendered by the Phlex chart) -------------------------------------------------
 
   // `pointermove` and touch: recharts `mouseMoveAction` / `touchMoveAction` (`state/mouseEventsMiddleware.js:38-110`,
-  // `state/touchEventsMiddleware.js:38-64`). A mouse outside the plot clears the hover (`:90-93`), a touch outside does nothing.
+  // `state/touchEventsMiddleware.js:43-64`). A mouse outside the plot clears the hover (`mouseEventsMiddleware.js:90-93`), a touch
+  // outside does nothing (the `activeIndex != null` guard, `touchEventsMiddleware.js:57-64`).
   move(event) {
-    if (!this.interactive || this.triggerValue !== "hover") return
+    if (!this.listening || this.triggerValue !== "hover") return
 
     this.activateFromPointer(event, { leaveOutside: event.pointerType !== "touch" })
   }
 
-  // `click`: the click interaction of recharts (`state/mouseEventsMiddleware.js:10-23`), the one a `trigger: click` tooltip follows.
+  // `click`: the click interaction of recharts (`state/mouseEventsMiddleware.js:10-23`), the one a `trigger: click` tooltip follows
+  // (`chooseAppropriateMouseInteraction`, `combineTooltipInteractionState.js:7-18`).
   click(event) {
-    if (!this.interactive || this.triggerValue !== "click") return
+    if (!this.listening || this.triggerValue !== "click") return
 
     this.activateFromPointer(event, { leaveOutside: false })
   }
@@ -86,7 +94,7 @@ export default class extends Controller {
   // `mouseLeaveChart` clears the hover's active flag only and keeps its index (`state/tooltipSlice.js:156-166`), so `default_index`
   // never returns. The click interaction is not touched by it. A touch lifting off is not a leave: recharts has no touch end handler.
   leave(event) {
-    if (!this.interactive || this.triggerValue !== "hover" || event.pointerType === "touch") return
+    if (!this.listening || this.triggerValue !== "hover" || event.pointerType === "touch") return
 
     this.pointerActiveValue = false
     this.render()
@@ -130,9 +138,9 @@ export default class extends Controller {
   }
 
   // Escape (keydown on the document) hides the tooltip until the active coordinate changes; the keyboard index is untouched
-  // (`component/TooltipBoundingBox.js:28-62,83`).
+  // (`component/TooltipBoundingBox.js:21-50,83`).
   dismiss(event) {
-    if (event.key !== "Escape" || !this.hasTooltipTarget) return
+    if (event.key !== "Escape" || !this.listening) return
 
     this.dismissedAt = this.activeCoordinate ?? { x: 0, y: 0 }
     this.render()
@@ -144,8 +152,13 @@ export default class extends Controller {
     return this.hasTooltipTarget && this.tooltipEventTypeValue === "axis"
   }
 
+  // Input is refused between `turbo:before-cache` and the snapshot tick, while the DOM is in its snapshot shape.
+  get listening() {
+    return this.interactive && !this.cache?.pending
+  }
+
   get keyboardEnabled() {
-    return this.interactive && this.accessibilityLayerValue
+    return this.listening && this.accessibilityLayerValue
   }
 
   interactionState() {
@@ -181,7 +194,7 @@ export default class extends Controller {
   }
 
   // Which index the tooltip shows and where it anchors (`combineTooltipInteractionState` + `selectActiveCoordinate`,
-  // `state/selectors/selectors.js`). `tooltipActive` false never shows, true keeps the last pointer index after the pointer left
+  // `state/selectors/selectors.js:49` for `selectActiveCoordinate`). `tooltipActive` false never shows, true keeps the last pointer index after the pointer left
   // (`Tooltip.js:129`, `combineTooltipInteractionState.js:39-45`).
   resolve() {
     if (this.tooltipActiveValue === "false") return { index: -1, coordinate: null }
@@ -205,7 +218,7 @@ export default class extends Controller {
     const resolved = this.resolve()
     const template = this.templateFor(resolved.index)
     const index = template ? resolved.index : -1
-    this.activeCoordinate = resolved.coordinate ?? (template ? JSON.parse(template.dataset.coordinate) : null)
+    this.activeCoordinate = resolved.coordinate ?? (template ? this.json(template.dataset.coordinate) : null)
 
     this.releaseDismissal()
     this.show(index, template)
@@ -251,7 +264,7 @@ export default class extends Controller {
     if (cursorNode) this.layer(cursor.layer)?.append(this.tagged(cursorNode, "cursor"))
 
     const dots = activeDotElements(this.json(template.dataset.activeDots))
-    dots.forEach((dot) => this.layer(1200)?.append(this.tagged(dot, "activeDots")))
+    dots.forEach((dot) => this.layer(ACTIVE_DOT_LAYER)?.append(this.tagged(dot, "activeDots")))
   }
 
   tagged(node, target) {
@@ -276,7 +289,7 @@ export default class extends Controller {
   }
 
   // The wrapper: visibility, the translate, the side classes and the transition of `TooltipBoundingBox`
-  // (`component/TooltipBoundingBox.js:54-84`); `wrapperStyle` is applied last and wins (`:82-84`).
+  // (`component/TooltipBoundingBox.js:51-84`); `wrapperStyle` is applied last and wins (`:84`).
   place(index, template) {
     const wrapper = this.tooltipTarget
     const active = index >= 0
@@ -320,22 +333,30 @@ export default class extends Controller {
   // --- Turbo cache -------------------------------------------------------------------------------------------------------------
 
   // The snapshot holds the server state: no pointer or keyboard interaction, so the wrapper, the cursor and the dots are the
-  // `default_index` ones or none. Returns the live state for `applyState` to put back.
-  resetToServerState() {
-    const live = { ...this.interactionState(), pointerCoordinate: this.pointerCoordinate, dismissedAt: this.dismissedAt }
-    this.applyState({ ...this.serverState, pointerCoordinate: null, dismissedAt: null }, { announce: false })
+  // `default_index` ones or none. Returns the live state for `applyState` to put back. A second `turbo:before-cache` inside the window
+  // carries the first one's saved live state, because the DOM is already in its snapshot shape (`primitives/turbo_cache.js`).
+  resetToServerState(cancelled = { pending: false }) {
+    const live = cancelled.pending
+      ? cancelled.state
+      : { ...this.interactionState(), pointerCoordinate: this.pointerCoordinate, dismissedAt: this.dismissedAt }
+    this.applyState({ ...this.serverState, pointerCoordinate: null, dismissedAt: null })
     return live
   }
 
-  applyState(state, { announce = true } = {}) {
+  // Teardown and restore both go through here, silently: the swap puts a state back, it is not an interaction to announce.
+  applyState(state) {
+    this.writeInteraction(state)
+    this.pointerCoordinate = state.pointerCoordinate ?? null
+    this.dismissedAt = state.dismissedAt ?? null
+    this.announcing = false
+    this.render()
+    this.announcing = true
+  }
+
+  writeInteraction(state) {
     this.pointerIndexValue = state.pointerIndex
     this.pointerActiveValue = state.pointerActive
     this.keyboardIndexValue = state.keyboardIndex
     this.keyboardActiveValue = state.keyboardActive
-    this.pointerCoordinate = state.pointerCoordinate
-    this.dismissedAt = state.dismissedAt
-    this.announcing = announce
-    this.render()
-    this.announcing = true
   }
 }
