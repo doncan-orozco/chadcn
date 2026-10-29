@@ -84,9 +84,24 @@ class Chadcn::Chart::Polar::Surface < Phlex::SVG
   def drawings_for(item)
     case item
     when Chadcn::Chart::Pie then pie_drawings(item)
+    when Chadcn::Chart::Radar then radar_drawings(item)
+    when Chadcn::Chart::RadialBar then radial_bar_drawings(item)
+    when Chadcn::Chart::PolarGrid then [ Drawing.new(Chadcn::Chart::Polar::Drawer::Grid, item) ]
+    when Chadcn::Chart::PolarAngleAxis then [ Drawing.new(Chadcn::Chart::Polar::Drawer::AngleAxis, item) ]
+    when Chadcn::Chart::PolarRadiusAxis then [ Drawing.new(Chadcn::Chart::Polar::Drawer::RadiusAxis, item) ]
     when Chadcn::Chart::Label then [ Drawing.new(Chadcn::Chart::Polar::Drawer::Label, item) ]
     else []
     end
+  end
+
+  def radial_bar_drawings(bar)
+    placed = @placed[bar] or return []
+    [ Drawing.new(Chadcn::Chart::Polar::Drawer::RadialBar, placed), *label_drawings(placed) ]
+  end
+
+  def radar_drawings(radar)
+    placed = @placed[radar] or return []
+    [ Drawing.new(Chadcn::Chart::Polar::Drawer::Radar, placed), *label_drawings(placed) ]
   end
 
   def pie_drawings(pie)

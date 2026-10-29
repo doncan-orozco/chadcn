@@ -20,8 +20,23 @@ class Chadcn::Chart::LabelList < Chadcn::Chart::Declaration
   # @return [Hash{Symbol => Object}] the keywords with defaults applied, frozen
   attr_reader :options
 
+  # A `position:` as stored: a name of {POSITIONS} as a Symbol (recharts' camelCase spelling, `"insideStart"`, is `:inside_start`), a Hash as it is.
+  #
+  # @api private
+  # @param position [Symbol, String, Hash]
+  # @return [Symbol, Hash]
+  # @raise [ArgumentError] on a position that is none of {POSITIONS}
+  def self.position!(position)
+    return position if position.is_a?(Hash)
+
+    name = position.respond_to?(:to_sym) ? position.to_s.gsub(/(?<=[a-z])([A-Z])/) { "_#{Regexp.last_match(1).downcase}" }.to_sym : nil
+    return name if POSITIONS.include?(name)
+
+    raise ArgumentError, "position: must be one of #{POSITIONS.map(&:inspect).join(', ')} or { x:, y: } (got #{position.inspect})"
+  end
+
   # @param data_key [Symbol, String, #call, nil] the key of the data row to show; the value of the shape by default
-  # @param position [Symbol, Hash] one of {POSITIONS}, or `{ x:, y: }` inside the shape
+  # @param position [Symbol, String, Hash] one of {POSITIONS} (or its camelCase spelling, `"insideStart"`), or `{ x:, y: }` inside the shape
   # @param offset [Numeric] distance from the shape, px
   # @param formatter [#call, Hash, Symbol, nil] receives the value and returns the text, or `{ slice: [ start, stop ] }`, `:locale` or `:percent`
   # @param fill [String, nil]
@@ -29,11 +44,7 @@ class Chadcn::Chart::LabelList < Chadcn::Chart::Declaration
   # @param attrs [Hash] attributes of every label; `class:` replaces `recharts-label`
   # @raise [ArgumentError] on a `position:` that is none of {POSITIONS}
   def initialize(data_key: nil, position: :middle, offset: 5, formatter: nil, fill: nil, angle: 0, **attrs)
-    unless position.is_a?(Hash) || (position.respond_to?(:to_sym) && POSITIONS.include?(position.to_sym))
-      raise ArgumentError, "position: must be one of #{POSITIONS.map(&:inspect).join(', ')} or { x:, y: } (got #{position.inspect})"
-    end
-
-    @options = { data_key: data_key, position: position.is_a?(Hash) ? position : position.to_sym, offset: offset,
+    @options = { data_key: data_key, position: self.class.position!(position), offset: offset,
                  formatter: Chadcn::Chart::Cartesian::Formatter.resolve(formatter), fill: fill, angle: angle, attrs: attrs }.freeze
     super()
   end

@@ -17,7 +17,7 @@ module Chadcn::Chart::Polar::LabelEntries
     def call(placed)
       series = placed.series
       case series.kind
-      when :radar then placed.shapes.points.map { |point| point_entry(point) }
+      when :radar then placed.shapes.map { |point| point_entry(point) }
       else placed.shapes.map { |sector| sector_entry(sector, series) }
       end
     end

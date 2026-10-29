@@ -25,7 +25,8 @@ module Chadcn::Chart::Polar::Drawer::TextNodes
     left = format_number(at[:x])
     top = format_number(at[:y])
     rotation = angle.to_f.zero? ? nil : "rotate(#{format_number(angle)}, #{left}, #{top})"
-    text(**base.except(:fill, :class), x: left, y: top, class: class_name, "text-anchor": anchor.to_s, fill: fill, transform: rotation) do
+    shown = base.except(:fill, :class, :transform)
+    text(**shown, x: left, y: top, class: class_name, "text-anchor": anchor.to_s, fill: fill, transform: rotation || base[:transform]) do
       lines.each_with_index do |line, index|
         tspan(x: left, dy: index.zero? ? layout.text.first_dy(vertical, lines.size) : "1em") { plain(line) }
       end

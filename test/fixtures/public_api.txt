@@ -94,6 +94,10 @@ class Chadcn::Chart::PieChart < Chadcn::Chart::Polar::Root
 class Chadcn::Chart::PolarAngleAxis < Chadcn::Chart::Declaration
 class Chadcn::Chart::PolarGrid < Chadcn::Chart::Declaration
 class Chadcn::Chart::PolarRadiusAxis < Chadcn::Chart::Declaration
+class Chadcn::Chart::Radar < Chadcn::Chart::Declaration
+class Chadcn::Chart::RadarChart < Chadcn::Chart::Polar::Root
+class Chadcn::Chart::RadialBar < Chadcn::Chart::Declaration
+class Chadcn::Chart::RadialBarChart < Chadcn::Chart::Polar::Root
 class Chadcn::Chart::ReferenceLine < Chadcn::Chart::Declaration
 class Chadcn::Chart::Style < Chadcn::Base
 class Chadcn::Chart::Tooltip < Chadcn::Chart::Declaration
@@ -710,6 +714,10 @@ method Chadcn::Chart::PieChart#initialize (data: [], margin: { top: 5, right: 5,
 method Chadcn::Chart::PolarAngleAxis#initialize (data_key: nil, type: :auto, tick: true, tick_line: true, axis_line: true, axis_line_type: :polygon, tick_size: 8, tick_formatter: nil, orientation: :outer, reversed: false, domain: nil, allow_decimals: false, stroke: nil, angle_axis_id: 0, **attrs)
 method Chadcn::Chart::PolarGrid#initialize (grid_type: :polygon, polar_angles: nil, polar_radius: nil, stroke: "#ccc", fill: nil, radial_lines: true, angle_axis_id: 0, radius_axis_id: 0, **attrs)
 method Chadcn::Chart::PolarRadiusAxis#initialize (data_key: nil, type: :auto, angle: 0, tick_count: 5, tick: true, axis_line: true, tick_formatter: nil, orientation: :right, reversed: false, domain: nil, allow_decimals: false, stroke: "#ccc", radius_axis_id: 0, **attrs)
+method Chadcn::Chart::Radar#initialize (data_key:, fill: nil, fill_opacity: nil, stroke: nil, stroke_width: nil, dot: false, active_dot: true, label: false, legend_type: :rect, tooltip_type: nil, hide: false, name: nil, angle_axis_id: 0, radius_axis_id: 0, is_animation_active: nil, **attrs)
+method Chadcn::Chart::RadarChart#initialize (data: [], margin: { top: 5, right: 5, bottom: 5, left: 5 }, start_angle: 90, end_angle: -270, cx: "50%", cy: "50%", inner_radius: 0, outer_radius: "80%", accessibility_layer: true, title: nil, desc: nil, role: nil, tab_index: nil, **attrs)
+method Chadcn::Chart::RadialBar#initialize (data_key:, stack_id: nil, background: false, corner_radius: 0, corner_is_external: false, force_corner_radius: false, min_point_size: 0, bar_size: nil, max_bar_size: nil, fill: nil, stroke: nil, stroke_width: nil, label: false, legend_type: :rect, tooltip_type: nil, hide: false, name: nil, angle_axis_id: 0, radius_axis_id: 0, is_animation_active: nil, **attrs)
+method Chadcn::Chart::RadialBarChart#initialize (data: [], margin: { top: 5, right: 5, bottom: 5, left: 5 }, start_angle: 0, end_angle: 360, cx: "50%", cy: "50%", inner_radius: 0, outer_radius: "80%", bar_category_gap: "10%", bar_gap: 4, bar_size: nil, max_bar_size: nil, accessibility_layer: true, title: nil, desc: nil, role: nil, tab_index: nil, **attrs)
 method Chadcn::Chart::ReferenceLine#initialize (x: nil, y: nil, stroke: "#ccc", stroke_width: 1, stroke_dasharray: nil, fill: "none", fill_opacity: 1, if_overflow: :discard, x_axis_id: 0, y_axis_id: 0, **attrs)
 method Chadcn::Chart::Style#initialize (id:, config:)
 method Chadcn::Chart::Style#view_template ()
@@ -1576,6 +1584,10 @@ Chadcn::Chart#pie_chart
 Chadcn::Chart#polar_angle_axis
 Chadcn::Chart#polar_grid
 Chadcn::Chart#polar_radius_axis
+Chadcn::Chart#radar
+Chadcn::Chart#radar_chart
+Chadcn::Chart#radial_bar
+Chadcn::Chart#radial_bar_chart
 Chadcn::Chart#reference_line
 Chadcn::Chart#style
 Chadcn::Chart#tooltip

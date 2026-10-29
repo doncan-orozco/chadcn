@@ -12,7 +12,7 @@ class Chadcn::Chart::Label < Chadcn::Chart::Declaration
   attr_reader :options
 
   # @param value [String, Numeric, nil] the text; nothing is drawn without one
-  # @param position [Symbol, Hash] one of {Chadcn::Chart::LabelList::POSITIONS}, or `{ x:, y: }` inside the plot
+  # @param position [Symbol, String, Hash] one of {Chadcn::Chart::LabelList::POSITIONS} (or its camelCase spelling), or `{ x:, y: }` inside the plot
   # @param offset [Numeric] distance from the edge of the plot, px
   # @param formatter [#call, Hash, Symbol, nil] receives the value and returns the text
   # @param fill [String, nil] `#808080` by default
@@ -20,11 +20,7 @@ class Chadcn::Chart::Label < Chadcn::Chart::Declaration
   # @param attrs [Hash] attributes of the text; `class:` replaces `recharts-label`
   # @raise [ArgumentError] on a `position:` that is none of the positions
   def initialize(value: nil, position: :middle, offset: 5, formatter: nil, fill: nil, angle: 0, **attrs)
-    unless position.is_a?(Hash) || (position.respond_to?(:to_sym) && Chadcn::Chart::LabelList::POSITIONS.include?(position.to_sym))
-      raise ArgumentError, "position: must be one of #{Chadcn::Chart::LabelList::POSITIONS.map(&:inspect).join(', ')} or { x:, y: } (got #{position.inspect})"
-    end
-
-    @options = { value: value, position: position.is_a?(Hash) ? position : position.to_sym, offset: offset,
+    @options = { value: value, position: Chadcn::Chart::LabelList.position!(position), offset: offset,
                  formatter: Chadcn::Chart::Cartesian::Formatter.resolve(formatter), fill: fill, angle: angle, attrs: attrs }.freeze
     super()
   end

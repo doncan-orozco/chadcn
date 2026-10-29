@@ -35,7 +35,10 @@ class Chadcn::Chart::Polar::Axis
                                    items: items.map { |item| Item.new(options: { data_key: item.options[:data_key], hide: item.options[:hide] }) },
                                    stacks: Chadcn::Chart::Cartesian::Stacks.new([], []), references: [], range: range, stack_offset: :none
     )
-    @ticks = settings.angle? ? unique_angles(@axis.ticks.map { |tick| angle_tick(tick) }) : @axis.ticks
+    @rows = rows
+    @all_ticks = settings.angle? ? listed_ticks.map { |tick| angle_tick(tick) } : listed_ticks
+    @ticks = settings.angle? ? unique_angles(@all_ticks) : @all_ticks
+    @item_ticks = value_ticks || @axis.item_ticks
     freeze
   end
 
@@ -85,13 +88,39 @@ class Chadcn::Chart::Polar::Axis
   # @return [Array<Chadcn::Chart::Cartesian::TickLayout::Tick>]
   attr_reader :ticks
 
+  # The ticks before an angle is listed once: what the grid follows (`selectPolarAxisTicks`, polarGridSelectors.js:6-15).
+  #
+  # @api private
+  # @return [Array<Chadcn::Chart::Cartesian::TickLayout::Tick>]
+  attr_reader :all_ticks
+
   # The ticks series are positioned with (`selectPolarGraphicalItemAxisTicks`): the start of every band.
   #
   # @api private
   # @return [Array<Chadcn::Chart::Cartesian::TickLayout::Tick>]
-  def item_ticks = @axis.item_ticks
+  attr_reader :item_ticks
 
   private
+
+  # The nice ticks and the ticks the caller gave come first (`ticks || niceTicks`, axisSelectors.js:1156), else the values of the data on a
+  # category-holding axis of type number (`categoricalDomain`, axisSelectors.js:1181), else the cartesian resolution.
+  def listed_ticks
+    return @axis.ticks if @axis.nice_ticks || @settings.type != :number
+
+    value_ticks || @axis.ticks
+  end
+
+  # `isCategorical && categoricalDomain`: a tick for the value of every row, when the axis that holds the categories is a number axis with a
+  # data key (`combineCategoricalDomain`, axisSelectors.js:928).
+  def value_ticks
+    return unless @categorical && @settings.type == :number && @settings.data_key
+
+    @rows.each_with_index.filter_map do |row, index|
+      value = Chadcn::Chart::Cartesian::Value.read(row, @settings.data_key)
+      coordinate = @axis.position_of(value)
+      Chadcn::Chart::Cartesian::TickLayout::Tick.new(index: index, value: value, coordinate: coordinate, offset: 0.0) if coordinate&.finite?
+    end
+  end
 
   # `getAxisTypeBasedOnLayout` (util/getAxisTypeBasedOnLayout.js): `auto` is a category axis where the chart holds the categories.
   def resolved_type(settings)

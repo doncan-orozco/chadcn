@@ -122,7 +122,7 @@ class Chadcn::Chart::Polar::Layout
   def build_axes
     %i[angle radius].each do |kind|
       declared = kind == :angle ? @declared.angle_axes : @declared.radius_axes
-      ids = (declared.map(&:id) + @declared.series.map { |series| series.options[axis_key(kind)] }).uniq
+      ids = (declared.map(&:id) + (@declared.series + @declared.of(Chadcn::Chart::PolarGrid)).map { |item| item.options[axis_key(kind)] }).uniq
       ids << 0 if ids.empty?
       ids.each { |id| @axes[[ kind, id ]] = build_axis(kind, declared.find { |settings| settings.id == id } || Chadcn::Chart::Polar::AxisSettings.implicit(kind, id)) }
     end
@@ -154,7 +154,52 @@ class Chadcn::Chart::Polar::Layout
   def shapes_of(series)
     case series.kind
     when :pie then pie_sectors(series)
+    when :radar then radar_points(series)
+    when :radial_bar then radial_bar_sectors(series)
     end
+  end
+
+  # The arcs of a radial bar: none when an axis has no scale (no data to draw) or the bar has no place in its ring, and the bar is still drawn
+  # as its empty groups (state/selectors/radialBarSelectors.js:112, `return []`).
+  def radial_bar_sectors(series)
+    axes = { angle: angle_axis(series.options[:angle_axis_id]), radius: radius_axis(series.options[:radius_axis_id]) }
+    return [] unless axes.values.all?(&:scaled?)
+
+    position = bar_position(series, axes[:radius]) or return []
+    Chadcn::Chart::Polar::RadialBarSectors.call(series, rows: @chart.rows, axes: axes, view_box: @view_box, position: position,
+                                                        pairs: stacks(series).pairs(series))
+  end
+
+  # `selectPolarBarPosition`: where the series sits in the ring of each category (state/selectors/radialBarSelectors.js:93-133).
+  def bar_position(series, radius)
+    key = :radius_axis_id
+    bars = @declared.series.select { |other| !other.options[:hide] && other.options[key] == series.options[key] }
+    slots = Chadcn::Chart::Cartesian::BarPositions.slots(bars, global_size: @chart.bar_size, total_size: nil)
+    max_bar = series.options[:max_bar_size].nil? ? @chart.max_bar_size : series.options[:max_bar_size]
+    positions = Chadcn::Chart::Cartesian::BarPositions.positions(
+      slots, global_max: @chart.max_bar_size, bar_gap: @chart.bar_gap, category_gap: @chart.bar_category_gap,
+             bar_band: radius.band_size(bar: true) || max_bar || 0, band: radius.band_size, child_max: series.options[:max_bar_size]
+    )
+    Chadcn::Chart::Cartesian::BarPositions.position_for(positions, series)
+  end
+
+  # The stacks of the radial bars on the angle axis of a series (`selectRadialBarStackGroups`), each stack once.
+  def stacks(series)
+    id = series.options[:angle_axis_id]
+    @stacks ||= {}
+    @stacks[id] ||= begin
+      stackable = @declared.series.select { |other| other.options[:stack_id] && !other.options[:hide] && other.options[:angle_axis_id] == id }
+      Chadcn::Chart::Cartesian::Stacks.new(@chart.rows, stackable, offset: :none, reverse: false)
+    end
+  end
+
+  # The points of a radar, nil when an axis has no scale (no data to draw).
+  def radar_points(series)
+    angle = angle_axis(series.options[:angle_axis_id])
+    radius = radius_axis(series.options[:radius_axis_id])
+    return unless angle.scaled? && radius.scaled?
+
+    Chadcn::Chart::Polar::RadarPoints.call(series, rows: @chart.rows, angle_axis: angle, radius_axis: radius, view_box: @view_box)
   end
 
   # A pie shows its own `data:`, else the chart's (pieSelectors.js:14-30).

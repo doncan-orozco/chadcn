@@ -33,7 +33,7 @@ module Chadcn::Chart::Polar::Drawer::LabelText
   def plain_label(where, entry, options, value)
     custom = options[:attrs]
     anchor = %w[start middle end inherit].include?(custom[:text_anchor].to_s) ? custom[:text_anchor].to_sym : where.horizontal_anchor
-    size = where.respond_to?(:width) ? { width: where.width, height: where.height } : {}
+    size = where.respond_to?(:width) ? { width: where.width || entry.box[:width], height: where.height || entry.box[:height] } : {}
     box = { width: (format_number(size[:width]) if size[:width]), height: (format_number(size[:height]) if size[:height]) }
     base = attrs(box, { offset: format_number(options[:offset]), fill: options[:fill] || entry.fill || "#808080" },
                  custom.except(:class, :class_name, :text_anchor, :fill))
