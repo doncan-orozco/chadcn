@@ -72,7 +72,7 @@ class Chadcn::Chart::Cartesian::Wiring
 
   # The plot rectangle: `isInCartesianRange` (util/getActiveCoordinate.js:78-84) and the view box of the tooltip
   # (state/selectors/selectChartOffsetInternal.js:81-86).
-  def plot = @layout.plot.slice(:x, :y, :width, :height).transform_values { |value| pixel(value) }
+  def plot = %i[x y width height].to_h { |side| [ side, pixel(@layout.plot.fetch(side)) ] }
 
   def pair(value)
     return { x: value, y: value } if value.is_a?(Numeric)
@@ -89,7 +89,7 @@ class Chadcn::Chart::Cartesian::Wiring
   # Only a numeric coordinate fixes the tooltip (util/tooltip/translate.js:32-34).
   def position(value)
     hash = value.is_a?(Hash) ? value.transform_keys(&:to_sym) : {}
-    hash.slice(:x, :y).select { |_, coordinate| coordinate.is_a?(Numeric) }
+    %i[x y].select { |axis| hash[axis].is_a?(Numeric) }.to_h { |axis| [ axis, hash[axis] ] }
   end
 
   # `transform <duration>ms <easing>` (component/TooltipBoundingBox.js:9-17); empty when the animation is off.
