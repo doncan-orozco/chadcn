@@ -21,8 +21,9 @@ class Chadcn::Chart::Tooltip < Chadcn::Chart::Declaration
   # @param cursor [Boolean, Hash] the hover cursor; a Hash is its SVG attributes (`stroke:`, `stroke_dasharray:`, `fill:` ...)
   # @param default_index [Integer, String, nil] the index shown before any interaction
   # @param active [Boolean, nil] nil follows the interaction, true keeps it visible, false never shows it
-  # @param shared [Boolean, nil] nil follows the chart's event type; false asks for item tooltips, which a BarChart resolves to and
-  #   does not draw yet (hidden empty wrapper, no interaction); a LineChart or AreaChart keeps its axis tooltip, as in recharts
+  # @param shared [Boolean, nil] nil follows the chart's event type; false asks for item tooltips, which a BarChart or a RadialBarChart
+  #   resolves to and does not draw yet (hidden empty wrapper, no interaction); a LineChart, AreaChart or RadarChart keeps its axis
+  #   tooltip, as in recharts; a PieChart is always an item tooltip (drawn) and ignores it
   # @param trigger [Symbol] `:hover` or `:click`
   # @param offset [Numeric, Hash] distance from the pointer; a Hash is `x:` and `y:`
   # @param allow_escape_view_box [Hash] `x:` and `y:`

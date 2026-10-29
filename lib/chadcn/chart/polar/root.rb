@@ -119,8 +119,14 @@ class Chadcn::Chart::Polar::Root < Chadcn::Base
   end
 
   # `PieChart` allows `item` tooltips only (chart/PieChart.js:11,27); `RadarChart` and `RadialBarChart` default to `axis`
-  # (chart/RadarChart.js:11,26, chart/RadialBarChart.js:11,27) and `Tooltip`'s `shared: false` is not ported.
-  def tooltip_event_type = self.class::CHART_TYPE == :pie ? :item : :axis
+  # (chart/RadarChart.js:11,26, chart/RadialBarChart.js:11,27). `Tooltip shared: false` asks for the item event type
+  # (state/selectors/selectTooltipEventType.js:4-13): a `RadialBarChart` allows `['axis', 'item']` (chart/RadialBarChart.js:11), so it
+  # resolves to item (not drawn yet); a `RadarChart` allows `axis` only, so it stays axis.
+  def tooltip_event_type
+    return :item if self.class::CHART_TYPE == :pie
+
+    self.class::CHART_TYPE == :radial_bar && @declared.tooltip.options[:shared] == false ? :item : :axis
+  end
 
   def layout_settings(container)
     dimension = container ? container.initial_dimension : DEFAULT_DIMENSION

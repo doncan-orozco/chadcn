@@ -37,20 +37,72 @@ class Chadcn::Chart::Polar::WiringTest < Chadcn::TestCase
     assert_nil parse(html).at_css(".recharts-wrapper")["data-action"]
   end
 
-  test "a radar and a radial bar publish an axis tooltip with its default index and no ticks" do
-    radial = render_radial_bar do |chart|
-      chart.tooltip(default_index: 2, content: CONTENT)
+  def radial_html(tooltip = { default_index: 2, content: CONTENT })
+    render_radial_bar do |chart|
+      chart.tooltip(**tooltip)
       chart.radial_bar(data_key: :visitors)
     end
+  end
 
-    { radar_html => "1", radial => "2" }.each do |html, index|
+  test "a radar publishes an axis tooltip with its default index and no ticks" do
+    html = radar_html
+    node = controller(html)
+
+    assert_equal "axis", value(node, "tooltip-event-type")
+    assert_equal "1", value(node, "default-index")
+    assert_equal "[]", value(node, "ticks")
+    assert_nil parse(html).at_css(".recharts-wrapper")["data-action"]
+  end
+
+  test "a radial bar publishes an axis tooltip with its default index and no ticks" do
+    html = radial_html
+    node = controller(html)
+
+    assert_equal "axis", value(node, "tooltip-event-type")
+    assert_equal "2", value(node, "default-index")
+    assert_equal "[]", value(node, "ticks")
+    assert_nil parse(html).at_css(".recharts-wrapper")["data-action"]
+  end
+
+  test "the interaction values start at the server state and the tooltip options are published as they are" do
+    [ radar_html, radial_html, render_pie(around: ->(chart) { chart.tooltip(default_index: 1, content: CONTENT) }) ].each do |html|
       node = controller(html)
 
-      assert_equal "axis", value(node, "tooltip-event-type")
-      assert_equal index, value(node, "default-index")
-      assert_equal "[]", value(node, "ticks")
-      assert_nil parse(html).at_css(".recharts-wrapper")["data-action"]
+      assert_equal %w[-1 false -1 false], %w[pointer-index pointer-active keyboard-index keyboard-active].map { |name| value(node, name) }
+      assert_equal "hover", value(node, "trigger")
+      assert_equal({ "x" => 10, "y" => 10 }, JSON.parse(value(node, "offset")))
+      assert_equal "transform 400ms ease", value(node, "transition")
+      assert_equal "true", value(node, "transition-auto")
+      assert_equal "", value(node, "tooltip-active")
     end
+  end
+
+  test "a radial bar with shared: false is an item tooltip: inert controller, no template, an empty hidden wrapper" do
+    html = radial_html(default_index: 2, shared: false, content: CONTENT)
+    doc = parse(html)
+    node = controller(html)
+
+    assert_equal "item", value(node, "tooltip-event-type")
+    assert_equal [], JSON.parse(value(node, "ticks"))
+    assert_empty doc.css("template")
+    assert_equal 0, doc.at_css(".recharts-tooltip-wrapper").children.size
+    assert_includes doc.at_css(".recharts-tooltip-wrapper")["style"], "visibility: hidden"
+  end
+
+  test "a radar with shared: false stays an axis tooltip with its templates (RadarChart allows axis only)" do
+    html = radar_html(default_index: 1, shared: false, content: CONTENT)
+    node = controller(html)
+
+    assert_equal "axis", value(node, "tooltip-event-type")
+    assert_equal "1", value(node, "default-index")
+    assert_equal 6, parse(html).css("template").size
+  end
+
+  test "a pie ignores shared: false: it is always an item tooltip with its sector templates" do
+    html = render_pie(around: ->(chart) { chart.tooltip(default_index: 1, shared: false, content: CONTENT) })
+
+    assert_equal "item", value(controller(html), "tooltip-event-type")
+    assert_equal 5, parse(html).css("template").size
   end
 
   test "only the tooltip values are published, never the layout, the keyboard step or the accessibility layer" do
@@ -63,8 +115,9 @@ class Chadcn::Chart::Polar::WiringTest < Chadcn::TestCase
   test "a chart without a tooltip publishes no value at all" do
     html = render_radar { |chart| chart.radar(data_key: :desktop) }
     pie = render_pie
+    radial = render_radial_bar { |chart| chart.radial_bar(data_key: :visitors) }
 
-    [ html, pie ].each do |rendered|
+    [ html, pie, radial ].each do |rendered|
       assert_equal "chadcn--chart", controller(rendered)["data-controller"]
       assert_empty value_names(controller(rendered))
     end
@@ -94,5 +147,7 @@ class Chadcn::Chart::Polar::WiringTest < Chadcn::TestCase
     end
 
     assert_includes html, "recharts-wrapper"
+    refute_match(/data-chadcn--chart-[a-z-]+-value/, html)
+    refute_includes html, "data-controller"
   end
 end

@@ -9,13 +9,19 @@
 #
 # A polar tooltip has no cursor on the server: recharts draws it from the polar coordinate of the pointer (component/Cursor.js:66-94,
 # util/cursor/getCursorPoints.js:19), which a `default_index:` does not have, and `Tooltip`'s `shared: false` (item tooltips of a radial bar
-# chart) is not ported.
+# chart) is not drawn yet: a radial bar chart with `shared: false` is an item tooltip (chart/RadialBarChart.js:11, state/selectors/
+# selectTooltipEventType.js:4-13) and has no entries here, like a BarChart; a radar allows `axis` only, so it stays an axis tooltip.
 #
 # @api private
 class Chadcn::Chart::Polar::TooltipPlan < Chadcn::Chart::Cartesian::TooltipPlan
   # @api private
   # @return [Array<Entry>] one per sector or category, in order
-  def entries = @entries ||= (@layout.chart_type == :pie ? pie_entries : axis_entries)
+  def entries
+    @entries ||= if @layout.chart_type == :pie then pie_entries
+                 elsif @event_type == :item then []
+                 else axis_entries
+                 end
+  end
 
   private
 
