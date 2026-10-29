@@ -34,4 +34,36 @@ class ShadcnParity::ChartScopeTest < ActiveSupport::TestCase
 
     assert_includes html, '<linearGradient id="g" x1="0"><stop offset="5%" stop-color="red"></stop></linearGradient>'
   end
+
+  def render_chart_node(chart)
+    tree = { "c" => "ChartContainer", "props" => { "id" => "k", "config" => { "desktop" => { "label" => "Desktop", "color" => "red" } } }, "children" => [ chart ] }
+    ShadcnParity::TreeRenderer.new(tree: tree, component: "chart").call
+  end
+
+  test "a pie, its cell and its label map to the gem's classes" do
+    pie = { "c" => "_Pie", "props" => { "data" => [ { "browser" => "a", "visitors" => 5 } ], "dataKey" => "visitors", "nameKey" => "browser", "innerRadius" => 20 },
+            "children" => [ { "c" => "_Cell", "props" => { "fill" => "red" } }, { "c" => "_Label", "props" => { "value" => "Total", "position" => "center" } } ] }
+    html = render_chart_node({ "c" => "_PieChart", "children" => [ pie ] })
+
+    assert_includes html, 'fill="red"'
+    assert_includes html, ">Total</tspan>"
+  end
+
+  test "a radar with its grid and axes maps to the gem's classes" do
+    html = render_chart_node({ "c" => "_RadarChart", "props" => { "data" => ROWS },
+                               "children" => [ { "c" => "_PolarAngleAxis", "props" => { "dataKey" => "month" } }, { "c" => "_PolarGrid", "props" => { "gridType" => "circle" } },
+                                               { "c" => "_PolarRadiusAxis", "props" => { "angle" => 90 } }, { "c" => "_Radar", "props" => { "dataKey" => "desktop", "dot" => { "r" => 4 } } } ] })
+
+    assert_includes html, "recharts-polar-grid-concentric-circle"
+    assert_includes html, "recharts-polar-radius-axis-tick-value"
+    assert_includes html, "recharts-radar-dot"
+  end
+
+  test "a radial bar maps to the gem's class, its position in camelCase included" do
+    bar = { "c" => "_RadialBar", "props" => { "dataKey" => "desktop", "background" => true }, "children" => [ { "c" => "_LabelList", "props" => { "position" => "insideStart", "dataKey" => "month" } } ] }
+    html = render_chart_node({ "c" => "_RadialBarChart", "props" => { "data" => ROWS, "innerRadius" => 20, "outerRadius" => 90 }, "children" => [ bar ] })
+
+    assert_includes html, "recharts-radial-bar-background-sector undefined"
+    assert_includes html, "recharts-radial-bar-label"
+  end
 end

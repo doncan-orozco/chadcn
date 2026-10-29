@@ -7,9 +7,10 @@ using Chadcn::Values::Refinements
 # (`_BarChart`, `_Bar`, ...) resolved to `Chadcn::Chart::*`, `content: "ChartTooltipContent"` (+ `contentProps`) becomes the content
 # instance, and `{ "formatter": "slice", "args": [0, 3] }` becomes the named formatter the chart classes accept.
 module ShadcnParity::ChartScope
-  # The recharts exports a scenario reaches as `_<Name>` that the gem ports (the polar ones join as their items land).
+  # The recharts exports a scenario reaches as `_<Name>` that the gem ports.
   RECHARTS_PARTS = %w[
-    BarChart LineChart AreaChart Bar Line Area Cell XAxis YAxis CartesianGrid LabelList Label ReferenceLine
+    BarChart LineChart AreaChart PieChart RadarChart RadialBarChart Bar Line Area Pie Radar RadialBar Cell XAxis YAxis CartesianGrid PolarGrid
+    PolarAngleAxis PolarRadiusAxis LabelList Label ReferenceLine
   ].freeze
   # The nodes whose props are chart props: the parts above, the shadcn layer that takes a `content`.
   CHART_NODES = (RECHARTS_PARTS.map { |name| "_#{name}" } + %w[ChartTooltip ChartLegend]).freeze

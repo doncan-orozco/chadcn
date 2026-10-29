@@ -99,11 +99,15 @@ class Chadcn::Chart::Cartesian::Overlays < Chadcn::Base
   # (Legend.js:23-31); the content is cloned with the `Legend`'s own `vertical_align` (component/Legend.js:149-152).
   def legend_content(legend)
     options = legend.options
-    items = @declared.series.map { |series| legend_item(series) }
+    items = legend_items
     items = items.each_with_index.sort_by { |item, index| [ item[:value].to_s, index ] }.map(&:first) if options[:item_sorter]
     items = items.uniq { |item| item[:value] } if options[:payload_uniq_by]
     legend.content_element.with(payload: items, vertical_align: options[:vertical_align])
   end
+
+  # The payload of the legend before it is sorted: one entry per series. A subclass whose entries are not the series (a pie legends its
+  # sectors) overrides this.
+  def legend_items = @declared.series.map { |series| legend_item(series) }
 
   # `computeLegendPayloadFromBarData` and its siblings (cartesian/Bar.js:45-60, Line.js:56-72, Area.js:67-83).
   def legend_item(series)
