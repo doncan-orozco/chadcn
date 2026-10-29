@@ -19,7 +19,10 @@ class Chadcn::Chart::DeclarationTest < Chadcn::TestCase
     Chadcn::Chart::BarChart.new # building a chart loads the whole family of declarations
     names = Chadcn::Chart::Declaration.subclasses.reject { |klass| klass.name.nil? }.map { |klass| Chadcn::Chart::Declarations.helper_name(klass.name) }
 
-    assert_equal %i[area bar cartesian_grid cell label label_list legend line reference_line tooltip x_axis y_axis].sort, names.sort
+    expected = %i[area bar cartesian_grid cell label label_list legend line pie polar_angle_axis polar_grid polar_radius_axis radar radial_bar
+                  reference_line tooltip x_axis y_axis]
+
+    assert_equal expected.sort, names.sort
     names.each { |name| assert Chadcn::Chart::Declarations.public_method_defined?(name), "missing helper ##{name}" }
   end
 

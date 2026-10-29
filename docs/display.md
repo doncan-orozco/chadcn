@@ -175,6 +175,67 @@ path, where recharts renders its non-chart children.
   in the svg. A series is left out of the payload with `tooltip_type: :none` (the content drops it), a nil value or a hidden series by `filter_null`.
   Where the wrapper sits and the hover itself belong to the `chadcn--chart` controller; `shared: false` (item tooltips) is not drawn.
 
+## Charts (polar)
+
+`Chadcn::Chart::PieChart`, `RadarChart` and `RadialBarChart` draw recharts' polar DOM the same way: from Ruby, inside a `Chart::Container`,
+laid out once at its size, with the parts of the block registering with the chart. Angles are degrees, counterclockwise from 3 o'clock
+(`start_angle: 90, end_angle: -270` runs a radar clockwise from the top); a radius or a center is a number of pixels or a percent string.
+
+| Part | Keywords (besides `**attrs`) |
+|---|---|
+| `PieChart`, `RadarChart`, `RadialBarChart` | `data:`, `margin:`, `start_angle:`, `end_angle:`, `cx:` (`"50%"`), `cy:`, `inner_radius:` (0), `outer_radius:` (`"80%"` of the largest circle in the plot), `accessibility_layer:`, `title:`, `desc:`, `role:`, `tab_index:`; `RadialBarChart` also `bar_category_gap:`, `bar_gap:`, `bar_size:`, `max_bar_size:`. A pie and a radial bar start at 0 and run to 360, a radar at 90 to -270 |
+| `Pie` `chart.pie` | `data:` (else the chart's), `data_key:` (`:value`), `name_key:` (`:name`), `cx:`, `cy:`, `inner_radius:` (a donut), `outer_radius:`, `start_angle:`, `end_angle:`, `padding_angle:`, `corner_radius:`, `min_angle:`, `fill:` (`"#808080"`), `stroke:` (`"#fff"`), `stroke_width:`, `label:`, `label_line:`, `legend_type:`, `tooltip_type:`, `hide:`, `name:`; its block takes `pie.cell`, `pie.label_list` and `pie.label` |
+| `Radar` `chart.radar` | `data_key:`, `fill:`, `fill_opacity:`, `stroke:`, `stroke_width:`, `dot:`, `active_dot:`, `label:`, `legend_type:`, `tooltip_type:`, `hide:`, `name:`, `angle_axis_id:`, `radius_axis_id:`; its block takes `radar.label_list` |
+| `RadialBar` `chart.radial_bar` | `data_key:`, `stack_id:`, `background:`, `corner_radius:`, `corner_is_external:`, `force_corner_radius:`, `min_point_size:`, `bar_size:`, `max_bar_size:`, `fill:`, `label:`, `legend_type:`, `tooltip_type:`, `hide:`, `angle_axis_id:`, `radius_axis_id:`; its block takes `bar.cell` and `bar.label_list` |
+| `PolarGrid` `chart.polar_grid` | `grid_type:` (`polygon`, `circle`), `radial_lines:`, `polar_angles:`, `polar_radius:`, `stroke:`, `fill:` (a background behind the rings); `class:` and the other attributes land on every ring and line |
+| `PolarAngleAxis`, `PolarRadiusAxis` | `data_key:`, `type:`, `tick:`, `tick_formatter:`, `axis_line:`, `reversed:`, `domain:`, `allow_decimals:`, `stroke:`; the angle axis also `tick_line:`, `axis_line_type:`, `tick_size:`, `orientation:` (`outer`, `inner`); the radius axis `angle:`, `tick_count:`, `orientation:` (`left`, `right`, `middle`) |
+| `Label` `pie.label`, `LabelList` `pie.label_list` | `position:` also takes the polar names: `outside`, `center`, `center_top`, `center_bottom`, `inside_start`, `inside_end`, `end` (the last three run along the arc) |
+
+```ruby
+visitors = [
+  { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
+  { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
+  { browser: "firefox", visitors: 187, fill: "var(--color-firefox)" }
+]
+config = { visitors: { label: "Visitors" }, chrome: { label: "Chrome", color: "var(--chart-1)" }, safari: { label: "Safari", color: "var(--chart-2)" },
+           firefox: { label: "Firefox", color: "var(--chart-3)" } }
+
+# a donut with the total in the middle
+render Chadcn::Chart::Container.new(config: config, id: "browsers") do
+  render Chadcn::Chart::PieChart.new do |chart|
+    chart.tooltip(cursor: false, content: Chadcn::Chart::Tooltip::Content.new(hide_label: true))
+    chart.pie(data: visitors, data_key: :visitors, name_key: :browser, inner_radius: 60, stroke_width: 5) do |pie|
+      pie.label(value: "Visitors", position: :center)
+    end
+  end
+end
+
+# a radar over the months
+months = [ { month: "January", desktop: 186 }, { month: "February", desktop: 305 }, { month: "March", desktop: 237 } ]
+render Chadcn::Chart::Container.new(config: { desktop: { label: "Desktop", color: "var(--chart-1)" } }, id: "radar") do
+  render Chadcn::Chart::RadarChart.new(data: months) do |chart|
+    chart.polar_angle_axis(data_key: :month)
+    chart.polar_grid(grid_type: :circle)
+    chart.radar(data_key: :desktop, fill: "var(--color-desktop)", fill_opacity: 0.6, dot: { r: 4, fill_opacity: 1 })
+  end
+end
+
+# stacked radial bars over half a circle
+render Chadcn::Chart::Container.new(config: { desktop: { label: "Desktop", color: "var(--chart-1)" }, mobile: { label: "Mobile", color: "var(--chart-2)" } }, id: "radial") do
+  render Chadcn::Chart::RadialBarChart.new(data: [ { month: "january", desktop: 1260, mobile: 570 } ], end_angle: 180, inner_radius: 80, outer_radius: 130) do |chart|
+    chart.radial_bar(data_key: :desktop, stack_id: "a", corner_radius: 5, fill: "var(--color-desktop)")
+    chart.radial_bar(data_key: :mobile, stack_id: "a", corner_radius: 5, fill: "var(--color-mobile)")
+  end
+end
+```
+
+What `chart.tooltip` and `chart.legend` do is as for the cartesian charts, with these differences: a pie has item tooltips (one inert template per sector,
+the sector alone, `data-label` empty) and lists its sectors in the legend (name from `name_key:`, color from the cell, the row or the pie); a radar and a
+radial bar have one template per category of their tooltip axis. The server draws no tooltip cursor (recharts draws it from the polar coordinate of the pointer),
+a radar's active dot is drawn for `default_index:`, and `shared: false` (item tooltips) is not drawn on a radial bar chart. The hover mapping of `chadcn--chart` is cartesian only for now.
+Not ported: a radar range (`[low, high]` values raises), `active_shape:` (raises), `stack_offset:`, `hide:` and children of the polar axes, `tick_count:` of the angle axis;
+only `fill`, `stroke`, `name` and `opacity` of a data row reach its sector.
+
 ## Notes
 
 - `Carousel`, `Resizable` and `MessageScroller` re-implement their libraries (embla-carousel 8.6.0, react-resizable-panels,

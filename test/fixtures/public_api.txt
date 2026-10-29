@@ -89,6 +89,15 @@ class Chadcn::Chart::Legend < Chadcn::Chart::Declaration
 class Chadcn::Chart::Legend::Content < Chadcn::Base
 class Chadcn::Chart::Line < Chadcn::Chart::Declaration
 class Chadcn::Chart::LineChart < Chadcn::Chart::Cartesian::Root
+class Chadcn::Chart::Pie < Chadcn::Chart::Declaration
+class Chadcn::Chart::PieChart < Chadcn::Chart::Polar::Root
+class Chadcn::Chart::PolarAngleAxis < Chadcn::Chart::Declaration
+class Chadcn::Chart::PolarGrid < Chadcn::Chart::Declaration
+class Chadcn::Chart::PolarRadiusAxis < Chadcn::Chart::Declaration
+class Chadcn::Chart::Radar < Chadcn::Chart::Declaration
+class Chadcn::Chart::RadarChart < Chadcn::Chart::Polar::Root
+class Chadcn::Chart::RadialBar < Chadcn::Chart::Declaration
+class Chadcn::Chart::RadialBarChart < Chadcn::Chart::Polar::Root
 class Chadcn::Chart::ReferenceLine < Chadcn::Chart::Declaration
 class Chadcn::Chart::Style < Chadcn::Base
 class Chadcn::Chart::Tooltip < Chadcn::Chart::Declaration
@@ -428,10 +437,11 @@ const Chadcn::ButtonGroup::ORIENTATIONS [horizontal, vertical]
 const Chadcn::Chart::Bar::LEGEND_TYPES [line, plainline, square, rect, circle, cross, diamond, star, triangle, wye, none]
 const Chadcn::Chart::Config::THEMES [light, dark]
 const Chadcn::Chart::Container::DEFAULT_DIMENSION [width, height]
-const Chadcn::Chart::LabelList::POSITIONS [top, bottom, left, right, inside_left, inside_right, inside_top, inside_bottom, inside_top_left, inside_top_right, inside_bottom_left, inside_bottom_right, center, middle]
+const Chadcn::Chart::LabelList::POSITIONS [top, bottom, left, right, inside_left, inside_right, inside_top, inside_bottom, inside_top_left, inside_top_right, inside_bottom_left, inside_bottom_right, center, middle, outside, center_top, center_bottom, inside_start, inside_end, end]
 const Chadcn::Chart::Legend::ALIGNMENTS [left, center, right]
 const Chadcn::Chart::Legend::LAYOUTS [horizontal, vertical]
 const Chadcn::Chart::Legend::VERTICAL_ALIGNMENTS [top, middle, bottom]
+const Chadcn::Chart::PolarGrid::GRID_TYPES [polygon, circle]
 const Chadcn::Chart::ReferenceLine::OVERFLOWS [discard, hidden, visible, extend_domain]
 const Chadcn::Chart::Tooltip::TRIGGERS [hover, click]
 const Chadcn::Command::Item::KEYWORDS
@@ -699,6 +709,15 @@ method Chadcn::Chart::Legend::Content#initialize (hide_icon: false, vertical_ali
 method Chadcn::Chart::Legend::Content#view_template ()
 method Chadcn::Chart::Line#initialize (data_key:, type: :linear, stroke: "#3182bd", stroke_width: 1, stroke_dasharray: nil, fill: "#fff", dot: true, active_dot: true, connect_nulls: false, label: false, legend_type: :line, tooltip_type: nil, hide: false, name: nil, unit: nil, x_axis_id: 0, y_axis_id: 0, is_animation_active: nil, **attrs)
 method Chadcn::Chart::LineChart#initialize (data: [], layout: :horizontal, margin: { top: 5, right: 5, bottom: 5, left: 5 }, bar_category_gap: "10%", bar_gap: 4, bar_size: nil, max_bar_size: nil, stack_offset: :none, reverse_stack_order: false, accessibility_layer: true, title: nil, desc: nil, role: nil, tab_index: nil, **attrs)
+method Chadcn::Chart::Pie#initialize (data: nil, data_key: :value, name_key: :name, name: nil, cx: "50%", cy: "50%", inner_radius: 0, outer_radius: "80%", start_angle: 0, end_angle: 360, padding_angle: 0, corner_radius: nil, min_angle: 0, fill: "#808080", stroke: "#fff", stroke_width: nil, label: false, label_line: true, root_tab_index: 0, legend_type: :rect, tooltip_type: nil, hide: false, active_shape: nil, is_animation_active: nil, **attrs)
+method Chadcn::Chart::PieChart#initialize (data: [], margin: { top: 5, right: 5, bottom: 5, left: 5 }, start_angle: 0, end_angle: 360, cx: "50%", cy: "50%", inner_radius: 0, outer_radius: "80%", accessibility_layer: true, title: nil, desc: nil, role: nil, tab_index: nil, **attrs)
+method Chadcn::Chart::PolarAngleAxis#initialize (data_key: nil, type: :auto, tick: true, tick_line: true, axis_line: true, axis_line_type: :polygon, tick_size: 8, tick_formatter: nil, orientation: :outer, reversed: false, domain: nil, allow_decimals: false, stroke: nil, angle_axis_id: 0, **attrs)
+method Chadcn::Chart::PolarGrid#initialize (grid_type: :polygon, polar_angles: nil, polar_radius: nil, stroke: "#ccc", fill: nil, radial_lines: true, angle_axis_id: 0, radius_axis_id: 0, **attrs)
+method Chadcn::Chart::PolarRadiusAxis#initialize (data_key: nil, type: :auto, angle: 0, tick_count: 5, tick: true, axis_line: true, tick_formatter: nil, orientation: :right, reversed: false, domain: nil, allow_decimals: false, stroke: "#ccc", radius_axis_id: 0, **attrs)
+method Chadcn::Chart::Radar#initialize (data_key:, fill: nil, fill_opacity: nil, stroke: nil, stroke_width: nil, dot: false, active_dot: true, label: false, legend_type: :rect, tooltip_type: nil, hide: false, name: nil, angle_axis_id: 0, radius_axis_id: 0, is_animation_active: nil, **attrs)
+method Chadcn::Chart::RadarChart#initialize (data: [], margin: { top: 5, right: 5, bottom: 5, left: 5 }, start_angle: 90, end_angle: -270, cx: "50%", cy: "50%", inner_radius: 0, outer_radius: "80%", accessibility_layer: true, title: nil, desc: nil, role: nil, tab_index: nil, **attrs)
+method Chadcn::Chart::RadialBar#initialize (data_key:, stack_id: nil, background: false, corner_radius: 0, corner_is_external: false, force_corner_radius: false, min_point_size: 0, bar_size: nil, max_bar_size: nil, fill: nil, stroke: nil, stroke_width: nil, label: false, legend_type: :rect, tooltip_type: nil, hide: false, name: nil, angle_axis_id: 0, radius_axis_id: 0, is_animation_active: nil, **attrs)
+method Chadcn::Chart::RadialBarChart#initialize (data: [], margin: { top: 5, right: 5, bottom: 5, left: 5 }, start_angle: 0, end_angle: 360, cx: "50%", cy: "50%", inner_radius: 0, outer_radius: "80%", bar_category_gap: "10%", bar_gap: 4, bar_size: nil, max_bar_size: nil, accessibility_layer: true, title: nil, desc: nil, role: nil, tab_index: nil, **attrs)
 method Chadcn::Chart::ReferenceLine#initialize (x: nil, y: nil, stroke: "#ccc", stroke_width: 1, stroke_dasharray: nil, fill: "none", fill_opacity: 1, if_overflow: :discard, x_axis_id: 0, y_axis_id: 0, **attrs)
 method Chadcn::Chart::Style#initialize (id:, config:)
 method Chadcn::Chart::Style#view_template ()
@@ -1560,6 +1579,15 @@ Chadcn::Chart#label_list
 Chadcn::Chart#legend
 Chadcn::Chart#line
 Chadcn::Chart#line_chart
+Chadcn::Chart#pie
+Chadcn::Chart#pie_chart
+Chadcn::Chart#polar_angle_axis
+Chadcn::Chart#polar_grid
+Chadcn::Chart#polar_radius_axis
+Chadcn::Chart#radar
+Chadcn::Chart#radar_chart
+Chadcn::Chart#radial_bar
+Chadcn::Chart#radial_bar_chart
 Chadcn::Chart#reference_line
 Chadcn::Chart#style
 Chadcn::Chart#tooltip
