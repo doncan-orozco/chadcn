@@ -8,6 +8,10 @@
 # @api private
 class Chadcn::Chart::Polar::Drawer::RadialBar < Chadcn::Chart::Polar::Drawer
   LAYERS = [ -50, 300 ].freeze
+  # What the path of an arc is made of.
+  GEOMETRY = %i[cx cy inner_radius outer_radius start_angle end_angle].freeze
+
+  private_constant :GEOMETRY
 
   # @return [void]
   def view_template
@@ -39,7 +43,8 @@ class Chadcn::Chart::Polar::Drawer::RadialBar < Chadcn::Chart::Polar::Drawer
     sectors.each do |sector|
       next unless sector.background
 
-      shape = attrs(row_attributes(sector), { fill: "#eee" }, custom.except(:class, :class_name, :z_index), sector.background.slice(:cx, :cy),
+      center = { cx: sector.background[:cx], cy: sector.background[:cy] }
+      shape = attrs(row_attributes(sector), { fill: "#eee" }, custom.except(:class, :class_name, :z_index), center,
                     { class: classes("recharts-sector recharts-radial-bar-background-sector", user_class(custom) || "undefined") })
       arc(sector, shape, geometry: sector.background)
     end
@@ -57,7 +62,7 @@ class Chadcn::Chart::Polar::Drawer::RadialBar < Chadcn::Chart::Polar::Drawer
     values = source.is_a?(Hash) ? source : source.to_h
     return {} unless values.values_at(:inner_radius, :outer_radius, :start_angle, :end_angle).none?(&:nil?)
 
-    values.slice(:cx, :cy, :inner_radius, :outer_radius, :start_angle, :end_angle)
+    GEOMETRY.to_h { |key| [ key, values[key] ] }
   end
 
   def corners = { corner_radius: corner_radius, force_corner_radius: options[:force_corner_radius], corner_is_external: options[:corner_is_external] }

@@ -127,4 +127,25 @@ server-assumed text metrics) and the choice of the oracle (settled client render
 
 ## As built
 
-(Empty until the gem items of the `chart` epic land; each records here where the build differs from this record.)
+Each gem item of the `chart` epic records here where the build differs from this record.
+
+### Item #49: the polar charts (`PieChart`, `RadarChart`, `RadialBarChart`)
+
+- **Reuse over rewrite.** The polar axes do not re-implement domains, nice ticks and scales: `Polar::Axis` wraps the cartesian axis resolution (recharts' polar
+  selectors are the same functions as the cartesian ones, `state/selectors/polarAxisSelectors.js`), mapping the angle axis to its `x` and the radius axis to its `y`
+  with the polar differences (no nice ticks on the angle axis, no stacks in the domain, the tick shifts). The bar positions of a radial bar are the cartesian
+  `BarPositions` over the radius band. The tooltip wrappers and the templates are the cartesian `Overlays` and `TooltipTemplates`; `Polar::Overlays` only replaces the
+  legend payload (a pie lists its sectors) and `Polar::TooltipPlan` extends the cartesian plan. The cartesian files stay as they were, with one exception:
+  `Overlays#legend_items` was extracted from `#legend_content` so a subclass can supply the payload. A follow-up could move `Overlays`, `TooltipTemplates`, `Scope`,
+  `Choice`, `Value`, `Text` and `Formatter` out of `Chart::Cartesian` (they are not cartesian).
+- **Drawing is split per family** (`Polar::Drawer::Pie`, `PieLabels`, `Radar`, `RadialBar`, `Grid`, `AngleAxis`, `RadiusAxis`, `LabelList`, `Label`), each a
+  `Phlex::SVG` component that says which z-index layers it draws in (`LAYERS`); `Polar::Surface` is only the frame: the layers in order, the clip path and the
+  things recharts leaves in place (an empty pie) after it. This answers the criticism of the 669-line cartesian `Surface`.
+- **Probes.** Every behavior beyond the nine `polar__*` scenarios (labels, label lines, cells, classes, hidden and empty series, clockwise and half circles, padding
+  and corner radii, min point size, stacks, legend, default index, axis options, numeric angle axis) was compared with the oracle DOM, line by line, with scratch
+  scenarios that were not committed (`scenarios/chart.json` is not this item's to edit); the committed tests carry the resulting values.
+- **Quirks kept on purpose** (they are recharts' DOM): the `undefined` class suffix of a radial bar sector; `class:` of an axis replacing the class of its line and
+  tick lines; `class:` of a pie landing on every sector; the default-index anchor of a radar or radial bar tooltip (x the middle of the chart, y the tick's angle or
+  radius); a radial bar with no data still drawn as its two empty groups; the empty pie written in place after the clip path.
+- **Not ported**, see `deviations/chart.json`: radar ranges, `active_shape`, the polar tooltip cursor and item tooltips of a radial bar chart, the hover mapping of
+  `chadcn--chart` for polar charts, `stack_offset`, `hide:` and children of the polar axes, `tick_count:` of the angle axis.

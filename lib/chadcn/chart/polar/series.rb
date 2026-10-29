@@ -61,16 +61,16 @@ module Chadcn::Chart::Polar::Series
   def declare(part)
     case part
     when Chadcn::Chart::LabelList then @label_lists << part
-    when Chadcn::Chart::Cell then hold(part, @cells, CELL_KINDS, "a Chart::Pie or a Chart::RadialBar")
-    when Chadcn::Chart::Label then hold(part, @labels, LABEL_KINDS, "a Chart::Pie")
-    else raise ArgumentError, "#{part.class.name} does not go in a Chart::#{self.class.name.split('::').last}"
+    when Chadcn::Chart::Cell then hold(part, @cells, CELL_KINDS, "Chart::Pie or Chart::RadialBar")
+    when Chadcn::Chart::Label then hold(part, @labels, LABEL_KINDS, "Chart::Pie")
+    else raise ArgumentError, "#{part.class.name} does not go in a #{self.class.name}"
     end
   end
 
   private
 
   def hold(part, list, kinds, where)
-    raise ArgumentError, "#{part.class.name} goes in #{where}, not in a Chart::#{self.class.name.split('::').last}" unless kinds.include?(kind)
+    raise ArgumentError, "#{part.class.name} goes in a #{where}, not in a #{self.class.name}" unless kinds.include?(kind)
 
     list << part
   end
