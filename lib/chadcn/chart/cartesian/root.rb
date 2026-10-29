@@ -19,7 +19,12 @@ class Chadcn::Chart::Cartesian::Root < Chadcn::Base
   # The size recharts lays a chart out at when nothing measures it (`INITIAL_DIMENSION` of chart.tsx).
   DEFAULT_DIMENSION = { width: 320, height: 200 }.freeze
 
-  private_constant :LAYOUTS, :STACK_OFFSETS, :DEFAULT_MARGIN, :DEFAULT_DIMENSION
+  # The charts whose `Tooltip shared: false` resolves to recharts' item event type: a BarChart allows `['axis', 'item']`
+  # (chart/BarChart.js:5), a LineChart and an AreaChart only `['axis']` (chart/LineChart.js:5, chart/AreaChart.js:5), where the
+  # request falls back to axis (state/selectors/selectTooltipEventType.js:4-13).
+  ITEM_TOOLTIP_CHARTS = %i[bar].freeze
+
+  private_constant :LAYOUTS, :STACK_OFFSETS, :DEFAULT_MARGIN, :DEFAULT_DIMENSION, :ITEM_TOOLTIP_CHARTS
 
   # @api private
   # @param data [Array<Hash>] one row per category
@@ -67,7 +72,7 @@ class Chadcn::Chart::Cartesian::Root < Chadcn::Base
     container = Chadcn::Chart::Container.current(context)
     container&.claim_chart(self)
     layout = Chadcn::Chart::Cartesian::Layout.new(@declared, layout_settings(container))
-    plan = Chadcn::Chart::Cartesian::TooltipPlan.new(layout: layout, declared: @declared, rows: @options[:data]) if @declared.tooltip
+    plan = Chadcn::Chart::Cartesian::TooltipPlan.new(layout: layout, declared: @declared, rows: @options[:data], event_type: tooltip_event_type) if @declared.tooltip
     append_tooltip_templates(container, plan) if plan
     wiring = Chadcn::Chart::Cartesian::Wiring.new(layout: layout, declared: @declared, accessibility_layer: @options[:accessibility_layer], plan: plan)
     container&.publish_chart_values(wiring.values)
@@ -102,6 +107,11 @@ class Chadcn::Chart::Cartesian::Root < Chadcn::Base
     return unless container && plan.tooltip.content_element
 
     container.append_after_shell(Chadcn::Chart::Cartesian::TooltipTemplates.new(plan: plan))
+  end
+
+  # `:item` for a `Tooltip shared: false` on a chart that allows item tooltips (see ITEM_TOOLTIP_CHARTS), else `:axis`.
+  def tooltip_event_type
+    @declared.tooltip.options[:shared] == false && ITEM_TOOLTIP_CHARTS.include?(self.class::CHART_TYPE) ? :item : :axis
   end
 
   def layout_settings(container)

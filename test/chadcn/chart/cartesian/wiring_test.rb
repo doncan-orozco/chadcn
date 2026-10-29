@@ -143,6 +143,31 @@ class Chadcn::Chart::Cartesian::WiringTest < Chadcn::TestCase
     assert_not_includes payload.first.keys, "payload", "the data row stays out of the template"
   end
 
+  test "shared: false on a BarChart is recharts' item tooltip: not drawn, so no ticks, templates, default index or active parts" do
+    doc = parse(render_chart { |chart| declare(chart, tooltip: { shared: false, default_index: 1 }) })
+    node = doc.at_css("div[data-slot='chart']")
+    wrapper = doc.at_css(".recharts-tooltip-wrapper")
+
+    assert_equal "item", value(node, "tooltip-event-type")
+    assert_equal [], json(node, "ticks")
+    assert_empty doc.css("template[data-chadcn--chart-target='tooltipTemplate']")
+    assert_includes wrapper["style"], "visibility: hidden"
+    assert_empty wrapper.children
+    assert_nil doc.at_css("[data-chadcn--chart-target='cursor']")
+    assert_nil doc.at_css("[data-chadcn--chart-target='activeDots']")
+  end
+
+  test "shared: false on a LineChart stays an axis tooltip (recharts allows axis only there)" do
+    doc = parse(render_chart(Chadcn::Chart::LineChart) do |chart|
+      chart.x_axis(data_key: :month)
+      chart.line(data_key: :desktop)
+      chart.tooltip(shared: false, content: Chadcn::Chart::Tooltip::Content.new)
+    end)
+
+    assert_equal "axis", value(doc.at_css("div[data-slot='chart']"), "tooltip-event-type")
+    assert_equal ROWS.length, doc.css("template[data-chadcn--chart-target='tooltipTemplate']").length
+  end
+
   test "a chart with no container still renders and is simply not wired" do
     doc = parse(render_bare_chart { |chart| declare(chart) })
 

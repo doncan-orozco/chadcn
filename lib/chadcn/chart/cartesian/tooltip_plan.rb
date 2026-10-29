@@ -32,22 +32,31 @@ class Chadcn::Chart::Cartesian::TooltipPlan
   # @return [Chadcn::Chart::Tooltip]
   attr_reader :tooltip
 
+  # The tooltip's event type, `:axis` or `:item` (state/selectors/selectTooltipEventType.js:4-13). Only `:axis` is drawn: an `:item`
+  # tooltip has no entries, so no templates and no default index.
+  #
+  # @api private
+  # @return [Symbol]
+  attr_reader :event_type
+
   # @api private
   # @param layout [Chadcn::Chart::Cartesian::Layout]
   # @param declared [Chadcn::Chart::Cartesian::Declared]
   # @param rows [Array<Hash>] the chart's data
-  def initialize(layout:, declared:, rows:)
+  # @param event_type [Symbol] `:axis` or `:item`
+  def initialize(layout:, declared:, rows:, event_type: :axis)
     @layout = layout
     @declared = declared
     @rows = rows
+    @event_type = event_type
     @tooltip = declared.tooltip
     @axis = layout.tooltip_axis(@tooltip.options[:axis_id])
     validate_shape_attributes
   end
 
   # @api private
-  # @return [Array<Entry>] one per category, in tick order
-  def entries = @entries ||= (@axis&.category? ? @axis.ticks.map { |tick| entry(tick) } : [])
+  # @return [Array<Entry>] one per category, in tick order; empty for an item tooltip (not drawn yet)
+  def entries = @entries ||= (@event_type == :axis && @axis&.category? ? @axis.ticks.map { |tick| entry(tick) } : [])
 
   # The category shown without interaction (`default_index:`), unless the tooltip never shows (`active: false`).
   #

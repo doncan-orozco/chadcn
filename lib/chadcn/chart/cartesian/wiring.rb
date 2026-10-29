@@ -56,7 +56,7 @@ class Chadcn::Chart::Cartesian::Wiring
   def tooltip_values
     options = @plan.tooltip.options
     { ticks: json(ticks), plot: json(plot), pointer_index: "-1", pointer_active: "false", keyboard_index: "-1", keyboard_active: "false",
-      default_index: (Integer(options[:default_index].to_s, exception: false) || -1).to_s, tooltip_event_type: "axis",
+      default_index: (Integer(options[:default_index].to_s, exception: false) || -1).to_s, tooltip_event_type: @plan.event_type.to_s,
       trigger: options[:trigger].to_s, tooltip_active: options[:active].nil? ? "" : options[:active].to_s,
       offset: json(pair(options[:offset])), allow_escape: json(flags(options[:allow_escape_view_box])),
       reverse_direction: json(flags(options[:reverse_direction])), position: json(position(options[:position])),
