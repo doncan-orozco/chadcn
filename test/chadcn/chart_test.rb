@@ -74,8 +74,8 @@ class Chadcn::ChartTest < Chadcn::TestCase
     Chadcn::Chart::BarChart.new # building a chart loads the declarations
     helpers = Chadcn::Chart::Declaration.subclasses.select(&:name).map { |part| Chadcn::Chart::Declarations.helper_name(part.name) }
 
-    assert_equal 12, helpers.size
-    [ Chadcn::Chart::BarChart, Chadcn::Chart::LineChart, Chadcn::Chart::AreaChart ].each do |chart_class|
+    assert_equal 16, helpers.size
+    [ Chadcn::Chart::BarChart, Chadcn::Chart::LineChart, Chadcn::Chart::AreaChart, Chadcn::Chart::PieChart ].each do |chart_class|
       assert_empty(helpers.reject { |helper| chart_class.public_method_defined?(helper) }, chart_class.name)
     end
     rows = [ { a: 1 }, { a: 2 } ]

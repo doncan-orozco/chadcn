@@ -9,9 +9,12 @@
 # @example
 #   chart.bar(data_key: :desktop) { |bar| bar.label_list(position: :top, offset: 12, class: "fill-foreground", font_size: 12) }
 class Chadcn::Chart::LabelList < Chadcn::Chart::Declaration
-  # Where a label sits around its shape.
+  # Where a label sits around its shape. The first group is the rectangles of a bar, the points of a line, an area and a radar; the second
+  # is the sectors of a pie and a radial bar (component/Label.js:158-206): `outside` is past the rim, `center`, `center_top` and
+  # `center_bottom` the center of the chart, `inside_start`, `inside_end` and `end` follow the arc, and `middle` is the middle of the ring.
+  # A position a shape does not know is centered, as in recharts.
   POSITIONS = %i[top bottom left right inside_left inside_right inside_top inside_bottom inside_top_left inside_top_right inside_bottom_left
-                 inside_bottom_right center middle].freeze
+                 inside_bottom_right center middle outside center_top center_bottom inside_start inside_end end].freeze
 
   # @api private
   # @return [Hash{Symbol => Object}] the keywords with defaults applied, frozen
