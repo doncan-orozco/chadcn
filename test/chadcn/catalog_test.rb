@@ -53,22 +53,20 @@ class CatalogTest < Minitest::Test
     end
   end
 
-  def test_a_simulated_registered_chart_component_adds_no_entry
-    Dir.mktmpdir("catalog-chart") do |dir|
-      FileUtils.mkdir_p(File.join(dir, "dev/port"))
-      FileUtils.cp_r(File.join(File.expand_path("../..", __dir__), "dev/port/scenarios"), File.join(dir, "dev/port"))
-      data = Chadcn::CatalogData.new(dir)
-      original = Chadcn::Overrides.method(:component?)
-      Chadcn::Overrides.define_singleton_method(:component?) { |name| name == "chart" || original.call(name) }
-      begin
-        entries = JSON.parse(data.build).fetch("entries")
-      ensure
-        Chadcn::Overrides.define_singleton_method(:component?, original)
-      end
+  def test_chart_is_an_entry_with_its_recharts_preview
+    entry = Chadcn::Catalog.find("chart")
 
-      refute_includes entries.map { |entry| entry["component"] }, "chart"
-      entries.each { |entry| refute_match(/"c":"_(?!Each")[A-Z]/, JSON.generate(entry["tree"]), entry["component"]) }
-      assert_equal(Chadcn::Catalog.entries.map(&:component), entries.map { |entry| entry["component"] })
+    assert_equal "cartesian__bar-default", entry.scenario_id
+    assert_operator entry.scenario_count, :>, 1
+    assert_includes render_tree(entry.tree, component: "chart"), "recharts-bar-rectangle"
+  end
+
+  def test_no_entry_keeps_a_node_only_the_harness_resolves
+    Chadcn::Catalog.entries.each do |entry|
+      # `_Each` is the renderer's own iteration marker (the combobox preview), not a harness stub.
+      JSON.generate(entry.tree).scan(/"c":"(_(?!Each")[A-Z]\w*)/).flatten.each do |name|
+        assert Chadcn::Catalog::ChartScope.resolvable_node?(name), "#{entry.component}: #{name}"
+      end
     end
   end
 

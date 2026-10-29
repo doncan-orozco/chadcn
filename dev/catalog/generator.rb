@@ -5,8 +5,10 @@ require "json"
 module Chadcn
   # Builds lib/chadcn/catalog/entries.json (what Chadcn::Catalog reads) from the parity scenarios in dev/port/scenarios: per ported
   # component its first plain (light) default scenario, with the harness-only probe nodes (`data-testid` outside/next/neutral)
-  # pruned. A scenario whose tree holds a harness-scope node (`_Name`, capitalized: a parity-harness fixture the real renderer cannot
-  # resolve) cannot be the preview: the component is then left out (no other scenario is substituted) and listed in #skipped. `rake catalog:check` fails when the committed file differs. The output is deterministic (sorted, no timestamps).
+  # pruned. A scenario whose tree holds a harness-scope node (`_Name`, capitalized: a parity-harness fixture the real renderer
+  # cannot resolve; the recharts parts `_BarChart`, `_Bar`... are not, the renderer maps them) cannot be the preview: the component
+  # is then left out (no other scenario is substituted) and listed in #skipped. `rake catalog:check` fails when the committed file
+  # differs. The output is deterministic (sorted, no timestamps).
   class CatalogData
     OUTPUT = "lib/chadcn/catalog/entries.json"
     SCENARIOS = "dev/port/scenarios"
@@ -72,11 +74,13 @@ module Chadcn
 
     def harness_node?(node)
       case node
-      when Hash then node["c"].to_s.match?(HARNESS_NODE) || node.each_value.any? { |value| harness_node?(value) }
-      when Array then node.any? { |item| harness_node?(item) }
+      when Hash then harness_name?(node["c"].to_s) || node.each_value.any? { |value| harness_node?(value) }
+      when Array then node.any? { |child| harness_node?(child) }
       else false
       end
     end
+
+    def harness_name?(name) = name.match?(HARNESS_NODE) && !Chadcn::Catalog::ChartScope.resolvable_node?(name)
 
     def prune(node)
       return node unless node.is_a?(Hash)

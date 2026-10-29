@@ -40,18 +40,24 @@ importmap pins) exactly as everywhere else; see the README.
 A node is `{ "c" => name, "props" => {...}, "children" => [...] }`:
 
 - `c` is a component name: `"Button"` is `Chadcn::Button`, `"DialogTrigger"` is `Chadcn::Dialog::Trigger` (the root prefix is
-  stripped). `c` starting with `_` and a lowercase letter (`"_div"`, `"_a"`) is a raw HTML element.
+  stripped). `c` starting with `_` and a lowercase letter (`"_div"`, `"_a"`) is a raw HTML element, except `"_defs"`, `"_linearGradient"`, `"_radialGradient"` and `"_stop"`: inside a chart those are
+  SVG elements (a gradient for an area), drawn in the chart's `<svg>`. Their props keep React's spelling (`gradientTransform`), except
+  `stopColor` / `stopOpacity`, which are written `stop-color` / `stop-opacity` (and `className`, `class`); any other SVG tag raises.
 - `props` use the React names: `className` is `class`, camelCase is snake_case, `data-*` and `aria-*` stay.
 - `children` are nodes or strings. A string starting with `<icon:name>` renders that icon, the rest is text.
 - `"asChild": true` makes the single child node the `as_child:` instance and its children the content.
 - `{ "c": "_Each", "children": [...] }` renders its template once per element the parent yields; `"$item"` and `"$item.path"`
   in a string become that element. Used by `Combobox`.
+- `c` starting with `_` and a capital letter is a node of the test harness, except the recharts parts of a chart (`"_BarChart"`, `"_Bar"`,
+  `"_XAxis"`...), which are `Chadcn::Chart::BarChart`, `Chadcn::Chart::Bar`, `Chadcn::Chart::XAxis`...; `"ChartTooltipContent"` and
+  `"ChartLegendContent"` are the chart's tooltip and legend content (as a `content` prop of `ChartTooltip` / `ChartLegend`, or as a node of
+  their own), and a prop `{ "formatter": "slice", "args": [0, 3] }` is the named formatter of the chart classes.
 - Prop strings `"$ref:<css selector>"`, `"$date:YYYY-MM-DD"` and `"$locale:es"` become the selector, the ISO date string and the
   locale tag.
 
 ## Where the data comes from
 
-`lib/chadcn/catalog/entries.json` (about 33 KB, packaged with the gem) holds the first light default scenario of each component, without
+`lib/chadcn/catalog/entries.json` (about 40 KB, packaged with the gem) holds the first light default scenario of each component, without
 the probe nodes the browser harness adds. It is generated from `dev/port/scenarios` by the repository, never edited by hand:
 
 ```bash
