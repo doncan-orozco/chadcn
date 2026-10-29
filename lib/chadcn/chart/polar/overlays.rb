@@ -14,7 +14,8 @@ class Chadcn::Chart::Polar::Overlays < Chadcn::Chart::Cartesian::Overlays
       case series.kind
       when :pie then pie_items(series)
       when :radar then [ radar_item(series) ]
-      else radial_bar_items(series)
+      when :radial_bar then radial_bar_items(series)
+      else raise ArgumentError, "unknown series kind #{series.kind.inspect}"
       end
     end
   end

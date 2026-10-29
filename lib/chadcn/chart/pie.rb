@@ -53,7 +53,7 @@ class Chadcn::Chart::Pie < Chadcn::Chart::Declaration
     raise ArgumentError, "active_shape: is not ported (got #{active_shape.inspect})" unless active_shape.nil? || active_shape == false
     raise ArgumentError, "data: must be an Array of Hashes (got #{data.class})" unless data.nil? || (data.is_a?(Array) && data.all?(Hash))
 
-    { start_angle: start_angle, end_angle: end_angle, padding_angle: padding_angle, min_angle: min_angle }.each { |key, value| degrees!(key, value) }
+    { start_angle: start_angle, end_angle: end_angle, padding_angle: padding_angle, min_angle: min_angle }.each { |key, value| validate_degrees(key, value) }
     @options = { data: data, data_key: data_key, name_key: name_key, name: name, cx: cx, cy: cy, inner_radius: inner_radius, outer_radius: outer_radius,
                  start_angle: start_angle, end_angle: end_angle, padding_angle: padding_angle, corner_radius: corner_radius, min_angle: min_angle,
                  fill: fill, stroke: stroke, stroke_width: stroke_width, label: label, label_line: label_line, root_tab_index: root_tab_index,
@@ -69,7 +69,7 @@ class Chadcn::Chart::Pie < Chadcn::Chart::Declaration
 
   private
 
-  def degrees!(name, value)
+  def validate_degrees(name, value)
     raise ArgumentError, "#{name}: must be a number of degrees (got #{value.inspect})" unless value.is_a?(Numeric) && value.real? && value.finite?
   end
 

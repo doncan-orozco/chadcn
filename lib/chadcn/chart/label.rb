@@ -20,7 +20,7 @@ class Chadcn::Chart::Label < Chadcn::Chart::Declaration
   # @param attrs [Hash] attributes of the text; `class:` replaces `recharts-label`
   # @raise [ArgumentError] on a `position:` that is none of the positions
   def initialize(value: nil, position: :middle, offset: 5, formatter: nil, fill: nil, angle: 0, **attrs)
-    @options = { value: value, position: Chadcn::Chart::LabelList.position!(position), offset: offset,
+    @options = { value: value, position: Chadcn::Chart::LabelList.normalize_position(position), offset: offset,
                  formatter: Chadcn::Chart::Cartesian::Formatter.resolve(formatter), fill: fill, angle: angle, attrs: attrs }.freeze
     super()
   end

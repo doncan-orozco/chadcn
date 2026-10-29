@@ -156,6 +156,7 @@ class Chadcn::Chart::Polar::Layout
     when :pie then pie_sectors(series)
     when :radar then radar_points(series)
     when :radial_bar then radial_bar_sectors(series)
+    else raise ArgumentError, "unknown series kind #{series.kind.inspect}"
     end
   end
 

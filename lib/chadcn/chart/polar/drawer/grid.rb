@@ -54,12 +54,12 @@ class Chadcn::Chart::Polar::Drawer::Grid < Chadcn::Chart::Polar::Drawer
     if options[:grid_type] == :circle
       circle(**base, class: classes("recharts-polar-grid-concentric-circle", user_class(options[:attrs])), r: format_number(radius))
     else
-      path(**base, class: classes("recharts-polar-grid-concentric-polygon", user_class(options[:attrs])), d: polygon(radius, angles))
+      path(**base, class: classes("recharts-polar-grid-concentric-polygon", user_class(options[:attrs])), d: polygon_path(radius, angles))
     end
   end
 
   # `getPolygonPath`: the points are not rounded.
-  def polygon(radius, angles)
+  def polygon_path(radius, angles)
     corners = angles.each_with_index.map do |angle, index|
       x, y = box.point(radius, angle)
       "#{index.zero? ? 'M' : 'L'} #{format_number(x)},#{format_number(y)}"

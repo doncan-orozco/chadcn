@@ -47,8 +47,8 @@ class Chadcn::Chart::Polar::Root < Chadcn::Base
     raise ArgumentError, "data: must be an Array of Hashes (got #{data.class})" unless data.is_a?(Array) && data.all?(Hash)
     raise ArgumentError, "margin: must be a Hash (got #{margin.class})" unless margin.is_a?(Hash)
 
-    { start_angle: start_angle, end_angle: end_angle }.each { |name, angle| number!(name, angle) }
-    { cx: cx, cy: cy, inner_radius: inner_radius, outer_radius: outer_radius }.each { |name, share| share!(name, share) }
+    { start_angle: start_angle, end_angle: end_angle }.each { |name, angle| validate_degrees(name, angle) }
+    { cx: cx, cy: cy, inner_radius: inner_radius, outer_radius: outer_radius }.each { |name, share| validate_share(name, share) }
     @options = { data: data, margin: margin, start_angle: start_angle, end_angle: end_angle, cx: cx, cy: cy, inner_radius: inner_radius,
                  outer_radius: outer_radius, bar_category_gap: bar_category_gap, bar_gap: bar_gap, bar_size: bar_size, max_bar_size: max_bar_size,
                  accessibility_layer: accessibility_layer, title: title, desc: desc, role: role, tab_index: tab_index, attrs: attrs }.freeze
@@ -89,11 +89,11 @@ class Chadcn::Chart::Polar::Root < Chadcn::Base
     Chadcn::Chart.constants(false).each { |name| Chadcn::Chart.const_get(name, false) if Chadcn::Chart.autoload?(name, false) }
   end
 
-  def number!(name, value)
+  def validate_degrees(name, value)
     raise ArgumentError, "#{name}: must be a number of degrees (got #{value.inspect})" unless value.is_a?(Numeric) && value.real? && value.finite?
   end
 
-  def share!(name, value)
+  def validate_share(name, value)
     return if value.is_a?(Numeric) || (value.is_a?(String) && value.match?(/\A\s*[+-]?(?:\d+\.?\d*|\.\d+)%?\s*\z/))
 
     raise ArgumentError, "#{name}: must be a number or a percent such as \"50%\" (got #{value.inspect})"

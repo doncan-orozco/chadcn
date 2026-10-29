@@ -24,7 +24,7 @@ class Chadcn::Chart::Polar::Drawer::PieLabels < Chadcn::Chart::Polar::Drawer
       end_point = point(center(sector), sector.outer_radius + reach, middle_angle(sector))
       g(class: "recharts-layer") do
         label_line(series, sector, end_point) if options[:label_line]
-        label_text(series, sector, end_point, custom)
+        sector_text(series, sector, end_point, custom)
       end
     end
   end
@@ -42,7 +42,7 @@ class Chadcn::Chart::Polar::Drawer::PieLabels < Chadcn::Chart::Polar::Drawer
   end
 
   # `renderLabelItem`: the value of the sector, anchored to the side of the pie it is on.
-  def label_text(series, sector, end_point, custom)
+  def sector_text(series, sector, end_point, custom)
     shown = Chadcn::Chart::Polar::PieSectors.presentation(series, sector)
     anchor = if end_point[0] > sector.cx then :start
     elsif end_point[0] < sector.cx then :end

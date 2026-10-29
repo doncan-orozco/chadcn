@@ -26,7 +26,7 @@ class Chadcn::Chart::LabelList < Chadcn::Chart::Declaration
   # @param position [Symbol, String, Hash]
   # @return [Symbol, Hash]
   # @raise [ArgumentError] on a position that is none of {POSITIONS}
-  def self.position!(position)
+  def self.normalize_position(position)
     return position if position.is_a?(Hash)
 
     name = position.respond_to?(:to_sym) ? position.to_s.gsub(/(?<=[a-z])([A-Z])/) { "_#{Regexp.last_match(1).downcase}" }.to_sym : nil
@@ -44,7 +44,7 @@ class Chadcn::Chart::LabelList < Chadcn::Chart::Declaration
   # @param attrs [Hash] attributes of every label; `class:` replaces `recharts-label`
   # @raise [ArgumentError] on a `position:` that is none of {POSITIONS}
   def initialize(data_key: nil, position: :middle, offset: 5, formatter: nil, fill: nil, angle: 0, **attrs)
-    @options = { data_key: data_key, position: self.class.position!(position), offset: offset,
+    @options = { data_key: data_key, position: self.class.normalize_position(position), offset: offset,
                  formatter: Chadcn::Chart::Cartesian::Formatter.resolve(formatter), fill: fill, angle: angle, attrs: attrs }.freeze
     super()
   end
