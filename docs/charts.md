@@ -403,7 +403,7 @@ The full list is `dev/port/deviations/chart.json`; in prose:
 Not ported: `Brush`, `ReferenceArea`, `ErrorBar`, `Customized`, `syncId`, `ref` and the mouse and touch callback props; `portal:`, `use_translate3d:`,
 `item_style:` and `label_style:` of the tooltip; a radar range (`[low, high]` values), `active_shape:` / `active_bar:` other than `false`, `stack_offset:` of the polar charts (the cartesian ones take `:none` and `:expand`)
 and `hide:` on the polar axes, `tick_count:` of the angle axis; the hover and key mapping for polar charts. `ReferenceLine` *is* ported
-(`chart.reference_line(y: 200)`), though the deviations file still lists it as not ported.
+(`chart.reference_line(y: 200)`).
 
 ## Trying it
 

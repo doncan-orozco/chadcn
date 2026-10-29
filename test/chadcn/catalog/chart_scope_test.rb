@@ -97,4 +97,21 @@ class Chadcn::Catalog::ChartScopeTest < Minitest::Test
   def test_an_unknown_underscore_capital_node_still_raises
     assert_raises(Chadcn::Catalog::TreeRenderer::Error) { render_container({ "c" => "_Probe" }) }
   end
+
+  def test_svg_props_keep_react_spelling_except_the_few_react_renames
+    gradient = { "c" => "_linearGradient",
+                 "props" => { "id" => "g", "gradientTransform" => "rotate(90)", "gradientUnits" => "userSpaceOnUse", "className" => "x" },
+                 "children" => [ { "c" => "_stop", "props" => { "offset" => "5%", "stopColor" => "red", "stopOpacity" => 0.8 } } ] }
+    html = render_container(bar_chart({ "c" => "_defs", "children" => [ gradient ] }, bar))
+
+    assert_includes html, 'gradientTransform="rotate(90)"'
+    assert_includes html, 'gradientUnits="userSpaceOnUse"'
+    assert_includes html, 'class="x"'
+    assert_includes html, 'stop-opacity="0.8"'
+    assert_equal 1, html.scan('stop-color="red"').size
+  end
+
+  def test_every_recharts_part_is_a_class_of_the_gem
+    Chadcn::Catalog::ChartScope::RECHARTS_PARTS.each { |part| assert_kind_of Class, Chadcn::Chart.const_get(part, false), part }
+  end
 end

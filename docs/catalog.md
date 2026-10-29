@@ -40,7 +40,9 @@ importmap pins) exactly as everywhere else; see the README.
 A node is `{ "c" => name, "props" => {...}, "children" => [...] }`:
 
 - `c` is a component name: `"Button"` is `Chadcn::Button`, `"DialogTrigger"` is `Chadcn::Dialog::Trigger` (the root prefix is
-  stripped). `c` starting with `_` and a lowercase letter (`"_div"`, `"_a"`) is a raw HTML element.
+  stripped). `c` starting with `_` and a lowercase letter (`"_div"`, `"_a"`) is a raw HTML element, except `"_defs"`, `"_linearGradient"`, `"_radialGradient"` and `"_stop"`: inside a chart those are
+  SVG elements (a gradient for an area), drawn in the chart's `<svg>`. Their props keep React's spelling (`gradientTransform`), except
+  `stopColor` / `stopOpacity`, which are written `stop-color` / `stop-opacity` (and `className`, `class`); any other SVG tag raises.
 - `props` use the React names: `className` is `class`, camelCase is snake_case, `data-*` and `aria-*` stay.
 - `children` are nodes or strings. A string starting with `<icon:name>` renders that icon, the rest is text.
 - `"asChild": true` makes the single child node the `as_child:` instance and its children the content.

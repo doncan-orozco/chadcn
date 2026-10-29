@@ -18,20 +18,22 @@ module Chadcn::Catalog::ChartScope
     PolarAngleAxis PolarRadiusAxis LabelList Label ReferenceLine
   ].freeze
   # The nodes whose props are chart props: the parts above, the shadcn layer that takes a `content`.
-  CHART_NODES = (RECHARTS_PARTS.map { |name| "_#{name}" } + %w[ChartTooltip ChartLegend]).freeze
+  CHART_NODES = (RECHARTS_PARTS.map { |name| "_#{name}" } + %w[ChartTooltip ChartLegend]).to_set.freeze
   # `content: <name>` is a React element in the oracle; here the instance of its class.
   CONTENTS = { "ChartTooltipContent" => "Tooltip", "ChartLegendContent" => "Legend" }.freeze
   # The SVG a chart's block writes itself (a gradient for an area), drawn inside the chart's svg.
-  SVG_NODES = Chadcn::Catalog::SvgElement::TAGS.map { |tag| "_#{tag}" }.freeze
+  SVG_NODES = Chadcn::Catalog::SvgElement::TAGS.to_set { |tag| "_#{tag}" }.freeze
   # Props that are data, not options: their keys are the caller's, kept as they are.
   DATA_PROPS = %w[data].freeze
+  # React's spelling of the SVG props a scenario writes, to the attribute react-dom writes; any other prop keeps its spelling as react-dom writes it.
+  SVG_ATTRIBUTES = { "className" => "class", "stopColor" => "stop-color", "stopOpacity" => "stop-opacity", "xlinkHref" => "xlink:href" }.freeze
+  # The recharts parts the renderer resolves itself, as node names.
+  RESOLVABLE = RECHARTS_PARTS.to_set { |part| "_#{part}" }.freeze
+  private_constant :CHART_NODES, :CONTENTS, :SVG_NODES, :DATA_PROPS, :SVG_ATTRIBUTES, :RESOLVABLE
 
   # @param name [String] a node name as a scenario writes it (`"_BarChart"`)
   # @return [Boolean] whether the renderer resolves it itself (a recharts part), so it is not a node only the parity harness knows
   def self.resolvable_node?(name) = RESOLVABLE.include?(name)
-
-  RESOLVABLE = RECHARTS_PARTS.to_set { |part| "_#{part}" }.freeze
-  private_constant :RESOLVABLE
 
   private
 
@@ -51,7 +53,7 @@ module Chadcn::Catalog::ChartScope
   end
 
   def render_svg(node, roots)
-    attributes = (node["props"] || {}).to_h { |key, value| [ key.snake_case.to_sym, value ] }
+    attributes = (node["props"] || {}).to_h { |key, value| [ SVG_ATTRIBUTES.fetch(key, key).to_sym, value ] }
     render(Chadcn::Catalog::SvgElement.new(node["c"].delete_prefix("_"), **attributes)) { render_children(node["children"], roots) }
   end
 
