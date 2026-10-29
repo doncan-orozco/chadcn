@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
-# shadcn/ui Chart: the wrapper layer of shadcn's `chart.tsx` (`ChartContainer`, `ChartStyle`, `ChartTooltip`, `ChartTooltipContent`,
-# `ChartLegend`, `ChartLegendContent` and the `ChartConfig` type) as Phlex. Spec: dev/port/specs/chart.md, decision record:
-# dev/decisions/chart.md. recharts is not shipped; the cartesian chart roots that draw the SVG are {Chadcn::Chart::BarChart},
-# {Chadcn::Chart::LineChart} and {Chadcn::Chart::AreaChart}, over the parts a chart's block declares ({Chadcn::Chart::Declaration}).
+# shadcn/ui Chart: shadcn's `chart.tsx` (`ChartContainer`, `ChartStyle`, `ChartTooltip`, `ChartTooltipContent`, `ChartLegend`,
+# `ChartLegendContent` and the `ChartConfig` type) and the recharts charts it wraps, as Phlex. recharts is not shipped: the chart roots
+# {Chadcn::Chart::BarChart}, {Chadcn::Chart::LineChart}, {Chadcn::Chart::AreaChart}, {Chadcn::Chart::PieChart}, {Chadcn::Chart::RadarChart}
+# and {Chadcn::Chart::RadialBarChart} draw the SVG recharts produces, over the parts a chart's block declares
+# ({Chadcn::Chart::Declaration}), and the `chadcn--chart` Stimulus controller adds the tooltip, the cursor and the keyboard. Guide:
+# docs/charts.md. Spec: dev/port/specs/chart.md, decision record: dev/decisions/chart.md.
 #
 # The family root: `Chart.new { |chart| ... }` yields itself, so the block can use the generated helpers (`chart.container`,
 # `chart.style`, `chart.tooltip`, `chart.legend`).

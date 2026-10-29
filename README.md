@@ -10,7 +10,7 @@
 [shadcn/ui](https://ui.shadcn.com) for [Phlex](https://www.phlex.fun): the same component API, the same Tailwind class strings and
 the same behavior as the React originals (Radix, and the libraries shadcn wraps), as Phlex views with Stimulus controllers. 61 components (`Button`, `Dialog`, `Select`, `Sidebar`,
 `Toaster`, `Command`, `Combobox`, `Calendar`...), checked against the React original in a browser. Two are partial: `Form` ports shadcn's ids and ARIA contract
-without react-hook-form (a [bound form](docs/forms.md)) and is tested in Ruby, and `Chart` ships shadcn's chart layer, with the chart roots (`BarChart`...) still to come and so no browser comparison yet.
+without react-hook-form (a [bound form](docs/forms.md)) and is tested in Ruby, and `Chart` draws recharts' SVG from Ruby (see [Charts](#charts)), so its browser comparison covers the DOM and the numbers but not recharts' responsive re-layout.
 
 > Status: pre-release (0.x). The public API follows semantic versioning from the first release; see [CHANGELOG.md](CHANGELOG.md).
 >
@@ -28,7 +28,7 @@ without react-hook-form (a [bound form](docs/forms.md)) and is tested in Ruby, a
 | Copies component files into the app, one by one | `bundle add chadcn` and one generator: `bin/rails g chadcn:install` |
 | Re-applies upstream fixes to every copied file by hand | Upgrades are a `bundle update` |
 | Ships a React runtime for one dropdown | Radix behavior as Stimulus controllers, zero React |
-| Eyeballs the dialog and hopes it matches | Every component with a React DOM (all but `Form` and `Chart`) checked against the original in a browser |
+| Eyeballs the dialog and hopes it matches | Every component with a React DOM (all but `Form`) checked against the original in a browser |
 | Pulls in a framework's worth of gems to render a button | Three runtime dependencies: `phlex`, `tailwind_merge`, `zeitwerk` |
 | Re-types the theme colors by hand | Pastes a theme from ui.shadcn.com/themes, unchanged |
 | Greps the app to find out why the styles are missing | `bin/rails chadcn:doctor` says why |
@@ -380,7 +380,7 @@ end
   [docs/api-conventions.md](docs/api-conventions.md).
 
 The API of every component is in the YARD documentation (`bundle exec yard server` in the gem) and,
-per family, in [`docs/`](docs/): [conventions](docs/api-conventions.md), [display](docs/display.md), [form controls](docs/form-controls.md), [forms](docs/forms.md),
+per family, in [`docs/`](docs/): [conventions](docs/api-conventions.md), [display](docs/display.md), [form controls](docs/form-controls.md), [forms](docs/forms.md), [charts](docs/charts.md),
 [disclosure and navigation](docs/disclosure-and-navigation.md), [overlays](docs/overlays.md), [menus and select](docs/menus-and-select.md), [catalog](docs/catalog.md) (an example of every component, for a gallery page).
 [Compatibility](docs/compatibility.md) lists the supported Ruby, Phlex, Rails and Tailwind versions and the Phlex 3 policy.
 
@@ -407,6 +407,27 @@ end
 Ten bound controls (`input` to `input_group`) and `form.fields(attribute: :addresses)` for nested attributes. The control id is
 `user_email-form-item`, not Rails' `user_email`, and `chadcn--form` mirrors HTML5 validity into the markup a server error renders. The
 guide, with the Rails example, GET forms, `namespace:` and the `form_with` comparison, is [docs/forms.md](docs/forms.md).
+
+### Charts
+
+`Chadcn::Chart` ports shadcn's chart without React or a charting library: `BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart` and
+`RadialBarChart` draw the SVG of recharts 3.8 (its class names and numbers) from Ruby inside shadcn's `Chart::Container`, so the server
+renders the whole chart, and `chadcn--chart` adds the tooltip, the cursor and the keyboard.
+
+```ruby
+rows = [ { month: "January", desktop: 186 }, { month: "February", desktop: 305 }, { month: "March", desktop: 237 } ]
+
+render Chadcn::Chart::Container.new(config: { desktop: { label: "Desktop", color: "var(--chart-1)" } }, id: "sales") do
+  render Chadcn::Chart::BarChart.new(data: rows) do |chart|
+    chart.x_axis(data_key: :month, tick_line: false, axis_line: false)
+    chart.tooltip(content: Chadcn::Chart::Tooltip::Content.new)
+    chart.bar(data_key: :desktop, fill: "var(--color-desktop)", radius: 4)
+  end
+end
+```
+
+A chart is laid out once at `initial_dimension:` (no responsive resize or animation), and `tickFormatter` and friends take a callable or a named
+formatter. One example per family next to its React source, the tooltip and legend options and the list of deviations: [docs/charts.md](docs/charts.md).
 
 ### Library-wrapping components: Toaster, Command, Combobox, Calendar, Carousel, Drawer, Resizable, InputOtp, MessageScroller
 

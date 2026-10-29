@@ -430,7 +430,7 @@ end
 <a id="component-chart"></a>
 ## Chart
 
-shadcn/ui Chart: the wrapper layer of shadcn's `chart.tsx` (`ChartContainer`, `ChartStyle`, `ChartTooltip`, `ChartTooltipContent`, `ChartLegend`, `ChartLegendContent` and the `ChartConfig` type) as Phlex.
+shadcn/ui Chart: shadcn's `chart.tsx` (`ChartContainer`, `ChartStyle`, `ChartTooltip`, `ChartTooltipContent`, `ChartLegend`, `ChartLegendContent` and the `ChartConfig` type) and the recharts charts it wraps, as Phlex.
 
 Constructor: `Chadcn::Chart.new(**attrs)`
 
