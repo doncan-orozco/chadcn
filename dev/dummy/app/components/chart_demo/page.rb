@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-# A page with Turbo Drive ON and one chart of a family (bar, line, area, pie, radar) for test/javascript/chart.test.mjs. `bar` is the plain
-# hover chart, `line` has a `default_index`, `area` follows clicks (`trigger: :click`); `pie` and `radar` are polar charts with a
-# `default_index` (the controller keeps that tooltip and nothing moves it). A link leads to a second page and back, to leave the
+# A page with Turbo Drive ON and one chart of a family (bar, line, area, pie, radar, radial) for test/javascript/chart.test.mjs. `bar` is the plain
+# hover chart, `line` has a `default_index`, `area` follows clicks (`trigger: :click`); `pie`, `radar` and `radial` (a radial bar) are polar
+# charts with a `default_index` (the controller keeps that tooltip and nothing moves it). A link leads to a second page and back, to leave the
 # page and have Turbo cache it. No scenario JSON, no React twin.
 class ChartDemo::Page < Phlex::HTML
   include Phlex::Rails::Helpers::StylesheetLinkTag
   include Phlex::Rails::Helpers::JavascriptImportmapTags
 
-  FAMILIES = %w[bar line area pie radar other].freeze
+  FAMILIES = %w[bar line area pie radar radial other].freeze
 
   ROWS = [
     { month: "January", desktop: 186, mobile: 80 },
@@ -57,7 +57,7 @@ class ChartDemo::Page < Phlex::HTML
 
   def chart_page
     a(href: "/design-system/chart-demo/other", id: "to-other") { "Other page" }
-    render Chadcn::Chart::Container.new(config: @family == "pie" ? BROWSER_CONFIG : CONFIG, id: "demo", class: "aspect-auto h-[200px] w-[320px]") do
+    render Chadcn::Chart::Container.new(config: %w[pie radial].include?(@family) ? BROWSER_CONFIG : CONFIG, id: "demo", class: "aspect-auto h-[200px] w-[320px]") do
       send(@family)
     end
   end
@@ -106,6 +106,13 @@ class ChartDemo::Page < Phlex::HTML
       chart.polar_angle_axis(data_key: :month)
       chart.tooltip(default_index: 1, content: content)
       chart.radar(data_key: :desktop, fill: "var(--color-desktop)")
+    end
+  end
+
+  def radial
+    render Chadcn::Chart::RadialBarChart.new(data: BROWSERS, inner_radius: 30, outer_radius: 110) do |chart|
+      chart.tooltip(default_index: 1, content: content)
+      chart.radial_bar(data_key: :visitors, background: true)
     end
   end
 end

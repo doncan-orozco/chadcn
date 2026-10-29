@@ -35,7 +35,7 @@ class ChartDemosControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "the polar families publish their tooltip values and no action" do
-    { "pie" => "item", "radar" => "axis" }.each do |family, event_type|
+    { "pie" => "item", "radar" => "axis", "radial" => "axis" }.each do |family, event_type|
       get "/design-system/chart-demo/#{family}"
 
       assert_response :success
