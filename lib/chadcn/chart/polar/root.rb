@@ -70,8 +70,11 @@ class Chadcn::Chart::Polar::Root < Chadcn::Base
     container = Chadcn::Chart::Container.current(context)
     container&.claim_chart(self)
     layout = Chadcn::Chart::Polar::Layout.new(@declared, layout_settings(container))
-    plan = Chadcn::Chart::Polar::TooltipPlan.new(layout: layout, declared: @declared, rows: layout.rows) if @declared.tooltip
+    if @declared.tooltip
+      plan = Chadcn::Chart::Polar::TooltipPlan.new(layout: layout, declared: @declared, rows: layout.rows, event_type: tooltip_event_type)
+    end
     append_tooltip_templates(container, plan) if plan
+    container&.publish_chart_values(Chadcn::Chart::Polar::Wiring.new(layout: layout, plan: plan).values)
     within_responsive_shell(container) do
       div(**wrapper_attributes(layout)) do
         render Chadcn::Chart::Polar::Overlays.new(layout: layout, declared: @declared, plan: plan)
@@ -114,6 +117,10 @@ class Chadcn::Chart::Polar::Root < Chadcn::Base
 
     container.append_after_shell(Chadcn::Chart::Cartesian::TooltipTemplates.new(plan: plan))
   end
+
+  # `PieChart` allows `item` tooltips only (chart/PieChart.js:11,27); `RadarChart` and `RadialBarChart` default to `axis`
+  # (chart/RadarChart.js:11,26, chart/RadialBarChart.js:11,27) and `Tooltip`'s `shared: false` is not ported.
+  def tooltip_event_type = self.class::CHART_TYPE == :pie ? :item : :axis
 
   def layout_settings(container)
     dimension = container ? container.initial_dimension : DEFAULT_DIMENSION
