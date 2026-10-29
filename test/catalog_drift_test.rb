@@ -57,6 +57,14 @@ class CatalogDriftTest < Minitest::Test
     assert_equal "default-bar", entry["scenario_id"]
   end
 
+  def test_every_recharts_part_stays_a_preview_node
+    Chadcn::Catalog::ChartScope::RECHARTS_PARTS.each do |part|
+      _, entry = generated("chart", [ scenario("default-bar", { "c" => "ChartContainer", "children" => [ { "c" => "_#{part}" } ] }) ])
+
+      assert_equal "default-bar", entry["scenario_id"], part
+    end
+  end
+
   def test_a_recharts_node_beside_a_harness_stub_still_skips_the_component
     tree = { "c" => "ChartContainer", "children" => [ { "c" => "_BarChart", "children" => [ { "c" => "_Probe" } ] } ] }
     data, entry = generated("chart", [ scenario("default-bar", tree) ])

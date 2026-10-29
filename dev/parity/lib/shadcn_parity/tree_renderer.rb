@@ -13,7 +13,7 @@ class ShadcnParity::TreeRenderer < Chadcn::Catalog::TreeRenderer
   private
 
   # A chart part is the gem's; every other `_Name` is a stub of the harness (`_ProbeGroupItem` is a part of `_ProbeGroup`).
-  def harness_scope(bare) = Chadcn::Catalog::ChartScope::RECHARTS_PARTS.include?(bare) ? super : [ ShadcnParity, bare, PARITY_ROOTS ]
+  def harness_scope(bare) = Chadcn::Catalog::ChartScope.resolvable_node?("_#{bare}") ? super : [ ShadcnParity, bare, PARITY_ROOTS ]
 
   def render_node(node, roots)
     return super unless node["c"] == "ChartContainer"

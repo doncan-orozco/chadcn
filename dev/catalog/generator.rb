@@ -5,16 +5,16 @@ require "json"
 module Chadcn
   # Builds lib/chadcn/catalog/entries.json (what Chadcn::Catalog reads) from the parity scenarios in dev/port/scenarios: per ported
   # component its first plain (light) default scenario, with the harness-only probe nodes (`data-testid` outside/next/neutral)
-  # pruned. A scenario whose tree holds a harness-scope node (`_Name`, capitalized: a parity-harness fixture the real renderer cannot
-  # resolve; the recharts parts `_BarChart`, `_Bar`... are not, the renderer maps them) cannot be the preview: the component is then left out (no other scenario is substituted) and listed in #skipped. `rake catalog:check` fails when the committed file differs. The output is deterministic (sorted, no timestamps).
+  # pruned. A scenario whose tree holds a harness-scope node (`_Name`, capitalized: a parity-harness fixture the real renderer
+  # cannot resolve; the recharts parts `_BarChart`, `_Bar`... are not, the renderer maps them) cannot be the preview: the component
+  # is then left out (no other scenario is substituted) and listed in #skipped. `rake catalog:check` fails when the committed file
+  # differs. The output is deterministic (sorted, no timestamps).
   class CatalogData
     OUTPUT = "lib/chadcn/catalog/entries.json"
     SCENARIOS = "dev/port/scenarios"
     PROBES = %w[outside next neutral].freeze
     # `_Each` is the renderer's own iteration marker (Chadcn::Catalog::TreeRenderer), so it is not harness-only.
     HARNESS_NODE = /\A_(?!Each\z)[A-Z]/
-    # The `_Name` nodes the renderer resolves itself (Chadcn::Catalog::ChartScope), so they can be part of a preview.
-    RENDERABLE_NODES = Chadcn::Catalog::ChartScope::RECHARTS_PARTS.map { |name| "_#{name}" }.freeze
 
     # @return [Array<Hash>] the components left out of the last #build, each `{ component:, reason: }`
     attr_reader :skipped
@@ -75,12 +75,12 @@ module Chadcn
     def harness_node?(node)
       case node
       when Hash then harness_name?(node["c"].to_s) || node.each_value.any? { |value| harness_node?(value) }
-      when Array then node.any? { |item| harness_node?(item) }
+      when Array then node.any? { |child| harness_node?(child) }
       else false
       end
     end
 
-    def harness_name?(name) = name.match?(HARNESS_NODE) && !RENDERABLE_NODES.include?(name)
+    def harness_name?(name) = name.match?(HARNESS_NODE) && !Chadcn::Catalog::ChartScope.resolvable_node?(name)
 
     def prune(node)
       return node unless node.is_a?(Hash)

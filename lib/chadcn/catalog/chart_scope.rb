@@ -8,6 +8,8 @@ using Chadcn::Values::Refinements
 # instance, a node `ChartTooltipContent` / `ChartLegendContent` on its own is that content, and `{ "formatter": "slice", "args": [0, 3] }`
 # becomes the named formatter the chart classes accept.
 #
+# It is prepended to the renderer and relies on the host's `render_node`, `render_children`, `render` and `harness_scope`.
+#
 # @api private
 module Chadcn::Catalog::ChartScope
   # The recharts exports a scenario reaches as `_<Name>` that the gem ports.
@@ -20,14 +22,21 @@ module Chadcn::Catalog::ChartScope
   # `content: <name>` is a React element in the oracle; here the instance of its class.
   CONTENTS = { "ChartTooltipContent" => "Tooltip", "ChartLegendContent" => "Legend" }.freeze
   # The SVG a chart's block writes itself (a gradient for an area), drawn inside the chart's svg.
-  SVG_NODES = %w[_defs _linearGradient _radialGradient _stop].freeze
+  SVG_NODES = Chadcn::Catalog::SvgElement::TAGS.map { |tag| "_#{tag}" }.freeze
   # Props that are data, not options: their keys are the caller's, kept as they are.
   DATA_PROPS = %w[data].freeze
+
+  # @param name [String] a node name as a scenario writes it (`"_BarChart"`)
+  # @return [Boolean] whether the renderer resolves it itself (a recharts part), so it is not a node only the parity harness knows
+  def self.resolvable_node?(name) = RESOLVABLE.include?(name)
+
+  RESOLVABLE = RECHARTS_PARTS.to_set { |part| "_#{part}" }.freeze
+  private_constant :RESOLVABLE
 
   private
 
   def harness_scope(bare)
-    return [ Chadcn::Chart, bare, RECHARTS_PARTS ] if RECHARTS_PARTS.include?(bare)
+    return [ Chadcn::Chart, bare, RECHARTS_PARTS ] if Chadcn::Catalog::ChartScope.resolvable_node?("_#{bare}")
 
     super
   end

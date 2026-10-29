@@ -15,19 +15,33 @@ class Chadcn::Catalog::ChartScopeTest < Minitest::Test
 
   def bar_chart(*children) = { "c" => "_BarChart", "props" => { "data" => ROWS, "margin" => { "left" => 12 } }, "children" => children }
 
-  def test_recharts_parts_named_formatters_and_content_elements_map_to_the_gems_classes
-    html = render_container(bar_chart(
-                              { "c" => "_XAxis", "props" => { "dataKey" => "month", "tickFormatter" => { "formatter" => "slice", "args" => [ 0, 3 ] } } },
-                              { "c" => "ChartTooltip",
-                                "props" => { "defaultIndex" => 1, "content" => "ChartTooltipContent", "contentProps" => { "hideLabel" => true } } },
-                              { "c" => "ChartLegend", "props" => { "content" => "ChartLegendContent" } },
-                              { "c" => "_Bar", "props" => { "dataKey" => "desktop", "fill" => "var(--color-desktop)" } }
-                            ))
+  def x_axis = { "c" => "_XAxis", "props" => { "dataKey" => "month", "tickFormatter" => { "formatter" => "slice", "args" => [ 0, 3 ] } } }
+  def bar = { "c" => "_Bar", "props" => { "dataKey" => "desktop", "fill" => "var(--color-desktop)" } }
 
-    assert_includes html, ">Jan</tspan>"
-    assert_includes html, 'data-chadcn--chart-target="tooltipTemplate"'
+  def tooltip(content_props = {})
+    { "c" => "ChartTooltip", "props" => { "defaultIndex" => 1, "content" => "ChartTooltipContent", "contentProps" => content_props } }
+  end
+
+  def test_a_named_slice_formatter_reaches_the_axis_ticks
+    assert_includes render_container(bar_chart(x_axis, bar)), ">Jan</tspan>"
+  end
+
+  def test_a_tooltip_with_content_renders_the_tooltip_template_target
+    assert_includes render_container(bar_chart(tooltip, bar)), 'data-chadcn--chart-target="tooltipTemplate"'
+  end
+
+  def test_a_legend_with_content_renders_the_legend_wrapper
+    html = render_container(bar_chart({ "c" => "ChartLegend", "props" => { "content" => "ChartLegendContent" } }, bar))
+
     assert_includes html, "recharts-legend-wrapper"
-    refute_includes html, "February</div>", "hideLabel reaches the content"
+  end
+
+  def test_content_props_reach_the_content_and_hide_the_label
+    shown = render_container(bar_chart(tooltip, bar))
+    hidden = render_container(bar_chart(tooltip("hideLabel" => true), bar))
+
+    assert_includes shown, '<div class="font-medium">', "without hideLabel the tooltip label renders"
+    refute_includes hidden, '<div class="font-medium">', "hideLabel reaches the content"
   end
 
   def test_the_svg_a_charts_block_writes_is_drawn_inside_the_svg
@@ -38,17 +52,29 @@ class Chadcn::Catalog::ChartScopeTest < Minitest::Test
     assert_includes html, '<linearGradient id="g" x1="0"><stop offset="5%" stop-color="red"></stop></linearGradient>'
   end
 
-  def test_a_content_node_on_its_own_renders_that_content
-    payload = [ { "dataKey" => "desktop", "name" => "desktop", "value" => 305, "color" => "var(--color-desktop)",
-                  "payload" => { "month" => "February", "desktop" => 305 } } ]
-    tooltip = render_container({ "c" => "ChartTooltipContent", "props" => { "active" => true, "payload" => payload, "label" => "February" } })
-    legend = render_container({ "c" => "ChartLegendContent",
-                                "props" => { "payload" => [ { "value" => "desktop", "dataKey" => "desktop", "type" => "rect", "color" => "red" } ] } })
+  def payload
+    [ { "dataKey" => "desktop", "name" => "desktop", "value" => 305, "color" => "var(--color-desktop)",
+        "payload" => { "month" => "February", "desktop" => 305 } } ]
+  end
 
-    assert_includes tooltip, "February"
-    assert_includes tooltip, "305"
-    refute_includes tooltip, "active=", "active gates the render, it is not an attribute"
-    assert_includes legend, "Desktop"
+  def tooltip_node(**props) = { "c" => "ChartTooltipContent", "props" => { "active" => true, "payload" => payload, "label" => "February" }.merge(props) }
+
+  def test_a_tooltip_content_node_on_its_own_renders_its_label_and_value
+    html = render_container(tooltip_node)
+
+    assert_includes html, "February"
+    assert_includes html, "305"
+  end
+
+  def test_a_legend_content_node_on_its_own_renders_its_items
+    html = render_container({ "c" => "ChartLegendContent",
+                              "props" => { "payload" => [ { "value" => "desktop", "dataKey" => "desktop", "type" => "rect", "color" => "red" } ] } })
+
+    assert_includes html, "Desktop"
+  end
+
+  def test_active_gates_the_render_and_is_not_an_attribute
+    refute_includes render_container(tooltip_node), "active="
   end
 
   def test_an_inactive_content_node_renders_nothing

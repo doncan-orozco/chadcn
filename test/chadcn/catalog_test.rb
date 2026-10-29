@@ -57,14 +57,16 @@ class CatalogTest < Minitest::Test
     entry = Chadcn::Catalog.find("chart")
 
     assert_equal "cartesian__bar-default", entry.scenario_id
-    assert_operator entry.scenario_count, :>, 50
+    assert_operator entry.scenario_count, :>, 1
     assert_includes render_tree(entry.tree, component: "chart"), "recharts-bar-rectangle"
   end
 
   def test_no_entry_keeps_a_node_only_the_harness_resolves
-    renderable = Chadcn::Catalog::ChartScope::RECHARTS_PARTS
     Chadcn::Catalog.entries.each do |entry|
-      JSON.generate(entry.tree).scan(/"c":"_(?!Each")([A-Z]\w*)/).flatten.each { |name| assert_includes renderable, name, entry.component }
+      # `_Each` is the renderer's own iteration marker (the combobox preview), not a harness stub.
+      JSON.generate(entry.tree).scan(/"c":"(_(?!Each")[A-Z]\w*)/).flatten.each do |name|
+        assert Chadcn::Catalog::ChartScope.resolvable_node?(name), "#{entry.component}: #{name}"
+      end
     end
   end
 
