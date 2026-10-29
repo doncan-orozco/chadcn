@@ -6,8 +6,9 @@
 # ({.current}), which is what React's `ChartContext` does.
 #
 # The chart is laid out once at `initial_dimension` (320x200 by default) and does not follow the size of its container; the host
-# sizes it with this keyword (dev/port/deviations/chart.json). `**attrs` land on the div (`class:` merged last); every Stimulus
-# value of `chadcn--chart` goes here too.
+# sizes it with this keyword (dev/port/deviations/chart.json). `**attrs` land on the div (`class:` merged last). The div is the element of
+# the Stimulus controller `chadcn--chart` (always, so a Turbo-streamed container is wired too) and carries every value of it: the chart
+# inside hands them over ({#publish_chart_values}), Stimulus reads values from the controller element only.
 #
 # @example
 #   render Chadcn::Chart::Container.new(config: { desktop: { label: "Desktop", color: "var(--chart-1)" } }) do |container|
@@ -22,13 +23,15 @@ class Chadcn::Chart::Container < Chadcn::Base
   # @api private
   CONTEXT_KEY = :chadcn_chart_container
 
+  CONTROLLER = "chadcn--chart"
+
   CLASSES = "flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground " \
             "[&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border " \
             "[&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-hidden " \
             "[&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted " \
             "[&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border " \
             "[&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden"
-  private_constant :CLASSES
+  private_constant :CLASSES, :CONTROLLER
 
   # The two divs recharts' `ResponsiveContainer` writes around the chart (component/ResponsiveContainer.js), shared with a chart that has no
   # container around it.
@@ -74,6 +77,15 @@ class Chadcn::Chart::Container < Chadcn::Base
     @chart = chart
   end
 
+  # The values of the `chadcn--chart` controller the chart inside computed (layout, ticks, tooltip options ...), written on the div.
+  #
+  # @api private
+  # @param values [Hash{Symbol => Object}] data attributes (`chadcn__chart_layout_value: "horizontal"`)
+  # @return [void]
+  def publish_chart_values(values)
+    @chart_values = values
+  end
+
   # The container the current render is inside, or nil. Used by the contents and the chart roots (React's `useChart`).
   #
   # @api private
@@ -98,17 +110,18 @@ class Chadcn::Chart::Container < Chadcn::Base
     @attrs = attrs
     @after_shell = []
     @chart = nil
+    @chart_values = {}
     super()
   end
 
   # @yieldparam container [Chart::Container] itself
   # @return [void]
   def view_template
-    div(**merge_attrs({ data: { slot: "chart", chart: @chart_id }, class: CLASSES }, @attrs)) do
+    # The chart inside decides the values of the div, which opens before its children: the block runs first.
+    body = capture { publish { |container| yield container if block_given? } }
+    div(**merge_attrs({ data: { slot: "chart", chart: @chart_id, controller: CONTROLLER, **@chart_values }, class: CLASSES }, @attrs)) do
       render Chadcn::Chart::Style.new(id: @chart_id, config: @config)
-      div(class: "recharts-responsive-container", style: SHELL_STYLE) do
-        div(style: INNER_STYLE) { publish { |container| yield container if block_given? } }
-      end
+      div(class: "recharts-responsive-container", style: SHELL_STYLE) { div(style: INNER_STYLE) { raw safe(body) } }
       publish { @after_shell.each { |part| render part } }
     end
   end

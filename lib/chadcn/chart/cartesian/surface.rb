@@ -64,7 +64,7 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
     own = { class: "recharts-surface", width: format_number(@layout.width), height: format_number(@layout.height), viewBox: "0 0 #{format_number(@layout.width)} #{format_number(@layout.height)}",
             style: "width: 100%; height: 100%; display: block;" }
     own = { role: @role || "application", tabindex: (@tab_index || 0).to_s }.merge(own) if @accessibility_layer
-    own.merge(@attrs)
+    own.merge(@attrs).merge(data: { chadcn__chart_target: "surface" }.merge(@attrs[:data] || {}))
   end
 
   def clip_path_and_markup
@@ -354,7 +354,7 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
   # The cursor of the category `default_index:` shows, in the layer recharts draws it in (200 behind the bars, 1100 for a line).
   def tooltip_cursor(layer)
     cursor = @tooltip_entry&.cursor
-    path(**cursor.attrs) if cursor && cursor.layer == layer
+    path(**cursor.attrs, data: { chadcn__chart_target: "cursor" }) if cursor && cursor.layer == layer
   end
 
   # The dot on the point of the category `default_index:` shows (component/ActivePoints.js:19-56).
@@ -362,7 +362,7 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
     dot = @tooltip_entry&.dots&.find { |candidate| candidate.series.equal?(placed.series) }
     return unless dot
 
-    g(class: "recharts-layer recharts-active-dot") { circle(**dot.attrs, class: "recharts-dot") }
+    g(class: "recharts-layer recharts-active-dot", data: { chadcn__chart_target: "activeDots" }) { circle(**dot.attrs, class: "recharts-dot") }
   end
 
   # --- areas --------------------------------------------------------------------------------------------------------------

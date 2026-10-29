@@ -69,6 +69,8 @@ class Chadcn::Chart::Cartesian::Root < Chadcn::Base
     layout = Chadcn::Chart::Cartesian::Layout.new(@declared, layout_settings(container))
     plan = Chadcn::Chart::Cartesian::TooltipPlan.new(layout: layout, declared: @declared, rows: @options[:data]) if @declared.tooltip
     append_tooltip_templates(container, plan) if plan
+    wiring = Chadcn::Chart::Cartesian::Wiring.new(layout: layout, declared: @declared, accessibility_layer: @options[:accessibility_layer], plan: plan)
+    container&.publish_chart_values(wiring.values)
     within_responsive_shell(container) do
       div(**wrapper_attributes(layout)) do
         render Chadcn::Chart::Cartesian::Overlays.new(layout: layout, declared: @declared, plan: plan)
@@ -122,13 +124,14 @@ class Chadcn::Chart::Cartesian::Root < Chadcn::Base
     end
   end
 
-  # `.recharts-wrapper` (chart/RechartsWrapper.js:323): the size, and the caller's `class:` and `style:`.
+  # `.recharts-wrapper` (chart/RechartsWrapper.js:323): the size, and the caller's `class:` and `style:`; plus the `data-action` of `chadcn--chart`.
   def wrapper_attributes(layout)
     attrs = @options[:attrs]
     width = Chadcn::Chart::Shape::Number.format(layout.width)
     height = Chadcn::Chart::Shape::Number.format(layout.height)
     style = [ "position: relative; cursor: default; width: #{width}px; height: #{height}px;", attrs[:style] ].compact.join(" ")
-    { width: width, height: height, class: cn("recharts-wrapper", attrs[:class]), style: style }
+    merge_attrs({ width: width, height: height, class: "recharts-wrapper", style: style, data: { action: Chadcn::Chart::Cartesian::Wiring::ACTION } },
+                { class: attrs[:class] })
   end
 
   def surface(layout, container, markup, plan)

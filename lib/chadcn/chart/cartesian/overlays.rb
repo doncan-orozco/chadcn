@@ -15,9 +15,7 @@ class Chadcn::Chart::Cartesian::Overlays < Chadcn::Base
   HIDDEN_STYLE = { visibility: "hidden", "pointer-events": "none", position: "absolute", top: "0px", left: "0px" }.freeze
   SHOWN_STYLE = HIDDEN_STYLE.merge(visibility: "visible").freeze
 
-  UNITLESS = %i[z-index opacity flex flex-grow flex-shrink order line-height font-weight].freeze
-
-  private_constant :Number, :XHTML, :UNITLESS, :HIDDEN_STYLE, :SHOWN_STYLE
+  private_constant :Number, :XHTML, :HIDDEN_STYLE, :SHOWN_STYLE
 
   # @api private
   # @param layout [Chadcn::Chart::Cartesian::Layout]
@@ -44,7 +42,8 @@ class Chadcn::Chart::Cartesian::Overlays < Chadcn::Base
     tooltip = @plan.tooltip
     options = tooltip.options
     shown = @plan.default_entry
-    attrs = merge_attrs({ xmlns: XHTML, tabindex: "-1", class: "recharts-tooltip-wrapper", style: wrapper_style(options, shown) }, options[:attrs])
+    attrs = merge_attrs({ xmlns: XHTML, tabindex: "-1", class: "recharts-tooltip-wrapper", style: wrapper_style(options, shown),
+                          data: { chadcn__chart_target: "tooltip" } }, options[:attrs])
     div(**attrs) { render @plan.content(shown) if shown && tooltip.content_element }
   end
 
@@ -53,38 +52,13 @@ class Chadcn::Chart::Cartesian::Overlays < Chadcn::Base
   def wrapper_style(options, shown)
     base = shown ? SHOWN_STYLE : HIDDEN_STYLE
     base = { transition: transition(options) }.merge(base) if shown && options[:is_animation_active] != false
-    style_text(base, options[:wrapper_style])
+    Chadcn::Chart::Cartesian::CssStyle.text(base, options[:wrapper_style])
   end
 
   # Chromium serializes `transform 400ms ease` as `transform 400ms` (the initial value is dropped).
   def transition(options)
     easing = options[:animation_easing].to_s
     [ "transform", "#{Number.format(options[:animation_duration])}ms", (easing unless easing == "ease") ].compact.join(" ")
-  end
-
-  # The style attribute: the base properties with the caller's Hash merged over them, or a String appended.
-  def style_text(base, extra)
-    base = base.merge(extra.to_h { |name, value| [ css_name(name), value ] }) if extra.is_a?(Hash)
-    text = base.map { |name, value| "#{name}: #{css_value(name, value)};" }.join(" ")
-    extra.is_a?(String) ? "#{text} #{extra}" : text
-  end
-
-  # A property name the CSS way: `zIndex` and `z_index` are `z-index`; a custom property (`--gap`) is kept as written.
-  def css_name(name)
-    text = name.to_s
-    return text.to_sym if text.start_with?("--")
-
-    kebab = text.gsub(/([a-z\d])([A-Z])/, '\1-\2').tr("_", "-").downcase
-    # A vendor prefix in the React spelling (WebkitTransition) is a leading dash in CSS (-webkit-transition).
-    kebab = "-#{kebab}" if text.match?(/\A(?:Webkit|Moz|Ms|O)[A-Z]/)
-    kebab.to_sym
-  end
-
-  # A number is pixels, as React DOM writes it, except for the properties that take a plain number.
-  def css_value(name, value)
-    return value unless value.is_a?(Numeric)
-
-    UNITLESS.include?(name) || value.zero? ? Number.format(value) : "#{Number.format(value)}px"
   end
 
   # --- legend -------------------------------------------------------------------------------------------------------------
@@ -104,7 +78,7 @@ class Chadcn::Chart::Cartesian::Overlays < Chadcn::Base
     width = (horizontal ? (options[:width] || max_width) : options[:width]) || "auto"
     height = options[:height] || "auto"
     style = { position: "absolute", width: width, height: height }.merge(horizontal_position(options, margin)).merge(vertical_position(options, margin))
-    style_text(style, options[:wrapper_style])
+    Chadcn::Chart::Cartesian::CssStyle.text(style, options[:wrapper_style])
   end
 
   def horizontal_position(options, margin)
