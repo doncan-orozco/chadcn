@@ -41,8 +41,9 @@ export function pointerInPlot(pointer, plot) {
 
 /**
  * The `index` of the tick whose band holds `coordinate`: the bands are bounded by the midpoints between ticks sorted by coordinate,
- * the lower bound included for the first tick and the upper bound included for the others (`calculateActiveTickIndex`,
- * `util/getActiveCoordinate.js:131-150`; the ticks are sorted by coordinate first, `state/selectors/selectors.js:28`
+ * a coordinate exactly on a midpoint belongs to the lower tick (every band includes its upper midpoint and excludes its lower
+ * one; the first band has no lower bound and the last none above; `calculateActiveTickIndex`,
+ * `util/getActiveCoordinate.js:131-150`, the comparisons at `:140-148`; the ticks are sorted by coordinate first, `state/selectors/selectors.js:28`
  * `selectOrderedTooltipTicks`). With one tick or fewer, or a null coordinate, the answer is 0 (`:85-92`), which is not necessarily a
  * tick `index`.
  * @example

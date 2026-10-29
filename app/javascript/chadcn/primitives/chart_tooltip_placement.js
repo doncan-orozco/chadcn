@@ -3,9 +3,10 @@
 // `translate()` form), `getTooltipTranslate` (:72-124) and `getTooltipCSSClassName` (:7-19).
 // This is NOT floating-ui (`primitives/positioner.js` is Radix popper, a different algorithm): the chart tooltip follows the pointer
 // inside the plot and flips at its edges the way recharts does.
-// Known divergences: `useTranslate3d` is not offered (recharts' default is the 2D translate); a box without size or a missing
-// coordinate answers `transform: null` where recharts answers `{ visibility: "hidden" }` (`translate.js:113-115`), the controller sets the
-// visibility; the base class `recharts-tooltip-wrapper` is not in `classes` (the server renders it).
+// Known divergences: `useTranslate3d` is not offered (recharts' default is the 2D translate); the return shape differs: a box
+// without size or a missing coordinate answers `transform: null` where recharts answers `{ visibility: "hidden" }`
+// (`translate.js:113-115`), and that visibility is overwritten by the wrapper's own rule (`TooltipBoundingBox.js:83`), which the
+// controller applies; the base class `recharts-tooltip-wrapper` is not in `classes` (the server renders it).
 //
 //   const { transform, classes } = tooltipPlacement({ coordinate: { x: 82, y: 40 }, box: { width: 120, height: 60 },
 //     viewBox: { x: 5, y: 5, width: 310, height: 160 }, offset: { x: 10, y: 10 }, position: {},
@@ -44,7 +45,7 @@ function translateAlong({ key, coordinate, offset, position, tooltipDimension, v
  * @param {{ x: boolean, y: boolean }} options.allowEscapeViewBox
  * @param {{ x: boolean, y: boolean }} options.reverseDirection
  * @returns {{ transform: string | null, classes: string[] }} `transform` is null (and `classes` empty) while the box has no size
- *   or there is no coordinate: the wrapper stays where it is and hidden (`translate.js:113-115`)
+ *   or there is no coordinate: recharts applies no transform then (`translate.js:113-115`) and the controller clears it
  * @example
  * tooltipPlacement({ coordinate: { x: 82, y: 40 }, box: { width: 120, height: 60 }, viewBox: { x: 5, y: 5, width: 310, height: 160 },
  *   offset: { x: 10, y: 10 }, position: {}, allowEscapeViewBox: { x: false, y: false }, reverseDirection: { x: false, y: false } })

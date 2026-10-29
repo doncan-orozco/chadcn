@@ -52,7 +52,7 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
   bubbling `chadcn--chart:activate` / `:deactivate` (`detail.index`, `.label`, `.payload`) and survives the Turbo page cache. New primitives `chart_pointer`,
   `chart_tooltip_placement` and `chart_shapes`. The post-font-load tick re-measure pass is not part of it yet (spec, Behavior).
   `Tooltip shared: false` on a `BarChart` resolves recharts' item tooltip, which is not drawn yet (hidden empty wrapper, no interaction); a chart outside a
-  `Chart::Container` is not wired.
+  `Chart::Container` is not wired. `Container` kwargs `text_height:`, `text_char_width:` and `Legend` `legend_height:` are server assumptions that the browser does not re-measure.
 - `Chadcn::Theme.parse`, `.validate`, `.contrast` and `.render_colors` (and `Theme::Palette`) are public API: build, validate and export a
   palette without touching the theme file. `write_colors`, `replace_theme_file` and the import helpers stay private.
 - `Chadcn::Catalog` (`.entries`, `.find`, `Entry`) and `Chadcn::Catalog::TreeRenderer`: an example of every component as a JSON tree plus the

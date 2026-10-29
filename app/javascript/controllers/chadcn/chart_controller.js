@@ -349,8 +349,11 @@ export default class extends Controller {
     this.pointerCoordinate = state.pointerCoordinate ?? null
     this.dismissedAt = state.dismissedAt ?? null
     this.announcing = false
-    this.render()
-    this.announcing = true
+    try {
+      this.render()
+    } finally {
+      this.announcing = true
+    }
   }
 
   writeInteraction(state) {

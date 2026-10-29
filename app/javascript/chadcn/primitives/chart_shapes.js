@@ -7,7 +7,8 @@
 // one `<circle class="recharts-dot">` (`es6/shape/Dot.js:24`).
 // Known divergences: an active dot never carries the `clipPath` recharts sets on its layer when the series clips
 // (`es6/component/ActivePoints.js:54-57`); the z-index layer wrapper (`es6/component/Cursor.js:106-112`) is not built here, the
-// controller picks the layer group; only `path` cursors (no Cross or Sector: polar charts are a later item).
+// controller picks the layer group; only `path` cursors (no Cross or Sector: polar charts are a later item); a `class` in an active-dot spec is replaced by
+// `recharts-dot` whereas recharts' Dot does `clsx('recharts-dot', className)` (`es6/shape/Dot.js:24`).
 //
 //   const cursor = cursorElement({ tag: "path", layer: 200, attrs: { d: "M 0,0 h 5", class: "recharts-rectangle recharts-tooltip-cursor" } })
 //   const dots = activeDotElements([{ cx: "5", cy: "6", r: "4", fill: "red" }])
