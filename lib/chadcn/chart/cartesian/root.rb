@@ -72,7 +72,9 @@ class Chadcn::Chart::Cartesian::Root < Chadcn::Base
     container = Chadcn::Chart::Container.current(context)
     container&.claim_chart(self)
     layout = Chadcn::Chart::Cartesian::Layout.new(@declared, layout_settings(container))
-    plan = Chadcn::Chart::Cartesian::TooltipPlan.new(layout: layout, declared: @declared, rows: @options[:data], event_type: tooltip_event_type) if @declared.tooltip
+    if @declared.tooltip
+      plan = Chadcn::Chart::Cartesian::TooltipPlan.new(layout: layout, declared: @declared, rows: @options[:data], event_type: tooltip_event_type)
+    end
     append_tooltip_templates(container, plan) if plan
     wiring = Chadcn::Chart::Cartesian::Wiring.new(layout: layout, declared: @declared, accessibility_layer: @options[:accessibility_layer], plan: plan)
     container&.publish_chart_values(wiring.values)

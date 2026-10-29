@@ -47,7 +47,7 @@ class Chadcn::Chart::Container < Chadcn::Base
   attr_reader :chart_id
   # @return [Hash{Symbol => Numeric}] `width` and `height` the chart is laid out at
   attr_reader :initial_dimension
-  # @return [Numeric] server assumption for the height of a line of tick text (`chadcn--chart` re-measures)
+  # @return [Numeric] server assumption for the height of a line of tick text (not re-measured in the browser)
   attr_reader :text_height
   # @return [Numeric] server assumption for the width of a character in em
   attr_reader :text_char_width
