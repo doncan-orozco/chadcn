@@ -1,5 +1,18 @@
 {
   "env": {
     "RBENV_VERSION": "4.0.0"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(bundle exec rubocop:*)",
+      "Bash(bundle exec rake:*)",
+      "Bash(bundle exec ruby:*)",
+      "Bash(bin/check:*)",
+      "Bash(bin/test-js:*)",
+      "Bash(bin/smoke:*)",
+      "Bash(ruby .claude/scripts/gem/gem_check.rb:*)",
+      "Bash(env -u BUNDLE_GEMFILE:*)",
+      "Bash(git config flow.*)"
+    ]
   }
 }
