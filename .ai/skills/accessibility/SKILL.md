@@ -10,6 +10,13 @@ ARIA, focus order and keyboard handling equal Radix's (`radix-stimulus` R11). Th
 decide: what a component must still do for keyboard and screen-reader users, and what the examples, defaults and catalog pages
 of this repository must look like.
 
+## Applies to
+- when: `lib/chadcn/**/*.rb` matching `/\A(?=[\s\S]*^(?:class|module) Chadcn::\w)[\s\S]*(?:role=|aria-|tabindex|button|dialog|menu|listbox|combobox|tooltip|popover)/i`
+- when: `app/javascript/**/*.js`
+- levels: method, class, system
+- system-review: never
+- note: Loaded in practice as a companion: of `shadcn-port` for parts that render interactive markup, of `stimulus`/`radix-stimulus` for every controller and primitive. The own rule mirrors those (component-tree file AND interactive vocabulary) so a direct route gives the same answer. The dev kit's catalog pages (`dev/**`) are judged by /shadcn-audit.
+
 ## Quick Rules
 
 Cite as `accessibility R<n>`. Detail and examples follow below / in references/.

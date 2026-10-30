@@ -5,6 +5,14 @@ description: "Stimulus controllers of the chadcn gem (importmap pins, no bundler
 
 # Stimulus Controllers (chadcn)
 
+## Applies to
+- when: `app/javascript/**/*.js`
+- companion: `accessibility` always
+- levels: method, class, system
+- system-review: when-touched
+- note: Controllers (`app/javascript/controllers/chadcn/<name>_controller.js`) and primitives (`app/javascript/chadcn/primitives/<name>.js`); each file is audited as one unit (brick + room) by `stimulus-controller-auditor`.
+- note: A Phlex part that renders `data-controller`, targets or values is not routed here; the part <-> controller wiring is the `STIMULUS_WIRING` mechanical check.
+
 ## Quick Rules
 Cite as `stimulus R<n>`. Detail and examples follow below / in references/.
 

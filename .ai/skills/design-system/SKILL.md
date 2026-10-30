@@ -7,6 +7,14 @@ description: "The chadcn design system, a 1:1 Phlex port of shadcn/ui: `Chadcn` 
 
 The design system is a **1:1 Phlex port of shadcn/ui (new-york-v4, Radix)**. How a component is ported, verified and kept faithful is owned by `shadcn-port` (API, classes, themes, gates) and `radix-stimulus` (behavior). This skill is the day-to-day contract for **writing and using** the components.
 
+## Applies to
+- when: `lib/chadcn/**/*.rb` matching `/^(?:class|module) Chadcn::\w|^Chadcn::[\w:]+\s*=/`
+- when: `app/assets/**/*`
+- companion: `shadcn-port` always
+- levels: method, class, system
+- system-review: never
+- note: The component tree only: parts (`class Chadcn::X < Chadcn::Base`), their support modules and `Data` values, `base.rb`, `icon.rb`, `icons/**`, `catalog/**`, all declared compact at column 0. The gem infrastructure (`theme.rb`, `configuration.rb`, `js_bundle.rb`, `overrides.rb`, `values.rb`, `version.rb`, `doctor.rb`, `doctor/**`, `engine.rb`, `engine/**`) nests `module Chadcn` and stays on the gem skills.
+
 ## Quick Rules
 
 Cite as `design-system R<n>`.

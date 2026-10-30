@@ -1,0 +1,125 @@
+# Project manifest for the `flow` plugin (papiroflexia). Every /flow:* command reads this first.
+# Schema and defaults: docs/MANIFEST.md in the plugin repo. Validate with: "${CLAUDE_PLUGIN_ROOT}/bin/flow" manifest check
+version: 1
+name: chadcn
+
+stack: >
+  ONE repository, ONE gem (`chadcn`, Ruby >= 3.3, `phlex ~> 2.3`, `tailwind_merge`, Zeitwerk). Core is plain Phlex in
+  `lib/chadcn/**` (`Chadcn::Base`, one class per React export, parts nested under the root); the Rails integration
+  (`lib/chadcn/engine*.rb`, `lib/generators/chadcn/**`, `lib/tasks/*.rake`) loads only when Rails is present; Stimulus
+  controllers in `app/javascript/controllers/chadcn/**` (`chadcn--*`) compose the primitives in
+  `app/javascript/chadcn/primitives/**`, pinned by `config/importmap.rb` (esbuild hosts get managed copies from the
+  install generator); CSS theme, tokens, presets and vendored CSS in `app/assets/tailwind/chadcn/**`; Minitest with no
+  database and no network (`bundle exec rake test` never loads Rails, `rake test:engine` boots one minimal app
+  in-process, `rake test:tooling` tests `.claude/scripts`); browser tests in `test/javascript` (`bin/test-js`, needs a
+  browser and the dev servers); RuboCop (minitest, performance, rake); `gem_check.rb` is the gem gate; a public API
+  snapshot (`test/fixtures/public_api.txt`); YARD at 100%; generated llms files. The dev kit under `dev/` (oracle, specs,
+  scenarios, dummy app, React catalog) is not packaged and is judged by `/shadcn-audit`, not by the feature audit. Every
+  file is on the Gem track: `ruby-gem-conventions` + `naming-conventions` always; app layer skills (controller,
+  operation-pattern, presenter-pattern, models, pundit-auth, i18n) do not exist here. Run gates with
+  `env -u BUNDLE_GEMFILE LANG=en_US.UTF-8` when the shell exports something else.
+
+repos:
+  - id: gem
+    path: .
+
+tracks:
+  gem:
+    root: "."
+    globs: ["lib/**/*", "app/**/*", "config/**/*", "vendor/**/*", "*.gemspec", "Gemfile*", "Rakefile"]
+  ruby:
+    globs: ["lib/**/*.rb"]
+  stimulus:
+    globs: ["app/javascript/**/*.js"]
+    exclude: ["**/importmap*", "**/vendor/**/*"]
+    gem_prefixes: ["chadcn--"]
+  slice: component
+  tests:
+    framework: minitest
+    globs: ["test/**/*.rb", "test/javascript/**/*.mjs", ".claude/scripts/test/**/*.rb"]
+    mirror: "test/{dir}/{base}_test.rb"
+  house_only:
+    - "chadcn.gemspec"
+    - "Rakefile"
+    - ".rubocop.yml"
+    - ".yardopts"
+    - "CHANGELOG.md"
+    - "LICENSE"
+    - "THIRD_PARTY_NOTICES*"
+    - "README.md"
+    - "docs/**/*"
+    - "config/importmap.rb"
+    - "app/assets/**/*"
+    - "vendor/**/*"
+    - "lib/generators/**/templates/**/*"
+    - "bin/*"
+    - "llms*.txt"
+    - "skills/**/*"
+    - "test/fixtures/**/*"
+    - "lib/chadcn/engine.rb"
+    - "lib/chadcn/engine/**/*"
+    - "lib/generators/**/*.rb"
+    - "lib/tasks/**/*"
+
+gates:
+  style: "bundle exec rubocop {files}"
+  security: null
+  tests: "bundle exec rake test TEST={files:,}"
+  js: "bin/test-js"
+  all: "bin/check"
+  extra:
+    - name: gem_gate
+      run: "ruby .claude/scripts/gem/gem_check.rb --gem-dir ."
+      when: ["lib/**/*", "app/**/*", "config/**/*", "vendor/**/*", "*.gemspec", "Gemfile*"]
+      cites: ruby-gem-conventions
+    - name: api_surface
+      run: "bundle exec ruby -Itest -Ilib test/public_api_test.rb"
+      when: ["lib/**/*"]
+      cites: ruby-gem-conventions
+    - name: engine_tests
+      run: "bundle exec rake test:engine"
+      when: ["lib/chadcn/engine.rb", "lib/chadcn/engine/**/*", "lib/generators/**/*", "lib/tasks/**/*"]
+    - name: tooling_tests
+      run: "bundle exec rake test:tooling"
+      when: [".claude/scripts/**/*"]
+    - name: llms_check
+      run: "bundle exec rake llms:check"
+      when: ["lib/chadcn/**/*.rb", "app/javascript/controllers/**/*.js"]
+      cites: ruby-gem-conventions
+    - name: docs_smoke
+      run: "bin/smoke --docs"
+      when: ["README.md", "docs/**/*"]
+
+checks:
+  test_coverage_map: {}
+  stimulus_wiring:
+    controllers: ["app/javascript/controllers"]
+    views: ["lib/chadcn"]
+
+skills:
+  root: .ai/skills
+  house_note: >
+    House macro skills are the gem's: ruby-gem-conventions always, shadcn-port when components, assets or the importmap
+    changed, stimulus when controllers or primitives changed, testing when tests or coverage gaps. A changed public
+    kwarg, part or component without a README/docs fence is an advisory; a changed `test/fixtures/public_api.txt`
+    without a CHANGELOG hunk, or a changed component signature or controller `static values` without regenerated llms
+    files, is a finding (ruby-gem-conventions R5, R6).
+
+board:
+  repo: null
+  source: epic
+  base: main
+  branch: "epic/{epic}/{number}-{slug}"
+  pr_title: "{title}"
+  worktrees: "../{repo}-wt"
+  stages: [plan, test-plan, build, gates, audit, fix, review, done]
+  audit_min: 8
+  fix_iterations: 3
+  merge: human
+
+agents:
+  builder: senior-rails-dev
+  specialised: [shadcn-port-builder, shadcn-port-planner, shadcn-parity-auditor]
+
+golden:
+  root: .claude/golden

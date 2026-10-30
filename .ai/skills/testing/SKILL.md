@@ -5,6 +5,14 @@ description: "Minitest and browser testing for the chadcn gem. Use when writing 
 
 # Testing (Minitest, no database, no network)
 
+## Applies to
+- when: `test/**/*`
+- when: `.claude/scripts/test/**/*`
+- when: `dev/dummy/test/**/*`
+- levels: class, system
+- system-review: when-touched
+- note: Room only, no Bricks. The system-level review also receives this skill when `TEST_COVERAGE_MAP` reports a missing mirror test (R1), which the router cannot see from the file list.
+
 ## Quick Rules
 
 Cite as `testing R<n>`. Detail and examples follow below / in references/.

@@ -5,6 +5,13 @@ description: "Domain-language naming rules for classes, methods, variables, keyw
 
 # Naming Conventions
 
+## Applies to
+- when: `**/*.{rb,rake,gemspec,js,mjs}`
+- when: `.claude/**/*.rb`
+- levels: method, class, system
+- system-review: never
+- note: Path alone, never gated on content: every Ruby and JavaScript file of the repository (gem, tests, tooling, dev kit). The library exception keeps the shadcn/Radix vocabulary 1:1.
+
 ## Quick Rules
 
 Cite as `naming-conventions R<n>`. Detail and examples follow below / in references/.

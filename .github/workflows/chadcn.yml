@@ -10,7 +10,7 @@
 # js-tests:  the gem's browser tests of the Stimulus controllers and primitives (test/javascript/*.test.mjs) against the dummy app.
 # docs:      every Ruby fence of README.md and docs/*.md renders in a plain process (bin/smoke --docs; known gem defects are
 #            explicit XFAILs).
-# tooling:   the tests of the repository tooling in .claude/scripts (audit receipt, epic board, gem gate): rake test:tooling.
+# tooling:   the tests of the repository tooling in .claude/scripts (gem gate, shadcn scripts): rake test:tooling.
 name: chadcn
 
 on:

@@ -7,6 +7,14 @@ description: "How Radix UI / shadcn behavior is reproduced with Stimulus in the 
 
 Complements `stimulus` (lifecycle, targets, Turbo) and `shadcn-port` (API/style/theme). This skill answers: *what must the controller do so keyboard, focus, ARIA and state changes are identical to Radix?*
 
+## Applies to
+- when: `app/javascript/**/*.js`
+- when: `dev/port/specs/**/*.md`
+- companion: `accessibility` always
+- levels: method, class, system
+- system-review: never
+- note: Behavior parity (keyboard, focus, ARIA, `data-state`) is proven by the scenarios through `/shadcn-audit`; the per-component behavior spec is `dev/port/specs/<name>.md` (dev kit, not audited by /audit-feature).
+
 ## Quick Rules
 
 Cite as `radix-stimulus R<n>`.
