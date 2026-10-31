@@ -7,6 +7,16 @@ description: "Contract for the 1:1 shadcn/ui -> Phlex port: oracle-first, identi
 
 The React shadcn component (registry style `new-york-v4`, Radix base) is the **oracle**. A Phlex component is correct only if it is indistinguishable from it: same API, same DOM, same computed style, same behavior, same theme response. "Looks similar" is a failure.
 
+## Applies to
+- when: `lib/chadcn/**/*.rb` matching `/^(?:class|module) Chadcn::\w|^Chadcn::[\w:]+\s*=/`
+- when: `app/assets/**/*`
+- when: `config/importmap*`
+- when: `dev/port/**/*`
+- companion: `accessibility` when matching `/role=|aria-|tabindex|button|dialog|menu|listbox|combobox|tooltip|popover/i`
+- levels: method, class, system
+- system-review: when-touched
+- note: Same component-tree rule as `design-system`; plus the theme, tokens, presets and vendored CSS, the importmap pins, and the dev kit's `dev/port/**` (oracle, specs, scenarios, deviations) for /shadcn-plan and /shadcn-run. Parity itself (classes, DOM, behavior, theme: gates G1-G4) is proven by `/shadcn-audit`, not by reading code.
+
 ## Quick Rules
 
 Cite as `shadcn-port R<n>`.

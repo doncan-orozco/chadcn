@@ -19,7 +19,8 @@ namespace :test do
     t.warning = false
   end
 
-  # The repository tooling (.claude/scripts), not the gem: the audit receipt, the epic board and the gem gate.
+  # The repository tooling (.claude/scripts), not the gem: the gem gate and the shadcn port scripts
+  # (the audit receipt and the issue board moved to the flow plugin).
   Rake::TestTask.new(:tooling) do |t|
     t.test_files = FileList[".claude/scripts/test/**/*_test.rb"]
     t.warning = false

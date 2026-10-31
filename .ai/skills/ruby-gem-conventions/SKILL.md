@@ -7,6 +7,17 @@ description: "Rules for the chadcn gem (standalone code, namespacing, public API
 
 Applies to the whole repository: its root has `chadcn.gemspec`, so every Ruby, JavaScript and CSS file here is gem code (the dev kit under `dev/` is the one exception: it is not packaged and `/shadcn-audit` judges it). Companion skills: `naming-conventions` (see its library exception), `stimulus`/`radix-stimulus` for JS, `design-system`/`shadcn-port` for the components, `testing` (Minitest style). Mechanical rules are enforced by `ruby .claude/scripts/gem/gem_check.rb --gem-dir .`; the code in brackets is its finding. History: the gem was extracted from the Papyro monorepo (`gems/chadcn`), which still consumes it as a git gem.
 
+## Applies to
+- when: `{lib,app,config,vendor}/**/*`
+- when: `*.gemspec`
+- when: `Gemfile*`
+- when: `Rakefile`
+- levels: method, class, system
+- system-review: always
+- note: Everything the gem ships (Ruby, JavaScript, CSS, gemspec, Gemfile); not `dev/**` (dev kit, judged by /shadcn-audit), `test/**` (`testing`) or `.claude/**` (tooling).
+- note: Integration files (`lib/chadcn/engine.rb`, `lib/chadcn/engine/**`, `lib/generators/**`, `lib/tasks/**`) are class-level only: Room and House, no Bricks; R2, R9 and R15 are the law there.
+- note: When any routed file changed, run the gem gate `ruby .claude/scripts/gem/gem_check.rb --gem-dir .` and keep its JSON for the system-level review; every finding is mandatory and cites `ruby-gem-conventions R<n>`.
+
 ## Quick Rules
 
 Cite as `ruby-gem-conventions R<n>`.

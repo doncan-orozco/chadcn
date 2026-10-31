@@ -5,6 +5,12 @@ description: "RuboCop standards for the chadcn gem. Use when running `bundle exe
 
 # Linting (RuboCop)
 
+## Applies to
+- when: always
+- levels: system
+- system-review: never
+- note: Loaded by name, never routed to a file: `bundle exec rubocop` runs as a mechanical check and its offenses are facts, not review opinions. The tooling track (`.claude/scripts/**/*.rb`, `dev/llms/**`, `bin/*` Ruby) reads this skill next to `naming-conventions`.
+
 ## Quick Rules
 
 Cite as `linting R<n>`. Detail and examples follow below / in references/.
