@@ -16,6 +16,7 @@ positioning with `@floating-ui/dom` 1.8.0 (vendored).
 
 ### Added
 
+- README: "From ERB views and partials" documents rendering the components from `.erb` (needs `phlex-rails` in the host app), in nested-tag, yielded-root and single-tag form.
 - The gem now ships 61 component roots, one for each of the 61 components of the tracked oracle (the registry the llms drift test counts went from 54 to
   61): `Carousel`, `Drawer`, `InputOtp`, `MessageScroller` and `Resizable` complete the set, and `Form` and `Chart` are in, `Chart` as its shadcn layer
   (the chart roots follow, see the Charts entries below). README and `docs/` document the five new components and `Form` ([docs/forms.md](docs/forms.md)); `Chart` is documented in YARD, `llms-full.txt` and [docs/charts.md](docs/charts.md).
