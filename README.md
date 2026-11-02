@@ -384,7 +384,46 @@ per family, in [`docs/`](docs/): [conventions](docs/api-conventions.md), [displa
 [disclosure and navigation](docs/disclosure-and-navigation.md), [overlays](docs/overlays.md), [menus and select](docs/menus-and-select.md), [catalog](docs/catalog.md) (an example of every component, for a gallery page).
 [Compatibility](docs/compatibility.md) lists the supported Ruby, Phlex, Rails and Tailwind versions and the Phlex 3 policy.
 
-### Forms
+### From ERB views and partials
+
+The components also render from classic `.erb` views and partials. The gem itself depends only on `phlex`; for ERB your app needs
+`gem "phlex-rails"`, which lets Rails' `render` accept a Phlex object and capture the ERB block. Put `<%=` on every `render` and
+helper call (only the closing `<% end %>` has no `=`).
+
+```erb
+<%# nested ERB tags: best when most of the content is markup %>
+<%= render Chadcn::Card.new do %>
+  <%= render Chadcn::Card::Header.new do %>
+    <%= render Chadcn::Card::Title.new { "Settings" } %>
+  <% end %>
+  <%= render Chadcn::Card::Content.new do %>
+    <p>Plain HTML works in here.</p>
+  <% end %>
+<% end %>
+
+<%# the yielded root works too: card.header is the same as render Chadcn::Card::Header.new %>
+<%= render Chadcn::Card.new do |card| %>
+  <%= card.header do %>
+    <%= card.title { "Settings" } %>
+  <% end %>
+  <%= card.content { "..." } %>
+<% end %>
+
+<%# one single tag, written as Ruby like a Phlex view %>
+<%= render Chadcn::Card.new do |card|
+  card.header do
+    card.title { "Settings" }
+    card.description { "Manage your account" }
+  end
+
+  card.content do
+    render Chadcn::Button.new(variant: "outline") { "Save" }
+  end
+end %>
+```
+
+In the single-tag form call the parts of a root through the yielded object (`card.header`), use plain `render` for any other
+component, and use Phlex element methods (`p { "text" }`) instead of raw HTML between the Ruby lines.
 
 `Chadcn::Form` is shadcn's `Form` without react-hook-form: it renders the only `<form>`, and `form.field(attribute: :email)` binds a
 label, control, description and error to one attribute of a model, with the ids and ARIA of `form.tsx`. A `Binding` answers name, id,
