@@ -349,6 +349,9 @@ test("chart: a real Turbo visit away and back leaves no error and a working char
   await page.locator("#to-other").click();
   await page.locator("#to-bar").waitFor();
   await page.locator("#to-bar").click();
+  // Turbo first renders the cached snapshot as a preview and swaps the fresh page in afterwards: hovering the preview loses the tooltip.
+  await page.waitForURL(`**${PAGE("bar")}`);
+  await page.locator("html:not([data-turbo-preview])").waitFor({ state: "attached" });
   await page.locator(PLOT).waitFor();
 
   await hoverCategory(page, 2);
