@@ -10,6 +10,14 @@ manifests every component is compared against), the number of oracle components,
 
 ## [Unreleased]
 
+Nothing yet.
+
+## [0.1.0] - 2026-11-03
+
+The first public release. chadcn was extracted from the Papyro application, where it was the in-app port `Components::V2`. The Added
+section describes what the gem ships; the Changed, Fixed and Removed sections record what differs from that in-app port, for the hosts
+that move from it (the README's Upgrade notes summarise the rename).
+
 Tracks shadcn/ui style `new-york-v4` (shadcn CLI 4.21.4, `@shadcn/react` 0.3.1), oracle digest `7de7073d0e253001`
 (61 components, fetched 2026-10-10); Radix UI through `radix-ui` 1.7.0, Lucide icons from `lucide-react` 0.577.0,
 positioning with `@floating-ui/dom` 1.8.0 (vendored).
@@ -328,4 +336,5 @@ Relative to the in-app port (`Components::V2`):
 
 - The `activesupport` runtime dependency: the core needs only `phlex`, `tailwind_merge` and `zeitwerk`.
 
-[Unreleased]: https://github.com/doncan-orozco/chadcn/commits/main
+[Unreleased]: https://github.com/doncan-orozco/chadcn/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/doncan-orozco/chadcn/releases/tag/v0.1.0
