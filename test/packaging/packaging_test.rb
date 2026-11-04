@@ -42,7 +42,7 @@ class PackagingTest < Minitest::Test
     assert_empty missing, "linked from README.md/CHANGELOG.md but not packaged: #{missing.join(', ')}"
   end
 
-  # The README hero and the CHANGELOG compare link repeat the repository location by hand (dev/ is not packaged, so the images
+  # The README hero and the CHANGELOG release links repeat the repository location by hand (dev/ is not packaged, so the images
   # cannot be relative): they must follow the gemspec's repository, ref and gem_path, and name files that exist.
   def test_the_hand_written_repository_urls_follow_the_gemspec
     homepage = built[:spec].homepage # <repository>/tree/<ref>/<gem_path>
@@ -54,7 +54,12 @@ class PackagingTest < Minitest::Test
       assert url.start_with?("#{raw_base}/dev/brand/"), "#{url} does not follow the gemspec repository/ref/gem_path (#{raw_base})"
       assert File.file?(File.join(GEM_DIR, url.delete_prefix("#{raw_base}/"))), "#{url} names a file missing from dev/brand/"
     end
-    assert_includes File.read(File.join(GEM_DIR, "CHANGELOG.md")), "[Unreleased]: #{homepage.sub('/tree/', '/commits/')}\n"
+    repository = homepage.sub(%r{/tree/.*\z}, "")
+    changelog = File.read(File.join(GEM_DIR, "CHANGELOG.md"))
+
+    assert_includes changelog, "[Unreleased]: #{repository}/compare/v#{built[:spec].version}...HEAD\n"
+    assert_includes changelog, "[#{built[:spec].version}]: #{repository}/releases/tag/v#{built[:spec].version}\n"
+    assert_includes changelog, "## [#{built[:spec].version}] - "
   end
 
   def test_yardopts_and_the_docs_listed_by_it_are_in_the_package
