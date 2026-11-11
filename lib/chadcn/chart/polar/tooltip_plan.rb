@@ -38,7 +38,7 @@ class Chadcn::Chart::Polar::TooltipPlan < Chadcn::Chart::Cartesian::TooltipPlan
   #
   # @api private
   # @return [Chadcn::Chart::Polar::Axis, nil] nil for a pie chart
-  def axis = @axis
+  attr_reader :axis
 
   private
 
@@ -120,15 +120,15 @@ class Chadcn::Chart::Polar::TooltipPlan < Chadcn::Chart::Cartesian::TooltipPlan
   def spoke_cursor(tick)
     box = @layout.view_box
     points = [ box.point(box.inner_radius, tick.coordinate), box.point(box.outer_radius, tick.coordinate) ]
-    Cursor.new(layer: 1100, attrs: { **cursor_frame, class: "recharts-curve recharts-tooltip-cursor",
-                                     d: Chadcn::Chart::Shape::Curve.line(points, type: :linear) })
+    d = Chadcn::Chart::Shape::Curve.line(points, type: :linear)
+    Cursor.new(layer: 1100, attrs: { **cursor_frame, class: "recharts-curve recharts-tooltip-cursor", d: d })
   end
 
   # A radial bar's: `getRadialCursorPoints` drawn by a `Sector` whose inner and outer radius are the category's radius.
   def ring_cursor(tick)
     box = @layout.view_box
-    d = Chadcn::Chart::Shape::Arc.sector_path(cx: box.cx, cy: box.cy, inner_radius: tick.coordinate, outer_radius: tick.coordinate,
-                                             start_angle: box.start_angle, end_angle: box.end_angle)
+    ring = { cx: box.cx, cy: box.cy, inner_radius: tick.coordinate, outer_radius: tick.coordinate, start_angle: box.start_angle, end_angle: box.end_angle }
+    d = Chadcn::Chart::Shape::Arc.sector_path(**ring)
     Cursor.new(layer: 1100, attrs: { **cursor_frame, cx: round(box.cx), cy: round(box.cy), class: "recharts-sector recharts-tooltip-cursor", d: d })
   end
 

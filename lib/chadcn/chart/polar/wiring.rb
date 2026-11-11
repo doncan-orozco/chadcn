@@ -46,8 +46,11 @@ class Chadcn::Chart::Polar::Wiring < Chadcn::Chart::Cartesian::Wiring
   # onto: which one, and its range, whose full turn makes the angle ticks wrap around the circle (`calculateActiveTickIndex`).
   def polar
     box = @layout.view_box
+    view = { cx: pixel(box.cx), cy: pixel(box.cy), innerRadius: pixel(box.inner_radius), outerRadius: pixel(box.outer_radius),
+             startAngle: pixel(box.start_angle), endAngle: pixel(box.end_angle) }
     axis = @plan.axis
-    { cx: pixel(box.cx), cy: pixel(box.cy), innerRadius: pixel(box.inner_radius), outerRadius: pixel(box.outer_radius), startAngle: pixel(box.start_angle),
-      endAngle: pixel(box.end_angle), axis: (@layout.direction == :centric ? "angle" : "radius" if axis), range: axis&.range&.map { |value| pixel(value) } }.compact
+    return view unless axis
+
+    view.merge(axis: @layout.direction == :centric ? "angle" : "radius", range: axis.range.map { |value| pixel(value) })
   end
 end
