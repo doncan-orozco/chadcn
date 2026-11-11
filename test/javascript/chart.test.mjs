@@ -712,6 +712,7 @@ function numbersClose(a, b) {
 }
 
 function nodeDifferences(recharts, phlex) {
+  if (recharts.length < 10) return [`only ${recharts.length} observed nodes in recharts: the page did not draw the chart`];
   if (recharts.length !== phlex.length) return [`${recharts.length} nodes in recharts, ${phlex.length} in the port`];
   return recharts.flatMap((expected, index) => {
     const actual = phlex[index];

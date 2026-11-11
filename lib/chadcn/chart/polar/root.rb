@@ -74,7 +74,7 @@ class Chadcn::Chart::Polar::Root < Chadcn::Base
       plan = Chadcn::Chart::Polar::TooltipPlan.new(layout: layout, declared: @declared, rows: layout.rows, event_type: tooltip_event_type)
     end
     append_tooltip_templates(container, plan) if plan
-    container&.publish_chart_values(Chadcn::Chart::Polar::Wiring.new(layout: layout, plan: plan).values)
+    container&.publish_chart_values(Chadcn::Chart::Polar::Wiring.new(layout: layout, plan: plan).values, legend_height: layout.legend_box_height)
     within_responsive_shell(container) do
       div(**wrapper_attributes(layout)) do
         render Chadcn::Chart::Polar::Overlays.new(layout: layout, declared: @declared, plan: plan)

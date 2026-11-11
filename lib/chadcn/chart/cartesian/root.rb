@@ -77,7 +77,7 @@ class Chadcn::Chart::Cartesian::Root < Chadcn::Base
     end
     append_tooltip_templates(container, plan) if plan
     wiring = Chadcn::Chart::Cartesian::Wiring.new(layout: layout, declared: @declared, accessibility_layer: @options[:accessibility_layer], plan: plan)
-    container&.publish_chart_values(wiring.values)
+    container&.publish_chart_values(wiring.values, legend_height: layout.legend_box_height)
     within_responsive_shell(container) do
       div(**wrapper_attributes(layout)) do
         render Chadcn::Chart::Cartesian::Overlays.new(layout: layout, declared: @declared, plan: plan)
