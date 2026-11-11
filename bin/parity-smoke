@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# The React-versus-Phlex parity smoke: the `default` scenarios of every component (or the first scenario of a component without one)
+# compared in a browser against the React original, inside a time budget. CI runs it in the `parity` job of
+# .github/workflows/chadcn.yml; the full gate is /shadcn-audit (or parity_batch.rb --components all). Subset and budget:
+# dev/decisions/ci-smokes.md. Arguments go to .claude/scripts/shadcn/parity_smoke.rb (--components a,b, --budget SECONDS, --list).
+#
+# Needs the node_modules of dev/react-shadcn-catalog (npm ci there: its Vite is the oracle server, its Playwright drives the browser)
+# and the dummy app's bundle (bundle install in dev/dummy). Starts the dev servers unless they already run and stops what it started.
+# The JSON report goes to stdout, a summary to stderr, the per-component reports to tmp/shadcn-port/<component>/g2.json.
+# Exit 0 no diff, 1 diffs, 2 the environment is unusable or the budget ran out.
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+catalog="$(ruby -r./.claude/scripts/shadcn/layout -e 'print ShadcnLayout::CATALOG_DIR')"
+if [ ! -x "$catalog/node_modules/.bin/vite" ]; then
+  echo "bin/parity-smoke: $catalog has no node_modules (Vite and Playwright live there): run npm ci in it" >&2
+  printf '{"pass": false, "error": "%s has no node_modules: run npm ci in it"}\n' "$catalog"
+  exit 2
+fi
+
+exec ruby .claude/scripts/shadcn/parity_smoke.rb "$@"
