@@ -7,8 +7,8 @@
 # SVG is drawn from the result ({Chadcn::Chart::Polar::Surface}) in recharts' own markup: `div.recharts-wrapper > svg.recharts-surface`
 # with one `g` per z-index layer.
 #
-# The chart is laid out once, at the size of the enclosing {Chadcn::Chart::Container} (`initial_dimension`, 320x200 without one); it does
-# not follow the size of its box.
+# The chart is laid out at the size of the enclosing {Chadcn::Chart::Container} (`initial_dimension`, 320x200 without one). With the
+# container's `relayout_url:` the browser requests it again at the size of its box; without one it keeps that size.
 #
 # @api private
 class Chadcn::Chart::Polar::Root < Chadcn::Base
@@ -75,6 +75,7 @@ class Chadcn::Chart::Polar::Root < Chadcn::Base
     end
     append_tooltip_templates(container, plan) if plan
     container&.publish_chart_values(Chadcn::Chart::Polar::Wiring.new(layout: layout, plan: plan).values)
+    container&.publish_legend_height(layout.legend_box_height)
     within_responsive_shell(container) do
       div(**wrapper_attributes(layout)) do
         render Chadcn::Chart::Polar::Overlays.new(layout: layout, declared: @declared, plan: plan)

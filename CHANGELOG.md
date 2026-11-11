@@ -16,6 +16,16 @@ manifests every component is compared against), the number of oracle components,
   `undefined`), instead of keeping the outer direction as 0.1.0 did. Only a provider with no direction nested inside an `rtl` one
   changes; to keep the outer direction, pass it again (`Direction::Provider.new(dir: "rtl")`) or drop the inner provider.
 
+### Added
+
+- `Chart::Container relayout_url:`: a chart follows the size of its container, like recharts' `ResponsiveContainer`. Once the box has
+  settled at another size, `chadcn--chart` requests the chart from that same-origin URL at the measured size and swaps it in (the tooltip,
+  the keyboard and the focus carry over; the previous layout is scaled into the box meanwhile). The host renders the same chart with
+  `Chart::Container.relayout_options(params, id:)` (bounds: `RELAYOUT_MAX_SIZE`, `RELAYOUT_METRIC_BOUNDS`). New events
+  `chadcn--chart:relayout` and `chadcn--chart:relayout-error`, and a `servedState` value on `chadcn--chart` (written on the swapped-in
+  element for its Turbo snapshot, not a kwarg). Without `relayout_url:` the container renders what it did before. See
+  docs/charts.md, "Following the container".
+
 ### Fixed
 
 - `ToggleGroup`: a group nested inside another keeps its own items; pressing an item of one group no longer flips the item with the same

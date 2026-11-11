@@ -286,3 +286,22 @@ Follow-ups left open (none is owned by an item):
   radius); a radial bar with no data still drawn as its two empty groups; the empty pie written in place after the clip path.
 - **Not ported**, see `deviations/chart.json`: radar ranges, `active_shape`, the polar tooltip cursor and item tooltips of a radial bar chart, the hover mapping of
   `chadcn--chart` for polar charts, `stack_offset`, `hide:` and children of the polar axes, `tick_count:` of the angle axis.
+
+### Item #107: the resize half of "Resize and re-measure" (`review-gaps` epic)
+
+Built as the Decision above says (option C, opt-in with `relayout_url:`, A as the interim state); where the build is more precise:
+
+- **The values exist only with a URL.** `relayoutUrl`, `dimension` and `textMetrics` are written on the container only when it has a
+  `relayout_url:`, so a container without one renders byte for byte what 0.1.0 rendered (`test/chadcn/chart/container_relayout_test.rb`).
+  The chart roots hand their legend box height to the container (`publish_legend_height`) for `textMetrics`.
+- **`relayout_options` does not read `chart[legend_height]` yet**: the container has no `legend_height:` keyword until #108, and a key
+  it does not take would break the splat. The request already carries it when the chart has a legend.
+- **Bounds and errors** (the open advisory of #96): a box under 1 px or over 4096 px is never requested and stays scaled into its box;
+  `relayout_options` drops a value outside its bound or not written as a plain decimal number; a cross-origin `relayout_url:` is never
+  requested (`relayout-error` with status 0); an error answer keeps the scaled chart and stops re-layout until the element reconnects.
+- **The interim scaling starts with the first size that differs from `dimension`**, before the debounce, and stays after an error
+  answer; `turbo:before-cache` removes it with the request, the restore observes the box again. No request leaves a Turbo preview.
+- **Proof.** G2 compares the server render at 320, 480 and 640 px (`resize__bar-*`, `resize__pie-*` scenarios). The browser test
+  (`test/javascript/chart_resize.test.mjs`; the lifecycle in `chart_resize_lifecycle.test.mjs`, apart from `chart.test.mjs` to keep each file within node:test's per-file timeout on CI) answers the request with the Phlex parity page at the requested width and compares the
+  swapped chart with recharts resized in the browser from 320 to 480 and 640 px (bar) and to 640 px (pie), under G2's rules: 0 differences.
+  The stimulus R1/R6 exception is recorded in `.ai/skills/stimulus/SKILL.md` ("Recorded exception: the chart re-layout").

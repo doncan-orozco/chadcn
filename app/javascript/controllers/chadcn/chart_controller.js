@@ -1,6 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 import { activeDotElements, cursorElement } from "chadcn/primitives/chart_shapes"
 import { nearestTickIndex, pointerInPlot, relativePointer } from "chadcn/primitives/chart_pointer"
+import { chartInResponse, laidOutAt, observeSettledSize, relayoutNeeded, relayoutRequestUrl, scaleToBox } from "chadcn/primitives/chart_relayout"
 import { SIDE_CLASSES, tooltipPlacement } from "chadcn/primitives/chart_tooltip_placement"
 import { mountTemplate } from "chadcn/primitives/template_mount"
 import { turboCacheRestore } from "chadcn/primitives/turbo_cache"
@@ -15,12 +16,21 @@ import { turboCacheRestore } from "chadcn/primitives/turbo_cache"
 // keyboard is active, else `default_index` only while the pointer has never activated an index. The states are the values
 // (pointerIndex/pointerActive/keyboardIndex/keyboardActive); only the pointer's last coordinate and the Escape dismissal are kept
 // outside them, and both are handed over a Turbo cache round trip.
+//
+// With a `relayoutUrl` the chart follows the size of its element ("Behavior", "Resize and re-measure"): once the box has settled at
+// another size than the server drew, the controller requests the chart from that same-origin URL at the measured size, swaps the
+// answer in and hands it the interaction state. This is the recorded exception to stimulus R1 and R6 (.ai/skills/stimulus/SKILL.md):
+// only this controller fetches HTML, only its own chart from its own `relayoutUrl`, and it reads recharts nodes by class.
 const ARROWS = { ArrowRight: 1, ArrowLeft: -1 }
 const REDUCED_MOTION = "(prefers-reduced-motion: reduce)"
 const EVENT_ACTIVATE = "activate"
 const EVENT_DEACTIVATE = "deactivate"
 // The z-index layer of the active dots: DefaultZIndexes.activeDot (recharts es6/zIndex/DefaultZIndexes.js:68).
 const ACTIVE_DOT_LAYER = 1200
+const EVENT_RELAYOUT = "relayout"
+const EVENT_RELAYOUT_ERROR = "relayout-error"
+// The interaction values a re-laid-out chart takes over from the one it replaces.
+const CARRIED_VALUES = { pointerIndex: "pointer-index", pointerActive: "pointer-active", keyboardIndex: "keyboard-index", keyboardActive: "keyboard-active" }
 
 export default class extends Controller {
   static targets = ["surface", "tooltip", "tooltipTemplate", "cursor", "activeDots"]
@@ -46,6 +56,10 @@ export default class extends Controller {
     transition: { type: String, default: "" },
     transitionAuto: { type: Boolean, default: false },
     wrapperStyle: { type: Object, default: {} },
+    relayoutUrl: { type: String, default: "" },
+    dimension: { type: Object, default: {} },
+    textMetrics: { type: Object, default: {} },
+    servedState: Object, // written by `swap`; no default: `connect` tells a swapped-in chart by `hasServedStateValue`
   }
 
   connect() {
@@ -55,15 +69,22 @@ export default class extends Controller {
     this.pointerCoordinate = null
     this.dismissedAt = null
     this.activeCoordinate = null
-    this.serverState = this.interactionState()
+    this.serverState = this.hasServedStateValue ? this.servedStateValue : this.interactionState()
+    this.relayoutStopped = false
     this.cache = turboCacheRestore({
       teardown: (cancelled) => this.resetToServerState(cancelled),
-      restore: (live) => this.applyState(live),
+      // The restore observes the box again, which checks its size once more (the teardown stopped the re-layout).
+      restore: (live) => {
+        this.applyState(live)
+        this.startRelayout()
+      },
     })
     this.render()
+    this.startRelayout()
   }
 
   disconnect() {
+    this.stopRelayout()
     this.cache?.release()
     this.cache = null
     // A re-inserted element starts from the server state: no interaction values, no content, a hidden wrapper.
@@ -333,12 +354,112 @@ export default class extends Controller {
     this.dispatch(name, { detail })
   }
 
+  // --- re-layout ("Resize and re-measure") -------------------------------------------------------------------------------------
+
+  relayoutUrlValueChanged() {
+    if (this.cache) this.startRelayout()
+  }
+
+  startRelayout() {
+    this.stopRelayout()
+    if (!this.relayoutUrlValue || this.relayoutStopped) return
+
+    this.sizeObserver = observeSettledSize(this.element, (size) => this.relayout(size), {
+      onChange: (size) => { if (relayoutNeeded(size, this.dimensionValue)) this.scaleInterim() },
+    })
+  }
+
+  // Stops observing, aborts the request in flight and removes the interim scaling (disconnect, Turbo cache, a new URL).
+  stopRelayout() {
+    this.sizeObserver?.disconnect()
+    this.sizeObserver = null
+    this.abortRelayout()
+    this.unscale?.()
+    this.unscale = null
+  }
+
+  abortRelayout() {
+    this.relayoutRequest?.abort()
+    this.relayoutRequest = null
+  }
+
+  // While the answer is pending the drawn chart is scaled into its box (the previous layout, never an overflow or an empty box).
+  scaleInterim() {
+    this.unscale ??= scaleToBox(this.element)
+  }
+
+  async relayout(size) {
+    if (this.cache?.pending || document.documentElement.hasAttribute("data-turbo-preview")) return
+    if (!relayoutNeeded(size, this.dimensionValue)) {
+      this.abortRelayout()
+      this.unscale?.()
+      this.unscale = null
+      return
+    }
+
+    const chartName = this.element.dataset.chart
+    if (!chartName) return this.failRelayout(0)
+
+    const url = relayoutRequestUrl(this.relayoutUrlValue, { id: chartName.replace(/^chart-/, ""), size, metrics: this.textMetricsValue })
+    if (!url) return this.failRelayout(0)
+
+    this.scaleInterim()
+    this.abortRelayout()
+    const request = new AbortController()
+    this.relayoutRequest = request
+    let status = 0
+    let chart = null
+    try {
+      const response = await fetch(url, { headers: { Accept: "text/html" }, mode: "same-origin", credentials: "same-origin", signal: request.signal })
+      status = response.status
+      const html = response.ok ? await response.text() : null
+      chart = html === null ? null : chartInResponse(html, chartName)
+    } catch {
+      if (request.signal.aborted) return
+      this.relayoutRequest = null
+      return this.failRelayout(status)
+    }
+    if (request.signal.aborted) return
+    this.relayoutRequest = null
+    if (!chart || !laidOutAt(chart, size, `data-${this.identifier}-dimension-value`)) return this.failRelayout(status)
+
+    this.swap(chart, size)
+  }
+
+  // The answer replaces the element (its controller connects on its own) with the interaction state and the focus carried over. The
+  // fresh element keeps the state its answer was rendered with as `servedState`, for its own Turbo snapshot.
+  swap(chart, size) {
+    const fresh = document.importNode(chart, true)
+    const value = (attribute, fallback) => fresh.getAttribute(`data-${this.identifier}-${attribute}-value`) ?? fallback
+    const served = {
+      pointerIndex: Number(value("pointer-index", -1)),
+      pointerActive: value("pointer-active", "false") === "true",
+      keyboardIndex: Number(value("keyboard-index", -1)),
+      keyboardActive: value("keyboard-active", "false") === "true",
+    }
+    fresh.setAttribute(`data-${this.identifier}-served-state-value`, JSON.stringify(served))
+    for (const [name, attribute] of Object.entries(CARRIED_VALUES)) fresh.setAttribute(`data-${this.identifier}-${attribute}-value`, String(this[`${name}Value`]))
+    const focused = this.element.contains(document.activeElement)
+    this.element.replaceWith(fresh)
+    if (focused) fresh.querySelector("svg.recharts-surface")?.focus({ preventScroll: true })
+    fresh.dispatchEvent(new CustomEvent(`${this.identifier}:${EVENT_RELAYOUT}`, { bubbles: true, detail: { width: size.width, height: size.height } }))
+  }
+
+  // Keeps the current chart (scaled into its box) and stops re-laying out this element until it reconnects: no request loop.
+  failRelayout(status) {
+    this.relayoutStopped = true
+    this.sizeObserver?.disconnect()
+    this.sizeObserver = null
+    this.dispatch(EVENT_RELAYOUT_ERROR, { detail: { status } })
+  }
+
   // --- Turbo cache -------------------------------------------------------------------------------------------------------------
 
   // The snapshot holds the server state: no pointer or keyboard interaction, so the wrapper, the cursor and the dots are the
   // `default_index` ones or none. Returns the live state for `applyState` to put back. A second `turbo:before-cache` inside the window
   // carries the first one's saved live state, because the DOM is already in its snapshot shape (`primitives/turbo_cache.js`).
   resetToServerState(cancelled = { pending: false }) {
+    this.stopRelayout()
     const live = cancelled.pending
       ? cancelled.state
       : { ...this.interactionState(), pointerCoordinate: this.pointerCoordinate, dismissedAt: this.dismissedAt }

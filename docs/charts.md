@@ -73,7 +73,7 @@ gated scenarios nearest to them are `tooltip__indicator-dashed`, `cartesian__lin
 are the ones of the shadcn examples (the months with `desktop` and `mobile`, the five browsers). The site's examples add classes to the container
 that only size the box, and a title, a footer and an interactive variant, which are left out. `className` becomes `class:`, an inline function
 (`tickFormatter`) becomes a named formatter (see [Formatters](#formatters)), and the chart is drawn at the container's `initial_dimension:`
-(320 x 200 by default), not at the size of its box (see [Sizing](#sizing)).
+(320 x 200 by default), not at the size of its box, unless the container has a `relayout_url:` (see [Sizing](#sizing)).
 
 ### Bar
 
@@ -374,15 +374,59 @@ nothing moves it. The controller is `app/javascript/controllers/chadcn/chart_con
 
 ## Sizing
 
-A chart is laid out **once**, at `Chart::Container initial_dimension:` (320 x 200 px by default), and drawn at that pixel size: the `svg` carries that
-`width`, `height` and `viewBox`, and `.recharts-wrapper` that size in px. The `class:` of the container only sizes the box around it
-(`flex aspect-video justify-center` by default), so choose the size with `initial_dimension: { width: 480, height: 280 }`, not with
-Tailwind width classes. There is no `ResponsiveContainer` re-layout on window resize.
+A chart is laid out on the server at `Chart::Container initial_dimension:` (320 x 200 px by default) and drawn at that pixel size: the
+`svg` carries that `width`, `height` and `viewBox`, and `.recharts-wrapper` that size in px. The `class:` of the container only sizes the box
+around it (`flex aspect-video justify-center` by default), so without a `relayout_url:` choose the size with
+`initial_dimension: { width: 480, height: 280 }`, not with Tailwind width classes: the chart keeps that size whatever its box does.
+
+### Following the container
+
+recharts' `ResponsiveContainer` lays the chart out again whenever its box changes size. The server cannot see the box, so the browser asks
+it: give the container a `relayout_url:` that answers with the same chart, and read the request with
+`Chart::Container.relayout_options(params, id:)`.
+
+```ruby
+# What the request of chadcn--chart carries, here for a box of 640 x 400 px (in a Rails view it is the `params` of the request).
+params = { "chart" => { "id" => "sales", "width" => "640", "height" => "400", "text_height" => "16", "text_char_width" => "0.6" } }
+
+render Chadcn::Chart::Container.new(config: { desktop: { label: "Desktop", color: "var(--chart-1)" } }, id: "sales", class: "aspect-auto h-64 w-full",
+                                    relayout_url: "/reports/sales/chart", **Chadcn::Chart::Container.relayout_options(params, id: "sales")) do
+  render Chadcn::Chart::BarChart.new(data: [ { month: "January", desktop: 186 }, { month: "February", desktop: 305 } ]) do |chart|
+    chart.x_axis(data_key: :month)
+    chart.bar(data_key: :desktop, fill: "var(--color-desktop)", radius: 4)
+  end
+end
+```
+
+`relayout_url:` is any same-origin GET that returns the chart: a small action that renders only it, or the page itself (the controller
+takes the `div[data-slot="chart"]` with the same `id:` out of the answer). Render the same chart there, with the same `id:` and the
+options splatted in:
+
+```ruby
+class ReportsController < ApplicationController
+  def sales_chart
+    render Views::Reports::SalesChart.new(relayout_options: Chadcn::Chart::Container.relayout_options(params, id: "sales")), layout: false
+  end
+end
+```
+
+How it behaves (`app/javascript/controllers/chadcn/chart_controller.js`, spec: `dev/port/specs/chart.md`, "Resize and re-measure"):
+
+- The controller waits until the box has kept one size for 150 ms, rounds it to whole pixels and requests the chart only when that size is
+  not the one the server drew (`chart[id]`, `chart[width]`, `chart[height]` and the text metrics are added to the URL's own query).
+- Until the answer arrives the drawn chart is scaled into its box, so it never overflows or goes blank; then the answer replaces it, with
+  the tooltip, the keyboard index and the focus carried over, and `chadcn--chart:relayout` (`detail: { width, height }`) bubbles from the
+  new chart.
+- A new size aborts the request in flight, and so do a Turbo cache snapshot and the element leaving the page.
+- An error answer, an answer without the chart, or a chart drawn at another size (the host ignored the parameters) keeps the current chart,
+  dispatches `chadcn--chart:relayout-error` (`detail: { status }`) and stops re-laying out that element until it is connected again. A URL of
+  another origin is never requested (status 0). A box over 4096 px either way stays scaled.
+- Without JavaScript, in a Turbo preview, an email or a PDF, the chart is the one drawn at `initial_dimension:`.
 
 The server also has to *assume* what only a browser can measure: `Container text_height:` (16) and `text_char_width:` (0.6 em), which decide
 how far the last tick of a vertical axis moves inside the plot and which tick labels collide, and `Legend legend_height:` (28). With a font
-other than the page's 12 px text, a label can shift by up to half a line. The post-font-load re-measure pass of the original plan was not
-built, so these stay assumptions.
+other than the page's 12 px text, a label can shift by up to half a line. The re-layout request sends these assumptions back as they are;
+measuring them in the browser is the next step (not built yet).
 
 ## What is different from recharts
 
@@ -391,7 +435,8 @@ The full list is `dev/port/deviations/chart.json`; in prose:
 - **No third-party JavaScript.** recharts is not shipped (the maintainer constraint of the sonner port too), so shadcn-port R14 (a pinned JS equivalent behind a
   controller) is not followed; the deviation is recorded in `dev/port/deviations/chart.json`. recharts also renders an empty wrapper on the server, so the SVG is written by Ruby and the
   numbers (scales, nice ticks, curves, sector paths, bar sizes) are ported to Ruby and checked against the recharts DOM within a thousandth of a pixel.
-- **Layout once, no animation.** No responsive re-layout; `is_animation_active:` and the `animation_*` keywords are accepted and ignored, the
+- **Layout on the server, no animation.** A chart follows its box only with `relayout_url:` (a request per settled resize, the previous
+  layout scaled in between); without it, it is laid out once. `is_animation_active:` and the `animation_*` keywords are accepted and ignored, the
   settled state is rendered (the tooltip wrapper keeps its 400 ms transition, switched off under `prefers-reduced-motion`).
 - **Callables and named formatters** instead of inline JavaScript functions; React elements as `content:`, `label:` or `tick:` are not supported
   (use the content classes).

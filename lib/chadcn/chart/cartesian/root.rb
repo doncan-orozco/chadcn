@@ -5,8 +5,8 @@
 # ({Chadcn::Chart::Cartesian::Layout}), and the SVG is drawn from the result ({Chadcn::Chart::Cartesian::Surface}) in recharts'
 # own markup: `div.recharts-wrapper > svg.recharts-surface` with one `g` per z-index layer.
 #
-# The chart is laid out once, at the size of the enclosing {Chadcn::Chart::Container} (`initial_dimension`, 320x200 without one); it does
-# not follow the size of its box.
+# The chart is laid out at the size of the enclosing {Chadcn::Chart::Container} (`initial_dimension`, 320x200 without one). With the
+# container's `relayout_url:` the browser requests it again at the size of its box; without one it keeps that size.
 #
 # @api private
 class Chadcn::Chart::Cartesian::Root < Chadcn::Base
@@ -78,6 +78,7 @@ class Chadcn::Chart::Cartesian::Root < Chadcn::Base
     append_tooltip_templates(container, plan) if plan
     wiring = Chadcn::Chart::Cartesian::Wiring.new(layout: layout, declared: @declared, accessibility_layer: @options[:accessibility_layer], plan: plan)
     container&.publish_chart_values(wiring.values)
+    container&.publish_legend_height(layout.legend_box_height)
     within_responsive_shell(container) do
       div(**wrapper_attributes(layout)) do
         render Chadcn::Chart::Cartesian::Overlays.new(layout: layout, declared: @declared, plan: plan)
