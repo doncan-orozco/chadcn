@@ -17,6 +17,7 @@ Built in **wave 0** (before any overlay), pinned in `config/importmap.rb` with `
 | `typeahead.js` | buffer with 1000 ms reset, repeated-letter cycling, `matchItem(items, search, current)` | internal in menu/select |
 | `hover_intent.js` | open/close delays with skip-delay provider state | tooltip/hover-card/navigation-menu |
 | `submenu_grace.js` | pointer-grace polygon for sub menus | `react-menu` |
+| `menu_level.js` | `new MenuLevel(controller, { anchor, template, open, behavior })` then `mount()` / `close()` / `reopen()` / `teardown()`: one mounted menu content (root or sub) with its items, roving tab stop, typeahead, sub menus (`SubMenu`, inherited behavior), dismissable layer, focus scope and, when modal, scroll lock and hide others. `behavior` (root only, `DEFAULT_BEHAVIOR` = the DropdownMenu root that ContextMenu reuses) sets the data-attribute `prefix`, the `subTrigger` selector, `modal`, `close`, `detach`, `onFocusOutside`, `onInteractOutside`, `onCloseAutoFocus`, `entryFocus` and an extra `onKeyDown`; menubar passes its own. Used by dropdown-menu, context-menu and menubar | `react-menu` |
 | `collection.js` | ordered item registry from DOM (`[data-radix-collection-item]`, the attribute Radix uses) honoring disabled | `react-collection` |
 | `ids.js` | stable id helpers; reads server ids first | `react-id` |
 | `direction.js` | `dir` prop, then a direction provider, then `"ltr"`; NEVER `html[dir]` (Radix `useDirection`) | `react-direction` |
