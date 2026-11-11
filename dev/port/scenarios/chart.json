@@ -8132,6 +8132,1132 @@
         ".recharts-curve",
         ".recharts-tooltip-wrapper *"
       ]
+    },
+    {
+      "id": "tooltip__radar-hover",
+      "tree": {
+        "c": "ChartContainer",
+        "props": {
+          "id": "radar-hover",
+          "config": {
+            "desktop": {
+              "label": "Desktop",
+              "color": "var(--chart-1)"
+            },
+            "mobile": {
+              "label": "Mobile",
+              "color": "var(--chart-2)"
+            }
+          },
+          "className": "aspect-auto h-[200px] w-[320px]",
+          "initialDimension": {
+            "width": 320,
+            "height": 200
+          }
+        },
+        "children": [
+          {
+            "c": "_RadarChart",
+            "props": {
+              "data": [
+                {
+                  "month": "January",
+                  "desktop": 186,
+                  "mobile": 80
+                },
+                {
+                  "month": "February",
+                  "desktop": 305,
+                  "mobile": 200
+                },
+                {
+                  "month": "March",
+                  "desktop": 237,
+                  "mobile": 120
+                },
+                {
+                  "month": "April",
+                  "desktop": 73,
+                  "mobile": 190
+                },
+                {
+                  "month": "May",
+                  "desktop": 209,
+                  "mobile": 130
+                },
+                {
+                  "month": "June",
+                  "desktop": 214,
+                  "mobile": 140
+                }
+              ]
+            },
+            "children": [
+              {
+                "c": "ChartTooltip",
+                "props": {
+                  "content": "ChartTooltipContent"
+                }
+              },
+              {
+                "c": "_PolarAngleAxis",
+                "props": {
+                  "dataKey": "month"
+                }
+              },
+              {
+                "c": "_PolarGrid"
+              },
+              {
+                "c": "_Radar",
+                "props": {
+                  "dataKey": "desktop",
+                  "fill": "var(--color-desktop)",
+                  "fillOpacity": 0.6
+                }
+              },
+              {
+                "c": "_Radar",
+                "props": {
+                  "dataKey": "mobile",
+                  "fill": "var(--color-mobile)"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 160,
+            "y": 50
+          }
+        },
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 203,
+            "y": 75
+          }
+        },
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 160,
+            "y": 150
+          }
+        },
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 160,
+            "y": 10
+          }
+        },
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 118,
+            "y": 125
+          }
+        },
+        {
+          "do": "hover",
+          "target": "body",
+          "position": {
+            "x": 2,
+            "y": 2
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".recharts-wrapper",
+        ".recharts-tooltip-wrapper",
+        ".recharts-tooltip-cursor",
+        ".recharts-tooltip-wrapper *",
+        ".recharts-active-dot, .recharts-active-dot circle",
+        ".recharts-polygon"
+      ],
+      "note": "pointer over a radar: the angle category under it, the polar cursor and the active dots; outside the radius clears it"
+    },
+    {
+      "id": "tooltip__radar-keyboard",
+      "tree": {
+        "c": "ChartContainer",
+        "props": {
+          "id": "radar-keyboard",
+          "config": {
+            "desktop": {
+              "label": "Desktop",
+              "color": "var(--chart-1)"
+            },
+            "mobile": {
+              "label": "Mobile",
+              "color": "var(--chart-2)"
+            }
+          },
+          "className": "aspect-auto h-[200px] w-[320px]",
+          "initialDimension": {
+            "width": 320,
+            "height": 200
+          }
+        },
+        "children": [
+          {
+            "c": "_RadarChart",
+            "props": {
+              "data": [
+                {
+                  "month": "January",
+                  "desktop": 186,
+                  "mobile": 80
+                },
+                {
+                  "month": "February",
+                  "desktop": 305,
+                  "mobile": 200
+                },
+                {
+                  "month": "March",
+                  "desktop": 237,
+                  "mobile": 120
+                },
+                {
+                  "month": "April",
+                  "desktop": 73,
+                  "mobile": 190
+                },
+                {
+                  "month": "May",
+                  "desktop": 209,
+                  "mobile": 130
+                },
+                {
+                  "month": "June",
+                  "desktop": 214,
+                  "mobile": 140
+                }
+              ]
+            },
+            "children": [
+              {
+                "c": "ChartTooltip",
+                "props": {
+                  "content": "ChartTooltipContent"
+                }
+              },
+              {
+                "c": "_PolarAngleAxis",
+                "props": {
+                  "dataKey": "month"
+                }
+              },
+              {
+                "c": "_PolarGrid"
+              },
+              {
+                "c": "_Radar",
+                "props": {
+                  "dataKey": "desktop",
+                  "fill": "var(--color-desktop)",
+                  "fillOpacity": 0.6
+                }
+              },
+              {
+                "c": "_Radar",
+                "props": {
+                  "dataKey": "mobile",
+                  "fill": "var(--color-mobile)"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": ".recharts-surface"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 160,
+            "y": 150
+          }
+        },
+        {
+          "do": "hover",
+          "target": "body",
+          "position": {
+            "x": 2,
+            "y": 2
+          }
+        },
+        {
+          "do": "press",
+          "key": "ArrowLeft"
+        },
+        {
+          "do": "press",
+          "key": "Escape"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".recharts-wrapper",
+        ".recharts-tooltip-wrapper",
+        ".recharts-tooltip-cursor",
+        ".recharts-tooltip-wrapper *",
+        ".recharts-active-dot, .recharts-active-dot circle",
+        ".recharts-polygon"
+      ],
+      "note": "keyboard on a radar: focus, arrows, a hover in between and Escape"
+    },
+    {
+      "id": "tooltip__radar-click",
+      "tree": {
+        "c": "ChartContainer",
+        "props": {
+          "id": "radar-click",
+          "config": {
+            "desktop": {
+              "label": "Desktop",
+              "color": "var(--chart-1)"
+            },
+            "mobile": {
+              "label": "Mobile",
+              "color": "var(--chart-2)"
+            }
+          },
+          "className": "aspect-auto h-[200px] w-[320px]",
+          "initialDimension": {
+            "width": 320,
+            "height": 200
+          }
+        },
+        "children": [
+          {
+            "c": "_RadarChart",
+            "props": {
+              "data": [
+                {
+                  "month": "January",
+                  "desktop": 186,
+                  "mobile": 80
+                },
+                {
+                  "month": "February",
+                  "desktop": 305,
+                  "mobile": 200
+                },
+                {
+                  "month": "March",
+                  "desktop": 237,
+                  "mobile": 120
+                },
+                {
+                  "month": "April",
+                  "desktop": 73,
+                  "mobile": 190
+                },
+                {
+                  "month": "May",
+                  "desktop": 209,
+                  "mobile": 130
+                },
+                {
+                  "month": "June",
+                  "desktop": 214,
+                  "mobile": 140
+                }
+              ]
+            },
+            "children": [
+              {
+                "c": "ChartTooltip",
+                "props": {
+                  "content": "ChartTooltipContent",
+                  "trigger": "click"
+                }
+              },
+              {
+                "c": "_PolarAngleAxis",
+                "props": {
+                  "dataKey": "month"
+                }
+              },
+              {
+                "c": "_PolarGrid"
+              },
+              {
+                "c": "_Radar",
+                "props": {
+                  "dataKey": "desktop",
+                  "fill": "var(--color-desktop)",
+                  "fillOpacity": 0.6
+                }
+              },
+              {
+                "c": "_Radar",
+                "props": {
+                  "dataKey": "mobile",
+                  "fill": "var(--color-mobile)"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 203,
+            "y": 75
+          }
+        },
+        {
+          "do": "click",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 203,
+            "y": 75
+          }
+        },
+        {
+          "do": "hover",
+          "target": "body",
+          "position": {
+            "x": 2,
+            "y": 2
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".recharts-wrapper",
+        ".recharts-tooltip-wrapper",
+        ".recharts-tooltip-cursor",
+        ".recharts-tooltip-wrapper *",
+        ".recharts-active-dot, .recharts-active-dot circle",
+        ".recharts-polygon"
+      ],
+      "note": "trigger click on a radar: a hover shows nothing, a click shows the category and leaving keeps it"
+    },
+    {
+      "id": "tooltip__radial-hover",
+      "tree": {
+        "c": "ChartContainer",
+        "props": {
+          "id": "radial-hover",
+          "config": {
+            "visitors": {
+              "label": "Visitors"
+            },
+            "chrome": {
+              "label": "Chrome",
+              "color": "var(--chart-1)"
+            },
+            "safari": {
+              "label": "Safari",
+              "color": "var(--chart-2)"
+            },
+            "firefox": {
+              "label": "Firefox",
+              "color": "var(--chart-3)"
+            },
+            "edge": {
+              "label": "Edge",
+              "color": "var(--chart-4)"
+            },
+            "other": {
+              "label": "Other",
+              "color": "var(--chart-5)"
+            }
+          },
+          "className": "aspect-auto h-[200px] w-[320px]",
+          "initialDimension": {
+            "width": 320,
+            "height": 200
+          }
+        },
+        "children": [
+          {
+            "c": "_RadialBarChart",
+            "props": {
+              "data": [
+                {
+                  "browser": "chrome",
+                  "visitors": 275,
+                  "fill": "var(--color-chrome)"
+                },
+                {
+                  "browser": "safari",
+                  "visitors": 200,
+                  "fill": "var(--color-safari)"
+                },
+                {
+                  "browser": "firefox",
+                  "visitors": 187,
+                  "fill": "var(--color-firefox)"
+                }
+              ],
+              "innerRadius": 30,
+              "outerRadius": 100
+            },
+            "children": [
+              {
+                "c": "ChartTooltip",
+                "props": {
+                  "content": "ChartTooltipContent",
+                  "contentProps": {
+                    "hideLabel": true
+                  }
+                }
+              },
+              {
+                "c": "_RadialBar",
+                "props": {
+                  "dataKey": "visitors",
+                  "background": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 201,
+            "y": 100
+          }
+        },
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 160,
+            "y": 35
+          }
+        },
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 222,
+            "y": 162
+          }
+        },
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 160,
+            "y": 100
+          }
+        },
+        {
+          "do": "hover",
+          "target": "body",
+          "position": {
+            "x": 2,
+            "y": 2
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".recharts-wrapper",
+        ".recharts-tooltip-wrapper",
+        ".recharts-tooltip-cursor",
+        ".recharts-tooltip-wrapper *",
+        ".recharts-radial-bar-sector"
+      ],
+      "note": "pointer over an axis radial bar chart: the ring under it and the arc cursor; the hole clears it"
+    },
+    {
+      "id": "tooltip__radial-keyboard",
+      "tree": {
+        "c": "ChartContainer",
+        "props": {
+          "id": "radial-keyboard",
+          "config": {
+            "visitors": {
+              "label": "Visitors"
+            },
+            "chrome": {
+              "label": "Chrome",
+              "color": "var(--chart-1)"
+            },
+            "safari": {
+              "label": "Safari",
+              "color": "var(--chart-2)"
+            },
+            "firefox": {
+              "label": "Firefox",
+              "color": "var(--chart-3)"
+            },
+            "edge": {
+              "label": "Edge",
+              "color": "var(--chart-4)"
+            },
+            "other": {
+              "label": "Other",
+              "color": "var(--chart-5)"
+            }
+          },
+          "className": "aspect-auto h-[200px] w-[320px]",
+          "initialDimension": {
+            "width": 320,
+            "height": 200
+          }
+        },
+        "children": [
+          {
+            "c": "_RadialBarChart",
+            "props": {
+              "data": [
+                {
+                  "browser": "chrome",
+                  "visitors": 275,
+                  "fill": "var(--color-chrome)"
+                },
+                {
+                  "browser": "safari",
+                  "visitors": 200,
+                  "fill": "var(--color-safari)"
+                },
+                {
+                  "browser": "firefox",
+                  "visitors": 187,
+                  "fill": "var(--color-firefox)"
+                }
+              ],
+              "innerRadius": 30,
+              "outerRadius": 100
+            },
+            "children": [
+              {
+                "c": "ChartTooltip",
+                "props": {
+                  "content": "ChartTooltipContent",
+                  "contentProps": {
+                    "hideLabel": true
+                  }
+                }
+              },
+              {
+                "c": "_RadialBar",
+                "props": {
+                  "dataKey": "visitors",
+                  "background": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": ".recharts-surface"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        },
+        {
+          "do": "press",
+          "key": "Enter"
+        },
+        {
+          "do": "press",
+          "key": "Escape"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".recharts-wrapper",
+        ".recharts-tooltip-wrapper",
+        ".recharts-tooltip-cursor",
+        ".recharts-tooltip-wrapper *",
+        ".recharts-radial-bar-sector"
+      ],
+      "note": "keyboard on a radial bar chart: focus, arrow, Enter toggles, Escape"
+    },
+    {
+      "id": "tooltip__pie-hover",
+      "tree": {
+        "c": "ChartContainer",
+        "props": {
+          "id": "pie-hover",
+          "config": {
+            "visitors": {
+              "label": "Visitors"
+            },
+            "chrome": {
+              "label": "Chrome",
+              "color": "var(--chart-1)"
+            },
+            "safari": {
+              "label": "Safari",
+              "color": "var(--chart-2)"
+            },
+            "firefox": {
+              "label": "Firefox",
+              "color": "var(--chart-3)"
+            },
+            "edge": {
+              "label": "Edge",
+              "color": "var(--chart-4)"
+            },
+            "other": {
+              "label": "Other",
+              "color": "var(--chart-5)"
+            }
+          },
+          "className": "aspect-auto h-[200px] w-[320px]",
+          "initialDimension": {
+            "width": 320,
+            "height": 200
+          }
+        },
+        "children": [
+          {
+            "c": "_PieChart",
+            "children": [
+              {
+                "c": "ChartTooltip",
+                "props": {
+                  "cursor": false,
+                  "content": "ChartTooltipContent",
+                  "contentProps": {
+                    "hideLabel": true
+                  }
+                }
+              },
+              {
+                "c": "_Pie",
+                "props": {
+                  "data": [
+                    {
+                      "browser": "chrome",
+                      "visitors": 275,
+                      "fill": "var(--color-chrome)"
+                    },
+                    {
+                      "browser": "safari",
+                      "visitors": 200,
+                      "fill": "var(--color-safari)"
+                    },
+                    {
+                      "browser": "firefox",
+                      "visitors": 187,
+                      "fill": "var(--color-firefox)"
+                    },
+                    {
+                      "browser": "edge",
+                      "visitors": 173,
+                      "fill": "var(--color-edge)"
+                    },
+                    {
+                      "browser": "other",
+                      "visitors": 90,
+                      "fill": "var(--color-other)"
+                    }
+                  ],
+                  "dataKey": "visitors",
+                  "nameKey": "browser"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 190,
+            "y": 60
+          }
+        },
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 118,
+            "y": 72
+          }
+        },
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 122,
+            "y": 133
+          }
+        },
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 160,
+            "y": 190
+          }
+        },
+        {
+          "do": "hover",
+          "target": "body",
+          "position": {
+            "x": 2,
+            "y": 2
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".recharts-wrapper",
+        ".recharts-tooltip-wrapper",
+        ".recharts-tooltip-cursor",
+        ".recharts-tooltip-wrapper *",
+        ".recharts-pie-sector"
+      ],
+      "note": "pointer over a pie: the sector under it, placed at its tooltip position; off the pie hides it"
+    },
+    {
+      "id": "tooltip__pie-keyboard",
+      "tree": {
+        "c": "ChartContainer",
+        "props": {
+          "id": "pie-keyboard",
+          "config": {
+            "visitors": {
+              "label": "Visitors"
+            },
+            "chrome": {
+              "label": "Chrome",
+              "color": "var(--chart-1)"
+            },
+            "safari": {
+              "label": "Safari",
+              "color": "var(--chart-2)"
+            },
+            "firefox": {
+              "label": "Firefox",
+              "color": "var(--chart-3)"
+            },
+            "edge": {
+              "label": "Edge",
+              "color": "var(--chart-4)"
+            },
+            "other": {
+              "label": "Other",
+              "color": "var(--chart-5)"
+            }
+          },
+          "className": "aspect-auto h-[200px] w-[320px]",
+          "initialDimension": {
+            "width": 320,
+            "height": 200
+          }
+        },
+        "children": [
+          {
+            "c": "_PieChart",
+            "children": [
+              {
+                "c": "ChartTooltip",
+                "props": {
+                  "cursor": false,
+                  "content": "ChartTooltipContent",
+                  "contentProps": {
+                    "hideLabel": true
+                  }
+                }
+              },
+              {
+                "c": "_Pie",
+                "props": {
+                  "data": [
+                    {
+                      "browser": "chrome",
+                      "visitors": 275,
+                      "fill": "var(--color-chrome)"
+                    },
+                    {
+                      "browser": "safari",
+                      "visitors": 200,
+                      "fill": "var(--color-safari)"
+                    },
+                    {
+                      "browser": "firefox",
+                      "visitors": 187,
+                      "fill": "var(--color-firefox)"
+                    },
+                    {
+                      "browser": "edge",
+                      "visitors": 173,
+                      "fill": "var(--color-edge)"
+                    },
+                    {
+                      "browser": "other",
+                      "visitors": 90,
+                      "fill": "var(--color-other)"
+                    }
+                  ],
+                  "dataKey": "visitors",
+                  "nameKey": "browser"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": ".recharts-surface"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 118,
+            "y": 72
+          }
+        },
+        {
+          "do": "hover",
+          "target": "body",
+          "position": {
+            "x": 2,
+            "y": 2
+          }
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "Escape"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".recharts-wrapper",
+        ".recharts-tooltip-wrapper",
+        ".recharts-tooltip-cursor",
+        ".recharts-tooltip-wrapper *",
+        ".recharts-pie-sector"
+      ],
+      "note": "keyboard on a pie: focus, arrows, a hover in between and Escape"
+    },
+    {
+      "id": "tooltip__pie-click",
+      "tree": {
+        "c": "ChartContainer",
+        "props": {
+          "id": "pie-click",
+          "config": {
+            "visitors": {
+              "label": "Visitors"
+            },
+            "chrome": {
+              "label": "Chrome",
+              "color": "var(--chart-1)"
+            },
+            "safari": {
+              "label": "Safari",
+              "color": "var(--chart-2)"
+            },
+            "firefox": {
+              "label": "Firefox",
+              "color": "var(--chart-3)"
+            },
+            "edge": {
+              "label": "Edge",
+              "color": "var(--chart-4)"
+            },
+            "other": {
+              "label": "Other",
+              "color": "var(--chart-5)"
+            }
+          },
+          "className": "aspect-auto h-[200px] w-[320px]",
+          "initialDimension": {
+            "width": 320,
+            "height": 200
+          }
+        },
+        "children": [
+          {
+            "c": "_PieChart",
+            "children": [
+              {
+                "c": "ChartTooltip",
+                "props": {
+                  "cursor": false,
+                  "content": "ChartTooltipContent",
+                  "contentProps": {
+                    "hideLabel": true
+                  },
+                  "trigger": "click"
+                }
+              },
+              {
+                "c": "_Pie",
+                "props": {
+                  "data": [
+                    {
+                      "browser": "chrome",
+                      "visitors": 275,
+                      "fill": "var(--color-chrome)"
+                    },
+                    {
+                      "browser": "safari",
+                      "visitors": 200,
+                      "fill": "var(--color-safari)"
+                    },
+                    {
+                      "browser": "firefox",
+                      "visitors": 187,
+                      "fill": "var(--color-firefox)"
+                    },
+                    {
+                      "browser": "edge",
+                      "visitors": 173,
+                      "fill": "var(--color-edge)"
+                    },
+                    {
+                      "browser": "other",
+                      "visitors": 90,
+                      "fill": "var(--color-other)"
+                    }
+                  ],
+                  "dataKey": "visitors",
+                  "nameKey": "browser"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 190,
+            "y": 60
+          }
+        },
+        {
+          "do": "click",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 190,
+            "y": 60
+          }
+        },
+        {
+          "do": "hover",
+          "target": "body",
+          "position": {
+            "x": 2,
+            "y": 2
+          }
+        },
+        {
+          "do": "click",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 122,
+            "y": 133
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".recharts-wrapper",
+        ".recharts-tooltip-wrapper",
+        ".recharts-tooltip-cursor",
+        ".recharts-tooltip-wrapper *",
+        ".recharts-pie-sector"
+      ],
+      "note": "trigger click on a pie: only a click on a sector shows it, leaving keeps it"
     }
   ]
 }

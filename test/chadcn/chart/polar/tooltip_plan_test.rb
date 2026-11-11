@@ -119,8 +119,49 @@ class Chadcn::Chart::Polar::TooltipPlanTest < Chadcn::TestCase
     assert_equal([ [ 0, 0 ], [ 1, 0 ], [ 2, 0 ] ], radial.entries.map { |entry| [ entry.index, entry.series ] })
     assert_equal [ 1, 0 ], [ radial.default_entry.index, radial.default_entry.series ]
     assert_equal({ bar => 0 }, radial.item_series)
-    assert_empty pie_plan.item_series
+    assert_equal({ pie => 0 }, pie_plan.item_series)
     assert_equal 5, pie_plan.entries.size
-    assert_equal 1, pie_plan.default_entry.index
+    assert_equal [ 0 ] * 5, pie_plan.entries.map(&:series)
+    assert_equal(pie_plan.entries.map(&:coordinate), pie_plan.entries.map(&:item_coordinate))
+    assert_equal [ 1, 0 ], [ pie_plan.default_entry.index, pie_plan.default_entry.series ]
+  end
+
+  test "two pies are two item series, each sector entry at its pie's position" do
+    pies = [ Chadcn::Chart::Pie.new(data: BROWSERS, data_key: :visitors, name_key: :browser, outer_radius: 40),
+             Chadcn::Chart::Pie.new(data: BROWSERS.first(2), data_key: :visitors, name_key: :browser, inner_radius: 50) ]
+    plan, = build(Chadcn::Chart::PieChart, pies, rows: [], event_type: :item)
+
+    assert_equal({ pies[0] => 0, pies[1] => 1 }, plan.item_series)
+    assert_equal [ 0, 0, 0, 0, 0, 1, 1 ], plan.entries.map(&:series)
+  end
+
+  test "the pointer cursor of a polar axis entry: a radar's line from the inner to the outer radius at the angle, a radial bar's ring" do
+    radar, = build(Chadcn::Chart::RadarChart, [ Chadcn::Chart::PolarAngleAxis.new(data_key: :month), Chadcn::Chart::Radar.new(data_key: :desktop) ])
+    line = radar.entries[0].pointer_cursor
+
+    assert_equal 1100, line.layer
+    assert_equal({ stroke: "#ccc", "pointer-events": "none", width: "310", height: "190", class: "recharts-curve recharts-tooltip-cursor",
+                   d: "M160,100L160,24" }, line.attrs)
+    assert_nil radar.entries[0].cursor
+
+    radial, = build(Chadcn::Chart::RadialBarChart, Chadcn::Chart::RadialBar.new(data_key: :visitors), rows: BROWSERS.first(3))
+    ring = radial.entries[0].pointer_cursor
+
+    assert_equal 1100, ring.layer
+    assert_equal "recharts-sector recharts-tooltip-cursor", ring.attrs[:class]
+    assert_equal %w[160 100], ring.attrs.values_at(:cx, :cy)
+  end
+
+  test "cursor: false draws no pointer cursor and a cursor Hash restyles it; a pie and an item tooltip have none" do
+    series = [ Chadcn::Chart::PolarAngleAxis.new(data_key: :month), Chadcn::Chart::Radar.new(data_key: :desktop) ]
+    off, = build(Chadcn::Chart::RadarChart, series, cursor: false)
+    styled, = build(Chadcn::Chart::RadarChart, series, cursor: { stroke: "red", class: "mine" })
+    pie, = build(Chadcn::Chart::PieChart, Chadcn::Chart::Pie.new(data: BROWSERS, data_key: :visitors), rows: [], event_type: :item)
+    item, = build(Chadcn::Chart::RadialBarChart, Chadcn::Chart::RadialBar.new(data_key: :visitors), rows: BROWSERS.first(3), event_type: :item)
+
+    assert_nil off.entries[0].pointer_cursor
+    assert_equal [ "red", "recharts-curve recharts-tooltip-cursor mine" ], styled.entries[0].pointer_cursor.attrs.values_at(:stroke, :class)
+    assert(pie.entries.all? { |entry| entry.pointer_cursor.nil? })
+    assert(item.entries.all? { |entry| entry.pointer_cursor.nil? })
   end
 end
