@@ -78,7 +78,7 @@ Server vs Stimulus (controller `chadcn--avatar`, host = the Avatar Root element)
 
 ## Behavior
 
-Composes no shared primitive: the planned set (`.ai/skills/radix-stimulus/references/primitives.md`) has no image-loading module, and in Radix this logic is private to `react-avatar` (avatar.mjs:88-124, no other package uses it), so it lives in the `chadcn--avatar` controller. (radix-stimulus "Media/layout" lists an `image-loading-status` helper; if the orchestrator adds it as a primitive, the controller uses it instead.) No focus, keyboard, pointer, dismissal, scroll lock, Presence or positioning: Radix Avatar has none (avatar.mjs contains no event handlers besides image `load`/`error`).
+Composes no image-loading primitive: the planned set (`.ai/skills/radix-stimulus/references/primitives.md`) has none, and in Radix this logic is private to `react-avatar` (avatar.mjs:88-124, no other package uses it), so it lives in the `chadcn--avatar` controller; mounting goes through `template_mount` and the Turbo snapshot through `turbo_cache`. (radix-stimulus "Media/layout" lists an `image-loading-status` helper; if the orchestrator adds it as a primitive, the controller uses it instead.) No focus, keyboard, pointer, dismissal, scroll lock, Presence or positioning: Radix Avatar has none (avatar.mjs contains no event handlers besides image `load`/`error`).
 
 States (Radix `ImageLoadingStatus`, avatar.mjs:15-20): `idle` -> `loading` -> `loaded` | `error`. One status per Root (context, avatar.mjs:30-32), shared by Image and Fallback.
 
@@ -86,10 +86,10 @@ Transitions (useImageLoadingStatus, avatar.mjs:88-120, run in a layout effect on
 1. No `src` (nil/empty): status := `error` (avatar.mjs:95-97). Image stays unmounted, Fallback (if renderable) stays.
 2. Otherwise create a detached `new window.Image()`, attach `load` and `error` listeners, set `referrerPolicy` if given, `crossOrigin = cross_origin ?? null`, then `src` (avatar.mjs:99-111), and immediately set status := `getImageLoadingStatus(image)` (avatar.mjs:112): `complete ? (naturalWidth > 0 ? "loaded" : "error") : "loading"` (avatar.mjs:122-124). Cached images can therefore go straight to `loaded` in the same frame.
 3. `load` event: status := `getImageLoadingStatus(image)` (so a decoded image with `naturalWidth == 0` is `error`); `error` event: status := `error` (avatar.mjs:100-104).
-4. Cleanup (Image disconnect / src change): remove both listeners, status := `idle` (avatar.mjs:113-117). Port: the image target's disconnect (and the controller's `disconnect()`) does the same and restores the server DOM (Image back into its template, Fallback mounted) so a Turbo cache snapshot or morph never keeps a stale `loaded` state; `connect()` is idempotent.
+4. Cleanup (Image disconnect / src change): remove both listeners, status := `idle` (avatar.mjs:113-117). Port: the image target's disconnect (and the controller's `disconnect()`) does the same and restores the server DOM (Image unmounted, its template kept; Fallback mounted) so a Turbo cache snapshot or morph never keeps a stale `loaded` state; `connect()` is idempotent.
 
 Rendering rules:
-- Image is in the DOM iff status == `loaded` (avatar.mjs:70). On `loaded` the controller replaces the image template with its `<img>` (cloned, same attributes, `src` set) and unmounts the Fallback.
+- Image is in the DOM iff status == `loaded` (avatar.mjs:70). On `loaded` the controller mounts the `<img>` right after its template (a fresh clone, same attributes, `src` set; the template stays) and unmounts the Fallback.
 - Fallback is in the DOM iff its delay elapsed AND status != `loaded` (avatar.mjs:85). Without an Image part the status stays `idle`, so the Fallback always shows.
 - `delay_ms`: a `window.setTimeout(delay_ms)` started on connect sets `canRender`; cleared on disconnect (avatar.mjs:79-84). Timer is per Fallback, independent of the image status. If the image loads before the delay, the Fallback never appears.
 - `loading-status-change` is dispatched after each status change that differs from the previous value (avatar.mjs:62-68); typical sequences: `loading` -> `loaded`, `loading` -> `error`, or `error` alone (no src).

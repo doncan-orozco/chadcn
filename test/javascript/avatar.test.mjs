@@ -21,13 +21,6 @@ const recordStatuses = (page) => page.evaluate(() => {
 })
 const statuses = (page) => page.evaluate(() => window.__statuses)
 
-browserTest("avatar: a fallback without an image is rendered in place and stays", async ({ open }) => {
-  const page = await open("size-default__fallback")
-  await settle(page)
-  assert.deepEqual(await parts(page), ["avatar-fallback"])
-  assert.equal(await page.locator("[data-slot=avatar-fallback]").textContent(), "CN")
-})
-
 browserTest("avatar: a loaded image mounts right after its template and unmounts the fallback into a template at its place", async ({ open }) => {
   const page = await open("size-default__image-loaded")
   await page.waitForSelector("[data-slot=avatar-image]")

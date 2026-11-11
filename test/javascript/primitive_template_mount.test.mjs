@@ -101,6 +101,8 @@ primitiveTest("template_mount: mountedTemplate wraps server-rendered nodes as a 
     const nodes = adopted.nodes.map((el) => el.className);
     adopted.unmount();
     const afterUnmount = [...host.children].map((el) => el.id || el.className);
+    adopted.unmount();
+    const afterSecondUnmount = [...host.children].map((el) => el.id || el.className);
     const again = mountTemplate(tpl, { into: "replace" });
     const remounted = [...host.children].map((el) => el.id || el.className);
     again.unmount();
@@ -109,10 +111,11 @@ primitiveTest("template_mount: mountedTemplate wraps server-rendered nodes as a 
     box.append("x", document.createElement("span"));
     const inBox = mountedTemplate(tpl, [...box.childNodes]);
     inBox.unmount();
-    return { nodes, afterUnmount, remounted, boxEmpty: box.childNodes.length, boxNodes: inBox.nodes.length };
+    return { nodes, afterUnmount, afterSecondUnmount, remounted, boxEmpty: box.childNodes.length, boxNodes: inBox.nodes.length };
   });
   assert.deepEqual(result.nodes, ["server"]);
   assert.deepEqual(result.afterUnmount, ["tpl", "after"], "unmount puts the template back where the server node was");
+  assert.deepEqual(result.afterSecondUnmount, ["tpl", "after"], "a second unmount does not move the template again");
   assert.deepEqual(result.remounted, ["a", "b", "after"]);
   assert.deepEqual({ boxEmpty: result.boxEmpty, boxNodes: result.boxNodes }, { boxEmpty: 0, boxNodes: 1 });
 }, { html });
