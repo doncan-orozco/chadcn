@@ -18,7 +18,8 @@ module Chadcn
     GEMSPEC = File.expand_path("../../chadcn.gemspec", __dir__)
     DISPATCH = /dispatch\(\s*["']([a-z][a-z-]*)["']/
     PREFIXED = /CustomEvent\(\s*["`]chadcn--[a-z-]+:([a-z][a-z-]*)["`]/
-    SHARED_IMPORT = %r!^import \{([^}]+)\} from "controllers/chadcn/(\w+)_controller"!
+    SHARED_IMPORT = %r!^import \{([^}]+)\} from "(?:controllers/chadcn/(\w+)_controller|chadcn/primitives/(\w+))"!
+    PRIMITIVES_DIR = "app/javascript/chadcn/primitives"
     HOST_DISPATCH = /controller\.dispatch\(\s*["']([a-z][a-z-]*)["']/
     # A method that forwards its first parameter to dispatch (`#forward(name, event) { ... this.dispatch(name, ...) }`); its closing brace sits at 2-space indent.
     FORWARDER = /^\s+(#?[A-Za-z_]\w*)\((\w+)[^)]*\)\s*\{\n(.*?)^  \}/m
@@ -172,11 +173,11 @@ module Chadcn
       helpers.flat_map { |helper| source.scan(/#{Regexp.escape(helper)}\(\s*["']([a-z][a-z-]*)["']/).flatten }
     end
 
-    # Events of a helper class imported from another controller file that dispatches on its host (`this.controller.dispatch(...)`):
-    # Stimulus prefixes them with the host controller's identifier.
+    # Events of a helper class imported from another controller file or a primitive that dispatches on its host
+    # (`this.controller.dispatch(...)`, e.g. MenuLevel): Stimulus prefixes them with the host controller's identifier.
     def shared_events(source)
-      source.scan(SHARED_IMPORT).flat_map do |_names, file|
-        path = controller_file(file.tr("_", "-"))
+      source.scan(SHARED_IMPORT).flat_map do |_names, controller, primitive|
+        path = controller ? controller_file(controller.tr("_", "-")) : File.join(root, PRIMITIVES_DIR, "#{primitive}.js")
         next [] unless File.file?(path)
 
         shared = File.read(path, encoding: "UTF-8")
