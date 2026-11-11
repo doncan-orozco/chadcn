@@ -15,8 +15,8 @@ const recordChanges = (page) => page.evaluate(() => {
 })
 const changes = (page) => page.evaluate(() => window.__changes)
 const state = (page) => page.evaluate((selector) => {
-  const el = document.querySelector(selector)
-  return { checked: el.getAttribute("aria-checked"), state: el.dataset.state, thumb: el.querySelector("[data-slot=switch-thumb]").dataset.state }
+  const element = document.querySelector(selector)
+  return { checked: element.getAttribute("aria-checked"), state: element.dataset.state, thumb: element.querySelector("[data-slot=switch-thumb]").dataset.state }
 }, control)
 // Native events that reach the form from the bubble input (Radix BubbleInput dispatches a bubbling click on the hidden input).
 const recordFormClicks = (page) => page.evaluate(() => {
@@ -59,6 +59,7 @@ browserTest("switch: a caller that prevents the click keeps the state and no che
     document.addEventListener("click", (event) => { if (event.target.closest(selector)) event.preventDefault() }, { capture: true })
   }, control)
   await page.click(control)
+  await settle(page)
   assert.equal((await state(page)).checked, "false")
   assert.deepEqual(await changes(page), [])
 })
@@ -83,15 +84,15 @@ browserTest("switch: in a form the bubble input follows the state and a native c
 
 // A caller's onClick runs before Radix's (composeEventHandlers): the listener goes on the switch first, then the controller
 // reconnects so its action listener is added after it.
-const stopClicksBeforeController = (page) => page.evaluate((selector) => new Promise((resolve) => {
-  const el = document.querySelector(selector)
-  el.addEventListener("click", (event) => event.stopPropagation())
-  el.removeAttribute("data-controller")
+const stopClicksBeforeController = (page) => page.evaluate(({ selector, identifier }) => new Promise((resolve) => {
+  const element = document.querySelector(selector)
+  element.addEventListener("click", (event) => event.stopPropagation())
+  element.removeAttribute("data-controller")
   requestAnimationFrame(() => {
-    el.setAttribute("data-controller", "chadcn--switch")
+    element.setAttribute("data-controller", identifier)
     requestAnimationFrame(resolve)
   })
-}), control)
+}), { selector: control, identifier: controller })
 
 browserTest("switch: a click stopped by the caller still toggles but the bubble input's click does not bubble", async ({ open }) => {
   const page = await open("form__bubble-input")
@@ -127,9 +128,9 @@ browserTest("switch: a disconnected switch no longer answers the form reset", as
   await recordChanges(page)
   await page.click(control)
   await page.evaluate((selector) => {
-    const el = document.querySelector(selector)
-    window.__detached = el
-    el.removeAttribute("data-controller")
+    const element = document.querySelector(selector)
+    window.__detached = element
+    element.removeAttribute("data-controller")
   }, control)
   await settle(page)
   await page.evaluate(() => document.querySelector("form").reset())

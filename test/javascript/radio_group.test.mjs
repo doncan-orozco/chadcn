@@ -16,11 +16,20 @@ const recordChanges = (page) => page.evaluate(() => {
   document.addEventListener("chadcn--radio-group:value-change", (event) => window.__changes.push(event.detail))
 })
 const changes = (page) => page.evaluate(() => window.__changes)
-// Per item: [value, aria-checked, data-state, has an indicator, bubble input checked or null].
+// Per item: its value, aria-checked, data-state, whether it has an indicator and its bubble input's checked (null without one; the
+// input is the item's next sibling, which is the bubble-input contract).
 const items = (page) => page.evaluate((selector) => [...document.querySelectorAll(`${selector} [data-slot=radio-group-item]`)].map((button) => {
   const input = button.nextElementSibling?.matches("input[aria-hidden=true]") ? button.nextElementSibling : null
-  return [button.value, button.getAttribute("aria-checked"), button.dataset.state, !!button.querySelector("[data-slot=radio-group-indicator]"), input ? input.checked : null]
+  return {
+    value: button.value,
+    ariaChecked: button.getAttribute("aria-checked"),
+    state: button.dataset.state,
+    indicator: !!button.querySelector("[data-slot=radio-group-indicator]"),
+    inputChecked: input ? input.checked : null
+  }
 }), group)
+const unchecked = (value) => ({ value, ariaChecked: "false", state: "unchecked", indicator: false, inputChecked: false })
+const checkedItem = (value) => ({ value, ariaChecked: "true", state: "checked", indicator: true, inputChecked: true })
 // The roving focus moves focus on the next task (Radix setTimeout); wait for it, never for the clock.
 const focusedOn = (page, value) => page.waitForFunction((value) => document.activeElement?.value === value, value)
 // An arrow checks the item it focuses only while the key is down (Radix isArrowKeyPressedRef), so hold it until focus lands.
@@ -29,20 +38,17 @@ const arrow = async (page, key, value) => {
   await focusedOn(page, value)
   await page.keyboard.up(key)
 }
-const checked = async (page) => (await items(page)).filter(([, aria]) => aria === "true").map(([value]) => value)
+const checked = async (page) => (await items(page)).filter((radio) => radio.ariaChecked === "true").map((radio) => radio.value)
 
 browserTest("radio-group: a click checks the item, moves the indicator and reports value-change once", async ({ open }) => {
   const page = await open("form__bubble-inputs")
   await recordChanges(page)
   await page.click(item("c"))
   await settle(page)
-  assert.deepEqual(await items(page), [
-    ["a", "false", "unchecked", false, false],
-    ["b", "false", "unchecked", false, false],
-    ["c", "true", "checked", true, true]
-  ])
+  assert.deepEqual(await items(page), [unchecked("a"), unchecked("b"), checkedItem("c")])
   // Control: clicking the checked item again changes nothing and reports nothing.
   await page.click(item("c"))
+  await settle(page)
   assert.deepEqual(await changes(page), [{ value: "c" }])
 })
 
@@ -91,6 +97,7 @@ browserTest("radio-group: a caller that prevents the click keeps the value and n
     document.addEventListener("click", (event) => { if (event.target.closest("[data-slot=radio-group-item]")) event.preventDefault() }, { capture: true })
   })
   await page.click(item("a"))
+  await settle(page)
   assert.deepEqual(await checked(page), ["b"])
   assert.deepEqual(await changes(page), [])
 })
@@ -124,10 +131,10 @@ browserTest("radio-group: a form reset restores the initial value and reports it
   const page = await open("form__reset")
   await recordChanges(page)
   await page.click(item("c"))
-  await page.click("#reset")
+  await page.click("[type=reset]")
   await settle(page)
   assert.deepEqual(await checked(page), ["b"])
-  assert.deepEqual((await items(page)).map(([value, , , , input]) => [value, input]), [["a", false], ["b", true], ["c", false]])
+  assert.deepEqual((await items(page)).map((radio) => [radio.value, radio.inputChecked]), [["a", false], ["b", true], ["c", false]])
   assert.deepEqual(await changes(page), [{ value: "c" }, { value: "b" }])
 })
 
@@ -135,28 +142,39 @@ browserTest("radio-group: outside a form the server-rendered bubble inputs are r
   const page = await open("default")
   assert.equal(await page.locator(`${group} input[aria-hidden=true]`).count(), 0)
   // Control: inside a form they stay, one per item.
-  const form = await open("form__bubble-inputs")
-  assert.equal(await form.locator(`${group} input[aria-hidden=true]`).count(), 3)
+  const formPage = await open("form__bubble-inputs")
+  assert.equal(await formPage.locator(`${group} input[aria-hidden=true]`).count(), 3)
 })
 
-browserTest("radio-group: disconnect removes the document key listeners and the form reset listener", async ({ open }) => {
+browserTest("radio-group: disconnect removes the document key listeners it added and the form reset listener", async ({ open }) => {
   const page = await open("form__reset")
-  await recordChanges(page)
+  // Track the document key listeners by reference, then reconnect so connect() registers under the spy.
   await page.evaluate(() => {
-    window.__listeners = { add: [], remove: [] }
+    window.__keyListeners = new Set()
     const add = document.addEventListener.bind(document)
     const remove = document.removeEventListener.bind(document)
-    document.addEventListener = (type, ...rest) => { window.__listeners.add.push(type); return add(type, ...rest) }
-    document.removeEventListener = (type, ...rest) => { window.__listeners.remove.push(type); return remove(type, ...rest) }
+    const tracked = (type) => type === "keydown" || type === "keyup"
+    document.addEventListener = (type, listener, ...rest) => { if (tracked(type)) window.__keyListeners.add(listener); return add(type, listener, ...rest) }
+    document.removeEventListener = (type, listener, ...rest) => { if (tracked(type)) window.__keyListeners.delete(listener); return remove(type, listener, ...rest) }
   })
+  await page.evaluate(({ selector, identifier }) => new Promise((resolve) => {
+    const element = document.querySelector(selector)
+    element.removeAttribute("data-controller")
+    requestAnimationFrame(() => {
+      element.setAttribute("data-controller", identifier)
+      requestAnimationFrame(resolve)
+    })
+  }), { selector: group, identifier: controller })
+  assert.equal(await page.evaluate(() => window.__keyListeners.size), 2, "precondition: keydown and keyup are registered")
+  await recordChanges(page)
   await page.click(item("c"))
   await page.evaluate((selector) => document.querySelector(selector).removeAttribute("data-controller"), group)
   await settle(page)
-  const removed = await page.evaluate(() => window.__listeners.remove)
-  assert.ok(removed.includes("keydown") && removed.includes("keyup"), removed.join(","))
-  await page.click("#reset")
+  assert.equal(await page.evaluate(() => window.__keyListeners.size), 0)
+  await page.click("[type=reset]")
   await settle(page)
-  assert.deepEqual(await page.evaluate(() => [...document.querySelectorAll("[data-slot=radio-group-item]")].map((b) => b.getAttribute("aria-checked"))), ["false", "false", "true"])
+  // The host no longer matches the group selector once data-controller is gone.
+  assert.deepEqual(await page.evaluate(() => [...document.querySelectorAll("[data-slot=radio-group-item]")].map((button) => button.getAttribute("aria-checked"))), ["false", "false", "true"])
   assert.deepEqual(await changes(page), [{ value: "c" }])
 })
 
@@ -166,11 +184,7 @@ browserTest("radio-group: a Turbo snapshot keeps the checked item and the restor
   await page.click(item("c"))
   const html = await snapshot(page, controller)
   await restore(page, controller, html)
-  assert.deepEqual(await items(page), [
-    ["a", "false", "unchecked", false, false],
-    ["b", "false", "unchecked", false, false],
-    ["c", "true", "checked", true, true]
-  ])
+  assert.deepEqual(await items(page), [unchecked("a"), unchecked("b"), checkedItem("c")])
   await recordChanges(page)
   await page.evaluate(() => document.activeElement?.blur())
   await page.keyboard.press("Tab")

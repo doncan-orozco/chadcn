@@ -10,7 +10,6 @@ import { restore, snapshot } from "./turbo_support.mjs"
 // (no overlay, no lock, closed) is pinned for every dialog in turbo_overlays.test.mjs.
 browserTest.component = "alert-dialog"
 const controller = "chadcn--alert-dialog"
-const prefix = controller
 const trigger = "[data-slot=alert-dialog-trigger]"
 const content = "[data-slot=alert-dialog-content]"
 const overlay = "[data-slot=alert-dialog-overlay]"
@@ -24,30 +23,30 @@ const openDialog = async (page) => {
 }
 // The focus scope returns focus (and dispatches close-auto-focus) a task after the content leaves: wait for the event when
 // the test records events, never for the clock.
-const closed = async (page) => {
+const untilClosed = async (page) => {
   await page.waitForSelector(content, { state: "detached" })
-  await page.waitForFunction(() => !window.__events || window.__events.some((event) => event.name === "close-auto-focus"))
+  await page.waitForFunction(() => window.__events.some((event) => event.name === "close-auto-focus"))
 }
 const focused = (page) => page.evaluate(() => document.activeElement?.dataset.slot ?? document.activeElement?.tagName)
-const named = async (page, name) => (await eventLog(page)).filter((event) => event.name === name)
+const eventsNamed = async (page, name) => (await eventLog(page)).filter((event) => event.name === name)
 
 browserTest("alert-dialog: opening reports open-change, keeps the trigger in sync and focuses Cancel", async ({ open }) => {
   const page = await open("closed__rest")
-  await recordEvents(page, prefix)
+  await recordEvents(page, controller)
   await openDialog(page)
-  assert.deepEqual((await named(page, "open-change")).map((e) => e.open), [true])
+  assert.deepEqual((await eventsNamed(page, "open-change")).map((event) => event.open), [true])
   assert.equal(await page.locator(trigger).getAttribute("aria-expanded"), "true")
   assert.equal(await page.locator(trigger).getAttribute("data-state"), "open")
   assert.equal(await page.locator(content).getAttribute("role"), "alertdialog")
   assert.equal(await focused(page), "alert-dialog-cancel")
   // The caller sees open-auto-focus as cancelable; the alert prevents it after the caller (bubble listener on window).
-  const [autoFocus] = await named(page, "open-auto-focus")
+  const [autoFocus] = await eventsNamed(page, "open-auto-focus")
   assert.equal(autoFocus.cancelable, true)
 })
 
 browserTest("alert-dialog: a caller that prevents open-auto-focus keeps the focus off Cancel", async ({ open }) => {
   const page = await open("closed__rest")
-  await recordEvents(page, prefix, { prevent: ["open-auto-focus"] })
+  await recordEvents(page, controller, { prevent: ["open-auto-focus"] })
   await openDialog(page)
   assert.notEqual(await focused(page), "alert-dialog-cancel")
   assert.equal(await page.locator(content).getAttribute("data-state"), "open")
@@ -55,7 +54,7 @@ browserTest("alert-dialog: a caller that prevents open-auto-focus keeps the focu
 
 browserTest("alert-dialog: an outside press never closes and the caller never receives pointer-down-outside or interact-outside", async ({ open }) => {
   const page = await open("closed__rest")
-  await recordEvents(page, prefix)
+  await recordEvents(page, controller)
   await openDialog(page)
   await page.locator(overlay).click({ position: { x: 10, y: 10 }, force: true })
   await page.locator(overlay).click({ position: { x: 10, y: 10 }, button: "right", force: true })
@@ -66,31 +65,31 @@ browserTest("alert-dialog: an outside press never closes and the caller never re
   assert.ok(!names.includes("interact-outside"), names.join(","))
   // Control: Escape still reaches the caller and closes.
   await page.keyboard.press("Escape")
-  await closed(page)
-  assert.equal((await named(page, "escape-key-down")).length, 1)
-  assert.deepEqual((await named(page, "open-change")).map((e) => e.open), [true, false])
+  await untilClosed(page)
+  assert.equal((await eventsNamed(page, "escape-key-down")).length, 1)
+  assert.deepEqual((await eventsNamed(page, "open-change")).map((event) => event.open), [true, false])
 })
 
 browserTest("alert-dialog: a caller that prevents escape-key-down keeps it open", async ({ open }) => {
   const page = await open("closed__rest")
-  await recordEvents(page, prefix, { prevent: ["escape-key-down"] })
+  await recordEvents(page, controller, { prevent: ["escape-key-down"] })
   await openDialog(page)
   await page.keyboard.press("Escape")
   await settle(page)
   assert.equal(await page.locator(content).getAttribute("data-state"), "open")
-  assert.deepEqual((await named(page, "open-change")).map((e) => e.open), [true])
+  assert.deepEqual((await eventsNamed(page, "open-change")).map((event) => event.open), [true])
 })
 
 for (const [name, button] of [["Cancel", cancel], ["Action", action]]) {
   browserTest(`alert-dialog: ${name} closes, reports open-change and close-auto-focus and returns focus to the trigger`, async ({ open }) => {
     const page = await open("closed__rest")
-    await recordEvents(page, prefix)
+    await recordEvents(page, controller)
     await openDialog(page)
     await page.focus(button)
     await page.keyboard.press("Enter")
-    await closed(page)
-    assert.deepEqual((await named(page, "open-change")).map((e) => e.open), [true, false])
-    assert.equal((await named(page, "close-auto-focus")).length, 1)
+    await untilClosed(page)
+    assert.deepEqual((await eventsNamed(page, "open-change")).map((event) => event.open), [true, false])
+    assert.equal((await eventsNamed(page, "close-auto-focus")).length, 1)
     assert.equal(await focused(page), "alert-dialog-trigger")
     assert.equal(await page.locator(trigger).getAttribute("aria-expanded"), "false")
   })
@@ -98,22 +97,22 @@ for (const [name, button] of [["Cancel", cancel], ["Action", action]]) {
 
 browserTest("alert-dialog: a caller that prevents close-auto-focus keeps the focus off the trigger", async ({ open }) => {
   const page = await open("closed__rest")
-  await recordEvents(page, prefix, { prevent: ["close-auto-focus"] })
+  await recordEvents(page, controller, { prevent: ["close-auto-focus"] })
   await openDialog(page)
   await page.click(cancel)
-  await closed(page)
+  await untilClosed(page)
   assert.notEqual(await focused(page), "alert-dialog-trigger")
 })
 
 browserTest("alert-dialog: controlled open reports the close request and stays open", async ({ open }) => {
   const page = await open("controlled__open-true-stays-open")
-  await recordEvents(page, prefix)
+  await recordEvents(page, controller)
   await page.waitForSelector(content)
   await page.keyboard.press("Escape")
   await page.click(cancel)
   await settle(page)
   assert.equal(await page.locator(content).getAttribute("data-state"), "open")
-  assert.deepEqual((await named(page, "open-change")).map((e) => e.open), [false, false])
+  assert.deepEqual((await eventsNamed(page, "open-change")).map((event) => event.open), [false, false])
 })
 
 browserTest("alert-dialog: disconnect while open removes the portaled nodes, the scroll lock, aria-hidden and the window listeners", async ({ open }) => {
@@ -130,7 +129,7 @@ browserTest("alert-dialog: disconnect while open removes the portaled nodes, the
   assert.equal(await outsidePrevented(), true, "precondition: the window listener is armed")
   assert.equal(await page.evaluate(() => document.body.hasAttribute("data-scroll-locked")), true)
 
-  await page.locator(host(controller)).evaluate((el) => el.removeAttribute("data-controller"))
+  await page.locator(host(controller)).evaluate((element) => element.removeAttribute("data-controller"))
   await settle(page)
   assert.equal(await page.locator(content).count(), 0)
   assert.equal(await page.locator(overlay).count(), 0)

@@ -10,21 +10,27 @@ browserTest.component = "input-group"
 const controller = "chadcn--input-group"
 const addon = host(controller)
 const active = (page) => page.evaluate(() => {
-  const el = document.activeElement
-  return el === document.body ? "body" : el.id || el.getAttribute("placeholder") || el.textContent.trim() || el.tagName
+  const element = document.activeElement
+  return element === document.body ? "body" : element.id || element.getAttribute("placeholder") || element.textContent.trim() || element.tagName
 })
+
+// Whether the topmost element at a viewport point is the one the selector matches.
+const hits = (page, [x, y], selector) => page.evaluate(({ x, y, selector }) => document.elementFromPoint(x, y) === document.querySelector(selector), { x, y, selector })
 
 browserTest("input-group: a click on the addon's own box (not its content) focuses the input", async ({ open }) => {
   const page = await open("behavior__addon-click-block-start")
   assert.equal(await active(page), "body")
   const box = await page.locator(addon).boundingBox()
-  await page.mouse.click(box.x + box.width - 2, box.y + 2)
+  const point = [box.x + box.width - 2, box.y + 2]
+  assert.equal(await hits(page, point, addon), true, "precondition: the point is on the addon's own box, not on its content")
+  await page.mouse.click(...point)
   assert.equal(await active(page), "you@example.com")
 })
 
 browserTest("input-group: a synthetic click on the addon focuses the input", async ({ open }) => {
   const page = await open("behavior__addon-click-focuses-input")
-  await page.locator(addon).evaluate((el) => el.click())
+  assert.equal(await active(page), "body", "precondition: nothing focused")
+  await page.locator(addon).evaluate((element) => element.click())
   assert.equal(await active(page), "Search...")
 })
 
@@ -46,31 +52,31 @@ browserTest("input-group: a click on the icon of a button inside the addon leave
   await page.locator(`${addon} button svg`).evaluate((svg) => svg.dispatchEvent(new MouseEvent("click", { bubbles: true })))
   assert.equal(await active(page), "body")
   // Control: the same synthetic click on the addon itself focuses the input.
-  await page.locator(addon).evaluate((el) => el.dispatchEvent(new MouseEvent("click", { bubbles: true })))
+  await page.locator(addon).evaluate((element) => element.dispatchEvent(new MouseEvent("click", { bubbles: true })))
   assert.equal(await active(page), "Search...")
 })
 
 browserTest("input-group: the first input of the group wins, a textarea is never focused", async ({ open }) => {
   const page = await open("behavior__addon-click-first-input")
-  await page.locator(addon).evaluate((el) => el.click())
+  await page.locator(addon).evaluate((element) => element.click())
   assert.equal(await active(page), "ig-first")
 
-  const textarea = await open("behavior__addon-click-textarea-no-focus")
-  await textarea.locator(addon).evaluate((el) => el.click())
-  assert.equal(await active(textarea), "body")
+  const textareaPage = await open("behavior__addon-click-textarea-no-focus")
+  await textareaPage.locator(addon).evaluate((element) => element.click())
+  assert.equal(await active(textareaPage), "body")
 })
 
 browserTest("input-group: a disconnected addon no longer focuses the input", async ({ open }) => {
   const page = await open("behavior__addon-click-focuses-input")
-  await page.locator(addon).evaluate((el) => {
-    window.__addon = el
-    el.removeAttribute("data-controller")
+  await page.locator(addon).evaluate((element) => {
+    window.__addon = element
+    element.removeAttribute("data-controller")
   })
   await settle(page)
   await page.evaluate(() => window.__addon.click())
   assert.equal(await active(page), "body")
   // Control: connected again, the same click focuses it.
-  await page.evaluate(() => window.__addon.setAttribute("data-controller", "chadcn--input-group"))
+  await page.evaluate((name) => window.__addon.setAttribute("data-controller", name), controller)
   await settle(page)
   await page.evaluate(() => window.__addon.click())
   assert.equal(await active(page), "Search...")
@@ -81,6 +87,7 @@ browserTest("input-group: a Turbo snapshot restores an addon that focuses the in
   const html = await snapshot(page, controller)
   await restore(page, controller, html)
   assert.equal(await page.locator(addon).count(), 1)
-  await page.locator(addon).evaluate((el) => el.click())
+  assert.equal(await active(page), "body", "precondition: nothing focused")
+  await page.locator(addon).evaluate((element) => element.click())
   assert.equal(await active(page), "Search...")
 })
