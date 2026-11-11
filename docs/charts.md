@@ -327,7 +327,7 @@ Where the tooltip *shows* depends on the chart: a bar, line, area, radar and rad
 category), a pie has an item tooltip (the hovered sector). `shared: false` asks recharts for item tooltips: on a `BarChart` or a
 `RadialBarChart` the tooltip shows the hovered bar's (or arc's) series alone, placed at the bar's center (an arc's tooltip at the
 `default_index:` anchor, or unplaced, as recharts does), and the keyboard shows the series the pointer last touched, or the first with
-`default_index:`; a radial bar chart does not take the keys yet. On a `LineChart`, `AreaChart` or `RadarChart` `shared: false` keeps the axis
+`default_index:`. On a `LineChart`, `AreaChart` or `RadarChart` `shared: false` keeps the axis
 tooltip. The server writes one inert `<template>` per category (per sector for a pie, per category and series for an item tooltip) holding the
 content, so the page weight is linear in categories and series; a chart with a hundred categories and five series ships a hundred templates (five
 hundred with `shared: false` on a `BarChart`).
@@ -363,6 +363,9 @@ the active dots from the template's data, and places the wrapper with recharts' 
 `allow_escape_view_box`, `reverse_direction`, `wrapper_style`).
 
 - **Pointer.** `pointermove` (and touch) activates the nearest category; leaving the plot clears it. `trigger: :click` follows clicks instead.
+  On a radar the pointer's angle picks the category and on a radial bar chart its distance from the center picks the ring, as recharts does;
+  leaving the circle clears it, and the cursor (a line through the category, a ring around it) is drawn for the pointer only. On a pie the
+  sector under the pointer (or a finger) is the one shown, at the sector's own tooltip position.
 - **Keyboard** (`accessibility_layer: true`, the default; it puts `role="application"` and `tabindex="0"` on the `svg`). Focusing the chart
   activates the first category; ArrowLeft and ArrowRight move the tooltip, Enter toggles it, Escape hides it until the active position changes. A vertical layout or
   a reversed `x_axis` makes ArrowRight go backward, as in recharts (the controller's `keyboardStep`).
@@ -372,9 +375,8 @@ the active dots from the template's data, and places the wrapper with recharts' 
 - **Turbo.** The snapshot taken for the page cache holds the server state (the `default_index` tooltip or none), and the live interaction is
   restored when the cached page is shown again.
 
-`accessibility_layer: false` removes the focus and the keys and leaves the pointer. A polar chart publishes its tooltip values but the
-controller maps the pointer and the keys for the cartesian charts only: a pie, radar or radial chart shows the `default_index` tooltip and
-nothing moves it. The controller is `app/javascript/controllers/chadcn/chart_controller.js`, registered like every other `chadcn--*` controller.
+`accessibility_layer: false` removes the focus and the keys and leaves the pointer. The keys work on the polar charts too (ArrowRight always
+steps forward there); on a pie they show nothing until the pointer has shown a sector or a `default_index:` is set, as in recharts. The controller is `app/javascript/controllers/chadcn/chart_controller.js`, registered like every other `chadcn--*` controller.
 
 ## Sizing
 
@@ -460,11 +462,11 @@ The full list is `dev/port/deviations/chart.json`; in prose:
 
 Not ported: `Brush`, `ReferenceArea`, `ErrorBar`, `Customized`, `syncId`, `ref` and the mouse and touch callback props; `portal:`, `use_translate3d:`,
 `item_style:` and `label_style:` of the tooltip; a radar range (`[low, high]` values), `active_shape:` / `active_bar:` other than `false`, `stack_offset:` of the polar charts (the cartesian ones take `:none` and `:expand`)
-and `hide:` on the polar axes, `tick_count:` of the angle axis; the hover and key mapping for polar charts. `ReferenceLine` *is* ported
+and `hide:` on the polar axes, `tick_count:` of the angle axis. `ReferenceLine` *is* ported
 (`chart.reference_line(y: 200)`).
 
 ## Trying it
 
 `Chadcn::Catalog.find("chart")` is a ready-made bar chart for a gallery page (see [catalog](catalog.md)). `bin/demo` in the repository serves the component catalog of the dummy app, and the pages `/design-system/chart-demo/{bar,line,area,pie,radar,radial}`
-render one chart of each family (bar on hover, line with a `default_index`, area on click; the polar pages show a fixed `default_index` tooltip; the pages `test/javascript/chart.test.mjs` drives). The dev kit compares the cartesian and
+render one chart of each family (bar on hover, line with a `default_index`, area on click; the polar pages start at a `default_index` tooltip that the pointer and the keys move; the pages `test/javascript/chart.test.mjs` drives). The dev kit compares the cartesian and
 polar charts, the tooltips and the legends with the React original in a browser, scenario by scenario (`ruby .claude/scripts/shadcn/parity_batch.rb --components chart`).

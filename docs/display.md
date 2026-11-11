@@ -233,8 +233,9 @@ end
 
 What `chart.tooltip` and `chart.legend` do is as for the cartesian charts, with these differences: a pie has item tooltips (one inert template per sector,
 the sector alone, `data-label` empty) and lists its sectors in the legend (name from `name_key:`, color from the cell, the row or the pie); a radar and a
-radial bar have one template per category of their tooltip axis. The server draws no tooltip cursor (recharts draws it from the polar coordinate of the pointer),
-a radar's active dot is drawn for `default_index:`, and `shared: false` on a radial bar chart is an item tooltip, as on a `BarChart`: the pointer over an arc shows that series (the keys do not reach a polar chart yet). Apart from those arcs `chadcn--chart` maps the pointer and the keys for the cartesian charts only: a polar chart publishes its tooltip values and no action, a pie as an item tooltip (the controller leaves the drawn tooltip alone), a radar and a radial bar as axis tooltips (the controller keeps and places the `default_index:` tooltip); nothing moves it.
+radial bar have one template per category of their tooltip axis. `chadcn--chart` maps the pointer like recharts: the angle on a radar, the ring on a radial bar
+chart, the sector under it on a pie; the keys and Escape work on all three. The polar cursor (a radar's line, a radial bar's ring) is drawn for the pointer only, never for
+`default_index:` or the keys, a radar's active dot is drawn for `default_index:`, and `shared: false` on a radial bar chart is an item tooltip, as on a `BarChart`: the pointer over an arc shows that series.
 Not ported: a radar range (`[low, high]` values raises), `active_shape:` (raises), `stack_offset:`, `hide:` and children of the polar axes, `tick_count:` of the angle axis;
 only `fill`, `stroke`, `name` and `opacity` of a data row reach its sector.
 
