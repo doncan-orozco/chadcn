@@ -39,3 +39,56 @@ finished in 2m29s. Runner minutes grow by about two importmap smokes (~4 minutes
 - Sprockets with a JavaScript bundler: the Sprockets smoke supports importmap only.
 - Ruby versions other than 4.0 for the app smokes: the gem job already runs the gem on 3.3 to 4.0; the app smokes need a current Rails 8.1.
 - Making the new job a required status check is a repository setting (a human step).
+
+# Decision: CI runs a React-versus-Phlex parity smoke on every push
+
+Status: decided and implemented by item #95 (review-gaps). Proof: the `parity` job of `.github/workflows/chadcn.yml`, on every pull
+request and on push to `main`. Before it, the parity gate (the README's "checked against the React original in a browser") ran only
+locally through `/shadcn-audit`.
+
+## What runs
+
+`bin/parity-smoke` (`.claude/scripts/shadcn/parity_smoke.rb`) starts the dev servers once (the dummy app and the React catalog, like
+`bin/test-js`), then calls `parity_batch.rb --components <name> --only <ids> --no-servers` once per component and stops the servers.
+Each call is G2 (DOM, classes, computed style) on every step of the selected scenarios, so the scenarios that click, hover or type are
+also G3 behavior. Any diff exits 1 and names the component; the reports land in `tmp/shadcn-port/<component>/g2.json`, which the job
+uploads (with `parity-smoke.json` and the server logs) when it fails.
+
+## The subset
+
+Per component scenario file (`dev/port/scenarios/<name>.json`; the `_primitives-*` files are left out):
+
+- the scenario ids starting with `default` (`default`, `defaults`, `default__dark`, `default-open__click`, ...): 48 components;
+- a component without one contributes its first scenario and the ids that extend it, i.e. the closed or resting state the file opens with
+  and its `__dark` twin: accordion, alert-dialog, chart, context-menu, dialog, drawer, dropdown-menu, field, menubar, navigation-menu,
+  select, sheet.
+
+That is 60 components and 179 of about 5,500 scenarios today (`bin/parity-smoke --list` prints the current subset). The rule picks
+itself up for a new component: a new scenario file joins the subset without editing the smoke. `parity_smoke_test.rb` (rake
+test:tooling) pins the rule and that every component scenario file has a non-empty subset.
+
+Known non-deterministic scenarios: the ones `dev/port/REPORT.md` lists under "Scenario fixes" were fixed at the scenario (settled steps,
+neutral pointer targets, pinned randomness), so none is excluded. A scenario that turns flaky in CI is fixed in its scenario file, not
+dropped from the smoke.
+
+## Time budget
+
+`--budget 900` seconds by default, measured from the first gate (server start excluded). Running out is exit 2 and lists the components
+not run: a budget overrun is a failure, never a silent skip, so a subset that grows past it is noticed. Measured locally on a loaded
+laptop (other browser suites running): 576 s for the 60 components, under 10 s each on average (one Playwright browser per call). The job's
+`timeout-minutes: 30` covers the install steps and the budget.
+
+## The full gate
+
+The smoke is a tripwire, not the parity gate. The full gate is `/shadcn-audit` (G1 static, G2 DOM/style, G3 behavior, G4 theme, G5
+house), or, for the browser gates alone:
+
+    ruby .claude/scripts/shadcn/parity_batch.rb --components all                # G2 + G3, every scenario
+    ruby .claude/scripts/shadcn/parity_batch.rb --components all --dx --themes  # plus G2b DX helpers and G4 themes
+
+Run it before a release and after any change to a component, controller, primitive or theme.
+
+## Intentionally not covered
+
+- G2b (yielded-root helpers) and G4 (theme presets, dark): they multiply the runs and are covered by the full gate.
+- Making `parity` a required status check is a repository setting (a human step, issue #3).

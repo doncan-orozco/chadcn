@@ -78,7 +78,7 @@ class ParitySmokeTest < ActiveSupport::TestCase
     assert_predicate status, :success?
     assert report["pass"]
     subset = ParitySmoke.subset(SCENARIOS.to_s)
-    assert_equal %w[button dialog], calls.map { |call| component_of(call) }
+    assert_equal(%w[button dialog], calls.map { |call| component_of(call) })
     calls.each { |call| assert_equal subset.fetch(component_of(call)), runner_ids(call) }
     assert_equal subset["dialog"], report.dig("components", "dialog", "scenarios")
   end
