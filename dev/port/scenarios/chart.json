@@ -7160,6 +7160,978 @@
         ".recharts-pie-sector",
         "[class^=\"recharts-zIndex-layer_\"]"
       ]
+    },
+    {
+      "id": "tooltip__item-bar-hover",
+      "tree": {
+        "c": "ChartContainer",
+        "props": {
+          "id": "item-bar-hover",
+          "config": {
+            "desktop": {
+              "label": "Desktop",
+              "color": "var(--chart-1)"
+            },
+            "mobile": {
+              "label": "Mobile",
+              "color": "var(--chart-2)"
+            }
+          },
+          "className": "aspect-auto h-[200px] w-[320px]",
+          "initialDimension": {
+            "width": 320,
+            "height": 200
+          }
+        },
+        "children": [
+          {
+            "c": "_BarChart",
+            "props": {
+              "data": [
+                {
+                  "month": "January",
+                  "desktop": 186,
+                  "mobile": 80
+                },
+                {
+                  "month": "February",
+                  "desktop": 305,
+                  "mobile": 200
+                },
+                {
+                  "month": "March",
+                  "desktop": 237,
+                  "mobile": 120
+                },
+                {
+                  "month": "April",
+                  "desktop": 73,
+                  "mobile": 190
+                },
+                {
+                  "month": "May",
+                  "desktop": 209,
+                  "mobile": 130
+                },
+                {
+                  "month": "June",
+                  "desktop": 214,
+                  "mobile": 140
+                }
+              ]
+            },
+            "children": [
+              {
+                "c": "_CartesianGrid",
+                "props": {
+                  "vertical": false
+                }
+              },
+              {
+                "c": "_XAxis",
+                "props": {
+                  "dataKey": "month",
+                  "tickLine": false,
+                  "tickMargin": 10,
+                  "axisLine": false,
+                  "tickFormatter": {
+                    "formatter": "slice",
+                    "args": [
+                      0,
+                      3
+                    ]
+                  }
+                }
+              },
+              {
+                "c": "ChartTooltip",
+                "props": {
+                  "cursor": true,
+                  "content": "ChartTooltipContent",
+                  "shared": false
+                }
+              },
+              {
+                "c": "_Bar",
+                "props": {
+                  "dataKey": "desktop",
+                  "fill": "var(--color-desktop)",
+                  "radius": 4
+                }
+              },
+              {
+                "c": "_Bar",
+                "props": {
+                  "dataKey": "mobile",
+                  "fill": "var(--color-mobile)",
+                  "radius": 4
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 70,
+            "y": 100
+          }
+        },
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 56,
+            "y": 100
+          }
+        },
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 196,
+            "y": 130
+          }
+        },
+        {
+          "do": "hover",
+          "target": "body",
+          "position": {
+            "x": 2,
+            "y": 2
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".recharts-wrapper",
+        ".recharts-tooltip-wrapper",
+        ".recharts-bar-rectangle path",
+        ".recharts-tooltip-cursor",
+        ".recharts-tooltip-wrapper *"
+      ]
+    },
+    {
+      "id": "tooltip__item-bar-default-index",
+      "tree": {
+        "c": "ChartContainer",
+        "props": {
+          "id": "item-bar-default",
+          "config": {
+            "desktop": {
+              "label": "Desktop",
+              "color": "var(--chart-1)"
+            },
+            "mobile": {
+              "label": "Mobile",
+              "color": "var(--chart-2)"
+            }
+          },
+          "className": "aspect-auto h-[200px] w-[320px]",
+          "initialDimension": {
+            "width": 320,
+            "height": 200
+          }
+        },
+        "children": [
+          {
+            "c": "_BarChart",
+            "props": {
+              "data": [
+                {
+                  "month": "January",
+                  "desktop": 186,
+                  "mobile": 80
+                },
+                {
+                  "month": "February",
+                  "desktop": 305,
+                  "mobile": 200
+                },
+                {
+                  "month": "March",
+                  "desktop": 237,
+                  "mobile": 120
+                },
+                {
+                  "month": "April",
+                  "desktop": 73,
+                  "mobile": 190
+                },
+                {
+                  "month": "May",
+                  "desktop": 209,
+                  "mobile": 130
+                },
+                {
+                  "month": "June",
+                  "desktop": 214,
+                  "mobile": 140
+                }
+              ]
+            },
+            "children": [
+              {
+                "c": "_CartesianGrid",
+                "props": {
+                  "vertical": false
+                }
+              },
+              {
+                "c": "_XAxis",
+                "props": {
+                  "dataKey": "month",
+                  "tickLine": false,
+                  "tickMargin": 10,
+                  "axisLine": false,
+                  "tickFormatter": {
+                    "formatter": "slice",
+                    "args": [
+                      0,
+                      3
+                    ]
+                  }
+                }
+              },
+              {
+                "c": "ChartTooltip",
+                "props": {
+                  "cursor": true,
+                  "content": "ChartTooltipContent",
+                  "shared": false,
+                  "defaultIndex": 2
+                }
+              },
+              {
+                "c": "_Bar",
+                "props": {
+                  "dataKey": "desktop",
+                  "fill": "var(--color-desktop)",
+                  "radius": 4
+                }
+              },
+              {
+                "c": "_Bar",
+                "props": {
+                  "dataKey": "mobile",
+                  "fill": "var(--color-mobile)",
+                  "radius": 4
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".recharts-wrapper",
+        ".recharts-tooltip-wrapper",
+        ".recharts-bar-rectangle path",
+        ".recharts-tooltip-cursor",
+        ".recharts-tooltip-wrapper *"
+      ]
+    },
+    {
+      "id": "tooltip__item-bar-keyboard",
+      "tree": {
+        "c": "ChartContainer",
+        "props": {
+          "id": "item-bar-keyboard",
+          "config": {
+            "desktop": {
+              "label": "Desktop",
+              "color": "var(--chart-1)"
+            },
+            "mobile": {
+              "label": "Mobile",
+              "color": "var(--chart-2)"
+            }
+          },
+          "className": "aspect-auto h-[200px] w-[320px]",
+          "initialDimension": {
+            "width": 320,
+            "height": 200
+          }
+        },
+        "children": [
+          {
+            "c": "_BarChart",
+            "props": {
+              "data": [
+                {
+                  "month": "January",
+                  "desktop": 186,
+                  "mobile": 80
+                },
+                {
+                  "month": "February",
+                  "desktop": 305,
+                  "mobile": 200
+                },
+                {
+                  "month": "March",
+                  "desktop": 237,
+                  "mobile": 120
+                },
+                {
+                  "month": "April",
+                  "desktop": 73,
+                  "mobile": 190
+                },
+                {
+                  "month": "May",
+                  "desktop": 209,
+                  "mobile": 130
+                },
+                {
+                  "month": "June",
+                  "desktop": 214,
+                  "mobile": 140
+                }
+              ]
+            },
+            "children": [
+              {
+                "c": "_CartesianGrid",
+                "props": {
+                  "vertical": false
+                }
+              },
+              {
+                "c": "_XAxis",
+                "props": {
+                  "dataKey": "month",
+                  "tickLine": false,
+                  "tickMargin": 10,
+                  "axisLine": false,
+                  "tickFormatter": {
+                    "formatter": "slice",
+                    "args": [
+                      0,
+                      3
+                    ]
+                  }
+                }
+              },
+              {
+                "c": "ChartTooltip",
+                "props": {
+                  "cursor": true,
+                  "content": "ChartTooltipContent",
+                  "shared": false
+                }
+              },
+              {
+                "c": "_Bar",
+                "props": {
+                  "dataKey": "desktop",
+                  "fill": "var(--color-desktop)",
+                  "radius": 4
+                }
+              },
+              {
+                "c": "_Bar",
+                "props": {
+                  "dataKey": "mobile",
+                  "fill": "var(--color-mobile)",
+                  "radius": 4
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "focus",
+          "target": ".recharts-surface"
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 196,
+            "y": 130
+          }
+        },
+        {
+          "do": "hover",
+          "target": "body",
+          "position": {
+            "x": 2,
+            "y": 2
+          }
+        },
+        {
+          "do": "press",
+          "key": "ArrowRight"
+        },
+        {
+          "do": "press",
+          "key": "Escape"
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".recharts-wrapper",
+        ".recharts-tooltip-wrapper",
+        ".recharts-bar-rectangle path",
+        ".recharts-tooltip-cursor",
+        ".recharts-tooltip-wrapper *"
+      ]
+    },
+    {
+      "id": "tooltip__item-bar-click",
+      "tree": {
+        "c": "ChartContainer",
+        "props": {
+          "id": "item-bar-click",
+          "config": {
+            "desktop": {
+              "label": "Desktop",
+              "color": "var(--chart-1)"
+            },
+            "mobile": {
+              "label": "Mobile",
+              "color": "var(--chart-2)"
+            }
+          },
+          "className": "aspect-auto h-[200px] w-[320px]",
+          "initialDimension": {
+            "width": 320,
+            "height": 200
+          }
+        },
+        "children": [
+          {
+            "c": "_BarChart",
+            "props": {
+              "data": [
+                {
+                  "month": "January",
+                  "desktop": 186,
+                  "mobile": 80
+                },
+                {
+                  "month": "February",
+                  "desktop": 305,
+                  "mobile": 200
+                },
+                {
+                  "month": "March",
+                  "desktop": 237,
+                  "mobile": 120
+                },
+                {
+                  "month": "April",
+                  "desktop": 73,
+                  "mobile": 190
+                },
+                {
+                  "month": "May",
+                  "desktop": 209,
+                  "mobile": 130
+                },
+                {
+                  "month": "June",
+                  "desktop": 214,
+                  "mobile": 140
+                }
+              ]
+            },
+            "children": [
+              {
+                "c": "_CartesianGrid",
+                "props": {
+                  "vertical": false
+                }
+              },
+              {
+                "c": "_XAxis",
+                "props": {
+                  "dataKey": "month",
+                  "tickLine": false,
+                  "tickMargin": 10,
+                  "axisLine": false,
+                  "tickFormatter": {
+                    "formatter": "slice",
+                    "args": [
+                      0,
+                      3
+                    ]
+                  }
+                }
+              },
+              {
+                "c": "ChartTooltip",
+                "props": {
+                  "cursor": true,
+                  "content": "ChartTooltipContent",
+                  "shared": false,
+                  "trigger": "click"
+                }
+              },
+              {
+                "c": "_Bar",
+                "props": {
+                  "dataKey": "desktop",
+                  "fill": "var(--color-desktop)",
+                  "radius": 4
+                }
+              },
+              {
+                "c": "_Bar",
+                "props": {
+                  "dataKey": "mobile",
+                  "fill": "var(--color-mobile)",
+                  "radius": 4
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 70,
+            "y": 100
+          }
+        },
+        {
+          "do": "click",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 70,
+            "y": 100
+          }
+        },
+        {
+          "do": "hover",
+          "target": "body",
+          "position": {
+            "x": 2,
+            "y": 2
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".recharts-wrapper",
+        ".recharts-tooltip-wrapper",
+        ".recharts-bar-rectangle path",
+        ".recharts-tooltip-cursor",
+        ".recharts-tooltip-wrapper *"
+      ]
+    },
+    {
+      "id": "tooltip__item-radial-hover",
+      "tree": {
+        "c": "ChartContainer",
+        "props": {
+          "id": "item-radial-hover",
+          "config": {
+            "desktop": {
+              "label": "Desktop",
+              "color": "var(--chart-1)"
+            },
+            "mobile": {
+              "label": "Mobile",
+              "color": "var(--chart-2)"
+            }
+          },
+          "className": "aspect-auto h-[200px] w-[320px]",
+          "initialDimension": {
+            "width": 320,
+            "height": 200
+          }
+        },
+        "children": [
+          {
+            "c": "_RadialBarChart",
+            "props": {
+              "data": [
+                {
+                  "browser": "chrome",
+                  "desktop": 275,
+                  "mobile": 120
+                },
+                {
+                  "browser": "safari",
+                  "desktop": 200,
+                  "mobile": 180
+                },
+                {
+                  "browser": "firefox",
+                  "desktop": 187,
+                  "mobile": 90
+                }
+              ],
+              "innerRadius": 30,
+              "outerRadius": 100
+            },
+            "children": [
+              {
+                "c": "ChartTooltip",
+                "props": {
+                  "cursor": false,
+                  "content": "ChartTooltipContent",
+                  "shared": false
+                }
+              },
+              {
+                "c": "_RadialBar",
+                "props": {
+                  "dataKey": "desktop",
+                  "fill": "var(--color-desktop)"
+                }
+              },
+              {
+                "c": "_RadialBar",
+                "props": {
+                  "dataKey": "mobile",
+                  "fill": "var(--color-mobile)"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 194,
+            "y": 94
+          }
+        },
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 205,
+            "y": 92
+          }
+        },
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 239,
+            "y": 86
+          }
+        },
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 160,
+            "y": 100
+          }
+        },
+        {
+          "do": "hover",
+          "target": "body",
+          "position": {
+            "x": 2,
+            "y": 2
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".recharts-wrapper",
+        ".recharts-tooltip-wrapper",
+        ".recharts-radial-bar-sector",
+        ".recharts-tooltip-wrapper *"
+      ]
+    },
+    {
+      "id": "tooltip__item-radial-default-index",
+      "tree": {
+        "c": "ChartContainer",
+        "props": {
+          "id": "item-radial-default",
+          "config": {
+            "desktop": {
+              "label": "Desktop",
+              "color": "var(--chart-1)"
+            },
+            "mobile": {
+              "label": "Mobile",
+              "color": "var(--chart-2)"
+            }
+          },
+          "className": "aspect-auto h-[200px] w-[320px]",
+          "initialDimension": {
+            "width": 320,
+            "height": 200
+          }
+        },
+        "children": [
+          {
+            "c": "_RadialBarChart",
+            "props": {
+              "data": [
+                {
+                  "browser": "chrome",
+                  "desktop": 275,
+                  "mobile": 120
+                },
+                {
+                  "browser": "safari",
+                  "desktop": 200,
+                  "mobile": 180
+                },
+                {
+                  "browser": "firefox",
+                  "desktop": 187,
+                  "mobile": 90
+                }
+              ],
+              "innerRadius": 30,
+              "outerRadius": 100
+            },
+            "children": [
+              {
+                "c": "ChartTooltip",
+                "props": {
+                  "cursor": false,
+                  "content": "ChartTooltipContent",
+                  "shared": false,
+                  "defaultIndex": 1
+                }
+              },
+              {
+                "c": "_RadialBar",
+                "props": {
+                  "dataKey": "desktop",
+                  "fill": "var(--color-desktop)"
+                }
+              },
+              {
+                "c": "_RadialBar",
+                "props": {
+                  "dataKey": "mobile",
+                  "fill": "var(--color-mobile)"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 205,
+            "y": 92
+          }
+        },
+        {
+          "do": "hover",
+          "target": "body",
+          "position": {
+            "x": 2,
+            "y": 2
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".recharts-wrapper",
+        ".recharts-tooltip-wrapper",
+        ".recharts-radial-bar-sector",
+        ".recharts-tooltip-wrapper *"
+      ]
+    },
+    {
+      "id": "tooltip__line-shared-false",
+      "tree": {
+        "c": "ChartContainer",
+        "props": {
+          "id": "line-shared-false",
+          "config": {
+            "desktop": {
+              "label": "Desktop",
+              "color": "var(--chart-1)"
+            }
+          },
+          "className": "aspect-auto h-[200px] w-[320px]",
+          "initialDimension": {
+            "width": 320,
+            "height": 200
+          }
+        },
+        "children": [
+          {
+            "c": "_LineChart",
+            "props": {
+              "data": [
+                {
+                  "month": "January",
+                  "desktop": 186,
+                  "mobile": 80
+                },
+                {
+                  "month": "February",
+                  "desktop": 305,
+                  "mobile": 200
+                },
+                {
+                  "month": "March",
+                  "desktop": 237,
+                  "mobile": 120
+                },
+                {
+                  "month": "April",
+                  "desktop": 73,
+                  "mobile": 190
+                },
+                {
+                  "month": "May",
+                  "desktop": 209,
+                  "mobile": 130
+                },
+                {
+                  "month": "June",
+                  "desktop": 214,
+                  "mobile": 140
+                }
+              ],
+              "margin": {
+                "left": 12,
+                "right": 12
+              }
+            },
+            "children": [
+              {
+                "c": "_CartesianGrid",
+                "props": {
+                  "vertical": false
+                }
+              },
+              {
+                "c": "_XAxis",
+                "props": {
+                  "dataKey": "month",
+                  "tickLine": false,
+                  "tickMargin": 10,
+                  "axisLine": false,
+                  "tickFormatter": {
+                    "formatter": "slice",
+                    "args": [
+                      0,
+                      3
+                    ]
+                  }
+                }
+              },
+              {
+                "c": "ChartTooltip",
+                "props": {
+                  "cursor": true,
+                  "content": "ChartTooltipContent",
+                  "shared": false
+                }
+              },
+              {
+                "c": "_Line",
+                "props": {
+                  "dataKey": "desktop",
+                  "type": "linear",
+                  "stroke": "var(--color-desktop)",
+                  "strokeWidth": 2,
+                  "dot": {
+                    "fill": "var(--color-desktop)"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 70,
+            "y": 60
+          }
+        },
+        {
+          "do": "hover",
+          "target": ".recharts-wrapper",
+          "position": {
+            "x": 230,
+            "y": 90
+          }
+        },
+        {
+          "do": "hover",
+          "target": "body",
+          "position": {
+            "x": 2,
+            "y": 2
+          }
+        }
+      ],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "observe": [
+        ".recharts-tooltip-wrapper",
+        ".recharts-tooltip-cursor",
+        ".recharts-active-dot, .recharts-active-dot circle",
+        ".recharts-curve",
+        ".recharts-tooltip-wrapper *"
+      ]
     }
   ]
 }

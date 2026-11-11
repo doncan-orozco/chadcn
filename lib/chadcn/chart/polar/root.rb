@@ -77,7 +77,7 @@ class Chadcn::Chart::Polar::Root < Chadcn::Base
     container&.publish_chart_values(Chadcn::Chart::Polar::Wiring.new(layout: layout, plan: plan).values)
     container&.publish_legend_height(layout.legend_box_height)
     within_responsive_shell(container) do
-      div(**wrapper_attributes(layout)) do
+      div(**wrapper_attributes(layout, plan)) do
         render Chadcn::Chart::Polar::Overlays.new(layout: layout, declared: @declared, plan: plan)
         render surface(layout, container, markup, plan)
       end
@@ -122,7 +122,7 @@ class Chadcn::Chart::Polar::Root < Chadcn::Base
   # `PieChart` allows `item` tooltips only (chart/PieChart.js:11,27); `RadarChart` and `RadialBarChart` default to `axis`
   # (chart/RadarChart.js:11,26, chart/RadialBarChart.js:11,27). `Tooltip shared: false` asks for the item event type
   # (state/selectors/selectTooltipEventType.js:4-13): a `RadialBarChart` allows `['axis', 'item']` (chart/RadialBarChart.js:11), so it
-  # resolves to item (not drawn yet); a `RadarChart` allows `axis` only, so it stays axis.
+  # resolves to item; a `RadarChart` allows `axis` only, so it stays axis.
   def tooltip_event_type
     return :item if self.class::CHART_TYPE == :pie
 
@@ -150,20 +150,23 @@ class Chadcn::Chart::Polar::Root < Chadcn::Base
     end
   end
 
-  # `.recharts-wrapper` (chart/RechartsWrapper.js:323): the size, and the caller's `class:` and `style:`.
-  def wrapper_attributes(layout)
+  # `.recharts-wrapper` (chart/RechartsWrapper.js:323): the size, and the caller's `class:` and `style:`; plus the `data-action` of
+  # `chadcn--chart` when the pointer activates tooltip items (a radial bar chart with `shared: false`).
+  def wrapper_attributes(layout, plan)
     attrs = @options[:attrs]
     width = Chadcn::Chart::Shape::Number.format(layout.width)
     height = Chadcn::Chart::Shape::Number.format(layout.height)
     style = [ "position: relative; cursor: default; width: #{width}px; height: #{height}px;", attrs[:style] ].compact.join(" ")
-    { width: width, height: height, class: cn("recharts-wrapper", attrs[:class]), style: style }
+    wrapper = { width: width, height: height, class: cn("recharts-wrapper", attrs[:class]), style: style }
+    plan&.item_series&.any? ? wrapper.merge(data: { action: Chadcn::Chart::Polar::Wiring::POINTER_ACTION }) : wrapper
   end
 
   # The svg takes `cx` and `cy` of the chart as attributes (container/RootSurface.js spreads the chart's SVG props).
   def surface(layout, container, markup, plan)
     attrs = @options[:attrs].except(:class, :style)
     Chadcn::Chart::Polar::Surface.new(
-      layout: layout, declared: @declared, markup: markup, tooltip_entry: plan&.default_entry, uid: container&.chart_id || "chart-#{next_sequence(:chart)}",
+      layout: layout, declared: @declared, markup: markup, tooltip_entry: plan&.default_entry, tooltip_items: plan&.item_series || {},
+      uid: container&.chart_id || "chart-#{next_sequence(:chart)}",
       frame: { title: @options[:title], desc: @options[:desc], accessibility_layer: @options[:accessibility_layer], role: @options[:role],
                tab_index: @options[:tab_index], attrs: merge_attrs({ cx: @options[:cx].to_s, cy: @options[:cy].to_s }, attrs) }
     )

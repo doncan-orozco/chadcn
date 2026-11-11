@@ -7,7 +7,7 @@ class Chadcn::Chart::Polar::WiringTest < Chadcn::TestCase
 
   CONTENT = Chadcn::Chart::Tooltip::Content.new(hide_label: true)
   TOOLTIP_VALUES = %w[
-    allow-escape default-index keyboard-active keyboard-index offset plot pointer-active pointer-index position reverse-direction ticks
+    allow-escape default-index keyboard-active keyboard-index offset plot pointer-active pointer-index pointer-series position reverse-direction ticks
     tooltip-active tooltip-event-type trigger transition transition-auto wrapper-style
   ].freeze
 
@@ -77,18 +77,6 @@ class Chadcn::Chart::Polar::WiringTest < Chadcn::TestCase
       assert_equal "true", value(node, "transition-auto")
       assert_equal "", value(node, "tooltip-active")
     end
-  end
-
-  test "a radial bar with shared: false is an item tooltip: inert controller, no template, an empty hidden wrapper" do
-    html = radial_html(default_index: 2, shared: false, content: CONTENT)
-    doc = parse(html)
-    node = controller(html)
-
-    assert_equal "item", value(node, "tooltip-event-type")
-    assert_equal [], JSON.parse(value(node, "ticks"))
-    assert_empty doc.css("template")
-    assert_equal 0, doc.at_css(".recharts-tooltip-wrapper").children.size
-    assert_includes doc.at_css(".recharts-tooltip-wrapper")["style"], "visibility: hidden"
   end
 
   test "a radar with shared: false stays an axis tooltip with its templates (RadarChart allows axis only)" do

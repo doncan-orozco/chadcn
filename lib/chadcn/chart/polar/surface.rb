@@ -19,14 +19,16 @@ class Chadcn::Chart::Polar::Surface < Phlex::SVG
   # @param declared [Chadcn::Chart::Polar::Declared]
   # @param markup [String] what the chart's block wrote itself; placed after the clip path
   # @param tooltip_entry [Object, nil] the entry `default_index:` shows
+  # @param tooltip_items [Hash{Object => Integer}] the series whose shapes are tooltip items, with their positions
   # @param uid [String] prefix of the ids this chart writes
   # @param frame [Hash] `title:`, `desc:`, `accessibility_layer:`, `role:`, `tab_index:` and `attrs:` (the attributes of the svg)
-  def initialize(layout:, declared:, markup:, tooltip_entry:, uid:, frame:)
+  def initialize(layout:, declared:, markup:, tooltip_entry:, uid:, frame:, tooltip_items: {})
     @layout = layout
     @declared = declared
     @markup = markup
     @frame = frame
-    @canvas = Chadcn::Chart::Polar::Canvas.new(layout: layout, uid: uid, tooltip_entry: tooltip_entry, counter: Enumerator.produce(1, &:succ))
+    @canvas = Chadcn::Chart::Polar::Canvas.new(layout: layout, uid: uid, tooltip_entry: tooltip_entry, counter: Enumerator.produce(1, &:succ),
+                                               tooltip_items: tooltip_items)
     @placed = layout.placed.to_h { |placed| [ placed.series, placed ] }
     @drawings = declared.items.flat_map { |item| drawings_for(item) }
     super()

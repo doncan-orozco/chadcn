@@ -8,9 +8,10 @@
 # {Chadcn::Chart::Cartesian::TooltipPlan}, which it extends.
 #
 # A polar tooltip has no cursor on the server: recharts draws it from the polar coordinate of the pointer (component/Cursor.js:66-94,
-# util/cursor/getCursorPoints.js:19), which a `default_index:` does not have, and `Tooltip`'s `shared: false` (item tooltips of a radial bar
-# chart) is not drawn yet: a radial bar chart with `shared: false` is an item tooltip (chart/RadialBarChart.js:11, state/selectors/
-# selectTooltipEventType.js:4-13) and has no entries here, like a BarChart; a radar allows `axis` only, so it stays an axis tooltip.
+# util/cursor/getCursorPoints.js:19), which a `default_index:` does not have. A radial bar chart with `Tooltip shared: false` is an item
+# tooltip (chart/RadialBarChart.js:11, state/selectors/selectTooltipEventType.js:4-13): one entry per radial bar series and category, like a
+# BarChart's, with no item coordinate (a radial bar sector has no `tooltipPosition`, polar/RadialBar.js); a radar allows `axis` only, so it
+# stays an axis tooltip.
 #
 # @api private
 class Chadcn::Chart::Polar::TooltipPlan < Chadcn::Chart::Cartesian::TooltipPlan
@@ -18,13 +19,36 @@ class Chadcn::Chart::Polar::TooltipPlan < Chadcn::Chart::Cartesian::TooltipPlan
   # @return [Array<Entry>] one per sector or category, in order
   def entries = @entries ||= compute_entries
 
+  # The radial bars of an item tooltip (`shared: false`), each with its position; a pie's sectors are not activated by the pointer here.
+  #
+  # @api private
+  # @return [Hash{Object => Integer}] series => position
+  def item_series
+    return {} unless @event_type == :item && @layout.chart_type == :radial_bar
+
+    @item_series ||= @layout.placed.select { |placed| placed.series.kind == :radial_bar }.each_with_index.to_h { |placed, index| [ placed.series, index ] }
+  end
+
   private
 
-  # A pie is an item tooltip with an entry per sector; any other chart of the item event type (a radial bar with `shared: false`) draws nothing.
+  # A pie is an item tooltip with an entry per sector; a radial bar with `shared: false` one per series and category.
   def compute_entries
     return pie_entries if @layout.chart_type == :pie
 
-    @event_type == :item ? [] : axis_entries
+    @event_type == :item ? radial_item_entries : axis_entries
+  end
+
+  # One entry per category of the radius axis and radial bar series, anchored like the axis entries (`getPosition` of a RadialBar is a
+  # no-op, polar/RadialBar.js:219), with that series alone.
+  def radial_item_entries
+    return [] unless @axis&.category?
+
+    @axis.all_ticks.flat_map do |tick|
+      item_series.map do |series, position|
+        Entry.new(index: tick.index, label: nil, coordinate: axis_anchor(tick), payload: payload(@rows[tick.index], [ series ]), cursor: nil, dots: [],
+                  series: position)
+      end
+    end
   end
 
   # --- pie ----------------------------------------------------------------------------------------------------------------
@@ -71,10 +95,11 @@ class Chadcn::Chart::Polar::TooltipPlan < Chadcn::Chart::Cartesian::TooltipPlan
 
     @axis.all_ticks.map do |tick|
       row = @rows[tick.index]
-      coordinate = { x: (@layout.offset[:left] + @layout.width) / 2.0, y: tick.coordinate }
-      Entry.new(index: tick.index, label: tick.value, coordinate: coordinate, payload: payload(row), cursor: nil, dots: dots(row))
+      Entry.new(index: tick.index, label: tick.value, coordinate: axis_anchor(tick), payload: payload(row), cursor: nil, dots: dots(row))
     end
   end
+
+  def axis_anchor(tick) = { x: (@layout.offset[:left] + @layout.width) / 2.0, y: tick.coordinate }
 
   # A radial bar's entry holds the row as the arc has it (the arc spreads the row and its cell, polar/RadialBar.js:407), with the value the row
   # gives; a radar's is the series' own.

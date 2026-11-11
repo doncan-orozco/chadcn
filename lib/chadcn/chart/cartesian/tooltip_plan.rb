@@ -12,8 +12,32 @@
 # @api private
 class Chadcn::Chart::Cartesian::TooltipPlan
   # One category: its `index`, `label` (the tick value), `coordinate` (`x:`, `y:`), the `payload` (one Hash per series, in declaration
-  # order), the `cursor` ({Cursor} or nil) and the active `dots` ({ActiveDot}, one per line and area).
-  Entry = Data.define(:index, :label, :coordinate, :payload, :cursor, :dots)
+  # order), the `cursor` ({Cursor} or nil) and the active `dots` ({ActiveDot}, one per line and area). An entry of an item tooltip
+  # (`shared: false` on a BarChart or a RadialBarChart) is one series at one category: `series` is its position among the item series,
+  # `coordinate` the axis anchor (where the keyboard and `default_index:` place it) and `item_coordinate` where the pointer on the shape
+  # places it (the shape's `tooltipPosition`; nil for a radial bar sector, which has none). Both are nil for any other entry.
+  Entry = Data.define(:index, :label, :coordinate, :payload, :cursor, :dots, :series, :item_coordinate) do
+    def initialize(index:, label:, coordinate:, payload:, cursor:, dots:, series: nil, item_coordinate: nil) = super
+
+    # @api private
+    # @return [Boolean] whether this is an entry of an item tooltip (one series at one category)
+    def item? = !series.nil?
+
+    # @api private
+    # @return [Boolean] whether `default_index:` may show it: any axis entry, or the first series of an item tooltip
+    def shown_by_default? = !item? || series.zero?
+  end
+
+  # The attributes that make a shape a tooltip item for `chadcn--chart`: its series position and its own position among the drawn shapes.
+  # This is the one owner of the tooltip-item contract; the cartesian and the polar drawers both write it from here.
+  #
+  # @api private
+  # @param series [Integer] the position of the series among the item series
+  # @param index [Integer] the position of the shape among the drawn ones of its series
+  # @return [Hash{Symbol => String}]
+  def self.item_attributes(series:, index:)
+    { "data-chadcn--chart-target": "tooltipItem", "data-chadcn--chart-series": series.to_s, "data-chadcn--chart-index": index.to_s }
+  end
 
   # The cursor of a category: the `layer` recharts draws it in and the SVG `attrs` of its path.
   Cursor = Data.define(:layer, :attrs)
@@ -32,9 +56,8 @@ class Chadcn::Chart::Cartesian::TooltipPlan
   # @return [Chadcn::Chart::Tooltip]
   attr_reader :tooltip
 
-  # The tooltip's event type, `:axis` or `:item` (state/selectors/selectTooltipEventType.js:4-13). A cartesian chart draws `:axis` only: its `:item`
-  # tooltip has no entries, so no templates and no default index. A pie (via {Chadcn::Chart::Polar::TooltipPlan}) is an `:item` tooltip
-  # with an entry per sector.
+  # The tooltip's event type, `:axis` or `:item` (state/selectors/selectTooltipEventType.js:4-13). The `:item` tooltip of a BarChart has an entry
+  # per bar series and category (see {Entry}); a pie (via {Chadcn::Chart::Polar::TooltipPlan}) is an `:item` tooltip with an entry per sector.
   #
   # @api private
   # @return [Symbol]
@@ -56,8 +79,19 @@ class Chadcn::Chart::Cartesian::TooltipPlan
   end
 
   # @api private
-  # @return [Array<Entry>] one per category, in tick order; empty for an item tooltip (not drawn yet)
-  def entries = @entries ||= (@event_type == :axis && @axis&.category? ? @axis.ticks.map { |tick| entry(tick) } : [])
+  # @return [Array<Entry>] one per category, in tick order; for an item tooltip one per category and item series, category first
+  def entries = @entries ||= compute_entries
+
+  # The series whose shapes the pointer activates one at a time (an item tooltip of a BarChart: its bars), each with its position in
+  # that list; empty when the pointer maps to a category instead (an axis tooltip, a pie).
+  #
+  # @api private
+  # @return [Hash{Object => Integer}] series => position
+  def item_series
+    return {} unless @event_type == :item
+
+    @item_series ||= @layout.placed.select { |placed| placed.series.kind == :bar }.each_with_index.to_h { |placed, index| [ placed.series, index ] }
+  end
 
   # The category shown without interaction (`default_index:`), unless the tooltip never shows (`active: false`).
   #
@@ -67,7 +101,10 @@ class Chadcn::Chart::Cartesian::TooltipPlan
     return if @tooltip.options[:active] == false
 
     index = Integer(@tooltip.options[:default_index].to_s, exception: false)
-    entries.find { |entry| entry.index == index } if index
+    return unless index
+
+    # With `default_index:` alone recharts cannot tell which series to show and shows the first (combineTooltipPayloadConfigurations.js:34-44).
+    entries.find { |entry| entry.index == index && entry.shown_by_default? }
   end
 
   # The declared content with the payload and label of one category; the `Tooltip`'s own `formatter:` and `label_formatter:` override the
@@ -87,6 +124,25 @@ class Chadcn::Chart::Cartesian::TooltipPlan
   end
 
   private
+
+  def compute_entries
+    return [] unless @axis&.category?
+    return @axis.ticks.map { |tick| entry(tick) } unless @event_type == :item
+
+    shapes = @layout.placed.to_h { |placed| [ placed.series, placed.rects ] }
+    @axis.ticks.flat_map do |tick|
+      item_series.map { |series, position| item_entry(tick, series, position, shapes[series][tick.index]) }
+    end
+  end
+
+  # recharts finds the row of an item by the position of the hovered bar among the drawn ones (`tooltipPayloadSearcher(data, index)`,
+  # combineTooltipPayload.js), so `index` is both: the row and the bar's position. A series with a bar missing (zero height) shifts them as
+  # it shifts recharts. The anchor is the axis anchor, as `getPosition` of a Bar is a no-op (cartesian/Bar.js:76).
+  def item_entry(tick, series, position, rect)
+    center = ({ x: rect.x + (rect.width / 2.0), y: rect.y + (rect.height / 2.0) } if rect)
+    Entry.new(index: tick.index, label: nil, coordinate: anchor(tick), payload: payload(@rows[tick.index], [ series ]), cursor: nil, dots: [],
+              series: position, item_coordinate: center)
+  end
 
   # The attributes of the cursor and of the active dots are checked when the plan is built, not only when a category is drawn.
   def validate_shape_attributes
@@ -114,9 +170,9 @@ class Chadcn::Chart::Cartesian::TooltipPlan
   # --- payload ------------------------------------------------------------------------------------------------------------
 
   # The entries of the series at this row, `filter_null` and hidden series applied (component/Tooltip.js:142).
-  def payload(row)
+  def payload(row, series_list = @declared.series)
     options = @tooltip.options
-    items = @declared.series.map { |series| item(series, row) }
+    items = series_list.map { |series| item(series, row) }
     return items unless options[:filter_null]
 
     items = items.select { |entry| !entry[:value].nil? && (!entry[:hide] || options[:include_hidden]) }

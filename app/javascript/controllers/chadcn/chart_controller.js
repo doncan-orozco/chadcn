@@ -12,6 +12,11 @@ import { turboCacheRestore } from "chadcn/primitives/turbo_cache"
 // this controller mounts the one for the active index into `.recharts-tooltip-wrapper`, draws the cursor and the active dots from the
 // template's JSON and positions the wrapper with recharts' own algorithm.
 //
+// An item tooltip (`Tooltip shared: false` on a BarChart or a RadialBarChart) follows the shape under the pointer instead of the category:
+// the server tags every bar or arc as a `tooltipItem` with its series and position, and writes one template per series and category
+// (`context/tooltipContext.js`: the hovered shape's index, series and `tooltipPosition`). A pie is an item tooltip too, but its sectors are
+// not tagged, so the controller leaves it alone.
+//
 // Three interactions are independent states (`state/selectors/combiners/combineTooltipInteractionState.js:22-58`): the pointer's, the
 // keyboard's and `default_index`. The tooltip shows the pointer index while the pointer is active, else the keyboard index while the
 // keyboard is active, else `default_index` only while the pointer has never activated an index. The states are the values
@@ -32,10 +37,12 @@ const ACTIVE_DOT_LAYER = 1200
 const EVENT_RELAYOUT = "relayout"
 const EVENT_RELAYOUT_ERROR = "relayout-error"
 // The interaction values a re-laid-out chart takes over from the one it replaces.
-const CARRIED_VALUES = { pointerIndex: "pointer-index", pointerActive: "pointer-active", keyboardIndex: "keyboard-index", keyboardActive: "keyboard-active" }
+const CARRIED_VALUES = {
+  pointerIndex: "pointer-index", pointerActive: "pointer-active", pointerSeries: "pointer-series", keyboardIndex: "keyboard-index", keyboardActive: "keyboard-active",
+}
 
 export default class extends Controller {
-  static targets = ["surface", "tooltip", "tooltipTemplate", "cursor", "activeDots"]
+  static targets = ["surface", "tooltip", "tooltipTemplate", "tooltipItem", "cursor", "activeDots"]
 
   static values = {
     layout: { type: String, default: "horizontal" },
@@ -45,6 +52,7 @@ export default class extends Controller {
     plot: { type: Object, default: {} },
     pointerIndex: { type: Number, default: -1 },
     pointerActive: { type: Boolean, default: false },
+    pointerSeries: { type: Number, default: -1 }, // the series of the item the pointer activated (item tooltips); -1 = none yet
     keyboardIndex: { type: Number, default: -1 },
     keyboardActive: { type: Boolean, default: false },
     defaultIndex: { type: Number, default: -1 },
@@ -66,7 +74,8 @@ export default class extends Controller {
   }
 
   connect() {
-    this.shownIndex = null
+    this.shownKey = null
+    this.shownIndex = -1
     this.announcing = true
     this.mounted = null
     this.pointerCoordinate = null
@@ -74,6 +83,7 @@ export default class extends Controller {
     this.activeCoordinate = null
     this.serverState = this.hasServedStateValue ? this.servedStateValue : this.interactionState()
     this.relayoutStopped = false
+    this.hasItems = this.hasTooltipItemTarget
     this.cache = turboCacheRestore({
       teardown: (cancelled) => this.resetToServerState(cancelled),
       // The restore observes the box again, which checks its size once more (the teardown stopped the re-layout).
@@ -106,6 +116,7 @@ export default class extends Controller {
   // outside does nothing (the `activeIndex != null` guard, `touchEventsMiddleware.js:57-64`).
   move(event) {
     if (!this.listening || this.triggerValue !== "hover") return
+    if (this.itemTooltip) return this.hoverItem(event)
 
     this.activateFromPointer(event, { leaveOutside: event.pointerType !== "touch" })
   }
@@ -114,6 +125,10 @@ export default class extends Controller {
   // (`chooseAppropriateMouseInteraction`, `combineTooltipInteractionState.js:7-18`).
   click(event) {
     if (!this.listening || this.triggerValue !== "click") return
+    if (this.itemTooltip) {
+      const item = this.itemAt(event)
+      return item ? this.activateItem(item) : undefined
+    }
 
     this.activateFromPointer(event, { leaveOutside: false })
   }
@@ -176,7 +191,21 @@ export default class extends Controller {
   // --- state -------------------------------------------------------------------------------------------------------------------
 
   get interactive() {
-    return this.hasTooltipTarget && this.tooltipEventTypeValue === "axis"
+    return this.hasTooltipTarget && (this.tooltipEventTypeValue === "axis" || this.itemTooltip)
+  }
+
+  // An item tooltip whose shapes the server tagged (a BarChart or a RadialBarChart with `shared: false`; not a pie).
+  get itemTooltip() {
+    return this.tooltipEventTypeValue === "item" && this.hasItems
+  }
+
+  // Cached: the check runs on every pointer event, so the targets are not queried each time.
+  tooltipItemTargetConnected() {
+    this.hasItems = this.hasTooltipItemTarget
+  }
+
+  tooltipItemTargetDisconnected() {
+    this.hasItems = this.hasTooltipItemTarget
   }
 
   // Input is refused between `turbo:before-cache` and the snapshot tick, while the DOM is in its snapshot shape.
@@ -192,6 +221,7 @@ export default class extends Controller {
     return {
       pointerIndex: this.pointerIndexValue,
       pointerActive: this.pointerActiveValue,
+      pointerSeries: this.pointerSeriesValue,
       keyboardIndex: this.keyboardIndexValue,
       keyboardActive: this.keyboardActiveValue,
     }
@@ -220,21 +250,93 @@ export default class extends Controller {
     this.render()
   }
 
+  // --- item tooltips ----------------------------------------------------------------------------------------------------------
+
+  // A pointer moving onto a tagged shape is recharts' `mouseenter` of that shape (`setActiveMouseOverItemIndex`), off every shape its
+  // `mouseleave` (`mouseLeaveItem`: the item is no longer active, its index and series are kept). A finger finds no item: recharts
+  // resolves a touch through `data-recharts-item-index`, which only a Pie writes (`state/touchEventsMiddleware.js:62-71`).
+  hoverItem(event) {
+    if (event.pointerType === "touch") return
+
+    const item = this.itemAt(event)
+    if (item) return this.activateItem(item)
+    if (!this.pointerActiveValue) return
+
+    this.pointerActiveValue = false
+    this.render()
+  }
+
+  itemAt(event) {
+    // One ancestor walk from the event target, not a scan of every item.
+    const item = event.target instanceof Element ? event.target.closest(`[data-${this.identifier}-target~="tooltipItem"]`) : null
+    return item && this.element.contains(item) ? item : null
+  }
+
+  itemData(item, name) {
+    const value = item.getAttribute(`data-${this.identifier}-${name}`)
+    return value === null ? -1 : Number(value)
+  }
+
+  // The item's index, series and coordinate: the shape's `tooltipPosition` (a bar's center), else, for a radial bar arc that has none,
+  // the `default_index` anchor (`selectActiveCoordinate` falls back to it), else none (the wrapper is not translated).
+  activateItem(item) {
+    const index = this.itemData(item, "index")
+    const series = this.itemData(item, "series")
+    if (index < 0 || series < 0) return
+    if (this.pointerActiveValue && this.pointerIndexValue === index && this.pointerSeriesValue === series) return
+
+    this.pointerCoordinate = this.itemCoordinate(index, series)
+    this.pointerIndexValue = index
+    this.pointerSeriesValue = series
+    this.pointerActiveValue = true
+    this.keyboardActiveValue = false
+    this.render()
+  }
+
+  itemCoordinate(index, series) {
+    const template = this.templateFor(index, series)
+    const fallback = this.templateFor(this.defaultIndexValue, 0)
+    return this.json(template?.dataset.itemCoordinate) ?? this.json(fallback?.dataset.coordinate)
+  }
+
+  // Where a pointer activation anchors: its own coordinate; one that is not known (a chart swapped in by a re-layout carries the indexes,
+  // not the coordinate) is the item's own (an item tooltip) or the template's anchor (an axis tooltip, `undefined`).
+  pointerAnchor(index, series) {
+    if (this.pointerCoordinate) return this.pointerCoordinate
+    return this.itemTooltip ? this.itemCoordinate(index, series) : undefined
+  }
+
+  // The series an item tooltip shows outside a pointer activation (keyboard, `active: true`, `default_index`): the one the pointer last
+  // activated, else the first when `default_index` is set, else none, which shows nothing (`combineTooltipPayloadConfigurations.js:22-48`).
+  get restingSeries() {
+    if (this.pointerSeriesValue >= 0) return this.pointerSeriesValue
+    return this.defaultIndexValue >= 0 ? 0 : -1
+  }
+
   // Which index the tooltip shows and where it anchors (`combineTooltipInteractionState` + `selectActiveCoordinate`,
   // `state/selectors/selectors.js:49` for `selectActiveCoordinate`). `tooltipActive` false never shows, true keeps the last pointer index after the pointer left
   // (`Tooltip.js:129`, `combineTooltipInteractionState.js:39-45`).
+  // An item tooltip also says which series (`series`, -1 for an axis tooltip). A `coordinate` of `undefined` means the template's anchor
+  // (keyboard, `default_index`); a pointer activation keeps its own, which is `null` for a radial bar arc without a `default_index`.
   resolve() {
-    if (this.tooltipActiveValue === "false") return { index: -1, coordinate: null }
-    if (this.pointerActiveValue) return { index: this.pointerIndexValue, coordinate: this.pointerCoordinate }
-    if (this.keyboardActiveValue) return { index: this.keyboardIndexValue, coordinate: null }
+    const series = this.itemTooltip ? this.restingSeries : -1
+    if (this.tooltipActiveValue === "false") return { index: -1, series, coordinate: null }
+    if (this.pointerActiveValue) return { index: this.pointerIndexValue, series, coordinate: this.pointerAnchor(this.pointerIndexValue, series) }
+    if (this.keyboardActiveValue) return { index: this.keyboardIndexValue, series, coordinate: undefined }
     if (this.pointerIndexValue >= 0) {
-      return this.tooltipActiveValue === "true" ? { index: this.pointerIndexValue, coordinate: this.pointerCoordinate } : { index: -1, coordinate: this.pointerCoordinate }
+      const index = this.tooltipActiveValue === "true" ? this.pointerIndexValue : -1
+      return { index, series, coordinate: this.pointerAnchor(this.pointerIndexValue, series) }
     }
-    return { index: this.defaultIndexValue, coordinate: null }
+    return { index: this.defaultIndexValue, series, coordinate: undefined }
   }
 
-  templateFor(index) {
-    return index < 0 ? null : this.tooltipTemplateTargets.find((template) => Number(template.dataset.index) === index) ?? null
+  // The template of an index (an axis tooltip) or of an index and a series (an item tooltip; -1 = no series, so none).
+  templateFor(index, series = -1) {
+    if (index < 0) return null
+    if (this.itemTooltip && series < 0) return null
+
+    return this.tooltipTemplateTargets.find((template) => Number(template.dataset.index) === index &&
+      (!this.itemTooltip || Number(template.dataset.series) === series)) ?? null
   }
 
   // --- rendering ---------------------------------------------------------------------------------------------------------------
@@ -243,9 +345,10 @@ export default class extends Controller {
     if (!this.interactive) return
 
     const resolved = this.resolve()
-    const template = this.templateFor(resolved.index)
+    const template = this.templateFor(resolved.index, resolved.series)
     const index = template ? resolved.index : -1
-    this.activeCoordinate = resolved.coordinate ?? (template ? this.json(template.dataset.coordinate) : null)
+    const anchor = template ? this.json(template.dataset.coordinate) : null
+    this.activeCoordinate = resolved.coordinate === undefined ? anchor : resolved.coordinate
 
     this.releaseDismissal()
     this.show(index, template)
@@ -259,18 +362,21 @@ export default class extends Controller {
     if (at && (at.x !== now.x || at.y !== now.y)) this.dismissedAt = null
   }
 
-  // Swaps the content, the cursor and the active dots when the index changes. The first render adopts what the server drew for
-  // `default_index` instead of mounting it again.
+  // Swaps the content, the cursor and the active dots when the template changes (an index, or an index and a series). The first
+  // render adopts what the server drew for `default_index` (the first series of an item tooltip) instead of mounting it again.
   show(index, template) {
-    const first = this.shownIndex === null
-    if (index === this.shownIndex) return
+    const first = this.shownKey === null
+    const key = template ? `${template.dataset.series ?? ""}:${index}` : ""
+    if (key === this.shownKey) return
 
     const previous = this.shownIndex
+    this.shownKey = key
     this.shownIndex = index
-    if (first && index === this.defaultIndexValue && this.tooltipTarget.childElementCount > 0) return
+    const servedDefault = index === this.defaultIndexValue && (template?.dataset.series ?? "0") === "0"
+    if (first && servedDefault && this.tooltipTarget.childElementCount > 0) return
 
     this.clearContent()
-    if (!template) return previous !== null && previous >= 0 ? this.announce(EVENT_DEACTIVATE, previous) : undefined
+    if (!template) return previous >= 0 ? this.announce(EVENT_DEACTIVATE, previous) : undefined
 
     this.mounted = mountTemplate(template, { into: this.tooltipTarget })
     this.drawShapes(template)
@@ -352,7 +458,7 @@ export default class extends Controller {
     if (!this.announcing) return
 
     const detail = template
-      ? { index, label: template.dataset.label, payload: this.json(template.dataset.payload) ?? [] }
+      ? { index, label: template.dataset.label ?? null, payload: this.json(template.dataset.payload) ?? [] }
       : { index, label: null, payload: [] }
     this.dispatch(name, { detail })
   }
@@ -450,6 +556,7 @@ export default class extends Controller {
     const served = {
       pointerIndex: Number(value("pointer-index", -1)),
       pointerActive: value("pointer-active", "false") === "true",
+      pointerSeries: Number(value("pointer-series", -1)),
       keyboardIndex: Number(value("keyboard-index", -1)),
       keyboardActive: value("keyboard-active", "false") === "true",
     }
@@ -500,6 +607,7 @@ export default class extends Controller {
   writeInteraction(state) {
     this.pointerIndexValue = state.pointerIndex
     this.pointerActiveValue = state.pointerActive
+    this.pointerSeriesValue = state.pointerSeries ?? -1
     this.keyboardIndexValue = state.keyboardIndex
     this.keyboardActiveValue = state.keyboardActive
   }

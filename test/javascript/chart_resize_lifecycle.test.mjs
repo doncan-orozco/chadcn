@@ -50,7 +50,7 @@ test("chart: the tooltip and the keyboard carry over the swap", () => withResiza
   await waitForEvents(page, 1);
   assert.equal(await chartValue(page, "keyboard-index"), "1");
   assert.equal(await chartValue(page, "keyboard-active"), "true");
-  assert.deepEqual(JSON.parse(await chartValue(page, "served-state")), { pointerIndex: -1, pointerActive: false, keyboardIndex: -1, keyboardActive: false }, "the answer's own state, for the Turbo snapshot");
+  assert.deepEqual(JSON.parse(await chartValue(page, "served-state")), { pointerIndex: -1, pointerActive: false, pointerSeries: -1, keyboardIndex: -1, keyboardActive: false }, "the answer's own state, for the Turbo snapshot");
   assert.equal(await page.evaluate(() => document.activeElement.matches("[data-slot=chart] svg.recharts-surface")), true, "the new svg has the focus");
   await page.locator(TOOLTIP).filter({ hasText: "February" }).waitFor({ state: "visible" });
   await page.keyboard.press("ArrowRight");
