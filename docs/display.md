@@ -124,7 +124,8 @@ updates instead of stacking.
 
 `Chadcn::Chart::BarChart`, `LineChart` and `AreaChart` draw the SVG of [recharts](https://recharts.org) 3.8 (its class names, layers and
 numbers) from Ruby, with no JavaScript library. Put one inside a `Chart::Container` (the shadcn `ChartContainer`: the config colors as
-`--color-<key>` variables and the size, `initial_dimension:`, 320x200 by default). The chart is laid out once at that size.
+`--color-<key>` variables and the size, `initial_dimension:`, 320x200 by default). The chart is laid out at that size; with
+`relayout_url:` it follows the size of its box ([docs/charts.md](charts.md#following-the-container)).
 
 The block of a chart declares what is in it; it runs first, then everything is laid out in one pass. Each part renders nothing where it
 is written and registers with its chart; the generated helper of a part (`chart.bar`) is `render Chadcn::Chart::Bar.new(...)`.
@@ -178,7 +179,7 @@ path, where recharts renders its non-chart children.
 ## Charts (polar)
 
 `Chadcn::Chart::PieChart`, `RadarChart` and `RadialBarChart` draw recharts' polar DOM the same way: from Ruby, inside a `Chart::Container`,
-laid out once at its size, with the parts of the block registering with the chart. Angles are degrees, counterclockwise from 3 o'clock
+laid out at its size (following its box with `relayout_url:`), with the parts of the block registering with the chart. Angles are degrees, counterclockwise from 3 o'clock
 (`start_angle: 90, end_angle: -270` runs a radar clockwise from the top); a radius or a center is a number of pixels or a percent string.
 
 | Part | Keywords (besides `**attrs`) |
