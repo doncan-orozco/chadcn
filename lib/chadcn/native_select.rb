@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# shadcn NativeSelect (new-york-v4). Spec: docs/shadcn-port/specs/native-select.md
+# shadcn NativeSelect (new-york-v4). Spec: dev/port/specs/native-select.md
 #
 # A styled native `<select>` inside a wrapper with a chevron icon. Yields itself, so the parts are
 # available as `select.option { }` and `select.opt_group { }` (see {NativeSelect::Option}, {NativeSelect::OptGroup}).

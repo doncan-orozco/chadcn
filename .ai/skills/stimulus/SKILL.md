@@ -46,6 +46,19 @@ Declare `static targets`, `values`, `outlets`, `classes` at the top. Values exis
 ## Turbo-first
 The part is rendered on the server with its initial `data-state`; the controller never fetches fragments or relies on `DOMContentLoaded`. A Turbo cache snapshot is taken from the live DOM, so a controller must leave a closed, unlocked, un-portaled DOM behind when it disconnects and must tolerate being connected on a snapshot that still carries runtime attributes.
 
+### Recorded exception: the chart re-layout (R1, R6)
+Approved with `dev/decisions/chart.md` "Resize and re-measure" (item #96); built by items #107 (resize) and #108 (re-measure). **Scope:**
+`chadcn--chart` alone, and only when its container has a `relayout_url:`: it `fetch`es its own chart from that URL (`mode: "same-origin"`,
+`credentials: "same-origin"`, an `AbortController` per request), parses the answer with `DOMParser`, adopts the `div[data-slot="chart"]`
+with the same `data-chart` through `document.importNode` and `replaceWith` (never `innerHTML`, R7 holds), and reads recharts nodes by class
+(`.recharts-wrapper`, `svg.recharts-surface`, and for the re-measure of item #108 `.recharts-cartesian-axis-tick-value` and
+`.recharts-legend-wrapper`, measured in a span appended to `body` and removed again), which the server draws without targets. **Guard:**
+`primitives/chart_relayout.js` resolves the URL and refuses any other origin (no request, a `chadcn--chart:relayout-error`); an answer
+without that chart, or laid out at another size, is an error; an error stops re-layout for the element until it reconnects, and a chart that
+was swapped in as an answer (every answer carries the size its metrics were measured at) never asks again for them at that size (`measuredAt`), so there is no request loop. **Removal:**
+when charts re-lay themselves out in the browser (option B of the decision record) or the maintainer withdraws `relayout_url:`. Nothing else
+may fetch HTML or read markup by class; a second case is a new decision, not this one stretched.
+
 ## Security
 No `innerHTML` with dynamic data; no `eval`/`new Function`; everything the caller passes arrives as an attribute Phlex has already escaped.
 

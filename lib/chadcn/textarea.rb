@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# shadcn `Textarea` (new-york-v4). Spec: docs/shadcn-port/specs/textarea.md
+# shadcn `Textarea` (new-york-v4). Spec: dev/port/specs/textarea.md
 #
 # @example
 #   render Chadcn::Textarea.new(name: "bio", rows: 4, placeholder: "Tell us about you", default_value: user.bio)

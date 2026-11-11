@@ -4,7 +4,7 @@ import { presence } from "chadcn/primitives/presence"
 import { rovingFocus } from "chadcn/primitives/roving_focus"
 import { items as collectionItems } from "chadcn/primitives/collection"
 
-// Radix RadioGroup behavior (docs/shadcn-port/specs/radio-group.md). Host = the radiogroup element; the items are
+// Radix RadioGroup behavior (dev/port/specs/radio-group.md). Host = the radiogroup element; the items are
 // plain buttons wired by data-action (no per-item controller).
 const ARROWS = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"]
 

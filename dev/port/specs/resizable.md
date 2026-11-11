@@ -210,7 +210,7 @@ Listeners: `pointerdown` (capture), `pointermove`, `pointerup` (capture), `point
 
 ### Cursor (`En`/`Ve`, rrp.js:459-534)
 
-While the state is `hover` or `active` the library installs one constructed stylesheet in `document.adoptedStyleSheets` with `*, *:hover {cursor: <c> !important; }` and removes the rule when inactive. `c` (Chromium/Firefox, `vt` rrp.js:455-458 by user agent): `ew-resize` for horizontal groups, `ns-resize` for vertical, `move` for both; during an active drag blocked by constraints the cursor flags give `e-resize`/`w-resize`/`n-resize`/`s-resize` and diagonals (rrp.js:484-496, 1122-1132, 1145). Other browsers: `col-resize`/`row-resize`/`grab`. Groups with `disable_cursor:` do not count. The controller manages the same single adopted sheet per document (shared module state, removed when the last group disconnects).
+While the state is `hover` or `active` the library installs one constructed stylesheet in `document.adoptedStyleSheets` with `*, *:hover {cursor: <c> !important; }` and removes the rule when inactive. `c` (Chromium/Firefox, `vt` rrp.js:455-458 by user agent): `ew-resize` for horizontal groups, `ns-resize` for vertical, `move` for both; during an active drag blocked by constraints the cursor flags give `e-resize`/`w-resize`/`n-resize`/`s-resize` and diagonals (rrp.js:484-496, 1122-1132, 1145). Other browsers: `col-resize`/`row-resize`/`grab`. Groups with `disable_cursor:` do not count. `resizable_pointer` manages the same single adopted sheet per document (shared module state, removed when the last group disconnects).
 
 ### Preview mode (`resize_preview_mode: "separator"`)
 
@@ -223,7 +223,23 @@ The group style gains `position: relative`. During an active drag, pointer moves
 - No timers, no Presence, no scroll lock, no dismissal, no positioning library. Direction is not read: arrow keys and pointer deltas are physical in RTL too.
 - Turbo: `disconnect()` disconnects the ResizeObserver (the handle keydown/focus/blur are Stimulus actions, released by Stimulus), decrements the document registry (removing the document listeners and the cursor sheet with the last group), and drops this group's regions from an active interaction (`Rn`, rrp.js:431-452). `connect()` recomputes from the server props (like React remounting), so a restored snapshot shows the default layout and `data-separator` is re-derived.
 
-Primitives composed: `ids.js` is not needed (ids are server-rendered); `template_mount` for `preview:` markup; `pointer_capture` is NOT used: the library captures on the handle at the first move (not on the pointerdown target) and hit-tests document-wide across groups, which the root-scoped primitive does not model; the hit regions, layout math and the cursor sheet are resizable-specific and live in the controller module (one shared module state for all groups of a document). Not used: focus scope, dismissable layer, presence, positioner, roving focus, direction.
+Primitives composed: `ids.js` is not needed (ids are server-rendered); `template_mount` for `preview:` markup; `pointer_capture` is NOT used: the library captures on the handle at the first move (not on the pointerdown target) and hit-tests document-wide across groups, which the root-scoped primitive does not model; the hit regions, layout math and the cursor sheet are resizable-specific and live in the `resizable_*` primitives below (one shared module state for all groups of a document). Not used: focus scope, dismissable layer, presence, positioner, roving focus, direction.
+
+### Code layout
+
+The library's single module is split by what each part depends on; every module has a `test/javascript/primitive_<name>.test.mjs`.
+
+| Module (`app/javascript/chadcn/primitives/`) | Holds (rrp.js) | Depends on |
+|---|---|---|
+| `resizable_layout.js` | Numbers and comparison, size parsing, constraints (`it`), `Ee`, `Fe`, layout validation, ARIA values (`eo`), default and remembered layouts, group-size rescale, expanded sizes, the panel API's next layout (`mt`) | nothing (pure) |
+| `resizable_keyboard.js` | The keyboard table of `Ct` (key -> delta, Enter toggle, F6 cycle) | nothing (pure) |
+| `resizable_cursor.js` | Cursor flags and names (`En`/`Ve`) | nothing (pure) |
+| `resizable_geometry.js` | Rects, target expansion, pointer distance, nearest region, pointer delta, preview offsets and rects | `resizable_layout` (pure) |
+| `resizable_measure.js` | DOM reads: group and panel pixels, CSS units, hit regions, stacking order and modal checks | `resizable_layout`, `resizable_geometry`; the DOM (reads only) |
+| `resizable_store.js` | Mounted groups and their state, the interaction, change emitters, the imperative APIs (`mt`, `Ge`) | `resizable_layout`, `resizable_measure`; the DOM (focus only: blur after a drag) |
+| `resizable_pointer.js` | Document listeners (ref-counted per document), drag session, double-click reset, cursor sheet | `resizable_layout`, `resizable_cursor`, `resizable_geometry`, `resizable_measure`, `resizable_store`; the DOM |
+
+`resizable_controller.js` is one group: Stimulus targets and values, mount and ResizeObserver (`an`), the separator keydown wiring, the `layout-change`/`layout-changed`/`resize` events, and the DOM writes (flex-grow, `aria-*`, `data-separator`, preview overlays).
 
 ## Third-party
 

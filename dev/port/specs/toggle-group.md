@@ -122,6 +122,8 @@ States: per item `on` / `off`; orthogonal `disabled` (item or group). Group valu
 3. unpressed -> `onItemDeactivate(value)`: single sets `""` (nothing pressed; a single group CAN be emptied by clicking the pressed item); multiple removes it.
 4. Uncontrolled: update `data-state` and `aria-checked`/`aria-pressed` on every item whose pressed flag changed, then dispatch `value-change`. Controlled: dispatch only.
 
+The group's items are the `[data-slot=toggle-group-item]` descendants whose closest `chadcn--toggle-group` host is this group: Radix gives every group its own context, so a group nested inside another keeps its own items and value (the outer group neither reads nor renders the inner items). Roving focus still walks the DOM collection (`roving_focus` primitive, which documents that choice). Browser tests: `test/javascript/toggle_group.test.mjs`.
+
 ### Keyboard
 
 Arrow handling is RovingFocusGroup (rf:184-204). Arrows only MOVE focus; they never press (no arrow-select, unlike RadioGroup; no activation on focus, unlike Tabs).
@@ -142,7 +144,7 @@ Arrow handling is RovingFocusGroup (rf:184-204). Arrows only MOVE focus; they ne
 | Tab | leaves the group (non-stop items are `tabindex=-1`) |
 | Shift+Tab | sets `isTabbingBackOut` -> root `tabindex="-1"` before default navigation, so focus skips the root and leaves; any `focusout` inside the group (React `onBlur` bubbles) resets it to `"0"` (rf:185-188, 88, 126) |
 
-Mechanics: key handling only when `event.target === event.currentTarget` (rf:189), Shift+Tab checked before that. With a focus intent: `preventDefault()`, candidates = focusable items in DOM order (`querySelectorAll("[data-radix-collection-item]")` inside the group, col:59), reversed for prev/last, rotated after the current index for prev/next (`wrapArray`, rf:247-249), then `setTimeout(() => focusFirst(candidates))` (rf:202, a macrotask). `focusFirst` (rf:238-245) focuses candidates in order until `document.activeElement` changes, stopping if it reaches the previously focused element. Item `mousedown`: if not focusable, `preventDefault()`; else the item becomes the tab stop (rf:179-182). Item `focus` (any cause) makes it the tab stop (rf:183).
+Mechanics: key handling only when `event.target === event.currentTarget` (rf:189), Shift+Tab checked before that. With a focus intent: `preventDefault()`, candidates = focusable items in DOM order (`querySelectorAll("[data-radix-collection-item]")` inside the group, col:59), reversed for prev/last, rotated after the current index for prev/next (`wrapArray`, rf:247-249), then `setTimeout(() => focusFirst(candidates))` (rf:202, a macrotask). `focusFirst` (rf:238-245) focuses candidates in order until `document.activeElement` changes, stopping if it reaches the previously focused element. Item `mousedown`: if not focusable, `preventDefault()`; else the item becomes the tab stop (rf:179-182). Item `focus` (any cause) makes it the tab stop (rf:183). Items of a nested group are part of the outer group's roving collection (see the nested-group note under Activation).
 
 With `roving_focus: false`: no key handling at all; items keep native tab order (each enabled item is a Tab stop), arrows do nothing.
 

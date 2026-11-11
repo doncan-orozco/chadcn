@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# shadcn Toggle over Radix Toggle. Spec: docs/shadcn-port/specs/toggle.md
+# shadcn Toggle over Radix Toggle. Spec: dev/port/specs/toggle.md
 using Chadcn::Values::Refinements
 
 # A two-state button (`aria-pressed`). Use `Toggle.variants` to get its classes for another element.

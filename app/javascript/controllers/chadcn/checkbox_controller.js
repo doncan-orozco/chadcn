@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 import { FormBubbleInput } from "chadcn/primitives/form_bubble_input"
 import { presence } from "chadcn/primitives/presence"
 
-// Radix Checkbox behavior (docs/shadcn-port/specs/checkbox.md). Host = the checkbox button.
+// Radix Checkbox behavior (dev/port/specs/checkbox.md). Host = the checkbox button.
 const ARIA = { checked: "true", unchecked: "false", indeterminate: "mixed" }
 
 export default class extends Controller {

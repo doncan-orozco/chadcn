@@ -174,3 +174,63 @@ primitiveTest("form_bubble_input: release() after the control left the form stil
     return resets;`);
   assert.equal(result, 0);
 }, { html });
+
+// type "value": Radix SliderBubbleInput (react-slider): `<input style="display: none">` with name, form and value only, a changed
+// value written through the native setter with a bubbling `input` event. The slider server-renders it for every thumb.
+primitiveTest("form_bubble_input: value renders a display:none input with name, form and value only, inside a form only", async (page) => {
+  const result = await run(page, `${make('{ type: "value", name: "volume", value: 50 }')}
+    const input = control.nextElementSibling;
+    const loose = new FormBubbleInput(document.getElementById("loose"), { type: "value", value: 1 });
+    return {
+      present: bubble.present, loosePresent: loose.present, looseNext: document.getElementById("loose").nextElementSibling?.tagName ?? null,
+      html: input.outerHTML, value: input.value, form: [...new FormData(document.getElementById("form"))]
+    };`);
+  assert.deepEqual(result, {
+    present: true, loosePresent: false, looseNext: null,
+    html: '<input style="display: none;" name="volume" value="50">', value: "50", form: [["volume", "50"]]
+  });
+}, { html });
+
+primitiveTest("form_bubble_input: value sync() writes the value and dispatches one bubbling input event per change", async (page) => {
+  const result = await run(page, `${make('{ type: "value", name: "v", value: 1 }')}
+    const events = [];
+    document.getElementById("form").addEventListener("input", (event) => events.push(event.target.value + ":" + event.bubbles));
+    document.getElementById("form").addEventListener("click", () => events.push("click"));
+    const input = control.nextElementSibling;
+    bubble.sync({ value: 2 });
+    bubble.sync({ value: 2 });
+    bubble.sync({ value: 3.5 });
+    return { events, value: input.value, attribute: input.getAttribute("value") };`);
+  assert.deepEqual(result, { events: ["2:true", "3.5:true"], value: "3.5", attribute: "3.5" });
+}, { html });
+
+primitiveTest("form_bubble_input: value without a value renders no value attribute and fires nothing", async (page) => {
+  const result = await run(page, `${make('{ type: "value", name: "v" }')}
+    let events = 0;
+    document.getElementById("form").addEventListener("input", () => events++);
+    bubble.sync({ value: undefined });
+    return { html: control.nextElementSibling.outerHTML, events };`);
+  assert.deepEqual(result, { html: '<input style="display: none;" name="v">', events: 0 });
+}, { html });
+
+primitiveTest("form_bubble_input: value carries the form attribute when given form", async (page) => {
+  const result = await run(page, `${make('{ type: "value", name: "v", value: 1, form: "form" }')}
+    return control.nextElementSibling.getAttribute("form");`);
+  assert.equal(result, "form");
+}, { html });
+
+primitiveTest("form_bubble_input: value adopts the server-rendered input in a form and removes it outside one", async (page) => {
+  const result = await run(page, `
+    document.getElementById("control").insertAdjacentHTML("afterend", '<input id="ssr" style="display: none;" name="v" value="4">');
+    document.getElementById("loose").insertAdjacentHTML("afterend", '<input id="loose-ssr" style="display: none;" name="w" value="4">');
+    ${make('{ type: "value", name: "v", value: 4 }')}
+    const loose = new FormBubbleInput(document.getElementById("loose"), { type: "value", name: "w", value: 4 });
+    bubble.release();
+    const kept = document.getElementById("ssr")?.isConnected;
+    const again = new FormBubbleInput(control, { type: "value", name: "v", value: 4 });
+    return {
+      adopted: again.input?.id, inputs: document.querySelectorAll("#form input").length, kept,
+      loosePresent: loose.present, looseRemoved: !document.getElementById("loose-ssr")
+    };`);
+  assert.deepEqual(result, { adopted: "ssr", inputs: 1, kept: true, loosePresent: false, looseRemoved: true });
+}, { html });

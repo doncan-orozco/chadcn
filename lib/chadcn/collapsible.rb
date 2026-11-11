@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# shadcn Collapsible over Radix Collapsible. Spec: docs/shadcn-port/specs/collapsible.md.
+# shadcn Collapsible over Radix Collapsible. Spec: dev/port/specs/collapsible.md.
 # Behavior: controllers/chadcn/collapsible_controller.js.
 #
 # Root of the collapsible. Yields itself, so `trigger` and `content` are yielded-root helpers equal to rendering

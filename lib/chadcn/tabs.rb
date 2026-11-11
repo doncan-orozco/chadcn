@@ -2,7 +2,7 @@
 
 using Chadcn::Values::Refinements
 
-# shadcn Tabs over Radix Tabs. Spec: docs/shadcn-port/specs/tabs.md.
+# shadcn Tabs over Radix Tabs. Spec: dev/port/specs/tabs.md.
 # Behavior: controllers/chadcn/tabs_controller.js.
 #
 # Root of the tabs. Yields itself, so `list`, `trigger` and `content` are yielded-root helpers equal to rendering

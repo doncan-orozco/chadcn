@@ -38,7 +38,7 @@ R12. **One controller per component, named `chadcn--<name>`,** with values for e
 |---|---|---|
 | Overlay (modal) | dialog, alert-dialog, sheet, drawer | `dismissable-layer`, `focus-scope`, `scroll-lock`, `hide-others`, `presence`, `portal` |
 | Overlay (floating) | popover, hover-card, tooltip, select, combobox | + `positioner`, `presence`; tooltip/hover-card add `hover-intent` |
-| Menu | dropdown-menu, context-menu, menubar, navigation-menu | + `roving-focus`, `typeahead`, `submenu-grace` |
+| Menu | dropdown-menu, context-menu, menubar, navigation-menu | + `roving-focus`, `typeahead`, `submenu-grace`; the three menus share `menu-level` |
 | Selection | select, radio-group, toggle-group, tabs, command, combobox | `roving-focus`, `typeahead`, `collection` |
 | Disclosure | accordion, collapsible | `presence` (+ height css vars) |
 | Boolean/value | checkbox, switch, toggle, slider, progress, input-otp | `form-bubble-input` (hidden native input), `pointer-capture` (slider) |

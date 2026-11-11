@@ -3,7 +3,7 @@ import { presence } from "chadcn/primitives/presence"
 import { direction } from "chadcn/primitives/direction"
 import { turboCacheRestore } from "chadcn/primitives/turbo_cache"
 
-// Radix ScrollArea behavior (docs/shadcn-port/specs/scroll-area.md, @radix-ui/react-scroll-area 1.3.0). Host = the Root div.
+// Radix ScrollArea behavior (dev/port/specs/scroll-area.md, @radix-ui/react-scroll-area 1.3.0). Host = the Root div.
 // Each ScrollBar waits in an inert <template> (its thumb in a nested one); mounting inserts a clone right after it.
 const MIN_THUMB = 18
 const ZERO_SIZES = { content: 0, viewport: 0, scrollbar: { size: 0, paddingStart: 0, paddingEnd: 0 } }

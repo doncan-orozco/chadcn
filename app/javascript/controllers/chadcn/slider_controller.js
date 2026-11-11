@@ -1,9 +1,11 @@
 import { Controller } from "@hotwired/stimulus"
 import { pointerCapture } from "chadcn/primitives/pointer_capture"
 import { direction } from "chadcn/primitives/direction"
+import { FormBubbleInput } from "chadcn/primitives/form_bubble_input"
 
-// Radix Slider behavior (docs/shadcn-port/specs/slider.md). Host = the root span; thumbs, range and bubble inputs are
-// children rendered by the server. Thumb elements never move: values are re-sorted across them.
+// Radix Slider behavior (dev/port/specs/slider.md). Host = the root span; thumbs, range and bubble inputs are
+// children rendered by the server; the bubble inputs go through the form_bubble_input primitive. Thumb elements never
+// move: values are re-sorted across them.
 const PAGE_KEYS = ["PageUp", "PageDown"]
 const ARROW_KEYS = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"]
 const BACK_KEYS = {
@@ -28,7 +30,7 @@ export default class extends Controller {
     this.keyboard = false
     this.sizes = this.thumbs.map(() => ({ width: 0, height: 0 }))
     this.horizontal = this.orientationValue !== "vertical"
-    this.#removeNonFormInputs()
+    this.bubbles = this.thumbs.map((thumb, index) => this.#bubbleFor(thumb, index))
     this.#observeSizes()
     this.#applyOffsets()
     this.drag = pointerCapture(this.element, {
@@ -48,6 +50,7 @@ export default class extends Controller {
     this.element.removeEventListener("keydown", this.onKeydown)
     this.element.removeEventListener("focusin", this.onFocusin)
     this.form?.removeEventListener("reset", this.onReset)
+    this.bubbles?.forEach((bubble) => bubble.release())
     this.observers?.forEach((observer) => observer.disconnect())
     this.frames?.forEach((frame) => cancelAnimationFrame(frame))
     this.rect = undefined
@@ -167,20 +170,20 @@ export default class extends Controller {
   // Radix onChange: focus the affected thumb, then notify. Controlled sliders keep their DOM until the caller re-renders.
   #change(next) {
     if (!this.controlledValue) {
-      const previous = this.values
       this.values = next
-      this.#render(previous)
+      this.#render()
     }
     this.thumbs[this.activeIndex]?.focus({ preventScroll: true, focusVisible: this.keyboard })
     this.keyboard = false
     this.#dispatch("value-change", next)
   }
 
-  #render(previous) {
+  #render() {
     this.thumbs.forEach((thumb, index) => {
       const value = this.values[index]
-      if (value !== undefined) thumb.setAttribute("aria-valuenow", value)
-      this.#syncInput(thumb, value, previous[index])
+      if (value === undefined) return
+      thumb.setAttribute("aria-valuenow", value)
+      this.bubbles[index].sync({ value })
     })
     this.#applyOffsets()
     this.#applyRange()
@@ -211,21 +214,12 @@ export default class extends Controller {
     return clamp((100 / (this.maxValue - this.minValue)) * (value - this.minValue), 0, 100)
   }
 
-  #syncInput(thumb, value, previous) {
-    const input = thumb.parentElement.nextElementSibling
-    if (input?.tagName !== "INPUT" || value === undefined) return
-    input.setAttribute("value", value)
-    if (value === previous) return
-    Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value").set.call(input, value)
-    input.dispatchEvent(new Event("input", { bubbles: true }))
-  }
-
-  // The server always renders the inputs (like Radix before mount); outside a form they do not exist in Radix.
-  #removeNonFormInputs() {
-    this.thumbs.forEach((thumb) => {
-      const input = thumb.parentElement.nextElementSibling
-      if (input?.tagName === "INPUT" && !this.formValue && !thumb.closest("form")) input.remove()
-    })
+  // SliderBubbleInput, one per thumb wrapper: the server renders it with the field name (`name[]` for several values), the
+  // primitive adopts it inside a form (or with `form:`) and removes it outside one, and fires `input` when the value changes.
+  #bubbleFor(thumb, index) {
+    const rendered = thumb.parentElement.nextElementSibling
+    const name = rendered?.tagName === "INPUT" ? rendered.getAttribute("name") : null
+    return new FormBubbleInput(thumb.parentElement, { type: "value", name, form: this.formValue || null, value: this.values[index] })
   }
 
   // Radix useSize: initial offset size, then border-box size on the next frame after a resize.

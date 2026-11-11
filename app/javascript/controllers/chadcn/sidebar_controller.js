@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 
-// shadcn SidebarProvider + useSidebar + useIsMobile. Spec: docs/shadcn-port/specs/sidebar.md (Behavior).
+// shadcn SidebarProvider + useSidebar + useIsMobile. Spec: dev/port/specs/sidebar.md (Behavior).
 //
 // The controller element is the Provider wrapper. Desktop is CSS only: data-state / data-collapsible change on the
 // outer [data-slot=sidebar] node. On a mobile viewport React renders a Sheet INSTEAD of that node, so the controller
@@ -138,6 +138,7 @@ export default class extends Controller {
     this.isMobile = false
     this.records?.forEach((record) => {
       if (!record.host) return
+      this.#dropBodyClick(record)
       record.desktop.querySelector("[data-slot=sidebar-inner]").append(...record.nodes)
       record.host.replaceWith(record.desktop)
       record.host = null
@@ -160,16 +161,24 @@ export default class extends Controller {
   }
 
   // The Sheet content is mounted in the body: runs before FocusScope looks for the first tabbable (open-auto-focus).
-  // Stimulus actions do not reach there, so the toggle buttons are handled by delegation on the body.
+  // Stimulus actions do not reach there, so the toggle buttons are handled by delegation on the body. Like SidebarTrigger and
+  // SidebarRail (onClick, then toggleSidebar()) and the desktop Stimulus action, a click a caller prevented still toggles.
   #fillBody(record) {
     const content = document.getElementById(record.host.getAttribute("data-chadcn--sheet-id-value"))
     const body = content?.querySelector("[data-chadcn--sidebar-target=mobileBody]")
     if (!body) return
     body.append(...record.nodes)
     this.#replayFocus(body)
-    body.addEventListener("click", (event) => {
-      if (event.defaultPrevented) return
+    this.#dropBodyClick(record)
+    const handler = (event) => {
       if (event.target.closest?.(`[data-action~='click->${TOGGLE_ACTION}']`)) this.toggle()
-    })
+    }
+    body.addEventListener("click", handler)
+    record.bodyClick = { body, handler }
+  }
+
+  #dropBodyClick(record) {
+    record.bodyClick?.body.removeEventListener("click", record.bodyClick.handler)
+    record.bodyClick = null
   }
 }

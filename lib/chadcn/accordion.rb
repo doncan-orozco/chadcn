@@ -2,7 +2,7 @@
 
 using Chadcn::Values::Refinements
 
-# shadcn Accordion over Radix Accordion. Spec: docs/shadcn-port/specs/accordion.md.
+# shadcn Accordion over Radix Accordion. Spec: dev/port/specs/accordion.md.
 # Behavior: controllers/chadcn/accordion_controller.js.
 #
 # Root of the accordion. Yields itself, so the parts are available as yielded-root helpers

@@ -1,8 +1,10 @@
 import { Controller } from "@hotwired/stimulus"
+import { mountTemplate, mountedTemplate } from "chadcn/primitives/template_mount"
 import { turboCacheRestore } from "chadcn/primitives/turbo_cache"
 
-// Radix Avatar loading status (docs/shadcn-port/specs/avatar.md). Host = the Avatar root.
-// Image and delayed Fallback parts wait in inert <template>s; mounting swaps the template for a fresh clone in place.
+// Radix Avatar loading status (dev/port/specs/avatar.md). Host = the Avatar root.
+// Image and delayed Fallback parts wait in inert <template>s and mount through the template_mount primitive: the image right
+// after its template (which stays), a fallback in its template's place (unmounting puts the template back, holding it).
 export default class extends Controller {
   static targets = ["image", "fallback"]
 
@@ -21,7 +23,7 @@ export default class extends Controller {
   #setup() {
     this.status = "idle"
     this.fallbacks = this.fallbackTargets.map((el) => this.#fallbackRecord(el))
-    this.imageRecord = this.hasImageTarget ? { template: this.imageTarget, node: null } : null
+    this.imageRecord = this.hasImageTarget ? { template: this.imageTarget, mount: null } : null
     this.fallbacks.forEach((record) => this.#startDelay(record))
     this.#render()
     if (this.imageRecord) this.#loadImage()
@@ -37,21 +39,17 @@ export default class extends Controller {
     this.#render()
   }
 
+  // A delayed fallback arrives as its template; one rendered in place is adopted as the mount of a template built to hold it.
   #fallbackRecord(el) {
     const isTemplate = el.tagName === "TEMPLATE"
     const delayAttr = isTemplate ? el.getAttribute("data-chadcn--avatar-delay-ms") : null
     const delay = delayAttr === null ? null : Number(delayAttr)
-    const record = { delay, canRender: delay === null, node: null, prototype: null, placeholder: null }
-    if (isTemplate) {
-      record.placeholder = el
-      record.prototype = el.content.firstElementChild
-    } else {
-      record.node = el
-      record.prototype = el.cloneNode(true)
-      record.placeholder = document.createElement("template")
-      record.placeholder.setAttribute("data-chadcn--avatar-target", "fallback")
-    }
-    return record
+    if (isTemplate) return { delay, canRender: delay === null, template: el, mount: null }
+
+    const template = document.createElement("template")
+    template.setAttribute("data-chadcn--avatar-target", "fallback")
+    template.content.append(el.cloneNode(true))
+    return { delay, canRender: delay === null, template, mount: mountedTemplate(template, [el], { into: "replace" }) }
   }
 
   #startDelay(record) {
@@ -109,24 +107,21 @@ export default class extends Controller {
 
   #toggleImage(mounted) {
     const record = this.imageRecord
-    if (!record || mounted === Boolean(record.node)) return
-    if (mounted) {
-      record.node = record.template.content.firstElementChild.cloneNode(true)
-      record.template.after(record.node)
-    } else {
-      record.node.remove()
-      record.node = null
-    }
+    if (!record || mounted === Boolean(record.mount)) return
+    this.#toggle(record, mounted, "after")
   }
 
   #toggleFallback(record, mounted) {
-    if (mounted === Boolean(record.node) || (mounted && !record.prototype)) return
+    if (mounted === Boolean(record.mount) || (mounted && !record.template.content.firstElementChild)) return
+    this.#toggle(record, mounted, "replace")
+  }
+
+  #toggle(record, mounted, into) {
     if (mounted) {
-      record.node = record.prototype.cloneNode(true)
-      record.placeholder.replaceWith(record.node)
+      record.mount = mountTemplate(record.template, { into })
     } else {
-      record.node.replaceWith(record.placeholder)
-      record.node = null
+      record.mount.unmount()
+      record.mount = null
     }
   }
 }

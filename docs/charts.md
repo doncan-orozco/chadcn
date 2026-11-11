@@ -73,7 +73,7 @@ gated scenarios nearest to them are `tooltip__indicator-dashed`, `cartesian__lin
 are the ones of the shadcn examples (the months with `desktop` and `mobile`, the five browsers). The site's examples add classes to the container
 that only size the box, and a title, a footer and an interactive variant, which are left out. `className` becomes `class:`, an inline function
 (`tickFormatter`) becomes a named formatter (see [Formatters](#formatters)), and the chart is drawn at the container's `initial_dimension:`
-(320 x 200 by default), not at the size of its box (see [Sizing](#sizing)).
+(320 x 200 by default), not at the size of its box, unless the container has a `relayout_url:` (see [Sizing](#sizing)).
 
 ### Bar
 
@@ -320,13 +320,17 @@ addition). `Tooltip::Content` and `Legend::Content` can also be rendered on thei
 **`Chart::Legend`** (`ChartLegend`): `content:`, `vertical_align:` (`:top`, `:middle`, `:bottom`), `align:`, `layout:`, `width:`, `height:`,
 `wrapper_style:`, `item_sorter:` (`:value` sorts the entries by name, `nil` keeps the series order). **`Legend::Content`**: `hide_icon:`,
 `name_key:`. A series with `legend_type: :none` is left out. The legend takes room from the plot, and the server cannot measure it: `legend_height:`
-(28 px, a `pt-3` plus a 16 px line) is the assumption, so change it if your legend wraps or your font is taller.
+(28 px, a `pt-3` plus a 16 px line) is the assumption, so change it if your legend wraps or your font is taller, or give the container a
+`relayout_url:` and the browser measures it (`Container legend_height:`, see "Following the container").
 
 Where the tooltip *shows* depends on the chart: a bar, line, area, radar and radial chart have an axis tooltip (all series of the hovered
 category), a pie has an item tooltip (the hovered sector). `shared: false` asks recharts for item tooltips: on a `BarChart` or a
-`RadialBarChart` that is not drawn (the wrapper stays empty and the controller stays inert); on a `LineChart`, `AreaChart` or `RadarChart` the
-tooltip stays an axis tooltip. The server writes one inert `<template>` per category (per sector for a pie) holding the content, so the page
-weight is linear in categories and series; a chart with a hundred categories and five series ships a hundred templates.
+`RadialBarChart` the tooltip shows the hovered bar's (or arc's) series alone, placed at the bar's center (an arc's tooltip at the
+`default_index:` anchor, or unplaced, as recharts does), and the keyboard shows the series the pointer last touched, or the first with
+`default_index:`. On a `LineChart`, `AreaChart` or `RadarChart` `shared: false` keeps the axis
+tooltip. The server writes one inert `<template>` per category (per sector for a pie, per category and series for an item tooltip) holding the
+content, so the page weight is linear in categories and series; a chart with a hundred categories and five series ships a hundred templates (five
+hundred with `shared: false` on a `BarChart`).
 
 ## Formatters
 
@@ -359,6 +363,9 @@ the active dots from the template's data, and places the wrapper with recharts' 
 `allow_escape_view_box`, `reverse_direction`, `wrapper_style`).
 
 - **Pointer.** `pointermove` (and touch) activates the nearest category; leaving the plot clears it. `trigger: :click` follows clicks instead.
+  On a radar the pointer's angle picks the category and on a radial bar chart its distance from the center picks the ring, as recharts does;
+  leaving the circle clears it, and the cursor (a line through the category, a ring around it) is drawn for the pointer only. On a pie the
+  sector under the pointer (or a finger) is the one shown, at the sector's own tooltip position.
 - **Keyboard** (`accessibility_layer: true`, the default; it puts `role="application"` and `tabindex="0"` on the `svg`). Focusing the chart
   activates the first category; ArrowLeft and ArrowRight move the tooltip, Enter toggles it, Escape hides it until the active position changes. A vertical layout or
   a reversed `x_axis` makes ArrowRight go backward, as in recharts (the controller's `keyboardStep`).
@@ -368,21 +375,73 @@ the active dots from the template's data, and places the wrapper with recharts' 
 - **Turbo.** The snapshot taken for the page cache holds the server state (the `default_index` tooltip or none), and the live interaction is
   restored when the cached page is shown again.
 
-`accessibility_layer: false` removes the focus and the keys and leaves the pointer. A polar chart publishes its tooltip values but the
-controller maps the pointer and the keys for the cartesian charts only: a pie, radar or radial chart shows the `default_index` tooltip and
-nothing moves it. The controller is `app/javascript/controllers/chadcn/chart_controller.js`, registered like every other `chadcn--*` controller.
+`accessibility_layer: false` removes the focus and the keys and leaves the pointer. The keys work on the polar charts too (ArrowRight always
+steps forward there); on a pie they show nothing until the pointer has shown a sector or a `default_index:` is set, as in recharts. The controller is `app/javascript/controllers/chadcn/chart_controller.js`, registered like every other `chadcn--*` controller.
 
 ## Sizing
 
-A chart is laid out **once**, at `Chart::Container initial_dimension:` (320 x 200 px by default), and drawn at that pixel size: the `svg` carries that
-`width`, `height` and `viewBox`, and `.recharts-wrapper` that size in px. The `class:` of the container only sizes the box around it
-(`flex aspect-video justify-center` by default), so choose the size with `initial_dimension: { width: 480, height: 280 }`, not with
-Tailwind width classes. There is no `ResponsiveContainer` re-layout on window resize.
+A chart is laid out on the server at `Chart::Container initial_dimension:` (320 x 200 px by default) and drawn at that pixel size: the
+`svg` carries that `width`, `height` and `viewBox`, and `.recharts-wrapper` that size in px. The `class:` of the container only sizes the box
+around it (`flex aspect-video justify-center` by default), so without a `relayout_url:` choose the size with
+`initial_dimension: { width: 480, height: 280 }`, not with Tailwind width classes: the chart keeps that size whatever its box does.
+
+### Following the container
+
+recharts' `ResponsiveContainer` lays the chart out again whenever its box changes size. The server cannot see the box, so the browser asks
+it: give the container a `relayout_url:` that answers with the same chart, and read the request with
+`Chart::Container.relayout_options(params, id:)`.
+
+```ruby
+# What the request of chadcn--chart carries, here for a box of 640 x 400 px and the text it measured (in a Rails view it is the `params`
+# of the request).
+params = { "chart" => { "id" => "sales", "width" => "640", "height" => "400", "text_height" => "14", "text_char_width" => "0.5622" } }
+
+render Chadcn::Chart::Container.new(config: { desktop: { label: "Desktop", color: "var(--chart-1)" } }, id: "sales", class: "aspect-auto h-64 w-full",
+                                    relayout_url: "/reports/sales/chart", **Chadcn::Chart::Container.relayout_options(params, id: "sales")) do
+  render Chadcn::Chart::BarChart.new(data: [ { month: "January", desktop: 186 }, { month: "February", desktop: 305 } ]) do |chart|
+    chart.x_axis(data_key: :month)
+    chart.bar(data_key: :desktop, fill: "var(--color-desktop)", radius: 4)
+  end
+end
+```
+
+`relayout_url:` is any same-origin GET that returns the chart: a small action that renders only it, or the page itself (the controller
+takes the `div[data-slot="chart"]` with the same `id:` out of the answer). Render the same chart there, with the same `id:` and the
+options splatted in:
+
+```ruby
+class ReportsController < ApplicationController
+  def sales_chart
+    render Views::Reports::SalesChart.new(relayout_options: Chadcn::Chart::Container.relayout_options(params, id: "sales")), layout: false
+  end
+end
+```
+
+How it behaves (`app/javascript/controllers/chadcn/chart_controller.js`, spec: `dev/port/specs/chart.md`, "Resize and re-measure"):
+
+- The controller waits until the box has kept one size for 150 ms, rounds it to whole pixels, waits for the page's fonts
+  (`document.fonts.ready`) and measures the text the way recharts does (below). It requests the chart only when that size is not the one
+  the server drew, or the measured text is not what the server assumed (`chart[id]`, `chart[width]`, `chart[height]` and the measured
+  `chart[text_height]`, `chart[text_char_width]` and, with a legend, `chart[legend_height]` are added to the URL's own query).
+- Until the answer arrives the drawn chart is scaled into its box, so it never overflows or goes blank; then the answer replaces it, with
+  the tooltip, the keyboard index and the focus carried over, and `chadcn--chart:relayout` (`detail: { width, height }`) bubbles from the
+  new chart.
+- A new size aborts the request in flight, and so do a Turbo cache snapshot and the element leaving the page.
+- An error answer, an answer without the chart, or a chart drawn at another size (the host ignored the parameters) keeps the current chart,
+  dispatches `chadcn--chart:relayout-error` (`detail: { status }`) and stops re-laying out that element until it is connected again. A URL of
+  another origin is never requested (status 0). A box over 4096 px either way stays scaled.
+- Without JavaScript, in a Turbo preview, an email or a PDF, the chart is the one drawn at `initial_dimension:`.
 
 The server also has to *assume* what only a browser can measure: `Container text_height:` (16) and `text_char_width:` (0.6 em), which decide
-how far the last tick of a vertical axis moves inside the plot and which tick labels collide, and `Legend legend_height:` (28). With a font
-other than the page's 12 px text, a label can shift by up to half a line. The post-font-load re-measure pass of the original plan was not
-built, so these stay assumptions.
+how far the last tick of a vertical axis moves inside the plot and which tick labels collide, and `Legend legend_height:` (28). With
+`relayout_url:` the controller measures them once the fonts are ready, like recharts: each tick label in a hidden `white-space: pre` span
+at the tick's font size (the height of a line, and the average width of a character), and the box of the legend. When they differ from what
+the server laid out with, it requests the chart with the measured values, and `relayout_options` hands them to the container
+(`text_height:`, `text_char_width:`, `legend_height:`), so the labels that exist, where they sit and the plot area match recharts in your font.
+Every answer is marked with the size its text was measured at, and a chart so marked does not ask again at that size, even if the host ignored the values; one change (a resize or a font) costs one request. A legend that wraps differently, or a different tick subset, at the new size is not corrected until the next change, because the metrics sent with a resize were measured on the previous layout. Without
+`relayout_url:` (and before the answer, and without JavaScript) the assumptions stay: set the keywords to match your font. One difference
+remains: the server estimates a label's width as its length times the measured average, where recharts measures each label, so in a
+proportional font a label right at the collision threshold can be kept or dropped differently.
 
 ## What is different from recharts
 
@@ -391,7 +450,8 @@ The full list is `dev/port/deviations/chart.json`; in prose:
 - **No third-party JavaScript.** recharts is not shipped (the maintainer constraint of the sonner port too), so shadcn-port R14 (a pinned JS equivalent behind a
   controller) is not followed; the deviation is recorded in `dev/port/deviations/chart.json`. recharts also renders an empty wrapper on the server, so the SVG is written by Ruby and the
   numbers (scales, nice ticks, curves, sector paths, bar sizes) are ported to Ruby and checked against the recharts DOM within a thousandth of a pixel.
-- **Layout once, no animation.** No responsive re-layout; `is_animation_active:` and the `animation_*` keywords are accepted and ignored, the
+- **Layout on the server, no animation.** A chart follows its box only with `relayout_url:` (a request per settled resize, the previous
+  layout scaled in between); without it, it is laid out once. `is_animation_active:` and the `animation_*` keywords are accepted and ignored, the
   settled state is rendered (the tooltip wrapper keeps its 400 ms transition, switched off under `prefers-reduced-motion`).
 - **Callables and named formatters** instead of inline JavaScript functions; React elements as `content:`, `label:` or `tick:` are not supported
   (use the content classes).
@@ -402,11 +462,11 @@ The full list is `dev/port/deviations/chart.json`; in prose:
 
 Not ported: `Brush`, `ReferenceArea`, `ErrorBar`, `Customized`, `syncId`, `ref` and the mouse and touch callback props; `portal:`, `use_translate3d:`,
 `item_style:` and `label_style:` of the tooltip; a radar range (`[low, high]` values), `active_shape:` / `active_bar:` other than `false`, `stack_offset:` of the polar charts (the cartesian ones take `:none` and `:expand`)
-and `hide:` on the polar axes, `tick_count:` of the angle axis; the hover and key mapping for polar charts. `ReferenceLine` *is* ported
+and `hide:` on the polar axes, `tick_count:` of the angle axis. `ReferenceLine` *is* ported
 (`chart.reference_line(y: 200)`).
 
 ## Trying it
 
 `Chadcn::Catalog.find("chart")` is a ready-made bar chart for a gallery page (see [catalog](catalog.md)). `bin/demo` in the repository serves the component catalog of the dummy app, and the pages `/design-system/chart-demo/{bar,line,area,pie,radar,radial}`
-render one chart of each family (bar on hover, line with a `default_index`, area on click; the polar pages show a fixed `default_index` tooltip; the pages `test/javascript/chart.test.mjs` drives). The dev kit compares the cartesian and
+render one chart of each family (bar on hover, line with a `default_index`, area on click; the polar pages start at a `default_index` tooltip that the pointer and the keys move; the pages `test/javascript/chart.test.mjs` drives). The dev kit compares the cartesian and
 polar charts, the tooltips and the legends with the React original in a browser, scenario by scenario (`ruby .claude/scripts/shadcn/parity_batch.rb --components chart`).

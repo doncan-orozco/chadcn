@@ -124,7 +124,8 @@ updates instead of stacking.
 
 `Chadcn::Chart::BarChart`, `LineChart` and `AreaChart` draw the SVG of [recharts](https://recharts.org) 3.8 (its class names, layers and
 numbers) from Ruby, with no JavaScript library. Put one inside a `Chart::Container` (the shadcn `ChartContainer`: the config colors as
-`--color-<key>` variables and the size, `initial_dimension:`, 320x200 by default). The chart is laid out once at that size.
+`--color-<key>` variables and the size, `initial_dimension:`, 320x200 by default). The chart is laid out at that size; with
+`relayout_url:` it follows the size of its box ([docs/charts.md](charts.md#following-the-container)).
 
 The block of a chart declares what is in it; it runs first, then everything is laid out in one pass. Each part renders nothing where it
 is written and registers with its chart; the generated helper of a part (`chart.bar`) is `render Chadcn::Chart::Bar.new(...)`.
@@ -167,18 +168,19 @@ path, where recharts renders its non-chart children.
 - `chart.legend(content: Chart::Legend::Content.new, vertical_align: :top)` writes `.recharts-legend-wrapper` with the series as the payload (declaration
   order, sorted by name unless `item_sorter: nil`, `legend_type: :none` dropped by the content) and reserves its room in the plot. Where it sits and how
   big it is follow `Legend.js` (`width:`, `height:`, `align:`, `layout:`, `wrapper_style:`); the height it takes is `legend_height:` (28, a `pt-3`
-  plus a 16px line), because the server cannot measure it.
+  plus a 16px line), because the server cannot measure it; with a `relayout_url:` on the container the browser measures it and the
+  container's `legend_height:` takes over (docs/charts.md, "Following the container").
 - `chart.tooltip(content: Chart::Tooltip::Content.new, default_index: 1)` writes the empty `.recharts-tooltip-wrapper`, one inert
   `<template data-chadcn--chart-target="tooltipTemplate" data-index data-label data-coordinate data-cursor data-active-dots>` per category (children of
   the chart's `div[data-slot="chart"]`, after its shell) holding the content for that category's payload, and, with `default_index:`, the wrapper
   visible with that category's content and the cursor (a rectangle behind the bars of a bar chart, a line on a line or area chart) and the active dots
   in the svg. A series is left out of the payload with `tooltip_type: :none` (the content drops it), a nil value or a hidden series by `filter_null`.
-  Where the wrapper sits and the hover itself belong to the `chadcn--chart` controller; `shared: false` is an item tooltip on a `BarChart` or a `RadialBarChart`, which is not drawn; on a `LineChart`, an `AreaChart` or a `RadarChart` it stays an axis tooltip.
+  Where the wrapper sits and the hover itself belong to the `chadcn--chart` controller; `shared: false` is an item tooltip on a `BarChart` or a `RadialBarChart`: one template per category and series (`data-series`, `data-item-coordinate`, no label, no cursor), every bar or arc tagged as a `tooltipItem`, and the controller shows the series under the pointer alone; on a `LineChart`, an `AreaChart` or a `RadarChart` it stays an axis tooltip.
 
 ## Charts (polar)
 
 `Chadcn::Chart::PieChart`, `RadarChart` and `RadialBarChart` draw recharts' polar DOM the same way: from Ruby, inside a `Chart::Container`,
-laid out once at its size, with the parts of the block registering with the chart. Angles are degrees, counterclockwise from 3 o'clock
+laid out at its size (following its box with `relayout_url:`), with the parts of the block registering with the chart. Angles are degrees, counterclockwise from 3 o'clock
 (`start_angle: 90, end_angle: -270` runs a radar clockwise from the top); a radius or a center is a number of pixels or a percent string.
 
 | Part | Keywords (besides `**attrs`) |
@@ -231,8 +233,9 @@ end
 
 What `chart.tooltip` and `chart.legend` do is as for the cartesian charts, with these differences: a pie has item tooltips (one inert template per sector,
 the sector alone, `data-label` empty) and lists its sectors in the legend (name from `name_key:`, color from the cell, the row or the pie); a radar and a
-radial bar have one template per category of their tooltip axis. The server draws no tooltip cursor (recharts draws it from the polar coordinate of the pointer),
-a radar's active dot is drawn for `default_index:`, and `shared: false` on a radial bar chart (an item tooltip, as on a `BarChart`) draws nothing. `chadcn--chart` maps the pointer and the keys for the cartesian charts only: a polar chart publishes its tooltip values and no action, a pie as an item tooltip (the controller leaves the drawn tooltip alone), a radar and a radial bar as axis tooltips (a radial bar with `shared: false` as an item one; the controller keeps and places the `default_index:` tooltip); nothing moves it.
+radial bar have one template per category of their tooltip axis. `chadcn--chart` maps the pointer like recharts: the angle on a radar, the ring on a radial bar
+chart, the sector under it on a pie; the keys and Escape work on all three. The polar cursor (a radar's line, a radial bar's ring) is drawn for the pointer only, never for
+`default_index:` or the keys, a radar's active dot is drawn for `default_index:`, and `shared: false` on a radial bar chart is an item tooltip, as on a `BarChart`: the pointer over an arc shows that series.
 Not ported: a radar range (`[low, high]` values raises), `active_shape:` (raises), `stack_offset:`, `hide:` and children of the polar axes, `tick_count:` of the angle axis;
 only `fill`, `stroke`, `name` and `opacity` of a data row reach its sector.
 

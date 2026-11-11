@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# shadcn `ButtonGroup` (new-york-v4). Spec: docs/shadcn-port/specs/button-group.md. Static: no controller.
+# shadcn `ButtonGroup` (new-york-v4). Spec: dev/port/specs/button-group.md. Static: no controller.
 using Chadcn::Values::Refinements
 
 # Groups related buttons into one joined control (shadcn `ButtonGroup`).

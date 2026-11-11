@@ -5,8 +5,8 @@
 # ({Chadcn::Chart::Cartesian::Layout}), and the SVG is drawn from the result ({Chadcn::Chart::Cartesian::Surface}) in recharts'
 # own markup: `div.recharts-wrapper > svg.recharts-surface` with one `g` per z-index layer.
 #
-# The chart is laid out once, at the size of the enclosing {Chadcn::Chart::Container} (`initial_dimension`, 320x200 without one); it does
-# not follow the size of its box.
+# The chart is laid out at the size of the enclosing {Chadcn::Chart::Container} (`initial_dimension`, 320x200 without one). With the
+# container's `relayout_url:` the browser requests it again at the size of its box; without one it keeps that size.
 #
 # @api private
 class Chadcn::Chart::Cartesian::Root < Chadcn::Base
@@ -78,6 +78,7 @@ class Chadcn::Chart::Cartesian::Root < Chadcn::Base
     append_tooltip_templates(container, plan) if plan
     wiring = Chadcn::Chart::Cartesian::Wiring.new(layout: layout, declared: @declared, accessibility_layer: @options[:accessibility_layer], plan: plan)
     container&.publish_chart_values(wiring.values)
+    container&.publish_legend_height(layout.legend_box_height)
     within_responsive_shell(container) do
       div(**wrapper_attributes(layout)) do
         render Chadcn::Chart::Cartesian::Overlays.new(layout: layout, declared: @declared, plan: plan)
@@ -123,7 +124,7 @@ class Chadcn::Chart::Cartesian::Root < Chadcn::Base
       type: self.class::CHART_TYPE, direction: @options[:layout], width: dimension[:width], height: dimension[:height], margin: @options[:margin],
       rows: @options[:data], text: text, bar_category_gap: @options[:bar_category_gap], bar_gap: @options[:bar_gap], bar_size: @options[:bar_size],
       max_bar_size: @options[:max_bar_size], stack_offset: @options[:stack_offset], reverse_stack_order: @options[:reverse_stack_order],
-      base_value: @options[:base_value]
+      base_value: @options[:base_value], legend_height: container&.legend_height
     )
   end
 
@@ -149,9 +150,9 @@ class Chadcn::Chart::Cartesian::Root < Chadcn::Base
   def surface(layout, container, markup, plan)
     attrs = @options[:attrs].except(:class, :style)
     Chadcn::Chart::Cartesian::Surface.new(
-      layout: layout, declared: @declared, markup: markup, tooltip_entry: plan&.default_entry, uid: container&.chart_id || "chart-#{next_sequence(:chart)}",
-      title: @options[:title], desc: @options[:desc], accessibility_layer: @options[:accessibility_layer],
-      role: @options[:role], tab_index: @options[:tab_index], attrs: merge_attrs({}, attrs)
+      layout: layout, declared: @declared, markup: markup, tooltip_entry: plan&.default_entry, tooltip_items: plan&.item_series || {},
+      uid: container&.chart_id || "chart-#{next_sequence(:chart)}", title: @options[:title], desc: @options[:desc],
+      accessibility_layer: @options[:accessibility_layer], role: @options[:role], tab_index: @options[:tab_index], attrs: merge_attrs({}, attrs)
     )
   end
 

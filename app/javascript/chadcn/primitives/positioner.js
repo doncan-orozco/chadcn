@@ -1,5 +1,5 @@
 // positioner: floating-ui placement with Radix's REAL middleware stack (@radix-ui/react-popper 1.3.x, PopperContent).
-// Spec: .ai/skills/radix-stimulus/references/primitives.md. Parity: docs/shadcn-port/scenarios/_primitives-positioner.json.
+// Spec: .ai/skills/radix-stimulus/references/primitives.md. Parity: dev/port/scenarios/_primitives-positioner.json.
 //
 // Known divergences: none.
 //

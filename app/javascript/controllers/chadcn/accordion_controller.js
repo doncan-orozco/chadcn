@@ -2,13 +2,15 @@ import { Controller } from "@hotwired/stimulus"
 import { collapsibleContent } from "chadcn/primitives/collapsible_content"
 import { direction } from "chadcn/primitives/direction"
 import { items as collectionItems } from "chadcn/primitives/collection"
+import { mountTemplate, mountedTemplate } from "chadcn/primitives/template_mount"
 import { turboCacheRestore } from "chadcn/primitives/turbo_cache"
 
-// Radix Accordion. Spec: docs/shadcn-port/specs/accordion.md (Behavior).
+// Radix Accordion. Spec: dev/port/specs/accordion.md (Behavior).
 //
 // One controller per root. Each item's content ships its closed body in an inert <template>; connect() takes it over
-// (removing the template) so the DOM equals Radix: a closed content is empty. Open/closed mechanics (data-state, hidden,
-// measured size variables, exit animation wait) live in the shared collapsible_content primitive.
+// (removing the template) so the DOM equals Radix: a closed content is empty. Opening mounts the body into the content
+// through the template_mount primitive (a body the server rendered open is adopted as that mount). Open/closed mechanics
+// (data-state, hidden, measured size variables, exit animation wait) live in the shared collapsible_content primitive.
 //
 // Known divergence: a force_mount content only toggles data-state (no re-measure).
 const KEYS = ["ArrowDown", "ArrowUp", "ArrowLeft", "ArrowRight", "Home", "End"]
@@ -61,7 +63,7 @@ export default class extends Controller {
     content.style.removeProperty("--radix-collapsible-content-width")
     record.body.setAttribute("data-chadcn--accordion-target", "body")
     content.replaceChildren(record.body)
-    record.mounted = false
+    record.mount = null
   }
 
   toggle(event) {
@@ -100,7 +102,8 @@ export default class extends Controller {
     const open = el.dataset.state === "open"
     const forceMount = contentEl.getAttribute("data-chadcn--accordion-force-mount") === "true"
     const body = this.#takeBody(contentEl)
-    const record = { el, value: el.getAttribute("data-chadcn--accordion-item-value"), trigger, header: trigger.parentElement, contentEl, body, forceMount, mounted: open || forceMount }
+    const mount = open || forceMount ? mountedTemplate(body, [...contentEl.childNodes]) : null
+    const record = { el, value: el.getAttribute("data-chadcn--accordion-item-value"), trigger, header: trigger.parentElement, contentEl, body, forceMount, mount }
     record.collapsible = forceMount ? null : collapsibleContent(contentEl, { open, onExited: () => this.#unmount(record) })
     if (forceMount) collapsibleContent(contentEl, { open: true }).release()
     return record
@@ -168,14 +171,12 @@ export default class extends Controller {
   }
 
   #mount(record) {
-    if (record.mounted) return
-    record.contentEl.append(record.body.content.cloneNode(true))
-    record.mounted = true
+    record.mount ??= mountTemplate(record.body, { into: record.contentEl })
   }
 
   #unmount(record) {
-    if (!record.mounted || record.el.dataset.state === "open") return
-    record.contentEl.replaceChildren()
-    record.mounted = false
+    if (!record.mount || record.el.dataset.state === "open") return
+    record.mount.unmount()
+    record.mount = null
   }
 }

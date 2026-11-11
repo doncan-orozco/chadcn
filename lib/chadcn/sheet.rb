@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# shadcn Sheet (Radix Dialog with side-aware styling). Spec: docs/shadcn-port/specs/sheet.md. Behavior:
+# shadcn Sheet (Radix Dialog with side-aware styling). Spec: dev/port/specs/sheet.md. Behavior:
 # controllers/chadcn/sheet_controller.js, which reuses the dialog controller.
 #
 # Radix Root renders no element; the port renders one display: contents host that carries the Stimulus controller (a

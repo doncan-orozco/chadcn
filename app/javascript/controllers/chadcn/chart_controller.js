@@ -1,6 +1,9 @@
 import { Controller } from "@hotwired/stimulus"
 import { activeDotElements, cursorElement } from "chadcn/primitives/chart_shapes"
 import { nearestTickIndex, pointerInPlot, relativePointer } from "chadcn/primitives/chart_pointer"
+import { polarActiveCoordinate, polarPointer, polarTickIndex } from "chadcn/primitives/chart_polar_pointer"
+import { measureTextMetrics, remeasureNeeded } from "chadcn/primitives/chart_measure"
+import { chartInResponse, laidOutAt, observeSettledSize, relayoutNeeded, relayoutRequestUrl, scaleToBox } from "chadcn/primitives/chart_relayout"
 import { SIDE_CLASSES, tooltipPlacement } from "chadcn/primitives/chart_tooltip_placement"
 import { mountTemplate } from "chadcn/primitives/template_mount"
 import { turboCacheRestore } from "chadcn/primitives/turbo_cache"
@@ -10,20 +13,45 @@ import { turboCacheRestore } from "chadcn/primitives/turbo_cache"
 // this controller mounts the one for the active index into `.recharts-tooltip-wrapper`, draws the cursor and the active dots from the
 // template's JSON and positions the wrapper with recharts' own algorithm.
 //
+// An item tooltip (`Tooltip shared: false` on a BarChart or a RadialBarChart, and every PieChart) follows the shape under the pointer
+// instead of the category: the server tags every bar, arc or pie sector as a `tooltipItem` with its series and position, and writes one
+// template per series and category (`context/tooltipContext.js`: the hovered shape's index, series and `tooltipPosition`).
+//
+// A RadarChart and a RadialBarChart map the pointer through their polar view box (`polar`): its angle picks the category of a radar, its
+// radius the ring of a radial bar chart (`combineActivePolarProps`, `primitives/chart_polar_pointer.js`). Their cursor depends on the
+// category alone, so the server writes it on each template (`data-pointer-cursor`); recharts draws it for a pointer activation only,
+// never for the keyboard or `default_index` (`component/Cursor.js:60`, `isPolarCoordinate`), and so does this controller.
+//
 // Three interactions are independent states (`state/selectors/combiners/combineTooltipInteractionState.js:22-58`): the pointer's, the
 // keyboard's and `default_index`. The tooltip shows the pointer index while the pointer is active, else the keyboard index while the
 // keyboard is active, else `default_index` only while the pointer has never activated an index. The states are the values
 // (pointerIndex/pointerActive/keyboardIndex/keyboardActive); only the pointer's last coordinate and the Escape dismissal are kept
 // outside them, and both are handed over a Turbo cache round trip.
+//
+// With a `relayoutUrl` the chart follows the size of its element ("Behavior", "Resize and re-measure"): once the box has settled at
+// another size than the server drew, or once the fonts are ready its tick text and legend box measure otherwise than the metrics the
+// server assumed (`textMetrics`), the controller requests the chart from that same-origin URL at the measured size and metrics, swaps
+// the answer in and hands it the interaction state. This is the recorded exception to stimulus R1 and R6 (.ai/skills/stimulus/SKILL.md):
+// only this controller fetches HTML, only its own chart from its own `relayoutUrl`, and it reads recharts nodes by class.
 const ARROWS = { ArrowRight: 1, ArrowLeft: -1 }
 const REDUCED_MOTION = "(prefers-reduced-motion: reduce)"
 const EVENT_ACTIVATE = "activate"
 const EVENT_DEACTIVATE = "deactivate"
+// The layouts a polar view box maps the pointer through: a radar and a pie are centric, a radial bar chart radial.
+const POLAR_LAYOUTS = new Set(["centric", "radial"])
+// What `hitAt` answers for a pointer outside the plot (cartesian) or the sector (polar): a mouse there leaves the chart.
+const OUTSIDE = Symbol("outside")
 // The z-index layer of the active dots: DefaultZIndexes.activeDot (recharts es6/zIndex/DefaultZIndexes.js:68).
 const ACTIVE_DOT_LAYER = 1200
+const EVENT_RELAYOUT = "relayout"
+const EVENT_RELAYOUT_ERROR = "relayout-error"
+// The interaction values a re-laid-out chart takes over from the one it replaces.
+const CARRIED_VALUES = {
+  pointerIndex: "pointer-index", pointerActive: "pointer-active", pointerSeries: "pointer-series", keyboardIndex: "keyboard-index", keyboardActive: "keyboard-active",
+}
 
 export default class extends Controller {
-  static targets = ["surface", "tooltip", "tooltipTemplate", "cursor", "activeDots"]
+  static targets = ["surface", "tooltip", "tooltipTemplate", "tooltipItem", "cursor", "activeDots"]
 
   static values = {
     layout: { type: String, default: "horizontal" },
@@ -31,8 +59,10 @@ export default class extends Controller {
     accessibilityLayer: { type: Boolean, default: true },
     ticks: { type: Array, default: [] },
     plot: { type: Object, default: {} },
+    polar: { type: Object, default: {} }, // a polar chart's view box, tooltip axis and its range (Chart::Polar::Wiring)
     pointerIndex: { type: Number, default: -1 },
     pointerActive: { type: Boolean, default: false },
+    pointerSeries: { type: Number, default: -1 }, // the series of the item the pointer activated (item tooltips); -1 = none yet
     keyboardIndex: { type: Number, default: -1 },
     keyboardActive: { type: Boolean, default: false },
     defaultIndex: { type: Number, default: -1 },
@@ -46,24 +76,39 @@ export default class extends Controller {
     transition: { type: String, default: "" },
     transitionAuto: { type: Boolean, default: false },
     wrapperStyle: { type: Object, default: {} },
+    relayoutUrl: { type: String, default: "" },
+    dimension: { type: Object, default: {} },
+    textMetrics: { type: Object, default: {} },
+    servedState: Object, // written by `swap`; no default: `connect` tells a swapped-in chart by `hasServedStateValue`
+    measuredAt: Object, // written by `swap` on every answer: the size its metrics were measured at; such a chart never asks again for its metrics at that size, a resize still requests
   }
 
   connect() {
-    this.shownIndex = null
+    this.shownKey = null
+    this.shownIndex = -1
+    this.pointerCursor = null
     this.announcing = true
     this.mounted = null
     this.pointerCoordinate = null
     this.dismissedAt = null
     this.activeCoordinate = null
-    this.serverState = this.interactionState()
+    this.serverState = this.hasServedStateValue ? this.servedStateValue : this.interactionState()
+    this.relayoutStopped = false
+    this.hasItems = this.hasTooltipItemTarget
     this.cache = turboCacheRestore({
       teardown: (cancelled) => this.resetToServerState(cancelled),
-      restore: (live) => this.applyState(live),
+      // The restore observes the box again, which checks its size once more (the teardown stopped the re-layout).
+      restore: (live) => {
+        this.applyState(live)
+        this.startRelayout()
+      },
     })
     this.render()
+    this.startRelayout()
   }
 
   disconnect() {
+    this.stopRelayout()
     this.cache?.release()
     this.cache = null
     // A re-inserted element starts from the server state: no interaction values, no content, a hidden wrapper.
@@ -82,6 +127,7 @@ export default class extends Controller {
   // outside does nothing (the `activeIndex != null` guard, `touchEventsMiddleware.js:57-64`).
   move(event) {
     if (!this.listening || this.triggerValue !== "hover") return
+    if (this.itemTooltip) return this.hoverItem(event)
 
     this.activateFromPointer(event, { leaveOutside: event.pointerType !== "touch" })
   }
@@ -90,6 +136,10 @@ export default class extends Controller {
   // (`chooseAppropriateMouseInteraction`, `combineTooltipInteractionState.js:7-18`).
   click(event) {
     if (!this.listening || this.triggerValue !== "click") return
+    if (this.itemTooltip) {
+      const item = this.itemAt(event)
+      return item ? this.activateItem(item) : undefined
+    }
 
     this.activateFromPointer(event, { leaveOutside: false })
   }
@@ -152,7 +202,21 @@ export default class extends Controller {
   // --- state -------------------------------------------------------------------------------------------------------------------
 
   get interactive() {
-    return this.hasTooltipTarget && this.tooltipEventTypeValue === "axis"
+    return this.hasTooltipTarget && (this.tooltipEventTypeValue === "axis" || this.itemTooltip)
+  }
+
+  // An item tooltip whose shapes the server tagged (a BarChart or a RadialBarChart with `shared: false`, and every PieChart).
+  get itemTooltip() {
+    return this.tooltipEventTypeValue === "item" && this.hasItems
+  }
+
+  // Cached: the check runs on every pointer event, so the targets are not queried each time.
+  tooltipItemTargetConnected() {
+    this.hasItems = this.hasTooltipItemTarget
+  }
+
+  tooltipItemTargetDisconnected() {
+    this.hasItems = this.hasTooltipItemTarget
   }
 
   // Input is refused between `turbo:before-cache` and the snapshot tick, while the DOM is in its snapshot shape.
@@ -168,49 +232,171 @@ export default class extends Controller {
     return {
       pointerIndex: this.pointerIndexValue,
       pointerActive: this.pointerActiveValue,
+      pointerSeries: this.pointerSeriesValue,
       keyboardIndex: this.keyboardIndexValue,
       keyboardActive: this.keyboardActiveValue,
     }
   }
 
   activateFromPointer(event, { leaveOutside }) {
-    const pointer = relativePointer(event)
-    if (!pointerInPlot(pointer, this.plotValue)) {
+    const hit = this.hitAt(relativePointer(event))
+    if (hit === OUTSIDE) {
       if (leaveOutside && this.pointerActiveValue) {
         this.pointerActiveValue = false
         this.render()
       }
       return
     }
+    if (!hit) return
 
-    const horizontal = this.layoutValue === "horizontal"
-    const index = nearestTickIndex(horizontal ? pointer.x : pointer.y, this.ticksValue)
-    const tick = this.ticksValue.find((candidate) => candidate.index === index)
-    if (!tick) return
-
-    // `getActiveCartesianCoordinate`: the tick along the category axis, the pointer along the other (`util/getActiveCoordinate.js:8-28`).
-    this.pointerCoordinate = horizontal ? { x: tick.coordinate, y: pointer.y } : { x: pointer.x, y: tick.coordinate }
-    this.pointerIndexValue = index
+    this.pointerCoordinate = hit.coordinate
+    this.pointerIndexValue = hit.index
     this.pointerActiveValue = true
     this.keyboardActiveValue = false
     this.render()
   }
 
+  get polar() {
+    return POLAR_LAYOUTS.has(this.layoutValue)
+  }
+
+  // The category under the pointer and where it anchors (`combineActiveProps`, `state/selectors/selectors.js:92-100`): OUTSIDE when the
+  // pointer is off the plot or the polar sector, null when no tick holds it.
+  hitAt(pointer) {
+    return this.polar ? this.polarHit(pointer) : this.cartesianHit(pointer)
+  }
+
+  cartesianHit(pointer) {
+    if (!pointerInPlot(pointer, this.plotValue)) return OUTSIDE
+
+    const horizontal = this.layoutValue === "horizontal"
+    const tick = this.tickOf(nearestTickIndex(horizontal ? pointer.x : pointer.y, this.ticksValue))
+    if (!tick) return null
+
+    // `getActiveCartesianCoordinate`: the tick along the category axis, the pointer along the other (`util/getActiveCoordinate.js:8-28`).
+    return { index: tick.index, coordinate: horizontal ? { x: tick.coordinate, y: pointer.y } : { x: pointer.x, y: tick.coordinate } }
+  }
+
+  // `combineActivePolarProps` (`state/selectors/selectors.js:76-91`): the angle (centric) or radius (radial) of a pointer inside the sector
+  // picks the tick, and the anchor is the pointer's radius on the tick's angle or the tick's radius at the pointer's angle.
+  polarHit(pointer) {
+    const box = this.polarValue
+    const at = polarPointer(pointer, box)
+    if (!at) return OUTSIDE
+
+    const centric = this.layoutValue === "centric"
+    const tick = this.tickOf(polarTickIndex(centric ? at.angle : at.radius, this.ticksValue, { angleAxis: box.axis === "angle", range: box.range }))
+    if (!tick) return null
+
+    return { index: tick.index, coordinate: polarActiveCoordinate(this.layoutValue, tick.coordinate, at, box) }
+  }
+
+  tickOf(index) {
+    return this.ticksValue.find((candidate) => candidate.index === index)
+  }
+
+  // --- item tooltips ----------------------------------------------------------------------------------------------------------
+
+  // A pointer moving onto a tagged shape is recharts' `mouseenter` of that shape (`setActiveMouseOverItemIndex`), off every shape its
+  // `mouseleave` (`mouseLeaveItem`: the item is no longer active, its index and series are kept).
+  hoverItem(event) {
+    if (event.pointerType === "touch") return this.touchItem(event)
+
+    const item = this.itemAt(event)
+    if (item) return this.activateItem(item)
+    if (!this.pointerActiveValue) return
+
+    this.pointerActiveValue = false
+    this.render()
+  }
+
+  // A finger activates the shape under it only when that element carries recharts' `data-recharts-item-index`, which a pie's sector path
+  // does and a bar or a radial bar arc does not; anywhere else it changes nothing (`state/touchEventsMiddleware.js:65-90`). The element is
+  // the one under the finger now (`elementFromPoint`), not the one the touch started on, which the browser keeps as its target.
+  touchItem(event) {
+    const element = document.elementFromPoint?.(event.clientX, event.clientY)
+    const item = element?.hasAttribute("data-recharts-item-index") ? this.itemOf(element) : null
+    if (item) this.activateItem(item)
+  }
+
+  itemAt(event) {
+    return event.target instanceof Element ? this.itemOf(event.target) : null
+  }
+
+  // One ancestor walk from the element, not a scan of every item.
+  itemOf(element) {
+    const item = element.closest(`[data-${this.identifier}-target~="tooltipItem"]`)
+    return item && this.element.contains(item) ? item : null
+  }
+
+  itemData(item, name) {
+    const value = item.getAttribute(`data-${this.identifier}-${name}`)
+    return value === null ? -1 : Number(value)
+  }
+
+  // The item's index, series and coordinate: the shape's `tooltipPosition` (a bar's center), else, for a radial bar arc that has none,
+  // the `default_index` anchor (`selectActiveCoordinate` falls back to it), else none (the wrapper is not translated).
+  activateItem(item) {
+    const index = this.itemData(item, "index")
+    const series = this.itemData(item, "series")
+    if (index < 0 || series < 0) return
+    if (this.pointerActiveValue && this.pointerIndexValue === index && this.pointerSeriesValue === series) return
+
+    this.pointerCoordinate = this.itemCoordinate(index, series)
+    this.pointerIndexValue = index
+    this.pointerSeriesValue = series
+    this.pointerActiveValue = true
+    this.keyboardActiveValue = false
+    this.render()
+  }
+
+  itemCoordinate(index, series) {
+    const template = this.templateFor(index, series)
+    const fallback = this.templateFor(this.defaultIndexValue, 0)
+    return this.json(template?.dataset.itemCoordinate) ?? this.json(fallback?.dataset.coordinate)
+  }
+
+  // Where a pointer activation anchors: its own coordinate; one that is not known (a chart swapped in by a re-layout carries the indexes,
+  // not the coordinate) is the item's own (an item tooltip) or the template's anchor (an axis tooltip, `undefined`).
+  pointerAnchor(index, series) {
+    if (this.pointerCoordinate) return this.pointerCoordinate
+    return this.itemTooltip ? this.itemCoordinate(index, series) : undefined
+  }
+
+  // The series an item tooltip shows outside a pointer activation (keyboard, `active: true`, `default_index`): the one the pointer last
+  // activated, else the first when `default_index` is set, else none, which shows nothing (`combineTooltipPayloadConfigurations.js:22-48`).
+  get restingSeries() {
+    if (this.pointerSeriesValue >= 0) return this.pointerSeriesValue
+    return this.defaultIndexValue >= 0 ? 0 : -1
+  }
+
   // Which index the tooltip shows and where it anchors (`combineTooltipInteractionState` + `selectActiveCoordinate`,
   // `state/selectors/selectors.js:49` for `selectActiveCoordinate`). `tooltipActive` false never shows, true keeps the last pointer index after the pointer left
   // (`Tooltip.js:129`, `combineTooltipInteractionState.js:39-45`).
+  // An item tooltip also says which series (`series`, -1 for an axis tooltip). A `coordinate` of `undefined` means the template's anchor
+  // (keyboard, `default_index`); a pointer activation keeps its own, which is `null` for a radial bar arc without a `default_index`.
+  // `pointer` says the pointer's interaction is the one shown (the polar cursor is drawn for it alone).
   resolve() {
-    if (this.tooltipActiveValue === "false") return { index: -1, coordinate: null }
-    if (this.pointerActiveValue) return { index: this.pointerIndexValue, coordinate: this.pointerCoordinate }
-    if (this.keyboardActiveValue) return { index: this.keyboardIndexValue, coordinate: null }
-    if (this.pointerIndexValue >= 0) {
-      return this.tooltipActiveValue === "true" ? { index: this.pointerIndexValue, coordinate: this.pointerCoordinate } : { index: -1, coordinate: this.pointerCoordinate }
+    const series = this.itemTooltip ? this.restingSeries : -1
+    if (this.tooltipActiveValue === "false") return { index: -1, series, coordinate: null, pointer: false }
+    if (this.pointerActiveValue) {
+      return { index: this.pointerIndexValue, series, coordinate: this.pointerAnchor(this.pointerIndexValue, series), pointer: true }
     }
-    return { index: this.defaultIndexValue, coordinate: null }
+    if (this.keyboardActiveValue) return { index: this.keyboardIndexValue, series, coordinate: undefined, pointer: false }
+    if (this.pointerIndexValue >= 0) {
+      const index = this.tooltipActiveValue === "true" ? this.pointerIndexValue : -1
+      return { index, series, coordinate: this.pointerAnchor(this.pointerIndexValue, series), pointer: true }
+    }
+    return { index: this.defaultIndexValue, series, coordinate: undefined, pointer: false }
   }
 
-  templateFor(index) {
-    return index < 0 ? null : this.tooltipTemplateTargets.find((template) => Number(template.dataset.index) === index) ?? null
+  // The template of an index (an axis tooltip) or of an index and a series (an item tooltip; -1 = no series, so none).
+  templateFor(index, series = -1) {
+    if (index < 0) return null
+    if (this.itemTooltip && series < 0) return null
+
+    return this.tooltipTemplateTargets.find((template) => Number(template.dataset.index) === index &&
+      (!this.itemTooltip || Number(template.dataset.series) === series)) ?? null
   }
 
   // --- rendering ---------------------------------------------------------------------------------------------------------------
@@ -219,12 +405,14 @@ export default class extends Controller {
     if (!this.interactive) return
 
     const resolved = this.resolve()
-    const template = this.templateFor(resolved.index)
+    const template = this.templateFor(resolved.index, resolved.series)
     const index = template ? resolved.index : -1
-    this.activeCoordinate = resolved.coordinate ?? (template ? this.json(template.dataset.coordinate) : null)
+    const anchor = template ? this.json(template.dataset.coordinate) : null
+    this.activeCoordinate = resolved.coordinate === undefined ? anchor : resolved.coordinate
 
     this.releaseDismissal()
     this.show(index, template)
+    this.showPointerCursor(resolved.pointer ? template : null)
     this.place(index, template)
   }
 
@@ -235,22 +423,41 @@ export default class extends Controller {
     if (at && (at.x !== now.x || at.y !== now.y)) this.dismissedAt = null
   }
 
-  // Swaps the content, the cursor and the active dots when the index changes. The first render adopts what the server drew for
-  // `default_index` instead of mounting it again.
+  // Swaps the content, the cursor and the active dots when the template changes (an index, or an index and a series). The first
+  // render adopts what the server drew for `default_index` (the first series of an item tooltip) instead of mounting it again.
   show(index, template) {
-    const first = this.shownIndex === null
-    if (index === this.shownIndex) return
+    const first = this.shownKey === null
+    const key = template ? `${template.dataset.series ?? ""}:${index}` : ""
+    if (key === this.shownKey) return
 
     const previous = this.shownIndex
+    this.shownKey = key
     this.shownIndex = index
-    if (first && index === this.defaultIndexValue && this.tooltipTarget.childElementCount > 0) return
+    const servedDefault = index === this.defaultIndexValue && (template?.dataset.series ?? "0") === "0"
+    if (first && servedDefault && this.tooltipTarget.childElementCount > 0) return
 
     this.clearContent()
-    if (!template) return previous !== null && previous >= 0 ? this.announce(EVENT_DEACTIVATE, previous) : undefined
+    if (!template) return previous >= 0 ? this.announce(EVENT_DEACTIVATE, previous) : undefined
 
     this.mounted = mountTemplate(template, { into: this.tooltipTarget })
     this.drawShapes(template)
     this.announce(EVENT_ACTIVATE, index, template)
+  }
+
+  // The polar cursor of the template a pointer activation shows (`data-pointer-cursor`), removed when the keyboard, `default_index` or
+  // nothing is shown instead. `show` clears it with the content when the template changes.
+  showPointerCursor(template) {
+    const spec = template?.dataset.pointerCursor ?? ""
+    if (this.pointerCursor?.spec === spec) return
+
+    this.pointerCursor?.node.remove()
+    this.pointerCursor = null
+    const cursor = this.json(spec)
+    const node = cursor && cursorElement(cursor)
+    if (!node) return
+
+    this.layer(cursor.layer)?.append(this.tagged(node, "cursor"))
+    this.pointerCursor = { spec, node }
   }
 
   clearContent() {
@@ -259,6 +466,7 @@ export default class extends Controller {
     if (this.hasTooltipTarget) this.tooltipTarget.replaceChildren()
     this.cursorTargets.forEach((node) => node.remove())
     this.activeDotsTargets.forEach((node) => node.remove())
+    this.pointerCursor = null
   }
 
   drawShapes(template) {
@@ -328,9 +536,123 @@ export default class extends Controller {
     if (!this.announcing) return
 
     const detail = template
-      ? { index, label: template.dataset.label, payload: this.json(template.dataset.payload) ?? [] }
+      ? { index, label: template.dataset.label ?? null, payload: this.json(template.dataset.payload) ?? [] }
       : { index, label: null, payload: [] }
     this.dispatch(name, { detail })
+  }
+
+  // --- re-layout ("Resize and re-measure") -------------------------------------------------------------------------------------
+
+  relayoutUrlValueChanged() {
+    if (this.cache) this.startRelayout()
+  }
+
+  startRelayout() {
+    this.stopRelayout()
+    if (!this.relayoutUrlValue || this.relayoutStopped) return
+
+    this.sizeObserver = observeSettledSize(this.element, (size) => this.relayout(size), {
+      onChange: (size) => { if (relayoutNeeded(size, this.dimensionValue)) this.scaleInterim() },
+    })
+  }
+
+  // Stops observing, aborts the request in flight and removes the interim scaling (disconnect, Turbo cache, a new URL).
+  stopRelayout() {
+    this.sizeObserver?.disconnect()
+    this.sizeObserver = null
+    this.relayoutCall = null
+    this.abortRelayout()
+    this.unscale?.()
+    this.unscale = null
+  }
+
+  abortRelayout() {
+    this.relayoutRequest?.abort()
+    this.relayoutRequest = null
+  }
+
+  // While the answer is pending the drawn chart is scaled into its box (the previous layout, never an overflow or an empty box).
+  scaleInterim() {
+    this.unscale ??= scaleToBox(this.element)
+  }
+
+  // A settled size: once the fonts are ready, measure the text like recharts and request the chart when the size or the metrics differ
+  // from what the server drew. A later settle, or stopRelayout, supersedes a call still waiting for the fonts.
+  async relayout(size) {
+    if (this.cache?.pending || document.documentElement.hasAttribute("data-turbo-preview")) return
+    const call = {}
+    this.relayoutCall = call
+    await document.fonts?.ready
+    if (this.relayoutCall !== call || this.relayoutStopped) return
+
+    const metrics = measureTextMetrics(this.element, this.textMetricsValue)
+    const resized = relayoutNeeded(size, this.dimensionValue)
+    const measuredAt = this.hasMeasuredAtValue ? this.measuredAtValue : undefined
+    const remeasured = !resized && remeasureNeeded({ measured: metrics, served: this.textMetricsValue, size, measuredAt })
+    if (!resized && !remeasured) {
+      this.abortRelayout()
+      this.unscale?.()
+      this.unscale = null
+      return
+    }
+
+    const chartName = this.element.dataset.chart
+    if (!chartName) return this.failRelayout(0)
+
+    const url = relayoutRequestUrl(this.relayoutUrlValue, { id: chartName.replace(/^chart-/, ""), size, metrics })
+    if (!url) return this.failRelayout(0)
+
+    this.scaleInterim()
+    this.abortRelayout()
+    const request = new AbortController()
+    this.relayoutRequest = request
+    let status = 0
+    let chart = null
+    try {
+      const response = await fetch(url, { headers: { Accept: "text/html" }, mode: "same-origin", credentials: "same-origin", signal: request.signal })
+      status = response.status
+      const html = response.ok ? await response.text() : null
+      chart = html === null ? null : chartInResponse(html, chartName)
+    } catch {
+      if (request.signal.aborted) return
+      this.relayoutRequest = null
+      return this.failRelayout(status)
+    }
+    if (request.signal.aborted) return
+    this.relayoutRequest = null
+    if (!chart || !laidOutAt(chart, size, `data-${this.identifier}-dimension-value`)) return this.failRelayout(status)
+
+    this.swap(chart, size)
+  }
+
+  // The answer replaces the element (its controller connects on its own) with the interaction state and the focus carried over. The
+  // fresh element keeps the state its answer was rendered with as `servedState`, for its own Turbo snapshot, and the size as `measuredAt`:
+  // every request carries the metrics measured after the fonts loaded, so every answer was laid out with browser metrics at that size.
+  swap(chart, size) {
+    const fresh = document.importNode(chart, true)
+    const value = (attribute, fallback) => fresh.getAttribute(`data-${this.identifier}-${attribute}-value`) ?? fallback
+    const served = {
+      pointerIndex: Number(value("pointer-index", -1)),
+      pointerActive: value("pointer-active", "false") === "true",
+      pointerSeries: Number(value("pointer-series", -1)),
+      keyboardIndex: Number(value("keyboard-index", -1)),
+      keyboardActive: value("keyboard-active", "false") === "true",
+    }
+    fresh.setAttribute(`data-${this.identifier}-served-state-value`, JSON.stringify(served))
+    fresh.setAttribute(`data-${this.identifier}-measured-at-value`, JSON.stringify(size))
+    for (const [name, attribute] of Object.entries(CARRIED_VALUES)) fresh.setAttribute(`data-${this.identifier}-${attribute}-value`, String(this[`${name}Value`]))
+    const focused = this.element.contains(document.activeElement)
+    this.element.replaceWith(fresh)
+    if (focused) fresh.querySelector("svg.recharts-surface")?.focus({ preventScroll: true })
+    fresh.dispatchEvent(new CustomEvent(`${this.identifier}:${EVENT_RELAYOUT}`, { bubbles: true, detail: { width: size.width, height: size.height } }))
+  }
+
+  // Keeps the current chart (scaled into its box) and stops re-laying out this element until it reconnects: no request loop.
+  failRelayout(status) {
+    this.relayoutStopped = true
+    this.sizeObserver?.disconnect()
+    this.sizeObserver = null
+    this.dispatch(EVENT_RELAYOUT_ERROR, { detail: { status } })
   }
 
   // --- Turbo cache -------------------------------------------------------------------------------------------------------------
@@ -339,6 +661,7 @@ export default class extends Controller {
   // `default_index` ones or none. Returns the live state for `applyState` to put back. A second `turbo:before-cache` inside the window
   // carries the first one's saved live state, because the DOM is already in its snapshot shape (`primitives/turbo_cache.js`).
   resetToServerState(cancelled = { pending: false }) {
+    this.stopRelayout()
     const live = cancelled.pending
       ? cancelled.state
       : { ...this.interactionState(), pointerCoordinate: this.pointerCoordinate, dismissedAt: this.dismissedAt }
@@ -362,6 +685,7 @@ export default class extends Controller {
   writeInteraction(state) {
     this.pointerIndexValue = state.pointerIndex
     this.pointerActiveValue = state.pointerActive
+    this.pointerSeriesValue = state.pointerSeries ?? -1
     this.keyboardIndexValue = state.keyboardIndex
     this.keyboardActiveValue = state.keyboardActive
   }

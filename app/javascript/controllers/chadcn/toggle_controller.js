@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Radix Toggle behavior (docs/shadcn-port/specs/toggle.md). Host = the toggle button.
+// Radix Toggle behavior (dev/port/specs/toggle.md). Host = the toggle button.
 // No key handlers: the native button turns Space/Enter into click.
 export default class extends Controller {
   static values = { controlled: Boolean, disabled: Boolean }

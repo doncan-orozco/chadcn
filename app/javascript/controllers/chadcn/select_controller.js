@@ -11,7 +11,7 @@ import { scrollLock } from "chadcn/primitives/scroll_lock"
 import { mountTemplate } from "chadcn/primitives/template_mount"
 import { matchItem, typeahead } from "chadcn/primitives/typeahead"
 
-// Radix Select. Spec: docs/shadcn-port/specs/select.md (Behavior).
+// Radix Select. Spec: dev/port/specs/select.md (Behavior).
 //
 // The controller element is the Trigger. The Content ships in an inert <template> that connect() detaches: Radix mounts it
 // (portaled to <body>) only while open, and keeps the items in a detached fragment otherwise, which here is the registry read

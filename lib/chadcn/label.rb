@@ -2,7 +2,7 @@
 
 using Chadcn::Values::Refinements
 
-# shadcn/ui Label over Radix Label. Spec: docs/shadcn-port/specs/label.md
+# shadcn/ui Label over Radix Label. Spec: dev/port/specs/label.md
 #
 # A form label, the shadcn `Label` over Radix Label (its `chadcn--label` controller blocks text selection on double click).
 #

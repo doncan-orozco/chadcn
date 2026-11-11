@@ -1,13 +1,15 @@
 import { Controller } from "@hotwired/stimulus"
 import { collapsibleContent } from "chadcn/primitives/collapsible_content"
+import { mountTemplate, mountedTemplate } from "chadcn/primitives/template_mount"
 import { turboCacheRestore } from "chadcn/primitives/turbo_cache"
 
-// Radix Collapsible. Spec: docs/shadcn-port/specs/collapsible.md (Behavior).
+// Radix Collapsible. Spec: dev/port/specs/collapsible.md (Behavior).
 //
 // One controller per root. A closed content ships its body in an inert <template>; connect() takes it over (removing
 // the template) so the DOM equals Radix: a closed content is empty, and with as_child it is absent (an empty Text anchor
-// marks its place). Open/closed mechanics (data-state, hidden, measured size variables, exit animation wait) live in the
-// shared collapsible_content primitive.
+// marks its place). Opening mounts the body (or the as_child element) through the template_mount primitive; markup the
+// server rendered open is adopted as that mount. Open/closed mechanics (data-state, hidden, measured size variables, exit
+// animation wait) live in the shared collapsible_content primitive.
 //
 // Known divergence: a force_mount content only toggles data-state (no re-measure).
 const PREVENTION = ["transition-duration", "animation-name"]
@@ -51,7 +53,8 @@ export default class extends Controller {
     const closed = this.element.dataset.state !== "open"
     if (record.child) {
       if (record.el && (!closed || record.forceMount)) return record.anchor.remove()
-      record.el?.remove() // an exit animation still running
+      record.mount?.unmount() // an exit animation still running
+      record.mount = null
       record.el = null
       record.template.setAttribute("data-chadcn--collapsible-target", "body")
       record.template.setAttribute("data-chadcn--collapsible-slot", "child")
@@ -64,7 +67,7 @@ export default class extends Controller {
     record.el.style.removeProperty("--radix-collapsible-content-width")
     record.body.setAttribute("data-chadcn--collapsible-target", "body")
     record.el.replaceChildren(record.body)
-    record.mounted = false
+    record.mount = null
   }
 
   toggle(event) {
@@ -82,7 +85,8 @@ export default class extends Controller {
     if (el.getAttribute("data-chadcn--collapsible-as-child") === "true") return this.#openChildRecord(el, open, forceMount)
 
     const body = this.#takeBody(el)
-    const record = { el, body, forceMount, mounted: open || forceMount }
+    const mount = open || forceMount ? mountedTemplate(body, [...el.childNodes]) : null
+    const record = { el, body, forceMount, mount }
     record.collapsible = this.#attach(record, open, forceMount)
     return record
   }
@@ -94,7 +98,7 @@ export default class extends Controller {
     PREVENTION.forEach((property) => copy.style.removeProperty(property))
     if (!copy.getAttribute("style")) copy.removeAttribute("style")
     template.content.append(copy)
-    const record = { el, child: true, anchor: document.createTextNode(""), template, forceMount }
+    const record = { el, child: true, anchor: document.createTextNode(""), template, forceMount, mount: mountedTemplate(template, [el]) }
     el.before(record.anchor)
     record.collapsible = this.#attach(record, open, forceMount)
     return record
@@ -103,7 +107,7 @@ export default class extends Controller {
   #childRecord(template) {
     const anchor = document.createTextNode("")
     template.replaceWith(anchor)
-    return { el: null, child: true, anchor, template, forceMount: false }
+    return { el: null, child: true, anchor, template, forceMount: false, mount: null }
   }
 
   #attach(record, open, forceMount) {
@@ -152,17 +156,15 @@ export default class extends Controller {
   #mount(record) {
     if (record.child) {
       if (record.el) return
-      const el = record.template.content.cloneNode(true).firstElementChild
+      record.mount = mountTemplate(record.template, { anchor: record.anchor })
+      const el = record.mount.nodes[0]
       el.dataset.state = "closed"
       el.hidden = true
-      record.anchor.after(el)
       record.el = el
       record.collapsible = collapsibleContent(el, { open: false, onExited: () => this.#unmount(record) })
       return
     }
-    if (record.mounted) return
-    record.el.append(record.body.content.cloneNode(true))
-    record.mounted = true
+    record.mount ??= mountTemplate(record.body, { into: record.el })
   }
 
   #unmount(record) {
@@ -170,13 +172,14 @@ export default class extends Controller {
     if (record.child) {
       if (!record.el) return
       record.collapsible.release()
-      record.el.remove()
+      record.mount.unmount()
+      record.mount = null
       record.el = null
       record.collapsible = null
       return
     }
-    if (!record.mounted) return
-    record.el.replaceChildren()
-    record.mounted = false
+    if (!record.mount) return
+    record.mount.unmount()
+    record.mount = null
   }
 }

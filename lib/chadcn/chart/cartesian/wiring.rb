@@ -55,7 +55,7 @@ class Chadcn::Chart::Cartesian::Wiring
 
   def tooltip_values
     options = @plan.tooltip.options
-    { ticks: json(ticks), plot: json(plot), pointer_index: "-1", pointer_active: "false", keyboard_index: "-1", keyboard_active: "false",
+    { ticks: json(ticks), plot: json(plot), pointer_index: "-1", pointer_active: "false", pointer_series: "-1", keyboard_index: "-1", keyboard_active: "false",
       default_index: (Integer(options[:default_index].to_s, exception: false) || -1).to_s, tooltip_event_type: @plan.event_type.to_s,
       trigger: options[:trigger].to_s, tooltip_active: options[:active].nil? ? "" : options[:active].to_s,
       offset: json(pair(options[:offset])), allow_escape: json(flags(options[:allow_escape_view_box])),
@@ -64,10 +64,11 @@ class Chadcn::Chart::Cartesian::Wiring
       wrapper_style: json(Css.declarations(options[:wrapper_style])) }
   end
 
-  # `[{index, coordinate}]` of the axis the tooltip follows, along the layout's category direction.
+  # `[{index, coordinate}]` of the axis the tooltip follows, along the layout's category direction (an item tooltip has an entry per
+  # series at every category, all at the category's anchor).
   def ticks
     key = @layout.direction == :horizontal ? :x : :y
-    @plan.entries.map { |entry| { index: entry.index, coordinate: pixel(entry.coordinate.fetch(key)) } }
+    @plan.entries.uniq(&:index).map { |entry| { index: entry.index, coordinate: pixel(entry.coordinate.fetch(key)) } }
   end
 
   # The plot rectangle: `isInCartesianRange` (util/getActiveCoordinate.js:78-84) and the view box of the tooltip

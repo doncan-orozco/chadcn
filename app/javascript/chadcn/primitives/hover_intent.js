@@ -1,7 +1,7 @@
 // hover_intent: open/close delay timers with the skip-delay provider state of Radix Tooltip, HoverCard and NavigationMenu.
 // Sources: @radix-ui/react-tooltip (TooltipProvider/Tooltip: skip-delay, delayed vs instant open), @radix-ui/react-hover-card
 // (openDelay/closeDelay timers). Spec: .ai/skills/radix-stimulus/references/primitives.md.
-// Parity: docs/shadcn-port/scenarios/_primitives-hover-intent.json.
+// Parity: dev/port/scenarios/_primitives-hover-intent.json.
 //
 // Known divergences: none.
 // `hoverIntent.release()` does not release its provider: the owner releases both.

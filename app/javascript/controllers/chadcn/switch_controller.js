@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 import { FormBubbleInput } from "chadcn/primitives/form_bubble_input"
 
-// Radix Switch behavior (docs/shadcn-port/specs/switch.md). Host = the switch button.
+// Radix Switch behavior (dev/port/specs/switch.md). Host = the switch button.
 // No key handlers: the native button turns Space/Enter into click.
 export default class extends Controller {
   static values = { controlled: Boolean }

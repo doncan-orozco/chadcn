@@ -11,6 +11,9 @@
 the same behavior as the React originals (Radix, and the libraries shadcn wraps), as Phlex views with Stimulus controllers. 61 components (`Button`, `Dialog`, `Select`, `Sidebar`,
 `Toaster`, `Command`, `Combobox`, `Calendar`...), checked against the React original in a browser. Two are partial: `Form` ports shadcn's ids and ARIA contract
 without react-hook-form (a [bound form](docs/forms.md)) and is tested in Ruby, and `Chart` draws recharts' SVG from Ruby (see [Charts](#charts)), so its browser comparison covers the DOM and the numbers but not recharts' responsive re-layout.
+chadcn tracks one shadcn/ui style, `new-york-v4` on Radix; the other styles (Vega, Nova, ...) and the Base UI and React Aria variants are
+not offered, except `Combobox`, which ports Base UI's because shadcn has no Radix one
+([why](https://github.com/doncan-orozco/chadcn/blob/main/dev/decisions/shadcn-tracking.md#styles-and-base-ui)).
 
 > Status: pre-release (0.x). The public API follows semantic versioning from the first release; see [CHANGELOG.md](CHANGELOG.md).
 >
@@ -465,7 +468,7 @@ render Chadcn::Chart::Container.new(config: { desktop: { label: "Desktop", color
 end
 ```
 
-A chart is laid out once at `initial_dimension:` (no responsive resize or animation), and `tick_formatter:`, `formatter:` and `label_formatter:` take a callable or a named
+A chart is laid out on the server at `initial_dimension:` and follows the size of its box, and re-measures its tick labels and legend in the page's font, only when its container has a `relayout_url:` that answers with the chart (no animation), and `tick_formatter:`, `formatter:` and `label_formatter:` take a callable or a named
 formatter. One example per family next to its React source, the tooltip and legend options and the list of deviations: [docs/charts.md](docs/charts.md).
 
 ### Library-wrapping components: Toaster, Command, Combobox, Calendar, Carousel, Drawer, Resizable, InputOtp, MessageScroller

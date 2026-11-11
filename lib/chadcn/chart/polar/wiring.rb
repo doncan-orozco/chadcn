@@ -1,29 +1,32 @@
 # frozen_string_literal: true
 
-# What `chadcn--chart` needs from a polar chart (dev/port/specs/chart.md, "Behavior"): only the tooltip values, so the controller keeps
-# the `default_index:` tooltip the server drew. The controller maps the pointer and the keys for the cartesian charts only, so a polar
-# chart publishes no ticks (there is no pointer-to-index mapping), no layout, no keyboard step, no accessibility layer, and its
-# `.recharts-wrapper` has no `data-action`: nothing moves the tooltip. A pie is an `item` tooltip (the controller is inert and leaves the
-# server-drawn tooltip untouched); a radar and a radial bar are `axis` tooltips (the controller keeps, places and restores it).
+# What `chadcn--chart` needs from a polar chart (dev/port/specs/chart.md, "Behavior"): the tooltip values, the layout (`centric` for a
+# radar and a pie, `radial` for a radial bar chart), the keyboard and the polar view box the pointer is mapped through. On a radar the
+# pointer's angle picks the category of the angle axis, on a radial bar chart its radius picks the ring of the radius axis (recharts'
+# `combineActivePolarProps`, state/selectors/selectors.js:76-91), so the ticks are those angles or radii. A pie is an `item` tooltip: its
+# tagged sectors are the items, and its ticks only count them for the keyboard. Every polar chart with a tooltip carries every action of
+# the controller on its `.recharts-wrapper` (`Polar::Root#wrapper_attributes`).
 #
 # @api private
 class Chadcn::Chart::Polar::Wiring < Chadcn::Chart::Cartesian::Wiring
   # @api private
   # @param layout [Chadcn::Chart::Polar::Layout]
   # @param plan [Chadcn::Chart::Polar::TooltipPlan, nil] nil without a tooltip
-  def initialize(layout:, plan:)
-    super(layout: layout, declared: nil, accessibility_layer: false, plan: plan)
+  # @param accessibility_layer [Boolean] the chart's `accessibility_layer:`
+  def initialize(layout:, plan:, accessibility_layer: true)
+    super(layout: layout, declared: nil, accessibility_layer: accessibility_layer, plan: plan)
   end
 
   # @api private
-  # @return [Hash{Symbol => String}] the tooltip `data-chadcn--chart-*-value` attributes (none without a tooltip), keys written the Phlex way
+  # @return [Hash{Symbol => String}] the `data-chadcn--chart-*-value` attributes (none without a tooltip), keys written the Phlex way
   def values
     return {} unless @plan
 
-    tooltip_values.transform_keys { |name| :"#{CONTROLLER.tr('-', '_')}_#{name}_value" }
+    base = { layout: @layout.direction.to_s, keyboard_step: keyboard_step.to_s, accessibility_layer: @accessibility_layer.to_s, polar: json(polar) }
+    base.merge(tooltip_values).transform_keys { |name| :"#{CONTROLLER.tr('-', '_')}_#{name}_value" }
   end
 
-  # Unused: no key reaches the controller of a polar chart.
+  # `selectChartDirection` (state/selectors/axisSelectors.js:1331-1335): a polar chart is always left-to-right, ArrowRight steps forward.
   #
   # @api private
   # @return [Integer] 1
@@ -31,6 +34,23 @@ class Chadcn::Chart::Polar::Wiring < Chadcn::Chart::Cartesian::Wiring
 
   private
 
-  # No ticks: the controller cannot map a pointer to an index of a polar chart.
-  def ticks = []
+  # The angle (a radar) or radius (a radial bar chart) of every category, from the entries' anchors; a pie's sectors, which have no axis,
+  # by their index: the keyboard only counts them.
+  def ticks
+    return super unless @layout.chart_type == :pie
+
+    @plan.entries.uniq(&:index).map { |entry| { index: entry.index, coordinate: entry.index } }
+  end
+
+  # The polar view box (`selectPolarViewBox`) the pointer must fall in (`inRangeOfSector`), and the tooltip axis whose ticks it is mapped
+  # onto: which one, and its range, whose full turn makes the angle ticks wrap around the circle (`calculateActiveTickIndex`).
+  def polar
+    box = @layout.view_box
+    view = { cx: pixel(box.cx), cy: pixel(box.cy), innerRadius: pixel(box.inner_radius), outerRadius: pixel(box.outer_radius),
+             startAngle: pixel(box.start_angle), endAngle: pixel(box.end_angle) }
+    axis = @plan.axis
+    return view unless axis
+
+    view.merge(axis: @layout.direction == :centric ? "angle" : "radius", range: axis.range.map { |value| pixel(value) })
+  end
 end

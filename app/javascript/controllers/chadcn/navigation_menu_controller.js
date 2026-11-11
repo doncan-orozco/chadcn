@@ -3,7 +3,7 @@ import { dismissable } from "chadcn/primitives/dismissable_layer"
 import { presence } from "chadcn/primitives/presence"
 
 // Radix NavigationMenu (Root + List + Item + Trigger + Content + Viewport + Link + Indicator).
-// Spec: docs/shadcn-port/specs/navigation-menu.md (Behavior). The controller element is the root `nav`.
+// Spec: dev/port/specs/navigation-menu.md (Behavior). The controller element is the root `nav`.
 // Radix mounts Content, the Viewport and the Indicator on the client; the server ships them in inert <template>s
 // (targets) that are cloned here, so every mount is a fresh node like in React.
 const TRIGGER = "[data-slot=navigation-menu-trigger]"

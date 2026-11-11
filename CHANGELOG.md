@@ -10,11 +10,58 @@ manifests every component is compared against), the number of oracle components,
 
 ## [Unreleased]
 
+### Changed (breaking)
+
+- `Direction::Provider` without `dir:` or `direction:` resets its block to `ltr`, as React's `DirectionProvider` does (it provides
+  `undefined`), instead of keeping the outer direction as 0.1.0 did. Only a provider with no direction nested inside an `rtl` one
+  changes; to keep the outer direction, pass it again (`Direction::Provider.new(dir: "rtl")`) or drop the inner provider.
+
+### Added
+
+- `Chart::Container relayout_url:`: a chart follows the size of its container, like recharts' `ResponsiveContainer`. Once the box has
+  settled at another size, `chadcn--chart` requests the chart from that same-origin URL at the measured size and swaps it in (the tooltip,
+  the keyboard and the focus carry over; the previous layout is scaled into the box meanwhile). The host renders the same chart with
+  `Chart::Container.relayout_options(params, id:)` (bounds: `RELAYOUT_MAX_SIZE`, `RELAYOUT_METRIC_BOUNDS`). New events
+  `chadcn--chart:relayout` and `chadcn--chart:relayout-error`, and a `servedState` value on `chadcn--chart` (written on the swapped-in
+  element for its Turbo snapshot, not a kwarg). Without `relayout_url:` the container renders what it did before. See
+  docs/charts.md, "Following the container".
+- Charts re-measure their text: with `relayout_url:`, once the fonts are ready `chadcn--chart` measures the tick labels and the legend box
+  the way recharts does and, when they differ from what the server assumed, requests the chart with the measured metrics, so the tick
+  labels that exist and the plot area match recharts in the page's font. New `Chart::Container legend_height:` (the measured legend box;
+  it wins over `Legend legend_height:`, a numeric `Legend height:` wins over both), read from the request by `relayout_options`
+  (`RELAYOUT_METRIC_BOUNDS` gains `legend_height: 256`), and a `measuredAt` value on `chadcn--chart` (written on every swapped-in element: one request per change, not a
+  kwarg). Without `relayout_url:` the assumptions stay as before.
+- Item tooltips: `chart.tooltip(shared: false)` on a `Chart::BarChart` or a `Chart::RadialBarChart` now shows recharts' item tooltip, the
+  series of the hovered bar or arc alone, placed at the bar's center (an arc's at the `default_index:` anchor, or unplaced, as recharts
+  does), with `trigger: :click`, `default_index:` (the first series), the keyboard of a `BarChart` (the series the pointer last touched),
+  Escape and the `chadcn--chart:activate` / `deactivate` events. It used to render a hidden empty wrapper. The server writes one template
+  per category and series, and tags every bar and arc as a `tooltipItem` target (`data-chadcn--chart-series`, `data-chadcn--chart-index`);
+  `chadcn--chart` gains a `pointerSeries` value (not a kwarg).
+- Polar charts answer the pointer and the keyboard: on a `Chart::RadarChart` the pointer's angle picks the category, on a
+  `Chart::RadialBarChart` its distance from the center picks the ring, and on a `Chart::PieChart` the sector under the pointer (or a finger)
+  is shown at its tooltip position, as recharts does. Focus, ArrowLeft/ArrowRight, Enter and Escape work on all three
+  (`accessibility_layer: false` turns the keys off), and the radar and radial bar cursor (a line through the category, a ring around it)
+  is drawn while the pointer is the one showing the tooltip. They used to keep only the `default_index:` tooltip. New primitive
+  `chadcn/primitives/chart_polar_pointer`; `chadcn--chart` gains a `polar` value, and its `layout` value takes `centric` and `radial` (not
+  kwargs).
+
 ### Fixed
 
+- `ToggleGroup`: a group nested inside another keeps its own items; pressing an item of one group no longer flips the item with the same
+  value in the other.
+- `Dialog`, `AlertDialog`, `Sheet`, `Drawer`: `chadcn--dialog:open-change` (and the events of the controllers that extend it) is no longer
+  cancelable, as the spec and Radix's `onOpenChange` say; it never could stop the change, now it does not pretend to. To keep a dialog
+  open, render it controlled or prevent `escape-key-down` / `pointer-down-outside` / `interact-outside`.
+- `Sidebar`: on a mobile viewport, a Trigger or Rail inside the Sheet toggles it even when a caller's click handler called
+  `preventDefault()`, as on desktop and in shadcn.
 - The generated yielded-root helpers of parts whose file needs a sibling registered after them (`chart.pie_chart`, `chart.bar_chart`,
   `chart.area_chart`) no longer depend on load order: they used to be missing unless something had already named the part's class
   (`Chart::PieChart`), and are now defined on the root's first instance.
+
+### Changed
+
+- `Slider`: the hidden form inputs go through the `form_bubble_input` primitive, which learns the slider's `value` type
+  (`<input style="display: none">`, bubbling `input` event). Form submission, reset and the rendered DOM are unchanged.
 
 ## [0.1.0] - 2026-11-03
 

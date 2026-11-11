@@ -29,13 +29,15 @@ Events (dispatched with `this.dispatch` from the `chadcn--dialog` host, `bubbles
 
 | Event | Radix origin | detail | cancelable | default action when not prevented |
 |---|---|---|---|---|
-| `open-change` | `onOpenChange` (dialog:42-47) | `{ open }` | no | uncontrolled: state changes; controlled: nothing |
+| `open-change` | `onOpenChange` (dialog:42-47) | `{ open }` | no (`cancelable: false`; `preventDefault()` has no effect) | uncontrolled: state changes; controlled: nothing |
 | `open-auto-focus` | Content `onOpenAutoFocus` -> FocusScope `onMountAutoFocus` (dialog:254, fs:95-103) | `{}` | yes | focus first tabbable (see Behavior) |
 | `close-auto-focus` | `onCloseAutoFocus` (dialog:174-177, fs:108-113) | `{}` | yes | focus trigger |
 | `escape-key-down` | `onEscapeKeyDown` (dl:91-100) | `{ originalEvent }` | yes | close |
 | `pointer-down-outside` | `onPointerDownOutside` (dl:55-58) | `{ originalEvent }` | yes | close |
 | `focus-outside` | `onFocusOutside` (dl:79-89) | `{ originalEvent }` | yes | close (modal always prevents it, dialog:184-187) |
 | `interact-outside` | `onInteractOutside` (dl:57, 87) | `{ originalEvent }` | yes | close |
+
+`open-change` is a notification, like Radix's `onOpenChange` callback: to keep a dialog open, render it controlled (`open:`) or prevent the event that requests the close (`escape-key-down`, `pointer-down-outside`, `interact-outside`). `Chadcn::AlertDialog`, `Chadcn::Sheet` and `Chadcn::Drawer` extend this controller and dispatch it the same way. Browser tests: `test/javascript/dialog.test.mjs`.
 
 `aria: { describedby: }` / `"aria-describedby":` on Content is concatenated with the Description id (dialog:262, `concatAriaDescribedby` dialog:319-328: split on whitespace, dedupe, caller ids first). `ref` has no equivalent.
 
@@ -143,6 +145,8 @@ Positioning: none (CSS-centred `fixed`); no floating-ui.
 
 Primitives composed: `portal`, `presence`, `dismissable_layer` (layer stack, Escape on top layer only, outside pointer/focus detection, body `pointer-events` for modal layers; it has NO deferred pointer-down and NO dismissable-surface option: the `chadcn--dialog` controller implements Radix Dialog's own deferral (dialog:266, a primary press outside arms the dismissal and the following click fires it) in its `onPointerDownOutside` handler), `focus_scope` (trap + loop + auto focus, stack), `focus_guards`, `hide_others`, `scroll_lock`, `ids`. Controller `chadcn--dialog` values: `open` (Boolean), `controlled` (Boolean), `modal` (Boolean, default true). `disconnect()` releases every primitive, removes portaled nodes and restores `body` (Turbo cache must not keep a dialog open).
 
+**Known divergence (port, recorded in `dialog_controller.js`):** the focus scope (trap and return focus) is released when the Content's exit animation ends, together with `hideOthers` and the focus guards (the Overlay's scroll lock is released when the Overlay's own exit animation ends), not the moment the dialog starts closing as in Radix (`trapped` follows `open`, see Presence above). While the exit animation plays, Tab stays inside the closing Content. With no animation (the runner default, reduced motion) both release in the same frame, so the parity scenarios cannot see it. A Content kept mounted by `Dialog::Portal(force_mount: true)` never exits and its focus scope is not rebuilt on reopen, so its trap keeps the value it had at connect (trapped if the dialog connected open, untrapped if it connected closed); Radix makes `trapped` follow `open`.
+
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)
 
@@ -170,7 +174,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 - `Chadcn::Button`: `Dialog::Footer` with `show_close_button: true` renders `Button.new(variant: "outline")`; examples use it as `as_child` of Trigger/Close.
 - `Chadcn::Icon` (infra `_icons`): `Icon.new(name: "x")` inside the Content X close.
 - `Chadcn::Base`: `cn`, `merge_attrs`, `render_as_child`, `ids`.
-- Primitives `app/javascript/v2/primitives/`: `portal.js`, `presence.js`, `dismissable_layer.js`, `focus_scope.js`, `focus_guards.js`, `hide_others.js`, `scroll_lock.js`, `ids.js`.
+- Primitives `app/javascript/chadcn/primitives/`: `portal.js`, `presence.js`, `dismissable_layer.js`, `focus_scope.js`, `focus_guards.js`, `hide_others.js`, `scroll_lock.js`, `ids.js`.
 
 ## Deviations
 

@@ -5,14 +5,24 @@
 # It yields itself and, while the block runs, offers itself to the shadcn contents and the chart roots through the render context
 # ({.current}), which is what React's `ChartContext` does.
 #
-# The chart is laid out once at `initial_dimension` (320x200 by default) and does not follow the size of its container; the host
-# sizes it with this keyword (dev/port/deviations/chart.json). `**attrs` land on the div (`class:` merged last). The div is the element of
-# the Stimulus controller `chadcn--chart` (always, so a Turbo-streamed container is wired too) and carries every value of it: the chart
-# inside hands them over ({#publish_chart_values}), Stimulus reads values from the controller element only.
+# The chart is laid out on the server at `initial_dimension` (320x200 by default). Without `relayout_url:` it keeps that size whatever its
+# container does (dev/port/deviations/chart.json). With `relayout_url:` (a same-origin URL that answers with this chart) `chadcn--chart`
+# follows the size of the container like recharts' `ResponsiveContainer`: once the box has settled at another size it requests the chart
+# from that URL at the measured size and swaps it in; after the fonts load it also measures the tick text and the legend box like recharts
+# and requests the chart again when they differ from `text_height:`, `text_char_width:` and the legend height the server assumed. The host
+# reads the request with {.relayout_options} (dev/port/specs/chart.md, "Behavior", "Resize and re-measure"). `**attrs` land on the div
+# (`class:` merged last). The div is the element of the Stimulus controller `chadcn--chart` (always, so a Turbo-streamed container is
+# wired too) and carries every value of it: the chart inside hands them over ({#publish_chart_values}), Stimulus reads values from the
+# controller element only.
 #
 # @example
 #   render Chadcn::Chart::Container.new(config: { desktop: { label: "Desktop", color: "var(--chart-1)" } }) do |container|
 #     # render a Chadcn::Chart::BarChart here
+#   end
+# @example A chart that follows its container (the action renders the same chart for the request)
+#   render Chadcn::Chart::Container.new(config: config, id: "sales", class: "h-64 w-full", relayout_url: sales_chart_path,
+#                                       **Chadcn::Chart::Container.relayout_options(params, id: "sales")) do
+#     # render the chart here
 #   end
 class Chadcn::Chart::Container < Chadcn::Base
   # `INITIAL_DIMENSION` of `chart.tsx`.
@@ -47,10 +57,23 @@ class Chadcn::Chart::Container < Chadcn::Base
   attr_reader :chart_id
   # @return [Hash{Symbol => Numeric}] `width` and `height` the chart is laid out at
   attr_reader :initial_dimension
-  # @return [Numeric] server assumption for the height of a line of tick text (not re-measured in the browser)
+  # @return [Numeric] height of a line of tick text, what the chart is laid out with: an assumption, or what `chadcn--chart`
+  #   measured, read from the request by {.relayout_options}
   attr_reader :text_height
-  # @return [Numeric] server assumption for the width of a character in em
+  # @return [Numeric] average width of a tick label character in em of 12px, what the chart is laid out with: an assumption, or what
+  #   `chadcn--chart` measured, read from the request by {.relayout_options}
   attr_reader :text_char_width
+  # @return [Numeric, nil] height of the legend box, what the chart is laid out with: what `chadcn--chart` measured, read from the
+  #   request by {.relayout_options}; nil leaves the legend's own `legend_height:` assumption
+  attr_reader :legend_height
+  # @return [String, nil] where `chadcn--chart` requests this chart at the size of its container; nil when it keeps `initial_dimension`
+  attr_reader :relayout_url
+
+  # Largest `width` and `height` {.relayout_options} accepts, in px (dev/port/specs/chart.md, "Resize and re-measure").
+  # The browser's RELAYOUT_MAX_SIZE in primitives/chart_relayout.js is the same number.
+  RELAYOUT_MAX_SIZE = 4096
+  # Bounds of the text metrics {.relayout_options} accepts; the keys are the container keywords they become.
+  RELAYOUT_METRIC_BOUNDS = { text_height: 256, text_char_width: 4, legend_height: 256 }.freeze
 
   # Adds a component after the responsive shell, rendered as the last children of the `div[data-slot="chart"]` (what a chart inside writes
   # there: the inert tooltip templates `chadcn--chart` swaps in, dev/port/specs/chart.md "Tooltip"). Call it while the container's block runs.
@@ -86,6 +109,34 @@ class Chadcn::Chart::Container < Chadcn::Base
     @chart_values = values
   end
 
+  # The height of the legend box the chart was laid out with, which the `textMetrics` value of the re-layout carries as the served
+  # `legendHeight` (nil: the chart has no legend).
+  #
+  # @api private
+  # @param height [Numeric, nil]
+  # @return [void]
+  def publish_legend_height(height)
+    @served_legend_height = height
+  end
+
+  # The container keywords for the re-layout request `chadcn--chart` sends to `relayout_url:` (query parameters `chart[id]`,
+  # `chart[width]`, `chart[height]` and the measured `chart[text_height]`, `chart[text_char_width]`, `chart[legend_height]`), for the
+  # chart named `id:`; splat it into `new`. Only the keys present come back, each a positive finite number within its bound (`width` and
+  # `height` at most {RELAYOUT_MAX_SIZE}, the metrics at most {RELAYOUT_METRIC_BOUNDS}); `initial_dimension:` needs both `width` and
+  # `height`. A request for another chart, or no request, gives `{}`: the chart renders at its own defaults. `params` is read with `key?`
+  # and `[]` (string or symbol keys), so a Hash and unpermitted `ActionController::Parameters` both work.
+  #
+  # @param params [#key?, #[], nil] the request parameters
+  # @param id [String, Symbol] the container's `id:`
+  # @return [Hash{Symbol => Object}]
+  # @example
+  #   Chadcn::Chart::Container.relayout_options({ "chart" => { "id" => "sales", "width" => "640", "height" => "400" } }, id: "sales")
+  #   # => { initial_dimension: { width: 640, height: 400 } }
+  # @example The metrics measured in the browser
+  #   Chadcn::Chart::Container.relayout_options({ "chart" => { "id" => "sales", "text_height" => "14", "legend_height" => "26" } }, id: "sales")
+  #   # => { text_height: 14, legend_height: 26 }
+  def self.relayout_options(params, id:) = Chadcn::Chart::Relayout.options(params, id: id)
+
   # The container the current render is inside, or nil. Used by the contents and the chart roots (React's `useChart`).
   #
   # @api private
@@ -97,20 +148,28 @@ class Chadcn::Chart::Container < Chadcn::Base
   # @param id [String, Symbol, nil] names the chart (`data-chart="chart-<id>"`); a random token when nil, which makes every render
   #   different: pass `id:` where the output is cached, morphed or compared
   # @param initial_dimension [Hash] `width:` and `height:` in px
-  # @param text_height [Numeric]
-  # @param text_char_width [Numeric]
+  # @param text_height [Numeric] height of a line of tick text, px
+  # @param text_char_width [Numeric] average width of a tick label character, em of 12px
+  # @param legend_height [Numeric, nil] height of the legend box, px; wins over the legend's `legend_height:` (not over a numeric
+  #   `height:` of the legend); nil keeps the legend's
+  # @param relayout_url [String, nil] a same-origin URL that answers with this chart (see {.relayout_options}); nil keeps
+  #   `initial_dimension` whatever the size of the container
   # @param attrs [Hash] attributes of the div; `class:` is merged last
   # @raise [ArgumentError] on an invalid id, config or dimension
-  def initialize(config:, id: nil, initial_dimension: DEFAULT_DIMENSION, text_height: 16, text_char_width: 0.6, **attrs)
+  def initialize(config:, id: nil, initial_dimension: DEFAULT_DIMENSION, text_height: 16, text_char_width: 0.6, legend_height: nil,
+                 relayout_url: nil, **attrs)
     @config = Chadcn::Chart::Config.new(config)
     @chart_id = "chart-#{validated_chart_id(id)}"
     @initial_dimension = validated_dimension(initial_dimension)
     @text_height = validated_measure(:text_height, text_height)
     @text_char_width = validated_measure(:text_char_width, text_char_width)
+    @legend_height = legend_height.nil? ? nil : validated_measure(:legend_height, legend_height)
+    @relayout_url = validated_relayout_url(relayout_url)
     @attrs = attrs
     @after_shell = []
     @chart = nil
     @chart_values = {}
+    @served_legend_height = nil
     super()
   end
 
@@ -119,7 +178,8 @@ class Chadcn::Chart::Container < Chadcn::Base
   def view_template
     # The chart inside decides the values of the div, which opens before its children: the block runs first.
     body = capture { publish { |container| yield container if block_given? } }
-    div(**merge_attrs({ data: { slot: "chart", chart: @chart_id, controller: CONTROLLER, **@chart_values }, class: CLASSES }, @attrs)) do
+    data = { slot: "chart", chart: @chart_id, controller: CONTROLLER, **@chart_values, **relayout_values }
+    div(**merge_attrs({ data: data, class: CLASSES }, @attrs)) do
       render Chadcn::Chart::Style.new(id: @chart_id, config: @config)
       div(class: "recharts-responsive-container", style: SHELL_STYLE) { div(style: INNER_STYLE) { raw safe(body) } }
       publish { @after_shell.each { |part| render part } }
@@ -127,6 +187,24 @@ class Chadcn::Chart::Container < Chadcn::Base
   end
 
   private
+
+  # The values of the re-layout (dev/port/specs/chart.md, "Resize and re-measure"), only with a `relayout_url:`: without one the div is
+  # what 0.1.0 rendered.
+  def relayout_values
+    return {} unless @relayout_url
+
+    metrics = { textHeight: @text_height, textCharWidth: @text_char_width }
+    metrics[:legendHeight] = @served_legend_height if @served_legend_height
+    { chadcn__chart_relayout_url_value: @relayout_url, chadcn__chart_dimension_value: json(@initial_dimension),
+      chadcn__chart_text_metrics_value: json(metrics) }
+  end
+
+  def validated_relayout_url(url)
+    return if url.nil?
+    return url if url.is_a?(String) && !url.strip.empty?
+
+    raise ArgumentError, "relayout_url: must be a non-empty String (got #{url.inspect})"
+  end
 
   def publish
     previous = context[CONTEXT_KEY]

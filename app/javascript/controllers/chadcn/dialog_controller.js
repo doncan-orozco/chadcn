@@ -8,7 +8,7 @@ import { scrollLock } from "chadcn/primitives/scroll_lock"
 import { mountTemplate } from "chadcn/primitives/template_mount"
 import { turboCacheRestore } from "chadcn/primitives/turbo_cache"
 
-// Radix Dialog. Spec: docs/shadcn-port/specs/dialog.md (Behavior).
+// Radix Dialog. Spec: dev/port/specs/dialog.md (Behavior).
 //
 // The controller element is a display: contents host. Overlay and Content ship in inert <template>s (the Portals) and are
 // mounted directly into <body> only while open, like Radix mounts them. Mounted nodes live outside the controller scope,
@@ -92,10 +92,11 @@ export default class extends Controller {
     this.request(false)
   }
 
-  // useControllableState: the event fires on every change request, the DOM only changes when uncontrolled.
+  // useControllableState: the event fires on every change request, the DOM only changes when uncontrolled. Not cancelable:
+  // Radix onOpenChange is a plain callback (dialog:42-47), so preventDefault() has nothing to stop.
   request(next) {
     if (next === this.openValue) return
-    this.dispatch("open-change", { detail: { open: next } })
+    this.dispatch("open-change", { detail: { open: next }, cancelable: false })
     if (this.controlledValue) return
     this.openValue = next
     this.#sync()

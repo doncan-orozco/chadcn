@@ -108,11 +108,12 @@ Fixed here so every chart item uses the same one (`Compare` in `dev/spikes/chart
 - **Server render through a Node sidecar running recharts**: renders empty (measured) and needs Node at runtime in a gem for Rails and plain Ruby apps.
 - **Per-chart ad-hoc SVG without recharts' class names**: loses the `chart.tsx` selectors (the theme would need duplicate CSS), and nothing left to compare with the oracle.
 - **Re-layout the chart in the controller on resize** (port `getTicks`, bar sizing, scales to JS as well): doubles the math; deferred. The deviation (layout once at `initial_dimension`) is recorded and
-  the container takes the layout size as a kwarg; a later item may add the JS pass without changing the DOM contract.
+  the container takes the layout size as a kwarg; a later item may add the JS pass without changing the DOM contract. Measured and decided in
+  "Resize and re-measure" below: a server re-layout at the measured size instead.
 
 ## Risks
 
-- **Text measurement** is the one input Ruby cannot know. Mitigation above; a font that is not the pinned one can show a different label shift (<= half a line), or keep a label the measured font would collide (or ship in a `tickTemplate` a label it would fit) until the controller's post-font pass remounts the right set; the pass swaps nodes from templates, it never toggles visibility, because recharts omits hidden ticks and G2 compares the tree exactly. `oracle_ssr.mjs --check` and the spike tests depend on the host's `monospace` font for the x-label widths (a different default monospace can move a clamped label): the drift alarm assumes the same machine class that committed the oracle.
+- **Text measurement** is the one input Ruby cannot know. Mitigation above; a font that is not the pinned one can show a different label shift (<= half a line), or keep a label the measured font would collide (or ship in a `tickTemplate` a label it would fit) until the controller's post-font pass remounts the right set; the pass swaps nodes from templates, it never toggles visibility, because recharts omits hidden ticks and G2 compares the tree exactly. Superseded by "Resize and re-measure" below: the server re-lays out with the measured metrics; there is no template pass. `oracle_ssr.mjs --check` and the spike tests depend on the host's `monospace` font for the x-label widths (a different default monospace can move a clamped label): the drift alarm assumes the same machine class that committed the oracle.
 - **Page weight of the tooltip templates**: one `Tooltip::Content` template per category, about 1.7 KB at two series (1,247 bytes of content in `oracle/bar.html` plus the `data-*` attributes), linear in categories and series; no cap in the gem (a `Tooltip` is optional).
 - **recharts moves**: the oracle is pinned by `dev/react-shadcn-catalog/package-lock.json` (3.8.0); a bump regenerates `oracle/*.html` and the diff is the review. `oracle_ssr.mjs --check` is the drift alarm.
 - **Size of the port** (six chart families, curves, sectors): bar and line cost about 600 lines of throwaway Ruby with all numerics exact; the families that remain reuse scales, ticks, curves and the shell.
@@ -124,6 +125,88 @@ Fixed here so every chart item uses the same one (`Compare` in `dev/spikes/chart
 The split works: server-rendered DOM equal to recharts' within 0.0 px for the two hardest layouts (stacked rounded bars with legend and tooltip, monotone line with a y axis), a fixed gate contract and
 a reproducible oracle. The only things a human must accept are the recorded deviations in `dev/port/deviations/chart.json` (R14 not followed, layout once at `initial_dimension`, no animation, named formatters in JSON scenarios,
 server-assumed text metrics) and the choice of the oracle (settled client render in Chromium, because server rendering is empty).
+
+## Resize and re-measure
+
+Status: proposed by the spike of item #96 (`review-gaps` epic), 2026-11-10; merging this section approves the mechanism. Proof:
+`dev/spikes/chart-resize/run.rb` (command and numbers in its [README](../spikes/chart-resize/README.md)). Contract: `dev/port/specs/chart.md`,
+"Behavior", "Resize and re-measure". It replaces the "Re-layout the chart in the controller on resize" alternative above (deferred then) and the
+tick-template design of the re-measure pass (spec "Behavior" as written by #44, never built).
+
+### The question
+
+What ships in 0.1.0 is laid out once at `initial_dimension` (320x200) and drawn at that pixel size, with assumed text metrics
+(`text_height:` 16, `text_char_width:` 0.6em, `legend_height:` 28). recharts' `ResponsiveContainer` re-lays out on every resize and measures
+its text in the DOM (`util/DOMUtils.js` `measureTextWithDOM`, `useElementOffset` for the legend). Two things are missing: following the size
+of the container, and correcting the text metrics.
+
+### Options and measurements
+
+The spike draws the stacked bar and the monotone line of the first spike with the gem and with recharts 3.8.0 (Chromium), in 16:9 containers
+of 320x180, 560x315 and 800x450, in the pinned oracle font (`12px/16px monospace`) and in a host font (`12px sans-serif`), and compares the DOM
+(G2 `Compare`, exact tree, 1e-3 px) and the on-screen boxes.
+
+| Option | DOM against recharts at the container's size | On screen | Cost |
+|---|---|---|---|
+| Today (`fixed`) | 47 to 120 differences | up to 480 px off; overflows a smaller box | nothing |
+| **A. Scale the SVG** (`viewBox` is already on the `svg`; `.recharts-wrapper` and the inner div of the responsive container at 100%) | 48 to 121 differences (it still holds the 320x200 numbers) | glyphs at 0.90x, 1.57x, 2.25x (a 12 px label drawn 27 px high at 800 px); letterboxed outside 16:10; the HTML legend and tooltip keep their 320 px layout | 0 bytes, 0 ms, CSS only |
+| **B. Re-layout in `chadcn--chart`** (port scales, ticks, paths, bar positions, tick collision to JavaScript) | 0 (same math: the `relayout` rows of the spike are its output) | 0 px | 3,129 lines of size-dependent Ruby to port (out of 5,404) against 342 lines of chart JavaScript today, plus a parity proof of the JavaScript against the Ruby; about recharts' own 28-38 ms per resize (an upper bound, frame-quantized) |
+| **C. Server re-render at the measured size** | 0 with the default metrics in the pinned font; 0 in the host font **once the measured metrics are sent along** (58 differences without them: a 26 px legend instead of 28 moves every bar 2 px) | 0 px | 1.2 to 3.7 ms of gem rendering, 18 to 28 KB of HTML (2.5 to 3.2 KB gzipped) per re-layout, plus one request to the host and its round trip; the host must answer that request |
+
+### Decision
+
+- **Resize: C, opt-in per container, with A as the interim state.** A container given a `relayout_url:` re-lays itself out at the size of its
+  box: `chadcn--chart` observes the element's size, waits until it has been stable for a moment (debounce), skips the request when the size
+  (rounded to whole pixels) and the metrics equal what the server drew, requests the chart from the URL with the measured size and metrics as
+  query parameters, and replaces the chart with the one of the same `data-chart` id in the response. While a request is pending the chart is
+  scaled with its `viewBox` (A, CSS only), so it never overflows and never flashes empty. The host answers by rendering the same chart with the
+  parameters, read through one helper of the container; any GET that returns the chart works (a dedicated action, or the page itself, of which
+  the controller takes only the chart). Chosen because it is exact, it reuses the one implementation of the layout that G2 already proves, and it
+  covers the six chart roots (cartesian and polar) at once; its price is a request per settled resize and a host that answers it.
+  **C needs a recorded exception to `stimulus` R1 (a controller never fetches HTML) and R6 (targets over selectors):** `chadcn--chart` fetches
+  HTML from the same-origin `relayout_url:` and swaps it in, and reads the tick labels, the legend wrapper (recharts nodes) and the response's
+  chart by class selector. The exception is scoped to `chadcn--chart` fetching its own chart from its same-origin `relayout_url:` and swapping
+  it; nothing else may fetch HTML or read by class. Merging this section approves the exception; item #107 records it in
+  `.ai/skills/stimulus/SKILL.md` (scope, guard, removal condition).
+- **Without `relayout_url:`** nothing changes: the chart is laid out once at `initial_dimension`, as in 0.1.0, and draws on a page without
+  JavaScript, in a Turbo preview, an email or a PDF. The deviation "layout once at `initial_dimension`" is narrowed to charts without a URL,
+  not removed.
+- **Re-measure: the same request.** After `document.fonts.ready` (and on connect) the controller measures what recharts measures, the way it
+  measures it: a `white-space: pre` span under `body` for the height of a line of tick text and the average glyph width of the tick labels,
+  and the box of `.recharts-legend-wrapper`. When they differ from the metrics the server drew with, it requests the re-layout like a resize
+  does (one request covers both). The server computes which tick labels exist, their positions and the plot area from the measured metrics, so
+  the tick templates, the browser collision pass and the "the plot is not recomputed when the legend height differs" deviation of the first
+  design are dropped; the `tickTemplate` exemption of G2 above becomes unused (left in `Compare` until the gate code is next edited). Without a
+  URL the server's assumptions stay, and the kwargs stay the host's way to match its font.
+- **Rejected: B.** Exact as well, and no request, but it is a second implementation of the layout: 3,129 lines of Ruby to port against 342 lines of chart JavaScript today,
+  every recharts quirk the Ruby reproduces would need a JavaScript twin and a proof that both agree, and every later chart item would pay
+  twice. It stays the fallback if the maintainer rules that charts must follow their container with no host work; the measurements above are
+  its baseline.
+- **Rejected as the mechanism: A.** It zooms instead of re-laying out (text scales with the box, the legend does not follow) and leaves the DOM
+  at the 320x200 numbers. Kept only as the interim state of C.
+
+### What stays a deviation
+
+- Charts without `relayout_url:` (above), and every chart before its first re-layout and without JavaScript.
+- Label width is estimated as length times the measured average glyph width; recharts measures each string. In `12px sans-serif` the estimate
+  is off by up to 2.5 px for one month label, which changes nothing at the measured sizes, but a label within that margin of the collision
+  threshold can be kept or dropped differently in a proportional font.
+- Between a resize and the response the chart is the scaled previous layout (A), where recharts re-lays out in the next frames; the tooltip
+  and keyboard state carry over the swap (spec), an in-flight request is aborted by the next resize and by disconnect.
+
+### The follow-up items keep their split
+
+- **#107 (chart-responsive)** builds the resize half: the `relayout_url:` kwarg and the values of the spec, the size observation, the
+  debounce, the skip when nothing changed, the request, the swap with the interaction state carried over, the interim viewBox scaling, abort
+  on disconnect, the Turbo cache, and the helper that turns the parameters into container keywords, and it records the `stimulus` R1 and R6
+  exception of C in `.ai/skills/stimulus/SKILL.md` (amend its `owns` to include that file). Amend its acceptance: "a chart in a
+  container resized from 320 to 640 px" applies to a chart with `relayout_url:` (the browser test answers the request with the gem's markup,
+  e.g. through Playwright request interception, so no dummy route is needed); "the deviation is removed or narrowed" is "narrowed to charts
+  without a URL".
+- **#108 (chart-remeasure)** builds the re-measure half on top of it: the measurement after `document.fonts.ready`, the metrics in the request,
+  `legend_height` taken from the request by the container. Amend its goal: the pass does not "correct what the server assumed" in the browser,
+  it measures and asks the server to re-lay out; its acceptance stands as written for charts with `relayout_url:`, and "the re-measure pass is
+  not built" sentences become "re-measure needs `relayout_url:`".
 
 ## As built
 
@@ -149,14 +232,15 @@ Items (GitHub issue numbers; the PRs are in each issue's `shared` note):
 
 Where the build differs from the proposal:
 
-- **The post-font-load re-measure pass was not built** (the Decision's fourth bullet and the Risks paragraph describe it). The controller does not
-  re-measure tick labels, the legend or the tooltip, there is no `tickTemplate`, the axes do not write a `value` for it, and the legend has no
-  controller target. The server's assumptions (`Container text_height:` 16, `text_char_width:` 0.6, `Legend legend_height:` 28) stay assumptions; the
-  G2 gate pins them to the page (below).
+- **The post-font-load re-measure pass was not built** by this epic (the Decision's fourth bullet and the Risks paragraph describe it). The
+  controller did not re-measure tick labels, the legend or the tooltip, there is no `tickTemplate`, the axes do not write a `value` for it, and
+  the legend has no controller target. The server's assumptions (`Container text_height:` 16, `text_char_width:` 0.6, `Legend legend_height:` 28)
+  stayed assumptions; the G2 gate pins them to the page (below). Superseded: the re-measure was built later as a re-layout request (item #108
+  of the `review-gaps` epic, "Resize and re-measure" and its As built note); it needs `relayout_url:`.
 - **`chadcn--chart` as built**: `Container` is always the controller element and carries 20 values (`layout`, `keyboardStep`, `accessibilityLayer`,
   `ticks`, `plot`, the four interaction states, `defaultIndex`, `tooltipEventType`, `trigger`, `tooltipActive`, `offset`, `allowEscape`,
   `reverseDirection`, `position`, `transition`, `transitionAuto`, `wrapperStyle`); the part wiring is `Cartesian::Wiring`. The controller handles
-  axis tooltips only. An item tooltip (`shared: false` on a `BarChart` or a `RadialBarChart`, a pie) is not driven (a `LineChart`, `AreaChart` or `RadarChart` allows `axis` only, so `shared: false` keeps the axis tooltip: recharts 3.8.0 `state/selectors/selectTooltipEventType.js:4-13`, `chart/LineChart.js:5`, `chart/AreaChart.js:5`, `chart/RadarChart.js:11`): the controller is inert and the
+  axis tooltips only (item tooltips of a `BarChart` and a `RadialBarChart` came with item #109, below). An item tooltip (`shared: false` on a `BarChart` or a `RadialBarChart`, a pie) is not driven (a `LineChart`, `AreaChart` or `RadarChart` allows `axis` only, so `shared: false` keeps the axis tooltip: recharts 3.8.0 `state/selectors/selectTooltipEventType.js:4-13`, `chart/LineChart.js:5`, `chart/AreaChart.js:5`, `chart/RadarChart.js:11`): the controller is inert and the
   server-drawn tooltip is left alone, and no item-tooltip rendering exists (no templates, a hidden empty wrapper). The polar charts publish their values and no action (#85). A chart outside
   a `Container` is not wired.
 - **`ReferenceLine` is implemented** although the spec and the deviations register (`api`, "Brush, ReferenceLine, ... are not ported") list it as not
@@ -201,5 +285,95 @@ Follow-ups left open (none is owned by an item):
 - **Quirks kept on purpose** (they are recharts' DOM): the `undefined` class suffix of a radial bar sector; `class:` of an axis replacing the class of its line and
   tick lines; `class:` of a pie landing on every sector; the default-index anchor of a radar or radial bar tooltip (x the middle of the chart, y the tick's angle or
   radius); a radial bar with no data still drawn as its two empty groups; the empty pie written in place after the clip path.
-- **Not ported**, see `deviations/chart.json`: radar ranges, `active_shape`, the polar tooltip cursor and item tooltips of a radial bar chart, the hover mapping of
+- **Not ported**, see `deviations/chart.json`: radar ranges, `active_shape`, the polar tooltip cursor, item tooltips of a radial bar chart (built since item #109), the hover mapping of
   `chadcn--chart` for polar charts, `stack_offset`, `hide:` and children of the polar axes, `tick_count:` of the angle axis.
+
+### Item #107: the resize half of "Resize and re-measure" (`review-gaps` epic)
+
+Built as the Decision above says (option C, opt-in with `relayout_url:`, A as the interim state); where the build is more precise:
+
+- **The values exist only with a URL.** `relayoutUrl`, `dimension` and `textMetrics` are written on the container only when it has a
+  `relayout_url:`, so a container without one renders byte for byte what 0.1.0 rendered (`test/chadcn/chart/container_relayout_test.rb`).
+  The chart roots hand their legend box height to the container (`publish_legend_height`) for `textMetrics`.
+- **`relayout_options` does not read `chart[legend_height]` yet** (read since #108): the container has no `legend_height:` keyword until #108, and a key
+  it does not take would break the splat. The request already carries it when the chart has a legend.
+- **Bounds and errors** (the open advisory of #96): a box under 1 px or over 4096 px is never requested and stays scaled into its box;
+  `relayout_options` drops a value outside its bound or not written as a plain decimal number; a cross-origin `relayout_url:` is never
+  requested (`relayout-error` with status 0); an error answer keeps the scaled chart and stops re-layout until the element reconnects.
+- **The interim scaling starts with the first size that differs from `dimension`**, before the debounce, and stays after an error
+  answer; `turbo:before-cache` removes it with the request, the restore observes the box again. No request leaves a Turbo preview.
+- **Proof.** G2 compares the server render at 320, 480 and 640 px (`resize__bar-*`, `resize__pie-*` scenarios). The browser test
+  (`test/javascript/chart_resize.test.mjs`; the lifecycle in `chart_resize_lifecycle.test.mjs`, apart from `chart.test.mjs` to keep each file within node:test's per-file timeout on CI) answers the request with the Phlex parity page at the requested width and compares the
+  swapped chart with recharts resized in the browser from 320 to 480 and 640 px (bar) and to 640 px (pie), under G2's rules: 0 differences.
+  The stimulus R1/R6 exception is recorded in `.ai/skills/stimulus/SKILL.md` ("Recorded exception: the chart re-layout").
+
+### Item #108: the re-measure half of "Resize and re-measure" (`review-gaps` epic)
+
+Built as the Decision above says (the same request as the resize, `relayout_url:` needed); where the build is more precise:
+
+- **The measurement** is `app/javascript/chadcn/primitives/chart_measure.js`: each `.recharts-cartesian-axis-tick-value` label in recharts'
+  `white-space: pre` span under `body`, at the font size and letter spacing of the first tick's computed style (recharts reads both from the
+  tick, `cartesian/CartesianAxis.js`, the font family is the body's in both), rounded to 4 decimals; the legend box of
+  `.recharts-legend-wrapper`. A chart without tick labels (a pie) keeps the served text metrics. The controller measures on every settled
+  size, after `document.fonts.ready`, and sends the measured metrics with every request, so one request covers a resize and a font.
+- **`Chart::Container legend_height:` wins over `Legend legend_height:`** (the spec first said the opposite): the request carries what was
+  measured, and the other order would re-request forever when a `Legend` sets `legend_height:`. A numeric `Legend height:` still wins over
+  both (the box has that height). The cartesian and polar `ChartSettings` carry it to the layouts (`legend_box_height`).
+- **One metrics request per size** (`measuredAt`, written by `swap` on every answer): a host that
+  ignores the metrics, or a label subset that flips the average glyph width between two layouts, costs one request, never a loop. Every
+  answer carries it (each request sends the metrics measured after the fonts loaded); a resize still requests, so one change costs one
+  request; what the new layout would measure differently (a legend that wraps at the new width, another tick subset) waits for the next
+  change.
+- **Proof.** `test/javascript/chart_remeasure.test.mjs` (its own file for CI's per-file timeout) opens a host action of the dummy app,
+  `chart_relayouts#show`, which renders a parity scenario with `relayout_options(params)` like an application; in a font with 14 px lines
+  and 14 px letter spacing (a 26 px legend, glyphs 1.77 em wide, every other month label dropped) the swapped `legend__bottom` chart equals
+  recharts in the same font under G2's rules (0 differences), the same page without the re-measure differs, a page laid out at the measured
+  metrics sends nothing, a pie (no ticks, no legend) sends nothing, and a host that ignores the metrics gets exactly one request. The
+  resize tests (`chart_resize*.test.mjs`) write the page's measured metrics as the served ones, so they stay about the size.
+
+### Item #109: item tooltips, `Tooltip shared: false` on a `BarChart` and a `RadialBarChart` (`review-gaps` epic)
+
+The item tooltip is drawn with the same per-template contract as the axis one (spec, "Tooltip"); what recharts 3.8 does was read in
+`context/tooltipContext.js`, `cartesian/Bar.js`, `polar/RadialBar.js`, `state/tooltipSlice.js` and the combiners of the tooltip state, and
+checked in the React oracle:
+
+- **Templates per series and category.** recharts shows the hovered series alone at that row, so the server writes one template per item
+  series and category (`data-series`, `data-index`), no label, no cursor, no active dots; a 2-series bar chart of 12 categories pays 24
+  templates. `data-coordinate` is the axis anchor (keyboard, `default_index:`), `data-item-coordinate` the bar's center; an arc has no
+  `tooltipPosition`, so a radial bar's item tooltip sits at the `default_index` anchor, or is not translated at all, exactly as recharts places it.
+- **Tagged shapes, not hit testing.** Every bar (with its background) and every arc carries `tooltipItem` with its series and position; the
+  controller resolves `event.target` to that target on `pointermove` (recharts' `mouseenter` / `mouseleave`) and on `click`. G2 ignores
+  `data-chadcn--*`, so the DOM stays recharts'. A pie keeps its inert tooltip: its sectors are not tagged (item #110 adds the polar pointer).
+- **One new value, `pointerSeries`.** The series of the pointer's item (recharts' `graphicalItemId`), carried with the other interaction values
+  over a re-layout swap and a Turbo snapshot. The keyboard and `active: true` show that series, the first one with `default_index:`, else
+  nothing (recharts' `combineTooltipPayloadConfigurations`), at the category's axis anchor.
+- **Kept as recharts does**: a finger on a bar shows nothing (only `Pie` writes `data-recharts-item-index` for the touch path); the row of an
+  item is the bar's position among the drawn bars, so a zero-height bar shifts the rows after it in both.
+- **Not here**: the keys on a radial bar chart (its wrapper hears the pointer and the Escape only; the polar keyboard layer is item #110).
+- **Proof.** Six `tooltip__item-*` scenarios (G2, content after every step) and `test/javascript/chart_item_tooltip.test.mjs`, which walks
+  the same scenarios in the port and in recharts and compares the wrapper's visibility, side classes and translate after every step.
+
+### Item #110: the polar charts answer the pointer and the keyboard (`review-gaps` epic)
+
+What recharts 3.8 does was read in `state/selectors/selectors.js:76-100` (`combineActivePolarProps`), `util/PolarUtils.js`,
+`util/getActiveCoordinate.js`, `component/Cursor.js` with `util/cursor/*`, and the keyboard and touch middlewares, then probed in the React
+oracle step by step on eight new scenarios:
+
+- **The mapping is a primitive, the geometry the server's.** `primitives/chart_polar_pointer.js` ports `inRangeOfSector`, the circular branch
+  of `calculateActiveTickIndex` (a full turn of angle ticks wraps around) and `getActivePolarCoordinate`; the server publishes the polar view
+  box, the tooltip axis and its range (`polar`) and the angles or radii of the categories (`ticks`). The tooltip anchors where recharts puts
+  it: the pointer's radius on the category's angle (radar), the category's radius at the pointer's angle (radial bar).
+- **The cursor is per category, drawn for the pointer only.** recharts draws the polar cursor only from a pointer's polar coordinate
+  (`isPolarCoordinate`); the keyboard and `default_index:` coordinates are plain points, so they draw none. Its geometry depends on the
+  category alone (a radar's line from the inner to the outer radius, a radial bar's ring), so each template carries it as
+  `data-pointer-cursor` and the controller draws it only when the pointer's interaction is the one shown. No new JavaScript draws a path.
+- **A pie is an item tooltip like a bar's.** Its sector groups are `tooltipItem` targets and its templates item templates (series = the pie's
+  position, the sector's `tooltipPosition` as the item coordinate), so the #109 machinery serves it unchanged; a finger activates the sector
+  whose path carries recharts' `data-recharts-item-index` (the element under the finger now, `elementFromPoint`).
+- **The keyboard layer is the cartesian one.** Every polar chart with a tooltip carries every action; `keyboardStep` is 1 (recharts'
+  direction is left-to-right for both polar layouts) and `accessibility_layer: false` switches the keys off. On a pie the keys show nothing
+  until the pointer has shown a sector or `default_index:` names one (the #109 series rule), as recharts does.
+- **Proof.** G2 on the `tooltip__radar-*`, `tooltip__radial-*` and `tooltip__pie-*` scenarios (final DOM, cursor paths included), and
+  `test/javascript/chart_polar_tooltip.test.mjs`, which walks them in the port and in recharts and compares the wrapper, the cursor (class,
+  layer, geometry) and the active dots after every step. The inert-polar tests of `chart.test.mjs` were removed with the behavior they pinned.
+- **Still not ported** (register): radar ranges, `active_shape:`, `stack_offset:`.
