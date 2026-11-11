@@ -106,8 +106,9 @@ CSS variables; `Sidebar::Trigger` and `Sidebar::Rail` toggle it from anywhere in
 
 - `Tabs` normalizes `activation_mode:` (`:manual` and `"manual"` are equal); `NavigationMenu` forwards it as given, and an unknown
   `orientation:` falls back to horizontal, like the React component.
-- `Direction::Provider` sets the direction (`rtl`) its descendants read; without `dir:` or `direction:` it keeps the direction of the
-  enclosing provider (React resets to `ltr`); components never read the document `dir`, exactly as Radix.
+- `Direction::Provider` sets the direction (`rtl`) its descendants read; without `dir:` or `direction:` it provides no direction, so
+  its descendants fall back to `ltr` even inside an `rtl` provider, as in React; components never read the document `dir`, exactly as
+  Radix.
   Your own parts get it by including `Chadcn::Direction::Consumer` (private `use_direction`) or calling
   `Chadcn::Direction.use_direction(context)`.
 - `ScrollArea` renders the viewport and the scrollbars Radix renders (`type: "hover"` shows them while hovering and hides them after
