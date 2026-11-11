@@ -28,7 +28,8 @@ every oracle component has a `Chadcn` class. Per component:
     recharts is replaced by Phlex SVG that emits the DOM recharts 3.8 produces, with no third-party JavaScript (`dev/decisions/chart.md`). The six chart roots
     (`BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `RadialBarChart`) and the `chadcn--chart` controller (tooltip, cursor, active dots,
     keyboard) are shipped in 0.1.0 and documented in `docs/charts.md`. It counts as partly ported because recharts features are left out (CHANGELOG 0.1.0:
-    radar ranges, the polar tooltip cursor, item tooltips with `Tooltip shared: false`, the browser re-measure of tick and legend text).
+    radar ranges, the polar tooltip cursor, item tooltips with `Tooltip shared: false`, `active_shape:`, `stack_offset:`, the angle axis `tick_count:`, a chart
+    outside `Chart::Container`, and the browser re-measure of tick and legend text).
 - **Not ported:** none. No oracle component is omitted. `state.json` skips nothing.
 
 `dev/port/state.json`, the run ledger of `/shadcn-run`, agrees with this section: the components ported by the later epics (calendar, carousel, chart, drawer,
@@ -93,7 +94,7 @@ Each was diagnosed with evidence (probes on the React oracle alone) before chang
 ### Open items and advisories
 
 - **Runner limits**: the parity runner has no ignore list and no wheel/touch steps (the sidebar skeleton was solved by pinning randomness on the parity pages; see "Resolved" and decision 1).
-- Q review advisories worth acting on (full JSON in `tmp/shadcn-port/<name>/audit-static.json`): sidebar mobile click handler returns early on `defaultPrevented` (React has no such check); collapsible and tabs leave stale state after a Turbo cache restore; several controllers (accordion, collapsible, avatar) hand-roll template mounting instead of `template_mount`; menubar copies `MenuLevel` instead of sharing it; dialog `open-change` is cancelable although the spec says not; alert-dialog/sheet extend the dialog controller (spec says share via primitives; not recorded as a deviation); undocumented divergences that exist only as code comments (dialog focus-scope release, popover, select focus trap, collapsible force_mount); toggle-group item lookup also matches nested groups; slider hand-rolls the bubble input because `form_bubble_input` only supports checkbox/radio/select.
+- Q review advisories worth acting on (full JSON in `tmp/shadcn-port/<name>/audit-static.json`): sidebar mobile click handler returns early on `defaultPrevented` (React has no such check); collapsible and tabs leave stale state after a Turbo cache restore; several controllers (accordion, collapsible, avatar) hand-roll template mounting instead of `template_mount`; menubar copies `MenuLevel` instead of sharing it; dialog `open-change` is cancelable although the spec says not; alert-dialog/sheet extend the dialog controller (spec says share via primitives; not recorded as a deviation); undocumented divergences that exist only as code comments (dialog focus-scope release, popover, select focus trap, collapsible force_mount) (since written into the Behavior section of each spec); toggle-group item lookup also matches nested groups; slider hand-rolls the bubble input because `form_bubble_input` only supports checkbox/radio/select.
 
 ### Follow-up (after the second run): the four open items
 

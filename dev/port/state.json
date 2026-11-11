@@ -281,8 +281,8 @@
       "wave": 3,
       "iteration": 0,
       "note": "shadcn layer 1:1, recharts replaced by Phlex SVG; six chart roots and chadcn--chart shipped (PRs 75, 82-87), dev/decisions/chart.md",
-      "last_green_sha": "02c7bb6",
-      "updated_at": "2026-11-11T00:48:37Z",
+      "last_green_sha": "f199f27",
+      "updated_at": "2026-11-11T01:05:44Z",
       "kind": "fanout",
       "deps": [],
       "source_sha": "35e2fa755465ef8e"
