@@ -34,14 +34,33 @@ class ChartDemosControllerTest < ActionDispatch::IntegrationTest
     assert_response :not_found
   end
 
-  test "the polar families publish their tooltip values and no action" do
-    { "pie" => "item", "radar" => "axis", "radial" => "axis" }.each do |family, event_type|
+  # Since item #110 (dev/port/specs/chart.md, "Polar pointer and keyboard as built") every polar chart with a tooltip carries every action
+  # of the controller on its `.recharts-wrapper`: a radar picks a category by the pointer's angle, a radial bar chart by its radius (both
+  # axis tooltips whose templates carry the pointer cursor), a pie follows its sectors (an item tooltip, no cursor).
+  test "the polar families wire the pointer and the keys with their own layout and tooltip" do
+    action = Chadcn::Chart::Polar::Wiring::ACTION
+    { "pie" => %w[item centric], "radar" => %w[axis centric], "radial" => %w[axis radial] }.each do |family, (event_type, layout)|
       get "/design-system/chart-demo/#{family}"
 
       assert_response :success
-      assert_select "div[data-slot=chart][data-controller~='chadcn--chart'][data-chadcn--chart-default-index-value='1']"
-      assert_select "div[data-slot=chart][data-chadcn--chart-tooltip-event-type-value=#{event_type}]"
-      assert_select ".recharts-wrapper[data-action]", count: 0
+      chart = "div[data-slot=chart][data-controller~='chadcn--chart']"
+      assert_select "#{chart}[data-chadcn--chart-default-index-value='1']"
+      assert_select "#{chart}[data-chadcn--chart-tooltip-event-type-value=#{event_type}]"
+      assert_select "#{chart}[data-chadcn--chart-layout-value=#{layout}][data-chadcn--chart-keyboard-step-value='1']"
+      assert_select "#{chart}[data-chadcn--chart-polar-value]"
+      assert_select ".recharts-wrapper[data-action=?]", action
     end
+  end
+
+  test "radar and radial templates carry the pointer cursor, the pie's sectors are the tooltip items" do
+    %w[radar radial].each do |family|
+      get "/design-system/chart-demo/#{family}"
+      assert_select "template[data-pointer-cursor]", minimum: 1
+      assert_select "[data-chadcn--chart-target=tooltipItem]", count: 0
+    end
+
+    get "/design-system/chart-demo/pie"
+    assert_select "template[data-pointer-cursor]", count: 0
+    assert_select "g.recharts-pie-sector[data-chadcn--chart-target=tooltipItem][data-chadcn--chart-series='0']", minimum: 1
   end
 end
