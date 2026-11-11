@@ -8284,7 +8284,6 @@
       },
       "animations": false,
       "observe": [
-        ".recharts-wrapper",
         ".recharts-tooltip-wrapper",
         ".recharts-tooltip-cursor",
         ".recharts-tooltip-wrapper *",
@@ -8432,7 +8431,6 @@
       },
       "animations": false,
       "observe": [
-        ".recharts-wrapper",
         ".recharts-tooltip-wrapper",
         ".recharts-tooltip-cursor",
         ".recharts-tooltip-wrapper *",
@@ -8569,7 +8567,6 @@
       },
       "animations": false,
       "observe": [
-        ".recharts-wrapper",
         ".recharts-tooltip-wrapper",
         ".recharts-tooltip-cursor",
         ".recharts-tooltip-wrapper *",
