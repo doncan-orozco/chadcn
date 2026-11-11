@@ -11,7 +11,19 @@ const trigger = "[data-slot=dropdown-menu-trigger]";
 const content = "[data-slot=dropdown-menu-content]";
 const subTrigger = "[data-slot=dropdown-menu-sub-trigger]";
 const subContent = "[data-slot=dropdown-menu-sub-content]";
-const OUTSIDE = { x: 860, y: 20 }; // the html element: a modal menu sets body pointer-events: none (spec, Scenario notes)
+
+// A point on the bare page background, proven by hit-testing: never on the content, the host or anything focusable.
+// (A modal layer sets body pointer-events: none, so no element can be clicked: the press has to be a coordinate.)
+const backgroundPoint = (page) => page.evaluate(() => {
+  const { innerWidth: width, innerHeight: height } = window;
+  const corners = [[width - 8, height - 8], [8, height - 8], [width - 8, 8], [8, 8]];
+  for (const [x, y] of corners) {
+    const hit = document.elementFromPoint(x, y);
+    if (!hit?.closest("[data-slot], [data-controller], a, button, input, select, textarea, [tabindex]")) return { x, y };
+  }
+  throw new Error("no bare background point in the viewport");
+});
+const pressOutside = async (page) => { const { x, y } = await backgroundPoint(page); await page.mouse.click(x, y); };
 
 const openContent = (page, selector = content) => page.waitForSelector(`${selector}[data-state=open]`);
 const closedContent = (page, selector = content) => page.waitForSelector(selector, { state: "detached" });
@@ -24,8 +36,8 @@ const openWithKey = async (page, key) => {
 };
 
 const active = (page) => page.evaluate(() => {
-  const el = document.activeElement;
-  return { slot: el?.dataset?.slot ?? null, text: el?.textContent.trim() ?? null };
+  const focusedElement = document.activeElement;
+  return { slot: focusedElement?.dataset?.slot ?? null, text: focusedElement?.textContent.trim() ?? null };
 });
 
 // Focus moves in a setTimeout (roving focus, typeahead), so wait for it rather than reading it at once.
@@ -50,7 +62,7 @@ const record = (page, { prevent = [] } = {}) => page.evaluate(({ prevent }) => {
     });
   }
 }, { prevent });
-const log = (page, name) => page.evaluate((name) => window.__menu.filter((e) => !name || e.name === name), name);
+const recorded = (page, name) => page.evaluate((name) => window.__menu.filter((entry) => !name || entry.name === name), name);
 
 const bodyState = (page) => page.evaluate(() => ({
   pointerEvents: document.body.style.pointerEvents,
@@ -247,7 +259,7 @@ browserTest("dropdown-menu: Escape closes and returns focus to the trigger; a pr
   await page.keyboard.press("Escape");
   await closedContent(page);
   await waitSlotFocus(page, "dropdown-menu-trigger");
-  assert.deepEqual((await log(page, "open-change")).map((e) => [e.open, e.slot]),
+  assert.deepEqual((await recorded(page, "open-change")).map((entry) => [entry.open, entry.slot]),
     [[true, "dropdown-menu-trigger"], [false, "dropdown-menu-trigger"]]);
 
   await record(page, { prevent: ["close-auto-focus"] });
@@ -258,7 +270,7 @@ browserTest("dropdown-menu: Escape closes and returns focus to the trigger; a pr
   await closedContent(page);
   await settle(page);
   assert.notEqual((await active(page)).slot, "dropdown-menu-trigger");
-  assert.deepEqual((await log(page, "close-auto-focus")).map((e) => e.cancelable), [true]);
+  assert.deepEqual((await recorded(page, "close-auto-focus")).map((entry) => entry.cancelable), [true]);
 });
 
 browserTest("dropdown-menu: a prevented escape-key-down keeps the menu open", async ({ open }) => {
@@ -266,10 +278,10 @@ browserTest("dropdown-menu: a prevented escape-key-down keeps the menu open", as
   await record(page, { prevent: ["escape-key-down"] });
   await openWithKey(page, "Enter");
   await page.keyboard.press("Escape");
-  await page.waitForFunction(() => window.__menu.some((e) => e.name === "escape-key-down"));
+  await page.waitForFunction(() => window.__menu.some((entry) => entry.name === "escape-key-down"));
   await settle(page);
   assert.equal(await page.locator(content).getAttribute("data-state"), "open");
-  assert.deepEqual((await log(page, "escape-key-down")).map((e) => [e.cancelable, e.slot]), [[true, "dropdown-menu-content"]]);
+  assert.deepEqual((await recorded(page, "escape-key-down")).map((entry) => [entry.cancelable, entry.slot]), [[true, "dropdown-menu-content"]]);
 });
 
 browserTest("dropdown-menu: a prevented open-auto-focus leaves the content unfocused", async ({ open }) => {
@@ -277,10 +289,10 @@ browserTest("dropdown-menu: a prevented open-auto-focus leaves the content unfoc
   await record(page, { prevent: ["open-auto-focus"] });
   await page.click(trigger);
   await openContent(page);
-  await page.waitForFunction(() => window.__menu.some((e) => e.name === "open-auto-focus"));
+  await page.waitForFunction(() => window.__menu.some((entry) => entry.name === "open-auto-focus"));
   await settle(page);
-  assert.equal(await page.locator(content).evaluate((el) => el.contains(document.activeElement)), false);
-  assert.deepEqual((await log(page, "open-auto-focus")).map((e) => e.cancelable), [true]);
+  assert.equal(await page.locator(content).evaluate((menu) => menu.contains(document.activeElement)), false);
+  assert.deepEqual((await recorded(page, "open-auto-focus")).map((entry) => entry.cancelable), [true]);
 });
 
 browserTest("dropdown-menu: a controlled open menu fires open-change on Escape but stays open", async ({ open }) => {
@@ -289,9 +301,9 @@ browserTest("dropdown-menu: a controlled open menu fires open-change on Escape b
   await openContent(page);
   await page.locator(content).focus();
   await page.keyboard.press("Escape");
-  await page.waitForFunction(() => window.__menu.some((e) => e.name === "open-change"));
+  await page.waitForFunction(() => window.__menu.some((entry) => entry.name === "open-change"));
   await settle(page);
-  assert.deepEqual((await log(page, "open-change")).map((e) => e.open), [false]);
+  assert.deepEqual((await recorded(page, "open-change")).map((entry) => entry.open), [false]);
   assert.equal(await page.locator(content).getAttribute("data-state"), "open");
   assert.equal(await page.locator(trigger).getAttribute("aria-expanded"), "true");
 });
@@ -304,7 +316,7 @@ browserTest("dropdown-menu: selecting an item closes the menu and returns focus;
   await openWithKey(page, "Enter");
   await waitItemFocus(page, "Profile");
   await page.keyboard.press("Enter");
-  await page.waitForFunction(() => window.__menu.some((e) => e.name === "select"));
+  await page.waitForFunction(() => window.__menu.some((entry) => entry.name === "select"));
   await settle(page);
   assert.equal(await page.locator(content).getAttribute("data-state"), "open", "prevented select keeps the menu open");
 
@@ -312,9 +324,9 @@ browserTest("dropdown-menu: selecting an item closes the menu and returns focus;
   await page.click("[role=menuitem]:text-is('Team')");
   await closedContent(page);
   await waitSlotFocus(page, "dropdown-menu-trigger");
-  assert.deepEqual((await log(page)).filter((e) => e.name !== "close-auto-focus").map((e) => [e.name, e.text]),
+  assert.deepEqual((await recorded(page)).filter((entry) => entry.name !== "close-auto-focus").map((entry) => [entry.name, entry.text]),
     [["select", "Team"], ["open-change", "Open"]]);
-  assert.equal((await log(page, "select"))[0].cancelable, true);
+  assert.equal((await recorded(page, "select"))[0].cancelable, true);
 });
 
 browserTest("dropdown-menu: checkbox items report the next checked state and never flip themselves", async ({ open }) => {
@@ -322,13 +334,13 @@ browserTest("dropdown-menu: checkbox items report the next checked state and nev
   await record(page, { prevent: ["select"] });
   await openContent(page);
   const items = page.locator("[role=menuitemcheckbox]");
-  const states = () => items.evaluateAll((els) => els.map((el) => [el.textContent.trim(), el.getAttribute("aria-checked"), el.dataset.state]));
+  const states = () => items.evaluateAll((menuItems) => menuItems.map((menuItem) => [menuItem.textContent.trim(), menuItem.getAttribute("aria-checked"), menuItem.dataset.state]));
   const before = await states();
   assert.deepEqual(before, [["Status Bar", "true", "checked"], ["Activity Bar", "false", "unchecked"], ["Panel", "mixed", "indeterminate"], ["Minimap", "false", "unchecked"]]);
   for (const name of ["Status Bar", "Activity Bar", "Panel"]) await page.click(`[role=menuitemcheckbox]:text-is('${name}')`);
-  await page.waitForFunction(() => window.__menu.filter((e) => e.name === "checked-change").length === 3);
+  await page.waitForFunction(() => window.__menu.filter((entry) => entry.name === "checked-change").length === 3);
   // checked-change fires even though select was prevented; indeterminate goes to true.
-  assert.deepEqual((await log(page, "checked-change")).map((e) => [e.text, e.checked, e.cancelable]),
+  assert.deepEqual((await recorded(page, "checked-change")).map((entry) => [entry.text, entry.checked, entry.cancelable]),
     [["Status Bar", false, false], ["Activity Bar", true, false], ["Panel", true, false]]);
   assert.deepEqual(await states(), before, "controlled only: the port never changes aria-checked");
   assert.equal(await page.locator(content).getAttribute("data-state"), "open");
@@ -341,8 +353,8 @@ browserTest("dropdown-menu: a radio item reports its value and closes the menu",
   assert.equal(await page.locator("[role=menuitemradio][aria-checked=true]").textContent(), "Bottom", "precondition");
   await page.click("[role=menuitemradio]:text-is('Top')");
   await closedContent(page);
-  assert.deepEqual((await log(page, "value-change")).map((e) => [e.value, e.cancelable, e.slot]), [["top", false, "dropdown-menu-radio-item"]]);
-  assert.deepEqual((await log(page, "select")).map((e) => e.text), ["Top"]);
+  assert.deepEqual((await recorded(page, "value-change")).map((entry) => [entry.value, entry.cancelable, entry.slot]), [["top", false, "dropdown-menu-radio-item"]]);
+  assert.deepEqual((await recorded(page, "select")).map((entry) => entry.text), ["Top"]);
 });
 
 // --- modality and outside interaction -------------------------------------------------------------------------------------
@@ -358,11 +370,11 @@ browserTest("dropdown-menu: modal locks the page while open; an outside press di
   assert.equal(locked.pointerEvents, "none");
   assert.equal(locked.scrollLocked, true);
   assert.ok(locked.hidden > idle.hidden, "outside is aria-hidden");
-  await page.mouse.click(OUTSIDE.x, OUTSIDE.y);
+  await pressOutside(page);
   await closedContent(page);
   await waitSlotFocus(page, "dropdown-menu-trigger");
   assert.deepEqual(await bodyState(page), idle);
-  const names = (await log(page)).map((e) => e.name);
+  const names = (await recorded(page)).map((entry) => entry.name);
   assert.ok(names.indexOf("pointer-down-outside") >= 0 && names.indexOf("pointer-down-outside") < names.indexOf("interact-outside"), names.join(","));
 });
 
@@ -373,7 +385,7 @@ browserTest("dropdown-menu: non-modal leaves the page alone and an outside press
   await openContent(page);
   await settle(page);
   assert.deepEqual(await bodyState(page), idle);
-  await page.mouse.click(OUTSIDE.x, OUTSIDE.y);
+  await pressOutside(page);
   await closedContent(page);
   await settle(page);
   assert.notEqual((await active(page)).slot, "dropdown-menu-trigger");
@@ -387,11 +399,11 @@ for (const prevented of ["pointer-down-outside", "interact-outside"]) {
     await page.click(trigger);
     await openContent(page);
     await settle(page);
-    await page.mouse.click(OUTSIDE.x, OUTSIDE.y);
-    await page.waitForFunction((name) => window.__menu.some((e) => e.name === name), prevented);
+    await pressOutside(page);
+    await page.waitForFunction((name) => window.__menu.some((entry) => entry.name === name), prevented);
     await settle(page);
     assert.equal(await page.locator(content).getAttribute("data-state"), "open");
-    assert.deepEqual((await log(page, prevented)).map((e) => [e.cancelable, e.slot]), [[true, "dropdown-menu-content"]]);
+    assert.deepEqual((await recorded(page, prevented)).map((entry) => [entry.cancelable, entry.slot]), [[true, "dropdown-menu-content"]]);
   });
 }
 
@@ -415,7 +427,7 @@ browserTest("dropdown-menu: removing the open host releases everything and leave
   assert.equal((await bodyState(page)).scrollLocked, true, "precondition: locked");
   await page.evaluate(async (selector) => {
     const host = document.querySelector(selector);
-    window.__host = { el: host, parent: host.parentNode, next: host.nextSibling };
+    window.__host = { detached: host, parent: host.parentNode, next: host.nextSibling };
     host.remove();
     await new Promise((resolve) => setTimeout(resolve));
   }, trigger);
@@ -424,17 +436,17 @@ browserTest("dropdown-menu: removing the open host releases everything and leave
   assert.deepEqual(await bodyState(page), idle);
   // A listener left on window/document would still drive the detached host (it was left open).
   const leftovers = await page.evaluate(() => {
-    const { el } = window.__host;
+    const { detached } = window.__host;
     window.dispatchEvent(new Event("blur"));
-    const afterBlur = el.getAttribute("aria-expanded");
+    const afterBlur = detached.getAttribute("aria-expanded");
     document.dispatchEvent(new Event("turbo:before-cache"));
-    return { afterBlur, afterBeforeCache: el.getAttribute("aria-expanded") };
+    return { afterBlur, afterBeforeCache: detached.getAttribute("aria-expanded") };
   });
   assert.deepEqual(leftovers, { afterBlur: "true", afterBeforeCache: "true" });
 
   await page.evaluate(async () => {
-    const { el, parent, next } = window.__host;
-    parent.insertBefore(el, next);
+    const { detached, parent, next } = window.__host;
+    parent.insertBefore(detached, next);
     await new Promise((resolve) => setTimeout(resolve));
   });
   await settle(page);

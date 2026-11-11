@@ -19,9 +19,9 @@ const link = (page, name) => page.getByRole("link", { name, exact: true });
 const state = (locator) => locator.getAttribute("data-state");
 const waitState = (locator, value) => locator.and(locator.page().locator(`[data-state=${value}]`)).waitFor();
 const waitFocus = (locator) => locator.and(locator.page().locator(":focus")).waitFor();
-const focused = (locator) => locator.evaluate((el) => el === document.activeElement);
+const focused = (locator) => locator.evaluate((element) => element === document.activeElement);
 const contentOf = async (page, name) => page.locator(`#${await trigger(page, name).getAttribute("data-chadcn--navigation-menu-controls-param")}`);
-const finishAnimations = (locator) => locator.evaluate((el) => Promise.all(el.getAnimations({ subtree: true }).map((a) => a.finished)));
+const finishAnimations = (locator) => locator.evaluate((element) => Promise.all(element.getAnimations({ subtree: true }).map((animation) => animation.finished)));
 
 // Records the controller's public events (they bubble to document) with their detail; `prevent` calls preventDefault on some.
 const record = (page, { prevent = [] } = {}) => page.evaluate(({ names, prefix, prevent }) => {
@@ -33,7 +33,7 @@ const record = (page, { prevent = [] } = {}) => page.evaluate(({ names, prefix, 
     });
   }
 }, { names: EVENTS, prefix: CONTROLLER, prevent });
-const recorded = (page, name) => page.evaluate((name) => window.__nav.filter((e) => e.name === name), name);
+const recorded = (page, name) => page.evaluate((name) => window.__nav.filter((entry) => entry.name === name), name);
 
 // A click on the trigger without a pointer move (a real mouse move starts the 200ms hover-open timer, which a second fast
 // click would race); the toggle under test is the click handler, which Enter/Space reach through the native button.
@@ -90,7 +90,7 @@ browserTest("navigation-menu: value-change carries the new value on open, switch
   await clickTrigger(page, "Components");
   await clickTrigger(page, "Components");
   await waitState(trigger(page, "Components"), "closed");
-  assert.deepEqual((await recorded(page, "value-change")).map((e) => e.value), [first, second, ""]);
+  assert.deepEqual((await recorded(page, "value-change")).map((entry) => entry.value), [first, second, ""]);
 });
 
 browserTest("navigation-menu: Enter and Space toggle a focused trigger; focus alone never opens", async ({ open }) => {
@@ -119,7 +119,7 @@ browserTest("navigation-menu: no-viewport mode mounts the content in its item wi
   const content = await contentOf(page, "Getting started");
   assert.equal(await content.getAttribute("data-state"), "open");
   assert.equal(await page.locator(VIEWPORT).count(), 0);
-  assert.ok(await content.evaluate((el) => el.closest("[data-slot=navigation-menu-item]") !== null), "content lives in its item");
+  assert.ok(await content.evaluate((element) => element.closest("[data-slot=navigation-menu-item]") !== null), "content lives in its item");
   assert.equal(await page.locator(PROXY).count(), 1, "the focus proxy is there");
   assert.equal(await page.locator("span[aria-owns]").count(), 0);
 });
@@ -198,7 +198,7 @@ browserTest("navigation-menu: Tab goes from the open trigger into the content, t
   await waitFocus(trigger(page, "Components"));
   // Focus moved inside the nav: the menu stays open, the content links left the tab order.
   assert.equal(await state(trigger(page, "Getting started")), "open");
-  const tabindexes = await page.locator(`${CONTENT} [data-slot=navigation-menu-link]`).evaluateAll((links) => links.map((a) => [a.getAttribute("tabindex"), a.dataset.tabindex]));
+  const tabindexes = await page.locator(`${CONTENT} [data-slot=navigation-menu-link]`).evaluateAll((contentLinks) => contentLinks.map((contentLink) => [contentLink.getAttribute("tabindex"), contentLink.dataset.tabindex]));
   assert.deepEqual(tabindexes, [["-1", ""], ["-1", ""], ["-1", ""]]);
 
   await page.keyboard.press("Shift+Tab");
@@ -233,7 +233,7 @@ browserTest("navigation-menu: a caller's preventDefault on escape-key-down keeps
   await record(page, { prevent: ["escape-key-down"] });
   await openWithKeyboard(page, "Getting started");
   await page.keyboard.press("Escape");
-  await page.waitForFunction(() => window.__nav.some((e) => e.name === "escape-key-down"));
+  await page.waitForFunction(() => window.__nav.some((entry) => entry.name === "escape-key-down"));
   await settle(page);
   assert.equal(await state(trigger(page, "Getting started")), "open");
 });
@@ -266,7 +266,7 @@ browserTest("navigation-menu: pointerdown outside closes, pointerdown on the vie
   await waitState(trigger(page, "Getting started"), "closed");
   const outside = await recorded(page, "pointer-down-outside");
   assert.equal(outside.length, 2, "dispatched for both presses");
-  assert.ok(outside.every((e) => e.cancelable));
+  assert.ok(outside.every((entry) => entry.cancelable));
 });
 
 browserTest("navigation-menu: pointerdown on a top-level link closes, pointerdown on another trigger switches", async ({ open }) => {
@@ -306,7 +306,7 @@ browserTest("navigation-menu: a caller's preventDefault on link-select keeps the
   await page.keyboard.press("ArrowDown");
   await waitFocus(link(page, "Introduction"));
   await page.keyboard.press("Enter");
-  await page.waitForFunction(() => window.__nav.some((e) => e.name === "link-select"));
+  await page.waitForFunction(() => window.__nav.some((entry) => entry.name === "link-select"));
   await settle(page);
   assert.equal(await state(trigger(page, "Getting started")), "open");
 });
@@ -334,9 +334,9 @@ browserTest("navigation-menu: switching items sets data-motion from-end/to-start
 
   // Read in the task of the click: the outgoing content only stays mounted while its exit animation runs.
   const switchTo = (name) => page.evaluate((name) => {
-    [...document.querySelectorAll("[data-slot=navigation-menu-trigger]")].find((b) => b.textContent.trim() === name).click();
+    [...document.querySelectorAll("[data-slot=navigation-menu-trigger]")].find((navTrigger) => navTrigger.textContent.trim() === name).click();
     return [...document.querySelectorAll("[data-slot=navigation-menu-viewport] [data-slot=navigation-menu-content]")]
-      .map((el) => [document.getElementById(el.getAttribute("aria-labelledby")).textContent.trim(), el.getAttribute("data-motion")]);
+      .map((element) => [document.getElementById(element.getAttribute("aria-labelledby")).textContent.trim(), element.getAttribute("data-motion")]);
   }, name);
   assert.deepEqual(await switchTo("Components"), [["Getting started", "to-start"], ["Components", "from-end"]]);
   await page.locator(`${CONTENT}[data-motion=to-start]`).waitFor({ state: "detached" });
@@ -349,7 +349,7 @@ browserTest("navigation-menu: closing keeps the viewport with data-state=closed 
   await enableMotion(page);
   await clickTrigger(page, "Getting started");
   await waitState(page.locator(VIEWPORT), "open");
-  assert.equal(await page.locator(VIEWPORT).evaluate((el) => el.style.pointerEvents), "", "control: open viewport takes pointers");
+  assert.equal(await page.locator(VIEWPORT).evaluate((element) => element.style.pointerEvents), "", "control: open viewport takes pointers");
   await finishAnimations(page.locator(VIEWPORT));
   const closing = await page.evaluate(() => {
     document.querySelector("[data-slot=navigation-menu-trigger]").click();
@@ -363,10 +363,10 @@ browserTest("navigation-menu: closing keeps the viewport with data-state=closed 
 browserTest("navigation-menu: the viewport size variables follow the active content", async ({ open }) => {
   const page = await open("closed__default");
   await clickTrigger(page, "Getting started");
-  await page.waitForFunction((sel) => document.querySelector(sel)?.style.getPropertyValue("--radix-navigation-menu-viewport-width"), VIEWPORT);
-  const size = await (await contentOf(page, "Getting started")).evaluate((el) => [`${el.offsetWidth}px`, `${el.offsetHeight}px`]);
-  const vars = await page.locator(VIEWPORT).evaluate((el) => [el.style.getPropertyValue("--radix-navigation-menu-viewport-width"), el.style.getPropertyValue("--radix-navigation-menu-viewport-height")]);
-  assert.deepEqual(vars, size);
+  await page.waitForFunction((selector) => document.querySelector(selector)?.style.getPropertyValue("--radix-navigation-menu-viewport-width"), VIEWPORT);
+  const contentSize = await (await contentOf(page, "Getting started")).evaluate((element) => [`${element.offsetWidth}px`, `${element.offsetHeight}px`]);
+  const viewportSize = await page.locator(VIEWPORT).evaluate((element) => [element.style.getPropertyValue("--radix-navigation-menu-viewport-width"), element.style.getPropertyValue("--radix-navigation-menu-viewport-height")]);
+  assert.deepEqual(viewportSize, contentSize);
 });
 
 browserTest("navigation-menu: a force-mounted indicator is visible over the open trigger and hidden after close", async ({ open }) => {
@@ -376,8 +376,8 @@ browserTest("navigation-menu: a force-mounted indicator is visible over the open
   await clickTrigger(page, "Getting started");
   await waitState(indicator, "visible");
   assert.equal(await indicator.getAttribute("aria-hidden"), "true");
-  const width = await trigger(page, "Getting started").evaluate((el) => `${el.offsetWidth}px`);
-  assert.equal(await indicator.evaluate((el) => el.style.width), width);
+  const width = await trigger(page, "Getting started").evaluate((element) => `${element.offsetWidth}px`);
+  assert.equal(await indicator.evaluate((element) => element.style.width), width);
 
   await clickTrigger(page, "Getting started");
   await waitState(indicator, "hidden");

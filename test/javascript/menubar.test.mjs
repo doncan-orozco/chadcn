@@ -16,20 +16,20 @@ const outside = "[data-testid=outside]";
 const trigger = (page, name) => page.locator(root).getByRole("menuitem", { name, exact: true });
 const openTrigger = (page, name) => page.locator("[data-slot=menubar-trigger][data-state=open]", { hasText: name });
 const openContent = (page) => page.locator(`${content}[data-state=open]`);
-const triggerStates = (page) => page.locator("[data-slot=menubar-trigger]").evaluateAll((els) => els.map((el) => `${el.textContent.trim()}:${el.dataset.state}`));
+const triggerStates = (page) => page.locator("[data-slot=menubar-trigger]").evaluateAll((triggers) => triggers.map((menuTrigger) => `${menuTrigger.textContent.trim()}:${menuTrigger.dataset.state}`));
 
 // The focused element as "<data-slot>:<text>" for triggers and items, else its data-slot (or tag name).
 const describeFocus = () => {
-  const el = document.activeElement;
-  const slot = el?.getAttribute("data-slot") ?? el?.tagName;
-  return /trigger|item/.test(slot) ? `${slot}:${el.textContent.trim()}` : slot;
+  const focusedElement = document.activeElement;
+  const slot = focusedElement?.getAttribute("data-slot") ?? focusedElement?.tagName;
+  return /trigger|item/.test(slot) ? `${slot}:${focusedElement.textContent.trim()}` : slot;
 };
 const focused = (page) => page.evaluate(describeFocus);
 const waitFocus = (page, expected) => page.waitForFunction(`(${describeFocus})() === ${JSON.stringify(expected)}`, null, { timeout: 3000 })
   .catch(async () => assert.fail(`focus on ${await focused(page)}, expected ${expected}`));
 
 // Every public event of the controller, with its target slot and the serializable part of its detail.
-const NAMES = ["value-change", "open-change", "select", "checked-change", "escape-key-down", "pointer-down-outside", "focus-outside", "interact-outside", "open-auto-focus", "close-auto-focus"];
+const EVENT_NAMES = ["value-change", "open-change", "select", "checked-change", "escape-key-down", "pointer-down-outside", "focus-outside", "interact-outside", "open-auto-focus", "close-auto-focus"];
 const record = (page, { prevent = [] } = {}) => page.evaluate(({ names, prevent }) => {
   window.__log = [];
   for (const name of names) {
@@ -39,9 +39,9 @@ const record = (page, { prevent = [] } = {}) => page.evaluate(({ names, prevent 
       if (prevent.includes(name)) event.preventDefault();
     });
   }
-}, { names: NAMES, prevent });
-const log = (page, name) => page.evaluate((name) => window.__log.filter((e) => !name || e.name === name), name);
-const waitLog = (page, name, count = 1) => page.waitForFunction(({ name, count }) => window.__log.filter((e) => e.name === name).length >= count, { name, count }, { timeout: 3000 });
+}, { names: EVENT_NAMES, prevent });
+const recorded = (page, name) => page.evaluate((name) => window.__log.filter((entry) => !name || entry.name === name), name);
+const waitLog = (page, name, count = 1) => page.waitForFunction(({ name, count }) => window.__log.filter((entry) => entry.name === name).length >= count, { name, count }, { timeout: 3000 });
 
 // Keyboard open of a trigger: focus it and press a key.
 const keyOpen = async (page, name, key = "Enter") => {
@@ -80,7 +80,7 @@ browserTest("menubar: entering the bar focuses the first trigger; ArrowRight/Arr
   await settle(page);
   assert.deepEqual(await triggerStates(page), ["File:closed", "Edit:closed", "View:closed"]);
   assert.equal(await page.locator(content).count(), 0);
-  assert.deepEqual(await log(page, "value-change"), []);
+  assert.deepEqual(await recorded(page, "value-change"), []);
 });
 
 browserTest("menubar: loop false stops the trigger roving at the last trigger", async ({ open }) => {
@@ -109,8 +109,8 @@ for (const key of ["Enter", "Space", "ArrowDown"]) {
     assert.equal(await file.getAttribute("aria-controls"), await openContent(page).getAttribute("id"));
     assert.equal(await openContent(page).getAttribute("aria-labelledby"), await file.getAttribute("id"));
     await waitFocus(page, "menubar-item:New Tab⌘T");
-    const changes = await log(page, "value-change");
-    assert.deepEqual(changes.map((e) => [e.slot, e.value]), [["menubar", await file.getAttribute("data-chadcn--menubar-menu-value")]]);
+    const changes = await recorded(page, "value-change");
+    assert.deepEqual(changes.map((entry) => [entry.slot, entry.value]), [["menubar", await file.getAttribute("data-chadcn--menubar-menu-value")]]);
   });
 }
 
@@ -124,14 +124,14 @@ browserTest("menubar: a click opens the menu with the content focused and no ite
   await page.locator(content).waitFor({ state: "detached" });
   assert.equal(await trigger(page, "File").getAttribute("aria-expanded"), "false");
   assert.equal(await focused(page), "menubar-trigger:File");
-  assert.deepEqual((await log(page, "value-change")).map((e) => e.value === ""), [false, true]);
+  assert.deepEqual((await recorded(page, "value-change")).map((entry) => entry.value === ""), [false, true]);
 });
 
 browserTest("menubar: a caller preventDefault on open-auto-focus keeps the focus off the content", async ({ open }) => {
   const page = await open("closed__default");
   await record(page, { prevent: ["open-auto-focus"] });
   await clickOpen(page, "File");
-  assert.deepEqual((await log(page, "open-auto-focus")).map((e) => [e.slot, e.cancelable]), [["menubar-content", true]]);
+  assert.deepEqual((await recorded(page, "open-auto-focus")).map((entry) => [entry.slot, entry.cancelable]), [["menubar-content", true]]);
   assert.notEqual(await focused(page), "menubar-content");
 });
 
@@ -153,7 +153,7 @@ browserTest("menubar: ArrowRight/ArrowLeft in an open content switch to the next
   await openTrigger(page, "View").waitFor(); // loop to the last
   assert.deepEqual(await triggerStates(page), ["File:closed", "Edit:closed", "View:open"]);
   assert.equal(await trigger(page, "View").getAttribute("tabindex"), "0", "the opened menu's trigger is the tab stop");
-  const values = (await log(page, "value-change")).map((e) => e.value);
+  const values = (await recorded(page, "value-change")).map((entry) => entry.value);
   assert.equal(values.length, 4);
   assert.ok(values.every(Boolean), values.join(","));
 });
@@ -178,13 +178,13 @@ browserTest("menubar: ArrowRight on a sub trigger opens the sub (open-change); A
   await page.locator(`${subContent}[data-state=open]`).waitFor();
   await waitFocus(page, "menubar-item:Email link");
   assert.equal(await page.locator(subTrigger).getAttribute("aria-expanded"), "true");
-  assert.deepEqual((await log(page, "open-change")).map((e) => [e.slot, e.open]), [["menubar-sub-trigger", true]]);
+  assert.deepEqual((await recorded(page, "open-change")).map((entry) => [entry.slot, entry.open]), [["menubar-sub-trigger", true]]);
   assert.equal(await trigger(page, "File").getAttribute("data-state"), "open", "the sub trigger did not switch menus");
   await page.keyboard.press("ArrowRight");
   await openTrigger(page, "Edit").waitFor();
   assert.equal(await trigger(page, "File").getAttribute("data-state"), "closed");
   await page.locator(subContent).waitFor({ state: "detached" });
-  assert.deepEqual((await log(page, "value-change")).map((e) => e.value), ["file", "edit"]);
+  assert.deepEqual((await recorded(page, "value-change")).map((entry) => entry.value), ["file", "edit"]);
 });
 
 browserTest("menubar: ArrowLeft inside a sub closes the sub, focuses its trigger and keeps the menu open", async ({ open }) => {
@@ -199,8 +199,8 @@ browserTest("menubar: ArrowLeft inside a sub closes the sub, focuses its trigger
   await settle(page);
   assert.match(await focused(page), /^menubar-sub-trigger:/);
   assert.deepEqual(await triggerStates(page), ["File:open", "Edit:closed", "View:closed"]);
-  assert.deepEqual((await log(page, "value-change")).map((e) => e.value), ["file"]);
-  assert.deepEqual((await log(page, "open-change")).map((e) => e.open), [true, false]);
+  assert.deepEqual((await recorded(page, "value-change")).map((entry) => entry.value), ["file"]);
+  assert.deepEqual((await recorded(page, "open-change")).map((entry) => entry.open), [true, false]);
 });
 
 browserTest("menubar: hovering another trigger while a menu is open switches to it; hovering with all closed does nothing", async ({ open }) => {
@@ -230,8 +230,8 @@ browserTest("menubar: Escape closes and returns the focus to the trigger of the 
   await waitFocus(page, "menubar-trigger:Edit");
   assert.equal(await trigger(page, "Edit").getAttribute("aria-expanded"), "false");
   assert.equal(await trigger(page, "Edit").getAttribute("tabindex"), "0");
-  assert.deepEqual((await log(page, "escape-key-down")).map((e) => [e.slot, e.cancelable]), [["menubar-content", true]]);
-  assert.equal((await log(page, "value-change")).at(-1).value, "");
+  assert.deepEqual((await recorded(page, "escape-key-down")).map((entry) => [entry.slot, entry.cancelable]), [["menubar-content", true]]);
+  assert.equal((await recorded(page, "value-change")).at(-1).value, "");
 });
 
 browserTest("menubar: a caller preventDefault on escape-key-down keeps the menu open", async ({ open }) => {
@@ -251,14 +251,26 @@ browserTest("menubar: an outside click closes and dispatches pointer-down-outsid
   await clickOpen(page, "File");
   await page.click(outside);
   await page.locator(content).waitFor({ state: "detached" });
-  const names = (await log(page)).map((e) => e.name);
+  const names = (await recorded(page)).map((entry) => entry.name);
   assert.ok(names.includes("pointer-down-outside") && names.indexOf("pointer-down-outside") < names.indexOf("interact-outside"), names.join(","));
   assert.equal(await trigger(page, "File").getAttribute("aria-expanded"), "false");
-  assert.equal((await log(page, "value-change")).at(-1).value, "");
+  assert.equal((await recorded(page, "value-change")).at(-1).value, "");
+});
+
+// A point on the bare page background, proven by hit-testing: never on the content, the host or anything focusable.
+// (A modal layer sets body pointer-events: none, so no element can be clicked: the press has to be a coordinate.)
+const backgroundPoint = (page) => page.evaluate(() => {
+  const { innerWidth: width, innerHeight: height } = window;
+  const corners = [[width - 8, height - 8], [8, height - 8], [width - 8, 8], [8, 8]];
+  for (const [x, y] of corners) {
+    const hit = document.elementFromPoint(x, y);
+    if (!hit?.closest("[data-slot], [data-controller], a, button, input, select, textarea, [tabindex]")) return { x, y };
+  }
+  throw new Error("no bare background point in the viewport");
 });
 
 // The press lands on the page background (not focusable), so no focus-outside follows it: only the prevented event decides.
-const pressBackground = (page) => page.mouse.click(1240, 690);
+const pressBackground = async (page) => { const { x, y } = await backgroundPoint(page); await page.mouse.click(x, y); };
 
 for (const prevented of ["pointer-down-outside", "interact-outside"]) {
   browserTest(`menubar: a caller preventDefault on ${prevented} keeps the menu open after an outside press`, async ({ open }) => {
@@ -279,7 +291,7 @@ browserTest("menubar: an outside press on the page background closes the menu (c
   await clickOpen(page, "File");
   await pressBackground(page);
   await page.locator(content).waitFor({ state: "detached" });
-  assert.deepEqual((await log(page)).filter((e) => e.name.endsWith("-outside")).map((e) => [e.name, e.slot, e.cancelable]),
+  assert.deepEqual((await recorded(page)).filter((entry) => entry.name.endsWith("-outside")).map((entry) => [entry.name, entry.slot, entry.cancelable]),
     [["pointer-down-outside", "menubar-content", true], ["interact-outside", "menubar-content", true]]);
 });
 
@@ -289,7 +301,7 @@ browserTest("menubar: focus moving outside closes the menu without pulling the f
   await page.locator(outside).focus();
   await page.locator(content).waitFor({ state: "detached" });
   await settle(page);
-  assert.equal(await page.locator(outside).evaluate((el) => el === document.activeElement), true, `focus on ${await focused(page)}`);
+  assert.equal(await page.locator(outside).evaluate((outsideButton) => outsideButton === document.activeElement), true, `focus on ${await focused(page)}`);
 });
 
 browserTest("menubar: focus moving onto another menubar trigger keeps the open menu open", async ({ open }) => {
@@ -320,7 +332,7 @@ browserTest("menubar: a controlled value only dispatches value-change; Escape an
   await page.keyboard.press("ArrowRight");
   await waitLog(page, "value-change", 2);
   await settle(page);
-  assert.deepEqual((await log(page, "value-change")).map((e) => e.value), ["", "edit"]);
+  assert.deepEqual((await recorded(page, "value-change")).map((entry) => entry.value), ["", "edit"]);
   assert.deepEqual(await triggerStates(page), ["File:open", "Edit:closed", "View:closed"]);
   assert.equal(await openContent(page).count(), 1);
 });
@@ -332,12 +344,12 @@ browserTest("menubar: a checkbox item click dispatches select then checked-chang
   await record(page);
   await page.locator("[data-slot=menubar-checkbox-item][data-state=checked]").click();
   await page.locator(content).waitFor({ state: "detached" });
-  const entries = (await log(page)).filter((e) => ["select", "checked-change"].includes(e.name));
-  assert.deepEqual(entries.map((e) => [e.name, e.slot, e.cancelable, e.checked]), [
+  const entries = (await recorded(page)).filter((entry) => ["select", "checked-change"].includes(entry.name));
+  assert.deepEqual(entries.map((entry) => [entry.name, entry.slot, entry.cancelable, entry.checked]), [
     ["select", "menubar-checkbox-item", true, undefined],
     ["checked-change", "menubar-checkbox-item", false, false]
   ]);
-  assert.deepEqual((await log(page, "value-change")).map((e) => [e.slot, e.value]), [["menubar", ""]]);
+  assert.deepEqual((await recorded(page, "value-change")).map((entry) => [entry.slot, entry.value]), [["menubar", ""]]);
 });
 
 browserTest("menubar: a prevented select keeps the menu open, checked-change still fires and the checked state stays controlled", async ({ open }) => {
@@ -348,7 +360,7 @@ browserTest("menubar: a prevented select keeps the menu open, checked-change sti
   await unchecked.click();
   await waitLog(page, "checked-change");
   await settle(page);
-  assert.deepEqual((await log(page, "checked-change")).map((e) => e.checked), [true]);
+  assert.deepEqual((await recorded(page, "checked-change")).map((entry) => entry.checked), [true]);
   assert.equal(await openContent(page).count(), 1);
   assert.equal(await page.locator("[data-slot=menubar-checkbox-item]", { hasText: label }).getAttribute("data-state"), "unchecked");
 });
@@ -358,7 +370,7 @@ browserTest("menubar: a radio item click dispatches value-change with its value 
   await record(page);
   await page.locator("[data-slot=menubar-radio-item][data-chadcn--menubar-value=luis]").click();
   await page.locator(content).waitFor({ state: "detached" });
-  assert.deepEqual((await log(page, "value-change")).map((e) => [e.slot, e.value]), [["menubar-radio-item", "luis"], ["menubar", ""]]);
+  assert.deepEqual((await recorded(page, "value-change")).map((entry) => [entry.slot, entry.value]), [["menubar-radio-item", "luis"], ["menubar", ""]]);
 });
 
 // --- disconnect and Turbo cache --------------------------------------------------------------------------------------
@@ -368,12 +380,12 @@ browserTest("menubar: removing the host while open leaves nothing behind and no 
   await clickOpen(page, "File");
   assert.ok((await page.locator("[data-radix-focus-guard]").count()) > 0, "precondition: focus guards installed");
   const removed = await page.evaluate(async (selector) => {
-    const el = document.querySelector(selector);
-    window.__host = { el, parent: el.parentNode, next: el.nextSibling };
-    el.remove();
+    const detached = document.querySelector(selector);
+    window.__host = { detached, parent: detached.parentNode, next: detached.nextSibling };
+    detached.remove();
     await new Promise((resolve) => setTimeout(resolve));
     window.__after = [];
-    el.addEventListener("chadcn--menubar:value-change", () => window.__after.push("value-change"));
+    detached.addEventListener("chadcn--menubar:value-change", () => window.__after.push("value-change"));
     return {
       contents: document.querySelectorAll("[data-slot=menubar-content]").length,
       wrappers: document.querySelectorAll("[data-radix-popper-content-wrapper]").length,
@@ -390,12 +402,14 @@ browserTest("menubar: removing the host while open leaves nothing behind and no 
   await settle(page);
   assert.deepEqual(await page.evaluate(() => window.__after), []);
   await page.evaluate(async () => {
-    const { el, parent, next } = window.__host;
-    parent.insertBefore(el, next);
+    const { detached, parent, next } = window.__host;
+    parent.insertBefore(detached, next);
     await new Promise((resolve) => setTimeout(resolve));
   });
   await settle(page);
-  assert.ok((await page.locator(content).count()) <= 1, "no duplicate content after reconnect");
+  // It reconnects in the state its value holds: that menu open with exactly one content, none when the value is empty.
+  const heldValue = await page.locator(host(CONTROLLER)).getAttribute("data-chadcn--menubar-value-value");
+  assert.equal(await page.locator(content).count(), heldValue ? 1 : 0, `reconnected content count for the held value ${JSON.stringify(heldValue)}`);
   await trigger(page, "View").click();
   await openTrigger(page, "View").waitFor();
   assert.equal(await page.locator(content).count(), 1);

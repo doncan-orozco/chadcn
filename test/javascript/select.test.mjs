@@ -1,5 +1,6 @@
 import { browserTest } from "./harness.mjs";
-import { assert, settle } from "./support.mjs";
+import { assert, host, settle } from "./support.mjs";
+import { snapshot, restore, countIn } from "./turbo_support.mjs";
 
 // Select (Radix Select re-implemented in the chadcn--select controller), against the real Phlex parity pages. The scenarios compare
 // the DOM with React step by step; this file pins the behavior contract of dev/port/specs/select.md end to end: trigger keyboard and
@@ -7,20 +8,33 @@ import { assert, settle } from "./support.mjs";
 // their cancelable defaults, controlled state, the body effects while open, the native bubble select a form submits, disconnect
 // cleanup and the Turbo cache snapshot.
 browserTest.component = "select";
-const HOST = "[data-controller~='chadcn--select']";
+const CONTROLLER = "chadcn--select";
 const trigger = "[data-slot=select-trigger]";
 const content = "[data-slot=select-content]";
 const value = "[data-slot=select-value]";
-const native = "form select[aria-hidden=true]";
+const nativeSelect = "form select[aria-hidden=true]";
 const option = (page, name) => page.getByRole("option", { name, exact: true });
+
+// A point on the bare page background, proven by hit-testing: never on the content, the host or anything focusable.
+// (A modal layer sets body pointer-events: none, so no element can be clicked: the press has to be a coordinate.)
+const backgroundPoint = (page) => page.evaluate(() => {
+  const { innerWidth: width, innerHeight: height } = window;
+  const corners = [[width - 8, height - 8], [8, height - 8], [width - 8, 8], [8, 8]];
+  for (const [x, y] of corners) {
+    const hit = document.elementFromPoint(x, y);
+    if (!hit?.closest("[data-slot], [data-controller], a, button, input, select, textarea, [tabindex]")) return { x, y };
+  }
+  throw new Error("no bare background point in the viewport");
+});
+const pressOutside = async (page) => { const { x, y } = await backgroundPoint(page); await page.mouse.click(x, y); };
 
 const press = async (page, key) => { await page.keyboard.press(key); await settle(page); };
 const triggerState = (page) => page.locator(trigger).getAttribute("data-state");
 const valueText = (page) => page.locator(value).textContent();
 const focused = (page) => page.evaluate(() => {
-  const el = document.activeElement;
-  if (el?.getAttribute("role") === "option") return el.textContent.trim();
-  return el?.dataset?.slot ?? el?.tagName;
+  const element = document.activeElement;
+  if (element?.getAttribute("role") === "option") return element.textContent.trim();
+  return element?.dataset?.slot ?? element?.tagName;
 });
 const waitFocused = (page, name) => page.waitForFunction((name) => document.activeElement?.getAttribute("role") === "option" && document.activeElement.textContent.trim() === name, name);
 const waitTriggerFocused = (page) => page.waitForFunction((selector) => document.activeElement === document.querySelector(selector), trigger);
@@ -46,16 +60,16 @@ const record = (page, { prevent = [] } = {}) => page.evaluate((prevent) => {
     });
   }
 }, prevent);
-const events = (page, name) => page.evaluate((name) => window.__events.filter((e) => !name || e.name === name), name);
+const events = (page, name) => page.evaluate((name) => window.__events.filter((entry) => !name || entry.name === name), name);
 
 // What the body carries while a modal layer is mounted.
-const BODY_EFFECTS = () => ({
+const readBodyEffects = () => ({
   scrollLocked: document.body.hasAttribute("data-scroll-locked"),
   pointerEvents: document.body.style.pointerEvents,
   guards: document.querySelectorAll("[data-radix-focus-guard]").length,
-  hidden: [...document.body.children].filter((el) => el.getAttribute("data-aria-hidden") === "true").length
+  hidden: [...document.body.children].filter((element) => element.getAttribute("data-aria-hidden") === "true").length
 });
-const bodyEffects = (page) => page.evaluate(BODY_EFFECTS);
+const bodyEffects = (page) => page.evaluate(readBodyEffects);
 const RELEASED = { scrollLocked: false, pointerEvents: "", guards: 0, hidden: 0 };
 
 browserTest("select: a mouse press opens on pointerdown, a release without moving keeps it open and selects nothing", async ({ open }) => {
@@ -86,7 +100,7 @@ browserTest("select: press on the trigger, drag onto an item and release selects
   await page.mouse.up();
   await waitClosed(page);
   assert.equal(await valueText(page), "Grapes");
-  assert.deepEqual((await events(page, "value-change")).map((e) => e.detail), [{ value: "grapes" }]);
+  assert.deepEqual((await events(page, "value-change")).map((entry) => entry.detail), [{ value: "grapes" }]);
 });
 
 browserTest("select: touch opens on click, not on pointerdown, and a touched item selects on click", async ({ open }) => {
@@ -110,9 +124,9 @@ browserTest("select: Enter, Space, ArrowDown and ArrowUp open from the focused t
     assert.equal(await triggerState(page), "closed", `precondition for ${JSON.stringify(key)}: Escape on the closed trigger is a no-op`);
     await page.keyboard.press(key);
     await waitOpen(page);
-    const t = page.locator(trigger);
-    assert.equal(await t.getAttribute("aria-expanded"), "true", key);
-    assert.equal(await t.getAttribute("aria-controls"), await page.locator(content).getAttribute("id"), key);
+    const selectTrigger = page.locator(trigger);
+    assert.equal(await selectTrigger.getAttribute("aria-expanded"), "true", key);
+    assert.equal(await selectTrigger.getAttribute("aria-controls"), await page.locator(content).getAttribute("id"), key);
     assert.equal(await page.locator(content).getAttribute("role"), "listbox");
     await waitFocused(page, "Apple");
   }
@@ -126,6 +140,14 @@ browserTest("select: a disabled trigger does not open", async ({ open }) => {
   assert.equal(await page.locator(trigger).isDisabled(), true);
   assert.equal(await triggerState(page), "closed");
   assert.equal(await page.locator(content).count(), 0);
+
+  // Controls: the same synthetic pointerdown and keydown open an enabled select.
+  const enabledPointer = await open("open__click");
+  await enabledPointer.locator(trigger).dispatchEvent("pointerdown", { pointerType: "mouse", button: 0, bubbles: true, cancelable: true });
+  await waitOpen(enabledPointer);
+  const enabledKey = await open("open__click");
+  await enabledKey.locator(trigger).dispatchEvent("keydown", { key: "Enter", bubbles: true, cancelable: true });
+  await waitOpen(enabledKey);
 });
 
 browserTest("select: opening focuses the selected item (aria-selected, data-highlighted, checked); without a value the first enabled item", async ({ open }) => {
@@ -182,11 +204,11 @@ browserTest("select: typeahead on the closed trigger changes the value without o
   assert.equal(await triggerState(page), "closed");
   assert.equal(await valueText(page), "Grapes");
   assert.equal(await page.locator(trigger).getAttribute("data-placeholder"), null);
-  assert.deepEqual((await events(page, "value-change")).map((e) => e.detail), [{ value: "grapes" }]);
+  assert.deepEqual((await events(page, "value-change")).map((entry) => entry.detail), [{ value: "grapes" }]);
   // The trigger's keydown ignores Space while searching (the native button click on keyup still opens, in Radix too), so the
   // keydown alone is dispatched: not prevented and nothing opens. The control is a Space keydown with an empty buffer.
   await press(page, "b");
-  const spaceKeyDown = () => page.locator(trigger).evaluate((el) => !el.dispatchEvent(new KeyboardEvent("keydown", { key: " ", bubbles: true, cancelable: true })));
+  const spaceKeyDown = () => page.locator(trigger).evaluate((element) => !element.dispatchEvent(new KeyboardEvent("keydown", { key: " ", bubbles: true, cancelable: true })));
   assert.equal(await spaceKeyDown(), false, "Space during the search is not handled");
   await settle(page);
   assert.equal(await triggerState(page), "closed", "Space is part of the search");
@@ -194,7 +216,7 @@ browserTest("select: typeahead on the closed trigger changes the value without o
 
   const control = await open("open__click");
   await control.focus(trigger);
-  assert.equal(await control.locator(trigger).evaluate((el) => !el.dispatchEvent(new KeyboardEvent("keydown", { key: " ", bubbles: true, cancelable: true }))), true, "control: an idle Space keydown opens");
+  assert.equal(await control.locator(trigger).evaluate((element) => !element.dispatchEvent(new KeyboardEvent("keydown", { key: " ", bubbles: true, cancelable: true }))), true, "control: an idle Space keydown opens");
   await waitOpen(control);
 });
 
@@ -211,7 +233,7 @@ browserTest("select: clicking an item selects it, updates the value text, closes
   assert.equal(await page.locator(trigger).getAttribute("data-placeholder"), null);
   assert.equal(await page.locator(trigger).getAttribute("aria-expanded"), "false");
   assert.equal(await page.locator(trigger).getAttribute("aria-controls"), null);
-  assert.deepEqual((await events(page)).map((e) => [e.name, e.detail]), [
+  assert.deepEqual((await events(page)).map((entry) => [entry.name, entry.detail]), [
     ["open-change", { open: true }], ["value-change", { value: "grapes" }], ["open-change", { open: false }], ["close-auto-focus", {}]
   ]);
 
@@ -235,7 +257,7 @@ browserTest("select: Enter and Space on the focused item select it; the same val
     await waitFocused(page, "Banana");
     await page.keyboard.press(key);
     await waitClosed(page);
-    assert.deepEqual((await events(page, "value-change")).map((e) => e.detail), [{ value: "banana" }], `${JSON.stringify(key)}: once`);
+    assert.deepEqual((await events(page, "value-change")).map((entry) => entry.detail), [{ value: "banana" }], `${JSON.stringify(key)}: once`);
   }
 });
 
@@ -245,7 +267,7 @@ browserTest("select: Escape dispatches cancelable escape-key-down; preventing it
   await openWith(page);
   await press(page, "Escape");
   assert.equal(await triggerState(page), "open");
-  assert.deepEqual((await events(page, "escape-key-down")).map((e) => e.cancelable), [true]);
+  assert.deepEqual((await events(page, "escape-key-down")).map((entry) => entry.cancelable), [true]);
 
   const plain = await open("open__click");
   await record(plain);
@@ -253,21 +275,21 @@ browserTest("select: Escape dispatches cancelable escape-key-down; preventing it
   await plain.keyboard.press("Escape");
   await waitClosed(plain);
   await waitTriggerFocused(plain);
-  assert.deepEqual((await events(plain, "open-change")).map((e) => e.detail), [{ open: true }, { open: false }]);
+  assert.deepEqual((await events(plain, "open-change")).map((entry) => entry.detail), [{ open: true }, { open: false }]);
 });
 
 browserTest("select: outside pointerdown dispatches cancelable pointer-down-outside and closes unless prevented", async ({ open }) => {
   const page = await open("open__click");
   await record(page, { prevent: ["pointer-down-outside"] });
   await openWith(page);
-  await page.mouse.click(5, 700);
+  await pressOutside(page);
   await settle(page);
   assert.equal(await triggerState(page), "open");
-  assert.deepEqual((await events(page, "pointer-down-outside")).map((e) => e.cancelable), [true]);
+  assert.deepEqual((await events(page, "pointer-down-outside")).map((entry) => entry.cancelable), [true]);
 
   const plain = await open("open__click");
   await openWith(plain);
-  await plain.mouse.click(5, 700);
+  await pressOutside(plain);
   await waitClosed(plain);
   assert.equal(await triggerState(plain), "closed");
 });
@@ -278,9 +300,9 @@ browserTest("select: close-auto-focus is cancelable and a prevented one leaves f
   await openWith(page);
   await page.keyboard.press("Escape");
   await waitClosed(page);
-  await page.waitForFunction(() => window.__events.some((e) => e.name === "close-auto-focus"));
+  await page.waitForFunction(() => window.__events.some((entry) => entry.name === "close-auto-focus"));
   await settle(page);
-  assert.deepEqual((await events(page, "close-auto-focus")).map((e) => e.cancelable), [true]);
+  assert.deepEqual((await events(page, "close-auto-focus")).map((entry) => entry.cancelable), [true]);
   assert.notEqual(await focused(page), "select-trigger");
 });
 
@@ -289,8 +311,9 @@ browserTest("select: Tab is trapped in the open content; window blur and resize 
   await openWith(page);
   await waitFocused(page, "Apple");
   await press(page, "Tab");
+  assert.equal(await focused(page), "Apple", "Tab is prevented: focus stays on the item");
   await press(page, "Shift+Tab");
-  assert.equal(await focused(page), "Apple");
+  assert.equal(await focused(page), "Apple", "Shift+Tab is prevented too");
   assert.equal(await triggerState(page), "open");
   await page.evaluate(() => window.dispatchEvent(new Event("blur")));
   await waitClosed(page);
@@ -307,7 +330,7 @@ browserTest("select: controlled open and value dispatch their events but keep th
   await page.click(trigger);
   await page.waitForFunction(() => window.__events.length > 0);
   await settle(page);
-  assert.deepEqual((await events(page)).map((e) => e.detail), [{ open: true }]);
+  assert.deepEqual((await events(page)).map((entry) => entry.detail), [{ open: true }]);
   assert.equal(await triggerState(page), "closed");
   assert.equal(await page.locator(content).count(), 0);
 
@@ -317,7 +340,7 @@ browserTest("select: controlled open and value dispatch their events but keep th
   await waitOpen(valued);
   await option(valued, "Grapes").click();
   await waitClosed(valued);
-  assert.deepEqual((await events(valued, "value-change")).map((e) => e.detail), [{ value: "grapes" }]);
+  assert.deepEqual((await events(valued, "value-change")).map((entry) => entry.detail), [{ value: "grapes" }]);
   assert.equal(await valueText(valued), "Apple", "the server value stays");
 });
 
@@ -338,8 +361,8 @@ browserTest("select: while open the body is locked, guarded and its other childr
 
 browserTest("select: in a form the native select follows the value and its change bubbles to the form", async ({ open }) => {
   const page = await open("form__native-select");
-  assert.equal(await page.locator(native).getAttribute("name"), "fruit");
-  assert.equal(await page.locator(native).inputValue(), "", "precondition: the placeholder option");
+  assert.equal(await page.locator(nativeSelect).getAttribute("name"), "fruit");
+  assert.equal(await page.locator(nativeSelect).inputValue(), "", "precondition: the placeholder option");
   await page.evaluate(() => {
     window.__changes = [];
     document.querySelector("form").addEventListener("change", (event) => window.__changes.push(event.target.value));
@@ -348,7 +371,7 @@ browserTest("select: in a form the native select follows the value and its chang
   await waitOpen(page);
   await option(page, "Grapes").click();
   await waitClosed(page);
-  assert.equal(await page.locator(native).inputValue(), "grapes");
+  assert.equal(await page.locator(nativeSelect).inputValue(), "grapes");
   assert.deepEqual(await page.evaluate(() => window.__changes), ["grapes"]);
   assert.equal(await page.evaluate(() => new FormData(document.querySelector("form")).get("fruit")), "grapes");
 });
@@ -357,18 +380,18 @@ browserTest("select: a native change (autofill) sets the value", async ({ open }
   const page = await open("form__native-select");
   await record(page);
   assert.equal(await valueText(page), "Select a fruit", "precondition: placeholder");
-  await page.locator(native).selectOption("banana", { force: true });
+  await page.locator(nativeSelect).selectOption("banana", { force: true });
   await settle(page);
   assert.equal(await valueText(page), "Banana");
-  assert.deepEqual((await events(page, "value-change")).map((e) => e.detail), [{ value: "banana" }]);
+  assert.deepEqual((await events(page, "value-change")).map((entry) => entry.detail), [{ value: "banana" }]);
 });
 
 browserTest("select: required and disabled reach the native select", async ({ open }) => {
   const page = await open("form__required-disabled-native");
-  assert.deepEqual(await page.locator(native).evaluate((el) => [el.required, el.disabled]), [true, true]);
+  assert.deepEqual(await page.locator(nativeSelect).evaluate((element) => [element.required, element.disabled]), [true, true]);
   assert.equal(await page.locator(trigger).getAttribute("aria-required"), "true");
   const plain = await open("form__native-select");
-  assert.deepEqual(await plain.locator(native).evaluate((el) => [el.required, el.disabled]), [false, false]);
+  assert.deepEqual(await plain.locator(nativeSelect).evaluate((element) => [element.required, element.disabled]), [false, false]);
 });
 
 browserTest("select: form reset restores the initial value", async ({ open }) => {
@@ -378,13 +401,13 @@ browserTest("select: form reset restores the initial value", async ({ open }) =>
   await option(page, "Grapes").click();
   await waitClosed(page);
   assert.equal(await valueText(page), "Grapes", "precondition: changed");
-  assert.equal(await page.locator(native).inputValue(), "grapes");
+  assert.equal(await page.locator(nativeSelect).inputValue(), "grapes");
   await page.getByRole("button", { name: "Reset" }).click();
   await page.waitForFunction((selector) => document.querySelector(selector).textContent === "Apple", value);
-  assert.equal(await page.locator(native).inputValue(), "apple");
+  assert.equal(await page.locator(nativeSelect).inputValue(), "apple");
 });
 
-browserTest("select: removing the host while open leaves nothing behind and a reinserted host opens again", async ({ open }) => {
+browserTest("select: removing the host while open leaves nothing behind and no live listeners; a reinserted host opens again", async ({ open }) => {
   const page = await open("open__click");
   await openWith(page);
   assert.equal(await page.locator(content).count(), 1, "precondition: open");
@@ -393,10 +416,20 @@ browserTest("select: removing the host while open leaves nothing behind and a re
     window.__parked = { host, parent: host.parentNode, next: host.nextSibling };
     host.remove();
     await new Promise((resolve) => setTimeout(resolve));
-  }, HOST);
+    // Listeners left on the window or document would still report on the detached host.
+    window.__after = [];
+    for (const name of ["open-change", "escape-key-down"]) host.addEventListener(`chadcn--select:${name}`, () => window.__after.push(name));
+  }, host(CONTROLLER));
   await settle(page);
   assert.equal(await page.locator(content).count(), 0);
   assert.deepEqual(await bodyEffects(page), RELEASED);
+  await page.evaluate(async () => {
+    window.dispatchEvent(new Event("blur"));
+    window.dispatchEvent(new Event("resize"));
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+    await new Promise((resolve) => setTimeout(resolve));
+  });
+  assert.deepEqual(await page.evaluate(() => window.__after), [], "no listener survives the disconnect");
   await page.evaluate(async () => {
     const { host, parent, next } = window.__parked;
     parent.insertBefore(host, next);
@@ -413,15 +446,12 @@ browserTest("select: removing the host while open leaves nothing behind and a re
 browserTest("select: the Turbo snapshot has nothing open and the restored select connects closed and opens again", async ({ open }) => {
   const page = await open("open__click");
   await openWith(page);
-  const snapshot = await page.evaluate(async (selector) => {
-    document.dispatchEvent(new Event("turbo:before-cache"));
-    await new Promise((resolve) => setTimeout(resolve));
-    return { contents: document.querySelectorAll("[data-slot=select-content]").length, html: document.querySelector(selector).parentElement.innerHTML };
-  }, HOST);
-  assert.equal(snapshot.contents, 0);
-  assert.deepEqual(await bodyEffects(page), RELEASED, "the snapshot body has no lock, guards or aria-hidden");
-  await page.evaluate(({ selector, html }) => { document.querySelector(selector).parentElement.innerHTML = html; }, { selector: HOST, html: snapshot.html });
-  await settle(page);
+  const html = await snapshot(page, CONTROLLER);
+  assert.equal(await page.locator(content).count(), 0, "no portaled content when the snapshot is taken");
+  assert.deepEqual(await bodyEffects(page), RELEASED, "the snapshot releases the lock, guards and aria-hidden");
+  assert.equal(await countIn(page, html, "[data-state=open], [aria-expanded=true], [aria-controls]"), 0);
+
+  await restore(page, CONTROLLER, html);
   assert.equal(await triggerState(page), "closed");
   assert.equal(await page.locator(trigger).getAttribute("aria-expanded"), "false");
   assert.equal(await page.locator(content).count(), 0);
