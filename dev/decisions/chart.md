@@ -240,7 +240,7 @@ Where the build differs from the proposal:
 - **`chadcn--chart` as built**: `Container` is always the controller element and carries 20 values (`layout`, `keyboardStep`, `accessibilityLayer`,
   `ticks`, `plot`, the four interaction states, `defaultIndex`, `tooltipEventType`, `trigger`, `tooltipActive`, `offset`, `allowEscape`,
   `reverseDirection`, `position`, `transition`, `transitionAuto`, `wrapperStyle`); the part wiring is `Cartesian::Wiring`. The controller handles
-  axis tooltips only. An item tooltip (`shared: false` on a `BarChart` or a `RadialBarChart`, a pie) is not driven (a `LineChart`, `AreaChart` or `RadarChart` allows `axis` only, so `shared: false` keeps the axis tooltip: recharts 3.8.0 `state/selectors/selectTooltipEventType.js:4-13`, `chart/LineChart.js:5`, `chart/AreaChart.js:5`, `chart/RadarChart.js:11`): the controller is inert and the
+  axis tooltips only (item tooltips of a `BarChart` and a `RadialBarChart` came with item #109, below). An item tooltip (`shared: false` on a `BarChart` or a `RadialBarChart`, a pie) is not driven (a `LineChart`, `AreaChart` or `RadarChart` allows `axis` only, so `shared: false` keeps the axis tooltip: recharts 3.8.0 `state/selectors/selectTooltipEventType.js:4-13`, `chart/LineChart.js:5`, `chart/AreaChart.js:5`, `chart/RadarChart.js:11`): the controller is inert and the
   server-drawn tooltip is left alone, and no item-tooltip rendering exists (no templates, a hidden empty wrapper). The polar charts publish their values and no action (#85). A chart outside
   a `Container` is not wired.
 - **`ReferenceLine` is implemented** although the spec and the deviations register (`api`, "Brush, ReferenceLine, ... are not ported") list it as not
@@ -285,7 +285,7 @@ Follow-ups left open (none is owned by an item):
 - **Quirks kept on purpose** (they are recharts' DOM): the `undefined` class suffix of a radial bar sector; `class:` of an axis replacing the class of its line and
   tick lines; `class:` of a pie landing on every sector; the default-index anchor of a radar or radial bar tooltip (x the middle of the chart, y the tick's angle or
   radius); a radial bar with no data still drawn as its two empty groups; the empty pie written in place after the clip path.
-- **Not ported**, see `deviations/chart.json`: radar ranges, `active_shape`, the polar tooltip cursor and item tooltips of a radial bar chart, the hover mapping of
+- **Not ported**, see `deviations/chart.json`: radar ranges, `active_shape`, the polar tooltip cursor, item tooltips of a radial bar chart (built since item #109), the hover mapping of
   `chadcn--chart` for polar charts, `stack_offset`, `hide:` and children of the polar axes, `tick_count:` of the angle axis.
 
 ### Item #107: the resize half of "Resize and re-measure" (`review-gaps` epic)
@@ -330,3 +330,25 @@ Built as the Decision above says (the same request as the resize, `relayout_url:
   recharts in the same font under G2's rules (0 differences), the same page without the re-measure differs, a page laid out at the measured
   metrics sends nothing, a pie (no ticks, no legend) sends nothing, and a host that ignores the metrics gets exactly one request. The
   resize tests (`chart_resize*.test.mjs`) write the page's measured metrics as the served ones, so they stay about the size.
+
+### Item #109: item tooltips, `Tooltip shared: false` on a `BarChart` and a `RadialBarChart` (`review-gaps` epic)
+
+The item tooltip is drawn with the same per-template contract as the axis one (spec, "Tooltip"); what recharts 3.8 does was read in
+`context/tooltipContext.js`, `cartesian/Bar.js`, `polar/RadialBar.js`, `state/tooltipSlice.js` and the combiners of the tooltip state, and
+checked in the React oracle:
+
+- **Templates per series and category.** recharts shows the hovered series alone at that row, so the server writes one template per item
+  series and category (`data-series`, `data-index`), no label, no cursor, no active dots; a 2-series bar chart of 12 categories pays 24
+  templates. `data-coordinate` is the axis anchor (keyboard, `default_index:`), `data-item-coordinate` the bar's center; an arc has no
+  `tooltipPosition`, so a radial bar's item tooltip sits at the `default_index` anchor, or is not translated at all, exactly as recharts places it.
+- **Tagged shapes, not hit testing.** Every bar (with its background) and every arc carries `tooltipItem` with its series and position; the
+  controller resolves `event.target` to that target on `pointermove` (recharts' `mouseenter` / `mouseleave`) and on `click`. G2 ignores
+  `data-chadcn--*`, so the DOM stays recharts'. A pie keeps its inert tooltip: its sectors are not tagged (item #110 adds the polar pointer).
+- **One new value, `pointerSeries`.** The series of the pointer's item (recharts' `graphicalItemId`), carried with the other interaction values
+  over a re-layout swap and a Turbo snapshot. The keyboard and `active: true` show that series, the first one with `default_index:`, else
+  nothing (recharts' `combineTooltipPayloadConfigurations`), at the category's axis anchor.
+- **Kept as recharts does**: a finger on a bar shows nothing (only `Pie` writes `data-recharts-item-index` for the touch path); the row of an
+  item is the bar's position among the drawn bars, so a zero-height bar shifts the rows after it in both.
+- **Not here**: the keys on a radial bar chart (its wrapper hears the pointer and the Escape only; the polar keyboard layer is item #110).
+- **Proof.** Six `tooltip__item-*` scenarios (G2, content after every step) and `test/javascript/chart_item_tooltip.test.mjs`, which walks
+  the same scenarios in the port and in recharts and compares the wrapper's visibility, side classes and translate after every step.

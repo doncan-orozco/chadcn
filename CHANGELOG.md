@@ -31,6 +31,12 @@ manifests every component is compared against), the number of oracle components,
   it wins over `Legend legend_height:`, a numeric `Legend height:` wins over both), read from the request by `relayout_options`
   (`RELAYOUT_METRIC_BOUNDS` gains `legend_height: 256`), and a `measuredAt` value on `chadcn--chart` (written on every swapped-in element: one request per change, not a
   kwarg). Without `relayout_url:` the assumptions stay as before.
+- Item tooltips: `chart.tooltip(shared: false)` on a `Chart::BarChart` or a `Chart::RadialBarChart` now shows recharts' item tooltip, the
+  series of the hovered bar or arc alone, placed at the bar's center (an arc's at the `default_index:` anchor, or unplaced, as recharts
+  does), with `trigger: :click`, `default_index:` (the first series), the keyboard of a `BarChart` (the series the pointer last touched),
+  Escape and the `chadcn--chart:activate` / `deactivate` events. It used to render a hidden empty wrapper. The server writes one template
+  per category and series, and tags every bar and arc as a `tooltipItem` target (`data-chadcn--chart-series`, `data-chadcn--chart-index`);
+  `chadcn--chart` gains a `pointerSeries` value (not a kwarg). A radial bar chart does not take the keys yet.
 
 ### Fixed
 

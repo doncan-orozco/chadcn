@@ -325,9 +325,12 @@ addition). `Tooltip::Content` and `Legend::Content` can also be rendered on thei
 
 Where the tooltip *shows* depends on the chart: a bar, line, area, radar and radial chart have an axis tooltip (all series of the hovered
 category), a pie has an item tooltip (the hovered sector). `shared: false` asks recharts for item tooltips: on a `BarChart` or a
-`RadialBarChart` that is not drawn (the wrapper stays empty and the controller stays inert); on a `LineChart`, `AreaChart` or `RadarChart` the
-tooltip stays an axis tooltip. The server writes one inert `<template>` per category (per sector for a pie) holding the content, so the page
-weight is linear in categories and series; a chart with a hundred categories and five series ships a hundred templates.
+`RadialBarChart` the tooltip shows the hovered bar's (or arc's) series alone, placed at the bar's center (an arc's tooltip at the
+`default_index:` anchor, or unplaced, as recharts does), and the keyboard shows the series the pointer last touched, or the first with
+`default_index:`; a radial bar chart does not take the keys yet. On a `LineChart`, `AreaChart` or `RadarChart` `shared: false` keeps the axis
+tooltip. The server writes one inert `<template>` per category (per sector for a pie, per category and series for an item tooltip) holding the
+content, so the page weight is linear in categories and series; a chart with a hundred categories and five series ships a hundred templates (five
+hundred with `shared: false` on a `BarChart`).
 
 ## Formatters
 
