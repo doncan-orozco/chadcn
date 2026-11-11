@@ -160,7 +160,8 @@ export default class extends Controller {
   }
 
   // The Sheet content is mounted in the body: runs before FocusScope looks for the first tabbable (open-auto-focus).
-  // Stimulus actions do not reach there, so the toggle buttons are handled by delegation on the body.
+  // Stimulus actions do not reach there, so the toggle buttons are handled by delegation on the body. Like SidebarTrigger and
+  // SidebarRail (onClick, then toggleSidebar()) and the desktop Stimulus action, a click a caller prevented still toggles.
   #fillBody(record) {
     const content = document.getElementById(record.host.getAttribute("data-chadcn--sheet-id-value"))
     const body = content?.querySelector("[data-chadcn--sidebar-target=mobileBody]")
@@ -168,7 +169,6 @@ export default class extends Controller {
     body.append(...record.nodes)
     this.#replayFocus(body)
     body.addEventListener("click", (event) => {
-      if (event.defaultPrevented) return
       if (event.target.closest?.(`[data-action~='click->${TOGGLE_ACTION}']`)) this.toggle()
     })
   }

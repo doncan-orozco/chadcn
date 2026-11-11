@@ -1,6 +1,6 @@
-// Hidden native control kept in sync with a custom checkbox / switch / radio / select so forms submit and the
-// native events reach the form, exactly like Radix's internal BubbleInput (react-checkbox, react-switch,
-// react-radio-group, react-select). Replaces: internal BubbleInput.
+// Hidden native control kept in sync with a custom checkbox / switch / radio / select / slider thumb so forms submit and
+// the native events reach the form, exactly like Radix's internal BubbleInput (react-checkbox, react-switch,
+// react-radio-group, react-select, react-slider). Replaces: internal BubbleInput.
 //
 // Known divergences: none observable in the DOM. React-only detail NOT ported: Radix also stops the synthetic click of
 // a programmatic sync inside the React tree (shouldStopClickPropagationRef); native listeners on the form see the
@@ -17,10 +17,16 @@
 //   - checkbox/radio/switch: `<input type=checkbox|radio>`, position:absolute, pointer-events:none, opacity:0,
 //     margin:0, transform:translateX(-100%), width/height = the control's border box (kept in sync);
 //   - select: `<select>` with the VisuallyHidden styles, `<option>`s mirroring the items;
+//   - value (SliderBubbleInput): `<input style="display: none">` with only name, form and value (no type, aria-hidden or
+//     tabindex); a changed value is set through the prototype setter and dispatches a bubbling `input`;
 //   - a changed `checked` sets the native property through the prototype setter and dispatches a bubbling `click`
 //     (checkbox/radio/switch); a changed select value dispatches a bubbling `change`;
 //   - the click does not bubble when the change came from the user and a consumer already stopped the control click;
 //   - the form's `reset` event restores the initial state (onReset callback).
+//   - value: the server renders the input for every thumb (no-JS submission, Radix before mount); it is adopted inside a
+//     form and removed outside one, so the connected DOM equals Radix's.
+
+const DEFAULT_VALUE = { checkbox: "on", radio: "", select: "", value: undefined }
 
 const VISUALLY_HIDDEN = {
   position: "absolute", border: "0", width: "1px", height: "1px", padding: "0", margin: "-1px",
@@ -28,10 +34,10 @@ const VISUALLY_HIDDEN = {
 }
 
 /**
- * Hidden native input/select kept in sync with a custom checkbox, switch, radio or select so forms submit and native events bubble.
+ * Hidden native input/select kept in sync with a custom checkbox, switch, radio, select or slider thumb so forms submit and native events bubble.
  *
  * Public surface: the constructor, isFormControl, present, input, sync(), release(). The instance fields control, type,
- * state, checked, initial, selectValue and optionsSignature are internal (@api private).
+ * state, checked, initial, selectValue, shownValue and optionsSignature are internal (@api private).
  * @example
  * const bubble = new FormBubbleInput(buttonEl, { type: "checkbox", name: "terms", value: "on", checked: false })
  * bubble.sync({ checked: true }, { userInteraction: true, propagationStopped: event.cancelBubble })
@@ -51,9 +57,9 @@ export class FormBubbleInput {
   /**
    * @param {HTMLElement} control The custom control; the bubble input is placed right after it.
    * @param {object} [options]
-   * @param {"checkbox" | "radio" | "select"} [options.type="checkbox"] A switch uses type "checkbox".
+   * @param {"checkbox" | "radio" | "select" | "value"} [options.type="checkbox"] A switch uses type "checkbox", a slider thumb "value".
    * @param {string} [options.name]
-   * @param {string} [options.value]
+   * @param {string | number} [options.value]
    * @param {boolean} [options.checked]
    * @param {boolean} [options.indeterminate]
    * @param {boolean} [options.required]
@@ -69,7 +75,7 @@ export class FormBubbleInput {
     /** @api private */
     this.type = options.type || "checkbox"
     /** @api private */
-    this.state = { value: this.type === "checkbox" ? "on" : "", checked: false, indeterminate: false, ...options }
+    this.state = { value: DEFAULT_VALUE[this.type], checked: false, indeterminate: false, ...options }
     /** @api private */
     this.checked = this.#boolean(this.state.checked, this.state.indeterminate)
     /** @api private */
@@ -83,13 +89,15 @@ export class FormBubbleInput {
     this.#resizeObserver = null
     this.#onReset = options.onReset
     if (FormBubbleInput.isFormControl(control, this.state.form)) this.#mount()
+    else if (this.type === "value") this.#serverRendered()?.remove()
   }
 
   /** Whether a bubble input is mounted. @type {boolean} */
   get present() { return !!this.input }
 
   /**
-   * Applies changed options to the native input; dispatches a bubbling `click` (checkbox/radio) or `change` (select) when the value changed.
+   * Applies changed options to the native input; dispatches a bubbling `click` (checkbox/radio), `change` (select) or `input`
+   * (value) when the value changed.
    * @param {object} [changes] Any subset of the constructor options.
    * @param {object} [context]
    * @param {boolean} [context.userInteraction=false] The change comes from the user.
@@ -101,6 +109,7 @@ export class FormBubbleInput {
     if (!this.input) return
     this.#applyAttributes()
     if (this.type === "select") return this.#syncSelect()
+    if (this.type === "value") return this.#syncValue()
 
     const checked = this.#boolean(this.state.checked, this.state.indeterminate)
     if (checked === this.checked && !("indeterminate" in changes)) return
@@ -136,14 +145,20 @@ export class FormBubbleInput {
   #resetListener = () => this.#onReset?.()
 
   #mount() {
-    const tagName = this.type === "select" ? "select" : "input"
     // Server-rendered bubble input directly after the control is adopted instead of duplicated.
-    const next = this.control.nextElementSibling
-    this.#adopted = next?.tagName.toLowerCase() === tagName && next.getAttribute("aria-hidden") === "true"
-    this.input = this.#adopted ? next : this.#create(tagName)
+    const rendered = this.#serverRendered()
+    this.#adopted = !!rendered
+    this.input = rendered || this.#create()
     if (this.type === "select") this.#renderOptions()
     this.#applyAttributes()
     this.#applyStyle()
+    if (this.type === "value") {
+      /** @api private */
+      this.shownValue = this.state.value == null ? undefined : String(this.state.value)
+      this.#boundForm = this.#form()
+      this.#boundForm?.addEventListener("reset", this.#resetListener)
+      return
+    }
     this.input.checked = this.checked
     if (this.type === "checkbox") this.input.indeterminate = this.state.indeterminate === true
     if (this.type !== "select") this.input.defaultChecked = this.checked
@@ -152,15 +167,36 @@ export class FormBubbleInput {
     this.#boundForm?.addEventListener("reset", this.#resetListener)
   }
 
-  #create(tagName) {
-    const input = document.createElement(tagName)
-    if (tagName === "input") input.type = this.type
+  get #tagName() {
+    return this.type === "select" ? "select" : "input"
+  }
+
+  // The bubble input the server rendered right after the control: hidden from assistive tech (checkbox, radio, select),
+  // or a typeless display:none input (value).
+  #serverRendered() {
+    const next = this.control.nextElementSibling
+    if (next?.tagName.toLowerCase() !== this.#tagName) return null
+    if (this.type === "value") return !next.hasAttribute("type") && next.style.display === "none" ? next : null
+    return next.getAttribute("aria-hidden") === "true" ? next : null
+  }
+
+  #create() {
+    const input = document.createElement(this.#tagName)
+    if (this.type === "checkbox" || this.type === "radio") input.type = this.type
+    // Attribute first, as React serializes SliderBubbleInput (a CSSOM write would add the style attribute lazily, last).
+    if (this.type === "value") input.setAttribute("style", "display: none;")
     this.control.after(input)
     return input
   }
 
   #applyAttributes() {
     const { name, value, required, disabled, form, autocomplete } = this.state
+    if (this.type === "value") {
+      this.#attribute("name", name)
+      this.#attribute("form", form)
+      this.#attribute("value", value)
+      return
+    }
     this.input.setAttribute("aria-hidden", "true")
     this.input.tabIndex = -1
     this.#attribute("name", name)
@@ -179,6 +215,10 @@ export class FormBubbleInput {
   #applyStyle() {
     const style = this.input.style
     if (this.type === "select") return Object.assign(style, VISUALLY_HIDDEN)
+    if (this.type === "value") {
+      style.display = "none"
+      return
+    }
     Object.assign(style, { position: "absolute", pointerEvents: "none", opacity: "0", margin: "0", transform: "translateX(-100%)" })
     this.#size(this.control.offsetWidth, this.control.offsetHeight)
   }
@@ -214,6 +254,16 @@ export class FormBubbleInput {
     this.selectValue = value
     this.#setNative("value", value, HTMLSelectElement.prototype)
     this.input.dispatchEvent(new Event("change", { bubbles: true }))
+  }
+
+  // value: SliderBubbleInput writes the changed value through the native setter and dispatches a bubbling `input`.
+  #syncValue() {
+    const value = this.state.value
+    if (value == null || String(value) === this.shownValue) return
+    /** @api private */
+    this.shownValue = String(value)
+    this.#setNative("value", this.shownValue)
+    this.input.dispatchEvent(new Event("input", { bubbles: true }))
   }
 
   #renderOptions() {

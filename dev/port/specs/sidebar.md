@@ -131,6 +131,8 @@ Resulting DOM while open (appended to `body` by the Sheet, per `specs/sheet.md`)
 
 The block is rendered ONCE by the server (inside `sidebar-inner`). The controller moves the block's nodes between `sidebar-inner` (desktop) and the `mobileBody` div (mobile); there is never a second copy (ids, forms and nested controllers stay unique).
 
+In the Sheet the block is outside the controller element, so the Trigger and Rail clicks are delegated from the `mobileBody` div. Like the desktop Stimulus action and React (`onClick?.(event); toggleSidebar()`, tsx:270-273 and the Rail's `onClick={toggleSidebar}`), the delegation toggles even when a caller handler called `preventDefault()`.
+
 ### Other parts (all `data-slot` + `data-sidebar` as in the source; `data-slot` first, `data-sidebar` second, then class, then attrs)
 
 | Part | Tag | data-slot / data-sidebar | Other attributes | Classes (`cn(..., class)`) |
@@ -202,7 +204,7 @@ Composes `Chadcn::Sheet` (mobile; primitives `portal`, `presence`, `dismissable_
 
 **Cleanup (radix-stimulus R10).** `disconnect()` removes the `window` keydown and `matchMedia` listeners, unmounts an open mobile Sheet, restores the desktop node and the block if it was in mobile mode (so a Turbo cache snapshot holds the server structure).
 
-Not observable by the runner (controller unit tests instead): the cookie string, `open-change` / `open-mobile-change` details, two Providers on one page.
+Not observable by the runner (browser tests in `test/javascript/sidebar.test.mjs` instead): the cookie string, `open-change` / `open-mobile-change` details, a prevented trigger click in the Sheet, the disconnect cleanup.
 
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)

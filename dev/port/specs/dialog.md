@@ -29,13 +29,15 @@ Events (dispatched with `this.dispatch` from the `chadcn--dialog` host, `bubbles
 
 | Event | Radix origin | detail | cancelable | default action when not prevented |
 |---|---|---|---|---|
-| `open-change` | `onOpenChange` (dialog:42-47) | `{ open }` | no | uncontrolled: state changes; controlled: nothing |
+| `open-change` | `onOpenChange` (dialog:42-47) | `{ open }` | no (`cancelable: false`; `preventDefault()` has no effect) | uncontrolled: state changes; controlled: nothing |
 | `open-auto-focus` | Content `onOpenAutoFocus` -> FocusScope `onMountAutoFocus` (dialog:254, fs:95-103) | `{}` | yes | focus first tabbable (see Behavior) |
 | `close-auto-focus` | `onCloseAutoFocus` (dialog:174-177, fs:108-113) | `{}` | yes | focus trigger |
 | `escape-key-down` | `onEscapeKeyDown` (dl:91-100) | `{ originalEvent }` | yes | close |
 | `pointer-down-outside` | `onPointerDownOutside` (dl:55-58) | `{ originalEvent }` | yes | close |
 | `focus-outside` | `onFocusOutside` (dl:79-89) | `{ originalEvent }` | yes | close (modal always prevents it, dialog:184-187) |
 | `interact-outside` | `onInteractOutside` (dl:57, 87) | `{ originalEvent }` | yes | close |
+
+`open-change` is a notification, like Radix's `onOpenChange` callback: to keep a dialog open, render it controlled (`open:`) or prevent the event that requests the close (`escape-key-down`, `pointer-down-outside`, `interact-outside`). `Chadcn::AlertDialog`, `Chadcn::Sheet` and `Chadcn::Drawer` extend this controller and dispatch it the same way. Browser tests: `test/javascript/dialog.test.mjs`.
 
 `aria: { describedby: }` / `"aria-describedby":` on Content is concatenated with the Description id (dialog:262, `concatAriaDescribedby` dialog:319-328: split on whitespace, dedupe, caller ids first). `ref` has no equivalent.
 

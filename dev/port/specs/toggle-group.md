@@ -122,6 +122,8 @@ States: per item `on` / `off`; orthogonal `disabled` (item or group). Group valu
 3. unpressed -> `onItemDeactivate(value)`: single sets `""` (nothing pressed; a single group CAN be emptied by clicking the pressed item); multiple removes it.
 4. Uncontrolled: update `data-state` and `aria-checked`/`aria-pressed` on every item whose pressed flag changed, then dispatch `value-change`. Controlled: dispatch only.
 
+The group's items are the `[data-slot=toggle-group-item]` descendants whose closest `chadcn--toggle-group` host is this group: Radix gives every group its own context, so a group nested inside another keeps its own items and value (the outer group neither reads nor renders the inner items). Roving focus still walks the DOM collection (`roving_focus` primitive, which documents that choice). Browser tests: `test/javascript/toggle_group.test.mjs`.
+
 ### Keyboard
 
 Arrow handling is RovingFocusGroup (rf:184-204). Arrows only MOVE focus; they never press (no arrow-select, unlike RadioGroup; no activation on focus, unlike Tabs).

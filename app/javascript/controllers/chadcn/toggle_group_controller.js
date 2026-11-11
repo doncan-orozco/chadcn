@@ -35,7 +35,11 @@ export default class extends Controller {
 
   get #single() { return this.typeValue === "single" }
 
-  get #items() { return [...this.element.querySelectorAll("[data-slot=toggle-group-item]")] }
+  // Radix keeps one item collection per group (React context); the DOM lookup skips the items of a nested group.
+  get #items() {
+    return [...this.element.querySelectorAll("[data-slot=toggle-group-item]")]
+      .filter((item) => item.closest("[data-controller~='chadcn--toggle-group']") === this.element)
+  }
 
   #valueOf(item) { return item.getAttribute("data-chadcn--toggle-group-item-value") }
 
