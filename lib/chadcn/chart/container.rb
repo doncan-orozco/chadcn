@@ -63,12 +63,10 @@ class Chadcn::Chart::Container < Chadcn::Base
   attr_reader :relayout_url
 
   # Largest `width` and `height` {.relayout_options} accepts, in px (dev/port/specs/chart.md, "Resize and re-measure").
+  # The browser's RELAYOUT_MAX_SIZE in primitives/chart_relayout.js is the same number.
   RELAYOUT_MAX_SIZE = 4096
-  # Bounds of the text metrics {.relayout_options} accepts.
+  # Bounds of the text metrics {.relayout_options} accepts; the keys are the container keywords they become.
   RELAYOUT_METRIC_BOUNDS = { text_height: 256, text_char_width: 4 }.freeze
-  # A request parameter is a plain decimal number (no hex, no `Infinity`).
-  RELAYOUT_NUMBER = /\A\d+(?:\.\d+)?(?:e[+-]?\d+)?\z/i
-  private_constant :RELAYOUT_NUMBER
 
   # Adds a component after the responsive shell, rendered as the last children of the `div[data-slot="chart"]` (what a chart inside writes
   # there: the inert tooltip templates `chadcn--chart` swaps in, dev/port/specs/chart.md "Tooltip"). Call it while the container's block runs.
@@ -115,50 +113,19 @@ class Chadcn::Chart::Container < Chadcn::Base
 
   # The container keywords for the re-layout request `chadcn--chart` sends to `relayout_url:` (query parameters `chart[id]`,
   # `chart[width]`, `chart[height]`, `chart[text_height]`, `chart[text_char_width]`), for the chart named `id:`; splat it into `new`.
-  # Only the keys present come back, each a positive finite number within its bound (`width` and `height` at most {RELAYOUT_MAX_SIZE},
-  # `text_height` at most 256, `text_char_width` at most 4); `initial_dimension:` needs both `width` and `height`. A request for
-  # another chart, or no request, gives `{}`: the chart renders at its own defaults. `params` is read with `[]` only (string or symbol
+  # Only the keys present come back, each a positive finite number within its bound (`width` and `height` at most {RELAYOUT_MAX_SIZE}, the
+  # text metrics at most {RELAYOUT_METRIC_BOUNDS}); `initial_dimension:` needs both `width` and `height`. A request for
+  # another chart, or no request, gives `{}`: the chart renders at its own defaults. `params` is read with `key?` and `[]` (string or symbol
   # keys), so a Hash and unpermitted `ActionController::Parameters` both work. `chart[legend_height]` is not read yet: the
   # re-measure item adds `legend_height:` to the container.
   #
-  # @param params [#[], nil] the request parameters
+  # @param params [#key?, #[], nil] the request parameters
   # @param id [String, Symbol] the container's `id:`
   # @return [Hash{Symbol => Object}]
   # @example
   #   Chadcn::Chart::Container.relayout_options({ "chart" => { "id" => "sales", "width" => "640", "height" => "400" } }, id: "sales")
   #   # => { initial_dimension: { width: 640, height: 400 } }
-  def self.relayout_options(params, id:)
-    chart = relayout_param(params, :chart)
-    return {} unless chart.respond_to?(:[]) && !chart.is_a?(String) && relayout_param(chart, :id).to_s == id.to_s
-
-    width, height = %i[width height].map { |key| relayout_number(relayout_param(chart, key), RELAYOUT_MAX_SIZE) }
-    options = width && height ? { initial_dimension: { width: width, height: height } } : {}
-    RELAYOUT_METRIC_BOUNDS.each_with_object(options) do |(key, bound), result|
-      value = relayout_number(relayout_param(chart, key), bound)
-      result[key] = value if value
-    end
-  end
-
-  # @api private
-  def self.relayout_param(params, key)
-    return unless params.respond_to?(:[]) && !params.is_a?(String) && !params.is_a?(Array)
-
-    value = params[key.to_s]
-    value.nil? ? params[key] : value
-  rescue TypeError, ArgumentError
-    nil
-  end
-  private_class_method :relayout_param
-
-  # @api private
-  def self.relayout_number(value, bound)
-    number = value.is_a?(String) && RELAYOUT_NUMBER.match?(value) ? Float(value) : value
-    return unless number.is_a?(Integer) || number.is_a?(Float)
-    return unless number&.finite? && number.positive? && number <= bound
-
-    number == number.to_i ? number.to_i : number
-  end
-  private_class_method :relayout_number
+  def self.relayout_options(params, id:) = Chadcn::Chart::Relayout.options(params, id: id)
 
   # The container the current render is inside, or nil. Used by the contents and the chart roots (React's `useChart`).
   #

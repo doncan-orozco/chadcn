@@ -22,7 +22,8 @@ manifests every component is compared against), the number of oracle components,
   settled at another size, `chadcn--chart` requests the chart from that same-origin URL at the measured size and swaps it in (the tooltip,
   the keyboard and the focus carry over; the previous layout is scaled into the box meanwhile). The host renders the same chart with
   `Chart::Container.relayout_options(params, id:)` (bounds: `RELAYOUT_MAX_SIZE`, `RELAYOUT_METRIC_BOUNDS`). New events
-  `chadcn--chart:relayout` and `chadcn--chart:relayout-error`. Without `relayout_url:` the container renders what it did before. See
+  `chadcn--chart:relayout` and `chadcn--chart:relayout-error`, and a `servedState` value on `chadcn--chart` (written on the swapped-in
+  element for its Turbo snapshot, not a kwarg). Without `relayout_url:` the container renders what it did before. See
   docs/charts.md, "Following the container".
 
 ### Fixed

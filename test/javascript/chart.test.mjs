@@ -623,28 +623,41 @@ function withRelayoutValues(html, family, width) {
 }
 
 // Answers GET /chart-relayout like a host: the chart at the requested width, or `answer(width)` -> { status, body, width }.
+// The array it returns holds the query of each request; `reached(count)` resolves once that many arrived and `answered[n]` once the
+// handler of request n is done (answered, or abandoned because the controller aborted it): positive signals to wait on, never a sleep.
+const ROUTE_GONE = /Route is already handled|Target page, context or browser has been closed|net::ERR_ABORTED/;
+
 async function answerRelayout(page, family, { delays = [], answer = null } = {}) {
   const requests = [];
+  const waiting = [];
+  requests.answered = [];
+  requests.reached = (count) => (requests.length >= count ? Promise.resolve() : new Promise((resolve) => waiting.push({ count, resolve })));
   await page.route((url) => url.pathname === RELAYOUT_PATH, async (route) => {
     const url = new URL(route.request().url());
     const number = requests.push(Object.fromEntries(url.searchParams));
+    let markAnswered;
+    requests.answered.push(new Promise((resolve) => { markAnswered = resolve; }));
+    for (const waiter of waiting.filter((waiter) => waiter.count <= requests.length)) waiter.resolve();
     const delay = delays[number - 1] ?? 0;
-    if (delay) await new Promise((resolve) => setTimeout(resolve, delay));
-    const requested = Number(url.searchParams.get("chart[width]"));
-    const custom = answer?.(requested) ?? {};
     try {
-      if (custom.body !== undefined || custom.status) return await route.fulfill({ status: custom.status ?? 200, contentType: "text/html", body: custom.body ?? "" });
-      const width = custom.width ?? requested;
+      if (delay) await new Promise((resolve) => setTimeout(resolve, delay));
+      const requested = Number(url.searchParams.get("chart[width]"));
+      const override = answer?.(requested) ?? {};
+      if (override.body !== undefined || override.status) return await route.fulfill({ status: override.status ?? 200, contentType: "text/html", body: override.body ?? "" });
+      const width = override.width ?? requested;
       const response = await route.fetch({ url: `${PHLEX}${scenarioPath(family, width)}` });
       await route.fulfill({ response, body: withRelayoutValues(await response.text(), family, width) });
-    } catch {
-      // the controller aborted the request
+    } catch (error) {
+      // the controller aborted the request or the page is gone; anything else is a bug of the test
+      if (!ROUTE_GONE.test(error.message)) throw error;
+    } finally {
+      markAnswered();
     }
   });
   return requests;
 }
 
-async function withResizable(family, fn, { url = RELAYOUT_URL, loadErrors = false } = {}) {
+async function withResizable(family, scenario, { url = RELAYOUT_URL, loadErrors = false } = {}) {
   const page = await openPath(await browserPromise, scenarioPath(family, 320));
   try {
     const errors = consoleErrors(page);
@@ -654,7 +667,7 @@ async function withResizable(family, fn, { url = RELAYOUT_URL, loadErrors = fals
         document.addEventListener(`chadcn--chart:${name}`, (event) => window.__relayout.push({ name, ...event.detail }));
       }
     });
-    await fn(page, () => enableRelayout(page, url));
+    await scenario(page, () => enableRelayout(page, url));
     assert.deepEqual(errors.filter((text) => !(loadErrors && /Failed to load resource/.test(text))), []);
     assert.deepEqual(page.jsErrors, []);
   } finally {
@@ -667,15 +680,36 @@ const enableRelayout = (page, url) => page.evaluate(({ values }) => {
   for (const [name, value] of Object.entries(values)) chart.setAttribute(`data-chadcn--chart-${name}-value`, value);
 }, { values: relayoutValues(320, url) });
 
-const resizeTo = (page, width, height = RESIZE_HEIGHTS[width]) => page.evaluate(({ width, height }) => {
+// Resolves once the box has been seen at the new width: a companion ResizeObserver, created after the controller's own, hears the
+// resize after it, so the controller has handled it (its interim scaling is in place, its debounce is running).
+const resizeTo = (page, width, height = RESIZE_HEIGHTS[width]) => page.evaluate(({ width, height }) => new Promise((resolve) => {
   const chart = document.querySelector("[data-slot=chart]");
+  const companion = new ResizeObserver((entries) => {
+    if (Math.round(entries[entries.length - 1].contentRect.width) === width) { companion.disconnect(); resolve(); }
+  });
+  companion.observe(chart);
   chart.style.width = `${width}px`;
   chart.style.height = `${height}px`;
+}), { width, height });
+
+// Resolves once a settle observer, created after the controller's own and with the same delay, reports the new width: its debounce
+// timer starts after the controller's, so by then the controller's would have fired. Used to prove that nothing was requested.
+const resizeAndSettle = (page, width, height = RESIZE_HEIGHTS[width]) => page.evaluate(async ({ width, height }) => {
+  const { observeSettledSize } = await import("chadcn/primitives/chart_relayout");
+  const chart = document.querySelector("[data-slot=chart]");
+  await new Promise((resolve) => {
+    const observer = observeSettledSize(chart, (size) => {
+      if (size.width !== width) return;
+      observer.disconnect();
+      resolve();
+    });
+    chart.style.width = `${width}px`;
+    chart.style.height = `${height}px`;
+  });
 }, { width, height });
 
 const relayoutEvents = (page) => page.evaluate(() => window.__relayout);
 const waitForEvents = (page, count) => page.waitForFunction((count) => window.__relayout.length >= count, count);
-const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const wrapperStyle = (page) => page.locator(PLOT).getAttribute("style");
 
 // The nodes G2 compares for these selectors, one list per page, in document order per selector.
@@ -755,8 +789,6 @@ async function rechartsAt(family, width) {
 test("chart: a chart with relayout_url: follows its container from 320 to 480 to 640 px and matches recharts at each width", () => withResizable("bar", async (page, enable) => {
   const requests = await answerRelayout(page, "bar");
   await enable();
-  await pause(400);
-  assert.deepEqual(requests, [], "no request while the box is the size the server laid out");
 
   await resizeTo(page, 480);
   await waitForEvents(page, 1);
@@ -770,10 +802,10 @@ test("chart: a chart with relayout_url: follows its container from 320 to 480 to
   assert.equal(await page.locator(CHART).count(), 1, "the chart was replaced, not added");
   assert.equal(await attribute(page, "dimension"), JSON.stringify({ width: 640, height: 400 }));
 
+  assert.equal(requests.length, 2, "the first request ever was for the 480 box: none at the size the server laid out");
   assert.deepEqual(requests[0], {
     source: "test", "chart[id]": "resize-bar", "chart[width]": "480", "chart[height]": "300", "chart[text_height]": "18", "chart[text_char_width]": "0.6",
   });
-  assert.equal(requests.length, 2);
 }));
 
 test("chart: a pie with relayout_url: follows its container to 640 px and matches recharts", () => withResizable("pie", async (page, enable) => {
@@ -788,10 +820,15 @@ test("chart: a pie with relayout_url: follows its container to 640 px and matche
 test("chart: resizing is debounced to one request, and the chart is scaled into its box until the answer arrives", () => withResizable("bar", async (page, enable) => {
   const requests = await answerRelayout(page, "bar", { delays: [600] });
   await enable();
-  for (const width of [360, 400, 440, 480]) {
-    await resizeTo(page, width, 300);
-    await pause(30);
-  }
+  // One evaluate, a frame per size: the four sizes land well inside the 150 ms debounce.
+  await page.evaluate(async () => {
+    const chart = document.querySelector("[data-slot=chart]");
+    for (const width of [360, 400, 440, 480]) {
+      chart.style.width = `${width}px`;
+      chart.style.height = "300px";
+      await new Promise((resolve) => requestAnimationFrame(() => resolve()));
+    }
+  });
   assert.match(await wrapperStyle(page), /width: 100%; height: 100%;/, "scaled while the re-layout is pending");
   await page.waitForFunction(() => document.querySelector("[data-slot=chart] .recharts-wrapper").parentElement.style.width === "100%");
   await waitForEvents(page, 1);
@@ -807,13 +844,13 @@ test("chart: a new size aborts the pending request and only the last answer is s
   await expectRequests(requests, 1);
   await resizeTo(page, 640);
   await waitForEvents(page, 1);
-  await pause(1200);
-  assert.deepEqual(await relayoutEvents(page), [{ name: "relayout", width: 640, height: 400 }]);
+  await Promise.all(requests.answered);
+  assert.deepEqual(await relayoutEvents(page), [{ name: "relayout", width: 640, height: 400 }], "the aborted 480 answer never arrived");
   assert.equal(await attribute(page, "dimension"), JSON.stringify({ width: 640, height: 400 }));
 }));
 
 async function expectRequests(requests, count) {
-  for (let attempt = 0; attempt < 100 && requests.length < count; attempt += 1) await pause(20);
+  await requests.reached(count);
   assert.equal(requests.length, count);
 }
 
@@ -828,6 +865,7 @@ test("chart: the tooltip and the keyboard carry over the swap", () => withResiza
   await waitForEvents(page, 1);
   assert.equal(await attribute(page, "keyboard-index"), "1");
   assert.equal(await attribute(page, "keyboard-active"), "true");
+  assert.deepEqual(JSON.parse(await attribute(page, "served-state")), { pointerIndex: -1, pointerActive: false, keyboardIndex: -1, keyboardActive: false }, "the answer's own state, for the Turbo snapshot");
   assert.equal(await page.evaluate(() => document.activeElement.matches("[data-slot=chart] svg.recharts-surface")), true, "the new svg has the focus");
   await page.locator(TOOLTIP).filter({ hasText: "February" }).waitFor({ state: "visible" });
   await page.keyboard.press("ArrowRight");
@@ -843,29 +881,40 @@ test("chart: an error answer keeps the chart, reports relayout-error once and st
   assert.equal(await attribute(page, "dimension"), JSON.stringify({ width: 320, height: 200 }), "the current chart stays");
   assert.match(await wrapperStyle(page), /width: 100%; height: 100%;/, "and stays scaled into its box");
 
-  await resizeTo(page, 640);
-  await pause(500);
+  await resizeAndSettle(page, 640);
   assert.equal(requests.length, 1, "no request loop");
   assert.equal((await relayoutEvents(page)).length, 1);
+
+  // Control: the same element, put back with another URL, does request, so the silence above was the stop and not a dead route.
+  await page.evaluate(() => {
+    const chart = document.querySelector("[data-slot=chart]");
+    const [parent, next] = [chart.parentNode, chart.nextSibling];
+    chart.remove();
+    chart.setAttribute("data-chadcn--chart-relayout-url-value", "/chart-relayout?source=control");
+    parent.insertBefore(chart, next);
+  });
+  await waitForEvents(page, 2);
+  assert.equal(requests.length, 2, "the reconnect is the second request");
+  assert.equal(requests[1].source, "control");
+  assert.equal(requests[1]["chart[width]"], "640");
 }, { loadErrors: true }));
 
-test("chart: an answer without the chart, or with the chart at another size, is an error", async () => {
-  await withResizable("bar", async (page, enable) => {
-    await answerRelayout(page, "bar", { answer: () => ({ body: "<p>signed out</p>" }) });
-    await enable();
-    await resizeTo(page, 480);
-    await waitForEvents(page, 1);
-    assert.deepEqual(await relayoutEvents(page), [{ name: "relayout-error", status: 200 }]);
-  });
-  await withResizable("bar", async (page, enable) => {
-    await answerRelayout(page, "bar", { answer: () => ({ width: 640 }) });
-    await enable();
-    await resizeTo(page, 480);
-    await waitForEvents(page, 1);
-    assert.deepEqual(await relayoutEvents(page), [{ name: "relayout-error", status: 200 }], "a host that ignored the parameters");
-    assert.equal(await attribute(page, "dimension"), JSON.stringify({ width: 320, height: 200 }));
-  });
-});
+test("chart: an answer without the chart is an error", () => withResizable("bar", async (page, enable) => {
+  await answerRelayout(page, "bar", { answer: () => ({ body: "<p>signed out</p>" }) });
+  await enable();
+  await resizeTo(page, 480);
+  await waitForEvents(page, 1);
+  assert.deepEqual(await relayoutEvents(page), [{ name: "relayout-error", status: 200 }]);
+}));
+
+test("chart: an answer with the chart at another size is an error", () => withResizable("bar", async (page, enable) => {
+  await answerRelayout(page, "bar", { answer: () => ({ width: 640 }) });
+  await enable();
+  await resizeTo(page, 480);
+  await waitForEvents(page, 1);
+  assert.deepEqual(await relayoutEvents(page), [{ name: "relayout-error", status: 200 }], "a host that ignored the parameters");
+  assert.equal(await attribute(page, "dimension"), JSON.stringify({ width: 320, height: 200 }));
+}));
 
 test("chart: a cross-origin relayout_url is never requested", () => withResizable("bar", async (page, enable) => {
   const outside = [];
@@ -877,15 +926,32 @@ test("chart: a cross-origin relayout_url is never requested", () => withResizabl
   assert.deepEqual(outside, []);
 }, { url: "https://example.test/chart" }));
 
-test("chart: disconnect before the debounce fires sends no request", () => withResizable("bar", async (page, enable) => {
-  const requests = await answerRelayout(page, "bar", { delays: [500] });
+test("chart: a same-origin relayout_url on the same page is requested (the control of the cross-origin test)", () => withResizable("bar", async (page, enable) => {
+  const requests = await answerRelayout(page, "bar");
   await enable();
   await resizeTo(page, 480);
-  await page.evaluate(() => document.querySelector("[data-slot=chart]").remove());
-  await pause(400);
-  assert.equal(requests.length, 0, "the debounce died with the element");
+  await waitForEvents(page, 1);
+  assert.deepEqual(await relayoutEvents(page), [{ name: "relayout", width: 480, height: 300 }]);
+  assert.equal(requests.length, 1);
+}));
 
+test("chart: disconnect before the debounce fires sends no request", () => withResizable("bar", async (page, enable) => {
+  const requests = await answerRelayout(page, "bar");
+  await enable();
+  await resizeTo(page, 480);
+  await page.evaluate(() => { window.__detached = document.querySelector("[data-slot=chart]"); window.__detached.remove(); });
   assert.deepEqual(await relayoutEvents(page), []);
+
+  // Control: the same element, put back with another URL, does request. Its own debounce outlasts the one that died, so a stale
+  // request of the removed element would be the first in the list.
+  await page.evaluate(() => {
+    window.__detached.setAttribute("data-chadcn--chart-relayout-url-value", "/chart-relayout?source=control");
+    document.body.append(window.__detached);
+  });
+  await waitForEvents(page, 1);
+  assert.equal(requests.length, 1);
+  assert.equal(requests[0].source, "control", "the debounce died with the element");
+  assert.deepEqual(await relayoutEvents(page), [{ name: "relayout", width: 480, height: 300 }]);
 }));
 
 test("chart: disconnect while the request is pending swaps nothing in", () => withResizable("bar", async (page, enable) => {
@@ -894,9 +960,15 @@ test("chart: disconnect while the request is pending swaps nothing in", () => wi
   await resizeTo(page, 480);
   await expectRequests(requests, 1);
   await page.evaluate(() => { window.__detached = document.querySelector("[data-slot=chart]"); window.__detached.remove(); });
-  await pause(900);
+  await Promise.all(requests.answered);
   assert.deepEqual(await relayoutEvents(page), []);
   assert.equal(await page.locator(CHART).count(), 0);
+
+  // Control: the route answers and the chart swaps in when the element comes back.
+  await page.evaluate(() => document.body.append(window.__detached));
+  await waitForEvents(page, 1);
+  assert.deepEqual(await relayoutEvents(page), [{ name: "relayout", width: 480, height: 300 }]);
+  assert.equal(requests.length, 2);
 }));
 
 test("chart: turbo:before-cache aborts the request and removes the interim scaling; the restore re-lays out", () => withResizable("bar", async (page, enable) => {
@@ -907,13 +979,34 @@ test("chart: turbo:before-cache aborts the request and removes the interim scali
   const snapshot = await page.evaluate(() => {
     document.dispatchEvent(new Event("turbo:before-cache"));
     const wrapper = document.querySelector("[data-slot=chart] .recharts-wrapper");
-    return { wrapper: wrapper.getAttribute("style"), inner: wrapper.parentElement.getAttribute("style") };
+    return { wrapper: wrapper.style.width, height: wrapper.style.height, inner: wrapper.parentElement.style.width };
   });
-  assert.equal(snapshot.wrapper, "position: relative; cursor: default; width: 320px; height: 200px;", "the snapshot holds the server markup");
-  assert.equal(snapshot.inner, "width: 0px; height: 0px; overflow: visible;");
+  assert.notEqual(snapshot.wrapper, "100%", "the snapshot holds the server markup, not the interim scaling");
+  assert.notEqual(snapshot.inner, "100%");
+  assert.equal(snapshot.wrapper, "320px");
+  assert.equal(snapshot.height, "200px");
 
   await waitForEvents(page, 1);
-  await pause(800);
+  await Promise.all(requests.answered);
   assert.deepEqual(await relayoutEvents(page), [{ name: "relayout", width: 480, height: 300 }], "the aborted answer is never swapped in");
   assert.equal(requests.length, 2);
+}));
+
+test("chart: a Turbo cache restore re-measures: the cached clone at another size is requested and swapped in", () => withResizable("bar", async (page, enable) => {
+  const requests = await answerRelayout(page, "bar");
+  await enable();
+  // What Turbo does: snapshot the page after turbo:before-cache, and later show a copy of it in a box of another size.
+  await page.evaluate(() => {
+    const chart = document.querySelector("[data-slot=chart]");
+    document.dispatchEvent(new Event("turbo:before-cache"));
+    const clone = chart.cloneNode(true);
+    chart.replaceWith(clone);
+    clone.style.width = "640px";
+    clone.style.height = "400px";
+  });
+  await waitForEvents(page, 1);
+  assert.deepEqual(await relayoutEvents(page), [{ name: "relayout", width: 640, height: 400 }]);
+  assert.equal(await page.locator(CHART).count(), 1, "one chart on the page");
+  assert.equal(requests.length, 1);
+  assert.equal(requests[0]["chart[width]"], "640");
 }));

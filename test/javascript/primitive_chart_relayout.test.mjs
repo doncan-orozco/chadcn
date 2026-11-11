@@ -44,6 +44,7 @@ primitiveTest("chart_relayout: relayoutRequestUrl adds the chart parameters to t
       href(relayoutRequestUrl("//evil.test/r", { id: "sales", size, metrics })),
       href(relayoutRequestUrl("javascript:alert(1)", { id: "sales", size, metrics })),
       href(relayoutRequestUrl("http://[bad", { id: "sales", size, metrics })),
+      href(relayoutRequestUrl("/r", { id: "sales", size, metrics: { textHeight: Number.NaN, textCharWidth: Infinity, legendHeight: 28 } })),
     ];
   });
   assert.deepEqual(result, [
@@ -51,6 +52,7 @@ primitiveTest("chart_relayout: relayoutRequestUrl adds the chart parameters to t
     "http://primitives.test/r?chart%5Bwidth%5D=640&chart%5Bid%5D=sales&chart%5Bheight%5D=400&chart%5Btext_height%5D=16&chart%5Btext_char_width%5D=0.6&chart%5Blegend_height%5D=28",
     "http://primitives.test/r?chart%5Bid%5D=sales&chart%5Bwidth%5D=640&chart%5Bheight%5D=400&chart%5Btext_height%5D=16&chart%5Btext_char_width%5D=0.6",
     null, null, null, null,
+    "http://primitives.test/r?chart%5Bid%5D=sales&chart%5Bwidth%5D=640&chart%5Bheight%5D=400&chart%5Blegend_height%5D=28",
   ]);
 });
 
@@ -58,11 +60,16 @@ primitiveTest("chart_relayout: chartInResponse finds the chart of that name in a
   const result = await page.evaluate(async () => {
     const { chartInResponse } = await import("chadcn/primitives/chart_relayout");
     window.ran = false;
+    window.ranLive = false;
     const html = `<html><body><img src=x onerror="window.ran = true"><script>window.ran = true</script>
       <div data-slot="chart" data-chart="chart-other"></div>
       <div data-slot="card"><div data-slot="chart" data-chart="chart-sales" id="hit"><svg class="recharts-surface"></svg></div></div></body></html>`;
     const found = chartInResponse(html, "chart-sales");
-    await new Promise((resolve) => setTimeout(resolve, 50));
+    // Control: the same markup in the live document does run the handler, and once the live image has errored the inert one would have too.
+    const live = document.createElement("div");
+    document.body.append(live);
+    live.innerHTML = html.replaceAll("window.ran ", "window.ranLive ");
+    await new Promise((resolve) => live.querySelector("img").addEventListener("error", resolve, { once: true }));
     return {
       id: found?.id,
       inert: found?.ownerDocument !== document,
@@ -70,9 +77,10 @@ primitiveTest("chart_relayout: chartInResponse finds the chart of that name in a
       quoted: chartInResponse(html, 'chart-sales"]'),
       empty: chartInResponse("", "chart-sales"),
       ran: window.ran,
+      ranLive: window.ranLive,
     };
   });
-  assert.deepEqual(result, { id: "hit", inert: true, missing: null, quoted: null, empty: null, ran: false });
+  assert.deepEqual(result, { id: "hit", inert: true, missing: null, quoted: null, empty: null, ran: false, ranLive: true });
 });
 
 primitiveTest("chart_relayout: laidOutAt reads the dimension value of a chart", async (page) => {
@@ -101,24 +109,43 @@ primitiveTest("chart_relayout: observeSettledSize reports the content box once i
     const element = document.createElement("div");
     element.style.cssText = "width: 320px; height: 200px; padding: 10px; box-sizing: content-box";
     document.body.append(element);
-    const reports = [];
-    const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-    const observer = observeSettledSize(element, (size) => reports.push(size), { delay: 80 });
-    await wait(150);
-    for (const width of [400, 500.4, 640.6]) {
+    const nextEvent = (subscribe) => new Promise((resolve) => subscribe(resolve));
+    // Created after the observer under test, so it hears each resize after it: a resized box has been seen by both.
+    const resized = (width) => new Promise((resolve) => {
+      const companion = new ResizeObserver((entries) => {
+        if (Math.round(entries[entries.length - 1].contentRect.width) === width) { companion.disconnect(); resolve(); }
+      });
+      companion.observe(element);
       element.style.width = `${width}px`;
-      await wait(20);
-    }
-    await wait(150);
-    element.style.width = "700px";
-    await wait(20);
+    });
+
+    const reports = [];
+    let reported = null;
+    const first = nextEvent((resolve) => { reported = resolve; });
+    const observer = observeSettledSize(element, (size) => { reports.push(size); reported?.(); }, { delay: 300 });
+    await first;
+    const afterFirst = reports.length;
+
+    const settled = nextEvent((resolve) => { reported = resolve; });
+    for (const width of [400, 500, 641]) await resized(width);
+    await settled;
+    const afterBurst = reports.length;
+
+    await resized(700);
     observer.disconnect();
-    await wait(150);
-    element.style.width = "800px";
-    await wait(150);
-    return reports;
+    // Control: an observer with a longer delay settles after the disconnected one's timer would have fired.
+    const control = [];
+    const controlSettled = nextEvent((resolve) => {
+      const watcher = observeSettledSize(element, (size) => { control.push(size); watcher.disconnect(); resolve(); }, { delay: 500 });
+    });
+    await resized(800);
+    await controlSettled;
+    return { afterFirst, afterBurst, reports, control };
   });
-  assert.deepEqual(result, [{ width: 320, height: 200 }, { width: 641, height: 200 }]);
+  assert.equal(result.afterFirst, 1);
+  assert.equal(result.afterBurst, 2, "the burst of sizes is one report");
+  assert.deepEqual(result.reports, [{ width: 320, height: 200 }, { width: 641, height: 200 }], "nothing after disconnect");
+  assert.deepEqual(result.control, [{ width: 800, height: 200 }], "the control observer did settle");
 });
 
 primitiveTest("chart_relayout: scaleToBox sets the wrapper and the inner div of the shell to the box, and restore puts them back", async (page) => {
@@ -133,9 +160,17 @@ primitiveTest("chart_relayout: scaleToBox sets the wrapper and the inner div of 
     const scaled = styles();
     restore();
     restore();
-    return { before, scaled, after: styles(), none: typeof scaleToBox(document.createElement("div")) };
+    const bare = document.createElement("div");
+    bare.innerHTML = "<p>no wrapper</p>";
+    const bareMarkup = bare.innerHTML;
+    const bareRestore = scaleToBox(bare);
+    const bareScaled = bare.innerHTML;
+    bareRestore();
+    return { before, scaled, after: styles(), none: typeof bareRestore, bareScaled, bareRestored: bare.innerHTML, bareMarkup };
   });
   assert.deepEqual(result.scaled, ["width: 100%; height: 100%; overflow: visible;", "position: relative; cursor: default; width: 100%; height: 100%;"]);
   assert.deepEqual(result.after, result.before);
   assert.equal(result.none, "function");
+  assert.equal(result.bareScaled, result.bareMarkup, "a chart without a wrapper is left alone");
+  assert.equal(result.bareRestored, result.bareMarkup);
 });

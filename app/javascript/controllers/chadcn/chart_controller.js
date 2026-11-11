@@ -31,8 +31,6 @@ const EVENT_RELAYOUT = "relayout"
 const EVENT_RELAYOUT_ERROR = "relayout-error"
 // The interaction values a re-laid-out chart takes over from the one it replaces.
 const CARRIED_VALUES = { pointerIndex: "pointer-index", pointerActive: "pointer-active", keyboardIndex: "keyboard-index", keyboardActive: "keyboard-active" }
-// The server state of a swapped-in chart (what its answer said before the live state was carried over), for its Turbo snapshot.
-const SERVED_STATES = new WeakMap()
 
 export default class extends Controller {
   static targets = ["surface", "tooltip", "tooltipTemplate", "cursor", "activeDots"]
@@ -61,6 +59,7 @@ export default class extends Controller {
     relayoutUrl: { type: String, default: "" },
     dimension: { type: Object, default: {} },
     textMetrics: { type: Object, default: {} },
+    servedState: Object, // written by `swap`; no default: `connect` tells a swapped-in chart by `hasServedStateValue`
   }
 
   connect() {
@@ -70,7 +69,7 @@ export default class extends Controller {
     this.pointerCoordinate = null
     this.dismissedAt = null
     this.activeCoordinate = null
-    this.serverState = SERVED_STATES.get(this.element) ?? this.interactionState()
+    this.serverState = this.hasServedStateValue ? this.servedStateValue : this.interactionState()
     this.relayoutStopped = false
     this.cache = turboCacheRestore({
       teardown: (cancelled) => this.resetToServerState(cancelled),
@@ -398,7 +397,10 @@ export default class extends Controller {
       return
     }
 
-    const url = relayoutRequestUrl(this.relayoutUrlValue, { id: this.element.dataset.chart.replace(/^chart-/, ""), size, metrics: this.textMetricsValue })
+    const chartName = this.element.dataset.chart
+    if (!chartName) return this.failRelayout(0)
+
+    const url = relayoutRequestUrl(this.relayoutUrlValue, { id: chartName.replace(/^chart-/, ""), size, metrics: this.textMetricsValue })
     if (!url) return this.failRelayout(0)
 
     this.scaleInterim()
@@ -406,33 +408,36 @@ export default class extends Controller {
     const request = new AbortController()
     this.relayoutRequest = request
     let status = 0
+    let chart = null
     try {
       const response = await fetch(url, { headers: { Accept: "text/html" }, mode: "same-origin", credentials: "same-origin", signal: request.signal })
       status = response.status
       const html = response.ok ? await response.text() : null
+      chart = html === null ? null : chartInResponse(html, chartName)
+    } catch {
       if (request.signal.aborted) return
       this.relayoutRequest = null
-      const chart = html === null ? null : chartInResponse(html, this.element.dataset.chart)
-      if (!chart || !laidOutAt(chart, size, `data-${this.identifier}-dimension-value`)) return this.failRelayout(status)
-
-      this.swap(chart, size)
-    } catch (error) {
-      if (request.signal.aborted) return
-      this.relayoutRequest = null
-      this.failRelayout(status)
+      return this.failRelayout(status)
     }
+    if (request.signal.aborted) return
+    this.relayoutRequest = null
+    if (!chart || !laidOutAt(chart, size, `data-${this.identifier}-dimension-value`)) return this.failRelayout(status)
+
+    this.swap(chart, size)
   }
 
-  // The answer replaces the element (its controller connects on its own) with the interaction state and the focus carried over.
+  // The answer replaces the element (its controller connects on its own) with the interaction state and the focus carried over. The
+  // fresh element keeps the state its answer was rendered with as `servedState`, for its own Turbo snapshot.
   swap(chart, size) {
     const fresh = document.importNode(chart, true)
     const value = (attribute, fallback) => fresh.getAttribute(`data-${this.identifier}-${attribute}-value`) ?? fallback
-    SERVED_STATES.set(fresh, {
+    const served = {
       pointerIndex: Number(value("pointer-index", -1)),
       pointerActive: value("pointer-active", "false") === "true",
       keyboardIndex: Number(value("keyboard-index", -1)),
       keyboardActive: value("keyboard-active", "false") === "true",
-    })
+    }
+    fresh.setAttribute(`data-${this.identifier}-served-state-value`, JSON.stringify(served))
     for (const [name, attribute] of Object.entries(CARRIED_VALUES)) fresh.setAttribute(`data-${this.identifier}-${attribute}-value`, String(this[`${name}Value`]))
     const focused = this.element.contains(document.activeElement)
     this.element.replaceWith(fresh)

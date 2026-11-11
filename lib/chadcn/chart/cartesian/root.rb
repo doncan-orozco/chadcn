@@ -5,8 +5,8 @@
 # ({Chadcn::Chart::Cartesian::Layout}), and the SVG is drawn from the result ({Chadcn::Chart::Cartesian::Surface}) in recharts'
 # own markup: `div.recharts-wrapper > svg.recharts-surface` with one `g` per z-index layer.
 #
-# The chart is laid out once, at the size of the enclosing {Chadcn::Chart::Container} (`initial_dimension`, 320x200 without one); it does
-# not follow the size of its box.
+# The chart is laid out at the size of the enclosing {Chadcn::Chart::Container} (`initial_dimension`, 320x200 without one). With the
+# container's `relayout_url:` the browser requests it again at the size of its box; without one it keeps that size.
 #
 # @api private
 class Chadcn::Chart::Cartesian::Root < Chadcn::Base

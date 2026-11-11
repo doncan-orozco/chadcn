@@ -11,14 +11,14 @@ class Chadcn::Chart::ContainerRelayoutTest < Chadcn::TestCase
 
   def container_node(html) = parse(html).at_css("div[data-slot='chart']")
 
-  def value(node, name) = node["data-chadcn--chart-#{name}-value"]
+  def chart_value(node, name) = node["data-chadcn--chart-#{name}-value"]
 
-  def json_value(node, name) = JSON.parse(value(node, name))
+  def json_value(node, name) = JSON.parse(chart_value(node, name))
 
-  def bar_with_legend(container: {})
+  def bar_with_legend(container: {}, **legend)
     render_chart(container: container) do |chart|
       chart.x_axis(data_key: :month, tick_formatter: SLICE)
-      chart.legend
+      chart.legend(**legend)
       chart.bar(data_key: :desktop, fill: "var(--color-desktop)")
     end
   end
@@ -35,16 +35,16 @@ class Chadcn::Chart::ContainerRelayoutTest < Chadcn::TestCase
     node = container_node(plain_bar)
 
     assert_nil Chadcn::Chart::Container.new(config: CONFIG).relayout_url
-    assert_nil value(node, "relayout-url")
-    assert_nil value(node, "dimension")
-    assert_nil value(node, "text-metrics")
+    assert_nil chart_value(node, "relayout-url")
+    assert_nil chart_value(node, "dimension")
+    assert_nil chart_value(node, "text-metrics")
   end
 
   test "with relayout_url: the container writes the URL, the dimension and the metrics the server laid out with" do
     container = { relayout_url: URL, initial_dimension: { width: 480, height: 300 }, text_height: 18, text_char_width: 0.55 }
     node = container_node(plain_bar(container: container))
 
-    assert_equal URL, value(node, "relayout-url")
+    assert_equal URL, chart_value(node, "relayout-url")
     assert_equal({ "width" => 480, "height" => 300 }, json_value(node, "dimension"))
     assert_equal({ "textHeight" => 18, "textCharWidth" => 0.55 }, json_value(node, "text-metrics"))
   end
@@ -53,6 +53,19 @@ class Chadcn::Chart::ContainerRelayoutTest < Chadcn::TestCase
     node = container_node(bar_with_legend(container: { relayout_url: URL }))
 
     assert_equal({ "textHeight" => 16, "textCharWidth" => 0.6, "legendHeight" => 28 }, json_value(node, "text-metrics"))
+  end
+
+  test "the Legend's own legend_height: reaches legendHeight" do
+    node = container_node(bar_with_legend(container: { relayout_url: URL }, legend_height: 40))
+
+    assert_equal 40, json_value(node, "text-metrics")["legendHeight"]
+  end
+
+  test "with only relayout_url: the dimension is 320x200 and the metrics the defaults" do
+    node = container_node(plain_bar(container: { relayout_url: URL }))
+
+    assert_equal({ "width" => 320, "height" => 200 }, json_value(node, "dimension"))
+    assert_equal({ "textHeight" => 16, "textCharWidth" => 0.6 }, json_value(node, "text-metrics"))
   end
 
   test "the server render of the chart is the same with and without relayout_url:" do
@@ -79,9 +92,10 @@ class Chadcn::Chart::ContainerRelayoutTest < Chadcn::TestCase
     assert_equal({ initial_dimension: { width: 512.5, height: 300 } }, relayout_options(params, id: :sales))
   end
 
-  test "relayout_options reads params with [] only, like unpermitted ActionController::Parameters" do
+  test "relayout_options reads params with key? and [] only, like unpermitted ActionController::Parameters" do
     params = Class.new do
       def initialize(hash) = @hash = hash
+      def key?(key) = @hash.key?(key.to_s)
       def [](key) = @hash[key.to_s].then { |nested| nested.is_a?(Hash) ? self.class.new(nested) : nested }
     end.new("chart" => { "id" => "sales", "width" => "640", "height" => "400" })
 
@@ -95,13 +109,31 @@ class Chadcn::Chart::ContainerRelayoutTest < Chadcn::TestCase
     assert_equal({}, relayout_options(nil))
   end
 
+  test "relayout_options is empty for a blank id, even when the request has no chart[id]" do
+    request = { "chart" => { "width" => "640", "height" => "400" } }
+
+    assert_equal({}, relayout_options(request, id: ""))
+    assert_equal({}, relayout_options(request, id: nil))
+    assert_equal({}, relayout_options({ "chart" => { "id" => "", "width" => "640", "height" => "400" } }, id: ""))
+  end
+
+  test "relayout_options is empty when chart is a String, an Array or a Proc" do
+    [ "640", [ "sales" ], -> { "sales" } ].each { |chart| assert_equal({}, relayout_options({ "chart" => chart }), chart.inspect) }
+  end
+
+  test "the server and the browser share one size bound" do
+    primitive = File.read(File.expand_path("../../../app/javascript/chadcn/primitives/chart_relayout.js", __dir__))
+
+    assert_includes primitive, "export const RELAYOUT_MAX_SIZE = #{Chadcn::Chart::Container::RELAYOUT_MAX_SIZE}"
+  end
+
   test "relayout_options drops a value that is not a positive finite number within its bound" do
     base = { "id" => "sales", "width" => "640", "height" => "400" }
 
     [
       { "width" => "0" }, { "width" => "-5" }, { "width" => "4097" }, { "height" => "abc" }, { "height" => "Infinity" }, { "width" => "1e400" },
       { "width" => "" }, { "width" => [ "640" ] }, { "height" => "0x20" }
-    ].each { |bad| assert_equal({}, relayout_options({ "chart" => base.merge(bad) }), bad.inspect) }
+    ].each { |invalid_parameter| assert_equal({}, relayout_options({ "chart" => base.merge(invalid_parameter) }), invalid_parameter.inspect) }
 
     bounds = { "text_height" => "257", "text_char_width" => "4.01" }
 

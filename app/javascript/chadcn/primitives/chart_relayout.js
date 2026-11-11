@@ -18,7 +18,7 @@ const FLUID = { width: "100%", height: "100%" }
 /**
  * A box size rounded to whole pixels.
  *
- * @param {{ width: number, height: number }} rect
+ * @param {{ width: number, height: number }} box a `contentRect` or any rect with a width and a height
  * @returns {{ width: number, height: number }}
  */
 export function roundedSize({ width, height }) {
@@ -71,7 +71,7 @@ export function relayoutRequestUrl(url, { id, size, metrics }, base = window.loc
     legend_height: metrics.legendHeight,
   }
   for (const [name, value] of Object.entries(parameters)) {
-    if (value !== undefined && value !== null) target.searchParams.set(`chart[${name}]`, String(value))
+    if (value !== undefined && value !== null && (typeof value !== "number" || Number.isFinite(value))) target.searchParams.set(`chart[${name}]`, String(value))
   }
   target.hash = ""
   return target
