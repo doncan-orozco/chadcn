@@ -11,7 +11,8 @@ class Chadcn::Chart::Polar::LayoutTest < Chadcn::TestCase
     declare.each { |part| declared.declare(part) }
     text = Chadcn::Chart::Cartesian::Text.new
     options = { type: type, layout: layout, width: width, height: height, margin: margin, rows: ROWS, text: text, cx: "50%", cy: "50%", inner_radius: 0,
-                outer_radius: "80%", start_angle: 90, end_angle: -270, bar_category_gap: "10%", bar_gap: 4, bar_size: nil, max_bar_size: nil, legend_height: nil }
+                outer_radius: "80%", start_angle: 90, end_angle: -270, bar_category_gap: "10%", bar_gap: 4, bar_size: nil, max_bar_size: nil,
+                legend_height: nil }
     Chadcn::Chart::Polar::Layout.new(declared, Chadcn::Chart::Polar::ChartSettings.new(**options, **settings))
   end
 

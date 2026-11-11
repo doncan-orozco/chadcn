@@ -10,9 +10,10 @@
 # follows the size of the container like recharts' `ResponsiveContainer`: once the box has settled at another size it requests the chart
 # from that URL at the measured size and swaps it in; after the fonts load it also measures the tick text and the legend box like recharts
 # and requests the chart again when they differ from `text_height:`, `text_char_width:` and the legend height the server assumed. The host
-# reads the request with {.relayout_options} (dev/port/specs/chart.md, "Behavior", "Resize and re-measure"). `**attrs` land on the div (`class:` merged last). The div is the element of the Stimulus
-# controller `chadcn--chart` (always, so a Turbo-streamed container is wired too) and carries every value of it: the chart inside hands
-# them over ({#publish_chart_values}), Stimulus reads values from the controller element only.
+# reads the request with {.relayout_options} (dev/port/specs/chart.md, "Behavior", "Resize and re-measure"). `**attrs` land on the div
+# (`class:` merged last). The div is the element of the Stimulus controller `chadcn--chart` (always, so a Turbo-streamed container is
+# wired too) and carries every value of it: the chart inside hands them over ({#publish_chart_values}), Stimulus reads values from the
+# controller element only.
 #
 # @example
 #   render Chadcn::Chart::Container.new(config: { desktop: { label: "Desktop", color: "var(--chart-1)" } }) do |container|
