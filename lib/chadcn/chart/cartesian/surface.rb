@@ -19,6 +19,7 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
   # @param declared [Chadcn::Chart::Cartesian::Declared]
   # @param markup [String] what the chart's block wrote itself; placed after the clip path
   # @param tooltip_entry [Chadcn::Chart::Cartesian::TooltipPlan::Entry, nil] the category a `default_index:` shows: its cursor and active dots
+  # @param tooltip_items [Hash{Object => Integer}] the series whose bars are tooltip items (`shared: false`), with their positions
   # @param uid [String] prefix of the ids this chart writes
   # @param title [String, nil]
   # @param desc [String, nil]
@@ -26,11 +27,12 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
   # @param role [String, nil]
   # @param tab_index [Integer, nil]
   # @param attrs [Hash] attributes of the svg
-  def initialize(layout:, declared:, markup:, tooltip_entry:, uid:, title:, desc:, accessibility_layer:, role:, tab_index:, attrs:)
+  def initialize(layout:, declared:, markup:, tooltip_entry:, uid:, title:, desc:, accessibility_layer:, role:, tab_index:, attrs:, tooltip_items: {})
     @layout = layout
     @declared = declared
     @markup = markup
     @tooltip_entry = tooltip_entry
+    @tooltip_items = tooltip_items
     @uid = uid
     @title = title
     @desc = desc
@@ -244,14 +246,15 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
 
     custom = background.is_a?(Hash) ? background : {}
     plot = @layout.plot
-    placed.rects.each do |rect|
+    placed.rects.each_with_index do |rect, position|
       box = if @layout.direction == :horizontal
         { x: rect.x, y: plot[:y], width: rect.width, height: plot[:height] }
       else
         { x: plot[:x], y: rect.y, width: plot[:width], height: rect.height }
       end
       g(class: "recharts-layer recharts-inactive-bar") do
-        rectangle_path(box, nil, attrs({ fill: "#eee" }, custom, { class: "recharts-rectangle recharts-bar-background-rectangle" }))
+        rectangle_path(box, nil, attrs({ fill: "#eee" }, custom, { class: "recharts-rectangle recharts-bar-background-rectangle" },
+                                       tooltip_item(placed.series, position)))
       end
     end
   end
@@ -264,8 +267,8 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
       clip_defs(id, clip) if clip
       g(**attrs({ class: "recharts-layer recharts-bar-rectangles" }, clip_attribute(id, clip))) do
         g(class: "recharts-layer") do
-          placed.rects.each do |rect|
-            g(class: "recharts-layer recharts-bar-rectangle") do
+          placed.rects.each_with_index do |rect, position|
+            g(class: "recharts-layer recharts-bar-rectangle", **tooltip_item(series, position)) do
               g(class: "recharts-layer recharts-inactive-bar") { bar_rectangle(series, rect, series.cells[rect.index]) }
             end
           end
@@ -281,6 +284,15 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
     base = attrs({ fill: options[:fill], stroke: options[:stroke], name: (options[:name] || "undefined").to_s }, series_attrs(series),
                  { class: "recharts-rectangle" }, row, cell&.shape_attributes)
     rectangle_path({ x: rect.x, y: rect.y, width: rect.width, height: rect.height }, options[:radius], base)
+  end
+
+  # The data `chadcn--chart` reads to tell which bar the pointer is over, when the bars are tooltip items (`shared: false`): the series'
+  # position and the bar's among the drawn ones (recharts' item index, cartesian/Bar.js:315). Its background answers like the bar (:128).
+  def tooltip_item(series, position)
+    series_position = @tooltip_items[series]
+    return {} unless series_position
+
+    { "data-chadcn--chart-target": "tooltipItem", "data-chadcn--chart-series": series_position.to_s, "data-chadcn--chart-index": position.to_s }
   end
 
   # A bar's `path`: the box rounded to four decimals, the radius when it is a number, and the `d`.

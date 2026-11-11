@@ -31,7 +31,9 @@ class Chadcn::Chart::Polar::Drawer::RadialBar < Chadcn::Chart::Polar::Drawer
   def bars
     g(class: classes("recharts-layer recharts-area", user_class(options[:attrs]))) do
       g(class: "recharts-layer recharts-radial-bar-background") if background
-      g(class: "recharts-layer recharts-radial-bar-sectors") { sectors.each { |sector| arc(sector, sector_attributes(sector)) } }
+      g(class: "recharts-layer recharts-radial-bar-sectors") do
+        sectors.each_with_index { |sector, position| arc(sector, sector_attributes(sector).merge(tooltip_item(position))) }
+      end
     end
   end
 
@@ -74,6 +76,15 @@ class Chadcn::Chart::Polar::Drawer::RadialBar < Chadcn::Chart::Polar::Drawer
   end
 
   def row_attributes(sector) = sector.attributes
+
+  # The data `chadcn--chart` reads to tell which arc the pointer is over, when the arcs are tooltip items (`shared: false`): the series'
+  # position and the arc's (recharts' item index, polar/RadialBar.js:97). The background arc does not answer (its handlers are the user's only).
+  def tooltip_item(position)
+    series_position = canvas.tooltip_items[series]
+    return {} unless series_position
+
+    { "data-chadcn--chart-target": "tooltipItem", "data-chadcn--chart-series": series_position.to_s, "data-chadcn--chart-index": position.to_s }
+  end
 
   # The path of an arc: the radial bar's own props, then what the row and the cell give, then the center.
   def sector_attributes(sector)

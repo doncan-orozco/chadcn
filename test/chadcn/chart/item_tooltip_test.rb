@@ -65,8 +65,10 @@ class Chadcn::Chart::ItemTooltipTest < Chadcn::TestCase
     assert_in_delta number(path, "x") + (number(path, "width") / 2), item["x"], 1e-3
     assert_in_delta number(path, "y") + (number(path, "height") / 2), item["y"], 1e-3
     tick = JSON.parse(value(doc, "ticks"))[2]
+    anchor = JSON.parse(node["data-coordinate"])
 
-    assert_equal({ "x" => tick["coordinate"], "y" => 85 }, JSON.parse(node["data-coordinate"]))
+    assert_in_delta tick["coordinate"], anchor["x"], 1e-4
+    assert_in_delta 102.5, anchor["y"], 1e-9, "combineCoordinateForDefaultIndex: (offset.top + chart height) / 2"
   end
 
   test "every bar rectangle is a tooltip item tagged with its series and its position" do

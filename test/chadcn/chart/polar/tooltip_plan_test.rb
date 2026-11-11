@@ -110,14 +110,16 @@ class Chadcn::Chart::Polar::TooltipPlanTest < Chadcn::TestCase
     assert_empty plan.entries
   end
 
-  test "an item event type has no entries on a radial bar (not drawn), but a pie's entries are items" do
+  test "an item event type has an entry per series and category on a radial bar, and a pie's entries are its sectors" do
     bar = Chadcn::Chart::RadialBar.new(data_key: :visitors)
     radial, = build(Chadcn::Chart::RadialBarChart, bar, rows: BROWSERS.first(3), event_type: :item, default_index: 1)
     pie = Chadcn::Chart::Pie.new(data: BROWSERS, data_key: :visitors, name_key: :browser)
     pie_plan, = build(Chadcn::Chart::PieChart, pie, rows: [], event_type: :item, default_index: 1)
 
-    assert_empty radial.entries
-    assert_nil radial.default_entry
+    assert_equal([ [ 0, 0 ], [ 1, 0 ], [ 2, 0 ] ], radial.entries.map { |entry| [ entry.index, entry.series ] })
+    assert_equal [ 1, 0 ], [ radial.default_entry.index, radial.default_entry.series ]
+    assert_equal({ bar => 0 }, radial.item_series)
+    assert_empty pie_plan.item_series
     assert_equal 5, pie_plan.entries.size
     assert_equal 1, pie_plan.default_entry.index
   end
