@@ -10,8 +10,12 @@ const setup = (page) => page.evaluate(async () => {
     const log = [];
     const labels = { a: "Apple", b: "Banana", c: "Cherry" };
     let mounted = false;
+    const emit = (name, detail, cancelable = true) => { log.push(["emit", name, detail, cancelable]); return cancel.includes(name); };
     const host = {
-      emit: (name, detail, options) => { log.push(["emit", name, detail, options?.cancelable ?? true]); return cancel.includes(name); },
+      valueChange: (detail) => emit("value-change", detail),
+      inputValueChange: (detail) => emit("input-value-change", detail),
+      openChange: (detail) => emit("open-change", detail),
+      itemHighlighted: (detail) => { emit("item-highlighted", detail, false); },
       labelOf: (key) => labels[key] ?? key,
       canOpen: () => true,
       selectionChanged: (next) => log.push(["selection", [...next]]),

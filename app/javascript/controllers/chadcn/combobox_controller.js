@@ -77,7 +77,11 @@ export default class extends Controller {
   // What the state machine asks of the document.
   stateHost() {
     return {
-      emit: (name, detail, options) => this.dispatch(name, { detail, cancelable: options?.cancelable ?? true }).defaultPrevented,
+      // The public events: the state machine asks, the controller dispatches (true: the caller cancelled).
+      valueChange: (detail) => this.dispatch("value-change", { detail }).defaultPrevented,
+      inputValueChange: (detail) => this.dispatch("input-value-change", { detail }).defaultPrevented,
+      openChange: (detail) => this.dispatch("open-change", { detail }).defaultPrevented,
+      itemHighlighted: (detail) => this.dispatch("item-highlighted", { detail, cancelable: false }),
       labelOf: (key) => this.label(key),
       canOpen: (next) => Boolean(this.template) && !(next && this.cfg.disabled),
       selectionChanged: (selected) => {

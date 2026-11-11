@@ -1,7 +1,7 @@
 // The Base UI state machine of the Combobox (Base UI 1.9.0 `AriaCombobox`, spec dev/port/specs/combobox.md, Behavior): the
 // selection, the text of the input and the query it filters with (root:L225-420), the open requests (root:L580-650), the cleanup
 // after the exit (root:L717-756), the item selection (root:L664-710) and the highlighted item (nav:L303-411). Every change is first
-// offered to the caller as a cancelable event and applied only when it was not cancelled and the matching value is not controlled.
+// offered to the caller as a cancelable event (dispatched by the host) and applied only when it was not cancelled and the matching value is not controlled.
 // No DOM, no Stimulus: the chadcn--combobox controller is the `host` that dispatches the events and writes the DOM.
 //
 // Known divergences: none beyond the controller's (item identity is the form value).
@@ -11,8 +11,13 @@ const PUBLIC_HIGHLIGHT_REASONS = ["keyboard", "pointer"]
 
 /**
  * @typedef {object} ComboboxHost
- * @property {(name: string, detail: object, options?: {cancelable?: boolean}) => boolean} emit Dispatches an event; true when it
- *   was cancelled.
+ * @property {(detail: {value: string|string[]|null, reason: string}) => boolean} valueChange Dispatches `value-change`; true
+ *   when the caller cancelled it.
+ * @property {(detail: {inputValue: string, reason: string}) => boolean} inputValueChange Dispatches `input-value-change`; true
+ *   when cancelled.
+ * @property {(detail: {open: boolean, reason: string}) => boolean} openChange Dispatches `open-change`; true when cancelled.
+ * @property {(detail: {value: string|undefined, index: number, reason: string}) => void} itemHighlighted Dispatches
+ *   `item-highlighted` (not cancelable).
  * @property {(key: string) => string} labelOf Label of a form value.
  * @property {(open: boolean) => boolean} canOpen Whether a request to open (or close) can be made at all.
  * @property {(selected: string[]) => void} selectionChanged The selection changed (uncontrolled): store and render it.
@@ -78,7 +83,7 @@ export class ComboboxState {
    */
   setSelected(next, reason) {
     const value = this.single ? (next[0] ?? null) : next
-    if (this.host.emit("value-change", { value, reason })) return false
+    if (this.host.valueChange({ value, reason })) return false
     if (!this.controlled.value) {
       this.selected = [...next]
       this.host.selectionChanged(this.selected)
@@ -94,7 +99,7 @@ export class ComboboxState {
    * @returns {boolean}
    */
   setText(next, reason) {
-    if (this.host.emit("input-value-change", { inputValue: next, reason })) return false
+    if (this.host.inputValueChange({ inputValue: next, reason })) return false
     this.hadInputClear = reason === "input-clear"
     if (this.controlled.inputValue) {
       this.host.writeText(this.text, { store: false })
@@ -146,7 +151,7 @@ export class ComboboxState {
    */
   requestOpen(next, reason, event, { query = this.query() } = {}) {
     if (next === this.isOpen || !this.host.canOpen(next)) return
-    if (this.host.emit("open-change", { open: next, reason })) return
+    if (this.host.openChange({ open: next, reason })) return
     if (next && this.closeQuery !== null) this.#interruptedReopen(reason === "input-change")
     if (!next && this.queryEdited) {
       this.closeQuery = query
@@ -227,7 +232,7 @@ export class ComboboxState {
     this.host.paintHighlight(next)
     if (changed) {
       const value = next >= 0 ? this.host.shownKeys()[next] : undefined
-      this.host.emit("item-highlighted", { value, index: next, reason: PUBLIC_HIGHLIGHT_REASONS.includes(reason) ? reason : "none" }, { cancelable: false })
+      this.host.itemHighlighted({ value, index: next, reason: PUBLIC_HIGHLIGHT_REASONS.includes(reason) ? reason : "none" })
     }
     if (next >= 0 && (scroll || !this.pointerModality)) this.host.scrollToShown(next)
   }
