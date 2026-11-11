@@ -1,14 +1,11 @@
-# shadcn -> Phlex port: run report
+# shadcn -> Phlex port: report
 
-Run: `/shadcn-run all` (resumed from `state.json`), 2026-10-10 to 2026-10-11. Nothing was committed; the working tree is left for review.
+This report states the current state of the port first. Everything under "Run history" is the record of the runs that built the port inside the
+Papyro app, before the gem was extracted: the components were `Components::V2::*` with controllers under `app/javascript/v2`, and the commands
+(`bin/rails test:javascript`, `bin/rails test:with_studio`, `bin/ci`) and paths there are that app's. In this repository the components are `Chadcn::*`
+in `lib/chadcn`, the controllers `app/javascript/controllers/chadcn`, and the suites `bin/check` and `bin/test-js` (see the `testing` skill).
 
-## Totals
-
-- **Components: 50 of 50 done in the first two runs** (sidebar was blocked after the first run and closed in the second run, `/shadcn-run all --retry-blocked`, see "Resolved" below). Infra tasks (_base, _harness, _icons, _primitives, _theme): all done. The 11 `third_party` components that run skipped by plan (calendar, carousel, chart, combobox, command, drawer, form, input-otp, message-scroller, resizable, sonner) were ported afterwards, one epic item each (nine fully, `form` and `chart` in part; see "Final state: oracle vs port").
-- This session built or finished 23 components: slider, popover, spinner first (as requested; all three passed every gate unchanged), then wave 3 (context-menu, hover-card, menubar, native-select, navigation-menu, radio-group, scroll-area, sheet, table, tabs, toggle) and wave 4 (alert-dialog, attachment, button-group, field, input-group, item, pagination, toggle-group). Sidebar was built in the first run and finished in the second.
-- Agent dispatches counted: 147 in the first run (cap 165) plus 1 in the `--retry-blocked` run (the counter resets on retry). No stop condition fired in either run.
-
-## Final state: oracle vs port
+## Final state: oracle vs port (0.1.0)
 
 Oracle: shadcn/ui style `new-york-v4`, digest `7de7073d0e253001`, **61 components** (`dev/port/oracle/graph.json`). The gem ships **61 component roots**
 (public `Chadcn::Base` subclasses of the YARD registry, `Icon` and `@api private` excluded, the count `test/llms_drift_test.rb` and `llms-full.txt` use):
@@ -26,35 +23,46 @@ every oracle component has a `Chadcn` class. Per component:
   - **Form** (`Chadcn::Form`, `Form::Field`, `Form::Binding`, `Binding::Plain`, `Chadcn::Engine::FormBinding` with Rails): `form.tsx` is react-hook-form glue
     (and zod), whose state model has no Phlex counterpart. What is ported 1:1 is the ids/ARIA/data contract of `useFormField`; the form state, validation
     and submission belong to a `Binding` over plain Ruby or Rails form builders. There is no oracle DOM to compare, so it is gated by Minitest
-    (`dev/decisions/form.md`, `dev/port/specs/form.md`). `state.json` still lists `form` in `skipped` with that reason; the skip predates the Form epic.
-  - **Chart** (`Chadcn::Chart`: `Container`, `Style`, `Config`, `Tooltip::Content`, `Legend::Content`, plus the plain-Ruby scales, curves, stacks and arcs the chart
-    roots will use): shadcn's own layer of `chart.tsx` is ported 1:1; recharts is replaced by Phlex SVG that emits the DOM recharts produces, with no
-    third-party JavaScript (`dev/decisions/chart.md`). The chart roots (`BarChart`, `LineChart`...) are not shipped yet, so the chart is the
-    one component of the oracle that is not usable end to end.
-- **Not ported:** none. No oracle component is omitted. The only entry of `state.json` `skipped` is `form` (reason above), and it is partly ported.
+    (`dev/decisions/form.md`, `dev/port/specs/form.md`). `state.json` records it as `built` with that note.
+  - **Chart** (`Chadcn::Chart`): shadcn's own layer of `chart.tsx` is ported 1:1 (`Container`, `Style`, `Config`, `Tooltip::Content`, `Legend::Content`);
+    recharts is replaced by Phlex SVG that emits the DOM recharts 3.8 produces, with no third-party JavaScript (`dev/decisions/chart.md`). The six chart roots
+    (`BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `RadialBarChart`) and the `chadcn--chart` controller (tooltip, cursor, active dots,
+    keyboard) are shipped in 0.1.0 and documented in `docs/charts.md`. It counts as partly ported because recharts features are left out (CHANGELOG 0.1.0:
+    radar ranges, the polar tooltip cursor, item tooltips with `Tooltip shared: false`, the browser re-measure of tick and legend text).
+- **Not ported:** none. No oracle component is omitted. `state.json` skips nothing.
 
-`dev/port/state.json` is the run ledger of `/shadcn-run` and was not updated by the later epics: it still shows calendar, carousel, chart, drawer,
-input-otp, message-scroller, resizable and sonner as `pending`, although they are built and merged. Treat this section as the current state.
+`dev/port/state.json`, the run ledger of `/shadcn-run`, agrees with this section: the components ported by the later epics (calendar, carousel, chart, drawer,
+input-otp, message-scroller, resizable, sonner) are `done`, `form` is `built` (partly ported, no oracle DOM), and nothing is `pending`.
 
-## Resolved since the first run
+## Run history (the in-app port, kept as history)
 
-### sidebar: oracle randomness, closed with option B (chosen by the user)
+Run: `/shadcn-run all` (resumed from `state.json`), 2026-10-10 to 2026-10-11. Nothing was committed; the working tree is left for review.
+
+### Totals
+
+- **Components: 50 of 50 done in the first two runs** (sidebar was blocked after the first run and closed in the second run, `/shadcn-run all --retry-blocked`, see "Resolved" below). Infra tasks (_base, _harness, _icons, _primitives, _theme): all done. The 11 `third_party` components that run skipped by plan (calendar, carousel, chart, combobox, command, drawer, form, input-otp, message-scroller, resizable, sonner) were ported afterwards, one epic item each (nine fully, `form` and `chart` in part; see "Final state: oracle vs port").
+- This session built or finished 23 components: slider, popover, spinner first (as requested; all three passed every gate unchanged), then wave 3 (context-menu, hover-card, menubar, native-select, navigation-menu, radio-group, scroll-area, sheet, table, tabs, toggle) and wave 4 (alert-dialog, attachment, button-group, field, input-group, item, pagination, toggle-group). Sidebar was built in the first run and finished in the second.
+- Agent dispatches counted: 147 in the first run (cap 165) plus 1 in the `--retry-blocked` run (the counter resets on retry). No stop condition fired in either run.
+
+### Resolved since the first run
+
+#### sidebar: oracle randomness, closed with option B (chosen by the user)
 The only remaining gate failure was 6 BOX diffs on the random `SidebarMenuSkeleton` text width (React `Math.floor(Math.random() * 40) + 50` percent vs the port's `rand(40) + 50`), and the runner has no ignore mechanism. Both sides are now deterministic **on the parity pages only**:
 - `dev/react-shadcn-catalog/src/parity/Harness.tsx` pins `Math.random = () => 0.5` (4 lines; the only `Math.random` use in the React sources is that skeleton), giving `floor(0.5 * 40) + 50 = 70` percent. The shadcn oracle files themselves are untouched.
 - `Components::V2::Sidebar::MenuSkeleton` takes its width from `width_percent` (default still `rand(40) + 50`, so production is random as before); `with_pinned_width(percent)` pins it with an `ensure` restore, and `ParityScenariosController#show` pins it to 70 around the render.
 - `deviations/sidebar.json` now records this (replaces the ORACLE_NOISE note); `sidebar_test.rb` covers the default range, the pinned value and the restore (also after an exception).
 Verification (orchestrator-run): static gate pass, rubocop clean, sidebar tests 12 runs / 95 assertions, **3 consecutive full parity runs of 210 scenarios with 0 diffs**, slate/stone/zinc-radius0/dark and the DX-helper run at 0 diffs, a regression smoke on `default*` scenarios of button, dialog, select, tabs and field at 0 diffs; closing house checks (static house check 50 components, deviations register, rubocop 653 files, `test:with_studio` 861 runs / 0 failures). The golden suite was not re-run for this change (no scripts, agents or skills changed in the second run).
 
-## Needs your decision
+### Needs your decision
 
-### 1. (resolved in the follow-up) JS controller tests now exist
+#### 1. (resolved in the follow-up) JS controller tests now exist
 See "Follow-up" below: `bin/rails test:javascript` (48 browser tests); the four specs now cite them.
 
-### 2. Documented departures from strict 1:1 (please confirm)
+#### 2. Documented departures from strict 1:1 (please confirm)
 - **toggle-group**: scenario `api__as-child-root` was **removed**. The shadcn source wraps children in `ToggleGroupContext.Provider` inside `Root`, so with `asChild` React drops every root attribute; the port merges them onto the child because the Stimulus controller lives on the root. Registered in `deviations/toggle-group.json` (fully written up in the follow-up), noted in the spec and pinned by `toggle_group_test.rb`. `approved-by` is still `pending`: it needs your approval.
 - **pagination**: `deviations/pagination.json` allow-lists the words of two aria-label strings, which the static gate misreads as Tailwind classes (gate false positive, no rendered difference).
 
-## Shared files changed during this run (all regression-checked)
+### Shared files changed during this run (all regression-checked)
 
 | File | Change | Why |
 |---|---|---|
@@ -67,7 +75,7 @@ Added in the second run (sidebar option B, parity pages only): `dev/react-shadcn
 
 Golden suite: after the static_gate change, `/shadcn-golden` was run, script tier only (`tmp/shadcn-port/golden-latest.md`): 35 of 35 executed cases PASS, 0 missed, 0 false positives. The planner (12, 13) and agent (03, 04, 28) tiers were not run because no agent prompt, skill or gate vocabulary changed. Not re-run after the second run's changes, which touched no script, agent or skill.
 
-## Scenario fixes (ports were correct; the oracle itself was non-deterministic)
+### Scenario fixes (ports were correct; the oracle itself was non-deterministic)
 
 Each was diagnosed with evidence (probes on the React oracle alone) before changing scenarios; none removed coverage except the toggle-group case above.
 - **scroll-area**: Chromium smooth-scrolls keyboard presses ~150ms, so mid-flight snapshots differ per run -> `snapshot:false` on presses + settle waits; hover mount race (RO + rAF + 10ms debounce) -> `snapshot:false` on the first hover.
@@ -77,17 +85,17 @@ Each was diagnosed with evidence (probes on the React oracle alone) before chang
 - **context-menu**: runner holds the root enter animation at scale 0.95 while the 100ms sub-open timer measures -> 200ms wait before the sub hover (10 of 10 clean runs; it failed 2 of 5 before).
 - **button-group / field**: scenarios whose root has no `data-slot` or renders nothing gave EMPTY_RENDER on both sides -> `observe` selector / wrapper `Field`.
 
-## Gate results
+### Gate results
 
 - Per-component: G1 static, G2/G3 full scenario run, G2b DX helpers, G4 (slate, stone, zinc-radius0, dark) were all re-run by the orchestrator for every component built in this session; builder reports were never accepted without it (several were wrong: field G1, scroll-area, navigation-menu, alert-dialog, context-menu).
 - House phase: `house_check --static-all` clean (49 components); G4 sweep over the 49 components done at that point (sidebar got its own G4 in the second run) = 147 runs (slate, stone, dark on `default*` scenarios), 0 diffs; `bin/rubocop` clean (653 files); `bin/rails test:with_studio` 859 runs, 4269 assertions, 0 failures; deviations register consistent.
 
-## Open items and advisories
+### Open items and advisories
 
 - **Runner limits**: the parity runner has no ignore list and no wheel/touch steps (the sidebar skeleton was solved by pinning randomness on the parity pages; see "Resolved" and decision 1).
 - Q review advisories worth acting on (full JSON in `tmp/shadcn-port/<name>/audit-static.json`): sidebar mobile click handler returns early on `defaultPrevented` (React has no such check); collapsible and tabs leave stale state after a Turbo cache restore; several controllers (accordion, collapsible, avatar) hand-roll template mounting instead of `template_mount`; menubar copies `MenuLevel` instead of sharing it; dialog `open-change` is cancelable although the spec says not; alert-dialog/sheet extend the dialog controller (spec says share via primitives; not recorded as a deviation); undocumented divergences that exist only as code comments (dialog focus-scope release, popover, select focus trap, collapsible force_mount); toggle-group item lookup also matches nested groups; slider hand-rolls the bubble input because `form_bubble_input` only supports checkbox/radio/select.
 
-## Follow-up (after the second run): the four open items
+### Follow-up (after the second run): the four open items
 
 1. **JS test harness.** `bin/rails test:javascript` runs `test/javascript/*.test.mjs` (Node `node:test` + the catalog's Playwright, real importmap/Stimulus, no new dependency; not in `bin/ci`). 48 tests: popover, tooltip, hover-card (touch ignored, cancelable events, `hide_when_detached`, `update_position_strategy`, `collision_boundary`, scroll-close), context-menu touch/pen long press, and popover/hover-card nested in a Dialog. Mutation-checked (breaking the touch guard and the long-press cancel turns tests red). Docs: `.ai/skills/radix-stimulus/references/js-controller-tests.md`; the four specs now cite the tests; popover caller `id:` is a Ruby test. Tooltip inside a Dialog is covered too (it passes with or without the dismissable-layer fix, so it guards behavior, not that fix).
    - **Bug found by the nesting tests and fixed:** a click (or focus) inside a popover/hover card opened from a modal Dialog closed the Dialog, because `dismissable_layer.js` counted a child layer's portaled content as "outside". It now treats the content of layers opened later as inside (Radix's React-tree check). Regression: G2/G3 0 diffs for dialog, sheet, alert-dialog, popover, hover-card, tooltip, dropdown-menu, context-menu, menubar, select, navigation-menu and the dismissable-layer probe.
@@ -99,7 +107,7 @@ Golden script tier re-run after the follow-up: 35 of 35 PASS (planner and agent 
 
 Closing checks: rubocop 656 files clean; `bin/rails test:with_studio` 869 runs 0 failures; `test:javascript` 48/48; context-menu full G2/G3 0 diffs; house static check clean.
 
-## Per component
+### Per component
 
 | Component | Wave | Status | Iterations | Q review (mandatory/advisory) | Deviation file |
 |---|---|---|---|---|---|
@@ -154,6 +162,6 @@ Closing checks: rubocop 656 files clean; `bin/rails test:with_studio` 869 runs 0
 | sidebar | 4 | done | 2 | 0/3 | yes |
 | toggle-group | 4 | done | 2 | 0/2 | yes |
 
-## Resume
+### Resume
 
 `/shadcn-run all --resume` (nothing is pending or blocked; all 55 items are done, as of the first two runs; see "Final state" for the later epics). Logs: `tmp/shadcn-port/run.log`; per-component reports under `tmp/shadcn-port/<name>/`; G4 sweep under `tmp/shadcn-port/_house/`.
