@@ -54,6 +54,9 @@ manifests every component is compared against), the number of oracle components,
   open, render it controlled or prevent `escape-key-down` / `pointer-down-outside` / `interact-outside`.
 - `Sidebar`: on a mobile viewport, a Trigger or Rail inside the Sheet toggles it even when a caller's click handler called
   `preventDefault()`, as on desktop and in shadcn.
+- The generated yielded-root helpers of parts whose file needs a sibling registered after them (`chart.pie_chart`, `chart.bar_chart`,
+  `chart.area_chart`) no longer depend on load order: they used to be missing unless something had already named the part's class
+  (`Chart::PieChart`), and are now defined on the root's first instance.
 
 ### Changed
 

@@ -249,4 +249,40 @@ class Chadcn::BaseTest < Chadcn::TestCase
   ensure
     file&.close!
   end
+
+  # Zeitwerk registers a root's parts in file name order: `Chart::PieChart < Chart::Polar::Root` is registered before `Chart::Polar`
+  # exists, so its file cannot load yet. The helper must still be there on the root's first instance, without anything having
+  # named the part (it used to exist only if a caller or an earlier test had loaded `Chart::PieChart` first).
+  test "a part registered before the sibling its file needs gets its helper on the root's first instance" do
+    root = Class.new(Chadcn::Base) { define_method(:view_template) { |&block| block&.call(self) } }
+    LazyRoots.const_set(:Gallery, root)
+    frame = Tempfile.new([ "frame", ".rb" ])
+    frame.write("class #{root.name}::Frame < #{root.name}::Rounded\n  def view_template = div(class: \"frame\")\nend\n")
+    frame.flush
+    rounded = Tempfile.new([ "rounded", ".rb" ])
+    rounded.write("class #{root.name}::Rounded < Chadcn::Base; end\n")
+    rounded.flush
+
+    root.autoload(:Frame, frame.path)
+    root.autoload(:Rounded, rounded.path)
+
+    refute root.method_defined?(:frame), "Frame cannot load while Rounded is not registered"
+    html = render_view { render(root.new, &:frame) }
+
+    assert_equal '<div class="frame"></div>', html
+  ensure
+    [ frame, rounded ].compact.each(&:close!)
+  end
+
+  test "a deferred part whose file still fails once the root is complete is left to its first access" do
+    root, file = lazy_root(:StillBad, ->(r) { "class #{r.name}::Broken < #{r.name}::Missing\nend" })
+    root.autoload(:Broken, file.path)
+
+    instance = root.new
+
+    refute_respond_to instance, :broken
+    assert_raises(NameError) { root.const_get(:Broken) }
+  ensure
+    file&.close!
+  end
 end
