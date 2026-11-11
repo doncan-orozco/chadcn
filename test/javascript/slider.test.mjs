@@ -61,6 +61,11 @@ browserTest("slider: a press on the track moves the closest thumb there and comm
 })
 
 browserTest("slider: a disabled slider ignores keys and track presses", async ({ open }) => {
+  const control = await open("keyboard__arrow-right-left")
+  await control.focus(thumb)
+  const start = await state(control)
+  await control.keyboard.press("ArrowRight")
+  assert.notDeepEqual((await state(control)).values, start.values, "control: the same ArrowRight moves an enabled slider")
   const page = await open("disabled__keys-ignored")
   await recordValues(page)
   const before = await state(page)
@@ -96,7 +101,7 @@ browserTest("slider: inside a form the bubble input follows the value and dispat
 browserTest("slider: a range inside a form submits name[] once per thumb and only the moved input fires", async ({ open }) => {
   const page = await open("form__bubble-input-range")
   await recordValues(page)
-  await page.locator(thumb).nth(1).focus()
+  await page.getByRole("slider", { name: "Maximum" }).focus()
   await page.keyboard.press("ArrowLeft")
   assert.deepEqual((await state(page)).inputs, ["price[]=20:20", "price[]=79:79"])
   assert.deepEqual(await inputEvents(page), ["price[]=79"])

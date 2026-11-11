@@ -138,6 +138,7 @@ export default class extends Controller {
     this.isMobile = false
     this.records?.forEach((record) => {
       if (!record.host) return
+      this.#dropBodyClick(record)
       record.desktop.querySelector("[data-slot=sidebar-inner]").append(...record.nodes)
       record.host.replaceWith(record.desktop)
       record.host = null
@@ -168,8 +169,16 @@ export default class extends Controller {
     if (!body) return
     body.append(...record.nodes)
     this.#replayFocus(body)
-    body.addEventListener("click", (event) => {
+    this.#dropBodyClick(record)
+    const handler = (event) => {
       if (event.target.closest?.(`[data-action~='click->${TOGGLE_ACTION}']`)) this.toggle()
-    })
+    }
+    body.addEventListener("click", handler)
+    record.bodyClick = { body, handler }
+  }
+
+  #dropBodyClick(record) {
+    record.bodyClick?.body.removeEventListener("click", record.bodyClick.handler)
+    record.bodyClick = null
   }
 }

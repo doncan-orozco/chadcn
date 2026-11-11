@@ -131,7 +131,7 @@ Resulting DOM while open (appended to `body` by the Sheet, per `specs/sheet.md`)
 
 The block is rendered ONCE by the server (inside `sidebar-inner`). The controller moves the block's nodes between `sidebar-inner` (desktop) and the `mobileBody` div (mobile); there is never a second copy (ids, forms and nested controllers stay unique).
 
-In the Sheet the block is outside the controller element, so the Trigger and Rail clicks are delegated from the `mobileBody` div. Like the desktop Stimulus action and React (`onClick?.(event); toggleSidebar()`, tsx:270-273 and the Rail's `onClick={toggleSidebar}`), the delegation toggles even when a caller handler called `preventDefault()`.
+In the Sheet the block is outside the controller element, so the Trigger and Rail clicks are delegated from the `mobileBody` div. Like the desktop Stimulus action and React's Trigger (`onClick?.(event); toggleSidebar()`, tsx:270-273), the delegation toggles even when a caller handler called `preventDefault()`. The Rail always toggles too: React's Rail uses `onClick={toggleSidebar}` and a caller `onClick` replaces it, while the port adds caller descriptors and keeps the toggle (see Deviation 3).
 
 ### Other parts (all `data-slot` + `data-sidebar` as in the source; `data-slot` first, `data-sidebar` second, then class, then attrs)
 

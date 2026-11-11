@@ -155,14 +155,12 @@ export class FormBubbleInput {
     if (this.type === "value") {
       /** @api private */
       this.shownValue = this.state.value == null ? undefined : String(this.state.value)
-      this.#boundForm = this.#form()
-      this.#boundForm?.addEventListener("reset", this.#resetListener)
-      return
+    } else {
+      this.input.checked = this.checked
+      if (this.type === "checkbox") this.input.indeterminate = this.state.indeterminate === true
+      if (this.type !== "select") this.input.defaultChecked = this.checked
+      this.#observeSize()
     }
-    this.input.checked = this.checked
-    if (this.type === "checkbox") this.input.indeterminate = this.state.indeterminate === true
-    if (this.type !== "select") this.input.defaultChecked = this.checked
-    this.#observeSize()
     this.#boundForm = this.#form()
     this.#boundForm?.addEventListener("reset", this.#resetListener)
   }

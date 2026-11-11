@@ -94,7 +94,7 @@ Thumb (`data-slot="slider-thumb"`), slider.mjs:507-526:
 
 Bubble input (no data-slot), `SliderBubbleInput` slider.mjs:561-592:
 - `<input style="display: none;" name="<name>" form="<form>" value="<value>">`: no `type`, no `aria-hidden`, no tabindex. `name` = `name` + `"[]"` when Radix holds more than one value (slider.mjs:460; the hidden second thumb of the quirk counts as one value, so no `[]`). `value` attribute from React `defaultValue` (omitted when the value is undefined); React keeps the attribute in sync on every update.
-- Rendered iff form control: `!!form || !!thumb.closest("form")`, assumed `true` before the thumb is mounted (slider.mjs:458). Port: the server ALWAYS renders the inputs (same as Radix before mount; keeps no-JS form submission), the controller removes them in `connect()` when there is no `form:` and no `closest("form")`. Post-connect DOM equals the React DOM.
+- Rendered iff form control: `!!form || !!thumb.closest("form")`, assumed `true` before the thumb is mounted (slider.mjs:458). Port: the server ALWAYS renders the inputs (same as Radix before mount; keeps no-JS form submission), the `form_bubble_input` primitive (created by the controller in `connect()`) removes them when there is no `form:` and no `closest("form")`. Post-connect DOM equals the React DOM.
 
 Number formatting: every number in an attribute or style (aria-value*, percentages, px offsets, input value) uses JS `String(Number)` semantics (integers without `.0`, shortest round-trip decimals). The Ruby side must format accordingly (`50`, `12.5`, `33.333333333333336`, negative offsets as `+ -4px`).
 

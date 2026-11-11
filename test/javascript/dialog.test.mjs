@@ -11,10 +11,15 @@ const trigger = "[data-slot=dialog-trigger]"
 const content = "[data-slot=dialog-content]"
 const overlay = "[data-slot=dialog-overlay]"
 
-const triggerState = (page) => page.locator(trigger).first().evaluate((el) => ({
-  expanded: el.getAttribute("aria-expanded"), state: el.dataset.state, controls: el.getAttribute("aria-controls")
-}))
-const OPEN = { expanded: "true", state: "open", controls: "dialog-1" }
+// `controls` is true when aria-controls equals the id of the mounted content, null while nothing is mounted.
+const triggerState = (page) => page.locator(trigger).first().evaluate((el, content) => {
+  const controls = el.getAttribute("aria-controls")
+  return {
+    expanded: el.getAttribute("aria-expanded"), state: el.dataset.state,
+    controls: controls === null ? null : controls === document.querySelector(content)?.id
+  }
+}, content)
+const OPEN = { expanded: "true", state: "open", controls: true }
 const CLOSED = { expanded: "false", state: "closed", controls: null }
 
 browserTest("dialog: a trigger click mounts overlay and content in the body with data-state open and focuses the content", async ({ open }) => {
@@ -102,14 +107,16 @@ browserTest("dialog: escape-key-down stays cancelable and a prevented one keeps 
 
 browserTest("dialog: a controlled dialog reports the request and leaves the DOM to the server", async ({ open }) => {
   const page = await open("controlled__open-true-stays-open")
-  await recordEvents(page, "chadcn--dialog")
+  await recordEvents(page, "chadcn--dialog", { prevent: ["open-change"] })
   await page.keyboard.press("Escape")
   await settle(page)
   assert.equal(await page.locator(content).count(), 1)
   assert.deepEqual(await events(page), ["escape-key-down", "open-change"])
+  const change = (await eventLog(page)).find((entry) => entry.name === "open-change")
+  assert.equal(change.cancelable, false, "open-change is never cancelable, so the content stays mounted")
 })
 
-browserTest("dialog: a disconnect while open removes the portaled nodes, the scroll lock and aria-hidden; a reconnect works once", async ({ open }) => {
+browserTest("dialog: a disconnect while open removes the portaled nodes, the scroll lock and aria-hidden", async ({ open }) => {
   const page = await open("open__via-trigger-click")
   const errors = consoleErrors(page)
   await page.click(trigger)
@@ -127,12 +134,17 @@ browserTest("dialog: a disconnect while open removes the portaled nodes, the scr
     pointerEvents: document.body.style.pointerEvents
   }), { content, overlay }), { mounted: 0, hidden: 0, scrollLocked: false, pointerEvents: "" })
 
-  const page2 = await open("open__via-trigger-click")
-  await reconnect(page2, "chadcn--dialog")
-  await recordEvents(page2, "chadcn--dialog")
-  await page2.click(trigger)
-  await settle(page2)
-  assert.equal(await page2.locator(content).count(), 1, "one content after a reconnect")
-  assert.deepEqual(await events(page2), ["open-change", "open-auto-focus"])
+  assert.deepEqual(errors, [])
+})
+
+browserTest("dialog: a reconnected dialog mounts one content and dispatches once per open", async ({ open }) => {
+  const page = await open("open__via-trigger-click")
+  const errors = consoleErrors(page)
+  await reconnect(page, "chadcn--dialog")
+  await recordEvents(page, "chadcn--dialog")
+  await page.click(trigger)
+  await settle(page)
+  assert.equal(await page.locator(content).count(), 1, "one content after a reconnect")
+  assert.deepEqual(await events(page), ["open-change", "open-auto-focus"])
   assert.deepEqual(errors, [])
 })

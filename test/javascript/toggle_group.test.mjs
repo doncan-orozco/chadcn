@@ -87,9 +87,13 @@ browserTest("toggle-group: a disabled item is not pressed by a click", async ({ 
   const page = await open("disabled__item")
   await recordValues(page)
   const before = await states(page)
+  await page.locator(`${group} [data-slot=toggle-group-item]:enabled`).first().click()
+  const pressed = await states(page)
+  assert.notDeepEqual(pressed, before, "control: an enabled item is pressed by the same click")
+  assert.equal((await values(page)).length, 1)
   await page.locator(`${group} [data-slot=toggle-group-item]:disabled`).first().click({ force: true })
-  assert.deepEqual(await states(page), before)
-  assert.deepEqual(await values(page), [])
+  assert.deepEqual(await states(page), pressed)
+  assert.equal((await values(page)).length, 1, "the disabled click dispatched nothing more")
 })
 
 // Advisory of dev/port/REPORT.md: the item lookup matched the items of a nested group too, so pressing an outer item also flipped the

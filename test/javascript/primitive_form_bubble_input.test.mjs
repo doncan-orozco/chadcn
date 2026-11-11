@@ -213,6 +213,12 @@ primitiveTest("form_bubble_input: value without a value renders no value attribu
   assert.deepEqual(result, { html: '<input style="display: none;" name="v">', events: 0 });
 }, { html });
 
+primitiveTest("form_bubble_input: value carries the form attribute when given form", async (page) => {
+  const result = await run(page, `${make('{ type: "value", name: "v", value: 1, form: "form" }')}
+    return control.nextElementSibling.getAttribute("form");`);
+  assert.equal(result, "form");
+}, { html });
+
 primitiveTest("form_bubble_input: value adopts the server-rendered input in a form and removes it outside one", async (page) => {
   const result = await run(page, `
     document.getElementById("control").insertAdjacentHTML("afterend", '<input id="ssr" style="display: none;" name="v" value="4">');

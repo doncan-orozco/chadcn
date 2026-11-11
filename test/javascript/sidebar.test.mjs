@@ -25,8 +25,8 @@ const recordOpen = (page) => page.evaluate(() => {
 const opens = (page) => page.evaluate(() => window.__open)
 
 // useIsMobile: the media query (max-width: 767px) and innerWidth < 768.
-const goMobile = async (page) => {
-  await page.setViewportSize({ width: 500, height: 720 })
+const goMobile = async (page, width = 500) => {
+  await page.setViewportSize({ width, height: 720 })
   await settle(page)
 }
 
@@ -60,8 +60,11 @@ browserTest("sidebar: Enter on the focused trigger, Ctrl+B and Meta+B toggle; pl
 
 browserTest("sidebar: a click on the rail toggles the sidebar", async ({ open }) => {
   const page = await open("toggle__rail-click")
+  assert.deepEqual(await desktopState(page), EXPANDED)
   await page.locator("[data-sidebar=rail]").first().click({ force: true })
   assert.deepEqual(await desktopState(page), COLLAPSED)
+  await page.locator("[data-sidebar=rail]").first().click({ force: true })
+  assert.deepEqual(await desktopState(page), EXPANDED)
 })
 
 browserTest("sidebar: a controlled sidebar dispatches open-change and keeps the server state", async ({ open }) => {
@@ -103,20 +106,38 @@ browserTest("sidebar: a trigger inside the mobile Sheet closes it even when a ca
   assert.deepEqual(await opens(page), ["open-mobile-change:false"])
 })
 
-browserTest("sidebar: a disconnect on mobile puts the desktop node back; a reconnect leaves one shortcut listener", async ({ open }) => {
+browserTest("sidebar: the rail inside the open mobile Sheet closes it", async ({ open }) => {
+  const page = await open("mobile__rail-visible-sm-and-closes")
+  await goMobile(page, 700) // the Rail is `hidden sm:flex`: visible from 640px, still under the 768px mobile breakpoint
+  await recordOpen(page)
+  await page.keyboard.press("Control+b")
+  await settle(page)
+  assert.equal(await page.locator(sheetContent).count(), 1, "the Sheet is open")
+  await page.locator(`${sheetContent} [data-sidebar=rail]`).first().click()
+  await settle(page)
+  assert.equal(await page.locator(sheetContent).count(), 0)
+  assert.deepEqual(await opens(page), ["open-mobile-change:true", "open-mobile-change:false"])
+})
+
+browserTest("sidebar: a disconnect on mobile puts the desktop node back", async ({ open }) => {
   const page = await open("toggle__trigger-click-collapses-and-expands")
   const errors = consoleErrors(page)
   await goMobile(page)
+  assert.equal(await page.locator(sidebar).count(), 0, "desktop node replaced by the Sheet host")
   await page.evaluate((selector) => document.querySelector(selector).setAttribute("data-controller", ""), host("chadcn--sidebar"))
   await settle(page)
   assert.equal(await page.locator(sidebar).count(), 1, "desktop node restored")
   assert.equal(await page.locator(`${sidebar} [data-slot=sidebar-inner] [data-slot=sidebar-content]`).count(), 1, "block back inside")
+  assert.deepEqual(errors, [])
+})
 
-  const page2 = await open("toggle__trigger-click-collapses-and-expands")
-  await reconnect(page2, "chadcn--sidebar")
-  await recordOpen(page2)
-  await page2.keyboard.press("Control+b")
-  assert.deepEqual(await desktopState(page2), COLLAPSED)
-  assert.deepEqual(await opens(page2), ["open-change:false"])
+browserTest("sidebar: a reconnected sidebar keeps one shortcut listener", async ({ open }) => {
+  const page = await open("toggle__trigger-click-collapses-and-expands")
+  const errors = consoleErrors(page)
+  await reconnect(page, "chadcn--sidebar")
+  await recordOpen(page)
+  await page.keyboard.press("Control+b")
+  assert.deepEqual(await desktopState(page), COLLAPSED)
+  assert.deepEqual(await opens(page), ["open-change:false"])
   assert.deepEqual(errors, [])
 })
