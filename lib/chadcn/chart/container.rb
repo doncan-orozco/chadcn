@@ -57,11 +57,14 @@ class Chadcn::Chart::Container < Chadcn::Base
   attr_reader :chart_id
   # @return [Hash{Symbol => Numeric}] `width` and `height` the chart is laid out at
   attr_reader :initial_dimension
-  # @return [Numeric] height of a line of tick text: a server assumption, or what `chadcn--chart` measured (with `relayout_url:`)
+  # @return [Numeric] height of a line of tick text, what the chart is laid out with: an assumption, or what `chadcn--chart`
+  #   measured, read from the request by {.relayout_options}
   attr_reader :text_height
-  # @return [Numeric] average width of a tick label character in em of 12px: an assumption, or measured like {#text_height}
+  # @return [Numeric] average width of a tick label character in em of 12px, what the chart is laid out with: an assumption, or what
+  #   `chadcn--chart` measured, read from the request by {.relayout_options}
   attr_reader :text_char_width
-  # @return [Numeric, nil] height of the legend box `chadcn--chart` measured; nil leaves the legend's own `legend_height:` assumption
+  # @return [Numeric, nil] height of the legend box, what the chart is laid out with: what `chadcn--chart` measured, read from the
+  #   request by {.relayout_options}; nil leaves the legend's own `legend_height:` assumption
   attr_reader :legend_height
   # @return [String, nil] where `chadcn--chart` requests this chart at the size of its container; nil when it keeps `initial_dimension`
   attr_reader :relayout_url
@@ -106,13 +109,14 @@ class Chadcn::Chart::Container < Chadcn::Base
     @chart_values = values
   end
 
-  # The height of the chart's legend box, which the `textMetrics` value of the re-layout carries (nil: the chart has no legend).
+  # The height of the legend box the chart was laid out with, which the `textMetrics` value of the re-layout carries as the served
+  # `legendHeight` (nil: the chart has no legend).
   #
   # @api private
   # @param height [Numeric, nil]
   # @return [void]
   def publish_legend_height(height)
-    @legend_box_height = height
+    @served_legend_height = height
   end
 
   # The container keywords for the re-layout request `chadcn--chart` sends to `relayout_url:` (query parameters `chart[id]`,
@@ -165,7 +169,7 @@ class Chadcn::Chart::Container < Chadcn::Base
     @after_shell = []
     @chart = nil
     @chart_values = {}
-    @legend_box_height = nil
+    @served_legend_height = nil
     super()
   end
 
@@ -190,7 +194,7 @@ class Chadcn::Chart::Container < Chadcn::Base
     return {} unless @relayout_url
 
     metrics = { textHeight: @text_height, textCharWidth: @text_char_width }
-    metrics[:legendHeight] = @legend_box_height if @legend_box_height
+    metrics[:legendHeight] = @served_legend_height if @served_legend_height
     { chadcn__chart_relayout_url_value: @relayout_url, chadcn__chart_dimension_value: json(@initial_dimension),
       chadcn__chart_text_metrics_value: json(metrics) }
   end

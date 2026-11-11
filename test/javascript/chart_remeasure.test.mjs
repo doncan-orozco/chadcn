@@ -8,19 +8,21 @@
 // relayout_url: pointing at itself, laid out with Chart::Container.relayout_options(params), like an application's action.
 import test from "node:test";
 import { PHLEX, assert, consoleErrors, settle } from "./support.mjs";
-import { chartBrowser, chartNodes, nodeDifferences, pageCss, rechartsAt } from "./chart_resize_support.mjs";
+import { chartBrowser, chartNodes, nodeDifferences, pageCss, rechartsAt, relayoutEvents, resizeAndSettle, waitForEvents } from "./chart_resize_support.mjs";
 
 const HOST = "/design-system/chart-relayout/";
 // A font the defaults do not describe (text_height: 16, text_char_width: 0.6, legend_height: 28, and the parity page's 18): lines of
 // 14 px (a 26 px legend) and monospace glyphs spaced 14 px apart, wide enough that recharts drops every other month label at 320 px.
-const FONT = "html, body, [data-slot=chart] { font-family: monospace !important; line-height: 14px !important; letter-spacing: 14px !important }";
+const fontCss = (family) => `html, body, [data-slot=chart] { font-family: ${family} !important; line-height: 14px !important; letter-spacing: 14px !important }`;
+const FONT = fontCss("monospace");
+const PROPORTIONAL_FONT = fontCss("serif"); // the same lines and spacing, glyphs of different widths
 const LEGEND_OBSERVE = [
   ".recharts-wrapper", ".recharts-legend-wrapper", ".recharts-legend-wrapper *", "[class^=\"recharts-zIndex-layer_\"]", ".recharts-bar-rectangle path",
   ".recharts-cartesian-axis-tick-value, .recharts-cartesian-axis-tick-value tspan", ".recharts-cartesian-grid line",
 ];
 
 // The page at `path` with `css` in place before its scripts run, the chart events recorded from the start and every request to the
-// host that carries chart parameters (a re-layout request) collected.
+// host that carries chart parameters (a re-layout request) collected; the page also logs those fetches itself (relayoutFetches).
 async function withHost(path, css, scenario, { answer = null } = {}) {
   const context = await (await chartBrowser()).newContext({ viewport: { width: 1280, height: 720 } });
   const page = await context.newPage();
@@ -28,6 +30,13 @@ async function withHost(path, css, scenario, { answer = null } = {}) {
     if (css) await context.addInitScript(pageCss, css);
     await context.addInitScript(() => {
       window.__relayout = [];
+      window.__relayoutFetches = [];
+      const pageFetch = window.fetch;
+      window.fetch = (input, init) => {
+        const url = new URL(input.url ?? String(input), window.location.href);
+        if (url.searchParams.has("chart[id]")) window.__relayoutFetches.push(Object.fromEntries(url.searchParams));
+        return pageFetch.call(window, input, init);
+      };
       for (const name of ["relayout", "relayout-error"]) {
         document.addEventListener(`chadcn--chart:${name}`, (event) => window.__relayout.push({ name, ...event.detail }));
       }
@@ -53,18 +62,16 @@ async function withHost(path, css, scenario, { answer = null } = {}) {
   }
 }
 
-const relayoutEvents = (page) => page.evaluate(() => window.__relayout);
-const waitForEvents = (page, count) => page.waitForFunction((count) => window.__relayout.length >= count, count);
+const relayoutFetches = (page) => page.evaluate(() => window.__relayoutFetches);
 
 // Resolves once a settle observer, created after the chart's controller connected (and so after its own observer), reported the
 // chart's size, and the fonts are ready: by then the controller has measured and, if it was going to, sent its request.
-const measured = (page) => page.evaluate(async () => {
+const controllerSettled = (page) => page.evaluate(async () => {
   const { observeSettledSize } = await import("chadcn/primitives/chart_relayout");
   await new Promise((resolve) => {
     const observer = observeSettledSize(document.querySelector("[data-slot=chart]"), () => { observer.disconnect(); resolve(); });
   });
   await document.fonts.ready;
-  await new Promise((resolve) => setTimeout(resolve, 0));
 });
 
 test("chart: in a font the server does not assume, the chart re-measures once and matches recharts in that font", () =>
@@ -83,8 +90,8 @@ test("chart: in a font the server does not assume, the chart re-measures once an
     assert.deepEqual(nodeDifferences(recharts, await chartNodes(page, LEGEND_OBSERVE)), []);
     assert.equal(await page.locator(".recharts-cartesian-axis-tick-value").count(), 3, "recharts keeps every other month in this font");
 
-    await measured(page);
-    assert.equal(requests.length, 1, "the swapped chart measures what it was laid out with: no second request");
+    await controllerSettled(page);
+    assert.equal((await relayoutFetches(page)).length, 1, "the swapped chart measures what it was laid out with: no second request");
   }));
 
 test("chart: without the re-measure the same chart differs from recharts in that font (what the re-layout corrects)", () =>
@@ -100,17 +107,25 @@ test("chart: a chart laid out with the metrics the page measures sends no reques
     await waitForEvents(page, 1);
     query = new URLSearchParams(requests[0]).toString();
   });
-  await withHost(`${HOST}legend__bottom?${query}`, FONT, async (page, requests) => {
-    await measured(page);
-    assert.deepEqual(requests, []);
+  await withHost(`${HOST}legend__bottom?${query}`, FONT, async (page) => {
+    await controllerSettled(page);
+    assert.deepEqual(await relayoutFetches(page), []);
     assert.deepEqual(await relayoutEvents(page), []);
   });
 });
 
 test("chart: a chart without tick labels or legend measures nothing to correct and sends no request", () =>
-  withHost(`${HOST}resize__pie-320`, FONT, async (page, requests) => {
-    await measured(page);
-    assert.deepEqual(requests, []);
+  withHost(`${HOST}resize__pie-320`, FONT, async (page) => {
+    await controllerSettled(page);
+    assert.deepEqual(await relayoutFetches(page), []);
+
+    // Control: the same chart is live (observed, enabled, able to fetch); a resize costs exactly one request and its answer asks for nothing more.
+    await resizeAndSettle(page, 480, 300);
+    await waitForEvents(page, 1);
+    await controllerSettled(page);
+    const fetches = await relayoutFetches(page);
+    assert.equal(fetches.length, 1, "the resize is the only request: the empty log above was the re-measure deciding, not a dead controller");
+    assert.equal(fetches[0]["chart[width]"], "480");
   }));
 
 test("chart: a host that ignores the metrics gets one request, never a loop", () => {
@@ -121,8 +136,33 @@ test("chart: a host that ignores the metrics gets one request, never a loop", ()
   return withHost(`${HOST}legend__bottom`, FONT, async (page, requests) => {
     await waitForEvents(page, 1);
     assert.deepEqual(await relayoutEvents(page), [{ name: "relayout", width: 320, height: 200 }]);
-    await measured(page);
-    assert.equal(requests.length, 1);
+    await controllerSettled(page);
+    assert.equal((await relayoutFetches(page)).length, 1);
+    assert.equal(
+      await page.locator("[data-slot=chart]").getAttribute("data-chadcn--chart-measured-at-value"),
+      JSON.stringify({ width: 320, height: 200 }),
+      "the swapped chart is marked as measured at this size: the guard, not luck, stops the second request",
+    );
     assert.equal(await page.locator("[data-slot=chart]").count(), 1);
   }, { answer: ignoring });
 });
+
+// One change costs one request: the chart swapped in for the re-measure carries the size its metrics were measured at, so the resize
+// that follows sends one request, at the new size and with the measured metrics, and its answer asks for nothing more.
+for (const [label, css] of [["monospace", FONT], ["proportional", PROPORTIONAL_FONT]]) {
+  test(`chart: after the re-measure a resize sends one request, at the new size and with the measured metrics (${label} font)`, () =>
+    withHost(`${HOST}legend__bottom`, css, async (page) => {
+      await waitForEvents(page, 1);
+      const [first] = await relayoutFetches(page);
+      await resizeAndSettle(page, 480, 300);
+      await waitForEvents(page, 2);
+      const events = await relayoutEvents(page);
+      assert.deepEqual(events[events.length - 1], { name: "relayout", width: 480, height: 300 });
+      await controllerSettled(page);
+      const fetches = await relayoutFetches(page);
+      assert.equal(fetches.length, 2, "one change, one request: the answer to the resize asks for nothing more");
+      assert.equal(fetches[1]["chart[width]"], "480");
+      assert.equal(fetches[1]["chart[text_height]"], first["chart[text_height]"]);
+      assert.equal(fetches[1]["chart[legend_height]"], first["chart[legend_height]"]);
+    }));
+}

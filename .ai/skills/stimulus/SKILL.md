@@ -55,7 +55,7 @@ with the same `data-chart` through `document.importNode` and `replaceWith` (neve
 `.recharts-legend-wrapper`, measured in a span appended to `body` and removed again), which the server draws without targets. **Guard:**
 `primitives/chart_relayout.js` resolves the URL and refuses any other origin (no request, a `chadcn--chart:relayout-error`); an answer
 without that chart, or laid out at another size, is an error; an error stops re-layout for the element until it reconnects, and a chart that
-answered a request for its metrics alone never asks again for them at that size (`measuredAt`), so there is no request loop. **Removal:**
+was swapped in as an answer (every answer carries the size its metrics were measured at) never asks again for them at that size (`measuredAt`), so there is no request loop. **Removal:**
 when charts re-lay themselves out in the browser (option B of the decision record) or the maintainer withdraws `relayout_url:`. Nothing else
 may fetch HTML or read markup by class; a second case is a new decision, not this one stretched.
 

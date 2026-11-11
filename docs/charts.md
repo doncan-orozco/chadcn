@@ -433,7 +433,7 @@ how far the last tick of a vertical axis moves inside the plot and which tick la
 at the tick's font size (the height of a line, and the average width of a character), and the box of the legend. When they differ from what
 the server laid out with, it requests the chart with the measured values, and `relayout_options` hands them to the container
 (`text_height:`, `text_char_width:`, `legend_height:`), so the labels that exist, where they sit and the plot area match recharts in your font.
-A chart that was just laid out for its measured text does not ask again at that size, even if the host ignored the values. Without
+Every answer is marked with the size its text was measured at, and a chart so marked does not ask again at that size, even if the host ignored the values; one change (a resize or a font) costs one request. A legend that wraps differently, or a different tick subset, at the new size is not corrected until the next change, because the metrics sent with a resize were measured on the previous layout. Without
 `relayout_url:` (and before the answer, and without JavaScript) the assumptions stay: set the keywords to match your font. One difference
 remains: the server estimates a label's width as its length times the measured average, where recharts measures each label, so in a
 proportional font a label right at the collision threshold can be kept or dropped differently.

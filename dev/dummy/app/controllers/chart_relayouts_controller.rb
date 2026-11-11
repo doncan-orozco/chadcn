@@ -13,12 +13,21 @@ class ChartRelayoutsController < ApplicationController
     tree = ShadcnParity::Scenario.find("chart", params[:scenario]).fetch("tree")
     props = tree.fetch("props")
     options = Chadcn::Chart::Container.relayout_options(params, id: props.fetch("id"))
-    tree = tree.merge("props" => props.merge("relayoutUrl" => request.path, **container_props(options)))
+    tree = tree.merge("props" => props.merge("relayoutUrl" => request.path, **container_props(options), **box_class(props, options)))
     html = view_context.render(ShadcnParity::TreeRenderer.new(tree: tree, component: "chart"))
     render ShadcnParity::Page.new(html: html), layout: false
   end
 
   private
+
+  # The scenario's box is a fixed class: like a host whose container follows its layout, the answer's box is the requested size, so a
+  # test that resizes the box does not see the swapped chart go back to the scenario's size.
+  def box_class(props, options)
+    size = options[:initial_dimension]
+    return {} unless size
+
+    { "className" => props.fetch("className").gsub(/\bw-\[\d+px\]/, "w-[#{size[:width]}px]").gsub(/\bh-\[\d+px\]/, "h-[#{size[:height]}px]") }
+  end
 
   # The scenario's tree names the container keywords in React's camelCase.
   def container_props(options) = options.to_h { |keyword, value| [ keyword.to_s.camelize(:lower), value ] }

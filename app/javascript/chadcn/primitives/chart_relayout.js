@@ -25,7 +25,13 @@ export function roundedSize({ width, height }) {
   return { width: Math.round(width), height: Math.round(height) }
 }
 
-const drawable = (length) => Number.isFinite(length) && length >= 1 && length <= RELAYOUT_MAX_SIZE
+/**
+ * Whether `length` is a box length the server lays a chart out at: a finite number from 1 to {@link RELAYOUT_MAX_SIZE}.
+ *
+ * @param {number} length a width or a height, in px
+ * @returns {boolean}
+ */
+export const drawable = (length) => Number.isFinite(length) && length >= 1 && length <= RELAYOUT_MAX_SIZE
 
 /**
  * Whether a chart drawn at `dimension` must be requested again for a box of `size`: the sizes differ and the box is one the server

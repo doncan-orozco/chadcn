@@ -295,7 +295,7 @@ Built as the Decision above says (option C, opt-in with `relayout_url:`, A as th
 - **The values exist only with a URL.** `relayoutUrl`, `dimension` and `textMetrics` are written on the container only when it has a
   `relayout_url:`, so a container without one renders byte for byte what 0.1.0 rendered (`test/chadcn/chart/container_relayout_test.rb`).
   The chart roots hand their legend box height to the container (`publish_legend_height`) for `textMetrics`.
-- **`relayout_options` does not read `chart[legend_height]` yet**: the container has no `legend_height:` keyword until #108, and a key
+- **`relayout_options` does not read `chart[legend_height]` yet** (read since #108): the container has no `legend_height:` keyword until #108, and a key
   it does not take would break the splat. The request already carries it when the chart has a legend.
 - **Bounds and errors** (the open advisory of #96): a box under 1 px or over 4096 px is never requested and stays scaled into its box;
   `relayout_options` drops a value outside its bound or not written as a plain decimal number; a cross-origin `relayout_url:` is never
@@ -319,9 +319,11 @@ Built as the Decision above says (the same request as the resize, `relayout_url:
 - **`Chart::Container legend_height:` wins over `Legend legend_height:`** (the spec first said the opposite): the request carries what was
   measured, and the other order would re-request forever when a `Legend` sets `legend_height:`. A numeric `Legend height:` still wins over
   both (the box has that height). The cartesian and polar `ChartSettings` carry it to the layouts (`legend_box_height`).
-- **One metrics request per size** (`measuredAt`, written by `swap` on the answer to a request made for the metrics alone): a host that
-  ignores the metrics, or a label subset that flips the average glyph width between two layouts, costs one request, never a loop. A resize
-  clears it (the answer to a size request carries none).
+- **One metrics request per size** (`measuredAt`, written by `swap` on every answer): a host that
+  ignores the metrics, or a label subset that flips the average glyph width between two layouts, costs one request, never a loop. Every
+  answer carries it (each request sends the metrics measured after the fonts loaded); a resize still requests, so one change costs one
+  request; what the new layout would measure differently (a legend that wraps at the new width, another tick subset) waits for the next
+  change.
 - **Proof.** `test/javascript/chart_remeasure.test.mjs` (its own file for CI's per-file timeout) opens a host action of the dummy app,
   `chart_relayouts#show`, which renders a parity scenario with `relayout_options(params)` like an application; in a font with 14 px lines
   and 14 px letter spacing (a 26 px legend, glyphs 1.77 em wide, every other month label dropped) the swapped `legend__bottom` chart equals

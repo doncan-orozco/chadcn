@@ -28,6 +28,8 @@ export const chartBrowser = () => browserPromise;
 export const REACT = process.env.PARITY_REACT_URL || JSON.parse(fs.readFileSync(serversFile(), "utf8")).vite?.url;
 const RELAYOUT_PATH = "/chart-relayout";
 const RELAYOUT_URL = `${RELAYOUT_PATH}?source=test`;
+// The text metrics the parity pages are laid out at.
+const PARITY_METRICS = Object.freeze({ textHeight: 18, textCharWidth: 0.6 });
 const RESIZE_HEIGHTS = { 320: 200, 480: 300, 640: 400 };
 
 export const RESIZE_OBSERVE = {
@@ -115,20 +117,26 @@ export async function withResizable(family, scenario, { url = RELAYOUT_URL, load
   }
 }
 
-// Writes the re-layout values on the start page, with the text metrics the page measures as the served ones.
-const enableRelayout = (page, url) => page.evaluate(async ({ values }) => {
+// The text metrics the start page measures, with the parity metrics as the served ones.
+const measuredOnPage = (page) => page.evaluate(async (parity) => {
   const { measureTextMetrics } = await import("chadcn/primitives/chart_measure");
-  const chart = document.querySelector("[data-slot=chart]");
-  const metrics = measureTextMetrics(chart, { textHeight: 18, textCharWidth: 0.6 });
-  for (const [name, value] of Object.entries({ ...values, "text-metrics": JSON.stringify(metrics) })) chart.setAttribute(`data-chadcn--chart-${name}-value`, value);
-}, { values: relayoutValues(320, {}, url) });
+  return measureTextMetrics(document.querySelector("[data-slot=chart]"), parity);
+}, PARITY_METRICS);
+
+// Writes the re-layout values on the start page, with the text metrics the page measures as the served ones.
+const enableRelayout = async (page, url) => {
+  const metrics = await measuredOnPage(page);
+  await page.evaluate((values) => {
+    const chart = document.querySelector("[data-slot=chart]");
+    for (const [name, value] of Object.entries(values)) chart.setAttribute(`data-chadcn--chart-${name}-value`, value);
+  }, { ...relayoutValues(320, {}, url), "text-metrics": JSON.stringify(metrics) });
+};
 
 // The text metrics the start page measures, as the re-layout request writes them.
-export const pageMetrics = (page) => page.evaluate(async () => {
-  const { measureTextMetrics } = await import("chadcn/primitives/chart_measure");
-  const metrics = measureTextMetrics(document.querySelector("[data-slot=chart]"), { textHeight: 18, textCharWidth: 0.6 });
+export const pageMetrics = async (page) => {
+  const metrics = await measuredOnPage(page);
   return { "chart[text_height]": String(metrics.textHeight), "chart[text_char_width]": String(metrics.textCharWidth) };
-});
+};
 
 // Resolves once the box has been seen at the new width: a companion ResizeObserver, created after the controller's own, hears the
 // resize after it, so the controller has handled it (its interim scaling is in place, its debounce is running).

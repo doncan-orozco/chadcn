@@ -62,7 +62,7 @@ export default class extends Controller {
     dimension: { type: Object, default: {} },
     textMetrics: { type: Object, default: {} },
     servedState: Object, // written by `swap`; no default: `connect` tells a swapped-in chart by `hasServedStateValue`
-    measuredAt: Object, // written by `swap` on the answer to a metrics request: the size it was measured at (one such request per size)
+    measuredAt: Object, // written by `swap` on every answer: the size its metrics were measured at; such a chart never asks again for its metrics at that size, a resize still requests
   }
 
   connect() {
@@ -438,13 +438,13 @@ export default class extends Controller {
     this.relayoutRequest = null
     if (!chart || !laidOutAt(chart, size, `data-${this.identifier}-dimension-value`)) return this.failRelayout(status)
 
-    this.swap(chart, size, remeasured)
+    this.swap(chart, size)
   }
 
   // The answer replaces the element (its controller connects on its own) with the interaction state and the focus carried over. The
-  // fresh element keeps the state its answer was rendered with as `servedState`, for its own Turbo snapshot, and, when the request was
-  // for the metrics alone, the size they were measured at as `measuredAt`, so it does not ask again at that size.
-  swap(chart, size, remeasured = false) {
+  // fresh element keeps the state its answer was rendered with as `servedState`, for its own Turbo snapshot, and the size as `measuredAt`:
+  // every request carries the metrics measured after the fonts loaded, so every answer was laid out with browser metrics at that size.
+  swap(chart, size) {
     const fresh = document.importNode(chart, true)
     const value = (attribute, fallback) => fresh.getAttribute(`data-${this.identifier}-${attribute}-value`) ?? fallback
     const served = {
@@ -454,7 +454,7 @@ export default class extends Controller {
       keyboardActive: value("keyboard-active", "false") === "true",
     }
     fresh.setAttribute(`data-${this.identifier}-served-state-value`, JSON.stringify(served))
-    if (remeasured) fresh.setAttribute(`data-${this.identifier}-measured-at-value`, JSON.stringify(size))
+    fresh.setAttribute(`data-${this.identifier}-measured-at-value`, JSON.stringify(size))
     for (const [name, attribute] of Object.entries(CARRIED_VALUES)) fresh.setAttribute(`data-${this.identifier}-${attribute}-value`, String(this[`${name}Value`]))
     const focused = this.element.contains(document.activeElement)
     this.element.replaceWith(fresh)

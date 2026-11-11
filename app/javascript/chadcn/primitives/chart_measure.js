@@ -7,7 +7,7 @@
 // Not a Radix port: Radix has no charts. Known divergence: recharts measures each label, the server estimates a label as its length
 // times the average glyph width measured here (spec, "Stays a deviation").
 
-import { RELAYOUT_MAX_SIZE } from "chadcn/primitives/chart_relayout"
+import { drawable } from "chadcn/primitives/chart_relayout"
 
 /** The font size the server's `text_char_width` is in em of (`Chart::Cartesian::Text`). */
 const TICK_FONT_SIZE = 12
@@ -78,18 +78,17 @@ export function metricsDiffer(measured, served) {
 
 /**
  * Whether a chart at `size` must be requested again for its metrics alone: they differ from the served ones, the size is drawable, and
- * the chart is not already the answer to a metrics request at this size (`measuredAt`). That last rule keeps a host that ignores the
- * metrics, or a label set that flips between two layouts, to one request per size.
+ * the chart is not already laid out with browser metrics at this size (`measuredAt`, written on every answer). That last rule keeps a
+ * host that ignores the metrics, or a label set that flips between two layouts, to one request per size.
  *
  * @param {object} state
  * @param {{ textHeight: number, textCharWidth: number, legendHeight?: number }} state.measured
  * @param {{ textHeight?: number, textCharWidth?: number, legendHeight?: number }} state.served
  * @param {{ width: number, height: number }} state.size the rounded size of the box
- * @param {{ width?: number, height?: number } | undefined} state.measuredAt the size a metrics request laid this chart out at, if any
+ * @param {{ width?: number, height?: number } | undefined} state.measuredAt the size an answer laid this chart out at, if any
  * @returns {boolean}
  */
 export function remeasureNeeded({ measured, served, size, measuredAt }) {
-  const drawable = (length) => length >= 1 && length <= RELAYOUT_MAX_SIZE
   if (!drawable(size.width) || !drawable(size.height)) return false
   if (measuredAt?.width === size.width && measuredAt?.height === size.height) return false
 

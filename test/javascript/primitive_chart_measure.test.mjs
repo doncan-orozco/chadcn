@@ -82,8 +82,9 @@ primitiveTest("chart_measure: remeasureNeeded asks once per size: a chart re-lai
       remeasureNeeded({ measured, served, size, measuredAt: { width: 320, height: 200 } }),
       remeasureNeeded({ measured, served, size, measuredAt: { width: 480, height: 300 } }),
       remeasureNeeded({ measured, served, size: { width: 0, height: 200 }, measuredAt: undefined }),
+      remeasureNeeded({ measured, served, size: { width: NaN, height: 200 }, measuredAt: undefined }),
     ];
   });
 
-  assert.deepEqual(result, [true, false, false, true, false]);
+  assert.deepEqual(result, [true, false, false, true, false, false]);
 });

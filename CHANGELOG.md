@@ -29,8 +29,8 @@ manifests every component is compared against), the number of oracle components,
   the way recharts does and, when they differ from what the server assumed, requests the chart with the measured metrics, so the tick
   labels that exist and the plot area match recharts in the page's font. New `Chart::Container legend_height:` (the measured legend box;
   it wins over `Legend legend_height:`, a numeric `Legend height:` wins over both), read from the request by `relayout_options`
-  (`RELAYOUT_METRIC_BOUNDS` gains `legend_height: 256`), and a `measuredAt` value on `chadcn--chart` (written on the swapped-in element so it
-  asks once per size, not a kwarg). Without `relayout_url:` the assumptions stay as before.
+  (`RELAYOUT_METRIC_BOUNDS` gains `legend_height: 256`), and a `measuredAt` value on `chadcn--chart` (written on every swapped-in element: one request per change, not a
+  kwarg). Without `relayout_url:` the assumptions stay as before.
 
 ### Fixed
 
