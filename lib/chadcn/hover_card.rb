@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# shadcn HoverCard (Radix HoverCard). Spec: docs/shadcn-port/specs/hover-card.md. Behavior in controllers/chadcn/hover_card_controller.js.
+# shadcn HoverCard (Radix HoverCard). Spec: dev/port/specs/hover-card.md. Behavior in controllers/chadcn/hover_card_controller.js.
 # The root renders no element: it pushes its options into the Phlex render context for the parts inside.
 #
 # Root of the HoverCard family. Renders no element.
@@ -151,7 +151,7 @@ class Chadcn::HoverCard < Chadcn::Base
     end
 
     # The markup is shipped in an inert <template>: Radix mounts the content (in a body portal) only while open.
-    # The controller clones it on open. Deviation: docs/shadcn-port/deviations/hover-card.json.
+    # The controller clones it on open. Deviation: dev/port/deviations/hover-card.json.
     #
     # @yield the card body
     # @return [void]

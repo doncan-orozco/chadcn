@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# shadcn Tooltip (Radix Tooltip). Spec: docs/shadcn-port/specs/tooltip.md. Behavior in controllers/chadcn/tooltip_controller.js.
+# shadcn Tooltip (Radix Tooltip). Spec: dev/port/specs/tooltip.md. Behavior in controllers/chadcn/tooltip_controller.js.
 # Provider and Root render no element: they push their options into the Phlex render context for the parts inside.
 using Chadcn::Values::Refinements
 
@@ -207,7 +207,7 @@ class Chadcn::Tooltip < Chadcn::Base
     end
 
     # The markup is shipped in an inert <template>: Radix mounts the content (in a body portal) only while open.
-    # The controller clones it on open. Deviation: docs/shadcn-port/deviations/tooltip.json.
+    # The controller clones it on open. Deviation: dev/port/deviations/tooltip.json.
     #
     # @yield the tooltip content
     # @return [void]

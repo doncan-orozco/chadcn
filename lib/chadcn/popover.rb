@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-# shadcn Popover (Radix Popover). Spec: docs/shadcn-port/specs/popover.md. Behavior in controllers/chadcn/popover_controller.js.
+# shadcn Popover (Radix Popover). Spec: dev/port/specs/popover.md. Behavior in controllers/chadcn/popover_controller.js.
 # The root renders no element: it pushes its options into the Phlex render context for the parts inside.
-# Deviations (inert template, controller host): docs/shadcn-port/deviations/popover.json.
+# Deviations (inert template, controller host): dev/port/deviations/popover.json.
 #
 # Root of the Popover family. Renders no element: the first Trigger or Content inside hosts the Stimulus controller.
 #

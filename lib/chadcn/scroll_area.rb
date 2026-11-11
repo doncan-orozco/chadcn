@@ -2,7 +2,7 @@
 
 using Chadcn::Values::Refinements
 
-# shadcn ScrollArea over Radix ScrollArea (Root, Viewport, Scrollbar, Thumb, Corner). Spec: docs/shadcn-port/specs/scroll-area.md.
+# shadcn ScrollArea over Radix ScrollArea (Root, Viewport, Scrollbar, Thumb, Corner). Spec: dev/port/specs/scroll-area.md.
 # Behavior: controllers/chadcn/scroll_area_controller.js (one controller on the root div; it mounts the scrollbars kept in templates).
 #
 # The block receives the scroll area, which has the `scroll_bar` helper (equal to `render ScrollArea::ScrollBar.new`).

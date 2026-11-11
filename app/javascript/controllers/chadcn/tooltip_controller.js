@@ -6,7 +6,7 @@ import { presence } from "chadcn/primitives/presence"
 import { hoverGrace } from "chadcn/primitives/submenu_grace"
 import { mountTemplate } from "chadcn/primitives/template_mount"
 
-// Radix Tooltip (Root + Trigger + Content). Spec: docs/shadcn-port/specs/tooltip.md (Behavior).
+// Radix Tooltip (Root + Trigger + Content). Spec: dev/port/specs/tooltip.md (Behavior).
 // The controller element is the trigger. The content lives in an inert <template> next to it and is mounted in <body>
 // only while open (Portal + Presence), like Radix.
 const GLOBAL_OPEN = "chadcn--tooltip:global-open"

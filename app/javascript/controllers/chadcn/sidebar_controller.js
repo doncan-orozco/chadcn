@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 
-// shadcn SidebarProvider + useSidebar + useIsMobile. Spec: docs/shadcn-port/specs/sidebar.md (Behavior).
+// shadcn SidebarProvider + useSidebar + useIsMobile. Spec: dev/port/specs/sidebar.md (Behavior).
 //
 // The controller element is the Provider wrapper. Desktop is CSS only: data-state / data-collapsible change on the
 // outer [data-slot=sidebar] node. On a mobile viewport React renders a Sheet INSTEAD of that node, so the controller

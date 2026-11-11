@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 import { mountTemplate } from "chadcn/primitives/template_mount"
 import { focusScope } from "chadcn/primitives/focus_scope"
 
-// Parity probe for chadcn/primitives/focus_scope (docs/shadcn-port/scenarios/_primitives-focus-scope.json).
+// Parity probe for chadcn/primitives/focus_scope (dev/port/scenarios/_primitives-focus-scope.json).
 export default class extends Controller {
   static targets = ["template"]
   static values = { trapped: Boolean, loop: Boolean, preventMountFocus: Boolean, preventUnmountFocus: Boolean }

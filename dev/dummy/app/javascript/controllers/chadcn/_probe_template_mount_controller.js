@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 import { mountTemplate } from "chadcn/primitives/template_mount"
 
-// Parity probe for chadcn/primitives/template_mount (docs/shadcn-port/scenarios/_primitives-template-mount.json).
+// Parity probe for chadcn/primitives/template_mount (dev/port/scenarios/_primitives-template-mount.json).
 export default class extends Controller {
   static targets = ["template"]
   static values = { into: { type: String, default: "after" } }

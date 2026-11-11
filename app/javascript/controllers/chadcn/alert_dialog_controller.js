@@ -1,6 +1,6 @@
 import DialogController from "controllers/chadcn/dialog_controller"
 
-// Radix AlertDialog on top of the dialog behavior. Spec: docs/shadcn-port/specs/alert-dialog.md (Behavior). It answers to
+// Radix AlertDialog on top of the dialog behavior. Spec: dev/port/specs/alert-dialog.md (Behavior). It answers to
 // its own identifier and reuses the markers the dialog controller reads (data-chadcn--dialog-part, data-chadcn--dialog-template).
 //
 // AlertDialog's differences (ad:58-63) are applied on the events the dialog controller dispatches from the host:

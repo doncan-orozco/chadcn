@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 import { focusGuards } from "chadcn/primitives/focus_guards"
 
-// Parity probe for chadcn/primitives/focus_guards (docs/shadcn-port/scenarios/_primitives-focus-guards.json).
+// Parity probe for chadcn/primitives/focus_guards (dev/port/scenarios/_primitives-focus-guards.json).
 // Each named holder takes the guards on its first toggle and gives them back on the next one.
 export default class extends Controller {
   #holders = new Map()

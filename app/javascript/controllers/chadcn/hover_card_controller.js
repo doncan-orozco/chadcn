@@ -6,7 +6,7 @@ import { presence } from "chadcn/primitives/presence"
 import { mountTemplate } from "chadcn/primitives/template_mount"
 import { turboCacheRestore } from "chadcn/primitives/turbo_cache"
 
-// Radix HoverCard (Root + Trigger + Content). Spec: docs/shadcn-port/specs/hover-card.md (Behavior).
+// Radix HoverCard (Root + Trigger + Content). Spec: dev/port/specs/hover-card.md (Behavior).
 // The controller element is the trigger. The content lives in an inert <template> next to it and is mounted in <body>
 // only while open (Portal + Presence), like Radix.
 export default class extends Controller {

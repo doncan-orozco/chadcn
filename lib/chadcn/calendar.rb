@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# shadcn `Calendar` (new-york-v4), which wraps react-day-picker 10. Spec: docs/shadcn-port/specs/calendar.md.
+# shadcn `Calendar` (new-york-v4), which wraps react-day-picker 10. Spec: dev/port/specs/calendar.md.
 # Behavior: controllers/chadcn/calendar_controller.js, on `Date` and `Intl` only (no date library).
 #
 # The server renders the root, the months container with its navigation, the optional footer and hidden inputs, and one inert

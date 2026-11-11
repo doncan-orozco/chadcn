@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# shadcn `InputGroup` (new-york-v4). Spec: docs/shadcn-port/specs/input-group.md
+# shadcn `InputGroup` (new-york-v4). Spec: dev/port/specs/input-group.md
 using Chadcn::Values::Refinements
 
 # Wraps an input with leading or trailing addons, buttons and text (shadcn `InputGroup`).

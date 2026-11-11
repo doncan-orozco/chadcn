@@ -2,7 +2,7 @@
 
 using Chadcn::Values::Refinements
 
-# shadcn/ui Direction over Radix Direction. Spec: docs/shadcn-port/specs/direction.md
+# shadcn/ui Direction over Radix Direction. Spec: dev/port/specs/direction.md
 # Namespace plus the use_direction helper; the provider part renders no element.
 #
 # Wrap a subtree in {Provider} to set the direction its parts read through {Consumer}; use

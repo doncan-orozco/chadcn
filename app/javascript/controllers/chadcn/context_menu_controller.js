@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 import { MenuLevel } from "controllers/chadcn/dropdown_menu_controller"
 
-// Radix ContextMenu over the Menu code shared with DropdownMenu. Spec: docs/shadcn-port/specs/context-menu.md.
+// Radix ContextMenu over the Menu code shared with DropdownMenu. Spec: dev/port/specs/context-menu.md.
 //
 // The controller element is the Trigger (a span). Everything inside the menu (items, subs, typeahead, dismissal, focus,
 // positioning) is the shared MenuLevel from the dropdown-menu controller; this file only adds what ContextMenu changes:

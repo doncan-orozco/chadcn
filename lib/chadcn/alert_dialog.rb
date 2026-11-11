@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# shadcn AlertDialog (Radix AlertDialog, always modal). Spec: docs/shadcn-port/specs/alert-dialog.md. Behavior:
+# shadcn AlertDialog (Radix AlertDialog, always modal). Spec: dev/port/specs/alert-dialog.md. Behavior:
 # controllers/chadcn/alert_dialog_controller.js, which reuses the dialog controller.
 #
 # Radix Root renders no element; the port renders one display: contents host that carries the Stimulus controller (a

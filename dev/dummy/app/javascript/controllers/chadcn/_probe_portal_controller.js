@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 import { portal } from "chadcn/primitives/portal"
 
-// Parity probe for chadcn/primitives/portal (docs/shadcn-port/scenarios/_primitives-portal.json).
+// Parity probe for chadcn/primitives/portal (dev/port/scenarios/_primitives-portal.json).
 export default class extends Controller {
   static targets = ["item"]
   static values = { container: String }

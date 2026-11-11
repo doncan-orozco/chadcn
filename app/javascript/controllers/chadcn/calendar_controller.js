@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 import { direction } from "chadcn/primitives/direction"
 import * as grid from "chadcn/primitives/date_grid"
 
-// shadcn Calendar (react-day-picker 10) on `Date` and `Intl` only. Spec: docs/shadcn-port/specs/calendar.md (Structure, Behavior).
+// shadcn Calendar (react-day-picker 10) on `Date` and `Intl` only. Spec: dev/port/specs/calendar.md (Structure, Behavior).
 //
 // The server renders the root, the months container with its navigation, the footer, inline hidden inputs and one inert <template>
 // of part prototypes that carry every class string. connect() clears the months, then builds them from clones of the prototypes and

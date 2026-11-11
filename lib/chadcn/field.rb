@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# shadcn Field (new-york-v4). Spec: docs/shadcn-port/specs/field.md. Static: no controller.
+# shadcn Field (new-york-v4). Spec: dev/port/specs/field.md. Static: no controller.
 using Chadcn::Values::Refinements
 
 # A form field: lays out a label, a control, a description and an error (shadcn `Field`).

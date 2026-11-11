@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 import { rovingFocus } from "chadcn/primitives/roving_focus"
 
-// Radix ToggleGroup behavior (docs/shadcn-port/specs/toggle-group.md). Host = the group element; the items are plain
+// Radix ToggleGroup behavior (dev/port/specs/toggle-group.md). Host = the group element; the items are plain
 // buttons wired by data-action (no per-item controller). Arrows only move focus (roving focus), click presses.
 export default class extends Controller {
   static values = {

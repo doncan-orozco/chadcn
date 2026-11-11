@@ -2,7 +2,7 @@
 
 using Chadcn::Values::Refinements
 
-# shadcn Pagination (new-york-v4). Spec: docs/shadcn-port/specs/pagination.md. Static: no controller.
+# shadcn Pagination (new-york-v4). Spec: dev/port/specs/pagination.md. Static: no controller.
 #
 # Root `nav`. Yields itself, so the parts are yielded-root helpers (`content`, `item`, `link`, `previous`, `next`,
 # `ellipsis`) equal to rendering `Pagination::Content`, `Pagination::Item`, etc.

@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 import { collapsibleContent } from "chadcn/primitives/collapsible_content"
 import { turboCacheRestore } from "chadcn/primitives/turbo_cache"
 
-// Radix Collapsible. Spec: docs/shadcn-port/specs/collapsible.md (Behavior).
+// Radix Collapsible. Spec: dev/port/specs/collapsible.md (Behavior).
 //
 // One controller per root. A closed content ships its body in an inert <template>; connect() takes it over (removing
 // the template) so the DOM equals Radix: a closed content is empty, and with as_child it is absent (an empty Text anchor

@@ -5,7 +5,7 @@
 # Render it inside a {Sidebar::Provider}; the block receives the sidebar, which has one helper per part
 # (`sidebar.header`, `sidebar.menu_button`, ...) equal to `render Sidebar::Header.new(...)`. `Sidebar.use_sidebar` reads the state.
 #
-# Spec: docs/shadcn-port/specs/sidebar.md. Behavior: controllers/chadcn/sidebar_controller.js.
+# Spec: dev/port/specs/sidebar.md. Behavior: controllers/chadcn/sidebar_controller.js.
 #
 # React picks the desktop or the mobile (Sheet) tree on the client. The server renders the first React render (desktop)
 # plus an inert template with the mobile Sheet; the controller swaps them on mobile (deviations/sidebar.json).

@@ -3,7 +3,7 @@ import { rovingFocus } from "chadcn/primitives/roving_focus"
 import { presence } from "chadcn/primitives/presence"
 import { turboCacheRestore } from "chadcn/primitives/turbo_cache"
 
-// Radix Tabs. Spec: docs/shadcn-port/specs/tabs.md (Behavior).
+// Radix Tabs. Spec: dev/port/specs/tabs.md (Behavior).
 //
 // One controller on the root. Inactive panels ship their body in an inert <template> (React does not mount them);
 // connect() takes it over so the DOM equals Radix: an inactive panel is an empty hidden element, an inactive as_child
