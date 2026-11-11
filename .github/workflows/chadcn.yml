@@ -11,6 +11,8 @@
 # docs:      every Ruby fence of README.md and docs/*.md renders in a plain process (bin/smoke --docs; known gem defects are
 #            explicit XFAILs).
 # tooling:   the tests of the repository tooling in .claude/scripts (gem gate, shadcn scripts): rake test:tooling.
+# parity:    the React-versus-Phlex parity smoke (bin/parity-smoke): the `default` scenarios of every component compared in a browser
+#            with the React original, inside a time budget; the full gate stays /shadcn-audit. See dev/decisions/ci-smokes.md.
 name: chadcn
 
 on:
@@ -218,6 +220,52 @@ jobs:
           name: js-tests-logs
           # servers.rb writes rails.log / vite.log to tmp/shadcn-port (layout.rb TMP_DIR).
           path: |
+            tmp/shadcn-port
+            dev/dummy/log
+          if-no-files-found: ignore
+
+  parity:
+    name: React-versus-Phlex parity smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      # The setup is the js-tests job's: the React catalog (oracle server and Playwright) and the dummy app's bundle (Phlex side).
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "4.0"
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: dev/react-shadcn-catalog/package-lock.json
+
+      - name: Install the React catalog (the oracle server and the Playwright the parity runner uses)
+        working-directory: dev/react-shadcn-catalog
+        run: |
+          npm ci --no-audit --no-fund
+          npx playwright install --with-deps chromium
+
+      - name: Install the dummy app's bundle (the Phlex side of the parity harness)
+        working-directory: dev/dummy
+        run: bundle install --jobs 4
+
+      - name: Parity smoke (default scenarios of every component, G2 DOM/style and G3 behavior)
+        run: bin/parity-smoke > parity-smoke.json
+
+      - name: Keep the parity reports and the dev server logs
+        uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: parity-smoke
+          # parity_batch.rb writes <component>/g2.json and servers.rb rails.log / vite.log to tmp/shadcn-port (layout.rb TMP_DIR).
+          path: |
+            parity-smoke.json
             tmp/shadcn-port
             dev/dummy/log
           if-no-files-found: ignore
