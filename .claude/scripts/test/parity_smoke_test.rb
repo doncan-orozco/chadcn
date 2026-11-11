@@ -16,6 +16,7 @@ class ParitySmokeTest < ActiveSupport::TestCase
   FAKE_NODE = <<~SH
     #!/bin/sh
     echo "$@" >> "$FAKE_NODE_LOG"
+    if [ -n "$FAKE_NODE_SLEEP" ]; then sleep "$FAKE_NODE_SLEEP"; fi
     if [ -n "$FAKE_NODE_DIFF" ]; then echo '{"pass": false, "diffs": [{"kind": "CLASS"}]}'; else echo '{"pass": true, "diffs": []}'; fi
   SH
 
@@ -99,6 +100,25 @@ class ParitySmokeTest < ActiveSupport::TestCase
     assert_empty calls
     assert_includes report["error"], "budget"
     assert_equal %w[button dialog], report["not_run"]
+  end
+
+  test "a budget that runs out while a component is gated kills it, exits 2 and lists it as not run" do
+    started_at = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+    report, calls, status = run_smoke("--components", "button,dialog", "--budget", "5", env: { "FAKE_NODE_SLEEP" => "60" })
+
+    assert_operator Process.clock_gettime(Process::CLOCK_MONOTONIC) - started_at, :<, 30
+    assert_equal 2, status.exitstatus
+    assert_equal(%w[button], calls.map { |call| component_of(call) })
+    assert_includes report["error"], "while gating button"
+    assert_equal %w[button dialog], report["not_run"]
+  end
+
+  test "an empty component list is an argument error, never a pass over nothing" do
+    report, calls, status = run_smoke("--components", ",")
+
+    assert_equal 2, status.exitstatus
+    assert_empty calls
+    assert_includes report["error"], "--components"
   end
 
   test "--list prints the subset without running anything" do

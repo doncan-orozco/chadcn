@@ -15,6 +15,7 @@ cd "$(dirname "$0")/.."
 catalog="$(ruby -r./.claude/scripts/shadcn/layout -e 'print ShadcnLayout::CATALOG_DIR')"
 if [ ! -x "$catalog/node_modules/.bin/vite" ]; then
   echo "bin/parity-smoke: $catalog has no node_modules (Vite and Playwright live there): run npm ci in it" >&2
+  printf '{"pass": false, "error": "%s has no node_modules: run npm ci in it"}\n' "$catalog"
   exit 2
 fi
 
