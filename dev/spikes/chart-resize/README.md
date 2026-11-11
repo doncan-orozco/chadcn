@@ -20,16 +20,18 @@ chart, font and size), `phlex/*.html` (the gem's markup per option) and `phlex.j
 
 - **Charts**: the two examples of the first chart spike, [`../chart/examples.tsx`](../chart/examples.tsx) (stacked `BarChart` with grid, x
   axis, legend and a `default_index` tooltip; monotone `LineChart` with dots and a y axis), written with the gem in [`examples.rb`](examples.rb).
-  At 320x200 the gem's markup equals the committed `../chart/oracle/{bar,line}.html` (0 differences, 152 and 140 numeric attributes).
+  At 320x200 the gem's markup equals the committed `../chart/oracle/{bar,line}.html` (0 differences, 152 and 140 numeric attributes; the first lines `run.rb` prints).
 - **Sizes**: three containers in the 16:9 ratio of `ChartContainer`'s `aspect-video`: 320x180, 560x315, 800x450.
 - **Fonts**: `mono` is the pinned page of the chart oracle (`12px/16px monospace`, the font the server's defaults describe); `sans` is a host
   font (`12px sans-serif`, line height `normal`), whose metrics differ from the defaults.
 - **Oracle** ([`browser.mjs`](browser.mjs) `oracle`): recharts 3.8.0 with shadcn's `ChartContainer` in headless Chromium, settled, at each
   size and font. It also measures the text the way recharts does (`util/DOMUtils.js` `measureTextWithDOM`: a `white-space: pre` span under
-  body), the legend box, and the time recharts itself takes to settle again after its container goes from 320x180 to the larger sizes.
+  body), the legend box, and the time recharts itself takes to settle again after its container goes from 320x180 to the larger sizes (an upper bound: the
+  spike polls by frames, so it is quantized).
 - **Options**, rendered by [`run.rb`](run.rb):
   - `fixed`: what ships in 0.1.0, laid out at 320x200 and drawn at that pixel size in whatever box it gets.
-  - `viewbox`: the same markup with `.recharts-wrapper` and its shell div at 100% of the container. The `svg` already carries
+  - `viewbox`: the same markup with `.recharts-wrapper` and the inner `width: 0px; height: 0px; overflow: visible` div of the responsive container (the
+    outer shell div is already at 100%) at 100% of the container. The `svg` already carries
     `viewBox="0 0 320 200"` and `width/height: 100%`, so it scales uniformly (`xMidYMid meet`), text included; the HTML legend and tooltip
     keep their pixel positions. A CSS-only change.
   - `relayout`: laid out again at the container's size with the default metrics. This is the markup a server re-render at the measured size
@@ -81,15 +83,15 @@ Read it as:
 
 | | Measured |
 |---|---|
-| recharts' own re-layout after a resize from 320x180 (reference) | 32 to 38 ms until the DOM is stable again (two-frame granularity), 1.7 MB of recharts + React for the two examples (production build, not minified) |
-| `viewbox` | 0 bytes and 0 ms: one CSS change on `.recharts-wrapper` and its shell div |
-| server re-layout, per resize | the gem renders the bar chart in 2.3 to 2.4 ms and the line chart in 1.3 to 1.7 ms (mean of 50); 27.5 KB of HTML for the bar chart (3.2 KB gzipped), 18.2 KB for the line chart (2.5 KB gzipped); plus one request to the host and its round trip, which the spike does not measure (it depends on the host) |
-| JavaScript re-layout in `chadcn--chart` | the size-dependent Ruby layout it would duplicate is 3,129 lines (scales, curves, sector and rectangle paths, bar positions, tick collision, label positions, the cartesian and polar surfaces), against 1,107 lines of size-independent code (domains, nice ticks, stacks, formatters, tooltip content) that could travel as data; the whole chart is 5,404 lines of Ruby and today's controller and primitives 573 lines of JavaScript. Its runtime would be close to recharts' (same work, no React) |
+| recharts' own re-layout after a resize from 320x180 (reference) | 28 to 38 ms until the DOM is stable again (an upper bound, two-frame granularity), 1.7 MB of recharts + React for the two examples (production build, not minified) |
+| `viewbox` | 0 bytes and 0 ms: one CSS change on `.recharts-wrapper` and the inner div of the responsive container |
+| server re-layout, per resize | the gem renders the bar chart in 2.1 to 3.7 ms and the line chart in 1.2 to 2.2 ms (mean of 50); 27.5 KB of HTML for the bar chart (3.2 KB gzipped), 18.2 KB for the line chart (2.5 KB gzipped); plus one request to the host and its round trip, which the spike does not measure (it depends on the host) |
+| JavaScript re-layout in `chadcn--chart` | the size-dependent Ruby layout it would duplicate is 3,129 lines (scales, curves, sector and rectangle paths, bar positions, tick collision, label positions, the cartesian and polar surfaces), against 1,107 lines of size-independent code (domains, nice ticks, stacks, formatters, tooltip content) that could travel as data; the whole chart is 5,404 lines of Ruby; a JavaScript re-layout is 3,129 lines of Ruby to port against 342 lines of chart JavaScript today (`chart_controller.js` and `primitives/chart_*.js`, non-blank non-comment lines, 9.1 times; `run.rb` prints both). Its runtime would be close to recharts' (same work, no React) |
 
 ## Conclusions the record draws from these numbers
 
 1. The resize mechanism is a **server re-layout at the measured size**: it is the only one that is exact without a second implementation of
-   the layout, and it costs 1 to 3 ms of rendering and 2.5 to 3.2 KB gzipped per re-layout. A JavaScript re-layout would be exact too, but
-   would multiply the chart's JavaScript by an estimated six times and needs its own parity proof against the Ruby; the viewBox zooms text and is rejected.
+   the layout, and it costs 1 to 4 ms of rendering and 2.5 to 3.2 KB gzipped per re-layout. A JavaScript re-layout would be exact too, but
+   would port 3,129 lines of Ruby against 342 lines of chart JavaScript today (9.1 times) and needs its own parity proof against the Ruby; the viewBox zooms text and is rejected.
 2. The **re-measure pass** is the same request: the controller measures what recharts measures and sends it with the size. The tick-template
    design of the first record cannot correct the legend height, which moves the whole plot (the 58 differences above).

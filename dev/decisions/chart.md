@@ -113,7 +113,7 @@ Fixed here so every chart item uses the same one (`Compare` in `dev/spikes/chart
 
 ## Risks
 
-- **Text measurement** is the one input Ruby cannot know. Mitigation above; a font that is not the pinned one can show a different label shift (<= half a line), or keep a label the measured font would collide (or ship in a `tickTemplate` a label it would fit) until the controller's post-font pass remounts the right set; the pass swaps nodes from templates, it never toggles visibility, because recharts omits hidden ticks and G2 compares the tree exactly. `oracle_ssr.mjs --check` and the spike tests depend on the host's `monospace` font for the x-label widths (a different default monospace can move a clamped label): the drift alarm assumes the same machine class that committed the oracle.
+- **Text measurement** is the one input Ruby cannot know. Mitigation above; a font that is not the pinned one can show a different label shift (<= half a line), or keep a label the measured font would collide (or ship in a `tickTemplate` a label it would fit) until the controller's post-font pass remounts the right set; the pass swaps nodes from templates, it never toggles visibility, because recharts omits hidden ticks and G2 compares the tree exactly. Superseded by "Resize and re-measure" below: the server re-lays out with the measured metrics; there is no template pass. `oracle_ssr.mjs --check` and the spike tests depend on the host's `monospace` font for the x-label widths (a different default monospace can move a clamped label): the drift alarm assumes the same machine class that committed the oracle.
 - **Page weight of the tooltip templates**: one `Tooltip::Content` template per category, about 1.7 KB at two series (1,247 bytes of content in `oracle/bar.html` plus the `data-*` attributes), linear in categories and series; no cap in the gem (a `Tooltip` is optional).
 - **recharts moves**: the oracle is pinned by `dev/react-shadcn-catalog/package-lock.json` (3.8.0); a bump regenerates `oracle/*.html` and the diff is the review. `oracle_ssr.mjs --check` is the drift alarm.
 - **Size of the port** (six chart families, curves, sectors): bar and line cost about 600 lines of throwaway Ruby with all numerics exact; the families that remain reuse scales, ticks, curves and the shell.
@@ -149,9 +149,9 @@ of 320x180, 560x315 and 800x450, in the pinned oracle font (`12px/16px monospace
 | Option | DOM against recharts at the container's size | On screen | Cost |
 |---|---|---|---|
 | Today (`fixed`) | 47 to 120 differences | up to 480 px off; overflows a smaller box | nothing |
-| **A. Scale the SVG** (`viewBox` is already on the `svg`; `.recharts-wrapper` and its shell at 100%) | 48 to 121 differences (it still holds the 320x200 numbers) | glyphs at 0.90x, 1.57x, 2.25x (a 12 px label drawn 27 px high at 800 px); letterboxed outside 16:10; the HTML legend and tooltip keep their 320 px layout | 0 bytes, 0 ms, CSS only |
-| **B. Re-layout in `chadcn--chart`** (port scales, ticks, paths, bar positions, tick collision to JavaScript) | 0 (same math: the `relayout` rows of the spike are its output) | 0 px | about 3,129 lines of size-dependent Ruby to duplicate (out of 5,404; today's chart JavaScript is 573 lines), plus a parity proof of the JavaScript against the Ruby; about recharts' own 32-38 ms per resize |
-| **C. Server re-render at the measured size** | 0 with the default metrics in the pinned font; 0 in the host font **once the measured metrics are sent along** (58 differences without them: a 26 px legend instead of 28 moves every bar 2 px) | 0 px | 1.3 to 2.4 ms of gem rendering, 18 to 28 KB of HTML (2.5 to 3.2 KB gzipped) per re-layout, plus one request to the host and its round trip; the host must answer that request |
+| **A. Scale the SVG** (`viewBox` is already on the `svg`; `.recharts-wrapper` and the inner div of the responsive container at 100%) | 48 to 121 differences (it still holds the 320x200 numbers) | glyphs at 0.90x, 1.57x, 2.25x (a 12 px label drawn 27 px high at 800 px); letterboxed outside 16:10; the HTML legend and tooltip keep their 320 px layout | 0 bytes, 0 ms, CSS only |
+| **B. Re-layout in `chadcn--chart`** (port scales, ticks, paths, bar positions, tick collision to JavaScript) | 0 (same math: the `relayout` rows of the spike are its output) | 0 px | 3,129 lines of size-dependent Ruby to port (out of 5,404) against 342 lines of chart JavaScript today, plus a parity proof of the JavaScript against the Ruby; about recharts' own 28-38 ms per resize (an upper bound, frame-quantized) |
+| **C. Server re-render at the measured size** | 0 with the default metrics in the pinned font; 0 in the host font **once the measured metrics are sent along** (58 differences without them: a 26 px legend instead of 28 moves every bar 2 px) | 0 px | 1.2 to 3.7 ms of gem rendering, 18 to 28 KB of HTML (2.5 to 3.2 KB gzipped) per re-layout, plus one request to the host and its round trip; the host must answer that request |
 
 ### Decision
 
@@ -163,6 +163,11 @@ of 320x180, 560x315 and 800x450, in the pinned oracle font (`12px/16px monospace
   parameters, read through one helper of the container; any GET that returns the chart works (a dedicated action, or the page itself, of which
   the controller takes only the chart). Chosen because it is exact, it reuses the one implementation of the layout that G2 already proves, and it
   covers the six chart roots (cartesian and polar) at once; its price is a request per settled resize and a host that answers it.
+  **C needs a recorded exception to `stimulus` R1 (a controller never fetches HTML) and R6 (targets over selectors):** `chadcn--chart` fetches
+  HTML from the same-origin `relayout_url:` and swaps it in, and reads the tick labels, the legend wrapper (recharts nodes) and the response's
+  chart by class selector. The exception is scoped to `chadcn--chart` fetching its own chart from its same-origin `relayout_url:` and swapping
+  it; nothing else may fetch HTML or read by class. Merging this section approves the exception; item #107 records it in
+  `.ai/skills/stimulus/SKILL.md` (scope, guard, removal condition).
 - **Without `relayout_url:`** nothing changes: the chart is laid out once at `initial_dimension`, as in 0.1.0, and draws on a page without
   JavaScript, in a Turbo preview, an email or a PDF. The deviation "layout once at `initial_dimension`" is narrowed to charts without a URL,
   not removed.
@@ -173,7 +178,7 @@ of 320x180, 560x315 and 800x450, in the pinned oracle font (`12px/16px monospace
   the tick templates, the browser collision pass and the "the plot is not recomputed when the legend height differs" deviation of the first
   design are dropped; the `tickTemplate` exemption of G2 above becomes unused (left in `Compare` until the gate code is next edited). Without a
   URL the server's assumptions stay, and the kwargs stay the host's way to match its font.
-- **Rejected: B.** Exact as well, and no request, but it is a second implementation of the layout: about six times today's chart JavaScript,
+- **Rejected: B.** Exact as well, and no request, but it is a second implementation of the layout: 3,129 lines of Ruby to port against 342 lines of chart JavaScript today,
   every recharts quirk the Ruby reproduces would need a JavaScript twin and a proof that both agree, and every later chart item would pay
   twice. It stays the fallback if the maintainer rules that charts must follow their container with no host work; the measurements above are
   its baseline.
@@ -193,7 +198,8 @@ of 320x180, 560x315 and 800x450, in the pinned oracle font (`12px/16px monospace
 
 - **#107 (chart-responsive)** builds the resize half: the `relayout_url:` kwarg and the values of the spec, the size observation, the
   debounce, the skip when nothing changed, the request, the swap with the interaction state carried over, the interim viewBox scaling, abort
-  on disconnect, the Turbo cache, and the helper that turns the parameters into container keywords. Amend its acceptance: "a chart in a
+  on disconnect, the Turbo cache, and the helper that turns the parameters into container keywords, and it records the `stimulus` R1 and R6
+  exception of C in `.ai/skills/stimulus/SKILL.md` (amend its `owns` to include that file). Amend its acceptance: "a chart in a
   container resized from 320 to 640 px" applies to a chart with `relayout_url:` (the browser test answers the request with the gem's markup,
   e.g. through Playwright request interception, so no dummy route is needed); "the deviation is removed or narrowed" is "narrowed to charts
   without a URL".

@@ -7,7 +7,9 @@ require "chadcn"
 module ResizeSpike
   module Examples
     MONTHS = %w[January February March April May June].freeze
-    BAR_ROWS = MONTHS.zip([ 186, 305, 237, 73, 209, 214 ], [ 80, 200, 120, 190, 130, 140 ]).map { |m, d, mo| { month: m, desktop: d, mobile: mo } }.freeze
+    BAR_ROWS = MONTHS.zip([ 186, 305, 237, 73, 209, 214 ], [ 80, 200, 120, 190, 130, 140 ]).map do |month, desktop, mobile|
+      { month: month, desktop: desktop, mobile: mobile }
+    end.freeze
     LINE_ROWS = BAR_ROWS.map { |row| row.slice(:month, :desktop) }.freeze
     BAR_CONFIG = { desktop: { label: "Desktop", color: "var(--chart-1)" }, mobile: { label: "Mobile", color: "var(--chart-2)" } }.freeze
     LINE_CONFIG = { desktop: { label: "Desktop", color: "var(--chart-1)" } }.freeze
@@ -15,14 +17,20 @@ module ResizeSpike
 
     # A host page that draws one example inside its container.
     class Page < Phlex::HTML
-      def initialize(name, width:, height:, **metrics)
+      def initialize(name, width:, height:, legend_height: 28, **metrics)
         @name = name
         @dimension = { width: width, height: height }
-        @legend_height = metrics.delete(:legend_height) || 28
+        @legend_height = legend_height
         @metrics = metrics
       end
 
-      def view_template = send(@name)
+      def view_template
+        case @name
+        when :bar then bar
+        when :line then line
+        else raise ArgumentError, "unknown example #{@name.inspect} (expected one of #{NAMES.inspect})"
+        end
+      end
 
       private
 

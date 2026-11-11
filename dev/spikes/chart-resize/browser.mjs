@@ -97,7 +97,7 @@ async function oracle(sizes) {
   })
   const script = out.outputFiles[0].text
   const browser = await chromium.launch()
-  const result = { bundle_bytes: script.length, charts: {} }
+  const result = { bundle_bytes: Buffer.byteLength(script), charts: {} }
   try {
     for (const name of names) {
       for (const [fontName, font] of Object.entries(fonts)) {
