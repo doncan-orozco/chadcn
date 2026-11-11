@@ -144,7 +144,13 @@ Server: host, Input/Chips/Trigger with rest attributes, Value text/chips, hidden
 
 ## Behavior
 
-Primitives composed: `template_mount`, `presence`, `dismissable_layer`, `scroll_lock` (modal only), `hide_others` (aria-hidden only: the `data-aria-hidden` marker is not added, Base UI has none), `anchor_positioner` (Base UI anchor positioning, below), `typeahead` (closed trigger), `ids`, `scorer` (filter). The controller itself creates the portal container (`body > div[data-base-ui-portal]`) and the Base UI focus guards.
+Primitives composed: `template_mount`, `presence`, `dismissable_layer`, `scroll_lock` (modal only), `hide_others` (aria-hidden only: the `data-aria-hidden` marker is not added, Base UI has none), `anchor_positioner` (Base UI anchor positioning, below), `typeahead` (closed trigger), `ids`, `scorer` (filter). The combobox's own engine lives in five Stimulus-free modules beside them,
+each with its primitive test (`test/javascript/primitive_combobox_*.test.mjs`): `combobox_state` (the state machine: selection,
+text, query freeze, open requests, highlight; every change offered as a cancelable event first), `combobox_filter` (contains /
+fuzzy matching, the selected-label bypass, the limit, the closed-trigger typeahead), `combobox_navigation` (arrow steps, the opening
+highlight, chip keys, selection toggles), `combobox_popup` (the portal container `body > div[data-base-ui-portal]`, backdrop, state
+attributes, live region, dismiss buttons, the Base UI focus guards, open layers, the filtered list) and `combobox_value` (hidden
+inputs, Value parts, chips, the Clear button). The controller keeps the lifecycle, the values, the listeners and the events.
 
 ### States
 `closed` <-> `open` (mounted while open and during the exit animation: `data-open`/`data-closed`, `data-starting-style` on enter, `data-ending-style` on exit; unmount after `animationend`/`transitionend`, same frame without animation; R6). Selection: none | value | values. Highlight: none | index into the visible list (virtual focus: DOM focus stays on the input, `aria-activedescendant` points at the item, nav:L493-497). Query: the trimmed input text; in single mode the query is ignored while it equals the selected label and was not edited since opening (root:L259-262).
