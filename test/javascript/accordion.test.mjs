@@ -180,22 +180,26 @@ browserTest("accordion: arrow keys skip a disabled trigger", async ({ open }) =>
   assert.equal(await focused(page), "Is it styled?")
 })
 
-// The keydown listener lives on the root element: removing the controller must take it away, and a new controller must not add a
-// second one (two listeners would move focus two triggers per press).
+// The keydown listener lives on the root element: removing the root disconnects the controller and must take the listener with it (a
+// leaked listener still handles, and prevents, an arrow key dispatched inside the detached root); the reinserted root reconnects with
+// exactly one listener (two would move focus two triggers per press).
 browserTest("accordion: disconnect removes the keyboard listener and a reconnect adds exactly one", async ({ open }) => {
   const page = await open("single__all-closed")
   const errors = consoleErrors(page)
-  const swap = (value) => page.evaluate(async ({ selector, value }) => {
-    document.querySelector(selector).setAttribute("data-controller", value)
+  const handledWhileDetached = await page.evaluate(async () => {
+    const root = document.querySelector("[data-slot=accordion]")
+    const parent = root.parentNode
+    root.remove()
     await new Promise((resolve) => setTimeout(resolve))
-  }, { selector: "[data-slot=accordion]", value })
+    const event = new KeyboardEvent("keydown", { key: "ArrowDown", bubbles: true, cancelable: true })
+    root.querySelector("[data-slot=accordion-trigger]").dispatchEvent(event)
+    parent.append(root)
+    await new Promise((resolve) => setTimeout(resolve))
+    return event.defaultPrevented
+  })
+  assert.equal(handledWhileDetached, false, "no listener left after disconnect")
 
-  await swap("")
   await trigger(page, "Is it accessible?").focus()
-  await page.keyboard.press("ArrowDown")
-  assert.equal(await focused(page), "Is it accessible?", "no listener left after disconnect")
-
-  await swap("chadcn--accordion")
   await page.keyboard.press("ArrowDown")
   assert.equal(await focused(page), "Is it styled?", "one step per press after the reconnect")
   assert.deepEqual(errors, [])
