@@ -75,7 +75,7 @@ dropped from the smoke.
 
 `--budget 900` seconds by default, measured from the first gate (server start excluded). Running out is exit 2 and lists the components
 not run: a budget overrun is a failure, never a silent skip, so a subset that grows past it is noticed. Measured locally on a loaded
-laptop (other browser suites running): 576 s for the 60 components, under 10 s each on average (one Playwright browser per call). The job's
+laptop (other browser suites running): 540 to 576 s for the 60 components, 2.5 s (select) to 33 s (chart) each, one Playwright browser per call. The job's
 `timeout-minutes: 30` covers the install steps and the budget.
 
 ## The full gate
