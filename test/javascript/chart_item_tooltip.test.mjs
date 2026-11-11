@@ -144,15 +144,40 @@ test("chart item tooltip: activate and deactivate carry the index, no label and 
   assert.deepEqual(events[1].payload.map((item) => [item.dataKey, item.value]), [["mobile", 190]]);
 }));
 
-test("chart item tooltip: a finger on a bar shows nothing (recharts finds no item under a touch on a bar)", () => withScenario("tooltip__item-bar-hover", async (page) => {
-  await page.evaluate(({ plot, point }) => {
-    const wrapper = document.querySelector(plot);
-    const rect = wrapper.getBoundingClientRect();
-    const target = document.elementFromPoint(rect.left + point.x, rect.top + point.y);
-    target.dispatchEvent(new PointerEvent("pointermove", { bubbles: true, pointerType: "touch", clientX: rect.left + point.x, clientY: rect.top + point.y }));
-  }, { plot: PLOT, point: DESKTOP_FEBRUARY });
+// A bubbling pointermove of `pointerType` on whatever is under the plot point (what a finger or a mouse dispatches).
+async function pointerMoveAs(page, pointerType, point) {
+  await page.evaluate(({ plot, point, pointerType }) => {
+    const rect = document.querySelector(plot).getBoundingClientRect();
+    const [x, y] = [rect.left + point.x, rect.top + point.y];
+    document.elementFromPoint(x, y).dispatchEvent(new PointerEvent("pointermove", { bubbles: true, pointerType, clientX: x, clientY: y }));
+  }, { plot: PLOT, point, pointerType });
   await settle(page);
+}
+
+test("chart item tooltip: a finger on a bar shows nothing (recharts finds no item under a touch on a bar), the same move as a mouse does", () => withScenario("tooltip__item-bar-hover", async (page) => {
+  await pointerMoveAs(page, "touch", DESKTOP_FEBRUARY);
   assert.equal((await wrapperState(page)).visible, false);
+  await pointerMoveAs(page, "mouse", DESKTOP_FEBRUARY);
+  assert.match((await wrapperState(page)).text, /305/);
+}));
+
+test("chart item tooltip: the Turbo snapshot holds no stale tooltip and the restore brings the live one back", () => withScenario("tooltip__item-bar-hover", async (page) => {
+  await step(page, MOBILE_APRIL);
+  assert.match((await wrapperState(page)).text, /190/);
+
+  const snapshot = await page.evaluate(async (chart) => {
+    document.dispatchEvent(new Event("turbo:before-cache"));
+    await new Promise((resolve) => setTimeout(resolve));
+    const node = document.querySelector(chart);
+    return {
+      series: node.getAttribute("data-chadcn--chart-pointer-series-value"),
+      children: node.querySelector(".recharts-tooltip-wrapper").childElementCount,
+    };
+  }, CHART);
+  assert.deepEqual(snapshot, { series: "-1", children: 0 });
+
+  await page.locator(TOOLTIP).filter({ hasText: "190" }).waitFor();
+  assert.equal(await page.locator(CHART).getAttribute("data-chadcn--chart-pointer-series-value"), "1");
 }));
 
 test("chart item tooltip: a re-inserted chart starts from the server state and still answers the pointer", () => withScenario("tooltip__item-bar-hover", async (page) => {

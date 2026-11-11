@@ -83,6 +83,7 @@ export default class extends Controller {
     this.activeCoordinate = null
     this.serverState = this.hasServedStateValue ? this.servedStateValue : this.interactionState()
     this.relayoutStopped = false
+    this.hasItems = this.hasTooltipItemTarget
     this.cache = turboCacheRestore({
       teardown: (cancelled) => this.resetToServerState(cancelled),
       // The restore observes the box again, which checks its size once more (the teardown stopped the re-layout).
@@ -195,7 +196,16 @@ export default class extends Controller {
 
   // An item tooltip whose shapes the server tagged (a BarChart or a RadialBarChart with `shared: false`; not a pie).
   get itemTooltip() {
-    return this.tooltipEventTypeValue === "item" && this.hasTooltipItemTarget
+    return this.tooltipEventTypeValue === "item" && this.hasItems
+  }
+
+  // Cached: the check runs on every pointer event, so the targets are not queried each time.
+  tooltipItemTargetConnected() {
+    this.hasItems = this.hasTooltipItemTarget
+  }
+
+  tooltipItemTargetDisconnected() {
+    this.hasItems = this.hasTooltipItemTarget
   }
 
   // Input is refused between `turbo:before-cache` and the snapshot tick, while the DOM is in its snapshot shape.
@@ -257,11 +267,14 @@ export default class extends Controller {
   }
 
   itemAt(event) {
-    return this.tooltipItemTargets.find((item) => item.contains(event.target)) ?? null
+    // One ancestor walk from the event target, not a scan of every item.
+    const item = event.target instanceof Element ? event.target.closest(`[data-${this.identifier}-target~="tooltipItem"]`) : null
+    return item && this.element.contains(item) ? item : null
   }
 
   itemData(item, name) {
-    return Number(item.getAttribute(`data-${this.identifier}-${name}`))
+    const value = item.getAttribute(`data-${this.identifier}-${name}`)
+    return value === null ? -1 : Number(value)
   }
 
   // The item's index, series and coordinate: the shape's `tooltipPosition` (a bar's center), else, for a radial bar arc that has none,
@@ -269,6 +282,7 @@ export default class extends Controller {
   activateItem(item) {
     const index = this.itemData(item, "index")
     const series = this.itemData(item, "series")
+    if (index < 0 || series < 0) return
     if (this.pointerActiveValue && this.pointerIndexValue === index && this.pointerSeriesValue === series) return
 
     this.pointerCoordinate = this.itemCoordinate(index, series)

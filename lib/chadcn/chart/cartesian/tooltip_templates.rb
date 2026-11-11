@@ -34,12 +34,11 @@ class Chadcn::Chart::Cartesian::TooltipTemplates < Chadcn::Base
   # label (recharts passes none to an item tooltip, component/Tooltip.js:131).
   def attributes(entry)
     cursor = entry.cursor
-    item = !entry.series.nil?
-    { "data-chadcn--chart-target": TARGET, "data-index": entry.index.to_s, "data-label": (entry.label.to_s unless item),
-      "data-series": (entry.series.to_s if item), "data-coordinate": point(entry.coordinate),
+    { "data-chadcn--chart-target": TARGET, "data-index": entry.index.to_s, "data-label": (entry.label.to_s unless entry.item?),
+      "data-series": (entry.series.to_s if entry.item?), "data-coordinate": point(entry.coordinate),
       "data-item-coordinate": (point(entry.item_coordinate) if entry.item_coordinate),
       "data-cursor": (JSON.generate(tag: "path", layer: cursor.layer, attrs: cursor.attrs) if cursor),
-      "data-active-dots": JSON.generate(entry.dots.map(&:attrs)), "data-payload": JSON.generate(entry.payload.map { |item_entry| detail(item_entry) }) }
+      "data-active-dots": JSON.generate(entry.dots.map(&:attrs)), "data-payload": JSON.generate(entry.payload.map { |item| detail(item) }) }
   end
 
   def point(coordinate) = JSON.generate(coordinate.transform_values { |value| whole(value) })

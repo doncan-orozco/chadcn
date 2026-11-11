@@ -142,4 +142,37 @@ class Chadcn::Chart::ItemTooltipTest < Chadcn::TestCase
 
     assert_empty doc.css(ITEM)
   end
+
+  test "a bar missing at a row (zero height) shifts the bars after it, and the template anchors at the bar that took its position" do
+    rows = ROWS.each_with_index.map { |row, index| index == 1 ? row.merge(mobile: 0) : row }
+    doc = parse(render_chart(data: rows) do |chart|
+      chart.x_axis(data_key: :month)
+      chart.bar(data_key: :desktop)
+      chart.bar(data_key: :mobile)
+      chart.tooltip(shared: false, content: CONTENT)
+    end)
+    mobile = bars(doc, 1)
+    node = template(doc, 1, 1)
+    path = mobile[1]
+
+    assert_equal ROWS.length - 1, mobile.length
+    assert_equal ROWS.length - 1, doc.css("g.recharts-bar")[1].css("g.recharts-bar-rectangle#{ITEM}").length
+    assert_equal 0, JSON.parse(node["data-payload"]).first["value"]
+    center = JSON.parse(node["data-item-coordinate"])
+
+    assert_in_delta number(path, "x") + (number(path, "width") / 2), center["x"], 1e-3
+    assert_in_delta number(path, "y") + (number(path, "height") / 2), center["y"], 1e-3
+  end
+
+  test "two radial bar series tag their arcs with their own series position" do
+    doc = parse(render_radial_bar do |chart|
+      chart.tooltip(shared: false, content: CONTENT)
+      chart.radial_bar(data_key: :visitors)
+      chart.radial_bar(data_key: :visitors)
+    end)
+
+    assert_equal [ "0" ], arcs(doc, 0).map { |arc| arc["data-chadcn--chart-series"] }.uniq
+    assert_equal [ "1" ], arcs(doc, 1).map { |arc| arc["data-chadcn--chart-series"] }.uniq
+    assert_equal(%w[0 1 2], arcs(doc, 1).map { |arc| arc["data-chadcn--chart-index"] })
+  end
 end

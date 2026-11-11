@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-# What `chadcn--chart` needs from a polar chart (dev/port/specs/chart.md, "Behavior"): only the tooltip values, so the controller keeps
-# the `default_index:` tooltip the server drew. The controller maps the pointer and the keys for the cartesian charts only, so a polar
-# chart publishes no ticks (there is no pointer-to-index mapping), no layout, no keyboard step, no accessibility layer, and its
-# `.recharts-wrapper` has no `data-action`: nothing moves the tooltip. A pie is an `item` tooltip (the controller is inert and leaves the
-# server-drawn tooltip untouched); a radar and a radial bar are `axis` tooltips (the controller keeps, places and restores it).
+# What `chadcn--chart` needs from a polar chart (dev/port/specs/chart.md, "Behavior"): only the tooltip values. A polar chart publishes
+# no ticks, no layout, no keyboard step and no accessibility layer, so no key reaches it. A pie is an `item` tooltip (the controller is
+# inert and leaves the server-drawn tooltip untouched); a radar and a radial bar are `axis` tooltips (the controller keeps, places and
+# restores the `default_index:` tooltip); a radial bar with `Tooltip shared: false` is an `item` tooltip whose `.recharts-wrapper` carries
+# the pointer actions and the Escape (`Polar::Root#wrapper_attributes`), so the pointer activates its tagged arcs (item #109).
 #
 # @api private
 class Chadcn::Chart::Polar::Wiring < Chadcn::Chart::Cartesian::Wiring

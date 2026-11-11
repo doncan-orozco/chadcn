@@ -81,9 +81,7 @@ class Chadcn::Chart::Polar::Drawer::RadialBar < Chadcn::Chart::Polar::Drawer
   # position and the arc's (recharts' item index, polar/RadialBar.js:97). The background arc does not answer (its handlers are the user's only).
   def tooltip_item(position)
     series_position = canvas.tooltip_items[series]
-    return {} unless series_position
-
-    { "data-chadcn--chart-target": "tooltipItem", "data-chadcn--chart-series": series_position.to_s, "data-chadcn--chart-index": position.to_s }
+    series_position ? Chadcn::Chart::Cartesian::TooltipPlan.item_attributes(series: series_position, index: position) : {}
   end
 
   # The path of an arc: the radial bar's own props, then what the row and the cell give, then the center.

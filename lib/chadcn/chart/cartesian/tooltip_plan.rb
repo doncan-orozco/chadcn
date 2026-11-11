@@ -18,6 +18,25 @@ class Chadcn::Chart::Cartesian::TooltipPlan
   # places it (the shape's `tooltipPosition`; nil for a radial bar sector, which has none). Both are nil for any other entry.
   Entry = Data.define(:index, :label, :coordinate, :payload, :cursor, :dots, :series, :item_coordinate) do
     def initialize(index:, label:, coordinate:, payload:, cursor:, dots:, series: nil, item_coordinate: nil) = super
+
+    # @api private
+    # @return [Boolean] whether this is an entry of an item tooltip (one series at one category)
+    def item? = !series.nil?
+
+    # @api private
+    # @return [Boolean] whether `default_index:` may show it: any axis entry, or the first series of an item tooltip
+    def shown_by_default? = !item? || series.zero?
+  end
+
+  # The attributes that make a shape a tooltip item for `chadcn--chart`: its series position and its own position among the drawn shapes.
+  # This is the one owner of the tooltip-item contract; the cartesian and the polar drawers both write it from here.
+  #
+  # @api private
+  # @param series [Integer] the position of the series among the item series
+  # @param index [Integer] the position of the shape among the drawn ones of its series
+  # @return [Hash{Symbol => String}]
+  def self.item_attributes(series:, index:)
+    { "data-chadcn--chart-target": "tooltipItem", "data-chadcn--chart-series": series.to_s, "data-chadcn--chart-index": index.to_s }
   end
 
   # The cursor of a category: the `layer` recharts draws it in and the SVG `attrs` of its path.
@@ -85,7 +104,7 @@ class Chadcn::Chart::Cartesian::TooltipPlan
     return unless index
 
     # With `default_index:` alone recharts cannot tell which series to show and shows the first (combineTooltipPayloadConfigurations.js:34-44).
-    entries.find { |entry| entry.index == index && (entry.series.nil? || entry.series.zero?) }
+    entries.find { |entry| entry.index == index && entry.shown_by_default? }
   end
 
   # The declared content with the payload and label of one category; the `Tooltip`'s own `formatter:` and `label_formatter:` override the

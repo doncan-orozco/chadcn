@@ -290,9 +290,7 @@ class Chadcn::Chart::Cartesian::Surface < Phlex::SVG
   # position and the bar's among the drawn ones (recharts' item index, cartesian/Bar.js:315). Its background answers like the bar (:128).
   def tooltip_item(series, position)
     series_position = @tooltip_items[series]
-    return {} unless series_position
-
-    { "data-chadcn--chart-target": "tooltipItem", "data-chadcn--chart-series": series_position.to_s, "data-chadcn--chart-index": position.to_s }
+    series_position ? Chadcn::Chart::Cartesian::TooltipPlan.item_attributes(series: series_position, index: position) : {}
   end
 
   # A bar's `path`: the box rounded to four decimals, the radius when it is a number, and the `d`.
