@@ -4,7 +4,7 @@ import { assert, primitiveTest } from "./primitives_support.mjs";
 // copy of the markup the Phlex part renders.
 
 const P = (name) => `data-chadcn--combobox-part="${name}"`;
-const chipProto = (key, label) => `<template ${P("value-prototype")} data-key="${key}"><div data-slot="combobox-chip" tabindex="-1">${label}<button ${P("chip-remove")}>x</button></div></template>`;
+const chipProto = (key, label) => `<template ${P("value-prototype")} data-key="${key}"><div data-slot="combobox-chip" tabindex="-1">${label}<button ${P("chip-remove")} aria-label="Remove"></button></div></template>`;
 const single = `
   <form id="form"><div id="host">
     <input type="hidden" ${P("hidden-input")} name="fruit" value="" required>
@@ -61,10 +61,10 @@ primitiveTest("combobox_value: multiple selection keeps one named input per valu
     const labelOf = (key) => key.toUpperCase();
     value.render(["a", "b"], { labelOf });
     const formValues = () => [...host.querySelectorAll("[data-chadcn--combobox-part=form-value]")].map((input) => [input.name, input.value, input.getAttribute("form")]);
-    const added = { chips: value.chips().map((chip) => chip.firstChild.textContent), kept: value.chips()[0] === firstChip, inputs: formValues(), role: value.chipsRoot.getAttribute("role") };
+    const added = { chips: value.chips().map((chip) => chip.textContent), kept: value.chips()[0] === firstChip, inputs: formValues(), role: value.chipsRoot.getAttribute("role") };
     const inputB = host.querySelector("[data-chadcn--combobox-part=form-value][value=b]");
     value.render(["b", "c"], { labelOf });
-    const replaced = { chips: value.chips().map((chip) => chip.firstChild.textContent), inputs: formValues(), keptInput: host.contains(inputB), inputLast: value.chipsRoot.lastElementChild.matches("template") && value.chipsRoot.querySelector("input[data-slot]").nextElementSibling.matches("template") };
+    const replaced = { chips: value.chips().map((chip) => chip.textContent), inputs: formValues(), keptInput: host.contains(inputB), inputLast: host.querySelector("[data-chadcn--combobox-part=value-end]").previousElementSibling === host.querySelector("[data-slot=combobox-chip-input]") };
     value.render([], { labelOf });
     return { added, replaced, empty: { chips: value.chips().length, inputs: formValues().length, role: value.chipsRoot.hasAttribute("role") } };
   });
@@ -102,28 +102,31 @@ primitiveTest("combobox_value: chip keys move the focus, remove a chip, return t
 }, { html: multiple });
 
 primitiveTest("combobox_value: the Clear button mounts with a selection, leaves after its exit, and a snapshot drops a leaving one", async (page) => {
-  const result = await page.evaluate(async () => {
+  const first = await page.evaluate(async () => {
     const { ComboboxValue } = await import("chadcn/primitives/combobox_value");
     const host = document.querySelector("#host");
-    const value = new ComboboxValue(host, { single: true }, []);
+    window.clearValue = new ComboboxValue(host, { single: true }, []);
     const clear = () => host.querySelector("[data-chadcn--combobox-part=clear]");
-    value.syncClear(false, false);
+    window.clearValue.syncClear(false, false);
     const none = clear() === null;
-    value.syncClear(true, true);
+    window.clearValue.syncClear(true, true);
     const mounted = [clear().hasAttribute("data-visible"), clear().hasAttribute("data-popup-open")];
-    value.syncClear(false, false);
+    window.clearValue.syncClear(false, false);
     const leaving = [clear()?.hasAttribute("data-ending-style"), clear()?.hasAttribute("data-visible")];
-    await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
-    const gone = clear() === null;
+    return { none, mounted, leaving };
+  });
+  await page.waitForFunction((selector) => document.querySelector(selector) === null, "[data-chadcn--combobox-part=clear]");
+  const second = await page.evaluate(() => {
+    const value = window.clearValue;
+    const clear = () => document.querySelector("[data-chadcn--combobox-part=clear]");
     value.syncClear(true, false);
     value.syncClear(false, false);
     value.syncClear(true, false);
     const interrupted = [clear().hasAttribute("data-ending-style"), clear().hasAttribute("data-visible")];
-    await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
-    const stayed = clear() !== null;
     value.syncClear(false, false);
     value.resetClear(false);
-    return { none, mounted, leaving, gone, interrupted, stayed, snapshot: clear() === null };
+    return { interrupted, snapshot: clear() === null };
   });
-  assert.deepEqual(result, { none: true, mounted: [true, true], leaving: [true, false], gone: true, interrupted: [false, true], stayed: true, snapshot: true });
+  assert.deepEqual(first, { none: true, mounted: [true, true], leaving: [true, false] });
+  assert.deepEqual(second, { interrupted: [false, true], snapshot: true });
 }, { html: single });

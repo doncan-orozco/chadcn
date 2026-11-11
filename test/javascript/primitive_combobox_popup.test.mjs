@@ -30,18 +30,19 @@ const mount = (page, options = {}) => page.evaluate(async (options) => {
   const { ComboboxPopup } = await import("chadcn/primitives/combobox_popup");
   const template = document.querySelector("[data-chadcn--combobox-part=content-template]");
   window.popup = new ComboboxPopup(template, { empty: false, modal: false, inPopup: false, ...options, cutout: document.querySelector("#fruit") });
+  // Read in the same task as the construction: the first frame removes data-starting-style.
+  return { startingStyle: window.popup.popup.hasAttribute("data-starting-style") };
 }, options);
 
 const texts = (page) => page.evaluate(() => window.popup.shown.map((el) => el.textContent));
 
 primitiveTest("combobox_popup: mounting puts the template in a body portal, marked open with its first side and align", async (page) => {
-  await mount(page, { side: "top" });
+  const mounted = await mount(page, { side: "top" });
   const result = await page.evaluate(() => {
     const { popup, positioner, container, list, records } = window.popup;
     return {
       portal: container.parentElement === document.body && container.hasAttribute("data-base-ui-portal") && container.contains(positioner),
       open: [positioner, popup].map((el) => [el.hasAttribute("data-open"), el.getAttribute("data-side"), el.getAttribute("data-align")]),
-      startingStyle: popup.hasAttribute("data-starting-style"),
       focusable: popup.hasAttribute("data-base-ui-focusable"),
       empty: list.hasAttribute("data-empty"),
       emptyText: document.querySelector("[data-chadcn--combobox-part=empty]").textContent,
@@ -49,10 +50,10 @@ primitiveTest("combobox_popup: mounting puts the template in a body portal, mark
       backdrop: Boolean(window.popup.backdrop),
     };
   });
+  assert.equal(mounted.startingStyle, true, "the first frame mounts with data-starting-style");
   assert.deepEqual(result, {
     portal: true,
     open: [[true, "top", "start"], [true, "top", "start"]],
-    startingStyle: true,
     focusable: true,
     empty: false,
     emptyText: "",
@@ -125,9 +126,8 @@ primitiveTest("combobox_popup: the live region marks the Empty text for a moment
 primitiveTest("combobox_popup: a modal popup adds a backdrop, inert and aria-hidden on the page, the scroll lock; closing lifts them", async (page) => {
   await mount(page, { modal: true });
   const result = await page.evaluate(async () => {
-    const { presence } = await import("chadcn/primitives/presence");
     const popup = window.popup;
-    popup.presence = presence(popup.popup, {});
+    popup.trackPresence(() => {});
     const dismissed = [];
     popup.openLayers({ branches: () => [], keep: [document.querySelector("#fruit")], ariaHidden: true, onDismiss: (reason) => dismissed.push(reason) });
     const page = document.querySelector("#page");
@@ -135,7 +135,7 @@ primitiveTest("combobox_popup: a modal popup adds a backdrop, inert and aria-hid
       backdrop: popup.backdrop.parentElement === popup.container && popup.backdrop.style.clipPath.startsWith("polygon"),
       inert: page.hasAttribute("data-base-ui-inert"),
       hidden: page.getAttribute("aria-hidden"),
-      locked: document.body.hasAttribute("data-scroll-locked") || getComputedStyle(document.body).overflow === "hidden",
+      locked: document.body.hasAttribute("data-scroll-locked"),
     };
     popup.markClosed(false);
     const closed = {
@@ -164,7 +164,6 @@ primitiveTest("combobox_popup: Escape dismisses with its reason; dismiss buttons
     const popup = window.popup;
     const calls = [];
     popup.openLayers({ branches: () => [], keep: [], ariaHidden: false, onDismiss: (reason) => calls.push(reason) });
-    await new Promise((resolve) => setTimeout(resolve, 0));
     document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
     popup.addDismissEnd("Dismiss", () => calls.push("dismiss-end"));
     const searchPopupHasNoEnd = !popup.positioner.querySelector("[data-chadcn--combobox-part=dismiss-end]");
@@ -196,7 +195,8 @@ primitiveTest("combobox_popup: the dismiss-end button of an input popup closes i
     syncDismissStart(host, input, true, "Dismiss");
     syncDismissStart(host, input, true, "Dismiss");
     const starts = host.querySelectorAll("[data-chadcn--combobox-part=dismiss-start]").length;
-    const before = input.previousElementSibling.getAttribute("aria-label");
+    const start = host.querySelector("[data-chadcn--combobox-part=dismiss-start]");
+    const before = [start.getAttribute("aria-label"), start.nextElementSibling === input];
     markControls({ control: input, trigger, popup: null, open: false, empty: false, placeholder: false, inPopup: false, id: "fruit" });
     syncDismissStart(host, input, false, "Dismiss");
     popup.teardown();
@@ -208,7 +208,20 @@ primitiveTest("combobox_popup: the dismiss-end button of an input popup closes i
     open: [["true", "fruit-list", "", "", "bottom", null], ["true", "fruit-list", "", "", "bottom", ""]],
     closed: [["false", null, null, null, null, null], ["false", null, null, null, null, null]],
     starts: 1,
-    before: "Dismiss",
+    before: ["Dismiss", true],
     startsAfter: 0,
   });
+}, { html });
+
+primitiveTest("combobox_popup: a template without a popup fails loud and leaves no portal behind", async (page) => {
+  const result = await page.evaluate(async () => {
+    const { ComboboxPopup } = await import("chadcn/primitives/combobox_popup");
+    const template = document.createElement("template");
+    template.innerHTML = "<div></div>";
+    let message = null;
+    try { new ComboboxPopup(template, { empty: false, modal: true, inPopup: false }); } catch (error) { message = error.message; }
+    return { message, portals: document.querySelectorAll("[data-base-ui-portal]").length };
+  });
+  assert.match(result.message, /no positioner with a popup part/);
+  assert.equal(result.portals, 0);
 }, { html });

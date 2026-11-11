@@ -9,6 +9,7 @@ import { anchorPositioner } from "chadcn/primitives/anchor_positioner"
 import { dismissable } from "chadcn/primitives/dismissable_layer"
 import { hideOthers } from "chadcn/primitives/hide_others"
 import { generateId } from "chadcn/primitives/ids"
+import { presence } from "chadcn/primitives/presence"
 import { scrollLock } from "chadcn/primitives/scroll_lock"
 import { mountTemplate } from "chadcn/primitives/template_mount"
 
@@ -96,6 +97,7 @@ export function markControls({ control, trigger, popup, open, empty, placeholder
   if (popup?.input) {
     popup.input.toggleAttribute("data-list-empty", empty)
     if (side) popup.input.setAttribute("data-popup-side", side)
+    else popup.input.removeAttribute("data-popup-side")
   }
 }
 
@@ -124,20 +126,40 @@ export class ComboboxPopup {
     this.releases = []
     this.openReleases = []
     this.listeners = new AbortController()
+    this.presence = null
+    this.focusFrame = 0
+    this.tornDown = false
     this.container = document.createElement("div")
     this.container.setAttribute("data-base-ui-portal", "")
     this.container.id = generateId("combobox-portal")
     document.body.append(this.container)
-    if (modal) this.backdrop = this.#backdrop(cutout)
-    this.mount = mountTemplate(template, { into: this.container })
-    this.positioner = this.mount.nodes[0]
-    this.popup = this.positioner.querySelector(part("popup"))
-    this.list = this.positioner.querySelector(part("list"))
-    this.input = this.positioner.querySelector(part("input"))
-    this.empty = this.positioner.querySelector(part("empty"))
-    this.emptyNodes = this.empty ? [...this.empty.childNodes] : []
-    this.#collect()
-    this.#markMounted(side ?? "bottom", align ?? "start", empty)
+    try {
+      if (modal) this.backdrop = this.#backdrop(cutout)
+      this.mount = mountTemplate(template, { into: this.container })
+      this.positioner = this.mount.nodes[0]
+      this.popup = this.positioner?.querySelector(part("popup"))
+      if (!this.popup) throw new Error("chadcn--combobox: the content template renders no positioner with a popup part")
+      this.list = this.positioner.querySelector(part("list"))
+      this.input = this.positioner.querySelector(part("input"))
+      this.empty = this.positioner.querySelector(part("empty"))
+      this.emptyNodes = this.empty ? [...this.empty.childNodes] : []
+      this.#collect()
+      this.#markMounted(side ?? "bottom", align ?? "start", empty)
+    } catch (error) {
+      cancelAnimationFrame(this.startFrame)
+      this.mount?.unmount()
+      this.container.remove()
+      throw error
+    }
+  }
+
+  /**
+   * Keeps the popup mounted through its exit animation; `onExited` runs when it ends. A previous tracking is released.
+   * @param {() => void} onExited
+   */
+  trackPresence(onExited) {
+    this.presence?.release()
+    this.presence = presence(this.popup, { onExited })
   }
 
   #backdrop(cutoutEl) {
@@ -224,7 +246,9 @@ export class ComboboxPopup {
     if (!this.inPopup || !this.input) return
     this.input.value = text
     this.input.setAttribute("value", text)
-    if (focus) this.focusFrame = requestAnimationFrame(() => this.input.focus({ preventScroll: true }))
+    if (!focus) return
+    cancelAnimationFrame(this.focusFrame)
+    this.focusFrame = requestAnimationFrame(() => this.input.focus({ preventScroll: true }))
   }
 
   /**
@@ -358,6 +382,8 @@ export class ComboboxPopup {
 
   /** Releases everything the popup holds and removes it from the document. */
   teardown() {
+    if (this.tornDown) return
+    this.tornDown = true
     this.listeners.abort()
     cancelAnimationFrame(this.startFrame)
     cancelAnimationFrame(this.focusFrame)

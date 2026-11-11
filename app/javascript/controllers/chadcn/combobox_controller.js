@@ -4,7 +4,7 @@ import { chipArrowKeys, withoutIndex } from "chadcn/primitives/combobox_navigati
 import { ComboboxPopup, markControls, part, syncDismissStart } from "chadcn/primitives/combobox_popup"
 import { ComboboxState } from "chadcn/primitives/combobox_state"
 import { ComboboxValue } from "chadcn/primitives/combobox_value"
-import { presence } from "chadcn/primitives/presence"
+import { isCharacterKey } from "chadcn/primitives/typeahead"
 
 // shadcn Combobox: a hand-written equivalent of Base UI 1.9.0 `Combobox` (no third-party JavaScript). Spec:
 // dev/port/specs/combobox.md (Behavior); the `root:` / `input:` / `nav:` citations of the comments point at the Base UI sources the spec cites.
@@ -68,6 +68,7 @@ export default class extends Controller {
     this.ready = false
     if (!this.abort) return
     this.unmountPopup({ immediate: true })
+    this.valueParts.resetClear(this.selected.length > 0)
     this.abort.abort()
     this.typeahead?.release()
     this.typeahead = null
@@ -283,7 +284,7 @@ export default class extends Controller {
     popup.addDismissEnd(DISMISS_LABEL, (event) => this.state.requestOpen(false, "close-press", event))
     popup.addFocusGuards(this.trigger, (event) => this.state.requestOpen(false, "focus-out", event))
     this.openLayers()
-    popup.presence = presence(popup.popup, { onExited: () => this.unmountPopup() })
+    popup.trackPresence(() => this.unmountPopup())
     popup.seedInput(this.state.text, focus)
     this.syncControls()
   }
@@ -444,7 +445,7 @@ export default class extends Controller {
       this.state.requestOpen(true, "list-navigation", event)
       return
     }
-    if (this.state.isOpen || this.cfg.readOnly || !this.single || event.key.length !== 1 || event.ctrlKey || event.metaKey || event.altKey) return
+    if (this.state.isOpen || this.cfg.readOnly || !this.single || !isCharacterKey(event)) return
     // useTypeahead on the closed trigger (trigger:L92-107): a printable key selects the next item whose label starts with the buffer.
     this.typeahead ??= triggerTypeahead({ timeout: TYPEAHEAD_RESET_MS, onMatch: (item) => this.state.setSelected([item.k], "none") })
     this.typeahead.push(event.key, this.cfg.items, this.selected)

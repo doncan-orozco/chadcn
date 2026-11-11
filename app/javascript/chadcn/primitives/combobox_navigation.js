@@ -4,6 +4,7 @@
 // Stimulus.
 //
 // Known divergences: none.
+import { isCharacterKey } from "chadcn/primitives/typeahead"
 
 /**
  * The index an ArrowDown / ArrowUp moves the highlight to (-1: none). With `loopFocus` the highlight wraps, passing through "none"
@@ -67,7 +68,7 @@ export function chipArrowKeys(direction) {
  * What a key pressed on a chip does. `focus`: index of the chip that takes focus afterwards (counted after a removal), or null
  * for the input. `prevent`: preventDefault only; `stop`: preventDefault and stopPropagation; `remove`: drop this chip's value;
  * `open`: open the popup.
- * @param {object} keyEvent `key` and the `ctrlKey` / `metaKey` / `altKey` modifiers.
+ * @param {KeyboardEvent|object} keyEvent The key event (`key` and the `ctrlKey` / `metaKey` / `altKey` modifiers).
  * @param {number} index Index of the chip.
  * @param {object} options
  * @param {number} options.count Number of chips.
@@ -77,7 +78,8 @@ export function chipArrowKeys(direction) {
  * @example
  * chipKeyAction({ key: "Backspace" }, 2, { count: 3, selectedCount: 3, arrows }) // { focus: 1, remove: true, stop: true }
  */
-export function chipKeyAction({ key, ctrlKey, metaKey, altKey }, index, { count, selectedCount, arrows }) {
+export function chipKeyAction(keyEvent, index, { count, selectedCount, arrows }) {
+  const { key } = keyEvent
   if (key === arrows.previous) return { focus: index > 0 ? index - 1 : null, prevent: true }
   if (key === arrows.next) return { focus: index < count - 1 ? index + 1 : null, prevent: true }
   if (key === "Backspace" || key === "Delete") {
@@ -86,7 +88,7 @@ export function chipKeyAction({ key, ctrlKey, metaKey, altKey }, index, { count,
   }
   if (key === "Enter" || key === " ") return { focus: null, stop: true }
   if (key === "ArrowDown" || key === "ArrowUp") return { focus: null, stop: true, open: true }
-  if (key.length === 1 && !ctrlKey && !metaKey && !altKey) return { focus: null }
+  if (isCharacterKey(keyEvent)) return { focus: null }
   return { focus: index }
 }
 

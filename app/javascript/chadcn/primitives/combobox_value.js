@@ -35,6 +35,7 @@ export class ComboboxValue {
     this.chips().forEach((chip, index) => this.chipKeys.set(chip, selected[index]))
     this.writing = false
     this.clearExit = null
+    this.clearFrame = 0
   }
 
   /**
@@ -84,7 +85,8 @@ export class ComboboxValue {
   #syncInputs(selected) {
     const { single, required, name } = this.config
     this.#write(this.hidden, single ? (selected[0] ?? "") : "")
-    if (this.hidden) this.hidden.required = required && !(!single && selected.length)
+    if (!this.hidden) return
+    this.hidden.required = required && !(!single && selected.length)
     if (single || !name) return
     // React keys these inputs by value: the ones that stay keep their node.
     const current = new Map([...this.host.querySelectorAll(part("form-value"))].map((input) => [input.value, input]))
@@ -123,6 +125,7 @@ export class ComboboxValue {
    * @returns {T|undefined}
    */
   autofilled(items) {
+    if (!this.hidden) return undefined
     const wanted = this.hidden.value.toLowerCase()
     return items.find(({ k, l }) => k.toLowerCase() === wanted || l.toLowerCase() === wanted)
   }
@@ -173,18 +176,20 @@ export class ComboboxValue {
     if (visible && !live) {
       const fragment = template.content.cloneNode(true)
       const button = fragment.firstElementChild
+      if (!button) return
       button.setAttribute("data-visible", "")
       if (open) button.setAttribute("data-popup-open", "")
       template.after(fragment)
     } else if (visible && live) {
       live.removeAttribute("data-ending-style")
       live.setAttribute("data-visible", "")
+      cancelAnimationFrame(this.clearFrame)
       this.clearExit = null
     } else if (!visible && live && !live.hasAttribute("data-ending-style")) {
       live.removeAttribute("data-visible")
       live.setAttribute("data-ending-style", "")
       const token = (this.clearExit = Symbol("clear"))
-      requestAnimationFrame(async () => {
+      this.clearFrame = requestAnimationFrame(async () => {
         await Promise.all(live.getAnimations().map((animation) => animation.finished.catch(() => {})))
         if (this.clearExit === token) live.remove()
       })
@@ -193,10 +198,11 @@ export class ComboboxValue {
   }
 
   /**
-   * Turbo snapshot: a Clear button still running its exit with nothing selected leaves at once.
+   * Turbo snapshot and disconnect: a Clear button still running its exit with nothing selected leaves at once.
    * @param {boolean} visible Something is selected.
    */
   resetClear(visible) {
+    cancelAnimationFrame(this.clearFrame)
     this.clearExit = null
     const leaving = this.host.querySelector(part("clear"))
     if (leaving?.hasAttribute("data-ending-style") && !visible) leaving.remove()
