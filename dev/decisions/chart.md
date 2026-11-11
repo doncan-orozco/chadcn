@@ -302,6 +302,6 @@ Built as the Decision above says (option C, opt-in with `relayout_url:`, A as th
 - **The interim scaling starts with the first size that differs from `dimension`**, before the debounce, and stays after an error
   answer; `turbo:before-cache` removes it with the request, the restore observes the box again. No request leaves a Turbo preview.
 - **Proof.** G2 compares the server render at 320, 480 and 640 px (`resize__bar-*`, `resize__pie-*` scenarios). The browser test
-  (`test/javascript/chart.test.mjs`, "Resize") answers the request with the Phlex parity page at the requested width and compares the
+  (`test/javascript/chart_resize.test.mjs`; the lifecycle in `chart_resize_lifecycle.test.mjs`, apart from `chart.test.mjs` to keep each file within node:test's per-file timeout on CI) answers the request with the Phlex parity page at the requested width and compares the
   swapped chart with recharts resized in the browser from 320 to 480 and 640 px (bar) and to 640 px (pie), under G2's rules: 0 differences.
   The stimulus R1/R6 exception is recorded in `.ai/skills/stimulus/SKILL.md` ("Recorded exception: the chart re-layout").

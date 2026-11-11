@@ -2,7 +2,7 @@ import { assert, primitiveTest } from "./primitives_support.mjs";
 
 // chart_relayout (dev/port/specs/chart.md, "Behavior", "Resize and re-measure"): the pure half of the re-layout of chadcn--chart
 // (sizes, the request URL, the chart in the response) and the two DOM helpers it composes (the settled-size observer, the interim
-// scaling). The request, the swap and the events are the controller's, covered in chart.test.mjs.
+// scaling). The request, the swap and the events are the controller's, covered in chart_resize.test.mjs and chart_resize_lifecycle.test.mjs.
 
 primitiveTest("chart_relayout: roundedSize rounds to whole pixels", async (page) => {
   const result = await page.evaluate(async () => {

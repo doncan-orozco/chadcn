@@ -6721,7 +6721,7 @@
         ".recharts-cartesian-grid line",
         ".recharts-bar-rectangle path"
       ],
-      "note": "Resize (item #107): one bar chart laid out at 320x200, 480x300 and 640x400 (same id resize-bar). G2 proves the server render at each size against recharts; test/javascript/chart.test.mjs answers the re-layout request of the 320 chart with the Phlex page of the 480 and 640 scenarios and compares the swapped chart with recharts resized in the browser."
+      "note": "Resize (item #107): one bar chart laid out at 320x200, 480x300 and 640x400 (same id resize-bar). G2 proves the server render at each size against recharts; test/javascript/chart_resize.test.mjs answers the re-layout request of the 320 chart with the Phlex page of the 480 and 640 scenarios and compares the swapped chart with recharts resized in the browser."
     },
     {
       "id": "resize__bar-480",
