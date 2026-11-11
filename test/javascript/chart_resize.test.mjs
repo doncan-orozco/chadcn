@@ -4,12 +4,14 @@
 import test from "node:test";
 import { assert } from "./support.mjs";
 import {
-  CHART, chartValue, RESIZE_OBSERVE, answerRelayout, withResizable, resizeTo, relayoutEvents, waitForEvents, chartNodes, nodeDifferences, rechartsAt,
+  CHART, chartValue, RESIZE_OBSERVE, answerRelayout, withResizable, resizeTo, relayoutEvents, waitForEvents, chartNodes, nodeDifferences, pageMetrics,
+  rechartsAt,
 } from "./chart_resize_support.mjs";
 
 test("chart: a chart with relayout_url: follows its container from 320 to 480 to 640 px and matches recharts at each width", () => withResizable("bar", async (page, enable) => {
   const requests = await answerRelayout(page, "bar");
   await enable();
+  const metrics = await pageMetrics(page);
 
   await resizeTo(page, 480);
   await waitForEvents(page, 1);
@@ -25,7 +27,7 @@ test("chart: a chart with relayout_url: follows its container from 320 to 480 to
 
   assert.equal(requests.length, 2, "the first request ever was for the 480 box: none at the size the server laid out");
   assert.deepEqual(requests[0], {
-    source: "test", "chart[id]": "resize-bar", "chart[width]": "480", "chart[height]": "300", "chart[text_height]": "18", "chart[text_char_width]": "0.6",
+    source: "test", "chart[id]": "resize-bar", "chart[width]": "480", "chart[height]": "300", ...metrics,
   });
 }));
 

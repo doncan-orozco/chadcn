@@ -87,7 +87,8 @@ class Chadcn::Chart::Polar::Layout
   # @return [Array<Hash>]
   def rows = @chart.rows
 
-  # The height the legend takes: its `height:` when that is a number, else the assumed height of its content (`legend_height:`).
+  # The height the legend takes: its `height:` when that is a number, else the height the container measured (`Container legend_height:`,
+  # re-measure), else the assumed height of its content (`Legend legend_height:`).
   #
   # @api private
   # @return [Numeric, nil] nil without a legend
@@ -95,7 +96,9 @@ class Chadcn::Chart::Polar::Layout
     legend = @declared.legend&.options
     return unless legend
 
-    legend[:height].is_a?(Numeric) ? legend[:height] : legend[:legend_height]
+    return legend[:height] if legend[:height].is_a?(Numeric)
+
+    @chart.legend_height || legend[:legend_height]
   end
 
   private

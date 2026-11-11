@@ -136,7 +136,8 @@ class Chadcn::Chart::Polar::Root < Chadcn::Base
       type: self.class::CHART_TYPE, layout: self.class::LAYOUT, width: dimension[:width], height: dimension[:height], margin: @options[:margin],
       rows: @options[:data], text: text, cx: @options[:cx], cy: @options[:cy], inner_radius: @options[:inner_radius],
       outer_radius: @options[:outer_radius], start_angle: @options[:start_angle], end_angle: @options[:end_angle],
-      bar_category_gap: @options[:bar_category_gap], bar_gap: @options[:bar_gap], bar_size: @options[:bar_size], max_bar_size: @options[:max_bar_size]
+      bar_category_gap: @options[:bar_category_gap], bar_gap: @options[:bar_gap], bar_size: @options[:bar_size], max_bar_size: @options[:max_bar_size],
+      legend_height: container&.legend_height
     )
   end
 

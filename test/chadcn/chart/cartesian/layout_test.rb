@@ -9,7 +9,8 @@ class Chadcn::Chart::Cartesian::LayoutTest < Chadcn::TestCase
     declared = Chadcn::Chart::Cartesian::Declared.new
     parts.each { |part| declared.declare(part) }
     settings = { type: type, direction: direction, width: width, height: height, margin: margin, rows: data, text: Chadcn::Chart::Cartesian::Text.new,
-                 bar_category_gap: "10%", bar_gap: 4, bar_size: nil, max_bar_size: nil, stack_offset: :none, reverse_stack_order: false, base_value: nil }
+                 bar_category_gap: "10%", bar_gap: 4, bar_size: nil, max_bar_size: nil, stack_offset: :none, reverse_stack_order: false, base_value: nil,
+                 legend_height: nil }
     Chadcn::Chart::Cartesian::Layout.new(declared, Chadcn::Chart::Cartesian::ChartSettings.new(**settings, **chart))
   end
 

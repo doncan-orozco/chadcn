@@ -8,10 +8,12 @@
 # The chart is laid out on the server at `initial_dimension` (320x200 by default). Without `relayout_url:` it keeps that size whatever its
 # container does (dev/port/deviations/chart.json). With `relayout_url:` (a same-origin URL that answers with this chart) `chadcn--chart`
 # follows the size of the container like recharts' `ResponsiveContainer`: once the box has settled at another size it requests the chart
-# from that URL at the measured size and swaps it in; the host reads the request with {.relayout_options} (dev/port/specs/chart.md,
-# "Behavior", "Resize and re-measure"). `**attrs` land on the div (`class:` merged last). The div is the element of the Stimulus
-# controller `chadcn--chart` (always, so a Turbo-streamed container is wired too) and carries every value of it: the chart inside hands
-# them over ({#publish_chart_values}), Stimulus reads values from the controller element only.
+# from that URL at the measured size and swaps it in; after the fonts load it also measures the tick text and the legend box like recharts
+# and requests the chart again when they differ from `text_height:`, `text_char_width:` and the legend height the server assumed. The host
+# reads the request with {.relayout_options} (dev/port/specs/chart.md, "Behavior", "Resize and re-measure"). `**attrs` land on the div
+# (`class:` merged last). The div is the element of the Stimulus controller `chadcn--chart` (always, so a Turbo-streamed container is
+# wired too) and carries every value of it: the chart inside hands them over ({#publish_chart_values}), Stimulus reads values from the
+# controller element only.
 #
 # @example
 #   render Chadcn::Chart::Container.new(config: { desktop: { label: "Desktop", color: "var(--chart-1)" } }) do |container|
@@ -55,10 +57,15 @@ class Chadcn::Chart::Container < Chadcn::Base
   attr_reader :chart_id
   # @return [Hash{Symbol => Numeric}] `width` and `height` the chart is laid out at
   attr_reader :initial_dimension
-  # @return [Numeric] server assumption for the height of a line of tick text (not re-measured in the browser)
+  # @return [Numeric] height of a line of tick text, what the chart is laid out with: an assumption, or what `chadcn--chart`
+  #   measured, read from the request by {.relayout_options}
   attr_reader :text_height
-  # @return [Numeric] server assumption for the width of a character in em
+  # @return [Numeric] average width of a tick label character in em of 12px, what the chart is laid out with: an assumption, or what
+  #   `chadcn--chart` measured, read from the request by {.relayout_options}
   attr_reader :text_char_width
+  # @return [Numeric, nil] height of the legend box, what the chart is laid out with: what `chadcn--chart` measured, read from the
+  #   request by {.relayout_options}; nil leaves the legend's own `legend_height:` assumption
+  attr_reader :legend_height
   # @return [String, nil] where `chadcn--chart` requests this chart at the size of its container; nil when it keeps `initial_dimension`
   attr_reader :relayout_url
 
@@ -66,7 +73,7 @@ class Chadcn::Chart::Container < Chadcn::Base
   # The browser's RELAYOUT_MAX_SIZE in primitives/chart_relayout.js is the same number.
   RELAYOUT_MAX_SIZE = 4096
   # Bounds of the text metrics {.relayout_options} accepts; the keys are the container keywords they become.
-  RELAYOUT_METRIC_BOUNDS = { text_height: 256, text_char_width: 4 }.freeze
+  RELAYOUT_METRIC_BOUNDS = { text_height: 256, text_char_width: 4, legend_height: 256 }.freeze
 
   # Adds a component after the responsive shell, rendered as the last children of the `div[data-slot="chart"]` (what a chart inside writes
   # there: the inert tooltip templates `chadcn--chart` swaps in, dev/port/specs/chart.md "Tooltip"). Call it while the container's block runs.
@@ -102,22 +109,22 @@ class Chadcn::Chart::Container < Chadcn::Base
     @chart_values = values
   end
 
-  # The height of the chart's legend box, which the `textMetrics` value of the re-layout carries (nil: the chart has no legend).
+  # The height of the legend box the chart was laid out with, which the `textMetrics` value of the re-layout carries as the served
+  # `legendHeight` (nil: the chart has no legend).
   #
   # @api private
   # @param height [Numeric, nil]
   # @return [void]
   def publish_legend_height(height)
-    @legend_height = height
+    @served_legend_height = height
   end
 
   # The container keywords for the re-layout request `chadcn--chart` sends to `relayout_url:` (query parameters `chart[id]`,
-  # `chart[width]`, `chart[height]`, `chart[text_height]`, `chart[text_char_width]`), for the chart named `id:`; splat it into `new`.
-  # Only the keys present come back, each a positive finite number within its bound (`width` and `height` at most {RELAYOUT_MAX_SIZE}, the
-  # text metrics at most {RELAYOUT_METRIC_BOUNDS}); `initial_dimension:` needs both `width` and `height`. A request for
-  # another chart, or no request, gives `{}`: the chart renders at its own defaults. `params` is read with `key?` and `[]` (string or symbol
-  # keys), so a Hash and unpermitted `ActionController::Parameters` both work. `chart[legend_height]` is not read yet: the
-  # re-measure item adds `legend_height:` to the container.
+  # `chart[width]`, `chart[height]` and the measured `chart[text_height]`, `chart[text_char_width]`, `chart[legend_height]`), for the
+  # chart named `id:`; splat it into `new`. Only the keys present come back, each a positive finite number within its bound (`width` and
+  # `height` at most {RELAYOUT_MAX_SIZE}, the metrics at most {RELAYOUT_METRIC_BOUNDS}); `initial_dimension:` needs both `width` and
+  # `height`. A request for another chart, or no request, gives `{}`: the chart renders at its own defaults. `params` is read with `key?`
+  # and `[]` (string or symbol keys), so a Hash and unpermitted `ActionController::Parameters` both work.
   #
   # @param params [#key?, #[], nil] the request parameters
   # @param id [String, Symbol] the container's `id:`
@@ -125,6 +132,9 @@ class Chadcn::Chart::Container < Chadcn::Base
   # @example
   #   Chadcn::Chart::Container.relayout_options({ "chart" => { "id" => "sales", "width" => "640", "height" => "400" } }, id: "sales")
   #   # => { initial_dimension: { width: 640, height: 400 } }
+  # @example The metrics measured in the browser
+  #   Chadcn::Chart::Container.relayout_options({ "chart" => { "id" => "sales", "text_height" => "14", "legend_height" => "26" } }, id: "sales")
+  #   # => { text_height: 14, legend_height: 26 }
   def self.relayout_options(params, id:) = Chadcn::Chart::Relayout.options(params, id: id)
 
   # The container the current render is inside, or nil. Used by the contents and the chart roots (React's `useChart`).
@@ -138,24 +148,28 @@ class Chadcn::Chart::Container < Chadcn::Base
   # @param id [String, Symbol, nil] names the chart (`data-chart="chart-<id>"`); a random token when nil, which makes every render
   #   different: pass `id:` where the output is cached, morphed or compared
   # @param initial_dimension [Hash] `width:` and `height:` in px
-  # @param text_height [Numeric]
-  # @param text_char_width [Numeric]
+  # @param text_height [Numeric] height of a line of tick text, px
+  # @param text_char_width [Numeric] average width of a tick label character, em of 12px
+  # @param legend_height [Numeric, nil] height of the legend box, px; wins over the legend's `legend_height:` (not over a numeric
+  #   `height:` of the legend); nil keeps the legend's
   # @param relayout_url [String, nil] a same-origin URL that answers with this chart (see {.relayout_options}); nil keeps
   #   `initial_dimension` whatever the size of the container
   # @param attrs [Hash] attributes of the div; `class:` is merged last
   # @raise [ArgumentError] on an invalid id, config or dimension
-  def initialize(config:, id: nil, initial_dimension: DEFAULT_DIMENSION, text_height: 16, text_char_width: 0.6, relayout_url: nil, **attrs)
+  def initialize(config:, id: nil, initial_dimension: DEFAULT_DIMENSION, text_height: 16, text_char_width: 0.6, legend_height: nil,
+                 relayout_url: nil, **attrs)
     @config = Chadcn::Chart::Config.new(config)
     @chart_id = "chart-#{validated_chart_id(id)}"
     @initial_dimension = validated_dimension(initial_dimension)
     @text_height = validated_measure(:text_height, text_height)
     @text_char_width = validated_measure(:text_char_width, text_char_width)
+    @legend_height = legend_height.nil? ? nil : validated_measure(:legend_height, legend_height)
     @relayout_url = validated_relayout_url(relayout_url)
     @attrs = attrs
     @after_shell = []
     @chart = nil
     @chart_values = {}
-    @legend_height = nil
+    @served_legend_height = nil
     super()
   end
 
@@ -180,7 +194,7 @@ class Chadcn::Chart::Container < Chadcn::Base
     return {} unless @relayout_url
 
     metrics = { textHeight: @text_height, textCharWidth: @text_char_width }
-    metrics[:legendHeight] = @legend_height if @legend_height
+    metrics[:legendHeight] = @served_legend_height if @served_legend_height
     { chadcn__chart_relayout_url_value: @relayout_url, chadcn__chart_dimension_value: json(@initial_dimension),
       chadcn__chart_text_metrics_value: json(metrics) }
   end

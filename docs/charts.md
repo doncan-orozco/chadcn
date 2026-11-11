@@ -320,7 +320,8 @@ addition). `Tooltip::Content` and `Legend::Content` can also be rendered on thei
 **`Chart::Legend`** (`ChartLegend`): `content:`, `vertical_align:` (`:top`, `:middle`, `:bottom`), `align:`, `layout:`, `width:`, `height:`,
 `wrapper_style:`, `item_sorter:` (`:value` sorts the entries by name, `nil` keeps the series order). **`Legend::Content`**: `hide_icon:`,
 `name_key:`. A series with `legend_type: :none` is left out. The legend takes room from the plot, and the server cannot measure it: `legend_height:`
-(28 px, a `pt-3` plus a 16 px line) is the assumption, so change it if your legend wraps or your font is taller.
+(28 px, a `pt-3` plus a 16 px line) is the assumption, so change it if your legend wraps or your font is taller, or give the container a
+`relayout_url:` and the browser measures it (`Container legend_height:`, see "Following the container").
 
 Where the tooltip *shows* depends on the chart: a bar, line, area, radar and radial chart have an axis tooltip (all series of the hovered
 category), a pie has an item tooltip (the hovered sector). `shared: false` asks recharts for item tooltips: on a `BarChart` or a
@@ -386,8 +387,9 @@ it: give the container a `relayout_url:` that answers with the same chart, and r
 `Chart::Container.relayout_options(params, id:)`.
 
 ```ruby
-# What the request of chadcn--chart carries, here for a box of 640 x 400 px (in a Rails view it is the `params` of the request).
-params = { "chart" => { "id" => "sales", "width" => "640", "height" => "400", "text_height" => "16", "text_char_width" => "0.6" } }
+# What the request of chadcn--chart carries, here for a box of 640 x 400 px and the text it measured (in a Rails view it is the `params`
+# of the request).
+params = { "chart" => { "id" => "sales", "width" => "640", "height" => "400", "text_height" => "14", "text_char_width" => "0.5622" } }
 
 render Chadcn::Chart::Container.new(config: { desktop: { label: "Desktop", color: "var(--chart-1)" } }, id: "sales", class: "aspect-auto h-64 w-full",
                                     relayout_url: "/reports/sales/chart", **Chadcn::Chart::Container.relayout_options(params, id: "sales")) do
@@ -412,8 +414,10 @@ end
 
 How it behaves (`app/javascript/controllers/chadcn/chart_controller.js`, spec: `dev/port/specs/chart.md`, "Resize and re-measure"):
 
-- The controller waits until the box has kept one size for 150 ms, rounds it to whole pixels and requests the chart only when that size is
-  not the one the server drew (`chart[id]`, `chart[width]`, `chart[height]` and the text metrics are added to the URL's own query).
+- The controller waits until the box has kept one size for 150 ms, rounds it to whole pixels, waits for the page's fonts
+  (`document.fonts.ready`) and measures the text the way recharts does (below). It requests the chart only when that size is not the one
+  the server drew, or the measured text is not what the server assumed (`chart[id]`, `chart[width]`, `chart[height]` and the measured
+  `chart[text_height]`, `chart[text_char_width]` and, with a legend, `chart[legend_height]` are added to the URL's own query).
 - Until the answer arrives the drawn chart is scaled into its box, so it never overflows or goes blank; then the answer replaces it, with
   the tooltip, the keyboard index and the focus carried over, and `chadcn--chart:relayout` (`detail: { width, height }`) bubbles from the
   new chart.
@@ -424,9 +428,15 @@ How it behaves (`app/javascript/controllers/chadcn/chart_controller.js`, spec: `
 - Without JavaScript, in a Turbo preview, an email or a PDF, the chart is the one drawn at `initial_dimension:`.
 
 The server also has to *assume* what only a browser can measure: `Container text_height:` (16) and `text_char_width:` (0.6 em), which decide
-how far the last tick of a vertical axis moves inside the plot and which tick labels collide, and `Legend legend_height:` (28). With a font
-other than the page's 12 px text, a label can shift by up to half a line. The re-layout request sends these assumptions back as they are;
-measuring them in the browser is the next step (not built yet).
+how far the last tick of a vertical axis moves inside the plot and which tick labels collide, and `Legend legend_height:` (28). With
+`relayout_url:` the controller measures them once the fonts are ready, like recharts: each tick label in a hidden `white-space: pre` span
+at the tick's font size (the height of a line, and the average width of a character), and the box of the legend. When they differ from what
+the server laid out with, it requests the chart with the measured values, and `relayout_options` hands them to the container
+(`text_height:`, `text_char_width:`, `legend_height:`), so the labels that exist, where they sit and the plot area match recharts in your font.
+Every answer is marked with the size its text was measured at, and a chart so marked does not ask again at that size, even if the host ignored the values; one change (a resize or a font) costs one request. A legend that wraps differently, or a different tick subset, at the new size is not corrected until the next change, because the metrics sent with a resize were measured on the previous layout. Without
+`relayout_url:` (and before the answer, and without JavaScript) the assumptions stay: set the keywords to match your font. One difference
+remains: the server estimates a label's width as its length times the measured average, where recharts measures each label, so in a
+proportional font a label right at the collision threshold can be kept or dropped differently.
 
 ## What is different from recharts
 

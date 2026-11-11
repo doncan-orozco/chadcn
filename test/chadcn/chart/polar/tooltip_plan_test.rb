@@ -14,7 +14,7 @@ class Chadcn::Chart::Polar::TooltipPlanTest < Chadcn::TestCase
     settings = Chadcn::Chart::Polar::ChartSettings.new(
       type: type, layout: chart_class::LAYOUT, width: 320, height: 200, margin: { top: 5, right: 5, bottom: 5, left: 5 }, rows: rows,
       text: Chadcn::Chart::Cartesian::Text.new, cx: "50%", cy: "50%", inner_radius: 0, outer_radius: "80%", bar_category_gap: "10%", bar_gap: 4,
-      bar_size: nil, max_bar_size: nil, **angles
+      bar_size: nil, max_bar_size: nil, legend_height: nil, **angles
     )
     layout = Chadcn::Chart::Polar::Layout.new(declared, settings)
     [ Chadcn::Chart::Polar::TooltipPlan.new(layout: layout, declared: declared, rows: rows, event_type: event_type), layout ]

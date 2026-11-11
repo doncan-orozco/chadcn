@@ -232,10 +232,11 @@ Items (GitHub issue numbers; the PRs are in each issue's `shared` note):
 
 Where the build differs from the proposal:
 
-- **The post-font-load re-measure pass was not built** (the Decision's fourth bullet and the Risks paragraph describe it). The controller does not
-  re-measure tick labels, the legend or the tooltip, there is no `tickTemplate`, the axes do not write a `value` for it, and the legend has no
-  controller target. The server's assumptions (`Container text_height:` 16, `text_char_width:` 0.6, `Legend legend_height:` 28) stay assumptions; the
-  G2 gate pins them to the page (below).
+- **The post-font-load re-measure pass was not built** by this epic (the Decision's fourth bullet and the Risks paragraph describe it). The
+  controller did not re-measure tick labels, the legend or the tooltip, there is no `tickTemplate`, the axes do not write a `value` for it, and
+  the legend has no controller target. The server's assumptions (`Container text_height:` 16, `text_char_width:` 0.6, `Legend legend_height:` 28)
+  stayed assumptions; the G2 gate pins them to the page (below). Superseded: the re-measure was built later as a re-layout request (item #108
+  of the `review-gaps` epic, "Resize and re-measure" and its As built note); it needs `relayout_url:`.
 - **`chadcn--chart` as built**: `Container` is always the controller element and carries 20 values (`layout`, `keyboardStep`, `accessibilityLayer`,
   `ticks`, `plot`, the four interaction states, `defaultIndex`, `tooltipEventType`, `trigger`, `tooltipActive`, `offset`, `allowEscape`,
   `reverseDirection`, `position`, `transition`, `transitionAuto`, `wrapperStyle`); the part wiring is `Cartesian::Wiring`. The controller handles
@@ -294,7 +295,7 @@ Built as the Decision above says (option C, opt-in with `relayout_url:`, A as th
 - **The values exist only with a URL.** `relayoutUrl`, `dimension` and `textMetrics` are written on the container only when it has a
   `relayout_url:`, so a container without one renders byte for byte what 0.1.0 rendered (`test/chadcn/chart/container_relayout_test.rb`).
   The chart roots hand their legend box height to the container (`publish_legend_height`) for `textMetrics`.
-- **`relayout_options` does not read `chart[legend_height]` yet**: the container has no `legend_height:` keyword until #108, and a key
+- **`relayout_options` does not read `chart[legend_height]` yet** (read since #108): the container has no `legend_height:` keyword until #108, and a key
   it does not take would break the splat. The request already carries it when the chart has a legend.
 - **Bounds and errors** (the open advisory of #96): a box under 1 px or over 4096 px is never requested and stays scaled into its box;
   `relayout_options` drops a value outside its bound or not written as a plain decimal number; a cross-origin `relayout_url:` is never
@@ -305,3 +306,27 @@ Built as the Decision above says (option C, opt-in with `relayout_url:`, A as th
   (`test/javascript/chart_resize.test.mjs`; the lifecycle in `chart_resize_lifecycle.test.mjs`, apart from `chart.test.mjs` to keep each file within node:test's per-file timeout on CI) answers the request with the Phlex parity page at the requested width and compares the
   swapped chart with recharts resized in the browser from 320 to 480 and 640 px (bar) and to 640 px (pie), under G2's rules: 0 differences.
   The stimulus R1/R6 exception is recorded in `.ai/skills/stimulus/SKILL.md` ("Recorded exception: the chart re-layout").
+
+### Item #108: the re-measure half of "Resize and re-measure" (`review-gaps` epic)
+
+Built as the Decision above says (the same request as the resize, `relayout_url:` needed); where the build is more precise:
+
+- **The measurement** is `app/javascript/chadcn/primitives/chart_measure.js`: each `.recharts-cartesian-axis-tick-value` label in recharts'
+  `white-space: pre` span under `body`, at the font size and letter spacing of the first tick's computed style (recharts reads both from the
+  tick, `cartesian/CartesianAxis.js`, the font family is the body's in both), rounded to 4 decimals; the legend box of
+  `.recharts-legend-wrapper`. A chart without tick labels (a pie) keeps the served text metrics. The controller measures on every settled
+  size, after `document.fonts.ready`, and sends the measured metrics with every request, so one request covers a resize and a font.
+- **`Chart::Container legend_height:` wins over `Legend legend_height:`** (the spec first said the opposite): the request carries what was
+  measured, and the other order would re-request forever when a `Legend` sets `legend_height:`. A numeric `Legend height:` still wins over
+  both (the box has that height). The cartesian and polar `ChartSettings` carry it to the layouts (`legend_box_height`).
+- **One metrics request per size** (`measuredAt`, written by `swap` on every answer): a host that
+  ignores the metrics, or a label subset that flips the average glyph width between two layouts, costs one request, never a loop. Every
+  answer carries it (each request sends the metrics measured after the fonts loaded); a resize still requests, so one change costs one
+  request; what the new layout would measure differently (a legend that wraps at the new width, another tick subset) waits for the next
+  change.
+- **Proof.** `test/javascript/chart_remeasure.test.mjs` (its own file for CI's per-file timeout) opens a host action of the dummy app,
+  `chart_relayouts#show`, which renders a parity scenario with `relayout_options(params)` like an application; in a font with 14 px lines
+  and 14 px letter spacing (a 26 px legend, glyphs 1.77 em wide, every other month label dropped) the swapped `legend__bottom` chart equals
+  recharts in the same font under G2's rules (0 differences), the same page without the re-measure differs, a page laid out at the measured
+  metrics sends nothing, a pie (no ticks, no legend) sends nothing, and a host that ignores the metrics gets exactly one request. The
+  resize tests (`chart_resize*.test.mjs`) write the page's measured metrics as the served ones, so they stay about the size.
