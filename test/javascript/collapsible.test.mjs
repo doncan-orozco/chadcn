@@ -1,5 +1,5 @@
 import { browserTest } from "./harness.mjs"
-import { assert, consoleErrors, settle } from "./support.mjs"
+import { assert, consoleErrors, reconnect, settle } from "./support.mjs"
 import { restore, snapshot } from "./turbo_support.mjs"
 
 // chadcn--collapsible against its parity pages (spec: dev/port/specs/collapsible.md): pointer and keyboard, root, trigger and
@@ -26,7 +26,7 @@ const state = (page) => page.evaluate(({ root, triggers, content }) => {
   return {
     root: host.dataset.state,
     triggers: [...host.querySelectorAll(triggers)].map((el) => ({
-      state: el.dataset.state, expanded: el.getAttribute("aria-expanded"), controls: el.getAttribute("aria-controls")
+      state: el.dataset.state, expanded: el.getAttribute("aria-expanded"), controls: el.hasAttribute("aria-controls") ? el.getAttribute("aria-controls") === region?.id : null
     })),
     content: region && { state: region.dataset.state, hidden: region.hidden, body: region.textContent.trim() }
   }
@@ -34,7 +34,7 @@ const state = (page) => page.evaluate(({ root, triggers, content }) => {
 
 const openState = (count = 1, body = "Hidden content") => ({
   root: "open",
-  triggers: Array.from({ length: count }, () => ({ state: "open", expanded: "true", controls: "collapsible-1-content" })),
+  triggers: Array.from({ length: count }, () => ({ state: "open", expanded: "true", controls: true })),
   content: { state: "open", hidden: false, body }
 })
 const closedState = (count = 1) => ({
@@ -74,9 +74,7 @@ browserTest("collapsible: every trigger of a root reflects and drives the shared
   const page = await open("multiple-triggers__shared-state")
   await page.getByRole("button", { name: "Open details" }).click()
   await settle(page)
-  const opened = await state(page)
-  assert.notEqual(opened.content.body, "", "the body is mounted")
-  assert.deepEqual(opened, openState(2, opened.content.body))
+  assert.deepEqual(await state(page), openState(2, "Details"))
   await page.getByRole("button", { name: "Close details" }).click()
   await settle(page)
   assert.deepEqual(await state(page), closedState(2))
@@ -140,14 +138,7 @@ browserTest("collapsible: an exit animation that ends after disconnect leaves th
 browserTest("collapsible: an open content moved in the DOM still closes and reopens with its body", async ({ open }) => {
   const page = await open("default-open__rest")
   const errors = consoleErrors(page)
-  await page.evaluate(async (root) => {
-    const host = document.querySelector(root)
-    const parent = host.parentNode
-    host.remove()
-    await new Promise((resolve) => setTimeout(resolve))
-    parent.append(host)
-    await new Promise((resolve) => setTimeout(resolve))
-  }, root)
+  await reconnect(page, "chadcn--collapsible")
   await page.click(triggers)
   await settle(page)
   assert.deepEqual(await state(page), closedState())

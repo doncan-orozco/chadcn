@@ -79,11 +79,11 @@ browserTest("accordion: a non-collapsible single accordion locks its open item",
 browserTest("accordion: a collapsible single accordion closes its open item and reports an empty value", async ({ open }) => {
   const page = await open("single__collapsible__default-value-open")
   await recordValues(page)
-  const [name] = await page.locator("[data-slot=accordion-item][data-state=open] [data-slot=accordion-trigger]").allTextContents()
-  assert.equal(await trigger(page, name.trim()).getAttribute("aria-disabled"), null, "collapsible never locks the open item")
-  await trigger(page, name.trim()).click()
+  const openName = (await page.locator("[data-slot=accordion-item][data-state=open] [data-slot=accordion-trigger]").textContent()).trim()
+  assert.equal(await trigger(page, openName).getAttribute("aria-disabled"), null, "collapsible never locks the open item")
+  await trigger(page, openName).click()
   await settle(page)
-  assert.deepEqual(await itemState(page, name.trim()), CLOSED)
+  assert.deepEqual(await itemState(page, openName), CLOSED)
   assert.deepEqual(await values(page), [""])
 })
 
@@ -157,6 +157,8 @@ browserTest("accordion: a vertical accordion ignores ArrowLeft and ArrowRight", 
   await page.keyboard.press("ArrowRight")
   await page.keyboard.press("ArrowLeft")
   assert.equal(await focused(page), "Is it styled?")
+  await page.keyboard.press("ArrowDown")
+  assert.equal(await focused(page), "Is it animated?", "control: the vertical axis still moves focus")
 })
 
 browserTest("accordion: a horizontal RTL accordion moves forward on ArrowLeft and ignores ArrowDown", async ({ open }) => {

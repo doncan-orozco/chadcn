@@ -88,11 +88,14 @@ browserTest("toggle: inside a form a click and Enter toggle without submitting i
     window.__submits = 0
     document.querySelector("form").addEventListener("submit", (event) => { event.preventDefault(); window.__submits++ })
   })
+  await recordPressed(page)
   await page.click(toggle)
+  assert.deepEqual(await state(page), ON, "the click toggles")
   await page.focus(toggle)
   await page.keyboard.press("Enter")
   await settle(page)
-  assert.deepEqual(await state(page), OFF, "toggled twice")
+  assert.deepEqual(await state(page), OFF, "Enter toggles back")
+  assert.deepEqual(await pressedChanges(page), [true, false])
   assert.equal(await page.evaluate(() => window.__submits), 0)
 })
 
