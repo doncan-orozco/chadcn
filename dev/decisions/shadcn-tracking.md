@@ -40,3 +40,30 @@ Where upstream breaks something and the gem keeps the old behavior for a while, 
 ## How the CHANGELOG records it
 
 The `[Unreleased]` section always carries the registry line of the oracle the code was last checked against. A re-sync pull request updates that line and adds one entry per changed component under Added, Changed or Fixed. Releasing copies the line into the dated section and does not edit it afterwards.
+
+## Styles and Base UI
+
+Decided 2026-11-10 by the maintainer (#101), after checking the live registry the same day.
+
+**Styles: one at a time, never a choice.** The gem tracks exactly one registry style per release (`new-york-v4` today). Upstream now
+serves `{base}-{style}` ids (Vega, Nova, Maia, Lyra, Mira, Luma, Rhea, Sera on Radix, Base UI and React Aria). Between two styles on
+the same base only class strings differ, so a style is a restyle of the gem, not a feature. Offering several would put a class
+table per style in every component and multiply every scenario, parity run, re-sync and the CSS output, for something a user can
+get from the theme file. Out of scope.
+
+**Switching the tracked style: deferred.** `new-york-v4` is still served and unchanged, but it no longer receives new components
+(`code-block`, `questionnaire` and `trace` exist only in the new styles; Vega succeeds New York). Moving to `radix-vega` changes
+about 40% of the class tokens in nearly every component, 7 `data-slot` sets and 3 exports, and drops Form upstream; behavior stays
+Radix. The oracle extraction would take the style as input (`.claude/scripts/shadcn/oracle_extract.rb` writes `new-york-v4` as a
+literal today) and map upstream's icon placeholder back to lucide. It is done as one re-sync epic, released as a minor with a
+"Changed (breaking)" entry, when the first of these happens: upstream deprecates or stops serving `new-york-v4`; a component users
+ask for exists only in the new styles; or a quarterly re-sync finds a fix in `radix-vega` that `new-york-v4` did not get.
+
+**Base UI (and React Aria): out of scope as a variant.** Radix stays the behavior reference even though Base UI is upstream's default
+since July 2026; upstream states Radix is not deprecated and ships new components for both. A Base UI variant is a second behavior
+port (different parts, `render` instead of `asChild`, `data-open` instead of `data-state`, Base UI's drawer instead of vaul) of
+about 40 stateful components and a fork of the Ruby API, invisible to users who render Phlex and Stimulus. A component that upstream
+publishes only for Base UI is ported from its Base UI source as a single component, as Combobox is, and its spec says so. Revisit if
+upstream deprecates Radix or stops shipping fixes or components for its Radix styles.
+
+The README says this in one sentence (#111).
