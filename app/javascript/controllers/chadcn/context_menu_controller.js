@@ -1,13 +1,15 @@
 import { Controller } from "@hotwired/stimulus"
-import { MenuLevel } from "controllers/chadcn/dropdown_menu_controller"
+import { MenuLevel } from "chadcn/primitives/menu_level"
 
 // Radix ContextMenu over the Menu code shared with DropdownMenu. Spec: dev/port/specs/context-menu.md.
 //
 // The controller element is the Trigger (a span). Everything inside the menu (items, subs, typeahead, dismissal, focus,
-// positioning) is the shared MenuLevel from the dropdown-menu controller; this file only adds what ContextMenu changes:
-// the open point (a zero-size virtual anchor), the contextmenu / touch long-press opening and the forced right/start
-// placement (the server renders side: right, sideOffset: 2, align: start into the template options).
+// positioning) is the shared MenuLevel primitive with the DropdownMenu root behavior (the markup uses the dropdown-menu
+// data attributes); this file only adds what ContextMenu changes: the open point (a zero-size virtual anchor), the
+// contextmenu / touch long-press opening, the sub trigger slot and the forced right/start placement (the server renders
+// side: right, sideOffset: 2, align: start into the template options).
 const TEMPLATE = "chadcn--dropdown-menu-template"
+const BEHAVIOR = { subTrigger: "[data-slot=context-menu-sub-trigger]" }
 // The focus is restored by FocusScope to what had it when the Content mounted (there is no trigger to return to).
 class ContextLevel extends MenuLevel {
   teardown() {
@@ -18,8 +20,6 @@ class ContextLevel extends MenuLevel {
 }
 
 export default class extends Controller {
-  subTriggerSelector = "[data-slot=context-menu-sub-trigger]"
-
   static values = {
     open: Boolean,
     controlled: Boolean,
@@ -121,7 +121,7 @@ export default class extends Controller {
   #mount() {
     this.previousFocus = document.activeElement
     this.closeFocus = null
-    this.root = new ContextLevel(this, { anchor: this.anchor, template: this.template, open: this.isOpen })
+    this.root = new ContextLevel(this, { anchor: this.anchor, template: this.template, open: this.isOpen, behavior: BEHAVIOR })
     this.root.mount()
   }
 
