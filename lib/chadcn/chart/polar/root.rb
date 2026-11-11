@@ -158,7 +158,7 @@ class Chadcn::Chart::Polar::Root < Chadcn::Base
     height = Chadcn::Chart::Shape::Number.format(layout.height)
     style = [ "position: relative; cursor: default; width: #{width}px; height: #{height}px;", attrs[:style] ].compact.join(" ")
     wrapper = { width: width, height: height, class: cn("recharts-wrapper", attrs[:class]), style: style }
-    plan&.item_series&.any? ? wrapper.merge(data: { action: Chadcn::Chart::Cartesian::Wiring::ACTION }) : wrapper
+    plan&.item_series&.any? ? wrapper.merge(data: { action: Chadcn::Chart::Cartesian::Wiring::POINTER_ACTION }) : wrapper
   end
 
   # The svg takes `cx` and `cy` of the chart as attributes (container/RootSurface.js spreads the chart's SVG props).

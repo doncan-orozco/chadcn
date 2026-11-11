@@ -126,6 +126,7 @@ class Chadcn::Chart::ItemTooltipTest < Chadcn::TestCase
     assert_includes action, "pointerleave->chadcn--chart#leave"
     assert_includes action, "click->chadcn--chart#click"
     assert_includes action, "keydown@document->chadcn--chart#dismiss"
+    refute_includes action, "focusin", "a polar chart has no keyboard layer yet (item #110)"
   end
 
   test "default_index on an item RadialBarChart draws the first series at that row" do

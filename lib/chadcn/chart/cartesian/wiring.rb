@@ -14,6 +14,9 @@ class Chadcn::Chart::Cartesian::Wiring
   ACTION = %w[pointermove->move pointerleave->leave click->click focusin->focus focusout->blur keydown->key keydown@document->dismiss]
            .map { |descriptor| descriptor.sub("->", "->#{CONTROLLER}#") }.join(" ").freeze
 
+  # The pointer actions alone, and the Escape: what a radial bar chart's item tooltip hears (a polar chart has no keyboard layer yet).
+  POINTER_ACTION = ACTION.split.grep_v(/#(focus|blur|key)\z/).join(" ").freeze
+
   # `offset` of recharts' `Tooltip` (component/Tooltip.js:52): the value of a side the caller left out.
   DEFAULT_OFFSET = 10
 
