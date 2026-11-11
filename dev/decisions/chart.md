@@ -108,7 +108,8 @@ Fixed here so every chart item uses the same one (`Compare` in `dev/spikes/chart
 - **Server render through a Node sidecar running recharts**: renders empty (measured) and needs Node at runtime in a gem for Rails and plain Ruby apps.
 - **Per-chart ad-hoc SVG without recharts' class names**: loses the `chart.tsx` selectors (the theme would need duplicate CSS), and nothing left to compare with the oracle.
 - **Re-layout the chart in the controller on resize** (port `getTicks`, bar sizing, scales to JS as well): doubles the math; deferred. The deviation (layout once at `initial_dimension`) is recorded and
-  the container takes the layout size as a kwarg; a later item may add the JS pass without changing the DOM contract.
+  the container takes the layout size as a kwarg; a later item may add the JS pass without changing the DOM contract. Measured and decided in
+  "Resize and re-measure" below: a server re-layout at the measured size instead.
 
 ## Risks
 
@@ -124,6 +125,82 @@ Fixed here so every chart item uses the same one (`Compare` in `dev/spikes/chart
 The split works: server-rendered DOM equal to recharts' within 0.0 px for the two hardest layouts (stacked rounded bars with legend and tooltip, monotone line with a y axis), a fixed gate contract and
 a reproducible oracle. The only things a human must accept are the recorded deviations in `dev/port/deviations/chart.json` (R14 not followed, layout once at `initial_dimension`, no animation, named formatters in JSON scenarios,
 server-assumed text metrics) and the choice of the oracle (settled client render in Chromium, because server rendering is empty).
+
+## Resize and re-measure
+
+Status: proposed by the spike of item #96 (`review-gaps` epic), 2026-11-10; merging this section approves the mechanism. Proof:
+`dev/spikes/chart-resize/run.rb` (command and numbers in its [README](../spikes/chart-resize/README.md)). Contract: `dev/port/specs/chart.md`,
+"Behavior", "Resize and re-measure". It replaces the "Re-layout the chart in the controller on resize" alternative above (deferred then) and the
+tick-template design of the re-measure pass (spec "Behavior" as written by #44, never built).
+
+### The question
+
+What ships in 0.1.0 is laid out once at `initial_dimension` (320x200) and drawn at that pixel size, with assumed text metrics
+(`text_height:` 16, `text_char_width:` 0.6em, `legend_height:` 28). recharts' `ResponsiveContainer` re-lays out on every resize and measures
+its text in the DOM (`util/DOMUtils.js` `measureTextWithDOM`, `useElementOffset` for the legend). Two things are missing: following the size
+of the container, and correcting the text metrics.
+
+### Options and measurements
+
+The spike draws the stacked bar and the monotone line of the first spike with the gem and with recharts 3.8.0 (Chromium), in 16:9 containers
+of 320x180, 560x315 and 800x450, in the pinned oracle font (`12px/16px monospace`) and in a host font (`12px sans-serif`), and compares the DOM
+(G2 `Compare`, exact tree, 1e-3 px) and the on-screen boxes.
+
+| Option | DOM against recharts at the container's size | On screen | Cost |
+|---|---|---|---|
+| Today (`fixed`) | 47 to 120 differences | up to 480 px off; overflows a smaller box | nothing |
+| **A. Scale the SVG** (`viewBox` is already on the `svg`; `.recharts-wrapper` and its shell at 100%) | 48 to 121 differences (it still holds the 320x200 numbers) | glyphs at 0.90x, 1.57x, 2.25x (a 12 px label drawn 27 px high at 800 px); letterboxed outside 16:10; the HTML legend and tooltip keep their 320 px layout | 0 bytes, 0 ms, CSS only |
+| **B. Re-layout in `chadcn--chart`** (port scales, ticks, paths, bar positions, tick collision to JavaScript) | 0 (same math: the `relayout` rows of the spike are its output) | 0 px | about 3,129 lines of size-dependent Ruby to duplicate (out of 5,404; today's chart JavaScript is 573 lines), plus a parity proof of the JavaScript against the Ruby; about recharts' own 32-38 ms per resize |
+| **C. Server re-render at the measured size** | 0 with the default metrics in the pinned font; 0 in the host font **once the measured metrics are sent along** (58 differences without them: a 26 px legend instead of 28 moves every bar 2 px) | 0 px | 1.3 to 2.4 ms of gem rendering, 18 to 28 KB of HTML (2.5 to 3.2 KB gzipped) per re-layout, plus one request to the host and its round trip; the host must answer that request |
+
+### Decision
+
+- **Resize: C, opt-in per container, with A as the interim state.** A container given a `relayout_url:` re-lays itself out at the size of its
+  box: `chadcn--chart` observes the element's size, waits until it has been stable for a moment (debounce), skips the request when the size
+  (rounded to whole pixels) and the metrics equal what the server drew, requests the chart from the URL with the measured size and metrics as
+  query parameters, and replaces the chart with the one of the same `data-chart` id in the response. While a request is pending the chart is
+  scaled with its `viewBox` (A, CSS only), so it never overflows and never flashes empty. The host answers by rendering the same chart with the
+  parameters, read through one helper of the container; any GET that returns the chart works (a dedicated action, or the page itself, of which
+  the controller takes only the chart). Chosen because it is exact, it reuses the one implementation of the layout that G2 already proves, and it
+  covers the six chart roots (cartesian and polar) at once; its price is a request per settled resize and a host that answers it.
+- **Without `relayout_url:`** nothing changes: the chart is laid out once at `initial_dimension`, as in 0.1.0, and draws on a page without
+  JavaScript, in a Turbo preview, an email or a PDF. The deviation "layout once at `initial_dimension`" is narrowed to charts without a URL,
+  not removed.
+- **Re-measure: the same request.** After `document.fonts.ready` (and on connect) the controller measures what recharts measures, the way it
+  measures it: a `white-space: pre` span under `body` for the height of a line of tick text and the average glyph width of the tick labels,
+  and the box of `.recharts-legend-wrapper`. When they differ from the metrics the server drew with, it requests the re-layout like a resize
+  does (one request covers both). The server computes which tick labels exist, their positions and the plot area from the measured metrics, so
+  the tick templates, the browser collision pass and the "the plot is not recomputed when the legend height differs" deviation of the first
+  design are dropped; the `tickTemplate` exemption of G2 above becomes unused (left in `Compare` until the gate code is next edited). Without a
+  URL the server's assumptions stay, and the kwargs stay the host's way to match its font.
+- **Rejected: B.** Exact as well, and no request, but it is a second implementation of the layout: about six times today's chart JavaScript,
+  every recharts quirk the Ruby reproduces would need a JavaScript twin and a proof that both agree, and every later chart item would pay
+  twice. It stays the fallback if the maintainer rules that charts must follow their container with no host work; the measurements above are
+  its baseline.
+- **Rejected as the mechanism: A.** It zooms instead of re-laying out (text scales with the box, the legend does not follow) and leaves the DOM
+  at the 320x200 numbers. Kept only as the interim state of C.
+
+### What stays a deviation
+
+- Charts without `relayout_url:` (above), and every chart before its first re-layout and without JavaScript.
+- Label width is estimated as length times the measured average glyph width; recharts measures each string. In `12px sans-serif` the estimate
+  is off by up to 2.5 px for one month label, which changes nothing at the measured sizes, but a label within that margin of the collision
+  threshold can be kept or dropped differently in a proportional font.
+- Between a resize and the response the chart is the scaled previous layout (A), where recharts re-lays out in the next frames; the tooltip
+  and keyboard state carry over the swap (spec), an in-flight request is aborted by the next resize and by disconnect.
+
+### The follow-up items keep their split
+
+- **#107 (chart-responsive)** builds the resize half: the `relayout_url:` kwarg and the values of the spec, the size observation, the
+  debounce, the skip when nothing changed, the request, the swap with the interaction state carried over, the interim viewBox scaling, abort
+  on disconnect, the Turbo cache, and the helper that turns the parameters into container keywords. Amend its acceptance: "a chart in a
+  container resized from 320 to 640 px" applies to a chart with `relayout_url:` (the browser test answers the request with the gem's markup,
+  e.g. through Playwright request interception, so no dummy route is needed); "the deviation is removed or narrowed" is "narrowed to charts
+  without a URL".
+- **#108 (chart-remeasure)** builds the re-measure half on top of it: the measurement after `document.fonts.ready`, the metrics in the request,
+  `legend_height` taken from the request by the container. Amend its goal: the pass does not "correct what the server assumed" in the browser,
+  it measures and asks the server to re-lay out; its acceptance stands as written for charts with `relayout_url:`, and "the re-measure pass is
+  not built" sentences become "re-measure needs `relayout_url:`".
 
 ## As built
 
