@@ -41,8 +41,14 @@ class Chadcn::Base < Phlex::HTML
    .merge("className" => :class, "class_name" => :class, "htmlFor" => :for, "html_for" => :for)
    .freeze
 
-  # Ruby 3.2+: runs for every constant assigned in a class body, nested `class Header < Base` included.
-  # Defines `root.header(**attrs, &block)` == `render Root::Header.new(**attrs), &block`.
+  # Parts whose helper could not be defined yet, by root (see .define_part_helper). The lock is never held while a file loads:
+  # loading a part fires const_added, which may write here, possibly from another thread.
+  DEFERRED_PART_HELPERS = {} # rubocop:disable Style/MutableConstant -- written only while holding DEFERRED_PART_HELPERS_LOCK
+  DEFERRED_PART_HELPERS_LOCK = Mutex.new
+  private_constant :DEFERRED_PART_HELPERS, :DEFERRED_PART_HELPERS_LOCK
+
+  # Ruby 3.2+: runs for every constant assigned in a class body, nested `class Header < Base` included, and for every autoload
+  # Zeitwerk registers on the class. Defines `root.header(**attrs, &block)` == `render Root::Header.new(**attrs), &block`.
   # An HTML element name (`header`, `title`) may be shadowed on purpose: roots use `tag(:header)` internally.
   #
   # @api private
@@ -53,18 +59,29 @@ class Chadcn::Base < Phlex::HTML
     # the directory while the root is still registering its lazy parts. A part always autoloads from its .rb file.
     return if (path = autoload?(name, false)) && File.directory?(path)
 
-    part = begin
-      const_get(name, false)
-    rescue NameError
-      # Zeitwerk is still registering this namespace's lazy parts and the part's file references a sibling that is not
-      # registered yet; const_added fires again when the file assigns the constant. Any other NameError is a real bug.
-      raise unless autoload?(name, false)
+    define_part_helper(name)
+  end
 
-      nil
-    end
+  # A root is instantiated once its file has loaded, so once all its lazy parts are registered: the helpers deferred while they were
+  # being registered are defined here, before the instance can yield itself to a block that calls them.
+  #
+  # @api private
+  def self.new(...)
+    define_deferred_part_helpers unless DEFERRED_PART_HELPERS.empty?
+    super
+  end
+
+  # Zeitwerk registers a root's lazy parts one by one, in file name order, and const_added fires on each registration. A part
+  # whose file references a sibling registered after it cannot load yet (`Chart::PieChart < Chart::Polar::Root`: `pie_chart.rb`
+  # comes before `polar/`); its helper is deferred to the root's first .new instead of being lost. Without that, `chart.pie_chart`
+  # would exist only if something had named `Chart::PieChart` first, so it would depend on what was loaded before.
+  #
+  # @api private
+  def self.define_part_helper(name, retrying: false)
+    helper = name.to_s.gsub(/([a-z\d])([A-Z])/, '\1_\2').downcase.to_sym
+    part = loaded_part(name, retrying:, defer: !retrying && !method_defined?(helper, false))
     return unless part.is_a?(Class) && part < Chadcn::Base
 
-    helper = name.to_s.gsub(/([a-z\d])([A-Z])/, '\1_\2').downcase.to_sym
     raise ArgumentError, "helper ##{helper} (from #{name}) would override a Ruby/Phlex API method" if reserved_helper_names.include?(helper)
 
     # Resolved at call time (not captured): `const_added` fires when the class is created, before its file has defined `initialize`.
@@ -72,6 +89,53 @@ class Chadcn::Base < Phlex::HTML
     owner = self
     define_method(helper) { |**attrs, &block| render owner.const_get(name, false).new(**attrs), &block }
   end
+  private_class_method :define_part_helper
+
+  # The part, or nil when its file cannot load yet (deferred unless `defer:` is false: on a retry, or for a file that failed after
+  # its class was created, which already has its helper since const_added fired for the class).
+  #
+  # @api private
+  def self.loaded_part(name, retrying:, defer:)
+    part = const_get(name, false)
+    forget_deferred_part_helper(name) if DEFERRED_PART_HELPERS.key?(self)
+    part
+  rescue NameError
+    # The part's file references a sibling that is not registered yet. Any other NameError is a real bug: while registering it is
+    # raised, and on the retry of .new (the root is complete) it is left to the first real access (or eager load) of the part to
+    # report, so that creating an instance never fails here.
+    raise unless retrying || autoload?(name, false)
+
+    DEFERRED_PART_HELPERS_LOCK.synchronize { (DEFERRED_PART_HELPERS[self] ||= []) << name } if defer
+    nil
+  end
+  private_class_method :loaded_part
+
+  # The deferred parts of this class and of the roots it inherits from (`class AppChart < Chadcn::Chart`), each tried once more.
+  #
+  # @api private
+  def self.define_deferred_part_helpers
+    root = self
+    while root < Chadcn::Base
+      if DEFERRED_PART_HELPERS.key?(root)
+        names = DEFERRED_PART_HELPERS_LOCK.synchronize { DEFERRED_PART_HELPERS.delete(root) } || []
+        names.each { |name| root.send(:define_part_helper, name, retrying: true) }
+      end
+      root = root.superclass
+    end
+  end
+  private_class_method :define_deferred_part_helpers
+
+  # A deferred part that loaded by other means (named by the caller, eager loading) already has its helper.
+  #
+  # @api private
+  def self.forget_deferred_part_helper(name)
+    DEFERRED_PART_HELPERS_LOCK.synchronize do
+      names = DEFERRED_PART_HELPERS[self]
+      names&.delete(name)
+      DEFERRED_PART_HELPERS.delete(self) if names && names.empty?
+    end
+  end
+  private_class_method :forget_deferred_part_helper
 
   # @api private
   def self.reserved_helper_names

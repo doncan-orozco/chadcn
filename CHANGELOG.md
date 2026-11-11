@@ -10,7 +10,11 @@ manifests every component is compared against), the number of oracle components,
 
 ## [Unreleased]
 
-Nothing yet.
+### Fixed
+
+- The generated yielded-root helpers of parts whose file needs a sibling registered after them (`chart.pie_chart`, `chart.bar_chart`,
+  `chart.area_chart`) no longer depend on load order: they used to be missing unless something had already named the part's class
+  (`Chart::PieChart`), and are now defined on the root's first instance.
 
 ## [0.1.0] - 2026-11-03
 
