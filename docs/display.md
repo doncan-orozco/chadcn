@@ -168,7 +168,8 @@ path, where recharts renders its non-chart children.
 - `chart.legend(content: Chart::Legend::Content.new, vertical_align: :top)` writes `.recharts-legend-wrapper` with the series as the payload (declaration
   order, sorted by name unless `item_sorter: nil`, `legend_type: :none` dropped by the content) and reserves its room in the plot. Where it sits and how
   big it is follow `Legend.js` (`width:`, `height:`, `align:`, `layout:`, `wrapper_style:`); the height it takes is `legend_height:` (28, a `pt-3`
-  plus a 16px line), because the server cannot measure it.
+  plus a 16px line), because the server cannot measure it; with a `relayout_url:` on the container the browser measures it and the
+  container's `legend_height:` takes over (docs/charts.md, "Following the container").
 - `chart.tooltip(content: Chart::Tooltip::Content.new, default_index: 1)` writes the empty `.recharts-tooltip-wrapper`, one inert
   `<template data-chadcn--chart-target="tooltipTemplate" data-index data-label data-coordinate data-cursor data-active-dots>` per category (children of
   the chart's `div[data-slot="chart"]`, after its shell) holding the content for that category's payload, and, with `default_index:`, the wrapper

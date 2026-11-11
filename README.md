@@ -468,7 +468,7 @@ render Chadcn::Chart::Container.new(config: { desktop: { label: "Desktop", color
 end
 ```
 
-A chart is laid out on the server at `initial_dimension:` and follows the size of its box only when its container has a `relayout_url:` that answers with the chart (no animation), and `tick_formatter:`, `formatter:` and `label_formatter:` take a callable or a named
+A chart is laid out on the server at `initial_dimension:` and follows the size of its box, and re-measures its tick labels and legend in the page's font, only when its container has a `relayout_url:` that answers with the chart (no animation), and `tick_formatter:`, `formatter:` and `label_formatter:` take a callable or a named
 formatter. One example per family next to its React source, the tooltip and legend options and the list of deviations: [docs/charts.md](docs/charts.md).
 
 ### Library-wrapping components: Toaster, Command, Combobox, Calendar, Carousel, Drawer, Resizable, InputOtp, MessageScroller

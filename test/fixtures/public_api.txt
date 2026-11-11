@@ -439,7 +439,7 @@ const Chadcn::Chart::Bar::LEGEND_TYPES [line, plainline, square, rect, circle, c
 const Chadcn::Chart::Config::THEMES [light, dark]
 const Chadcn::Chart::Container::DEFAULT_DIMENSION [width, height]
 const Chadcn::Chart::Container::RELAYOUT_MAX_SIZE
-const Chadcn::Chart::Container::RELAYOUT_METRIC_BOUNDS [text_height, text_char_width]
+const Chadcn::Chart::Container::RELAYOUT_METRIC_BOUNDS [text_height, text_char_width, legend_height]
 const Chadcn::Chart::LabelList::POSITIONS [top, bottom, left, right, inside_left, inside_right, inside_top, inside_bottom, inside_top_left, inside_top_right, inside_bottom_left, inside_bottom_right, center, middle, outside, center_top, center_bottom, inside_start, inside_end, end]
 const Chadcn::Chart::Legend::ALIGNMENTS [left, center, right]
 const Chadcn::Chart::Legend::LAYOUTS [horizontal, vertical]
@@ -697,7 +697,8 @@ method Chadcn::Chart::Config::Entry#theme ()
 method Chadcn::Chart::Container#chart_id ()
 method Chadcn::Chart::Container#config ()
 method Chadcn::Chart::Container#initial_dimension ()
-method Chadcn::Chart::Container#initialize (config:, id: nil, initial_dimension: DEFAULT_DIMENSION, text_height: 16, text_char_width: 0.6, relayout_url: nil, **attrs)
+method Chadcn::Chart::Container#initialize (config:, id: nil, initial_dimension: DEFAULT_DIMENSION, text_height: 16, text_char_width: 0.6, legend_height: nil, relayout_url: nil, **attrs)
+method Chadcn::Chart::Container#legend_height ()
 method Chadcn::Chart::Container#relayout_url ()
 method Chadcn::Chart::Container#text_char_width ()
 method Chadcn::Chart::Container#text_height ()

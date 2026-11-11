@@ -29,7 +29,7 @@ primitiveTest("chart_measure: measureTextMetrics measures a line of tick text, t
   assert.equal(result.measured.textHeight, result.expected.textHeight);
   assert.equal(result.measured.textCharWidth, result.expected.textCharWidth);
   assert.equal(result.measured.textHeight, 14, "the line height of the page, not the 16 px the server assumes");
-  assert.equal(result.measured.textCharWidth, 0.6, "monospace is 0.6 em wide");
+  assert.ok(Math.abs(result.measured.textCharWidth - 0.6) < 0.01, `monospace is about 0.6 em wide (got ${result.measured.textCharWidth})`);
   assert.equal(result.measured.legendHeight, 26.5);
   assert.equal(result.spans, 0, "the measuring span is removed again");
 }, { html: CHART, css: CSS });

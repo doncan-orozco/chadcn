@@ -1,6 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 import { activeDotElements, cursorElement } from "chadcn/primitives/chart_shapes"
 import { nearestTickIndex, pointerInPlot, relativePointer } from "chadcn/primitives/chart_pointer"
+import { measureTextMetrics, remeasureNeeded } from "chadcn/primitives/chart_measure"
 import { chartInResponse, laidOutAt, observeSettledSize, relayoutNeeded, relayoutRequestUrl, scaleToBox } from "chadcn/primitives/chart_relayout"
 import { SIDE_CLASSES, tooltipPlacement } from "chadcn/primitives/chart_tooltip_placement"
 import { mountTemplate } from "chadcn/primitives/template_mount"
@@ -18,8 +19,9 @@ import { turboCacheRestore } from "chadcn/primitives/turbo_cache"
 // outside them, and both are handed over a Turbo cache round trip.
 //
 // With a `relayoutUrl` the chart follows the size of its element ("Behavior", "Resize and re-measure"): once the box has settled at
-// another size than the server drew, the controller requests the chart from that same-origin URL at the measured size, swaps the
-// answer in and hands it the interaction state. This is the recorded exception to stimulus R1 and R6 (.ai/skills/stimulus/SKILL.md):
+// another size than the server drew, or once the fonts are ready its tick text and legend box measure otherwise than the metrics the
+// server assumed (`textMetrics`), the controller requests the chart from that same-origin URL at the measured size and metrics, swaps
+// the answer in and hands it the interaction state. This is the recorded exception to stimulus R1 and R6 (.ai/skills/stimulus/SKILL.md):
 // only this controller fetches HTML, only its own chart from its own `relayoutUrl`, and it reads recharts nodes by class.
 const ARROWS = { ArrowRight: 1, ArrowLeft: -1 }
 const REDUCED_MOTION = "(prefers-reduced-motion: reduce)"
@@ -60,6 +62,7 @@ export default class extends Controller {
     dimension: { type: Object, default: {} },
     textMetrics: { type: Object, default: {} },
     servedState: Object, // written by `swap`; no default: `connect` tells a swapped-in chart by `hasServedStateValue`
+    measuredAt: Object, // written by `swap` on the answer to a metrics request: the size it was measured at (one such request per size)
   }
 
   connect() {
@@ -373,6 +376,7 @@ export default class extends Controller {
   stopRelayout() {
     this.sizeObserver?.disconnect()
     this.sizeObserver = null
+    this.relayoutCall = null
     this.abortRelayout()
     this.unscale?.()
     this.unscale = null
@@ -388,9 +392,20 @@ export default class extends Controller {
     this.unscale ??= scaleToBox(this.element)
   }
 
+  // A settled size: once the fonts are ready, measure the text like recharts and request the chart when the size or the metrics differ
+  // from what the server drew. A later settle, or stopRelayout, supersedes a call still waiting for the fonts.
   async relayout(size) {
     if (this.cache?.pending || document.documentElement.hasAttribute("data-turbo-preview")) return
-    if (!relayoutNeeded(size, this.dimensionValue)) {
+    const call = {}
+    this.relayoutCall = call
+    await document.fonts?.ready
+    if (this.relayoutCall !== call || this.relayoutStopped) return
+
+    const metrics = measureTextMetrics(this.element, this.textMetricsValue)
+    const resized = relayoutNeeded(size, this.dimensionValue)
+    const measuredAt = this.hasMeasuredAtValue ? this.measuredAtValue : undefined
+    const remeasured = !resized && remeasureNeeded({ measured: metrics, served: this.textMetricsValue, size, measuredAt })
+    if (!resized && !remeasured) {
       this.abortRelayout()
       this.unscale?.()
       this.unscale = null
@@ -400,7 +415,7 @@ export default class extends Controller {
     const chartName = this.element.dataset.chart
     if (!chartName) return this.failRelayout(0)
 
-    const url = relayoutRequestUrl(this.relayoutUrlValue, { id: chartName.replace(/^chart-/, ""), size, metrics: this.textMetricsValue })
+    const url = relayoutRequestUrl(this.relayoutUrlValue, { id: chartName.replace(/^chart-/, ""), size, metrics })
     if (!url) return this.failRelayout(0)
 
     this.scaleInterim()
@@ -423,12 +438,13 @@ export default class extends Controller {
     this.relayoutRequest = null
     if (!chart || !laidOutAt(chart, size, `data-${this.identifier}-dimension-value`)) return this.failRelayout(status)
 
-    this.swap(chart, size)
+    this.swap(chart, size, remeasured)
   }
 
   // The answer replaces the element (its controller connects on its own) with the interaction state and the focus carried over. The
-  // fresh element keeps the state its answer was rendered with as `servedState`, for its own Turbo snapshot.
-  swap(chart, size) {
+  // fresh element keeps the state its answer was rendered with as `servedState`, for its own Turbo snapshot, and, when the request was
+  // for the metrics alone, the size they were measured at as `measuredAt`, so it does not ask again at that size.
+  swap(chart, size, remeasured = false) {
     const fresh = document.importNode(chart, true)
     const value = (attribute, fallback) => fresh.getAttribute(`data-${this.identifier}-${attribute}-value`) ?? fallback
     const served = {
@@ -438,6 +454,7 @@ export default class extends Controller {
       keyboardActive: value("keyboard-active", "false") === "true",
     }
     fresh.setAttribute(`data-${this.identifier}-served-state-value`, JSON.stringify(served))
+    if (remeasured) fresh.setAttribute(`data-${this.identifier}-measured-at-value`, JSON.stringify(size))
     for (const [name, attribute] of Object.entries(CARRIED_VALUES)) fresh.setAttribute(`data-${this.identifier}-${attribute}-value`, String(this[`${name}Value`]))
     const focused = this.element.contains(document.activeElement)
     this.element.replaceWith(fresh)

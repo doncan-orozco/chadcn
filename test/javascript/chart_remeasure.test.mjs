@@ -34,6 +34,7 @@ async function withHost(path, css, scenario, { answer = null } = {}) {
     });
     const requests = [];
     await page.route((url) => url.pathname.startsWith(HOST) && url.searchParams.has("chart[id]"), async (route) => {
+      if (route.request().resourceType() !== "fetch") return route.continue(); // the page itself, opened with chart parameters
       const url = new URL(route.request().url());
       requests.push(Object.fromEntries(url.searchParams));
       if (answer) return route.fulfill(await answer(route, url));

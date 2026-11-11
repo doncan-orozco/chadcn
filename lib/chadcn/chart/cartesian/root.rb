@@ -124,7 +124,7 @@ class Chadcn::Chart::Cartesian::Root < Chadcn::Base
       type: self.class::CHART_TYPE, direction: @options[:layout], width: dimension[:width], height: dimension[:height], margin: @options[:margin],
       rows: @options[:data], text: text, bar_category_gap: @options[:bar_category_gap], bar_gap: @options[:bar_gap], bar_size: @options[:bar_size],
       max_bar_size: @options[:max_bar_size], stack_offset: @options[:stack_offset], reverse_stack_order: @options[:reverse_stack_order],
-      base_value: @options[:base_value]
+      base_value: @options[:base_value], legend_height: container&.legend_height
     )
   end
 
