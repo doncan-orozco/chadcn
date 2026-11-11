@@ -18,6 +18,10 @@
 #
 # @api private
 class Chadcn::Chart::Polar::TooltipPlan < Chadcn::Chart::Cartesian::TooltipPlan
+  # The layer recharts draws a cursor line or sector in, as {Chadcn::Chart::Cartesian::TooltipPlan#line_cursor}.
+  CURSOR_LAYER = 1100
+  private_constant :CURSOR_LAYER
+
   # @api private
   # @return [Array<Entry>] one per sector or category, in order
   def entries = @entries ||= compute_entries
@@ -105,10 +109,11 @@ class Chadcn::Chart::Polar::TooltipPlan < Chadcn::Chart::Cartesian::TooltipPlan
   def axis_entries
     return [] unless @axis&.category?
 
+    spoke = @layout.direction == :centric
     @axis.all_ticks.map do |tick|
       row = @rows[tick.index]
       Entry.new(index: tick.index, label: tick.value, coordinate: axis_anchor(tick), payload: payload(row), cursor: nil, dots: dots(row),
-                pointer_cursor: styled_cursor { @layout.direction == :centric ? spoke_cursor(tick) : ring_cursor(tick) })
+                pointer_cursor: styled_cursor { spoke ? spoke_cursor(tick) : ring_cursor(tick) })
     end
   end
 
@@ -120,21 +125,24 @@ class Chadcn::Chart::Polar::TooltipPlan < Chadcn::Chart::Cartesian::TooltipPlan
   def spoke_cursor(tick)
     box = @layout.view_box
     points = [ box.point(box.inner_radius, tick.coordinate), box.point(box.outer_radius, tick.coordinate) ]
-    d = Chadcn::Chart::Shape::Curve.line(points, type: :linear)
-    Cursor.new(layer: 1100, attrs: { **cursor_frame, class: "recharts-curve recharts-tooltip-cursor", d: d })
+    outline = Chadcn::Chart::Shape::Curve.line(points, type: :linear)
+    Cursor.new(layer: CURSOR_LAYER, attrs: { **cursor_frame, class: "recharts-curve recharts-tooltip-cursor", d: outline })
   end
 
   # A radial bar's: `getRadialCursorPoints` drawn by a `Sector` whose inner and outer radius are the category's radius.
   def ring_cursor(tick)
     box = @layout.view_box
-    ring = { cx: box.cx, cy: box.cy, inner_radius: tick.coordinate, outer_radius: tick.coordinate, start_angle: box.start_angle, end_angle: box.end_angle }
-    d = Chadcn::Chart::Shape::Arc.sector_path(**ring)
-    Cursor.new(layer: 1100, attrs: { **cursor_frame, cx: round(box.cx), cy: round(box.cy), class: "recharts-sector recharts-tooltip-cursor", d: d })
+    outline = Chadcn::Chart::Shape::Arc.sector_path(cx: box.cx, cy: box.cy, inner_radius: tick.coordinate, outer_radius: tick.coordinate,
+                                                    start_angle: box.start_angle, end_angle: box.end_angle)
+    attrs = { **cursor_frame, cx: round(box.cx), cy: round(box.cy), class: "recharts-sector recharts-tooltip-cursor", d: outline }
+    Cursor.new(layer: CURSOR_LAYER, attrs: attrs)
   end
 
   # What every cursor carries before its geometry (component/Cursor.js:98-102): the stroke, no pointer events, and the plot's size (the
   # offset is spread onto the shape, which keeps the SVG attributes `width` and `height`).
-  def cursor_frame = { stroke: "#ccc", "pointer-events": "none", width: round(@layout.plot[:width]), height: round(@layout.plot[:height]) }
+  def cursor_frame
+    @cursor_frame ||= { stroke: "#ccc", "pointer-events": "none", width: round(@layout.plot[:width]), height: round(@layout.plot[:height]) }.freeze
+  end
 
   # A radial bar's entry holds the row as the arc has it (the arc spreads the row and its cell, polar/RadialBar.js:407), with the value the row
   # gives; a radar's is the series' own.

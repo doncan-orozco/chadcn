@@ -37,10 +37,11 @@ const ARROWS = { ArrowRight: 1, ArrowLeft: -1 }
 const REDUCED_MOTION = "(prefers-reduced-motion: reduce)"
 const EVENT_ACTIVATE = "activate"
 const EVENT_DEACTIVATE = "deactivate"
-// The z-index layer of the active dots: DefaultZIndexes.activeDot (recharts es6/zIndex/DefaultZIndexes.js:68).
+// The layouts a polar view box maps the pointer through: a radar and a pie are centric, a radial bar chart radial.
 const POLAR_LAYOUTS = new Set(["centric", "radial"])
 // What `hitAt` answers for a pointer outside the plot (cartesian) or the sector (polar): a mouse there leaves the chart.
 const OUTSIDE = Symbol("outside")
+// The z-index layer of the active dots: DefaultZIndexes.activeDot (recharts es6/zIndex/DefaultZIndexes.js:68).
 const ACTIVE_DOT_LAYER = 1200
 const EVENT_RELAYOUT = "relayout"
 const EVENT_RELAYOUT_ERROR = "relayout-error"
@@ -204,7 +205,7 @@ export default class extends Controller {
     return this.hasTooltipTarget && (this.tooltipEventTypeValue === "axis" || this.itemTooltip)
   }
 
-  // An item tooltip whose shapes the server tagged (a BarChart or a RadialBarChart with `shared: false`; not a pie).
+  // An item tooltip whose shapes the server tagged (a BarChart or a RadialBarChart with `shared: false`, and every PieChart).
   get itemTooltip() {
     return this.tooltipEventTypeValue === "item" && this.hasItems
   }
@@ -436,7 +437,6 @@ export default class extends Controller {
     if (first && servedDefault && this.tooltipTarget.childElementCount > 0) return
 
     this.clearContent()
-    this.pointerCursor = null
     if (!template) return previous >= 0 ? this.announce(EVENT_DEACTIVATE, previous) : undefined
 
     this.mounted = mountTemplate(template, { into: this.tooltipTarget })
@@ -466,6 +466,7 @@ export default class extends Controller {
     if (this.hasTooltipTarget) this.tooltipTarget.replaceChildren()
     this.cursorTargets.forEach((node) => node.remove())
     this.activeDotsTargets.forEach((node) => node.remove())
+    this.pointerCursor = null
   }
 
   drawShapes(template) {

@@ -62,9 +62,9 @@ const NUMBER = /-?\d+(?:\.\d+)?/g;
 function sameNumbers(port, recharts) {
   if (port === recharts) return true;
   if (port === null || recharts === null) return false;
-  const [a, b] = [port.match(NUMBER) ?? [], recharts.match(NUMBER) ?? []];
+  const [portNumbers, rechartsNumbers] = [port.match(NUMBER) ?? [], recharts.match(NUMBER) ?? []];
   const shape = (text) => text.replace(NUMBER, "#").replace(/\s+/g, " ");
-  return shape(port) === shape(recharts) && a.length === b.length && a.every((n, i) => Math.abs(Number(n) - Number(b[i])) <= 0.01);
+  return shape(port) === shape(recharts) && portNumbers.length === rechartsNumbers.length && portNumbers.every((number, position) => Math.abs(Number(number) - Number(rechartsNumbers[position])) <= 0.01);
 }
 
 async function rechartsStates(scenario) {
@@ -97,19 +97,19 @@ async function withScenario(id, fn, options) {
   }
 }
 
-function compare(where, state, want) {
-  assert.equal(state.visible, want.visible, `${where}: visibility`);
-  assert.equal(state.text, want.text, `${where}: content`);
-  assert.deepEqual(state.classes, want.classes, `${where}: side classes`);
-  assert.ok(sameNumbers(state.transform, want.transform), `${where}: transform ${state.transform} != ${want.transform}`);
-  assert.equal(Boolean(state.cursor), Boolean(want.cursor), `${where}: cursor drawn`);
-  if (want.cursor) {
-    assert.equal(state.cursor.class, want.cursor.class, `${where}: cursor class`);
-    assert.equal(state.cursor.layer, want.cursor.layer, `${where}: cursor layer`);
-    assert.ok(sameNumbers(state.cursor.geometry, want.cursor.geometry), `${where}: cursor ${state.cursor.geometry} != ${want.cursor.geometry}`);
+function compare(where, state, expected) {
+  assert.equal(state.visible, expected.visible, `${where}: visibility`);
+  assert.equal(state.text, expected.text, `${where}: content`);
+  assert.deepEqual(state.classes, expected.classes, `${where}: side classes`);
+  assert.ok(sameNumbers(state.transform, expected.transform), `${where}: transform ${state.transform} != ${expected.transform}`);
+  assert.equal(Boolean(state.cursor), Boolean(expected.cursor), `${where}: cursor drawn`);
+  if (expected.cursor) {
+    assert.equal(state.cursor.class, expected.cursor.class, `${where}: cursor class`);
+    assert.equal(state.cursor.layer, expected.cursor.layer, `${where}: cursor layer`);
+    assert.ok(sameNumbers(state.cursor.geometry, expected.cursor.geometry), `${where}: cursor ${state.cursor.geometry} != ${expected.cursor.geometry}`);
   }
-  assert.equal(state.dots.length, want.dots.length, `${where}: active dots`);
-  state.dots.forEach((dot, index) => assert.ok(sameNumbers(dot, want.dots[index]), `${where}: active dot ${dot} != ${want.dots[index]}`));
+  assert.equal(state.dots.length, expected.dots.length, `${where}: active dots`);
+  state.dots.forEach((dot, index) => assert.ok(sameNumbers(dot, expected.dots[index]), `${where}: active dot ${dot} != ${expected.dots[index]}`));
 }
 
 // Walks the port through the scenario's own steps and compares it with recharts after every one (the first state is the one at rest).
@@ -245,10 +245,22 @@ for (const family of ["pie", "radial"]) {
     assert.match(rest.transform, /^translate\(/, "the controller placed the server-drawn tooltip");
 
     const box = await page.locator(PLOT).boundingBox();
-    const sector = await page.locator(`${CHART} ${family === "pie" ? ".recharts-pie-sector" : ".recharts-radial-bar-sector"}`).first().boundingBox();
-    await page.mouse.move(sector.x + sector.width / 2, sector.y + 4);
+    assert.equal(await page.locator(CHART).getAttribute("data-chadcn--chart-pointer-active-value"), "false", "control: no pointer activation at rest");
+    const inside = await page.locator(`${CHART} ${family === "pie" ? ".recharts-pie-sector" : ".recharts-radial-bar-sector"}`).first().evaluate((node) => {
+      const shape = node.querySelector("path") ?? node;
+      const { x, y, width, height } = shape.getBoundingClientRect();
+      for (let step = 0; step < 400; step += 1) {
+        const point = { x: x + width * (((step * 7) % 20) + 0.5) / 20, y: y + height * (Math.floor(step / 20) + 0.5) / 20 };
+        const local = new DOMPoint(point.x, point.y).matrixTransform(shape.getScreenCTM().inverse());
+        if (shape.isPointInFill(local)) return point;
+      }
+      return null;
+    });
+    assert.ok(inside, "a point inside the first sector");
+    await page.mouse.move(inside.x, inside.y);
     await settle(page);
-    assert.notDeepEqual((await chartState(page)).text, "", "a pointer activation shows a tooltip");
+    assert.equal(await page.locator(CHART).getAttribute("data-chadcn--chart-pointer-active-value"), "true", "the pointer activated a shape");
+    assert.notEqual((await chartState(page)).text, "", "a pointer activation shows a tooltip");
     await page.mouse.move(box.x - 20, box.y - 20);
     await settle(page);
 

@@ -47,7 +47,7 @@ class Chadcn::Chart::Polar::WiringTest < Chadcn::TestCase
 
   test "a pie's templates are item templates: the series, and the sector's tooltip position as the item coordinate" do
     doc = parse(render_pie(around: ->(chart) { chart.tooltip(content: CONTENT) }))
-    template = doc.css("template")[1]
+    template = doc.at_css('template[data-index="1"]')
 
     assert_equal "0", template["data-series"]
     assert_equal JSON.parse(template["data-coordinate"]), JSON.parse(template["data-item-coordinate"])
@@ -99,7 +99,7 @@ class Chadcn::Chart::Polar::WiringTest < Chadcn::TestCase
   end
 
   test "a radar's template carries the line cursor the pointer draws, a radial bar's the ring; cursor: false draws none" do
-    radar = parse(radar_html).css("template")[1]
+    radar = parse(radar_html).at_css('template[data-index="1"]')
     cursor = JSON.parse(radar["data-pointer-cursor"])
 
     assert_equal [ "path", 1100 ], cursor.values_at("tag", "layer")
@@ -107,12 +107,12 @@ class Chadcn::Chart::Polar::WiringTest < Chadcn::TestCase
     assert_equal "M160,100L225.818,62", cursor.dig("attrs", "d")
     assert_nil radar["data-cursor"]
 
-    ring = JSON.parse(parse(radial_html).css("template")[0]["data-pointer-cursor"])
+    ring = JSON.parse(parse(radial_html).at_css('template[data-index="0"]')["data-pointer-cursor"])
 
     assert_equal "recharts-sector recharts-tooltip-cursor", ring.dig("attrs", "class")
-    assert_equal [ "160", "100" ], ring["attrs"].values_at("cx", "cy")
+    assert_equal %w[160 100], ring["attrs"].values_at("cx", "cy")
     assert ring.dig("attrs", "d").start_with?("M 201.6667,100")
-    assert_nil parse(radar_html(default_index: 1, cursor: false, content: CONTENT)).css("template")[1]["data-pointer-cursor"]
+    assert_nil parse(radar_html(default_index: 1, cursor: false, content: CONTENT)).at_css('template[data-index="1"]')["data-pointer-cursor"]
   end
 
   test "the interaction values start at the server state and the tooltip options are published as they are" do
