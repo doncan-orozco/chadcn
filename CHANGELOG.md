@@ -10,6 +10,12 @@ manifests every component is compared against), the number of oracle components,
 
 ## [Unreleased]
 
+### Changed (breaking)
+
+- `Direction::Provider` without `dir:` or `direction:` resets its block to `ltr`, as React's `DirectionProvider` does (it provides
+  `undefined`), instead of keeping the outer direction as 0.1.0 did. Only a provider with no direction nested inside an `rtl` one
+  changes; to keep the outer direction, pass it again (`Direction::Provider.new(dir: "rtl")`) or drop the inner provider.
+
 ### Fixed
 
 - `ToggleGroup`: a group nested inside another keeps its own items; pressing an item of one group no longer flips the item with the same

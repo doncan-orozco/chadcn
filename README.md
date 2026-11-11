@@ -11,6 +11,8 @@
 the same behavior as the React originals (Radix, and the libraries shadcn wraps), as Phlex views with Stimulus controllers. 61 components (`Button`, `Dialog`, `Select`, `Sidebar`,
 `Toaster`, `Command`, `Combobox`, `Calendar`...), checked against the React original in a browser. Two are partial: `Form` ports shadcn's ids and ARIA contract
 without react-hook-form (a [bound form](docs/forms.md)) and is tested in Ruby, and `Chart` draws recharts' SVG from Ruby (see [Charts](#charts)), so its browser comparison covers the DOM and the numbers but not recharts' responsive re-layout.
+chadcn tracks one shadcn/ui style, `new-york-v4` on Radix; the other styles (Vega, Nova, ...) and the Base UI and React Aria variants are
+not offered, except `Combobox`, which ports Base UI's because shadcn has no Radix one ([why](dev/decisions/shadcn-tracking.md#styles-and-base-ui)).
 
 > Status: pre-release (0.x). The public API follows semantic versioning from the first release; see [CHANGELOG.md](CHANGELOG.md).
 >

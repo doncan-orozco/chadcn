@@ -8,7 +8,8 @@
 #   end
 # @see Chadcn::Direction
 class Chadcn::Direction::Provider < Chadcn::Base
-  # `direction:` wins over `dir:`; both nil leaves the inherited direction (an outer provider's, or none) untouched for the block.
+  # `direction:` wins over `dir:`; both nil provides no direction, so consumers in the block fall back to `ltr` even inside an
+  # outer `rtl` provider (React's DirectionProvider provides `undefined`).
   #
   # @param dir [String, Symbol, nil] `ltr` or `rtl` (default: nil)
   # @param direction [String, Symbol, nil] same as `dir:`, takes precedence (default: nil)
@@ -29,7 +30,7 @@ class Chadcn::Direction::Provider < Chadcn::Base
   # @return [void]
   def view_template
     previous = context[Chadcn::Direction::KEY]
-    context[Chadcn::Direction::KEY] = @value unless @value.nil?
+    context[Chadcn::Direction::KEY] = @value
     yield self if block_given?
   ensure
     context[Chadcn::Direction::KEY] = previous
