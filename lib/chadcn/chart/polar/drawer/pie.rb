@@ -31,9 +31,16 @@ class Chadcn::Chart::Polar::Drawer::Pie < Chadcn::Chart::Polar::Drawer
   def sector_group(sector, count)
     return if sector.start_angle.zero? && sector.end_angle.zero? && count != 1
 
-    g(class: "recharts-layer recharts-pie-sector", tabindex: "-1") do
+    g(class: "recharts-layer recharts-pie-sector", tabindex: "-1", **tooltip_item(sector)) do
       g(class: active?(sector) ? "recharts-layer recharts-active-shape" : "recharts-layer recharts-shape") { sector_path(sector) }
     end
+  end
+
+  # The data `chadcn--chart` reads to tell which sector the pointer is over: the pie's position among the item series and the sector's index
+  # (recharts activates an item on the `mouseenter` of this group, polar/Pie.js:329).
+  def tooltip_item(sector)
+    series_position = canvas.tooltip_items[subject.series]
+    series_position ? Chadcn::Chart::Cartesian::TooltipPlan.item_attributes(series: series_position, index: sector.index) : {}
   end
 
   # The sector `default_index:` shows is the active one (`isActive`, polar/Pie.js:314).

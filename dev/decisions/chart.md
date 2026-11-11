@@ -352,3 +352,28 @@ checked in the React oracle:
 - **Not here**: the keys on a radial bar chart (its wrapper hears the pointer and the Escape only; the polar keyboard layer is item #110).
 - **Proof.** Six `tooltip__item-*` scenarios (G2, content after every step) and `test/javascript/chart_item_tooltip.test.mjs`, which walks
   the same scenarios in the port and in recharts and compares the wrapper's visibility, side classes and translate after every step.
+
+### Item #110: the polar charts answer the pointer and the keyboard (`review-gaps` epic)
+
+What recharts 3.8 does was read in `state/selectors/selectors.js:76-100` (`combineActivePolarProps`), `util/PolarUtils.js`,
+`util/getActiveCoordinate.js`, `component/Cursor.js` with `util/cursor/*`, and the keyboard and touch middlewares, then probed in the React
+oracle step by step on eight new scenarios:
+
+- **The mapping is a primitive, the geometry the server's.** `primitives/chart_polar_pointer.js` ports `inRangeOfSector`, the circular branch
+  of `calculateActiveTickIndex` (a full turn of angle ticks wraps around) and `getActivePolarCoordinate`; the server publishes the polar view
+  box, the tooltip axis and its range (`polar`) and the angles or radii of the categories (`ticks`). The tooltip anchors where recharts puts
+  it: the pointer's radius on the category's angle (radar), the category's radius at the pointer's angle (radial bar).
+- **The cursor is per category, drawn for the pointer only.** recharts draws the polar cursor only from a pointer's polar coordinate
+  (`isPolarCoordinate`); the keyboard and `default_index:` coordinates are plain points, so they draw none. Its geometry depends on the
+  category alone (a radar's line from the inner to the outer radius, a radial bar's ring), so each template carries it as
+  `data-pointer-cursor` and the controller draws it only when the pointer's interaction is the one shown. No new JavaScript draws a path.
+- **A pie is an item tooltip like a bar's.** Its sector groups are `tooltipItem` targets and its templates item templates (series = the pie's
+  position, the sector's `tooltipPosition` as the item coordinate), so the #109 machinery serves it unchanged; a finger activates the sector
+  whose path carries recharts' `data-recharts-item-index` (the element under the finger now, `elementFromPoint`).
+- **The keyboard layer is the cartesian one.** Every polar chart with a tooltip carries every action; `keyboardStep` is 1 (recharts'
+  direction is left-to-right for both polar layouts) and `accessibility_layer: false` switches the keys off. On a pie the keys show nothing
+  until the pointer has shown a sector or `default_index:` names one (the #109 series rule), as recharts does.
+- **Proof.** G2 on the `tooltip__radar-*`, `tooltip__radial-*` and `tooltip__pie-*` scenarios (final DOM, cursor paths included), and
+  `test/javascript/chart_polar_tooltip.test.mjs`, which walks them in the port and in recharts and compares the wrapper, the cursor (class,
+  layer, geometry) and the active dots after every step. The inert-polar tests of `chart.test.mjs` were removed with the behavior they pinned.
+- **Still not ported** (register): radar ranges, `active_shape:`, `stack_offset:`.

@@ -36,7 +36,14 @@ manifests every component is compared against), the number of oracle components,
   does), with `trigger: :click`, `default_index:` (the first series), the keyboard of a `BarChart` (the series the pointer last touched),
   Escape and the `chadcn--chart:activate` / `deactivate` events. It used to render a hidden empty wrapper. The server writes one template
   per category and series, and tags every bar and arc as a `tooltipItem` target (`data-chadcn--chart-series`, `data-chadcn--chart-index`);
-  `chadcn--chart` gains a `pointerSeries` value (not a kwarg). A radial bar chart does not take the keys yet.
+  `chadcn--chart` gains a `pointerSeries` value (not a kwarg).
+- Polar charts answer the pointer and the keyboard: on a `Chart::RadarChart` the pointer's angle picks the category, on a
+  `Chart::RadialBarChart` its distance from the center picks the ring, and on a `Chart::PieChart` the sector under the pointer (or a finger)
+  is shown at its tooltip position, as recharts does. Focus, ArrowLeft/ArrowRight, Enter and Escape work on all three
+  (`accessibility_layer: false` turns the keys off), and the radar and radial bar cursor (a line through the category, a ring around it)
+  is drawn while the pointer is the one showing the tooltip. They used to keep only the `default_index:` tooltip. New primitive
+  `chadcn/primitives/chart_polar_pointer`; `chadcn--chart` gains a `polar` value, and its `layout` value takes `centric` and `radial` (not
+  kwargs).
 
 ### Fixed
 
