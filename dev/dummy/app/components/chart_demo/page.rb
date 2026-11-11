@@ -2,7 +2,7 @@
 
 # A page with Turbo Drive ON and one chart of a family (bar, line, area, pie, radar, radial) for test/javascript/chart.test.mjs. `bar` is the plain
 # hover chart, `line` has a `default_index`, `area` follows clicks (`trigger: :click`); `pie`, `radar` and `radial` (a radial bar) are polar
-# charts with a `default_index` (the controller keeps that tooltip and nothing moves it). A link leads to a second page and back, to leave the
+# charts with a `default_index` that the pointer and the keys move (item #110; a pie by its sectors). A link leads to a second page and back, to leave the
 # page and have Turbo cache it. No scenario JSON, no React twin.
 class ChartDemo::Page < Phlex::HTML
   include Phlex::Rails::Helpers::StylesheetLinkTag
