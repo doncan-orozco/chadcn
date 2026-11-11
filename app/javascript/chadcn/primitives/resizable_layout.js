@@ -313,7 +313,7 @@ function namesAllPanels(itemIds, layout) {
 }
 
 // The remembered layout of this panel set, else a default layout that names every panel, else one from the default sizes.
-export function initialLayout({ itemIds, mutableState, itemConstraints }) {
+export function rememberedOrDefaultLayout({ itemIds, mutableState, itemConstraints }) {
   const given = mutableState.defaultLayout
   return mutableState.layouts[itemIds.join(",")] ?? (given && namesAllPanels(itemIds, given) ? given : defaultItemLayout(itemConstraints))
 }
@@ -397,4 +397,40 @@ export function panelResizeLayout({ itemId, itemIds, nextSize, prevLayout, itemC
     prevLayout,
     trigger: "imperative-api"
   })
+}
+
+// The group state after the group measured `axisSize` (constraints re-derived, layout rescaled), or undefined when nothing
+// changed. A layout deferred because the group mounted at size 0 is computed now. `state` is the previous group state.
+export function nextGroupState({ items, itemIds, mutableState, state, axisSize, itemConstraints }) {
+  let requestedAxisSize = state.requestedAxisSize
+  let requestedLayout = state.requestedLayout
+  if (state.defaultLayoutDeferred) {
+    requestedAxisSize = axisSize
+    requestedLayout = looseLayout({ itemIds, layout: rememberedOrDefaultLayout({ itemIds, mutableState, itemConstraints }) })
+  }
+  const rescaled = rescaleForGroupSize({ items, nextAxisSize: axisSize, prevAxisSize: requestedAxisSize, prevLayout: requestedLayout })
+  const layout = validateLayout({ layout: rescaled, itemConstraints })
+  if (!state.defaultLayoutDeferred && layoutsEqual(state.layout, layout) && constraintListsEqual(state.derivedItemConstraints, itemConstraints) &&
+    state.axisSize === axisSize) return undefined
+  return {
+    defaultLayoutDeferred: false,
+    derivedItemConstraints: itemConstraints,
+    axisSize,
+    layout,
+    requestedAxisSize,
+    requestedLayout,
+    separatorToItems: state.separatorToItems
+  }
+}
+
+// The layout after a keyboard resize of the separator between `pivotIndices`, or undefined when it changes nothing.
+export function keyboardResizedLayout({ layout, itemConstraints, pivotIndices, delta }) {
+  const resized = resizeByDelta({ delta, initialLayout: layout, itemConstraints, pivotIndices, prevLayout: layout, trigger: "keyboard" })
+  const valid = validateLayout({ layout: resized, itemConstraints })
+  return layoutsEqual(layout, valid) ? undefined : valid
+}
+
+// The `{ asPercentage, inPixels }` size record of a panel of `pixels` in a group of `axisSize`.
+export function panelSize({ pixels, axisSize }) {
+  return { asPercentage: round(pixels / axisSize * 100), inPixels: pixels }
 }

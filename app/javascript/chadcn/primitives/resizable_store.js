@@ -1,11 +1,16 @@
 // Shared state of every resizable group of the page, like the module state of react-resizable-panels 4.14.3 (spec:
 // dev/port/specs/resizable.md): the mounted groups and their layouts, the pointer interaction, the change emitters, and the
-// imperative panel and group APIs (rrp.js `mt`, `Ge`). No DOM writes.
+// imperative panel and group APIs (rrp.js `mt`, `Ge`). One DOM write, as in the library: ending a drag that moved blurs the
+// focused separator; size reads go through resizable_measure.
 //
 // Group state: `{ defaultLayoutDeferred, derivedItemConstraints, axisSize, layout, requestedAxisSize, requestedLayout,
 // separatorToItems }`. Interaction: `{ state: "inactive", cursorFlags }`, `{ state: "hover", cursorFlags, hitRegions }` or
 // `{ state: "active", cursorFlags, didPointerMove, hitRegions, initialLayoutMap, pointerDownAtPoint, previewLayoutMap, previews }`.
 // `interaction` and `mountedAxes` are live bindings: importers read the current value.
+//
+// Lifetime: `mountedAxes` is the module's explicit registry (a stack of mounted groups). Each group's entry is released by
+// `unmountAxisState`, which the pointer module's `unmountAxis` calls when the controller disconnects. Listeners are released
+// through the unsubscribers that `onAxisChange` and `interactionChanges.add` return, which the controller calls on disconnect.
 
 import { layoutsEqual, near, panelResizeLayout, round, validateLayout } from "chadcn/primitives/resizable_layout"
 import { itemPixels, percentOfAxis } from "chadcn/primitives/resizable_measure"

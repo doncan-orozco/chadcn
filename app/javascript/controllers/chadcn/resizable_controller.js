@@ -1,8 +1,8 @@
 import { Controller } from "@hotwired/stimulus"
 import { mountTemplate } from "chadcn/primitives/template_mount"
 import {
-  ariaValues, assert, constraintListsEqual, initialLayout, layoutsEqual, looseLayout, near, recordExpandedSize, rescaleForGroupSize,
-  resizeByDelta, round, validateLayout
+  ariaValues, assert, keyboardResizedLayout, layoutsEqual, looseLayout, near, nextGroupState, panelSize, recordExpandedSize,
+  rememberedOrDefaultLayout, validateLayout
 } from "chadcn/primitives/resizable_layout"
 import { collapseToggleDelta, keyboardIntent, nextSeparatorIndex } from "chadcn/primitives/resizable_keyboard"
 import { axisSizeOf, hitRegionsOf, itemPixels, measureConstraints, sortByPosition } from "chadcn/primitives/resizable_measure"
@@ -12,11 +12,12 @@ import {
 import { releaseDocument, retainDocument, unmountAxis } from "chadcn/primitives/resizable_pointer"
 
 // react-resizable-panels 4.14.3 (Group, Panel, Separator) behind shadcn Resizable. Spec: dev/port/specs/resizable.md (Code layout
-// maps the library onto the modules). The layout engine (resizable_layout, _keyboard, _cursor, _geometry) is pure; the DOM
-// reads (resizable_measure), the page-wide state (resizable_store) and the document pointer listeners (resizable_pointer) are
-// shared by all groups of a document, like the library's module state. This controller is one group: it mounts it, observes its
-// size, handles its separators' keys, and paints flex-grow, ARIA values, data-separator states, events and drag previews. The
-// host element is the group div; its panels and separators are its direct children (a nested group is a separate controller).
+// maps the library onto the modules). The layout engine (resizable_layout, _keyboard, _cursor, _geometry) is pure and holds all
+// the layout math (group resize, keyboard resize, panel sizes); the DOM reads (resizable_measure), the page-wide state
+// (resizable_store) and the document pointer listeners (resizable_pointer) are shared by all groups of a document, like the
+// library's module state. This controller is one group: it mounts it, observes its size, handles its separators' keys, and paints
+// flex-grow, ARIA values, data-separator states, events and drag previews. The host element is the group div; its panels and
+// separators are its direct children (a nested group is a separate controller).
 
 const itemIdsOf = (axis) => axis.items.map(({ id }) => id)
 
@@ -42,7 +43,7 @@ function mountAxis(axis) {
   const itemIds = itemIdsOf(axis)
   const axisSize = axisSizeOf(axis)
   const constraints = measureConstraints(axis)
-  const initial = initialLayout({ itemIds, mutableState: axis.mutableState, itemConstraints: constraints })
+  const initial = rememberedOrDefaultLayout({ itemIds, mutableState: axis.mutableState, itemConstraints: constraints })
   const layout = validateLayout({ layout: initial, itemConstraints: constraints })
   const requestedLayout = looseLayout({ itemIds, layout: initial })
   const separatorToItems = new Map()
@@ -62,7 +63,9 @@ function mountAxis(axis) {
       if (axisSize === 0) return
       const state = mountedAxes.get(axis)
       if (!state) return
-      const next = resizedGroupState(axis, state, axisSize)
+      const next = nextGroupState({
+        items: axis.items, itemIds: itemIdsOf(axis), mutableState: axis.mutableState, state, axisSize, itemConstraints: measureConstraints(axis)
+      })
       if (next) storeAxisState(axis, next)
     }
   })
@@ -89,32 +92,6 @@ function mountAxis(axis) {
   }
 }
 
-// The group state after the group element measured `axisSize` (constraints re-derived, layout rescaled), or undefined when
-// nothing changed. A layout deferred because the group mounted at size 0 is computed now.
-function resizedGroupState(axis, state, axisSize) {
-  const constraints = measureConstraints(axis)
-  let requestedAxisSize = state.requestedAxisSize
-  let requestedLayout = state.requestedLayout
-  if (state.defaultLayoutDeferred) {
-    const itemIds = itemIdsOf(axis)
-    requestedAxisSize = axisSize
-    requestedLayout = looseLayout({ itemIds, layout: initialLayout({ itemIds, mutableState: axis.mutableState, itemConstraints: constraints }) })
-  }
-  const rescaled = rescaleForGroupSize({ items: axis.items, nextAxisSize: axisSize, prevAxisSize: requestedAxisSize, prevLayout: requestedLayout })
-  const layout = validateLayout({ layout: rescaled, itemConstraints: constraints })
-  if (!state.defaultLayoutDeferred && layoutsEqual(state.layout, layout) && constraintListsEqual(state.derivedItemConstraints, constraints) &&
-    state.axisSize === axisSize) return undefined
-  return {
-    defaultLayoutDeferred: false,
-    derivedItemConstraints: constraints,
-    axisSize,
-    layout,
-    requestedAxisSize,
-    requestedLayout,
-    separatorToItems: state.separatorToItems
-  }
-}
-
 function reportPanelSize(axis, element, borderBoxSize) {
   if (!borderBoxSize[0]) return
   const item = axis.items.find((candidate) => candidate.element === element)
@@ -122,7 +99,7 @@ function reportPanelSize(axis, element, borderBoxSize) {
   const total = axisSizeOf(axis)
   const pixels = itemPixels(axis, item)
   const prevSize = item.mutableValues.prevSize
-  const size = { asPercentage: round(pixels / total * 100), inPixels: pixels }
+  const size = panelSize({ pixels, axisSize: total })
   item.mutableValues.prevSize = size
   item.onResize(size, item.id, prevSize)
 }
@@ -141,9 +118,8 @@ function resizeFromKeyboard(axis, element, delta) {
   const state = requireState(axis)
   const pivots = separatorPair(axis, state, element).map((item) => axis.items.indexOf(item))
   const layout = groupApi(axis).getLayout()
-  const resized = resizeByDelta({ delta, initialLayout: layout, itemConstraints: state.derivedItemConstraints, pivotIndices: pivots, prevLayout: layout, trigger: "keyboard" })
-  const valid = validateLayout({ layout: resized, itemConstraints: state.derivedItemConstraints })
-  if (!layoutsEqual(layout, valid)) commitLayout(axis, state, valid, { isUserInteraction: true })
+  const resized = keyboardResizedLayout({ layout, itemConstraints: state.derivedItemConstraints, pivotIndices: pivots, delta })
+  if (resized) commitLayout(axis, state, resized, { isUserInteraction: true })
 }
 
 function onSeparatorKeydown(event, axis) {
@@ -158,8 +134,9 @@ function onSeparatorKeydown(event, axis) {
       resizeFromKeyboard(axis, element, intent.delta)
       break
     case "toggle-collapse": {
-      const { derivedItemConstraints, layout } = requireState(axis)
-      const item = separatorPair(axis, requireState(axis), element)[0]
+      const state = requireState(axis)
+      const { derivedItemConstraints, layout } = state
+      const item = separatorPair(axis, state, element)[0]
       const constraints = derivedItemConstraints.find((candidate) => candidate.itemId === item.id)
       assert(constraints, "Panel metadata not found")
       const delta = collapseToggleDelta({ constraints, size: layout[item.id], expandedSize: axis.mutableState.expandedItemSizes[item.id] })

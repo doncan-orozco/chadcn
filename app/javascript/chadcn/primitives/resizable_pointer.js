@@ -300,8 +300,11 @@ export function retainDocument(document) {
 
 export function releaseDocument(document) {
   const count = Math.max(0, (documentRefs.get(document) ?? 0) - 1)
-  documentRefs.set(document, count)
-  if (count) return
+  if (count > 0) {
+    documentRefs.set(document, count)
+    return
+  }
+  documentRefs.delete(document)
   DOCUMENT_LISTENERS.forEach(([type, listener, capture]) => document.removeEventListener(type, listener, capture))
   document.defaultView?.removeEventListener("blur", onWindowBlur)
   releaseCursorSheet(document)

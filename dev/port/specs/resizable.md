@@ -235,9 +235,9 @@ The library's single module is split by what each part depends on; every module 
 | `resizable_keyboard.js` | The keyboard table of `Ct` (key -> delta, Enter toggle, F6 cycle) | nothing (pure) |
 | `resizable_cursor.js` | Cursor flags and names (`En`/`Ve`) | nothing (pure) |
 | `resizable_geometry.js` | Rects, target expansion, pointer distance, nearest region, pointer delta, preview offsets and rects | `resizable_layout` (pure) |
-| `resizable_measure.js` | DOM reads: group and panel pixels, CSS units, hit regions, stacking order and modal checks | the DOM (reads only) |
-| `resizable_store.js` | Mounted groups and their state, the interaction, change emitters, the imperative APIs (`mt`, `Ge`) | `resizable_measure` |
-| `resizable_pointer.js` | Document listeners (ref-counted per document), drag session, double-click reset, cursor sheet | `resizable_store`, `resizable_measure` |
+| `resizable_measure.js` | DOM reads: group and panel pixels, CSS units, hit regions, stacking order and modal checks | `resizable_layout`, `resizable_geometry`; the DOM (reads only) |
+| `resizable_store.js` | Mounted groups and their state, the interaction, change emitters, the imperative APIs (`mt`, `Ge`) | `resizable_layout`, `resizable_measure`; the DOM (focus only: blur after a drag) |
+| `resizable_pointer.js` | Document listeners (ref-counted per document), drag session, double-click reset, cursor sheet | `resizable_layout`, `resizable_cursor`, `resizable_geometry`, `resizable_measure`, `resizable_store`; the DOM |
 
 `resizable_controller.js` is one group: Stimulus targets and values, mount and ResizeObserver (`an`), the separator keydown wiring, the `layout-change`/`layout-changed`/`resize` events, and the DOM writes (flex-grow, `aria-*`, `data-separator`, preview overlays).
 

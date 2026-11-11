@@ -6,104 +6,163 @@ import { assert, primitiveTest } from "./primitives_support.mjs";
 const css = "body{margin:0} #g{display:flex;width:400px;height:100px} [data-panel]{flex:0 0 200px}";
 const html = '<div id="g"><div id="a" data-panel></div><div id="b" data-panel></div></div>';
 
-// Mounts the group in the store (window.axis, window.S) and records its changes in window.changes.
-const mount = (page, { deferred = false } = {}) => page.evaluate(async (deferred) => {
-  const S = await import("chadcn/primitives/resizable_store");
+// Mounts the group in the store (window.axis, window.store) and records its changes in window.changes.
+const mount = (page, { deferred = false, maxB = 100 } = {}) => page.evaluate(async ({ deferred, maxB }) => {
+  const store = await import("chadcn/primitives/resizable_store");
   const element = (id) => document.getElementById(id);
   const item = (id) => ({ element: element(id), id, mutableValues: {}, constraintProps: {} });
   const axis = { element: element("g"), id: "g", orientation: "horizontal", items: [item("a"), item("b")], separators: [], mutableState: { expandedItemSizes: {}, layouts: {} } };
   const derivedItemConstraints = [
     { itemId: "a", collapsible: true, collapsedSize: 0, minSize: 25, maxSize: 100 },
-    { itemId: "b", collapsible: false, collapsedSize: 0, minSize: 0, maxSize: 100 },
+    { itemId: "b", collapsible: false, collapsedSize: 0, minSize: 0, maxSize: maxB },
   ];
   window.changes = [];
-  S.onAxisChange(axis, (change) => window.changes.push({ layout: change.next.layout, prev: change.prev?.layout ?? null, user: change.isUserInteraction }));
-  S.storeAxisState(axis, {
+  store.onAxisChange(axis, (change) => window.changes.push({ layout: change.next.layout, prev: change.prev?.layout ?? null, user: change.isUserInteraction }));
+  store.storeAxisState(axis, {
     defaultLayoutDeferred: deferred, derivedItemConstraints, axisSize: 400, layout: { a: 50, b: 50 }, requestedAxisSize: 400,
     requestedLayout: { a: 50, b: 50 }, separatorToItems: new Map(),
   });
-  Object.assign(window, { axis, S });
-}, deferred);
+  Object.assign(window, { axis, store });
+}, { deferred, maxB });
 
-primitiveTest("resizable_store: a stored group is announced to its listeners, required by its object, and forgotten on unmount", async (page) => {
+primitiveTest("resizable_store: a stored group is announced to its listeners and required by its object", async (page) => {
   await mount(page);
-  const result = await page.evaluate(() => {
-    const { S, axis } = window;
+  const stored = await page.evaluate(() => {
+    const { store, axis } = window;
     const twin = { ...axis };
     let missing;
-    try { S.requireState(twin) } catch (error) { missing = error.message }
-    S.commitLayout(axis, S.requireState(axis), { a: 40, b: 60 }, { isUserInteraction: true });
-    const state = S.requireState(axis);
-    const stored = { layout: state.layout, requestedLayout: state.requestedLayout, requestedAxisSize: state.requestedAxisSize, mounted: S.mountedAxes.has(axis) };
-    const dropped = S.unmountAxisState(axis);
-    return { missing, stored, changes: window.changes, dropped, mounted: S.mountedAxes.has(axis) };
+    try { store.requireState(twin) } catch (error) { missing = error.message }
+    store.commitLayout(axis, store.requireState(axis), { a: 40, b: 60 }, { isUserInteraction: true });
+    const state = store.requireState(axis);
+    return {
+      missing, layout: state.layout, requestedLayout: state.requestedLayout, requestedAxisSize: state.requestedAxisSize, mounted: store.mountedAxes.has(axis),
+      changes: window.changes,
+    };
   });
-  assert.equal(result.missing, "chadcn--resizable: group g is not mounted");
-  assert.deepEqual(result.stored, { layout: { a: 40, b: 60 }, requestedLayout: { a: 40, b: 60 }, requestedAxisSize: 400, mounted: true });
-  assert.deepEqual(result.changes, [
+  assert.equal(stored.missing, "chadcn--resizable: group g is not mounted");
+  assert.deepEqual(stored.layout, { a: 40, b: 60 });
+  assert.deepEqual(stored.requestedLayout, { a: 40, b: 60 });
+  assert.equal(stored.requestedAxisSize, 400);
+  assert.equal(stored.mounted, true);
+  assert.deepEqual(stored.changes, [
     { layout: { a: 50, b: 50 }, prev: null, user: false },
     { layout: { a: 40, b: 60 }, prev: { a: 50, b: 50 }, user: true },
   ]);
-  assert.equal(result.dropped, false);
-  assert.equal(result.mounted, false);
 }, { css, html });
 
-primitiveTest("resizable_store: the group API validates a set layout and returns nothing while the default layout is deferred", async (page) => {
+primitiveTest("resizable_store: unmounting a group forgets it", async (page) => {
   await mount(page);
-  const result = await page.evaluate(() => {
-    const api = window.S.groupApi(window.axis);
+  const unmounted = await page.evaluate(() => {
+    const { store, axis } = window;
+    const mountedBefore = store.mountedAxes.has(axis);
+    const tookPartInInteraction = store.unmountAxisState(axis);
+    return { mountedBefore, tookPartInInteraction, mountedAfter: store.mountedAxes.has(axis) };
+  });
+  assert.deepEqual(unmounted, { mountedBefore: true, tookPartInInteraction: false, mountedAfter: false });
+}, { css, html });
+
+primitiveTest("resizable_store: the group API validates a set layout", async (page) => {
+  await mount(page);
+  const layouts = await page.evaluate(() => {
+    const api = window.store.groupApi(window.axis);
     return { before: api.getLayout(), set: api.setLayout({ a: 10, b: 30 }), after: api.getLayout() };
   });
-  assert.deepEqual(result, { before: { a: 50, b: 50 }, set: { a: 25, b: 75 }, after: { a: 25, b: 75 } });
-
-  await mount(page, { deferred: true });
-  const deferred = await page.evaluate(() => {
-    const api = window.S.groupApi(window.axis);
-    return { get: api.getLayout(), set: api.setLayout({ a: 30, b: 70 }) };
-  });
-  assert.deepEqual(deferred, { get: {}, set: { a: 50, b: 50 } });
+  assert.deepEqual(layouts, { before: { a: 50, b: 50 }, set: { a: 25, b: 75 }, after: { a: 25, b: 75 } });
 }, { css, html });
 
-primitiveTest("resizable_store: the panel API collapses, expands back to the remembered size, resizes by any unit and reports its size", async (page) => {
-  await mount(page);
-  const result = await page.evaluate(() => {
-    const { S, axis } = window;
-    const a = S.panelApi({ axis, itemId: "a" });
-    const steps = [];
-    a.collapse();
-    steps.push({ layout: S.requireState(axis).layout, collapsed: a.isCollapsed() });
-    a.expand();
-    steps.push({ layout: S.requireState(axis).layout, collapsed: a.isCollapsed() });
-    a.resize("100px");
-    steps.push({ layout: S.requireState(axis).layout });
-    let unknown;
-    try { S.panelApi({ axis, itemId: "zz" }).getSize() } catch (error) { unknown = error.message }
-    return { steps, size: a.getSize(), unknown };
+primitiveTest("resizable_store: the group API returns nothing while the default layout is deferred", async (page) => {
+  await mount(page, { deferred: true });
+  const layouts = await page.evaluate(() => {
+    const api = window.store.groupApi(window.axis);
+    return { get: api.getLayout(), set: api.setLayout({ a: 30, b: 70 }) };
   });
-  assert.deepEqual(result.steps, [
-    { layout: { a: 0, b: 100 }, collapsed: true },
-    { layout: { a: 50, b: 50 }, collapsed: false },
-    { layout: { a: 25, b: 75 } },
-  ]);
-  assert.deepEqual(result.size, { asPercentage: 25, inPixels: 200 });
-  assert.equal(result.unknown, "Layout not found for Panel zz");
+  assert.deepEqual(layouts, { get: {}, set: { a: 50, b: 50 } });
+}, { css, html });
+
+primitiveTest("resizable_store: the panel API collapses and expands back to the remembered size", async (page) => {
+  await mount(page);
+  const steps = await page.evaluate(() => {
+    const { store, axis } = window;
+    const panelA = store.panelApi({ axis, itemId: "a" });
+    const record = () => ({ layout: store.requireState(axis).layout, collapsed: panelA.isCollapsed() });
+    panelA.collapse();
+    const collapsed = record();
+    panelA.expand();
+    return { collapsed, expanded: record() };
+  });
+  assert.deepEqual(steps, {
+    collapsed: { layout: { a: 0, b: 100 }, collapsed: true },
+    expanded: { layout: { a: 50, b: 50 }, collapsed: false },
+  });
+}, { css, html });
+
+primitiveTest("resizable_store: the panel API resizes by any unit and reports its size", async (page) => {
+  await mount(page);
+  const resized = await page.evaluate(() => {
+    const { store, axis } = window;
+    const panelA = store.panelApi({ axis, itemId: "a" });
+    panelA.resize("100px");
+    return { layout: store.requireState(axis).layout, size: panelA.getSize() };
+  });
+  assert.deepEqual(resized.layout, { a: 25, b: 75 });
+  assert.deepEqual(resized.size, { asPercentage: 25, inPixels: 200 });
+}, { css, html });
+
+primitiveTest("resizable_store: the panel API throws for a panel that is not in the group", async (page) => {
+  await mount(page);
+  const message = await page.evaluate(() => {
+    try { window.store.panelApi({ axis: window.axis, itemId: "zz" }).getSize() } catch (error) { return error.message }
+  });
+  assert.equal(message, "Layout not found for Panel zz");
+}, { css, html });
+
+primitiveTest("resizable_store: a panel that is not collapsible ignores collapse and expand", async (page) => {
+  await mount(page);
+  const outcome = await page.evaluate(() => {
+    const { store, axis } = window;
+    const panelB = store.panelApi({ axis, itemId: "b" });
+    panelB.collapse();
+    panelB.expand();
+    return { layout: store.requireState(axis).layout, collapsed: panelB.isCollapsed(), changes: window.changes.length };
+  });
+  assert.deepEqual(outcome, { layout: { a: 50, b: 50 }, collapsed: false, changes: 1 });
+}, { css, html });
+
+primitiveTest("resizable_store: a resize stops at the maximum size of the panel that grows", async (page) => {
+  await mount(page, { maxB: 60 });
+  const resized = await page.evaluate(() => {
+    const { store, axis } = window;
+    const panelA = store.panelApi({ axis, itemId: "a" });
+    panelA.resize("40px");
+    return { layout: store.requireState(axis).layout, size: panelA.getSize().asPercentage };
+  });
+  assert.deepEqual(resized, { layout: { a: 40, b: 60 }, size: 40 });
 }, { css, html });
 
 primitiveTest("resizable_store: the interaction is a live binding; ending a moved drag blurs its focused separator", async (page) => {
-  await page.evaluate(() => { document.body.innerHTML = '<div id="s" tabindex="0"></div>' });
-  const result = await page.evaluate(async () => {
-    const S = await import("chadcn/primitives/resizable_store");
+  const drag = await page.evaluate(async () => {
+    const store = await import("chadcn/primitives/resizable_store");
     const axis = { id: "g" };
     const separator = { element: document.getElementById("s") };
     const seen = [];
-    S.interactionChanges.add(({ prev, next }) => seen.push(`${prev.state}->${next.state}`));
+    store.interactionChanges.add(({ prev, next }) => seen.push(`${prev.state}->${next.state}`));
     separator.element.focus();
-    S.setInteraction({ state: "active", cursorFlags: 0, didPointerMove: false, hitRegions: [{ axis, separator }], previews: [], initialLayoutMap: new Map(), previewLayoutMap: new Map(), pointerDownAtPoint: { x: 0, y: 0 } });
-    const dragging = S.isDragging(axis);
-    S.updateDrag(2, [], undefined, true);
-    const flags = S.interaction.cursorFlags;
-    S.endInteraction();
-    return { dragging, flags, state: S.interaction.state, blurred: document.activeElement !== separator.element, seen };
+    store.setInteraction({
+      state: "active", cursorFlags: 0, didPointerMove: false, hitRegions: [{ axis, separator }], previews: [], initialLayoutMap: new Map(),
+      previewLayoutMap: new Map(), pointerDownAtPoint: { x: 0, y: 0 },
+    });
+    const dragging = store.isDragging(axis);
+    const cursorFlags = 2;
+    const previews = [];
+    const previewLayoutMap = undefined;
+    const didPointerMove = true;
+    store.updateDrag(cursorFlags, previews, previewLayoutMap, didPointerMove);
+    const flags = store.interaction.cursorFlags;
+    const focusedWhileDragging = document.activeElement === separator.element;
+    store.endInteraction();
+    return { dragging, flags, focusedWhileDragging, state: store.interaction.state, blurred: document.activeElement !== separator.element, seen };
   });
-  assert.deepEqual(result, { dragging: true, flags: 2, state: "inactive", blurred: true, seen: ["inactive->active", "active->active", "active->inactive"] });
-});
+  assert.deepEqual(drag, {
+    dragging: true, flags: 2, focusedWhileDragging: true, state: "inactive", blurred: true, seen: ["inactive->active", "active->active", "active->inactive"],
+  });
+}, { html: '<div id="s" tabindex="0"></div>' });

@@ -63,14 +63,10 @@ const isElement = (value) => value !== null && typeof value === "object" && "nod
 
 // --- hit regions -----------------------------------------------------------------------------------------------------------
 
-let coarsePointer
-function isCoarsePointer() {
-  if (coarsePointer === undefined) coarsePointer = typeof matchMedia === "function" ? !!matchMedia("(pointer:coarse)").matches : false
-  return coarsePointer
-}
-
 function minimumTargetSize(axis, expandHitTargets) {
-  return expandHitTargets ? (isCoarsePointer() ? axis.resizeTargetMinimumSize.coarse : axis.resizeTargetMinimumSize.fine) : 0
+  if (!expandHitTargets) return 0
+  const coarse = typeof matchMedia === "function" ? !!matchMedia("(pointer:coarse)").matches : false
+  return coarse ? axis.resizeTargetMinimumSize.coarse : axis.resizeTargetMinimumSize.fine
 }
 
 // The draggable regions of a group: `{ axis, axisSize, items: [before, after], separator, rect }`, one per separator, or the
