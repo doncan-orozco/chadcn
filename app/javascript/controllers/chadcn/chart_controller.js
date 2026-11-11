@@ -1,6 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 import { activeDotElements, cursorElement } from "chadcn/primitives/chart_shapes"
 import { nearestTickIndex, pointerInPlot, relativePointer } from "chadcn/primitives/chart_pointer"
+import { polarActiveCoordinate, polarPointer, polarTickIndex } from "chadcn/primitives/chart_polar_pointer"
 import { measureTextMetrics, remeasureNeeded } from "chadcn/primitives/chart_measure"
 import { chartInResponse, laidOutAt, observeSettledSize, relayoutNeeded, relayoutRequestUrl, scaleToBox } from "chadcn/primitives/chart_relayout"
 import { SIDE_CLASSES, tooltipPlacement } from "chadcn/primitives/chart_tooltip_placement"
@@ -12,10 +13,14 @@ import { turboCacheRestore } from "chadcn/primitives/turbo_cache"
 // this controller mounts the one for the active index into `.recharts-tooltip-wrapper`, draws the cursor and the active dots from the
 // template's JSON and positions the wrapper with recharts' own algorithm.
 //
-// An item tooltip (`Tooltip shared: false` on a BarChart or a RadialBarChart) follows the shape under the pointer instead of the category:
-// the server tags every bar or arc as a `tooltipItem` with its series and position, and writes one template per series and category
-// (`context/tooltipContext.js`: the hovered shape's index, series and `tooltipPosition`). A pie is an item tooltip too, but its sectors are
-// not tagged, so the controller leaves it alone.
+// An item tooltip (`Tooltip shared: false` on a BarChart or a RadialBarChart, and every PieChart) follows the shape under the pointer
+// instead of the category: the server tags every bar, arc or pie sector as a `tooltipItem` with its series and position, and writes one
+// template per series and category (`context/tooltipContext.js`: the hovered shape's index, series and `tooltipPosition`).
+//
+// A RadarChart and a RadialBarChart map the pointer through their polar view box (`polar`): its angle picks the category of a radar, its
+// radius the ring of a radial bar chart (`combineActivePolarProps`, `primitives/chart_polar_pointer.js`). Their cursor depends on the
+// category alone, so the server writes it on each template (`data-pointer-cursor`); recharts draws it for a pointer activation only,
+// never for the keyboard or `default_index` (`component/Cursor.js:60`, `isPolarCoordinate`), and so does this controller.
 //
 // Three interactions are independent states (`state/selectors/combiners/combineTooltipInteractionState.js:22-58`): the pointer's, the
 // keyboard's and `default_index`. The tooltip shows the pointer index while the pointer is active, else the keyboard index while the
@@ -33,6 +38,9 @@ const REDUCED_MOTION = "(prefers-reduced-motion: reduce)"
 const EVENT_ACTIVATE = "activate"
 const EVENT_DEACTIVATE = "deactivate"
 // The z-index layer of the active dots: DefaultZIndexes.activeDot (recharts es6/zIndex/DefaultZIndexes.js:68).
+const POLAR_LAYOUTS = new Set(["centric", "radial"])
+// What `hitAt` answers for a pointer outside the plot (cartesian) or the sector (polar): a mouse there leaves the chart.
+const OUTSIDE = Symbol("outside")
 const ACTIVE_DOT_LAYER = 1200
 const EVENT_RELAYOUT = "relayout"
 const EVENT_RELAYOUT_ERROR = "relayout-error"
@@ -50,6 +58,7 @@ export default class extends Controller {
     accessibilityLayer: { type: Boolean, default: true },
     ticks: { type: Array, default: [] },
     plot: { type: Object, default: {} },
+    polar: { type: Object, default: {} }, // a polar chart's view box, tooltip axis and its range (Chart::Polar::Wiring)
     pointerIndex: { type: Number, default: -1 },
     pointerActive: { type: Boolean, default: false },
     pointerSeries: { type: Number, default: -1 }, // the series of the item the pointer activated (item tooltips); -1 = none yet
@@ -76,6 +85,7 @@ export default class extends Controller {
   connect() {
     this.shownKey = null
     this.shownIndex = -1
+    this.pointerCursor = null
     this.announcing = true
     this.mounted = null
     this.pointerCoordinate = null
@@ -228,35 +238,68 @@ export default class extends Controller {
   }
 
   activateFromPointer(event, { leaveOutside }) {
-    const pointer = relativePointer(event)
-    if (!pointerInPlot(pointer, this.plotValue)) {
+    const hit = this.hitAt(relativePointer(event))
+    if (hit === OUTSIDE) {
       if (leaveOutside && this.pointerActiveValue) {
         this.pointerActiveValue = false
         this.render()
       }
       return
     }
+    if (!hit) return
 
-    const horizontal = this.layoutValue === "horizontal"
-    const index = nearestTickIndex(horizontal ? pointer.x : pointer.y, this.ticksValue)
-    const tick = this.ticksValue.find((candidate) => candidate.index === index)
-    if (!tick) return
-
-    // `getActiveCartesianCoordinate`: the tick along the category axis, the pointer along the other (`util/getActiveCoordinate.js:8-28`).
-    this.pointerCoordinate = horizontal ? { x: tick.coordinate, y: pointer.y } : { x: pointer.x, y: tick.coordinate }
-    this.pointerIndexValue = index
+    this.pointerCoordinate = hit.coordinate
+    this.pointerIndexValue = hit.index
     this.pointerActiveValue = true
     this.keyboardActiveValue = false
     this.render()
   }
 
+  get polar() {
+    return POLAR_LAYOUTS.has(this.layoutValue)
+  }
+
+  // The category under the pointer and where it anchors (`combineActiveProps`, `state/selectors/selectors.js:92-100`): OUTSIDE when the
+  // pointer is off the plot or the polar sector, null when no tick holds it.
+  hitAt(pointer) {
+    return this.polar ? this.polarHit(pointer) : this.cartesianHit(pointer)
+  }
+
+  cartesianHit(pointer) {
+    if (!pointerInPlot(pointer, this.plotValue)) return OUTSIDE
+
+    const horizontal = this.layoutValue === "horizontal"
+    const tick = this.tickOf(nearestTickIndex(horizontal ? pointer.x : pointer.y, this.ticksValue))
+    if (!tick) return null
+
+    // `getActiveCartesianCoordinate`: the tick along the category axis, the pointer along the other (`util/getActiveCoordinate.js:8-28`).
+    return { index: tick.index, coordinate: horizontal ? { x: tick.coordinate, y: pointer.y } : { x: pointer.x, y: tick.coordinate } }
+  }
+
+  // `combineActivePolarProps` (`state/selectors/selectors.js:76-91`): the angle (centric) or radius (radial) of a pointer inside the sector
+  // picks the tick, and the anchor is the pointer's radius on the tick's angle or the tick's radius at the pointer's angle.
+  polarHit(pointer) {
+    const box = this.polarValue
+    const at = polarPointer(pointer, box)
+    if (!at) return OUTSIDE
+
+    const centric = this.layoutValue === "centric"
+    const tick = this.tickOf(polarTickIndex(centric ? at.angle : at.radius, this.ticksValue, { angleAxis: box.axis === "angle", range: box.range }))
+    if (!tick) return null
+
+    return { index: tick.index, coordinate: polarActiveCoordinate(this.layoutValue, tick.coordinate, at, box) }
+  }
+
+  tickOf(index) {
+    return this.ticksValue.find((candidate) => candidate.index === index)
+  }
+
   // --- item tooltips ----------------------------------------------------------------------------------------------------------
 
   // A pointer moving onto a tagged shape is recharts' `mouseenter` of that shape (`setActiveMouseOverItemIndex`), off every shape its
-  // `mouseleave` (`mouseLeaveItem`: the item is no longer active, its index and series are kept). A finger finds no item: recharts
-  // resolves a touch through `data-recharts-item-index`, which only a Pie writes (`state/touchEventsMiddleware.js:62-71`).
+  // `mouseleave` (`mouseLeaveItem`: the item is no longer active, its index and series are kept).
   hoverItem(event) {
-    if (event.pointerType === "touch") return
+    if (event.pointerType === "touch") return this.touchItem(event)
 
     const item = this.itemAt(event)
     if (item) return this.activateItem(item)
@@ -266,9 +309,22 @@ export default class extends Controller {
     this.render()
   }
 
+  // A finger activates the shape under it only when that element carries recharts' `data-recharts-item-index`, which a pie's sector path
+  // does and a bar or a radial bar arc does not; anywhere else it changes nothing (`state/touchEventsMiddleware.js:65-90`). The element is
+  // the one under the finger now (`elementFromPoint`), not the one the touch started on, which the browser keeps as its target.
+  touchItem(event) {
+    const element = document.elementFromPoint?.(event.clientX, event.clientY)
+    const item = element?.hasAttribute("data-recharts-item-index") ? this.itemOf(element) : null
+    if (item) this.activateItem(item)
+  }
+
   itemAt(event) {
-    // One ancestor walk from the event target, not a scan of every item.
-    const item = event.target instanceof Element ? event.target.closest(`[data-${this.identifier}-target~="tooltipItem"]`) : null
+    return event.target instanceof Element ? this.itemOf(event.target) : null
+  }
+
+  // One ancestor walk from the element, not a scan of every item.
+  itemOf(element) {
+    const item = element.closest(`[data-${this.identifier}-target~="tooltipItem"]`)
     return item && this.element.contains(item) ? item : null
   }
 
@@ -318,16 +374,19 @@ export default class extends Controller {
   // (`Tooltip.js:129`, `combineTooltipInteractionState.js:39-45`).
   // An item tooltip also says which series (`series`, -1 for an axis tooltip). A `coordinate` of `undefined` means the template's anchor
   // (keyboard, `default_index`); a pointer activation keeps its own, which is `null` for a radial bar arc without a `default_index`.
+  // `pointer` says the pointer's interaction is the one shown (the polar cursor is drawn for it alone).
   resolve() {
     const series = this.itemTooltip ? this.restingSeries : -1
-    if (this.tooltipActiveValue === "false") return { index: -1, series, coordinate: null }
-    if (this.pointerActiveValue) return { index: this.pointerIndexValue, series, coordinate: this.pointerAnchor(this.pointerIndexValue, series) }
-    if (this.keyboardActiveValue) return { index: this.keyboardIndexValue, series, coordinate: undefined }
+    if (this.tooltipActiveValue === "false") return { index: -1, series, coordinate: null, pointer: false }
+    if (this.pointerActiveValue) {
+      return { index: this.pointerIndexValue, series, coordinate: this.pointerAnchor(this.pointerIndexValue, series), pointer: true }
+    }
+    if (this.keyboardActiveValue) return { index: this.keyboardIndexValue, series, coordinate: undefined, pointer: false }
     if (this.pointerIndexValue >= 0) {
       const index = this.tooltipActiveValue === "true" ? this.pointerIndexValue : -1
-      return { index, series, coordinate: this.pointerAnchor(this.pointerIndexValue, series) }
+      return { index, series, coordinate: this.pointerAnchor(this.pointerIndexValue, series), pointer: true }
     }
-    return { index: this.defaultIndexValue, series, coordinate: undefined }
+    return { index: this.defaultIndexValue, series, coordinate: undefined, pointer: false }
   }
 
   // The template of an index (an axis tooltip) or of an index and a series (an item tooltip; -1 = no series, so none).
@@ -352,6 +411,7 @@ export default class extends Controller {
 
     this.releaseDismissal()
     this.show(index, template)
+    this.showPointerCursor(resolved.pointer ? template : null)
     this.place(index, template)
   }
 
@@ -376,11 +436,28 @@ export default class extends Controller {
     if (first && servedDefault && this.tooltipTarget.childElementCount > 0) return
 
     this.clearContent()
+    this.pointerCursor = null
     if (!template) return previous >= 0 ? this.announce(EVENT_DEACTIVATE, previous) : undefined
 
     this.mounted = mountTemplate(template, { into: this.tooltipTarget })
     this.drawShapes(template)
     this.announce(EVENT_ACTIVATE, index, template)
+  }
+
+  // The polar cursor of the template a pointer activation shows (`data-pointer-cursor`), removed when the keyboard, `default_index` or
+  // nothing is shown instead. `show` clears it with the content when the template changes.
+  showPointerCursor(template) {
+    const spec = template?.dataset.pointerCursor ?? ""
+    if (this.pointerCursor?.spec === spec) return
+
+    this.pointerCursor?.node.remove()
+    this.pointerCursor = null
+    const cursor = this.json(spec)
+    const node = cursor && cursorElement(cursor)
+    if (!node) return
+
+    this.layer(cursor.layer)?.append(this.tagged(node, "cursor"))
+    this.pointerCursor = { spec, node }
   }
 
   clearContent() {

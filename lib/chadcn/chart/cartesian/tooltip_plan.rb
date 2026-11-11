@@ -16,8 +16,10 @@ class Chadcn::Chart::Cartesian::TooltipPlan
   # (`shared: false` on a BarChart or a RadialBarChart) is one series at one category: `series` is its position among the item series,
   # `coordinate` the axis anchor (where the keyboard and `default_index:` place it) and `item_coordinate` where the pointer on the shape
   # places it (the shape's `tooltipPosition`; nil for a radial bar sector, which has none). Both are nil for any other entry.
-  Entry = Data.define(:index, :label, :coordinate, :payload, :cursor, :dots, :series, :item_coordinate) do
-    def initialize(index:, label:, coordinate:, payload:, cursor:, dots:, series: nil, item_coordinate: nil) = super
+  # `pointer_cursor` is the cursor drawn only while the pointer activates the category ({Cursor} or nil): a polar chart's, which recharts
+  # draws from the pointer's polar coordinate and never for the keyboard or `default_index:` (component/Cursor.js:60, isPolarCoordinate).
+  Entry = Data.define(:index, :label, :coordinate, :payload, :cursor, :dots, :series, :item_coordinate, :pointer_cursor) do
+    def initialize(index:, label:, coordinate:, payload:, cursor:, dots:, series: nil, item_coordinate: nil, pointer_cursor: nil) = super
 
     # @api private
     # @return [Boolean] whether this is an entry of an item tooltip (one series at one category)
@@ -192,11 +194,16 @@ class Chadcn::Chart::Cartesian::TooltipPlan
   # The cursor of an axis tooltip (component/Cursor.js:42-114): a rectangle behind the bars of a bar chart, a line through the
   # category on a line or area chart. `cursor: <Hash>` adds attributes to it.
   def cursor(coordinate)
+    styled_cursor { @layout.chart_type == :bar ? rectangle_cursor(coordinate) : line_cursor(coordinate) }
+  end
+
+  # The cursor the block builds with the `cursor:` option applied: none for `false`, the Hash's attributes and class added to it.
+  def styled_cursor
     option = @tooltip.options[:cursor]
     return if option.nil? || option == false
 
     custom = option.is_a?(Hash) ? option.transform_keys(&:to_sym) : {}
-    shape = @layout.chart_type == :bar ? rectangle_cursor(coordinate) : line_cursor(coordinate)
+    shape = yield
     classes = [ shape.attrs[:class], custom[:class] ].compact.join(" ")
     Cursor.new(layer: shape.layer, attrs: shape.attrs.merge(shape_attributes(custom.except(:class))).merge(class: classes))
   end

@@ -55,7 +55,7 @@ primitiveTest("chart_polar_pointer: the active coordinate is the pointer's radiu
   const result = await page.evaluate(async ({ radar, radial }) => {
     const { polarActiveCoordinate } = await import("chadcn/primitives/chart_polar_pointer");
     return [
-      polarActiveCoordinate("centric", 30, { radius: 49.7393, angle: 30.1735 }, radar),
+      polarActiveCoordinate("centric", 30, { radius: 49.73932046178355, angle: 30.17352002964435 }, radar),
       polarActiveCoordinate("radial", 41.6667, { radius: 41, angle: 0 }, radial),
       polarActiveCoordinate("radial", 65, { radius: 65, angle: 90 }, radial),
     ];

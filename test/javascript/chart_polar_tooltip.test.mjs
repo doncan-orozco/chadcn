@@ -8,7 +8,7 @@
 import test, { after } from "node:test";
 import fs from "node:fs";
 import { serversFile } from "./dev_kit.mjs";
-import { assert, consoleErrors, launch, openScenario, settle } from "./support.mjs";
+import { assert, consoleErrors, launch, openPath, openScenario, settle } from "./support.mjs";
 
 const REACT = process.env.PARITY_REACT_URL || JSON.parse(fs.readFileSync(serversFile(), "utf8")).vite?.url;
 const SCENARIOS = JSON.parse(fs.readFileSync(new URL("../../dev/port/scenarios/chart.json", import.meta.url), "utf8")).scenarios;
@@ -213,3 +213,47 @@ test("polar tooltip: the Turbo snapshot holds no stale tooltip or cursor and the
   await page.locator(TOOLTIP).filter({ hasText: "February" }).waitFor();
   assert.deepEqual(await chartState(page), live);
 }));
+
+// The demo pages (dev/dummy, /design-system/chart-demo/<family>) draw a pie and a radial bar chart with `default_index`.
+async function withDemo(family, fn) {
+  const page = await openPath(await browserPromise, `/design-system/chart-demo/${family}`);
+  try {
+    const errors = consoleErrors(page);
+    await fn(page);
+    assert.deepEqual(errors, []);
+    assert.deepEqual(page.jsErrors, []);
+  } finally {
+    await page.context().close();
+  }
+}
+
+async function reinsert(page) {
+  await page.evaluate(async (chart) => {
+    const node = document.querySelector(chart);
+    const parent = node.parentElement;
+    node.remove();
+    await new Promise((resolve) => setTimeout(resolve));
+    parent.append(node);
+  }, CHART);
+  await settle(page);
+}
+
+for (const family of ["pie", "radial"]) {
+  test(`polar tooltip: a ${family}'s default_index tooltip is placed at rest, a pointer replaces it, and a re-inserted chart shows it again`, () => withDemo(family, async (page) => {
+    await page.locator(TOOLTIP).waitFor({ state: "visible" });
+    const rest = await chartState(page);
+    assert.match(rest.transform, /^translate\(/, "the controller placed the server-drawn tooltip");
+
+    const box = await page.locator(PLOT).boundingBox();
+    const sector = await page.locator(`${CHART} ${family === "pie" ? ".recharts-pie-sector" : ".recharts-radial-bar-sector"}`).first().boundingBox();
+    await page.mouse.move(sector.x + sector.width / 2, sector.y + 4);
+    await settle(page);
+    assert.notDeepEqual((await chartState(page)).text, "", "a pointer activation shows a tooltip");
+    await page.mouse.move(box.x - 20, box.y - 20);
+    await settle(page);
+
+    await reinsert(page);
+    await page.locator(TOOLTIP).waitFor({ state: "visible" });
+    assert.deepEqual(await chartState(page), rest);
+  }));
+}

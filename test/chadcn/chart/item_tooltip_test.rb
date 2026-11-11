@@ -119,14 +119,10 @@ class Chadcn::Chart::ItemTooltipTest < Chadcn::TestCase
     assert_empty doc.css("path.recharts-radial-bar-background-sector#{ITEM}")
   end
 
-  test "a RadialBarChart with shared: false hears the pointer on its wrapper" do
+  test "a RadialBarChart with shared: false hears the pointer and the keys on its wrapper" do
     action = parse(radial_item_html).at_css(".recharts-wrapper")["data-action"]
 
-    assert_includes action, "pointermove->chadcn--chart#move"
-    assert_includes action, "pointerleave->chadcn--chart#leave"
-    assert_includes action, "click->chadcn--chart#click"
-    assert_includes action, "keydown@document->chadcn--chart#dismiss"
-    refute_includes action, "focusin", "a polar chart has no keyboard layer yet (item #110)"
+    assert_equal Chadcn::Chart::Cartesian::Wiring::ACTION, action
   end
 
   test "default_index on an item RadialBarChart draws the first series at that row" do
@@ -137,10 +133,11 @@ class Chadcn::Chart::ItemTooltipTest < Chadcn::TestCase
     assert_includes wrapper.text, BROWSERS[1][:visitors].to_s
   end
 
-  test "a pie stays an inert item tooltip: its sectors are not tagged" do
+  test "a pie's sector groups are its tooltip items (the paths keep recharts' own item index)" do
     doc = parse(render_pie(around: ->(chart) { chart.tooltip(content: CONTENT) }))
 
-    assert_empty doc.css(ITEM)
+    assert_equal 5, doc.css("g.recharts-pie-sector#{ITEM}").length
+    assert_empty doc.css("path#{ITEM}")
   end
 
   test "a bar missing at a row (zero height) shifts the bars after it, and the template anchors at the bar that took its position" do

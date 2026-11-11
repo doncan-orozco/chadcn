@@ -7,11 +7,14 @@
 # two charts, written as the inert templates `chadcn--chart` swaps and, for `default_index:`, drawn visible. The plan has the interface of
 # {Chadcn::Chart::Cartesian::TooltipPlan}, which it extends.
 #
-# A polar tooltip has no cursor on the server: recharts draws it from the polar coordinate of the pointer (component/Cursor.js:66-94,
-# util/cursor/getCursorPoints.js:19), which a `default_index:` does not have. A radial bar chart with `Tooltip shared: false` is an item
-# tooltip (chart/RadialBarChart.js:11, state/selectors/selectTooltipEventType.js:4-13): one entry per radial bar series and category, like a
-# BarChart's, with no item coordinate (a radial bar sector has no `tooltipPosition`, polar/RadialBar.js); a radar allows `axis` only, so it
-# stays an axis tooltip.
+# A polar axis entry has no cursor of its own: recharts draws it only from the polar coordinate of a pointer activation (component/Cursor.js:
+# 60-94, `isPolarCoordinate`), never for the keyboard or `default_index:`, whose coordinate is a plain point. Its geometry depends on the
+# category alone (a radar: a line from the inner to the outer radius at the category's angle; a radial bar: a ring at the category's radius,
+# util/cursor/getCursorPoints.js, getRadialCursorPoints.js), so every axis entry carries it as its `pointer_cursor`, which `chadcn--chart`
+# draws for a pointer activation only. A radial bar chart with `Tooltip shared: false` is an item tooltip (chart/RadialBarChart.js:11,
+# state/selectors/selectTooltipEventType.js:4-13): one entry per radial bar series and category, like a BarChart's, with no item coordinate
+# (a radial bar sector has no `tooltipPosition`, polar/RadialBar.js); a radar allows `axis` only, so it stays an axis tooltip. A pie's
+# sectors are its items: each entry is one pie's sector, at the sector's `tooltipPosition` (polar/Pie.js:119).
 #
 # @api private
 class Chadcn::Chart::Polar::TooltipPlan < Chadcn::Chart::Cartesian::TooltipPlan
@@ -19,15 +22,23 @@ class Chadcn::Chart::Polar::TooltipPlan < Chadcn::Chart::Cartesian::TooltipPlan
   # @return [Array<Entry>] one per sector or category, in order
   def entries = @entries ||= compute_entries
 
-  # The radial bars of an item tooltip (`shared: false`), each with its position; a pie's sectors are not activated by the pointer here.
+  # The series whose shapes the pointer activates one at a time, each with its position: the pies of a pie chart, the radial bars of a
+  # radial bar chart with `shared: false`.
   #
   # @api private
   # @return [Hash{Object => Integer}] series => position
   def item_series
-    return {} unless @event_type == :item && @layout.chart_type == :radial_bar
+    return {} unless @event_type == :item
 
-    @item_series ||= @layout.placed.select { |placed| placed.series.kind == :radial_bar }.each_with_index.to_h { |placed, index| [ placed.series, index ] }
+    kind = @layout.chart_type == :pie ? :pie : :radial_bar
+    @item_series ||= @layout.placed.select { |placed| placed.series.kind == kind }.each_with_index.to_h { |placed, index| [ placed.series, index ] }
   end
+
+  # The axis the tooltip follows: the angle axis of a radar, the radius axis of a radial bar chart.
+  #
+  # @api private
+  # @return [Chadcn::Chart::Polar::Axis, nil] nil for a pie chart
+  def axis = @axis
 
   private
 
@@ -64,13 +75,14 @@ class Chadcn::Chart::Polar::TooltipPlan < Chadcn::Chart::Cartesian::TooltipPlan
   end
 
   def pie_entry(series, sector)
+    position = { x: sector.tooltip_position[0], y: sector.tooltip_position[1] }
     options = series.options
     shown = Chadcn::Chart::Polar::PieSectors.presentation(series, sector)
     color = shown[:fill].is_a?(String) ? shown[:fill] : options[:fill]
     item = { name: sector.name.to_s, data_key: options[:data_key].to_s, value: sector.value, color: color, type: options[:tooltip_type], unit: "",
              hide: options[:hide], payload: with_cell(sector.row, series.cells[sector.index]) }
-    Entry.new(index: sector.index, label: nil, coordinate: { x: sector.tooltip_position[0], y: sector.tooltip_position[1] }, payload: filtered([ item ]),
-              cursor: nil, dots: [])
+    Entry.new(index: sector.index, label: nil, coordinate: position, payload: filtered([ item ]), cursor: nil, dots: [], series: item_series[series],
+              item_coordinate: position)
   end
 
   # The row the way the pie's entry has it: with what the cell gave (`entryWithCellInfo`, polar/Pie.js:378).
@@ -95,11 +107,34 @@ class Chadcn::Chart::Polar::TooltipPlan < Chadcn::Chart::Cartesian::TooltipPlan
 
     @axis.all_ticks.map do |tick|
       row = @rows[tick.index]
-      Entry.new(index: tick.index, label: tick.value, coordinate: axis_anchor(tick), payload: payload(row), cursor: nil, dots: dots(row))
+      Entry.new(index: tick.index, label: tick.value, coordinate: axis_anchor(tick), payload: payload(row), cursor: nil, dots: dots(row),
+                pointer_cursor: styled_cursor { @layout.direction == :centric ? spoke_cursor(tick) : ring_cursor(tick) })
     end
   end
 
   def axis_anchor(tick) = { x: (@layout.offset[:left] + @layout.width) / 2.0, y: tick.coordinate }
+
+  # --- pointer cursor -----------------------------------------------------------------------------------------------------
+
+  # A radar's: `getCursorPoints` of a centric layout drawn by a `Curve`, the inner to the outer radius at the category's angle.
+  def spoke_cursor(tick)
+    box = @layout.view_box
+    points = [ box.point(box.inner_radius, tick.coordinate), box.point(box.outer_radius, tick.coordinate) ]
+    Cursor.new(layer: 1100, attrs: { **cursor_frame, class: "recharts-curve recharts-tooltip-cursor",
+                                     d: Chadcn::Chart::Shape::Curve.line(points, type: :linear) })
+  end
+
+  # A radial bar's: `getRadialCursorPoints` drawn by a `Sector` whose inner and outer radius are the category's radius.
+  def ring_cursor(tick)
+    box = @layout.view_box
+    d = Chadcn::Chart::Shape::Arc.sector_path(cx: box.cx, cy: box.cy, inner_radius: tick.coordinate, outer_radius: tick.coordinate,
+                                             start_angle: box.start_angle, end_angle: box.end_angle)
+    Cursor.new(layer: 1100, attrs: { **cursor_frame, cx: round(box.cx), cy: round(box.cy), class: "recharts-sector recharts-tooltip-cursor", d: d })
+  end
+
+  # What every cursor carries before its geometry (component/Cursor.js:98-102): the stroke, no pointer events, and the plot's size (the
+  # offset is spread onto the shape, which keeps the SVG attributes `width` and `height`).
+  def cursor_frame = { stroke: "#ccc", "pointer-events": "none", width: round(@layout.plot[:width]), height: round(@layout.plot[:height]) }
 
   # A radial bar's entry holds the row as the arc has it (the arc spreads the row and its cell, polar/RadialBar.js:407), with the value the row
   # gives; a radar's is the series' own.

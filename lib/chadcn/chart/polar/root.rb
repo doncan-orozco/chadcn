@@ -74,7 +74,7 @@ class Chadcn::Chart::Polar::Root < Chadcn::Base
       plan = Chadcn::Chart::Polar::TooltipPlan.new(layout: layout, declared: @declared, rows: layout.rows, event_type: tooltip_event_type)
     end
     append_tooltip_templates(container, plan) if plan
-    container&.publish_chart_values(Chadcn::Chart::Polar::Wiring.new(layout: layout, plan: plan).values)
+    container&.publish_chart_values(Chadcn::Chart::Polar::Wiring.new(layout: layout, plan: plan, accessibility_layer: @options[:accessibility_layer]).values)
     container&.publish_legend_height(layout.legend_box_height)
     within_responsive_shell(container) do
       div(**wrapper_attributes(layout, plan)) do
@@ -151,14 +151,14 @@ class Chadcn::Chart::Polar::Root < Chadcn::Base
   end
 
   # `.recharts-wrapper` (chart/RechartsWrapper.js:323): the size, and the caller's `class:` and `style:`; plus the `data-action` of
-  # `chadcn--chart` when the pointer activates tooltip items (a radial bar chart with `shared: false`).
+  # `chadcn--chart` when the chart has a tooltip for the pointer and the keys to move.
   def wrapper_attributes(layout, plan)
     attrs = @options[:attrs]
     width = Chadcn::Chart::Shape::Number.format(layout.width)
     height = Chadcn::Chart::Shape::Number.format(layout.height)
     style = [ "position: relative; cursor: default; width: #{width}px; height: #{height}px;", attrs[:style] ].compact.join(" ")
     wrapper = { width: width, height: height, class: cn("recharts-wrapper", attrs[:class]), style: style }
-    plan&.item_series&.any? ? wrapper.merge(data: { action: Chadcn::Chart::Polar::Wiring::POINTER_ACTION }) : wrapper
+    plan ? wrapper.merge(data: { action: Chadcn::Chart::Polar::Wiring::ACTION }) : wrapper
   end
 
   # The svg takes `cx` and `cy` of the chart as attributes (container/RootSurface.js spreads the chart's SVG props).

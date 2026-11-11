@@ -57,13 +57,15 @@ class Chadcn::Chart::Polar::OverlaysTest < Chadcn::TestCase
     assert_includes shown.at_css(".recharts-tooltip-wrapper").text, "Safari"
   end
 
-  test "an inert template per sector follows the shell, with its index, its coordinate and no cursor" do
+  test "an inert item template per sector follows the shell, with its index, its series, its coordinate, no label and no cursor" do
     html = render_pie(around: ->(chart) { chart.tooltip(cursor: false, content: Chadcn::Chart::Tooltip::Content.new(hide_label: true)) })
     templates = parse(html).css("div[data-slot=chart] > template[data-chadcn--chart-target=tooltipTemplate]")
 
     assert_equal(%w[0 1 2 3 4], templates.map { |template| template["data-index"] })
-    assert_equal "", templates.first["data-label"]
+    assert_nil templates.first["data-label"]
+    assert_equal "0", templates.first["data-series"]
     assert_nil templates.first["data-cursor"]
+    assert_nil templates.first["data-pointer-cursor"]
     assert_equal "[]", templates.first["data-active-dots"]
     assert_equal %w[x y], JSON.parse(templates.first["data-coordinate"]).keys
   end
