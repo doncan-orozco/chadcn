@@ -45,7 +45,7 @@ class Chadcn::Chart::ItemTooltipTest < Chadcn::TestCase
     assert_equal ROWS.length * 2, templates(doc).length
     payload = JSON.parse(template(doc, 1, 3)["data-payload"])
 
-    assert_equal [ { "name" => "mobile", "dataKey" => "mobile", "value" => ROWS[3][:mobile] } ], payload.map { |item| item.slice("name", "dataKey", "value") }
+    assert_equal([ { "name" => "mobile", "dataKey" => "mobile", "value" => ROWS[3][:mobile] } ], payload.map { |item| item.slice("name", "dataKey", "value") })
   end
 
   test "an item template has no label, no cursor and no active dots (component/Cursor.js:60 draws none for item tooltips)" do
@@ -83,7 +83,7 @@ class Chadcn::Chart::ItemTooltipTest < Chadcn::TestCase
   test "an item bar chart publishes its ticks (the keyboard steps through them) and starts with no pointer series" do
     doc = parse(bar_html)
 
-    assert_equal (0...ROWS.length).to_a, JSON.parse(value(doc, "ticks")).map { |tick| tick["index"] }
+    assert_equal((0...ROWS.length).to_a, JSON.parse(value(doc, "ticks")).map { |tick| tick["index"] })
     assert_equal "-1", value(doc, "pointer-series")
   end
 

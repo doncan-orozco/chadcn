@@ -166,7 +166,8 @@ class Chadcn::Chart::Polar::Root < Chadcn::Base
     attrs = @options[:attrs].except(:class, :style)
     Chadcn::Chart::Polar::Surface.new(
       layout: layout, declared: @declared, markup: markup, tooltip_entry: plan&.default_entry, tooltip_items: plan&.item_series || {},
-      uid: container&.chart_id || "chart-#{next_sequence(:chart)}", frame: { title: @options[:title], desc: @options[:desc], accessibility_layer: @options[:accessibility_layer], role: @options[:role],
+      uid: container&.chart_id || "chart-#{next_sequence(:chart)}",
+      frame: { title: @options[:title], desc: @options[:desc], accessibility_layer: @options[:accessibility_layer], role: @options[:role],
                tab_index: @options[:tab_index], attrs: merge_attrs({ cx: @options[:cx].to_s, cy: @options[:cy].to_s }, attrs) }
     )
   end
