@@ -154,7 +154,7 @@ Timers: none besides `setTimeout(0)` for close autofocus (fs:107) and the outsid
 
 Positioning: none (CSS `fixed` against a viewport edge); no floating-ui. Responsive: `sm:max-w-sm` caps left/right sheets at 24rem from 640px; below it they are `w-3/4` of the viewport.
 
-Primitives composed: `portal`, `presence`, `dismissable_layer` (layer stack, deferred pointer-down, dismissable surfaces), `focus_scope` (trap + loop + auto focus, stack), `focus_guards`, `hide_others`, `scroll_lock`, `ids` (`.ai/skills/radix-stimulus/references/primitives.md`). Controller `chadcn--sheet` (radix-stimulus R12) with values `open` (Boolean), `controlled` (Boolean), `modal` (Boolean, default true). Its logic is the same as `chadcn--dialog`; the builder must share it (import the dialog behavior / primitives), not copy it. `disconnect()` releases every primitive, removes portaled nodes and restores `body`.
+Primitives composed: `portal`, `presence`, `dismissable_layer` (layer stack, deferred pointer-down, dismissable surfaces), `focus_scope` (trap + loop + auto focus, stack), `focus_guards`, `hide_others`, `scroll_lock`, `ids` (`.ai/skills/radix-stimulus/references/primitives.md`). Controller `chadcn--sheet` (radix-stimulus R12) with values `open` (Boolean), `controlled` (Boolean), `modal` (Boolean, default true). Its logic is the same as `chadcn--dialog`; as built, `sheet_controller.js` extends the dialog controller (it only answers to its own identifier and overrides `templates()`), so nothing is copied. Known divergence from radix-stimulus R2 (share through primitives, not controller inheritance), recorded here; Radix Sheet is Dialog itself. `disconnect()` releases every primitive, removes portaled nodes and restores `body`.
 
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)
@@ -180,7 +180,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 
 - `Chadcn::Icon` (infra `_icons`): `Icon.new(name: "x", class: "size-4")` inside the Content X close.
 - `Chadcn::Base`: `cn`, `merge_attrs`, `render_as_child`, ids.
-- Primitives `app/javascript/v2/primitives/`: `portal.js`, `presence.js`, `dismissable_layer.js`, `focus_scope.js`, `focus_guards.js`, `hide_others.js`, `scroll_lock.js`, `ids.js`; behavior shared with `chadcn--dialog`.
+- Primitives `app/javascript/chadcn/primitives/`: `portal.js`, `presence.js`, `dismissable_layer.js`, `focus_scope.js`, `focus_guards.js`, `hide_others.js`, `scroll_lock.js`, `ids.js`; behavior shared with `chadcn--dialog`.
 - No registry dependency (manifest `registry_dependencies: []`): the oracle renders no Button. Callers commonly compose `Chadcn::Button` (trigger / close via `as_child:`), `Chadcn::Input` and `Chadcn::Label`, as in the examples. Scenarios use raw `_button` / `_input` / `_label` elements for them because scenario_coverage only allows dependency exports (same choice as the Popover/HoverCard/Tooltip plans).
 
 ## Deviations

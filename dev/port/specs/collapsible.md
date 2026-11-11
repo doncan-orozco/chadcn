@@ -105,6 +105,8 @@ Content measurement and mount prevention (collapsible.mjs:87-122), implemented o
 - `force_mount: true`: always present (`present: forceMount || context.open`, collapsible.mjs:84): never `hidden`, children always rendered, `data-state` still toggles, mount prevention applies as for open content.
 - `disconnect()` removes listeners, cancels the rAF, pending animation waits and the fill-mode timeout; on Turbo restore `connect()` reconciles from the root's `data-state` (radix-stimulus R4, R10).
 
+Known divergence (port, recorded in `collapsible_controller.js`): a `force_mount` content only toggles `data-state` on open and close; it is not re-measured, so `--radix-collapsible-content-height` / `-width` keep the values from mount instead of following the layout step above. A height animation on a force-mounted content whose size changed while it was closed runs to the stale size.
+
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)
 
