@@ -100,10 +100,17 @@ class Chadcn::Chart::Container < Chadcn::Base
   # @api private
   # @param values [Hash{Symbol => Object}] data attributes (`chadcn__chart_layout_value: "horizontal"`)
   # @return [void]
-  # @param legend_height [Numeric, nil] the height of the chart's legend box, written into the `textMetrics` value; nil without a legend
-  def publish_chart_values(values, legend_height: nil)
+  def publish_chart_values(values)
     @chart_values = values
-    @legend_height = legend_height
+  end
+
+  # The height of the chart's legend box, which the `textMetrics` value of the re-layout carries (nil: the chart has no legend).
+  #
+  # @api private
+  # @param height [Numeric, nil]
+  # @return [void]
+  def publish_legend_height(height)
+    @legend_height = height
   end
 
   # The container keywords for the re-layout request `chadcn--chart` sends to `relayout_url:` (query parameters `chart[id]`,
@@ -145,10 +152,8 @@ class Chadcn::Chart::Container < Chadcn::Base
 
   # @api private
   def self.relayout_number(value, bound)
-    number = case value
-             when Integer, Float then value
-             when String then Float(value) if RELAYOUT_NUMBER.match?(value)
-             end
+    number = value.is_a?(String) && RELAYOUT_NUMBER.match?(value) ? Float(value) : value
+    return unless number.is_a?(Integer) || number.is_a?(Float)
     return unless number&.finite? && number.positive? && number <= bound
 
     number == number.to_i ? number.to_i : number

@@ -97,14 +97,17 @@ class Chadcn::Chart::ContainerRelayoutTest < Chadcn::TestCase
 
   test "relayout_options drops a value that is not a positive finite number within its bound" do
     base = { "id" => "sales", "width" => "640", "height" => "400" }
+
     [
       { "width" => "0" }, { "width" => "-5" }, { "width" => "4097" }, { "height" => "abc" }, { "height" => "Infinity" }, { "width" => "1e400" },
       { "width" => "" }, { "width" => [ "640" ] }, { "height" => "0x20" }
     ].each { |bad| assert_equal({}, relayout_options({ "chart" => base.merge(bad) }), bad.inspect) }
 
     bounds = { "text_height" => "257", "text_char_width" => "4.01" }
+
     assert_equal({ initial_dimension: { width: 640, height: 400 } }, relayout_options({ "chart" => base.merge(bounds) }))
     edges = { "width" => "4096", "height" => "4096", "text_height" => "256", "text_char_width" => "4" }
+
     assert_equal({ initial_dimension: { width: 4096, height: 4096 }, text_height: 256, text_char_width: 4 },
                  relayout_options({ "chart" => base.merge(edges) }))
   end

@@ -293,7 +293,7 @@ Built as the Decision above says (option C, opt-in with `relayout_url:`, A as th
 
 - **The values exist only with a URL.** `relayoutUrl`, `dimension` and `textMetrics` are written on the container only when it has a
   `relayout_url:`, so a container without one renders byte for byte what 0.1.0 rendered (`test/chadcn/chart/container_relayout_test.rb`).
-  The chart roots hand their legend box height to the container (`publish_chart_values(..., legend_height:)`) for `textMetrics`.
+  The chart roots hand their legend box height to the container (`publish_legend_height`) for `textMetrics`.
 - **`relayout_options` does not read `chart[legend_height]` yet**: the container has no `legend_height:` keyword until #108, and a key
   it does not take would break the splat. The request already carries it when the chart has a legend.
 - **Bounds and errors** (the open advisory of #96): a box under 1 px or over 4096 px is never requested and stays scaled into its box;
