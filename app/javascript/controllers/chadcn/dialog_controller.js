@@ -92,10 +92,11 @@ export default class extends Controller {
     this.request(false)
   }
 
-  // useControllableState: the event fires on every change request, the DOM only changes when uncontrolled.
+  // useControllableState: the event fires on every change request, the DOM only changes when uncontrolled. Not cancelable:
+  // Radix onOpenChange is a plain callback (dialog:42-47), so preventDefault() has nothing to stop.
   request(next) {
     if (next === this.openValue) return
-    this.dispatch("open-change", { detail: { open: next } })
+    this.dispatch("open-change", { detail: { open: next }, cancelable: false })
     if (this.controlledValue) return
     this.openValue = next
     this.#sync()

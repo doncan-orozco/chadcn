@@ -94,11 +94,11 @@ Thumb (`data-slot="slider-thumb"`), slider.mjs:507-526:
 
 Bubble input (no data-slot), `SliderBubbleInput` slider.mjs:561-592:
 - `<input style="display: none;" name="<name>" form="<form>" value="<value>">`: no `type`, no `aria-hidden`, no tabindex. `name` = `name` + `"[]"` when Radix holds more than one value (slider.mjs:460; the hidden second thumb of the quirk counts as one value, so no `[]`). `value` attribute from React `defaultValue` (omitted when the value is undefined); React keeps the attribute in sync on every update.
-- Rendered iff form control: `!!form || !!thumb.closest("form")`, assumed `true` before the thumb is mounted (slider.mjs:458). Port: the server ALWAYS renders the inputs (same as Radix before mount; keeps no-JS form submission), the controller removes them in `connect()` when there is no `form:` and no `closest("form")`. Post-connect DOM equals the React DOM.
+- Rendered iff form control: `!!form || !!thumb.closest("form")`, assumed `true` before the thumb is mounted (slider.mjs:458). Port: the server ALWAYS renders the inputs (same as Radix before mount; keeps no-JS form submission), the `form_bubble_input` primitive (created by the controller in `connect()`) removes them when there is no `form:` and no `closest("form")`. Post-connect DOM equals the React DOM.
 
 Number formatting: every number in an attribute or style (aria-value*, percentages, px offsets, input value) uses JS `String(Number)` semantics (integers without `.0`, shortest round-trip decimals). The Ruby side must format accordingly (`50`, `12.5`, `33.333333333333336`, negative offsets as `+ -4px`).
 
-Server vs Stimulus: the server renders every attribute above for the initial values, with thumb wrapper offsets of `0px` (size unknown on the server, identical to React's first render where `useSize` is still undefined). Stimulus (`chadcn--slider`, host = the Root span) measures the thumbs on connect and writes the in-bounds offsets, removes non-form bubble inputs, and on every change updates `aria-valuenow`, the Range and wrapper styles, and the bubble inputs. Thumb elements never move in the DOM; values are re-sorted across them. Styles are written through `element.style` (like React) so the serialized `style` attribute matches the oracle's CSSOM serialization. No ids are generated.
+Server vs Stimulus: the server renders every attribute above for the initial values, with thumb wrapper offsets of `0px` (size unknown on the server, identical to React's first render where `useSize` is still undefined). Stimulus (`chadcn--slider`, host = the Root span) measures the thumbs on connect and writes the in-bounds offsets, hands each server-rendered bubble input to the `form_bubble_input` primitive (type `value`: adopted inside a form or with `form:`, removed otherwise), and on every change updates `aria-valuenow`, the Range and wrapper styles, and the bubble inputs. Thumb elements never move in the DOM; values are re-sorted across them. Styles are written through `element.style` (like React) so the serialized `style` attribute matches the oracle's CSSOM serialization. No ids are generated.
 
 ## Behavior
 
@@ -111,7 +111,7 @@ Value update (`updateValues(value, atIndex, { commit })`, slider.mjs:106-126), u
 4. The active index becomes `preserve_thumb_order ? atIndex : next.indexOf(constrained)` (so thumbs "swap": crossing another thumb moves the active index and focus to the other thumb).
 5. If `String(next) === String(prev)`: no change, no event, no focus. Otherwise apply; `commit` (keyboard) dispatches `value-commit`.
 6. On change (Radix `onChange`, slider.mjs:72-80): focus `thumbs[activeIndex]` with `{ preventScroll: true, focusVisible: <keyboard interaction> }`, reset the keyboard flag, dispatch `value-change`.
-7. Bubble inputs whose value changed: set the `value` property with the native `HTMLInputElement.prototype` setter and dispatch `new Event("input", { bubbles: true })` (slider.mjs:568-579); the `value` attribute follows.
+7. Bubble inputs whose value changed: set the `value` property with the native `HTMLInputElement.prototype` setter and dispatch `new Event("input", { bubbles: true })` (slider.mjs:568-579); the `value` attribute follows. Done by `FormBubbleInput#sync({ value })`. Browser tests: `test/javascript/slider.test.mjs`.
 
 Keyboard (keydown on the Root, bubbling from a focused thumb; slider.mjs:356-367; every handled key gets `preventDefault()`; nothing when disabled):
 

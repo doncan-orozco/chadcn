@@ -10,7 +10,20 @@ manifests every component is compared against), the number of oracle components,
 
 ## [Unreleased]
 
-Nothing yet.
+### Fixed
+
+- `ToggleGroup`: a group nested inside another keeps its own items; pressing an item of one group no longer flips the item with the same
+  value in the other.
+- `Dialog`, `AlertDialog`, `Sheet`, `Drawer`: `chadcn--dialog:open-change` (and the events of the controllers that extend it) is no longer
+  cancelable, as the spec and Radix's `onOpenChange` say; it never could stop the change, now it does not pretend to. To keep a dialog
+  open, render it controlled or prevent `escape-key-down` / `pointer-down-outside` / `interact-outside`.
+- `Sidebar`: on a mobile viewport, a Trigger or Rail inside the Sheet toggles it even when a caller's click handler called
+  `preventDefault()`, as on desktop and in shadcn.
+
+### Changed
+
+- `Slider`: the hidden form inputs go through the `form_bubble_input` primitive, which learns the slider's `value` type
+  (`<input style="display: none">`, bubbling `input` event). Form submission, reset and the rendered DOM are unchanged.
 
 ## [0.1.0] - 2026-11-03
 
