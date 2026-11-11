@@ -2,7 +2,7 @@
 
 using Chadcn::Values::Refinements
 
-# shadcn Breadcrumb (new-york-v4). Spec: docs/shadcn-port/specs/breadcrumb.md. Static: no controller.
+# shadcn Breadcrumb (new-york-v4). Spec: dev/port/specs/breadcrumb.md. Static: no controller.
 #
 # Root `nav`. Yields itself, so the parts are yielded-root helpers (`list`, `item`, `link`, `page`, `separator`,
 # `ellipsis`) equal to rendering `Breadcrumb::List`, `Breadcrumb::Item`, etc.

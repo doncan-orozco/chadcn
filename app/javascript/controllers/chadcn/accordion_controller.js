@@ -4,7 +4,7 @@ import { direction } from "chadcn/primitives/direction"
 import { items as collectionItems } from "chadcn/primitives/collection"
 import { turboCacheRestore } from "chadcn/primitives/turbo_cache"
 
-// Radix Accordion. Spec: docs/shadcn-port/specs/accordion.md (Behavior).
+// Radix Accordion. Spec: dev/port/specs/accordion.md (Behavior).
 //
 // One controller per root. Each item's content ships its closed body in an inert <template>; connect() takes it over
 // (removing the template) so the DOM equals Radix: a closed content is empty. Open/closed mechanics (data-state, hidden,

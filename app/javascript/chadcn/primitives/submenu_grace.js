@@ -1,7 +1,7 @@
 // submenu_grace: pointer-grace geometry of Radix menus and tooltips.
 // Sources: @radix-ui/react-menu (MenuContentImpl pointerDirRef / pointerGraceIntentRef, MenuSubTrigger onPointerLeave) and
 // @radix-ui/react-tooltip (TooltipContentHoverable hull grace area). Spec: .ai/skills/radix-stimulus/references/primitives.md.
-// Parity: docs/shadcn-port/scenarios/_primitives-submenu-grace.json.
+// Parity: dev/port/scenarios/_primitives-submenu-grace.json.
 //
 // Known divergences: none.
 //

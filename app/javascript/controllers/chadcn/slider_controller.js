@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 import { pointerCapture } from "chadcn/primitives/pointer_capture"
 import { direction } from "chadcn/primitives/direction"
 
-// Radix Slider behavior (docs/shadcn-port/specs/slider.md). Host = the root span; thumbs, range and bubble inputs are
+// Radix Slider behavior (dev/port/specs/slider.md). Host = the root span; thumbs, range and bubble inputs are
 // children rendered by the server. Thumb elements never move: values are re-sorted across them.
 const PAGE_KEYS = ["PageUp", "PageDown"]
 const ARROW_KEYS = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"]

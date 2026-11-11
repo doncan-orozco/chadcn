@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 import { turboCacheRestore } from "chadcn/primitives/turbo_cache"
 
-// Radix Avatar loading status (docs/shadcn-port/specs/avatar.md). Host = the Avatar root.
+// Radix Avatar loading status (dev/port/specs/avatar.md). Host = the Avatar root.
 // Image and delayed Fallback parts wait in inert <template>s; mounting swaps the template for a fresh clone in place.
 export default class extends Controller {
   static targets = ["image", "fallback"]

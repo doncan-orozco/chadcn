@@ -2,7 +2,7 @@
 
 using Chadcn::Values::Refinements
 
-# shadcn NavigationMenu over Radix NavigationMenu. Spec: docs/shadcn-port/specs/navigation-menu.md.
+# shadcn NavigationMenu over Radix NavigationMenu. Spec: dev/port/specs/navigation-menu.md.
 # Behavior lives in controllers/chadcn/navigation_menu_controller.js (hosted by the root `nav`).
 #
 # The block receives the menu, which has one helper per part (`menu.list`, `menu.item`, `menu.trigger`, `menu.content`,
@@ -173,7 +173,7 @@ class Chadcn::NavigationMenu < Chadcn::Base
   # Also available as `menu.item` on the yielded menu.
   # Renders only its `li`; it pushes the item value into the Phlex render context for Trigger and Content.
   # Radix mounts Content, the inner Viewport and the Indicator on the client, so those parts ship their markup in an
-  # inert <template> (deviation: docs/shadcn-port/deviations/navigation-menu.json) that the controller clones.
+  # inert <template> (deviation: dev/port/deviations/navigation-menu.json) that the controller clones.
   class Item < Chadcn::Base
     include Support
 

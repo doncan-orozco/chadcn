@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# shadcn Slider over Radix Slider (Root, Track, Range, Thumb rendered internally). Spec: docs/shadcn-port/specs/slider.md.
+# shadcn Slider over Radix Slider (Root, Track, Range, Thumb rendered internally). Spec: dev/port/specs/slider.md.
 # Behavior: controllers/chadcn/slider_controller.js (one controller on the root span).
 using Chadcn::Values::Refinements
 

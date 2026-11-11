@@ -8,7 +8,7 @@ import { presence } from "chadcn/primitives/presence"
 import { scrollLock } from "chadcn/primitives/scroll_lock"
 import { mountTemplate } from "chadcn/primitives/template_mount"
 
-// Radix Popover (Root + Trigger + Anchor + Content). Spec: docs/shadcn-port/specs/popover.md (Behavior).
+// Radix Popover (Root + Trigger + Anchor + Content). Spec: dev/port/specs/popover.md (Behavior).
 // The controller host is the first Trigger or, without one, the Content <template>. The content ships in that inert
 // template and is mounted in <body> only while open (Portal + Presence). Mounted nodes live outside the controller
 // scope, so their listeners are bound here.

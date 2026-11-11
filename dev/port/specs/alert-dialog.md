@@ -142,7 +142,7 @@ Tabbable rules identical to Dialog (fs:192-213).
 
 Timers: only `setTimeout(0)` for close autofocus (fs:107) and the one-tick delayed `pointerdown` listener (dl:292-294). No positioning (CSS-centred `fixed`).
 
-Primitives composed: `portal`, `presence`, `dismissable_layer` (escape + layer stack; outside pointer always prevented, so `onPointerDownOutside`/`onInteractOutside` are passed as `(e) => e.preventDefault()`), `focus_scope` (trapped, loop, mount autofocus overridden to the Cancel), `focus_guards`, `hide_others`, `scroll_lock`, `ids`. Controller `chadcn--alert-dialog`, values `open` (Boolean), `controlled` (Boolean); target `cancel` (last one wins). The builder may share code with `chadcn--dialog` only through the primitives (radix-stimulus R2), not by importing the dialog controller. `disconnect()` releases every primitive, removes portaled nodes and restores `body`.
+Primitives composed: `portal`, `presence`, `dismissable_layer` (escape + layer stack; outside pointer always prevented, so `onPointerDownOutside`/`onInteractOutside` are passed as `(e) => e.preventDefault()`), `focus_scope` (trapped, loop, mount autofocus overridden to the Cancel), `focus_guards`, `hide_others`, `scroll_lock`, `ids`. Controller `chadcn--alert-dialog`, values `open` (Boolean), `controlled` (Boolean); target `cancel` (last one wins). The spec asked to share code with `chadcn--dialog` only through the primitives (radix-stimulus R2); as built, `alert_dialog_controller.js` extends the dialog controller instead (it reuses the `data-chadcn--dialog-part` / `-template` markers and applies the AlertDialog differences on the events the dialog controller dispatches). Known divergence from this spec, not from Radix: Radix AlertDialog also wraps Dialog. `disconnect()` releases every primitive, removes portaled nodes and restores `body`.
 
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)
@@ -173,7 +173,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 - `Chadcn::Button`: `Action` and `Cancel` render through `Button` as slot (`Button.variants(variant:, size:)` for the class, `data-variant`/`data-size`); examples use it as `as_child` of Trigger.
 - `Chadcn::Icon` (scenarios only: `circle-fading-plus`, `bluetooth`, `trash-2` inside `AlertDialog::Media`); the component itself renders no icon.
 - `Chadcn::Base`: `cn`, `merge_attrs`, `render_as_child`, ids.
-- Primitives `app/javascript/v2/primitives/`: `portal.js`, `presence.js`, `dismissable_layer.js`, `focus_scope.js`, `focus_guards.js`, `hide_others.js`, `scroll_lock.js`, `ids.js`.
+- Primitives `app/javascript/chadcn/primitives/`: `portal.js`, `presence.js`, `dismissable_layer.js`, `focus_scope.js`, `focus_guards.js`, `hide_others.js`, `scroll_lock.js`, `ids.js`.
 
 ## Deviations
 

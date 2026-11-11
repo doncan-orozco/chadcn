@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# shadcn/ui Switch over Radix Switch. Spec: docs/shadcn-port/specs/switch.md
+# shadcn/ui Switch over Radix Switch. Spec: dev/port/specs/switch.md
 using Chadcn::Values::Refinements
 
 # A toggle button with `role=switch`, plus a hidden checkbox so it submits with a form.

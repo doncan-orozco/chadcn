@@ -11,7 +11,7 @@ import { submenuGrace } from "chadcn/primitives/submenu_grace"
 import { mountTemplate } from "chadcn/primitives/template_mount"
 import { nextMatch, typeahead } from "chadcn/primitives/typeahead"
 
-// Radix DropdownMenu + Menu. Spec: docs/shadcn-port/specs/dropdown-menu.md (Behavior).
+// Radix DropdownMenu + Menu. Spec: dev/port/specs/dropdown-menu.md (Behavior).
 //
 // The controller element is the Trigger. Content and SubContent ship in inert <template>s and are mounted (portaled or in
 // place) only while open, exactly like Radix. Everything inside a mounted content is wired here with delegated listeners on

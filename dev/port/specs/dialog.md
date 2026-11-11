@@ -143,6 +143,8 @@ Positioning: none (CSS-centred `fixed`); no floating-ui.
 
 Primitives composed: `portal`, `presence`, `dismissable_layer` (layer stack, Escape on top layer only, outside pointer/focus detection, body `pointer-events` for modal layers; it has NO deferred pointer-down and NO dismissable-surface option: the `chadcn--dialog` controller implements Radix Dialog's own deferral (dialog:266, a primary press outside arms the dismissal and the following click fires it) in its `onPointerDownOutside` handler), `focus_scope` (trap + loop + auto focus, stack), `focus_guards`, `hide_others`, `scroll_lock`, `ids`. Controller `chadcn--dialog` values: `open` (Boolean), `controlled` (Boolean), `modal` (Boolean, default true). `disconnect()` releases every primitive, removes portaled nodes and restores `body` (Turbo cache must not keep a dialog open).
 
+**Known divergence (port, recorded in `dialog_controller.js`):** the focus scope (trap and return focus) is released when the Content's exit animation ends, together with `hideOthers` and the focus guards (the Overlay's scroll lock is released when the Overlay's own exit animation ends), not the moment the dialog starts closing as in Radix (`trapped` follows `open`, see Presence above). While the exit animation plays, Tab stays inside the closing Content. With no animation (the runner default, reduced motion) both release in the same frame, so the parity scenarios cannot see it. A Content kept mounted by `Dialog::Portal(force_mount: true)` never exits and its focus scope is not rebuilt on reopen, so its trap keeps the value it had at connect (trapped if the dialog connected open, untrapped if it connected closed); Radix makes `trapped` follow `open`.
+
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)
 
@@ -170,7 +172,7 @@ Acceptance (unit test): every row exists as a public method on the root instance
 - `Chadcn::Button`: `Dialog::Footer` with `show_close_button: true` renders `Button.new(variant: "outline")`; examples use it as `as_child` of Trigger/Close.
 - `Chadcn::Icon` (infra `_icons`): `Icon.new(name: "x")` inside the Content X close.
 - `Chadcn::Base`: `cn`, `merge_attrs`, `render_as_child`, `ids`.
-- Primitives `app/javascript/v2/primitives/`: `portal.js`, `presence.js`, `dismissable_layer.js`, `focus_scope.js`, `focus_guards.js`, `hide_others.js`, `scroll_lock.js`, `ids.js`.
+- Primitives `app/javascript/chadcn/primitives/`: `portal.js`, `presence.js`, `dismissable_layer.js`, `focus_scope.js`, `focus_guards.js`, `hide_others.js`, `scroll_lock.js`, `ids.js`.
 
 ## Deviations
 

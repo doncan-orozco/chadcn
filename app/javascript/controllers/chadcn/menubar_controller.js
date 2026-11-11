@@ -10,7 +10,7 @@ import { submenuGrace } from "chadcn/primitives/submenu_grace"
 import { mountTemplate } from "chadcn/primitives/template_mount"
 import { nextMatch, typeahead } from "chadcn/primitives/typeahead"
 
-// Radix Menubar + Menu. Spec: docs/shadcn-port/specs/menubar.md (Behavior).
+// Radix Menubar + Menu. Spec: dev/port/specs/menubar.md (Behavior).
 //
 // The controller element is the root. One controller drives every Menu and Sub: triggers are roving items of the root
 // (horizontal), Content and SubContent ship in inert <template>s and are mounted (portaled or in place) only while open,

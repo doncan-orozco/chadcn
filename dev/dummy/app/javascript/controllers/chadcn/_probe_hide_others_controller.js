@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 import { mountTemplate } from "chadcn/primitives/template_mount"
 import { hideOthers } from "chadcn/primitives/hide_others"
 
-// Parity probe for chadcn/primitives/hide_others (docs/shadcn-port/scenarios/_primitives-hide-others.json).
+// Parity probe for chadcn/primitives/hide_others (dev/port/scenarios/_primitives-hide-others.json).
 export default class extends Controller {
   static targets = ["template"]
   static values = { scope: { type: String, default: "body" } }

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# shadcn RadioGroup over Radix RadioGroup. Spec: docs/shadcn-port/specs/radio-group.md.
+# shadcn RadioGroup over Radix RadioGroup. Spec: dev/port/specs/radio-group.md.
 # Behavior: controllers/chadcn/radio_group_controller.js (one controller per group, items are not controllers).
 #
 # Yields itself, so items are available as `group.item(value: "a")` (see {RadioGroup::Item}).

@@ -180,6 +180,9 @@ Typeahead reset 1000 ms; scroll-button autoscroll interval 50 ms; focus moves af
 ### Cleanup (radix-stimulus R10)
 `disconnect()` unmounts the content, releases layer, trap, guards, scroll lock, hideOthers, body pointer-events, autoUpdate, intervals and timers; a Turbo cache snapshot never contains an open select.
 
+### Known divergence (port, recorded in `select_controller.js`)
+The focus trap does not switch off while the exit animation plays: it is released with the layer, scroll lock and hideOthers when the content unmounts. Radix turns it off at once (`trapped: context.open`, sel:L470, see States). Without an animation (the runner default, reduced motion) the content unmounts in the same frame, so the parity scenarios cannot see it.
+
 <!-- spec_helpers:begin -->
 ## DX helpers (derived from the oracle, do not edit)
 

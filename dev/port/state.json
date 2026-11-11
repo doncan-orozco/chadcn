@@ -1,9 +1,7 @@
 {
-  "created_at": "2026-10-27T21:10:25Z",
+  "created_at": "2026-11-11T00:48:17Z",
   "skip_tiers": [],
-  "skipped": [
-    "form"
-  ],
+  "skipped": [],
   "oracle": {
     "style": "new-york-v4",
     "fetched_at": "2026-10-10T04:52:14Z",
@@ -277,6 +275,18 @@
       "deps": [],
       "source_sha": "ef8305b12c3112da"
     },
+    "chart": {
+      "status": "done",
+      "tier": "third_party",
+      "wave": 3,
+      "iteration": 0,
+      "note": "shadcn layer 1:1, recharts replaced by Phlex SVG; six chart roots and chadcn--chart shipped (PRs 75, 82-87), dev/decisions/chart.md",
+      "last_green_sha": "f199f27",
+      "updated_at": "2026-11-11T01:05:44Z",
+      "kind": "fanout",
+      "deps": [],
+      "source_sha": "35e2fa755465ef8e"
+    },
     "checkbox": {
       "status": "done",
       "tier": "radix_stateful",
@@ -326,13 +336,13 @@
       "source_sha": "84ae2ad658207f0e"
     },
     "drawer": {
-      "status": "pending",
+      "status": "done",
       "tier": "third_party",
       "wave": 3,
       "iteration": 0,
-      "note": null,
-      "last_green_sha": null,
-      "updated_at": "2026-10-27T21:10:25Z",
+      "note": "ported after the run (vaul 1.1.2 behavior), PR 69",
+      "last_green_sha": "8b11f08",
+      "updated_at": "2026-11-11T00:48:36Z",
       "kind": "fanout",
       "deps": [],
       "source_sha": "63f04fe50a4bf29b"
@@ -374,13 +384,13 @@
       "source_sha": "0c9457181f6ddc80"
     },
     "input-otp": {
-      "status": "pending",
+      "status": "done",
       "tier": "third_party",
       "wave": 3,
       "iteration": 0,
-      "note": null,
-      "last_green_sha": null,
-      "updated_at": "2026-10-27T21:10:25Z",
+      "note": "ported after the run, PR 64",
+      "last_green_sha": "803b827",
+      "updated_at": "2026-11-11T00:48:36Z",
       "kind": "fanout",
       "deps": [],
       "source_sha": "9f81898aeaabbb10"
@@ -506,13 +516,13 @@
       "source_sha": "cfc4f99ee68be2fb"
     },
     "resizable": {
-      "status": "pending",
+      "status": "done",
       "tier": "third_party",
       "wave": 3,
       "iteration": 0,
-      "note": null,
-      "last_green_sha": null,
-      "updated_at": "2026-10-27T21:10:25Z",
+      "note": "ported after the run, PR 56",
+      "last_green_sha": "5ae189a",
+      "updated_at": "2026-11-11T00:48:35Z",
       "kind": "fanout",
       "deps": [],
       "source_sha": "aaf3ea20e8060c75"
@@ -578,13 +588,13 @@
       "source_sha": "6a531f6182de6efe"
     },
     "sonner": {
-      "status": "pending",
+      "status": "done",
       "tier": "third_party",
       "wave": 3,
       "iteration": 0,
-      "note": null,
-      "last_green_sha": null,
-      "updated_at": "2026-10-20T02:44:33Z",
+      "note": "ported after the run as Chadcn::Toaster, dependency-free, Papyro PR 176",
+      "last_green_sha": "e4d96ea",
+      "updated_at": "2026-11-11T00:48:34Z",
       "kind": "fanout",
       "deps": [],
       "source_sha": "13ccc9b0fe4248e6"
@@ -692,13 +702,13 @@
       "source_sha": "a9ac862707ff8d78"
     },
     "calendar": {
-      "status": "pending",
+      "status": "done",
       "tier": "third_party",
       "wave": 4,
       "iteration": 0,
-      "note": null,
-      "last_green_sha": null,
-      "updated_at": "2026-10-20T07:30:15Z",
+      "note": "ported after the run (native Intl, DatePicker composition), Papyro PR 180",
+      "last_green_sha": "3410d45",
+      "updated_at": "2026-11-11T00:48:33Z",
       "kind": "fanout",
       "deps": [
         "button"
@@ -706,13 +716,13 @@
       "source_sha": "78ed2cc49dafc5bb"
     },
     "carousel": {
-      "status": "pending",
+      "status": "done",
       "tier": "third_party",
       "wave": 4,
       "iteration": 0,
-      "note": null,
-      "last_green_sha": null,
-      "updated_at": "2026-10-27T21:10:25Z",
+      "note": "ported after the run (engine derived from embla-carousel 8.6.0), PR 62",
+      "last_green_sha": "6401f3f",
+      "updated_at": "2026-11-11T00:48:35Z",
       "kind": "fanout",
       "deps": [
         "button"
@@ -733,6 +743,20 @@
         "separator"
       ],
       "source_sha": "4a4d17fcb933513f"
+    },
+    "form": {
+      "status": "built",
+      "tier": "third_party",
+      "wave": 4,
+      "iteration": 0,
+      "note": "partly ported: useFormField ids/ARIA/data contract 1:1; react-hook-form/zod state is a Binding (plain Ruby or Rails), gated by Minitest, no oracle DOM (dev/decisions/form.md)",
+      "last_green_sha": "a6384c8",
+      "updated_at": "2026-11-11T00:48:37Z",
+      "kind": "fanout",
+      "deps": [
+        "label"
+      ],
+      "source_sha": "dfa22e6614b807df"
     },
     "input-group": {
       "status": "done",
@@ -765,13 +789,13 @@
       "source_sha": "9ade8136f010284b"
     },
     "message-scroller": {
-      "status": "pending",
+      "status": "done",
       "tier": "third_party",
       "wave": 4,
       "iteration": 0,
-      "note": null,
-      "last_green_sha": null,
-      "updated_at": "2026-10-27T21:10:25Z",
+      "note": "ported after the run, PR 76",
+      "last_green_sha": "6a6ffa3",
+      "updated_at": "2026-11-11T00:48:37Z",
       "kind": "fanout",
       "deps": [
         "button"
@@ -853,21 +877,6 @@
         "dialog"
       ],
       "source_sha": "319e9264567dd46f"
-    },
-    "chart": {
-      "status": "pending",
-      "tier": "third_party",
-      "wave": 3,
-      "iteration": 0,
-      "note": null,
-      "last_green_sha": null,
-      "updated_at": "2026-10-27T21:26:49Z",
-      "kind": "fanout",
-      "deps": [],
-      "source_sha": "35e2fa755465ef8e"
     }
-  },
-  "skip_reasons": {
-    "form": "wraps react-hook-form and zod, whose state model has no Phlex counterpart; Rails form builders cover it"
   }
 }

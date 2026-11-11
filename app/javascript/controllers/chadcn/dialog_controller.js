@@ -8,7 +8,7 @@ import { scrollLock } from "chadcn/primitives/scroll_lock"
 import { mountTemplate } from "chadcn/primitives/template_mount"
 import { turboCacheRestore } from "chadcn/primitives/turbo_cache"
 
-// Radix Dialog. Spec: docs/shadcn-port/specs/dialog.md (Behavior).
+// Radix Dialog. Spec: dev/port/specs/dialog.md (Behavior).
 //
 // The controller element is a display: contents host. Overlay and Content ship in inert <template>s (the Portals) and are
 // mounted directly into <body> only while open, like Radix mounts them. Mounted nodes live outside the controller scope,

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# shadcn `Button` (new-york-v4). Spec: docs/shadcn-port/specs/button.md
+# shadcn `Button` (new-york-v4). Spec: dev/port/specs/button.md
 using Chadcn::Values::Refinements
 
 # A clickable button, the shadcn `Button` with its variant and size tables.

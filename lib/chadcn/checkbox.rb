@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# shadcn/ui Checkbox over Radix Checkbox. Spec: docs/shadcn-port/specs/checkbox.md
+# shadcn/ui Checkbox over Radix Checkbox. Spec: dev/port/specs/checkbox.md
 using Chadcn::Values::Refinements
 
 # A checkbox: a `<button role="checkbox">` plus the hidden form input Radix renders.

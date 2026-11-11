@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# shadcn ToggleGroup over Radix ToggleGroup. Spec: docs/shadcn-port/specs/toggle-group.md.
+# shadcn ToggleGroup over Radix ToggleGroup. Spec: dev/port/specs/toggle-group.md.
 # Behavior: controllers/chadcn/toggle_group_controller.js (one controller per group, items are not controllers).
 #
 # A group of {ToggleGroup::Item}s sharing `type`, `variant`, `size` and `spacing`. Yields itself, so items are

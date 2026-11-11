@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 import { mountTemplate } from "chadcn/primitives/template_mount"
 import { dismissable } from "chadcn/primitives/dismissable_layer"
 
-// Parity probe for chadcn/primitives/dismissable_layer (docs/shadcn-port/scenarios/_primitives-dismissable-layer.json).
+// Parity probe for chadcn/primitives/dismissable_layer (dev/port/scenarios/_primitives-dismissable-layer.json).
 // Each <template data-name="x"> is a layer; open/close take a `name` param.
 export default class extends Controller {
   static targets = ["template"]

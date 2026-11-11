@@ -1,5 +1,5 @@
 // Calendar date math on native `Date` and `Intl` only (no date library). Replaces the slice of date-fns that react-day-picker 10
-// (the library behind shadcn's Calendar) relies on. Spec: docs/shadcn-port/specs/calendar.md (Behavior > Date math).
+// (the library behind shadcn's Calendar) relies on. Spec: dev/port/specs/calendar.md (Behavior > Date math).
 //
 // Every function is pure and DOM free; no function mutates its arguments. A "date" is a local calendar day: all comparisons are made
 // on year/month/day (never on timestamps), so DST transitions cannot move a day. Weekdays are numbered like `Date#getDay`
