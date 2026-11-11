@@ -1758,6 +1758,237 @@
       "animations": false
     },
     {
+      "id": "nested__inner-without-dir-resets",
+      "tree": {
+        "c": "DirectionProvider",
+        "props": {
+          "direction": "rtl"
+        },
+        "children": [
+          {
+            "c": "_div",
+            "props": {
+              "className": "flex flex-col items-start gap-4 p-4"
+            },
+            "children": [
+              {
+                "c": "Select",
+                "props": {
+                  "defaultValue": "banana"
+                },
+                "children": [
+                  {
+                    "c": "SelectTrigger",
+                    "props": {
+                      "className": "w-[180px]",
+                      "aria-label": "outer"
+                    },
+                    "children": [
+                      {
+                        "c": "SelectValue",
+                        "props": {
+                          "placeholder": "Select a fruit"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "c": "SelectContent",
+                    "children": [
+                      {
+                        "c": "SelectGroup",
+                        "children": [
+                          {
+                            "c": "SelectLabel",
+                            "children": [
+                              "Fruits"
+                            ]
+                          },
+                          {
+                            "c": "SelectItem",
+                            "props": {
+                              "value": "apple"
+                            },
+                            "children": [
+                              "Apple"
+                            ]
+                          },
+                          {
+                            "c": "SelectItem",
+                            "props": {
+                              "value": "banana"
+                            },
+                            "children": [
+                              "Banana"
+                            ]
+                          },
+                          {
+                            "c": "SelectItem",
+                            "props": {
+                              "value": "grapes"
+                            },
+                            "children": [
+                              "Grapes"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "DirectionProvider",
+                "props": {},
+                "children": [
+                  {
+                    "c": "Select",
+                    "props": {
+                      "defaultValue": "banana"
+                    },
+                    "children": [
+                      {
+                        "c": "SelectTrigger",
+                        "props": {
+                          "className": "w-[180px]",
+                          "aria-label": "inner"
+                        },
+                        "children": [
+                          {
+                            "c": "SelectValue",
+                            "props": {
+                              "placeholder": "Select a fruit"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "c": "SelectContent",
+                        "children": [
+                          {
+                            "c": "SelectGroup",
+                            "children": [
+                              {
+                                "c": "SelectLabel",
+                                "children": [
+                                  "Fruits"
+                                ]
+                              },
+                              {
+                                "c": "SelectItem",
+                                "props": {
+                                  "value": "apple"
+                                },
+                                "children": [
+                                  "Apple"
+                                ]
+                              },
+                              {
+                                "c": "SelectItem",
+                                "props": {
+                                  "value": "banana"
+                                },
+                                "children": [
+                                  "Banana"
+                                ]
+                              },
+                              {
+                                "c": "SelectItem",
+                                "props": {
+                                  "value": "grapes"
+                                },
+                                "children": [
+                                  "Grapes"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "c": "Select",
+                "props": {
+                  "defaultValue": "banana"
+                },
+                "children": [
+                  {
+                    "c": "SelectTrigger",
+                    "props": {
+                      "className": "w-[180px]",
+                      "aria-label": "outer-after"
+                    },
+                    "children": [
+                      {
+                        "c": "SelectValue",
+                        "props": {
+                          "placeholder": "Select a fruit"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "c": "SelectContent",
+                    "children": [
+                      {
+                        "c": "SelectGroup",
+                        "children": [
+                          {
+                            "c": "SelectLabel",
+                            "children": [
+                              "Fruits"
+                            ]
+                          },
+                          {
+                            "c": "SelectItem",
+                            "props": {
+                              "value": "apple"
+                            },
+                            "children": [
+                              "Apple"
+                            ]
+                          },
+                          {
+                            "c": "SelectItem",
+                            "props": {
+                              "value": "banana"
+                            },
+                            "children": [
+                              "Banana"
+                            ]
+                          },
+                          {
+                            "c": "SelectItem",
+                            "props": {
+                              "value": "grapes"
+                            },
+                            "children": [
+                              "Grapes"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "steps": [],
+      "dark": false,
+      "viewport": {
+        "width": 900,
+        "height": 700
+      },
+      "animations": false,
+      "note": "inner provider without value inside an rtl outer one: React provides undefined, so the inner consumer resets to ltr; the outer ones stay rtl"
+    },
+    {
       "id": "nested__inner-without-dir-ltr-outer",
       "tree": {
         "c": "DirectionProvider",
@@ -1986,7 +2217,7 @@
         "height": 700
       },
       "animations": false,
-      "note": "inner provider without value inside an ltr outer one: inner consumer ltr in React (undefined || ltr) and in the port (keeps the outer ltr). The rtl-outer case differs on purpose (deviation direction, RB-13) and is pinned by test/chadcn/direction_test.rb"
+      "note": "inner provider without value inside an ltr outer one: the inner consumer is ltr (React: undefined || ltr)"
     },
     {
       "id": "sibling-after-provider-unaffected",

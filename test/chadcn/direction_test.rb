@@ -29,10 +29,12 @@ class Chadcn::DirectionTest < Chadcn::TestCase
   end
 
   test "provider renders no markup and scopes the value" do
-    assert_equal "<span>ltr</span><span>rtl</span><span>ltr</span><span>rtl</span><span>ltr</span>", Page.new.call
+    assert_equal "<span>ltr</span><span>rtl</span><span>ltr</span><span>ltr</span><span>ltr</span>", Page.new.call
   end
 
-  test "a nested provider without a direction keeps the outer one, and an inner one overrides it" do
+  # React DirectionProvider: a provider without a direction provides undefined, so consumers below it fall back to ltr
+  # (useDirection: localDir || contextDir || "ltr"), even inside an rtl provider.
+  test "a nested provider without a direction resets to ltr, and an inner one overrides it" do
     page = Class.new(Chadcn::Base) do
       define_method(:view_template) do
         render(Chadcn::Direction::Provider.new(dir: "rtl")) do
@@ -43,7 +45,7 @@ class Chadcn::DirectionTest < Chadcn::TestCase
       end
     end
 
-    assert_equal "<span>rtl</span><span>ltr</span><span>rtl</span>", page.new.call
+    assert_equal "<span>ltr</span><span>ltr</span><span>rtl</span>", page.new.call
   end
 
   test "direction wins over dir" do
