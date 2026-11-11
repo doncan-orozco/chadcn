@@ -49,17 +49,17 @@ Decided 2026-11-10 by the maintainer (#101), after checking the live registry th
 serves `{base}-{style}` ids (Vega, Nova, Maia, Lyra, Mira, Luma, Rhea, Sera on Radix, Base UI and React Aria). Between two styles on
 the same base only class strings differ (radius, ring, spacing, sizes), so a style is a restyle of the gem, not a feature. Offering
 several would put a class table per style in every component and multiply every scenario, parity run, re-sync and the CSS output.
-A style is not something the theme file can carry (style items have no CSS variables; the theme only sets colors and `--radius`);
+A style is not something the theme file can carry (style items have no CSS variables; the theme sets only tokens, meaning colors, `--radius` and the font families, while ring, spacing and sizes live in each component's classes);
 a user who wants another style's shape overrides classes with `class:` or ejects the component. Out of scope.
 
 **Switching the tracked style: deferred.** `new-york-v4` is still served and unchanged, but it no longer receives new components
-(`code-block`, `questionnaire` and `trace` exist only in the new styles, so they are not in the oracle and not tracked; upstream
-presents Vega as New York's successor). Moving to `radix-vega` changes about 40% of the class tokens in nearly every component,
+(`code-block`, `questionnaire` and `trace` exist only in the new styles, so they are not in the oracle and not tracked; Vega is
+described as New York's successor). Moving to `radix-vega` changes about 40% of the class tokens in nearly every component,
 7 `data-slot` sets and 3 exports, and drops Form upstream; behavior stays Radix. The oracle extraction already accepts `--style`,
 but its manifest writes `new-york-v4` as a literal (`.claude/scripts/shadcn/oracle_extract.rb`); the switch makes the manifest follow
 the option and maps upstream's icon placeholder back to lucide. It is done as one re-sync epic, released per the semver table above
 (a minor with a "Changed (breaking)" entry before 1.0, a major after), when the first of these happens: upstream deprecates or stops
-serving `new-york-v4`; an issue asks for a component that exists only in the new styles; or a re-sync finds a fix in `radix-vega`
+serving `new-york-v4`; an issue asks for a component that exists only in the new Radix styles; or a re-sync finds a fix in `radix-vega`
 that `new-york-v4` did not get. Every re-sync checks the three: it records whether `new-york-v4` is still served, lists the registry
 components missing from `new-york-v4`, and diffs the tracked components against `radix-vega` for behavior or markup fixes (class-only
 differences do not count).
