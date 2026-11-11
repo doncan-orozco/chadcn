@@ -1,5 +1,7 @@
+import fs from "node:fs";
 import test, { after } from "node:test";
-import { assert, consoleErrors, launch, openPath, settle } from "./support.mjs";
+import { serversFile } from "./dev_kit.mjs";
+import { PHLEX, assert, consoleErrors, launch, openPath, settle } from "./support.mjs";
 
 // chadcn--chart (dev/port/specs/chart.md, "Tooltip" and "Behavior"): what the parity scenarios (dev/port/scenarios/chart.json,
 // interaction__*) cannot express: the public events, touch, Turbo cache restore, the click trigger, the precedence of the
@@ -585,4 +587,332 @@ test("chart: the Turbo snapshot of a radar holds the server tooltip and the rest
   assert.match((await tooltipState(page)).transform, /^translate\(/);
   assert.match(await tooltipText(page), /February/);
   assert.equal(await page.locator(ACTIVE_DOT).count(), 1);
+}));
+
+// --- Resize (dev/port/specs/chart.md, "Behavior", "Resize and re-measure"; item #107) --------------------------------------------
+//
+// The host's answer to the re-layout request is the Phlex parity page of the scenario at the requested width (resize__<family>-<width>
+// in dev/port/scenarios/chart.json, which G2 compares with recharts at that size). Those pages render a container without
+// relayout_url:, so the test adds the three re-layout values a host with relayout_url: writes (test/chadcn/chart/container_relayout_test.rb
+// proves the container writes them), to the answer and to the start page. The swapped chart is compared with recharts resized in the
+// browser, under G2's rules (observed selectors, data and controller attributes ignored, numbers within 1e-3 px).
+const REACT = process.env.PARITY_REACT_URL || JSON.parse(fs.readFileSync(serversFile(), "utf8")).vite?.url;
+const RELAYOUT_PATH = "/chart-relayout";
+const RELAYOUT_URL = `${RELAYOUT_PATH}?source=test`;
+const RESIZE_HEIGHTS = { 320: 200, 480: 300, 640: 400 };
+const PARITY_TEXT_METRICS = { textHeight: 18, textCharWidth: 0.6 };
+const RESIZE_OBSERVE = {
+  bar: [".recharts-wrapper", "[class^=\"recharts-zIndex-layer_\"]", ".recharts-cartesian-axis-tick-value, .recharts-cartesian-axis-tick-value tspan", ".recharts-cartesian-grid line", ".recharts-bar-rectangle path"],
+  pie: [".recharts-wrapper", ".recharts-pie-sector", "[class^=\"recharts-zIndex-layer_\"]"],
+};
+const IGNORED_ATTRIBUTE = /^(class|style|id|data-controller|data-action|data-.*-target|data-.*-value|tabindex-managed)$|^data-chadcn--/;
+const scenarioPath = (family, width) => `/design-system/parity/chart/resize__${family}-${width}`;
+const relayoutValues = (width, url = RELAYOUT_URL) => ({
+  "relayout-url": url,
+  dimension: JSON.stringify({ width, height: RESIZE_HEIGHTS[width] }),
+  "text-metrics": JSON.stringify(PARITY_TEXT_METRICS),
+});
+
+const escapeAttribute = (text) => text.replaceAll("&", "&amp;").replaceAll('"', "&quot;");
+
+function withRelayoutValues(html, family, width) {
+  const marker = `data-chart="chart-resize-${family}"`;
+  assert.ok(html.includes(marker), `the parity page holds ${marker}`);
+  const attributes = Object.entries(relayoutValues(width)).map(([name, value]) => ` ${VALUE(name)}="${escapeAttribute(value)}"`).join("");
+  return html.replace(marker, `${marker}${attributes}`);
+}
+
+// Answers GET /chart-relayout like a host: the chart at the requested width, or `answer(width)` -> { status, body, width }.
+async function answerRelayout(page, family, { delays = [], answer = null } = {}) {
+  const requests = [];
+  await page.route((url) => url.pathname === RELAYOUT_PATH, async (route) => {
+    const url = new URL(route.request().url());
+    const number = requests.push(Object.fromEntries(url.searchParams));
+    const delay = delays[number - 1] ?? 0;
+    if (delay) await new Promise((resolve) => setTimeout(resolve, delay));
+    const requested = Number(url.searchParams.get("chart[width]"));
+    const custom = answer?.(requested) ?? {};
+    try {
+      if (custom.body !== undefined || custom.status) return await route.fulfill({ status: custom.status ?? 200, contentType: "text/html", body: custom.body ?? "" });
+      const width = custom.width ?? requested;
+      const response = await route.fetch({ url: `${PHLEX}${scenarioPath(family, width)}` });
+      await route.fulfill({ response, body: withRelayoutValues(await response.text(), family, width) });
+    } catch {
+      // the controller aborted the request
+    }
+  });
+  return requests;
+}
+
+async function withResizable(family, fn, { url = RELAYOUT_URL, loadErrors = false } = {}) {
+  const page = await openPath(await browserPromise, scenarioPath(family, 320));
+  try {
+    const errors = consoleErrors(page);
+    await page.evaluate(() => {
+      window.__relayout = [];
+      for (const name of ["relayout", "relayout-error"]) {
+        document.addEventListener(`chadcn--chart:${name}`, (event) => window.__relayout.push({ name, ...event.detail }));
+      }
+    });
+    await fn(page, () => enableRelayout(page, url));
+    assert.deepEqual(errors.filter((text) => !(loadErrors && /Failed to load resource/.test(text))), []);
+    assert.deepEqual(page.jsErrors, []);
+  } finally {
+    await page.context().close();
+  }
+}
+
+const enableRelayout = (page, url) => page.evaluate(({ values }) => {
+  const chart = document.querySelector("[data-slot=chart]");
+  for (const [name, value] of Object.entries(values)) chart.setAttribute(`data-chadcn--chart-${name}-value`, value);
+}, { values: relayoutValues(320, url) });
+
+const resizeTo = (page, width, height = RESIZE_HEIGHTS[width]) => page.evaluate(({ width, height }) => {
+  const chart = document.querySelector("[data-slot=chart]");
+  chart.style.width = `${width}px`;
+  chart.style.height = `${height}px`;
+}, { width, height });
+
+const relayoutEvents = (page) => page.evaluate(() => window.__relayout);
+const waitForEvents = (page, count) => page.waitForFunction((count) => window.__relayout.length >= count, count);
+const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const wrapperStyle = (page) => page.locator(PLOT).getAttribute("style");
+
+// The nodes G2 compares for these selectors, one list per page, in document order per selector.
+function chartNodes(page, observe) {
+  return page.evaluate(({ observe, ignored }) => {
+    const pattern = new RegExp(ignored);
+    const chart = document.querySelector("[data-slot=chart]");
+    return observe.flatMap((selector) => [...chart.querySelectorAll(selector)].map((element) => {
+      const attributes = {};
+      for (const attribute of [...element.attributes].sort((a, b) => (a.name < b.name ? -1 : 1))) {
+        if (!pattern.test(attribute.name)) attributes[attribute.name] = attribute.value;
+      }
+      if (!element.matches(".recharts-tooltip-wrapper") && element.hasAttribute("style")) attributes.style = element.getAttribute("style");
+      const className = element.className?.baseVal ?? element.className;
+      return {
+        selector,
+        tag: element.tagName.toLowerCase(),
+        classes: [...new Set(String(className).split(/\s+/).filter(Boolean))].sort().join(" "),
+        attributes,
+        text: [...element.childNodes].filter((node) => node.nodeType === 3).map((node) => node.textContent.trim()).filter(Boolean).join(" "),
+      };
+    }));
+  }, { observe, ignored: IGNORED_ATTRIBUTE.source });
+}
+
+const NUMBER = /-?(?:\d+\.?\d*|\.\d+)(?:e[+-]?\d+)?/gi;
+const NUMERIC_ATTRIBUTES = new Set(["d", "points", "x", "y", "width", "height", "transform", "x1", "x2", "y1", "y2", "cx", "cy", "r", "style"]);
+
+function numbersClose(a, b) {
+  const [textsA, textsB] = [String(a).split(NUMBER), String(b).split(NUMBER)];
+  if (textsA.length !== textsB.length || textsA.some((text, index) => text !== textsB[index])) return false;
+  const [numbersA, numbersB] = [String(a).match(NUMBER) ?? [], String(b).match(NUMBER) ?? []];
+  return numbersA.every((number, index) => Math.abs(Number(number) - Number(numbersB[index])) <= 1e-3 + 1e-9);
+}
+
+function nodeDifferences(recharts, phlex) {
+  if (recharts.length !== phlex.length) return [`${recharts.length} nodes in recharts, ${phlex.length} in the port`];
+  return recharts.flatMap((expected, index) => {
+    const actual = phlex[index];
+    const where = `${expected.selector} #${index} <${expected.tag}>`;
+    const differences = [];
+    for (const key of ["tag", "classes", "text"]) if (expected[key] !== actual[key]) differences.push(`${where} ${key}: ${expected[key]} != ${actual[key]}`);
+    const names = new Set([...Object.keys(expected.attributes), ...Object.keys(actual.attributes)]);
+    for (const name of names) {
+      const [a, b] = [expected.attributes[name], actual.attributes[name]];
+      if (a === b || (a !== undefined && b !== undefined && NUMERIC_ATTRIBUTES.has(name) && numbersClose(a, b))) continue;
+      differences.push(`${where} ${name}: ${a} != ${b}`);
+    }
+    return differences;
+  });
+}
+
+// recharts with shadcn's ChartContainer on the React parity page of the 320 scenario, its container resized and settled.
+async function rechartsAt(family, width) {
+  const context = await (await browserPromise).newContext({ viewport: { width: 1280, height: 720 } });
+  try {
+    const page = await context.newPage();
+    await page.goto(`${REACT}/#/parity/chart/resize__${family}-320`, { waitUntil: "networkidle" });
+    await page.evaluate(() => document.fonts?.ready);
+    await page.locator(".recharts-surface").waitFor();
+    await resizeTo(page, width);
+    await page.waitForFunction((width) => document.querySelector(".recharts-wrapper")?.style.width === `${width}px`, width);
+    let previous = "";
+    for (let frame = 0; frame < 30; frame += 1) {
+      await settle(page);
+      const html = await page.locator("[data-slot=chart]").innerHTML();
+      if (html === previous) break;
+      previous = html;
+    }
+    return await chartNodes(page, RESIZE_OBSERVE[family]);
+  } finally {
+    await context.close();
+  }
+}
+
+test("chart: a chart with relayout_url: follows its container from 320 to 480 to 640 px and matches recharts at each width", () => withResizable("bar", async (page, enable) => {
+  const requests = await answerRelayout(page, "bar");
+  await enable();
+  await pause(400);
+  assert.deepEqual(requests, [], "no request while the box is the size the server laid out");
+
+  await resizeTo(page, 480);
+  await waitForEvents(page, 1);
+  assert.deepEqual(await relayoutEvents(page), [{ name: "relayout", width: 480, height: 300 }]);
+  assert.deepEqual(nodeDifferences(await rechartsAt("bar", 480), await chartNodes(page, RESIZE_OBSERVE.bar)), []);
+
+  await resizeTo(page, 640);
+  await waitForEvents(page, 2);
+  assert.deepEqual((await relayoutEvents(page))[1], { name: "relayout", width: 640, height: 400 });
+  assert.deepEqual(nodeDifferences(await rechartsAt("bar", 640), await chartNodes(page, RESIZE_OBSERVE.bar)), []);
+  assert.equal(await page.locator(CHART).count(), 1, "the chart was replaced, not added");
+  assert.equal(await attribute(page, "dimension"), JSON.stringify({ width: 640, height: 400 }));
+
+  assert.deepEqual(requests[0], {
+    source: "test", "chart[id]": "resize-bar", "chart[width]": "480", "chart[height]": "300", "chart[text_height]": "18", "chart[text_char_width]": "0.6",
+  });
+  assert.equal(requests.length, 2);
+}));
+
+test("chart: a pie with relayout_url: follows its container to 640 px and matches recharts", () => withResizable("pie", async (page, enable) => {
+  await answerRelayout(page, "pie");
+  await enable();
+  await resizeTo(page, 640);
+  await waitForEvents(page, 1);
+  assert.deepEqual(await relayoutEvents(page), [{ name: "relayout", width: 640, height: 400 }]);
+  assert.deepEqual(nodeDifferences(await rechartsAt("pie", 640), await chartNodes(page, RESIZE_OBSERVE.pie)), []);
+}));
+
+test("chart: resizing is debounced to one request, and the chart is scaled into its box until the answer arrives", () => withResizable("bar", async (page, enable) => {
+  const requests = await answerRelayout(page, "bar", { delays: [600] });
+  await enable();
+  for (const width of [360, 400, 440, 480]) {
+    await resizeTo(page, width, 300);
+    await pause(30);
+  }
+  assert.match(await wrapperStyle(page), /width: 100%; height: 100%;/, "scaled while the re-layout is pending");
+  await page.waitForFunction(() => document.querySelector("[data-slot=chart] .recharts-wrapper").parentElement.style.width === "100%");
+  await waitForEvents(page, 1);
+  assert.equal(requests.length, 1, "one request for the settled size");
+  assert.equal(requests[0]["chart[width]"], "480");
+  assert.match(await wrapperStyle(page), /width: 480px; height: 300px;/, "the answer is drawn at its own pixel size");
+}));
+
+test("chart: a new size aborts the pending request and only the last answer is swapped in", () => withResizable("bar", async (page, enable) => {
+  const requests = await answerRelayout(page, "bar", { delays: [1000, 0] });
+  await enable();
+  await resizeTo(page, 480);
+  await expectRequests(requests, 1);
+  await resizeTo(page, 640);
+  await waitForEvents(page, 1);
+  await pause(1200);
+  assert.deepEqual(await relayoutEvents(page), [{ name: "relayout", width: 640, height: 400 }]);
+  assert.equal(await attribute(page, "dimension"), JSON.stringify({ width: 640, height: 400 }));
+}));
+
+async function expectRequests(requests, count) {
+  for (let attempt = 0; attempt < 100 && requests.length < count; attempt += 1) await pause(20);
+  assert.equal(requests.length, count);
+}
+
+test("chart: the tooltip and the keyboard carry over the swap", () => withResizable("bar", async (page, enable) => {
+  await answerRelayout(page, "bar");
+  await enable();
+  await page.locator(SURFACE).focus();
+  await page.keyboard.press("ArrowRight");
+  await page.locator(TOOLTIP).filter({ hasText: "February" }).waitFor({ state: "visible" });
+
+  await resizeTo(page, 640);
+  await waitForEvents(page, 1);
+  assert.equal(await attribute(page, "keyboard-index"), "1");
+  assert.equal(await attribute(page, "keyboard-active"), "true");
+  assert.equal(await page.evaluate(() => document.activeElement.matches("[data-slot=chart] svg.recharts-surface")), true, "the new svg has the focus");
+  await page.locator(TOOLTIP).filter({ hasText: "February" }).waitFor({ state: "visible" });
+  await page.keyboard.press("ArrowRight");
+  assert.equal(await attribute(page, "keyboard-index"), "2", "the keyboard keeps working on the new chart");
+}));
+
+test("chart: an error answer keeps the chart, reports relayout-error once and stops re-laying out", () => withResizable("bar", async (page, enable) => {
+  const requests = await answerRelayout(page, "bar", { answer: () => ({ status: 500 }) });
+  await enable();
+  await resizeTo(page, 480);
+  await waitForEvents(page, 1);
+  assert.deepEqual(await relayoutEvents(page), [{ name: "relayout-error", status: 500 }]);
+  assert.equal(await attribute(page, "dimension"), JSON.stringify({ width: 320, height: 200 }), "the current chart stays");
+  assert.match(await wrapperStyle(page), /width: 100%; height: 100%;/, "and stays scaled into its box");
+
+  await resizeTo(page, 640);
+  await pause(500);
+  assert.equal(requests.length, 1, "no request loop");
+  assert.equal((await relayoutEvents(page)).length, 1);
+}, { loadErrors: true }));
+
+test("chart: an answer without the chart, or with the chart at another size, is an error", async () => {
+  await withResizable("bar", async (page, enable) => {
+    await answerRelayout(page, "bar", { answer: () => ({ body: "<p>signed out</p>" }) });
+    await enable();
+    await resizeTo(page, 480);
+    await waitForEvents(page, 1);
+    assert.deepEqual(await relayoutEvents(page), [{ name: "relayout-error", status: 200 }]);
+  });
+  await withResizable("bar", async (page, enable) => {
+    await answerRelayout(page, "bar", { answer: () => ({ width: 640 }) });
+    await enable();
+    await resizeTo(page, 480);
+    await waitForEvents(page, 1);
+    assert.deepEqual(await relayoutEvents(page), [{ name: "relayout-error", status: 200 }], "a host that ignored the parameters");
+    assert.equal(await attribute(page, "dimension"), JSON.stringify({ width: 320, height: 200 }));
+  });
+});
+
+test("chart: a cross-origin relayout_url is never requested", () => withResizable("bar", async (page, enable) => {
+  const outside = [];
+  await page.route("https://example.test/**", (route) => { outside.push(route.request().url()); return route.abort(); });
+  await enable();
+  await resizeTo(page, 480);
+  await waitForEvents(page, 1);
+  assert.deepEqual(await relayoutEvents(page), [{ name: "relayout-error", status: 0 }]);
+  assert.deepEqual(outside, []);
+}, { url: "https://example.test/chart" }));
+
+test("chart: disconnect before the debounce fires sends no request", () => withResizable("bar", async (page, enable) => {
+  const requests = await answerRelayout(page, "bar", { delays: [500] });
+  await enable();
+  await resizeTo(page, 480);
+  await page.evaluate(() => document.querySelector("[data-slot=chart]").remove());
+  await pause(400);
+  assert.equal(requests.length, 0, "the debounce died with the element");
+
+  assert.deepEqual(await relayoutEvents(page), []);
+}));
+
+test("chart: disconnect while the request is pending swaps nothing in", () => withResizable("bar", async (page, enable) => {
+  const requests = await answerRelayout(page, "bar", { delays: [500] });
+  await enable();
+  await resizeTo(page, 480);
+  await expectRequests(requests, 1);
+  await page.evaluate(() => { window.__detached = document.querySelector("[data-slot=chart]"); window.__detached.remove(); });
+  await pause(900);
+  assert.deepEqual(await relayoutEvents(page), []);
+  assert.equal(await page.locator(CHART).count(), 0);
+}));
+
+test("chart: turbo:before-cache aborts the request and removes the interim scaling; the restore re-lays out", () => withResizable("bar", async (page, enable) => {
+  const requests = await answerRelayout(page, "bar", { delays: [600, 0] });
+  await enable();
+  await resizeTo(page, 480);
+  await expectRequests(requests, 1);
+  const snapshot = await page.evaluate(() => {
+    document.dispatchEvent(new Event("turbo:before-cache"));
+    const wrapper = document.querySelector("[data-slot=chart] .recharts-wrapper");
+    return { wrapper: wrapper.getAttribute("style"), inner: wrapper.parentElement.getAttribute("style") };
+  });
+  assert.equal(snapshot.wrapper, "position: relative; cursor: default; width: 320px; height: 200px;", "the snapshot holds the server markup");
+  assert.equal(snapshot.inner, "width: 0px; height: 0px; overflow: visible;");
+
+  await waitForEvents(page, 1);
+  await pause(800);
+  assert.deepEqual(await relayoutEvents(page), [{ name: "relayout", width: 480, height: 300 }], "the aborted answer is never swapped in");
+  assert.equal(requests.length, 2);
 }));
