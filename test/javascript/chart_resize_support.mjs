@@ -15,35 +15,45 @@ export const chartValue = (page, name) => page.locator(CHART).getAttribute(value
 
 const browserPromise = launch();
 after(async () => { await (await browserPromise).close(); });
+export const chartBrowser = () => browserPromise;
 
 // The host's answer to the re-layout request is the Phlex parity page of the scenario at the requested width (resize__<family>-<width>
 // in dev/port/scenarios/chart.json, which G2 compares with recharts at that size). Those pages render a container without
 // relayout_url:, so the test adds the three re-layout values a host with relayout_url: writes (test/chadcn/chart/container_relayout_test.rb
 // proves the container writes them), to the answer and to the start page. The swapped chart is compared with recharts resized in the
 // browser, under G2's rules (observed selectors, data and controller attributes ignored, numbers within 1e-3 px).
-const REACT = process.env.PARITY_REACT_URL || JSON.parse(fs.readFileSync(serversFile(), "utf8")).vite?.url;
+// These tests are about the size: the text metrics they write are the ones the page measures (the start page) and the ones the request
+// carries (the answer), so the controller's re-measure (item #108, chart_remeasure.test.mjs) finds nothing to correct. The parity pages
+// are laid out at the parity metrics, which the measured ones do not change for these short labels.
+export const REACT = process.env.PARITY_REACT_URL || JSON.parse(fs.readFileSync(serversFile(), "utf8")).vite?.url;
 const RELAYOUT_PATH = "/chart-relayout";
 const RELAYOUT_URL = `${RELAYOUT_PATH}?source=test`;
 const RESIZE_HEIGHTS = { 320: 200, 480: 300, 640: 400 };
-const PARITY_TEXT_METRICS = { textHeight: 18, textCharWidth: 0.6 };
+
 export const RESIZE_OBSERVE = {
   bar: [".recharts-wrapper", "[class^=\"recharts-zIndex-layer_\"]", ".recharts-cartesian-axis-tick-value, .recharts-cartesian-axis-tick-value tspan", ".recharts-cartesian-grid line", ".recharts-bar-rectangle path"],
   pie: [".recharts-wrapper", ".recharts-pie-sector", "[class^=\"recharts-zIndex-layer_\"]"],
 };
 const IGNORED_ATTRIBUTE = /^(class|style|id|data-controller|data-action|data-.*-target|data-.*-value|tabindex-managed)$|^data-chadcn--/;
 const scenarioPath = (family, width) => `/design-system/parity/chart/resize__${family}-${width}`;
-const relayoutValues = (width, url = RELAYOUT_URL) => ({
+const relayoutValues = (width, metrics, url = RELAYOUT_URL) => ({
   "relayout-url": url,
   dimension: JSON.stringify({ width, height: RESIZE_HEIGHTS[width] }),
-  "text-metrics": JSON.stringify(PARITY_TEXT_METRICS),
+  "text-metrics": JSON.stringify(metrics),
 });
+
+// The metrics a re-layout request carries, as the textMetrics value of its answer.
+const requestedMetrics = (url) => {
+  const number = (name) => (url.searchParams.has(`chart[${name}]`) ? Number(url.searchParams.get(`chart[${name}]`)) : undefined);
+  return { textHeight: number("text_height"), textCharWidth: number("text_char_width"), legendHeight: number("legend_height") };
+};
 
 const escapeAttribute = (text) => text.replaceAll("&", "&amp;").replaceAll('"', "&quot;");
 
-function withRelayoutValues(html, family, width) {
+function withRelayoutValues(html, family, width, metrics) {
   const marker = `data-chart="chart-resize-${family}"`;
   assert.ok(html.includes(marker), `the parity page holds ${marker}`);
-  const attributes = Object.entries(relayoutValues(width)).map(([name, value]) => ` ${valueAttribute(name)}="${escapeAttribute(value)}"`).join("");
+  const attributes = Object.entries(relayoutValues(width, metrics)).map(([name, value]) => ` ${valueAttribute(name)}="${escapeAttribute(value)}"`).join("");
   return html.replace(marker, `${marker}${attributes}`);
 }
 
@@ -71,7 +81,7 @@ export async function answerRelayout(page, family, { delays = [], answer = null 
       if (override.body !== undefined || override.status) return await route.fulfill({ status: override.status ?? 200, contentType: "text/html", body: override.body ?? "" });
       const width = override.width ?? requested;
       const response = await route.fetch({ url: `${PHLEX}${scenarioPath(family, width)}` });
-      await route.fulfill({ response, body: withRelayoutValues(await response.text(), family, width) });
+      await route.fulfill({ response, body: withRelayoutValues(await response.text(), family, width, requestedMetrics(url)) });
     } catch (error) {
       // the controller aborted the request or the page is gone; anything else is a bug of the test
       if (!ROUTE_GONE.test(error.message)) throw error;
@@ -105,10 +115,20 @@ export async function withResizable(family, scenario, { url = RELAYOUT_URL, load
   }
 }
 
-const enableRelayout = (page, url) => page.evaluate(({ values }) => {
+// Writes the re-layout values on the start page, with the text metrics the page measures as the served ones.
+const enableRelayout = (page, url) => page.evaluate(async ({ values }) => {
+  const { measureTextMetrics } = await import("chadcn/primitives/chart_measure");
   const chart = document.querySelector("[data-slot=chart]");
-  for (const [name, value] of Object.entries(values)) chart.setAttribute(`data-chadcn--chart-${name}-value`, value);
-}, { values: relayoutValues(320, url) });
+  const metrics = measureTextMetrics(chart, { textHeight: 18, textCharWidth: 0.6 });
+  for (const [name, value] of Object.entries({ ...values, "text-metrics": JSON.stringify(metrics) })) chart.setAttribute(`data-chadcn--chart-${name}-value`, value);
+}, { values: relayoutValues(320, {}, url) });
+
+// The text metrics the start page measures, as the re-layout request writes them.
+export const pageMetrics = (page) => page.evaluate(async () => {
+  const { measureTextMetrics } = await import("chadcn/primitives/chart_measure");
+  const metrics = measureTextMetrics(document.querySelector("[data-slot=chart]"), { textHeight: 18, textCharWidth: 0.6 });
+  return { "chart[text_height]": String(metrics.textHeight), "chart[text_char_width]": String(metrics.textCharWidth) };
+});
 
 // Resolves once the box has been seen at the new width: a companion ResizeObserver, created after the controller's own, hears the
 // resize after it, so the controller has handled it (its interim scaling is in place, its debounce is running).
@@ -199,12 +219,14 @@ export function nodeDifferences(recharts, phlex) {
   });
 }
 
-// recharts with shadcn's ChartContainer on the React parity page of the 320 scenario, its container resized and settled.
-export async function rechartsAt(family, width) {
+// recharts with shadcn's ChartContainer on the React parity page of the 320 scenario, its container resized and settled. `css` is
+// added to the page before it renders (pageCss), so recharts measures its text in it.
+export async function rechartsAt(family, width, { css = "", scenario = `resize__${family}-320`, observe = RESIZE_OBSERVE[family] } = {}) {
   const context = await (await browserPromise).newContext({ viewport: { width: 1280, height: 720 } });
   try {
+    if (css) await context.addInitScript(pageCss, css);
     const page = await context.newPage();
-    await page.goto(`${REACT}/#/parity/chart/resize__${family}-320`, { waitUntil: "networkidle" });
+    await page.goto(`${REACT}/#/parity/chart/${scenario}`, { waitUntil: "networkidle" });
     await page.evaluate(() => document.fonts?.ready);
     await page.locator(".recharts-surface").waitFor();
     await resizeTo(page, width);
@@ -216,9 +238,24 @@ export async function rechartsAt(family, width) {
       if (html === previous) break;
       previous = html;
     }
-    return await chartNodes(page, RESIZE_OBSERVE[family]);
+    return await chartNodes(page, observe);
   } finally {
     await context.close();
   }
 }
 
+
+// An init script that adds `css` to the page as soon as it has a head, before any of its scripts run (the controller measures after
+// document.fonts.ready, recharts while it renders): pass it to `context.addInitScript(pageCss, css)`.
+export function pageCss(css) {
+  const add = () => {
+    if (!document.head) return false;
+    const style = document.createElement("style");
+    style.textContent = css;
+    document.head.append(style);
+    return true;
+  };
+  if (add()) return;
+  const observer = new MutationObserver(() => { if (add()) observer.disconnect(); });
+  observer.observe(document, { childList: true, subtree: true });
+}

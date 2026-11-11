@@ -2,8 +2,9 @@
 
 require_relative "polar/polar_helper"
 
-# The resize half of dev/port/specs/chart.md "Behavior", "Resize and re-measure": `Chart::Container relayout_url:`, the values it writes
-# for `chadcn--chart`, and `Chart::Container.relayout_options`, which turns the request of the controller back into container keywords.
+# dev/port/specs/chart.md "Behavior", "Resize and re-measure": `Chart::Container relayout_url:`, the values it writes for `chadcn--chart`,
+# `Chart::Container.relayout_options`, which turns the request of the controller back into container keywords (item #107), and the
+# measured `legend_height:` of the re-measure (item #108).
 class Chadcn::Chart::ContainerRelayoutTest < Chadcn::TestCase
   include PolarHelper
 
@@ -135,7 +136,7 @@ class Chadcn::Chart::ContainerRelayoutTest < Chadcn::TestCase
       { "width" => "" }, { "width" => [ "640" ] }, { "height" => "0x20" }
     ].each { |invalid_parameter| assert_equal({}, relayout_options({ "chart" => base.merge(invalid_parameter) }), invalid_parameter.inspect) }
 
-    bounds = { "text_height" => "257", "text_char_width" => "4.01" }
+    bounds = { "text_height" => "257", "text_char_width" => "4.01", "legend_height" => "256.5" }
 
     assert_equal({ initial_dimension: { width: 640, height: 400 } }, relayout_options({ "chart" => base.merge(bounds) }))
     edges = { "width" => "4096", "height" => "4096", "text_height" => "256", "text_char_width" => "4" }
@@ -144,10 +145,67 @@ class Chadcn::Chart::ContainerRelayoutTest < Chadcn::TestCase
                  relayout_options({ "chart" => base.merge(edges) }))
   end
 
-  test "relayout_options needs both width and height for a dimension, and ignores legend_height until the container takes it" do
+  test "relayout_options needs both width and height for a dimension" do
     params = { "chart" => { "id" => "sales", "width" => "640", "text_height" => "14", "legend_height" => "26" } }
 
-    assert_equal({ text_height: 14 }, relayout_options(params))
+    assert_equal({ text_height: 14, legend_height: 26 }, relayout_options(params))
+  end
+
+  test "relayout_options reads legend_height within its bound" do
+    base = { "id" => "sales" }
+
+    assert_equal({ legend_height: 25.5 }, relayout_options({ "chart" => base.merge("legend_height" => "25.5") }))
+    assert_equal({ legend_height: 256 }, relayout_options({ "chart" => base.merge("legend_height" => "256") }))
+    assert_equal({}, relayout_options({ "chart" => base.merge("legend_height" => "257") }))
+    assert_equal({}, relayout_options({ "chart" => base.merge("legend_height" => "0") }))
+  end
+
+  # The re-measure half (item #108): the measured legend height reaches the layout through the container.
+  test "legend_height: is nil by default and must be a positive finite number" do
+    assert_nil Chadcn::Chart::Container.new(config: CONFIG).legend_height
+    assert_equal 26, Chadcn::Chart::Container.new(config: CONFIG, legend_height: 26).legend_height
+    [ 0, -1, Float::INFINITY, "26" ].each do |height|
+      error = assert_raises(ArgumentError) { Chadcn::Chart::Container.new(config: CONFIG, legend_height: height) }
+      assert_includes error.message, "legend_height:"
+    end
+  end
+
+  test "the container's legend_height: lays the chart out like the Legend's own legend_height:" do
+    measured = chart_markup(bar_with_legend(container: { legend_height: 26 }))
+
+    assert_equal chart_markup(bar_with_legend(legend_height: 26)), measured
+    refute_equal chart_markup(bar_with_legend), measured
+  end
+
+  test "the container's legend_height: wins over the Legend's assumption, a numeric Legend height: wins over both" do
+    assert_equal chart_markup(bar_with_legend(legend_height: 26)), chart_markup(bar_with_legend(container: { legend_height: 26 }, legend_height: 40))
+    assert_equal chart_markup(bar_with_legend(height: 30)), chart_markup(bar_with_legend(container: { legend_height: 26 }, height: 30))
+  end
+
+  test "the container's legend_height: is the legendHeight of the metrics" do
+    node = container_node(bar_with_legend(container: { relayout_url: URL, legend_height: 26 }))
+
+    assert_equal({ "textHeight" => 16, "textCharWidth" => 0.6, "legendHeight" => 26 }, json_value(node, "text-metrics"))
+  end
+
+  test "the container's legend_height: changes nothing on a chart without a legend" do
+    assert_equal chart_markup(plain_bar), chart_markup(plain_bar(container: { legend_height: 26 }))
+    assert_nil json_value(container_node(plain_bar(container: { relayout_url: URL, legend_height: 26 })), "text-metrics")["legendHeight"]
+  end
+
+  test "a polar chart takes the container's legend_height: like the Legend's own" do
+    legend = ->(height = nil) { ->(chart) { chart.legend(**{ legend_height: height }.compact) } }
+
+    assert_equal chart_markup(render_pie(around: legend.call(26))), chart_markup(render_pie(container: { legend_height: 26 }, around: legend.call))
+    refute_equal chart_markup(render_pie(around: legend.call)), chart_markup(render_pie(container: { legend_height: 26 }, around: legend.call))
+  end
+
+  test "the measured metrics from the request reach the layout: a request is a container keyword set" do
+    request = { "chart" => { "id" => "t", "width" => "320", "height" => "200", "text_height" => "14", "text_char_width" => "0.55", "legend_height" => "26" } }
+    options = Chadcn::Chart::Container.relayout_options(request, id: "t")
+    node = container_node(bar_with_legend(container: { id: "t", relayout_url: URL, **options }))
+
+    assert_equal({ "textHeight" => 14, "textCharWidth" => 0.55, "legendHeight" => 26 }, json_value(node, "text-metrics"))
   end
 
   # The six chart roots re-lay themselves out at the requested size: what the host's answer to the request renders.
