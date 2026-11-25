@@ -50,7 +50,7 @@ class Chadcn::Combobox::Input < Chadcn::Base
 
   def render_trigger
     render Chadcn::InputGroup::Button.new(
-      size: "icon-xs", variant: "ghost", as_child: Chadcn::Combobox::Trigger.new, "data-slot": "input-group-button",
+      size: "icon-xs", variant: "ghost", as_child: Chadcn::Combobox::Trigger.new, "data-slot": "input-group-button", "aria-label": "Show options",
       class: "group-has-data-[slot=combobox-clear]/input-group:hidden data-pressed:bg-transparent", disabled: @disabled
     )
   end

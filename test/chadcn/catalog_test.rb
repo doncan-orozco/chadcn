@@ -106,4 +106,36 @@ class CatalogTest < Minitest::Test
 
     assert_equal({ "a" => "2026-03-15", "b" => [ "es", { "x" => "2026-03-15", "y" => "$date:2026-1-5" } ] }, renderer.send(:plain_values, value))
   end
+
+  NAMED_CONTROLS = "svg[role=application], [role=checkbox], [role=switch], [role=radiogroup], [role=separator][tabindex], [role=slider], " \
+                   "button, input:not([style*='display: none']):not([aria-hidden=true]), textarea"
+
+  # Every form control, slider thumb, chart svg and resizable handle of the packaged demos has an accessible name (issue #133).
+  def test_every_demo_control_has_an_accessible_name
+    unnamed = Chadcn::Catalog.entries.flat_map do |entry|
+      doc = Nokogiri::HTML5.fragment(render_tree(entry.tree, component: entry.component))
+      doc.css(NAMED_CONTROLS).reject { |node| accessible_name?(doc, node) }.map { |node| "#{entry.component}: #{node.name}[#{node['data-slot']}]" }
+    end
+
+    assert_empty unnamed
+  end
+
+  def test_the_labelled_demos_keep_a_name_the_scenario_already_sets
+    tree = { "c" => "Input", "props" => { "aria-label" => "Own name" } }
+    generated = Chadcn::CatalogData.new(File.expand_path("../..", __dir__)).send(:prune, tree)
+
+    assert_equal "Own name", generated.dig("props", "aria-label")
+  end
+
+  private
+
+  def accessible_name?(doc, node)
+    return true if node["aria-label"].to_s.strip != "" || node.text.strip != ""
+    return true if node.ancestors("template").any? # the calendar's day template: the controller clones it and sets the date text
+
+    id = node["id"]
+    return true if id && doc.at_css("label[for='#{id}']")
+
+    node["aria-labelledby"].to_s.split.any? { |ref| doc.at_css("##{ref}") }
+  end
 end
