@@ -19,8 +19,14 @@ module Chadcn
     LABELS = {
       "Checkbox" => "Accept terms and conditions", "Switch" => "Airplane mode", "Input" => "Email", "Textarea" => "Message",
       "InputGroupInput" => "Search", "ComboboxInput" => "Framework", "CommandInput" => "Search commands",
-      "InputOTP" => "One-time password", "ToggleGroup" => "Text formatting", "ResizableHandle" => "Resize panels", "RadioGroup" => "Layout density", "MessageScrollerButton" => "Scroll to latest message"
+      "InputOTP" => "One-time password", "ToggleGroup" => "Text formatting", "ResizableHandle" => "Resize panels", "RadioGroup" => "Layout density", "MessageScrollerButton" => "Scroll to latest message",
+      "NativeSelect" => "Status"
     }.freeze
+    # Bare `_button` demo actions (the oracle scenarios render a plain <button>) become a styled Chadcn::Button, by their text.
+    BUTTONS = { "Create Project" => {}, "Import Project" => { "variant" => "outline" }, "Action" => { "variant" => "outline", "size" => "sm" } }.freeze
+    # Extra classes the catalog gives a demo part so it meets contrast (the component's own classes stay the verbatim shadcn ones):
+    # muted-foreground on muted is under 4.5:1 once the page paints over it, so the avatar initials use the foreground token.
+    CLASS_NAMES = { "AvatarFallback" => "text-foreground" }.freeze
     # Components whose demo needs another prop to be nameable: a one-value Slider thumb takes no label (Radix 1:1), a two-value one does.
     PROPS = { "Slider" => { "defaultValue" => [ 25, 75 ] } }.freeze
     # `_BarChart`, `_PieChart`...: the svg (`role="application"`) is named "Bar chart", "Pie chart"...
@@ -98,8 +104,17 @@ module Chadcn
 
       children = Array(node["children"]).reject { |child| child.is_a?(Hash) && PROBES.include?(child.dig("props", "data-testid")) }
       pruned = node.merge("children" => children.map { |child| prune(child) })
-      props = labelled(node)
+      return button(pruned) if pruned["c"] == "_button" && BUTTONS.key?(Array(pruned["children"]).first)
+
+      props = styled(node, labelled(node))
       props.equal?(node["props"]) ? pruned : pruned.merge("props" => props)
+    end
+
+    def button(node) = node.merge("c" => "Button", "props" => (node["props"] || {}).merge(BUTTONS.fetch(node["children"].first)))
+
+    def styled(node, props)
+      klass = CLASS_NAMES[node["c"].to_s]
+      klass ? (props || {}).merge("className" => [ props&.dig("className"), klass ].compact.join(" ")) : props
     end
 
     def labelled(node)
