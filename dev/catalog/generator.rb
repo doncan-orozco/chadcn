@@ -14,6 +14,17 @@ module Chadcn
     SCENARIOS = "dev/port/scenarios"
     PROBES = %w[outside next neutral].freeze
     # `_Each` is the renderer's own iteration marker (Chadcn::Catalog::TreeRenderer), so it is not harness-only.
+    # Accessible names the catalog adds to demo controls that the parity scenarios leave bare (the scenarios mirror the React oracle,
+    # which has no label either). Applied by node name; a name the scenario already sets (`aria-label`, `aria-labelledby`) wins.
+    LABELS = {
+      "Checkbox" => "Accept terms and conditions", "Switch" => "Airplane mode", "Input" => "Email", "Textarea" => "Message",
+      "InputGroupInput" => "Search", "ComboboxInput" => "Framework", "CommandInput" => "Search commands",
+      "InputOTP" => "One-time password", "ToggleGroup" => "Text formatting", "ResizableHandle" => "Resize panels", "RadioGroup" => "Layout density", "MessageScrollerButton" => "Scroll to latest message"
+    }.freeze
+    # Components whose demo needs another prop to be nameable: a one-value Slider thumb takes no label (Radix 1:1), a two-value one does.
+    PROPS = { "Slider" => { "defaultValue" => [ 25, 75 ] } }.freeze
+    # `_BarChart`, `_PieChart`...: the svg (`role="application"`) is named "Bar chart", "Pie chart"...
+    CHART_NODE = /\A_(?<kind>[A-Z][a-z]+(?:Radial)?[A-Za-z]*?)Chart\z/
     HARNESS_NODE = /\A_(?!Each\z)[A-Z]/
 
     # @return [Array<Hash>] the components left out of the last #build, each `{ component:, reason: }`
@@ -86,7 +97,20 @@ module Chadcn
       return node unless node.is_a?(Hash)
 
       children = Array(node["children"]).reject { |child| child.is_a?(Hash) && PROBES.include?(child.dig("props", "data-testid")) }
-      node.merge("children" => children.map { |child| prune(child) })
+      pruned = node.merge("children" => children.map { |child| prune(child) })
+      props = labelled(node)
+      props.equal?(node["props"]) ? pruned : pruned.merge("props" => props)
+    end
+
+    def labelled(node)
+      name = node["c"].to_s
+      props = node["props"]
+      return props unless LABELS.key?(name) || PROPS.key?(name) || name.match?(CHART_NODE)
+      return props if props&.key?("aria-label") || props&.key?("aria-labelledby")
+
+      extra = PROPS.fetch(name, {}).reject { |key, _| props&.key?(key) }
+      label = LABELS[name] || (name.match(CHART_NODE) && "#{name.match(CHART_NODE)[:kind].gsub(/(?<=.)(?=[A-Z])/, ' ')} chart")
+      (props || {}).merge(extra).merge(label ? { "aria-label" => label } : {})
     end
   end
 end
