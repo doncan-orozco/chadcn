@@ -19,6 +19,7 @@ manifests every component is compared against), the number of oracle components,
 ### Added
 
 - The packaged catalog (`Chadcn::Catalog`) names every demo control: the checkbox, switch, input, input group, input OTP, combobox input, command input, textarea, toggle group, radio group, resizable handle and the chart svg carry an `aria-label`, and the slider demo has two labelled thumbs. The names are added by `rake catalog:generate` (`Chadcn::CatalogData::LABELS`); the parity scenarios and the components are unchanged.
+- The packaged catalog demos follow up (#135): the NativeSelect demo has an `aria-label`, the Empty and Item demo actions render as `Chadcn::Button` (not a bare `<button>`), and the Avatar fallback initials use `text-foreground` (18:1 on `bg-muted`, was 4.39:1 with `text-muted-foreground`). Applied by `rake catalog:generate`; the components and parity scenarios are unchanged.
 - `Chart::Container relayout_url:`: a chart follows the size of its container, like recharts' `ResponsiveContainer`. Once the box has
   settled at another size, `chadcn--chart` requests the chart from that same-origin URL at the measured size and swaps it in (the tooltip,
   the keyboard and the focus carry over; the previous layout is scaled into the box meanwhile). The host renders the same chart with

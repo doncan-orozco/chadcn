@@ -120,6 +120,32 @@ class CatalogTest < Minitest::Test
     assert_empty unnamed
   end
 
+  def demo_doc(component)
+    entry = Chadcn::Catalog.find(component)
+    Nokogiri::HTML5.fragment(render_tree(entry.tree, component: entry.component))
+  end
+
+  # Issue #135: the NativeSelect demo is named, the Empty and Item actions are Chadcn::Button (styled), the avatar initials use foreground.
+  def test_native_select_demo_is_named
+    assert_equal "Status", demo_doc("native-select").at_css("select")["aria-label"]
+  end
+
+  def test_empty_and_item_demo_actions_are_styled_buttons
+    %w[empty item].each do |component|
+      buttons = demo_doc(component).css("button")
+
+      refute_empty buttons, component
+      buttons.each { |button| assert_equal "button", button["data-slot"], "#{component}: #{button.text} is a bare <button>" }
+    end
+  end
+
+  def test_avatar_fallback_text_uses_the_foreground_token
+    classes = demo_doc("avatar").at_css("[data-slot=avatar-fallback]")["class"].split
+
+    assert_includes classes, "text-foreground"
+    refute_includes classes, "text-muted-foreground" # 4.39:1 on bg-muted; text-foreground is 18:1
+  end
+
   def test_the_labelled_demos_keep_a_name_the_scenario_already_sets
     tree = { "c" => "Input", "props" => { "aria-label" => "Own name" } }
     generated = Chadcn::CatalogData.new(File.expand_path("../..", __dir__)).send(:prune, tree)
