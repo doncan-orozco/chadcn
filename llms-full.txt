@@ -684,7 +684,7 @@ Constructor: `Chadcn::Dialog.new(open: nil, default_open: false, modal: true, id
 Parts (class, yielded-root helper, constructor):
 
 - `Dialog::Close` / `close`: `new(as_child: false, **attrs)` Radix DialogClose: no data-state and no aria attributes (dialog:305-312).
-- `Dialog::Content` / `content`: `new(show_close_button: true, close_label: "Close", force_mount: false, as_child: false, **attrs)` Portal + Overlay + content panel of the dialog (+ the X close button).
+- `Dialog::Content` / `content`: `new(show_close_button: true, close_label: "Close", close_class: nil, force_mount: false, as_child: false, **attrs)` Portal + Overlay + content panel of the dialog (+ the X close button).
 - `Dialog::Description` / `description`: `new(as_child: false, **attrs)` shadcn DialogDescription.
 - `Dialog::Footer` / `footer`: `new(show_close_button: false, close_label: "Close", **attrs)` shadcn DialogFooter.
 - `Dialog::Header` / `header`: `new(**attrs)` shadcn DialogHeader.
@@ -1692,7 +1692,7 @@ Chadcn::Skeleton.new(class: "h-4 w-40")
 
 Single component with no nested parts: the track, range, thumbs and hidden inputs (one per thumb) are rendered internally.
 
-Constructor: `Chadcn::Slider.new(default_value: nil, value: nil, min: 0, max: 100, step: 1, orientation: "horizontal", disabled: false, inverted: false, min_steps_between_thumbs: 0, preserve_thumb_order: false, name: nil, form: nil, dir: nil, min_label: "Minimum", max_label: "Maximum", value_label: "Value %<index>d of %<count>d", **attrs)`
+Constructor: `Chadcn::Slider.new(default_value: nil, value: nil, min: 0, max: 100, step: 1, orientation: "horizontal", disabled: false, inverted: false, min_steps_between_thumbs: 0, preserve_thumb_order: false, name: nil, form: nil, dir: nil, label: nil, thumb_class: nil, min_label: "Minimum", max_label: "Maximum", value_label: "Value %<index>d of %<count>d", **attrs)`
 
 - `default_value` [Array<Numeric>, nil] initial thumb values (uncontrolled); without it the slider renders two thumbs and two hidden inputs, the first at `min` and the second hidden (no `aria-valuenow`, no input value)
 - `value` [Array<Numeric>, nil] controlled thumb values: an Array makes the slider controlled; any other value is ignored and the slider is uncontrolled
@@ -1707,6 +1707,8 @@ Constructor: `Chadcn::Slider.new(default_value: nil, value: nil, min: 0, max: 10
 - `name` [String, nil] form field name of the hidden inputs; `name[]` is used when more than one value is present, so without `value:`/`default_value:` (two thumb elements, one value) the name stays `name`
 - `form` [String, nil] id of the associated `<form>`
 - `dir` [String, Symbol, nil] one of `DIRECTIONS`; the surrounding direction provider's direction is the default for horizontal sliders only
+- `label` [String, nil] `aria-label` of the thumb of a single-thumb slider, which has no name without it; the thumbs of a range keep `min_label:`, `max_label:` and `value_label:` (default: nil)
+- `thumb_class` [String, nil] classes merged (tailwind-merge) into every thumb's classes, e.g. to enlarge the hit area (default: nil, the thumb keeps `THUMB_CLASS`)
 - `min_label` [String] `aria-label` of the first thumb of a two-thumb slider (default: "Minimum")
 - `max_label` [String] `aria-label` of the second thumb of a two-thumb slider (default: "Maximum")
 - `value_label` [String] `format` template of the thumb `aria-label` with more than two thumbs; `%<index>d` is the 1-based position and `%<count>d` the number of thumbs (default: "Value %<index>d of %<count>d")
@@ -1768,7 +1770,7 @@ Chadcn::Spinner.new(class: "size-6")
 
 A toggle button with `role=switch`, plus a hidden checkbox so it submits with a form.
 
-Constructor: `Chadcn::Switch.new(size: "default", checked: nil, default_checked: false, disabled: false, required: nil, name: nil, value: "on", form: nil, **attrs)`
+Constructor: `Chadcn::Switch.new(size: "default", checked: nil, default_checked: false, disabled: false, required: nil, name: nil, value: "on", form: nil, thumb_class: nil, **attrs)`
 
 - `size` [String, Symbol] `"default"` or `"sm"`; other values are not supported: they are rendered as-is in `data-size` without sizing classes
 - `checked` [Boolean, nil] controlled state (non-nil: user input only dispatches an event, the caller re-renders)
@@ -1778,6 +1780,7 @@ Constructor: `Chadcn::Switch.new(size: "default", checked: nil, default_checked:
 - `name` [String, nil] form field name of the bubble input
 - `value` [String] value submitted when on
 - `form` [String, nil] id of the associated `<form>`
+- `thumb_class` [String, nil] classes merged (tailwind-merge) into the thumb's, e.g. to enlarge the hit area (default: nil)
 - `attrs` [Hash] HTML attributes for the button (`id:`, `class:` merged last, `aria:`, `data:`)
 
 Stimulus: `chadcn--switch`; values: `controlled`; events (prefixed `chadcn--switch:`): `checked-change`

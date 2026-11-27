@@ -62,6 +62,10 @@ class Chadcn::Slider < Chadcn::Base
   #   so without `value:`/`default_value:` (two thumb elements, one value) the name stays `name`
   # @param form [String, nil] id of the associated `<form>`
   # @param dir [String, Symbol, nil] one of {DIRECTIONS}; the surrounding direction provider's direction is the default for horizontal sliders only
+  # @param label [String, nil] `aria-label` of the thumb of a single-thumb slider, which has no name without it; the thumbs of
+  #   a range keep `min_label:`, `max_label:` and `value_label:` (default: nil)
+  # @param thumb_class [String, nil] classes merged (tailwind-merge) into every thumb's classes, e.g. to enlarge the hit area
+  #   (default: nil, the thumb keeps {THUMB_CLASS})
   # @param min_label [String] `aria-label` of the first thumb of a two-thumb slider (default: "Minimum")
   # @param max_label [String] `aria-label` of the second thumb of a two-thumb slider (default: "Maximum")
   # @param value_label [String] `format` template of the thumb `aria-label` with more than two thumbs; `%<index>d` is the
@@ -70,7 +74,7 @@ class Chadcn::Slider < Chadcn::Base
   # @raise [ArgumentError] when `orientation:` or `dir:` is not an allowed value
   def initialize(default_value: nil, value: nil, min: 0, max: 100, step: 1, orientation: "horizontal", disabled: false,
                  inverted: false, min_steps_between_thumbs: 0, preserve_thumb_order: false, name: nil, form: nil,
-                 dir: nil, min_label: "Minimum", max_label: "Maximum", value_label: "Value %<index>d of %<count>d", **attrs)
+                 dir: nil, label: nil, thumb_class: nil, min_label: "Minimum", max_label: "Maximum", value_label: "Value %<index>d of %<count>d", **attrs)
     @controlled = value.is_a?(Array)
     @min = min
     @max = max
@@ -86,6 +90,8 @@ class Chadcn::Slider < Chadcn::Base
     @values = (@controlled ? value : default_value) || [ min ]
     initial = [ value, default_value ].find { |candidate| candidate.is_a?(Array) } || [ min, max ]
     @thumb_count = initial.length
+    @label = label
+    @thumb_class = thumb_class
     @min_label = min_label
     @max_label = max_label
     @value_label = value_label
@@ -170,7 +176,7 @@ class Chadcn::Slider < Chadcn::Base
       data: { orientation: @orientation, disabled: disabled_data, slot: "slider-thumb", radix_collection_item: "" },
       tabindex: (@disabled ? nil : 0),
       style: (value.nil? ? "display: none;" : nil),
-      class: THUMB_CLASS
+      class: cn(THUMB_CLASS, @thumb_class)
     }
   end
 
@@ -182,7 +188,7 @@ class Chadcn::Slider < Chadcn::Base
 
   def thumb_label(index)
     case @values.length
-    when 0, 1 then nil
+    when 0, 1 then @label
     when 2 then [ @min_label, @max_label ][index]
     else Kernel.format(@value_label, index: index + 1, count: @values.length)
     end

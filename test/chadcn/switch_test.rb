@@ -23,6 +23,14 @@ class Chadcn::SwitchTest < Chadcn::TestCase
     assert_includes render_switch(size: "sm"), 'data-size="sm"'
   end
 
+  test "thumb_class merges into the thumb only" do
+    thumb = Nokogiri::HTML5.fragment(render_switch(thumb_class: "size-6 after:absolute")).at_css("[data-slot=switch-thumb]")
+
+    assert_includes thumb["class"].split, "after:absolute"
+    assert_includes thumb["class"].split, "size-6"
+    refute_includes Nokogiri::HTML5.fragment(render_switch).at_css("[data-slot=switch-thumb]")["class"], "after:absolute"
+  end
+
   test "checked and disabled state" do
     html = render_switch(default_checked: true, disabled: true)
 

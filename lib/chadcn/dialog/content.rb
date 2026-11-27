@@ -23,12 +23,14 @@ class Chadcn::Dialog::Content < Chadcn::Base
   #
   # @param show_close_button [Boolean] render the X close button as the last child (default true)
   # @param close_label [String] screen-reader text of the close button (default "Close")
+  # @param close_class [String, nil] classes merged (tailwind-merge) into the X close button's, e.g. to enlarge the hit area (default: nil)
   # @param force_mount [Boolean] accepted for API parity only, it has no effect (the Portal owns the mount gate)
   # @param as_child [Boolean, Symbol, Phlex::SGML] render onto the given child element (Radix Slot merge) instead of the default tag
   # @param attrs [Hash] HTML attributes merged into the element (class goes through tailwind-merge)
-  def initialize(show_close_button: true, close_label: "Close", force_mount: false, as_child: false, **attrs)
+  def initialize(show_close_button: true, close_label: "Close", close_class: nil, force_mount: false, as_child: false, **attrs)
     @show_close_button = show_close_button
     @close_label = close_label
+    @close_class = close_class
     @as_child = as_child
     @attrs = attrs
     super()
@@ -54,7 +56,7 @@ class Chadcn::Dialog::Content < Chadcn::Base
   private
 
   def close_button
-    render Chadcn::Dialog::Close.new(class: CLOSE_CLASSES) do
+    render Chadcn::Dialog::Close.new(class: cn(CLOSE_CLASSES, @close_class)) do
       render Chadcn::Icon.new("x")
       span(class: "sr-only") { @close_label }
     end

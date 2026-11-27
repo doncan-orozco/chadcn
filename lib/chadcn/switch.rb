@@ -34,9 +34,10 @@ class Chadcn::Switch < Chadcn::Base
   # @param name [String, nil] form field name of the bubble input
   # @param value [String] value submitted when on
   # @param form [String, nil] id of the associated `<form>`
+  # @param thumb_class [String, nil] classes merged (tailwind-merge) into the thumb's, e.g. to enlarge the hit area (default: nil)
   # @param attrs [Hash] HTML attributes for the button (`id:`, `class:` merged last, `aria:`, `data:`)
   def initialize(size: "default", checked: nil, default_checked: false, disabled: false, required: nil,
-                 name: nil, value: "on", form: nil, **attrs)
+                 name: nil, value: "on", form: nil, thumb_class: nil, **attrs)
     @size = normalize_option(size) || "default"
     @controlled = !checked.nil?
     @checked = @controlled ? checked : default_checked
@@ -45,6 +46,7 @@ class Chadcn::Switch < Chadcn::Base
     @name = name
     @value = value
     @form = form
+    @thumb_class = thumb_class
     @attrs = attrs
     super()
   end
@@ -53,7 +55,7 @@ class Chadcn::Switch < Chadcn::Base
   def view_template
     state = @checked ? "checked" : "unchecked"
     button(**root_with_action(merge_attrs(root_attrs(state), @attrs))) do
-      span(data: { state:, slot: "switch-thumb", **(@disabled ? { disabled: "" } : {}) }, class: THUMB_CLASS)
+      span(data: { state:, slot: "switch-thumb", **(@disabled ? { disabled: "" } : {}) }, class: cn(THUMB_CLASS, @thumb_class))
     end
     bubble_input
   end
