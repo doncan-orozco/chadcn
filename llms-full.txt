@@ -552,7 +552,7 @@ Parts (class, yielded-root helper, constructor):
 - `Combobox::Content` / `content`: `new(side: "bottom", side_offset: 6, align: "start", align_offset: 0, anchor: nil, **attrs)` shadcn ComboboxContent: the popup (Base UI Portal > Positioner > Popup).
 - `Combobox::Empty` / `empty`: `new(**attrs)` shadcn ComboboxEmpty: the "no results" live region (`div`, `role="status"`).
 - `Combobox::Group` / `group`: `new(items: nil, **attrs)` shadcn ComboboxGroup: a labelled set of items (`div`, `role="group"`).
-- `Combobox::Input` / `input`: `new(disabled: false, show_trigger: true, show_clear: false, **attrs)` shadcn ComboboxInput: the text field of the combobox, composed like shadcn does it (an InputGroup with the input, an addon holding the trigger and the clear button, and your block).
+- `Combobox::Input` / `input`: `new(disabled: false, show_trigger: true, show_clear: false, trigger_label: nil, **attrs)` shadcn ComboboxInput: the text field of the combobox, composed like shadcn does it (an InputGroup with the input, an addon holding the trigger and the clear button, and your block).
 - `Combobox::Item` / `item`: `new(value: nil, disabled: false, **attrs)` shadcn ComboboxItem: one option (`div`, `role="option"`) with a check mark while selected.
 - `Combobox::Label` / `label`: `new(**attrs)` shadcn ComboboxLabel: the heading of a `Combobox::Group` (`div`, hidden from assistive technology; the group names itself with it).
 - `Combobox::List` / `list`: `new(**attrs)` shadcn ComboboxList: the listbox.
