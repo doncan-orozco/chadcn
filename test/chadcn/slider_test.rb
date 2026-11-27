@@ -45,6 +45,19 @@ class Chadcn::SliderTest < Chadcn::TestCase
     assert_equal([ "1/3", "2/3", "3/3" ], names.call(default_value: [ 1, 2, 3 ], value_label: "%<index>d/%<count>d"))
   end
 
+  test "label names a single thumb and leaves a range alone; thumb_class merges" do
+    names = ->(**props) { slider(**props).css("[role=slider]").map { |t| t["aria-label"] } }
+
+    assert_equal [ "Lightness" ], names.call(default_value: [ 50 ], label: "Lightness")
+    assert_equal [ nil ], names.call(default_value: [ 50 ])
+    assert_equal %w[Minimum Maximum], names.call(default_value: [ 1, 2 ], label: "Price")
+    thumb = slider(default_value: [ 50 ], thumb_class: "size-6 after:absolute").at_css("[role=slider]")
+
+    assert_includes thumb["class"].split, "size-6"
+    assert_includes thumb["class"].split, "after:absolute"
+    refute_includes thumb["class"].split, "size-4"
+  end
+
   test "no values renders two thumbs and hides the second" do
     thumbs = slider.css("[role=slider]")
 

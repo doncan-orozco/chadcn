@@ -67,6 +67,14 @@ class Chadcn::DialogTest < Chadcn::TestCase
     assert_nil fragment(dialog(content: { show_close_button: false })).at_css("[data-slot=dialog-close]")
   end
 
+  test "close_class merges into the x close button" do
+    close = fragment(dialog(content: { close_class: "p-3 after:absolute" })).at_css("[data-slot=dialog-close]")
+
+    assert_includes close["class"].split, "after:absolute"
+    assert_includes close["class"].split, "p-3"
+    refute_includes fragment(dialog).at_css("[data-slot=dialog-close]")["class"], "after:absolute"
+  end
+
   test "open dialog is reflected on the trigger" do
     trigger = fragment(dialog(root: { default_open: true })).at_css("[data-chadcn--dialog-part=trigger]")
 
