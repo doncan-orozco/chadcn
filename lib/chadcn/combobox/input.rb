@@ -12,11 +12,13 @@ class Chadcn::Combobox::Input < Chadcn::Base
   # @param disabled [Boolean] disables the rendered `<input>`, the trigger and the clear button (not the combobox)
   # @param show_trigger [Boolean] render the chevron button
   # @param show_clear [Boolean] render the clear button (it shows while something is selected)
+  # @param trigger_label [String, nil] accessible name of the chevron button (port-only; shadcn leaves it unnamed, so there is no default)
   # @param attrs [Hash] HTML attributes merged into the `<input>`; `class:` goes to the InputGroup
-  def initialize(disabled: false, show_trigger: true, show_clear: false, **attrs)
+  def initialize(disabled: false, show_trigger: true, show_clear: false, trigger_label: nil, **attrs)
     @disabled = disabled
     @show_trigger = show_trigger
     @show_clear = show_clear
+    @trigger_label = trigger_label
     @attrs = attrs
     super()
   end
@@ -50,8 +52,9 @@ class Chadcn::Combobox::Input < Chadcn::Base
 
   def render_trigger
     render Chadcn::InputGroup::Button.new(
-      size: "icon-xs", variant: "ghost", as_child: Chadcn::Combobox::Trigger.new, "data-slot": "input-group-button", "aria-label": "Show options",
-      class: "group-has-data-[slot=combobox-clear]/input-group:hidden data-pressed:bg-transparent", disabled: @disabled
+      size: "icon-xs", variant: "ghost", as_child: Chadcn::Combobox::Trigger.new, "data-slot": "input-group-button",
+      class: "group-has-data-[slot=combobox-clear]/input-group:hidden data-pressed:bg-transparent", disabled: @disabled,
+      **(@trigger_label ? { "aria-label": @trigger_label } : {})
     )
   end
 

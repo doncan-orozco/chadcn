@@ -28,7 +28,7 @@ module Chadcn
     # muted-foreground on muted is under 4.5:1 once the page paints over it, so the avatar initials use the foreground token.
     CLASS_NAMES = { "AvatarFallback" => "text-foreground" }.freeze
     # Components whose demo needs another prop to be nameable: a one-value Slider thumb takes no label (Radix 1:1), a two-value one does.
-    PROPS = { "Slider" => { "defaultValue" => [ 25, 75 ] } }.freeze
+    PROPS = { "Slider" => { "defaultValue" => [ 25, 75 ] }, "ComboboxInput" => { "triggerLabel" => "Show options" } }.freeze
     # `_BarChart`, `_PieChart`...: the svg (`role="application"`) is named "Bar chart", "Pie chart"...
     CHART_NODE = /\A_(?<kind>[A-Z][a-z]+(?:Radial)?[A-Za-z]*?)Chart\z/
     HARNESS_NODE = /\A_(?!Each\z)[A-Z]/
